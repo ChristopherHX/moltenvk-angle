@@ -152,6 +152,7 @@ option (URHO3D_PHYSICS "Enable physics support" TRUE)
 option (URHO3D_URHO2D "Enable 2D graphics and physics support" TRUE)
 option (URHO3D_WEBP "Enable WebP support" TRUE)
 option (URHO3D_ANGLE_VULKAN "Enable Angle Vulkan graphics backend" FALSE)
+option (FLIMPER "Enable Flimper" FALSE)
 if (ARM AND NOT ANDROID AND NOT RPI AND NOT APPLE)
     set (ARM_ABI_FLAGS "" CACHE STRING "Specify ABI compiler flags (ARM on Linux platform only); e.g. Orange-Pi Mini 2 could use '-mcpu=cortex-a7 -mfpu=neon-vfpv4'")
 endif ()
@@ -409,7 +410,8 @@ if (URHO3D_CLANG_TOOLS)
             URHO3D_PHYSICS
             URHO3D_PROFILING
             URHO3D_URHO2D
-            URHO3D_ANGLE_VULKAN)
+            URHO3D_ANGLE_VULKAN
+			FLIMPER)
         set (${OPT} 1)
     endforeach ()
     foreach (OPT URHO3D_TESTING URHO3D_LUAJIT URHO3D_DATABASE_ODBC)
@@ -463,7 +465,8 @@ foreach (OPT
         URHO3D_URHO2D
         URHO3D_WEBP
         URHO3D_WIN32_CONSOLE
-        URHO3D_ANGLE_VULKAN)
+        URHO3D_ANGLE_VULKAN
+		FLIMPER)
     if (${OPT})
         add_definitions (-D${OPT})
     endif ()

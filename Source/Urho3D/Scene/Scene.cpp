@@ -1527,6 +1527,21 @@ void Scene::PreloadResourcesJSON(const JSONValue& value)
 #endif
 }
 
+#ifdef FLIMPER
+void Scene::UpdateEditor(float timeStep)
+{
+	timeStep *= timeScale_;
+	using namespace SceneEditorUpdate;
+	VariantMap& eventData = GetEventDataMap();
+	eventData[P_SCENE] = this;
+	eventData[P_TIMESTEP] = timeStep;
+
+	// Post-update variable timestep logic
+	SendEvent(E_SCENEEDITORUPDATE, eventData);
+
+}
+#endif 
+
 void RegisterSceneLibrary(Context* context)
 {
     ValueAnimation::RegisterObject(context);

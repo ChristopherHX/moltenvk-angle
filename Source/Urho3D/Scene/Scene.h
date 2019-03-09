@@ -258,6 +258,10 @@ public:
     /// Mark a node dirty in scene replication states. The node does not need to have own replication state yet.
     void MarkReplicationDirty(Node* node);
 
+#ifdef FLIMPER
+	void UpdateEditor(float timeStep);
+#endif
+
 private:
     /// Handle the logic update event to update the scene, if active.
     void HandleUpdate(StringHash eventType, VariantMap& eventData);

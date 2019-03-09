@@ -203,6 +203,10 @@ public:
         return i != eventReceivers_.End() ? i->second_ : nullptr;
     }
 
+#ifdef FLIMPER
+	void RemoveFactory(StringHash factory);
+#endif
+
 private:
     /// Add event receiver.
     void AddEventReceiver(Object* receiver, StringHash eventType);
