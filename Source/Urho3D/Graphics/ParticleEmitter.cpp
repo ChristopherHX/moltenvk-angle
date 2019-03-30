@@ -95,6 +95,12 @@ void ParticleEmitter::OnSetEnabled()
             SubscribeToEvent(scene, E_SCENEPOSTUPDATE, URHO3D_HANDLER(ParticleEmitter, HandleScenePostUpdate));
         else
             UnsubscribeFromEvent(scene, E_SCENEPOSTUPDATE);
+#ifdef FLIMPER
+		if (IsEnabledEffective())
+			SubscribeToEvent(scene, E_SCENEEDITORUPDATE, URHO3D_HANDLER(ParticleEmitter, HandleScenePostUpdate));
+		else
+			UnsubscribeFromEvent(scene, E_SCENEEDITORUPDATE);
+#endif
     }
 }
 
@@ -443,6 +449,13 @@ void ParticleEmitter::OnSceneSet(Scene* scene)
         SubscribeToEvent(scene, E_SCENEPOSTUPDATE, URHO3D_HANDLER(ParticleEmitter, HandleScenePostUpdate));
     else if (!scene)
          UnsubscribeFromEvent(E_SCENEPOSTUPDATE);
+
+#ifdef FLIMPER
+	if (scene && IsEnabledEffective())
+		SubscribeToEvent(scene, E_SCENEEDITORUPDATE, URHO3D_HANDLER(ParticleEmitter, HandleScenePostUpdate));
+	else if (!scene)
+		UnsubscribeFromEvent(E_SCENEEDITORUPDATE);
+#endif
 }
 
 bool ParticleEmitter::EmitNewParticle()

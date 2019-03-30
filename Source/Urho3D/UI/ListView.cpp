@@ -1129,6 +1129,7 @@ void ListView::HandleUIMouseDoubleClick(StringHash eventType, VariantMap& eventD
 
 void ListView::HandleItemFocusChanged(StringHash eventType, VariantMap& eventData)
 {
+#ifndef FLIMPER
     using namespace FocusChanged;
 
     auto* element = static_cast<UIElement*>(eventData[P_ELEMENT].GetPtr());
@@ -1138,11 +1139,12 @@ void ListView::HandleItemFocusChanged(StringHash eventType, VariantMap& eventDat
         UIElement* parent = element->GetParent();
         if (parent == contentElement_)
         {
-            EnsureItemVisibility(element);
+           EnsureItemVisibility(element);
             return;
         }
         element = parent;
     }
+#endif
 }
 
 void ListView::HandleFocusChanged(StringHash eventType, VariantMap& eventData)
