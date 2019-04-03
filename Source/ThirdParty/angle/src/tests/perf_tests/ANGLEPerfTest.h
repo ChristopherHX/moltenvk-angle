@@ -155,6 +155,7 @@ class ANGLERenderTest : public ANGLEPerfTest
     void startTest() override;
     void finishTest() override;
 
+    bool shouldTrackGpuTime() const;
     bool areExtensionPrerequisitesFulfilled() const;
 
     static EGLWindow *createEGLWindow(const RenderTestParams &testParams);
@@ -163,6 +164,7 @@ class ANGLERenderTest : public ANGLEPerfTest
     OSWindow *mOSWindow;
     std::vector<const char *> mExtensionPrerequisites;
     angle::PlatformMethods mPlatformMethods;
+    ConfigParameters mConfigParams;
 
     GLuint mTimestampQuery;
 

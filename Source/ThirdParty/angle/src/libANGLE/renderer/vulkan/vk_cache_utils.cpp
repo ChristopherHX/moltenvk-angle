@@ -187,7 +187,7 @@ angle::Result InitializeRenderPassFromDesc(vk::Context *context,
 
     // Unpack the packed and split representation into the format required by Vulkan.
     gl::DrawBuffersVector<VkAttachmentReference> colorAttachmentRefs;
-    VkAttachmentReference depthStencilAttachmentRef = {};
+    VkAttachmentReference depthStencilAttachmentRef = {VK_ATTACHMENT_UNUSED};
     gl::AttachmentArray<VkAttachmentDescription> attachmentDescs;
     for (uint32_t attachmentIndex = 0; attachmentIndex < attachmentCount; ++attachmentIndex)
     {
@@ -205,7 +205,7 @@ angle::Result InitializeRenderPassFromDesc(vk::Context *context,
         }
         else
         {
-            ASSERT(depthStencilAttachmentRef.attachment == 0);
+            ASSERT(depthStencilAttachmentRef.attachment == VK_ATTACHMENT_UNUSED);
             depthStencilAttachmentRef.attachment = attachmentIndex;
             depthStencilAttachmentRef.layout     = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
         }
@@ -224,7 +224,8 @@ angle::Result InitializeRenderPassFromDesc(vk::Context *context,
     subpassDesc.pColorAttachments    = colorAttachmentRefs.data();
     subpassDesc.pResolveAttachments  = nullptr;
     subpassDesc.pDepthStencilAttachment =
-        (depthStencilAttachmentRef.attachment > 0 ? &depthStencilAttachmentRef : nullptr);
+        (depthStencilAttachmentRef.attachment != VK_ATTACHMENT_UNUSED ? &depthStencilAttachmentRef
+                                                                      : nullptr);
     subpassDesc.preserveAttachmentCount = 0;
     subpassDesc.pPreserveAttachments    = nullptr;
 
@@ -1081,14 +1082,39 @@ void AttachmentOpsArray::initDummyOp(size_t index,
                                      VkImageLayout initialLayout,
                                      VkImageLayout finalLayout)
 {
+    setLayout(index, initialLayout, finalLayout);
+    setLoadOp(index, VK_ATTACHMENT_LOAD_OP_LOAD, VK_ATTACHMENT_LOAD_OP_DONT_CARE);
+    setStoreOp(index, VK_ATTACHMENT_STORE_OP_STORE, VK_ATTACHMENT_STORE_OP_DONT_CARE);
+}
+
+void AttachmentOpsArray::setLayout(size_t index,
+                                   VkImageLayout initialLayout,
+                                   VkImageLayout finalLayout)
+{
     PackedAttachmentOpsDesc &ops = mOps[index];
 
-    ops.loadOp         = VK_ATTACHMENT_LOAD_OP_LOAD;
-    ops.storeOp        = VK_ATTACHMENT_STORE_OP_STORE;
-    ops.stencilLoadOp  = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-    ops.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-    ops.initialLayout  = static_cast<uint16_t>(initialLayout);
-    ops.finalLayout    = static_cast<uint16_t>(finalLayout);
+    SetBitField(ops.initialLayout, initialLayout);
+    SetBitField(ops.finalLayout, finalLayout);
+}
+
+void AttachmentOpsArray::setLoadOp(size_t index,
+                                   VkAttachmentLoadOp loadOp,
+                                   VkAttachmentLoadOp stencilLoadOp)
+{
+    PackedAttachmentOpsDesc &ops = mOps[index];
+
+    SetBitField(ops.loadOp, loadOp);
+    SetBitField(ops.stencilLoadOp, stencilLoadOp);
+}
+
+void AttachmentOpsArray::setStoreOp(size_t index,
+                                    VkAttachmentStoreOp storeOp,
+                                    VkAttachmentStoreOp stencilStoreOp)
+{
+    PackedAttachmentOpsDesc &ops = mOps[index];
+
+    SetBitField(ops.storeOp, storeOp);
+    SetBitField(ops.stencilStoreOp, stencilStoreOp);
 }
 
 size_t AttachmentOpsArray::hash() const
@@ -1391,7 +1417,7 @@ void DescriptorSetLayoutCache::destroy(VkDevice device)
 {
     for (auto &item : mPayload)
     {
-        vk::SharedDescriptorSetLayout &layout = item.second;
+        vk::RefCountedDescriptorSetLayout &layout = item.second;
         ASSERT(!layout.isReferenced());
         layout.get().destroy(device);
     }
@@ -1407,7 +1433,7 @@ angle::Result DescriptorSetLayoutCache::getDescriptorSetLayout(
     auto iter = mPayload.find(desc);
     if (iter != mPayload.end())
     {
-        vk::SharedDescriptorSetLayout &layout = iter->second;
+        vk::RefCountedDescriptorSetLayout &layout = iter->second;
         descriptorSetLayoutOut->set(&layout);
         return angle::Result::Continue;
     }
@@ -1425,8 +1451,9 @@ angle::Result DescriptorSetLayoutCache::getDescriptorSetLayout(
     vk::DescriptorSetLayout newLayout;
     ANGLE_VK_TRY(context, newLayout.init(context->getDevice(), createInfo));
 
-    auto insertedItem = mPayload.emplace(desc, vk::SharedDescriptorSetLayout(std::move(newLayout)));
-    vk::SharedDescriptorSetLayout &insertedLayout = insertedItem.first->second;
+    auto insertedItem =
+        mPayload.emplace(desc, vk::RefCountedDescriptorSetLayout(std::move(newLayout)));
+    vk::RefCountedDescriptorSetLayout &insertedLayout = insertedItem.first->second;
     descriptorSetLayoutOut->set(&insertedLayout);
 
     return angle::Result::Continue;
@@ -1444,7 +1471,7 @@ void PipelineLayoutCache::destroy(VkDevice device)
 {
     for (auto &item : mPayload)
     {
-        vk::SharedPipelineLayout &layout = item.second;
+        vk::RefCountedPipelineLayout &layout = item.second;
         layout.get().destroy(device);
     }
 
@@ -1460,7 +1487,7 @@ angle::Result PipelineLayoutCache::getPipelineLayout(
     auto iter = mPayload.find(desc);
     if (iter != mPayload.end())
     {
-        vk::SharedPipelineLayout &layout = iter->second;
+        vk::RefCountedPipelineLayout &layout = iter->second;
         pipelineLayoutOut->set(&layout);
         return angle::Result::Continue;
     }
@@ -1518,8 +1545,8 @@ angle::Result PipelineLayoutCache::getPipelineLayout(
     vk::PipelineLayout newLayout;
     ANGLE_VK_TRY(context, newLayout.init(context->getDevice(), createInfo));
 
-    auto insertedItem = mPayload.emplace(desc, vk::SharedPipelineLayout(std::move(newLayout)));
-    vk::SharedPipelineLayout &insertedLayout = insertedItem.first->second;
+    auto insertedItem = mPayload.emplace(desc, vk::RefCountedPipelineLayout(std::move(newLayout)));
+    vk::RefCountedPipelineLayout &insertedLayout = insertedItem.first->second;
     pipelineLayoutOut->set(&insertedLayout);
 
     return angle::Result::Continue;

@@ -1352,6 +1352,9 @@ TEST_P(TextureCubeTest, CubeMapFBO)
     // http://anglebug.com/3145
     ANGLE_SKIP_TEST_IF(IsFuchsia() && IsIntel() && IsVulkan());
 
+    // http://anglebug.com/2822
+    ANGLE_SKIP_TEST_IF(IsWindows() && IsIntel() && IsVulkan());
+
     GLFramebuffer fbo;
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
@@ -2704,7 +2707,7 @@ TEST_P(SamplerInStructTest, SamplerInStruct)
 TEST_P(SamplerInStructAsFunctionParameterTest, SamplerInStructAsFunctionParameter)
 {
     // TODO(ynovikov): re-enable once root cause of http://anglebug.com/1427 is fixed
-    ANGLE_SKIP_TEST_IF(IsAndroid() && IsAdreno() && IsOpenGLES());
+    ANGLE_SKIP_TEST_IF((IsNexus5X() || IsNexus6P()) && IsAdreno() && IsOpenGLES());
 
     runSamplerInStructTest();
 }
@@ -2714,7 +2717,7 @@ TEST_P(SamplerInStructAsFunctionParameterTest, SamplerInStructAsFunctionParamete
 TEST_P(SamplerInStructArrayAsFunctionParameterTest, SamplerInStructArrayAsFunctionParameter)
 {
     // TODO(ynovikov): re-enable once root cause of http://anglebug.com/1427 is fixed
-    ANGLE_SKIP_TEST_IF(IsAndroid() && IsAdreno() && IsOpenGLES());
+    ANGLE_SKIP_TEST_IF((IsNexus5X() || IsNexus6P()) && IsAdreno() && IsOpenGLES());
 
     runSamplerInStructTest();
 }
@@ -2724,7 +2727,7 @@ TEST_P(SamplerInStructArrayAsFunctionParameterTest, SamplerInStructArrayAsFuncti
 TEST_P(SamplerInNestedStructAsFunctionParameterTest, SamplerInNestedStructAsFunctionParameter)
 {
     // TODO(ynovikov): re-enable once root cause of http://anglebug.com/1427 is fixed
-    ANGLE_SKIP_TEST_IF(IsAndroid() && IsAdreno() && IsOpenGLES());
+    ANGLE_SKIP_TEST_IF((IsNexus5X() || IsNexus6P()) && IsAdreno() && IsOpenGLES());
 
     runSamplerInStructTest();
 }
@@ -3688,7 +3691,7 @@ TEST_P(Texture2DNorm16TestES3, TextureNorm16Test)
 TEST_P(Texture2DTestES3, UnpackSkipImages2D)
 {
     // TODO(ynovikov): re-enable once root cause of http://anglebug.com/1429 is fixed
-    ANGLE_SKIP_TEST_IF(IsAndroid() && IsAdreno() && IsOpenGLES());
+    ANGLE_SKIP_TEST_IF((IsNexus5X() || IsNexus6P()) && IsAdreno() && IsOpenGLES());
 
     glBindTexture(GL_TEXTURE_2D, mTexture2D);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

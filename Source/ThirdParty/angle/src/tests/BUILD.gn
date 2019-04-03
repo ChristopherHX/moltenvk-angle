@@ -13,60 +13,16 @@ declare_args() {
   build_angle_gles1_conform_tests = false
 }
 
+googletest_deps = [
+  "//testing/gmock",
+  "//testing/gtest",
+  "//third_party/googletest:gmock",
+  "//third_party/googletest:gtest",
+]
+
 if (build_with_chromium) {
-  googletest_deps = [
-    "//base",
-    "//base/test:test_support",
-    "//testing/gmock",
-    "//testing/gtest",
-  ]
+  googletest_deps += [ "//base/test:test_support" ]
 } else {
-  googletest_deps = [
-    ":angle_internal_gmock",
-    ":angle_internal_gtest",
-  ]
-
-  config("angle_internal_gtest_config") {
-    include_dirs = [
-      "${angle_googletest_dir}/googletest",
-      "${angle_googletest_dir}/googletest/include",
-    ]
-  }
-
-  angle_static_library("angle_internal_gtest") {
-    sources = [
-      "${angle_googletest_dir}/googletest/src/gtest-all.cc",
-    ]
-    public_configs += [ ":angle_internal_gtest_config" ]
-    configs -= [ "${angle_root}:extra_warnings" ]
-    if (is_fuchsia) {
-      deps = [
-        "//third_party/fuchsia-sdk/sdk:fdio",
-        "//third_party/fuchsia-sdk/sdk:zx",
-      ]
-    }
-  }
-
-  config("angle_internal_gmock_config") {
-    include_dirs = [
-      "${angle_googletest_dir}/googlemock",
-      "${angle_googletest_dir}/googlemock/include",
-      "${angle_googletest_dir}/googletest/include",
-    ]
-    if (is_clang) {
-      # TODO: Can remove this if/when the issue is fixed.
-      # https://github.com/google/googletest/issues/533
-      cflags = [ "-Wno-inconsistent-missing-override" ]
-    }
-  }
-
-  angle_static_library("angle_internal_gmock") {
-    sources = [
-      "${angle_googletest_dir}/googlemock/src/gmock-all.cc",
-    ]
-    public_configs += [ ":angle_internal_gmock_config" ]
-  }
-
   group("all") {
     testonly = true
     deps = [
@@ -134,6 +90,14 @@ angle_tests_main("angle_perftests_main") {
   main = "angle_perftests_main"
 }
 
+angle_test("angle_unittests_helper") {
+  sources = angle_unittests_helper_sources
+
+  deps = [
+    "${angle_root}:angle_common",
+  ]
+}
+
 angle_test("angle_unittests") {
   sources = angle_unittests_sources
 
@@ -149,6 +113,13 @@ angle_test("angle_unittests") {
            "${angle_root}:libfeature_support${angle_libs_suffix}",
            ":angle_unittests_main",
          ]
+  if (!is_android && !is_fuchsia) {
+    # SystemUtils.RunApp, the only unittest using a helper binary, is not supported on these
+    # platforms yet.
+    data_deps = [
+      ":angle_unittests_helper",
+    ]
+  }
 }
 
 if (is_win || is_linux || is_mac || is_android || is_fuchsia) {
@@ -303,6 +274,16 @@ if (is_win || is_linux || is_android || is_mac || is_fuchsia) {
 
     if (is_android) {
       use_native_activity = true
+    }
+
+    if (is_win || is_linux) {
+      data_deps += [ "${angle_root}/third_party/glmark2:glmark2_angle" ]
+    }
+    if (is_win && target_cpu != "arm64") {
+      data_deps += [ "${angle_root}/third_party/glmark2:glmark2_wgl" ]
+    }
+    if (is_linux) {
+      data_deps += [ "${angle_root}/third_party/glmark2:glmark2_glx" ]
     }
   }
 }
@@ -678,26 +659,34 @@ if (build_angle_deqp_tests && !is_fuchsia) {
     }
   }
 
-  config("angle_deqp_gtest_support_config") {
-    include_dirs = [ "third_party/gpu_test_expectations" ]
+  config("angle_deqp_test_expectations_config") {
+    include_dirs = [ "${angle_root}:angle_common" ]
+  }
+
+  angle_static_library("angle_deqp_test_expectations") {
+    public_configs += [ ":angle_deqp_test_expectations_config" ]
+    public_deps = [
+      "${angle_root}:angle_common",
+      "${angle_root}:angle_util",
+    ]
+    sources = deqp_test_expectations_sources
+    if (is_mac) {
+      sources += deqp_test_expectations_sources_mac
+      libs = [ "Cocoa.framework" ]
+    }
   }
 
   angle_source_set("angle_deqp_gtest_support") {
     testonly = true
 
     public_deps = [
+      ":angle_deqp_test_expectations",
       ":angle_deqp_tests_main",
       "${angle_root}:angle_common",
       "${angle_root}:angle_util",
     ]
 
-    public_configs += [ ":angle_deqp_gtest_support_config" ]
-
-    sources = deqp_gpu_test_expectations_sources
-    if (is_mac) {
-      sources += deqp_gpu_test_expectations_sources_mac
-      libs = [ "Cocoa.framework" ]
-    }
+    libs = []
 
     if (!is_android) {
       public_deps += [ "${angle_root}:angle_gpu_info_util" ]
@@ -777,10 +766,16 @@ if (build_angle_deqp_tests && !is_fuchsia) {
         "deqp_support/angle_deqp_gtest.cpp",
       ]
 
+      # Use the master lists from the Khronos version for GLES. For EGL the Khronos lists use wildcards.
+      mustpass_dir = "external/openglcts/data/mustpass/gles/aosp_mustpass"
+      if (api_name == "egl") {
+        mustpass_dir = "android/cts"
+      }
+
       data = [
-        "deqp_support/deqp_${api_name}_test_expectations.txt",
-        "$angle_root/third_party/deqp/src/android/cts/master/${api_name}-master.txt",
+        "$angle_root/third_party/deqp/src/$mustpass_dir/master/${api_name}-master.txt",
         "$angle_root/third_party/deqp/src/data/",
+        "deqp_support/deqp_${api_name}_test_expectations.txt",
       ]
 
       if (is_android) {

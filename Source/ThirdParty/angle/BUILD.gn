@@ -101,6 +101,9 @@ config("internal_config") {
     if (angle_enable_vulkan_gpu_trace_events) {
       defines += [ "ANGLE_ENABLE_VULKAN_GPU_TRACE_EVENTS=1" ]
     }
+    if (angle_vulkan_conformant_configs_only) {
+      defines += [ "ANGLE_VULKAN_CONFORMANT_CONFIGS_ONLY=1" ]
+    }
   }
 
   if (angle_enable_trace) {
@@ -153,21 +156,32 @@ config("build_id_config") {
 # Windows ARM64 is available since 10.0.16299 so no need to copy
 # d3dcompiler_47.dll because this file is available as inbox.
 if (is_win && target_cpu != "arm64") {
+  # We also ship an older DLL for compatiblity with Windows 7 machines without
+  # the UCRT. This DLL isn't available in the standard SDK distribution.
+  _old_compiler = "$windows_sdk_path/Redist/D3D/$target_cpu/d3dcompiler_old.dll"
+  _has_old_compiler =
+      exec_script("scripts/file_exists.py", [ _old_compiler ], "value")
+
   copy("copy_compiler_dll") {
     sources = [
       "$windows_sdk_path/Redist/D3D/$target_cpu/d3dcompiler_47.dll",
     ]
+
+    if (_has_old_compiler) {
+      sources += [ _old_compiler ]
+    }
+
     outputs = [
-      "$root_out_dir/d3dcompiler_47.dll",
+      "$root_out_dir/{{source_file_part}}",
     ]
   }
 }
 
+# Holds the shared includes so we only need to list them once.
 config("includes_config") {
   include_dirs = [ "include" ]
 }
 
-# Holds the shared includes so we only need to list them once.
 angle_source_set("includes") {
   sources = libangle_includes
   public_configs = [ ":includes_config" ]
@@ -181,8 +195,8 @@ angle_static_library("preprocessor") {
   ]
 }
 
-config("translator_disable_pool_alloc") {
-  defines = [ "ANGLE_TRANSLATOR_DISABLE_POOL_ALLOC" ]
+config("angle_disable_pool_alloc") {
+  defines = [ "ANGLE_DISABLE_POOL_ALLOC" ]
 }
 
 config("debug_annotations_config") {
@@ -241,6 +255,9 @@ angle_static_library("angle_common") {
   ]
   public_configs += [ ":angle_common_config" ]
   all_dependent_configs = [ ":angle_release_asserts_config" ]
+  if (use_fuzzing_engine) {
+    all_dependent_configs += [ ":angle_disable_pool_alloc" ]
+  }
 }
 
 config("angle_image_util_config") {
@@ -355,9 +372,6 @@ angle_static_library("translator") {
   }
 
   public_configs += [ ":external_config" ]
-  if (use_fuzzing_engine) {
-    all_dependent_configs = [ ":translator_disable_pool_alloc" ]
-  }
 
   deps = [
     ":includes",
@@ -441,8 +455,10 @@ config("libANGLE_config") {
   cflags = []
   defines = []
   libs = []
+  ldflags = []
   if (angle_enable_d3d9) {
     defines += [ "ANGLE_ENABLE_D3D9" ]
+    ldflags += [ "/DELAYLOAD:d3d9.dll" ]
   }
   if (angle_enable_d3d11) {
     defines += [ "ANGLE_ENABLE_D3D11" ]
@@ -458,6 +474,9 @@ config("libANGLE_config") {
   }
   if (angle_enable_vulkan) {
     defines += [ "ANGLE_ENABLE_VULKAN" ]
+    if (angle_enable_custom_vulkan_cmd_buffers) {
+      defines += [ "ANGLE_USE_CUSTOM_VULKAN_CMD_BUFFERS=1" ]
+    }
   }
   if (angle_enable_null) {
     defines += [ "ANGLE_ENABLE_NULL" ]
@@ -481,27 +500,8 @@ config("libANGLE_config") {
 
 if (angle_enable_vulkan) {
   config("vulkan_config") {
-    if (is_win) {
-      defines = [
-        "VK_USE_PLATFORM_WIN32_KHR",
-        "VK_USE_PLATFORM_WIN32_KHX",
-      ]
-    }
-    if (is_linux) {
-      defines = [
-        "VK_USE_PLATFORM_XCB_KHR",
-        "VK_USE_PLATFORM_XCB_KHX",
-      ]
-    }
     if (is_android) {
-      defines = [
-        "VK_USE_PLATFORM_ANDROID_KHR",
-        "VK_USE_PLATFORM_ANDROID_KHX",
-      ]
       libs = [ "vulkan" ]
-    }
-    if (is_fuchsia) {
-      defines = [ "VK_USE_PLATFORM_FUCHSIA" ]
     }
   }
 

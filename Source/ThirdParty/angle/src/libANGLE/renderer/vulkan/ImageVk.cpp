@@ -62,28 +62,42 @@ egl::Error ImageVk::initialize(const egl::Display *display)
         mImageLevel       = mState.imageIndex.getLevelIndex();
         mImageLayer       = mState.imageIndex.hasLayer() ? mState.imageIndex.getLayerIndex() : 0;
     }
-    else if (egl::IsRenderbufferTarget(mState.target))
+    else
     {
-        RenderbufferVk *renderbufferVk =
-            GetImplAs<RenderbufferVk>(GetAs<gl::Renderbuffer>(mState.source));
-        mImage = renderbufferVk->getImage();
+        RendererVk *renderer = nullptr;
+        if (egl::IsRenderbufferTarget(mState.target))
+        {
+            RenderbufferVk *renderbufferVk =
+                GetImplAs<RenderbufferVk>(GetAs<gl::Renderbuffer>(mState.source));
+            mImage = renderbufferVk->getImage();
+
+            ASSERT(mContext != nullptr);
+            renderer = vk::GetImpl(mContext)->getRenderer();
+            ;
+        }
+        else if (egl::IsExternalImageTarget(mState.target))
+        {
+            const ExternalImageSiblingVk *externalImageSibling =
+                GetImplAs<ExternalImageSiblingVk>(GetAs<egl::ExternalImageSibling>(mState.source));
+            mImage = externalImageSibling->getImage();
+
+            ASSERT(mContext == nullptr);
+            renderer = vk::GetImpl(display)->getRenderer();
+        }
+        else
+        {
+            UNREACHABLE();
+            return egl::EglBadAccess();
+        }
 
         // Make sure a staging buffer is ready to use to upload data
-        ASSERT(mContext != nullptr);
-        ContextVk *contextVk = vk::GetImpl(mContext);
-        RendererVk *renderer = contextVk->getRenderer();
-        mImage->initStagingBuffer(renderer);
+        mImage->initStagingBuffer(renderer, mImage->getFormat());
 
         mOwnsImage = false;
 
         mImageTextureType = gl::TextureType::_2D;
         mImageLevel       = 0;
         mImageLayer       = 0;
-    }
-    else
-    {
-        UNREACHABLE();
-        return egl::EglBadAccess();
     }
 
     return egl::NoError();

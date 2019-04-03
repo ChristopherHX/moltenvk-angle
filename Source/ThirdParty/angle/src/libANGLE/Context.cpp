@@ -1100,6 +1100,7 @@ void Context::bindSampler(GLuint textureUnit, GLuint samplerHandle)
         mState.mSamplerManager->checkSamplerAllocation(mImplementation.get(), samplerHandle);
     mState.setSamplerBinding(this, textureUnit, sampler);
     mSamplerObserverBindings[textureUnit].bind(sampler);
+    mStateCache.onActiveTextureChange(this);
 }
 
 void Context::bindImageTexture(GLuint unit,
@@ -5008,8 +5009,8 @@ GLuint Context::getDebugMessageLog(GLuint count,
 void Context::pushDebugGroup(GLenum source, GLuint id, GLsizei length, const GLchar *message)
 {
     std::string msg(message, (length > 0) ? static_cast<size_t>(length) : strlen(message));
+    mImplementation->pushDebugGroup(source, id, msg);
     mState.getDebug().pushGroup(source, id, std::move(msg));
-    mImplementation->pushDebugGroup(source, id, length, message);
 }
 
 void Context::popDebugGroup()
@@ -5898,23 +5899,7 @@ void Context::linkProgram(GLuint program)
     Program *programObject = getProgramNoResolveLink(program);
     ASSERT(programObject);
     ANGLE_CONTEXT_TRY(programObject->link(this));
-
-    // Don't parallel link a program which is active in any GL contexts. With this assumption, we
-    // don't need to worry that:
-    //   1. Draw calls after link use the new executable code or the old one depending on the link
-    //      result.
-    //   2. When a backend program, e.g., ProgramD3D is linking, other backend classes like
-    //      StateManager11, Renderer11, etc., may have a chance to make unexpected calls to
-    //      ProgramD3D.
-    if (programObject->isInUse())
-    {
-        programObject->resolveLink(this);
-        if (programObject->isLinked())
-        {
-            ANGLE_CONTEXT_TRY(mState.onProgramExecutableChange(this, programObject));
-        }
-        mStateCache.onProgramExecutableChange(this);
-    }
+    ANGLE_CONTEXT_TRY(onProgramLink(programObject));
 }
 
 void Context::releaseShaderCompiler()
@@ -6155,11 +6140,7 @@ void Context::programBinary(GLuint program, GLenum binaryFormat, const void *bin
     ASSERT(programObject != nullptr);
 
     ANGLE_CONTEXT_TRY(programObject->loadBinary(this, binaryFormat, binary, length));
-    if (programObject->isInUse())
-    {
-        ANGLE_CONTEXT_TRY(mState.onProgramExecutableChange(this, programObject));
-        mStateCache.onProgramExecutableChange(this);
-    }
+    ANGLE_CONTEXT_TRY(onProgramLink(programObject));
 }
 
 void Context::uniform1ui(GLint location, GLuint v0)
@@ -7974,6 +7955,7 @@ void Context::maxShaderCompilerThreads(GLuint count)
         mThreadPool = angle::WorkerThreadPool::Create(count > 0);
     }
     mThreadPool->setMaxThreads(count);
+    mImplementation->setMaxShaderCompilerThreads(count);
 }
 
 bool Context::isGLES1() const
@@ -8034,9 +8016,32 @@ void Context::onSubjectStateChange(const Context *context,
             {
                 ASSERT(index < kSamplerMaxSubjectIndex);
                 mState.setSamplerDirty(index - kSampler0SubjectIndex);
+                mState.onActiveTextureStateChange(this, index - kSampler0SubjectIndex);
             }
             break;
     }
+}
+
+angle::Result Context::onProgramLink(Program *programObject)
+{
+    // Don't parallel link a program which is active in any GL contexts. With this assumption, we
+    // don't need to worry that:
+    //   1. Draw calls after link use the new executable code or the old one depending on the link
+    //      result.
+    //   2. When a backend program, e.g., ProgramD3D is linking, other backend classes like
+    //      StateManager11, Renderer11, etc., may have a chance to make unexpected calls to
+    //      ProgramD3D.
+    if (programObject->isInUse())
+    {
+        programObject->resolveLink(this);
+        if (programObject->isLinked())
+        {
+            ANGLE_TRY(mState.onProgramExecutableChange(this, programObject));
+        }
+        mStateCache.onProgramExecutableChange(this);
+    }
+
+    return angle::Result::Continue;
 }
 
 // ErrorSet implementation.

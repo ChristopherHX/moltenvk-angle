@@ -255,6 +255,7 @@ Extensions::Extensions()
       multiviewMultisample(false),
       blendFuncExtended(false),
       maxDualSourceDrawBuffers(0),
+      floatBlend(false),
       memorySize(false),
       textureMultisample(false),
       multiDraw(false)
@@ -686,7 +687,7 @@ static bool DetermineColorBufferFloatRGBASupport(const TextureCapsMap &textureCa
         GL_RGBA32F,
     };
 
-    return GetFormatSupport(textureCaps, requiredFormats, true, false, true, false);
+    return GetFormatSupport(textureCaps, requiredFormats, true, false, true, true);
 }
 
 // Check for GL_EXT_color_buffer_float
@@ -909,6 +910,7 @@ const ExtensionInfoMap &GetExtensionInfoMap()
         map["GL_OES_texture_storage_multisample_2d_array"] = enableableExtension(&Extensions::textureStorageMultisample2DArray);
         map["GL_ANGLE_multiview_multisample"] = enableableExtension(&Extensions::multiviewMultisample);
         map["GL_EXT_blend_func_extended"] = enableableExtension(&Extensions::blendFuncExtended);
+        map["GL_EXT_float_blend"] = enableableExtension(&Extensions::floatBlend);
         map["GL_ANGLE_texture_multisample"] = enableableExtension(&Extensions::textureMultisample);
         map["GL_ANGLE_multi_draw"] = enableableExtension(&Extensions::multiDraw);
         map["GL_ANGLE_provoking_vertex"] = enableableExtension(&Extensions::provokingVertex);

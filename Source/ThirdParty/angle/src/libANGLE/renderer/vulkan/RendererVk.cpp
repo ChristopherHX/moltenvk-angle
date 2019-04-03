@@ -41,6 +41,7 @@ const uint32_t kMockDeviceID                              = 0xf005ba11;
 constexpr char kMockDeviceName[]                          = "Vulkan Mock Device";
 constexpr size_t kInFlightCommandsLimit                   = 100u;
 constexpr VkFormatFeatureFlags kInvalidFormatFeatureFlags = static_cast<VkFormatFeatureFlags>(-1);
+constexpr size_t kDefaultPoolAllocatorPageSize            = 16 * 1024;
 }  // anonymous namespace
 
 namespace rx
@@ -79,19 +80,28 @@ bool StrLess(const char *a, const char *b)
     return strcmp(a, b) < 0;
 }
 
-VkResult VerifyExtensionsPresent(const RendererVk::ExtensionNameList &haystack,
-                                 const RendererVk::ExtensionNameList &needles)
-{
-    // NOTE: The lists must be sorted.
-    return std::includes(haystack.begin(), haystack.end(), needles.begin(), needles.end(), StrLess)
-               ? VK_SUCCESS
-               : VK_ERROR_EXTENSION_NOT_PRESENT;
-}
-
 bool ExtensionFound(const char *needle, const RendererVk::ExtensionNameList &haystack)
 {
     // NOTE: The list must be sorted.
     return std::binary_search(haystack.begin(), haystack.end(), needle, StrLess);
+}
+
+VkResult VerifyExtensionsPresent(const RendererVk::ExtensionNameList &haystack,
+                                 const RendererVk::ExtensionNameList &needles)
+{
+    // NOTE: The lists must be sorted.
+    if (std::includes(haystack.begin(), haystack.end(), needles.begin(), needles.end(), StrLess))
+    {
+        return VK_SUCCESS;
+    }
+    for (const char *needle : needles)
+    {
+        if (!ExtensionFound(needle, haystack))
+        {
+            ERR() << "Extension not supported: " << needle;
+        }
+    }
+    return VK_ERROR_EXTENSION_NOT_PRESENT;
 }
 
 // Array of Validation error/warning messages that will be ignored, should include bugID
@@ -198,7 +208,7 @@ const char *GetVkObjectTypeName(VkObjectType type)
             return "Debug Utils Messenger";
         case VK_OBJECT_TYPE_VALIDATION_CACHE_EXT:
             return "Validation Cache";
-        case VK_OBJECT_TYPE_ACCELERATION_STRUCTURE_NVX:
+        case VK_OBJECT_TYPE_ACCELERATION_STRUCTURE_NV:
             return "Acceleration Structure";
         default:
             return "<Unrecognized>";
@@ -211,16 +221,6 @@ DebugUtilsMessenger(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
                     const VkDebugUtilsMessengerCallbackDataEXT *callbackData,
                     void *userData)
 {
-    constexpr VkDebugUtilsMessageSeverityFlagsEXT kSeveritiesToLog =
-        VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT |
-        VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT;
-
-    // Check if we even care about this message.
-    if ((messageSeverity & kSeveritiesToLog) == 0)
-    {
-        return VK_FALSE;
-    }
-
     // See if it's an issue we are aware of and don't want to be spammed about.
     if (IsIgnoredDebugMessage(callbackData->pMessageIdName))
     {
@@ -469,8 +469,9 @@ RendererVk::CommandBatch::CommandBatch() = default;
 RendererVk::CommandBatch::~CommandBatch() = default;
 
 RendererVk::CommandBatch::CommandBatch(CommandBatch &&other)
-    : commandPool(std::move(other.commandPool)), fence(std::move(other.fence)), serial(other.serial)
-{}
+{
+    *this = std::move(other);
+}
 
 RendererVk::CommandBatch &RendererVk::CommandBatch::operator=(CommandBatch &&other)
 {
@@ -483,7 +484,7 @@ RendererVk::CommandBatch &RendererVk::CommandBatch::operator=(CommandBatch &&oth
 void RendererVk::CommandBatch::destroy(VkDevice device)
 {
     commandPool.destroy(device);
-    fence.destroy(device);
+    fence.reset(device);
 }
 
 // RendererVk implementation.
@@ -505,7 +506,8 @@ RendererVk::RendererVk()
       mCurrentQueueSerial(mQueueSerialFactory.generate()),
       mDeviceLost(false),
       mPipelineCacheVkUpdateTimeout(kPipelineCacheVkUpdatePeriod),
-      mCommandGraph(kEnableCommandGraphDiagnostics),
+      mPoolAllocator(kDefaultPoolAllocatorPageSize, 1),
+      mCommandGraph(kEnableCommandGraphDiagnostics, &mPoolAllocator),
       mGpuEventsEnabled(false),
       mGpuClockSync{std::numeric_limits<double>::max(), std::numeric_limits<double>::max()},
       mGpuEventTimestampOrigin(0)
@@ -744,12 +746,18 @@ angle::Result RendererVk::initialize(DisplayVk *displayVk,
         // Create the messenger callback.
         VkDebugUtilsMessengerCreateInfoEXT messengerInfo = {};
 
+        constexpr VkDebugUtilsMessageSeverityFlagsEXT kSeveritiesToLog =
+            VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT |
+            VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT;
+
+        constexpr VkDebugUtilsMessageTypeFlagsEXT kMessagesToLog =
+            VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT |
+            VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT |
+            VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
+
         messengerInfo.sType           = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
-        messengerInfo.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT |
-                                        VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT;
-        messengerInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT |
-                                    VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT |
-                                    VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
+        messengerInfo.messageSeverity = kSeveritiesToLog;
+        messengerInfo.messageType     = kMessagesToLog;
         messengerInfo.pfnUserCallback = &DebugUtilsMessenger;
         messengerInfo.pUserData       = this;
 
@@ -923,6 +931,18 @@ angle::Result RendererVk::initializeDevice(DisplayVk *displayVk, uint32_t queueF
         enabledDeviceExtensions.push_back(VK_KHR_INCREMENTAL_PRESENT_EXTENSION_NAME);
     }
 
+#if defined(ANGLE_PLATFORM_ANDROID)
+    if (getFeatures().supportsAndroidHardwareBuffer)
+    {
+        enabledDeviceExtensions.push_back(VK_EXT_QUEUE_FAMILY_FOREIGN_EXTENSION_NAME);
+        enabledDeviceExtensions.push_back(
+            VK_ANDROID_EXTERNAL_MEMORY_ANDROID_HARDWARE_BUFFER_EXTENSION_NAME);
+        InitExternalMemoryHardwareBufferANDROIDFunctions(mInstance);
+    }
+#else
+    ASSERT(!getFeatures().supportsAndroidHardwareBuffer);
+#endif
+
     std::sort(enabledDeviceExtensions.begin(), enabledDeviceExtensions.end(), StrLess);
     ANGLE_VK_TRY(displayVk, VerifyExtensionsPresent(deviceExtensionNames, enabledDeviceExtensions));
 
@@ -937,23 +957,23 @@ angle::Result RendererVk::initializeDevice(DisplayVk *displayVk, uint32_t queueF
     divisorFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES_EXT;
     divisorFeatures.vertexAttributeInstanceRateDivisor = true;
 
-    float zeroPriority = 0.0f;
+    float zeroPriority                      = 0.0f;
     VkDeviceQueueCreateInfo queueCreateInfo = {};
-    queueCreateInfo.sType            = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-    queueCreateInfo.flags            = 0;
-    queueCreateInfo.queueFamilyIndex = queueFamilyIndex;
-    queueCreateInfo.queueCount       = 1;
-    queueCreateInfo.pQueuePriorities = &zeroPriority;
+    queueCreateInfo.sType                   = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+    queueCreateInfo.flags                   = 0;
+    queueCreateInfo.queueFamilyIndex        = queueFamilyIndex;
+    queueCreateInfo.queueCount              = 1;
+    queueCreateInfo.pQueuePriorities        = &zeroPriority;
 
     // Initialize the device
     VkDeviceCreateInfo createInfo = {};
 
-    createInfo.sType                 = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-    createInfo.flags                 = 0;
-    createInfo.queueCreateInfoCount  = 1;
-    createInfo.pQueueCreateInfos     = &queueCreateInfo;
-    createInfo.enabledLayerCount     = enabledDeviceLayerNames.size();
-    createInfo.ppEnabledLayerNames   = enabledDeviceLayerNames.data();
+    createInfo.sType                = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+    createInfo.flags                = 0;
+    createInfo.queueCreateInfoCount = 1;
+    createInfo.pQueueCreateInfos    = &queueCreateInfo;
+    createInfo.enabledLayerCount    = enabledDeviceLayerNames.size();
+    createInfo.ppEnabledLayerNames  = enabledDeviceLayerNames.data();
 
     if (vkGetPhysicalDeviceProperties2KHR &&
         ExtensionFound(VK_EXT_VERTEX_ATTRIBUTE_DIVISOR_EXTENSION_NAME, deviceExtensionNames))
@@ -1114,11 +1134,15 @@ std::string RendererVk::getRendererDescription() const
 gl::Version RendererVk::getMaxSupportedESVersion() const
 {
     // Current highest supported version
-    // TODO: Update this to support ES 3.0. http://crbug.com/angleproject/2950
-    gl::Version maxVersion = gl::Version(2, 0);
+    gl::Version maxVersion = gl::Version(3, 0);
 
-    // Vulkan inherited queries are required to support any GL query type
-    if (!mPhysicalDeviceFeatures.inheritedQueries)
+#if ANGLE_VULKAN_CONFORMANT_CONFIGS_ONLY
+    // TODO: Disallow ES 3.0 until supported. http://crbug.com/angleproject/2950
+    maxVersion = gl::Version(2, 0);
+#endif
+
+    // If the command buffer doesn't support queries, we can't support ES3.
+    if (!vk::CommandBuffer::SupportsQueries(mPhysicalDeviceFeatures))
     {
         maxVersion = std::max(maxVersion, gl::Version(2, 0));
     }
@@ -1181,6 +1205,23 @@ void RendererVk::initFeatures(const ExtensionNameList &deviceExtensionNames)
     if (ExtensionFound(VK_KHR_INCREMENTAL_PRESENT_EXTENSION_NAME, deviceExtensionNames))
     {
         mFeatures.supportsIncrementalPresent = true;
+    }
+
+#if defined(ANGLE_PLATFORM_ANDROID)
+    mFeatures.supportsAndroidHardwareBuffer =
+        ExtensionFound(VK_ANDROID_EXTERNAL_MEMORY_ANDROID_HARDWARE_BUFFER_EXTENSION_NAME,
+                       deviceExtensionNames) &&
+        ExtensionFound(VK_EXT_QUEUE_FAMILY_FOREIGN_EXTENSION_NAME, deviceExtensionNames);
+#endif
+
+    if (IsLinux() && IsIntel(mPhysicalDeviceProperties.vendorID))
+    {
+        mFeatures.disableFifoPresentMode = true;
+    }
+
+    if (IsAndroid() && IsQualcomm(mPhysicalDeviceProperties.vendorID))
+    {
+        mFeatures.disableClearWithRenderPassLoadOp = true;
     }
 }
 
@@ -1289,7 +1330,7 @@ angle::Result RendererVk::finish(vk::Context *context)
     {
         TRACE_EVENT0("gpu.angle", "RendererVk::finish");
 
-        vk::Scoped<vk::CommandBuffer> commandBatch(mDevice);
+        vk::Scoped<vk::PrimaryCommandBuffer> commandBatch(mDevice);
         ANGLE_TRY(flushCommandGraph(context, &commandBatch.get()));
 
         angle::FixedVector<VkSemaphore, kMaxWaitSemaphores> waitSemaphores;
@@ -1339,12 +1380,12 @@ void RendererVk::freeAllInFlightResources()
         // On device loss we need to wait for fence to be signaled before destroying it
         if (mDeviceLost)
         {
-            VkResult status = batch.fence.wait(mDevice, kMaxFenceWaitTimeNs);
+            VkResult status = batch.fence.get().wait(mDevice, kMaxFenceWaitTimeNs);
             // If wait times out, it is probably not possible to recover from lost device
             ASSERT(status == VK_SUCCESS || status == VK_ERROR_DEVICE_LOST);
         }
-        batch.fence.destroy(mDevice);
         batch.commandPool.destroy(mDevice);
+        batch.fence.reset(mDevice);
     }
     mInFlightCommands.clear();
 
@@ -1363,7 +1404,7 @@ angle::Result RendererVk::checkCompletedCommands(vk::Context *context)
 
     for (CommandBatch &batch : mInFlightCommands)
     {
-        VkResult result = batch.fence.getStatus(mDevice);
+        VkResult result = batch.fence.get().getStatus(mDevice);
         if (result == VK_NOT_READY)
         {
             break;
@@ -1373,7 +1414,7 @@ angle::Result RendererVk::checkCompletedCommands(vk::Context *context)
         ASSERT(batch.serial > mLastCompletedQueueSerial);
         mLastCompletedQueueSerial = batch.serial;
 
-        batch.fence.destroy(mDevice);
+        batch.fence.reset(mDevice);
         TRACE_EVENT0("gpu.angle", "commandPool.destroy");
         batch.commandPool.destroy(mDevice);
         ++finishedCount;
@@ -1399,18 +1440,15 @@ angle::Result RendererVk::checkCompletedCommands(vk::Context *context)
 
 angle::Result RendererVk::submitFrame(vk::Context *context,
                                       const VkSubmitInfo &submitInfo,
-                                      vk::CommandBuffer &&commandBuffer)
+                                      vk::PrimaryCommandBuffer &&commandBuffer)
 {
     TRACE_EVENT0("gpu.angle", "RendererVk::submitFrame");
-    VkFenceCreateInfo fenceInfo = {};
-    fenceInfo.sType             = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
-    fenceInfo.flags             = 0;
 
     vk::Scoped<CommandBatch> scopedBatch(mDevice);
     CommandBatch &batch = scopedBatch.get();
-    ANGLE_VK_TRY(context, batch.fence.init(mDevice, fenceInfo));
+    ANGLE_TRY(getSubmitFence(context, &batch.fence));
 
-    ANGLE_VK_TRY(context, vkQueueSubmit(mQueue, 1, &submitInfo, batch.fence.getHandle()));
+    ANGLE_VK_TRY(context, vkQueueSubmit(mQueue, 1, &submitInfo, batch.fence.get().getHandle()));
 
     // Store this command buffer in the in-flight list.
     batch.commandPool = std::move(mCommandPool);
@@ -1418,10 +1456,12 @@ angle::Result RendererVk::submitFrame(vk::Context *context,
 
     mInFlightCommands.emplace_back(scopedBatch.release());
 
+    // Make sure a new fence is created for the next submission.
+    mSubmitFence.reset(mDevice);
+
     // CPU should be throttled to avoid mInFlightCommands from growing too fast.  That is done on
     // swap() though, and there could be multiple submissions in between (through glFlush() calls),
-    // so the limit is larger than the expected number of images.  The
-    // InterleavedAttributeDataBenchmark perf test for example issues a large number of flushes.
+    // so the limit is larger than the expected number of images.
     ASSERT(mInFlightCommands.size() <= kInFlightCommandsLimit);
 
     nextSerial();
@@ -1473,24 +1513,6 @@ bool RendererVk::isSerialInUse(Serial serial) const
 
 angle::Result RendererVk::finishToSerial(vk::Context *context, Serial serial)
 {
-    bool timedOut        = false;
-    angle::Result result = finishToSerialOrTimeout(context, serial, kMaxFenceWaitTimeNs, &timedOut);
-
-    // Don't tolerate timeout.  If such a large wait time results in timeout, something's wrong.
-    if (timedOut)
-    {
-        result = angle::Result::Stop;
-    }
-    return result;
-}
-
-angle::Result RendererVk::finishToSerialOrTimeout(vk::Context *context,
-                                                  Serial serial,
-                                                  uint64_t timeout,
-                                                  bool *outTimedOut)
-{
-    *outTimedOut = false;
-
     if (!isSerialInUse(serial) || mInFlightCommands.empty())
     {
         return angle::Result::Continue;
@@ -1510,15 +1532,9 @@ angle::Result RendererVk::finishToSerialOrTimeout(vk::Context *context,
     const CommandBatch &batch = mInFlightCommands[batchIndex];
 
     // Wait for it finish
-    VkResult status = batch.fence.wait(mDevice, kMaxFenceWaitTimeNs);
+    VkResult status = batch.fence.get().wait(mDevice, kMaxFenceWaitTimeNs);
 
-    // If timed out, report it as such.
-    if (status == VK_TIMEOUT)
-    {
-        *outTimedOut = true;
-        return angle::Result::Continue;
-    }
-
+    // Don't tolerate timeout.  If such a large wait time results in timeout, something's wrong.
     ANGLE_VK_TRY(context, status);
 
     // Clean up finished batches.
@@ -1547,7 +1563,8 @@ vk::CommandGraph *RendererVk::getCommandGraph()
     return &mCommandGraph;
 }
 
-angle::Result RendererVk::flushCommandGraph(vk::Context *context, vk::CommandBuffer *commandBatch)
+angle::Result RendererVk::flushCommandGraph(vk::Context *context,
+                                            vk::PrimaryCommandBuffer *commandBatch)
 {
     return mCommandGraph.submitCommands(context, mCurrentQueueSerial, &mRenderPassCache,
                                         &mCommandPool, commandBatch);
@@ -1562,7 +1579,7 @@ angle::Result RendererVk::flush(vk::Context *context)
 
     TRACE_EVENT0("gpu.angle", "RendererVk::flush");
 
-    vk::Scoped<vk::CommandBuffer> commandBatch(mDevice);
+    vk::Scoped<vk::PrimaryCommandBuffer> commandBatch(mDevice);
     ANGLE_TRY(flushCommandGraph(context, &commandBatch.get()));
 
     angle::FixedVector<VkSemaphore, kMaxWaitSemaphores> waitSemaphores;
@@ -1682,6 +1699,26 @@ const vk::Semaphore *RendererVk::getSubmitLastSignaledSemaphore(vk::Context *con
     return semaphore;
 }
 
+angle::Result RendererVk::getSubmitFence(vk::Context *context,
+                                         vk::Shared<vk::Fence> *sharedFenceOut)
+{
+    if (!mSubmitFence.isReferenced())
+    {
+        vk::Fence fence;
+
+        VkFenceCreateInfo fenceCreateInfo = {};
+        fenceCreateInfo.sType             = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+        fenceCreateInfo.flags             = 0;
+
+        ANGLE_VK_TRY(context, fence.init(mDevice, fenceCreateInfo));
+
+        mSubmitFence.assign(mDevice, std::move(fence));
+    }
+
+    sharedFenceOut->copy(mDevice, mSubmitFence);
+    return angle::Result::Continue;
+}
+
 angle::Result RendererVk::getTimestamp(vk::Context *context, uint64_t *timestampOut)
 {
     // The intent of this function is to query the timestamp without stalling the GPU.  Currently,
@@ -1712,8 +1749,8 @@ angle::Result RendererVk::getTimestamp(vk::Context *context, uint64_t *timestamp
     ANGLE_TRY(timestampQueryPool.get().allocateQuery(context, &timestampQuery));
 
     // Record the command buffer
-    vk::Scoped<vk::CommandBuffer> commandBatch(mDevice);
-    vk::CommandBuffer &commandBuffer = commandBatch.get();
+    vk::Scoped<vk::PrimaryCommandBuffer> commandBatch(mDevice);
+    vk::PrimaryCommandBuffer &commandBuffer = commandBatch.get();
 
     VkCommandBufferAllocateInfo commandBufferInfo = {};
     commandBufferInfo.sType                       = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
@@ -1798,6 +1835,21 @@ bool RendererVk::hasBufferFormatFeatureBits(VkFormat format, const VkFormatFeatu
     return hasFormatFeatureBits<&VkFormatProperties::bufferFeatures>(format, featureBits);
 }
 
+void RendererVk::insertDebugMarker(GLenum source, GLuint id, std::string &&marker)
+{
+    mCommandGraph.insertDebugMarker(source, std::move(marker));
+}
+
+void RendererVk::pushDebugMarker(GLenum source, GLuint id, std::string &&marker)
+{
+    mCommandGraph.pushDebugMarker(source, std::move(marker));
+}
+
+void RendererVk::popDebugMarker()
+{
+    mCommandGraph.popDebugMarker();
+}
+
 angle::Result RendererVk::synchronizeCpuGpuTime(vk::Context *context)
 {
     ASSERT(mGpuEventsEnabled);
@@ -1817,7 +1869,7 @@ angle::Result RendererVk::synchronizeCpuGpuTime(vk::Context *context)
     //
     //     Post-submission work             Begin execution
     //
-    //            ????                    Write timstamp Tgpu
+    //            ????                    Write timestamp Tgpu
     //
     //            ????                       End execution
     //
@@ -1903,8 +1955,8 @@ angle::Result RendererVk::synchronizeCpuGpuTime(vk::Context *context)
         ANGLE_VK_TRY(context, gpuDone.get().reset(mDevice));
 
         // Record the command buffer
-        vk::Scoped<vk::CommandBuffer> commandBatch(mDevice);
-        vk::CommandBuffer &commandBuffer = commandBatch.get();
+        vk::Scoped<vk::PrimaryCommandBuffer> commandBatch(mDevice);
+        vk::PrimaryCommandBuffer &commandBuffer = commandBatch.get();
 
         VkCommandBufferAllocateInfo commandBufferInfo = {};
         commandBufferInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
@@ -2024,7 +2076,7 @@ angle::Result RendererVk::synchronizeCpuGpuTime(vk::Context *context)
 }
 
 angle::Result RendererVk::traceGpuEventImpl(vk::Context *context,
-                                            vk::CommandBuffer *commandBuffer,
+                                            vk::PrimaryCommandBuffer *commandBuffer,
                                             char phase,
                                             const char *name)
 {

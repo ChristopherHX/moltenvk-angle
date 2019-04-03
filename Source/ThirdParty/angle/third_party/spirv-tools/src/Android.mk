@@ -76,6 +76,7 @@ SPVTOOLS_OPT_SRC_FILES := \
 		source/opt/aggressive_dead_code_elim_pass.cpp \
 		source/opt/basic_block.cpp \
 		source/opt/block_merge_pass.cpp \
+		source/opt/block_merge_util.cpp \
 		source/opt/build_module.cpp \
 		source/opt/cfg.cpp \
 		source/opt/cfg_cleanup_pass.cpp \
@@ -97,6 +98,8 @@ SPVTOOLS_OPT_SRC_FILES := \
 		source/opt/dominator_tree.cpp \
 		source/opt/eliminate_dead_constant_pass.cpp \
 		source/opt/eliminate_dead_functions_pass.cpp \
+		source/opt/eliminate_dead_functions_util.cpp \
+		source/opt/eliminate_dead_members_pass.cpp \
 		source/opt/feature_manager.cpp \
 		source/opt/flatten_decoration_pass.cpp \
 		source/opt/fold.cpp \
@@ -151,6 +154,7 @@ SPVTOOLS_OPT_SRC_FILES := \
 		source/opt/simplification_pass.cpp \
 		source/opt/ssa_rewrite_pass.cpp \
 		source/opt/strength_reduction_pass.cpp \
+		source/opt/strip_atomic_counter_memory_pass.cpp \
 		source/opt/strip_debug_info_pass.cpp \
 		source/opt/strip_reflect_info_pass.cpp \
 		source/opt/struct_cfg_analysis.cpp \

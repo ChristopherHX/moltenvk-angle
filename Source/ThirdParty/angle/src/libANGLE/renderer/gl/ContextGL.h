@@ -173,7 +173,7 @@ class ContextGL : public ContextImpl
     void popGroupMarker() override;
 
     // KHR_debug
-    void pushDebugGroup(GLenum source, GLuint id, GLsizei length, const char *message) override;
+    void pushDebugGroup(GLenum source, GLuint id, const std::string &message) override;
     void popDebugGroup() override;
 
     // State sync with dirty bits.
@@ -212,6 +212,8 @@ class ContextGL : public ContextImpl
 
     angle::Result memoryBarrier(const gl::Context *context, GLbitfield barriers) override;
     angle::Result memoryBarrierByRegion(const gl::Context *context, GLbitfield barriers) override;
+
+    void setMaxShaderCompilerThreads(GLuint count) override;
 
   private:
     angle::Result setDrawArraysState(const gl::Context *context,

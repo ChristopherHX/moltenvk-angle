@@ -244,10 +244,10 @@ void Context9::popGroupMarker()
     }
 }
 
-void Context9::pushDebugGroup(GLenum source, GLuint id, GLsizei length, const char *message)
+void Context9::pushDebugGroup(GLenum source, GLuint id, const std::string &message)
 {
     // Fall through to the EXT_debug_marker functions
-    pushGroupMarker(length, message);
+    pushGroupMarker(message.size(), message.c_str());
 }
 
 void Context9::popDebugGroup()
@@ -276,6 +276,7 @@ GLint64 Context9::getTimestamp()
 
 angle::Result Context9::onMakeCurrent(const gl::Context *context)
 {
+    mRenderer->getStateManager()->setAllDirtyBits();
     return mRenderer->ensureVertexDataManagerInitialized(context);
 }
 

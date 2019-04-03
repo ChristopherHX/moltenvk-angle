@@ -1799,6 +1799,7 @@ class Context final : public egl::LabeledObject, angle::NonCopyable, public angl
     std::shared_ptr<angle::WorkerThreadPool> getWorkerThreadPool() const { return mThreadPool; }
 
     const StateCache &getStateCache() const { return mStateCache; }
+    StateCache &getStateCache() { return mStateCache; }
 
     void onSubjectStateChange(const Context *context,
                               angle::SubjectIndex index,
@@ -1828,6 +1829,8 @@ class Context final : public egl::LabeledObject, angle::NonCopyable, public angl
 
     VertexArray *checkVertexArrayAllocation(GLuint vertexArrayHandle);
     TransformFeedback *checkTransformFeedbackAllocation(GLuint transformFeedback);
+
+    angle::Result onProgramLink(Program *programObject);
 
     void detachBuffer(Buffer *buffer);
     void detachTexture(GLuint texture);

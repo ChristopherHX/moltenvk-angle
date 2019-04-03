@@ -18,6 +18,7 @@
 #include "common/debug.h"
 #include "libANGLE/Error.h"
 #include "libANGLE/Observer.h"
+#include "libANGLE/renderer/vulkan/SecondaryCommandBuffer.h"
 #include "libANGLE/renderer/vulkan/vk_wrapper.h"
 
 #define ANGLE_GL_OBJECTS_X(PROC) \
@@ -113,6 +114,14 @@ class Context : angle::NonCopyable
   protected:
     RendererVk *const mRenderer;
 };
+
+#if ANGLE_USE_CUSTOM_VULKAN_CMD_BUFFERS
+using CommandBuffer = priv::SecondaryCommandBuffer;
+#else
+using CommandBuffer = priv::CommandBuffer;
+#endif
+
+using PrimaryCommandBuffer = priv::CommandBuffer;
 
 VkImageAspectFlags GetDepthStencilAspectFlags(const angle::Format &format);
 VkImageAspectFlags GetFormatAspectFlags(const angle::Format &format);
@@ -259,13 +268,21 @@ class ObjectAndSerial final : angle::NonCopyable
 angle::Result AllocateBufferMemory(vk::Context *context,
                                    VkMemoryPropertyFlags requestedMemoryPropertyFlags,
                                    VkMemoryPropertyFlags *memoryPropertyFlagsOut,
+                                   const void *extraAllocationInfo,
                                    Buffer *buffer,
                                    DeviceMemory *deviceMemoryOut);
 
 angle::Result AllocateImageMemory(vk::Context *context,
                                   VkMemoryPropertyFlags memoryPropertyFlags,
+                                  const void *extraAllocationInfo,
                                   Image *image,
                                   DeviceMemory *deviceMemoryOut);
+angle::Result AllocateImageMemoryWithRequirements(vk::Context *context,
+                                                  VkMemoryPropertyFlags memoryPropertyFlags,
+                                                  const VkMemoryRequirements &memoryRequirements,
+                                                  const void *extraAllocationInfo,
+                                                  Image *image,
+                                                  DeviceMemory *deviceMemoryOut);
 
 using ShaderAndSerial = ObjectAndSerial<ShaderModule>;
 
@@ -311,6 +328,7 @@ class RefCounted : angle::NonCopyable
 
     RefCounted(RefCounted &&copy) : mRefCount(copy.mRefCount), mObject(std::move(copy.mObject))
     {
+        ASSERT(this != &copy);
         copy.mRefCount = 0;
     }
 
@@ -376,12 +394,85 @@ class BindingPointer final : angle::NonCopyable
   private:
     RefCounted<T> *mRefCounted;
 };
+
+// Helper class to share ref-counted Vulkan objects.  Requires that T have a destroy method
+// that takes a VkDevice and returns void.
+template <typename T>
+class Shared final : angle::NonCopyable
+{
+  public:
+    Shared() : mRefCounted(nullptr) {}
+    ~Shared() { ASSERT(mRefCounted == nullptr); }
+
+    Shared(Shared &&other) { *this = std::move(other); }
+    Shared &operator=(Shared &&other)
+    {
+        ASSERT(this != &other);
+        mRefCounted       = other.mRefCounted;
+        other.mRefCounted = nullptr;
+        return *this;
+    }
+
+    void set(VkDevice device, RefCounted<T> *refCounted)
+    {
+        if (mRefCounted)
+        {
+            mRefCounted->releaseRef();
+            if (!mRefCounted->isReferenced())
+            {
+                mRefCounted->get().destroy(device);
+                SafeDelete(mRefCounted);
+            }
+        }
+
+        mRefCounted = refCounted;
+
+        if (mRefCounted)
+        {
+            mRefCounted->addRef();
+        }
+    }
+
+    void assign(VkDevice device, T &&newObject)
+    {
+        set(device, new RefCounted<T>(std::move(newObject)));
+    }
+
+    void copy(VkDevice device, const Shared<T> &other) { set(device, other.mRefCounted); }
+
+    void reset(VkDevice device) { set(device, nullptr); }
+
+    bool isReferenced() const
+    {
+        // If reference is zero, the object should have been deleted.  I.e. if the object is not
+        // nullptr, it should have a reference.
+        ASSERT(!mRefCounted || mRefCounted->isReferenced());
+        return mRefCounted != nullptr;
+    }
+
+    T &get()
+    {
+        ASSERT(mRefCounted && mRefCounted->isReferenced());
+        return mRefCounted->get();
+    }
+    const T &get() const
+    {
+        ASSERT(mRefCounted && mRefCounted->isReferenced());
+        return mRefCounted->get();
+    }
+
+  private:
+    RefCounted<T> *mRefCounted;
+};
 }  // namespace vk
 
 // List of function pointers for used extensions.
 // VK_EXT_debug_utils
 extern PFN_vkCreateDebugUtilsMessengerEXT vkCreateDebugUtilsMessengerEXT;
 extern PFN_vkDestroyDebugUtilsMessengerEXT vkDestroyDebugUtilsMessengerEXT;
+extern PFN_vkCmdBeginDebugUtilsLabelEXT vkCmdBeginDebugUtilsLabelEXT;
+extern PFN_vkCmdEndDebugUtilsLabelEXT vkCmdEndDebugUtilsLabelEXT;
+extern PFN_vkCmdInsertDebugUtilsLabelEXT vkCmdInsertDebugUtilsLabelEXT;
 
 // VK_EXT_debug_report
 extern PFN_vkCreateDebugReportCallbackEXT vkCreateDebugReportCallbackEXT;
@@ -399,6 +490,13 @@ void InitGetPhysicalDeviceProperties2KHRFunctions(VkInstance instance);
 // VK_FUCHSIA_imagepipe_surface
 extern PFN_vkCreateImagePipeSurfaceFUCHSIA vkCreateImagePipeSurfaceFUCHSIA;
 void InitImagePipeSurfaceFUCHSIAFunctions(VkInstance instance);
+#endif
+
+#if defined(ANGLE_PLATFORM_ANDROID)
+// VK_ANDROID_external_memory_android_hardware_buffer
+extern PFN_vkGetAndroidHardwareBufferPropertiesANDROID vkGetAndroidHardwareBufferPropertiesANDROID;
+extern PFN_vkGetMemoryAndroidHardwareBufferANDROID vkGetMemoryAndroidHardwareBufferANDROID;
+void InitExternalMemoryHardwareBufferANDROIDFunctions(VkInstance instance);
 #endif
 
 namespace gl_vk

@@ -26,7 +26,7 @@ set (TARGET_NAME angle)
 add_definitions(-DANGLE_ENABLE_VULKAN -DAPI_NAME=\"Vulkan\" -DVULKAN_NON_CMAKE_BUILD -DSDL_VIDEO_STATIC_ANGLE -DANGLE_EXPORT=  -DANGLE_VK_ICD_JSON="" -DANGLE_VK_DATA_DIR="")
 #add_definitions(-DGL_API=  -DGL_APIENTRY=  -DEGLAPI=  -DANGLE_PLATFORM_EXPORT=    -DGL_APICALL=  -DGL_APIENTRY= -DANGLE_EXPORT= -DEGLAPIENTRY= -DANGLE_APIENTRY=)
 
-
+#-DANGLE_USE_CUSTOM_VULKAN_CMD_BUFFERS=1 
 
 if(ANDROID)
 	add_definitions(-DVK_USE_PLATFORM_ANDROID_KHR  -DVK_USE_PLATFORM_ANDROID_KHX -DREDEF )
@@ -74,6 +74,8 @@ set (libangle_common_sources
   src/common/PackedEnums.h
   src/common/PackedGLEnums_autogen.cpp
   src/common/PackedGLEnums_autogen.h
+  src/common/PoolAlloc.cpp
+  src/common/PoolAlloc.h
   src/common/aligned_memory.cpp
   src/common/aligned_memory.h
   src/common/angleutils.cpp
@@ -330,6 +332,8 @@ set (libangle_sources
   src/libANGLE/renderer/load_functions_table_autogen.cpp
   src/libANGLE/renderer/renderer_utils.cpp
   src/libANGLE/renderer/renderer_utils.h
+  src/libANGLE/renderer/ShaderImpl.cpp
+  src/libANGLE/renderer/SamplerImpl.h
   src/libANGLE/validationEGL.cpp
   src/libANGLE/validationEGL.h
   src/libANGLE/validationES.cpp
@@ -386,6 +390,8 @@ set(libangle_vulkan_sources
   src/libANGLE/renderer/vulkan/RenderTargetVk.h
   src/libANGLE/renderer/vulkan/SamplerVk.cpp
   src/libANGLE/renderer/vulkan/SamplerVk.h
+  src/libANGLE/renderer/vulkan/SecondaryCommandBuffer.cpp
+  src/libANGLE/renderer/vulkan/SecondaryCommandBuffer.h
   src/libANGLE/renderer/vulkan/ShaderVk.cpp
   src/libANGLE/renderer/vulkan/ShaderVk.h
   src/libANGLE/renderer/vulkan/SurfaceVk.cpp

@@ -46,7 +46,7 @@
 // test expectations parser doesn't support having FAIL for GL and SKIP for D3D with the same test filter.
 1442 OPENGL D3D11 : dEQP-GLES31.functional.image_load_store.* = SKIP
 
-1729 D3D11 : dEQP-GLES31.functional.atomic_counter.* = SKIP
+1729 D3D11 : dEQP-GLES31.functional.atomic_counter.* = FAIL
 1951 D3D11 : dEQP-GLES31.functional.layout_binding.ssbo.* = SKIP
 1951 D3D11 : dEQP-GLES31.functional.shaders.opaque_type_indexing.ssbo.* = SKIP
 1442 D3D11 : dEQP-GLES31.functional.program_interface_query.* = SKIP
@@ -70,7 +70,6 @@
 3032 D3D11 : dEQP-GLES31.functional.ssbo.layout.random.nested_structs_arrays_instance_arrays.13 = FAIL
 3032 D3D11 : dEQP-GLES31.functional.ssbo.layout.random.all_shared_buffer* = FAIL
 
-1442 D3D11 : dEQP-GLES31.functional.state_query.integer.max_compute_shared_memory_size_* = FAIL
 1442 D3D11 : dEQP-GLES31.functional.state_query.integer.max_compute_atomic_counters_* = FAIL
 1442 D3D11 : dEQP-GLES31.functional.state_query.integer.max_atomic_counter_buffer_size_* = FAIL
 1442 D3D11 : dEQP-GLES31.functional.state_query.integer.max_combined_atomic_counters* = FAIL

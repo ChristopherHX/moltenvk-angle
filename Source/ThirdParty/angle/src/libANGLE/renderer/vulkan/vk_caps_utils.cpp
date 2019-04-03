@@ -45,12 +45,13 @@ void RendererVk::ensureCapsInitialized() const
     mNativeExtensions.textureStorage         = true;
     mNativeExtensions.framebufferBlit        = true;
     mNativeExtensions.copyTexture            = true;
+    mNativeExtensions.copyCompressedTexture  = true;
     mNativeExtensions.debugMarker            = true;
     mNativeExtensions.robustness             = true;
     mNativeExtensions.textureBorderClamp     = false;  // not implemented yet
     mNativeExtensions.translatedShaderSource = true;
 
-    mNativeExtensions.eglImage = true;
+    mNativeExtensions.eglImage         = true;
     mNativeExtensions.eglImageExternal = true;
     // TODO(geofflang): Support GL_OES_EGL_image_external_essl3. http://anglebug.com/2668
     mNativeExtensions.eglImageExternalEssl3 = false;
@@ -67,7 +68,8 @@ void RendererVk::ensureCapsInitialized() const
     // We use secondary command buffers almost everywhere and they require a feature to be
     // able to execute in the presence of queries.  As a result, we won't support queries
     // unless that feature is available.
-    mNativeExtensions.occlusionQueryBoolean = mPhysicalDeviceFeatures.inheritedQueries;
+    mNativeExtensions.occlusionQueryBoolean =
+        vk::CommandBuffer::SupportsQueries(mPhysicalDeviceFeatures);
 
     // From the Vulkan specs:
     // > The number of valid bits in a timestamp value is determined by the

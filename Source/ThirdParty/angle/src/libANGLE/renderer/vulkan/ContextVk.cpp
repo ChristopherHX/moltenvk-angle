@@ -116,6 +116,9 @@ ContextVk::~ContextVk() = default;
 
 void ContextVk::onDestroy(const gl::Context *context)
 {
+    // Force a flush on destroy.
+    (void)mRenderer->finish(this);
+
     mDriverUniformsSetLayout.reset();
     mIncompleteTextures.onDestroy(context);
     mDriverUniformsBuffer.destroy(getDevice());
@@ -366,9 +369,7 @@ angle::Result ContextVk::handleDirtyPipeline(const gl::Context *context,
 
         mGraphicsPipelineTransition.reset();
     }
-
-    commandBuffer->bindPipeline(VK_PIPELINE_BIND_POINT_GRAPHICS, mCurrentPipeline->getPipeline());
-
+    commandBuffer->bindGraphicsPipeline(mCurrentPipeline->getPipeline());
     // Update the queue serial for the pipeline object.
     ASSERT(mCurrentPipeline && mCurrentPipeline->valid());
     mCurrentPipeline->updateSerial(mRenderer->getCurrentQueueSerial());
@@ -419,7 +420,7 @@ angle::Result ContextVk::handleDirtyIndexBuffer(const gl::Context *context,
     vk::BufferHelper *elementArrayBuffer = mVertexArray->getCurrentElementArrayBuffer();
     ASSERT(elementArrayBuffer != nullptr);
 
-    commandBuffer->bindIndexBuffer(elementArrayBuffer->getBuffer().getHandle(),
+    commandBuffer->bindIndexBuffer(elementArrayBuffer->getBuffer(),
                                    mVertexArray->getCurrentElementArrayBufferOffset(),
                                    gl_vk::kIndexTypeMap[mCurrentDrawElementsType]);
 
@@ -435,9 +436,9 @@ angle::Result ContextVk::handleDirtyDescriptorSets(const gl::Context *context,
     ANGLE_TRY(mProgram->updateDescriptorSets(this, commandBuffer));
 
     // Bind the graphics descriptor sets.
-    commandBuffer->bindDescriptorSets(
-        VK_PIPELINE_BIND_POINT_GRAPHICS, mProgram->getPipelineLayout(),
-        kDriverUniformsDescriptorSetIndex, 1, &mDriverUniformsDescriptorSet, 0, nullptr);
+    commandBuffer->bindGraphicsDescriptorSets(mProgram->getPipelineLayout(),
+                                              kDriverUniformsDescriptorSetIndex, 1,
+                                              &mDriverUniformsDescriptorSet, 0, nullptr);
     return angle::Result::Continue;
 }
 
@@ -459,7 +460,7 @@ angle::Result ContextVk::drawArrays(const gl::Context *context,
     {
         ANGLE_TRY(setupDraw(context, mode, first, count, 1, gl::DrawElementsType::InvalidEnum,
                             nullptr, mNonIndexedDirtyBitsMask, &commandBuffer));
-        commandBuffer->draw(clampedVertexCount, 1, first, 0);
+        commandBuffer->draw(clampedVertexCount, first);
     }
 
     return angle::Result::Continue;
@@ -481,7 +482,7 @@ angle::Result ContextVk::drawArraysInstanced(const gl::Context *context,
     vk::CommandBuffer *commandBuffer = nullptr;
     ANGLE_TRY(setupDraw(context, mode, first, count, instances, gl::DrawElementsType::InvalidEnum,
                         nullptr, mNonIndexedDirtyBitsMask, &commandBuffer));
-    commandBuffer->draw(gl::GetClampedVertexCount<uint32_t>(count), instances, first, 0);
+    commandBuffer->drawInstanced(gl::GetClampedVertexCount<uint32_t>(count), instances, first);
     return angle::Result::Continue;
 }
 
@@ -500,7 +501,7 @@ angle::Result ContextVk::drawElements(const gl::Context *context,
     else
     {
         ANGLE_TRY(setupIndexedDraw(context, mode, count, 1, type, indices, &commandBuffer));
-        commandBuffer->drawIndexed(count, 1, 0, 0, 0);
+        commandBuffer->drawIndexed(count);
     }
 
     return angle::Result::Continue;
@@ -522,7 +523,7 @@ angle::Result ContextVk::drawElementsInstanced(const gl::Context *context,
 
     vk::CommandBuffer *commandBuffer = nullptr;
     ANGLE_TRY(setupIndexedDraw(context, mode, count, instances, type, indices, &commandBuffer));
-    commandBuffer->drawIndexed(count, instances, 0, 0, 0);
+    commandBuffer->drawIndexedInstanced(count, instances);
     return angle::Result::Continue;
 }
 
@@ -586,27 +587,31 @@ std::string ContextVk::getRendererDescription() const
 
 void ContextVk::insertEventMarker(GLsizei length, const char *marker)
 {
-    // TODO: Forward this to a Vulkan debug marker.  http://anglebug.com/2853
+    std::string markerStr(marker, length <= 0 ? strlen(marker) : length);
+    mRenderer->insertDebugMarker(GL_DEBUG_SOURCE_APPLICATION, static_cast<GLuint>(-1),
+                                 std::move(markerStr));
 }
 
 void ContextVk::pushGroupMarker(GLsizei length, const char *marker)
 {
-    // TODO: Forward this to a Vulkan debug marker.  http://anglebug.com/2853
+    std::string markerStr(marker, length <= 0 ? strlen(marker) : length);
+    mRenderer->pushDebugMarker(GL_DEBUG_SOURCE_APPLICATION, static_cast<GLuint>(-1),
+                               std::move(markerStr));
 }
 
 void ContextVk::popGroupMarker()
 {
-    // TODO: Forward this to a Vulkan debug marker.  http://anglebug.com/2853
+    mRenderer->popDebugMarker();
 }
 
-void ContextVk::pushDebugGroup(GLenum source, GLuint id, GLsizei length, const char *message)
+void ContextVk::pushDebugGroup(GLenum source, GLuint id, const std::string &message)
 {
-    // TODO: Forward this to a Vulkan debug marker.  http://anglebug.com/2853
+    mRenderer->pushDebugMarker(source, id, std::string(message));
 }
 
 void ContextVk::popDebugGroup()
 {
-    // TODO: Forward this to a Vulkan debug marker.  http://anglebug.com/2853
+    mRenderer->popDebugMarker();
 }
 
 bool ContextVk::isViewportFlipEnabledForDrawFBO() const

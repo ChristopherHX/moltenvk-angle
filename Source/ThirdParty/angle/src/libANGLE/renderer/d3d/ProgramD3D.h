@@ -129,6 +129,7 @@ class ProgramD3DMetadata final : angle::NonCopyable
     bool usesInsertedPointCoordValue() const;
     bool usesViewScale() const;
     bool hasANGLEMultiviewEnabled() const;
+    bool usesVertexID() const;
     bool usesViewID() const;
     bool canSelectViewInVertexShader() const;
     bool addsPointCoordToVertexShader() const;
@@ -183,9 +184,9 @@ class ProgramD3D : public ProgramImpl
     bool usesGeometryShaderForPointSpriteEmulation() const;
     bool usesInstancedPointSpriteEmulation() const;
 
-    angle::Result load(const gl::Context *context,
-                       gl::InfoLog &infoLog,
-                       gl::BinaryInputStream *stream) override;
+    std::unique_ptr<LinkEvent> load(const gl::Context *context,
+                                    gl::BinaryInputStream *stream,
+                                    gl::InfoLog &infoLog) override;
     void save(const gl::Context *context, gl::BinaryOutputStream *stream) override;
     void setBinaryRetrievableHint(bool retrievable) override;
     void setSeparable(bool separable) override;
@@ -324,6 +325,8 @@ class ProgramD3D : public ProgramImpl
                                 bool readonly);
     bool hasNamedUniform(const std::string &name);
 
+    bool usesVertexID() const { return mUsesVertexID; }
+
   private:
     // These forward-declared tasks are used for multi-thread shader compiles.
     class GetExecutableTask;
@@ -331,6 +334,9 @@ class ProgramD3D : public ProgramImpl
     class GetPixelExecutableTask;
     class GetGeometryExecutableTask;
     class GraphicsProgramLinkEvent;
+
+    class LoadBinaryTask;
+    class LoadBinaryLinkEvent;
 
     class VertexExecutable
     {
@@ -471,6 +477,10 @@ class ProgramD3D : public ProgramImpl
                                                          gl::InfoLog &infoLog);
     angle::Result compileComputeExecutable(d3d::Context *context, gl::InfoLog &infoLog);
 
+    angle::Result loadBinaryShaderExecutables(const gl::Context *context,
+                                              gl::BinaryInputStream *stream,
+                                              gl::InfoLog &infoLog);
+
     void gatherTransformFeedbackVaryings(const gl::VaryingPacking &varyings,
                                          const BuiltinInfo &builtins);
     D3DUniform *getD3DUniformFromLocation(GLint location);
@@ -505,6 +515,7 @@ class ProgramD3D : public ProgramImpl
 
     bool mUsesFragDepth;
     bool mHasANGLEMultiviewEnabled;
+    bool mUsesVertexID;
     bool mUsesViewID;
     std::vector<PixelShaderOutputVariable> mPixelShaderKey;
 

@@ -1345,6 +1345,11 @@ void GenerateCaps(const FunctionsGL *functions,
         extensions->maxDualSourceDrawBuffers = 1;
     }
 
+    // EXT_float_blend
+    // Assume all desktop driver supports this by default.
+    extensions->floatBlend = functions->standard == STANDARD_GL_DESKTOP ||
+                             functions->hasGLESExtension("GL_EXT_float_blend");
+
     // GL_CHROMIUM_compressed_texture_etc
     // Expose this extension only when we support the formats or we're running on top of a native
     // ES driver.
@@ -1449,7 +1454,11 @@ void GenerateWorkarounds(const FunctionsGL *functions, WorkaroundsGL *workaround
 
     workarounds->dontRelinkProgramsInParallel = IsAndroid() || (IsWindows() && IsIntel(vendor));
 
-    workarounds->disableWorkerContexts = !IsApple();
+    // TODO(jie.a.chen@intel.com): Clean up the bugs.
+    // anglebug.com/3031
+    // crbug.com/922936
+    workarounds->disableWorkerContexts =
+        (IsWindows() && (IsIntel(vendor) || IsAMD(vendor))) || (IsLinux() && IsNvidia(vendor));
 }
 
 void ApplyWorkarounds(const FunctionsGL *functions, gl::Workarounds *workarounds)

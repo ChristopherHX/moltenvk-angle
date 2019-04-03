@@ -90,7 +90,7 @@ class ContextVk : public ContextImpl, public vk::Context, public vk::CommandBuff
     void popGroupMarker() override;
 
     // KHR_debug
-    void pushDebugGroup(GLenum source, GLuint id, GLsizei length, const char *message) override;
+    void pushDebugGroup(GLenum source, GLuint id, const std::string &message) override;
     void popDebugGroup() override;
 
     bool isViewportFlipEnabledForDrawFBO() const;
@@ -167,6 +167,8 @@ class ContextVk : public ContextImpl, public vk::Context, public vk::CommandBuff
 
     ANGLE_INLINE void invalidateVertexAndIndexBuffers()
     {
+        // TODO: Make the pipeline invalidate more fine-grained. Only need to dirty here if PSO
+        //  VtxInput state (stride, fmt, inputRate...) has changed. http://anglebug.com/3256
         invalidateCurrentPipeline();
         mDirtyBits.set(DIRTY_BIT_VERTEX_BUFFERS);
         mDirtyBits.set(DIRTY_BIT_INDEX_BUFFER);
@@ -344,7 +346,7 @@ class ContextVk : public ContextImpl, public vk::Context, public vk::CommandBuff
     vk::DynamicBuffer mDriverUniformsBuffer;
     VkDescriptorSet mDriverUniformsDescriptorSet;
     vk::BindingPointer<vk::DescriptorSetLayout> mDriverUniformsSetLayout;
-    vk::SharedDescriptorPoolBinding mDriverUniformsDescriptorPoolBinding;
+    vk::RefCountedDescriptorPoolBinding mDriverUniformsDescriptorPoolBinding;
 
     // This cache should also probably include the texture index (shader location) and array
     // index (also in the shader). This info is used in the descriptor update step.

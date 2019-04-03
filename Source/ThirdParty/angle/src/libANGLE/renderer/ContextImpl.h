@@ -137,8 +137,11 @@ class ContextImpl : public GLImplFactory
     virtual void popGroupMarker()                                      = 0;
 
     // KHR_debug
-    virtual void pushDebugGroup(GLenum source, GLuint id, GLsizei length, const char *message) = 0;
-    virtual void popDebugGroup()                                                               = 0;
+    virtual void pushDebugGroup(GLenum source, GLuint id, const std::string &message) = 0;
+    virtual void popDebugGroup()                                                      = 0;
+
+    // KHR_parallel_shader_compile
+    virtual void setMaxShaderCompilerThreads(GLuint count) {}
 
     // State sync with dirty bits.
     virtual angle::Result syncState(const gl::Context *context,

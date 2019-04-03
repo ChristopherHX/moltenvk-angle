@@ -609,6 +609,77 @@ void main()
     ANGLE_GL_PROGRAM(program, kVS, kFS);
 }
 
+// Draw an array of points with the first vertex offset at 0 using gl_VertexID
+TEST_P(GLSLTest_ES3, GLVertexIDOffsetZeroDrawArray)
+{
+    constexpr int kStartIndex  = 0;
+    constexpr int kArrayLength = 5;
+    constexpr char kVS[]       = R"(#version 300 es
+precision highp float;
+void main() {
+    gl_Position = vec4(float(gl_VertexID)/10.0, 0, 0, 1);
+    gl_PointSize = 3.0;
+})";
+
+    constexpr char kFS[] = R"(#version 300 es
+precision highp float;
+out vec4 outColor;
+void main() {
+    outColor = vec4(255.0, 0.0, 0.0, 1.0);
+})";
+
+    ANGLE_GL_PROGRAM(program, kVS, kFS);
+
+    glUseProgram(program);
+    glDrawArrays(GL_POINTS, kStartIndex, kArrayLength);
+
+    double pointCenterX = static_cast<double>(getWindowWidth()) / 2.0;
+    double pointCenterY = static_cast<double>(getWindowHeight()) / 2.0;
+    for (int i = kStartIndex; i < kStartIndex + kArrayLength; i++)
+    {
+        double pointOffsetX = static_cast<double>(i * getWindowWidth()) / 20.0;
+        EXPECT_PIXEL_COLOR_EQ(static_cast<int>(pointCenterX + pointOffsetX),
+                              static_cast<int>(pointCenterY), GLColor::red);
+    }
+}
+
+// Draw an array of points with the first vertex offset at 5 using gl_VertexID
+TEST_P(GLSLTest_ES3, GLVertexIDOffsetFiveDrawArray)
+{
+    // Bug in Nexus drivers, offset does not work. (anglebug.com/3264)
+    ANGLE_SKIP_TEST_IF((IsNexus5X() || IsNexus6P()) && IsOpenGLES());
+
+    constexpr int kStartIndex  = 5;
+    constexpr int kArrayLength = 5;
+    constexpr char kVS[]       = R"(#version 300 es
+precision highp float;
+void main() {
+    gl_Position = vec4(float(gl_VertexID)/10.0, 0, 0, 1);
+    gl_PointSize = 3.0;
+})";
+
+    constexpr char kFS[] = R"(#version 300 es
+precision highp float;
+out vec4 outColor;
+void main() {
+    outColor = vec4(255.0, 0.0, 0.0, 1.0);
+})";
+
+    ANGLE_GL_PROGRAM(program, kVS, kFS);
+
+    glUseProgram(program);
+    glDrawArrays(GL_POINTS, kStartIndex, kArrayLength);
+
+    double pointCenterX = static_cast<double>(getWindowWidth()) / 2.0;
+    double pointCenterY = static_cast<double>(getWindowHeight()) / 2.0;
+    for (int i = kStartIndex; i < kStartIndex + kArrayLength; i++)
+    {
+        double pointOffsetX = static_cast<double>(i * getWindowWidth()) / 20.0;
+        EXPECT_PIXEL_COLOR_EQ(static_cast<int>(pointCenterX + pointOffsetX),
+                              static_cast<int>(pointCenterY), GLColor::red);
+    }
+}
+
 TEST_P(GLSLTest, ElseIfRewriting)
 {
     constexpr char kVS[] =
@@ -3209,8 +3280,8 @@ TEST_P(GLSLTest_ES3, VaryingStructUsedInFragmentShader)
 // This test covers passing a struct containing a sampler as a function argument.
 TEST_P(GLSLTest, StructsWithSamplersAsFunctionArg)
 {
-    // Shader failed to compile on Android. http://anglebug.com/2114
-    ANGLE_SKIP_TEST_IF(IsAndroid() && IsAdreno() && IsOpenGLES());
+    // Shader failed to compile on Nexus devices. http://anglebug.com/2114
+    ANGLE_SKIP_TEST_IF((IsNexus5X() || IsNexus6P()) && IsAdreno() && IsOpenGLES());
 
     const char kFragmentShader[] = R"(precision mediump float;
 struct S { sampler2D samplerMember; };
@@ -3301,8 +3372,8 @@ void main()
 // This test covers passing an array of structs containing samplers as a function argument.
 TEST_P(GLSLTest, ArrayOfStructsWithSamplersAsFunctionArg)
 {
-    // Shader failed to compile on Android. http://anglebug.com/2114
-    ANGLE_SKIP_TEST_IF(IsAndroid() && IsAdreno() && IsOpenGLES());
+    // Shader failed to compile on Nexus devices. http://anglebug.com/2114
+    ANGLE_SKIP_TEST_IF((IsNexus5X() || IsNexus6P()) && IsAdreno() && IsOpenGLES());
 
     constexpr char kFS[] =
         "precision mediump float;\n"
@@ -3352,10 +3423,10 @@ TEST_P(GLSLTest, ArrayOfStructsWithSamplersAsFunctionArg)
 // This test covers passing a struct containing an array of samplers as a function argument.
 TEST_P(GLSLTest, StructWithSamplerArrayAsFunctionArg)
 {
-    // Shader failed to compile on Android. http://anglebug.com/2114
-    ANGLE_SKIP_TEST_IF(IsAndroid() && IsAdreno() && IsOpenGLES());
+    // Shader failed to compile on Nexus devices. http://anglebug.com/2114
+    ANGLE_SKIP_TEST_IF((IsNexus5X() || IsNexus6P()) && IsAdreno() && IsOpenGLES());
 
-    // TODO(jmadill): Fix on Android if possible. http://anglebug.com/2703
+    // TODO(jmadill): Fix on Android/vulkan if possible. http://anglebug.com/2703
     ANGLE_SKIP_TEST_IF(IsAndroid() && IsVulkan());
 
     constexpr char kFS[] =
@@ -3406,8 +3477,8 @@ TEST_P(GLSLTest, StructWithSamplerArrayAsFunctionArg)
 // This test covers passing nested structs containing a sampler as a function argument.
 TEST_P(GLSLTest, NestedStructsWithSamplersAsFunctionArg)
 {
-    // Shader failed to compile on Android. http://anglebug.com/2114
-    ANGLE_SKIP_TEST_IF(IsAndroid() && IsAdreno() && IsOpenGLES());
+    // Shader failed to compile on Nexus devices. http://anglebug.com/2114
+    ANGLE_SKIP_TEST_IF((IsNexus5X() || IsNexus6P()) && IsAdreno() && IsOpenGLES());
 
     const char kFragmentShader[] = R"(precision mediump float;
 struct S { sampler2D samplerMember; };
@@ -3457,8 +3528,8 @@ void main()
 // This test covers passing a compound structs containing a sampler as a function argument.
 TEST_P(GLSLTest, CompoundStructsWithSamplersAsFunctionArg)
 {
-    // Shader failed to compile on Android. http://anglebug.com/2114
-    ANGLE_SKIP_TEST_IF(IsAndroid() && IsAdreno() && IsOpenGLES());
+    // Shader failed to compile on Nexus devices. http://anglebug.com/2114
+    ANGLE_SKIP_TEST_IF((IsNexus5X() || IsNexus6P()) && IsAdreno() && IsOpenGLES());
 
     const char kFragmentShader[] = R"(precision mediump float;
 struct S { sampler2D samplerMember; bool b; };
@@ -3509,8 +3580,8 @@ void main()
 // This test covers passing nested compound structs containing a sampler as a function argument.
 TEST_P(GLSLTest, NestedCompoundStructsWithSamplersAsFunctionArg)
 {
-    // Shader failed to compile on Android. http://anglebug.com/2114
-    ANGLE_SKIP_TEST_IF(IsAndroid() && IsAdreno() && IsOpenGLES());
+    // Shader failed to compile on Nexus devices. http://anglebug.com/2114
+    ANGLE_SKIP_TEST_IF((IsNexus5X() || IsNexus6P()) && IsAdreno() && IsOpenGLES());
 
     const char kFragmentShader[] = R"(precision mediump float;
 struct S { sampler2D samplerMember; bool b; };
@@ -3574,8 +3645,8 @@ void main()
 // Same as the prior test but with reordered struct members.
 TEST_P(GLSLTest, MoreNestedCompoundStructsWithSamplersAsFunctionArg)
 {
-    // Shader failed to compile on Android. http://anglebug.com/2114
-    ANGLE_SKIP_TEST_IF(IsAndroid() && IsAdreno() && IsOpenGLES());
+    // Shader failed to compile on Nexus devices. http://anglebug.com/2114
+    ANGLE_SKIP_TEST_IF((IsNexus5X() || IsNexus6P()) && IsAdreno() && IsOpenGLES());
 
     const char kFragmentShader[] = R"(precision mediump float;
 struct S { bool b; sampler2D samplerMember; };

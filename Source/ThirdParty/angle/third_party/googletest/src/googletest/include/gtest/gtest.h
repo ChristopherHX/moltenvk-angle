@@ -1854,13 +1854,13 @@ GTEST_API_ GTEST_ATTRIBUTE_PRINTF_(2, 3) void ColoredPrintf(GTestColor color,
 //   FooTest() {
 //     // Can use GetParam() here.
 //   }
-//   virtual ~FooTest() {
+//   ~FooTest() override {
 //     // Can use GetParam() here.
 //   }
-//   virtual void SetUp() {
+//   void SetUp() override {
 //     // Can use GetParam() here.
 //   }
-//   virtual void TearDown {
+//   void TearDown override {
 //     // Can use GetParam() here.
 //   }
 // };
@@ -2380,7 +2380,7 @@ bool StaticAssertTypeEq() {
 //
 //   class FooTest : public testing::Test {
 //    protected:
-//     virtual void SetUp() { b_.AddElement(3); }
+//     void SetUp() override { b_.AddElement(3); }
 //
 //     Foo a_;
 //     Foo b_;
@@ -2394,7 +2394,8 @@ bool StaticAssertTypeEq() {
 //     EXPECT_EQ(a_.size(), 0);
 //     EXPECT_EQ(b_.size(), 1);
 //   }
-
+//
+// GOOGLETEST_CM0011 DO NOT DELETE
 #define TEST_F(test_fixture, test_name)\
   GTEST_TEST_(test_fixture, test_name, test_fixture, \
               ::testing::internal::GetTypeId<test_fixture>())

@@ -12,41 +12,41 @@ vars = {
   'deqp_revision': '66a49e0a43f7af654ee1de8a3b1bcaf6c0d14aa4',
 
   # Current revision of glslang, the Khronos SPIRV compiler.
-  'glslang_revision': 'de3b8e3bf3893a40a1d9c3b0ed4de750e436e30f',
+  'glslang_revision': 'e0d59bbe1857e75134989eddb7437e9c068ec915',
 
   # Current revision fo the SPIRV-Headers Vulkan support library.
-  'spirv_headers_revision': '79b6681aadcb53c27d1052e5f8a0e82a981dbf2f',
+  'spirv_headers_revision': '111a25e4ae45e2b4d7c18415e1d6884712b958c4',
 
   # Current revision of SPIRV-Tools for Vulkan.
-  'spirv_tools_revision': 'd14db341b834cfb3c574a258c331b3a6b1c2cbc5',
+  'spirv_tools_revision': 'fcb8453104508b61b67f88ba0cb7c5bfdb49adb7',
 
   # Current revision of Khronos Vulkan-Headers.
-  'vulkan_headers_revision': 'b65941cc4b2b43b74de00534d110b581c52c394b',
+  'vulkan_headers_revision': '982f0f84dccf6f281b48318c77261a9028000126',
 
   # Current revision of Khronos Vulkan-Loader.
-  'vulkan_loader_revision': '2aa6dcc10189f7700824bc5e21120beeff013c3a',
+  'vulkan_loader_revision': '2f0abfcf9eb04018e6e92125a70bc28665aa17fe',
 
   # Current revision of Khronos Vulkan-Tools.
-  'vulkan_tools_revision': '2e8d601de618eddf2bab8597fd140b2824a060b2',
+  'vulkan_tools_revision': 'f392e71b994036c92b896c2a62cc63d042b7f9b1',
 
   # Current revision of Khronos Vulkan-ValidationLayers.
-  'vulkan_validation_revision': '0fa2823fa693cc22afaa6e6c6d34aadb97104a2d',
+  'vulkan_validation_revision': 'ff80a937c8a505abbdddb95d8ffaa446820c8391',
 }
 
 deps = {
 
   '{angle_root}/build': {
-    'url': '{chromium_git}/chromium/src/build.git@9a53be87ebb636c35f2ed9772e5deaeb350d790b',
+    'url': '{chromium_git}/chromium/src/build.git@16bafea184ed656b9ec19c0dd18447d08464bd53',
     'condition': 'not build_with_chromium',
   },
 
   '{angle_root}/buildtools': {
-    'url': '{chromium_git}/chromium/buildtools.git@6fbda1b24c1893a893b17aa219b765b9e7c801d8',
+    'url': '{chromium_git}/chromium/src/buildtools.git@62f9eb0d64d6bf48f620b8233d9f7a1dc07f8414',
     'condition': 'not build_with_chromium',
   },
 
   '{angle_root}/testing': {
-    'url': '{chromium_git}/chromium/src/testing@7bdda3c6577f21fd0ec986a0383ecfce28f5d761',
+    'url': '{chromium_git}/chromium/src/testing@71baa9533c1d21f99dfa8c9e6ca5c1db5f9566bd',
     'condition': 'not build_with_chromium',
   },
 
@@ -60,13 +60,29 @@ deps = {
     'url': '{chromium_git}/external/deqp@{deqp_revision}',
   },
 
+  # glmark2 is a GPL3-licensed OpenGL ES 2.0 benchmark. We use it for testing.
+  '{angle_root}/third_party/glmark2/src': {
+    'url': '{chromium_git}/external/github.com/glmark2/glmark2@c4b3ff5a481348e8bdc2b71ee275864db91e40b1',
+  },
+
   '{angle_root}/third_party/glslang/src': {
     'url': '{chromium_git}/external/github.com/KhronosGroup/glslang@{glslang_revision}',
     'condition': 'not build_with_chromium',
-   },
+  },
+
+  '{angle_root}/third_party/googletest': {
+    'url': '{chromium_git}/chromium/src/third_party/googletest@660425b1c5ca04559ab7e50c7572b5b771acca1c',
+    'condition': 'not build_with_chromium',
+  },
 
   '{angle_root}/third_party/googletest/src': {
-    'url': '{chromium_git}/external/github.com/google/googletest.git@5ec7f0c4a113e2f18ac2c6cc7df51ad6afc24081',
+    'url': '{chromium_git}/external/github.com/google/googletest.git@7203f37f57e4fef0d77670098aabc186309eb874',
+    'condition': 'not build_with_chromium',
+  },
+
+  # libjpeg_turbo is used by glmark2.
+  '{angle_root}/third_party/libjpeg_turbo': {
+    'url': '{chromium_git}/chromium/deps/libjpeg_turbo@6dcdade8828297e306cabfdae80f3510f3f3eea2',
     'condition': 'not build_with_chromium',
   },
 
@@ -107,6 +123,10 @@ deps = {
       'dep_type': 'cipd',
   },
 
+  '{angle_root}/third_party/rapidjson/src': {
+    'url': '{chromium_git}/external/github.com/Tencent/rapidjson@7484e06c589873e1ed80382d262087e4fa80fb63',
+  },
+
   '{angle_root}/third_party/spirv-headers/src': {
     'url': '{chromium_git}/external/github.com/KhronosGroup/SPIRV-Headers@{spirv_headers_revision}',
     'condition': 'not build_with_chromium',
@@ -131,6 +151,16 @@ deps = {
 
   '{angle_root}/third_party/vulkan-validation-layers/src': {
     'url': '{chromium_git}/external/github.com/KhronosGroup/Vulkan-ValidationLayers@{vulkan_validation_revision}',
+  },
+
+  '{angle_root}/third_party/yasm': {
+    'url': '{chromium_git}/chromium/src/third_party/yasm@86b6058141a42aed51bbd8bb9f9d54d199d9dbd0',
+    'condition': 'not build_with_chromium',
+  },
+
+  '{angle_root}/third_party/yasm/source/patched-yasm': {
+    'url': '{chromium_git}/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
+    'condition': 'not build_with_chromium',
   },
 
   '{angle_root}/third_party/zlib': {

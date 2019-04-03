@@ -69,8 +69,8 @@ namespace {
 
         static const int         DocMagicNumber = 0x07230203;
         static const int         DocVersion     = 0x00010300;
-        static const int         DocRevision    = 6;
-        #define DocRevisionString                "6"
+        static const int         DocRevision    = 7;
+        #define DocRevisionString                "7"
         static const std::string DocCopyright;
         static const std::string DocComment1;
         static const std::string DocComment2;
@@ -478,7 +478,7 @@ namespace {
         }
 
         virtual void printEpilogue(std::ostream& out) const override {
-            out << "#endif  // #ifndef spirv_" << headerGuardSuffix() << std::endl;
+            out << "#endif" << std::endl;
         }
 
         virtual void printTypes(std::ostream& out) const override {
@@ -552,7 +552,7 @@ namespace {
             }
 
             out << "\n}  // end namespace spv\n\n";
-            TPrinterCBase::printEpilogue(out);
+            out << "#endif  // #ifndef spirv_" << headerGuardSuffix() << std::endl;
         }
 
         std::string commentBOL() const override { return "// "; }

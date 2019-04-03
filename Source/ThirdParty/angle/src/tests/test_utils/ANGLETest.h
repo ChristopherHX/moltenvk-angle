@@ -18,9 +18,15 @@
 #include "common/angleutils.h"
 #include "common/vector_utils.h"
 #include "platform/Platform.h"
+#include "util/EGLWindow.h"
 #include "util/shader_utils.h"
 #include "util/system_utils.h"
 #include "util/util_gl.h"
+
+namespace angle
+{
+struct SystemInfo;
+}  // namespace angle
 
 #define ASSERT_GL_TRUE(a) ASSERT_EQ(static_cast<GLboolean>(GL_TRUE), (a))
 #define ASSERT_GL_FALSE(a) ASSERT_EQ(static_cast<GLboolean>(GL_FALSE), (a))
@@ -256,9 +262,7 @@ class ANGLETestBase
     virtual ~ANGLETestBase();
 
   public:
-    static bool InitTestWindow();
-    static bool DestroyTestWindow();
-    static void SetWindowVisible(bool isVisible);
+    void setWindowVisible(bool isVisible);
     static bool eglDisplayExtensionEnabled(EGLDisplay display, const std::string &extName);
 
     virtual void overrideWorkaroundsD3D(angle::WorkaroundsD3D *workaroundsD3D) {}
@@ -351,8 +355,9 @@ class ANGLETestBase
     void setDebugLayersEnabled(bool enabled);
     void setClientArraysEnabled(bool enabled);
     void setRobustResourceInit(bool enabled);
-    void setContextProgramCacheEnabled(bool enabled);
+    void setContextProgramCacheEnabled(bool enabled, angle::CacheProgramFunc cacheProgramFunc);
     void setContextVirtualization(bool enabled);
+    void forceNewDisplay();
 
     // Some EGL extension tests would like to defer the Context init until the test body.
     void setDeferContextInit(bool enabled);
@@ -373,23 +378,18 @@ class ANGLETestBase
     // Allows a test to be more restrictive about platform warnings.
     void treatPlatformWarningsAsErrors();
 
-    static OSWindow *GetOSWindow() { return mOSWindow; }
+    OSWindow *getOSWindow() { return mCurrentPlatform->osWindow; }
 
     GLuint get2DTexturedQuadProgram();
 
     // Has a float uniform "u_layer" to choose the 3D texture layer.
     GLuint get3DTexturedQuadProgram();
 
-    angle::PlatformMethods mPlatformMethods;
-
     class ScopedIgnorePlatformMessages : angle::NonCopyable
     {
       public:
-        ScopedIgnorePlatformMessages(ANGLETestBase *test);
+        ScopedIgnorePlatformMessages();
         ~ScopedIgnorePlatformMessages();
-
-      private:
-        ANGLETestBase *mTest;
     };
 
   private:
@@ -403,8 +403,18 @@ class ANGLETestBase
                   bool useInstancedDrawCalls,
                   GLuint numInstances);
 
-    EGLWindow *mEGLWindow;
-    WGLWindow *mWGLWindow;
+    struct Platform
+    {
+        Platform();
+        ~Platform();
+
+        EGLWindow *eglWindow = nullptr;
+        WGLWindow *wglWindow = nullptr;
+        OSWindow *osWindow   = nullptr;
+        ConfigParameters configParams;
+        uint32_t reuseCounter = 0;
+    };
+
     int mWidth;
     int mHeight;
 
@@ -418,25 +428,47 @@ class ANGLETestBase
     GLuint m2DTexturedQuadProgram;
     GLuint m3DTexturedQuadProgram;
 
-    TestPlatformContext mPlatformContext;
-
     bool mDeferContextInit;
+    bool mAlwaysForceNewDisplay;
+    bool mForceNewDisplay;
 
-    static OSWindow *mOSWindow;
+    // On most systems we force a new display on every test instance. For these configs we can
+    // share a single OSWindow instance. With display reuse we need a separate OSWindow for each
+    // different config. This OSWindow sharing seemed to lead to driver bugs on some platforms.
+    static OSWindow *mOSWindowSingleton;
+
+    static std::map<angle::PlatformParameters, Platform> gPlatforms;
+    Platform *mCurrentPlatform;
 
     // Workaround for NVIDIA not being able to share a window with OpenGL and Vulkan.
     static Optional<EGLint> mLastRendererType;
 };
 
-class ANGLETest : public ANGLETestBase, public ::testing::TestWithParam<angle::PlatformParameters>
+template <typename Params = angle::PlatformParameters>
+class ANGLETestWithParam : public ANGLETestBase, public ::testing::TestWithParam<Params>
 {
   protected:
-    ANGLETest();
+    ANGLETestWithParam();
 
   public:
-    void SetUp() override;
-    void TearDown() override;
+    void SetUp() override { ANGLETestBase::ANGLETestSetUp(); }
+
+    void TearDown() override { ANGLETestBase::ANGLETestTearDown(); }
 };
+
+template <typename Params>
+ANGLETestWithParam<Params>::ANGLETestWithParam()
+    : ANGLETestBase(std::get<angle::PlatformParameters>(this->GetParam()))
+{}
+
+template <>
+inline ANGLETestWithParam<angle::PlatformParameters>::ANGLETestWithParam()
+    : ANGLETestBase(this->GetParam())
+{}
+
+// Note: this hack is not necessary in C++17.  Once we switch to C++17, we can just rename
+// ANGLETestWithParam to ANGLETest.
+using ANGLETest = ANGLETestWithParam<>;
 
 class ANGLETestEnvironment : public testing::Environment
 {

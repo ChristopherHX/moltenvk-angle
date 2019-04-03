@@ -67,6 +67,9 @@ class DynamicBuffer : angle::NonCopyable
 
     BufferHelper *getCurrentBuffer() { return mBuffer; }
 
+    size_t getAlignment() { return mAlignment; }
+    void updateAlignment(RendererVk *renderer, size_t alignment);
+
     // For testing only!
     void setMinimumSizeForTesting(size_t minSize);
 
@@ -123,8 +126,8 @@ class DescriptorPoolHelper
     Serial mMostRecentSerial;
 };
 
-using SharedDescriptorPoolHelper  = RefCounted<DescriptorPoolHelper>;
-using SharedDescriptorPoolBinding = BindingPointer<DescriptorPoolHelper>;
+using RefCountedDescriptorPoolHelper  = RefCounted<DescriptorPoolHelper>;
+using RefCountedDescriptorPoolBinding = BindingPointer<DescriptorPoolHelper>;
 
 class DynamicDescriptorPool final : angle::NonCopyable
 {
@@ -145,7 +148,7 @@ class DynamicDescriptorPool final : angle::NonCopyable
     angle::Result allocateSets(Context *context,
                                const VkDescriptorSetLayout *descriptorSetLayout,
                                uint32_t descriptorSetCount,
-                               SharedDescriptorPoolBinding *bindingOut,
+                               RefCountedDescriptorPoolBinding *bindingOut,
                                VkDescriptorSet *descriptorSetsOut);
 
     // For testing only!
@@ -156,7 +159,7 @@ class DynamicDescriptorPool final : angle::NonCopyable
 
     uint32_t mMaxSetsPerPool;
     size_t mCurrentPoolIndex;
-    std::vector<SharedDescriptorPoolHelper *> mDescriptorPools;
+    std::vector<RefCountedDescriptorPoolHelper *> mDescriptorPools;
     std::vector<VkDescriptorPoolSize> mPoolSizes;
 };
 
@@ -376,7 +379,7 @@ class LineLoopHelper final : angle::NonCopyable
     void release(RendererVk *renderer);
     void destroy(VkDevice device);
 
-    static void Draw(uint32_t count, CommandBuffer *commandBuffer);
+    static void Draw(uint32_t count, vk::CommandBuffer *commandBuffer);
 
   private:
     DynamicBuffer mDynamicIndexBuffer;
@@ -504,7 +507,7 @@ class BufferHelper final : public CommandGraphResource
 enum class ImageLayout
 {
     Undefined              = 0,
-    PreInitialized         = 1,
+    ExternalPreInitialized = 1,
     TransferSrc            = 2,
     TransferDst            = 3,
     ComputeShaderReadOnly  = 4,
@@ -525,7 +528,7 @@ class ImageHelper final : public CommandGraphResource
     ImageHelper(ImageHelper &&other);
     ~ImageHelper() override;
 
-    void initStagingBuffer(RendererVk *renderer);
+    void initStagingBuffer(RendererVk *renderer, const vk::Format &format);
 
     angle::Result init(Context *context,
                        gl::TextureType textureType,
@@ -535,9 +538,25 @@ class ImageHelper final : public CommandGraphResource
                        VkImageUsageFlags usage,
                        uint32_t mipLevels,
                        uint32_t layerCount);
+    angle::Result initExternal(Context *context,
+                               gl::TextureType textureType,
+                               const gl::Extents &extents,
+                               const Format &format,
+                               GLint samples,
+                               VkImageUsageFlags usage,
+                               ImageLayout initialLayout,
+                               const void *externalImageCreateInfo,
+                               uint32_t mipLevels,
+                               uint32_t layerCount);
     angle::Result initMemory(Context *context,
                              const MemoryProperties &memoryProperties,
                              VkMemoryPropertyFlags flags);
+    angle::Result initExternalMemory(Context *context,
+                                     const MemoryProperties &memoryProperties,
+                                     const VkMemoryRequirements &memoryRequirements,
+                                     const void *extraAllocationInfo,
+                                     uint32_t currentQueueFamilyIndex,
+                                     VkMemoryPropertyFlags flags);
     angle::Result initLayerImageView(Context *context,
                                      gl::TextureType textureType,
                                      VkImageAspectFlags aspectMask,
@@ -591,22 +610,26 @@ class ImageHelper final : public CommandGraphResource
 
     VkImageLayout getCurrentLayout() const;
 
+    // Helper function to calculate the extents of a render target created for a certain mip of the
+    // image.
+    gl::Extents getLevelExtents2D(uint32_t level) const;
+
     void clearColor(const VkClearColorValue &color,
                     uint32_t baseMipLevel,
                     uint32_t levelCount,
-                    CommandBuffer *commandBuffer);
+                    vk::CommandBuffer *commandBuffer);
 
     void clearColorLayer(const VkClearColorValue &color,
                          uint32_t baseMipLevel,
                          uint32_t levelCount,
                          uint32_t baseArrayLayer,
                          uint32_t layerCount,
-                         CommandBuffer *commandBuffer);
+                         vk::CommandBuffer *commandBuffer);
 
     void clearDepthStencil(VkImageAspectFlags imageAspectFlags,
                            VkImageAspectFlags clearAspectFlags,
                            const VkClearDepthStencilValue &depthStencil,
-                           CommandBuffer *commandBuffer);
+                           vk::CommandBuffer *commandBuffer);
     gl::Extents getSize(const gl::ImageIndex &index) const;
 
     static void Copy(ImageHelper *srcImage,
@@ -616,7 +639,7 @@ class ImageHelper final : public CommandGraphResource
                      const gl::Extents &copySize,
                      const VkImageSubresourceLayers &srcSubresources,
                      const VkImageSubresourceLayers &dstSubresources,
-                     CommandBuffer *commandBuffer);
+                     vk::CommandBuffer *commandBuffer);
 
     angle::Result generateMipmapsWithBlit(ContextVk *contextVk, GLuint maxLevel);
 
@@ -671,13 +694,28 @@ class ImageHelper final : public CommandGraphResource
     // changeLayout automatically skips the layout change if it's unnecessary.  This function can be
     // used to prevent creating a command graph node and subsequently a command buffer for the sole
     // purpose of performing a transition (which may then not be issued).
-    bool isLayoutChangeNecessary(ImageLayout newLayout);
+    bool isLayoutChangeNecessary(ImageLayout newLayout) const;
 
     void changeLayout(VkImageAspectFlags aspectMask,
                       ImageLayout newLayout,
-                      CommandBuffer *commandBuffer);
+                      vk::CommandBuffer *commandBuffer);
+
+    bool isQueueChangeNeccesary(uint32_t newQueueFamilyIndex) const
+    {
+        return mCurrentQueueFamilyIndex != newQueueFamilyIndex;
+    }
+
+    void changeLayoutAndQueue(VkImageAspectFlags aspectMask,
+                              ImageLayout newLayout,
+                              uint32_t newQueueFamilyIndex,
+                              vk::CommandBuffer *commandBuffer);
 
   private:
+    void forceChangeLayoutAndQueue(VkImageAspectFlags aspectMask,
+                                   ImageLayout newLayout,
+                                   uint32_t newQueueFamilyIndex,
+                                   vk::CommandBuffer *commandBuffer);
+
     struct SubresourceUpdate
     {
         SubresourceUpdate();
@@ -729,6 +767,7 @@ class ImageHelper final : public CommandGraphResource
 
     // Current state.
     ImageLayout mCurrentLayout;
+    uint32_t mCurrentQueueFamilyIndex;
 
     // Cached properties.
     uint32_t mLayerCount;
