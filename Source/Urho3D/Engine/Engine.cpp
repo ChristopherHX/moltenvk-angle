@@ -953,6 +953,23 @@ VariantMap Engine::ParseParameters(const Vector<String>& arguments)
                 ++i;
             }
 #endif
+#ifdef FLIMPER
+			else if (argument == "scene" && !value.Empty())
+			{
+				ret[EP_LOAD_SCENE] = value;
+				++i;
+			}
+			else if (argument == "address" && !value.Empty())
+			{
+				ret[EP_FLIMPER_SERVER_IP] = value;
+				++i;
+			}
+			else if (argument == "port" && !value.Empty())
+			{
+				ret[EP_FLIMPER_SERVER_PORT] = ToInt(value);
+				++i;
+			}
+#endif
         }
     }
 
