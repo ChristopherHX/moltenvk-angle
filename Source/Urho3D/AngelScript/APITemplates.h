@@ -238,6 +238,11 @@ template <class T> bool SerializerWriteVectorBuffer(VectorBuffer* src, T* ptr)
     return ptr->Write(src->GetData(), src->GetSize()) == src->GetSize();
 }
 
+template<typename T>
+inline static unsigned _seek(T* t, unsigned s) {
+	return t->Seek(s);
+}
+
 /// Template function for registering a class derived from Serializer.
 template <class T> void RegisterSerializer(asIScriptEngine* engine, const char* className)
 {
@@ -329,7 +334,7 @@ template <class T> void RegisterDeserializer(asIScriptEngine* engine, const char
     engine->RegisterObjectMethod(className, "uint ReadVLE()", asMETHODPR(T, ReadVLE, (), unsigned), asCALL_THISCALL);
     engine->RegisterObjectMethod(className, "uint ReadNetID()", asMETHODPR(T, ReadNetID, (), unsigned), asCALL_THISCALL);
     engine->RegisterObjectMethod(className, "String ReadLine()", asMETHODPR(T, ReadLine, (), String), asCALL_THISCALL);
-    engine->RegisterObjectMethod(className, "uint Seek(uint)", asMETHODPR(T, Seek, (unsigned), unsigned), asCALL_THISCALL);
+    engine->RegisterObjectMethod(className, "uint Seek(uint)", asFUNCTION(_seek<T>), asCALL_CDECL_OBJFIRST);
     engine->RegisterObjectMethod(className, "uint SeekRelative(int)", asMETHODPR(T, SeekRelative, (int), unsigned), asCALL_THISCALL);
     engine->RegisterObjectMethod(className, "uint Tell() const", asMETHODPR(T, Tell, () const, unsigned), asCALL_THISCALL);
     engine->RegisterObjectMethod(className, "const String& get_name() const", asMETHODPR(T, GetName, () const, const String&), asCALL_THISCALL);
@@ -1244,8 +1249,7 @@ template <class T> void RegisterUIElement(asIScriptEngine* engine, const char* c
     engine->RegisterObjectMethod(className, "void set_focus(bool)", asMETHOD(T, SetFocus), asCALL_THISCALL);
     engine->RegisterObjectMethod(className, "bool get_focus() const", asMETHOD(T, HasFocus), asCALL_THISCALL);
     engine->RegisterObjectMethod(className, "void set_selected(bool)", asMETHOD(T, SetSelected), asCALL_THISCALL);
-    // Need to explicitly bind to the base class's IsSelected() method because one of the subclasses has overloaded this method
-    engine->RegisterObjectMethod(className, "bool get_selected() const", asMETHOD(UIElement, IsSelected), asCALL_THISCALL);
+    engine->RegisterObjectMethod(className, "bool get_selected() const", asMETHOD(T, IsSelected), asCALL_THISCALL);
     engine->RegisterObjectMethod(className, "void set_visible(bool)", asMETHOD(T, SetVisible), asCALL_THISCALL);
     engine->RegisterObjectMethod(className, "bool get_visible() const", asMETHOD(T, IsVisible), asCALL_THISCALL);
     engine->RegisterObjectMethod(className, "bool get_visibleEffective() const", asMETHOD(T, IsVisibleEffective), asCALL_THISCALL);
