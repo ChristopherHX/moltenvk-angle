@@ -21,6 +21,7 @@ Urho3D development, contributions and bugfixes by:
 - Wei Tjong Yao
 - Aster Jian
 - Ricardo Abreu
+- Eli Aloni
 - Vivienne Anthony
 - Christopher Augustus
 - Colin Barrett
@@ -137,6 +138,7 @@ Urho3D development, contributions and bugfixes by:
 - fredakilla
 - gleblebedev
 - hdunderscore
+- holyfight6
 - hsnabn
 - lhinuz
 - lvshiling
