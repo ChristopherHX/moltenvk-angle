@@ -7,7 +7,7 @@
 #ifndef TEST_EXPECTATIONS_GPU_TEST_CONFIG_H_
 #define TEST_EXPECTATIONS_GPU_TEST_CONFIG_H_
 
-#include <array>
+#include <common/bitset_utils.h>
 
 namespace angle
 {
@@ -23,6 +23,7 @@ struct GPUTestConfig
         kAPIGLDesktop,
         kAPIGLES,
         kAPIVulkan,
+        kAPISwiftShader,
     };
 
     enum Condition
@@ -59,13 +60,14 @@ struct GPUTestConfig
         kConditionGLES,
         kConditionVulkan,
         kConditionNexus5X,
-        kConditionPixel2,
+        kConditionPixel2OrXL,
         kConditionNVIDIAQuadroP400,
+        kConditionSwiftShader,
 
         kNumberOfConditions,
     };
 
-    typedef std::array<bool, GPUTestConfig::kNumberOfConditions> ConditionArray;
+    using ConditionArray = angle::BitSet<GPUTestConfig::kNumberOfConditions>;
 
     GPUTestConfig();
     GPUTestConfig(const API &api);

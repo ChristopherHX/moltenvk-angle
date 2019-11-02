@@ -16,9 +16,11 @@
 #define SOURCE_FUZZ_FACT_MANAGER_H_
 
 #include <memory>
+#include <set>
 #include <utility>
 #include <vector>
 
+#include "source/fuzz/data_descriptor.h"
 #include "source/fuzz/protobufs/spirvfuzz_protobufs.h"
 #include "source/opt/constants.h"
 
@@ -51,13 +53,16 @@ class FactManager {
   // fact manager.
   bool AddFact(const protobufs::Fact& fact, opt::IRContext* context);
 
-  // The fact manager will ultimately be responsible for managing a few distinct
-  // categories of facts. In principle there could be different fact managers
-  // for each kind of fact, but in practice providing one 'go to' place for
-  // facts will be convenient.  To keep some separation, the public methods of
-  // the fact manager should be grouped according to the kind of fact to which
-  // they relate.  At present we only have one kind of fact: facts about
-  // uniform variables.
+  // Record the fact that |data1| and |data2| are synonymous.
+  void AddFactDataSynonym(const protobufs::DataDescriptor& data1,
+                          const protobufs::DataDescriptor& data2);
+
+  // The fact manager is responsible for managing a few distinct categories of
+  // facts. In principle there could be different fact managers for each kind
+  // of fact, but in practice providing one 'go to' place for facts is
+  // convenient.  To keep some separation, the public methods of the fact
+  // manager should be grouped according to the kind of fact to which they
+  // relate.
 
   //==============================
   // Querying facts about uniform constants
@@ -96,6 +101,22 @@ class FactManager {
   // End of uniform constant facts
   //==============================
 
+  //==============================
+  // Querying facts about id synonyms
+
+  // Returns every id for which a fact of the form "this id is synonymous
+  // with this piece of data" is known.
+  std::set<uint32_t> GetIdsForWhichSynonymsAreKnown() const;
+
+  // Requires that at least one synonym for |id| is known, and returns the
+  // equivalence class of all known synonyms.
+  std::unordered_set<const protobufs::DataDescriptor*, DataDescriptorHash,
+                     DataDescriptorEquals>
+  GetSynonymsForId(uint32_t id) const;
+
+  // End of id synonym facts
+  //==============================
+
  private:
   // For each distinct kind of fact to be managed, we use a separate opaque
   // struct type.
@@ -104,9 +125,14 @@ class FactManager {
                                 // buffer elements.
   std::unique_ptr<ConstantUniformFacts>
       uniform_constant_facts_;  // Unique pointer to internal data.
+
+  struct DataSynonymFacts;  // Opaque struct for holding data about data
+                            // synonyms.
+  std::unique_ptr<DataSynonymFacts>
+      data_synonym_facts_;  // Unique pointer to internal data.
 };
 
 }  // namespace fuzz
 }  // namespace spvtools
 
-#endif  // #define SOURCE_FUZZ_FACT_MANAGER_H_
+#endif  // SOURCE_FUZZ_FACT_MANAGER_H_

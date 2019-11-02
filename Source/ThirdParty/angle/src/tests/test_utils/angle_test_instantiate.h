@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2014 The ANGLE Project Authors. All rights reserved.
+// Copyright 2014 The ANGLE Project Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
@@ -23,6 +23,7 @@ bool IsLinux();
 bool IsOSX();
 bool IsOzone();
 bool IsWindows();
+bool IsWindows7();
 bool IsFuchsia();
 
 // Android devices
@@ -31,6 +32,7 @@ bool IsNexus6P();
 bool IsNexus9();
 bool IsPixelXL();
 bool IsPixel2();
+bool IsPixel2XL();
 bool IsNVIDIAShield();
 
 // Desktop devices.

@@ -119,7 +119,7 @@ set (libangle_includes
   ../../out/gen/third_party
   ../../out/gen/third_party/spirv-tools/src
   ../../out/gen/third_party/vulkan-tools/angle/vulkan
-  ../../out/gen/third_party/vulkan-loader/angle/vulkan
+  src/loader/generated
 )
 
 # Define dependency libs

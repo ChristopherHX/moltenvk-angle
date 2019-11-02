@@ -61,14 +61,28 @@ endif()
 
 if (WIN32)
 set(vulkan-validation-layers
+  src/layers/buffer_validation.cpp
+  src/layers/buffer_validation.h
+  src/layers/core_validation.cpp
+  src/layers/core_validation.h
+  src/layers/descriptor_sets.cpp
+  src/layers/descriptor_sets.h
+  src/layers/shader_validation.cpp
+  src/layers/shader_validation.h
   src/layers/xxhash.c
   src/layers/xxhash.h
+  src/layers/generated/object_tracker.cpp
+  src/layers/object_tracker_utils.cpp
+  src/layers/generated/parameter_validation.cpp
+  src/layers/parameter_validation_utils.cpp
   src/layers/vk_format_utils.cpp
   src/layers/vk_format_utils.h
   src/layers/vk_layer_config.cpp
   src/layers/vk_layer_config.h
   src/layers/vk_layer_extension_utils.cpp
-  src/layers/vk_layer_extension_utils.h 
+  src/layers/vk_layer_extension_utils.h
+  src/layers/vk_layer_utils.cpp
+  src/layers/vk_layer_utils.h  
 )
 source_group("vulkan-validation-layers"            FILES ${vulkan-validation-layers})
 list (APPEND SOURCE_FILES ${vulkan-validation-layers})
@@ -95,6 +109,8 @@ set (libangle_includes
   ../vulkan-loader/src/loader
   ../../out/gen/angle
   ../../out/gen/third_party
+  ../../out/gen/third_party/spirv-tools/src
+  ../../out/gen/third_party/vulkan-tools/angle/vulkan
   ../../out/gen/third_party/vulkan-validation-layers/angle/vulkan
 )
 

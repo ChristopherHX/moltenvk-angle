@@ -38,7 +38,7 @@
 #pragma warning(pop)
 #endif
 #include <limits.h>
-#include <math.h>
+#include <cmath>
 
 #if defined(PATH_MAX) && !defined(MAX_PATH)
 #define MAX_PATH PATH_MAX
@@ -59,22 +59,6 @@
         exit(1);                     \
     } while (0)
 #endif  // _WIN32
-
-#define GET_INSTANCE_PROC_ADDR(inst, entrypoint)                                                              \
-    {                                                                                                         \
-        m_fp##entrypoint = (PFN_vk##entrypoint)vkGetInstanceProcAddr(inst, "vk" #entrypoint);                 \
-        if (m_fp##entrypoint == NULL) {                                                                       \
-            ERR_EXIT("vkGetInstanceProcAddr failed to find vk" #entrypoint, "vkGetInstanceProcAddr Failure"); \
-        }                                                                                                     \
-    }
-
-#define GET_DEVICE_PROC_ADDR(dev, entrypoint)                                                             \
-    {                                                                                                     \
-        m_fp##entrypoint = (PFN_vk##entrypoint)vkGetDeviceProcAddr(dev, "vk" #entrypoint);                \
-        if (m_fp##entrypoint == NULL) {                                                                   \
-            ERR_EXIT("vkGetDeviceProcAddr failed to find vk" #entrypoint, "vkGetDeviceProcAddr Failure"); \
-        }                                                                                                 \
-    }
 
 // Command-line options
 enum TOptions {
@@ -131,6 +115,8 @@ void TestEnvironment::SetUp() {
     glslang::InitializeProcess();
 
     vk_testing::set_error_callback(test_error_callback);
+
+    vk::InitDispatchTable();
 }
 
 void TestEnvironment::TearDown() { glslang::FinalizeProcess(); }
@@ -210,12 +196,12 @@ void VkTestFramework::InitArgs(int *argc, char *argv[]) {
 VkFormat VkTestFramework::GetFormat(VkInstance instance, vk_testing::Device *device) {
     VkFormatProperties format_props;
 
-    vkGetPhysicalDeviceFormatProperties(device->phy().handle(), VK_FORMAT_B8G8R8A8_UNORM, &format_props);
+    vk::GetPhysicalDeviceFormatProperties(device->phy().handle(), VK_FORMAT_B8G8R8A8_UNORM, &format_props);
     if (format_props.linearTilingFeatures & VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT ||
         format_props.optimalTilingFeatures & VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT) {
         return VK_FORMAT_B8G8R8A8_UNORM;
     }
-    vkGetPhysicalDeviceFormatProperties(device->phy().handle(), VK_FORMAT_R8G8B8A8_UNORM, &format_props);
+    vk::GetPhysicalDeviceFormatProperties(device->phy().handle(), VK_FORMAT_R8G8B8A8_UNORM, &format_props);
     if (format_props.linearTilingFeatures & VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT ||
         format_props.optimalTilingFeatures & VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT) {
         return VK_FORMAT_R8G8B8A8_UNORM;
@@ -755,7 +741,7 @@ EShLanguage VkTestFramework::FindLanguage(const VkShaderStageFlagBits shader_typ
 // Return value of false means an error was encountered.
 //
 bool VkTestFramework::GLSLtoSPV(const VkShaderStageFlagBits shader_type, const char *pshader, std::vector<unsigned int> &spirv,
-                                bool debug) {
+                                bool debug, uint32_t spirv_minor_version) {
     glslang::TProgram program;
     const char *shaderStrings[1];
 
@@ -774,6 +760,27 @@ bool VkTestFramework::GLSLtoSPV(const VkShaderStageFlagBits shader_type, const c
 
     EShLanguage stage = FindLanguage(shader_type);
     glslang::TShader *shader = new glslang::TShader(stage);
+    switch (spirv_minor_version) {
+        default:
+        case 0:
+            shader->setEnvTarget(glslang::EShTargetSpv, glslang::EShTargetSpv_1_0);
+            break;
+        case 1:
+            shader->setEnvTarget(glslang::EShTargetSpv, glslang::EShTargetSpv_1_1);
+            break;
+        case 2:
+            shader->setEnvTarget(glslang::EShTargetSpv, glslang::EShTargetSpv_1_2);
+            break;
+        case 3:
+            shader->setEnvTarget(glslang::EShTargetSpv, glslang::EShTargetSpv_1_3);
+            break;
+        case 4:
+            shader->setEnvTarget(glslang::EShTargetSpv, glslang::EShTargetSpv_1_4);
+            break;
+        case 5:
+            shader->setEnvTarget(glslang::EShTargetSpv, glslang::EShTargetSpv_1_5);
+            break;
+    }
 
     shaderStrings[0] = pshader;
     shader->setStrings(shaderStrings, 1);

@@ -13,16 +13,7 @@ declare_args() {
   build_angle_gles1_conform_tests = false
 }
 
-googletest_deps = [
-  "//testing/gmock",
-  "//testing/gtest",
-  "//third_party/googletest:gmock",
-  "//third_party/googletest:gtest",
-]
-
-if (build_with_chromium) {
-  googletest_deps += [ "//base/test:test_support" ]
-} else {
+if (!build_with_chromium) {
   group("all") {
     testonly = true
     deps = [
@@ -54,44 +45,8 @@ if (build_with_chromium) {
   }
 }
 
-# Helper template for including "main" files in Chromium.
-template("angle_tests_main") {
-  source_set(target_name) {
-    testonly = true
-    public_deps = googletest_deps
-    deps = [
-      "${angle_root}:includes",
-    ]
-
-    main = invoker.main
-
-    if (build_with_chromium) {
-      sources = [
-        "//gpu/$main.cc",
-      ]
-    } else {
-      sources = [
-        "$main.cpp",
-      ]
-    }
-  }
-}
-
-# Should fix the naming here once we migrate away from Chromium "main" files.
-angle_tests_main("angle_unittests_main") {
-  main = "angle_unittest_main"
-}
-
-angle_tests_main("angle_end2end_tests_main") {
-  main = "angle_end2end_tests_main"
-}
-
-angle_tests_main("angle_perftests_main") {
-  main = "angle_perftests_main"
-}
-
-angle_test("angle_unittests_helper") {
-  sources = angle_unittests_helper_sources
+angle_executable("test_utils_unittest_helper") {
+  sources = test_utils_unittest_helper_sources
 
   deps = [
     "${angle_root}:angle_common",
@@ -118,9 +73,8 @@ config("angle_test_expectations_config") {
 angle_static_library("angle_test_expectations") {
   public_configs += [ ":angle_test_expectations_config" ]
   public_deps = [
-    "${angle_root}:angle_common",
-    "${angle_root}:angle_gpu_info_util",
-    "${angle_root}:angle_util",
+    "$angle_root:angle_common",
+    "$angle_root:angle_gpu_info_util",
   ]
   sources = test_expectations_sources
   if (is_mac) {
@@ -131,25 +85,28 @@ angle_static_library("angle_test_expectations") {
 
 angle_test("angle_unittests") {
   sources = angle_unittests_sources
+  main = "angle_unittest_main"
 
   if (angle_enable_hlsl) {
     sources += angle_unittests_hlsl_sources
     defines = [ "ANGLE_ENABLE_HLSL" ]
   }
 
-  deps = googletest_deps + [
-           "${angle_root}:libANGLE",
-           ":angle_test_expectations",
-           "${angle_root}:preprocessor",
-           "${angle_root}:translator",
-           "${angle_root}:libfeature_support",
-           ":angle_unittests_main",
-         ]
+  deps = [
+    ":angle_test_expectations",
+    "$angle_root:angle_util_static",
+    "$angle_root:libANGLE",
+    "$angle_root:libEGL_static",
+    "$angle_root:libGLESv2_static",
+    "$angle_root:libfeature_support",
+    "$angle_root:preprocessor",
+    "$angle_root:translator",
+  ]
   if (!is_android && !is_fuchsia) {
     # SystemUtils.RunApp, the only unittest using a helper binary, is not supported on these
     # platforms yet.
     data_deps = [
-      ":angle_unittests_helper",
+      ":test_utils_unittest_helper",
     ]
   }
 }
@@ -161,6 +118,7 @@ if (is_win || is_linux || is_mac || is_android || is_fuchsia) {
     include_dirs = [ "." ]
 
     sources = angle_end2end_tests_sources
+    main = "angle_end2end_tests_main"
     libs = []
 
     if (is_mac) {
@@ -186,7 +144,6 @@ if (is_win || is_linux || is_mac || is_android || is_fuchsia) {
     ]
 
     deps = [
-      ":angle_end2end_tests_main",
       ":angle_test_expectations",
       "${angle_root}:angle_gpu_info_util",
       "${angle_root}:angle_image_util",
@@ -204,7 +161,7 @@ if (is_win || is_linux || is_mac || is_android || is_fuchsia) {
       use_native_activity = true
     }
     if (angle_enable_vulkan) {
-      deps += [ "${angle_root}:angle_vulkan" ]
+      deps += [ "${angle_root}/src/libANGLE/renderer/vulkan:angle_vulkan" ]
     }
   }
 }
@@ -215,6 +172,7 @@ if (is_win || is_linux || is_mac || is_android) {
   angle_test("angle_white_box_tests") {
     include_dirs = [ "." ]
     sources = angle_white_box_tests_sources
+    main = "angle_end2end_tests_main"
 
     if (is_win) {
       sources += angle_white_box_tests_win_sources
@@ -230,7 +188,6 @@ if (is_win || is_linux || is_mac || is_android) {
     ]
 
     deps = [
-      ":angle_end2end_tests_main",
       "${angle_root}:angle_util_static",
       "${angle_root}:libANGLE",
       "${angle_root}:libEGL_static",
@@ -252,9 +209,9 @@ if (is_win || is_linux || is_android || is_mac) {
   angle_test("angle_white_box_perftests") {
     include_dirs = [ "." ]
     sources = angle_white_box_perf_tests_sources
+    main = "angle_perftests_main"
 
     deps = [
-      ":angle_perftests_main",
       "${angle_jsoncpp_dir}:jsoncpp",
       "${angle_root}:angle_util_static",
       "${angle_root}:libANGLE",
@@ -290,15 +247,16 @@ if (is_win || is_linux || is_android || is_mac || is_fuchsia) {
   angle_test("angle_perftests") {
     include_dirs = [ "." ]
     sources = angle_perf_tests_sources
+    main = "angle_perftests_main"
 
     deps = [
-      ":angle_perftests_main",
       "${angle_jsoncpp_dir}:jsoncpp",
       "${angle_root}:angle_common",
       "${angle_root}:angle_gpu_info_util",
       "${angle_root}:angle_system_utils",
       "${angle_root}:angle_util",
       "${angle_root}:angle_util_loader_headers",
+      "${angle_spirv_tools_dir}:spvtools_val",
     ]
 
     data_deps = [
@@ -352,6 +310,11 @@ if (build_angle_gles1_conform_tests) {
       "NULLWS",
     ]
 
+    # This is used by the tests to typedef uint32_t. For some reason only needed on mac.
+    if (is_mac) {
+      defines += [ "__linux" ]
+    }
+
     cflags = []
     if (is_clang) {
       # Remove when crbug.com/428099 is resolved.
@@ -367,6 +330,8 @@ if (build_angle_gles1_conform_tests) {
         # Upstream tests do null pointer arithmetic, so disable those warnings.
         "-Wno-null-pointer-arithmetic",
       ]
+    } else {
+      cflags += [ "/wd4101" ]  # unreferenced local variable
     }
   }
 
@@ -523,7 +488,6 @@ if (build_angle_gles1_conform_tests) {
 
   angle_test("angle_gles1_conformance_tests") {
     deps = [
-      ":angle_end2end_tests_main",
       ":angle_gles1_conformance_no_gtest",
     ]
 
@@ -539,6 +503,7 @@ if (build_angle_gles1_conform_tests) {
       "test_utils/angle_test_instantiate.h",
       "test_utils/gl_raii.h",
     ]
+    main = "angle_end2end_tests_main"
 
     configs += [
       "${angle_root}:libANGLE_config",
@@ -558,10 +523,6 @@ if (build_angle_gles1_conform_tests) {
 
 if (build_angle_deqp_tests && !is_fuchsia) {
   import("deqp.gni")
-
-  angle_tests_main("angle_deqp_tests_main") {
-    main = "angle_deqp_tests_main"
-  }
 
   config("angle_deqp_support") {
     include_dirs = deqp_include_dirs
@@ -615,6 +576,7 @@ if (build_angle_deqp_tests && !is_fuchsia) {
         "-Wno-string-conversion",  # implicit conversion turns string literal into bool
         "-Wno-unused-local-typedef",
         "-Wno-unused-result",  # ignoring return value of function declared with 'nodiscard' attribute
+        "-Wno-unused-function",
       ]
     }
 
@@ -635,6 +597,7 @@ if (build_angle_deqp_tests && !is_fuchsia) {
     "//build/config/compiler:chromium_code",
     "//build/config/compiler:no_exceptions",
     "//build/config/compiler:no_rtti",
+    "${angle_root}:constructor_and_destructor_warnings",
     "${angle_root}:extra_warnings",
   ]
 
@@ -649,12 +612,20 @@ if (build_angle_deqp_tests && !is_fuchsia) {
   set_defaults("angle_deqp_source_set") {
     public_configs = []
     configs = angle_common_configs
+    cflags = []
   }
 
   template("angle_deqp_source_set") {
     angle_source_set(target_name) {
       forward_variables_from(invoker, "*")
       suppressed_configs += deqp_undefine_configs
+
+      if (is_clang) {
+        cflags += [
+          # Suppress a spurious header warning. http://crbug.com/995046
+          "-Wno-nonportable-include-path",
+        ]
+      }
     }
   }
 
@@ -832,23 +803,11 @@ if (build_angle_deqp_tests && !is_fuchsia) {
     }
   }
 
-  angle_source_set("angle_deqp_gtest_support") {
-    testonly = true
-
-    public_deps = [
-      ":angle_deqp_tests_main",
-      ":angle_test_expectations",
-      "${angle_root}:angle_common",
-      "${angle_root}:angle_util",
-    ]
-
-    libs = []
-  }
-
   set_defaults("angle_deqp_gtest") {
     deps = []
     sources = []
     data = []
+    data_deps = []
   }
 
   template("angle_deqp_gtest") {
@@ -866,6 +825,7 @@ if (build_angle_deqp_tests && !is_fuchsia) {
                                "sources",
                                "deps",
                                "data",
+                               "data_deps",
                              ])
 
       deps += [
@@ -898,13 +858,16 @@ if (build_angle_deqp_tests && !is_fuchsia) {
     angle_test("angle_deqp_${_api}_tests") {
       deps = [
         ":${shared_library_name}",
-        ":angle_deqp_gtest_support",
+        ":angle_test_expectations",
+        "${angle_root}:angle_common",
+        "${angle_root}:angle_util",
       ]
 
       # Must be included outside of the source set for the define
       sources = [
         "deqp_support/angle_deqp_gtest.cpp",
       ]
+      main = "angle_deqp_tests_main"
 
       data = [
         "deqp_support/deqp_${_api}_test_expectations.txt",
@@ -987,6 +950,8 @@ if (build_angle_deqp_tests && !is_fuchsia) {
     public_deps = [
       ":angle_deqp_framework_egl",
       ":angle_deqp_glshared",
+      "${angle_glslang_dir}:glslang_sources",
+      "${angle_spirv_tools_dir}:spvtools_val",
     ]
     public_configs = [ ":angle_deqp_khr_common_config" ]
 
@@ -1007,7 +972,7 @@ if (build_angle_deqp_tests && !is_fuchsia) {
     ]
 
     outputs = [
-      "$root_out_dir/$data_dir/gl_cts/data/gles3/{{source_file_part}}",
+      "$root_out_dir/$angle_data_dir/gl_cts/data/gles3/{{source_file_part}}",
     ]
   }
 
@@ -1019,12 +984,12 @@ if (build_angle_deqp_tests && !is_fuchsia) {
         ":angle_deqp_khr_data",
       ]
 
-      defines += [ "ANGLE_DEQP_DATA_DIR=\"$data_dir\"" ]
+      defines += [ "ANGLE_DEQP_DATA_DIR=\"$angle_data_dir\"" ]
 
       mustpass_dir = _khronos_mustpass
 
-      data = [
-        "$root_out_dir/$data_dir/gl_cts/",
+      data_deps = [
+        ":angle_deqp_khr_data",
       ]
     }
   }

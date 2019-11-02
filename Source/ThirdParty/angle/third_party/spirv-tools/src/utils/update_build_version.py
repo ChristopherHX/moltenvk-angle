@@ -29,8 +29,6 @@
 #    "unknown hash".
 # The string contents are escaped as necessary.
 
-from __future__ import print_function
-
 import datetime
 import errno
 import os
@@ -121,7 +119,7 @@ def describe(directory):
             # clock time with enviornment variable SOURCE_DATE_EPOCH
             # containing a (presumably) fixed timestamp.
             timestamp = int(os.environ.get('SOURCE_DATE_EPOCH', time.time()))
-            formatted = datetime.date.fromtimestamp(timestamp).isoformat()
+            formatted = datetime.datetime.utcfromtimestamp(timestamp).isoformat()
             return 'unknown hash, {}'.format(formatted)
 
 

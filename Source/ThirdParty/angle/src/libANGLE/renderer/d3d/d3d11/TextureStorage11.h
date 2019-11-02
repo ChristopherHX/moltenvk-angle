@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2012-2013 The ANGLE Project Authors. All rights reserved.
+// Copyright 2012 The ANGLE Project Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
@@ -34,9 +34,20 @@ class Renderer11;
 class SwapChain11;
 class Image11;
 struct Renderer11DeviceCaps;
+class TextureStorage11_2DMultisample;
 
 template <typename T>
 using CubeFaceArray = std::array<T, gl::kCubeFaceCount>;
+
+struct MultisampledRenderToTextureInfo
+{
+    MultisampledRenderToTextureInfo(const GLsizei samples, const gl::ImageIndex index);
+    ~MultisampledRenderToTextureInfo();
+
+    GLsizei samples;
+    gl::ImageIndex index;
+    std::unique_ptr<TextureStorage11_2DMultisample> msTex;
+};
 
 class TextureStorage11 : public TextureStorage
 {
@@ -117,6 +128,8 @@ class TextureStorage11 : public TextureStorage
                                                  const gl::ImageIndex &index,
                                                  Image11 *incomingImage)                = 0;
 
+    GLsizei getRenderToTextureSamples() const override;
+
   protected:
     TextureStorage11(Renderer11 *renderer, UINT bindFlags, UINT miscFlags, GLenum internalFormat);
     int getLevelWidth(int mipLevel) const;
@@ -171,6 +184,14 @@ class TextureStorage11 : public TextureStorage
     // Clear all cached non-swizzle SRVs and invalidate the swizzle cache.
     void clearSRVCache();
 
+    // Helper for resolving MS shadowed texture
+    angle::Result resolveTextureHelper(const gl::Context *context, const TextureHelper11 &texture);
+    angle::Result releaseMultisampledTexStorageForLevel(size_t level) override;
+    angle::Result getMultisampledRenderTarget(const gl::Context *context,
+                                              const gl::ImageIndex &index,
+                                              GLsizei samples,
+                                              RenderTargetD3D **outRT);
+
     Renderer11 *mRenderer;
     int mTopLevel;
     unsigned int mMipLevels;
@@ -182,6 +203,8 @@ class TextureStorage11 : public TextureStorage
 
     gl::TexLevelArray<gl::SwizzleState> mSwizzleCache;
     TextureHelper11 mDropStencilTexture;
+
+    std::unique_ptr<MultisampledRenderToTextureInfo> mMSTexInfo;
 
   private:
     const UINT mBindFlags;
@@ -256,6 +279,7 @@ class TextureStorage11_2D : public TextureStorage11
                                     const TextureHelper11 **outResource) override;
     angle::Result getRenderTarget(const gl::Context *context,
                                   const gl::ImageIndex &index,
+                                  GLsizei samples,
                                   RenderTargetD3D **outRT) override;
 
     angle::Result copyToStorage(const gl::Context *context, TextureStorage *destStorage) override;
@@ -281,6 +305,8 @@ class TextureStorage11_2D : public TextureStorage11
                                            DropStencil *dropStencilOut) override;
 
     angle::Result ensureTextureExists(const gl::Context *context, int mipLevels);
+
+    angle::Result resolveTexture(const gl::Context *context) override;
 
   private:
     angle::Result createSRVForSampler(const gl::Context *context,
@@ -342,6 +368,7 @@ class TextureStorage11_External : public TextureStorage11
                                     const TextureHelper11 **outResource) override;
     angle::Result getRenderTarget(const gl::Context *context,
                                   const gl::ImageIndex &index,
+                                  GLsizei samples,
                                   RenderTargetD3D **outRT) override;
 
     angle::Result copyToStorage(const gl::Context *context, TextureStorage *destStorage) override;
@@ -435,6 +462,7 @@ class TextureStorage11_EGLImage final : public TextureStorage11ImmutableBase
                                     const TextureHelper11 **outResource) override;
     angle::Result getRenderTarget(const gl::Context *context,
                                   const gl::ImageIndex &index,
+                                  GLsizei samples,
                                   RenderTargetD3D **outRT) override;
 
     angle::Result copyToStorage(const gl::Context *context, TextureStorage *destStorage) override;
@@ -494,6 +522,7 @@ class TextureStorage11_Cube : public TextureStorage11
                                     const TextureHelper11 **outResource) override;
     angle::Result getRenderTarget(const gl::Context *context,
                                   const gl::ImageIndex &index,
+                                  GLsizei samples,
                                   RenderTargetD3D **outRT) override;
 
     angle::Result copyToStorage(const gl::Context *context, TextureStorage *destStorage) override;
@@ -519,6 +548,8 @@ class TextureStorage11_Cube : public TextureStorage11
                                            DropStencil *dropStencilOut) override;
 
     angle::Result ensureTextureExists(const gl::Context *context, int mipLevels);
+
+    angle::Result resolveTexture(const gl::Context *context) override;
 
   private:
     angle::Result createSRVForSampler(const gl::Context *context,
@@ -578,6 +609,7 @@ class TextureStorage11_3D : public TextureStorage11
     // Handles both layer and non-layer RTs
     angle::Result getRenderTarget(const gl::Context *context,
                                   const gl::ImageIndex &index,
+                                  GLsizei samples,
                                   RenderTargetD3D **outRT) override;
 
     void associateImage(Image11 *image, const gl::ImageIndex &index) override;
@@ -642,6 +674,7 @@ class TextureStorage11_2DArray : public TextureStorage11
                               const TextureHelper11 **outResource) override;
     angle::Result getRenderTarget(const gl::Context *context,
                                   const gl::ImageIndex &index,
+                                  GLsizei samples,
                                   RenderTargetD3D **outRT) override;
 
     void associateImage(Image11 *image, const gl::ImageIndex &index) override;
@@ -735,6 +768,7 @@ class TextureStorage11_2DMultisample final : public TextureStorage11ImmutableBas
                               const TextureHelper11 **outResource) override;
     angle::Result getRenderTarget(const gl::Context *context,
                                   const gl::ImageIndex &index,
+                                  GLsizei samples,
                                   RenderTargetD3D **outRT) override;
 
     angle::Result copyToStorage(const gl::Context *context, TextureStorage *destStorage) override;
@@ -785,6 +819,7 @@ class TextureStorage11_2DMultisampleArray final : public TextureStorage11Immutab
                               const TextureHelper11 **outResource) override;
     angle::Result getRenderTarget(const gl::Context *context,
                                   const gl::ImageIndex &index,
+                                  GLsizei samples,
                                   RenderTargetD3D **outRT) override;
 
     angle::Result copyToStorage(const gl::Context *context, TextureStorage *destStorage) override;

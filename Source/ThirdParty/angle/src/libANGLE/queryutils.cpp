@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2016 The ANGLE Project Authors. All rights reserved.
+// Copyright 2016 The ANGLE Project Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
@@ -218,7 +218,10 @@ void QueryTexLevelParameterBase(const Texture *texture,
 }
 
 template <bool isPureInteger, typename ParamType>
-void QueryTexParameterBase(const Texture *texture, GLenum pname, ParamType *params)
+void QueryTexParameterBase(const Context *context,
+                           const Texture *texture,
+                           GLenum pname,
+                           ParamType *params)
 {
     ASSERT(texture != nullptr);
 
@@ -308,6 +311,14 @@ void QueryTexParameterBase(const Texture *texture, GLenum pname, ParamType *para
             break;
         case GL_TEXTURE_NATIVE_ID_ANGLE:
             *params = CastFromStateValue<ParamType>(pname, texture->getNativeID());
+            break;
+        case GL_IMPLEMENTATION_COLOR_READ_FORMAT:
+            *params = CastFromGLintStateValue<ParamType>(
+                pname, texture->getImplementationColorReadFormat(context));
+            break;
+        case GL_IMPLEMENTATION_COLOR_READ_TYPE:
+            *params = CastFromGLintStateValue<ParamType>(
+                pname, texture->getImplementationColorReadType(context));
             break;
         default:
             UNREACHABLE();
@@ -534,7 +545,7 @@ void QueryVertexAttribBase(const VertexAttribute &attrib,
                 CastFromStateValue<ParamType>(pname, static_cast<GLint>(attrib.format->isNorm()));
             break;
         case GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING:
-            *params = CastFromGLintStateValue<ParamType>(pname, binding.getBuffer().id());
+            *params = CastFromGLintStateValue<ParamType>(pname, binding.getBuffer().id().value);
             break;
         case GL_VERTEX_ATTRIB_ARRAY_DIVISOR:
             *params = CastFromStateValue<ParamType>(pname, binding.getDivisor());
@@ -615,24 +626,32 @@ GLint GetCommonVariableProperty(const sh::ShaderVariable &var, GLenum prop)
 
 GLint GetInputResourceProperty(const Program *program, GLuint index, GLenum prop)
 {
-    const auto &attribute = program->getInputResource(index);
+    const sh::ShaderVariable &variable = program->getInputResource(index);
+
     switch (prop)
     {
         case GL_TYPE:
         case GL_ARRAY_SIZE:
+            return GetCommonVariableProperty(variable, prop);
+
         case GL_NAME_LENGTH:
-            return GetCommonVariableProperty(attribute, prop);
+            return clampCast<GLint>(program->getInputResourceName(index).size() + 1u);
 
         case GL_LOCATION:
-            return program->getAttributeLocation(attribute.name);
+            return variable.location;
 
+        // The query is targeted at the set of active input variables used by the first shader stage
+        // of program. If program contains multiple shader stages then input variables from any
+        // stage other than the first will not be enumerated. Since we found the variable to get
+        // this far, we know it exists in the first attached shader stage.
         case GL_REFERENCED_BY_VERTEX_SHADER:
-            return 1;
-
+            return program->getState().getFirstAttachedShaderStageType() == ShaderType::Vertex;
         case GL_REFERENCED_BY_FRAGMENT_SHADER:
+            return program->getState().getFirstAttachedShaderStageType() == ShaderType::Fragment;
         case GL_REFERENCED_BY_COMPUTE_SHADER:
+            return program->getState().getFirstAttachedShaderStageType() == ShaderType::Compute;
         case GL_REFERENCED_BY_GEOMETRY_SHADER_EXT:
-            return 0;
+            return program->getState().getFirstAttachedShaderStageType() == ShaderType::Geometry;
 
         default:
             UNREACHABLE();
@@ -642,28 +661,40 @@ GLint GetInputResourceProperty(const Program *program, GLuint index, GLenum prop
 
 GLint GetOutputResourceProperty(const Program *program, GLuint index, const GLenum prop)
 {
-    const auto &outputVariable = program->getOutputResource(index);
+    const sh::ShaderVariable &outputVariable = program->getOutputResource(index);
+
     switch (prop)
     {
         case GL_TYPE:
         case GL_ARRAY_SIZE:
-        case GL_NAME_LENGTH:
             return GetCommonVariableProperty(outputVariable, prop);
 
+        case GL_NAME_LENGTH:
+            return clampCast<GLint>(program->getOutputResourceName(index).size() + 1u);
+
         case GL_LOCATION:
-            return program->getFragDataLocation(outputVariable.name);
+            return outputVariable.location;
 
         case GL_LOCATION_INDEX_EXT:
             // EXT_blend_func_extended
-            return program->getFragDataIndex(outputVariable.name);
+            if (program->getState().getLastAttachedShaderStageType() == gl::ShaderType::Fragment)
+            {
+                return program->getFragDataIndex(outputVariable.name);
+            }
+            return GL_INVALID_INDEX;
 
-        case GL_REFERENCED_BY_FRAGMENT_SHADER:
-            return 1;
-
+        // The set of active user-defined outputs from the final shader stage in this program. If
+        // the final stage is a Fragment Shader, then this represents the fragment outputs that get
+        // written to individual color buffers. If the program only contains a Compute Shader, then
+        // there are no user-defined outputs.
         case GL_REFERENCED_BY_VERTEX_SHADER:
+            return program->getState().getLastAttachedShaderStageType() == ShaderType::Vertex;
+        case GL_REFERENCED_BY_FRAGMENT_SHADER:
+            return program->getState().getLastAttachedShaderStageType() == ShaderType::Fragment;
         case GL_REFERENCED_BY_COMPUTE_SHADER:
+            return program->getState().getLastAttachedShaderStageType() == ShaderType::Compute;
         case GL_REFERENCED_BY_GEOMETRY_SHADER_EXT:
-            return 0;
+            return program->getState().getLastAttachedShaderStageType() == ShaderType::Geometry;
 
         default:
             UNREACHABLE();
@@ -698,7 +729,7 @@ GLint QueryProgramInterfaceActiveResources(const Program *program, GLenum progra
     switch (programInterface)
     {
         case GL_PROGRAM_INPUT:
-            return clampCast<GLint>(program->getAttributes().size());
+            return clampCast<GLint>(program->getState().getProgramInputs().size());
 
         case GL_PROGRAM_OUTPUT:
             return clampCast<GLint>(program->getState().getOutputVariables().size());
@@ -744,12 +775,11 @@ GLint QueryProgramInterfaceMaxNameLength(const Program *program, GLenum programI
     switch (programInterface)
     {
         case GL_PROGRAM_INPUT:
-            maxNameLength = FindMaxSize(program->getAttributes(), &sh::Attribute::name);
+            maxNameLength = program->getInputResourceMaxNameSize();
             break;
 
         case GL_PROGRAM_OUTPUT:
-            maxNameLength =
-                FindMaxSize(program->getState().getOutputVariables(), &sh::OutputVariable::name);
+            maxNameLength = program->getOutputResourceMaxNameSize();
             break;
 
         case GL_UNIFORM:
@@ -978,7 +1008,7 @@ bool IsTextureEnvEnumParameter(TextureEnvParameter pname)
     }
 }
 
-}  // anonymous namespace
+}  // namespace
 
 void QueryFramebufferAttachmentParameteriv(const Context *context,
                                            const Framebuffer *framebuffer,
@@ -1092,6 +1122,17 @@ void QueryFramebufferAttachmentParameteriv(const Context *context,
 
         case GL_FRAMEBUFFER_ATTACHMENT_LAYERED_EXT:
             *params = attachmentObject->isLayered();
+            break;
+
+        case GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_SAMPLES_EXT:
+            if (attachmentObject->type() == GL_TEXTURE)
+            {
+                *params = attachmentObject->getSamples();
+            }
+            else
+            {
+                *params = 0;
+            }
             break;
 
         default:
@@ -1273,6 +1314,12 @@ void QueryRenderbufferiv(const Context *context,
         case GL_MEMORY_SIZE_ANGLE:
             *params = renderbuffer->getMemorySize();
             break;
+        case GL_IMPLEMENTATION_COLOR_READ_FORMAT:
+            *params = static_cast<GLint>(renderbuffer->getImplementationColorReadFormat(context));
+            break;
+        case GL_IMPLEMENTATION_COLOR_READ_TYPE:
+            *params = static_cast<GLint>(renderbuffer->getImplementationColorReadType(context));
+            break;
         default:
             UNREACHABLE();
             break;
@@ -1337,24 +1384,36 @@ void QueryTexLevelParameteriv(const Texture *texture,
     QueryTexLevelParameterBase(texture, target, level, pname, params);
 }
 
-void QueryTexParameterfv(const Texture *texture, GLenum pname, GLfloat *params)
+void QueryTexParameterfv(const Context *context,
+                         const Texture *texture,
+                         GLenum pname,
+                         GLfloat *params)
 {
-    QueryTexParameterBase<false>(texture, pname, params);
+    QueryTexParameterBase<false>(context, texture, pname, params);
 }
 
-void QueryTexParameteriv(const Texture *texture, GLenum pname, GLint *params)
+void QueryTexParameteriv(const Context *context,
+                         const Texture *texture,
+                         GLenum pname,
+                         GLint *params)
 {
-    QueryTexParameterBase<false>(texture, pname, params);
+    QueryTexParameterBase<false>(context, texture, pname, params);
 }
 
-void QueryTexParameterIiv(const Texture *texture, GLenum pname, GLint *params)
+void QueryTexParameterIiv(const Context *context,
+                          const Texture *texture,
+                          GLenum pname,
+                          GLint *params)
 {
-    QueryTexParameterBase<true>(texture, pname, params);
+    QueryTexParameterBase<true>(context, texture, pname, params);
 }
 
-void QueryTexParameterIuiv(const Texture *texture, GLenum pname, GLuint *params)
+void QueryTexParameterIuiv(const Context *context,
+                           const Texture *texture,
+                           GLenum pname,
+                           GLuint *params)
 {
-    QueryTexParameterBase<true>(texture, pname, params);
+    QueryTexParameterBase<true>(context, texture, pname, params);
 }
 
 void QuerySamplerParameterfv(const Sampler *sampler, GLenum pname, GLfloat *params)
@@ -1707,7 +1766,7 @@ GLint GetUniformResourceProperty(const Program *program, GLuint index, const GLe
 
 GLint GetBufferVariableResourceProperty(const Program *program, GLuint index, const GLenum prop)
 {
-    const auto &bufferVariable = program->getBufferVariableByIndex(index);
+    const BufferVariable &bufferVariable = program->getBufferVariableByIndex(index);
     switch (prop)
     {
         case GL_TYPE:
@@ -1836,10 +1895,10 @@ GLint QueryProgramResourceLocation(const Program *program,
     switch (programInterface)
     {
         case GL_PROGRAM_INPUT:
-            return program->getAttributeLocation(name);
+            return program->getInputResourceLocation(name);
 
         case GL_PROGRAM_OUTPUT:
-            return program->getFragDataLocation(name);
+            return program->getOutputResourceLocation(name);
 
         case GL_UNIFORM:
             return program->getUniformLocation(name);
@@ -1861,10 +1920,17 @@ void QueryProgramResourceiv(const Program *program,
 {
     if (!program->isLinked())
     {
-        if (length != nullptr)
-        {
-            *length = 0;
-        }
+        return;
+    }
+
+    if (length != nullptr)
+    {
+        *length = 0;
+    }
+
+    if (bufSize == 0)
+    {
+        // No room to write the results
         return;
     }
 
@@ -2404,12 +2470,12 @@ void ConvertTextureEnvFromFixed(TextureEnvParameter pname, const GLfixed *input,
     {
         case TextureEnvParameter::RgbScale:
         case TextureEnvParameter::AlphaScale:
-            output[0] = FixedToFloat(input[0]);
+            output[0] = ConvertFixedToFloat(input[0]);
             break;
         case TextureEnvParameter::Color:
             for (int i = 0; i < 4; i++)
             {
-                output[i] = FixedToFloat(input[i]);
+                output[i] = ConvertFixedToFloat(input[i]);
             }
             break;
         default:
@@ -2456,12 +2522,12 @@ void ConvertTextureEnvToFixed(TextureEnvParameter pname, const GLfloat *input, G
     {
         case TextureEnvParameter::RgbScale:
         case TextureEnvParameter::AlphaScale:
-            output[0] = FloatToFixed(input[0]);
+            output[0] = ConvertFloatToFixed(input[0]);
             break;
         case TextureEnvParameter::Color:
             for (int i = 0; i < 4; i++)
             {
-                output[i] = FloatToFixed(input[i]);
+                output[i] = ConvertFloatToFixed(input[i]);
             }
             break;
         default:
@@ -2894,7 +2960,14 @@ void QueryContextAttrib(const gl::Context *context, EGLint attribute, EGLint *va
     switch (attribute)
     {
         case EGL_CONFIG_ID:
-            *value = context->getConfig()->configID;
+            if (context->getConfig() != EGL_NO_CONFIG_KHR)
+            {
+                *value = context->getConfig()->configID;
+            }
+            else
+            {
+                *value = 0;
+            }
             break;
         case EGL_CONTEXT_CLIENT_TYPE:
             *value = context->getClientType();

@@ -151,14 +151,28 @@ static_library("simd") {
   } else if (current_cpu == "arm" && arm_version >= 7 &&
              (arm_use_neon || arm_optionally_use_neon)) {
     sources = [
-      "simd/arm/jsimd.c",
-      "simd/arm/jsimd_neon.S",
+      "simd/arm/arm/jsimd.c",
+      "simd/arm/arm/jsimd_neon.S",
+      "simd/arm/common/jdcolor-neon.c",
+      "simd/arm/common/jdmerge-neon.c",
+      "simd/arm/common/jdsample-neon.c",
+      "simd/arm/common/jidctint-neon.c",
+      "simd/arm/common/jidctred-neon.c",
     ]
+    configs -= [ "//build/config/compiler:default_optimization" ]
+    configs += [ "//build/config/compiler:optimize_speed" ]
   } else if (current_cpu == "arm64") {
     sources = [
-      "simd/arm64/jsimd.c",
-      "simd/arm64/jsimd_neon.S",
+      "simd/arm/arm64/jsimd.c",
+      "simd/arm/arm64/jsimd_neon.S",
+      "simd/arm/common/jdcolor-neon.c",
+      "simd/arm/common/jdmerge-neon.c",
+      "simd/arm/common/jdsample-neon.c",
+      "simd/arm/common/jidctint-neon.c",
+      "simd/arm/common/jidctred-neon.c",
     ]
+    configs -= [ "//build/config/compiler:default_optimization" ]
+    configs += [ "//build/config/compiler:optimize_speed" ]
   } else {
     sources = [
       "jsimd_none.c",
@@ -225,6 +239,7 @@ static_library("libjpeg") {
     "jmemmgr.c",
     "jmemnobs.c",
     "jmemsys.h",
+    "jpeg_nbits_table.c",
     "jpegint.h",
     "jquant1.c",
     "jquant2.c",
@@ -240,7 +255,7 @@ static_library("libjpeg") {
   configs += [ ":libjpeg_config" ]
 
   public_configs = [ ":libjpeg_config" ]
-  deps = [
+  public_deps = [
     ":libjpeg_headers",
   ]
 
@@ -249,6 +264,6 @@ static_library("libjpeg") {
   if (is_msan) {
     sources += [ "jsimd_none.c" ]
   } else {
-    deps += [ ":simd" ]
+    public_deps += [ ":simd" ]
   }
 }

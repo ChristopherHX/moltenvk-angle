@@ -333,6 +333,21 @@ std::shared_ptr<WaitableCompileEvent> ShaderGL::compile(const gl::Context *conte
         additionalOptions |= SH_CLAMP_INDIRECT_ARRAY_BOUNDS;
     }
 
+    if (features.addBaseVertexToVertexID.enabled)
+    {
+        additionalOptions |= SH_ADD_BASE_VERTEX_TO_VERTEX_ID;
+    }
+
+    if (features.unfoldShortCircuits.enabled)
+    {
+        additionalOptions |= SH_UNFOLD_SHORT_CIRCUIT;
+    }
+
+    if (features.removeDynamicIndexingOfSwizzledVector.enabled)
+    {
+        additionalOptions |= SH_REMOVE_DYNAMIC_INDEXING_OF_SWIZZLED_VECTOR;
+    }
+
     options |= additionalOptions;
 
     auto workerThreadPool = context->getWorkerThreadPool();

@@ -123,11 +123,6 @@ class ImageTest : public ANGLETest
                 glGetUniformLocation(mTextureExternalESSL3Program, "tex");
         }
 
-        eglCreateImageKHR =
-            reinterpret_cast<PFNEGLCREATEIMAGEKHRPROC>(eglGetProcAddress("eglCreateImageKHR"));
-        eglDestroyImageKHR =
-            reinterpret_cast<PFNEGLDESTROYIMAGEKHRPROC>(eglGetProcAddress("eglDestroyImageKHR"));
-
         ASSERT_GL_NO_ERROR();
     }
 
@@ -467,9 +462,6 @@ class ImageTest : public ANGLETest
 
     GLuint mTextureExternalESSL3Program        = 0;
     GLint mTextureExternalESSL3UniformLocation = -1;
-
-    PFNEGLCREATEIMAGEKHRPROC eglCreateImageKHR;
-    PFNEGLDESTROYIMAGEKHRPROC eglDestroyImageKHR;
 };
 
 class ImageTestES3 : public ImageTest
@@ -518,8 +510,14 @@ TEST_P(ImageTest, ANGLEExtensionAvailability)
         EXPECT_TRUE(has2DTextureExt());
         EXPECT_TRUE(hasCubemapExt());
         EXPECT_TRUE(hasRenderbufferExt());
-        // TODO(geofflang): Support GL_OES_EGL_image_external_essl3. http://anglebug.com/2668
-        EXPECT_FALSE(hasExternalESSL3Ext());
+        if (getClientMajorVersion() >= 3)
+        {
+            EXPECT_TRUE(hasExternalESSL3Ext());
+        }
+        else
+        {
+            EXPECT_FALSE(hasExternalESSL3Ext());
+        }
     }
     else
     {
@@ -1631,6 +1629,7 @@ TEST_P(ImageTest, MipLevels)
     // Driver returns OOM in read pixels, some internal error.
     ANGLE_SKIP_TEST_IF(IsOzone() && IsOpenGLES());
     // Also fails on NVIDIA Shield TV bot.
+    // http://anglebug.com/3850
     ANGLE_SKIP_TEST_IF(IsNVIDIAShield() && IsOpenGLES());
     // On Vulkan, the clear operation in the loop is optimized with a render pass loadOp=Clear.  On
     // Linux/Intel, that operation is mistakenly clearing the rest of the mips to 0.

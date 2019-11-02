@@ -26,15 +26,16 @@ VkTestFramework::~VkTestFramework() {}
 
 // Define static elements
 bool VkTestFramework::m_devsim_layer = false;
+ANativeWindow *VkTestFramework::window = nullptr;
 
 VkFormat VkTestFramework::GetFormat(VkInstance instance, vk_testing::Device *device) {
     VkFormatProperties format_props;
-    vkGetPhysicalDeviceFormatProperties(device->phy().handle(), VK_FORMAT_B8G8R8A8_UNORM, &format_props);
+    vk::GetPhysicalDeviceFormatProperties(device->phy().handle(), VK_FORMAT_B8G8R8A8_UNORM, &format_props);
     if (format_props.linearTilingFeatures & VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT ||
         format_props.optimalTilingFeatures & VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT) {
         return VK_FORMAT_B8G8R8A8_UNORM;
     }
-    vkGetPhysicalDeviceFormatProperties(device->phy().handle(), VK_FORMAT_R8G8B8A8_UNORM, &format_props);
+    vk::GetPhysicalDeviceFormatProperties(device->phy().handle(), VK_FORMAT_R8G8B8A8_UNORM, &format_props);
     if (format_props.linearTilingFeatures & VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT ||
         format_props.optimalTilingFeatures & VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT) {
         return VK_FORMAT_R8G8B8A8_UNORM;
@@ -46,7 +47,11 @@ VkFormat VkTestFramework::GetFormat(VkInstance instance, vk_testing::Device *dev
 void VkTestFramework::InitArgs(int *argc, char *argv[]) {}
 void VkTestFramework::Finish() {}
 
-void TestEnvironment::SetUp() { vk_testing::set_error_callback(test_error_callback); }
+void TestEnvironment::SetUp() {
+    vk_testing::set_error_callback(test_error_callback);
+
+    vk::InitDispatchTable();
+}
 
 void TestEnvironment::TearDown() {}
 
@@ -78,7 +83,7 @@ shaderc_shader_kind MapShadercType(VkShaderStageFlagBits vkShader) {
 // Compile a given string containing GLSL into SPIR-V
 // Return value of false means an error was encountered
 bool VkTestFramework::GLSLtoSPV(const VkShaderStageFlagBits shader_type, const char *pshader, std::vector<unsigned int> &spirv,
-                                bool debug) {
+                                bool debug, uint32_t spirv_minor_version) {
     // On Android, use shaderc instead.
     shaderc::Compiler compiler;
     shaderc::CompileOptions options;
@@ -86,10 +91,30 @@ bool VkTestFramework::GLSLtoSPV(const VkShaderStageFlagBits shader_type, const c
         options.SetOptimizationLevel(shaderc_optimization_level_zero);
         options.SetGenerateDebugInfo();
     }
+
+    switch (spirv_minor_version) {
+        default:
+        case 0:
+            options.SetTargetSpirv(shaderc_spirv_version_1_0);
+            break;
+        case 1:
+            options.SetTargetSpirv(shaderc_spirv_version_1_1);
+            break;
+        case 2:
+            options.SetTargetSpirv(shaderc_spirv_version_1_2);
+            break;
+        case 3:
+            options.SetTargetSpirv(shaderc_spirv_version_1_3);
+            break;
+        case 4:
+            options.SetTargetSpirv(shaderc_spirv_version_1_4);
+            break;
+    }
+
     shaderc::SpvCompilationResult result =
         compiler.CompileGlslToSpv(pshader, strlen(pshader), MapShadercType(shader_type), "shader", options);
     if (result.GetCompilationStatus() != shaderc_compilation_status_success) {
-        __android_log_print(ANDROID_LOG_ERROR, "VkLayerValidationTest", "GLSLtoSPV compilation failed: %s",
+        __android_log_print(ANDROID_LOG_ERROR, "VkLayerValidationTests", "GLSLtoSPV compilation failed: %s",
                             result.GetErrorMessage().c_str());
         return false;
     }

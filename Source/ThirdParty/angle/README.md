@@ -12,7 +12,7 @@ underway, and future plans include compute shader support (ES 3.1) and MacOS sup
 |----------------|:-------------:|:----------------:|:--------------:|:-------------:|:-------------:|
 | OpenGL ES 2.0  |    complete   |    complete      |    complete    |   complete    |    complete   |
 | OpenGL ES 3.0  |               |    complete      |    complete    |   complete    |  in progress  |
-| OpenGL ES 3.1  |               |   in progress    |     complete   |   complete    |  not started  |
+| OpenGL ES 3.1  |               |   in progress    |    complete    |   complete    |  in progress  |
 | OpenGL ES 3.2  |               |                  |    planned     |    planned    |    planned    |
 
 ### Platform support via backing renderers
@@ -77,4 +77,5 @@ View the [Dev setup instructions](doc/DevSetup.md).
 * Learn about the past, present, and future of the ANGLE implementation in [this presentation](https://docs.google.com/presentation/d/1CucIsdGVDmdTWRUbg68IxLE5jXwCb2y1E9YVhQo0thg/pub?start=false&loop=false).
 * Watch a [short presentation](https://youtu.be/QrIKdjmpmaA) on the Vulkan back-end.
 * Track the [dEQP test conformance](doc/dEQP-Charts.md)
+* Read design docs on the [Vulkan back-end](src/libANGLE/renderer/vulkan/README.md)
 * If you use ANGLE in your own project, we'd love to hear about it!
