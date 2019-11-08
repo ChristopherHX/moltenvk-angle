@@ -370,7 +370,6 @@ set (angle_translator_sources
   src/compiler/translator/FunctionLookup.cpp
   src/compiler/translator/HashNames.cpp
   src/compiler/translator/ImmutableString_autogen.cpp
-  src/compiler/translator/ImmutableString_ESSL_autogen.cpp
   src/compiler/translator/ImmutableStringBuilder.cpp
   src/compiler/translator/InfoSink.cpp
   src/compiler/translator/Initialize.cpp
