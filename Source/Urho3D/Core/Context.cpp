@@ -479,4 +479,10 @@ void Context::EndSendEvent()
 #endif
 }
 
+#if defined(FLIMPER)
+void Context::RemoveFactory(StringHash factory)
+{
+	factories_[factory] = NULL;
+}
+#endif
 }
