@@ -575,6 +575,7 @@ public:
     bool isNeedsFlipY() const { return flipY_; }
     void setFlipY(bool flipY){flipY_ = flipY; }
 #endif
+    bool glOESStandardDerivativesSupport(){return glOESStandardDerivativesSupport_;}
 private:
     /// Create the application window.
     bool OpenWindow(int width, int height, bool resizable, bool borderless);
@@ -805,6 +806,9 @@ private:
 #if defined(URHO3D_ANGLE_VULKAN)
     bool flipY_{};
 #endif
+    
+    /// GL_OES_standard_derivatives extension support.
+    bool glOESStandardDerivativesSupport_{};
 };
 
 /// Register Graphics library objects.

@@ -103,7 +103,13 @@ bool ShaderVariation::Create()
 
     const String& originalShaderCode = owner_->GetSourceCode(type_);
     String shaderCode;
-
+#if defined(GL_ES_VERSION_2_0)
+    if(type_ == PS && graphics_->glOESStandardDerivativesSupport() == true)
+    {
+        shaderCode += "#extension GL_OES_standard_derivatives : enable \n";
+    }
+#endif
+    
     // Check if the shader code contains a version define
     unsigned verStart = originalShaderCode.Find('#');
     unsigned verEnd = 0;
