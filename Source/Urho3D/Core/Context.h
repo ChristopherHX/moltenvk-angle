@@ -202,6 +202,10 @@ public:
         HashMap<StringHash, SharedPtr<EventReceiverGroup> >::Iterator i = eventReceivers_.Find(eventType);
         return i != eventReceivers_.End() ? i->second_ : nullptr;
     }
+    
+#if defined(FLIMPER)
+    void RemoveFactory(StringHash factory);
+#endif
 
 private:
     /// Add event receiver.
