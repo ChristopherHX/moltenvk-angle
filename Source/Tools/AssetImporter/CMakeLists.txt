@@ -28,6 +28,8 @@ define_source_files ()
 
 # Define dependency libs
 add_subdirectory (../../ThirdParty/Assimp ../../ThirdParty/Assimp)
+# TBD ELI
+link_directories(${Assimp_BINARY_DIR}/code)
 set (LIBS Assimp)
 set (INCLUDE_DIRS ../../ThirdParty/Assimp/include ${CMAKE_CURRENT_BINARY_DIR}/../../ThirdParty/Assimp/include)
 
