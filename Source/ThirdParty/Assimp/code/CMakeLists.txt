@@ -46,7 +46,10 @@
 cmake_minimum_required( VERSION 3.0 )
 SET( HEADER_PATH ../include/assimp )
 
-
+if(APPLE)
+    # CMake versions 3 or later need CMAKE_MACOSX_RPATH defined. This avoids the CMP0042 policy message.
+    set(CMAKE_MACOSX_RPATH 1)
+endif()
 
 if(NOT ANDROID AND ASSIMP_ANDROID_JNIIOSYSTEM)
     message(WARNING "Requesting Android JNI I/O-System in non-Android toolchain. Resetting ASSIMP_ANDROID_JNIIOSYSTEM to OFF.")
@@ -1278,24 +1281,6 @@ SET_TARGET_PROPERTIES( assimp PROPERTIES
   OUTPUT_NAME Assimp
 )
 
-if (APPLE)
-  if (BUILD_FRAMEWORK)
-    SET_TARGET_PROPERTIES( assimp PROPERTIES
-      FRAMEWORK TRUE
-      FRAMEWORK_VERSION C
-      MACOSX_FRAMEWORK_IDENTIFIER net.sf.assimp
-      PUBLIC_HEADER "${PUBLIC_HEADERS}"
-    )
-
-    # PUBLIC_HEADER option does not support directory structure creation
-    # add ./Compiler/*.h to assimp.framework via copy command
-    ADD_CUSTOM_COMMAND(TARGET assimp POST_BUILD
-      COMMAND "${CMAKE_COMMAND}" -E copy_directory
-         "../${HEADER_PATH}/Compiler"
-         assimp.framework/Headers/Compiler
-      COMMENT "Copying public ./Compiler/ header files to framework bundle's Headers/Compiler/")
-  ENDIF(BUILD_FRAMEWORK)
-ENDIF(APPLE)
 
 # Build against external unzip, or add ../contrib/unzip so
 # assimp can #include "unzip.h"
@@ -1382,4 +1367,6 @@ if (ASSIMP_COVERALLS)
         ON                 # If we should upload.
         "${PROJECT_SOURCE_DIR}/cmake-modules/") # (Optional) Alternate project cmake module path.
 ENDIF()
+
+
 

@@ -82,11 +82,11 @@ OPTION( ASSIMP_NO_EXPORT
 )
 OPTION( ASSIMP_BUILD_ZLIB
   "Build your own zlib"
-  OFF
+  ON
 )
 OPTION( ASSIMP_BUILD_ASSIMP_TOOLS
   "If the supplementary tools for Assimp are built in addition to the library."
-  ON
+  OFF
 )
 OPTION ( ASSIMP_BUILD_SAMPLES
   "If the official samples are built as well (needs Glut)."
@@ -94,7 +94,7 @@ OPTION ( ASSIMP_BUILD_SAMPLES
 )
 OPTION ( ASSIMP_BUILD_TESTS
   "If the test suite for Assimp is built in addition to the library."
-  ON
+  OFF
 )
 OPTION ( ASSIMP_COVERALLS
   "Enable this to measure test coverage."
@@ -137,6 +137,11 @@ OPTION ( IGNORE_GIT_HASH
    "Don't call git to get the hash."
    OFF
 )
+
+if(APPLE)
+    # CMake versions 3 or later need CMAKE_MACOSX_RPATH defined. This avoids the CMP0042 policy message.
+    set(CMAKE_MACOSX_RPATH 1)
+endif()
 
 IF (IOS AND NOT HUNTER_ENABLED)
   IF (NOT CMAKE_BUILD_TYPE)
@@ -222,6 +227,12 @@ CONFIGURE_FILE(
 CONFIGURE_FILE(
   ${CMAKE_CURRENT_LIST_DIR}/include/assimp/config.h.in
   ${CMAKE_CURRENT_BINARY_DIR}/include/assimp/config.h
+)
+
+# Urho3D: pulled up from zlib's CMakeLists.txt
+CONFIGURE_FILE(
+  ${CMAKE_CURRENT_SOURCE_DIR}/contrib/zlib/zconf.h.cmakein
+  ${CMAKE_CURRENT_BINARY_DIR}/contrib/zlib/zconf.h @ONLY
 )
 
 INCLUDE_DIRECTORIES( BEFORE
@@ -705,3 +716,6 @@ if(WIN32)
     ENDIF()
   ENDIF(MSVC12 OR MSVC14 OR MSVC15 )
 ENDIF (WIN32)
+
+
+
