@@ -483,7 +483,7 @@ bool TextureCube::Create()
         }
     }
     if (!success)
-        URHO3D_LOGERROR("Failed to create texture");
+        URHO3D_LOGERROR("Failed to create cube texture");
 
     // Set mipmapping
     if (usage_ == TEXTURE_DEPTHSTENCIL || usage_ == TEXTURE_DYNAMIC)
@@ -505,7 +505,7 @@ bool TextureCube::Create()
     }
 
     levels_ = CheckMaxLevels(width_, height_, requestedLevels_);
-#ifndef GL_ES_VERSION_2_0
+#if !defined(URHO3D_GLES2)
     glTexParameteri(target_, GL_TEXTURE_BASE_LEVEL, 0);
     glTexParameteri(target_, GL_TEXTURE_MAX_LEVEL, levels_ - 1);
 #endif

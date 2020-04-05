@@ -416,6 +416,9 @@ public:
     /// Return whether hardware instancing is supported.
     bool GetInstancingSupport() const { return instancingSupport_; }
 
+    /// Return whether multiple render targets are supported.
+    bool GetDrawBuffersSupport() const { return drawBuffersSupport_; }
+
     /// Return whether light pre-pass rendering is supported.
     bool GetLightPrepassSupport() const { return lightPrepassSupport_; }
 
@@ -600,6 +603,10 @@ public:
     void SetVBO(unsigned object);
     /// Bind a UBO, avoiding redundant operation. Used only on OpenGL.
     void SetUBO(unsigned object);
+    /// Get Renderer name. Used on OpenGL
+    const String& GetRendererName() const { return rendererName_; }
+    /// Get Version string. Used on OpenGL
+    const String& GetVersionString() const { return versionString_; }
     
     /// Return whether  the extention GL_OES_standard_derivatives is supported
     bool glOESStandardDerivativesSupport(){return glOESStandardDerivativesSupport_;}
@@ -761,6 +768,8 @@ private:
     bool hardwareShadowSupport_{};
     /// Instancing support flag.
     bool instancingSupport_{};
+    /// Draw multiple render targets support flag.
+    bool drawBuffersSupport_{};
     /// sRGB conversion on read support flag.
     bool sRGBSupport_{};
     /// sRGB conversion on write support flag.
@@ -875,6 +884,11 @@ private:
     String orientations_;
     /// Graphics API name.
     String apiName_;
+    /// Renderer name, on OpenGL it is GPU model.
+    String rendererName_;
+    /// String with version of drivers
+    String versionString_;
+
     /// indicates if the extention GL_OES_standard_derivatives is supported
     bool glOESStandardDerivativesSupport_{};
     /// Pixel perfect UV offset.
