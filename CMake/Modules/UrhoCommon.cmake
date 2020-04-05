@@ -151,7 +151,7 @@ cmake_dependent_option (URHO3D_NETWORK "Enable networking support" TRUE "NOT WEB
 option (URHO3D_PHYSICS "Enable physics support" TRUE)
 option (URHO3D_URHO2D "Enable 2D graphics and physics support" TRUE)
 option (URHO3D_GLES2 "Enable GLES2" FALSE)
-option (URHO3D_GLES3 "Enable GLES3" TRUE)
+option (URHO3D_GLES3 "Enable GLES3" FALSE)
 option (URHO3D_WEBP "Enable WebP support" TRUE)
 option (URHO3D_ANGLE_METAL "Enable Angle Metal graphics backend" FALSE)
 
