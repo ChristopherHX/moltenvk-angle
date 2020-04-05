@@ -68,7 +68,7 @@ float GetVertexLightVolumetric(int index, vec3 worldPos)
 
 #ifdef SHADOW
 
-#if defined(DIRLIGHT) && (!defined(GL_ES) || defined(WEBGL))
+#if defined(DIRLIGHT) && (defined(DESKTOP_GRAPHICS) || defined(WEBGL) || defined(METAL))
     #define NUMCASCADES 4
 #else
     #define NUMCASCADES 1
@@ -176,7 +176,7 @@ float GetIntensity(vec3 color)
 
 #ifdef SHADOW
 
-#if defined(DIRLIGHT) && (!defined(GL_ES) || defined(WEBGL))
+#if defined(DIRLIGHT) && (defined(DESKTOP_GRAPHICS) || defined(WEBGL) || defined(METAL))
     #define NUMCASCADES 4
 #else
     #define NUMCASCADES 1
@@ -207,7 +207,7 @@ float Chebyshev(vec2 Moments, float depth)
 }
 #endif
 
-#ifndef GL_ES
+#if !defined(GL_ES) || __VERSION__ >= 300
 float GetShadow(vec4 shadowPos)
 {
     #if defined(SIMPLE_SHADOW)
@@ -293,7 +293,7 @@ float GetDirShadowFade(float inLight, float depth)
     return min(inLight + max((depth - cShadowDepthFade.z) * cShadowDepthFade.w, 0.0), 1.0);
 }
 
-#if !defined(GL_ES) || defined(WEBGL)
+#if defined(DESKTOP_GRAPHICS) || defined(WEBGL) || defined(METAL)
 float GetDirShadow(const vec4 iShadowPos[NUMCASCADES], float depth)
 {
     vec4 shadowPos;
@@ -316,7 +316,7 @@ float GetDirShadow(const highp vec4 iShadowPos[NUMCASCADES], float depth)
 }
 #endif
 
-#ifndef GL_ES
+#ifdef HAS_G_BUFFER
 float GetDirShadowDeferred(vec4 projWorldPos, vec3 normal, float depth)
 {
     vec4 shadowPos;
@@ -344,10 +344,10 @@ float GetDirShadowDeferred(vec4 projWorldPos, vec3 normal, float depth)
 
     return GetDirShadowFade(GetShadow(shadowPos), depth);
 }
-#endif
-#endif
+#endif  // HAS_G_BUFFER
+#endif  // DIRLIGHT
 
-#ifndef GL_ES
+#if !defined(GL_ES) || __VERSION__>=300
 float GetShadow(const vec4 iShadowPos[NUMCASCADES], float depth)
 #else
 float GetShadow(const highp vec4 iShadowPos[NUMCASCADES], float depth)
@@ -362,7 +362,7 @@ float GetShadow(const highp vec4 iShadowPos[NUMCASCADES], float depth)
     #endif
 }
 
-#ifndef GL_ES
+#ifdef HAS_G_BUFFER
 float GetShadowDeferred(vec4 projWorldPos, vec3 normal, float depth)
 {
     #ifdef DIRLIGHT
@@ -382,6 +382,6 @@ float GetShadowDeferred(vec4 projWorldPos, vec3 normal, float depth)
         #endif
     #endif
 }
-#endif
+#endif  // HAS_G_BUFFER
 #endif
 #endif

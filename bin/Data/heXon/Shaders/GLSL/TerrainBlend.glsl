@@ -5,17 +5,16 @@
 #include "Lighting.glsl"
 #include "Fog.glsl"
 
-#ifdef NORMALMAP
-    varying vec4 vTexCoord;
-    varying vec4 vTangent;
+varying vec2 vTexCoord;
+
+#ifndef GL_ES
+varying vec2 vDetailTexCoord;
 #else
-    varying vec2 vTexCoord;
+varying mediump vec2 vDetailTexCoord;
 #endif
+
 varying vec3 vNormal;
 varying vec4 vWorldPos;
-#ifdef VERTEXCOLOR
-    varying vec4 vColor;
-#endif
 #ifdef PERPIXEL
     #ifdef SHADOW
         #ifndef GL_ES
@@ -41,6 +40,17 @@ varying vec4 vWorldPos;
     #endif
 #endif
 
+uniform sampler2D sWeightMap0;
+uniform sampler2D sDetailMap1;
+uniform sampler2D sDetailMap2;
+uniform sampler2D sDetailMap3;
+
+#ifndef GL_ES
+uniform vec2 cDetailTiling;
+#else
+uniform mediump vec2 cDetailTiling;
+#endif
+
 void VS()
 {
     mat4 modelMatrix = iModelMatrix;
@@ -48,19 +58,8 @@ void VS()
     gl_Position = GetClipPos(worldPos);
     vNormal = GetWorldNormal(modelMatrix);
     vWorldPos = vec4(worldPos, GetDepth(gl_Position));
-
-    #ifdef VERTEXCOLOR
-        vColor = iColor;
-    #endif
-
-    #ifdef NORMALMAP
-        vec4 tangent = GetWorldTangent(modelMatrix);
-        vec3 bitangent = cross(tangent.xyz, vNormal) * tangent.w;
-        vTexCoord = vec4(GetTexCoord(iTexCoord), bitangent.xy);
-        vTangent = vec4(tangent.xyz, bitangent.z);
-    #else
-        vTexCoord = GetTexCoord(iTexCoord);
-    #endif
+    vTexCoord = GetTexCoord(iTexCoord);
+    vDetailTexCoord = cDetailTiling * vTexCoord;
 
     #ifdef PERPIXEL
         // Per-pixel forward lighting
@@ -107,35 +106,20 @@ void VS()
 void PS()
 {
     // Get material diffuse albedo
-    #ifdef DIFFMAP
-        vec4 diffInput = texture2D(sDiffMap, vTexCoord.xy);
-        #ifdef ALPHAMASK
-            if (diffInput.a < 0.5)
-                discard;
-        #endif
-        vec4 diffColor = cMatDiffColor * diffInput;
-    #else
-        vec4 diffColor = cMatDiffColor;
-    #endif
+    vec3 weights = texture2D(sWeightMap0, vTexCoord).rgb;
+    float sumWeights = weights.r + weights.g + weights.b;
+    weights /= sumWeights;
+    vec4 diffColor = cMatDiffColor * (
+        weights.r * texture2D(sDetailMap1, vDetailTexCoord) +
+        weights.g * texture2D(sDetailMap2, vDetailTexCoord) + 
+        weights.b * texture2D(sDetailMap3, vDetailTexCoord)
+    );
 
-    #ifdef VERTEXCOLOR
-        diffColor *= vColor;
-    #endif
-    
     // Get material specular albedo
-    #ifdef SPECMAP
-        vec3 specColor = cMatSpecColor.rgb * texture2D(sSpecMap, vTexCoord.xy).rgb;
-    #else
-        vec3 specColor = cMatSpecColor.rgb;
-    #endif
+    vec3 specColor = cMatSpecColor.rgb;
 
     // Get normal
-    #ifdef NORMALMAP
-        mat3 tbn = mat3(vTangent.xyz, vec3(vTexCoord.zw, vTangent.w), vNormal);
-        vec3 normal = normalize(tbn * DecodeNormal(texture2D(sNormalMap, vTexCoord.xy)));
-    #else
-        vec3 normal = normalize(vNormal);
-    #endif
+    vec3 normal = normalize(vNormal);
 
     // Get fog factor
     #ifdef HEIGHTFOG
@@ -149,7 +133,7 @@ void PS()
         vec3 lightColor;
         vec3 lightDir;
         vec3 finalColor;
-
+        
         float diff = GetDiffuse(normal, vWorldPos.xyz, lightDir);
 
         #ifdef SHADOW
@@ -189,38 +173,14 @@ void PS()
         float specIntensity = specColor.g;
         float specPower = cMatSpecColor.a / 255.0;
 
-        vec3 finalColor = vVertexLight * diffColor.rgb;
-        #ifdef AO
-            // If using AO, the vertex light ambient is black, calculate occluded ambient here
-            finalColor += texture2D(sEmissiveMap, vTexCoord2).rgb * cAmbientColor.rgb * diffColor.rgb;
-        #endif
-
-        #ifdef ENVCUBEMAP
-            finalColor += cMatEnvMapColor * textureCube(sEnvCubeMap, reflect(vReflectionVec, normal)).rgb;
-        #endif
-        #ifdef LIGHTMAP
-            finalColor += texture2D(sEmissiveMap, vTexCoord2).rgb * diffColor.rgb;
-        #endif
-        #ifdef EMISSIVEMAP
-            finalColor += cMatEmissiveColor * texture2D(sEmissiveMap, vTexCoord.xy).rgb;
-        #else
-            finalColor += cMatEmissiveColor;
-        #endif
-
-        gl_FragData[0] = vec4(GetFog(finalColor, fogFactor), 1.0);
+        gl_FragData[0] = vec4(GetFog(vVertexLight * diffColor.rgb, fogFactor), 1.0);
         gl_FragData[1] = fogFactor * vec4(diffColor.rgb, specIntensity);
         gl_FragData[2] = vec4(normal * 0.5 + 0.5, specPower);
-        #ifndef HWDEPTH
-            gl_FragData[3] = vec4(EncodeDepth(vWorldPos.w), 0.0);
-        #endif
+        gl_FragData[3] = vec4(EncodeDepth(vWorldPos.w), 0.0);
     #else
         // Ambient & per-vertex lighting
         vec3 finalColor = vVertexLight * diffColor.rgb;
-        #ifdef AO
-            // If using AO, the vertex light ambient is black, calculate occluded ambient here
-            finalColor += texture2D(sEmissiveMap, vTexCoord2).rgb * cAmbientColor.rgb * diffColor.rgb;
-        #endif
-        
+
         #ifdef MATERIAL
             // Add light pre-pass accumulation result
             // Lights are accumulated at half intensity. Bring back to full intensity now
@@ -228,18 +188,6 @@ void PS()
             vec3 lightSpecColor = lightInput.a * lightInput.rgb / max(GetIntensity(lightInput.rgb), 0.001);
 
             finalColor += lightInput.rgb * diffColor.rgb + lightSpecColor * specColor;
-        #endif
-
-        #ifdef ENVCUBEMAP
-            finalColor += cMatEnvMapColor * textureCube(sEnvCubeMap, reflect(vReflectionVec, normal)).rgb;
-        #endif
-        #ifdef LIGHTMAP
-            finalColor += texture2D(sEmissiveMap, vTexCoord2).rgb * diffColor.rgb;
-        #endif
-        #ifdef EMISSIVEMAP
-            finalColor += cMatEmissiveColor * texture2D(sEmissiveMap, vTexCoord.xy).rgb;
-        #else
-            finalColor += cMatEmissiveColor;
         #endif
 
         gl_FragColor = vec4(GetFog(finalColor, fogFactor), diffColor.a);
