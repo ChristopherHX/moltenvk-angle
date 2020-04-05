@@ -2955,7 +2955,8 @@ void Graphics::PrepareDraw()
         }
 #endif
 
-#if !defined(URHO3D_GLES2) || defined(GL_EXT_draw_buffers)
+#if !defined(URHO3D_GLES2)
+#if defined(GL_EXT_draw_buffers)
         if (drawBuffersSupport_)
         {
             // Calculate the bit combination of non-zero color rendertargets to first check if the combination changed
@@ -2991,6 +2992,7 @@ void Graphics::PrepareDraw()
                 i->second_.drawBuffers_ = newDrawBuffers;
             }
         }
+#endif
 #endif
         for (unsigned j = 0; j < MAX_RENDERTARGETS; ++j)
         {

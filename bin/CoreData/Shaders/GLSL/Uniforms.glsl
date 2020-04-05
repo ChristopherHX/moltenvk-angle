@@ -29,7 +29,7 @@ uniform mat4 cViewProj;
 uniform vec4 cUOffset;
 uniform vec4 cVOffset;
 uniform mat4 cZone;
-#if !defined(GL_ES) || defined(WEBGL) || defined(METAL) || VERSION__>=300
+#if !defined(GL_ES) || defined(WEBGL) || defined(METAL) || __VERSION__ >=300
     uniform mat4 cLightMatrices[4];
 #else
     uniform highp mat4 cLightMatrices[2];
