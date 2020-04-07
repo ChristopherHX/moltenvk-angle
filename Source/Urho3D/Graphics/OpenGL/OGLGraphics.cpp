@@ -1970,8 +1970,9 @@ void Graphics::SetClipPlane(bool enable, const Plane& clipPlane, const Matrix3x4
             glClipPlane(GL_CLIP_PLANE0, &planeData[0]);
         }
 #endif
-#endif  // GL_CLIP_PLANE0
     }
+#endif  // GL_CLIP_PLANE0
+
 }
 
 void Graphics::SetStencilTest(bool enable, CompareMode mode, StencilOp pass, StencilOp fail, StencilOp zFail, unsigned stencilRef,
