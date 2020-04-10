@@ -71,5 +71,6 @@ private:
     Timer debounceTimer_;
     /// Flag for drawing debug geometry.
     bool drawDebug_;
+    Text* instructionText;
 
 };

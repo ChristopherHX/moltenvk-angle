@@ -84,6 +84,8 @@ RenderToTexture::RenderToTexture(Context* context) :
     m_pStaticModelPoolMgr = NULL;
     m_uTicksWait = 0;
     m_SHSceneProcessed = false;
+    m_State = SHLIGHTING_STATE_NONE;
+
 }
 
 //=============================================================================
@@ -103,6 +105,7 @@ void RenderToTexture::Setup()
 //=============================================================================
 void RenderToTexture::Start()
 {
+
     // Execute base class startup
     Sample::Start();
 
@@ -307,7 +310,14 @@ void RenderToTexture::SetupSH()
     // SH lighting process - END
     //************************************
 
-    m_pTextInstruction->SetText("F4-normal light, F5-diff unshadowed, F6-shadow diff, F7-interreflected");
+    if ((GetPlatform() == "Android" || GetPlatform() == "iOS"))
+    {
+        m_pTextInstruction->SetText("Touch the screen for different lighting modes");
+    }
+    else
+    {
+        m_pTextInstruction->SetText("F4-normal light, F5-diff unshadowed, F6-shadow diff, F7-interreflected");
+    }
 
     // show sh unshadowed transfer by default
     //SetVertexColorDiffuseTransfer( kSHDifTrans_Lighting );
@@ -407,7 +417,15 @@ void RenderToTexture::CreateInstructions()
 
     // Construct new Text object, set string to display and font to use
     m_pTextInstruction = ui->GetRoot()->CreateChild<Text>();
-    m_pTextInstruction->SetText("Press F9 to build SH lighting");
+    if (GetPlatform() == "Android" || GetPlatform() == "iOS")
+    {
+        m_pTextInstruction->SetText("Touch the screen to build SH lighting");
+    }
+    else
+    {
+        m_pTextInstruction->SetText("Press F9 to build SH lighting");
+    }
+   
     m_pTextInstruction->SetFont(cache->GetResource<Font>("Fonts/Anonymous Pro.ttf"), 15);
     m_pTextInstruction->SetColor( Color( 100.0f, 100.0f, 100.0f ));
     
@@ -439,18 +457,22 @@ void RenderToTexture::HandleUpdate(StringHash eventType, VariantMap& eventData)
 
     if ( input->GetKeyPress( KEY_F4 ) )
     {
+        m_State = SHLIGHTING_STATE_KSHDIFTRANS_OFF;
         SetVertexColorDiffuseTransfer( kSHDifTrans_Off );
     }
     if ( input->GetKeyPress( KEY_F5 ) )
     {
+        m_State = SHLIGHTING_STATE_KSHDIFTRANS_LIGHTING;
         SetVertexColorDiffuseTransfer( kSHDifTrans_Lighting );
     }
     if ( input->GetKeyPress( KEY_F6 ) )
     {
+        m_State = SHLIGHTING_STATE_KSHDIFTRANS_SHADOWED;
         SetVertexColorDiffuseTransfer( kSHDifTrans_Shadowed );
     }
     if ( input->GetKeyPress( KEY_F7 ) )
     {
+        m_State = SHLIGHTING_STATE_KSHDIFTRANS_INTERREFLECTED;
         SetVertexColorDiffuseTransfer( kSHDifTrans_Interreflected );
     }
     if ( input->GetKeyPress( KEY_F9 ) && !m_SHSceneProcessed )
@@ -464,11 +486,13 @@ void RenderToTexture::HandleUpdate(StringHash eventType, VariantMap& eventData)
 
         if ( m_uTicksWait < 10 )
         {
+            m_State = SHLIGHTING_STATE_PROCESSING;
             m_pTextInstruction->SetText("Processing please wait...");
         }
 
         if ( m_uTicksWait == 10)
         {
+            m_State = SHLIGHTING_STATE_PROCESSING_DONE;
             SetupSH();
         }
     }
@@ -485,6 +509,62 @@ void RenderToTexture::HandleUpdate(StringHash eventType, VariantMap& eventData)
     }
 }
 
+/// Handle touch begin event.
+void RenderToTexture::HandleTouchBegin(StringHash eventType, VariantMap& eventData)
+{
+    Input* input = GetSubsystem<Input>();
+	switch (m_State)
+	{
+	case SHLIGHTING_STATE_NONE:
+	{
+		if (!m_SHSceneProcessed)
+		{
+			m_SHSceneProcessed = true;
+		}
+	}
+	break;
+
+	case SHLIGHTING_STATE_PROCESSING_DONE:
+	{
+		m_State = SHLIGHTING_STATE_KSHDIFTRANS_OFF;
+		SetVertexColorDiffuseTransfer(kSHDifTrans_Off);
+        m_pTextInstruction->SetText("kSHDifTrans_Off , touch the screen to change lighting mode");
+	}
+	break;
+
+	case SHLIGHTING_STATE_KSHDIFTRANS_OFF:
+	{
+		m_State = SHLIGHTING_STATE_KSHDIFTRANS_LIGHTING;
+		SetVertexColorDiffuseTransfer(kSHDifTrans_Lighting);
+        m_pTextInstruction->SetText("kSHDifTrans_Lighting , touch the screen to change lighting mode");
+	}
+	break;
+
+	case SHLIGHTING_STATE_KSHDIFTRANS_LIGHTING:
+	{
+		m_State = SHLIGHTING_STATE_KSHDIFTRANS_SHADOWED;
+		SetVertexColorDiffuseTransfer(kSHDifTrans_Shadowed);
+        m_pTextInstruction->SetText("kSHDifTrans_Shadowed , touch the screen to change lighting mode");
+	}
+	break;
+
+	case SHLIGHTING_STATE_KSHDIFTRANS_SHADOWED:
+	{
+		m_State = SHLIGHTING_STATE_KSHDIFTRANS_INTERREFLECTED;
+		SetVertexColorDiffuseTransfer(kSHDifTrans_Interreflected);
+        m_pTextInstruction->SetText("kSHDifTrans_Interreflected , touch the screen to change lighting mode");
+	}
+	break;
+
+	case SHLIGHTING_STATE_KSHDIFTRANS_INTERREFLECTED:
+	{
+		m_State = SHLIGHTING_STATE_KSHDIFTRANS_OFF;
+		SetVertexColorDiffuseTransfer(kSHDifTrans_Off);
+        m_pTextInstruction->SetText("kSHDifTrans_Off , touch the screen to change lighting mode");
+	}
+	break;
+	}
+}
 //=============================================================================
 //=============================================================================
 void RenderToTexture::SetupViewport()
@@ -537,6 +617,9 @@ void RenderToTexture::SubscribeToEvents()
 {
     // Subscribe HandleUpdate() function for processing update events
     SubscribeToEvent(E_UPDATE, URHO3D_HANDLER(RenderToTexture, HandleUpdate));
+
+   // GetSubsystem<Input>()->SetTouchEmulation(true);
+    SubscribeToEvent(E_TOUCHBEGIN, URHO3D_HANDLER(RenderToTexture, HandleTouchBegin));
 }
 
 //=============================================================================

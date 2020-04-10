@@ -33,6 +33,14 @@ class Node;
 class Scene;
 }
 
+#define SHLIGHTING_STATE_NONE 0
+#define SHLIGHTING_STATE_PROCESSING 1
+#define SHLIGHTING_STATE_PROCESSING_DONE 2
+#define SHLIGHTING_STATE_KSHDIFTRANS_OFF 3
+#define SHLIGHTING_STATE_KSHDIFTRANS_LIGHTING 4
+#define  SHLIGHTING_STATE_KSHDIFTRANS_SHADOWED 5
+#define  SHLIGHTING_STATE_KSHDIFTRANS_INTERREFLECTED 6
+
 class SphericalHarmonic;
 class StaticModelPoolMgr;
 class VertexUtil;
@@ -95,6 +103,9 @@ private:
     /// Handle the logic update event.
     void HandleUpdate(StringHash eventType, VariantMap& eventData);
 
+    /// Handle touch begin event.
+    void HandleTouchBegin(StringHash eventType, VariantMap& eventData);
+
     void CreateSHComponents();
     void SetupSH();
     void PoolStaticModels();
@@ -123,6 +134,8 @@ protected:
 
     // dbg
     SharedPtr<DebugRenderer>    m_pDbgRenderer;
+
+    int m_State;
 
 };
 

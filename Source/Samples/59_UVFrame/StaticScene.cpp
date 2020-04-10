@@ -117,6 +117,7 @@ void StaticScene::CreateScene()
 {
     ResourceCache* cache = GetSubsystem<ResourceCache>();
 
+    instructionText = NULL;
     scene_ = new Scene(context_);
 
     scene_->CreateComponent<Octree>();
@@ -195,9 +196,16 @@ void StaticScene::CreateInstructions()
     UI* ui = GetSubsystem<UI>();
 
     // Construct new Text object, set string to display and font to use
-    Text* instructionText = ui->GetRoot()->CreateChild<Text>();
+    instructionText = ui->GetRoot()->CreateChild<Text>();
     instructionText->SetColor(Color::GREEN);
-    instructionText->SetText("<- Q and E ->");
+    if (GetPlatform() == "Android" || GetPlatform() == "iOS")
+    {
+        instructionText->SetText("Touch the screen ");
+    }
+    else
+    {
+        instructionText->SetText("<- Q and E ->");
+    }
     instructionText->SetFont(cache->GetResource<Font>("Fonts/Anonymous Pro.ttf"), 15);
 
     // Position the text relative to the screen center
@@ -283,9 +291,18 @@ void StaticScene::HandleUpdate(StringHash eventType, VariantMap& eventData)
             nodeList_[nodeIdx_]->GetComponent<UVFrame>()->Reset();
 
             debounceTimer_.Reset();
+    
+            if (GetPlatform() == "Android" || GetPlatform() == "iOS")
+            {
+                instructionText->SetText(String("Touch the screen \nUVFrame: ")+ nodeList_[nodeIdx_]->GetName());
+            }
+            else
+            {
+                instructionText->SetText(String("<- Q and E -> \nUVFrame: ") + nodeList_[nodeIdx_]->GetName());
+            }
         }
     }
-    if (input->GetKeyPress(KEY_E))
+    if (input->GetKeyPress(KEY_E) || GetSubsystem<Input>()->GetNumTouches() > 0)
     {
         if (debounceTimer_.GetMSec(false) > 250)
         {
@@ -295,6 +312,15 @@ void StaticScene::HandleUpdate(StringHash eventType, VariantMap& eventData)
             nodeList_[nodeIdx_]->GetComponent<UVFrame>()->Reset();
 
             debounceTimer_.Reset();
+
+            if (GetPlatform() == "Android" || GetPlatform() == "iOS")
+            {
+                instructionText->SetText(String("Touch the screen \nUVFrame: ") + nodeList_[nodeIdx_]->GetName());
+            }
+            else
+            {
+                instructionText->SetText(String("<- Q and E -> \nUVFrame: ") + nodeList_[nodeIdx_]->GetName());
+            }
         }
     }
 }
