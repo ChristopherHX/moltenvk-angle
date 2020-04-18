@@ -200,3 +200,29 @@ add_subdirectory (Source)
 
 # Urho3D documentation
 add_subdirectory (Docs)
+
+if(FLIMPER)
+if (NOT EXISTS ${CMAKE_BINARY_DIR}/bin/Templates)
+if (NOT IOS AND NOT TVOS AND NOT ANDROID AND NOT WEB AND NOT CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
+    # Ensure the output directory exist before creating the symlinks
+    file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+    file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin/Templates)
+    file (GLOB_RECURSE FILES RELATIVE ${CMAKE_SOURCE_DIR}/Templates ${CMAKE_SOURCE_DIR}/Templates/*.*)
+    foreach (FILE ${FILES})
+        create_symlink (${CMAKE_SOURCE_DIR}/Templates/${FILE} ${CMAKE_BINARY_DIR}/bin/Templates/${FILE} FALLBACK_TO_COPY)
+    endforeach ()
+endif ()
+endif ()
+
+if (NOT EXISTS ${CMAKE_BINARY_DIR}/bin/Flimper)
+if (NOT IOS AND NOT TVOS AND NOT ANDROID AND NOT WEB AND NOT CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
+    # Ensure the output directory exist before creating the symlinks
+    file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+    file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin/Flimper)
+    file (GLOB_RECURSE FILES RELATIVE ${CMAKE_SOURCE_DIR}/Flimper ${CMAKE_SOURCE_DIR}/Flimper/*.*)
+    foreach (FILE ${FILES})
+        create_symlink (${CMAKE_SOURCE_DIR}/Flimper/${FILE} ${CMAKE_BINARY_DIR}/bin/Flimper/${FILE} FALLBACK_TO_COPY)
+    endforeach ()
+endif ()
+endif ()
+endif ()
