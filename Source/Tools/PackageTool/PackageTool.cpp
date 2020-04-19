@@ -57,6 +57,8 @@ bool compress_ = false;
 bool quiet_ = false;
 unsigned blockSize_ = COMPRESSED_BLOCK_SIZE;
 
+bool unpack_ = false;
+
 String ignoreExtensions_[] = {
     ".bak",
     ".rule",
@@ -68,6 +70,7 @@ void Run(const Vector<String>& arguments);
 void ProcessFile(const String& fileName, const String& rootDir);
 void WritePackageFile(const String& fileName, const String& rootDir);
 void WriteHeader(File& dest);
+void Unpack(const Vector<String>& arguments);
 
 int main(int argc, char** argv)
 {
@@ -83,11 +86,13 @@ int main(int argc, char** argv)
     return 0;
 }
 
+
 void Run(const Vector<String>& arguments)
 {
     if (arguments.Size() < 2)
         ErrorExit(
-            "Usage: PackageTool <directory to process> <package name> [basepath] [options]\n"
+            "Usage: packing  PackageTool <directory to process> <package name> [basepath] [options]\n"
+			"Usage: unpacking  PackageTool <package name> <directory to output> <-u> \n"
             "\n"
             "Options:\n"
             "-c      Enable package file LZ4 compression\n"
@@ -99,6 +104,7 @@ void Run(const Vector<String>& arguments)
             "-i      Output package file information\n"
             "-l      Output file names (including their paths) contained in the package\n"
             "-L      Similar to -l but also output compression ratio (compressed package file only)\n"
+			"-u      unpack package file\n"
         );
 
     const String& dirName = arguments[0];
@@ -122,6 +128,9 @@ void Run(const Vector<String>& arguments)
                     case 'q':
                         quiet_ = true;
                         break;
+					case 'u':
+						unpack_ = true;
+						break;
                     default:
                         ErrorExit("Unrecognized option");
                     }
@@ -130,6 +139,11 @@ void Run(const Vector<String>& arguments)
         }
     }
 
+	if (unpack_ == true)
+	{
+		Unpack(arguments);
+	}
+	else
     if (!isOutputMode)
     {
         if (!quiet_)
@@ -342,4 +356,132 @@ void WriteHeader(File& dest)
         dest.WriteFileID("ULZ4");
     dest.WriteUInt(entries_.Size());
     dest.WriteUInt(checksum_);
+}
+
+
+bool DirExists(const String& pathName) 
+{
+
+
+#ifndef _WIN32
+	// Always return true for the root directory
+	if (pathName == "/")
+		return true;
+#endif
+
+	String fixedName = GetNativePath(RemoveTrailingSlash(pathName));
+
+#ifdef __ANDROID__
+	if (URHO3D_IS_ASSET(fixedName))
+	{
+		// Split the pathname into two components: the longest parent directory path and the last name component
+		String assetPath(URHO3D_ASSET((fixedName + "/")));
+		String parentPath;
+		unsigned pos = assetPath.FindLast('/', assetPath.Length() - 2);
+		if (pos != String::NPOS)
+		{
+			parentPath = assetPath.Substring(0, pos);
+			assetPath = assetPath.Substring(pos + 1);
+		}
+		assetPath.Resize(assetPath.Length() - 1);
+
+		bool exist = false;
+		int count;
+		char** list = SDL_Android_GetFileList(parentPath.CString(), &count);
+		for (int i = 0; i < count; ++i)
+		{
+			exist = assetPath == list[i];
+			if (exist)
+				break;
+		}
+		SDL_Android_FreeFileList(&list, &count);
+		return exist;
+	}
+#endif
+
+#ifdef _WIN32
+	DWORD attributes = GetFileAttributesW(WString(fixedName).CString());
+	if (attributes == INVALID_FILE_ATTRIBUTES || !(attributes & FILE_ATTRIBUTE_DIRECTORY))
+		return false;
+#else
+	struct stat st {};
+	if (stat(fixedName.CString(), &st) || !(st.st_mode & S_IFDIR))
+		return false;
+#endif
+
+	return true;
+}
+
+bool CreateDir(const String& pathName)
+{
+	// Create each of the parents if necessary
+	String parentPath = GetParentPath(pathName);
+	if (parentPath.Length() > 1 && !DirExists(parentPath))
+	{
+		if (!CreateDir(parentPath))
+			return false;
+	}
+
+#ifdef _WIN32
+	bool success = (CreateDirectoryW(GetWideNativePath(RemoveTrailingSlash(pathName)).CString(), nullptr) == TRUE) ||
+		(GetLastError() == ERROR_ALREADY_EXISTS);
+#else
+	bool success = mkdir(GetNativePath(RemoveTrailingSlash(pathName)).CString(), S_IRWXU) == 0 || errno == EEXIST;
+#endif
+
+
+	return success;
+}
+
+void Unpack(const Vector<String>& arguments)
+{
+	const String& fileName = arguments[0];
+	const String& outDirName = arguments[1];
+
+	FileSystem * fileSystem = context_->GetSubsystem<FileSystem>();
+
+	SharedPtr<PackageFile> packageFile(new PackageFile(context_, fileName, 0));
+
+	
+	const HashMap<String, PackageEntry>& entries = packageFile->GetEntries();
+	Vector<String> entryNames = packageFile->GetEntryNames();
+
+	for (int i = 0; i < entryNames.Size(); i++)
+	{
+		File src(context_, packageFile, entryNames[i]);
+		int srcSize = src.GetSize();
+		unsigned char * buf = new unsigned char[srcSize+1];
+		src.Read(buf, srcSize);
+
+		String dstFileFullPath =  outDirName + "/" + entryNames[i];
+		
+		String texPath, texName, texExt;
+		SplitPath(dstFileFullPath, texPath, texName, texExt);
+
+		unsigned pathPos = texPath.FindLast('/');
+		if (texPath[texPath.Length() - 1] == '/' )
+		{
+			texPath[texPath.Length() - 1] = ' ';
+		}
+	
+		bool directoryCreated = CreateDir(texPath);
+		
+		if (directoryCreated == true)
+		{
+			File dest(context_);
+			if (!dest.Open(dstFileFullPath, FILE_WRITE))
+				ErrorExit("-Could not open output file " + dstFileFullPath);
+
+			dest.Write(buf, srcSize);
+			dest.Close();
+		}
+		else
+		{
+			PrintLine("failed creating directory :  " + texPath);
+		}
+		
+		src.Close();
+	}
+	
+
 }
