@@ -27,8 +27,17 @@
 #include <Urho3D/IO/FileSystem.h>
 #include <Urho3D/IO/PackageFile.h>
 
+#include <sys/stat.h>
+#include <cstdio>
+
 #ifdef WIN32
 #include <windows.h>
+#else
+#include <dirent.h>
+#include <cerrno>
+#include <unistd.h>
+#include <utime.h>
+#include <sys/wait.h>
 #endif
 
 #include <LZ4/lz4.h>
