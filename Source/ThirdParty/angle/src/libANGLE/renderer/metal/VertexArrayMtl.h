@@ -59,6 +59,17 @@ class VertexArrayMtl : public VertexArrayImpl
                                  size_t *idxBufferOffsetOut,
                                  gl::DrawElementsType *indexTypeOut);
 
+    // Use to emulate instanced draw for instance <instanceId>.
+    // The typical call sequence for emulated instance draw is:
+    // - setupDraw()
+    // - draw.
+    // - emulateInstanceDrawStep(1)
+    // - draw.
+    // - emulateInstanceDrawStep(n)
+    // - draw.
+    // - emulateInstanceDrawStep(0)
+    void emulateInstanceDrawStep(mtl::RenderCommandEncoder *cmdEncoder, uint32_t instanceId);
+
   private:
     void reset(ContextMtl *context);
 
@@ -92,11 +103,22 @@ class VertexArrayMtl : public VertexArrayImpl
                                       size_t attribIndex,
                                       const mtl::VertexFormat &vertexFormat);
 
-    angle::Result convertVertexBufferCPU(const gl::Context *glContext,
+    angle::Result convertVertexBufferCPU(ContextMtl *contextMtl,
                                          BufferMtl *srcBuffer,
                                          const gl::VertexBinding &binding,
                                          size_t attribIndex,
-                                         const mtl::VertexFormat &vertexFormat,
+                                         const mtl::VertexFormat &convertedFormat,
+                                         GLuint targetStride,
+                                         size_t vertexCount,
+                                         ConversionBufferMtl *conversion);
+    angle::Result convertVertexBufferGPU(ContextMtl *contextMtl,
+                                         BufferMtl *srcBuffer,
+                                         const gl::VertexBinding &binding,
+                                         size_t attribIndex,
+                                         const mtl::VertexFormat &convertedFormat,
+                                         GLuint targetStride,
+                                         size_t vertexCount,
+                                         bool isExpandingComponents,
                                          ConversionBufferMtl *conversion);
 
     // These can point to real BufferMtl or converted buffer in mConvertedArrayBufferHolders
@@ -117,8 +139,14 @@ class VertexArrayMtl : public VertexArrayImpl
     // Format per vertex attribute
     gl::AttribArray<const mtl::VertexFormat *> mCurrentArrayBufferFormats;
 
+    const mtl::VertexFormat &mDefaultFloatVertexFormat;
+    const mtl::VertexFormat &mDefaultIntVertexFormat;
+    const mtl::VertexFormat &mDefaultUIntVertexFormat;
+
     mtl::BufferPool mDynamicVertexData;
     mtl::BufferPool mDynamicIndexData;
+
+    std::vector<uint32_t> mEmulatedInstanceAttribs;
 
     bool mVertexArrayDirty = true;
 };
