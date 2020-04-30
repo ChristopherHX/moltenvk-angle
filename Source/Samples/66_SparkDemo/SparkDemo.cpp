@@ -93,6 +93,8 @@ private:
     SPK::Ref<SPK::System> effectExplosion_;
     SPK::Ref<SPK::System> effectFountain_;
     Node* magicBallNode_;
+	float timer_;
+
 
 public:
     /// Construct.
@@ -103,6 +105,8 @@ public:
 
         // register spark library with urho context
         RegisterSparkLibrary(context_);
+
+		timer_ = 0.0f;
     }
 
     void Setup() override
@@ -304,14 +308,16 @@ private:
         UI* ui = GetSubsystem<UI>();
 
         // Construct new Text object, set string to display and font to use
-        Text* instructionText = ui->GetRoot()->CreateChild<Text>();
-        instructionText->SetText("Use WASD keys and mouse/touch to move\nPress Space bar to create explosions");
-        instructionText->SetFont(cache->GetResource<Font>("Fonts/Anonymous Pro.ttf"), 15);
-
-        // Position the text relative to the screen center
-        instructionText->SetHorizontalAlignment(HA_CENTER);
-        instructionText->SetVerticalAlignment(VA_CENTER);
-        instructionText->SetPosition(0, ui->GetRoot()->GetHeight() / 4);
+		if (!(GetPlatform() == "Android" || GetPlatform() == "iOS"))
+		{
+			Text* instructionText = ui->GetRoot()->CreateChild<Text>();
+			instructionText->SetText("Use WASD keys and mouse/touch to move\nPress Space bar to create explosions");
+			instructionText->SetFont(cache->GetResource<Font>("Fonts/Anonymous Pro.ttf"), 15);
+			// Position the text relative to the screen center
+			instructionText->SetHorizontalAlignment(HA_CENTER);
+			instructionText->SetVerticalAlignment(VA_CENTER);
+			instructionText->SetPosition(0, ui->GetRoot()->GetHeight() / 4);
+		}
     }
 
     void CreateConsoleAndDebugHud()
@@ -389,6 +395,13 @@ private:
 
         // Move the camera, scale movement with time step
         MoveCamera(timeStep);
+
+		timer_ += timeStep;
+		if (timer_ > 1.0f)
+		{
+			timer_ = 0.0f;
+			AddExplosion(Vector3(Random(40.0f) - 20.0f, 3.0f, Random(40.0f) - 20.0f));
+		}
     }
 
     void HandleKeyDown(StringHash /*eventType*/, VariantMap& eventData)

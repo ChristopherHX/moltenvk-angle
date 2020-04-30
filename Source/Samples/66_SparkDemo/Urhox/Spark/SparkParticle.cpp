@@ -40,7 +40,9 @@
 namespace Urho3D
 {
 
-extern const char* GEOMETRY_CATEGORY;
+const char* SPARK_GEOMETRY_CATEGORY = "Geometry";
+
+
 
 SparkParticle::SparkParticle(Context* context) :
     Drawable(context, DRAWABLE_GEOMETRY),
@@ -66,7 +68,7 @@ SparkParticle::~SparkParticle()
 
 void SparkParticle::RegisterObject(Context* context)
 {
-    context->RegisterFactory<SparkParticle>(GEOMETRY_CATEGORY);
+    context->RegisterFactory<SparkParticle>(SPARK_GEOMETRY_CATEGORY);
 
     URHO3D_MIXED_ACCESSOR_ATTRIBUTE("SparkEffect", GetEffectAttr, SetEffectAttr, ResourceRef, ResourceRef(SparkParticleEffect::GetTypeStatic()), AM_DEFAULT);
     URHO3D_ACCESSOR_ATTRIBUTE("Is Enabled", IsEnabled, SetEnabled, bool, true, AM_DEFAULT);
