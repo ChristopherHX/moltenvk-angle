@@ -1623,7 +1623,7 @@ void UI::ProcessMove(const IntVector2& windowCursorPos, const IntVector2& cursor
                     {
                         dragData->dragBeginPending = false;
                         dragConfirmedCount_++;
-                        dragElement->OnDragBegin(dragElement->ScreenToElement(beginSendPos), beginSendPos, buttons, qualifiers,
+                        dragElement->OnDragBegin(dragElement->ScreenToElement(beginSendPos), beginSendPos, (MouseButton)buttons, qualifiers,
                             cursor);
                         SendDragOrHoverEvent(E_DRAGBEGIN, dragElement, beginSendPos, IntVector2::ZERO, dragData);
                     }
@@ -1631,14 +1631,14 @@ void UI::ProcessMove(const IntVector2& windowCursorPos, const IntVector2& cursor
 
                 if (!dragData->dragBeginPending)
                 {
-                    dragElement->OnDragMove(dragElement->ScreenToElement(sendPos), sendPos, cursorDeltaPos, buttons, qualifiers,
+                    dragElement->OnDragMove(dragElement->ScreenToElement(sendPos), sendPos, cursorDeltaPos, (MouseButton)buttons, qualifiers,
                         cursor);
                     SendDragOrHoverEvent(E_DRAGMOVE, dragElement, sendPos, cursorDeltaPos, dragData);
                 }
             }
             else
             {
-                dragElement->OnDragEnd(dragElement->ScreenToElement(sendPos), sendPos, dragData->dragButtons, buttons, cursor);
+                dragElement->OnDragEnd(dragElement->ScreenToElement(sendPos), sendPos, dragData->dragButtons, (MouseButton)buttons, cursor);
                 SendDragOrHoverEvent(E_DRAGEND, dragElement, sendPos, IntVector2::ZERO, dragData);
                 dragElement.Reset();
             }
