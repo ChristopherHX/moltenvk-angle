@@ -80,6 +80,11 @@ public:
     /// Prepares font textures, updates projection matrix and does other things that are required to start this subsystem.
     void Start();
 
+    void OnScreenMode(VariantMap& args);
+    void HandleTouchBegin(StringHash eventType, VariantMap & eventData);
+    void HandleTouchEnd(StringHash eventType, VariantMap & eventData);
+    void HandleTouchMove(StringHash eventType, VariantMap & eventData);
+    void HandlePostUpdate(StringHash eventType, VariantMap & eventData);
 protected:
     float uiZoom_ = 1.f;
     float fontScale_ = 1.f;
@@ -89,6 +94,10 @@ protected:
     SharedPtr<Texture2D> fontTexture_;
     PODVector<float> fontSizes_;
     ImGuiContext* imContext_;
+    // Used to track if there's already a touch, since imgui doesn't have multi-touch support.
+    bool touching = false;
+    // The touch ID of the single tracked touch
+    int single_touchID;
 
     void ReallocateFontTexture();
     void UpdateProjectionMatrix();

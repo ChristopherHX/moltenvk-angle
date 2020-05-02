@@ -96,8 +96,14 @@ SystemUI::SystemUI(Urho3D::Context* context)
     });*/
 
     // Subscribe to events
+    SubscribeToEvent(E_TOUCHBEGIN, URHO3D_HANDLER(SystemUI, HandleTouchBegin));
+    SubscribeToEvent(E_TOUCHEND, URHO3D_HANDLER(SystemUI, HandleTouchEnd));
+    SubscribeToEvent(E_TOUCHMOVE, URHO3D_HANDLER(SystemUI, HandleTouchMove));
+    SubscribeToEvent(E_POSTUPDATE, URHO3D_HANDLER(SystemUI, HandlePostUpdate));
+    
     SubscribeToEvent(E_SDLRAWINPUT, std::bind(&SystemUI::OnRawEvent, this, _2));
-    SubscribeToEvent(E_SCREENMODE, std::bind(&SystemUI::UpdateProjectionMatrix, this));
+    SubscribeToEvent(E_SCREENMODE, [this](StringHash, VariantMap& args) { OnScreenMode(args); });
+   // SubscribeToEvent(E_SCREENMODE, std::bind(&SystemUI::UpdateProjectionMatrix, this));
     SubscribeToEvent(E_INPUTEND, [&](StringHash, VariantMap&) {
         float timeStep = GetSubsystem<Time>()->GetTimeStep();
         ImGui::GetIO().DeltaTime = timeStep > 0.0f ? timeStep : 1.0f / 60.0f;
@@ -117,6 +123,33 @@ SystemUI::~SystemUI()
     ImGui::EndFrame();
     ImGui::Shutdown(imContext_);
     ImGui::DestroyContext(imContext_);
+}
+
+void SystemUI::OnScreenMode(VariantMap& args)
+{
+    auto graphics = GetSubsystem<Graphics>();
+    
+    using namespace ScreenMode;
+    ImGuiIO& io = ui::GetIO();
+    
+    float width = args[P_WIDTH].GetFloat();
+    float height = args[P_HEIGHT].GetFloat();
+    io.DisplaySize = {width, height};
+    
+    // Update projection matrix
+    IntVector2 viewSize = graphics->GetViewport().Size();
+    Vector2 invScreenSize(1.0f / viewSize.x_, 1.0f / viewSize.y_);
+    Vector2 scale(2.0f * invScreenSize.x_, -2.0f * invScreenSize.y_);
+    Vector2 offset(-1.0f, 1.0f);
+
+    projection_ = Matrix4(Matrix4::IDENTITY);
+    projection_.m00_ = scale.x_ * uiZoom_;
+    projection_.m03_ = offset.x_;
+    projection_.m11_ = scale.y_ * uiZoom_;
+    projection_.m13_ = offset.y_;
+    projection_.m22_ = 1.0f;
+    projection_.m23_ = 0.0f;
+    projection_.m33_ = 1.0f;
 }
 
 void SystemUI::UpdateProjectionMatrix()
@@ -139,6 +172,102 @@ void SystemUI::UpdateProjectionMatrix()
     projection_.m22_ = 1.0f;
     projection_.m23_ = 0.0f;
     projection_.m33_ = 1.0f;
+}
+
+void SystemUI::HandlePostUpdate(StringHash eventType, VariantMap & eventData)
+{
+    auto& io = ImGui::GetIO();
+    
+    using namespace PostUpdate;
+    float timeStep = eventData[P_TIMESTEP].GetFloat();
+
+    // Get display size (every frame for resizing)
+    auto graphics = GetSubsystem<Graphics>();
+    io.DisplaySize = ImVec2((float)graphics->GetWidth(), (float)graphics->GetHeight());
+
+    // Setup time step
+    io.DeltaTime = timeStep > 0.0f ? timeStep : 1.0f / 60.0f;
+    
+    // mouse input
+    auto input = GetSubsystem<Input>();
+    if (input->IsMouseVisible() && !input->GetTouchEmulation())
+    {
+        IntVector2 pos = input->GetMousePosition();
+        // Mouse position, in pixels (set to -1,-1 if no mouse / on another screen, etc.)
+        io.MousePos.x = (float)pos.x_/ uiZoom_;
+        io.MousePos.y = (float)pos.y_/ uiZoom_;
+    }
+    else
+    {
+        io.MousePos.x = -1.0f;
+        io.MousePos.y = -1.0f;
+    }
+
+    io.MouseDown[0] = input->GetMouseButtonDown(MOUSEB_LEFT);
+    io.MouseDown[1] = input->GetMouseButtonDown(MOUSEB_RIGHT);
+    io.MouseDown[2] = input->GetMouseButtonDown(MOUSEB_MIDDLE);
+    io.MouseWheel = (float)input->GetMouseMoveWheel();
+    
+    // Modifiers
+    io.KeyCtrl = input->GetQualifierDown(QUAL_CTRL);
+    io.KeyShift = input->GetQualifierDown(QUAL_SHIFT);
+    io.KeyAlt = input->GetQualifierDown(QUAL_ALT);
+
+}
+
+void SystemUI::HandleTouchBegin(StringHash eventType, VariantMap & eventData)
+{
+    using namespace TouchBegin;
+
+    if (!touching)
+    {
+        touching = true;
+        single_touchID = eventData[P_TOUCHID].GetInt();
+
+        auto& io = ImGui::GetIO();
+        io.MousePos.x = ((float)eventData[P_X].GetInt())/uiZoom_;
+        io.MousePos.y = ((float)eventData[P_Y].GetInt())/uiZoom_;
+        io.MouseDown[0] = true;
+    }
+}
+
+
+//
+// HandleTouchEnd
+//
+void SystemUI::HandleTouchEnd(StringHash eventType, VariantMap & eventData)
+{
+    using namespace TouchEnd;
+    
+    int touchID = eventData[P_TOUCHID].GetInt();
+    
+    if (touchID == single_touchID)
+    {
+        auto& io = ImGui::GetIO();
+        io.MousePos.x = ((float)eventData[P_X].GetInt())/uiZoom_;
+        io.MousePos.y = ((float)eventData[P_Y].GetInt())/uiZoom_;
+        io.MouseDown[0] = false;
+    }
+
+    touching = false;
+}
+
+
+//
+// HandleTouchMove
+//
+void SystemUI::HandleTouchMove(StringHash eventType, VariantMap & eventData)
+{
+    using namespace TouchMove;
+
+    int touchID = eventData[P_TOUCHID].GetInt();
+
+    if (touchID == single_touchID)
+    {
+        auto& io = ImGui::GetIO();
+        io.MousePos.x = ((float)eventData[P_X].GetInt())/uiZoom_;
+        io.MousePos.y = ((float)eventData[P_Y].GetInt())/uiZoom_;
+    }
 }
 
 void SystemUI::OnRawEvent(VariantMap& args)
@@ -164,54 +293,7 @@ void SystemUI::OnRawEvent(VariantMap& args)
             io.KeySuper = down;
         break;
     }
-    case SDL_MOUSEWHEEL:
-        io.MouseWheel = evt->wheel.y;
-        break;
-    case SDL_MOUSEBUTTONUP:
-    case SDL_MOUSEBUTTONDOWN:
-    {
-        int imguiButton;
-        switch (evt->button.button)
-        {
-        case SDL_BUTTON_LEFT:
-            imguiButton = 0;
-            break;
-        case SDL_BUTTON_MIDDLE:
-            imguiButton = 2;
-            break;
-        case SDL_BUTTON_RIGHT:
-            imguiButton = 1;
-            break;
-        case SDL_BUTTON_X1:
-            imguiButton = 3;
-            break;
-        case SDL_BUTTON_X2:
-            imguiButton = 4;
-            break;
-        default:
-            imguiButton = -1;
-        }
-        if (imguiButton >= 0)
-            io.MouseDown[imguiButton] = evt->type == SDL_MOUSEBUTTONDOWN;
-
-        break;
-    }
-    case SDL_MOUSEMOTION:
-        io.MousePos.x = evt->motion.x / uiZoom_;
-        io.MousePos.y = evt->motion.y / uiZoom_;
-        break;
-    case SDL_FINGERUP:
-        io.MouseDown[0] = false;
-        io.MousePos.x = -1;
-        io.MousePos.y = -1;
-        break;
-    case SDL_FINGERDOWN:
-        io.MouseDown[0] = true;
-        break;
-    case SDL_FINGERMOTION:
-        io.MousePos.x = evt->tfinger.x / uiZoom_;
-        io.MousePos.y = evt->tfinger.y / uiZoom_;
-        break;
+    
     case SDL_TEXTINPUT:
         ImGui::GetIO().AddInputCharactersUTF8(evt->text.text);
         break;
