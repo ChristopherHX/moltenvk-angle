@@ -54,7 +54,7 @@ IntVector2 GraphNode::ioNodeSize_(25, 25);
 //=============================================================================
 void GraphNode::RegisterObject(Context* context)
 {
-    context->RegisterFactory<GraphNode>(UI_CATEGORY);
+    context->RegisterFactory<GraphNode>("UI");
 
     // register all node graph components
     NodeHeader::RegisterObject(context);
@@ -269,7 +269,7 @@ void GraphNode::OnDragEnd(const IntVector2& position, const IntVector2& screenPo
 //=============================================================================
 void NodeHeader::RegisterObject(Context* context)
 {
-    context->RegisterFactory<NodeHeader>(UI_CATEGORY);
+    context->RegisterFactory<NodeHeader>("UI");
 }
 
 NodeHeader::NodeHeader(Context *context)

@@ -34,7 +34,7 @@
 //=============================================================================
 void TimeVarNode::RegisterObject(Context* context)
 {
-    context->RegisterFactory<TimeVarNode>(UI_CATEGORY);
+    context->RegisterFactory<TimeVarNode>("UI");
 }
 
 TimeVarNode::TimeVarNode(Context *context) 

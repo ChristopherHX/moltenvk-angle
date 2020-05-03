@@ -43,7 +43,7 @@
 //=============================================================================
 void InputNode::RegisterObject(Context* context)
 {
-    context->RegisterFactory<InputNode>(UI_CATEGORY);
+    context->RegisterFactory<InputNode>("UI");
     InputBox::RegisterObject(context);
 }
 

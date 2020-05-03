@@ -53,7 +53,7 @@ const Color DISCONNECTEDColor(0.8f, 0.3f, 0.3f);
 //=============================================================================
 void OutputNode::RegisterObject(Context* context)
 {
-    context->RegisterFactory<OutputNode>(UI_CATEGORY);
+    context->RegisterFactory<OutputNode>("UI");
     OutputBox::RegisterObject(context);
 }
 

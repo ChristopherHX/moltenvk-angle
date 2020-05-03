@@ -37,7 +37,7 @@
 //=============================================================================
 void TabGroup::RegisterObject(Context* context)
 {
-    context->RegisterFactory<TabGroup>(UI_CATEGORY);
+    context->RegisterFactory<TabGroup>("UI");
 }
 
 TabGroup::TabGroup(Context *context) : BorderImage(context)

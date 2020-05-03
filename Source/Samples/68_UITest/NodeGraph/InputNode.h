@@ -88,7 +88,7 @@ class InputBox : public BorderImage
 public:
     static void RegisterObject(Context* context)
     {
-        context->RegisterFactory<InputBox>(UI_CATEGORY);
+        context->RegisterFactory<InputBox>("UI");
     }
 
     InputBox(Context *context) : BorderImage(context){}

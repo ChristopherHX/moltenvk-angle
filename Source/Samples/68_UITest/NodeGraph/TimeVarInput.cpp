@@ -47,7 +47,7 @@
 //=============================================================================
 void TimeVarInput::RegisterObject(Context* context)
 {
-    context->RegisterFactory<TimeVarInput>(UI_CATEGORY);
+    context->RegisterFactory<TimeVarInput>("UI");
 }
 
 TimeVarInput::TimeVarInput(Context *context) 

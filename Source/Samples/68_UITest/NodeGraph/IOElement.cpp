@@ -39,7 +39,7 @@
 //=============================================================================
 void IOElement::RegisterObject(Context* context)
 {
-    context->RegisterFactory<IOElement>(UI_CATEGORY);
+    context->RegisterFactory<IOElement>("UI");
 }
 
 IOElement::IOElement(Context *context) 

@@ -94,7 +94,7 @@ class OutputBox : public BorderImage
 public:
     static void RegisterObject(Context* context)
     {
-        context->RegisterFactory<OutputBox>(UI_CATEGORY);
+        context->RegisterFactory<OutputBox>("UI");
     }
 
     OutputBox(Context *context) : BorderImage(context){}
