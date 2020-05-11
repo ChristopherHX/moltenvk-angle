@@ -143,6 +143,7 @@ String inputName_;
 String resourcePath_;
 String outPath_;
 String outName_;
+String dirPrefix_;
 bool useSubdirs_ = true;
 bool localIDs_ = false;
 bool saveBinary_ = false;
@@ -320,6 +321,7 @@ void Run(const Vector<String>& arguments)
 
     String command = arguments[0].ToLower();
     String rootNodeName;
+	dirPrefix_ = "";
 
     unsigned flags =
         aiProcess_ConvertToLeftHanded |
@@ -417,6 +419,11 @@ void Run(const Vector<String>& arguments)
                 resourcePath_ = AddTrailingSlash(value);
                 ++i;
             }
+			else if (argument == "pp" && !value.Empty())
+			{
+				dirPrefix_ = value;
+				++i;
+			}
             else if (argument == "r" && !value.Empty())
             {
                 rootNodeName = value;
@@ -1693,7 +1700,7 @@ void BuildAndSaveScene(OutScene& scene, bool asPrefab)
                 model.bones_.Empty() ? modelNode->CreateComponent<StaticModel>() : modelNode->CreateComponent<AnimatedModel>());
 
         // Create a dummy model so that the reference can be stored
-        String modelName = (useSubdirs_ ? "Models/" : "") + GetFileNameAndExtension(model.outName_);
+        String modelName = dirPrefix_ + (useSubdirs_ ? "Models/" : "") + GetFileNameAndExtension(model.outName_,true);
         if (!cache->Exists(modelName))
         {
             auto* dummyModel = new Model(context_);
@@ -1839,15 +1846,15 @@ void BuildAndSaveMaterial(aiMaterial* material, HashSet<String>& usedTextures)
     aiColor3D colorVal;
 
     if (material->Get(AI_MATKEY_TEXTURE(aiTextureType_DIFFUSE, 0), stringVal) == AI_SUCCESS)
-        diffuseTexName = GetFileNameAndExtension(FromAIString(stringVal));
+        diffuseTexName = GetFileNameAndExtension(FromAIString(stringVal),true);
     if (material->Get(AI_MATKEY_TEXTURE(aiTextureType_NORMALS, 0), stringVal) == AI_SUCCESS)
-        normalTexName = GetFileNameAndExtension(FromAIString(stringVal));
+        normalTexName = GetFileNameAndExtension(FromAIString(stringVal),true);
     if (material->Get(AI_MATKEY_TEXTURE(aiTextureType_SPECULAR, 0), stringVal) == AI_SUCCESS)
-        specularTexName = GetFileNameAndExtension(FromAIString(stringVal));
+        specularTexName = GetFileNameAndExtension(FromAIString(stringVal),true);
     if (material->Get(AI_MATKEY_TEXTURE(aiTextureType_LIGHTMAP, 0), stringVal) == AI_SUCCESS)
-        lightmapTexName = GetFileNameAndExtension(FromAIString(stringVal));
+        lightmapTexName = GetFileNameAndExtension(FromAIString(stringVal),true);
     if (material->Get(AI_MATKEY_TEXTURE(aiTextureType_EMISSIVE, 0), stringVal) == AI_SUCCESS)
-        emissiveTexName = GetFileNameAndExtension(FromAIString(stringVal));
+        emissiveTexName = GetFileNameAndExtension(FromAIString(stringVal),true);
     if (!noMaterialDiffuseColor_)
     {
         if (material->Get(AI_MATKEY_COLOR_DIFFUSE, colorVal) == AI_SUCCESS)
@@ -1989,20 +1996,20 @@ void CopyTextures(const HashSet<String>& usedTextures, const String& sourcePath)
                 bool destExists = fileSystem->FileExists(fullDestName);
                 if (destExists && noOverwriteTexture_)
                 {
-                    PrintLine("Skipping copy of existing embedded texture " + GetFileNameAndExtension(fullDestName));
+                    PrintLine("Skipping copy of existing embedded texture " + GetFileNameAndExtension(fullDestName,true));
                     continue;
                 }
                 // Encoded texture
                 if (!tex->mHeight)
                 {
-                    PrintLine("Saving embedded texture " + GetFileNameAndExtension(fullDestName));
+                    PrintLine("Saving embedded texture " + GetFileNameAndExtension(fullDestName,true));
                     File dest(context_, fullDestName, FILE_WRITE);
                     dest.Write((const void*)tex->pcData, tex->mWidth);
                 }
                 // RGBA8 texture
                 else
                 {
-                    PrintLine("Saving embedded RGBA texture " + GetFileNameAndExtension(fullDestName));
+                    PrintLine("Saving embedded RGBA texture " + GetFileNameAndExtension(fullDestName,true));
                     Image image(context_);
                     image.SetSize(tex->mWidth, tex->mHeight, 4);
                     memcpy(image.GetData(), (const void*)tex->pcData, (size_t)tex->mWidth * tex->mHeight * 4);
@@ -2349,7 +2356,7 @@ String GetMeshMaterialName(aiMesh* mesh)
     if (matName.Trimmed().Empty())
         matName = GenerateMaterialName(material);
 
-    return (useSubdirs_ ? "Materials/" : "") + matName + ".xml";
+    return dirPrefix_ + (useSubdirs_ ? "Materials/" : "") + matName + ".xml";
 }
 
 String GenerateMaterialName(aiMaterial* material)
@@ -2370,7 +2377,7 @@ String GetMaterialTextureName(const String& nameIn)
     if (nameIn.Length() && nameIn[0] == '*')
         return GenerateTextureName(ToInt(nameIn.Substring(1)));
     else
-        return (useSubdirs_ ? "Textures/" : "") + nameIn;
+        return dirPrefix_ + (useSubdirs_ ? "Textures/" : "") + nameIn;
 }
 
 String GenerateTextureName(unsigned texIndex)
@@ -2380,9 +2387,9 @@ String GenerateTextureName(unsigned texIndex)
         // If embedded texture contains encoded data, use the format hint for file extension. Else save RGBA8 data as PNG
         aiTexture* tex = scene_->mTextures[texIndex];
         if (!tex->mHeight)
-            return (useSubdirs_ ? "Textures/" : "") + inputName_ + "_Texture" + String(texIndex) + "." + tex->achFormatHint;
+            return dirPrefix_ + (useSubdirs_ ? "Textures/" : "") + inputName_ + "_Texture" + String(texIndex) + "." + tex->achFormatHint;
         else
-            return (useSubdirs_ ? "Textures/" : "") + inputName_ + "_Texture" + String(texIndex) + ".png";
+            return dirPrefix_+ (useSubdirs_ ? "Textures/" : "") + inputName_ + "_Texture" + String(texIndex) + ".png";
     }
 
     // Should not go here

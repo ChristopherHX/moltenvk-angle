@@ -482,7 +482,8 @@ void Context::EndSendEvent()
 #if defined(FLIMPER)
 void Context::RemoveFactory(StringHash factory)
 {
-    factories_[factory] = NULL;
+	factories_[factory].Reset();
+	factories_.Erase(factory);
 }
 #endif
 
