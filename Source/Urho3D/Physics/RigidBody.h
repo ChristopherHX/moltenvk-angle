@@ -253,9 +253,12 @@ protected:
     /// Handle node transform being dirtied.
     void OnMarkedDirty(Node* node) override;
 
-private:
+	// Lumak: changed this to protected and virtual
     /// Create the rigid body, or re-add to the physics world with changed flags. Calls UpdateMass().
-    void AddBodyToWorld();
+    virtual void AddBodyToWorld();
+
+private:
+
     /// Remove the rigid body from the physics world.
     void RemoveBodyFromWorld();
     /// Handle SmoothedTransform target position update.
