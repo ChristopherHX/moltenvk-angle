@@ -492,7 +492,7 @@ void Graphics::AdjustScreenMode(int& newWidth, int& newHeight, ScreenModeParams&
     // High DPI is supported only for OpenGL backend
 #ifndef URHO3D_OPENGL
     params.highDPI_ = false;
-#endif;
+#endif
 
  /* TBD ELIX22, needs more investigation to enable high DPI for MetalAngle  */
 #if defined(URHO3D_ANGLE_METAL)

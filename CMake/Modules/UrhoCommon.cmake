@@ -695,8 +695,9 @@ else ()
         if (WEB)
             if (EMSCRIPTEN)
                 # Emscripten-specific setup
-                set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-warn-absolute-paths -Wno-unknown-warning-option")
-                set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-warn-absolute-paths -Wno-unknown-warning-option")
+                set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-warn-absolute-paths -Wno-unknown-warning-option --bind")
+                set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-warn-absolute-paths -Wno-unknown-warning-option --bind")
+
                 if (URHO3D_THREADING)
                     set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s USE_PTHREADS=1")
                     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_PTHREADS=1")
@@ -909,6 +910,17 @@ macro (define_dependency_libs TARGET)
         endif ()
     endif ()
 
+    # ThirdParty/Civetweb external dependency
+    if (${TARGET} MATCHES Civetweb|Urho3D)
+        if (URHO3D_SSL)
+            if (NOT URHO3D_SSL_DYNAMIC)
+                set(OPENSSL_USE_STATIC_LIBS TRUE)
+            endif ()
+            find_package(OpenSSL)
+            list (APPEND LIBS ${OPENSSL_LIBRARIES})
+        endif ()
+    endif ()
+
     # Urho3D/LuaJIT external dependency
     if (URHO3D_LUAJIT AND ${TARGET} MATCHES LuaJIT|Urho3D)
         if (NOT WIN32 AND NOT WEB)
@@ -1110,11 +1122,8 @@ macro (define_resource_dirs)
                             get_filename_component (NAME ${FILE} NAME)
                             list (APPEND PAK_NAMES ${NAME})
                         endforeach ()
-                        if (CMAKE_BUILD_TYPE STREQUAL Debug)
-                            set (SEPARATE_METADATA --separate-metadata)
-                        endif ()
                         add_custom_command (OUTPUT ${SHARED_RESOURCE_JS} ${SHARED_RESOURCE_JS}.data
-                            COMMAND ${EMPACKAGER} ${SHARED_RESOURCE_JS}.data --preload ${PAK_NAMES} --js-output=${SHARED_RESOURCE_JS} --use-preload-cache ${SEPARATE_METADATA}
+                            COMMAND ${EMPACKAGER} ${SHARED_RESOURCE_JS}.data --preload ${PAK_NAMES} --js-output=${SHARED_RESOURCE_JS} --use-preload-cache
                             DEPENDS RESOURCE_CHECK ${RESOURCE_PAKS}
                             WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
                             COMMENT "Generating shared data file")
@@ -1153,13 +1162,15 @@ macro (add_html_shell)
             set (HTML_SHELL ${ARGN})
         else ()
             # Create Urho3D custom HTML shell that also embeds our own project logo
-            if (NOT EXISTS ${CMAKE_BINARY_DIR}/Source/shell.html)
+            if (NOT EXISTS ${CMAKE_SOURCE_DIR}/bin/shell.html)
                 file (READ ${EMSCRIPTEN_ROOT_PATH}/src/shell.html HTML_SHELL)
                 string (REPLACE "<!doctype html>" "<!-- This is a generated file. DO NOT EDIT!-->\n\n<!doctype html>" HTML_SHELL "${HTML_SHELL}")     # Stringify to preserve semicolons
                 string (REPLACE "<body>" "<body>\n<script>document.body.innerHTML=document.body.innerHTML.replace(/^#!.*\\n/, '');</script>\n<a href=\"https://urho3d.github.io\" title=\"Urho3D Homepage\"><img src=\"https://urho3d.github.io/assets/images/logo.png\" alt=\"link to https://urho3d.github.io\" height=\"80\" width=\"160\" /></a>\n" HTML_SHELL "${HTML_SHELL}")
                 file (WRITE ${CMAKE_BINARY_DIR}/Source/shell.html "${HTML_SHELL}")
+                set (HTML_SHELL ${CMAKE_BINARY_DIR}/Source/shell.html)
+            else ()
+                set (HTML_SHELL ${CMAKE_SOURCE_DIR}/bin/shell.html)
             endif ()
-            set (HTML_SHELL ${CMAKE_BINARY_DIR}/Source/shell.html)
         endif ()
         list (APPEND SOURCE_FILES ${HTML_SHELL})
         set_source_files_properties (${HTML_SHELL} PROPERTIES EMCC_OPTION shell-file)
@@ -1679,10 +1690,8 @@ macro (setup_main_executable)
             endif ()
         endif ()
         setup_executable (${EXE_TYPE} ${ARG_UNPARSED_ARGUMENTS})
-        if (HAS_SHELL_FILE)
-            get_target_property (LOCATION ${TARGET_NAME} LOCATION)
-            get_filename_component (NAME_WE ${LOCATION} NAME_WE)
-            add_make_clean_files ($<TARGET_FILE_DIR:${TARGET_NAME}>/${NAME_WE}.js $<TARGET_FILE_DIR:${TARGET_NAME}>/${NAME_WE}.wasm)
+        if (HAS_SHELL_FILE AND NOT CMAKE_VERSION VERSION_LESS 3.15)
+            add_make_clean_files ($<TARGET_FILE_DIR:${TARGET_NAME}>/$<TARGET_FILE_BASE_NAME:${TARGET_NAME}>.js $<TARGET_FILE_DIR:${TARGET_NAME}>/$<TARGET_FILE_BASE_NAME:${TARGET_NAME}>.wasm)
         endif ()
     endif ()
     # Setup custom resource checker target
@@ -1853,18 +1862,6 @@ macro (_setup_target)
                 create_symlink (${I} ${CMAKE_BINARY_DIR}/bin/${NAME} FALLBACK_TO_COPY)
             endif ()
         endforeach ()
-    endif ()
-    # Workaround CMake/Xcode generator bug where it always appends '/build' path element to SYMROOT attribute and as such the items in Products are always rendered as red in the Xcode as if they are not yet built
-    if (NOT DEFINED ENV{TRAVIS})
-        if (XCODE AND NOT CMAKE_PROJECT_NAME MATCHES ^Urho3D-ExternalProject-)
-            file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/build)
-            get_target_property (LOCATION ${TARGET_NAME} LOCATION)
-            string (REGEX REPLACE "^.*\\$\\(CONFIGURATION\\)" $(CONFIGURATION) SYMLINK ${LOCATION})
-            get_filename_component (DIRECTORY ${SYMLINK} PATH)
-            add_custom_command (TARGET ${TARGET_NAME} POST_BUILD
-                COMMAND mkdir -p ${DIRECTORY} && ln -sf $<TARGET_FILE:${TARGET_NAME}> ${DIRECTORY}/$<TARGET_FILE_NAME:${TARGET_NAME}>
-                WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/build)
-        endif ()
     endif ()
 endmacro()
 

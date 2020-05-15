@@ -3,7 +3,6 @@
 # Urho3D
 
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/4954/badge.svg)](https://scan.coverity.com/projects/urho3d-urho3d)
-[![Join the chat at https://gitter.im/urho3d/Urho3D](https://badges.gitter.im/urho3d/Urho3D.svg)](https://gitter.im/urho3d/Urho3D?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 **Urho3D** is a free lightweight, cross-platform 2D and 3D game engine implemented in C++ and released under the MIT license. Greatly inspired by OGRE and Horde3D.
 
@@ -169,6 +168,7 @@ Urho3D development, contributions and bugfixes by:
 - smortex
 - ssinai1
 - sssooonnnggg
+- stievie
 - svifylabs
 - szamq
 - thebluefish
@@ -215,7 +215,7 @@ Urho3D uses the following third-party libraries:
 - Mustache 1.0 (https://mustache.github.io, https://github.com/kainjow/Mustache)
 - nanodbc 2.12.4+ (https://lexicalunit.github.io/nanodbc)
 - Open Asset Import Library 4.1.0 (http://assimp.sourceforge.net)
-- pugixml 1.7 (http://pugixml.org)
+- pugixml 1.10+ (http://pugixml.org)
 - rapidjson 1.1.0 (https://github.com/miloyip/rapidjson)
 - Recast/Detour (https://github.com/recastnavigation/recastnavigation)
 - SDL 2.0.10+ (https://www.libsdl.org)
