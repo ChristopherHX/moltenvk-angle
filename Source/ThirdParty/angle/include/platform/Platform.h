@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015 The ANGLE Project Authors. All rights reserved.
+// Copyright 2015 The ANGLE Project Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -15,15 +15,10 @@
 #define EGL_PLATFORM_ANGLE_PLATFORM_METHODS_ANGLEX 0x3482
 
 #if defined(_WIN32)
-#    ifdef URHO3D_ANGLE_VULKAN
-#        define ANGLE_PLATFORM_EXPORT
-#        define ANGLE_APIENTRY
-#    else
 #    if !defined(LIBANGLE_IMPLEMENTATION)
 #        define ANGLE_PLATFORM_EXPORT __declspec(dllimport)
 #    else
 #        define ANGLE_PLATFORM_EXPORT __declspec(dllexport)
-#    endif
 #    endif
 #elif defined(__GNUC__) || defined(__clang__)
 #    define ANGLE_PLATFORM_EXPORT __attribute__((visibility("default")))
@@ -42,6 +37,7 @@ namespace angle
 {
 struct FeaturesD3D;
 struct FeaturesVk;
+struct FeaturesMtl;
 using TraceEventHandle = uint64_t;
 using EGLDisplayType   = void *;
 struct PlatformMethods;
@@ -230,6 +226,11 @@ using OverrideFeaturesVkFunc = void (*)(PlatformMethods *platform,
 inline void DefaultOverrideFeaturesVk(PlatformMethods *platform, angle::FeaturesVk *featuresVulkan)
 {}
 
+using OverrideFeaturesMtlFunc = void (*)(PlatformMethods *platform,
+                                         angle::FeaturesMtl *featuresMetal);
+inline void DefaultOverrideFeaturesMtl(PlatformMethods *platform, angle::FeaturesMtl *featuresMetal)
+{}
+
 // Callback on a successful program link with the program binary. Can be used to store
 // shaders to disk. Keys are a 160-bit SHA-1 hash.
 using ProgramKeyType   = std::array<uint8_t, 20>;
@@ -259,6 +260,7 @@ inline void DefaultCacheProgram(PlatformMethods *platform,
     OP(histogramBoolean, HistogramBoolean)                       \
     OP(overrideWorkaroundsD3D, OverrideWorkaroundsD3D)           \
     OP(overrideFeaturesVk, OverrideFeaturesVk)                   \
+    OP(overrideFeaturesMtl, OverrideFeaturesMtl)                 \
     OP(cacheProgram, CacheProgram)
 
 #define ANGLE_PLATFORM_METHOD_DEF(Name, CapsName) CapsName##Func Name = Default##CapsName;

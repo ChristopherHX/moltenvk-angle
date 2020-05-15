@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -953,21 +953,6 @@ VariantMap Engine::ParseParameters(const Vector<String>& arguments)
                 ++i;
             }
 #endif
-			else if (argument == "scene" && !value.Empty())
-			{
-				ret[EP_LOAD_SCENE] = value;
-				++i;
-			}
-			else if (argument == "address" && !value.Empty())
-			{
-				ret[EP_FLIMPER_SERVER_IP] = value;
-				++i;
-			}
-			else if (argument == "port" && !value.Empty())
-			{
-				ret[EP_FLIMPER_SERVER_PORT] = ToInt(value);
-				++i;
-			}
         }
     }
 
@@ -999,11 +984,10 @@ void Engine::HandleExitRequested(StringHash eventType, VariantMap& eventData)
 
 void Engine::DoExit()
 {
-#ifdef URHO3D_ANGLE_VULKAN
-    exiting_ = true;
-    Time::Sleep(250);
+#if defined(URHO3D_ANGLE_METAL)
+        exiting_ = true;
+        Time::Sleep(250);
 #endif
-    
     auto* graphics = GetSubsystem<Graphics>();
     if (graphics)
         graphics->Close();

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2014 The ANGLE Project Authors. All rights reserved.
+// Copyright 2014 The ANGLE Project Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
@@ -17,7 +17,7 @@
 
 #include "texture_utils.h"
 #include "util/shader_utils.h"
-#include "util/system_utils.h"
+#include "util/test_utils.h"
 
 #include <cstring>
 #include <iostream>
@@ -50,13 +50,13 @@ class MultipleDrawBuffersSample : public SampleApplication
         }
 
         std::stringstream vsStream;
-        vsStream << angle::GetExecutableDirectory() << "/multiple_draw_buffers_vs.glsl";
+        vsStream << angle::GetResourceDirectory() << "/multiple_draw_buffers_vs.glsl";
 
         std::stringstream fsStream;
-        fsStream << angle::GetExecutableDirectory() << "/multiple_draw_buffers_fs.glsl";
+        fsStream << angle::GetResourceDirectory() << "/multiple_draw_buffers_fs.glsl";
 
         std::stringstream copyFsStream;
-        fsStream << angle::GetExecutableDirectory() << "/multiple_draw_buffers_copy_fs.glsl";
+        fsStream << angle::GetResourceDirectory() << "/multiple_draw_buffers_copy_fs.glsl";
 
         mMRTProgram = CompileProgramFromFiles(vsStream.str(), fsStream.str());
         if (!mMRTProgram)

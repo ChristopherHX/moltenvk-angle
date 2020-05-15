@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -1526,21 +1526,6 @@ void Scene::PreloadResourcesJSON(const JSONValue& value)
     }
 #endif
 }
-
-#if defined(FLIMPER)
-void Scene::UpdateEditor(float timeStep)
-{
-	timeStep *= timeScale_;
-	using namespace SceneEditorUpdate;
-	VariantMap& eventData = GetEventDataMap();
-	eventData[P_SCENE] = this;
-	eventData[P_TIMESTEP] = timeStep;
-
-	// Post-update variable timestep logic
-	SendEvent(E_SCENEEDITORUPDATE, eventData);
-
-}
-#endif 
 
 void RegisterSceneLibrary(Context* context)
 {

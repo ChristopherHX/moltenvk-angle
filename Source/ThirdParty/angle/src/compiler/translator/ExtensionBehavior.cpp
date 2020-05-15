@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2017 The ANGLE Project Authors. All rights reserved.
+// Copyright 2017 The ANGLE Project Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
@@ -33,7 +33,8 @@
     OP(OVR_multiview)                            \
     OP(OVR_multiview2)                           \
     OP(ANGLE_multi_draw)                         \
-    OP(ANGLE_base_vertex_base_instance)
+    OP(ANGLE_base_vertex_base_instance)          \
+    OP(APPLE_clip_distance)
 
 namespace sh
 {

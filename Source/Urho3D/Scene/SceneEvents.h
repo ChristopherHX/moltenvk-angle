@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -211,13 +211,5 @@ URHO3D_EVENT(E_INTERCEPTNETWORKUPDATE, InterceptNetworkUpdate)
     URHO3D_PARAM(P_NAME, Name);                    // String
     URHO3D_PARAM(P_VALUE, Value);                  // Variant
 }
-
-#if defined(FLIMPER)
-URHO3D_EVENT(E_SCENEEDITORUPDATE, SceneEditorUpdate)
-{
-	URHO3D_PARAM(P_SCENE, Scene);                  // Scene pointer
-	URHO3D_PARAM(P_TIMESTEP, TimeStep);            // float
-}
-#endif
 
 }

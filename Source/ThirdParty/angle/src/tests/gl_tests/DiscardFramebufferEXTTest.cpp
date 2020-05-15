@@ -26,7 +26,7 @@ class DiscardFramebufferEXTTest : public ANGLETest
 
 TEST_P(DiscardFramebufferEXTTest, DefaultFramebuffer)
 {
-    ANGLE_SKIP_TEST_IF(!IsGLExtensionEnabled("EXT_discard_framebuffer"));
+    ANGLE_SKIP_TEST_IF(!IsGLExtensionEnabled("GL_EXT_discard_framebuffer"));
 
     // These should succeed on the default framebuffer
     const GLenum discards1[] = {GL_COLOR_EXT};
@@ -61,7 +61,7 @@ TEST_P(DiscardFramebufferEXTTest, DefaultFramebuffer)
 
 TEST_P(DiscardFramebufferEXTTest, NonDefaultFramebuffer)
 {
-    ANGLE_SKIP_TEST_IF(!IsGLExtensionEnabled("EXT_discard_framebuffer"));
+    ANGLE_SKIP_TEST_IF(!IsGLExtensionEnabled("GL_EXT_discard_framebuffer"));
 
     GLuint tex2D;
     GLuint framebuffer;
@@ -115,6 +115,7 @@ TEST_P(DiscardFramebufferEXTTest, NonDefaultFramebuffer)
 ANGLE_INSTANTIATE_TEST(DiscardFramebufferEXTTest,
                        ES2_D3D9(),
                        ES2_D3D11(),
+                       ES2_METAL(),
                        ES2_OPENGL(),
                        ES3_OPENGL(),
                        ES2_OPENGLES(),

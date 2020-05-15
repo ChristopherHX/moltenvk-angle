@@ -368,12 +368,10 @@ Cocoa_GL_GetDrawableSize(_THIS, SDL_Window * window, int * w, int * h)
     if (window->flags & SDL_WINDOW_ALLOW_HIGHDPI) {
         /* This gives us the correct viewport for a Retina-enabled view, only
          * supported on 10.7+. */
-#ifndef URHO3D_ANGLE_VULKAN
-    /* TBD ELIX22 , needs more investigation , can't handle Retina displays for now */
         if ([contentView respondsToSelector:@selector(convertRectToBacking:)]) {
             viewport = [contentView convertRectToBacking:viewport];
         }
-#endif
+    }
 
     if (w) {
         *w = viewport.size.width;

@@ -63,7 +63,7 @@ UIKit_PumpEvents(_THIS)
     do {
         result = CFRunLoopRunInMode((CFStringRef)UITrackingRunLoopMode, seconds, TRUE);
     } while(result == kCFRunLoopRunHandledSource);
-#ifndef SDL_VIDEO_OPENGL_EGL // TBD ELIX22
+#ifndef URHO3D_ANGLE_METAL
     /* See the comment in the function definition. */
     UIKit_GL_RestoreCurrentContext();
 #endif

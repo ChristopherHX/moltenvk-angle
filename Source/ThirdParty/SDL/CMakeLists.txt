@@ -22,7 +22,7 @@
 # Modified by Yao Wei Tjong for Urho3D, the modified portion is licensed under below license
 
 #
-# Copyright (c) 2008-2019 the Urho3D project.
+# Copyright (c) 2008-2020 the Urho3D project.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -48,11 +48,6 @@
 # Urho3D - commented out setting SDL2 as project name as we want SDL sub-library to remain within Urho3D "umbrella" project
 #          instead, just enable the required language support and set the extra variables associated with project() command
 enable_language (C CXX)
-if(URHO3D_ANGLE_VULKAN)
-if(WIN32)
-add_definitions(-DGL_API=  -DGL_APIENTRY=  -DEGLAPI=  -DANGLE_PLATFORM_EXPORT=    -DGL_APICALL=  -DGL_APIENTRY= -DANGLE_EXPORT= -DEGLAPIENTRY= -DANGLE_APIENTRY=)
-endif()
-endif()
 set (SDL2_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set (SDL2_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
 # Urho3D - commented out CheckTypeSize, FindPkgConfig, and GNUInstallDirs modules as the corresponding macros are not being used in our modified version
@@ -233,7 +228,7 @@ add_definitions(-DUSING_GENERATED_CONFIG_H)
 # Urho3D - use 'generated' path suffix for generated config header file, the suffic prevents overwriting the header file with the same name in the source tree in case of non out-of-source build tree is being used
 set (INCLUDE_DIRS ${SDL2_BINARY_DIR}/include/generated ${SDL2_SOURCE_DIR}/include)
 
-if(URHO3D_ANGLE_VULKAN)
+if(URHO3D_ANGLE_METAL)
   list (APPEND INCLUDE_DIRS ../angle/include)
 endif()
 
@@ -991,9 +986,6 @@ elseif(APPLE)
       set (SDL_VIDEO_RENDER_OGL_ES 1)
       set (SDL_VIDEO_RENDER_OGL_ES2 1)
       set (HAVE_VIDEO_OPENGLES TRUE)
-      if(URHO3D_ANGLE_VULKAN)
-        set(SDL_VIDEO_OPENGL_EGL 1)
-      endif()
 
       # Urho3D - Metal supported on 64-bit devices running iOS 8.0 and tvOS 9.0 and newer
       CHECK_C_SOURCE_COMPILES ("
@@ -1010,11 +1002,16 @@ elseif(APPLE)
       else ()
         set (VIDEO_VULKAN OFF)
       endif ()
+      if(URHO3D_ANGLE_METAL)
+        set(SDL_VIDEO_OPENGL_EGL 1)
+        set(SDL_VIDEO_OPENGL_ES2 1)
+      endif()
     else ()
       CheckOpenGL ()
       CheckOpenGLES ()
-      if(URHO3D_ANGLE_VULKAN)
+      if(URHO3D_ANGLE_METAL)
         set(SDL_VIDEO_OPENGL_EGL 1)
+        set(SDL_VIDEO_OPENGL_ES2 1)
       endif()
     endif ()
   endif()

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -73,7 +73,5 @@ static const String EP_WINDOW_RESIZABLE = "WindowResizable";
 static const String EP_WINDOW_TITLE = "WindowTitle";
 static const String EP_WINDOW_WIDTH = "WindowWidth";
 static const String EP_WORKER_THREADS = "WorkerThreads";
-static const String EP_LOAD_SCENE = "LoadScene";
-static const String EP_FLIMPER_SERVER_IP = "FlimperServerIP";
-static const String EP_FLIMPER_SERVER_PORT = "FlimperServerPort";
+
 }

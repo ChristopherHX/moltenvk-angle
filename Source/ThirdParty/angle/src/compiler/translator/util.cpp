@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2010 The ANGLE Project Authors. All rights reserved.
+// Copyright 2010 The ANGLE Project Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
@@ -688,6 +688,7 @@ bool IsBuiltinOutputVariable(TQualifier qualifier)
         case EvqSecondaryFragColorEXT:
         case EvqFragData:
         case EvqSecondaryFragDataEXT:
+        case EvqClipDistance:
             return true;
         default:
             break;
@@ -757,6 +758,10 @@ bool IsOutputVulkan(ShShaderOutput output)
 {
     return output == SH_GLSL_VULKAN_OUTPUT;
 }
+bool IsOutputMetal(ShShaderOutput output)
+{
+    return output == SH_GLSL_METAL_OUTPUT;
+}
 
 bool IsInShaderStorageBlock(TIntermTyped *node)
 {
@@ -823,6 +828,127 @@ GLenum GetImageInternalFormatType(TLayoutImageInternalFormat iifq)
 bool IsSpecWithFunctionBodyNewScope(ShShaderSpec shaderSpec, int shaderVersion)
 {
     return (shaderVersion == 100 && !sh::IsWebGLBasedSpec(shaderSpec));
+}
+
+ImplicitTypeConversion GetConversion(TBasicType t1, TBasicType t2)
+{
+    if (t1 == t2)
+        return ImplicitTypeConversion::Same;
+
+    switch (t1)
+    {
+        case EbtInt:
+            switch (t2)
+            {
+                case EbtInt:
+                    UNREACHABLE();
+                    break;
+                case EbtUInt:
+                    return ImplicitTypeConversion::Invalid;
+                case EbtFloat:
+                    return ImplicitTypeConversion::Left;
+                default:
+                    return ImplicitTypeConversion::Invalid;
+            }
+            break;
+        case EbtUInt:
+            switch (t2)
+            {
+                case EbtInt:
+                    return ImplicitTypeConversion::Invalid;
+                case EbtUInt:
+                    UNREACHABLE();
+                    break;
+                case EbtFloat:
+                    return ImplicitTypeConversion::Left;
+                default:
+                    return ImplicitTypeConversion::Invalid;
+            }
+            break;
+        case EbtFloat:
+            switch (t2)
+            {
+                case EbtInt:
+                case EbtUInt:
+                    return ImplicitTypeConversion::Right;
+                case EbtFloat:
+                    UNREACHABLE();
+                    break;
+                default:
+                    return ImplicitTypeConversion::Invalid;
+            }
+            break;
+        default:
+            return ImplicitTypeConversion::Invalid;
+    }
+    return ImplicitTypeConversion::Invalid;
+}
+
+bool IsValidImplicitConversion(sh::ImplicitTypeConversion conversion, TOperator op)
+{
+    switch (conversion)
+    {
+        case sh::ImplicitTypeConversion::Same:
+            return true;
+        case sh::ImplicitTypeConversion::Left:
+            switch (op)
+            {
+                case EOpEqual:
+                case EOpNotEqual:
+                case EOpLessThan:
+                case EOpGreaterThan:
+                case EOpLessThanEqual:
+                case EOpGreaterThanEqual:
+                case EOpAdd:
+                case EOpSub:
+                case EOpMul:
+                case EOpDiv:
+                    return true;
+                default:
+                    break;
+            }
+            break;
+        case sh::ImplicitTypeConversion::Right:
+            switch (op)
+            {
+                case EOpAssign:
+                case EOpInitialize:
+                case EOpEqual:
+                case EOpNotEqual:
+                case EOpLessThan:
+                case EOpGreaterThan:
+                case EOpLessThanEqual:
+                case EOpGreaterThanEqual:
+                case EOpAdd:
+                case EOpSub:
+                case EOpMul:
+                case EOpDiv:
+                case EOpAddAssign:
+                case EOpSubAssign:
+                case EOpMulAssign:
+                case EOpDivAssign:
+                    return true;
+                default:
+                    break;
+            }
+            break;
+        case sh::ImplicitTypeConversion::Invalid:
+            break;
+    }
+    return false;
+}
+
+size_t FindFieldIndex(const TFieldList &fieldList, const char *fieldName)
+{
+    for (size_t fieldIndex = 0; fieldIndex < fieldList.size(); ++fieldIndex)
+    {
+        if (strcmp(fieldList[fieldIndex]->name().data(), fieldName) == 0)
+        {
+            return fieldIndex;
+        }
+    }
+    UNREACHABLE();
+    return 0;
 }
 
 }  // namespace sh

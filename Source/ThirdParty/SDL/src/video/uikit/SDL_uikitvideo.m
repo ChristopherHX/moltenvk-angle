@@ -44,7 +44,7 @@
 #include "SDL_uikitvulkan.h"
 #endif
 
-#if SDL_VIDEO_OPENGL_EGL
+#if URHO3D_ANGLE_METAL
 #include "SDL_uikitegl.h"
 #endif
 
@@ -108,7 +108,7 @@ UIKit_CreateDevice(int devindex)
         device->SetWindowBordered = UIKit_SetWindowBordered;
         device->SetWindowFullscreen = UIKit_SetWindowFullscreen;
         device->DestroyWindow = UIKit_DestroyWindow;
-#ifndef SDL_VIDEO_OPENGL_EGL
+#ifndef URHO3D_ANGLE_METAL
         device->GetWindowWMInfo = UIKit_GetWindowWMInfo;
 #endif
         device->GetDisplayUsableBounds = UIKit_GetDisplayUsableBounds;
@@ -125,7 +125,7 @@ UIKit_CreateDevice(int devindex)
         device->GetClipboardText = UIKit_GetClipboardText;
         device->HasClipboardText = UIKit_HasClipboardText;
 
-#if SDL_VIDEO_OPENGL_EGL 
+#if URHO3D_ANGLE_METAL
         /* Switch to EGL based functions */
         device->GL_LoadLibrary = UIKIT_GLES_LoadLibrary;
         device->GL_GetProcAddress = UIKIT_GLES_GetProcAddress;

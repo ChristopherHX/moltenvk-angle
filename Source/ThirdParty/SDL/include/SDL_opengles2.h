@@ -26,20 +26,21 @@
  */
 #include "SDL_config.h"
 
-#ifdef URHO3D_ANGLE_VULKAN
-#include <GLES2/gl2platform.h>
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
-#else
 #ifndef _MSC_VER
 
-#ifdef __IPHONEOS__
-#include <OpenGLES/ES2/gl.h>
-#include <OpenGLES/ES2/glext.h>
+#if defined(URHO3D_ANGLE_METAL)
+    #include <GLES2/gl2platform.h>
+    #include <GLES2/gl2.h>
+    #include <GLES2/gl2ext.h>
 #else
-#include <GLES2/gl2platform.h>
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
+    #ifdef __IPHONEOS__
+    #include <OpenGLES/ES2/gl.h>
+    #include <OpenGLES/ES2/glext.h>
+    #else
+    #include <GLES2/gl2platform.h>
+    #include <GLES2/gl2.h>
+    #include <GLES2/gl2ext.h>
+    #endif
 #endif
 
 #else /* _MSC_VER */
@@ -51,7 +52,6 @@
 #include "SDL_opengles2_gl2ext.h"
 
 #endif /* _MSC_VER */
-#endif /* URHO3D_ANGLE_VULKAN */
 
 #ifndef APIENTRY
 #define APIENTRY GL_APIENTRY

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2002-2014 The ANGLE Project Authors. All rights reserved.
+// Copyright 2002 The ANGLE Project Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
@@ -214,31 +214,31 @@ std::string TOutputGLSLBase::getMemoryQualifiers(const TType &type)
     const TMemoryQualifier &memoryQualifier = type.getMemoryQualifier();
     if (memoryQualifier.readonly)
     {
-        ASSERT(IsImage(type.getBasicType()));
+        ASSERT(IsImage(type.getBasicType()) || IsStorageBuffer(type.getQualifier()));
         out << "readonly ";
     }
 
     if (memoryQualifier.writeonly)
     {
-        ASSERT(IsImage(type.getBasicType()));
+        ASSERT(IsImage(type.getBasicType()) || IsStorageBuffer(type.getQualifier()));
         out << "writeonly ";
     }
 
     if (memoryQualifier.coherent)
     {
-        ASSERT(IsImage(type.getBasicType()));
+        ASSERT(IsImage(type.getBasicType()) || IsStorageBuffer(type.getQualifier()));
         out << "coherent ";
     }
 
     if (memoryQualifier.restrictQualifier)
     {
-        ASSERT(IsImage(type.getBasicType()));
+        ASSERT(IsImage(type.getBasicType()) || IsStorageBuffer(type.getQualifier()));
         out << "restrict ";
     }
 
     if (memoryQualifier.volatileQualifier)
     {
-        ASSERT(IsImage(type.getBasicType()));
+        ASSERT(IsImage(type.getBasicType()) || IsStorageBuffer(type.getQualifier()));
         out << "volatile ";
     }
 
@@ -290,6 +290,35 @@ void TOutputGLSLBase::writeLayoutQualifier(TIntermTyped *variable)
         out << listItemPrefix << otherQualifiers;
     }
 
+    out << ") ";
+}
+
+void TOutputGLSLBase::writeFieldLayoutQualifier(const TField *field)
+{
+    if (!field->type()->isMatrix() && !field->type()->isStructureContainingMatrices())
+    {
+        return;
+    }
+
+    TInfoSinkBase &out = objSink();
+
+    out << "layout(";
+    switch (field->type()->getLayoutQualifier().matrixPacking)
+    {
+        case EmpUnspecified:
+        case EmpColumnMajor:
+            // Default matrix packing is column major.
+            out << "column_major";
+            break;
+
+        case EmpRowMajor:
+            out << "row_major";
+            break;
+
+        default:
+            UNREACHABLE();
+            break;
+    }
     out << ") ";
 }
 
@@ -1045,8 +1074,12 @@ bool TOutputGLSLBase::visitDeclaration(Visit visit, TIntermDeclaration *node)
     {
         const TIntermSequence &sequence = *(node->getSequence());
         TIntermTyped *variable          = sequence.front()->getAsTyped();
-        writeLayoutQualifier(variable);
         TIntermSymbol *symbolNode = variable->getAsSymbolNode();
+        if (!symbolNode || symbolNode->getName() != "gl_ClipDistance")
+        {
+            // gl_ClipDistance re-declaration doesn't need layout.
+            writeLayoutQualifier(variable);
+        }
         writeVariableType(variable->getType(), symbolNode ? &symbolNode->variable() : nullptr);
         if (variable->getAsSymbolNode() == nullptr ||
             variable->getAsSymbolNode()->variable().symbolType() != SymbolType::Empty)
@@ -1312,27 +1345,7 @@ void TOutputGLSLBase::declareInterfaceBlock(const TInterfaceBlock *interfaceBloc
     const TFieldList &fields = interfaceBlock->fields();
     for (const TField *field : fields)
     {
-        if (field->type()->isMatrix() || field->type()->isStructureContainingMatrices())
-        {
-            out << "layout(";
-            switch (field->type()->getLayoutQualifier().matrixPacking)
-            {
-                case EmpUnspecified:
-                case EmpColumnMajor:
-                    // Default matrix packing is column major.
-                    out << "column_major";
-                    break;
-
-                case EmpRowMajor:
-                    out << "row_major";
-                    break;
-
-                default:
-                    UNREACHABLE();
-                    break;
-            }
-            out << ") ";
-        }
+        writeFieldLayoutQualifier(field);
 
         if (writeVariablePrecision(field->type()->getPrecision()))
             out << " ";

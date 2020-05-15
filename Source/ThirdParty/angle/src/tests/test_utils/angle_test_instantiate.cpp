@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2014 The ANGLE Project Authors. All rights reserved.
+// Copyright 2014 The ANGLE Project Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
@@ -14,15 +14,21 @@
 
 #include "angle_gl.h"
 #include "common/platform.h"
+#include "common/system_utils.h"
 #include "gpu_info_util/SystemInfo.h"
 #include "test_utils/angle_test_configs.h"
 #include "util/EGLWindow.h"
 #include "util/OSWindow.h"
-#include "util/system_utils.h"
+#include "util/test_utils.h"
 
 #if defined(ANGLE_PLATFORM_WINDOWS)
+#    include <VersionHelpers.h>
 #    include "util/windows/WGLWindow.h"
 #endif  // defined(ANGLE_PLATFORM_WINDOWS)
+
+#if defined(ANGLE_PLATFORM_APPLE)
+#    include "test_utils/angle_test_instantiate_apple.h"
+#endif
 
 namespace angle
 {
@@ -112,6 +118,15 @@ SystemInfo *GetTestSystemInfo()
             std::cerr << "Warning: incomplete system info collection.\n";
         }
 
+        // On dual-GPU Macs we want the active GPU to always appear to be the
+        // high-performance GPU for tests.
+        // We can call the generic GPU info collector which selects the
+        // non-Intel GPU as the active one on dual-GPU machines.
+        if (IsOSX())
+        {
+            GetDualGPUInfo(sSystemInfo);
+        }
+
         // Print complete system info when available.
         // Seems to trip up Android test expectation parsing.
         // Also don't print info when a config is selected to prevent test spam.
@@ -163,6 +178,15 @@ bool IsWindows()
 {
 #if defined(ANGLE_PLATFORM_WINDOWS)
     return true;
+#else
+    return false;
+#endif
+}
+
+bool IsWindows7()
+{
+#if defined(ANGLE_PLATFORM_WINDOWS)
+    return ::IsWindows7OrGreater() && !::IsWindows8OrGreater();
 #else
     return false;
 #endif
@@ -242,14 +266,6 @@ bool IsConfigWhitelisted(const SystemInfo &systemInfo, const PlatformParameters 
             return true;
     }
 
-#if ANGLE_VULKAN_CONFORMANT_CONFIGS_ONLY
-    // Vulkan ES 3.0 is not yet supported.
-    if (param.majorVersion > 2 && param.getRenderer() == EGL_PLATFORM_ANGLE_TYPE_VULKAN_ANGLE)
-    {
-        return false;
-    }
-#endif
-
     if (IsWindows())
     {
         switch (param.driver)
@@ -283,6 +299,7 @@ bool IsConfigWhitelisted(const SystemInfo &systemInfo, const PlatformParameters 
         }
     }
 
+#if defined(ANGLE_PLATFORM_APPLE)
     if (IsOSX())
     {
         // We do not support non-ANGLE bindings on OSX.
@@ -297,9 +314,19 @@ bool IsConfigWhitelisted(const SystemInfo &systemInfo, const PlatformParameters 
             return false;
         }
 
-        // Currently we only support the OpenGL back-end on OSX.
-        return (param.getRenderer() == EGL_PLATFORM_ANGLE_TYPE_OPENGL_ANGLE);
+        if (param.getRenderer() == EGL_PLATFORM_ANGLE_TYPE_METAL_ANGLE &&
+            (!IsMetalRendererAvailable() || IsIntel(vendorID)))
+        {
+            // TODO(hqle): Intel metal tests seem to have problems. Disable for now.
+            // http://anglebug.com/4133
+            return false;
+        }
+
+        // Currently we only support the OpenGL & Metal back-end on OSX.
+        return (param.getRenderer() == EGL_PLATFORM_ANGLE_TYPE_OPENGL_ANGLE ||
+                param.getRenderer() == EGL_PLATFORM_ANGLE_TYPE_METAL_ANGLE);
     }
+#endif  // #if defined(ANGLE_PLATFORM_APPLE)
 
     if (IsFuchsia())
     {
@@ -436,6 +463,13 @@ bool IsPlatformAvailable(const PlatformParameters &param)
 
         case EGL_PLATFORM_ANGLE_TYPE_VULKAN_ANGLE:
 #if !defined(ANGLE_ENABLE_VULKAN)
+            return false;
+#else
+            break;
+#endif
+
+        case EGL_PLATFORM_ANGLE_TYPE_METAL_ANGLE:
+#if !defined(ANGLE_ENABLE_METAL)
             return false;
 #else
             break;

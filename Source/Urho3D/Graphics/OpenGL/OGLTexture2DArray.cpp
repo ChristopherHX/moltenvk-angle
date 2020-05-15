@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,9 @@ namespace Urho3D
 
 void Texture2DArray::OnDeviceLost()
 {
+    if (object_.name_ && !graphics_->IsDeviceLost())
+        glDeleteTextures(1, &object_.name_);
+
     GPUObject::OnDeviceLost();
 
     if (renderSurface_)
@@ -303,9 +306,9 @@ bool Texture2DArray::SetData(unsigned layer, Image* image, bool useAlpha)
         unsigned format = graphics_->GetFormat(image->GetCompressedFormat());
         bool needDecompress = false;
 
-#ifdef URHO3D_ANGLE_VULKAN
-		format = Graphics::GetRGBAFormat();
-		needDecompress = true;
+#if  defined(URHO3D_ANGLE_METAL)
+        format = Graphics::GetRGBAFormat();
+        needDecompress = true;
 #else
         if (!format)
         {
@@ -422,7 +425,7 @@ bool Texture2DArray::Create()
 {
     Release();
 
-#ifdef GL_ES_VERSION_2_0
+#if defined(GL_ES_VERSION_2_0) && !defined(GL_ES_VERSION_3_0)
     URHO3D_LOGERROR("Failed to create 2D array texture, currently unsupported on OpenGL ES 2");
     return false;
 #else

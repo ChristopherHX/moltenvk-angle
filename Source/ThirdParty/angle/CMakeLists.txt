@@ -22,8 +22,8 @@
 # 20190119 - Eli Aloni (A.K.A elix22) - initial creation
 
 set (TARGET_NAME angle)
-
-add_definitions(-DANGLE_USE_CUSTOM_VULKAN_CMD_BUFFERS=1 -DANGLE_ENABLE_VULKAN -DAPI_NAME=\"Vulkan\" -DVULKAN_NON_CMAKE_BUILD -DSDL_VIDEO_STATIC_ANGLE -DANGLE_EXPORT=  -DANGLE_VK_ICD_JSON="" -DANGLE_VK_DATA_DIR="")
+#-DANGLE_ENABLE_VULKAN
+add_definitions(-DANGLE_USE_CUSTOM_VULKAN_CMD_BUFFERS=1  -DAPI_NAME=\"Vulkan\" -DVULKAN_NON_CMAKE_BUILD -DSDL_VIDEO_STATIC_ANGLE -DANGLE_EXPORT=  -DANGLE_VK_ICD_JSON="" -DANGLE_VK_DATA_DIR="")
 #add_definitions(-DGL_API=  -DGL_APIENTRY=  -DEGLAPI=  -DANGLE_PLATFORM_EXPORT=    -DGL_APICALL=  -DGL_APIENTRY= -DANGLE_EXPORT= -DEGLAPIENTRY= -DANGLE_APIENTRY=)
 
 #-DANGLE_USE_CUSTOM_VULKAN_CMD_BUFFERS=1 
@@ -35,17 +35,20 @@ if(ANDROID)
 endif()
 
 if(IOS)
-	add_definitions(-DVK_USE_PLATFORM_IOS_MVK )
+	#add_definitions(-DVK_USE_PLATFORM_IOS_MVK )
+	add_definitions(-DANGLE_ENABLE_METAL)
 endif()
 
 if(TVOS)
-	add_definitions(-DVK_USE_PLATFORM_IOS_MVK )
+	# add_definitions(-DVK_USE_PLATFORM_IOS_MVK )
+	add_definitions(-DANGLE_ENABLE_METAL)
 endif()
 
 if(APPLE)
-	add_definitions(-DVK_USE_PLATFORM_MACOS_MVK)
+	# add_definitions(-DVK_USE_PLATFORM_MACOS_MVK)
+	add_definitions(-DANGLE_ENABLE_METAL)
 	add_definitions(-DSYSCONFDIR=\"/etc\"   -DFALLBACK_CONFIG_DIRS=\"/etc/xdg\" -DFALLBACK_DATA_DIRS=\"/usr/local/share:/usr/share\")
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1z -Wincompatible-pointer-types")
+	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1z -Wincompatible-pointer-types -Wargument-outside-range")
 endif()
 
 if(WIN32)
@@ -82,6 +85,7 @@ set (libangle_common_sources
   src/common/android_util.h
   src/common/angleutils.cpp
   src/common/angleutils.h
+  src/common/apple_platform_utils.h
   src/common/bitset_utils.h
   src/common/debug.cpp
   src/common/debug.h
@@ -207,10 +211,12 @@ set (libangle_sources
   src/libANGLE/ErrorStrings.h
   src/libANGLE/Fence.cpp
   src/libANGLE/Fence.h
+  src/libANGLE/format_map_desktop.cpp
   src/libANGLE/Framebuffer.cpp
   src/libANGLE/Framebuffer.h
   src/libANGLE/FramebufferAttachment.cpp
   src/libANGLE/FramebufferAttachment.h
+  src/libANGLE/FrameCapture.cpp
   src/libANGLE/GLES1Renderer.cpp
   src/libANGLE/GLES1Renderer.h
   src/libANGLE/GLES1Shaders.inc
@@ -234,6 +240,10 @@ set (libangle_sources
   src/libANGLE/MemoryProgramCache.h
   src/libANGLE/Observer.cpp
   src/libANGLE/Observer.h
+  src/libANGLE/Overlay.cpp
+  src/libANGLE/Overlay_autogen.cpp
+  src/libANGLE/Overlay_font_autogen.cpp
+  src/libANGLE/OverlayWidgets.cpp
   src/libANGLE/Path.h
   src/libANGLE/Path.cpp
   src/libANGLE/Platform.cpp
@@ -313,6 +323,7 @@ set (libangle_sources
   src/libANGLE/renderer/FramebufferAttachmentObjectImpl.h
   src/libANGLE/renderer/FramebufferImpl.h
   src/libANGLE/renderer/GLImplFactory.h
+  src/libANGLE/renderer/glslang_wrapper_utils.cpp
   src/libANGLE/renderer/ImageImpl.h
   src/libANGLE/renderer/PathImpl.h
   src/libANGLE/renderer/ProgramImpl.h
@@ -333,6 +344,8 @@ set (libangle_sources
   src/libANGLE/renderer/VertexArrayImpl.h
   src/libANGLE/renderer/copyvertex.h
   src/libANGLE/renderer/copyvertex.inc
+  src/libANGLE/renderer/glslang_wrapper_utils.h
+  src/libANGLE/renderer/glslang_wrapper_utils.cpp
   src/libANGLE/renderer/load_functions_table.h
   src/libANGLE/renderer/load_functions_table_autogen.cpp
   src/libANGLE/renderer/renderer_utils.cpp
@@ -360,118 +373,98 @@ source_group("libANGLE"            FILES ${libangle_sources})
 list (APPEND SOURCE_FILES ${libangle_sources})
 
 
-set(libangle_vulkan_sources
-  src/libANGLE/renderer/vulkan/BufferVk.cpp
-  src/libANGLE/renderer/vulkan/BufferVk.h
-  src/libANGLE/renderer/vulkan/CommandGraph.cpp
-  src/libANGLE/renderer/vulkan/CommandGraph.h
-  src/libANGLE/renderer/vulkan/CompilerVk.cpp
-  src/libANGLE/renderer/vulkan/CompilerVk.h
-  src/libANGLE/renderer/vulkan/ContextVk.cpp
-  src/libANGLE/renderer/vulkan/ContextVk.h
-  src/libANGLE/renderer/vulkan/DeviceVk.cpp
-  src/libANGLE/renderer/vulkan/DeviceVk.h
-  src/libANGLE/renderer/vulkan/DisplayVk.cpp
-  src/libANGLE/renderer/vulkan/DisplayVk.h
-  src/libANGLE/renderer/vulkan/FenceNVVk.cpp
-  src/libANGLE/renderer/vulkan/FenceNVVk.h
-  src/libANGLE/renderer/vulkan/FramebufferVk.cpp
-  src/libANGLE/renderer/vulkan/FramebufferVk.h
-  src/libANGLE/renderer/vulkan/GlslangWrapper.cpp
-  src/libANGLE/renderer/vulkan/GlslangWrapper.h
-  src/libANGLE/renderer/vulkan/ImageVk.cpp
-  src/libANGLE/renderer/vulkan/ImageVk.h
-  src/libANGLE/renderer/vulkan/MemoryObjectVk.cpp
-  src/libANGLE/renderer/vulkan/ProgramVk.cpp
-  src/libANGLE/renderer/vulkan/ProgramVk.h
-  src/libANGLE/renderer/vulkan/ProgramPipelineVk.cpp
-  src/libANGLE/renderer/vulkan/ProgramPipelineVk.h
-  src/libANGLE/renderer/vulkan/QueryVk.cpp
-  src/libANGLE/renderer/vulkan/QueryVk.h
-  src/libANGLE/renderer/vulkan/RenderbufferVk.cpp
-  src/libANGLE/renderer/vulkan/RenderbufferVk.h
-  src/libANGLE/renderer/vulkan/RendererVk.cpp
-  src/libANGLE/renderer/vulkan/RendererVk.h
-  src/libANGLE/renderer/vulkan/RenderTargetVk.cpp
-  src/libANGLE/renderer/vulkan/RenderTargetVk.h
-  src/libANGLE/renderer/vulkan/SamplerVk.cpp
-  src/libANGLE/renderer/vulkan/SamplerVk.h
-  src/libANGLE/renderer/vulkan/SecondaryCommandBuffer.cpp
-  src/libANGLE/renderer/vulkan/SecondaryCommandBuffer.h
-  src/libANGLE/renderer/vulkan/SemaphoreVk.cpp
-  src/libANGLE/renderer/vulkan/SemaphoreVk.h
-  src/libANGLE/renderer/vulkan/ShaderVk.cpp
-  src/libANGLE/renderer/vulkan/ShaderVk.h
-  src/libANGLE/renderer/vulkan/SurfaceVk.cpp
-  src/libANGLE/renderer/vulkan/SurfaceVk.h
-  src/libANGLE/renderer/vulkan/SyncVk.cpp
-  src/libANGLE/renderer/vulkan/SyncVk.h
-  src/libANGLE/renderer/vulkan/TextureVk.cpp
-  src/libANGLE/renderer/vulkan/TextureVk.h
-  src/libANGLE/renderer/vulkan/TransformFeedbackVk.cpp
-  src/libANGLE/renderer/vulkan/TransformFeedbackVk.h
-  src/libANGLE/renderer/vulkan/UtilsVk.cpp
-  src/libANGLE/renderer/vulkan/UtilsVk.h
-  src/libANGLE/renderer/vulkan/VertexArrayVk.cpp
-  src/libANGLE/renderer/vulkan/VertexArrayVk.h
-  src/libANGLE/renderer/vulkan/vk_cache_utils.cpp
-  src/libANGLE/renderer/vulkan/vk_cache_utils.h
-  src/libANGLE/renderer/vulkan/vk_caps_utils.cpp
-  src/libANGLE/renderer/vulkan/vk_caps_utils.h
-  src/libANGLE/renderer/vulkan/vk_format_table_autogen.cpp
-  src/libANGLE/renderer/vulkan/vk_format_utils.h
-  src/libANGLE/renderer/vulkan/vk_format_utils.cpp
-  src/libANGLE/renderer/vulkan/vk_helpers.cpp
-  src/libANGLE/renderer/vulkan/vk_helpers.h
-  src/libANGLE/renderer/vulkan/vk_internal_shaders_autogen.h
-  src/libANGLE/renderer/vulkan/vk_internal_shaders_autogen.cpp
-  src/libANGLE/renderer/vulkan/vk_mandatory_format_support_table_autogen.cpp
-  src/libANGLE/renderer/vulkan/vk_utils.cpp
-  src/libANGLE/renderer/vulkan/vk_utils.h
-)
-
-if (WIN32)
-	set (libangle_vulkan_win32_sources
-	  src/libANGLE/renderer/vulkan/win32/DisplayVkWin32.cpp
-	  src/libANGLE/renderer/vulkan/win32/DisplayVkWin32.h
-	  src/libANGLE/renderer/vulkan/win32/WindowSurfaceVkWin32.cpp
-	  src/libANGLE/renderer/vulkan/win32/WindowSurfaceVkWin32.h
-	)
-	set (libangle_vulkan_sources ${libangle_vulkan_sources} ${libangle_vulkan_win32_sources})
-endif()
-
-if(ANDROID)
-	set (libangle_vulkan_android_sources
-	  src/libANGLE/renderer/vulkan/android/DisplayVkAndroid.cpp
-	  src/libANGLE/renderer/vulkan/android/DisplayVkAndroid.h
-	  src/libANGLE/renderer/vulkan/android/WindowSurfaceVkAndroid.cpp
-	  src/libANGLE/renderer/vulkan/android/WindowSurfaceVkAndroid.h
-	  )
-	set (libangle_vulkan_sources ${libangle_vulkan_sources} ${libangle_vulkan_android_sources}
-)
-endif()
-
 if(APPLE)
-  if (ARM)
-  set (libangle_vulkan_ios_sources
-  src/libANGLE/renderer/vulkan/iOS/DisplayVkiOS.mm
-  src/libANGLE/renderer/vulkan/iOS/DisplayVkiOS.h
-  src/libANGLE/renderer/vulkan/iOS/WindowSurfaceVkiOS.mm
-  src/libANGLE/renderer/vulkan/iOS/WindowSurfaceVkiOS.h)
-  set (libangle_vulkan_sources ${libangle_vulkan_sources} ${libangle_vulkan_ios_sources})
-  else ()
-    set (libangle_vulkan_macos_sources
-    src/libANGLE/renderer/vulkan/macos/DisplayVkMacOS.mm
-    src/libANGLE/renderer/vulkan/macos/DisplayVkMacOS.h
-    src/libANGLE/renderer/vulkan/macos/WindowSurfaceVkMacOS.mm
-    src/libANGLE/renderer/vulkan/macos/WindowSurfaceVkMacOS.h)
-    set (libangle_vulkan_sources ${libangle_vulkan_sources} ${libangle_vulkan_macos_sources})
-  endif()
+set(libangle_metal_sources
+  src/libANGLE/renderer/metal/BufferMtl.h
+  src/libANGLE/renderer/metal/BufferMtl.mm
+  src/libANGLE/renderer/metal/CompilerMtl.h
+  src/libANGLE/renderer/metal/CompilerMtl.mm
+  src/libANGLE/renderer/metal/ContextMtl.h
+  src/libANGLE/renderer/metal/ContextMtl.mm
+  src/libANGLE/renderer/metal/DisplayMtl.h
+  src/libANGLE/renderer/metal/DisplayMtl_api.h
+  src/libANGLE/renderer/metal/DisplayMtl.mm
+  src/libANGLE/renderer/metal/FrameBufferMtl.h
+  src/libANGLE/renderer/metal/FrameBufferMtl.mm
+  src/libANGLE/renderer/metal/ProgramMtl.h
+  src/libANGLE/renderer/metal/ProgramMtl.mm
+  src/libANGLE/renderer/metal/QueryMtl.h
+  src/libANGLE/renderer/metal/QueryMtl.mm
+  src/libANGLE/renderer/metal/RenderBufferMtl.h
+  src/libANGLE/renderer/metal/RenderBufferMtl.mm
+  src/libANGLE/renderer/metal/RenderTargetMtl.h
+  src/libANGLE/renderer/metal/RenderTargetMtl.mm
+  src/libANGLE/renderer/metal/TransformFeedbackMtl.h
+  src/libANGLE/renderer/metal/TransformFeedbackMtl.mm
+  src/libANGLE/renderer/metal/ShaderMtl.h
+  src/libANGLE/renderer/metal/ShaderMtl.mm
+  src/libANGLE/renderer/metal/SamplerMtl.h
+  src/libANGLE/renderer/metal/SamplerMtl.mm
+  src/libANGLE/renderer/metal/SyncMtl.h
+  src/libANGLE/renderer/metal/SyncMtl.mm
+  src/libANGLE/renderer/metal/SurfaceMtl.h
+  src/libANGLE/renderer/metal/SurfaceMtl.mm
+  src/libANGLE/renderer/metal/TextureMtl.h
+  src/libANGLE/renderer/metal/TextureMtl.mm
+  src/libANGLE/renderer/metal/VertexArrayMtl.h
+  src/libANGLE/renderer/metal/VertexArrayMtl.mm
+  src/libANGLE/renderer/metal/mtl_buffer_pool.h
+  src/libANGLE/renderer/metal/mtl_buffer_pool.mm
+  src/libANGLE/renderer/metal/mtl_command_buffer.h
+  src/libANGLE/renderer/metal/mtl_command_buffer.mm
+  src/libANGLE/renderer/metal/mtl_common.h
+  src/libANGLE/renderer/metal/mtl_common.mm
+  src/libANGLE/renderer/metal/mtl_format_table_autogen.mm
+  src/libANGLE/renderer/metal/mtl_format_utils.h
+  src/libANGLE/renderer/metal/mtl_format_utils.mm
+  src/libANGLE/renderer/metal/mtl_glslang_utils.h
+  src/libANGLE/renderer/metal/mtl_glslang_utils.mm
+  src/libANGLE/renderer/metal/mtl_occlusion_query_pool.h
+  src/libANGLE/renderer/metal/mtl_occlusion_query_pool.mm
+  src/libANGLE/renderer/metal/mtl_render_utils.h
+  src/libANGLE/renderer/metal/mtl_render_utils.mm
+  src/libANGLE/renderer/metal/mtl_resources.h
+  src/libANGLE/renderer/metal/mtl_resources.mm
+  src/libANGLE/renderer/metal/mtl_state_cache.h
+  src/libANGLE/renderer/metal/mtl_state_cache.mm
+  src/libANGLE/renderer/metal/mtl_utils.h
+  src/libANGLE/renderer/metal/mtl_utils.mm
+  src/libANGLE/renderer/metal/shaders/mtl_default_shaders_src_autogen.inc
+  src/libANGLE/renderer/metal/shaders/compiled/mtl_default_shaders.inc
+)
+
+source_group("libangle-Metal"            FILES ${libangle_metal_sources})
+list (APPEND SOURCE_FILES ${libangle_metal_sources})
+
+# disable ARC
+foreach (FILE ${libangle_metal_sources})
+set_property (SOURCE ${FILE} APPEND_STRING PROPERTY COMPILE_FLAGS
+  "-fno-objc-arc -Wno-unguarded-availability -Wno-nullability-completeness")
+endforeach ()
+
 endif()
 
-source_group("libANGLE_renderer_vulkan"            FILES ${libangle_vulkan_sources})
+#############################################################################
+set(SPIRV-Cross
+third_party/spirv-cross/src/spirv_cfg.cpp
+third_party/spirv-cross/src/spirv_cfg.hpp
+third_party/spirv-cross/src/spirv_common.hpp
+third_party/spirv-cross/src/spirv_cross_parsed_ir.cpp
+third_party/spirv-cross/src/spirv_cross_parsed_ir.hpp
+third_party/spirv-cross/src/spirv_cross.cpp
+third_party/spirv-cross/src/spirv_cross.hpp
+third_party/spirv-cross/src/spirv_glsl.cpp
+third_party/spirv-cross/src/spirv_glsl.hpp
+third_party/spirv-cross/src/spirv_msl.cpp
+third_party/spirv-cross/src/spirv_msl.hpp
+third_party/spirv-cross/src/spirv_parser.cpp
+third_party/spirv-cross/src/spirv_parser.hpp
+third_party/spirv-cross/src/spirv_reflect.cpp
+third_party/spirv-cross/src/spirv_reflect.hpp
+)
 
-list (APPEND SOURCE_FILES ${libangle_vulkan_sources})
+source_group("SPIRV-Cross"            FILES ${SPIRV-Cross})
+list (APPEND SOURCE_FILES ${SPIRV-Cross})
 
 
 
@@ -533,6 +526,7 @@ set (angle_translator_sources
   src/compiler/translator/BaseTypes.h
   src/compiler/translator/BuiltInFunctionEmulator.cpp
   src/compiler/translator/BuiltInFunctionEmulator.h
+  src/compiler/translator/BuiltinsWorkaroundGLSL.cpp
   src/compiler/translator/CallDAG.cpp
   src/compiler/translator/CallDAG.h
   src/compiler/translator/CodeGen.cpp
@@ -557,8 +551,8 @@ set (angle_translator_sources
   src/compiler/translator/FunctionLookup.h
   src/compiler/translator/HashNames.cpp
   src/compiler/translator/HashNames.h
-  src/compiler/translator/ImmutableString.cpp
   src/compiler/translator/ImmutableString.h
+  src/compiler/translator/ImmutableString_autogen.cpp
   src/compiler/translator/ImmutableStringBuilder.cpp
   src/compiler/translator/ImmutableStringBuilder.h
   src/compiler/translator/InfoSink.cpp
@@ -578,7 +572,6 @@ set (angle_translator_sources
   src/compiler/translator/OutputTree.h
   src/compiler/translator/ParseContext.cpp
   src/compiler/translator/ParseContext.h
-  src/compiler/translator/ParseContext_autogen.h
   src/compiler/translator/PoolAlloc.cpp
   src/compiler/translator/PoolAlloc.h
   src/compiler/translator/Pragma.h
@@ -649,6 +642,7 @@ set (angle_translator_sources
   src/compiler/translator/tree_ops/InitializeVariables.h
   src/compiler/translator/tree_ops/NameEmbeddedUniformStructs.cpp
   src/compiler/translator/tree_ops/NameEmbeddedUniformStructs.h
+  src/compiler/translator/tree_ops/NameNamelessUniformBuffers.cpp
   src/compiler/translator/tree_ops/PruneEmptyCases.cpp
   src/compiler/translator/tree_ops/PruneEmptyCases.h
   src/compiler/translator/tree_ops/PruneNoOps.cpp
@@ -667,10 +661,12 @@ set (angle_translator_sources
   src/compiler/translator/tree_ops/RemoveUnreferencedVariables.h
   src/compiler/translator/tree_ops/RewriteAtomicFunctionExpressions.cpp
   src/compiler/translator/tree_ops/RewriteAtomicFunctionExpressions.h
+  src/compiler/translator/tree_ops/RewriteCubeMapSamplersAs2DArray.cpp
   src/compiler/translator/tree_ops/RewriteDfdy.cpp
   src/compiler/translator/tree_ops/RewriteDfdy.h
   src/compiler/translator/tree_ops/RewriteDoWhile.cpp
   src/compiler/translator/tree_ops/RewriteDoWhile.h
+  src/compiler/translator/tree_ops/RewriteRowMajorMatrices.cpp
   src/compiler/translator/tree_ops/RewriteStructSamplers.cpp
   src/compiler/translator/tree_ops/RewriteStructSamplers.h
   src/compiler/translator/tree_ops/RewriteRepeatedAssignToSwizzled.cpp
@@ -695,7 +691,6 @@ set (angle_translator_sources
   src/compiler/translator/tree_ops/UseInterfaceBlockFields.h
   src/compiler/translator/tree_ops/VectorizeVectorScalarArithmetic.cpp
   src/compiler/translator/tree_ops/VectorizeVectorScalarArithmetic.h
-  src/compiler/translator/tree_util/BuiltIn_autogen.h
   src/compiler/translator/tree_util/FindFunction.cpp
   src/compiler/translator/tree_util/FindFunction.h
   src/compiler/translator/tree_util/FindMain.cpp
@@ -741,8 +736,10 @@ set (angle_translator_sources
   src/compiler/translator/tree_ops/RemoveDynamicIndexing.h
   src/compiler/translator/tree_ops/RemoveSwitchFallThrough.cpp
   src/compiler/translator/tree_ops/RemoveSwitchFallThrough.h
+  src/compiler/translator/tree_ops/RewriteAtomicCounters.cpp
   src/compiler/translator/tree_ops/RewriteElseBlocks.cpp
   src/compiler/translator/tree_ops/RewriteElseBlocks.h
+  src/compiler/translator/tree_ops/RewriteStructSamplersOld.cpp
   src/compiler/translator/tree_ops/SeparateArrayConstructorStatements.cpp
   src/compiler/translator/tree_ops/SeparateArrayConstructorStatements.h
   src/compiler/translator/tree_ops/SeparateArrayInitialization.cpp
@@ -757,6 +754,7 @@ set (angle_translator_sources
   src/compiler/translator/OutputVulkanGLSL.h
   src/compiler/translator/TranslatorVulkan.cpp
   src/compiler/translator/TranslatorVulkan.h
+  src/compiler/translator/TranslatorMetal.cpp
   src/compiler/translator/ValidateAST.cpp
   src/compiler/translator/ValidateAST.h
   src/compiler/fuzz/translator_fuzzer.cpp
@@ -891,295 +889,6 @@ endif()
 	
 source_group("glslang"            FILES ${glslang})
 list (APPEND SOURCE_FILES ${glslang})
-
-
-
- set(spvtools
-    third_party/spirv-tools/src/source/assembly_grammar.cpp
-    third_party/spirv-tools/src/source/assembly_grammar.h
-    third_party/spirv-tools/src/source/binary.cpp
-    third_party/spirv-tools/src/source/binary.h
-    third_party/spirv-tools/src/source/diagnostic.cpp
-    third_party/spirv-tools/src/source/diagnostic.h
-    third_party/spirv-tools/src/source/disassemble.cpp
-    third_party/spirv-tools/src/source/enum_set.h
-    third_party/spirv-tools/src/source/enum_string_mapping.cpp
-    third_party/spirv-tools/src/source/ext_inst.cpp
-    third_party/spirv-tools/src/source/ext_inst.h
-    third_party/spirv-tools/src/source/extensions.cpp
-    third_party/spirv-tools/src/source/extensions.h
-    third_party/spirv-tools/src/source/instruction.h
-    third_party/spirv-tools/src/source/libspirv.cpp
-    third_party/spirv-tools/src/source/macro.h
-    third_party/spirv-tools/src/source/name_mapper.cpp
-    third_party/spirv-tools/src/source/name_mapper.h
-    third_party/spirv-tools/src/source/opcode.cpp
-    third_party/spirv-tools/src/source/opcode.h
-    third_party/spirv-tools/src/source/operand.cpp
-    third_party/spirv-tools/src/source/operand.h
-    third_party/spirv-tools/src/source/parsed_operand.cpp
-    third_party/spirv-tools/src/source/parsed_operand.h
-    third_party/spirv-tools/src/source/print.cpp
-    third_party/spirv-tools/src/source/print.h
-    third_party/spirv-tools/src/source/spirv_constant.h
-    third_party/spirv-tools/src/source/spirv_definition.h
-    third_party/spirv-tools/src/source/spirv_endian.cpp
-    third_party/spirv-tools/src/source/spirv_endian.h
-    third_party/spirv-tools/src/source/spirv_optimizer_options.cpp
-    third_party/spirv-tools/src/source/spirv_optimizer_options.h
-    third_party/spirv-tools/src/source/spirv_target_env.cpp
-    third_party/spirv-tools/src/source/spirv_target_env.h
-    third_party/spirv-tools/src/source/spirv_validator_options.cpp
-    third_party/spirv-tools/src/source/spirv_validator_options.h
-    third_party/spirv-tools/src/source/table.cpp
-    third_party/spirv-tools/src/source/table.h
-    third_party/spirv-tools/src/source/text.cpp
-    third_party/spirv-tools/src/source/text.h
-    third_party/spirv-tools/src/source/text_handler.cpp
-    third_party/spirv-tools/src/source/text_handler.h
-    third_party/spirv-tools/src/source/util/bit_vector.cpp
-    third_party/spirv-tools/src/source/util/bit_vector.h
-    third_party/spirv-tools/src/source/util/bitutils.h
-    third_party/spirv-tools/src/source/util/hex_float.h
-    third_party/spirv-tools/src/source/util/ilist.h
-    third_party/spirv-tools/src/source/util/ilist_node.h
-    third_party/spirv-tools/src/source/util/make_unique.h
-    third_party/spirv-tools/src/source/util/parse_number.cpp
-    third_party/spirv-tools/src/source/util/parse_number.h
-    third_party/spirv-tools/src/source/util/small_vector.h
-    third_party/spirv-tools/src/source/util/string_utils.cpp
-    third_party/spirv-tools/src/source/util/string_utils.h
-    third_party/spirv-tools/src/source/util/timer.cpp
-    third_party/spirv-tools/src/source/util/timer.h
-  )
-source_group("spvtools"            FILES ${spvtools})
-list (APPEND SOURCE_FILES ${spvtools})
-
-
-
-set(spvtools_val
-    third_party/spirv-tools/src/source/val/basic_block.cpp
-    third_party/spirv-tools/src/source/val/construct.cpp
-    third_party/spirv-tools/src/source/val/function.cpp
-    third_party/spirv-tools/src/source/val/instruction.cpp
-    third_party/spirv-tools/src/source/val/validate.cpp
-    third_party/spirv-tools/src/source/val/validate.h
-    third_party/spirv-tools/src/source/val/validate_adjacency.cpp
-    third_party/spirv-tools/src/source/val/validate_annotation.cpp
-    third_party/spirv-tools/src/source/val/validate_arithmetics.cpp
-    third_party/spirv-tools/src/source/val/validate_atomics.cpp
-    third_party/spirv-tools/src/source/val/validate_barriers.cpp
-    third_party/spirv-tools/src/source/val/validate_bitwise.cpp
-    third_party/spirv-tools/src/source/val/validate_builtins.cpp
-    third_party/spirv-tools/src/source/val/validate_capability.cpp
-    third_party/spirv-tools/src/source/val/validate_cfg.cpp
-    third_party/spirv-tools/src/source/val/validate_composites.cpp
-    third_party/spirv-tools/src/source/val/validate_constants.cpp
-    third_party/spirv-tools/src/source/val/validate_conversion.cpp
-    third_party/spirv-tools/src/source/val/validate_datarules.cpp
-    third_party/spirv-tools/src/source/val/validate_debug.cpp
-    third_party/spirv-tools/src/source/val/validate_decorations.cpp
-    third_party/spirv-tools/src/source/val/validate_derivatives.cpp
-    third_party/spirv-tools/src/source/val/validate_execution_limitations.cpp
-    third_party/spirv-tools/src/source/val/validate_function.cpp
-    third_party/spirv-tools/src/source/val/validate_id.cpp
-    third_party/spirv-tools/src/source/val/validate_image.cpp
-    third_party/spirv-tools/src/source/val/validate_instruction.cpp
-    third_party/spirv-tools/src/source/val/validate_interfaces.cpp
-    third_party/spirv-tools/src/source/val/validate_layout.cpp
-    third_party/spirv-tools/src/source/val/validate_literals.cpp
-    third_party/spirv-tools/src/source/val/validate_logicals.cpp
-    third_party/spirv-tools/src/source/val/validate_memory.cpp
-    third_party/spirv-tools/src/source/val/validate_mode_setting.cpp
-    third_party/spirv-tools/src/source/val/validate_non_uniform.cpp
-    third_party/spirv-tools/src/source/val/validate_primitives.cpp
-    third_party/spirv-tools/src/source/val/validate_type.cpp
-    third_party/spirv-tools/src/source/val/validation_state.cpp
-  )
-source_group("spvtools_val"            FILES ${spvtools_val})
-list (APPEND SOURCE_FILES ${spvtools_val})
-
-
-
-set(spvtools_opt
-    third_party/spirv-tools/src/source/opt/aggressive_dead_code_elim_pass.cpp
-    third_party/spirv-tools/src/source/opt/aggressive_dead_code_elim_pass.h
-    third_party/spirv-tools/src/source/opt/basic_block.cpp
-    third_party/spirv-tools/src/source/opt/basic_block.h
-    third_party/spirv-tools/src/source/opt/block_merge_pass.cpp
-    third_party/spirv-tools/src/source/opt/block_merge_pass.h
-    third_party/spirv-tools/src/source/opt/build_module.cpp
-    third_party/spirv-tools/src/source/opt/build_module.h
-    third_party/spirv-tools/src/source/opt/ccp_pass.cpp
-    third_party/spirv-tools/src/source/opt/ccp_pass.h
-    third_party/spirv-tools/src/source/opt/cfg.cpp
-    third_party/spirv-tools/src/source/opt/cfg.h
-    third_party/spirv-tools/src/source/opt/cfg_cleanup_pass.cpp
-    third_party/spirv-tools/src/source/opt/cfg_cleanup_pass.h
-    third_party/spirv-tools/src/source/opt/combine_access_chains.cpp
-    third_party/spirv-tools/src/source/opt/combine_access_chains.h
-    third_party/spirv-tools/src/source/opt/common_uniform_elim_pass.cpp
-    third_party/spirv-tools/src/source/opt/common_uniform_elim_pass.h
-    third_party/spirv-tools/src/source/opt/compact_ids_pass.cpp
-    third_party/spirv-tools/src/source/opt/compact_ids_pass.h
-    third_party/spirv-tools/src/source/opt/composite.cpp
-    third_party/spirv-tools/src/source/opt/composite.h
-    third_party/spirv-tools/src/source/opt/const_folding_rules.cpp
-    third_party/spirv-tools/src/source/opt/const_folding_rules.h
-    third_party/spirv-tools/src/source/opt/constants.cpp
-    third_party/spirv-tools/src/source/opt/constants.h
-    third_party/spirv-tools/src/source/opt/copy_prop_arrays.cpp
-    third_party/spirv-tools/src/source/opt/copy_prop_arrays.h
-    third_party/spirv-tools/src/source/opt/dead_branch_elim_pass.cpp
-    third_party/spirv-tools/src/source/opt/dead_branch_elim_pass.h
-    third_party/spirv-tools/src/source/opt/dead_insert_elim_pass.cpp
-    third_party/spirv-tools/src/source/opt/dead_insert_elim_pass.h
-    third_party/spirv-tools/src/source/opt/dead_variable_elimination.cpp
-    third_party/spirv-tools/src/source/opt/dead_variable_elimination.h
-    third_party/spirv-tools/src/source/opt/decoration_manager.cpp
-    third_party/spirv-tools/src/source/opt/decoration_manager.h
-    third_party/spirv-tools/src/source/opt/def_use_manager.cpp
-    third_party/spirv-tools/src/source/opt/def_use_manager.h
-    third_party/spirv-tools/src/source/opt/dominator_analysis.cpp
-    third_party/spirv-tools/src/source/opt/dominator_analysis.h
-    third_party/spirv-tools/src/source/opt/dominator_tree.cpp
-    third_party/spirv-tools/src/source/opt/dominator_tree.h
-    third_party/spirv-tools/src/source/opt/eliminate_dead_constant_pass.cpp
-    third_party/spirv-tools/src/source/opt/eliminate_dead_constant_pass.h
-    third_party/spirv-tools/src/source/opt/eliminate_dead_functions_pass.cpp
-    third_party/spirv-tools/src/source/opt/eliminate_dead_functions_pass.h
-    third_party/spirv-tools/src/source/opt/feature_manager.cpp
-    third_party/spirv-tools/src/source/opt/feature_manager.h
-    third_party/spirv-tools/src/source/opt/flatten_decoration_pass.cpp
-    third_party/spirv-tools/src/source/opt/flatten_decoration_pass.h
-    third_party/spirv-tools/src/source/opt/fold.cpp
-    third_party/spirv-tools/src/source/opt/fold.h
-    third_party/spirv-tools/src/source/opt/fold_spec_constant_op_and_composite_pass.cpp
-    third_party/spirv-tools/src/source/opt/fold_spec_constant_op_and_composite_pass.h
-    third_party/spirv-tools/src/source/opt/folding_rules.cpp
-    third_party/spirv-tools/src/source/opt/folding_rules.h
-    third_party/spirv-tools/src/source/opt/freeze_spec_constant_value_pass.cpp
-    third_party/spirv-tools/src/source/opt/freeze_spec_constant_value_pass.h
-    third_party/spirv-tools/src/source/opt/function.cpp
-    third_party/spirv-tools/src/source/opt/function.h
-    third_party/spirv-tools/src/source/opt/if_conversion.cpp
-    third_party/spirv-tools/src/source/opt/if_conversion.h
-    third_party/spirv-tools/src/source/opt/inline_exhaustive_pass.cpp
-    third_party/spirv-tools/src/source/opt/inline_exhaustive_pass.h
-    third_party/spirv-tools/src/source/opt/inline_opaque_pass.cpp
-    third_party/spirv-tools/src/source/opt/inline_opaque_pass.h
-    third_party/spirv-tools/src/source/opt/inline_pass.cpp
-    third_party/spirv-tools/src/source/opt/inline_pass.h
-    third_party/spirv-tools/src/source/opt/instruction.cpp
-    third_party/spirv-tools/src/source/opt/instruction.h
-    third_party/spirv-tools/src/source/opt/instruction_list.cpp
-    third_party/spirv-tools/src/source/opt/instruction_list.h
-    third_party/spirv-tools/src/source/opt/ir_builder.h
-    third_party/spirv-tools/src/source/opt/ir_context.cpp
-    third_party/spirv-tools/src/source/opt/ir_context.h
-    third_party/spirv-tools/src/source/opt/ir_loader.cpp
-    third_party/spirv-tools/src/source/opt/ir_loader.h
-    third_party/spirv-tools/src/source/opt/iterator.h
-    third_party/spirv-tools/src/source/opt/licm_pass.cpp
-    third_party/spirv-tools/src/source/opt/licm_pass.h
-    third_party/spirv-tools/src/source/opt/local_access_chain_convert_pass.cpp
-    third_party/spirv-tools/src/source/opt/local_access_chain_convert_pass.h
-    third_party/spirv-tools/src/source/opt/local_redundancy_elimination.cpp
-    third_party/spirv-tools/src/source/opt/local_redundancy_elimination.h
-    third_party/spirv-tools/src/source/opt/local_single_block_elim_pass.cpp
-    third_party/spirv-tools/src/source/opt/local_single_block_elim_pass.h
-    third_party/spirv-tools/src/source/opt/local_single_store_elim_pass.cpp
-    third_party/spirv-tools/src/source/opt/local_single_store_elim_pass.h
-    third_party/spirv-tools/src/source/opt/local_ssa_elim_pass.cpp
-    third_party/spirv-tools/src/source/opt/local_ssa_elim_pass.h
-    third_party/spirv-tools/src/source/opt/log.h
-    third_party/spirv-tools/src/source/opt/loop_dependence.cpp
-    third_party/spirv-tools/src/source/opt/loop_dependence.h
-    third_party/spirv-tools/src/source/opt/loop_dependence_helpers.cpp
-    third_party/spirv-tools/src/source/opt/loop_descriptor.cpp
-    third_party/spirv-tools/src/source/opt/loop_descriptor.h
-    third_party/spirv-tools/src/source/opt/loop_fission.cpp
-    third_party/spirv-tools/src/source/opt/loop_fission.h
-    third_party/spirv-tools/src/source/opt/loop_fusion.cpp
-    third_party/spirv-tools/src/source/opt/loop_fusion.h
-    third_party/spirv-tools/src/source/opt/loop_fusion_pass.cpp
-    third_party/spirv-tools/src/source/opt/loop_fusion_pass.h
-    third_party/spirv-tools/src/source/opt/loop_peeling.cpp
-    third_party/spirv-tools/src/source/opt/loop_peeling.h
-    third_party/spirv-tools/src/source/opt/loop_unroller.cpp
-    third_party/spirv-tools/src/source/opt/loop_unroller.h
-    third_party/spirv-tools/src/source/opt/loop_unswitch_pass.cpp
-    third_party/spirv-tools/src/source/opt/loop_unswitch_pass.h
-    third_party/spirv-tools/src/source/opt/loop_utils.cpp
-    third_party/spirv-tools/src/source/opt/loop_utils.h
-    third_party/spirv-tools/src/source/opt/mem_pass.cpp
-    third_party/spirv-tools/src/source/opt/mem_pass.h
-    third_party/spirv-tools/src/source/opt/merge_return_pass.cpp
-    third_party/spirv-tools/src/source/opt/merge_return_pass.h
-    third_party/spirv-tools/src/source/opt/module.cpp
-    third_party/spirv-tools/src/source/opt/module.h
-    third_party/spirv-tools/src/source/opt/null_pass.h
-    third_party/spirv-tools/src/source/opt/optimizer.cpp
-    third_party/spirv-tools/src/source/opt/pass.cpp
-    third_party/spirv-tools/src/source/opt/pass.h
-    third_party/spirv-tools/src/source/opt/pass_manager.cpp
-    third_party/spirv-tools/src/source/opt/pass_manager.h
-    third_party/spirv-tools/src/source/opt/passes.h
-    third_party/spirv-tools/src/source/opt/private_to_local_pass.cpp
-    third_party/spirv-tools/src/source/opt/private_to_local_pass.h
-    third_party/spirv-tools/src/source/opt/propagator.cpp
-    third_party/spirv-tools/src/source/opt/propagator.h
-    third_party/spirv-tools/src/source/opt/reduce_load_size.cpp
-    third_party/spirv-tools/src/source/opt/reduce_load_size.h
-    third_party/spirv-tools/src/source/opt/redundancy_elimination.cpp
-    third_party/spirv-tools/src/source/opt/redundancy_elimination.h
-    third_party/spirv-tools/src/source/opt/reflect.h
-    third_party/spirv-tools/src/source/opt/register_pressure.cpp
-    third_party/spirv-tools/src/source/opt/register_pressure.h
-    third_party/spirv-tools/src/source/opt/remove_duplicates_pass.cpp
-    third_party/spirv-tools/src/source/opt/remove_duplicates_pass.h
-    third_party/spirv-tools/src/source/opt/replace_invalid_opc.cpp
-    third_party/spirv-tools/src/source/opt/replace_invalid_opc.h
-    third_party/spirv-tools/src/source/opt/scalar_analysis.cpp
-    third_party/spirv-tools/src/source/opt/scalar_analysis.h
-    third_party/spirv-tools/src/source/opt/scalar_analysis_nodes.h
-    third_party/spirv-tools/src/source/opt/scalar_analysis_simplification.cpp
-    third_party/spirv-tools/src/source/opt/scalar_replacement_pass.cpp
-    third_party/spirv-tools/src/source/opt/scalar_replacement_pass.h
-    third_party/spirv-tools/src/source/opt/set_spec_constant_default_value_pass.cpp
-    third_party/spirv-tools/src/source/opt/set_spec_constant_default_value_pass.h
-    third_party/spirv-tools/src/source/opt/simplification_pass.cpp
-    third_party/spirv-tools/src/source/opt/simplification_pass.h
-    third_party/spirv-tools/src/source/opt/ssa_rewrite_pass.cpp
-    third_party/spirv-tools/src/source/opt/ssa_rewrite_pass.h
-    third_party/spirv-tools/src/source/opt/strength_reduction_pass.cpp
-    third_party/spirv-tools/src/source/opt/strength_reduction_pass.h
-    third_party/spirv-tools/src/source/opt/strip_debug_info_pass.cpp
-    third_party/spirv-tools/src/source/opt/strip_debug_info_pass.h
-    third_party/spirv-tools/src/source/opt/strip_reflect_info_pass.cpp
-    third_party/spirv-tools/src/source/opt/strip_reflect_info_pass.h
-    third_party/spirv-tools/src/source/opt/struct_cfg_analysis.cpp
-    third_party/spirv-tools/src/source/opt/struct_cfg_analysis.h
-    third_party/spirv-tools/src/source/opt/tree_iterator.h
-    third_party/spirv-tools/src/source/opt/type_manager.cpp
-    third_party/spirv-tools/src/source/opt/type_manager.h
-    third_party/spirv-tools/src/source/opt/types.cpp
-    third_party/spirv-tools/src/source/opt/types.h
-    third_party/spirv-tools/src/source/opt/unify_const_pass.cpp
-    third_party/spirv-tools/src/source/opt/unify_const_pass.h
-    third_party/spirv-tools/src/source/opt/value_number_table.cpp
-    third_party/spirv-tools/src/source/opt/value_number_table.h
-    third_party/spirv-tools/src/source/opt/vector_dce.cpp
-    third_party/spirv-tools/src/source/opt/vector_dce.h
-    third_party/spirv-tools/src/source/opt/workaround1209.cpp
-    third_party/spirv-tools/src/source/opt/workaround1209.h
-  )
-
-source_group("spvtools_opt"            FILES ${spvtools_opt})
-list (APPEND SOURCE_FILES ${spvtools_opt})
-
-
-
   
   #D:\GAME-ENGINES\Urho3D\20181103\Source\ThirdParty\angle\out\Debug
 set (libangle_includes
@@ -1201,6 +910,7 @@ set (libangle_includes
   third_party/spirv-headers/src/include
   third_party/vulkan-validation-layers/src/layers
   third_party/vulkan-loader/src/loader
+  third_party/spirv-cross/src
   out/gen/angle
   out/gen/third_party
   out/gen/third_party/spirv-tools/src

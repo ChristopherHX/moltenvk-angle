@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -122,7 +122,7 @@ public:
         overlayContainer_->SetChildOffset(IntVector2(-x + panelBorder.left_, -y + panelBorder.top_));
     }
 
-    /// Handle mouse click on overlays by toggling the expansion state of the corresponding item
+    /// Handle mouse click on overlays by toggling the expansion state of the corresponding item.
     void HandleUIMouseClick(StringHash eventType, VariantMap& eventData)
     {
         using namespace UIMouseClick;
@@ -1129,7 +1129,6 @@ void ListView::HandleUIMouseDoubleClick(StringHash eventType, VariantMap& eventD
 
 void ListView::HandleItemFocusChanged(StringHash eventType, VariantMap& eventData)
 {
-#if !defined(FLIMPER)
     using namespace FocusChanged;
 
     auto* element = static_cast<UIElement*>(eventData[P_ELEMENT].GetPtr());
@@ -1144,7 +1143,6 @@ void ListView::HandleItemFocusChanged(StringHash eventType, VariantMap& eventDat
         }
         element = parent;
     }
-#endif
 }
 
 void ListView::HandleFocusChanged(StringHash eventType, VariantMap& eventData)

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,7 @@ enum LightType
 static const float SHADOW_MIN_QUANTIZE = 0.1f;
 static const float SHADOW_MIN_VIEW = 1.0f;
 static const int MAX_LIGHT_SPLITS = 6;
-#ifdef DESKTOP_GRAPHICS
+#if defined(DESKTOP_GRAPHICS) || defined(URHO3D_ANGLE_METAL)
 static const unsigned MAX_CASCADE_SPLITS = 4;
 #else
 static const unsigned MAX_CASCADE_SPLITS = 1;
@@ -109,7 +109,7 @@ struct URHO3D_API CascadeParameters
 
     /// Far clip values of the splits.
     Vector4 splits_;
-    /// The point relative to the total shadow range where shadow fade begins (0.0 - 1.0)
+    /// The point relative to the total shadow range where shadow fade begins (0.0 - 1.0).
     float fadeStart_{};
     /// Automatic depth bias adjustment strength.
     float biasAutoAdjust_{};

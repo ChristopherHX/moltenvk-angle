@@ -547,7 +547,7 @@ TEST_P(DepthStencilFormatsTest, DepthBuffer24)
     }
 }
 
-TEST_P(DepthStencilFormatsTestES3, DrawWithDepthStencil)
+TEST_P(DepthStencilFormatsTestES3, DrawWithDepth16)
 {
     GLushort data[16];
     for (unsigned int i = 0; i < 16; i++)
@@ -635,11 +635,258 @@ TEST_P(DepthStencilFormatsTestES3, DrawWithLargeViewport)
     }
 }
 
+// Verify that stencil component of depth texture is uploaded
+TEST_P(DepthStencilFormatsTest, VerifyDepthStencilUploadData)
+{
+    // http://anglebug.com/3683
+    // When bug is resolved we can remove this skip.
+    ANGLE_SKIP_TEST_IF(IsVulkan() && IsAndroid());
+
+    // http://anglebug.com/3689
+    ANGLE_SKIP_TEST_IF(IsWindows() && IsVulkan() && IsAMD());
+
+    bool shouldHaveTextureSupport = (IsGLExtensionEnabled("GL_OES_packed_depth_stencil") &&
+                                     IsGLExtensionEnabled("GL_OES_depth_texture")) ||
+                                    (getClientMajorVersion() >= 3);
+
+    ANGLE_SKIP_TEST_IF(!shouldHaveTextureSupport ||
+                       !checkTexImageFormatSupport(GL_DEPTH_STENCIL_OES, GL_UNSIGNED_INT_24_8_OES));
+
+    ANGLE_GL_PROGRAM(program, essl1_shaders::vs::Simple(), essl1_shaders::fs::Red());
+
+    glEnable(GL_STENCIL_TEST);
+    glDisable(GL_DEPTH_TEST);
+    glDepthMask(GL_FALSE);
+
+    glViewport(0, 0, getWindowWidth(), getWindowHeight());
+    glClearColor(0, 0, 0, 1);
+
+    // Create offscreen fbo and its color attachment and depth stencil attachment.
+    GLTexture framebufferColorTexture;
+    glBindTexture(GL_TEXTURE_2D, framebufferColorTexture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, getWindowWidth(), getWindowHeight(), 0, GL_RGBA,
+                 GL_UNSIGNED_BYTE, nullptr);
+    ASSERT_GL_NO_ERROR();
+
+    // drawQuad's depth range is -1.0 to 1.0, so a depth value of 0.5 (0x7fffff) matches a drawQuad
+    // depth of 0.0.
+    std::vector<GLuint> depthStencilData(getWindowWidth() * getWindowHeight(), 0x7fffffA9);
+    GLTexture framebufferStencilTexture;
+    glBindTexture(GL_TEXTURE_2D, framebufferStencilTexture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_STENCIL, getWindowWidth(), getWindowHeight(), 0,
+                 GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8_OES, depthStencilData.data());
+    ASSERT_GL_NO_ERROR();
+
+    GLFramebuffer fb;
+    glBindFramebuffer(GL_FRAMEBUFFER, fb);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
+                           framebufferColorTexture, 0);
+
+    if (getClientMajorVersion() >= 3)
+    {
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D,
+                               framebufferStencilTexture, 0);
+        ASSERT_GL_NO_ERROR();
+    }
+    else
+    {
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D,
+                               framebufferStencilTexture, 0);
+        ASSERT_GL_NO_ERROR();
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_TEXTURE_2D,
+                               framebufferStencilTexture, 0);
+        ASSERT_GL_NO_ERROR();
+    }
+
+    ASSERT_GL_FRAMEBUFFER_COMPLETE(GL_FRAMEBUFFER);
+
+    GLint kStencilRef = 0xA9;
+    glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+    glStencilFunc(GL_EQUAL, kStencilRef, 0xFF);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, fb);
+
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    drawQuad(program.get(), essl1_shaders::PositionAttrib(), 1.0f);
+    ASSERT_GL_NO_ERROR();
+
+    glBindFramebuffer(GL_FRAMEBUFFER, fb);
+    EXPECT_PIXEL_RECT_EQ(0, 0, getWindowWidth(), getWindowHeight(), GLColor::red);
+    ASSERT_GL_NO_ERROR();
+
+    // Check Z values
+
+    glClear(GL_COLOR_BUFFER_BIT);
+    glDisable(GL_STENCIL_TEST);
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+
+    drawQuad(program.get(), essl1_shaders::PositionAttrib(), -0.1f);
+    ASSERT_GL_NO_ERROR();
+
+    EXPECT_PIXEL_RECT_EQ(0, 0, getWindowWidth(), getWindowHeight(), GLColor::red);
+
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    drawQuad(program.get(), essl1_shaders::PositionAttrib(), 0.1f);
+    ASSERT_GL_NO_ERROR();
+
+    EXPECT_PIXEL_RECT_EQ(0, 0, getWindowWidth(), getWindowHeight(), GLColor::black);
+}
+
+// Verify that depth texture's data can be uploaded correctly
+TEST_P(DepthStencilFormatsTest, VerifyDepth32UploadData)
+{
+    ANGLE_SKIP_TEST_IF(!IsGLExtensionEnabled("GL_OES_depth_texture"));
+
+    GLTexture tex;
+    glBindTexture(GL_TEXTURE_2D, tex);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+    ASSERT_GL_NO_ERROR();
+
+    // normalized 0.99 = 0xfd70a3d6
+    std::vector<GLuint> depthData(1, 0xfd70a3d6);
+    GLTexture rbDepth;
+    glBindTexture(GL_TEXTURE_2D, rbDepth);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, 1, 1, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT,
+                 depthData.data());
+    ASSERT_GL_NO_ERROR();
+
+    GLFramebuffer fbo;
+    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, tex, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, rbDepth, 0);
+
+    EXPECT_GL_FRAMEBUFFER_COMPLETE(GL_FRAMEBUFFER);
+    ASSERT_GL_NO_ERROR();
+
+    ANGLE_GL_PROGRAM(programRed, essl1_shaders::vs::Simple(), essl1_shaders::fs::Red());
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_GEQUAL);
+    glClearColor(0, 1, 0, 1);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // Fail Depth Test and color buffer is unchanged
+    float depthValue = 0.98f;
+    drawQuad(programRed.get(), essl1_shaders::PositionAttrib(), depthValue * 2 - 1);
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::green);
+
+    // Pass Depth Test and draw red
+    depthValue = 1.0f;
+    drawQuad(programRed.get(), essl1_shaders::PositionAttrib(), depthValue * 2 - 1);
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::red);
+
+    ASSERT_GL_NO_ERROR();
+
+    // Change depth texture data
+    glBindTexture(GL_TEXTURE_2D, rbDepth);
+    depthData[0] = 0x7fffffff;  // 0.5
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 1, 1, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT,
+                    depthData.data());
+    ASSERT_GL_NO_ERROR();
+
+    ANGLE_GL_PROGRAM(programGreen, essl1_shaders::vs::Simple(), essl1_shaders::fs::Green());
+
+    // Fail Depth Test and color buffer is unchanged
+    depthValue = 0.48f;
+    drawQuad(programGreen.get(), essl1_shaders::PositionAttrib(), depthValue * 2 - 1);
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::red);
+
+    ASSERT_GL_NO_ERROR();
+
+    ANGLE_GL_PROGRAM(programBlue, essl1_shaders::vs::Simple(), essl1_shaders::fs::Blue());
+    glClearDepthf(0.0f);
+    glClear(GL_DEPTH_BUFFER_BIT);
+
+    // Pass Depth Test and draw blue
+    depthValue = 0.01f;
+    drawQuad(programBlue.get(), essl1_shaders::PositionAttrib(), depthValue * 2 - 1);
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::blue);
+
+    glDisable(GL_DEPTH_TEST);
+    ASSERT_GL_NO_ERROR();
+}
+
+// Verify that 16 bits depth texture's data can be uploaded correctly
+TEST_P(DepthStencilFormatsTest, VerifyDepth16UploadData)
+{
+    ANGLE_SKIP_TEST_IF(!IsGLExtensionEnabled("GL_OES_depth_texture"));
+
+    GLTexture tex;
+    glBindTexture(GL_TEXTURE_2D, tex);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+    ASSERT_GL_NO_ERROR();
+
+    // normalized 0.99 = 0xfd6f
+    std::vector<GLushort> depthData(1, 0xfd6f);
+    GLTexture rbDepth;
+    glBindTexture(GL_TEXTURE_2D, rbDepth);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, 1, 1, 0, GL_DEPTH_COMPONENT,
+                 GL_UNSIGNED_SHORT, depthData.data());
+    ASSERT_GL_NO_ERROR();
+
+    GLFramebuffer fbo;
+    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, tex, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, rbDepth, 0);
+
+    EXPECT_GL_FRAMEBUFFER_COMPLETE(GL_FRAMEBUFFER);
+    ASSERT_GL_NO_ERROR();
+
+    ANGLE_GL_PROGRAM(programRed, essl1_shaders::vs::Simple(), essl1_shaders::fs::Red());
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_GEQUAL);
+    glClearColor(0, 1, 0, 1);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // Fail Depth Test and color buffer is unchanged
+    float depthValue = 0.98f;
+    drawQuad(programRed.get(), essl1_shaders::PositionAttrib(), depthValue * 2 - 1);
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::green);
+
+    // Pass Depth Test and draw red
+    depthValue = 1.0f;
+    drawQuad(programRed.get(), essl1_shaders::PositionAttrib(), depthValue * 2 - 1);
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::red);
+
+    ASSERT_GL_NO_ERROR();
+
+    // Change depth texture data
+    glBindTexture(GL_TEXTURE_2D, rbDepth);
+    depthData[0] = 0x7fff;  // 0.5
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 1, 1, GL_DEPTH_COMPONENT, GL_UNSIGNED_SHORT,
+                    depthData.data());
+    ASSERT_GL_NO_ERROR();
+
+    ANGLE_GL_PROGRAM(programGreen, essl1_shaders::vs::Simple(), essl1_shaders::fs::Green());
+
+    // Fail Depth Test and color buffer is unchanged
+    depthValue = 0.48f;
+    drawQuad(programGreen.get(), essl1_shaders::PositionAttrib(), depthValue * 2 - 1);
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::red);
+
+    ASSERT_GL_NO_ERROR();
+
+    ANGLE_GL_PROGRAM(programBlue, essl1_shaders::vs::Simple(), essl1_shaders::fs::Blue());
+    glClearDepthf(0.0f);
+    glClear(GL_DEPTH_BUFFER_BIT);
+
+    // Pass Depth Test and draw blue
+    depthValue = 0.01f;
+    drawQuad(programBlue.get(), essl1_shaders::PositionAttrib(), depthValue * 2 - 1);
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::blue);
+
+    glDisable(GL_DEPTH_TEST);
+    ASSERT_GL_NO_ERROR();
+}
+
 // Use this to select which configurations (e.g. which renderer, which GLES major version) these
 // tests should be run against.
 ANGLE_INSTANTIATE_TEST(DepthStencilFormatsTest,
                        ES2_D3D9(),
                        ES2_D3D11(),
+                       ES2_METAL(),
                        ES2_OPENGL(),
                        ES2_OPENGLES(),
                        ES2_VULKAN());

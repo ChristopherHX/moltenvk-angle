@@ -79,6 +79,10 @@ struct btWheelInfo
 	
 	void*		m_clientInfo;//can be used to store pointer to sync transforms...
 
+	// Lumak: added member vars
+	btScalar    m_sideFrictionStiffness;
+	btScalar    m_skidInfoCumulative;
+
 	btWheelInfo(btWheelInfoConstructionInfo& ci)
 
 	{
@@ -102,6 +106,15 @@ struct btWheelInfo
 		m_rollInfluence = btScalar(0.1);
 		m_bIsFrontWheel = ci.m_bIsFrontWheel;
 		m_maxSuspensionForce = ci.m_maxSuspensionForce;
+
+		// Lumak: initializers missed
+		m_clientInfo = NULL;
+		m_skidInfo = btScalar(1.0);
+		m_raycastInfo.m_isInContact = false;
+		m_raycastInfo.m_groundObject = NULL;
+
+		m_sideFrictionStiffness = btScalar(1.0);
+		m_skidInfoCumulative = btScalar(1.0);
 
 	}
 

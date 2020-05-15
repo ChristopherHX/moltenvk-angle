@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -95,13 +95,6 @@ void ParticleEmitter::OnSetEnabled()
             SubscribeToEvent(scene, E_SCENEPOSTUPDATE, URHO3D_HANDLER(ParticleEmitter, HandleScenePostUpdate));
         else
             UnsubscribeFromEvent(scene, E_SCENEPOSTUPDATE);
-
-#if defined(FLIMPER)
-		if (IsEnabledEffective())
-			SubscribeToEvent(scene, E_SCENEEDITORUPDATE, URHO3D_HANDLER(ParticleEmitter, HandleScenePostUpdate));
-		else
-			UnsubscribeFromEvent(scene, E_SCENEEDITORUPDATE);
-#endif
     }
 }
 
@@ -450,13 +443,6 @@ void ParticleEmitter::OnSceneSet(Scene* scene)
         SubscribeToEvent(scene, E_SCENEPOSTUPDATE, URHO3D_HANDLER(ParticleEmitter, HandleScenePostUpdate));
     else if (!scene)
          UnsubscribeFromEvent(E_SCENEPOSTUPDATE);
-
-#if defined(FLIMPER)
-	if (scene && IsEnabledEffective())
-		SubscribeToEvent(scene, E_SCENEEDITORUPDATE, URHO3D_HANDLER(ParticleEmitter, HandleScenePostUpdate));
-	else if (!scene)
-		UnsubscribeFromEvent(E_SCENEEDITORUPDATE);
-#endif
 }
 
 bool ParticleEmitter::EmitNewParticle()

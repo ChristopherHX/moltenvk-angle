@@ -42,7 +42,7 @@
 
 #include <Foundation/Foundation.h>
 
-#if SDL_VIDEO_OPENGL_EGL
+#if URHO3D_ANGLE_METAL
 #include "SDL_uikitegl.h"
 #endif
 
@@ -218,6 +218,12 @@ UIKit_CreateWindow(_THIS, SDL_Window *window)
         /* !!! FIXME: can we have a smaller view? */
         UIWindow *uiwindow = [[SDL_uikitwindow alloc] initWithFrame:data.uiscreen.bounds];
 
+#ifdef URHO3D_ANGLE_METAL
+        if(!(window->flags & SDL_WINDOW_ALLOW_HIGHDPI))
+        {
+            uiwindow.layer.contentsScale = 1;
+        }
+#endif
         /* put the window on an external display if appropriate. */
         if (data.uiscreen != [UIScreen mainScreen]) {
             [uiwindow setScreen:data.uiscreen];
@@ -228,18 +234,17 @@ UIKit_CreateWindow(_THIS, SDL_Window *window)
         }
     }
 
-#if SDL_VIDEO_OPENGL_EGL
-    /* The rest of this macro mess is OpenGL ES windows */
-    if (_this->gl_config.profile_mask == SDL_GL_CONTEXT_PROFILE_ES)
-    {
-        if (UIKIT_GLES_SetupWindow(_this, window) < 0) {
-            UIKit_DestroyWindow(_this, window);
-            return -1;
+#if URHO3D_ANGLE_METAL
+        /* The rest of this macro mess is OpenGL ES windows */
+        if (_this->gl_config.profile_mask == SDL_GL_CONTEXT_PROFILE_ES)
+        {
+            if (UIKIT_GLES_SetupWindow(_this, window) < 0) {
+                UIKit_DestroyWindow(_this, window);
+                return -1;
+            }
+            return 1;
         }
-        return 1;
-    }
 #endif
-
     return 1;
 }
 
@@ -378,8 +383,8 @@ UIKit_GetWindowWMInfo(_THIS, SDL_Window * window, SDL_SysWMinfo * info)
             info->subsystem = SDL_SYSWM_UIKIT;
             info->info.uikit.window = data.uiwindow;
 
+#ifndef URHO3D_ANGLE_METAL
             /* These struct members were added in SDL 2.0.4. */
-#ifndef SDL_VIDEO_OPENGL_EGL // TBD ELIX22
             if (versionnum >= SDL_VERSIONNUM(2,0,4)) {
                 if ([data.viewcontroller.view isKindOfClass:[SDL_uikitopenglview class]]) {
                     SDL_uikitopenglview *glview = (SDL_uikitopenglview *)data.viewcontroller.view;

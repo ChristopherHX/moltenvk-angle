@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -39,6 +39,10 @@
 #include "../Scene/Animatable.h"
 #include "../Scene/Node.h"
 #include "../UI/BorderImage.h"
+
+#ifdef URHO3D_URHO2D
+#include "../Urho2D/Drawable2D.h"
+#endif
 
 #include <AngelScript/angelscript.h>
 #include <cstring>
@@ -238,9 +242,8 @@ template <class T> bool SerializerWriteVectorBuffer(VectorBuffer* src, T* ptr)
     return ptr->Write(src->GetData(), src->GetSize()) == src->GetSize();
 }
 
-template<typename T>
-inline static unsigned _seek(T* t, unsigned s) {
-	return t->Seek(s);
+template<typename T> inline static unsigned _seek(T* t, unsigned s) {
+    return t->Seek(s);
 }
 
 /// Template function for registering a class derived from Serializer.
@@ -334,8 +337,7 @@ template <class T> void RegisterDeserializer(asIScriptEngine* engine, const char
     engine->RegisterObjectMethod(className, "uint ReadVLE()", asMETHODPR(T, ReadVLE, (), unsigned), asCALL_THISCALL);
     engine->RegisterObjectMethod(className, "uint ReadNetID()", asMETHODPR(T, ReadNetID, (), unsigned), asCALL_THISCALL);
     engine->RegisterObjectMethod(className, "String ReadLine()", asMETHODPR(T, ReadLine, (), String), asCALL_THISCALL);
-    // TBD ELI engine->RegisterObjectMethod(className, "uint Seek(uint)", asMETHODPR(T, Seek, (unsigned), unsigned), asCALL_THISCALL);
-	engine->RegisterObjectMethod(className, "uint Seek(uint)", asFUNCTION(_seek<T>), asCALL_CDECL_OBJFIRST);
+    engine->RegisterObjectMethod(className, "uint Seek(uint)", asFUNCTION(_seek<T>), asCALL_CDECL_OBJFIRST);
     engine->RegisterObjectMethod(className, "uint SeekRelative(int)", asMETHODPR(T, SeekRelative, (int), unsigned), asCALL_THISCALL);
     engine->RegisterObjectMethod(className, "uint Tell() const", asMETHODPR(T, Tell, () const, unsigned), asCALL_THISCALL);
     engine->RegisterObjectMethod(className, "const String& get_name() const", asMETHODPR(T, GetName, () const, const String&), asCALL_THISCALL);
@@ -1379,6 +1381,20 @@ template <class T> void RegisterButton(asIScriptEngine* engine, const char* clas
     engine->RegisterObjectMethod(className, "float get_repeatRate() const", asMETHOD(T, GetRepeatRate), asCALL_THISCALL);
     engine->RegisterObjectMethod(className, "bool get_pressed() const", asMETHOD(T, IsPressed), asCALL_THISCALL);
 }
+
+#ifdef URHO3D_URHO2D
+/// Template function for registering a class derived from Drawable2D.
+template <class T> void RegisterDrawable2D(asIScriptEngine* engine, const char* className)
+{
+    RegisterDrawable<T>(engine, className);
+    RegisterSubclass<Drawable2D, T>(engine, "Drawable2D", className);
+    engine->RegisterObjectMethod(className, "void set_layer(int)", asMETHOD(T, SetLayer), asCALL_THISCALL);
+    engine->RegisterObjectMethod(className, "int get_layer() const", asMETHOD(T, GetLayer), asCALL_THISCALL);
+    engine->RegisterObjectMethod(className, "void set_orderInLayer(int)", asMETHOD(T, SetOrderInLayer), asCALL_THISCALL); 
+    engine->RegisterObjectMethod(className, "int get_orderInLayer() const", asMETHOD(T, GetOrderInLayer), asCALL_THISCALL);
+}
+#endif
+
 
 }
 

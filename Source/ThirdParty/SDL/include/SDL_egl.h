@@ -19,17 +19,16 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+#if defined (URHO3D_ANGLE_METAL)
+#define SDL_VIDEO_STATIC_ANGLE 1
+#endif
+
 /**
  *  \file SDL_egl.h
  *
  *  This is a simple file to encapsulate the EGL API headers.
  */
 #if !defined(_MSC_VER) && !defined(__ANDROID__)
-
-#include <EGL/egl.h>
-#include <EGL/eglext.h>
-
-#elif URHO3D_ANGLE_VULKAN
 
 #include <EGL/egl.h>
 #include <EGL/eglext.h>

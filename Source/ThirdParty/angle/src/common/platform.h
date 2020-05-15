@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2014 The ANGLE Project Authors. All rights reserved.
+// Copyright 2014 The ANGLE Project Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
@@ -46,7 +46,7 @@
 #    include <windows.h>
 
 #    if defined(WINAPI_FAMILY) && (WINAPI_FAMILY != WINAPI_FAMILY_DESKTOP_APP)
-#        define ANGLE_ENABLE_WINDOWS_STORE 1
+#        define ANGLE_ENABLE_WINDOWS_UWP 1
 #    endif
 
 #    if defined(ANGLE_ENABLE_D3D9)
@@ -68,7 +68,7 @@
 #        include <wrl.h>
 #    endif
 
-#    if defined(ANGLE_ENABLE_WINDOWS_STORE)
+#    if defined(ANGLE_ENABLE_WINDOWS_UWP)
 #        include <dxgi1_3.h>
 #        if defined(_DEBUG)
 #            include <DXProgrammableCapture.h>
@@ -107,5 +107,23 @@
 #        define ANGLE_UNLIKELY(x) (x)
 #    endif  // defined(__GNUC__) || defined(__clang__)
 #endif      // !defined(ANGLE_LIKELY) || !defined(ANGLE_UNLIKELY)
+
+#if defined(ANGLE_PLATFORM_APPLE)
+#    include <TargetConditionals.h>
+#    if TARGET_OS_OSX
+#        define ANGLE_PLATFORM_MACOS 1
+#    elif TARGET_OS_IPHONE
+#        define ANGLE_PLATFORM_IOS 1
+#        if defined(ANGLE_ENABLE_OPENGL)
+#            define GLES_SILENCE_DEPRECATION
+#        endif
+#        if TARGET_OS_SIMULATOR
+#            define ANGLE_PLATFORM_IOS_SIMULATOR 1
+#        endif
+#        if TARGET_OS_MACCATALYST
+#            define ANGLE_PLATFORM_MACCATALYST
+#        endif
+#    endif
+#endif
 
 #endif  // COMMON_PLATFORM_H_

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2016 The ANGLE Project Authors. All rights reserved.
+// Copyright 2016 The ANGLE Project Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
@@ -11,21 +11,30 @@
 
 #include "compiler/translator/TranslatorVulkan.h"
 
+#include <unordered_set>
+
 #include "angle_gl.h"
 #include "common/utilities.h"
+#include "compiler/translator/BuiltinsWorkaroundGLSL.h"
 #include "compiler/translator/ImmutableStringBuilder.h"
 #include "compiler/translator/OutputVulkanGLSL.h"
 #include "compiler/translator/StaticType.h"
 #include "compiler/translator/tree_ops/NameEmbeddedUniformStructs.h"
+#include "compiler/translator/tree_ops/NameNamelessUniformBuffers.h"
+#include "compiler/translator/tree_ops/RewriteAtomicCounters.h"
+#include "compiler/translator/tree_ops/RewriteCubeMapSamplersAs2DArray.h"
 #include "compiler/translator/tree_ops/RewriteDfdy.h"
+#include "compiler/translator/tree_ops/RewriteRowMajorMatrices.h"
 #include "compiler/translator/tree_ops/RewriteStructSamplers.h"
-#include "compiler/translator/tree_util/BuiltIn_autogen.h"
+#include "compiler/translator/tree_util/BuiltIn.h"
 #include "compiler/translator/tree_util/FindFunction.h"
 #include "compiler/translator/tree_util/FindMain.h"
+#include "compiler/translator/tree_util/FindSymbolNode.h"
 #include "compiler/translator/tree_util/IntermNode_util.h"
 #include "compiler/translator/tree_util/ReplaceVariable.h"
 #include "compiler/translator/tree_util/RunAtTheEndOfShader.h"
 #include "compiler/translator/util.h"
+#include "libANGLE/Constants.h"
 
 namespace sh
 {
@@ -151,9 +160,143 @@ class DeclareDefaultUniformsTraverser : public TIntermTraverser
     bool mInDefaultUniform;
 };
 
+// Traverse the tree and collect the redeclaration and all constant index references of
+// gl_ClipDistance
+class GLClipDistanceReferenceTraverser : public TIntermTraverser
+{
+  public:
+    GLClipDistanceReferenceTraverser(const TIntermSymbol **redeclaredSymOut,
+                                     bool *nonConstIdxUsedOut,
+                                     unsigned int *maxConstIdxOut,
+                                     std::unordered_set<unsigned int> *constIndicesOut)
+        : TIntermTraverser(true, false, false),
+          mRedeclaredSym(redeclaredSymOut),
+          mUseNonConstClipDistanceIndex(nonConstIdxUsedOut),
+          mMaxConstClipDistanceIndex(maxConstIdxOut),
+          mConstClipDistanceIndices(constIndicesOut)
+    {
+        *mRedeclaredSym                = nullptr;
+        *mUseNonConstClipDistanceIndex = false;
+        *mMaxConstClipDistanceIndex    = 0;
+        mConstClipDistanceIndices->clear();
+    }
+
+    bool visitDeclaration(Visit visit, TIntermDeclaration *node) override
+    {
+        // If gl_ClipDistance is redeclared, we need to collect its information
+        const TIntermSequence &sequence = *(node->getSequence());
+
+        if (sequence.size() != 1)
+        {
+            return true;
+        }
+
+        TIntermTyped *variable = sequence.front()->getAsTyped();
+        if (!variable->getAsSymbolNode() ||
+            variable->getAsSymbolNode()->getName() != "gl_ClipDistance")
+        {
+            return true;
+        }
+
+        *mRedeclaredSym = variable->getAsSymbolNode();
+
+        return true;
+    }
+
+    bool visitBinary(Visit visit, TIntermBinary *node) override
+    {
+        TOperator op = node->getOp();
+        if (op != EOpIndexDirect && op != EOpIndexIndirect)
+        {
+            return true;
+        }
+        TIntermSymbol *left = node->getLeft()->getAsSymbolNode();
+        if (!left)
+        {
+            return true;
+        }
+        if (left->getName() != "gl_ClipDistance")
+        {
+            return true;
+        }
+        const TConstantUnion *constIdx = node->getRight()->getConstantValue();
+        if (!constIdx)
+        {
+            *mUseNonConstClipDistanceIndex = true;
+        }
+        else
+        {
+            unsigned int idx = 0;
+            switch (constIdx->getType())
+            {
+                case EbtInt:
+                    idx = constIdx->getIConst();
+                    break;
+                case EbtUInt:
+                    idx = constIdx->getUConst();
+                    break;
+                case EbtFloat:
+                    idx = static_cast<unsigned int>(constIdx->getFConst());
+                    break;
+                case EbtBool:
+                    idx = constIdx->getBConst() ? 1 : 0;
+                    break;
+                default:
+                    UNREACHABLE();
+                    break;
+            }
+            ASSERT(idx < gl::IMPLEMENTATION_MAX_CLIP_DISTANCES);
+            mConstClipDistanceIndices->insert(idx);
+
+            *mMaxConstClipDistanceIndex = std::max(*mMaxConstClipDistanceIndex, idx);
+        }
+
+        return true;
+    }
+
+  private:
+    const TIntermSymbol **mRedeclaredSym;
+    // Flag indicating whether there is at least one reference of gl_ClipDistance with non-constant
+    // index
+    bool *mUseNonConstClipDistanceIndex;
+    // Max constant index that is used to reference gl_ClipDistance
+    unsigned int *mMaxConstClipDistanceIndex;
+    // List of constant index reference of gl_ClipDistance
+    std::unordered_set<unsigned int> *mConstClipDistanceIndices;
+};
+
+// Replace all symbolic occurrences of given variables except one symbol.
+class ReplaceVariableExceptOneTraverser : public TIntermTraverser
+{
+  public:
+    ReplaceVariableExceptOneTraverser(const TVariable *toBeReplaced,
+                                      const TIntermTyped *replacement,
+                                      const TIntermSymbol *exception)
+        : TIntermTraverser(true, false, false),
+          mToBeReplaced(toBeReplaced),
+          mException(exception),
+          mReplacement(replacement)
+    {}
+
+    void visitSymbol(TIntermSymbol *node) override
+    {
+        if (&node->variable() == mToBeReplaced && node != mException)
+        {
+            queueReplacement(mReplacement->deepCopy(), OriginalNode::IS_DROPPED);
+        }
+    }
+
+  private:
+    const TVariable *const mToBeReplaced;
+    const TIntermSymbol *const mException;
+    const TIntermTyped *const mReplacement;
+};
+
 constexpr ImmutableString kFlippedPointCoordName    = ImmutableString("flippedPointCoord");
 constexpr ImmutableString kFlippedFragCoordName     = ImmutableString("flippedFragCoord");
 constexpr ImmutableString kEmulatedDepthRangeParams = ImmutableString("ANGLEDepthRangeParams");
+constexpr ImmutableString kUniformsBlockName        = ImmutableString("ANGLEUniformBlock");
+constexpr ImmutableString kUniformsVarName          = ImmutableString("ANGLEUniforms");
 
 constexpr const char kViewport[]             = "viewport";
 constexpr const char kHalfRenderAreaHeight[] = "halfRenderAreaHeight";
@@ -161,37 +304,18 @@ constexpr const char kViewportYScale[]       = "viewportYScale";
 constexpr const char kNegViewportYScale[]    = "negViewportYScale";
 constexpr const char kXfbActiveUnpaused[]    = "xfbActiveUnpaused";
 constexpr const char kXfbBufferOffsets[]     = "xfbBufferOffsets";
+constexpr const char kAcbBufferOffsets[]     = "acbBufferOffsets";
 constexpr const char kDepthRange[]           = "depthRange";
+constexpr const char kClipDistancesEnabled[] = "clipDistancesEnabled";
 
-constexpr size_t kNumDriverUniforms                                        = 7;
-constexpr std::array<const char *, kNumDriverUniforms> kDriverUniformNames = {
+constexpr size_t kNumGraphicsDriverUniforms                                                = 9;
+constexpr std::array<const char *, kNumGraphicsDriverUniforms> kGraphicsDriverUniformNames = {
     {kViewport, kHalfRenderAreaHeight, kViewportYScale, kNegViewportYScale, kXfbActiveUnpaused,
-     kXfbBufferOffsets, kDepthRange}};
+     kXfbBufferOffsets, kAcbBufferOffsets, kDepthRange, kClipDistancesEnabled}};
 
-template <TBasicType BasicType = EbtFloat, unsigned char PrimarySize = 1>
-TIntermConstantUnion *CreateBasicConstant(float value)
-{
-    const TType *constantType     = StaticType::GetBasic<BasicType, PrimarySize>();
-    TConstantUnion *constantValue = new TConstantUnion[PrimarySize];
-    for (unsigned char sizeIndex = 0; sizeIndex < PrimarySize; ++sizeIndex)
-    {
-        constantValue[sizeIndex].setFConst(value);
-    }
-    return new TIntermConstantUnion(constantValue, *constantType);
-}
-
-size_t FindFieldIndex(const TFieldList &fieldList, const char *fieldName)
-{
-    for (size_t fieldIndex = 0; fieldIndex < fieldList.size(); ++fieldIndex)
-    {
-        if (strcmp(fieldList[fieldIndex]->name().data(), fieldName) == 0)
-        {
-            return fieldIndex;
-        }
-    }
-    UNREACHABLE();
-    return 0;
-}
+constexpr size_t kNumComputeDriverUniforms                                               = 1;
+constexpr std::array<const char *, kNumComputeDriverUniforms> kComputeDriverUniformNames = {
+    {kAcbBufferOffsets}};
 
 TIntermBinary *CreateDriverUniformRef(const TVariable *driverUniforms, const char *fieldName)
 {
@@ -200,28 +324,28 @@ TIntermBinary *CreateDriverUniformRef(const TVariable *driverUniforms, const cha
 
     TIntermSymbol *angleUniformsRef = new TIntermSymbol(driverUniforms);
     TConstantUnion *uniformIndex    = new TConstantUnion;
-    uniformIndex->setIConst(fieldIndex);
+    uniformIndex->setIConst(static_cast<int>(fieldIndex));
     TIntermConstantUnion *indexRef =
         new TIntermConstantUnion(uniformIndex, *StaticType::GetBasic<EbtInt>());
     return new TIntermBinary(EOpIndexDirectInterfaceBlock, angleUniformsRef, indexRef);
 }
 
 // Replaces a builtin variable with a version that corrects the Y coordinate.
-void FlipBuiltinVariable(TIntermBlock *root,
-                         TIntermSequence *insertSequence,
-                         TIntermTyped *viewportYScale,
-                         TSymbolTable *symbolTable,
-                         const TVariable *builtin,
-                         const ImmutableString &flippedVariableName,
-                         TIntermTyped *pivot)
+ANGLE_NO_DISCARD bool FlipBuiltinVariable(TCompiler *compiler,
+                                          TIntermBlock *root,
+                                          TIntermSequence *insertSequence,
+                                          TIntermTyped *viewportYScale,
+                                          TSymbolTable *symbolTable,
+                                          const TVariable *builtin,
+                                          const ImmutableString &flippedVariableName,
+                                          TIntermTyped *pivot)
 {
     // Create a symbol reference to 'builtin'.
     TIntermSymbol *builtinRef = new TIntermSymbol(builtin);
 
     // Create a swizzle to "builtin.y"
-    TVector<int> swizzleOffsetY;
-    swizzleOffsetY.push_back(1);
-    TIntermSwizzle *builtinY = new TIntermSwizzle(builtinRef, swizzleOffsetY);
+    TVector<int> swizzleOffsetY = {1};
+    TIntermSwizzle *builtinY    = new TIntermSwizzle(builtinRef, swizzleOffsetY);
 
     // Create a symbol reference to our new variable that will hold the modified builtin.
     const TType *type = StaticType::GetForVec<EbtFloat>(
@@ -232,7 +356,10 @@ void FlipBuiltinVariable(TIntermBlock *root,
     TIntermSymbol *flippedBuiltinRef = new TIntermSymbol(replacementVar);
 
     // Use this new variable instead of 'builtin' everywhere.
-    ReplaceVariable(root, builtin, replacementVar);
+    if (!ReplaceVariable(compiler, root, builtin, replacementVar))
+    {
+        return false;
+    }
 
     // Create the expression "(builtin.y - pivot) * viewportYScale + pivot
     TIntermBinary *removePivot = new TIntermBinary(EOpSub, builtinY, pivot);
@@ -241,17 +368,19 @@ void FlipBuiltinVariable(TIntermBlock *root,
 
     // Create the corrected variable and copy the value of the original builtin.
     TIntermSequence *sequence = new TIntermSequence();
-    sequence->push_back(builtinRef);
+    sequence->push_back(builtinRef->deepCopy());
     TIntermAggregate *aggregate = TIntermAggregate::CreateConstructor(builtin->getType(), sequence);
     TIntermBinary *assignment   = new TIntermBinary(EOpInitialize, flippedBuiltinRef, aggregate);
 
     // Create an assignment to the replaced variable's y.
-    TIntermSwizzle *correctedY = new TIntermSwizzle(flippedBuiltinRef, swizzleOffsetY);
+    TIntermSwizzle *correctedY = new TIntermSwizzle(flippedBuiltinRef->deepCopy(), swizzleOffsetY);
     TIntermBinary *assignToY   = new TIntermBinary(EOpAssign, correctedY, plusPivot);
 
     // Add this assigment at the beginning of the main function
     insertSequence->insert(insertSequence->begin(), assignToY);
     insertSequence->insert(insertSequence->begin(), assignment);
+
+    return compiler->validateAST(root);
 }
 
 TIntermSequence *GetMainSequence(TIntermBlock *root)
@@ -261,9 +390,10 @@ TIntermSequence *GetMainSequence(TIntermBlock *root)
 }
 
 // Declares a new variable to replace gl_DepthRange, its values are fed from a driver uniform.
-void ReplaceGLDepthRangeWithDriverUniform(TIntermBlock *root,
-                                          const TVariable *driverUniforms,
-                                          TSymbolTable *symbolTable)
+ANGLE_NO_DISCARD bool ReplaceGLDepthRangeWithDriverUniform(TCompiler *compiler,
+                                                           TIntermBlock *root,
+                                                           const TVariable *driverUniforms,
+                                                           TSymbolTable *symbolTable)
 {
     // Create a symbol reference to "gl_DepthRange"
     const TVariable *depthRangeVar = static_cast<const TVariable *>(
@@ -273,7 +403,7 @@ void ReplaceGLDepthRangeWithDriverUniform(TIntermBlock *root,
     TIntermBinary *angleEmulatedDepthRangeRef = CreateDriverUniformRef(driverUniforms, kDepthRange);
 
     // Use this variable instead of gl_DepthRange everywhere.
-    ReplaceVariableWithTyped(root, depthRangeVar, angleEmulatedDepthRangeRef);
+    return ReplaceVariableWithTyped(compiler, root, depthRangeVar, angleEmulatedDepthRangeRef);
 }
 
 // This operation performs the viewport depth translation needed by Vulkan. In GL the viewport
@@ -285,24 +415,24 @@ void ReplaceGLDepthRangeWithDriverUniform(TIntermBlock *root,
 //     z_vk = 0.5 * (w_gl + z_gl)
 //
 // where z_vk is the depth output of a Vulkan vertex shader and z_gl is the same for GL.
-void AppendVertexShaderDepthCorrectionToMain(TIntermBlock *root, TSymbolTable *symbolTable)
+ANGLE_NO_DISCARD bool AppendVertexShaderDepthCorrectionToMain(TCompiler *compiler,
+                                                              TIntermBlock *root,
+                                                              TSymbolTable *symbolTable)
 {
     // Create a symbol reference to "gl_Position"
     const TVariable *position  = BuiltInVariable::gl_Position();
     TIntermSymbol *positionRef = new TIntermSymbol(position);
 
     // Create a swizzle to "gl_Position.z"
-    TVector<int> swizzleOffsetZ;
-    swizzleOffsetZ.push_back(2);
-    TIntermSwizzle *positionZ = new TIntermSwizzle(positionRef, swizzleOffsetZ);
+    TVector<int> swizzleOffsetZ = {2};
+    TIntermSwizzle *positionZ   = new TIntermSwizzle(positionRef, swizzleOffsetZ);
 
     // Create a constant "0.5"
-    TIntermConstantUnion *oneHalf = CreateBasicConstant(0.5f);
+    TIntermConstantUnion *oneHalf = CreateFloatNode(0.5f);
 
     // Create a swizzle to "gl_Position.w"
-    TVector<int> swizzleOffsetW;
-    swizzleOffsetW.push_back(3);
-    TIntermSwizzle *positionW = new TIntermSwizzle(positionRef->deepCopy(), swizzleOffsetW);
+    TVector<int> swizzleOffsetW = {3};
+    TIntermSwizzle *positionW   = new TIntermSwizzle(positionRef->deepCopy(), swizzleOffsetW);
 
     // Create the expression "(gl_Position.z + gl_Position.w) * 0.5".
     TIntermBinary *zPlusW = new TIntermBinary(EOpAdd, positionZ->deepCopy(), positionW->deepCopy());
@@ -313,22 +443,28 @@ void AppendVertexShaderDepthCorrectionToMain(TIntermBlock *root, TSymbolTable *s
     TIntermBinary *assignment  = new TIntermBinary(TOperator::EOpAssign, positionZLHS, halfZPlusW);
 
     // Append the assignment as a statement at the end of the shader.
-    RunAtTheEndOfShader(root, assignment, symbolTable);
+    return RunAtTheEndOfShader(compiler, root, assignment, symbolTable);
 }
 
-void AppendVertexShaderTransformFeedbackOutputToMain(TIntermBlock *root, TSymbolTable *symbolTable)
+ANGLE_NO_DISCARD bool AppendVertexShaderTransformFeedbackOutputToMain(TCompiler *compiler,
+                                                                      TIntermBlock *root,
+                                                                      TSymbolTable *symbolTable)
 {
     TVariable *xfbPlaceholder = new TVariable(symbolTable, ImmutableString("@@ XFB-OUT @@"),
                                               new TType(), SymbolType::AngleInternal);
 
     // Append the assignment as a statement at the end of the shader.
-    RunAtTheEndOfShader(root, new TIntermSymbol(xfbPlaceholder), symbolTable);
+    return RunAtTheEndOfShader(compiler, root, new TIntermSymbol(xfbPlaceholder), symbolTable);
 }
 
-// The AddDriverUniformsToShader operation adds an internal uniform block to a shader. The driver
+// The Add*DriverUniformsToShader operation adds an internal uniform block to a shader. The driver
 // block is used to implement Vulkan-specific features and workarounds. Returns the driver uniforms
 // variable.
-const TVariable *AddDriverUniformsToShader(TIntermBlock *root, TSymbolTable *symbolTable)
+//
+// There are Graphics and Compute variations as they require different uniforms.
+const TVariable *AddGraphicsDriverUniformsToShader(TIntermBlock *root,
+                                                   TSymbolTable *symbolTable,
+                                                   const std::vector<TField *> &additionalFields)
 {
     // Init the depth range type.
     TFieldList *depthRangeParamsFields = new TFieldList();
@@ -341,8 +477,9 @@ const TVariable *AddDriverUniformsToShader(TIntermBlock *root, TSymbolTable *sym
     depthRangeParamsFields->push_back(new TField(new TType(EbtFloat, EbpHigh, EvqGlobal, 1, 1),
                                                  ImmutableString("diff"), TSourceLoc(),
                                                  SymbolType::AngleInternal));
+    // This additional field might be used by subclass such as TranslatorMetal.
     depthRangeParamsFields->push_back(new TField(new TType(EbtFloat, EbpHigh, EvqGlobal, 1, 1),
-                                                 ImmutableString("dummyPacker"), TSourceLoc(),
+                                                 ImmutableString("reserved"), TSourceLoc(),
                                                  SymbolType::AngleInternal));
     TStructure *emulatedDepthRangeParams = new TStructure(
         symbolTable, kEmulatedDepthRangeParams, depthRangeParamsFields, SymbolType::AngleInternal);
@@ -355,50 +492,62 @@ const TVariable *AddDriverUniformsToShader(TIntermBlock *root, TSymbolTable *sym
 
     DeclareGlobalVariable(root, depthRangeVar);
 
-    // This field list mirrors the structure of ContextVk::DriverUniforms.
+    // This field list mirrors the structure of GraphicsDriverUniforms in ContextVk.cpp.
     TFieldList *driverFieldList = new TFieldList;
 
-    const std::array<TType *, kNumDriverUniforms> kDriverUniformTypes = {{
+    const std::array<TType *, kNumGraphicsDriverUniforms> kDriverUniformTypes = {{
         new TType(EbtFloat, 4),
         new TType(EbtFloat),
         new TType(EbtFloat),
         new TType(EbtFloat),
         new TType(EbtUInt),
         new TType(EbtInt, 4),
+        new TType(EbtUInt, 4),
         emulatedDepthRangeType,
+        new TType(EbtUInt, 1),  // uint clipDistancesEnabled;  // 32 bits for 32 clip distances max
     }};
 
-    for (size_t uniformIndex = 0; uniformIndex < kNumDriverUniforms; ++uniformIndex)
+    for (size_t uniformIndex = 0; uniformIndex < kNumGraphicsDriverUniforms; ++uniformIndex)
     {
-        TField *driverUniformField = new TField(kDriverUniformTypes[uniformIndex],
-                                                ImmutableString(kDriverUniformNames[uniformIndex]),
-                                                TSourceLoc(), SymbolType::AngleInternal);
+        TField *driverUniformField =
+            new TField(kDriverUniformTypes[uniformIndex],
+                       ImmutableString(kGraphicsDriverUniformNames[uniformIndex]), TSourceLoc(),
+                       SymbolType::AngleInternal);
         driverFieldList->push_back(driverUniformField);
     }
 
-    // Define a driver uniform block "ANGLEUniformBlock".
-    TLayoutQualifier driverLayoutQualifier = TLayoutQualifier::Create();
-    TInterfaceBlock *interfaceBlock =
-        new TInterfaceBlock(symbolTable, ImmutableString("ANGLEUniformBlock"), driverFieldList,
-                            driverLayoutQualifier, SymbolType::AngleInternal);
+    // Back-end specific fields
+    driverFieldList->insert(driverFieldList->end(), additionalFields.begin(),
+                            additionalFields.end());
 
-    // Make the inteface block into a declaration. Use instance name "ANGLEUniforms".
-    TType *interfaceBlockType = new TType(interfaceBlock, EvqUniform, driverLayoutQualifier);
-    TIntermDeclaration *driverUniformsDecl = new TIntermDeclaration;
-    TVariable *driverUniformsVar = new TVariable(symbolTable, ImmutableString("ANGLEUniforms"),
-                                                 interfaceBlockType, SymbolType::AngleInternal);
-    TIntermSymbol *driverUniformsDeclarator = new TIntermSymbol(driverUniformsVar);
-    driverUniformsDecl->appendDeclarator(driverUniformsDeclarator);
+    // Define a driver uniform block "ANGLEUniformBlock" with instance name "ANGLEUniforms".
+    return DeclareInterfaceBlock(root, symbolTable, driverFieldList, EvqUniform,
+                                 TMemoryQualifier::Create(), 0, kUniformsBlockName,
+                                 kUniformsVarName);
+}
 
-    // Insert the declarations before first function, since functions before main() may refer to
-    // these values.
-    TIntermSequence *insertSequence = new TIntermSequence;
-    insertSequence->push_back(driverUniformsDecl);
+const TVariable *AddComputeDriverUniformsToShader(TIntermBlock *root, TSymbolTable *symbolTable)
+{
+    // This field list mirrors the structure of ComputeDriverUniforms in ContextVk.cpp.
+    TFieldList *driverFieldList = new TFieldList;
 
-    size_t firstFunctionIndex = FindFirstFunctionDefinitionIndex(root);
-    root->insertChildNodes(firstFunctionIndex, *insertSequence);
+    const std::array<TType *, kNumComputeDriverUniforms> kDriverUniformTypes = {{
+        new TType(EbtUInt, 4),
+    }};
 
-    return driverUniformsVar;
+    for (size_t uniformIndex = 0; uniformIndex < kNumComputeDriverUniforms; ++uniformIndex)
+    {
+        TField *driverUniformField =
+            new TField(kDriverUniformTypes[uniformIndex],
+                       ImmutableString(kComputeDriverUniformNames[uniformIndex]), TSourceLoc(),
+                       SymbolType::AngleInternal);
+        driverFieldList->push_back(driverUniformField);
+    }
+
+    // Define a driver uniform block "ANGLEUniformBlock" with instance name "ANGLEUniforms".
+    return DeclareInterfaceBlock(root, symbolTable, driverFieldList, EvqUniform,
+                                 TMemoryQualifier::Create(), 0, kUniformsBlockName,
+                                 kUniformsVarName);
 }
 
 TIntermPreprocessorDirective *GenerateLineRasterIfDef()
@@ -456,15 +605,16 @@ void AddANGLEPositionVarying(TIntermBlock *root, TSymbolTable *symbolTable)
     mainBody->appendStatement(GenerateEndIf());
 }
 
-void InsertFragCoordCorrection(TIntermBlock *root,
-                               TIntermSequence *insertSequence,
-                               TSymbolTable *symbolTable,
-                               const TVariable *driverUniforms)
+ANGLE_NO_DISCARD bool InsertFragCoordCorrection(TCompiler *compiler,
+                                                TIntermBlock *root,
+                                                TIntermSequence *insertSequence,
+                                                TSymbolTable *symbolTable,
+                                                const TVariable *driverUniforms)
 {
     TIntermBinary *viewportYScale = CreateDriverUniformRef(driverUniforms, kViewportYScale);
     TIntermBinary *pivot          = CreateDriverUniformRef(driverUniforms, kHalfRenderAreaHeight);
-    FlipBuiltinVariable(root, insertSequence, viewportYScale, symbolTable,
-                        BuiltInVariable::gl_FragCoord(), kFlippedFragCoordName, pivot);
+    return FlipBuiltinVariable(compiler, root, insertSequence, viewportYScale, symbolTable,
+                               BuiltInVariable::gl_FragCoord(), kFlippedFragCoordName, pivot);
 }
 
 // This block adds OpenGL line segment rasterization emulation behind #ifdef guards.
@@ -492,39 +642,35 @@ void InsertFragCoordCorrection(TIntermBlock *root,
 //         discard;
 //     <otherwise run fragment shader main>
 // }
-void AddLineSegmentRasterizationEmulation(TInfoSinkBase &sink,
-                                          TIntermBlock *root,
-                                          TSymbolTable *symbolTable,
-                                          const TVariable *driverUniforms,
-                                          bool usesFragCoord)
+ANGLE_NO_DISCARD bool AddLineSegmentRasterizationEmulation(TCompiler *compiler,
+                                                           TInfoSinkBase &sink,
+                                                           TIntermBlock *root,
+                                                           TSymbolTable *symbolTable,
+                                                           const TVariable *driverUniforms,
+                                                           bool usesFragCoord)
 {
     TVariable *anglePosition = AddANGLEPositionVaryingDeclaration(root, symbolTable, EvqVaryingIn);
 
     const TType *vec2Type = StaticType::GetBasic<EbtFloat, 2>();
 
     // Create a swizzle to "ANGLEUniforms.viewport.xy".
-    TIntermBinary *viewportRef = CreateDriverUniformRef(driverUniforms, kViewport);
-    TVector<int> swizzleOffsetXY;
-    swizzleOffsetXY.push_back(0);
-    swizzleOffsetXY.push_back(1);
-    TIntermSwizzle *viewportXY = new TIntermSwizzle(viewportRef->deepCopy(), swizzleOffsetXY);
+    TIntermBinary *viewportRef   = CreateDriverUniformRef(driverUniforms, kViewport);
+    TVector<int> swizzleOffsetXY = {0, 1};
+    TIntermSwizzle *viewportXY   = new TIntermSwizzle(viewportRef->deepCopy(), swizzleOffsetXY);
 
     // Create a swizzle to "ANGLEUniforms.viewport.zw".
-    TVector<int> swizzleOffsetZW;
-    swizzleOffsetZW.push_back(2);
-    swizzleOffsetZW.push_back(3);
-    TIntermSwizzle *viewportZW = new TIntermSwizzle(viewportRef, swizzleOffsetZW);
+    TVector<int> swizzleOffsetZW = {2, 3};
+    TIntermSwizzle *viewportZW   = new TIntermSwizzle(viewportRef, swizzleOffsetZW);
 
     // ANGLEPosition.xy / ANGLEPosition.w
-    TIntermSymbol *position    = new TIntermSymbol(anglePosition);
-    TIntermSwizzle *positionXY = new TIntermSwizzle(position, swizzleOffsetXY);
-    TVector<int> swizzleOffsetW;
-    swizzleOffsetW.push_back(3);
-    TIntermSwizzle *positionW  = new TIntermSwizzle(position->deepCopy(), swizzleOffsetW);
-    TIntermBinary *positionNDC = new TIntermBinary(EOpDiv, positionXY, positionW);
+    TIntermSymbol *position     = new TIntermSymbol(anglePosition);
+    TIntermSwizzle *positionXY  = new TIntermSwizzle(position, swizzleOffsetXY);
+    TVector<int> swizzleOffsetW = {3};
+    TIntermSwizzle *positionW   = new TIntermSwizzle(position->deepCopy(), swizzleOffsetW);
+    TIntermBinary *positionNDC  = new TIntermBinary(EOpDiv, positionXY, positionW);
 
     // ANGLEPosition * 0.5
-    TIntermConstantUnion *oneHalf = CreateBasicConstant(0.5f);
+    TIntermConstantUnion *oneHalf = CreateFloatNode(0.5f);
     TIntermBinary *halfPosition   = new TIntermBinary(EOpVectorTimesScalar, positionNDC, oneHalf);
 
     // (ANGLEPosition * 0.5) + 0.5
@@ -562,7 +708,7 @@ void AddLineSegmentRasterizationEmulation(TInfoSinkBase &sink,
     TIntermBinary *baSq = new TIntermBinary(EOpMul, ba, ba->deepCopy());
 
     // 2.0 * ba * ba
-    TIntermTyped *two      = CreateBasicConstant(2.0f);
+    TIntermTyped *two      = CreateFloatNode(2.0f);
     TIntermBinary *twoBaSq = new TIntermBinary(EOpVectorTimesScalar, baSq, two);
 
     // Assign to a temporary "ba2".
@@ -570,11 +716,9 @@ void AddLineSegmentRasterizationEmulation(TInfoSinkBase &sink,
     TIntermDeclaration *ba2Decl = CreateTempInitDeclarationNode(ba2Temp, twoBaSq);
 
     // Create a swizzle to "ba2.yx".
-    TVector<int> swizzleOffsetYX;
-    swizzleOffsetYX.push_back(1);
-    swizzleOffsetYX.push_back(0);
-    TIntermSymbol *ba2    = CreateTempSymbolNode(ba2Temp);
-    TIntermSwizzle *ba2YX = new TIntermSwizzle(ba2, swizzleOffsetYX);
+    TVector<int> swizzleOffsetYX = {1, 0};
+    TIntermSymbol *ba2           = CreateTempSymbolNode(ba2Temp);
+    TIntermSwizzle *ba2YX        = new TIntermSwizzle(ba2, swizzleOffsetYX);
 
     // ba2 + ba2.yx - ba
     TIntermBinary *ba2PlusBaYX2 = new TIntermBinary(EOpAdd, ba2->deepCopy(), ba2YX);
@@ -586,22 +730,20 @@ void AddLineSegmentRasterizationEmulation(TInfoSinkBase &sink,
     TIntermSymbol *bp          = CreateTempSymbolNode(bpTemp);
 
     // Create a swizzle to "bp.x".
-    TVector<int> swizzleOffsetX;
-    swizzleOffsetX.push_back(0);
-    TIntermSwizzle *bpX = new TIntermSwizzle(bp, swizzleOffsetX);
+    TVector<int> swizzleOffsetX = {0};
+    TIntermSwizzle *bpX         = new TIntermSwizzle(bp, swizzleOffsetX);
 
     // Using a small epsilon value ensures that we don't suffer from numerical instability when
     // lines are exactly vertical or horizontal.
     static constexpr float kEpisilon = 0.00001f;
-    TIntermConstantUnion *epsilon    = CreateBasicConstant(kEpisilon);
+    TIntermConstantUnion *epsilon    = CreateFloatNode(kEpisilon);
 
     // bp.x > epsilon
     TIntermBinary *checkX = new TIntermBinary(EOpGreaterThan, bpX, epsilon);
 
     // Create a swizzle to "bp.y".
-    TVector<int> swizzleOffsetY;
-    swizzleOffsetY.push_back(1);
-    TIntermSwizzle *bpY = new TIntermSwizzle(bp->deepCopy(), swizzleOffsetY);
+    TVector<int> swizzleOffsetY = {1};
+    TIntermSwizzle *bpY         = new TIntermSwizzle(bp->deepCopy(), swizzleOffsetY);
 
     // bp.y > epsilon
     TIntermBinary *checkY = new TIntermBinary(EOpGreaterThan, bpY, epsilon->deepCopy());
@@ -629,31 +771,205 @@ void AddLineSegmentRasterizationEmulation(TInfoSinkBase &sink,
     // If the shader does not use frag coord, we should insert it inside the ifdef.
     if (!usesFragCoord)
     {
-        InsertFragCoordCorrection(root, mainSequence, symbolTable, driverUniforms);
+        if (!InsertFragCoordCorrection(compiler, root, mainSequence, symbolTable, driverUniforms))
+        {
+            return false;
+        }
     }
 
     mainSequence->insert(mainSequence->begin(), GenerateLineRasterIfDef());
+
+    return compiler->validateAST(root);
 }
+
+// Replace every gl_ClipDistance assignment with assignment to another global variable,
+// then at the end of shader re-assign the values of this global variable to gl_ClipDistance.
+// This to solve some complex usages such as user passing gl_ClipDistance as output reference
+// to a function.
+// Furthermore, at the end shader, some disabled gl_ClipDistance[i] can be skipped from the
+// assignment.
+ANGLE_NO_DISCARD bool ReplaceGLClipDistanceAssignments(TCompiler *compiler,
+                                                       TIntermBlock *root,
+                                                       TSymbolTable *symbolTable,
+                                                       const TVariable *driverUniforms)
+{
+    // Collect all constant index references of gl_ClipDistance
+    std::unordered_set<unsigned int> constIndices;
+    bool useNonConstIndex                         = false;
+    const TIntermSymbol *redeclaredGLClipDistance = nullptr;
+    unsigned int maxConstIndex                    = 0;
+    GLClipDistanceReferenceTraverser indexTraverser(&redeclaredGLClipDistance, &useNonConstIndex,
+                                                    &maxConstIndex, &constIndices);
+    root->traverse(&indexTraverser);
+    if (!useNonConstIndex && constIndices.empty())
+    {
+        // No references of gl_ClipDistance
+        return true;
+    }
+
+    // Retrieve gl_ClipDistance variable reference
+    // Search user redeclared gl_ClipDistance first
+    const TVariable *glClipDistanceVar = nullptr;
+    if (redeclaredGLClipDistance)
+    {
+        glClipDistanceVar = &redeclaredGLClipDistance->variable();
+    }
+    else
+    {
+        ImmutableString glClipDistanceName("gl_ClipDistance");
+        // User defined not found, find in built-in table
+        glClipDistanceVar =
+            static_cast<const TVariable *>(symbolTable->findBuiltIn(glClipDistanceName, 0));
+    }
+    if (!glClipDistanceVar)
+    {
+        return false;
+    }
+
+    // Declare a global variable substituting gl_ClipDistance
+    TType *clipDistanceType = new TType(EbtFloat, EbpMedium, EvqGlobal, 1);
+    if (redeclaredGLClipDistance)
+    {
+        // If array is redeclared by user, use that redeclared size.
+        clipDistanceType->makeArray(redeclaredGLClipDistance->getType().getOutermostArraySize());
+    }
+    else if (!useNonConstIndex)
+    {
+        ASSERT(maxConstIndex < glClipDistanceVar->getType().getOutermostArraySize());
+        // Only use constant index, then use max array index used.
+        clipDistanceType->makeArray(maxConstIndex + 1);
+    }
+    else
+    {
+        clipDistanceType->makeArray(glClipDistanceVar->getType().getOutermostArraySize());
+    }
+
+    clipDistanceType->realize();
+    TVariable *clipDistanceVar = new TVariable(symbolTable, ImmutableString("_ANGLEClipDistance"),
+                                               clipDistanceType, SymbolType::UserDefined);
+
+    TIntermSymbol *clipDistanceDeclarator = new TIntermSymbol(clipDistanceVar);
+    TIntermDeclaration *clipDistanceDecl  = new TIntermDeclaration;
+    clipDistanceDecl->appendDeclarator(clipDistanceDeclarator);
+
+    // Must declare _ANGLEClipDistance before any function, since gl_ClipDistance might be accessed
+    // within a function declared before main.
+    root->insertStatement(0, clipDistanceDecl);
+
+    // Replace gl_ClipDistance reference with _ANGLEClipDistance, except the declaration
+    ReplaceVariableExceptOneTraverser replaceTraverser(glClipDistanceVar,
+                                                       new TIntermSymbol(clipDistanceVar),
+                                                       /** exception */ redeclaredGLClipDistance);
+    root->traverse(&replaceTraverser);
+    if (!replaceTraverser.updateTree(compiler, root))
+    {
+        return false;
+    }
+
+    TIntermBlock *reassignBlock         = new TIntermBlock;
+    TIntermSymbol *glClipDistanceSymbol = new TIntermSymbol(glClipDistanceVar);
+    TIntermSymbol *clipDistanceSymbol   = new TIntermSymbol(clipDistanceVar);
+
+    // ANGLEUniforms.clipDistancesEnabled
+    TIntermBinary *angleClipEnablesRef =
+        CreateDriverUniformRef(driverUniforms, kClipDistancesEnabled);
+
+    // Reassign _ANGLEClipDistance to gl_ClipDistance but ignore those that are disabled
+
+    auto assignFunc = [=](unsigned int index) {
+        //  if (ANGLEUniforms.clipDistancesEnabled & (0x1 << index))
+        //      gl_ClipDistance[index] = _ANGLEClipDistance[index];
+        //  else
+        //      gl_ClipDistance[index] = 0;
+        TIntermConstantUnion *bitMask = CreateUIntNode(0x1 << index);
+        TIntermBinary *bitwiseAnd =
+            new TIntermBinary(EOpBitwiseAnd, angleClipEnablesRef->deepCopy(), bitMask);
+        TIntermBinary *nonZero = new TIntermBinary(EOpNotEqual, bitwiseAnd, CreateUIntNode(0));
+
+        TIntermBinary *left  = new TIntermBinary(EOpIndexDirect, glClipDistanceSymbol->deepCopy(),
+                                                CreateIndexNode(index));
+        TIntermBinary *right = new TIntermBinary(EOpIndexDirect, clipDistanceSymbol->deepCopy(),
+                                                 CreateIndexNode(index));
+        TIntermBinary *assignment = new TIntermBinary(EOpAssign, left, right);
+        TIntermBlock *trueBlock   = new TIntermBlock();
+        trueBlock->appendStatement(assignment);
+
+        TIntermBinary *zeroAssignment =
+            new TIntermBinary(EOpAssign, left->deepCopy(), CreateFloatNode(0));
+        TIntermBlock *falseBlock = new TIntermBlock();
+        falseBlock->appendStatement(zeroAssignment);
+
+        return new TIntermIfElse(nonZero, trueBlock, falseBlock);
+    };
+
+    if (useNonConstIndex)
+    {
+        // If there is at least one non constant index reference,
+        // Then we need to loop through the whole declared size of gl_ClipDistance.
+        // Since we don't know exactly the index at compile time.
+        // As mentioned in
+        // https://www.khronos.org/registry/OpenGL/extensions/APPLE/APPLE_clip_distance.txt
+        // Non constant index can only be used if gl_ClipDistance is redeclared with an explicit
+        // size.
+        for (unsigned int i = 0; i < clipDistanceType->getOutermostArraySize(); ++i)
+        {
+            reassignBlock->appendStatement(assignFunc(i));
+        }
+    }
+    else
+    {
+        // Assign _ANGLEClipDistance[i]'s value to gl_ClipDistance[i] if i is in the constant
+        // indices list.
+        // Those elements whose index is not in the constant index list will be zeroise.
+        for (unsigned int i = 0; i < clipDistanceType->getOutermostArraySize(); ++i)
+        {
+            if (constIndices.count(i))
+            {
+                reassignBlock->appendStatement(assignFunc(i));
+            }
+            else
+            {
+                // gl_ClipDistance[i] = 0;
+                TIntermBinary *left = new TIntermBinary(
+                    EOpIndexDirect, glClipDistanceSymbol->deepCopy(), CreateIndexNode(i));
+                TIntermBinary *zeroAssignment =
+                    new TIntermBinary(EOpAssign, left, CreateFloatNode(0));
+                reassignBlock->appendStatement(zeroAssignment);
+            }
+        }
+    }
+
+    return RunAtTheEndOfShader(compiler, root, reassignBlock, symbolTable);
+}
+
 }  // anonymous namespace
 
 TranslatorVulkan::TranslatorVulkan(sh::GLenum type, ShShaderSpec spec)
     : TCompiler(type, spec, SH_GLSL_450_CORE_OUTPUT)
 {}
 
-void TranslatorVulkan::translate(TIntermBlock *root,
-                                 ShCompileOptions compileOptions,
-                                 PerformanceDiagnostics * /*perfDiagnostics*/)
+bool TranslatorVulkan::translateImpl(TIntermBlock *root,
+                                     ShCompileOptions compileOptions,
+                                     PerformanceDiagnostics * /*perfDiagnostics*/,
+                                     const TVariable **driverUniformsOut,
+                                     TOutputVulkanGLSL *outputGLSL)
 {
     TInfoSinkBase &sink = getInfoSink().obj;
-    TOutputVulkanGLSL outputGLSL(sink, getArrayIndexClampingStrategy(), getHashFunction(),
-                                 getNameMap(), &getSymbolTable(), getShaderType(),
-                                 getShaderVersion(), getOutputType(), compileOptions);
+
+    if (getShaderType() == GL_VERTEX_SHADER)
+    {
+        if (!ShaderBuiltinsWorkaround(this, root, &getSymbolTable(), compileOptions))
+        {
+            return false;
+        }
+    }
 
     sink << "#version 450 core\n";
 
     // Write out default uniforms into a uniform block assigned to a specific set/binding.
-    int defaultUniformCount        = 0;
-    int structTypesUsedForUniforms = 0;
+    int defaultUniformCount           = 0;
+    int aggregateTypesUsedForUniforms = 0;
+    int atomicCounterCount            = 0;
     for (const auto &uniform : getUniforms())
     {
         if (!uniform.isBuiltIn() && uniform.staticUse && !gl::IsOpaqueType(uniform.type))
@@ -661,24 +977,83 @@ void TranslatorVulkan::translate(TIntermBlock *root,
             ++defaultUniformCount;
         }
 
-        if (uniform.isStruct())
+        if (uniform.isStruct() || uniform.isArrayOfArrays())
         {
-            ++structTypesUsedForUniforms;
+            ++aggregateTypesUsedForUniforms;
+        }
+
+        if (gl::IsAtomicCounterType(uniform.type))
+        {
+            ++atomicCounterCount;
         }
     }
 
-    // TODO(lucferron): Refactor this function to do less tree traversals.
+    // TODO(lucferron): Refactor this function to do fewer tree traversals.
     // http://anglebug.com/2461
-    if (structTypesUsedForUniforms > 0)
+    if (aggregateTypesUsedForUniforms > 0)
     {
-        NameEmbeddedStructUniforms(root, &getSymbolTable());
+        if (!NameEmbeddedStructUniforms(this, root, &getSymbolTable()))
+        {
+            return false;
+        }
 
-        defaultUniformCount -= RewriteStructSamplers(root, &getSymbolTable());
+        bool rewriteStructSamplersResult;
+        int removedUniformsCount;
+
+        if (compileOptions & SH_USE_OLD_REWRITE_STRUCT_SAMPLERS)
+        {
+            rewriteStructSamplersResult =
+                RewriteStructSamplersOld(this, root, &getSymbolTable(), &removedUniformsCount);
+        }
+        else
+        {
+            rewriteStructSamplersResult =
+                RewriteStructSamplers(this, root, &getSymbolTable(), &removedUniformsCount);
+        }
+
+        if (!rewriteStructSamplersResult)
+        {
+            return false;
+        }
+        defaultUniformCount -= removedUniformsCount;
 
         // We must declare the struct types before using them.
-        DeclareStructTypesTraverser structTypesTraverser(&outputGLSL);
+        DeclareStructTypesTraverser structTypesTraverser(outputGLSL);
         root->traverse(&structTypesTraverser);
-        structTypesTraverser.updateTree();
+        if (!structTypesTraverser.updateTree(this, root))
+        {
+            return false;
+        }
+    }
+
+    // Rewrite samplerCubes as sampler2DArrays.  This must be done after rewriting struct samplers
+    // as it doesn't expect that.
+    if (compileOptions & SH_EMULATE_SEAMFUL_CUBE_MAP_SAMPLING)
+    {
+        if (!RewriteCubeMapSamplersAs2DArray(this, root, &getSymbolTable(),
+                                             getShaderType() == GL_FRAGMENT_SHADER))
+        {
+            return false;
+        }
+    }
+
+    if (getShaderVersion() >= 300)
+    {
+        // Make sure every uniform buffer variable has a name.  The following transformation relies
+        // on this.
+        if (!NameNamelessUniformBuffers(this, root, &getSymbolTable()))
+        {
+            return false;
+        }
+
+        // In GLES3+, matrices can be declared row- or column-major.  Transform all to column-major
+        // as interface block field layout qualifiers are not allowed.  This should be done after
+        // samplers are taken out of structs (as structs could be rewritten), but before uniforms
+        // are collected in a uniform buffer as they are handled especially.
+        if (!RewriteRowMajorMatrices(this, root, &getSymbolTable()))
+        {
+            return false;
+        }
     }
 
     if (defaultUniformCount > 0)
@@ -687,14 +1062,46 @@ void TranslatorVulkan::translate(TIntermBlock *root,
 
         DeclareDefaultUniformsTraverser defaultTraverser(&sink, getHashFunction(), &getNameMap());
         root->traverse(&defaultTraverser);
-        defaultTraverser.updateTree();
+        if (!defaultTraverser.updateTree(this, root))
+        {
+            return false;
+        }
 
         sink << "};\n";
     }
 
-    const TVariable *driverUniforms = AddDriverUniformsToShader(root, &getSymbolTable());
+    const TVariable *driverUniforms;
+    if (getShaderType() == GL_COMPUTE_SHADER)
+    {
+        driverUniforms = AddComputeDriverUniformsToShader(root, &getSymbolTable());
+    }
+    else
+    {
+        std::vector<TField *> additionalFields;
+        createGraphicsDriverUniformAdditionFields(&additionalFields);
+        driverUniforms =
+            AddGraphicsDriverUniformsToShader(root, &getSymbolTable(), additionalFields);
+    }
 
-    ReplaceGLDepthRangeWithDriverUniform(root, driverUniforms, &getSymbolTable());
+    if (atomicCounterCount > 0)
+    {
+        // ANGLEUniforms.acbBufferOffsets
+        const TIntermBinary *acbBufferOffsets =
+            CreateDriverUniformRef(driverUniforms, kAcbBufferOffsets);
+
+        if (!RewriteAtomicCounters(this, root, &getSymbolTable(), acbBufferOffsets))
+        {
+            return false;
+        }
+    }
+
+    if (getShaderType() != GL_COMPUTE_SHADER)
+    {
+        if (!ReplaceGLDepthRangeWithDriverUniform(this, root, driverUniforms, &getSymbolTable()))
+        {
+            return false;
+        }
+    }
 
     // Declare gl_FragColor and glFragData as webgl_FragColor and webgl_FragData
     // if it's core profile shaders and they are used.
@@ -704,7 +1111,7 @@ void TranslatorVulkan::translate(TIntermBlock *root,
         bool usesFragCoord  = false;
 
         // Search for the gl_PointCoord usage, if its used, we need to flip the y coordinate.
-        for (const Varying &inputVarying : mInputVaryings)
+        for (const ShaderVariable &inputVarying : mInputVaryings)
         {
             if (!inputVarying.isBuiltIn())
             {
@@ -724,13 +1131,16 @@ void TranslatorVulkan::translate(TIntermBlock *root,
             }
         }
 
-        AddLineSegmentRasterizationEmulation(sink, root, &getSymbolTable(), driverUniforms,
-                                             usesFragCoord);
+        if (!AddLineSegmentRasterizationEmulation(this, sink, root, &getSymbolTable(),
+                                                  driverUniforms, usesFragCoord))
+        {
+            return false;
+        }
 
         bool hasGLFragColor = false;
         bool hasGLFragData  = false;
 
-        for (const OutputVariable &outputVar : mOutputVariables)
+        for (const ShaderVariable &outputVar : mOutputVariables)
         {
             if (outputVar.name == "gl_FragColor")
             {
@@ -759,46 +1169,137 @@ void TranslatorVulkan::translate(TIntermBlock *root,
         {
             TIntermBinary *viewportYScale =
                 CreateDriverUniformRef(driverUniforms, kNegViewportYScale);
-            TIntermConstantUnion *pivot = CreateBasicConstant(0.5f);
-            FlipBuiltinVariable(root, GetMainSequence(root), viewportYScale, &getSymbolTable(),
-                                BuiltInVariable::gl_PointCoord(), kFlippedPointCoordName, pivot);
+            TIntermConstantUnion *pivot = CreateFloatNode(0.5f);
+            if (!FlipBuiltinVariable(this, root, GetMainSequence(root), viewportYScale,
+                                     &getSymbolTable(), BuiltInVariable::gl_PointCoord(),
+                                     kFlippedPointCoordName, pivot))
+            {
+                return false;
+            }
         }
 
         if (usesFragCoord)
         {
-            InsertFragCoordCorrection(root, GetMainSequence(root), &getSymbolTable(),
-                                      driverUniforms);
+            if (!InsertFragCoordCorrection(this, root, GetMainSequence(root), &getSymbolTable(),
+                                           driverUniforms))
+            {
+                return false;
+            }
         }
 
         {
             TIntermBinary *viewportYScale = CreateDriverUniformRef(driverUniforms, kViewportYScale);
-            RewriteDfdy(root, getSymbolTable(), getShaderVersion(), viewportYScale);
+            if (!RewriteDfdy(this, root, getSymbolTable(), getShaderVersion(), viewportYScale))
+            {
+                return false;
+            }
         }
     }
-    else
+    else if (getShaderType() == GL_VERTEX_SHADER)
     {
-        ASSERT(getShaderType() == GL_VERTEX_SHADER);
-
         AddANGLEPositionVarying(root, &getSymbolTable());
 
         // Add a macro to declare transform feedback buffers.
         sink << "@@ XFB-DECL @@\n\n";
 
         // Append a macro for transform feedback substitution prior to modifying depth.
-        AppendVertexShaderTransformFeedbackOutputToMain(root, &getSymbolTable());
+        if (!AppendVertexShaderTransformFeedbackOutputToMain(this, root, &getSymbolTable()))
+        {
+            return false;
+        }
+
+        // Search for the gl_ClipDistance usage, if its used, we need to do some replacements.
+        bool useClipDistance = false;
+        for (const ShaderVariable &outputVarying : mOutputVaryings)
+        {
+            if (outputVarying.name == "gl_ClipDistance")
+            {
+                useClipDistance = true;
+                break;
+            }
+        }
+        if (useClipDistance &&
+            !ReplaceGLClipDistanceAssignments(this, root, &getSymbolTable(), driverUniforms))
+        {
+            return false;
+        }
 
         // Append depth range translation to main.
-        AppendVertexShaderDepthCorrectionToMain(root, &getSymbolTable());
+        if (!transformDepthBeforeCorrection(root, driverUniforms))
+        {
+            return false;
+        }
+        if (!AppendVertexShaderDepthCorrectionToMain(this, root, &getSymbolTable()))
+        {
+            return false;
+        }
+    }
+    else if (getShaderType() == GL_GEOMETRY_SHADER)
+    {
+        AddANGLEPositionVarying(root, &getSymbolTable());
+
+        WriteGeometryShaderLayoutQualifiers(
+            sink, getGeometryShaderInputPrimitiveType(), getGeometryShaderInvocations(),
+            getGeometryShaderOutputPrimitiveType(), getGeometryShaderMaxVertices());
+    }
+    else
+    {
+        ASSERT(getShaderType() == GL_COMPUTE_SHADER);
+        EmitWorkGroupSizeGLSL(*this, sink);
+    }
+
+    if (!validateAST(root))
+    {
+        return false;
+    }
+
+    if (driverUniformsOut)
+    {
+        *driverUniformsOut = driverUniforms;
+    }
+
+    return true;
+}
+
+bool TranslatorVulkan::translate(TIntermBlock *root,
+                                 ShCompileOptions compileOptions,
+                                 PerformanceDiagnostics *perfDiagnostics)
+{
+
+    TInfoSinkBase &sink = getInfoSink().obj;
+    TOutputVulkanGLSL outputGLSL(sink, getArrayIndexClampingStrategy(), getHashFunction(),
+                                 getNameMap(), &getSymbolTable(), getShaderType(),
+                                 getShaderVersion(), getOutputType(), compileOptions);
+
+    if (!translateImpl(root, compileOptions, perfDiagnostics, nullptr, &outputGLSL))
+    {
+        return false;
     }
 
     // Write translated shader.
     root->traverse(&outputGLSL);
+
+    return true;
 }
 
 bool TranslatorVulkan::shouldFlattenPragmaStdglInvariantAll()
 {
     // Not necessary.
     return false;
+}
+
+TIntermBinary *TranslatorVulkan::getDriverUniformNegViewportYScaleRef(
+    const TVariable *driverUniforms) const
+{
+    return CreateDriverUniformRef(driverUniforms, kNegViewportYScale);
+}
+
+TIntermBinary *TranslatorVulkan::getDriverUniformDepthRangeReservedFieldRef(
+    const TVariable *driverUniforms) const
+{
+    TIntermBinary *depthRange = CreateDriverUniformRef(driverUniforms, kDepthRange);
+
+    return new TIntermBinary(EOpIndexDirectStruct, depthRange, CreateIndexNode(3));
 }
 
 }  // namespace sh

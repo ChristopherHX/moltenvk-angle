@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,7 @@ Texture2DArray::Texture2DArray(Context* context) :
     Texture(context)
 {
 #ifdef URHO3D_OPENGL
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
     target_ = GL_TEXTURE_2D_ARRAY;
 #endif
 #endif

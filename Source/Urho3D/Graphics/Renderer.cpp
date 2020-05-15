@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -954,7 +954,7 @@ Texture2D* Renderer::GetShadowMap(Light* light, Camera* camera, unsigned viewWid
         }
         else
         {
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
             // OpenGL (desktop) and D3D11: shadow compare mode needs to be specifically enabled for the shadow map
             newShadowMap->SetFilterMode(FILTER_BILINEAR);
             newShadowMap->SetShadowCompare(shadowMapUsage == TEXTURE_DEPTHSTENCIL);
@@ -1371,13 +1371,13 @@ bool Renderer::ResizeInstancingBuffer(unsigned numInstances)
 
 void Renderer::OptimizeLightByScissor(Light* light, Camera* camera)
 {
-/*
- tbd elix22
- Angle-Vulkan can't handle large number of different scissor states
- pending an fix from the Angle development team.
- https://bugs.chromium.org/p/angleproject/issues/detail?id=3143
-*/
-#if defined(URHO3D_ANGLE_VULKAN)
+    /*
+     TBD elix22
+     Angle-Vulkan can't handle large number of different scissor states
+     pending an fix from the Angle development team.
+     https://bugs.chromium.org/p/angleproject/issues/detail?id=3143
+    */
+#if  defined(URHO3D_ANGLE_METAL)
     graphics_->SetScissorTest(false);
 #else
     if (light && light->GetLightType() != LIGHT_DIRECTIONAL)
@@ -1510,7 +1510,7 @@ void Renderer::UpdateQueuedViewport(unsigned index)
 
     auto* octree = scene->GetComponent<Octree>();
 
-    // Update octree (perform early update for drawables which need that, and reinsert moved drawables.)
+    // Update octree (perform early update for drawables which need that, and reinsert moved drawables).
     // However, if the same scene is viewed from multiple cameras, update the octree only once
     if (!updatedOctrees_.Contains(octree))
     {
@@ -1820,7 +1820,7 @@ void Renderer::CreateGeometries()
     pointLightGeometry_->SetIndexBuffer(plib);
     pointLightGeometry_->SetDrawRange(TRIANGLE_LIST, 0, plib->GetIndexCount());
 
-#if !defined(URHO3D_OPENGL) || !defined(GL_ES_VERSION_2_0)
+#if !defined(URHO3D_OPENGL) || !defined(URHO3D_GLES2)
     if (graphics_->GetShadowMapFormat())
     {
         faceSelectCubeMap_ = new TextureCube(context_);

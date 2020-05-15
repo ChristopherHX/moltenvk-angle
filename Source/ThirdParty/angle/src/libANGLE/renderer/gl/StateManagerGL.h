@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015 The ANGLE Project Authors. All rights reserved.
+// Copyright 2015 The ANGLE Project Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
@@ -14,6 +14,7 @@
 #include "libANGLE/State.h"
 #include "libANGLE/angletypes.h"
 #include "libANGLE/renderer/gl/functionsgl_typedefs.h"
+#include "platform/FeaturesGL.h"
 
 #include <map>
 
@@ -38,7 +39,8 @@ class StateManagerGL final : angle::NonCopyable
   public:
     StateManagerGL(const FunctionsGL *functions,
                    const gl::Caps &rendererCaps,
-                   const gl::Extensions &extensions);
+                   const gl::Extensions &extensions,
+                   const angle::FeaturesGL &features);
     ~StateManagerGL();
 
     void deleteProgram(GLuint program);
@@ -134,6 +136,11 @@ class StateManagerGL final : angle::NonCopyable
     void setFramebufferSRGBEnabledForFramebuffer(const gl::Context *context,
                                                  bool enabled,
                                                  const FramebufferGL *framebuffer);
+    void setColorMaskForFramebuffer(bool red,
+                                    bool green,
+                                    bool blue,
+                                    bool alpha,
+                                    const FramebufferGL *framebuffer);
 
     void setDitherEnabled(bool enabled);
 
@@ -147,6 +154,8 @@ class StateManagerGL final : angle::NonCopyable
     void setPathRenderingStencilState(GLenum func, GLint ref, GLuint mask);
 
     void setProvokingVertex(GLenum mode);
+
+    void setClipDistancesEnable(const gl::State::ClipDistanceEnableBits &enables);
 
     void pauseTransformFeedback();
     angle::Result pauseAllQueries(const gl::Context *context);
@@ -175,6 +184,9 @@ class StateManagerGL final : angle::NonCopyable
     {
         return mFramebuffers[binding];
     }
+    GLuint getBufferID(gl::BufferBinding binding) const { return mBuffers[binding]; }
+
+    void validateState() const;
 
   private:
     void setTextureCubemapSeamlessEnabled(bool enabled);
@@ -198,6 +210,7 @@ class StateManagerGL final : angle::NonCopyable
         const gl::FramebufferState &drawFramebufferState) const;
 
     const FunctionsGL *mFunctions;
+    const angle::FeaturesGL &mFeatures;
 
     GLuint mProgram;
 
@@ -341,7 +354,11 @@ class StateManagerGL final : angle::NonCopyable
 
     GLenum mProvokingVertex;
 
+    gl::State::ClipDistanceEnableBits mEnabledClipDistances;
+    const size_t mMaxClipDistances;
+
     gl::State::DirtyBits mLocalDirtyBits;
+    gl::State::DirtyBitsExtended mLocalDirtyBitsExtended;
     gl::AttributesMask mLocalDirtyCurrentValues;
 };
 }  // namespace rx

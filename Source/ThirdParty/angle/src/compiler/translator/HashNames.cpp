@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2017 The ANGLE Project Authors. All rights reserved.
+// Copyright 2017 The ANGLE Project Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
@@ -54,6 +54,11 @@ ImmutableString HashName(const ImmutableString &name,
             // If the identifier length is already close to the limit, we can't prefix it. This is
             // not a problem since there are no builtins or ANGLE's internal variables that would
             // have as long names and could conflict.
+            return name;
+        }
+        if (name == "gl_ClipDistance")
+        {
+            // gl_ClipDistance can be re-declared. If so, use the original name instead of prefix it
             return name;
         }
         ImmutableStringBuilder prefixedName(kUnhashedNamePrefix.length() + name.length());

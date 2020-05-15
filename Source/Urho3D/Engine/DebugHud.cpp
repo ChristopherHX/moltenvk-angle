@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -174,6 +174,11 @@ void DebugHud::Update()
             renderer->GetMaxOccluderTriangles() > 0 ? "On" : "Off",
             renderer->GetDynamicInstancing() ? "On" : "Off",
             graphics->GetApiName().CString());
+    #ifdef URHO3D_OPENGL
+        mode.AppendWithFormat(" Renderer:%s Version:%s", graphics->GetRendererName().CString(),
+            graphics->GetVersionString().CString());
+    #endif
+
 
         modeText_->SetText(mode);
     }

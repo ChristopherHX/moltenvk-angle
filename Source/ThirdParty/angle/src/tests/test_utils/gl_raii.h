@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2016 The ANGLE Project Authors. All rights reserved.
+// Copyright 2016 The ANGLE Project Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
@@ -76,6 +76,11 @@ class GLVertexArray : public GLWrapper
 {
   public:
     GLVertexArray() : GLWrapper(&glGenVertexArrays, &glDeleteVertexArrays) {}
+};
+class GLVertexArrayOES : public GLWrapper
+{
+  public:
+    GLVertexArrayOES() : GLWrapper(&glGenVertexArraysOES, &glDeleteVertexArraysOES) {}
 };
 class GLBuffer : public GLWrapper
 {

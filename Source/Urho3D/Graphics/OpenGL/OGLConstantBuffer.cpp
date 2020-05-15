@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -39,7 +39,7 @@ void ConstantBuffer::Release()
         if (!graphics_)
             return;
 
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
         graphics_->SetUBO(0);
         glDeleteBuffers(1, &object_.name_);
 #endif
@@ -75,7 +75,7 @@ bool ConstantBuffer::SetSize(unsigned size)
 
     if (graphics_)
     {
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
         if (!object_.name_)
             glGenBuffers(1, &object_.name_);
         graphics_->SetUBO(object_.name_);
@@ -90,7 +90,7 @@ void ConstantBuffer::Apply()
 {
     if (dirty_ && object_.name_)
     {
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
         graphics_->SetUBO(object_.name_);
         glBufferData(GL_UNIFORM_BUFFER, size_, shadowData_.Get(), GL_DYNAMIC_DRAW);
 #endif
