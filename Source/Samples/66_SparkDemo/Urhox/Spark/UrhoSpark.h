@@ -33,6 +33,6 @@ namespace Urho3D
 {
 
 /// Register Spark library objects.
-void URHO3D_API RegisterSparkLibrary(Context* context);
+void  RegisterSparkLibrary(Context* context);
 
 }

@@ -33,7 +33,7 @@ namespace SPK {
 namespace URHO {
 
 /// The base renderer for all Urho3D renderers
-class URHO3D_API IUrho3DRenderer : public Renderer
+class  IUrho3DRenderer : public Renderer
 {
 public :
 

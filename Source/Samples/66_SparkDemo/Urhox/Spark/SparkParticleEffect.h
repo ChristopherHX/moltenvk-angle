@@ -34,7 +34,7 @@ class XMLFile;
 class XMLElement;
 
 /// %Spark Particle effect definition.
-class URHO3D_API SparkParticleEffect : public Resource
+class  SparkParticleEffect : public Resource
 {
     URHO3D_OBJECT(SparkParticleEffect, Resource);
 

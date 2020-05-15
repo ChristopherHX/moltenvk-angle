@@ -31,7 +31,7 @@ namespace Urho3D {
 class SparkParticleEffect;
 
 /// Drawable component that draw a spark particle system.
-class URHO3D_API SparkParticle : public Drawable
+class SparkParticle : public Drawable
 {
     URHO3D_OBJECT(SparkParticle, Drawable);
 

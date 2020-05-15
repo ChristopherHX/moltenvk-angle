@@ -32,7 +32,7 @@
 namespace SPK {
 namespace URHO {
 
-class URHO3D_API IUrho3DBuffer : public RenderBuffer
+class  IUrho3DBuffer : public RenderBuffer
 {
 public :
     IUrho3DBuffer(Urho3D::Context *context, size_t nbParticles, size_t nbVerticesPerParticle, size_t nbIndicesPerParticle);

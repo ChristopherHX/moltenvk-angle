@@ -27,7 +27,7 @@
 
 namespace Urho3D {
 
-void URHO3D_API RegisterSparkLibrary(Context* context)
+void  RegisterSparkLibrary(Context* context)
 {
     // Register Urho3D context for urho3d/spark objects
     SPK::URHO::Urho3DContext::get().registerUrhoContext(context);

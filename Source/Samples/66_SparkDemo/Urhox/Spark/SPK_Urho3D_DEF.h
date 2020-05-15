@@ -36,7 +36,7 @@ namespace URHO {
     /**
     * @brief Helper class to register Urho3D context
     * */
-    class URHO3D_API Urho3DContext
+    class  Urho3DContext
     {
     public :
 
