@@ -76,10 +76,11 @@
 #include "../Input/Input.h"
 #include "../UI/Cursor.h"
 #include "../UI/UI.h"
+#if defined(__EMSCRIPTEN__)
 #include <emscripten/emscripten.h>
 #include <emscripten/bind.h>
+#endif
 
->>>>>>> upstream
 // Emscripten provides even all GL extension functions via static linking. However there is
 // no GLES2-specific extension header at the moment to include instanced rendering declarations,
 // so declare them manually from GLES3 gl2ext.h. Emscripten will provide these when linking final output.
@@ -97,6 +98,7 @@ extern "C"
     GL_APICALL void GL_APIENTRY glDrawBuffersEXT(GLsizei n, const GLenum *bufs);
 }
 
+#if defined(__EMSCRIPTEN__)
 // Helper functions to support emscripten canvas resolution change
 static const Urho3D::Context *appContext;
 
@@ -163,7 +165,9 @@ EMSCRIPTEN_BINDINGS(Module) {
 }
 #endif
 
-#if defined(URHO3D_ANGLE_VULKAN) || defined(URHO3D_ANGLE_METAL)
+#endif //defined(__EMSCRIPTEN__)
+
+#if defined(URHO3D_ANGLE_METAL)
     extern "C"
     {
         EGLDisplay EGLAPIENTRY eglGetCurrentDisplay(void);
@@ -2501,7 +2505,7 @@ void Graphics::Restore()
     // Ensure first that the context exists
     if (!impl_->context_)
     {
-#if defined(URHO3D_ANGLE_VULKAN) || defined(URHO3D_ANGLE_METAL)
+#if  defined(URHO3D_ANGLE_METAL)
         SDL_SetHint(SDL_HINT_OPENGL_ES_DRIVER, "1");
 #endif
         impl_->context_ = SDL_GL_CreateContext(window_);
