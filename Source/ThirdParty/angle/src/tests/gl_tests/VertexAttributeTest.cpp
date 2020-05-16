@@ -1071,6 +1071,74 @@ TEST_P(VertexAttributeTestES3, VertexArrayObjectRendering)
     ASSERT_GL_NO_ERROR();
 }
 
+// Tests that rendering works as expected with VAOs.
+// OES_vertex_array_object version
+TEST_P(VertexAttributeTest, VertexArrayObjectRendering)
+{
+    ANGLE_SKIP_TEST_IF(!IsGLExtensionEnabled("GL_OES_vertex_array_object"));
+
+    constexpr char kVertexShader[] =
+        "attribute vec4 a_position;\n"
+        "attribute vec4 a_color;\n"
+        "varying vec4 v_color;\n"
+        "void main()\n"
+        "{\n"
+        "   gl_Position = a_position;\n"
+        "   v_color = a_color;\n"
+        "}";
+
+    constexpr char kFragmentShader[] =
+        "precision mediump float;\n"
+        "varying vec4 v_color;\n"
+        "void main()\n"
+        "{\n"
+        "    gl_FragColor = v_color;\n"
+        "}";
+
+    ANGLE_GL_PROGRAM(program, kVertexShader, kFragmentShader);
+
+    GLint positionLoc = glGetAttribLocation(program, "a_position");
+    ASSERT_NE(-1, positionLoc);
+    GLint colorLoc = glGetAttribLocation(program, "a_color");
+    ASSERT_NE(-1, colorLoc);
+
+    GLVertexArrayOES vaos[2];
+    GLBuffer positionBuffer;
+    GLBuffer colorBuffers[2];
+
+    const auto &quadVertices = GetQuadVertices();
+
+    glBindVertexArrayOES(vaos[0]);
+    glBindBuffer(GL_ARRAY_BUFFER, positionBuffer);
+    glBufferData(GL_ARRAY_BUFFER, quadVertices.size() * sizeof(Vector3), quadVertices.data(),
+                 GL_STATIC_DRAW);
+    glEnableVertexAttribArray(positionLoc);
+    glVertexAttribPointer(positionLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    SetupColorsForUnitQuad(colorLoc, kFloatRed, GL_STREAM_DRAW, &colorBuffers[0]);
+
+    glBindVertexArrayOES(vaos[1]);
+    glBindBuffer(GL_ARRAY_BUFFER, positionBuffer);
+    glEnableVertexAttribArray(positionLoc);
+    glVertexAttribPointer(positionLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    SetupColorsForUnitQuad(colorLoc, kFloatGreen, GL_STATIC_DRAW, &colorBuffers[1]);
+
+    glUseProgram(program);
+    ASSERT_GL_NO_ERROR();
+
+    for (int ii = 0; ii < 2; ++ii)
+    {
+        glBindVertexArrayOES(vaos[0]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::red);
+
+        glBindVertexArrayOES(vaos[1]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::green);
+    }
+
+    ASSERT_GL_NO_ERROR();
+}
+
 // Validate that we can support GL_MAX_ATTRIBS attribs
 TEST_P(VertexAttributeTest, MaxAttribs)
 {
@@ -1376,6 +1444,95 @@ TEST_P(VertexAttributeTest, DisabledAttribArrays)
 
         glDeleteProgram(program);
     }
+}
+
+// Test that draw with offset larger than vertex attribute's stride can work
+TEST_P(VertexAttributeTest, DrawWithLargeBufferOffset)
+{
+    constexpr size_t kBufferOffset    = 10000;
+    constexpr size_t kQuadVertexCount = 4;
+
+    std::array<GLbyte, kQuadVertexCount> validInputData = {{0, 1, 2, 3}};
+
+    // 4 components
+    std::array<GLbyte, 4 *kQuadVertexCount + kBufferOffset> inputData = {};
+
+    std::array<GLfloat, 4 * kQuadVertexCount> expectedData;
+    for (size_t i = 0; i < kQuadVertexCount; i++)
+    {
+        for (int j = 0; j < 4; ++j)
+        {
+            inputData[kBufferOffset + 4 * i + j] = validInputData[i];
+            expectedData[4 * i + j]              = validInputData[i];
+        }
+    }
+
+    initBasicProgram();
+
+    glBindBuffer(GL_ARRAY_BUFFER, mBuffer);
+    glBufferData(GL_ARRAY_BUFFER, inputData.size(), inputData.data(), GL_STATIC_DRAW);
+    glVertexAttribPointer(mTestAttrib, 4, GL_BYTE, GL_FALSE, 0,
+                          reinterpret_cast<const void *>(kBufferOffset));
+    glEnableVertexAttribArray(mTestAttrib);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    glVertexAttribPointer(mExpectedAttrib, 4, GL_FLOAT, GL_FALSE, 0, expectedData.data());
+    glEnableVertexAttribArray(mExpectedAttrib);
+
+    drawIndexedQuad(mProgram, "position", 0.5f);
+
+    checkPixels();
+}
+
+// Test that drawing with large vertex attribute pointer offset and less components than
+// shader expects is OK
+TEST_P(VertexAttributeTest, DrawWithLargeBufferOffsetAndLessComponents)
+{
+    // Shader expects vec4 but glVertexAttribPointer only provides 2 components
+    constexpr char kVS[] = R"(attribute vec4 a_position;
+attribute vec4 a_attrib;
+varying vec4 v_attrib;
+void main()
+{
+    v_attrib = a_attrib;
+    gl_Position = a_position;
+})";
+
+    constexpr char kFS[] = R"(precision mediump float;
+varying vec4 v_attrib;
+void main()
+{
+    gl_FragColor = v_attrib;
+})";
+
+    ANGLE_GL_PROGRAM(program, kVS, kFS);
+    glBindAttribLocation(program, 0, "a_position");
+    glBindAttribLocation(program, 1, "a_attrib");
+    glLinkProgram(program);
+    glUseProgram(program);
+    ASSERT_GL_NO_ERROR();
+
+    constexpr size_t kBufferOffset = 4998;
+
+    // Set up color data so yellow is drawn (only R, G components are provided)
+    std::vector<GLushort> data(kBufferOffset + 12);
+    for (int i = 0; i < 12; ++i)
+    {
+        data[kBufferOffset + i] = 0xffff;
+    }
+
+    GLBuffer buffer;
+    glBindBuffer(GL_ARRAY_BUFFER, buffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLushort) * data.size(), data.data(), GL_STATIC_DRAW);
+    // Provide only 2 components for the vec4 in the shader
+    glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, 0,
+                          reinterpret_cast<const void *>(sizeof(GLushort) * kBufferOffset));
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glEnableVertexAttribArray(1);
+
+    drawQuad(program, "a_position", 0.5f);
+    // Verify yellow was drawn
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::yellow);
 }
 
 class VertexAttributeTestES31 : public VertexAttributeTestES3

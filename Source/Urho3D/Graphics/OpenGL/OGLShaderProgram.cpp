@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -74,6 +74,9 @@ ShaderProgram::~ShaderProgram()
 
 void ShaderProgram::OnDeviceLost()
 {
+    if (object_.name_ && !graphics_->IsDeviceLost())
+        glDeleteProgram(object_.name_);
+
     GPUObject::OnDeviceLost();
 
     if (graphics_ && graphics_->GetShaderProgram() == this)
@@ -188,7 +191,7 @@ bool ShaderProgram::Link()
     }
 
     // Check for constant buffers
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
     HashMap<unsigned, unsigned> blockToBinding;
 
     if (Graphics::GetGL3Support())
@@ -276,7 +279,7 @@ bool ShaderProgram::Link()
             ShaderParameter parameter{paramName, type, location};
             bool store = location >= 0;
 
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
             // If running OpenGL 3, the uniform may be inside a constant buffer
             if (parameter.location_ < 0 && Graphics::GetGL3Support())
             {
@@ -352,7 +355,7 @@ bool ShaderProgram::NeedParameterUpdate(ShaderParameterGroup group, const void* 
     }
 
     // The shader program may use a mixture of constant buffers and individual uniforms even in the same group
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
     bool useBuffer = constantBuffers_[group].Get() || constantBuffers_[group + MAX_SHADER_PARAMETER_GROUPS].Get();
     bool useIndividual = !constantBuffers_[group].Get() || !constantBuffers_[group + MAX_SHADER_PARAMETER_GROUPS].Get();
     bool needUpdate = false;
@@ -384,7 +387,7 @@ bool ShaderProgram::NeedParameterUpdate(ShaderParameterGroup group, const void* 
 void ShaderProgram::ClearParameterSource(ShaderParameterGroup group)
 {
     // The shader program may use a mixture of constant buffers and individual uniforms even in the same group
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
     bool useBuffer = constantBuffers_[group].Get() || constantBuffers_[group + MAX_SHADER_PARAMETER_GROUPS].Get();
     bool useIndividual = !constantBuffers_[group].Get() || !constantBuffers_[group + MAX_SHADER_PARAMETER_GROUPS].Get();
 
@@ -403,7 +406,7 @@ void ShaderProgram::ClearParameterSources()
     if (!globalFrameNumber)
         ++globalFrameNumber;
 
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
     for (auto& globalParameterSource : globalParameterSources)
         globalParameterSource = (const void*)M_MAX_UNSIGNED;
 #endif

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,14 @@ void PBRMaterials::Start()
 {
     // Execute base class startup
     Sample::Start();
+
+    // Use deferred rendering
+    auto* cache = GetSubsystem<ResourceCache>();
+    auto* renderer = GetSubsystem<Renderer>();
+    auto* graphics = GetSubsystem<Graphics>();
+
+    if (graphics->GetDeferredSupport())
+        renderer->SetDefaultRenderPath(cache->GetResource<XMLFile>("RenderPaths/PBRDeferred.xml"));
 
     // Create the scene content
     CreateScene();

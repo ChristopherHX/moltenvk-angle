@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,9 @@ namespace Urho3D
 
 void TextureCube::OnDeviceLost()
 {
+    if (object_.name_ && !graphics_->IsDeviceLost())
+        glDeleteTextures(1, &object_.name_);
+
     GPUObject::OnDeviceLost();
 
     for (auto& renderSurface : renderSurfaces_)
@@ -305,7 +308,7 @@ bool TextureCube::SetData(CubeMapFace face, Image* image, bool useAlpha)
             return false;
         }
 
-#if defined(URHO3D_ANGLE_VULKAN) || defined(URHO3D_ANGLE_METAL)
+#if  defined(URHO3D_ANGLE_METAL)
         format = Graphics::GetRGBAFormat();
         needDecompress = true;
 #else
@@ -483,7 +486,7 @@ bool TextureCube::Create()
         }
     }
     if (!success)
-        URHO3D_LOGERROR("Failed to create texture");
+        URHO3D_LOGERROR("Failed to create cube texture");
 
     // Set mipmapping
     if (usage_ == TEXTURE_DEPTHSTENCIL || usage_ == TEXTURE_DYNAMIC)
@@ -505,7 +508,7 @@ bool TextureCube::Create()
     }
 
     levels_ = CheckMaxLevels(width_, height_, requestedLevels_);
-#ifndef GL_ES_VERSION_2_0
+#if !defined(URHO3D_GLES2)
     glTexParameteri(target_, GL_TEXTURE_BASE_LEVEL, 0);
     glTexParameteri(target_, GL_TEXTURE_MAX_LEVEL, levels_ - 1);
 #endif

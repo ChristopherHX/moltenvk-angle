@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -49,6 +49,9 @@ const char* ShaderVariation::elementSemanticNames[] =
 
 void ShaderVariation::OnDeviceLost()
 {
+    if (object_.name_ && !graphics_->IsDeviceLost())
+        glDeleteShader(object_.name_);
+
     GPUObject::OnDeviceLost();
 
     compilerOutput_.Clear();
@@ -110,12 +113,6 @@ bool ShaderVariation::Create()
         See : https://www.khronos.org/registry/OpenGL/extensions/OES/OES_standard_derivatives.txt
         On some platforms it's already enabled by default but on some it's not .
     */
-#if defined(GL_ES_VERSION_2_0)
-    if(type_ == PS && graphics_->glOESStandardDerivativesSupport() == true)
-    {
-            shaderCode += "#extension GL_OES_standard_derivatives : enable \n";
-    }
-#endif
 
     // Check if the shader code contains a version define
     unsigned verStart = originalShaderCode.Find('#');
@@ -139,17 +136,56 @@ bool ShaderVariation::Create()
     }
     // Force GLSL version 150 if no version define and GL3 is being used
     if (!verEnd && Graphics::GetGL3Support())
+    {
+#ifdef GL_ES_VERSION_3_0
+        shaderCode += "#version 300 es\n";
+#else
         shaderCode += "#version 150\n";
+#endif
+    }
+
+#if defined(GL_ES_VERSION_2_0)
+    if(type_ == PS && graphics_->glOESStandardDerivativesSupport() == true)
+    {
+            shaderCode += "#extension GL_OES_standard_derivatives : enable \n";
+    }
+    if (type_ == VS)
+    {
+        if (graphics_->clipDistanceEXTSupport())
+            shaderCode += "#extension GL_EXT_clip_cull_distance : enable \n";
+        else if (graphics_->clipDistanceAPPLESupport())
+            shaderCode += "#extension GL_APPLE_clip_distance : enable \n";
+    }
+#endif
 
     // Distinguish between VS and PS compile in case the shader code wants to include/omit different things
     shaderCode += type_ == VS ? "#define COMPILEVS\n" : "#define COMPILEPS\n";
+
+#if defined(URHO3D_GLES2)
+    if (graphics_->GetDrawBuffersSupport())
+    {
+        shaderCode += "#extension GL_EXT_draw_buffers: enable\n";
+    }
+#endif
+
+#if defined(DESKTOP_GRAPHICS)
+    shaderCode += "#define DESKTOP_GRAPHICS\n";
+#elif defined(MOBILE_GRAPHICS)
+    shaderCode += "#define MOBILE_GRAPHICS\n";
+#endif
 
     // Add define for the maximum number of supported bones
     shaderCode += "#define MAXBONES " + String(Graphics::GetMaxBones()) + "\n";
 
 #if defined(URHO3D_ANGLE_METAL)
     shaderCode += "#define METAL\n";
+    shaderCode += "#define PRECISION highp\n";
+#elif defined(GL_ES_VERSION_2_0)
+    shaderCode += "#define PRECISION mediump\n";
+#else
+    shaderCode += "#define PRECISION highp\n";
 #endif
+
     // Prepend the defines to the shader code
     Vector<String> defineVec = defines_.Split(' ');
     for (unsigned i = 0; i < defineVec.Size(); ++i)

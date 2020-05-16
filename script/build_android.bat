@@ -28,7 +28,8 @@ pause
 :startGradlew
 rmdir android\launcher-app\src\main\assets /Q/S
 xcopy /E bin android\launcher-app\src\main\assets\
-gradlew assemble%buildType% -P URHO3D_LUA=0 -P URHO3D_DATABASE_SQLITE=1  -P URHO3D_SAMPLES=1 -P URHO3D_WEBP=0 -P URHO3D_LIB_TYPE=SHARED 
+gradlew assemble%buildType% -P URHO3D_LUA=0 -P ANDROID_ABI=armeabi-v7a -P URHO3D_LIB_TYPE=SHARED 
+
 
 cls
 :end

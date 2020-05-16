@@ -178,6 +178,12 @@ static bool CheckSizedInternalFormatTextureRenderability(const FunctionsGL *func
     functions->deleteTextures(1, &texture);
     functions->bindTexture(GL_TEXTURE_2D, static_cast<GLuint>(oldTextureBinding));
 
+    // Clear error
+    if (!supported)
+    {
+        (void)functions->getError();
+    }
+
     return supported;
 }
 
@@ -1258,7 +1264,7 @@ void GenerateCaps(const FunctionsGL *functions,
     extensions->textureSRGBDecode = functions->hasGLExtension("GL_EXT_texture_sRGB_decode") ||
                                     functions->hasGLESExtension("GL_EXT_texture_sRGB_decode");
 
-#if defined(ANGLE_PLATFORM_APPLE)
+#if defined(ANGLE_PLATFORM_MACOS) || defined(ANGLE_PLATFORM_MACCATALYST)
     VendorID vendor = GetVendorID(functions);
     if ((IsAMD(vendor) || IsIntel(vendor)) && *maxSupportedESVersion >= gl::Version(3, 0))
     {
@@ -1435,6 +1441,17 @@ void GenerateCaps(const FunctionsGL *functions,
                                  functions->hasGLESExtension("GL_EXT_memory_object_fd");
     extensions->semaphoreFd = functions->hasGLExtension("GL_EXT_semaphore_fd") ||
                               functions->hasGLESExtension("GL_EXT_semaphore_fd");
+
+    // GL_APPLE_clip_distance
+    extensions->clipDistanceAPPLE = functions->isAtLeastGL(gl::Version(3, 0));
+    if (extensions->clipDistanceAPPLE)
+    {
+        caps->maxClipDistances = QuerySingleGLInt(functions, GL_MAX_CLIP_DISTANCES_EXT);
+    }
+    else
+    {
+        caps->maxClipDistances = 0;
+    }
 }
 
 void InitializeFeatures(const FunctionsGL *functions, angle::FeaturesGL *features)
@@ -1547,11 +1564,13 @@ void InitializeFeatures(const FunctionsGL *functions, angle::FeaturesGL *feature
     // on AMD and Android devices.
     ANGLE_FEATURE_CONDITION(features, clampArrayAccess, IsAndroid() || isAMD)
 
+#if defined(ANGLE_PLATFORM_MACOS)
     ANGLE_FEATURE_CONDITION(features, resetTexImage2DBaseLevel,
                             IsApple() && isIntel && GetMacOSVersion() >= OSVersion(10, 12, 4))
 
     ANGLE_FEATURE_CONDITION(features, clearToZeroOrOneBroken,
                             IsApple() && isIntel && GetMacOSVersion() < OSVersion(10, 12, 6))
+#endif
 
     ANGLE_FEATURE_CONDITION(features, adjustSrcDstRegionBlitFramebuffer,
                             IsLinux() || (IsAndroid() && isNvidia) || (IsWindows() && isNvidia))
@@ -1581,6 +1600,12 @@ void InitializeFrontendFeatures(const FunctionsGL *functions, angle::FrontendFea
 
 namespace nativegl
 {
+bool SupportsDrawIndirect(const FunctionsGL *functions)
+{
+    return functions->isAtLeastGL(gl::Version(4, 0)) ||
+           functions->hasGLExtension("GL_ARB_draw_indirect") ||
+           functions->isAtLeastGLES(gl::Version(3, 1));
+}
 bool SupportsCompute(const FunctionsGL *functions)
 {
     // OpenGL 4.2 is required for GL_ARB_compute_shader, some platform drivers have the extension,

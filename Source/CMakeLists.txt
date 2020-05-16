@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008-2019 the Urho3D project.
+# Copyright (c) 2008-2020 the Urho3D project.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -125,7 +125,7 @@ if (URHO3D_PHYSICS)
 endif ()
 
 if (NOT ANDROID AND NOT ARM AND NOT WEB)
-    if (URHO3D_OPENGL)
+    if (URHO3D_OPENGL AND NOT URHO3D_ANGLE_METAL)
         add_subdirectory (ThirdParty/GLEW)
     elseif (NOT URHO3D_D3D11)
         add_subdirectory (ThirdParty/MojoShader)

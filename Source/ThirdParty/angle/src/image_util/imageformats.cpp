@@ -162,7 +162,7 @@ void R8G8B8::readColor(gl::ColorUI *dst, const R8G8B8 *src)
 {
     dst->red   = src->R;
     dst->green = src->G;
-    dst->blue  = src->G;
+    dst->blue  = src->B;
     dst->alpha = 1;
 }
 
@@ -1799,7 +1799,7 @@ void R11G11B10F::average(R11G11B10F *dst, const R11G11B10F *src1, const R11G11B1
 void D24S8::ReadDepthStencil(DepthStencil *dst, const D24S8 *src)
 {
     dst->depth   = gl::normalizedToFloat<24>(src->D);
-    dst->stencil = gl::getShiftedData<8, 24>(src->S);
+    dst->stencil = src->S;
 }
 
 void D24S8::WriteDepthStencil(D24S8 *dst, const DepthStencil *src)
@@ -1810,32 +1810,35 @@ void D24S8::WriteDepthStencil(D24S8 *dst, const DepthStencil *src)
 
 void S8::ReadDepthStencil(DepthStencil *dst, const S8 *src)
 {
-    UNIMPLEMENTED();
+    dst->depth   = 0;
+    dst->stencil = src->S;
 }
 
 void S8::WriteDepthStencil(S8 *dst, const DepthStencil *src)
 {
-    UNIMPLEMENTED();
+    dst->S = src->stencil & 0xFF;
 }
 
 void D16::ReadDepthStencil(DepthStencil *dst, const D16 *src)
 {
-    UNIMPLEMENTED();
+    dst->depth   = gl::normalizedToFloat(src->D);
+    dst->stencil = 0;
 }
 
 void D16::WriteDepthStencil(D16 *dst, const DepthStencil *src)
 {
-    UNIMPLEMENTED();
+    dst->D = gl::floatToNormalized<uint16_t>(static_cast<float>(src->depth));
 }
 
 void D24X8::ReadDepthStencil(DepthStencil *dst, const D24X8 *src)
 {
-    dst->depth = gl::normalizedToFloat<24>(src->D);
+    dst->depth = gl::normalizedToFloat<24>(gl::getShiftedData<24, 8>(src->D));
 }
 
 void D24X8::WriteDepthStencil(D24X8 *dst, const DepthStencil *src)
 {
-    UNIMPLEMENTED();
+    dst->D =
+        gl::shiftData<24, 8>(gl::floatToNormalized<24, uint32_t>(static_cast<float>(src->depth)));
 }
 
 void D32F::ReadDepthStencil(DepthStencil *dst, const D32F *src)
@@ -1845,23 +1848,24 @@ void D32F::ReadDepthStencil(DepthStencil *dst, const D32F *src)
 
 void D32F::WriteDepthStencil(D32F *dst, const DepthStencil *src)
 {
-    UNIMPLEMENTED();
+    dst->D = static_cast<float>(src->depth);
 }
 
 void D32::ReadDepthStencil(DepthStencil *dst, const D32 *src)
 {
-    UNIMPLEMENTED();
+    dst->depth   = gl::normalizedToFloat(src->D);
+    dst->stencil = 0;
 }
 
 void D32::WriteDepthStencil(D32 *dst, const DepthStencil *src)
 {
-    UNIMPLEMENTED();
+    dst->D = gl::floatToNormalized<uint32_t>(static_cast<float>(src->depth));
 }
 
 void D32FS8X24::ReadDepthStencil(DepthStencil *dst, const D32FS8X24 *src)
 {
     dst->depth   = src->D;
-    dst->stencil = gl::getShiftedData<8, 24>(static_cast<uint32_t>(src->S));
+    dst->stencil = src->S;
 }
 
 void D32FS8X24::WriteDepthStencil(D32FS8X24 *dst, const DepthStencil *src)

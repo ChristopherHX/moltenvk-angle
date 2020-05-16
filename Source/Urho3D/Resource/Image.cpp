@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -53,9 +53,9 @@
 #define FOURCC_DXT5 (MAKEFOURCC('D','X','T','5'))
 #define FOURCC_DX10 (MAKEFOURCC('D','X','1','0'))
 
-#define FOURCC_ETC1 (MAKEFOURCC('E','T','C','1'))
-#define FOURCC_ETC2 (MAKEFOURCC('E','T','C','2'))
-#define FOURCC_ETC2A (MAKEFOURCC('E','T','2','A'))
+#define FOURCC_ETC1 (MAKEFOURCC('E', 'T', 'C', '1'))
+#define FOURCC_ETC2 (MAKEFOURCC('E', 'T', 'C', '2'))
+#define FOURCC_ETC2A (MAKEFOURCC('E', 'T', '2', 'A'))
 
 static const unsigned DDSCAPS_COMPLEX = 0x00000008U;
 static const unsigned DDSCAPS_TEXTURE = 0x00001000U;
@@ -216,7 +216,7 @@ struct DDSurfaceDesc2
     unsigned dwTextureStage_;
 };
 
-bool CompressedLevel::Decompress(unsigned char* dest)
+bool CompressedLevel::Decompress(unsigned char* dest) const
 {
     if (!data_)
         return false;
@@ -228,7 +228,7 @@ bool CompressedLevel::Decompress(unsigned char* dest)
     case CF_DXT5:
         DecompressImageDXT(dest, data_, width_, height_, depth_, format_);
         return true;
-	
+
     // ETC2 format is compatible with ETC1, so we just use the same function.
     case CF_ETC1:
     case CF_ETC2_RGB:
@@ -237,7 +237,6 @@ bool CompressedLevel::Decompress(unsigned char* dest)
     case CF_ETC2_RGBA:
         DecompressImageETC(dest, data_, width_, height_, true);
         return true;
-
     case CF_PVRTC_RGB_2BPP:
     case CF_PVRTC_RGBA_2BPP:
     case CF_PVRTC_RGB_4BPP:
@@ -331,6 +330,21 @@ bool Image::BeginLoad(Deserializer& source)
 
         case FOURCC_DXT5:
             compressedFormat_ = CF_DXT5;
+            components_ = 4;
+            break;
+
+        case FOURCC_ETC1:
+            compressedFormat_ = CF_ETC1;
+            components_ = 3;
+            break;
+
+        case FOURCC_ETC2:
+            compressedFormat_ = CF_ETC2_RGB;
+            components_ = 3;
+            break;
+
+        case FOURCC_ETC2A:
+            compressedFormat_ = CF_ETC2_RGBA;
             components_ = 4;
             break;
 
@@ -2092,6 +2106,20 @@ CompressedLevel Image::GetCompressedLevel(unsigned index) const
             ++i;
         }
     }
+}
+
+SharedPtr<Image> Image::GetDecompressedImage() const
+{
+    if (!IsCompressed())
+        return ConvertToRGBA();
+
+    const CompressedLevel compressedLevel = GetCompressedLevel(0);
+
+    auto decompressedImage = MakeShared<Image>(context_);
+    decompressedImage->SetSize(compressedLevel.width_, compressedLevel.height_, 4);
+    compressedLevel.Decompress(decompressedImage->GetData());
+
+    return decompressedImage;
 }
 
 Image* Image::GetSubimage(const IntRect& rect) const

@@ -1849,8 +1849,18 @@ void Context::getIntegervImpl(GLenum pname, GLint *params)
         case GL_MAX_LIGHTS:
             *params = mState.mCaps.maxLights;
             break;
+
+        // case GL_MAX_CLIP_DISTANCES_EXT:  Conflict enum value
         case GL_MAX_CLIP_PLANES:
-            *params = mState.mCaps.maxClipPlanes;
+            if (getClientVersion().major >= 2)
+            {
+                // GL_APPLE_clip_distance/GL_EXT_clip_cull_distance
+                *params = mState.mCaps.maxClipDistances;
+            }
+            else
+            {
+                *params = mState.mCaps.maxClipPlanes;
+            }
             break;
         // GLES1 emulation: Vertex attribute queries
         case GL_VERTEX_ARRAY_BUFFER_BINDING:
@@ -4033,9 +4043,10 @@ void Context::framebufferRenderbuffer(GLenum target,
     if (renderbuffer.value != 0)
     {
         Renderbuffer *renderbufferObject = getRenderbuffer(renderbuffer);
+        GLsizei rbSamples                = renderbufferObject->getSamples();
 
-        framebuffer->setAttachment(this, GL_RENDERBUFFER, attachment, gl::ImageIndex(),
-                                   renderbufferObject);
+        framebuffer->setAttachmentMultisample(this, GL_RENDERBUFFER, attachment, gl::ImageIndex(),
+                                              renderbufferObject, rbSamples);
     }
     else
     {
@@ -5465,7 +5476,26 @@ void Context::framebufferTexture2DMultisample(GLenum target,
                                               GLuint texture,
                                               GLint level,
                                               GLsizei samples)
-{}
+{
+    Framebuffer *framebuffer = mState.getTargetFramebuffer(target);
+    ASSERT(framebuffer);
+
+    if (texture != 0)
+    {
+        TextureTarget textargetPacked = FromGLenum<TextureTarget>(textarget);
+        TextureID texturePacked       = FromGL<TextureID>(texture);
+        Texture *textureObj           = getTexture(texturePacked);
+        ImageIndex index              = ImageIndex::MakeFromTarget(textargetPacked, level, 1);
+        framebuffer->setAttachmentMultisample(this, GL_TEXTURE, attachment, index, textureObj,
+                                              samples);
+    }
+    else
+    {
+        framebuffer->resetAttachment(this, attachment);
+    }
+
+    mState.setObjectDirty(target);
+}
 
 void Context::getSynciv(GLsync sync, GLenum pname, GLsizei bufSize, GLsizei *length, GLint *values)
 {
@@ -8143,6 +8173,20 @@ bool Context::getQueryParameterInfo(GLenum pname, GLenum *type, unsigned int *nu
             *type      = GL_INT;
             *numParams = 1;
             return true;
+        case GL_MAX_CLIP_DISTANCES_EXT:  // case GL_MAX_CLIP_PLANES
+            if (getClientMajorVersion() < 2)
+            {
+                break;
+            }
+            if (!getExtensions().clipDistanceAPPLE)
+            {
+                // NOTE(hqle): if client version is 1. GL_MAX_CLIP_DISTANCES_EXT is equal
+                // to GL_MAX_CLIP_PLANES which is a valid enum.
+                return false;
+            }
+            *type      = GL_INT;
+            *numParams = 1;
+            return true;
     }
 
     if (getClientType() == EGL_OPENGL_API)
@@ -8340,7 +8384,8 @@ bool Context::getQueryParameterInfo(GLenum pname, GLenum *type, unsigned int *nu
         {
             static_assert(GL_MAX_SAMPLES_ANGLE == GL_MAX_SAMPLES,
                           "GL_MAX_SAMPLES_ANGLE not equal to GL_MAX_SAMPLES");
-            if ((getClientMajorVersion() < 3) && !getExtensions().framebufferMultisample)
+            if ((getClientMajorVersion() < 3) && !(getExtensions().framebufferMultisample ||
+                                                   getExtensions().multisampledRenderToTexture))
             {
                 return false;
             }

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,9 @@ namespace Urho3D
 
 void Texture3D::OnDeviceLost()
 {
+    if (object_.name_ && !graphics_->IsDeviceLost())
+        glDeleteTextures(1, &object_.name_);
+
     GPUObject::OnDeviceLost();
 }
 
@@ -128,7 +131,7 @@ bool Texture3D::SetData(unsigned level, int x, int y, int z, int width, int heig
 
     graphics_->SetTextureForUpdate(this);
 
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
     bool wholeLevel = x == 0 && y == 0 && z == 0 && width == levelWidth && height == levelHeight && depth == levelDepth;
     unsigned format = GetSRGB() ? GetSRGBFormat(format_) : format_;
 
@@ -343,7 +346,7 @@ bool Texture3D::Create()
 {
     Release();
 
-#ifdef GL_ES_VERSION_2_0
+#if defined(GL_ES_VERSION_2_0) && !defined(GL_ES_VERSION_3_0)
     URHO3D_LOGERROR("Failed to create 3D texture, currently unsupported on OpenGL ES 2");
     return false;
 #else
@@ -374,7 +377,7 @@ bool Texture3D::Create()
         glTexImage3D(target_, 0, format, width_, height_, depth_, 0, externalFormat, dataType, nullptr);
         if (glGetError())
         {
-            URHO3D_LOGERROR("Failed to create texture");
+            URHO3D_LOGERROR("Failed to create 3D texture");
             success = false;
         }
     }

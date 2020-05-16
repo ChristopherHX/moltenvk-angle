@@ -688,6 +688,7 @@ bool IsBuiltinOutputVariable(TQualifier qualifier)
         case EvqSecondaryFragColorEXT:
         case EvqFragData:
         case EvqSecondaryFragDataEXT:
+        case EvqClipDistance:
             return true;
         default:
             break;
@@ -935,6 +936,19 @@ bool IsValidImplicitConversion(sh::ImplicitTypeConversion conversion, TOperator 
             break;
     }
     return false;
+}
+
+size_t FindFieldIndex(const TFieldList &fieldList, const char *fieldName)
+{
+    for (size_t fieldIndex = 0; fieldIndex < fieldList.size(); ++fieldIndex)
+    {
+        if (strcmp(fieldList[fieldIndex]->name().data(), fieldName) == 0)
+        {
+            return fieldIndex;
+        }
+    }
+    UNREACHABLE();
+    return 0;
 }
 
 }  // namespace sh

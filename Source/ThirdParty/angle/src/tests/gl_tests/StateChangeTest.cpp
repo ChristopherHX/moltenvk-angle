@@ -877,6 +877,88 @@ TEST_P(StateChangeTest, VertexBufferUpdatedAfterDraw)
 }
 
 // Test that switching VAOs keeps the disabled "current value" attributes up-to-date.
+// OES_vertex_array_object version.
+TEST_P(StateChangeTest, VertexArrayObjectAndDisabledAttributes)
+{
+    ANGLE_SKIP_TEST_IF(!IsGLExtensionEnabled("GL_OES_vertex_array_object"));
+
+    constexpr char kSingleVS[] = "attribute vec4 position; void main() { gl_Position = position; }";
+    constexpr char kSingleFS[] = "void main() { gl_FragColor = vec4(1, 0, 0, 1); }";
+    ANGLE_GL_PROGRAM(singleProgram, kSingleVS, kSingleFS);
+
+    constexpr char kDualVS[] =
+        "attribute vec4 position;\n"
+        "attribute vec4 color;\n"
+        "varying vec4 varyColor;\n"
+        "void main()\n"
+        "{\n"
+        "    gl_Position = position;\n"
+        "    varyColor = color;\n"
+        "}";
+    constexpr char kDualFS[] =
+        "precision mediump float;\n"
+        "varying vec4 varyColor;\n"
+        "void main()\n"
+        "{\n"
+        "    gl_FragColor = varyColor;\n"
+        "}";
+    ANGLE_GL_PROGRAM(dualProgram, kDualVS, kDualFS);
+    GLint positionLocation = glGetAttribLocation(dualProgram, "position");
+    ASSERT_NE(-1, positionLocation);
+    GLint colorLocation = glGetAttribLocation(dualProgram, "color");
+    ASSERT_NE(-1, colorLocation);
+
+    GLint singlePositionLocation = glGetAttribLocation(singleProgram, "position");
+    ASSERT_NE(-1, singlePositionLocation);
+
+    glUseProgram(singleProgram);
+
+    // Initialize position vertex buffer.
+    const auto &quadVertices = GetQuadVertices();
+
+    GLBuffer vertexBuffer;
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vector3) * 6, quadVertices.data(), GL_STATIC_DRAW);
+
+    // Initialize a VAO. Draw with single program.
+    GLVertexArrayOES vertexArray;
+    glBindVertexArrayOES(vertexArray);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glVertexAttribPointer(singlePositionLocation, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glEnableVertexAttribArray(singlePositionLocation);
+
+    // Should draw red.
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    ASSERT_GL_NO_ERROR();
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::red);
+
+    // Draw with a green buffer attribute, without the VAO.
+    glBindVertexArrayOES(0);
+    glUseProgram(dualProgram);
+    glVertexAttribPointer(positionLocation, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glEnableVertexAttribArray(positionLocation);
+
+    std::vector<GLColor> greenColors(6, GLColor::green);
+    GLBuffer greenBuffer;
+    glBindBuffer(GL_ARRAY_BUFFER, greenBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLColor) * 6, greenColors.data(), GL_STATIC_DRAW);
+
+    glVertexAttribPointer(colorLocation, 4, GL_UNSIGNED_BYTE, GL_FALSE, 4, nullptr);
+    glEnableVertexAttribArray(colorLocation);
+
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    ASSERT_GL_NO_ERROR();
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::green);
+
+    // Re-bind VAO and try to draw with different program, without changing state.
+    // Should draw black since current value is not initialized.
+    glBindVertexArrayOES(vertexArray);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    ASSERT_GL_NO_ERROR();
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::black);
+}
+
+// Test that switching VAOs keeps the disabled "current value" attributes up-to-date.
 TEST_P(StateChangeTestES3, VertexArrayObjectAndDisabledAttributes)
 {
     constexpr char kSingleVS[] = "attribute vec4 position; void main() { gl_Position = position; }";
@@ -4327,6 +4409,76 @@ TEST_P(SimpleStateChangeTest, FboLateCullFaceBackCCWState)
 TEST_P(SimpleStateChangeTest, FboLateCullFaceBackCWState)
 {
     drawToFboWithCulling(GL_CW, false);
+}
+
+// Test that vertex attribute translation is still kept after binding it to another buffer then
+// binding back to the previous buffer.
+TEST_P(SimpleStateChangeTest, RebindTranslatedAttribute)
+{
+    constexpr char kVS[] = R"(attribute vec4 a_position;
+attribute float a_attrib;
+varying float v_attrib;
+void main()
+{
+    v_attrib = a_attrib;
+    gl_Position = a_position;
+})";
+
+    constexpr char kFS[] = R"(precision mediump float;
+varying float v_attrib;
+void main()
+{
+    gl_FragColor = vec4(v_attrib, 0, 0, 1);
+})";
+
+    ANGLE_GL_PROGRAM(program, kVS, kFS);
+    glBindAttribLocation(program, 0, "a_position");
+    glBindAttribLocation(program, 1, "a_attrib");
+    glLinkProgram(program);
+    glUseProgram(program);
+    ASSERT_GL_NO_ERROR();
+
+    // Set up color data so red is drawn
+    std::vector<GLushort> data(1000, 0xffff);
+
+    GLBuffer redBuffer;
+    glBindBuffer(GL_ARRAY_BUFFER, redBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLushort) * data.size(), data.data(), GL_STATIC_DRAW);
+    // Use offset not multiple of 4 GLushorts, this could force vertex translation in Metal backend.
+    glVertexAttribPointer(1, 4, GL_UNSIGNED_SHORT, GL_TRUE, 0,
+                          reinterpret_cast<const void *>(sizeof(GLushort) * 97));
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glEnableVertexAttribArray(1);
+
+    drawQuad(program, "a_position", 0.5f);
+    // Verify red was drawn
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::red);
+
+    glClearColor(0, 1, 0, 1);
+    glClear(GL_COLOR_BUFFER_BIT);
+    // Verify that green was drawn
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::green);
+
+    // Bind black color buffer to the same attribute with zero offset
+    std::vector<GLfloat> black(6, 0.0f);
+    GLBuffer blackBuffer;
+    glBindBuffer(GL_ARRAY_BUFFER, blackBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * black.size(), black.data(), GL_STATIC_DRAW);
+    glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, 0, 0);
+
+    drawQuad(program, "a_position", 0.5f);
+    // Verify black was drawn
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::black);
+
+    // Rebind the old buffer & offset
+    glBindBuffer(GL_ARRAY_BUFFER, redBuffer);
+    // Use offset not multiple of 4 GLushorts
+    glVertexAttribPointer(1, 4, GL_UNSIGNED_SHORT, GL_TRUE, 0,
+                          reinterpret_cast<const void *>(sizeof(GLushort) * 97));
+
+    drawQuad(program, "a_position", 0.5f);
+    // Verify red was drawn
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::red);
 }
 
 // Validates GL_RASTERIZER_DISCARD state is tracked correctly

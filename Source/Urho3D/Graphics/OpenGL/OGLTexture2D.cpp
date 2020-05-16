@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,9 @@ namespace Urho3D
 
 void Texture2D::OnDeviceLost()
 {
+    if (object_.name_ && !graphics_->IsDeviceLost())
+        glDeleteTextures(1, &object_.name_);
+
     GPUObject::OnDeviceLost();
 
     if (renderSurface_)
@@ -259,7 +262,7 @@ bool Texture2D::SetData(Image* image, bool useAlpha)
         unsigned levels = image->GetNumCompressedLevels();
         unsigned format = graphics_->GetFormat(image->GetCompressedFormat());
         bool needDecompress = false;
-#if defined(URHO3D_ANGLE_VULKAN) || defined(URHO3D_ANGLE_METAL)
+#if  defined(URHO3D_ANGLE_METAL)
         format = Graphics::GetRGBAFormat();
         needDecompress = true;
 #else
@@ -393,7 +396,7 @@ bool Texture2D::Create()
 
     // Create a renderbuffer instead of a texture if depth texture is not properly supported, or if this will be a packed
     // depth stencil texture
-#ifndef GL_ES_VERSION_2_0
+#ifdef DESKTOP_GRAPHICS_OR_GLES3
     if (format == Graphics::GetDepthStencilFormat())
 #else
     if (format == GL_DEPTH_COMPONENT16 || format == GL_DEPTH_COMPONENT24_OES || format == GL_DEPTH24_STENCIL8_OES ||
@@ -456,9 +459,10 @@ bool Texture2D::Create()
         {
             glTexImage2D(target_, 0, format, width_, height_, 0, externalFormat, dataType, nullptr);
         }
-        if (glGetError())
+        GLenum err = glGetError();
+        if (err)
         {
-            URHO3D_LOGERROR("Failed to create texture");
+            URHO3D_LOGERRORF("Failed to create 2D texture err=%d, target=%d, format=%d, externalFormat=%d, dataType=%d", err, target_, format, externalFormat, dataType);
             success = false;
         }
     }
@@ -483,7 +487,7 @@ bool Texture2D::Create()
     }
 
     levels_ = CheckMaxLevels(width_, height_, requestedLevels_);
-#ifndef GL_ES_VERSION_2_0
+#if !defined(URHO3D_GLES2)
     glTexParameteri(target_, GL_TEXTURE_BASE_LEVEL, 0);
     glTexParameteri(target_, GL_TEXTURE_MAX_LEVEL, levels_ - 1);
 #endif

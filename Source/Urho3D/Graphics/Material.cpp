@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -57,7 +57,7 @@ static const char* textureUnitNames[] =
     "specular",
     "emissive",
     "environment",
-#ifdef DESKTOP_GRAPHICS
+#ifdef DESKTOP_GRAPHICS_OR_GLES3
     "volume",
     "custom1",
     "custom2",
@@ -295,7 +295,7 @@ bool Material::BeginLoadXML(Deserializer& source)
                 // Detect cube maps and arrays by file extension: they are defined by an XML file
                 if (GetExtension(name) == ".xml")
                 {
-#ifdef DESKTOP_GRAPHICS
+#ifdef DESKTOP_GRAPHICS_OR_GLES3
                     StringHash type = ParseTextureTypeXml(cache, name);
                     if (!type && textureElem.HasAttribute("unit"))
                     {
@@ -356,7 +356,7 @@ bool Material::BeginLoadJSON(Deserializer& source)
                 // Detect cube maps and arrays by file extension: they are defined by an XML file
                 if (GetExtension(name) == ".xml")
                 {
-#ifdef DESKTOP_GRAPHICS
+#ifdef DESKTOP_GRAPHICS_OR_GLES3
                     StringHash type = ParseTextureTypeXml(cache, name);
                     if (!type && !unitString.Empty())
                     {
@@ -448,7 +448,7 @@ bool Material::Load(const XMLElement& source)
             // Detect cube maps and arrays by file extension: they are defined by an XML file
             if (GetExtension(name) == ".xml")
             {
-#ifdef DESKTOP_GRAPHICS
+#ifdef DESKTOP_GRAPHICS_OR_GLES3
                 StringHash type = ParseTextureTypeXml(cache, name);
                 if (!type && unit == TU_VOLUMEMAP)
                     type = Texture3D::GetTypeStatic();
@@ -605,7 +605,7 @@ bool Material::Load(const JSONValue& source)
             // Detect cube maps and arrays by file extension: they are defined by an XML file
             if (GetExtension(textureName) == ".xml")
             {
-#ifdef DESKTOP_GRAPHICS
+#ifdef DESKTOP_GRAPHICS_OR_GLES3
                 StringHash type = ParseTextureTypeXml(cache, textureName);
                 if (!type && unit == TU_VOLUMEMAP)
                     type = Texture3D::GetTypeStatic();

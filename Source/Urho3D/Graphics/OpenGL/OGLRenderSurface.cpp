@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,7 @@
 #define glBindRenderbufferEXT glBindRenderbuffer
 #define glRenderbufferStorageEXT glRenderbufferStorage
 #define glDeleteRenderbuffersEXT glDeleteRenderbuffers
+#define glRenderbufferStorageMultisampleEXT glRenderbufferStorageMultisample
 #endif
 
 namespace Urho3D
@@ -73,7 +74,7 @@ bool RenderSurface::CreateRenderBuffer(unsigned width, unsigned height, unsigned
     {
         glGenRenderbuffersEXT(1, &renderBuffer_);
         glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, renderBuffer_);
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
         if (multiSample > 1)
             glRenderbufferStorageMultisampleEXT(GL_RENDERBUFFER_EXT, multiSample, format, width, height);
         else
@@ -102,6 +103,9 @@ void RenderSurface::OnDeviceLost()
 
     // Clean up also from non-active FBOs
     graphics->CleanupRenderSurface(this);
+
+    if (renderBuffer_ && !graphics->IsDeviceLost())
+        glDeleteRenderbuffersEXT(1, &renderBuffer_);
 
     renderBuffer_ = 0;
 }

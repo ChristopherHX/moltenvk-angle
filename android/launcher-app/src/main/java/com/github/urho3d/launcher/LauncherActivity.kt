@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -29,11 +29,12 @@ import android.view.View
 import android.widget.ExpandableListView
 import android.widget.SimpleExpandableListAdapter
 import com.github.urho3d.UrhoActivity
+import android.os.Build
 
 class LauncherActivity : ExpandableListActivity() {
 
     // Filter to only include filename that has an extension
-    private fun getScriptNames(path: String) = assets.list(path).filter { it.contains('.') }
+    private fun getScriptNames(path: String) = assets.list(path)!!.filter { it.contains('.') }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +70,21 @@ class LauncherActivity : ExpandableListActivity() {
         ))
         setContentView(R.layout.activity_launcher)
 
+ 
+        if (Build.VERSION.SDK_INT >= 19)
+        {
+            window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE
+            // Set the content to appear under the system bars so that the
+            // content doesn't resize when the system bars hide and show.
+            or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            // Hide the nav bar and status bar
+            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            or View.SYSTEM_UI_FLAG_FULLSCREEN)
+
+        }
+       
         // Pass the argument to the main activity, if any
         launch(intent.getStringExtra(MainActivity.argument))
     }

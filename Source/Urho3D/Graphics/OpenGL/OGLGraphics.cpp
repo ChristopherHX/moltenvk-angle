@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -51,24 +51,123 @@
 
 #include "../../DebugNew.h"
 
-#ifdef GL_ES_VERSION_2_0
+#ifdef URHO3D_GLES2
+#ifndef GL_DEPTH_COMPONENT24
 #define GL_DEPTH_COMPONENT24 GL_DEPTH_COMPONENT24_OES
-#define glClearDepth glClearDepthf
+#endif
 #endif
 
+#ifdef GL_ES_VERSION_2_0
+#define glClearDepth glClearDepthf
+
+#ifdef GL_CLIP_DISTANCE0_EXT
+#define GL_CLIP_PLANE0 GL_CLIP_DISTANCE0_EXT
+#elif defined(GL_CLIP_DISTANCE0_APPLE)
+#define GL_CLIP_PLANE0 GL_CLIP_DISTANCE0_APPLE
+#endif
+#endif
+
+#ifdef GL_ES_VERSION_3_0
+#define GL_DEPTH24_STENCIL8_EXT GL_DEPTH24_STENCIL8
+#endif
+
+
 #if defined(__EMSCRIPTEN__) || defined(URHO3D_ANGLE_METAL)
+#include "../Input/Input.h"
+#include "../UI/Cursor.h"
+#include "../UI/UI.h"
+#if defined(__EMSCRIPTEN__)
+#include <emscripten/emscripten.h>
+#include <emscripten/bind.h>
+#endif
+
 // Emscripten provides even all GL extension functions via static linking. However there is
 // no GLES2-specific extension header at the moment to include instanced rendering declarations,
 // so declare them manually from GLES3 gl2ext.h. Emscripten will provide these when linking final output.
+
+#define glDrawBuffers glDrawBuffersEXT
+#ifndef GL_EXT_draw_buffers
+#define GL_EXT_draw_buffers
+#endif
+
 extern "C"
 {
     GL_APICALL void GL_APIENTRY glDrawArraysInstancedANGLE (GLenum mode, GLint first, GLsizei count, GLsizei primcount);
     GL_APICALL void GL_APIENTRY glDrawElementsInstancedANGLE (GLenum mode, GLsizei count, GLenum type, const void *indices, GLsizei primcount);
     GL_APICALL void GL_APIENTRY glVertexAttribDivisorANGLE (GLuint index, GLuint divisor);
+    GL_APICALL void GL_APIENTRY glDrawBuffersEXT(GLsizei n, const GLenum *bufs);
+}
+
+#if defined(__EMSCRIPTEN__)
+// Helper functions to support emscripten canvas resolution change
+static const Urho3D::Context *appContext;
+
+static void JSCanvasSize(int width, int height, bool fullscreen, float scale)
+{
+    URHO3D_LOGINFOF("JSCanvasSize: width=%d height=%d fullscreen=%d ui scale=%f", width, height, fullscreen, scale);
+
+    using namespace Urho3D;
+
+    if (appContext)
+    {
+        bool uiCursorVisible = false;
+        bool systemCursorVisible = false;
+        MouseMode mouseMode{};
+
+        // Detect current system pointer state
+        Input* input = appContext->GetSubsystem<Input>();
+        if (input)
+        {
+            systemCursorVisible = input->IsMouseVisible();
+            mouseMode = input->GetMouseMode();
+        }
+
+        UI* ui = appContext->GetSubsystem<UI>();
+        if (ui)
+        {
+            ui->SetScale(scale);
+
+            // Detect current UI pointer state
+            Cursor* cursor = ui->GetCursor();
+            if (cursor)
+                uiCursorVisible = cursor->IsVisible();
+        }
+
+        // Apply new resolution
+        appContext->GetSubsystem<Graphics>()->SetMode(width, height);
+
+        // Reset the pointer state as it was before resolution change
+        if (input)
+        {
+            if (uiCursorVisible)
+                input->SetMouseVisible(false);
+            else
+                input->SetMouseVisible(systemCursorVisible);
+
+            input->SetMouseMode(mouseMode);
+        }
+
+        if (ui)
+        {
+            Cursor* cursor = ui->GetCursor();
+            if (cursor)
+            {
+                cursor->SetVisible(uiCursorVisible);
+                cursor->SetPosition(input->GetMousePosition());
+            }
+        }
+    }
+}
+
+using namespace emscripten;
+EMSCRIPTEN_BINDINGS(Module) {
+    function("JSCanvasSize", &JSCanvasSize);
 }
 #endif
 
-#if defined(URHO3D_ANGLE_VULKAN) || defined(URHO3D_ANGLE_METAL)
+#endif //defined(__EMSCRIPTEN__)
+
+#if defined(URHO3D_ANGLE_METAL)
     extern "C"
     {
         EGLDisplay EGLAPIENTRY eglGetCurrentDisplay(void);
@@ -146,7 +245,9 @@ static const unsigned glFillMode[] =
     GL_LINE,
     GL_POINT
 };
+#endif
 
+#ifndef URHO3D_GLES2
 static const unsigned glStencilOps[] =
 {
     GL_KEEP,
@@ -179,7 +280,7 @@ static const unsigned glElementComponents[] =
     4
 };
 
-#ifdef GL_ES_VERSION_2_0
+#ifdef URHO3D_GLES2
 static unsigned glesDepthStencilFormat = GL_DEPTH_COMPONENT16;
 static unsigned glesReadableDepthFormat = GL_DEPTH_COMPONENT;
 #endif
@@ -230,7 +331,11 @@ static void GetGLPrimitiveType(unsigned elementCount, PrimitiveType type, unsign
 }
 
 const Vector2 Graphics::pixelUVOffset(0.0f, 0.0f);
+#if URHO3D_GLES3
+bool Graphics::gl3Support = true;
+#else
 bool Graphics::gl3Support = false;
+#endif
 
 Graphics::Graphics(Context* context) :
     Object(context),
@@ -240,16 +345,7 @@ Graphics::Graphics(Context* context) :
     hiresShadowMapFormat_(GL_DEPTH_COMPONENT24),
     shaderPath_("Shaders/GLSL/"),
     shaderExtension_(".glsl"),
-    orientations_("LandscapeLeft LandscapeRight"),
-#if defined(URHO3D_ANGLE_METAL)
-    apiName_("GLES2-METAL")
-#else
-    #ifndef GL_ES_VERSION_2_0
-        apiName_("GL2")
-    #else
-        apiName_("GLES2")
-    #endif
-#endif
+    orientations_("LandscapeLeft LandscapeRight")
 {
     SetTextureUnitMappings();
     ResetCachedState();
@@ -258,6 +354,10 @@ Graphics::Graphics(Context* context) :
 
     // Register Graphics library object factories
     RegisterGraphicsLibrary(context_);
+
+#ifdef __EMSCRIPTEN__
+    appContext = context_;
+#endif
 }
 
 Graphics::~Graphics()
@@ -270,106 +370,34 @@ Graphics::~Graphics()
     context_->ReleaseSDL();
 }
 
-bool Graphics::SetMode(int width, int height, bool fullscreen, bool borderless, bool resizable, bool highDPI, bool vsync,
-    bool tripleBuffer, int multiSample, int monitor, int refreshRate)
+bool Graphics::SetScreenMode(int width, int height, const ScreenModeParams& params, bool maximize)
 {
     URHO3D_PROFILE(SetScreenMode);
 
-    bool maximize = false;
+    // Ensure that parameters are properly filled
+    ScreenModeParams newParams = params;
+    AdjustScreenMode(width, height, newParams, maximize);
 
-#if defined(IOS) || defined(TVOS)
-    // iOS and tvOS app always take the fullscreen (and with status bar hidden)
-    fullscreen = true;
-#endif
-
-    // Make sure monitor index is not bigger than the currently detected monitors
-    int monitors = SDL_GetNumVideoDisplays();
-    if (monitor >= monitors || monitor < 0)
-        monitor = 0; // this monitor is not present, use first monitor
-
-    // Fullscreen or Borderless can not be resizable
-    if (fullscreen || borderless)
-        resizable = false;
-
-    // Borderless cannot be fullscreen, they are mutually exclusive
-    if (borderless)
-        fullscreen = false;
-
-    multiSample = Clamp(multiSample, 1, 16);
-
-    if (IsInitialized() && width == width_ && height == height_ && fullscreen == fullscreen_ && borderless == borderless_ &&
-        resizable == resizable_ && vsync == vsync_ && tripleBuffer == tripleBuffer_ && multiSample == multiSample_ &&
-        monitor == monitor_ && refreshRate == refreshRate_)
+    if (IsInitialized() && width == width_ && height == height_ && screenParams_ == newParams)
         return true;
 
     // If only vsync changes, do not destroy/recreate the context
-    if (IsInitialized() && width == width_ && height == height_ && fullscreen == fullscreen_ && borderless == borderless_ &&
-        resizable == resizable_ && tripleBuffer == tripleBuffer_ && multiSample == multiSample_ && monitor == monitor_ &&
-        refreshRate == refreshRate_ && vsync != vsync_)
+    if (IsInitialized() && width == width_ && height == height_
+        && screenParams_.EqualsExceptVSync(newParams) && screenParams_.vsync_ != newParams.vsync_)
     {
-        SDL_GL_SetSwapInterval(vsync ? 1 : 0);
-        vsync_ = vsync;
+        SDL_GL_SetSwapInterval(newParams.vsync_ ? 1 : 0);
+        screenParams_.vsync_ = newParams.vsync_;
         return true;
     }
 
-    // If zero dimensions in windowed mode, set windowed mode to maximize and set a predefined default restored window size.
-    // If zero in fullscreen, use desktop mode
-    if (!width || !height)
-    {
-        if (fullscreen || borderless)
-        {
-            SDL_DisplayMode mode;
-            SDL_GetDesktopDisplayMode(monitor, &mode);
-            width = mode.w;
-            height = mode.h;
-        }
-        else
-        {
-            maximize = resizable;
-            width = 1024;
-            height = 768;
-        }
-    }
-
-    // Check fullscreen mode validity (desktop only). Use a closest match if not found
-#ifdef DESKTOP_GRAPHICS
-    if (fullscreen)
-    {
-        PODVector<IntVector3> resolutions = GetResolutions(monitor);
-        if (resolutions.Size())
-        {
-            unsigned best = 0;
-            unsigned bestError = M_MAX_UNSIGNED;
-
-            for (unsigned i = 0; i < resolutions.Size(); ++i)
-            {
-                unsigned error = (unsigned)(Abs(resolutions[i].x_ - width) + Abs(resolutions[i].y_ - height));
-                if (refreshRate != 0)
-                    error += (unsigned)(Abs(resolutions[i].z_ - refreshRate));
-                if (error < bestError)
-                {
-                    best = i;
-                    bestError = error;
-                }
-            }
-
-            width = resolutions[best].x_;
-            height = resolutions[best].y_;
-            refreshRate = resolutions[best].z_;
-        }
-    }
-#endif
+    // Track if the window was repositioned and don't update window position in this case
+    bool reposition = false;
 
     // With an external window, only the size can change after initial setup, so do not recreate context
     if (!externalWindow_ || !impl_->context_)
     {
         // Close the existing window and OpenGL context, mark GPU objects as lost
         Release(false, true);
-
-#ifdef IOS
-        // On iOS window needs to be resizable to handle orientation changes properly
-        resizable = true;
-#endif
 
         SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
@@ -391,22 +419,31 @@ bool Graphics::SetMode(int width, int height, bool fullscreen, bool borderless, 
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+            apiName_ = "GL3";
         }
         else
         {
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, 0);
+            apiName_ = "GL2";
         }
 #else
+#if defined(GL_ES_VERSION_3_0)
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+        apiName_ = "GLES3";
+        gl3Support = true;
+#else
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+        apiName_ = "GLES2";
+#endif
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 #endif
 
-        if (multiSample > 1)
+        if (newParams.multiSample_ > 1)
         {
             SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
-            SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, multiSample);
+            SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, newParams.multiSample_);
         }
         else
         {
@@ -415,21 +452,24 @@ bool Graphics::SetMode(int width, int height, bool fullscreen, bool borderless, 
         }
 
         SDL_Rect display_rect;
-        SDL_GetDisplayBounds(monitor, &display_rect);
-        bool reposition = fullscreen || (borderless && width >= display_rect.w && height >= display_rect.h);
+        SDL_GetDisplayBounds(newParams.monitor_, &display_rect);
+        reposition = newParams.fullscreen_ || (newParams.borderless_ && width >= display_rect.w && height >= display_rect.h);
 
-        int x = reposition ? display_rect.x : position_.x_;
-        int y = reposition ? display_rect.y : position_.y_;
+        const int x = reposition ? display_rect.x : position_.x_;
+        const int y = reposition ? display_rect.y : position_.y_;
 
         unsigned flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
-        if (fullscreen)
+        if (newParams.fullscreen_)
             flags |= SDL_WINDOW_FULLSCREEN;
-        if (borderless)
+        if (newParams.borderless_)
             flags |= SDL_WINDOW_BORDERLESS;
-        if (resizable)
+        if (newParams.resizable_)
             flags |= SDL_WINDOW_RESIZABLE;
-        if (highDPI)
+
+#ifndef __EMSCRIPTEN__
+        if (newParams.highDPI_)
             flags |= SDL_WINDOW_ALLOW_HIGHDPI;
+#endif
 
         SDL_SetHint(SDL_HINT_ORIENTATIONS, orientations_.CString());
 #if  defined(URHO3D_ANGLE_METAL)
@@ -445,7 +485,7 @@ bool Graphics::SetMode(int width, int height, bool fullscreen, bool borderless, 
 #ifndef __EMSCRIPTEN__
                 if (!window_)
                     window_ = SDL_CreateWindowFrom(externalWindow_, SDL_WINDOW_OPENGL);
-                fullscreen = false;
+                newParams.fullscreen_ = false;
 #endif
             }
 
@@ -453,10 +493,10 @@ bool Graphics::SetMode(int width, int height, bool fullscreen, bool borderless, 
                 break;
             else
             {
-                if (multiSample > 1)
+                if (newParams.multiSample_ > 1)
                 {
                     // If failed with multisampling, retry first without
-                    multiSample = 1;
+                    newParams.multiSample_ = 1;
                     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 0);
                     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 0);
                 }
@@ -489,29 +529,22 @@ bool Graphics::SetMode(int width, int height, bool fullscreen, bool borderless, 
     }
 
     // Set vsync
-    SDL_GL_SetSwapInterval(vsync ? 1 : 0);
+    SDL_GL_SetSwapInterval(newParams.vsync_ ? 1 : 0);
 
     // Store the system FBO on iOS/tvOS now
 #if defined(IOS) || defined(TVOS)
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, (GLint*)&impl_->systemFBO_);
 #endif
 
-    fullscreen_ = fullscreen;
-    borderless_ = borderless;
-    resizable_ = resizable;
-    vsync_ = vsync;
-    tripleBuffer_ = tripleBuffer;
-    multiSample_ = multiSample;
-    monitor_ = monitor;
-    refreshRate_ = refreshRate;
+    screenParams_ = newParams;
 
     SDL_GL_GetDrawableSize(window_, &width_, &height_);
-    if (!fullscreen)
+    if (!reposition)
         SDL_GetWindowPosition(window_, &position_.x_, &position_.y_);
 
     int logicalWidth, logicalHeight;
     SDL_GetWindowSize(window_, &logicalWidth, &logicalHeight);
-    highDPI_ = (width_ != logicalWidth) || (height_ != logicalHeight);
+    screenParams_.highDPI_ = (width_ != logicalWidth) || (height_ != logicalHeight);
 
     // Reset rendertargets and viewport for the new screen mode
     ResetRenderTargets();
@@ -524,37 +557,10 @@ bool Graphics::SetMode(int width, int height, bool fullscreen, bool borderless, 
 
 #ifdef URHO3D_LOGGING
     URHO3D_LOGINFOF("Adapter used %s %s", (const char *) glGetString(GL_VENDOR), (const char *) glGetString(GL_RENDERER));
-    
-    String msg;
-    msg.AppendWithFormat("Set screen mode %dx%d rate %d Hz %s monitor %d", width_, height_, refreshRate_, (fullscreen_ ? "fullscreen" : "windowed"), monitor_);
-    if (borderless_)
-        msg.Append(" borderless");
-    if (resizable_)
-        msg.Append(" resizable");
-    if (multiSample > 1)
-        msg.AppendWithFormat(" multisample %d", multiSample);
-    URHO3D_LOGINFO(msg);
 #endif
 
-    using namespace ScreenMode;
-
-    VariantMap& eventData = GetEventDataMap();
-    eventData[P_WIDTH] = width_;
-    eventData[P_HEIGHT] = height_;
-    eventData[P_FULLSCREEN] = fullscreen_;
-    eventData[P_BORDERLESS] = borderless_;
-    eventData[P_RESIZABLE] = resizable_;
-    eventData[P_HIGHDPI] = highDPI_;
-    eventData[P_MONITOR] = monitor_;
-    eventData[P_REFRESHRATE] = refreshRate_;
-    SendEvent(E_SCREENMODE, eventData);
-
+    OnScreenModeChanged();
     return true;
-}
-
-bool Graphics::SetMode(int width, int height)
-{
-    return SetMode(width, height, fullscreen_, borderless_, resizable_, highDPI_, vsync_, tripleBuffer_, multiSample_, monitor_, refreshRate_);
 }
 
 void Graphics::SetSRGB(bool enable)
@@ -688,7 +694,7 @@ void Graphics::Clear(ClearTargetFlags flags, const Color& color, float depth, un
 {
     PrepareDraw();
 
-#ifdef GL_ES_VERSION_2_0
+#ifdef URHO3D_GLES2
     flags &= ~CLEAR_STENCIL;
 #endif
 
@@ -766,7 +772,7 @@ bool Graphics::ResolveToTexture(Texture2D* destination, const IntRect& viewport)
 
 bool Graphics::ResolveToTexture(Texture2D* texture)
 {
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
     if (!texture)
         return false;
     RenderSurface* surface = texture->GetRenderSurface();
@@ -783,7 +789,7 @@ bool Graphics::ResolveToTexture(Texture2D* texture)
         impl_->resolveSrcFBO_ = CreateFramebuffer();
     if (!impl_->resolveDestFBO_)
         impl_->resolveDestFBO_ = CreateFramebuffer();
-
+#ifndef GL_ES_VERSION_3_0
     if (!gl3Support)
     {
         glBindFramebufferEXT(GL_READ_FRAMEBUFFER_EXT, impl_->resolveSrcFBO_);
@@ -798,6 +804,7 @@ bool Graphics::ResolveToTexture(Texture2D* texture)
         glBindFramebufferEXT(GL_DRAW_FRAMEBUFFER_EXT, 0);
     }
     else
+#endif
     {
         glBindFramebuffer(GL_READ_FRAMEBUFFER, impl_->resolveSrcFBO_);
         glFramebufferRenderbuffer(GL_READ_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, surface->GetRenderBuffer());
@@ -813,14 +820,14 @@ bool Graphics::ResolveToTexture(Texture2D* texture)
     BindFramebuffer(impl_->boundFBO_);
     return true;
 #else
-    // Not supported on GLES
+    // Not supported on GLES 2
     return false;
 #endif
 }
 
 bool Graphics::ResolveToTexture(TextureCube* texture)
 {
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
     if (!texture)
         return false;
 
@@ -834,6 +841,7 @@ bool Graphics::ResolveToTexture(TextureCube* texture)
     if (!impl_->resolveDestFBO_)
         impl_->resolveDestFBO_ = CreateFramebuffer();
 
+#ifndef GL_ES_VERSION_3_0
     if (!gl3Support)
     {
         for (unsigned i = 0; i < MAX_CUBEMAP_FACES; ++i)
@@ -858,6 +866,7 @@ bool Graphics::ResolveToTexture(TextureCube* texture)
         glBindFramebufferEXT(GL_DRAW_FRAMEBUFFER_EXT, 0);
     }
     else
+#endif
     {
         for (unsigned i = 0; i < MAX_CUBEMAP_FACES; ++i)
         {
@@ -948,7 +957,7 @@ void Graphics::Draw(PrimitiveType type, unsigned indexStart, unsigned indexCount
 void Graphics::DrawInstanced(PrimitiveType type, unsigned indexStart, unsigned indexCount, unsigned minVertex, unsigned vertexCount,
     unsigned instanceCount)
 {
-#if !defined(GL_ES_VERSION_2_0) || defined(__EMSCRIPTEN__) || defined(URHO3D_ANGLE_METAL)
+#if !defined(URHO3D_GLES2) || defined(__EMSCRIPTEN__) || defined(URHO3D_ANGLE_METAL)
     if (!indexCount || !indexBuffer_ || !indexBuffer_->GetGPUObjectName() || !instancingSupport_)
         return;
 
@@ -960,20 +969,24 @@ void Graphics::DrawInstanced(PrimitiveType type, unsigned indexStart, unsigned i
 
     GetGLPrimitiveType(indexCount, type, primitiveCount, glPrimitiveType);
     GLenum indexType = indexSize == sizeof(unsigned short) ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT;
-#if defined(__EMSCRIPTEN__) || defined(URHO3D_ANGLE_METAL)
+#if defined(__EMSCRIPTEN__) || (defined(URHO3D_ANGLE_METAL) && defined(URHO3D_GLES2))
     glDrawElementsInstancedANGLE(glPrimitiveType, indexCount, indexType, reinterpret_cast<const GLvoid*>(indexStart * indexSize),
         instanceCount);
 #else
+#ifndef GL_ES_VERSION_3_0
     if (gl3Support)
     {
+#endif
         glDrawElementsInstanced(glPrimitiveType, indexCount, indexType, reinterpret_cast<const GLvoid*>(indexStart * indexSize),
             instanceCount);
+#ifndef GL_ES_VERSION_3_0
     }
     else
     {
         glDrawElementsInstancedARB(glPrimitiveType, indexCount, indexType, reinterpret_cast<const GLvoid*>(indexStart * indexSize),
             instanceCount);
     }
+#endif
 #endif
 
     numPrimitives_ += instanceCount * primitiveCount;
@@ -1154,28 +1167,32 @@ void Graphics::SetShaders(ShaderVariation* vs, ShaderVariation* ps)
         }
     }
 
-    // Update the clip plane uniform on GL3, and set constant buffers
-#ifndef GL_ES_VERSION_2_0
-    if (gl3Support && impl_->shaderProgram_)
+    // Update the clip plane uniform, and set constant buffers (on GL3)
+    if (impl_->shaderProgram_)
     {
-        const SharedPtr<ConstantBuffer>* constantBuffers = impl_->shaderProgram_->GetConstantBuffers();
-        for (unsigned i = 0; i < MAX_SHADER_PARAMETER_GROUPS * 2; ++i)
+#ifndef URHO3D_GLES2
+        if (gl3Support && impl_->shaderProgram_)
         {
-            ConstantBuffer* buffer = constantBuffers[i].Get();
-            if (buffer != impl_->constantBuffers_[i])
+            const SharedPtr<ConstantBuffer>* constantBuffers = impl_->shaderProgram_->GetConstantBuffers();
+            for (unsigned i = 0; i < MAX_SHADER_PARAMETER_GROUPS * 2; ++i)
             {
-                unsigned object = buffer ? buffer->GetGPUObjectName() : 0;
-                glBindBufferBase(GL_UNIFORM_BUFFER, i, object);
-                // Calling glBindBufferBase also affects the generic buffer binding point
-                impl_->boundUBO_ = object;
-                impl_->constantBuffers_[i] = buffer;
-                ShaderProgram::ClearGlobalParameterSource((ShaderParameterGroup)(i % MAX_SHADER_PARAMETER_GROUPS));
+                ConstantBuffer* buffer = constantBuffers[i].Get();
+                if (buffer != impl_->constantBuffers_[i])
+                {
+                    unsigned object = buffer ? buffer->GetGPUObjectName() : 0;
+                    glBindBufferBase(GL_UNIFORM_BUFFER, i, object);
+                    // Calling glBindBufferBase also affects the generic buffer binding point
+                    impl_->boundUBO_ = object;
+                    impl_->constantBuffers_[i] = buffer;
+                    ShaderProgram::ClearGlobalParameterSource((ShaderParameterGroup)(i % MAX_SHADER_PARAMETER_GROUPS));
+                }
             }
         }
-
-        SetShaderParameter(VSP_CLIPPLANE, useClipPlane_ ? clipPlane_ : Vector4(0.0f, 0.0f, 0.0f, 1.0f));
-    }
 #endif
+
+        if (clipDistanceSupport_)
+            SetShaderParameter(VSP_CLIPPLANE, useClipPlane_ ? clipPlane_ : Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+    }  // if (impl_->shaderProgram_)
 
     // Store shader combination if shader dumping in progress
     if (shaderPrecache_)
@@ -2003,7 +2020,12 @@ void Graphics::SetScissorTest(bool enable, const IntRect& rect)
 
 void Graphics::SetClipPlane(bool enable, const Plane& clipPlane, const Matrix3x4& view, const Matrix4& projection)
 {
-#ifndef GL_ES_VERSION_2_0
+#ifdef GL_ES_VERSION_2_0
+    if (!clipDistanceSupport_)
+        return;
+#endif
+
+#ifdef GL_CLIP_PLANE0
     if (enable != useClipPlane_)
     {
         if (enable)
@@ -2019,6 +2041,7 @@ void Graphics::SetClipPlane(bool enable, const Plane& clipPlane, const Matrix3x4
         Matrix4 viewProj = projection * view;
         clipPlane_ = clipPlane.Transformed(viewProj).ToVector4();
 
+#ifndef GL_ES_VERSION_2_0
         if (!gl3Support)
         {
             GLdouble planeData[4];
@@ -2029,14 +2052,16 @@ void Graphics::SetClipPlane(bool enable, const Plane& clipPlane, const Matrix3x4
 
             glClipPlane(GL_CLIP_PLANE0, &planeData[0]);
         }
-    }
 #endif
+    }
+#endif  // GL_CLIP_PLANE0
+
 }
 
 void Graphics::SetStencilTest(bool enable, CompareMode mode, StencilOp pass, StencilOp fail, StencilOp zFail, unsigned stencilRef,
     unsigned compareMask, unsigned writeMask)
 {
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
     if (enable != stencilTest_)
     {
         if (enable)
@@ -2098,7 +2123,7 @@ PODVector<int> Graphics::GetMultiSampleLevels() const
     // No multisampling always supported
     ret.Push(1);
 
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
     int maxSamples = 0;
     glGetIntegerv(GL_MAX_SAMPLES, &maxSamples);
     for (int i = 2; i <= maxSamples && i <= 16; i *= 2)
@@ -2118,7 +2143,7 @@ unsigned Graphics::GetFormat(CompressedFormat format) const
     case CF_DXT1:
         return dxtTextureSupport_ ? GL_COMPRESSED_RGBA_S3TC_DXT1_EXT : 0;
 
-#if !defined(GL_ES_VERSION_2_0) || defined(__EMSCRIPTEN__) || defined(URHO3D_ANGLE_METAL)
+#if !defined(URHO3D_GLES2) || defined(__EMSCRIPTEN__) || defined(URHO3D_ANGLE_METAL)
     case CF_DXT3:
         return dxtTextureSupport_ ? GL_COMPRESSED_RGBA_S3TC_DXT3_EXT : 0;
 
@@ -2158,6 +2183,8 @@ unsigned Graphics::GetMaxBones()
 #ifdef RPI
     // At the moment all RPI GPUs are low powered and only have limited number of uniforms
     return 32;
+#elif defined(MOBILE_GRAPHICS) || defined(GL_ES_VERSION_2_0)
+    return 64;
 #else
     return gl3Support ? 128 : 64;
 #endif
@@ -2269,7 +2296,7 @@ void Graphics::OnWindowResized()
 
     int logicalWidth, logicalHeight;
     SDL_GetWindowSize(window_, &logicalWidth, &logicalHeight);
-    highDPI_ = (width_ != logicalWidth) || (height_ != logicalHeight);
+    screenParams_.highDPI_ = (width_ != logicalWidth) || (height_ != logicalHeight);
 
     // Reset rendertargets and viewport for the new screen size. Also clean up any FBO's, as they may be screen size dependent
     CleanupFramebuffers();
@@ -2277,21 +2304,27 @@ void Graphics::OnWindowResized()
 
     URHO3D_LOGDEBUGF("Window was resized to %dx%d", width_, height_);
 
+#ifdef __EMSCRIPTEN__
+    EM_ASM({
+        Module.SetRendererSize($0, $1);
+    }, width_, height_);
+#endif
+
     using namespace ScreenMode;
 
     VariantMap& eventData = GetEventDataMap();
     eventData[P_WIDTH] = width_;
     eventData[P_HEIGHT] = height_;
-    eventData[P_FULLSCREEN] = fullscreen_;
-    eventData[P_RESIZABLE] = resizable_;
-    eventData[P_BORDERLESS] = borderless_;
-    eventData[P_HIGHDPI] = highDPI_;
+    eventData[P_FULLSCREEN] = screenParams_.fullscreen_;
+    eventData[P_RESIZABLE] = screenParams_.resizable_;
+    eventData[P_BORDERLESS] = screenParams_.borderless_;
+    eventData[P_HIGHDPI] = screenParams_.highDPI_;
     SendEvent(E_SCREENMODE, eventData);
 }
 
 void Graphics::OnWindowMoved()
 {
-    if (!window_ || fullscreen_)
+    if (!window_ || screenParams_.fullscreen_)
         return;
 
     int newX, newY;
@@ -2426,7 +2459,7 @@ void Graphics::Release(bool clearGPUObjects, bool closeWindow)
 
     // End fullscreen mode first to counteract transition and getting stuck problems on OS X
 #if defined(__APPLE__) && !defined(IOS) && !defined(TVOS)
-    if (closeWindow && fullscreen_ && !externalWindow_)
+    if (closeWindow && screenParams_.fullscreen_ && !externalWindow_)
         SDL_SetWindowFullscreen(window_, 0);
 #endif
 
@@ -2472,7 +2505,7 @@ void Graphics::Restore()
     // Ensure first that the context exists
     if (!impl_->context_)
     {
-#if defined(URHO3D_ANGLE_VULKAN) || defined(URHO3D_ANGLE_METAL)
+#if  defined(URHO3D_ANGLE_METAL)
         SDL_SetHint(SDL_HINT_OPENGL_ES_DRIVER, "1");
 #endif
         impl_->context_ = SDL_GL_CreateContext(window_);
@@ -2485,6 +2518,7 @@ void Graphics::Restore()
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, 0);
+            apiName_ = "GL2";
             impl_->context_ = SDL_GL_CreateContext(window_);
         }
 #endif
@@ -2504,6 +2538,7 @@ void Graphics::Restore()
 
         // Initialize OpenGL extensions library (desktop only)
 #ifndef GL_ES_VERSION_2_0
+        // desktop GL
         GLenum err = glewInit();
         if (GLEW_OK != err)
         {
@@ -2580,7 +2615,7 @@ void Graphics::SetVBO(unsigned object)
 
 void Graphics::SetUBO(unsigned object)
 {
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
     if (impl_->boundUBO_ != object)
     {
         if (object)
@@ -2632,7 +2667,9 @@ unsigned Graphics::GetRGBAFormat()
 
 unsigned Graphics::GetRGBA16Format()
 {
-#ifndef GL_ES_VERSION_2_0
+#ifdef GL_ES_VERSION_3_0
+    return GL_RGBA16UI;
+#elif !defined(GL_ES_VERSION_2_0)
     return GL_RGBA16;
 #else
     return GL_RGBA;
@@ -2641,7 +2678,9 @@ unsigned Graphics::GetRGBA16Format()
 
 unsigned Graphics::GetRGBAFloat16Format()
 {
-#ifndef GL_ES_VERSION_2_0
+#ifdef GL_ES_VERSION_3_0
+    return GL_RGBA16F;
+#elif !defined(GL_ES_VERSION_2_0)
     return GL_RGBA16F_ARB;
 #else
     return GL_RGBA;
@@ -2652,6 +2691,8 @@ unsigned Graphics::GetRGBAFloat32Format()
 {
 #ifndef GL_ES_VERSION_2_0
     return GL_RGBA32F_ARB;
+#elif URHO3D_GLES3
+    return GL_RGBA32F;
 #else
     return GL_RGBA;
 #endif
@@ -2661,6 +2702,8 @@ unsigned Graphics::GetRG16Format()
 {
 #ifndef GL_ES_VERSION_2_0
     return GL_RG16;
+#elif URHO3D_GLES3
+    return GL_RG16UI;
 #else
     return GL_RGBA;
 #endif
@@ -2668,7 +2711,7 @@ unsigned Graphics::GetRG16Format()
 
 unsigned Graphics::GetRGFloat16Format()
 {
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
     return GL_RG16F;
 #else
     return GL_RGBA;
@@ -2677,7 +2720,7 @@ unsigned Graphics::GetRGFloat16Format()
 
 unsigned Graphics::GetRGFloat32Format()
 {
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
     return GL_RG32F;
 #else
     return GL_RGBA;
@@ -2686,7 +2729,7 @@ unsigned Graphics::GetRGFloat32Format()
 
 unsigned Graphics::GetFloat16Format()
 {
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
     return GL_R16F;
 #else
     return GL_LUMINANCE;
@@ -2695,7 +2738,7 @@ unsigned Graphics::GetFloat16Format()
 
 unsigned Graphics::GetFloat32Format()
 {
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
     return GL_R32F;
 #else
     return GL_LUMINANCE;
@@ -2708,16 +2751,23 @@ unsigned Graphics::GetLinearDepthFormat()
     // OpenGL 3 can use different color attachment formats
     if (gl3Support)
         return GL_R32F;
+    else
 #endif
+#ifdef GL_ES_VERSION_3_0
+        return GL_R16F;
+#else
     // OpenGL 2 requires color attachments to have the same format, therefore encode deferred depth to RGBA manually
     // if not using a readable hardware depth texture
     return GL_RGBA;
+#endif
 }
 
 unsigned Graphics::GetDepthStencilFormat()
 {
 #ifndef GL_ES_VERSION_2_0
     return GL_DEPTH24_STENCIL8_EXT;
+#elif defined(GL_ES_VERSION_3_0)
+    return GL_DEPTH24_STENCIL8;
 #else
     return glesDepthStencilFormat;
 #endif
@@ -2727,6 +2777,8 @@ unsigned Graphics::GetReadableDepthFormat()
 {
 #ifndef GL_ES_VERSION_2_0
     return GL_DEPTH_COMPONENT24;
+#elif defined(GL_ES_VERSION_3_0)
+    return GL_DEPTH_COMPONENT16;
 #else
     return glesReadableDepthFormat;
 #endif
@@ -2777,9 +2829,11 @@ void Graphics::CheckFeatureSupport()
     // Check supported features: light pre-pass, deferred rendering and hardware depth texture
     lightPrepassSupport_ = false;
     deferredSupport_ = false;
+    rendererName_ = (const char*) glGetString(GL_RENDERER);
+    versionString_ = (const char*) glGetString(GL_VERSION);
 
-#ifndef GL_ES_VERSION_2_0
     int numSupportedRTs = 1;
+#ifndef GL_ES_VERSION_2_0
     if (gl3Support)
     {
         // Work around GLEW failure to check extensions properly from a GL3 context
@@ -2788,6 +2842,7 @@ void Graphics::CheckFeatureSupport()
         anisotropySupport_ = true;
         sRGBSupport_ = true;
         sRGBWriteSupport_ = true;
+        clipDistanceSupport_ = true;
 
         glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &numSupportedRTs);
     }
@@ -2801,12 +2856,7 @@ void Graphics::CheckFeatureSupport()
 
         glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, &numSupportedRTs);
     }
-
-    // Must support 2 rendertargets for light pre-pass, and 4 for deferred
-    if (numSupportedRTs >= 2)
-        lightPrepassSupport_ = true;
-    if (numSupportedRTs >= 4)
-        deferredSupport_ = true;
+    drawBuffersSupport_ = true;
 
 #if defined(__APPLE__) && !defined(IOS) && !defined(TVOS)
     // On macOS check for an Intel driver and use shadow map RGBA dummy color textures, because mixing
@@ -2816,7 +2866,7 @@ void Graphics::CheckFeatureSupport()
     if (renderer.Contains("Intel", false))
         dummyColorFormat_ = GetRGBAFormat();
 #endif
-#else
+#else // GL_ES_VERSION_2_0
     // Check for supported compressed texture formats
 #ifdef __EMSCRIPTEN__
     dxtTextureSupport_ = CheckExtension("WEBGL_compressed_texture_s3tc"); // https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_s3tc/
@@ -2831,17 +2881,43 @@ void Graphics::CheckFeatureSupport()
     etcTextureSupport_ = CheckExtension("OES_compressed_ETC1_RGB8_texture");
     etc2TextureSupport_ = gl3Support || CheckExtension("OES_compressed_ETC2_RGBA8_texture");
     pvrtcTextureSupport_ = CheckExtension("IMG_texture_compression_pvrtc");
-#   if defined(GL_ES_VERSION_2_0) && defined(URHO3D_ANGLE_METAL)
+#   ifdef GL_ES_VERSION_3_0
+    instancingSupport_ = true;
+    drawBuffersSupport_ = true;
+    glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &numSupportedRTs);
+#   else  // Pure GLES2
+
+    // check whether  the extention GL_OES_standard_derivatives is supported
+    glOESStandardDerivativesSupport_ = CheckExtension("GL_OES_standard_derivatives");
+
+#       if defined(URHO3D_ANGLE_METAL)
     instancingSupport_ = CheckExtension("ANGLE_instanced_arrays");
+#       endif
+
+#       ifdef GL_EXT_draw_buffers
+    if (CheckExtension("GL_EXT_draw_buffers"))
+    {
+        drawBuffersSupport_ = true;
+        glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, &numSupportedRTs);
+    }
+#       endif
 #   endif
-#endif
+
+    anisotropySupport_ = CheckExtension("EXT_texture_filter_anisotropic");
+
+    // Check if gl_ClipDistance is supproted
+    clipDistanceEXTSupport_ = CheckExtension("GL_EXT_clip_cull_distance");
+    clipDistanceAPPLESupport_ = CheckExtension("GL_APPLE_clip_distance");
+    clipDistanceSupport_ = clipDistanceEXTSupport_ || clipDistanceAPPLESupport_;
 
     // Check for best supported depth renderbuffer format for GLES2
+#ifndef GL_ES_VERSION_3_0
     if (CheckExtension("GL_OES_depth24"))
         glesDepthStencilFormat = GL_DEPTH_COMPONENT24_OES;
     if (CheckExtension("GL_OES_packed_depth_stencil"))
         glesDepthStencilFormat = GL_DEPTH24_STENCIL8_OES;
-    #ifdef __EMSCRIPTEN__
+
+#ifdef __EMSCRIPTEN__
     if (!CheckExtension("WEBGL_depth_texture"))
 #else
     if (!CheckExtension("GL_OES_depth_texture"))
@@ -2849,7 +2925,9 @@ void Graphics::CheckFeatureSupport()
     {
         shadowMapFormat_ = 0;
         hiresShadowMapFormat_ = 0;
+#ifndef GL_ES_VERSION_3_0
         glesReadableDepthFormat = 0;
+#endif
     }
     else
     {
@@ -2860,23 +2938,30 @@ void Graphics::CheckFeatureSupport()
         shadowMapFormat_ = GL_DEPTH_COMPONENT;
         hiresShadowMapFormat_ = 0;
         // WebGL shadow map rendering seems to be extremely slow without an attached dummy color texture
-        #ifdef __EMSCRIPTEN__
+#ifdef __EMSCRIPTEN__
         dummyColorFormat_ = GetRGBAFormat();
 #endif
     }
 #endif
+#endif
+#endif
+
+    // Must support 2 rendertargets for light pre-pass, and 4 for deferred
+    if (numSupportedRTs >= 2)
+        lightPrepassSupport_ = true;
+    if (numSupportedRTs >= 4)
+        deferredSupport_ = true;
 
     // Consider OpenGL shadows always hardware sampled, if supported at all
     hardwareShadowSupport_ = shadowMapFormat_ != 0;
-    
-    // check whether  the extention GL_OES_standard_derivatives is supported
-    glOESStandardDerivativesSupport_ = CheckExtension("GL_OES_standard_derivatives");
 }
 
 void Graphics::PrepareDraw()
 {
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_3_0
     if (gl3Support)
+#endif
     {
         for (PODVector<ConstantBuffer*>::Iterator i = impl_->dirtyConstantBuffers_.Begin(); i != impl_->dirtyConstantBuffers_.End(); ++i)
             (*i)->Apply();
@@ -2925,7 +3010,6 @@ void Graphics::PrepareDraw()
                 }
             }
 #endif
-
             return;
         }
 
@@ -2952,49 +3036,54 @@ void Graphics::PrepareDraw()
             impl_->boundFBO_ = i->second_.fbo_;
         }
 
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
         // Setup readbuffers & drawbuffers if needed
         if (i->second_.readBuffers_ != GL_NONE)
         {
             glReadBuffer(GL_NONE);
             i->second_.readBuffers_ = GL_NONE;
         }
+#endif
 
-        // Calculate the bit combination of non-zero color rendertargets to first check if the combination changed
-        unsigned newDrawBuffers = 0;
-        for (unsigned j = 0; j < MAX_RENDERTARGETS; ++j)
+#if !defined(URHO3D_GLES2)
+#if defined(GL_EXT_draw_buffers)
+        if (drawBuffersSupport_)
         {
-            if (renderTargets_[j])
-                newDrawBuffers |= 1u << j;
-        }
-
-        if (newDrawBuffers != i->second_.drawBuffers_)
-        {
-            // Check for no color rendertargets (depth rendering only)
-            if (!newDrawBuffers)
-                glDrawBuffer(GL_NONE);
-            else
+            // Calculate the bit combination of non-zero color rendertargets to first check if the combination changed
+            unsigned newDrawBuffers = 0;
+            for (unsigned j = 0; j < MAX_RENDERTARGETS; ++j)
             {
-                int drawBufferIds[MAX_RENDERTARGETS];
-                unsigned drawBufferCount = 0;
+                if (renderTargets_[j])
+                    newDrawBuffers |= 1u << j;
+            }
 
-                for (unsigned j = 0; j < MAX_RENDERTARGETS; ++j)
+            if (newDrawBuffers != i->second_.drawBuffers_)
+            {
+                // Check for no color rendertargets (depth rendering only)
+                if (!newDrawBuffers)
+                    glDrawBuffers(0, nullptr);
+                else
                 {
-                    if (renderTargets_[j])
+                    int drawBufferIds[MAX_RENDERTARGETS];
+                    unsigned drawBufferCount = 0;
+
+                    for (unsigned j = 0; j < MAX_RENDERTARGETS; ++j)
                     {
+#ifndef GL_ES_VERSION_3_0
                         if (!gl3Support)
                             drawBufferIds[drawBufferCount++] = GL_COLOR_ATTACHMENT0_EXT + j;
                         else
+#endif
                             drawBufferIds[drawBufferCount++] = GL_COLOR_ATTACHMENT0 + j;
                     }
+                    glDrawBuffers(drawBufferCount, (const GLenum*)drawBufferIds);
                 }
-                glDrawBuffers(drawBufferCount, (const GLenum*)drawBufferIds);
-            }
 
-            i->second_.drawBuffers_ = newDrawBuffers;
+                i->second_.drawBuffers_ = newDrawBuffers;
+            }
         }
 #endif
-
+#endif
         for (unsigned j = 0; j < MAX_RENDERTARGETS; ++j)
         {
             if (renderTargets_[j])
@@ -3042,7 +3131,7 @@ void Graphics::PrepareDraw()
         {
             // Bind either a renderbuffer or a depth texture, depending on what is available
             Texture* texture = depthStencil_->GetParentTexture();
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
             bool hasStencil = texture->GetFormat() == GL_DEPTH24_STENCIL8_EXT;
 #else
             bool hasStencil = texture->GetFormat() == GL_DEPTH24_STENCIL8_OES;
@@ -3291,14 +3380,16 @@ void Graphics::SetTextureUnitMappings()
     textureUnits_["LightSpotMap"] = TU_LIGHTSHAPE;
     textureUnits_["LightCubeMap"] = TU_LIGHTSHAPE;
     textureUnits_["ShadowMap"] = TU_SHADOWMAP;
-#ifndef GL_ES_VERSION_2_0
-    textureUnits_["VolumeMap"] = TU_VOLUMEMAP;
+#ifdef DESKTOP_GRAPHICS
     textureUnits_["FaceSelectCubeMap"] = TU_FACESELECT;
     textureUnits_["IndirectionCubeMap"] = TU_INDIRECTION;
     textureUnits_["DepthBuffer"] = TU_DEPTHBUFFER;
     textureUnits_["LightBuffer"] = TU_LIGHTBUFFER;
     textureUnits_["ZoneCubeMap"] = TU_ZONE;
+#ifndef URHO3D_GLES2
     textureUnits_["ZoneVolumeMap"] = TU_ZONE;
+    textureUnits_["VolumeMap"] = TU_VOLUMEMAP;
+#endif
 #endif
 }
 
@@ -3415,11 +3506,15 @@ bool Graphics::CheckFramebuffer()
 
 void Graphics::SetVertexAttribDivisor(unsigned location, unsigned divisor)
 {
-#ifndef GL_ES_VERSION_2_0
+#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_3_0
     if (gl3Support && instancingSupport_)
+#endif
         glVertexAttribDivisor(location, divisor);
+#ifndef GL_ES_VERSION_3_0
     else if (instancingSupport_)
         glVertexAttribDivisorARB(location, divisor);
+#endif
 #else
 #if defined(__EMSCRIPTEN__) || defined(URHO3D_ANGLE_METAL)
     if (instancingSupport_)

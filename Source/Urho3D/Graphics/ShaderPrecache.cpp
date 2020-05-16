@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2019 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -118,7 +118,7 @@ void ShaderPrecache::LoadShaders(Graphics* graphics, Deserializer& source)
         String psDefines = shader.GetAttribute("psdefines");
 
         // Check for illegal variations on OpenGL ES and skip them
-#ifdef GL_ES_VERSION_2_0
+#if defined(GL_ES_VERSION_2_0) && !defined(GL_ES_VERSION_3_0)
         if (
 #ifndef __EMSCRIPTEN__
             vsDefines.Contains("INSTANCED") ||
