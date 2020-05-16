@@ -167,7 +167,7 @@ void UI::SetCursor(Cursor* cursor)
         rootElement_->AddChild(cursor);
         cursor_ = cursor;
 
-        IntVector2 pos = cursor_->GetPosition();
+        IntVector2 pos = GetCursorPosition();
         const IntVector2& rootSize = rootElement_->GetSize();
         const IntVector2& rootPos = rootElement_->GetPosition();
         pos.x_ = Clamp(pos.x_, rootPos.x_, rootPos.x_ + rootSize.x_ - 1);
@@ -1307,7 +1307,7 @@ void UI::GetCursorPositionAndVisible(IntVector2& pos, bool& visible)
     // Prefer software cursor then OS-specific cursor
     if (cursor_ && cursor_->IsVisible())
     {
-        pos = cursor_->GetPosition();
+        pos = GetCursorPosition();
         visible = true;
     }
     else if (GetSubsystem<Input>()->GetMouseMode() == MM_RELATIVE)
@@ -1319,7 +1319,7 @@ void UI::GetCursorPositionAndVisible(IntVector2& pos, bool& visible)
         visible = input->IsMouseVisible();
 
         if (!visible && cursor_)
-            pos = cursor_->GetPosition();
+            pos = GetCursorPosition();
     }
 
     pos.x_ = (int)(pos.x_ / uiScale_);
@@ -1815,7 +1815,7 @@ void UI::HandleMouseMove(StringHash eventType, VariantMap& eventData)
             else if (cursor_->IsVisible())
             {
                 // Relative mouse motion: move cursor only when visible
-                IntVector2 pos = cursor_->GetPosition();
+                IntVector2 pos = GetCursorPosition();
                 pos += ConvertSystemToUI(mouseDeltaPos);
                 pos.x_ = Clamp(pos.x_, rootPos.x_, rootPos.x_ + rootSize.x_ - 1);
                 pos.y_ = Clamp(pos.y_, rootPos.y_, rootPos.y_ + rootSize.y_ - 1);
