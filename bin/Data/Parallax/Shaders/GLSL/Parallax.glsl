@@ -8,6 +8,13 @@
 #error PARALLAXMAP and NORMALMAP must be exclusive
 #endif
 
+
+#ifdef MOBILE_GRAPHICS
+    precision mediump float;
+#else
+    precision highp float;
+#endif
+
 // height scale
 #ifndef cHeightScale
 uniform float cHeightScale;
