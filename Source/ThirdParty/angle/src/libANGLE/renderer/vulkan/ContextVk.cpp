@@ -69,7 +69,7 @@ struct GraphicsDriverUniforms
     std::array<float, 4> depthRange;
 
     // 32 bits for 32 clip planes
-    uint32_t enabledClipPlanes{};
+    uint32_t enabledClipPlanes;
 
     float padding[3];
 };
@@ -2267,21 +2267,9 @@ angle::Result ContextVk::syncState(const gl::Context *context,
             case gl::State::DIRTY_BIT_PROVOKING_VERTEX:
                 break;
             case gl::State::DIRTY_BIT_EXTENDED:
-                for (size_t extendedBit : glState.getExtendedDirtyBits())
-                {
-                    switch (extendedBit)
-                    {
-                        case gl::State::DIRTY_BIT_EXT_CLIP_DISTANCE_ENABLED:
-                            invalidateGraphicsDriverUniforms();
-                            break;
-                        case gl::State::DIRTY_BIT_EXT_GENERATE_MIPMAP_HINT:
-                            break;
-                        case gl::State::DIRTY_BIT_EXT_SHADER_DERIVATIVE_HINT:
-                            break;
-                        default:
-                            UNREACHABLE();
-                    }
-                }
+                // Handling clip distance enabled flags, mipmap generation hint & shader derivative
+                // hint.
+                invalidateGraphicsDriverUniforms();
                 break;
             default:
                 UNREACHABLE();

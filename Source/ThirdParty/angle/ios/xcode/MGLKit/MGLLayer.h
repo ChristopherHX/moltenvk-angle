@@ -11,7 +11,8 @@
 
 #import <Foundation/Foundation.h>
 #import <QuartzCore/CALayer.h>
-#import <UIKit/UIKit.h>
+
+#import "MGLKitPlatform.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,8 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef enum MGLDrawableColorFormat : int
 {
-    MGLDrawableColorFormatRGBA8888 = 32,
-    MGLDrawableColorFormatRGB565   = 16,
+    MGLDrawableColorFormatRGBA8888  = 32,
+    MGLDrawableColorFormatSRGBA8888 = -32,
+    MGLDrawableColorFormatRGB565    = 16,
 } MGLDrawableColorFormat;
 
 typedef enum MGLDrawableStencilFormat : int
@@ -36,6 +38,12 @@ typedef enum MGLDrawableDepthFormat : int
     MGLDrawableDepthFormat24   = 24,
 } MGLDrawableDepthFormat;
 
+typedef enum MGLDrawableMultisample : int
+{
+    MGLDrawableMultisampleNone = 0,
+    MGLDrawableMultisample4X   = 4,
+} MGLDrawableMultisample;
+
 @interface MGLLayer : CALayer
 
 // Return the size of the OpenGL framebuffer.
@@ -47,6 +55,8 @@ typedef enum MGLDrawableDepthFormat : int
 @property(nonatomic) MGLDrawableColorFormat drawableColorFormat;      // Default is RGBA8888
 @property(nonatomic) MGLDrawableDepthFormat drawableDepthFormat;      // Default is DepthNone
 @property(nonatomic) MGLDrawableStencilFormat drawableStencilFormat;  // Default is StencilNone
+@property(nonatomic)
+    MGLDrawableMultisample drawableMultisample;  // Default is MGLDrawableMultisampleNone
 
 // Default value is NO. Setting to YES will keep the framebuffer data after presenting.
 // Doing so will reduce performance and increase memory usage.
