@@ -23,6 +23,7 @@
 
 // Modified by cosmy1, Yao Wei Tjong & Lasse Oorni for Urho3D
 
+#include <stdlib.h>
 
 #include <stdlib.h>
 

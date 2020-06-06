@@ -114,6 +114,25 @@ UIKIT_GLES_SetupWindow(_THIS, SDL_Window * window)
     return UIKIT_GLES_MakeCurrent(_this, current_win, current_ctx);    
 }}
 
+void UIKIT_GLES_GetDrawableSize(_THIS, SDL_Window * window,
+int * w, int * h)
+{ @autoreleasepool
+{
+    if (window ) {
+        if (_this->egl_data == NULL) {
+            if (SDL_EGL_LoadLibrary(_this, NULL, EGL_DEFAULT_DISPLAY, 0) < 0) {
+                SDL_EGL_UnloadLibrary(_this);
+                return;
+            }
+        }
+        
+        SDL_WindowData *data = (__bridge SDL_WindowData *)window->driverdata;
+        EGLDisplay display = eglGetCurrentDisplay();
+        eglQuerySurface(display, data.egl_surface, EGL_WIDTH, w);
+        eglQuerySurface(display, data.egl_surface, EGL_HEIGHT, h);
+    }
+
+}}
 #endif /* SDL_VIDEO_DRIVER_WINDOWS && SDL_VIDEO_OPENGL_EGL */
 
 /* vi: set ts=4 sw=4 expandtab: */
