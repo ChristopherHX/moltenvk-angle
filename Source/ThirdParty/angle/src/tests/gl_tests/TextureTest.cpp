@@ -5,6 +5,7 @@
 //
 
 #include "common/mathutil.h"
+#include "include/platform/FeaturesMtl.h"
 #include "test_utils/ANGLETest.h"
 #include "test_utils/gl_raii.h"
 
@@ -814,10 +815,63 @@ class TextureSizeTextureArrayTest : public TexCoordDrawTest
     GLint mTexture1Location;
 };
 
-class Texture3DTestES3 : public TexCoordDrawTest
+class Texture3DTestES2 : public TexCoordDrawTest
 {
   protected:
-    Texture3DTestES3() : TexCoordDrawTest(), mTexture3D(0), mTexture3DUniformLocation(-1) {}
+    Texture3DTestES2() : TexCoordDrawTest(), mTexture3D(0), mTexture3DUniformLocation(-1) {}
+
+    const char *getVertexShaderSource() override
+    {
+        return "#version 100\n"
+               "varying vec2 texcoord;\n"
+               "attribute vec4 position;\n"
+               "void main()\n"
+               "{\n"
+               "    gl_Position = vec4(position.xy, 0.0, 1.0);\n"
+               "    texcoord = (position.xy * 0.5) + 0.5;\n"
+               "}\n";
+    }
+
+    const char *getFragmentShaderSource() override
+    {
+        return "#version 100\n"
+               "#extension GL_OES_texture_3D : enable\n"
+               "precision highp float;\n"
+               "uniform highp sampler3D tex3D;\n"
+               "uniform highp float level;\n"
+               "varying vec2 texcoord;\n"
+               "void main()\n"
+               "{\n"
+               "    gl_FragColor = texture3DLod(tex3D, vec3(texcoord, 0.0), level);\n"
+               "}\n";
+    }
+
+    void testSetUp() override
+    {
+        TexCoordDrawTest::testSetUp();
+
+        glGenTextures(1, &mTexture3D);
+
+        setUpProgram();
+
+        mTexture3DUniformLocation = glGetUniformLocation(mProgram, "tex3D");
+        ASSERT_NE(-1, mTexture3DUniformLocation);
+    }
+
+    void testTearDown() override
+    {
+        glDeleteTextures(1, &mTexture3D);
+        TexCoordDrawTest::testTearDown();
+    }
+
+    GLuint mTexture3D;
+    GLint mTexture3DUniformLocation;
+};
+
+class Texture3DTestES3 : public Texture3DTestES2
+{
+  protected:
+    Texture3DTestES3() : Texture3DTestES2() {}
 
     const char *getVertexShaderSource() override
     {
@@ -843,27 +897,110 @@ class Texture3DTestES3 : public TexCoordDrawTest
                "    fragColor = texture(tex3D, vec3(texcoord, 0.0));\n"
                "}\n";
     }
+};
+
+class ShadowSamplerTestES3 : public TexCoordDrawTest
+{
+  protected:
+    ShadowSamplerTestES3()
+        : TexCoordDrawTest(),
+          mTextureShadow(0),
+          mTextureShadowUniformLocation(-1),
+          mDepthRefUniformLocation(-1)
+    {}
+
+    const char *getVertexShaderSource() override
+    {
+        return "#version 300 es\n"
+               "out vec2 texcoord;\n"
+               "in vec4 position;\n"
+               "void main()\n"
+               "{\n"
+               "    gl_Position = vec4(position.xy, 0.0, 1.0);\n"
+               "    texcoord = (position.xy * 0.5) + 0.5;\n"
+               "}\n";
+    }
+
+    const char *getFragmentShaderSource() override
+    {
+        return "#version 300 es\n"
+               "precision highp float;\n"
+               "uniform highp sampler2DShadow tex2DShadow;\n"
+               "in vec2 texcoord;\n"
+               "uniform float depthRef;\n"
+               "out vec4 fragColor;\n"
+               "void main()\n"
+               "{\n"
+               "    fragColor = vec4(texture(tex2DShadow, vec3(texcoord, depthRef)) * 0.5);\n"
+               "    fragColor.a = 1.0;\n"
+               "}\n";
+    }
+
+    void setupLodProgram()
+    {
+        const char kFS[] =
+            "#version 300 es\n"
+            "precision highp float;\n"
+            "uniform highp sampler2DShadow tex2DShadow;\n"
+            "in vec2 texcoord;\n"
+            "uniform float depthRef;\n"
+            "uniform float lod;\n"
+            "out vec4 fragColor;\n"
+            "void main()\n"
+            "{\n"
+            "    fragColor = vec4(textureLod(tex2DShadow, vec3(texcoord, depthRef), lod) * 0.5);\n"
+            "    fragColor.a = 1.0;\n"
+            "}\n";
+
+        mLodProgram = CompileProgram(getVertexShaderSource(), kFS);
+    }
 
     void testSetUp() override
     {
         TexCoordDrawTest::testSetUp();
 
-        glGenTextures(1, &mTexture3D);
+        glGenTextures(1, &mTextureShadow);
+        glBindTexture(GL_TEXTURE_2D, mTextureShadow);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
 
         setUpProgram();
+        setupLodProgram();
 
-        mTexture3DUniformLocation = glGetUniformLocation(mProgram, "tex3D");
-        ASSERT_NE(-1, mTexture3DUniformLocation);
+        mTextureShadowUniformLocation = glGetUniformLocation(mProgram, "tex2DShadow");
+        ASSERT_NE(-1, mTextureShadowUniformLocation);
+        mDepthRefUniformLocation = glGetUniformLocation(mProgram, "depthRef");
+        ASSERT_NE(-1, mDepthRefUniformLocation);
+
+        mLodProgramTextureShadowUniformLocation = glGetUniformLocation(mLodProgram, "tex2DShadow");
+        ASSERT_NE(-1, mLodProgramTextureShadowUniformLocation);
+        mLodProgramDepthRefUniformLocation = glGetUniformLocation(mLodProgram, "depthRef");
+        ASSERT_NE(-1, mLodProgramDepthRefUniformLocation);
+        mLodProgramLodUniformLocation = glGetUniformLocation(mLodProgram, "lod");
+        ASSERT_NE(-1, mLodProgramLodUniformLocation);
     }
 
     void testTearDown() override
     {
-        glDeleteTextures(1, &mTexture3D);
+        glDeleteTextures(1, &mTextureShadow);
         TexCoordDrawTest::testTearDown();
     }
 
-    GLuint mTexture3D;
-    GLint mTexture3DUniformLocation;
+    GLuint mLodProgram;
+    GLuint mTextureShadow;
+    GLint mTextureShadowUniformLocation;
+    GLint mDepthRefUniformLocation;
+    GLint mLodProgramTextureShadowUniformLocation;
+    GLint mLodProgramDepthRefUniformLocation;
+    GLint mLodProgramLodUniformLocation;
+};
+
+class SimulatedMissingRuntimeCompareModeShadowSamplerTestES3 : public ShadowSamplerTestES3
+{
+  protected:
+    void overrideFeaturesMetal(FeaturesMtl *features) override
+    {
+        features->overrideFeatures({"allow_runtime_sampler_compare_mode"}, false);
+    }
 };
 
 class ShadowSamplerPlusSampler3DTestES3 : public TexCoordDrawTest
@@ -1739,7 +1876,7 @@ TEST_P(Texture2DTest, TexStorage)
 // initialized the image with a default color.
 TEST_P(Texture2DTest, TexStorageWithPBO)
 {
-    if (IsGLExtensionEnabled("NV_pixel_buffer_object"))
+    if (IsGLExtensionEnabled("GL_NV_pixel_buffer_object"))
     {
         int width  = getWindowWidth();
         int height = getWindowHeight();
@@ -1749,13 +1886,22 @@ TEST_P(Texture2DTest, TexStorageWithPBO)
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, tex2D);
 
-        // Fill with red
+        // Fill with red, with middle one as green
         std::vector<GLubyte> pixels(3 * 16 * 16);
         for (size_t pixelId = 0; pixelId < 16 * 16; ++pixelId)
         {
-            pixels[pixelId * 3 + 0] = 255;
-            pixels[pixelId * 3 + 1] = 0;
-            pixels[pixelId * 3 + 2] = 0;
+            if (pixelId == 8 * 7 + 7)
+            {
+                pixels[pixelId * 3 + 0] = 0;
+                pixels[pixelId * 3 + 1] = 255;
+                pixels[pixelId * 3 + 2] = 0;
+            }
+            else
+            {
+                pixels[pixelId * 3 + 0] = 255;
+                pixels[pixelId * 3 + 1] = 0;
+                pixels[pixelId * 3 + 2] = 0;
+            }
         }
 
         // Read 16x16 region from red backbuffer to PBO
@@ -1772,8 +1918,8 @@ TEST_P(Texture2DTest, TexStorageWithPBO)
         // Initializes the color of the upper-left 8x8 pixels, leaves the other pixels untouched.
         // glTexSubImage2D should take into account that the image is dirty.
         glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 8, 8, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
         setUpProgram();
 
@@ -1785,6 +1931,222 @@ TEST_P(Texture2DTest, TexStorageWithPBO)
         EXPECT_GL_NO_ERROR();
         EXPECT_PIXEL_EQ(3 * width / 4, 3 * height / 4, 0, 0, 0, 255);
         EXPECT_PIXEL_EQ(width / 4, height / 4, 255, 0, 0, 255);
+        EXPECT_PIXEL_EQ(width / 2 - 1, height / 2 - 1, 0, 255, 0, 255);
+    }
+}
+
+TEST_P(Texture2DTest, TexStorageWithLuminancePBO)
+{
+    if (IsGLExtensionEnabled("GL_NV_pixel_buffer_object"))
+    {
+        int width  = getWindowWidth();
+        int height = getWindowHeight();
+
+        GLuint tex2D;
+        glGenTextures(1, &tex2D);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, tex2D);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, 16, 16, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE,
+                     nullptr);
+
+        // Fill with white, with middle one as grey
+        std::vector<GLubyte> pixels(16 * 16);
+        for (size_t pixelId = 0; pixelId < 16 * 16; ++pixelId)
+        {
+            if (pixelId == 8 * 7 + 7)
+            {
+                pixels[pixelId] = 128;
+            }
+            else
+            {
+                pixels[pixelId] = 255;
+            }
+        }
+
+        // Read 16x16 region from red backbuffer to PBO
+        GLuint pbo;
+        glGenBuffers(1, &pbo);
+        glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo);
+        glBufferData(GL_PIXEL_UNPACK_BUFFER, 16 * 16, pixels.data(), GL_STATIC_DRAW);
+
+        // Initializes the color of the upper-left 8x8 pixels, leaves the other pixels untouched.
+        // glTexSubImage2D should take into account that the image is dirty.
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 8, 8, GL_LUMINANCE, GL_UNSIGNED_BYTE, nullptr);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+        setUpProgram();
+
+        glUseProgram(mProgram);
+        glUniform1i(mTexture2DUniformLocation, 0);
+        drawQuad(mProgram, "position", 0.5f);
+        glDeleteTextures(1, &tex2D);
+        glDeleteBuffers(1, &pbo);
+        EXPECT_GL_NO_ERROR();
+        EXPECT_PIXEL_EQ(width / 4, height / 4, 255, 255, 255, 255);
+        EXPECT_PIXEL_NEAR(width / 2 - 1, height / 2 - 1, 128, 128, 128, 255, 1);
+    }
+}
+
+TEST_P(Texture2DTest, TexStorageWithRGB565PBO)
+{
+    if (IsGLExtensionEnabled("GL_NV_pixel_buffer_object"))
+    {
+        int width  = getWindowWidth();
+        int height = getWindowHeight();
+
+        GLuint tex2D;
+        glGenTextures(1, &tex2D);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, tex2D);
+
+        // Fill with red, with middle one as green
+        std::vector<GLushort> pixels(16 * 16);
+        for (size_t pixelId = 0; pixelId < 16 * 16; ++pixelId)
+        {
+            if (pixelId == 8 * 7 + 8)
+            {
+                pixels[pixelId] = 0x7E0;
+            }
+            else
+            {
+                pixels[pixelId] = 0xF800;
+            }
+        }
+
+        // Read 16x16 region from red backbuffer to PBO
+        GLuint pbo;
+        glGenBuffers(1, &pbo);
+        glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo);
+        glBufferData(GL_PIXEL_UNPACK_BUFFER, 2 * 16 * 16, pixels.data(), GL_STATIC_DRAW);
+
+        glTexStorage2DEXT(GL_TEXTURE_2D, 1, GL_RGB565, 16, 16);
+
+        // Initializes the color of the upper-left 8x8 pixels, leaves the other pixels untouched.
+        // glTexSubImage2D should take into account that the image is dirty.
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 8, 8, GL_RGB, GL_UNSIGNED_SHORT_5_6_5,
+                        reinterpret_cast<void *>(2));
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+        setUpProgram();
+
+        glUseProgram(mProgram);
+        glUniform1i(mTexture2DUniformLocation, 0);
+        drawQuad(mProgram, "position", 0.5f);
+        glDeleteTextures(1, &tex2D);
+        glDeleteBuffers(1, &pbo);
+        EXPECT_GL_NO_ERROR();
+        EXPECT_PIXEL_EQ(width / 4, height / 4, 255, 0, 0, 255);
+        EXPECT_PIXEL_EQ(width / 2 - 1, height / 2 - 1, 0, 255, 0, 255);
+    }
+}
+
+TEST_P(Texture2DTest, TexStorageWithRGBA4444PBO)
+{
+    if (IsGLExtensionEnabled("GL_NV_pixel_buffer_object"))
+    {
+        int width  = getWindowWidth();
+        int height = getWindowHeight();
+
+        GLuint tex2D;
+        glGenTextures(1, &tex2D);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, tex2D);
+
+        // Fill with red, with middle one as green
+        std::vector<GLushort> pixels(16 * 16);
+        for (size_t pixelId = 0; pixelId < 16 * 16; ++pixelId)
+        {
+            if (pixelId == 8 * 7 + 8)
+            {
+                pixels[pixelId] = 0xF0F;
+            }
+            else
+            {
+                pixels[pixelId] = 0xF00F;
+            }
+        }
+
+        // Read 16x16 region from red backbuffer to PBO
+        GLuint pbo;
+        glGenBuffers(1, &pbo);
+        glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo);
+        glBufferData(GL_PIXEL_UNPACK_BUFFER, 2 * 16 * 16, pixels.data(), GL_STATIC_DRAW);
+
+        glTexStorage2DEXT(GL_TEXTURE_2D, 1, GL_RGBA4, 16, 16);
+
+        // Initializes the color of the upper-left 8x8 pixels, leaves the other pixels untouched.
+        // glTexSubImage2D should take into account that the image is dirty.
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 8, 8, GL_RGBA, GL_UNSIGNED_SHORT_4_4_4_4,
+                        reinterpret_cast<void *>(2));
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+        setUpProgram();
+
+        glUseProgram(mProgram);
+        glUniform1i(mTexture2DUniformLocation, 0);
+        drawQuad(mProgram, "position", 0.5f);
+        glDeleteTextures(1, &tex2D);
+        glDeleteBuffers(1, &pbo);
+        EXPECT_GL_NO_ERROR();
+        EXPECT_PIXEL_EQ(width / 4, height / 4, 255, 0, 0, 255);
+        EXPECT_PIXEL_EQ(width / 2 - 1, height / 2 - 1, 0, 255, 0, 255);
+    }
+}
+
+TEST_P(Texture2DTest, TexStorageWithRGBA5551PBO)
+{
+    if (IsGLExtensionEnabled("GL_NV_pixel_buffer_object"))
+    {
+        int width  = getWindowWidth();
+        int height = getWindowHeight();
+
+        GLuint tex2D;
+        glGenTextures(1, &tex2D);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, tex2D);
+
+        // Fill with red, with middle one as green
+        std::vector<GLushort> pixels(16 * 16);
+        for (size_t pixelId = 0; pixelId < 16 * 16; ++pixelId)
+        {
+            if (pixelId == 8 * 7 + 7)
+            {
+                pixels[pixelId] = 0x7C1;
+            }
+            else
+            {
+                pixels[pixelId] = 0xF801;
+            }
+        }
+
+        // Read 16x16 region from red backbuffer to PBO
+        GLuint pbo;
+        glGenBuffers(1, &pbo);
+        glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo);
+        glBufferData(GL_PIXEL_UNPACK_BUFFER, 2 * 16 * 16, pixels.data(), GL_STATIC_DRAW);
+
+        glTexStorage2DEXT(GL_TEXTURE_2D, 1, GL_RGB5_A1, 16, 16);
+
+        // Initializes the color of the upper-left 8x8 pixels, leaves the other pixels untouched.
+        // glTexSubImage2D should take into account that the image is dirty.
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 8, 8, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, nullptr);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+        setUpProgram();
+
+        glUseProgram(mProgram);
+        glUniform1i(mTexture2DUniformLocation, 0);
+        drawQuad(mProgram, "position", 0.5f);
+        glDeleteTextures(1, &tex2D);
+        glDeleteBuffers(1, &pbo);
+        EXPECT_GL_NO_ERROR();
+        EXPECT_PIXEL_EQ(width / 4, height / 4, 255, 0, 0, 255);
+        EXPECT_PIXEL_EQ(width / 2 - 1, height / 2 - 1, 0, 255, 0, 255);
     }
 }
 
@@ -1959,6 +2321,204 @@ TEST_P(Texture2DTest, NPOTSubImageParameters)
     glTexSubImage2D(GL_TEXTURE_2D, 1, 0, 0, 3, 3, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
 
     EXPECT_GL_NO_ERROR();
+}
+
+// Test mixing array of textures and single texture work correctly
+TEST_P(Texture2DTest, MultipleArrayAndTextures)
+{
+    const char kFS[] =
+        "precision highp float;\n"
+        "uniform highp sampler2D tex2D[2];\n"
+        "uniform highp sampler2D tex2D2;\n"
+        "varying vec2 texcoord;\n"
+        "void main()\n"
+        "{\n"
+        "    gl_FragColor.r = texture2D(tex2D[0], texcoord).r;\n"
+        "    gl_FragColor.g = texture2D(tex2D[1], texcoord).g;\n"
+        "    gl_FragColor.b = texture2D(tex2D2, texcoord).b;\n"
+        "    gl_FragColor.a = 1.0;\n"
+        "}\n";
+
+    GLProgram program;
+    program.makeRaster(getVertexShaderSource(), kFS);
+
+    GLint sampler0Location = glGetUniformLocation(program, "tex2D[0]");
+    GLint sampler1Location = glGetUniformLocation(program, "tex2D[1]");
+    GLint sampler2Location = glGetUniformLocation(program, "tex2D2");
+
+    EXPECT_NE(sampler0Location, -1);
+    EXPECT_NE(sampler1Location, -1);
+    EXPECT_NE(sampler2Location, -1);
+
+    // First texture
+    glActiveTexture(GL_TEXTURE0);
+    GLTexture tempTex;
+    glBindTexture(GL_TEXTURE_2D, tempTex);
+    GLColor tempTexData = GLColor(125, 125, 125, 255);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, tempTexData.data());
+
+    // Second texture
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, mTexture2D);
+    tempTexData = GLColor(200, 200, 200, 255);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, tempTexData.data());
+
+    // Third texture
+    glActiveTexture(GL_TEXTURE10);
+    GLTexture tempTex2;
+    glBindTexture(GL_TEXTURE_2D, tempTex2);
+    tempTexData = GLColor(64, 64, 64, 255);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, tempTexData.data());
+
+    glUseProgram(program);
+    glUniform1i(sampler0Location, 0);
+    glUniform1i(sampler1Location, 1);
+    glUniform1i(sampler2Location, 10);
+
+    drawQuad(program, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // This writes <comparison result (1.0)>, <depth value>, <comparison result (1.0)>, 1
+    EXPECT_PIXEL_NEAR(0, 0, 125, 200, 64, 255, 2);
+}
+
+// Test that drawing works correctly RGBA 3D texture
+TEST_P(Texture3DTestES2, RGBA)
+{
+    ANGLE_SKIP_TEST_IF(!IsGLExtensionEnabled("GL_OES_texture_3D"));
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_3D, mTexture3D);
+    std::vector<GLColor> texDataGreen(2u * 2u * 2u, GLColor::green);
+    std::vector<GLColor> texDataRed(1u * 1u * 1u, GLColor::red);
+    glTexImage3DOES(GL_TEXTURE_3D, 0, GL_RGBA, 2, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE,
+                    texDataGreen.data());
+    glTexImage3DOES(GL_TEXTURE_3D, 1, GL_RGBA, 1, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE,
+                    texDataRed.data());
+    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+    EXPECT_GL_NO_ERROR();
+
+    drawQuad(mProgram, "position", 0.5f);
+
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::green);
+}
+
+// Test that drawing works correctly Luminance 3D texture
+TEST_P(Texture3DTestES2, Luminance)
+{
+    ANGLE_SKIP_TEST_IF(!IsGLExtensionEnabled("GL_OES_texture_3D"));
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_3D, mTexture3D);
+    std::vector<GLubyte> texData(2u * 2u * 2u, 125);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glTexImage3DOES(GL_TEXTURE_3D, 0, GL_LUMINANCE, 2, 2, 2, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE,
+                    texData.data());
+    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+    EXPECT_GL_NO_ERROR();
+
+    drawQuad(mProgram, "position", 0.5f);
+
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor(125, 125, 125, 255));
+}
+
+// Test that drawing works correctly with glCopyTexSubImage3D
+TEST_P(Texture3DTestES2, CopySubImageRGBA)
+{
+    ANGLE_SKIP_TEST_IF(!IsGLExtensionEnabled("GL_OES_texture_3D"));
+
+    glClearColor(0, 0, 1, 1);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_3D, mTexture3D);
+    std::vector<GLColor> texDataRed(4u * 4u * 4u, GLColor::red);
+    glTexImage3DOES(GL_TEXTURE_3D, 0, GL_RGBA, 4, 4, 4, 0, GL_RGBA, GL_UNSIGNED_BYTE,
+                    texDataRed.data());
+    glTexImage3DOES(GL_TEXTURE_3D, 1, GL_RGBA, 2, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE,
+                    texDataRed.data());
+    glTexImage3DOES(GL_TEXTURE_3D, 2, GL_RGBA, 1, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE,
+                    texDataRed.data());
+    glCopyTexSubImage3DOES(GL_TEXTURE_3D, 1, 0, 0, 0, 0, 0, 2, 2);
+    glCopyTexSubImage3DOES(GL_TEXTURE_3D, 1, 0, 0, 1, 0, 0, 2, 2);
+    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+
+    EXPECT_GL_NO_ERROR();
+
+    glClearColor(0, 1, 0, 1);
+    glClear(GL_COLOR_BUFFER_BIT);
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::green);
+
+    glUseProgram(mProgram);
+    glUniform1f(glGetUniformLocation(mProgram, "level"), 1);
+    drawQuad(mProgram, "position", 0.5f);
+
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::blue);
+}
+
+TEST_P(Texture3DTestES2, CopySubImageLuminance)
+{
+    ANGLE_SKIP_TEST_IF(!IsGLExtensionEnabled("GL_OES_texture_3D"));
+
+    glClearColor(1, 0, 0, 1);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_3D, mTexture3D);
+    glTexImage3DOES(GL_TEXTURE_3D, 0, GL_LUMINANCE, 4, 4, 4, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE,
+                    nullptr);
+    glTexImage3DOES(GL_TEXTURE_3D, 1, GL_LUMINANCE, 2, 2, 2, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE,
+                    nullptr);
+    glTexImage3DOES(GL_TEXTURE_3D, 2, GL_LUMINANCE, 1, 1, 1, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE,
+                    nullptr);
+    glCopyTexSubImage3DOES(GL_TEXTURE_3D, 1, 0, 0, 0, 0, 0, 2, 2);
+    glCopyTexSubImage3DOES(GL_TEXTURE_3D, 1, 0, 0, 1, 0, 0, 2, 2);
+    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+
+    EXPECT_GL_NO_ERROR();
+
+    glClearColor(0, 1, 0, 1);
+    glClear(GL_COLOR_BUFFER_BIT);
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::green);
+
+    glUseProgram(mProgram);
+    glUniform1f(glGetUniformLocation(mProgram, "level"), 1);
+    drawQuad(mProgram, "position", 0.5f);
+
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::white);
+}
+
+TEST_P(Texture3DTestES2, CopySubImageAlpha)
+{
+    ANGLE_SKIP_TEST_IF(!IsGLExtensionEnabled("GL_OES_texture_3D"));
+
+    glClearColor(1, 0, 0, 0.5);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_3D, mTexture3D);
+    glTexImage3DOES(GL_TEXTURE_3D, 0, GL_ALPHA, 4, 4, 4, 0, GL_ALPHA, GL_UNSIGNED_BYTE, nullptr);
+    glTexImage3DOES(GL_TEXTURE_3D, 1, GL_ALPHA, 2, 2, 2, 0, GL_ALPHA, GL_UNSIGNED_BYTE, nullptr);
+    glTexImage3DOES(GL_TEXTURE_3D, 2, GL_ALPHA, 1, 1, 1, 0, GL_ALPHA, GL_UNSIGNED_BYTE, nullptr);
+    glCopyTexSubImage3DOES(GL_TEXTURE_3D, 1, 0, 0, 0, 0, 0, 2, 2);
+    glCopyTexSubImage3DOES(GL_TEXTURE_3D, 1, 0, 0, 1, 0, 0, 2, 2);
+    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+
+    EXPECT_GL_NO_ERROR();
+
+    glClearColor(0, 1, 0, 1);
+    glClear(GL_COLOR_BUFFER_BIT);
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::green);
+
+    glUseProgram(mProgram);
+    glUniform1f(glGetUniformLocation(mProgram, "level"), 1);
+    drawQuad(mProgram, "position", 0.5f);
+
+    EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor(0, 0, 0, 128));
 }
 
 // Regression test for http://crbug.com/949985 to make sure dirty bits are propagated up from
@@ -2625,6 +3185,458 @@ TEST_P(Texture2DArrayTestES3, RedefineInittableArray)
     EXPECT_PIXEL_COLOR_EQ(0, 0, GLColor::green);
 
     ASSERT_GL_NO_ERROR();
+}
+
+// Test that shadow sampler with compare mode = GL_COMPARE_REF_TO_TEXTURE will return comparison
+// value
+TEST_P(ShadowSamplerTestES3, ShadowSamplerCompareOn)
+{
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, mTextureShadow);
+    GLfloat depthTexData[1];
+    depthTexData[0] = 0.5f;
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, 1, 1, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 depthTexData);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+
+    glUseProgram(mProgram);
+    glUniform1f(mDepthRefUniformLocation, 0.3f);
+    glUniform1i(mTextureShadowUniformLocation, 1);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+    drawQuad(mProgram, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // The shader writes 0.5 * <comparison result (1.0)>
+    EXPECT_PIXEL_NEAR(0, 0, 128, 128, 128, 255, 2);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_GREATER);
+    drawQuad(mProgram, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // The shader writes 0.5 * <comparison result (0.0)>
+    EXPECT_PIXEL_NEAR(0, 0, 0, 0, 0, 255, 2);
+}
+
+// Test that shadow sampler with compare mode = GL_NONE will return depth value
+TEST_P(ShadowSamplerTestES3, ShadowSamplerCompareOff)
+{
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, mTextureShadow);
+    GLfloat depthTexData[1];
+    depthTexData[0] = 0.5f;
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, 1, 1, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 depthTexData);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
+
+    glUseProgram(mProgram);
+    glUniform1f(mDepthRefUniformLocation, 0.3f);
+    glUniform1i(mTextureShadowUniformLocation, 1);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+    drawQuad(mProgram, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // The shader writes 0.5 * <depth texture value>
+    EXPECT_PIXEL_NEAR(0, 0, 64, 64, 64, 255, 2);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_GREATER);
+    drawQuad(mProgram, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // The shader writes 0.5 * <depth texture value>
+    EXPECT_PIXEL_NEAR(0, 0, 64, 64, 64, 255, 2);
+}
+
+// Test that shadow sampler with compare mode = GL_COMPARE_REF_TO_TEXTURE and lod=1 will return
+// correct comparison value
+TEST_P(ShadowSamplerTestES3, ShadowSamplerLodCompareOn)
+{
+
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, mTextureShadow);
+    GLfloat depthTexData[5];
+    depthTexData[0] = 0.5f;
+    depthTexData[1] = 0.5f;
+    depthTexData[2] = 0.5f;
+    depthTexData[3] = 0.5f;
+    depthTexData[4] = 0.4f;
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, 2, 2, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 depthTexData);
+    glTexImage2D(GL_TEXTURE_2D, 1, GL_DEPTH_COMPONENT32F, 1, 1, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 depthTexData + 4);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+
+    glUseProgram(mLodProgram);
+    glUniform1f(mLodProgramDepthRefUniformLocation, 0.45f);
+    glUniform1i(mLodProgramTextureShadowUniformLocation, 1);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+    glUniform1f(mLodProgramLodUniformLocation, 0);
+    drawQuad(mLodProgram, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // The shader writes 0.5 * <comparison result (1.0)>
+    EXPECT_PIXEL_NEAR(0, 0, 128, 128, 128, 255, 2);
+
+    glUniform1f(mLodProgramLodUniformLocation, 1);
+    drawQuad(mLodProgram, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // The shader writes 0.5 * <comparison result (0.0)>
+    EXPECT_PIXEL_NEAR(0, 0, 0, 0, 0, 255, 2);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_GREATER);
+    glUniform1f(mLodProgramLodUniformLocation, 1);
+    drawQuad(mLodProgram, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // The shader writes 0.5 * <comparison result (1.0)>
+    EXPECT_PIXEL_NEAR(0, 0, 128, 128, 128, 255, 2);
+}
+
+// Test that shadow sampler with compare mode = GL_NONE and lod=1 will return depth value
+TEST_P(ShadowSamplerTestES3, ShadowSamplerLodCompareOff)
+{
+
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, mTextureShadow);
+    GLfloat depthTexData[5];
+    depthTexData[0] = 0.5f;
+    depthTexData[1] = 0.5f;
+    depthTexData[2] = 0.5f;
+    depthTexData[3] = 0.5f;
+    depthTexData[4] = 0.4f;
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, 2, 2, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 depthTexData);
+    glTexImage2D(GL_TEXTURE_2D, 1, GL_DEPTH_COMPONENT32F, 1, 1, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 depthTexData + 4);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
+
+    glUseProgram(mLodProgram);
+    glUniform1f(mLodProgramDepthRefUniformLocation, 0.45f);
+    glUniform1i(mLodProgramTextureShadowUniformLocation, 1);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+    glUniform1f(mLodProgramLodUniformLocation, 0);
+    drawQuad(mLodProgram, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // The shader writes 0.5 * <depth value>
+    EXPECT_PIXEL_NEAR(0, 0, 64, 64, 64, 255, 2);
+
+    glUniform1f(mLodProgramLodUniformLocation, 1);
+    drawQuad(mLodProgram, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // The shader writes 0.5 * <depth value>
+    EXPECT_PIXEL_NEAR(0, 0, 51, 51, 51, 255, 2);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_GREATER);
+    glUniform1f(mLodProgramLodUniformLocation, 1);
+    drawQuad(mLodProgram, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // The shader writes 0.5 * <depth value>
+    EXPECT_PIXEL_NEAR(0, 0, 51, 51, 51, 255, 2);
+}
+
+// Test that an array of shadow sampler with compare mode = GL_COMPARE_REF_TO_TEXTURE and lod=1 will
+// return correct comparison value
+TEST_P(ShadowSamplerTestES3, ArrayOfShadowSamplerLodCompareOn)
+{
+    const char kFS[] =
+        "#version 300 es\n"
+        "precision highp float;\n"
+        "uniform highp sampler2DShadow tex2DShadow[2];\n"
+        "in vec2 texcoord;\n"
+        "uniform float depthRef;\n"
+        "uniform float lod;\n"
+        "uniform int index;\n"
+        "out vec4 fragColor;\n"
+        "vec4 depthSample2(highp sampler2DShadow texShadow)\n"
+        "{\n"
+        "    return vec4(textureLod(texShadow, vec3(texcoord, depthRef), lod) * 0.5);\n"
+        "}\n"
+        "vec4 depthSample1()\n"
+        "{\n"
+        "    return depthSample2(tex2DShadow[index]);\n"
+        "}\n"
+        "\n"
+        "void main()\n"
+        "{\n"
+        "    fragColor = depthSample1();\n"
+        "    fragColor.a = 1.0;\n"
+        "}\n";
+
+    GLProgram program;
+    program.makeRaster(getVertexShaderSource(), kFS);
+
+    GLint depthRefLocation = glGetUniformLocation(program, "depthRef");
+    GLint sampler0Location = glGetUniformLocation(program, "tex2DShadow[0]");
+    GLint sampler1Location = glGetUniformLocation(program, "tex2DShadow[1]");
+    GLint lodLocation      = glGetUniformLocation(program, "lod");
+    GLint indexLocation    = glGetUniformLocation(program, "index");
+
+    EXPECT_NE(depthRefLocation, -1);
+    EXPECT_NE(sampler0Location, -1);
+    EXPECT_NE(sampler1Location, -1);
+    EXPECT_NE(lodLocation, -1);
+    EXPECT_NE(indexLocation, -1);
+
+    glActiveTexture(GL_TEXTURE0);
+    GLTexture tempTex;
+    glBindTexture(GL_TEXTURE_2D, tempTex);
+    GLfloat tempDepthTexData = 0.0f;
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, 1, 1, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 &tempDepthTexData);
+
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, mTextureShadow);
+    GLfloat depthTexData[5];
+    depthTexData[0] = 0.5f;
+    depthTexData[1] = 0.5f;
+    depthTexData[2] = 0.5f;
+    depthTexData[3] = 0.5f;
+    depthTexData[4] = 0.4f;
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, 2, 2, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 depthTexData);
+    glTexImage2D(GL_TEXTURE_2D, 1, GL_DEPTH_COMPONENT32F, 1, 1, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 depthTexData + 4);
+
+    glUseProgram(program);
+    glUniform1f(depthRefLocation, 0.45f);
+    glUniform1i(sampler0Location, 0);
+    glUniform1i(sampler1Location, 1);
+    glUniform1i(indexLocation, 1);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+    glUniform1f(lodLocation, 0);
+    drawQuad(program, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // The shader writes 0.5 * <comparison result (1.0)>
+    EXPECT_PIXEL_NEAR(0, 0, 128, 128, 128, 255, 2);
+
+    glUniform1f(lodLocation, 1);
+    drawQuad(program, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // The shader writes 0.5 * <comparison result (0.0)>
+    EXPECT_PIXEL_NEAR(0, 0, 0, 0, 0, 255, 2);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_GREATER);
+    glUniform1f(lodLocation, 1);
+    drawQuad(program, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // The shader writes 0.5 * <comparison result (1.0)>
+    EXPECT_PIXEL_NEAR(0, 0, 128, 128, 128, 255, 2);
+}
+
+// Test that an array of shadow sampler dynamic index will
+// return correct comparison value
+TEST_P(ShadowSamplerTestES3, ArrayOfShadowSamplerDynamicIndex)
+{
+    const char kFS[] =
+        "#version 300 es\n"
+        "precision highp float;\n"
+        "uniform highp sampler2DShadow tex2DShadow[2];\n"
+        "in vec2 texcoord;\n"
+        "uniform float depthRef;\n"
+        "out vec4 fragColor;\n"
+        "vec4 depthSample2(highp sampler2DShadow texShadow)\n"
+        "{\n"
+        "    return vec4(texture(texShadow, vec3(texcoord, depthRef)) * 0.5);\n"
+        "}\n"
+        "vec4 depthSample1()\n"
+        "{\n"
+        "    if (gl_FragCoord.x < 10.0)\n"
+        "    {\n"
+        "        return depthSample2(tex2DShadow[0]);\n"
+        "    }\n"
+        "    else\n"
+        "    {\n"
+        "        return depthSample2(tex2DShadow[1]);\n"
+        "    }\n"
+        "}\n"
+        "\n"
+        "void main()\n"
+        "{\n"
+        "    fragColor = depthSample1();\n"
+        "    fragColor.a = 1.0;\n"
+        "}\n";
+
+    GLProgram program;
+    program.makeRaster(getVertexShaderSource(), kFS);
+
+    GLint depthRefLocation = glGetUniformLocation(program, "depthRef");
+    GLint sampler0Location = glGetUniformLocation(program, "tex2DShadow[0]");
+    GLint sampler1Location = glGetUniformLocation(program, "tex2DShadow[1]");
+
+    EXPECT_NE(depthRefLocation, -1);
+    EXPECT_NE(sampler0Location, -1);
+    EXPECT_NE(sampler1Location, -1);
+
+    glActiveTexture(GL_TEXTURE0);
+    GLTexture tempTex;
+    glBindTexture(GL_TEXTURE_2D, tempTex);
+    GLfloat tempDepthTexData = 0.0f;
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, 1, 1, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 &tempDepthTexData);
+
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, mTextureShadow);
+    GLfloat depthTexData[5];
+    depthTexData[0] = 0.5f;
+    depthTexData[1] = 0.5f;
+    depthTexData[2] = 0.5f;
+    depthTexData[3] = 0.5f;
+    depthTexData[4] = 0.4f;
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, 2, 2, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 depthTexData);
+    glTexImage2D(GL_TEXTURE_2D, 1, GL_DEPTH_COMPONENT32F, 1, 1, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 depthTexData + 4);
+
+    glUseProgram(program);
+    glUniform1f(depthRefLocation, 0.45f);
+    glUniform1i(sampler0Location, 0);
+    glUniform1i(sampler1Location, 1);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+    drawQuad(program, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // The shader writes 0.5 * <comparison result (0.0)>
+    EXPECT_PIXEL_NEAR(9, 0, 0, 0, 0, 255, 2);
+
+    // The shader writes 0.5 * <comparison result (1.0)> for fragment at postion.x >= 10
+    EXPECT_PIXEL_NEAR(11, 0, 128, 128, 128, 255, 2);
+}
+
+// Test that an array of shadow sampler with different compare modes and lod=1 will
+// return correct comparison value
+TEST_P(ShadowSamplerTestES3, MultipleShadowSamplerDifferentModes)
+{
+    const char kFS[] =
+        "#version 300 es\n"
+        "precision highp float;\n"
+        "uniform highp sampler2DShadow tex2DShadow[2];\n"
+        "uniform highp sampler2DShadow tex2DShadow2;\n"
+        "in vec2 texcoord;\n"
+        "uniform float depthRef;\n"
+        "out vec4 fragColor;\n"
+        "void main()\n"
+        "{\n"
+        "    vec2 dx = dFdx(texcoord);\n"
+        "    vec2 dy = dFdy(texcoord);\n"
+        "    fragColor.r = textureGrad(tex2DShadow[0], vec3(texcoord, depthRef), dx, dy);\n"
+        "    fragColor.g = textureGrad(tex2DShadow[1], vec3(texcoord, depthRef), dx, dy);\n"
+        "    fragColor.b = textureGrad(tex2DShadow2, vec3(texcoord, depthRef), dx, dy);\n"
+        "    fragColor.a = 1.0;\n"
+        "}\n";
+
+    GLProgram program;
+    program.makeRaster(getVertexShaderSource(), kFS);
+
+    GLint depthRefLocation = glGetUniformLocation(program, "depthRef");
+    GLint sampler0Location = glGetUniformLocation(program, "tex2DShadow[0]");
+    GLint sampler1Location = glGetUniformLocation(program, "tex2DShadow[1]");
+    GLint sampler2Location = glGetUniformLocation(program, "tex2DShadow2");
+
+    EXPECT_NE(depthRefLocation, -1);
+    EXPECT_NE(sampler0Location, -1);
+    EXPECT_NE(sampler1Location, -1);
+    EXPECT_NE(sampler2Location, -1);
+
+    // First texture: compare dref != depth
+    glActiveTexture(GL_TEXTURE0);
+    GLTexture tempTex;
+    glBindTexture(GL_TEXTURE_2D, tempTex);
+    GLfloat tempDepthTexData = 0.0f;
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, 1, 1, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 &tempDepthTexData);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_NOTEQUAL);
+
+    // Second texture: compare = none.
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, mTextureShadow);
+    GLfloat depthTexData[5];
+    depthTexData[0] = 0.5f;
+    depthTexData[1] = 0.5f;
+    depthTexData[2] = 0.5f;
+    depthTexData[3] = 0.5f;
+    depthTexData[4] = 0.4f;
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, 2, 2, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 depthTexData);
+    glTexImage2D(GL_TEXTURE_2D, 1, GL_DEPTH_COMPONENT32F, 1, 1, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 depthTexData + 4);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
+
+    // Third texture: compare = dref < depth.
+    glActiveTexture(GL_TEXTURE10);
+    GLTexture tempTex2;
+    glBindTexture(GL_TEXTURE_2D, tempTex2);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, 2, 2, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 depthTexData);
+    glTexImage2D(GL_TEXTURE_2D, 1, GL_DEPTH_COMPONENT32F, 1, 1, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 depthTexData + 4);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LESS);
+
+    glUseProgram(program);
+    glUniform1f(depthRefLocation, 0.36f);
+    glUniform1i(sampler0Location, 0);
+    glUniform1i(sampler1Location, 1);
+    glUniform1i(sampler2Location, 10);
+
+    drawQuad(program, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // This writes <comparison result (1.0)>, <depth value>, <comparison result (1.0)>, 1
+    EXPECT_PIXEL_NEAR(0, 0, 255, 128, 255, 255, 2);
+}
+
+// Test that shadow sampler with compare mode = GL_COMPARE_REF_TO_TEXTURE will return comparison
+// value, even if runtime compare mode is not supported. This for testing behaviors when Metal
+// device doesn't support setting compare mode outside shader.
+TEST_P(SimulatedMissingRuntimeCompareModeShadowSamplerTestES3, ShadowSamplerCompareOn)
+{
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, mTextureShadow);
+    GLfloat depthTexData[1];
+    depthTexData[0] = 0.5f;
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, 1, 1, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+                 depthTexData);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+
+    glUseProgram(mProgram);
+    glUniform1f(mDepthRefUniformLocation, 0.3f);
+    glUniform1i(mTextureShadowUniformLocation, 1);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+    drawQuad(mProgram, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // The shader writes 0.5 * <comparison result (1.0)>
+    EXPECT_PIXEL_NEAR(0, 0, 128, 128, 128, 255, 2);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_GREATER);
+    drawQuad(mProgram, "position", 0.5f);
+    EXPECT_GL_NO_ERROR();
+    // The shader writes 0.5 * <comparison result (0.0)>
+    EXPECT_PIXEL_NEAR(0, 0, 0, 0, 0, 255, 2);
 }
 
 // Test shadow sampler and regular non-shadow sampler coexisting in the same shader.
@@ -5679,33 +6691,60 @@ ANGLE_INSTANTIATE_TEST(SamplerArrayAsFunctionParameterTest,
                        ES2_OPENGL(),
                        ES2_OPENGLES(),
                        ES2_VULKAN());
-ANGLE_INSTANTIATE_TEST(Texture2DTestES3, ES3_D3D11(), ES3_OPENGL(), ES3_OPENGLES(), ES3_VULKAN());
+ANGLE_INSTANTIATE_TEST(Texture3DTestES2,
+                       ES2_D3D9(),
+                       ES2_D3D11(),
+                       ES2_METAL(),
+                       ES2_OPENGL(),
+                       ES2_OPENGLES(),
+                       ES2_VULKAN());
+ANGLE_INSTANTIATE_TEST(Texture2DTestES3,
+                       ES3_D3D11(),
+                       ES3_METAL(),
+                       ES3_OPENGL(),
+                       ES3_OPENGLES(),
+                       ES3_VULKAN());
 ANGLE_INSTANTIATE_TEST(Texture3DTestES3, ES3_D3D11(), ES3_OPENGL(), ES3_OPENGLES(), ES3_VULKAN());
 ANGLE_INSTANTIATE_TEST(Texture2DIntegerAlpha1TestES3,
                        ES3_D3D11(),
+                       ES3_METAL(),
                        ES3_OPENGL(),
                        ES3_OPENGLES(),
                        ES3_VULKAN());
 ANGLE_INSTANTIATE_TEST(Texture2DUnsignedIntegerAlpha1TestES3,
                        ES3_D3D11(),
+                       ES3_METAL(),
                        ES3_OPENGL(),
                        ES3_OPENGLES(),
                        ES3_VULKAN());
+ANGLE_INSTANTIATE_TEST(ShadowSamplerTestES3,
+                       ES3_D3D11(),
+                       ES3_METAL(),
+                       ES3_OPENGL(),
+                       ES3_OPENGLES());
+ANGLE_INSTANTIATE_TEST(SimulatedMissingRuntimeCompareModeShadowSamplerTestES3, ES3_METAL());
 ANGLE_INSTANTIATE_TEST(ShadowSamplerPlusSampler3DTestES3,
                        ES3_D3D11(),
+                       ES3_METAL(),
                        ES3_OPENGL(),
                        ES3_OPENGLES());
 ANGLE_INSTANTIATE_TEST(SamplerTypeMixTestES3,
                        ES3_D3D11(),
+                       ES3_METAL(),
                        ES3_OPENGL(),
                        ES3_OPENGLES(),
                        ES3_VULKAN());
 ANGLE_INSTANTIATE_TEST(Texture2DArrayTestES3,
                        ES3_D3D11(),
+                       ES3_METAL(),
                        ES3_OPENGL(),
                        ES3_OPENGLES(),
                        ES3_VULKAN());
-ANGLE_INSTANTIATE_TEST(TextureSizeTextureArrayTest, ES3_D3D11(), ES3_OPENGL(), ES3_VULKAN());
+ANGLE_INSTANTIATE_TEST(TextureSizeTextureArrayTest,
+                       ES3_D3D11(),
+                       ES3_METAL(),
+                       ES3_OPENGL(),
+                       ES3_VULKAN());
 ANGLE_INSTANTIATE_TEST(SamplerInStructTest,
                        ES2_D3D11(),
                        ES2_D3D9(),
@@ -5768,6 +6807,7 @@ ANGLE_INSTANTIATE_TEST(Texture2DRGTest,
                        ES2_D3D11(),
                        ES3_D3D11(),
                        ES2_METAL(),
+                       ES3_METAL(),
                        ES2_OPENGL(),
                        ES3_OPENGL(),
                        ES2_OPENGLES(),
@@ -5784,22 +6824,46 @@ ANGLE_INSTANTIATE_TEST(Texture2DFloatTestES2,
                        ES2_OPENGL(),
                        ES2_OPENGLES(),
                        ES2_VULKAN());
-ANGLE_INSTANTIATE_TEST(TextureCubeTestES3, ES3_D3D11(), ES3_OPENGL(), ES3_OPENGLES(), ES3_VULKAN());
-ANGLE_INSTANTIATE_TEST(Texture2DIntegerTestES3, ES3_D3D11(), ES3_OPENGL(), ES3_VULKAN());
-ANGLE_INSTANTIATE_TEST(TextureCubeIntegerTestES3, ES3_D3D11(), ES3_OPENGL(), ES3_VULKAN());
-ANGLE_INSTANTIATE_TEST(TextureCubeIntegerEdgeTestES3, ES3_D3D11(), ES3_OPENGL());
-ANGLE_INSTANTIATE_TEST(Texture2DIntegerProjectiveOffsetTestES3,
+ANGLE_INSTANTIATE_TEST(TextureCubeTestES3,
                        ES3_D3D11(),
+                       ES3_METAL(),
+                       ES3_OPENGL(),
+                       ES3_OPENGLES(),
+                       ES3_VULKAN());
+ANGLE_INSTANTIATE_TEST(Texture2DIntegerTestES3,
+                       ES3_D3D11(),
+                       ES3_METAL(),
                        ES3_OPENGL(),
                        ES3_VULKAN());
-ANGLE_INSTANTIATE_TEST(Texture2DArrayIntegerTestES3, ES3_D3D11(), ES3_OPENGL(), ES3_VULKAN());
-ANGLE_INSTANTIATE_TEST(Texture3DIntegerTestES3, ES3_D3D11(), ES3_OPENGL(), ES3_VULKAN());
+ANGLE_INSTANTIATE_TEST(TextureCubeIntegerTestES3,
+                       ES3_D3D11(),
+                       ES3_METAL(),
+                       ES3_OPENGL(),
+                       ES3_VULKAN());
+ANGLE_INSTANTIATE_TEST(TextureCubeIntegerEdgeTestES3, ES3_D3D11(), ES3_METAL(), ES3_OPENGL());
+ANGLE_INSTANTIATE_TEST(Texture2DIntegerProjectiveOffsetTestES3,
+                       ES3_D3D11(),
+                       ES3_METAL(),
+                       ES3_OPENGL(),
+                       ES3_VULKAN());
+ANGLE_INSTANTIATE_TEST(Texture2DArrayIntegerTestES3,
+                       ES3_D3D11(),
+                       ES3_METAL(),
+                       ES3_OPENGL(),
+                       ES3_VULKAN());
+ANGLE_INSTANTIATE_TEST(Texture3DIntegerTestES3,
+                       ES3_D3D11(),
+                       ES3_METAL(),
+                       ES3_OPENGL(),
+                       ES3_VULKAN());
 ANGLE_INSTANTIATE_TEST(Texture2DDepthTest,
                        ES2_D3D9(),
                        ES2_D3D11(),
+                       ES2_METAL(),
                        ES2_OPENGL(),
                        ES2_OPENGLES(),
                        ES2_VULKAN(),
-                       ES3_VULKAN());
+                       ES3_VULKAN(),
+                       ES3_METAL());
 
 }  // anonymous namespace

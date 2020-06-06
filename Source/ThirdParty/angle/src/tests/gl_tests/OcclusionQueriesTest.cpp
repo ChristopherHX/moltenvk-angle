@@ -4,6 +4,7 @@
 // found in the LICENSE file.
 //
 
+#include "platform/FeaturesMtl.h"
 #include "test_utils/ANGLETest.h"
 #include "util/EGLWindow.h"
 #include "util/random_utils.h"
@@ -11,7 +12,19 @@
 
 using namespace angle;
 
-class OcclusionQueriesTest : public ANGLETest
+using OcclusionQueryTestParams = std::tuple<angle::PlatformParameters, bool>;
+
+struct PrintToStringParamName
+{
+    std::string operator()(const ::testing::TestParamInfo<OcclusionQueryTestParams> &info) const
+    {
+        ::std::stringstream ss;
+        ss << (std::get<1>(info.param) ? "OverrideFeaturesOn_" : "") << std::get<0>(info.param);
+        return ss.str();
+    }
+};
+
+class OcclusionQueriesTest : public ANGLETestWithParam<OcclusionQueryTestParams>
 {
   protected:
     OcclusionQueriesTest() : mProgram(0), mRNG(1)
@@ -32,6 +45,14 @@ class OcclusionQueriesTest : public ANGLETest
     }
 
     void testTearDown() override { glDeleteProgram(mProgram); }
+
+    void overrideFeaturesMetal(FeaturesMtl *features) override
+    {
+        if (::testing::get<1>(GetParam()))
+        {
+            features->overrideFeatures({"allow_buffer_read_write"}, false);
+        }
+    }
 
     GLuint mProgram;
     RNG mRNG;
@@ -115,6 +136,189 @@ TEST_P(OcclusionQueriesTest, IsNotOccluded)
     EXPECT_GL_TRUE(result);
 }
 
+TEST_P(OcclusionQueriesTest, ClearNotCounted)
+{
+    ANGLE_SKIP_TEST_IF(getClientMajorVersion() < 3 &&
+                       !IsGLExtensionEnabled("GL_EXT_occlusion_query_boolean"));
+
+    // TODO(syoussefi): Using render pass ops to clear the framebuffer attachment results in
+    // AMD/Windows misbehaving in this test.  http://anglebug.com/3286
+    ANGLE_SKIP_TEST_IF(IsWindows() && IsAMD() && IsVulkan());
+
+    glDepthMask(GL_TRUE);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+    EXPECT_GL_NO_ERROR();
+
+    GLuint query[2] = {0};
+    glGenQueriesEXT(2, query);
+
+    // First query
+    glBeginQueryEXT(GL_ANY_SAMPLES_PASSED_EXT, query[0]);
+    // Full screen clear
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+    // View port clear
+    glViewport(0, 0, getWindowWidth() / 2, getWindowHeight());
+    glScissor(0, 0, getWindowWidth() / 2, getWindowHeight());
+    glEnable(GL_SCISSOR_TEST);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+    glEndQueryEXT(GL_ANY_SAMPLES_PASSED_EXT);
+
+    EXPECT_GL_NO_ERROR();
+
+    // Second query
+    glBeginQueryEXT(GL_ANY_SAMPLES_PASSED_EXT, query[1]);
+
+    // View port clear
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+    // View port clear
+    glViewport(0, 0, getWindowWidth() / 2, getWindowHeight());
+    glScissor(0, 0, getWindowWidth() / 2, getWindowHeight());
+    glEnable(GL_SCISSOR_TEST);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+    // this quad should not be occluded
+    drawQuad(mProgram, essl1_shaders::PositionAttrib(), 0.8f, 0.5f);
+
+    // Clear again
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+    // this quad should not be occluded
+    drawQuad(mProgram, essl1_shaders::PositionAttrib(), 0.8f, 1.0);
+
+    glEndQueryEXT(GL_ANY_SAMPLES_PASSED_EXT);
+
+    EXPECT_GL_NO_ERROR();
+
+    swapBuffers();
+
+    GLuint result[2] = {GL_TRUE, GL_TRUE};
+    glGetQueryObjectuivEXT(query[0], GL_QUERY_RESULT_EXT,
+                           &result[0]);  // will block waiting for result
+    glGetQueryObjectuivEXT(query[1], GL_QUERY_RESULT_EXT,
+                           &result[1]);  // will block waiting for result
+    EXPECT_GL_NO_ERROR();
+
+    glDeleteQueriesEXT(2, query);
+
+    EXPECT_GL_FALSE(result[0]);
+    EXPECT_GL_TRUE(result[1]);
+}
+
+TEST_P(OcclusionQueriesTest, MultiQueries)
+{
+    ANGLE_SKIP_TEST_IF(getClientMajorVersion() < 3 &&
+                       !IsGLExtensionEnabled("GL_EXT_occlusion_query_boolean"));
+
+    // TODO(syoussefi): Using render pass ops to clear the framebuffer attachment results in
+    // AMD/Windows misbehaving in this test.  http://anglebug.com/3286
+    ANGLE_SKIP_TEST_IF(IsWindows() && IsAMD() && IsVulkan());
+
+    GLuint query[5] = {};
+    glGenQueriesEXT(5, query);
+
+    // First query
+    glBeginQueryEXT(GL_ANY_SAMPLES_PASSED_EXT, query[0]);
+
+    EXPECT_GL_NO_ERROR();
+
+    glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_TRUE);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+    EXPECT_GL_NO_ERROR();
+
+    drawQuad(mProgram, essl1_shaders::PositionAttrib(), 0.8f);  // this quad should not be occluded
+
+    EXPECT_GL_NO_ERROR();
+
+    // A flush shound't clear the query result
+    glFlush();
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    drawQuad(mProgram, essl1_shaders::PositionAttrib(), -2, 0.25f);  // this quad should be occluded
+    glEndQueryEXT(GL_ANY_SAMPLES_PASSED_EXT);
+    // First query ends
+
+    drawQuad(mProgram, essl1_shaders::PositionAttrib(), 0.8f,
+             0.25f);  // this quad should not be occluded
+
+    // Second query
+    glBeginQueryEXT(GL_ANY_SAMPLES_PASSED_EXT, query[1]);
+    drawQuad(mProgram, essl1_shaders::PositionAttrib(), 0.9f,
+             0.25f);  // this quad should be occluded
+    glEndQueryEXT(GL_ANY_SAMPLES_PASSED_EXT);
+
+    // Third query
+    glBeginQueryEXT(GL_ANY_SAMPLES_PASSED_EXT, query[2]);
+    drawQuad(mProgram, essl1_shaders::PositionAttrib(), 0.9f,
+             0.5f);  // this quad should not be occluded
+    glEndQueryEXT(GL_ANY_SAMPLES_PASSED_EXT);
+    // ------------
+    glFlush();
+
+    glViewport(0, 0, getWindowWidth() / 2, getWindowHeight());
+    glScissor(0, 0, getWindowWidth() / 2, getWindowHeight());
+    glEnable(GL_SCISSOR_TEST);
+    drawQuad(mProgram, essl1_shaders::PositionAttrib(), 0.9f,
+             0.5f);  // this quad should not be occluded
+
+    // Fourth query: begin query then end then begin again
+    glBeginQueryEXT(GL_ANY_SAMPLES_PASSED_EXT, query[3]);
+    drawQuad(mProgram, essl1_shaders::PositionAttrib(), 0.9f,
+             1);  // this quad should not be occluded
+    glEndQueryEXT(GL_ANY_SAMPLES_PASSED_EXT);
+    glBeginQueryEXT(GL_ANY_SAMPLES_PASSED_EXT, query[3]);
+    EXPECT_GL_NO_ERROR();
+    // glClear should not be counted toward query);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    glEndQueryEXT(GL_ANY_SAMPLES_PASSED_EXT);
+
+    // Fifth query spans across frames
+    glBeginQueryEXT(GL_ANY_SAMPLES_PASSED_EXT, query[4]);
+    drawQuad(mProgram, essl1_shaders::PositionAttrib(), 0.8f,
+             0.25f);  // this quad should not be occluded
+
+    swapBuffers();
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+    drawQuad(mProgram, essl1_shaders::PositionAttrib(), 0.9f,
+             0.5f);  // this quad should not be occluded
+    glEndQueryEXT(GL_ANY_SAMPLES_PASSED_EXT);
+
+    GLuint result = GL_TRUE;
+    glGetQueryObjectuivEXT(query[0], GL_QUERY_RESULT_EXT,
+                           &result);  // will block waiting for result
+    EXPECT_GL_NO_ERROR();
+    EXPECT_GL_TRUE(result);
+
+    glGetQueryObjectuivEXT(query[1], GL_QUERY_RESULT_EXT,
+                           &result);  // will block waiting for result
+    EXPECT_GL_NO_ERROR();
+    EXPECT_GL_FALSE(result);
+
+    glGetQueryObjectuivEXT(query[2], GL_QUERY_RESULT_EXT,
+                           &result);  // will block waiting for result
+    EXPECT_GL_NO_ERROR();
+    EXPECT_GL_TRUE(result);
+
+    glGetQueryObjectuivEXT(query[3], GL_QUERY_RESULT_EXT,
+                           &result);  // will block waiting for result
+    EXPECT_GL_NO_ERROR();
+    EXPECT_GL_FALSE(result);
+
+    glGetQueryObjectuivEXT(query[4], GL_QUERY_RESULT_EXT,
+                           &result);  // will block waiting for result
+    EXPECT_GL_NO_ERROR();
+    EXPECT_GL_TRUE(result);
+
+    glDeleteQueriesEXT(5, query);
+}
+
 TEST_P(OcclusionQueriesTest, Errors)
 {
     ANGLE_SKIP_TEST_IF(getClientMajorVersion() < 3 &&
@@ -191,8 +395,9 @@ TEST_P(OcclusionQueriesTest, MultiContext)
 
     // Test skipped because the D3D backends cannot support simultaneous queries on multiple
     // contexts yet.  Same with the Vulkan backend.
-    ANGLE_SKIP_TEST_IF(GetParam() == ES2_D3D9() || GetParam() == ES2_D3D11() ||
-                       GetParam() == ES3_D3D11() || GetParam() == ES2_VULKAN());
+    const angle::PlatformParameters platform = ::testing::get<0>(GetParam());
+    ANGLE_SKIP_TEST_IF(platform == ES2_D3D9() || platform == ES2_D3D11() ||
+                       platform == ES3_D3D11() || platform == ES2_VULKAN());
 
     glDepthMask(GL_TRUE);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -209,9 +414,9 @@ TEST_P(OcclusionQueriesTest, MultiContext)
 
     EGLint contextAttributes[] = {
         EGL_CONTEXT_MAJOR_VERSION_KHR,
-        GetParam().majorVersion,
+        platform.majorVersion,
         EGL_CONTEXT_MINOR_VERSION_KHR,
-        GetParam().minorVersion,
+        platform.minorVersion,
         EGL_NONE,
     };
 
@@ -340,14 +545,22 @@ TEST_P(OcclusionQueriesTest, MultiContext)
     }
 }
 
+const angle::PlatformParameters platforms[] = {
+    ES2_D3D9(),   ES2_D3D11(),    ES3_D3D11(),    ES2_OPENGL(), ES2_METAL(),
+    ES3_OPENGL(), ES2_OPENGLES(), ES3_OPENGLES(), ES2_VULKAN(),
+};
+
 // Use this to select which configurations (e.g. which renderer, which GLES major version) these
 // tests should be run against.
-ANGLE_INSTANTIATE_TEST(OcclusionQueriesTest,
-                       ES2_D3D9(),
-                       ES2_D3D11(),
-                       ES3_D3D11(),
-                       ES2_OPENGL(),
-                       ES3_OPENGL(),
-                       ES2_OPENGLES(),
-                       ES3_OPENGLES(),
-                       ES2_VULKAN());
+INSTANTIATE_TEST_SUITE_P(
+    ,
+    OcclusionQueriesTest,
+    testing::Combine(testing::ValuesIn(::angle::FilterTestParams(platforms, ArraySize(platforms))),
+                     testing::Values(false)),
+    PrintToStringParamName());
+
+// Simulate missing buffer read-write features in Metal.
+INSTANTIATE_TEST_SUITE_P(OverrideFeatures,
+                         OcclusionQueriesTest,
+                         testing::Combine(testing::Values(ES2_METAL()), testing::Values(true)),
+                         PrintToStringParamName());

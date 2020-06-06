@@ -97,6 +97,7 @@ struct DepthStencilBlitParams : public BlitParams
 // See DepthStencilBlitUtils::blitStencilViaCopyBuffer()
 struct StencilBlitViaBufferParams : public DepthStencilBlitParams
 {
+    StencilBlitViaBufferParams();
     StencilBlitViaBufferParams(const DepthStencilBlitParams &src);
 
     TextureRef dstStencil;
@@ -179,43 +180,8 @@ struct VertexFormatConvertParams
     uint32_t vertexCount = 0;
 };
 
-class ComputeBasedUtils
-{
-  public:
-    virtual ~ComputeBasedUtils() = default;
-
-    void dispatchCompute(ContextMtl *contextMtl,
-                         ComputeCommandEncoder *encoder,
-                         id<MTLComputePipelineState> pipelineState,
-                         size_t numThreads);
-
-    void dispatchCompute(ContextMtl *contextMtl,
-                         ComputeCommandEncoder *encoder,
-                         bool allowNonUniform,
-                         const MTLSize &numThreads,
-                         const MTLSize &threadsPerThreadGroup);
-};
-
 // Utils class for clear & blitting
-class DrawBasedUtils
-{
-  protected:
-    void setupDrawCommonStates(RenderCommandEncoder *cmdEncoder);
-};
-
-class BaseBlitUtils : public DrawBasedUtils
-{
-  protected:
-    void setupCommonBlitWithDraw(const gl::Context *context,
-                                 RenderCommandEncoder *cmdEncoder,
-                                 const BlitParams &params,
-                                 bool isColorBlit);
-    void setupBlitWithDrawUniformData(RenderCommandEncoder *cmdEncoder,
-                                      const BlitParams &params,
-                                      bool isColorBlit);
-};
-
-class ClearUtils : DrawBasedUtils
+class ClearUtils
 {
   public:
     ClearUtils() = default;
@@ -247,7 +213,7 @@ class ClearUtils : DrawBasedUtils
     std::array<RenderPipelineCache, kMaxRenderTargets + 1> mClearRenderPipelineCache;
 };
 
-class ColorBlitUtils : BaseBlitUtils
+class ColorBlitUtils
 {
   public:
     ColorBlitUtils() = default;
@@ -289,7 +255,7 @@ class ColorBlitUtils : BaseBlitUtils
     ColorBlitRenderPipelineCacheArray mBlitUnmultiplyAlphaRenderPipelineCache;
 };
 
-class DepthStencilBlitUtils : BaseBlitUtils, ComputeBasedUtils
+class DepthStencilBlitUtils
 {
   public:
     void onDestroy();
@@ -340,7 +306,7 @@ class DepthStencilBlitUtils : BaseBlitUtils, ComputeBasedUtils
 };
 
 // util class for generating index buffer
-class IndexGeneratorUtils : public ComputeBasedUtils
+class IndexGeneratorUtils
 {
   public:
     void onDestroy();
@@ -427,7 +393,7 @@ class IndexGeneratorUtils : public ComputeBasedUtils
 };
 
 // Util class for handling visibility query result
-class VisibilityResultUtils : public ComputeBasedUtils
+class VisibilityResultUtils
 {
   public:
     void onDestroy();
@@ -448,7 +414,7 @@ class VisibilityResultUtils : public ComputeBasedUtils
 };
 
 // Util class for handling mipmap generation
-class MipmapUtils : public ComputeBasedUtils
+class MipmapUtils
 {
   public:
     void onDestroy();
@@ -472,7 +438,7 @@ class MipmapUtils : public ComputeBasedUtils
 };
 
 // Util class for handling pixels copy between buffers and textures
-class CopyPixelsUtils : public ComputeBasedUtils
+class CopyPixelsUtils
 {
   public:
     CopyPixelsUtils() = default;
@@ -506,30 +472,70 @@ class CopyPixelsUtils : public ComputeBasedUtils
 };
 
 // Util class for handling vertex format conversion on GPU
-class VertexFormatConversionUtils : public ComputeBasedUtils
+class VertexFormatConversionUtils
 {
   public:
     void onDestroy();
 
-    // Convert vertex format to float
-    angle::Result convertVertexFormatToFloat(ContextMtl *contextMtl,
-                                             const angle::Format &srcAngleFormat,
-                                             const VertexFormatConvertParams &params);
-    // Expand number of components per vertex's attribute (or just simply copy components between
-    // buffers with different stride and offset)
-    angle::Result expandVertexFormatComponents(ContextMtl *contextMtl,
+    // Convert vertex format to float. Compute shader version.
+    angle::Result convertVertexFormatToFloatCS(ContextMtl *contextMtl,
                                                const angle::Format &srcAngleFormat,
                                                const VertexFormatConvertParams &params);
+    // Convert vertex format to float. Vertex shader version. This version should be used if
+    // a render pass is active and we don't want to break it. Explicit memory barrier must be
+    // supported.
+    angle::Result convertVertexFormatToFloatVS(const gl::Context *context,
+                                               RenderCommandEncoder *renderEncoder,
+                                               const angle::Format &srcAngleFormat,
+                                               const VertexFormatConvertParams &params);
+    // Expand number of components per vertex's attribute (or just simply copy components between
+    // buffers with different stride and offset)
+    angle::Result expandVertexFormatComponentsCS(ContextMtl *contextMtl,
+                                                 const angle::Format &srcAngleFormat,
+                                                 const VertexFormatConvertParams &params);
+    angle::Result expandVertexFormatComponentsVS(const gl::Context *context,
+                                                 RenderCommandEncoder *renderEncoder,
+                                                 const angle::Format &srcAngleFormat,
+                                                 const VertexFormatConvertParams &params);
 
   private:
-    void ensureComponentsExpandPipelineCreated(ContextMtl *contextMtl);
-    AutoObjCPtr<id<MTLComputePipelineState>> getFloatConverstionPipeline(
+    void ensureComponentsExpandComputePipelineCreated(ContextMtl *contextMtl);
+    AutoObjCPtr<id<MTLRenderPipelineState>> getComponentsExpandRenderPipeline(
+        ContextMtl *contextMtl,
+        RenderCommandEncoder *renderEncoder);
+
+    AutoObjCPtr<id<MTLComputePipelineState>> getFloatConverstionComputePipeline(
         ContextMtl *contextMtl,
         const angle::Format &srcAngleFormat);
-    using ConvertToFloatPipelineArray =
+
+    AutoObjCPtr<id<MTLRenderPipelineState>> getFloatConverstionRenderPipeline(
+        ContextMtl *contextMtl,
+        RenderCommandEncoder *renderEncoder,
+        const angle::Format &srcAngleFormat);
+
+    template <typename EncoderType, typename PipelineType>
+    angle::Result setupCommonConvertVertexFormatToFloat(ContextMtl *contextMtl,
+                                                        EncoderType cmdEncoder,
+                                                        const PipelineType &pipeline,
+                                                        const angle::Format &srcAngleFormat,
+                                                        const VertexFormatConvertParams &params);
+    template <typename EncoderType, typename PipelineType>
+    angle::Result setupCommonExpandVertexFormatComponents(ContextMtl *contextMtl,
+                                                          EncoderType cmdEncoder,
+                                                          const PipelineType &pipeline,
+                                                          const angle::Format &srcAngleFormat,
+                                                          const VertexFormatConvertParams &params);
+
+    using ConvertToFloatCompPipelineArray =
         std::array<AutoObjCPtr<id<MTLComputePipelineState>>, angle::kNumANGLEFormats>;
-    ConvertToFloatPipelineArray mConvertToFloatPipelineCaches;
-    AutoObjCPtr<id<MTLComputePipelineState>> mComponentsExpandPipeline;
+    using ConvertToFloatRenderPipelineArray =
+        std::array<RenderPipelineCache, angle::kNumANGLEFormats>;
+
+    ConvertToFloatCompPipelineArray mConvertToFloatCompPipelineCaches;
+    ConvertToFloatRenderPipelineArray mConvertToFloatRenderPipelineCaches;
+
+    AutoObjCPtr<id<MTLComputePipelineState>> mComponentsExpandCompPipeline;
+    RenderPipelineCache mComponentsExpandRenderPipelineCache;
 };
 
 // RenderUtils: container class of variable util classes above
@@ -606,15 +612,24 @@ class RenderUtils : public Context, angle::NonCopyable
                                                 const angle::Format &dstAngleFormat,
                                                 const CopyPixelsToBufferParams &params);
 
-    // Convert vertex format to float (or normalized) on GPU
-    angle::Result convertVertexFormatToFloat(ContextMtl *contextMtl,
-                                             const angle::Format &srcAngleFormat,
-                                             const VertexFormatConvertParams &params);
-    // Expand number of components per vertex's attribute (or just simply copy components between
-    // buffers with different stride and offset) on GPU
-    angle::Result expandVertexFormatComponents(ContextMtl *contextMtl,
+    // See VertexFormatConversionUtils::convertVertexFormatToFloatCS()
+    angle::Result convertVertexFormatToFloatCS(ContextMtl *contextMtl,
                                                const angle::Format &srcAngleFormat,
                                                const VertexFormatConvertParams &params);
+    // See VertexFormatConversionUtils::convertVertexFormatToFloatVS()
+    angle::Result convertVertexFormatToFloatVS(const gl::Context *context,
+                                               RenderCommandEncoder *renderEncoder,
+                                               const angle::Format &srcAngleFormat,
+                                               const VertexFormatConvertParams &params);
+    // See VertexFormatConversionUtils::expandVertexFormatComponentsCS()
+    angle::Result expandVertexFormatComponentsCS(ContextMtl *contextMtl,
+                                                 const angle::Format &srcAngleFormat,
+                                                 const VertexFormatConvertParams &params);
+    // See VertexFormatConversionUtils::expandVertexFormatComponentsVS()
+    angle::Result expandVertexFormatComponentsVS(const gl::Context *context,
+                                                 RenderCommandEncoder *renderEncoder,
+                                                 const angle::Format &srcAngleFormat,
+                                                 const VertexFormatConvertParams &params);
 
   private:
     // override ErrorHandler

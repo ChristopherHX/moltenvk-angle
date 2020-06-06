@@ -4,19 +4,34 @@
 // found in the LICENSE file.
 //
 
-#import "MGLKViewController.h"
+#import "MGLKViewController+Private.h"
 
-@interface MGLKViewController () {
-    __weak MGLKView *_glView;
-    CADisplayLink *_displayLink;
-    CFTimeInterval _lastUpdateTime;
+#include <EGL/egl.h>
+#include <EGL/eglext.h>
+#include <EGL/eglext_angle.h>
+#include <EGL/eglplatform.h>
+#include <common/apple_platform_utils.h>
+#include <common/debug.h>
 
-    BOOL _appWasInBackground;
-}
-
-@end
+#import "MGLDisplay.h"
+#import "MGLKView+Private.h"
 
 @implementation MGLKViewController
+
+#if TARGET_OS_OSX
+#    include "MGLKViewController+Mac.mm"
+#else
+#    include "MGLKViewController+iOS.mm"
+#endif
+
+- (instancetype)init
+{
+    if (self = [super init])
+    {
+        [self constructor];
+    }
+    return self;
+}
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,36 +55,14 @@
 {
     _appWasInBackground       = YES;
     _preferredFramesPerSecond = 30;
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(appWillPause:)
-                                                 name:UIApplicationWillResignActiveNotification
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(appDidBecomeActive:)
-                                                 name:UIApplicationDidBecomeActiveNotification
-                                               object:nil];
 }
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationWillResignActiveNotification
-                                                  object:nil];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationDidBecomeActiveNotification
-                                                  object:nil];
+    [self deallocImpl];
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self resume];
-}
-
-- (void)setView:(UIView *)view
+- (void)setView:(MGLKNativeView *)view
 {
     [super setView:view];
     if ([view isKindOfClass:MGLKView.class])
@@ -77,24 +70,26 @@
         _glView = (MGLKView *)view;
         if (!_glView.delegate)
         {
+            // If view has no delegate, set this controller as its delegate
             _glView.delegate = self;
         }
+        // Store this object inside the view itself so that the view can notify
+        // this controller about certain events such as moving to new window.
+        _glView.controller = self;
     }
     else
     {
+        if (_glView.delegate == self)
+        {
+            // Detach from old view
+            _glView.delegate = nil;
+        }
+        if (_glView.controller == self)
+        {
+            _glView.controller = nil;
+        }
         _glView = nil;
     }
-}
-
-- (void)setPreferredFramesPerSecond:(NSInteger)preferredFramesPerSecond
-{
-    _preferredFramesPerSecond = preferredFramesPerSecond;
-    if (_displayLink)
-    {
-        _displayLink.preferredFramesPerSecond = _preferredFramesPerSecond;
-    }
-    [self pause];
-    [self resume];
 }
 
 - (void)mglkView:(MGLKView *)view drawInRect:(CGRect)rect
@@ -102,40 +97,70 @@
     // Default implementation do nothing.
 }
 
+// viewDidAppear callback
+#if TARGET_OS_OSX
+- (void)viewDidAppear
+{
+    [super viewDidAppear];
+#else   // TARGET_OS_OSX
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+#endif  // TARGET_OS_OSX
+    NSLog(@"MGLKViewController viewDidAppear");
+
+    // Implementation dependent
+    [self resume];
+
+    // Register callbacks to be called when app enters/exits background
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appWillPause:)
+                                                 name:MGLKApplicationWillResignActiveNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appDidBecomeActive:)
+                                                 name:MGLKApplicationDidBecomeActiveNotification
+                                               object:nil];
+}
+
+// viewDidDisappear callback
+#if TARGET_OS_OSX
+- (void)viewDidDisappear
+{
+    [super viewDidDisappear];
+#else   // TARGET_OS_OSX
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+#endif  // TARGET_OS_OSX
+    NSLog(@"MGLKViewController viewDidDisappear");
+    _appWasInBackground = YES;
+
+    // Implementation dependent
+    [self pause];
+
+    // Unregister callbacks that are called when app enters/exits background
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:MGLKApplicationWillResignActiveNotification
+                                                  object:nil];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:MGLKApplicationDidBecomeActiveNotification
+                                                  object:nil];
+}
+
 - (void)appWillPause:(NSNotification *)note
 {
+    NSLog(@"MGLKViewController appWillPause:");
     _appWasInBackground = YES;
     [self pause];
 }
 
 - (void)appDidBecomeActive:(NSNotification *)note
 {
+    NSLog(@"MGLKViewController appDidBecomeActive:");
     [self resume];
-}
-
-- (void)pause
-{
-    if (_displayLink)
-    {
-        [_displayLink removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-        _displayLink = nil;
-    }
-}
-
-- (void)resume
-{
-    [self pause];
-
-    if (!_displayLink)
-    {
-        _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(frameStep)];
-        _displayLink.preferredFramesPerSecond = _preferredFramesPerSecond;
-    }
-
-    if (_glView)
-    {
-        [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-    }
 }
 
 - (void)handleAppWasInBackground
@@ -160,6 +185,17 @@
 
     [self update];
     [_glView display];
+
+    if (_needDisableVsync)
+    {
+        eglSwapInterval([MGLDisplay defaultDisplay].eglDisplay, 0);
+        _needDisableVsync = NO;
+    }
+    else if (_needEnableVsync)
+    {
+        eglSwapInterval([MGLDisplay defaultDisplay].eglDisplay, 1);
+        _needEnableVsync = NO;
+    }
 
     _framesDisplayed++;
     _lastUpdateTime = now;
