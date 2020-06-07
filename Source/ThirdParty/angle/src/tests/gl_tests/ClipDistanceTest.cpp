@@ -3,6 +3,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
+// ClipDistanceTest.cpp: Test cases for GL_APPLE_clip_distance/GL_EXT_clip_cull_distance extension.
+//
 
 #include "test_utils/ANGLETest.h"
 #include "test_utils/gl_raii.h"
@@ -26,6 +28,7 @@ class ClipDistanceTest : public ANGLETest
     }
 };
 
+// Query max clip distances and enable, disable states of clip distances
 TEST_P(ClipDistanceTest, StateQuery)
 {
     ANGLE_SKIP_TEST_IF(!IsGLExtensionEnabled("GL_APPLE_clip_distance"));
@@ -55,6 +58,7 @@ TEST_P(ClipDistanceTest, StateQuery)
     EXPECT_EQ(glIsEnabled(GL_CLIP_DISTANCE7_APPLE), GL_TRUE);
 }
 
+// Write to one gl_ClipDistance element
 TEST_P(ClipDistanceTest, OneClipDistance)
 {
     ANGLE_SKIP_TEST_IF(!IsGLExtensionEnabled("GL_APPLE_clip_distance"));
@@ -150,6 +154,7 @@ void main()
     }
 }
 
+// Write to 3 clip distances
 TEST_P(ClipDistanceTest, ThreeClipDistances)
 {
     ANGLE_SKIP_TEST_IF(!IsGLExtensionEnabled("GL_APPLE_clip_distance"));
@@ -281,6 +286,8 @@ void main()
     }
 }
 
+// Redeclare gl_ClipDistance in shader with explitcit size, also use it in a global function
+// outside main()
 TEST_P(ClipDistanceTest, ThreeClipDistancesRedeclared)
 {
     ANGLE_SKIP_TEST_IF(!IsGLExtensionEnabled("GL_APPLE_clip_distance"));
@@ -288,19 +295,24 @@ TEST_P(ClipDistanceTest, ThreeClipDistancesRedeclared)
     constexpr char kVS[] = R"(
 #extension GL_APPLE_clip_distance : require
 
+varying highp float gl_ClipDistance[3];
+
+void computeClipDistances(in vec4 position, in vec4 plane[3])
+{
+    gl_ClipDistance[0] = dot(position, plane[0]);
+    gl_ClipDistance[1] = dot(position, plane[1]);
+    gl_ClipDistance[2] = dot(position, plane[2]);
+}
+
 uniform vec4 u_plane[3];
 
 attribute vec2 a_position;
-
-varying highp float gl_ClipDistance[3];
 
 void main()
 {
     gl_Position = vec4(a_position, 0.0, 1.0);
 
-    gl_ClipDistance[0] = dot(gl_Position, u_plane[0]);
-    gl_ClipDistance[1] = dot(gl_Position, u_plane[1]);
-    gl_ClipDistance[2] = dot(gl_Position, u_plane[2]);
+    computeClipDistances(gl_Position, u_plane);
 })";
 
     ANGLE_GL_PROGRAM(programRed, kVS, essl1_shaders::fs::Red());

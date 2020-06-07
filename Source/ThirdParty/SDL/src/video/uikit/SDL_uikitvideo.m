@@ -136,6 +136,7 @@ UIKit_CreateDevice(int devindex)
         device->GL_GetSwapInterval = UIKIT_GLES_GetSwapInterval;
         device->GL_SwapWindow = UIKIT_GLES_SwapWindow;
         device->GL_DeleteContext = UIKIT_GLES_DeleteContext;
+        device->GL_GetDrawableSize  = UIKIT_GLES_GetDrawableSize;
 #else
         /* OpenGL (ES) functions */
         device->GL_MakeCurrent      = UIKit_GL_MakeCurrent;

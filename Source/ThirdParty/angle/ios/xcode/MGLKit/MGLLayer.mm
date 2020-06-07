@@ -13,7 +13,9 @@
 #include <EGL/eglext_angle.h>
 #include <EGL/eglplatform.h>
 #include <common/debug.h>
+#include <libANGLE/renderer/metal/DisplayMtl_api.h>
 #include <libGLESv2/entry_points_gles_2_0_autogen.h>
+#include <libGLESv2/entry_points_gles_3_0_autogen.h>
 #include <libGLESv2/entry_points_gles_ext_autogen.h>
 #import "MGLContext+Private.h"
 #import "MGLDisplay.h"
@@ -97,6 +99,10 @@ using ScopedBufferBind  = ScopedGLBinding<GL_ARRAY_BUFFER, GL_ARRAY_BUFFER_BINDI
 using ScopedRenderbufferBind =
     ScopedGLBinding<GL_RENDERBUFFER, GL_RENDERBUFFER_BINDING, gl::BindRenderbuffer>;
 using ScopedFBOBind = ScopedGLBinding<GL_FRAMEBUFFER, GL_FRAMEBUFFER_BINDING, gl::BindFramebuffer>;
+using ScopedDrawFBOBind =
+    ScopedGLBinding<GL_DRAW_FRAMEBUFFER, GL_FRAMEBUFFER_BINDING, gl::BindFramebuffer>;
+using ScopedReadFBOBind =
+    ScopedGLBinding<GL_READ_FRAMEBUFFER, GL_FRAMEBUFFER_BINDING, gl::BindFramebuffer>;
 
 class ScopedProgramBind
 {
@@ -140,33 +146,39 @@ struct ScopedVAOBind
     GLint mPrevVAO;
 };
 
-class ScopedTexture
+template <void (*DeleteFunc)(GLsizei, const GLuint *)>
+class ScopedGLObject
 {
   public:
-    ScopedTexture() : mTexture(0) {}
-    ScopedTexture(GLuint texture) : mTexture(texture) {}
-    ~ScopedTexture()
+    ScopedGLObject() : mObject(0) {}
+    ScopedGLObject(GLuint object) : mObject(object) {}
+    ~ScopedGLObject()
     {
-        if (mTexture)
+        if (mObject)
         {
-            gl::DeleteTextures(1, &mTexture);
+            DeleteFunc(1, &mObject);
         }
-        mTexture = 0;
+        mObject = 0;
     }
 
-    ScopedTexture &operator=(GLuint texture)
+    ScopedGLObject &operator=(GLuint object)
     {
-        mTexture = texture;
+        mObject = object;
         return *this;
     }
 
     operator GLuint() const { return get(); }
 
-    GLuint get() const { return mTexture; }
+    const GLuint &get() const { return mObject; }
+    GLuint &get() { return mObject; }
 
   private:
-    GLuint mTexture;
+    GLuint mObject;
 };
+
+using ScopedTexture      = ScopedGLObject<gl::DeleteTextures>;
+using ScopedRenderbuffer = ScopedGLObject<gl::DeleteRenderbuffers>;
+using ScopedFramebuffer  = ScopedGLObject<gl::DeleteFramebuffers>;
 
 class ScopedViewport
 {
@@ -183,6 +195,75 @@ class ScopedViewport
 
   private:
     GLint mPrevViewport[4];
+};
+
+class ScopedReadBuffer
+{
+  public:
+    ScopedReadBuffer(GLint buffer, bool readBufferAvail) : mReadBufferAvail(readBufferAvail)
+    {
+        if (!mReadBufferAvail)
+        {
+            return;
+        }
+        gl::GetIntegerv(GL_READ_BUFFER, &mPrevReadBuffer);
+        gl::ReadBuffer(buffer);
+    }
+    ~ScopedReadBuffer()
+    {
+        if (mReadBufferAvail)
+        {
+            gl::ReadBuffer(mPrevReadBuffer);
+        }
+    }
+
+  private:
+    const bool mReadBufferAvail;
+    GLint mPrevReadBuffer;
+};
+
+class ScopedDrawBuffer
+{
+  public:
+    ScopedDrawBuffer(GLenum drawbuffer, PFNGLDRAWBUFFERSEXTPROC drawBuffersFunc)
+        : mDrawBuffersFunc(drawBuffersFunc)
+    {
+        if (!mDrawBuffersFunc)
+        {
+            return;
+        }
+        GLint maxDrawBuffers;
+        gl::GetIntegerv(GL_MAX_DRAW_BUFFERS, &maxDrawBuffers);
+        mPrevDrawBuffers.resize(maxDrawBuffers, GL_NONE);
+        for (int i = 0; i < maxDrawBuffers; ++i)
+        {
+            GLint buffer = GL_NONE;
+            gl::GetIntegerv(GL_DRAW_BUFFER0 + i, &buffer);
+            mPrevDrawBuffers[i] = buffer;
+        }
+        mDrawBuffersFunc(1, &drawbuffer);
+    }
+    ~ScopedDrawBuffer()
+    {
+        if (!mDrawBuffersFunc)
+        {
+            return;
+        }
+        GLint currentFBO;
+        gl::GetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &currentFBO);
+        if (currentFBO == 0)
+        {
+            mDrawBuffersFunc(1, mPrevDrawBuffers.data());
+        }
+        else
+        {
+            mDrawBuffersFunc(mPrevDrawBuffers.size(), mPrevDrawBuffers.data());
+        }
+    }
+
+  private:
+    std::vector<GLenum> mPrevDrawBuffers;
+    const PFNGLDRAWBUFFERSEXTPROC mDrawBuffersFunc;
 };
 
 void Throw(NSString *msg)
@@ -251,15 +332,6 @@ GLint LinkProgram(GLuint program)
     return self;
 }
 
-- (id)initWithLayer:(id)layer
-{
-    if (self = [super initWithLayer:layer])
-    {
-        [self constructor];
-    }
-    return self;
-}
-
 - (id)initWithCoder:(NSCoder *)coder
 {
     if (self = [super initWithCoder:coder])
@@ -274,14 +346,24 @@ GLint LinkProgram(GLuint program)
     _drawableColorFormat   = MGLDrawableColorFormatRGBA8888;
     _drawableDepthFormat   = MGLDrawableDepthFormatNone;
     _drawableStencilFormat = MGLDrawableStencilFormatNone;
+    _drawableMultisample   = MGLDrawableMultisampleNone;
 
     _display = [MGLDisplay defaultDisplay];
 
     _eglSurface = EGL_NO_SURFACE;
 
-    _metalLayer       = [[CAMetalLayer alloc] init];
-    _metalLayer.frame = self.bounds;
-    [self addSublayer:_metalLayer];
+    if (rx::IsMetalDisplayAvailable())
+    {
+        _metalLayer       = [[CAMetalLayer alloc] init];
+        _metalLayer.frame = self.bounds;
+        [self addSublayer:_metalLayer];
+    }
+    else
+    {
+        _legacyGLLayer       = [[CALayer alloc] init];
+        _legacyGLLayer.frame = self.bounds;
+        [self addSublayer:_legacyGLLayer];
+    }
 }
 
 - (void)dealloc
@@ -293,13 +375,31 @@ GLint LinkProgram(GLuint program)
 
 - (void)setContentsScale:(CGFloat)contentsScale
 {
-    [super setContentsScale:contentsScale];
-    _metalLayer.contentsScale = contentsScale;
+    if (rx::IsMetalDisplayAvailable())
+    {
+        [super setContentsScale:contentsScale];
+        _metalLayer.contentsScale = contentsScale;
+    }
+    else
+    {
+        // GL backend doesn't handle retina properly yet.
+        [super setContentsScale:1];
+        _legacyGLLayer.contentsScale = 1;
+    }
 }
 
 - (CGSize)drawableSize
 {
-    return _metalLayer.drawableSize;
+    if (rx::IsMetalDisplayAvailable())
+    {
+        if (_metalLayer.drawableSize.width == 0 && _metalLayer.drawableSize.height == 0)
+        {
+            [self checkLayerSize];
+        }
+        return _metalLayer.drawableSize;
+    }
+
+    return self.bounds.size;
 }
 
 - (BOOL)setCurrentContext:(MGLContext *)context
@@ -315,7 +415,7 @@ GLint LinkProgram(GLuint program)
         }
     }
 
-    if (_retainedBacking)
+    if (_useOffscreenFBO)
     {
         GLint currentFBO;
         gl::GetIntegerv(GL_FRAMEBUFFER_BINDING, &currentFBO);
@@ -338,9 +438,20 @@ GLint LinkProgram(GLuint program)
 
 - (BOOL)present
 {
-    if (_retainedBacking)
+    if (_useOffscreenFBO)
     {
-        if (![self blitOffscreenTexture:_offscreenTexture toFBO:0])
+        if (_blitFramebufferAvail)
+        {
+            if (![self blitFBO:_defaultOpenGLFrameBufferID
+                         sourceSize:_offscreenFBOSize
+                              toFBO:0
+                    destinationSize:self.drawableSize
+                    destinationMSAA:NO])
+            {
+                return NO;
+            }
+        }
+        else if (![self blitOffscreenTexture:_offscreenTexture toFBO:0])
         {
             return NO;
         }
@@ -356,13 +467,80 @@ GLint LinkProgram(GLuint program)
     return YES;
 }
 
+- (BOOL)blitFBO:(GLuint)srcFbo
+         sourceSize:(CGSize)srcSize
+              toFBO:(GLuint)dstFbo
+    destinationSize:(CGSize)dstSize
+    destinationMSAA:(BOOL)destinationMSAA
+{
+    if (srcSize.width != dstSize.width || srcSize.height != dstSize.height || destinationMSAA)
+    {
+        // Blit to a temporary texture
+        ScopedTexture tempTexture;
+        gl::GenTextures(1, &tempTexture.get());
+        ScopedTextureBind bindTexture(tempTexture);
+        gl::TexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        gl::TexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        gl::TexImage2D(GL_TEXTURE_2D, 0, _offscreenColorUnsizedFormat,
+                       static_cast<GLint>(srcSize.width), static_cast<GLint>(srcSize.height), 0,
+                       _offscreenColorUnsizedFormat, _offscreenColorFormatDataType, 0);
+
+        ScopedFramebuffer tempFBO;
+        gl::GenFramebuffers(1, &tempFBO.get());
+        ScopedFBOBind bindFBO(tempFBO);
+        gl::FramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, tempTexture,
+                                 0);
+
+        if (![self blitFBO:srcFbo
+                     sourceSize:srcSize
+                          toFBO:tempFBO
+                destinationSize:srcSize
+                destinationMSAA:NO])
+        {
+            return NO;
+        }
+
+        // Draw the temporary texture to destination framebuffer
+        return [self blitOffscreenTexture:tempTexture toFBO:dstFbo];
+    }
+
+    // Same size blitting
+    ASSERT(_blitFramebufferAvail);
+    auto currentCtx   = [MGLContext currentContext];
+    auto currentLayer = [MGLContext currentLayer];
+    [MGLContext setCurrentContext:_offscreenFBOCreatorContext forLayer:self];
+
+    ScopedDrawFBOBind bindDrawFBO(dstFbo);
+    ScopedReadFBOBind bindReadFBO(srcFbo);
+    ScopedReadBuffer setReadBuffer(GL_COLOR_ATTACHMENT0, _isGLES3Plus);
+    ScopedDrawBuffer setDrawBuffer(dstFbo ? GL_COLOR_ATTACHMENT0 : GL_BACK,
+                                   _isGLES3Plus ? gl::DrawBuffers : gl::DrawBuffersEXT);
+    ScopedGLEnable<GL_SCISSOR_TEST> disableScissorTest(false);
+
+    auto blitFunc = _isGLES3Plus ? gl::BlitFramebuffer : gl::BlitFramebufferANGLE;
+
+    blitFunc(0, 0, static_cast<GLint>(srcSize.width), static_cast<GLint>(srcSize.height), 0, 0,
+             static_cast<GLint>(dstSize.width), static_cast<GLint>(dstSize.height),
+             GL_COLOR_BUFFER_BIT, GL_NEAREST);
+
+    BOOL re = gl::GetError() == GL_NO_ERROR;
+
+    [MGLContext setCurrentContext:currentCtx forLayer:currentLayer];
+
+    return re;
+}
+
 - (BOOL)blitOffscreenTexture:(GLuint)texture toFBO:(GLuint)fbo
 {
+    ASSERT(texture && _offscreenBlitProgram && _offscreenBlitVAO);
+
     auto currentCtx   = [MGLContext currentContext];
     auto currentLayer = [MGLContext currentLayer];
     [MGLContext setCurrentContext:_offscreenFBOCreatorContext forLayer:self];
 
     ScopedFBOBind bindFBO(fbo);
+    ScopedDrawBuffer setDrawBuffer(fbo ? GL_COLOR_ATTACHMENT0 : GL_BACK,
+                                   _isGLES3Plus ? gl::DrawBuffers : gl::DrawBuffersEXT);
     ScopedProgramBind bindProgram(_offscreenBlitProgram);
     ScopedActiveTexture activeTexture(GL_TEXTURE0);
     ScopedTextureBind bindTexture(texture);
@@ -411,6 +589,37 @@ GLint LinkProgram(GLuint program)
     [self releaseSurface];
 }
 
+- (void)setDrawableMultisample:(MGLDrawableMultisample)drawableMultisample
+{
+    _drawableMultisample = drawableMultisample;
+    if (!rx::IsMetalDisplayAvailable() && _drawableMultisample > 0)
+    {
+        // Default backbuffer MSAA is not supported in native GL backend yet.
+        // Use offscreen MSAA buffer.
+        _useOffscreenFBO = YES;
+    }
+    [self releaseSurface];
+}
+
+- (void)setRetainedBacking:(BOOL)retainedBacking
+{
+    if (!rx::IsMetalDisplayAvailable())
+    {
+        if (_drawableMultisample > 0)
+        {
+            // Default backbuffer MSAA is not supported in native GL backend yet.
+            // Always use offscreen MSAA buffer.
+            _useOffscreenFBO = YES;
+        }
+        else
+        {
+            _useOffscreenFBO = retainedBacking;
+        }
+    }
+    // else Metal back-end already supports preserve swap behavior.
+    _retainedBacking = retainedBacking;
+}
+
 - (void)releaseSurface
 {
     if (_eglSurface == eglGetCurrentSurface(EGL_READ) ||
@@ -430,9 +639,9 @@ GLint LinkProgram(GLuint program)
 {
     if (_defaultOpenGLFrameBufferID)
     {
-        auto oldRetainBackingFlag = _retainedBacking;
+        auto oldUseOffscreenFBOFlag = _useOffscreenFBO;
         // Avoid the buffer being created again inside setCurrentContext:
-        _retainedBacking  = NO;
+        _useOffscreenFBO  = NO;
         auto currentCtx   = [MGLContext currentContext];
         auto currentLayer = [MGLContext currentLayer];
         [MGLContext setCurrentContext:_offscreenFBOCreatorContext];
@@ -442,6 +651,8 @@ GLint LinkProgram(GLuint program)
 
         gl::DeleteTextures(1, &_offscreenTexture);
         _offscreenTexture = 0;
+        gl::DeleteRenderbuffers(1, &_offscreenRenderBuffer);
+        _offscreenRenderBuffer = 0;
         gl::DeleteRenderbuffers(1, &_offscreenDepthStencilBuffer);
         _offscreenDepthStencilBuffer = 0;
         gl::DeleteVertexArraysOES(1, &_offscreenBlitVAO);
@@ -453,7 +664,7 @@ GLint LinkProgram(GLuint program)
 
         [MGLContext setCurrentContext:currentCtx forLayer:currentLayer];
 
-        _retainedBacking = oldRetainBackingFlag;
+        _useOffscreenFBO = oldUseOffscreenFBOFlag;
     }
 
     _offscreenFBOSize.width = _offscreenFBOSize.height = 0;
@@ -461,11 +672,18 @@ GLint LinkProgram(GLuint program)
 
 - (void)checkLayerSize
 {
-    // Resize the metal layer
-    _metalLayer.frame = self.bounds;
-    _metalLayer.drawableSize =
-        CGSizeMake(_metalLayer.bounds.size.width * _metalLayer.contentsScale,
-                   _metalLayer.bounds.size.height * _metalLayer.contentsScale);
+    if (rx::IsMetalDisplayAvailable())
+    {
+        // Resize the metal layer
+        _metalLayer.frame = self.bounds;
+        _metalLayer.drawableSize =
+            CGSizeMake(_metalLayer.bounds.size.width * _metalLayer.contentsScale,
+                       _metalLayer.bounds.size.height * _metalLayer.contentsScale);
+    }
+    else
+    {
+        _legacyGLLayer.frame = self.bounds;
+    }
 }
 
 - (void)ensureSurfaceCreated
@@ -478,15 +696,19 @@ GLint LinkProgram(GLuint program)
     [self checkLayerSize];
 
     int red = 8, green = 8, blue = 8, alpha = 8;
+    int colorSpace;
     switch (_drawableColorFormat)
     {
         case MGLDrawableColorFormatRGBA8888:
-            red = green = blue = alpha = 8;
-            break;
+        // RGB565 default framebuffer is not supported by Metal atm.
+        // Fallback to RGBA8.
         case MGLDrawableColorFormatRGB565:
-            red = blue = 5;
-            green      = 6;
-            alpha      = 0;
+            red = green = blue = alpha = 8;
+            colorSpace                 = EGL_GL_COLORSPACE_LINEAR_KHR;
+            break;
+        case MGLDrawableColorFormatSRGBA8888:
+            red = green = blue = alpha = 8;
+            colorSpace                 = EGL_GL_COLORSPACE_SRGB_KHR;
             break;
         default:
             UNREACHABLE();
@@ -499,10 +721,10 @@ GLint LinkProgram(GLuint program)
         EGL_GREEN_SIZE,     green,
         EGL_BLUE_SIZE,      blue,
         EGL_ALPHA_SIZE,     alpha,
-        EGL_DEPTH_SIZE,     _retainedBacking ? 0 : _drawableDepthFormat,
-        EGL_STENCIL_SIZE,   _retainedBacking ? 0 : _drawableStencilFormat,
+        EGL_DEPTH_SIZE,     _useOffscreenFBO ? 0 : _drawableDepthFormat,
+        EGL_STENCIL_SIZE,   _useOffscreenFBO ? 0 : _drawableStencilFormat,
         EGL_SAMPLE_BUFFERS, 0,
-        EGL_SAMPLES,        EGL_DONT_CARE,
+        EGL_SAMPLES,        _useOffscreenFBO ? EGL_DONT_CARE : _drawableMultisample,
     };
     surfaceAttribs.push_back(EGL_NONE);
     EGLConfig config;
@@ -514,28 +736,52 @@ GLint LinkProgram(GLuint program)
     }
 
     EGLint creationAttribs[] = {EGL_FLEXIBLE_SURFACE_COMPATIBILITY_SUPPORTED_ANGLE, EGL_TRUE,
-                                EGL_NONE};
+                                EGL_GL_COLORSPACE_KHR, colorSpace, EGL_NONE};
 
-    _eglSurface = eglCreateWindowSurface(
-        _display.eglDisplay, config, (__bridge EGLNativeWindowType)_metalLayer, creationAttribs);
+    EGLNativeWindowType nativeWindowPtr;
+
+    if (rx::IsMetalDisplayAvailable())
+    {
+        // If metal layer is available, use it directly
+        nativeWindowPtr = (__bridge EGLNativeWindowType)_metalLayer;
+    }
+    else
+    {
+        nativeWindowPtr = (__bridge EGLNativeWindowType)_legacyGLLayer;
+    }
+
+    _eglSurface =
+        eglCreateWindowSurface(_display.eglDisplay, config, nativeWindowPtr, creationAttribs);
     if (_eglSurface == EGL_NO_SURFACE)
     {
         Throw(@"Failed to call eglCreateWindowSurface()");
+    }
+
+    if (_retainedBacking && !_useOffscreenFBO)
+    {
+        eglSurfaceAttrib(_display.eglDisplay, _eglSurface, EGL_SWAP_BEHAVIOR, EGL_BUFFER_PRESERVED);
     }
 }
 
 - (BOOL)ensureOffscreenFBOCreated
 {
-    ASSERT([MGLContext currentContext]);
+    ASSERT(eglGetCurrentContext() != EGL_NO_CONTEXT);
 
-    ScopedTexture oldOffscreenTexture = 0;
+    ScopedTexture oldOffscreenTexture           = 0;
+    ScopedRenderbuffer oldOffscreenRenderbuffer = 0;
+    CGSize oldOffscreenSize                     = _offscreenFBOSize;
 
     if (_offscreenFBOCreatorContext != [MGLContext currentContext] || !
                                                                       [self verifyOffscreenFBOSize])
     {
-        // We need to copy the old texture to current texture
-        oldOffscreenTexture = _offscreenTexture;
-        _offscreenTexture   = 0;
+        // We need to copy the old texture to current texture, so backup the offscreen
+        // texture/buffer value and set those instance variables to zero to avoid the texture/buffer
+        // being released.
+        oldOffscreenTexture      = _offscreenTexture;
+        oldOffscreenRenderbuffer = _offscreenRenderBuffer;
+        oldOffscreenSize         = _offscreenFBOSize;
+        _offscreenTexture        = 0;
+        _offscreenRenderBuffer   = 0;
         [self releaseOffscreenRenderingResources];
     }
 
@@ -551,8 +797,23 @@ GLint LinkProgram(GLuint program)
         return NO;
     }
 
-    if (oldOffscreenTexture.get())
+    // Copy old content to new offscreen framebuffer
+    if (oldOffscreenTexture.get() || oldOffscreenRenderbuffer.get())
     {
+        if (_blitFramebufferAvail)
+        {
+            ScopedFramebuffer tempFBO;
+            gl::GenFramebuffers(1, &tempFBO.get());
+            gl::BindFramebuffer(GL_READ_FRAMEBUFFER, tempFBO);
+            gl::FramebufferRenderbuffer(GL_READ_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER,
+                                        oldOffscreenRenderbuffer);
+
+            return [self blitFBO:tempFBO
+                      sourceSize:oldOffscreenSize
+                           toFBO:_defaultOpenGLFrameBufferID
+                 destinationSize:_offscreenFBOSize
+                 destinationMSAA:_drawableMultisample];
+        }
         return [self blitOffscreenTexture:oldOffscreenTexture toFBO:_defaultOpenGLFrameBufferID];
     }
 
@@ -561,6 +822,12 @@ GLint LinkProgram(GLuint program)
 
 - (BOOL)createOffscreenRenderingResources
 {
+    auto version          = reinterpret_cast<const char *>(gl::GetString(GL_VERSION));
+    auto exts             = reinterpret_cast<const char *>(gl::GetString(GL_EXTENSIONS));
+    _isGLES3Plus          = strstr(version, "OpenGL ES 3") != nullptr;
+    _drawBuffersAvail     = _isGLES3Plus || strstr(exts, "GL_EXT_draw_buffers") != nullptr;
+    _blitFramebufferAvail = _isGLES3Plus || strstr(exts, "GL_ANGLE_framebuffer_blit") != nullptr;
+
     if (![self createOffscreenBlitVBO])
     {
         return NO;
@@ -586,10 +853,21 @@ GLint LinkProgram(GLuint program)
 
     ScopedFBOBind bindFBO(_defaultOpenGLFrameBufferID);
 
-    if (![self createOffscreenTexture])
+    if (_blitFramebufferAvail)
     {
-        return NO;
+        if (![self createOffscreenRenderBuffer])
+        {
+            return NO;
+        }
     }
+    else
+    {
+        if (![self createOffscreenTexture])
+        {
+            return NO;
+        }
+    }
+
     if (![self createOffscreenDepthStencilbuffer])
     {
         return NO;
@@ -635,9 +913,19 @@ GLint LinkProgram(GLuint program)
     gl::GenRenderbuffers(1, &_offscreenDepthStencilBuffer);
     ScopedRenderbufferBind bindRenderbuffer(_offscreenDepthStencilBuffer);
 
-    gl::RenderbufferStorage(GL_RENDERBUFFER, depthStencilFormat,
-                            static_cast<GLsizei>(_offscreenFBOSize.width),
-                            static_cast<GLsizei>(_offscreenFBOSize.height));
+    if (_drawableMultisample)
+    {
+        gl::RenderbufferStorageMultisampleANGLE(GL_RENDERBUFFER, _drawableMultisample,
+                                                depthStencilFormat,
+                                                static_cast<GLsizei>(_offscreenFBOSize.width),
+                                                static_cast<GLsizei>(_offscreenFBOSize.height));
+    }
+    else
+    {
+        gl::RenderbufferStorage(GL_RENDERBUFFER, depthStencilFormat,
+                                static_cast<GLsizei>(_offscreenFBOSize.width),
+                                static_cast<GLsizei>(_offscreenFBOSize.height));
+    }
 
     if (depthBits)
     {
@@ -653,41 +941,118 @@ GLint LinkProgram(GLuint program)
     return _offscreenDepthStencilBuffer && gl::GetError() == GL_NO_ERROR;
 }
 
-- (BOOL)createOffscreenTexture
+// Offscreen renderbuffer is used when glBlitFramebuffer is available.
+- (BOOL)createOffscreenRenderBuffer
 {
+    ASSERT(_blitFramebufferAvail);
+
     // Clear pending errors
     gl::GetError();
 
-    // NOTE(hqle): MSAA option
-    gl::GenTextures(1, &_offscreenTexture);
-
-    ScopedTextureBind bindTexture(_offscreenTexture);
-
-    GLenum textureFormat;
+    GLenum sizedFormat;
     switch (_drawableColorFormat)
     {
         case MGLDrawableColorFormatRGBA8888:
-            textureFormat = GL_RGBA8_OES;
-            break;
         case MGLDrawableColorFormatRGB565:
-            textureFormat = GL_RGB8_OES;
+            sizedFormat                   = GL_RGBA8_OES;
+            _offscreenColorUnsizedFormat  = GL_RGBA;
+            _offscreenColorFormatDataType = GL_UNSIGNED_BYTE;
+            break;
+        case MGLDrawableColorFormatSRGBA8888:
+            sizedFormat                   = GL_SRGB8_ALPHA8_EXT;
+            _offscreenColorUnsizedFormat  = GL_SRGB_ALPHA_EXT;
+            _offscreenColorFormatDataType = GL_UNSIGNED_BYTE;
             break;
         default:
             UNREACHABLE();
             break;
     }
 
-    gl::TexStorage2DEXT(GL_TEXTURE_2D, 1, textureFormat,
-                        static_cast<GLsizei>(_offscreenFBOSize.width),
-                        static_cast<GLsizei>(_offscreenFBOSize.height));
+    gl::GenRenderbuffers(1, &_offscreenRenderBuffer);
+    ScopedRenderbufferBind bindRenderbuffer(_offscreenRenderBuffer);
+
+    if (_drawableMultisample)
+    {
+        gl::RenderbufferStorageMultisampleANGLE(GL_RENDERBUFFER, _drawableMultisample, sizedFormat,
+                                                static_cast<GLsizei>(_offscreenFBOSize.width),
+                                                static_cast<GLsizei>(_offscreenFBOSize.height));
+    }
+    else
+    {
+        gl::RenderbufferStorage(GL_RENDERBUFFER, sizedFormat,
+                                static_cast<GLsizei>(_offscreenFBOSize.width),
+                                static_cast<GLsizei>(_offscreenFBOSize.height));
+    }
+
+    gl::FramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER,
+                                _offscreenRenderBuffer);
+
+    return _offscreenRenderBuffer && gl::GetError() == GL_NO_ERROR;
+}
+
+// Offscreen texture is used when glBlitFramebuffer is NOT available.
+- (BOOL)createOffscreenTexture
+{
+    ASSERT(!_blitFramebufferAvail);
+
+    // Clear pending errors
+    gl::GetError();
+
+    gl::GenTextures(1, &_offscreenTexture);
+
+    ScopedTextureBind bindTexture(_offscreenTexture);
+
+    GLenum textureSizedFormat;
+    GLenum textureFormat;
+    GLenum type;
+    switch (_drawableColorFormat)
+    {
+        case MGLDrawableColorFormatRGBA8888:
+        case MGLDrawableColorFormatRGB565:
+            textureSizedFormat = GL_RGBA8_OES;
+            textureFormat      = GL_RGBA;
+            type               = GL_UNSIGNED_BYTE;
+        case MGLDrawableColorFormatSRGBA8888:
+            textureSizedFormat = GL_SRGB8_ALPHA8_EXT;
+            textureFormat      = GL_SRGB_ALPHA_EXT;
+            type               = GL_UNSIGNED_BYTE;
+            break;
+        default:
+            UNREACHABLE();
+            break;
+    }
+
+    _offscreenColorUnsizedFormat  = textureFormat;
+    _offscreenColorFormatDataType = type;
+
+    if (rx::IsMetalDisplayAvailable())
+    {
+        gl::TexStorage2DEXT(GL_TEXTURE_2D, 1, textureSizedFormat,
+                            static_cast<GLsizei>(_offscreenFBOSize.width),
+                            static_cast<GLsizei>(_offscreenFBOSize.height));
+    }
+    else
+    {
+        gl::TexImage2D(
+            GL_TEXTURE_2D, 0, textureFormat, static_cast<GLsizei>(_offscreenFBOSize.width),
+            static_cast<GLsizei>(_offscreenFBOSize.height), 0, textureFormat, type, nullptr);
+    }
 
     gl::TexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     gl::TexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     gl::TexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     gl::TexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-    gl::FramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _offscreenTexture,
-                             0);
+    if (_drawableMultisample)
+    {
+        gl::FramebufferTexture2DMultisampleEXT(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
+                                               _offscreenTexture, 0, _drawableMultisample);
+    }
+    else
+    {
+        gl::FramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
+                                 _offscreenTexture, 0);
+    }
 
     return _offscreenTexture && gl::GetError() == GL_NO_ERROR;
 }

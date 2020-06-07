@@ -307,8 +307,6 @@ class SpirvToMslCompiler : public spirv_cross::CompilerMSL
         }
 
         compOpt.pad_fragment_output_components = true;
-        // Some macOS drivers cannot compile unless we turn on this flag.
-        // compOpt.force_native_arrays = true;
 
         // Tell spirv-cross to map default & driver uniform blocks as we want
         spirv_cross::ShaderResources mslRes = spirv_cross::CompilerMSL::get_shader_resources();

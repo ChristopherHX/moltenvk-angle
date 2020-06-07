@@ -22,14 +22,22 @@
     MGLContext *_offscreenFBOCreatorContext;
     EGLSurface _eglSurface;
     CAMetalLayer *_metalLayer;
+    CALayer *_legacyGLLayer;
 
     // Textures used to retain the content of framebuffer.
-    GLuint _offscreenTexture;
+    GLuint _offscreenColorUnsizedFormat;
+    GLuint _offscreenColorFormatDataType;
+    GLuint _offscreenTexture;       // Use if glBlitFramebufferANGLE is not available
+    GLuint _offscreenRenderBuffer;  // Use if glBlitFramebufferANGLE is available
     GLuint _offscreenDepthStencilBuffer;
     GLuint _offscreenBlitProgram;
     GLuint _offscreenBlitVBO;
     GLuint _offscreenBlitVAO;
     CGSize _offscreenFBOSize;
+    BOOL _isGLES3Plus;
+    BOOL _blitFramebufferAvail;
+    BOOL _drawBuffersAvail;
+    BOOL _useOffscreenFBO;
 }
 
 @property(nonatomic, readonly) EGLSurface eglSurface;

@@ -111,7 +111,7 @@ class VertexArrayMtl : public VertexArrayImpl
                                          GLuint targetStride,
                                          size_t vertexCount,
                                          ConversionBufferMtl *conversion);
-    angle::Result convertVertexBufferGPU(ContextMtl *contextMtl,
+    angle::Result convertVertexBufferGPU(const gl::Context *glContext,
                                          BufferMtl *srcBuffer,
                                          const gl::VertexBinding &binding,
                                          size_t attribIndex,
@@ -133,6 +133,8 @@ class VertexArrayMtl : public VertexArrayImpl
     // Array of host buffers storing converted data for client attributes that are small enough.
     gl::AttribArray<angle::MemoryBuffer> mConvertedClientSmallArrays;
     gl::AttribArray<const uint8_t *> mCurrentArrayInlineDataPointers;
+    // Max size of inline constant data that can be used for client vertex attribute.
+    size_t mInlineDataMaxSize;
 
     // Stride per vertex attribute
     gl::AttribArray<GLuint> mCurrentArrayBufferStrides;

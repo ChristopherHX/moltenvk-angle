@@ -325,7 +325,7 @@ Texture::Texture(ContextMtl *context,
 
         if (memoryLess)
         {
-#if TARGET_OS_IOS && !TARGET_OS_MACCATALYST
+#if (TARGET_OS_IOS || TARGET_OS_TV) && !TARGET_OS_MACCATALYST
             desc.resourceOptions = MTLResourceStorageModeMemoryless;
 #else
             desc.resourceOptions = MTLResourceStorageModePrivate;
@@ -691,7 +691,7 @@ TextureRef Texture::getReadableCopy(ContextMtl *context,
         // Create a texture that big enough to store the first level data and any smaller level
         ANGLE_MTL_OBJC_SCOPE
         {
-            auto desc            = [MTLTextureDescriptor new];
+            auto desc            = [[MTLTextureDescriptor new] ANGLE_MTL_AUTORELEASE];
             desc.textureType     = get().textureType;
             desc.pixelFormat     = get().pixelFormat;
             desc.width           = firstLevelSize.width;
@@ -713,6 +713,11 @@ TextureRef Texture::getReadableCopy(ContextMtl *context,
                          areaToCopy.size, mReadCopy, 0, 0, MTLOriginMake(0, 0, 0));
 
     return mReadCopy;
+}
+
+void Texture::releaseReadableCopy()
+{
+    mReadCopy = nullptr;
 }
 
 void Texture::set(id<MTLTexture> metalTexture)
@@ -788,7 +793,7 @@ angle::Result Buffer::reset(ContextMtl *context,
 
     options = 0;
 #if TARGET_OS_OSX || TARGET_OS_MACCATALYST
-    if (!useSharedMem)
+    if (!useSharedMem || context->getDisplay()->getFeatures().forceBufferGPUStorage.enabled)
     {
         options |= MTLResourceStorageModeManaged;
     }
@@ -872,27 +877,35 @@ uint8_t *Buffer::map(ContextMtl *context, bool readonly, bool noSync)
 
 void Buffer::unmap(ContextMtl *context)
 {
-#if TARGET_OS_OSX || TARGET_OS_MACCATALYST
-    if (!mMapReadOnly)
-    {
-        if (get().storageMode == MTLStorageModeManaged)
-        {
-            [get() didModifyRange:NSMakeRange(0, size())];
-        }
-        mMapReadOnly = true;
-    }
-#endif
+    flush(context, 0, size());
+
+    // Reset read only flag
+    mMapReadOnly = true;
+}
+
+void Buffer::unmapNoFlush(ContextMtl *context)
+{
+    mMapReadOnly = true;
 }
 
 void Buffer::unmap(ContextMtl *context, size_t offsetWritten, size_t sizeWritten)
 {
 #if TARGET_OS_OSX || TARGET_OS_MACCATALYST
-    ASSERT(!mMapReadOnly);
-    if (get().storageMode == MTLStorageModeManaged)
-    {
-        [get() didModifyRange:NSMakeRange(offsetWritten, sizeWritten)];
-    }
+    flush(context, offsetWritten, sizeWritten);
+#endif
     mMapReadOnly = true;
+}
+
+void Buffer::flush(ContextMtl *context, size_t offsetWritten, size_t sizeWritten)
+{
+#if TARGET_OS_OSX || TARGET_OS_MACCATALYST
+    if (!mMapReadOnly)
+    {
+        if (get().storageMode == MTLStorageModeManaged)
+        {
+            [get() didModifyRange:NSMakeRange(offsetWritten, sizeWritten)];
+        }
+    }
 #endif
 }
 
