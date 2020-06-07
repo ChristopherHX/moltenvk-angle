@@ -429,7 +429,6 @@ set(libangle_metal_sources
   src/libANGLE/renderer/metal/mtl_state_cache.mm
   src/libANGLE/renderer/metal/mtl_utils.h
   src/libANGLE/renderer/metal/mtl_utils.mm
-  src/libANGLE/renderer/metal/shaders/mtl_default_shaders_src_autogen.inc
   src/libANGLE/renderer/metal/shaders/compiled/mtl_default_shaders.inc
 )
 
@@ -697,6 +696,8 @@ set (angle_translator_sources
   src/compiler/translator/tree_util/FindMain.h
   src/compiler/translator/tree_util/FindSymbolNode.cpp
   src/compiler/translator/tree_util/FindSymbolNode.h
+  src/compiler/translator/tree_util/ReplaceClipDistanceVariable.cpp
+  src/compiler/translator/tree_util/ReplaceClipDistanceVariable.h
   src/compiler/translator/tree_util/IntermNodePatternMatcher.cpp
   src/compiler/translator/tree_util/IntermNodePatternMatcher.h
   src/compiler/translator/tree_util/IntermNode_util.cpp

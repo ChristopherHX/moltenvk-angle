@@ -41,7 +41,7 @@ extern int UIKIT_GLES_SwapWindow(_THIS, SDL_Window * window);
 extern int UIKIT_GLES_MakeCurrent(_THIS, SDL_Window * window, SDL_GLContext context);
 extern void UIKIT_GLES_DeleteContext(_THIS, SDL_GLContext context);
 extern int UIKIT_GLES_SetupWindow(_THIS, SDL_Window * window);
-
+extern void UIKIT_GLES_GetDrawableSize(_THIS, SDL_Window * window,int * w, int * h);
 #endif /* SDL_VIDEO_OPENGL_EGL */
 
 #endif /* SDL_uikitegl_h_ */

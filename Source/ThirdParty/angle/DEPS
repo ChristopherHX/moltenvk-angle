@@ -24,7 +24,7 @@ vars = {
   'glslang_revision': '4b97a1108114107a8082a55e9e0721a40f9536d3',
 
   # Current revision of spirv-cross, the Khronos SPIRV cross compiler.
-  'spirv_cross_revision': 'fd5aa3ad51ece55a1b51fe6bfb271db6844ae291',
+  'spirv_cross_revision': 'f38cbeb814c73510b85697adbe5e894f9eac978f',
 
   # Current revision fo the SPIRV-Headers Vulkan support library.
   'spirv_headers_revision': '842ec90674627ed2ffef609e3cd79d1562eded01',
@@ -208,6 +208,17 @@ deps = {
   '{angle_root}/tools/clang': {
     'url': '{chromium_git}/chromium/src/tools/clang.git@2fef805e5b05b26a8c87c47865590b5f43218611',
     'condition': 'not build_with_chromium',
+  },
+
+  '{angle_root}/tools/clang/dsymutil': {
+    'packages': [
+      {
+        'package': 'chromium/llvm-build-tools/dsymutil',
+        'version': 'M56jPzDv1620Rnm__jTMYS62Zi8rxHVq7yw0qeBFEgkC',
+      }
+    ],
+    'condition': 'checkout_mac and not build_with_chromium',
+    'dep_type': 'cipd',
   },
 
   '{angle_root}/tools/md_browser': {
