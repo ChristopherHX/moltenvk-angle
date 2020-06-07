@@ -209,7 +209,6 @@ angle::Result ContextMtl::initialize()
     mLineLoopLastSegmentIndexBuffer.initialize(this, 2 * sizeof(uint32_t),
                                                mtl::kIndexBufferOffsetAlignment,
                                                kMaxTriFanLineLoopBuffersPerFrame);
-    mLineLoopIndexBuffer.setAlwaysAllocateNewBuffer(true);
 
     return angle::Result::Continue;
 }
@@ -226,7 +225,7 @@ void ContextMtl::onDestroy(const gl::Context *context)
 
 angle::Result ContextMtl::ensureIncompleteTexturesCreated(const gl::Context *context)
 {
-    if (!mIncompleteTexturesInitialized)
+    if (ANGLE_UNLIKELY(!mIncompleteTexturesInitialized))
     {
         constexpr gl::TextureType supportedTextureTypes[] = {
             gl::TextureType::_2D, gl::TextureType::_2DArray, gl::TextureType::_3D,
@@ -754,6 +753,9 @@ angle::Result ContextMtl::syncState(const gl::Context *context,
 {
     const gl::State &glState = context->getState();
 
+    // Initialize incomplete texture set.
+    ANGLE_TRY(ensureIncompleteTexturesCreated(context));
+
     for (size_t dirtyBit : dirtyBits)
     {
         switch (dirtyBit)
@@ -961,7 +963,7 @@ angle::Result ContextMtl::syncState(const gl::Context *context,
             case gl::State::DIRTY_BIT_PROVOKING_VERTEX:
                 break;
             case gl::State::DIRTY_BIT_EXTENDED:
-                ANGLE_TRY(syncExtendedState(context));
+                updateExtendedState(glState);
                 break;
             default:
                 UNREACHABLE();
@@ -972,26 +974,11 @@ angle::Result ContextMtl::syncState(const gl::Context *context,
     return angle::Result::Continue;
 }
 
-angle::Result ContextMtl::syncExtendedState(const gl::Context *context)
+void ContextMtl::updateExtendedState(const gl::State &glState)
 {
-    const gl::State &glState = context->getState();
-
-    for (size_t dirtyBit : glState.getExtendedDirtyBits())
-    {
-        switch (dirtyBit)
-        {
-            case gl::State::DIRTY_BIT_EXT_CLIP_DISTANCE_ENABLED:
-                invalidateDriverUniforms();
-                break;
-            case gl::State::DIRTY_BIT_EXT_GENERATE_MIPMAP_HINT:
-                break;
-            case gl::State::DIRTY_BIT_EXT_SHADER_DERIVATIVE_HINT:
-                break;
-            default:
-                UNREACHABLE();
-        }
-    }
-    return angle::Result::Continue;
+    // Handling clip distance enabled flags, mipmap generation hint & shader derivative
+    // hint.
+    invalidateDriverUniforms();
 }
 
 // Disjoint timer queries
@@ -1341,9 +1328,10 @@ void ContextMtl::present(const gl::Context *context, id<CAMetalDrawable> present
 {
     ensureCommandBufferValid();
 
-    if (mDrawFramebuffer)
+    FramebufferMtl *currentframebuffer = mtl::GetImpl(getState().getDrawFramebuffer());
+    if (currentframebuffer)
     {
-        mDrawFramebuffer->onFrameEnd(context);
+        currentframebuffer->onFrameEnd(context);
     }
 
     endEncoding(false);
@@ -1405,6 +1393,7 @@ mtl::RenderCommandEncoder *ContextMtl::getRenderCommandEncoder(
     mtl::RenderPassDesc rpDesc;
     renderTarget.toRenderPassAttachmentDesc(&rpDesc.colorAttachments[0]);
     rpDesc.numColorAttachments = 1;
+    rpDesc.sampleCount         = renderTarget.getRenderSamples();
 
     if (clearColor.valid())
     {
@@ -1592,6 +1581,20 @@ void ContextMtl::onDrawFrameBufferChangedState(const gl::Context *context,
     }
 }
 
+void ContextMtl::onBackbufferResized(const gl::Context *context, SurfaceMtl *backbuffer)
+{
+    const gl::State &glState    = getState();
+    FramebufferMtl *framebuffer = mtl::GetImpl(glState.getDrawFramebuffer());
+    if (framebuffer->getAttachedBackbuffer() != backbuffer)
+    {
+        return;
+    }
+
+    updateViewport(framebuffer, glState.getViewport(), glState.getNearPlane(),
+                   glState.getFarPlane());
+    updateScissor(glState);
+}
+
 angle::Result ContextMtl::onOcclusionQueryBegan(const gl::Context *context, QueryMtl *query)
 {
     ASSERT(mOcclusionQuery == nullptr);
@@ -1736,9 +1739,6 @@ angle::Result ContextMtl::setupDraw(const gl::Context *context,
 
     // instances=0 means no instanced draw.
     GLsizei instanceCount = instances ? instances : 1;
-
-    // Must be called before the render command encoder is started.
-    ANGLE_TRY(ensureIncompleteTexturesCreated(context));
 
     if (context->getStateCache().hasAnyActiveClientAttrib())
     {

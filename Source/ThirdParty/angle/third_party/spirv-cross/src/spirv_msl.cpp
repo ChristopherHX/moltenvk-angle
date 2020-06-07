@@ -174,6 +174,7 @@ void CompilerMSL::build_implicit_builtins()
 			if (need_subpass_input && (!msl_options.is_ios() || !msl_options.ios_use_framebuffer_fetch_subpasses) &&
 			    builtin == BuiltInFragCoord)
 			{
+				mark_implicit_builtin(StorageClassInput, BuiltInFragCoord, var.self);
 				builtin_frag_coord_id = var.self;
 				has_frag_coord = true;
 			}
@@ -181,6 +182,7 @@ void CompilerMSL::build_implicit_builtins()
 			if (need_sample_pos && builtin == BuiltInSampleId)
 			{
 				builtin_sample_id_id = var.self;
+				mark_implicit_builtin(StorageClassInput, BuiltInSampleId, var.self);
 				has_sample_id = true;
 			}
 
@@ -190,18 +192,22 @@ void CompilerMSL::build_implicit_builtins()
 				{
 				case BuiltInVertexIndex:
 					builtin_vertex_idx_id = var.self;
+					mark_implicit_builtin(StorageClassInput, BuiltInVertexIndex, var.self);
 					has_vertex_idx = true;
 					break;
 				case BuiltInBaseVertex:
 					builtin_base_vertex_id = var.self;
+					mark_implicit_builtin(StorageClassInput, BuiltInBaseVertex, var.self);
 					has_base_vertex = true;
 					break;
 				case BuiltInInstanceIndex:
 					builtin_instance_idx_id = var.self;
+					mark_implicit_builtin(StorageClassInput, BuiltInInstanceIndex, var.self);
 					has_instance_idx = true;
 					break;
 				case BuiltInBaseInstance:
 					builtin_base_instance_id = var.self;
+					mark_implicit_builtin(StorageClassInput, BuiltInBaseInstance, var.self);
 					has_base_instance = true;
 					break;
 				default:
@@ -215,10 +221,12 @@ void CompilerMSL::build_implicit_builtins()
 				{
 				case BuiltInInvocationId:
 					builtin_invocation_id_id = var.self;
+					mark_implicit_builtin(StorageClassInput, BuiltInInvocationId, var.self);
 					has_invocation_id = true;
 					break;
 				case BuiltInPrimitiveId:
 					builtin_primitive_id_id = var.self;
+					mark_implicit_builtin(StorageClassInput, BuiltInPrimitiveId, var.self);
 					has_primitive_id = true;
 					break;
 				default:
@@ -229,12 +237,14 @@ void CompilerMSL::build_implicit_builtins()
 			if ((need_subgroup_mask || needs_subgroup_invocation_id) && builtin == BuiltInSubgroupLocalInvocationId)
 			{
 				builtin_subgroup_invocation_id_id = var.self;
+				mark_implicit_builtin(StorageClassInput, BuiltInSubgroupLocalInvocationId, var.self);
 				has_subgroup_invocation_id = true;
 			}
 
 			if (need_subgroup_ge_mask && builtin == BuiltInSubgroupSize)
 			{
 				builtin_subgroup_size_id = var.self;
+				mark_implicit_builtin(StorageClassInput, BuiltInSubgroupSize, var.self);
 				has_subgroup_size = true;
 			}
 
@@ -245,10 +255,12 @@ void CompilerMSL::build_implicit_builtins()
 				case BuiltInInstanceIndex:
 					// The view index here is derived from the instance index.
 					builtin_instance_idx_id = var.self;
+					mark_implicit_builtin(StorageClassInput, BuiltInInstanceIndex, var.self);
 					has_instance_idx = true;
 					break;
 				case BuiltInViewIndex:
 					builtin_view_idx_id = var.self;
+					mark_implicit_builtin(StorageClassInput, BuiltInViewIndex, var.self);
 					has_view_idx = true;
 					break;
 				default:
@@ -645,7 +657,10 @@ void CompilerMSL::mark_implicit_builtin(StorageClass storage, BuiltIn builtin, u
 
 	assert(active_builtins != nullptr);
 	active_builtins->set(builtin);
-	get_entry_point().interface_variables.push_back(id);
+
+	auto &var = get_entry_point().interface_variables;
+	if (find(begin(var), end(var), VariableID(id)) == end(var))
+		var.push_back(id);
 }
 
 uint32_t CompilerMSL::build_constant_uint_array_pointer()
@@ -950,6 +965,16 @@ void CompilerMSL::emit_entry_point_declarations()
 	}
 	// For some reason, without this, we end up emitting the arrays twice.
 	buffer_arrays.clear();
+
+	// Emit disabled fragment outputs.
+	std::sort(disabled_frag_outputs.begin(), disabled_frag_outputs.end());
+	for (uint32_t var_id : disabled_frag_outputs)
+	{
+		auto &var = get<SPIRVariable>(var_id);
+		add_local_variable_name(var_id);
+		statement(variable_decl(var), ";");
+		var.deferred_declaration = false;
+	}
 }
 
 string CompilerMSL::compile()
@@ -1727,6 +1752,9 @@ void CompilerMSL::add_composite_variable_to_interface_block(StorageClass storage
 		// When we flatten, we flatten directly from the "out" struct,
 		// not from a function variable.
 		flatten_from_ib_var = true;
+
+		if (!msl_options.enable_clip_distance_user_varying)
+			return;
 	}
 	else if (!meta.strip_array)
 	{
@@ -1932,6 +1960,9 @@ void CompilerMSL::add_composite_member_variable_to_interface_block(StorageClass 
 		// When we flatten, we flatten directly from the "out" struct,
 		// not from a function variable.
 		flatten_from_ib_var = true;
+
+		if (!msl_options.enable_clip_distance_user_varying)
+			return;
 	}
 
 	for (uint32_t i = 0; i < elem_cnt; i++)
@@ -2427,6 +2458,7 @@ uint32_t CompilerMSL::add_interface_block(StorageClass storage, bool patch)
 
 		bool is_builtin = is_builtin_variable(var);
 		auto bi_type = BuiltIn(get_decoration(var_id, DecorationBuiltIn));
+		uint32_t location = get_decoration(var_id, DecorationLocation);
 
 		// These builtins are part of the stage in/out structs.
 		bool is_interface_block_builtin =
@@ -2451,6 +2483,21 @@ uint32_t CompilerMSL::add_interface_block(StorageClass storage, bool patch)
 		// ClipDistance is never hidden, we need to emulate it when used as an input.
 		if (bi_type == BuiltInClipDistance)
 			hidden = false;
+
+		// It's not enough to simply avoid marking fragment outputs if the pipeline won't
+		// accept them. We can't put them in the struct at all, or otherwise the compiler
+		// complains that the outputs weren't explicitly marked.
+		if (get_execution_model() == ExecutionModelFragment && storage == StorageClassOutput && !patch &&
+			((is_builtin && ((bi_type == BuiltInFragDepth && !msl_options.enable_frag_depth_builtin) ||
+		                    (bi_type == BuiltInFragStencilRefEXT && !msl_options.enable_frag_stencil_ref_builtin))) ||
+		     (!is_builtin && !(msl_options.enable_frag_output_mask & (1 << location)))))
+		{
+			hidden = true;
+			disabled_frag_outputs.push_back(var_id);
+			// If a builtin, force it to have the proper name.
+			if (is_builtin)
+				set_name(var_id, builtin_to_glsl(bi_type, StorageClassFunction));
+		}
 
 		// Barycentric inputs must be emitted in stage-in, because they can have interpolation arguments.
 		if (is_active && (bi_type == BuiltInBaryCoordNV || bi_type == BuiltInBaryCoordNoPerspNV))
@@ -2481,7 +2528,6 @@ uint32_t CompilerMSL::add_interface_block(StorageClass storage, bool patch)
 						SPIRV_CROSS_THROW("Component decoration is not supported in tessellation shaders.");
 					else if (pack_components)
 					{
-						uint32_t location = get_decoration(var_id, DecorationLocation);
 						auto &location_meta = meta.location_meta[location];
 						location_meta.num_components = std::max(location_meta.num_components, component + type.vecsize);
 					}
@@ -8862,12 +8908,23 @@ string CompilerMSL::member_attribute_qualifier(const SPIRType &type, uint32_t in
 			switch (builtin)
 			{
 			case BuiltInFragStencilRefEXT:
+				// Similar to PointSize, only mark FragStencilRef if there's a stencil buffer.
+				// Some shaders may include a FragStencilRef builtin even when used to render
+				// without a stencil attachment, and Metal will reject this builtin
+				// when compiling the shader into a render pipeline that does not set
+				// stencilAttachmentPixelFormat.
+				if (!msl_options.enable_frag_stencil_ref_builtin)
+					return "";
 				if (!msl_options.supports_msl_version(2, 1))
 					SPIRV_CROSS_THROW("Stencil export only supported in MSL 2.1 and up.");
 				return string(" [[") + builtin_qualifier(builtin) + "]]";
 
-			case BuiltInSampleMask:
 			case BuiltInFragDepth:
+				// Ditto FragDepth.
+				if (!msl_options.enable_frag_depth_builtin)
+					return "";
+				/* fallthrough */
+			case BuiltInSampleMask:
 				return string(" [[") + builtin_qualifier(builtin) + "]]";
 
 			default:
@@ -8875,6 +8932,9 @@ string CompilerMSL::member_attribute_qualifier(const SPIRType &type, uint32_t in
 			}
 		}
 		uint32_t locn = get_ordered_member_location(type.self, index);
+		// Metal will likely complain about missing color attachments, too.
+		if (locn != k_unknown_location && !(msl_options.enable_frag_output_mask & (1 << locn)))
+			return "";
 		if (locn != k_unknown_location && has_member_decoration(type.self, index, DecorationIndex))
 			return join(" [[color(", locn, "), index(", get_member_decoration(type.self, index, DecorationIndex),
 			            ")]]");
@@ -11330,13 +11390,17 @@ string CompilerMSL::builtin_to_glsl(BuiltIn builtin, StorageClass storage)
 		if (!msl_options.supports_msl_version(2, 0))
 			SPIRV_CROSS_THROW("ViewportIndex requires Metal 2.0.");
 		/* fallthrough */
+	case BuiltInFragDepth:
+	case BuiltInFragStencilRefEXT:
+		if ((builtin == BuiltInFragDepth && !msl_options.enable_frag_depth_builtin) ||
+		    (builtin == BuiltInFragStencilRefEXT && !msl_options.enable_frag_stencil_ref_builtin))
+			break;
+		/* fallthrough */
 	case BuiltInPosition:
 	case BuiltInPointSize:
 	case BuiltInClipDistance:
 	case BuiltInCullDistance:
 	case BuiltInLayer:
-	case BuiltInFragDepth:
-	case BuiltInFragStencilRefEXT:
 	case BuiltInSampleMask:
 		if (get_execution_model() == ExecutionModelTessellationControl)
 			break;
