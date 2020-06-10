@@ -3050,10 +3050,7 @@ void Graphics::PrepareDraw()
             glReadBuffer(GL_NONE);
             i->second_.readBuffers_ = GL_NONE;
         }
-#endif
 
-#if !defined(GL_ES_VERSION_2_0)
-#if defined(GL_EXT_draw_buffers)
         if (drawBuffersSupport_)
         {
             // Calculate the bit combination of non-zero color rendertargets to first check if the combination changed
@@ -3068,20 +3065,24 @@ void Graphics::PrepareDraw()
             {
                 // Check for no color rendertargets (depth rendering only)
                 if (!newDrawBuffers)
-                    glDrawBuffers(0, nullptr);
+					glDrawBuffer(GL_NONE);//glDrawBuffers(0, nullptr);
+					
                 else
                 {
                     int drawBufferIds[MAX_RENDERTARGETS];
-                    unsigned drawBufferCount = 0;
+                        unsigned drawBufferCount = 0;
 
-                    for (unsigned j = 0; j < MAX_RENDERTARGETS; ++j)
+                for (unsigned j = 0; j < MAX_RENDERTARGETS; ++j)
                     {
+						if (renderTargets_[j])
+						{
 #ifndef GL_ES_VERSION_3_0
-                        if (!gl3Support)
-                            drawBufferIds[drawBufferCount++] = GL_COLOR_ATTACHMENT0_EXT + j;
-                        else
+							if (!gl3Support)
+								drawBufferIds[drawBufferCount++] = GL_COLOR_ATTACHMENT0_EXT + j;
+							else
 #endif
-                            drawBufferIds[drawBufferCount++] = GL_COLOR_ATTACHMENT0 + j;
+								drawBufferIds[drawBufferCount++] = GL_COLOR_ATTACHMENT0 + j;
+						}
                     }
                     glDrawBuffers(drawBufferCount, (const GLenum*)drawBufferIds);
                 }
@@ -3090,7 +3091,7 @@ void Graphics::PrepareDraw()
             }
         }
 #endif
-#endif
+
         for (unsigned j = 0; j < MAX_RENDERTARGETS; ++j)
         {
             if (renderTargets_[j])

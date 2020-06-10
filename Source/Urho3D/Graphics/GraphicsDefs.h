@@ -328,7 +328,7 @@ enum TextureUnit
     TU_SPECULAR = 2,
     TU_EMISSIVE = 3,
     TU_ENVIRONMENT = 4,
-#if defined(DESKTOP_GRAPHICS) || defined(GL_ES_VERSION_3_0)
+#if defined(DESKTOP_GRAPHICS) || defined(GL_ES_VERSION_3_0) || defined(URHO3D_GLES3)
     TU_VOLUMEMAP = 5,
     TU_CUSTOM1 = 6,
     TU_CUSTOM2 = 7,
