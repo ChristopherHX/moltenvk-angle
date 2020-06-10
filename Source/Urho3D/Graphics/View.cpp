@@ -377,7 +377,7 @@ bool View::Define(RenderSurface* renderTarget, Viewport* viewport)
     geometriesUpdated_ = false;
 
 #ifdef URHO3D_OPENGL
-#if defined(URHO3D_GLES2)
+#if defined(GL_ES_VERSION_2_0)
     // On OpenGL ES we assume a stencil is not available or would not give a good performance, and disable light stencil
     // optimizations in any case
     noStencil_ = true;
@@ -589,7 +589,7 @@ void View::Render()
         camera_->SetAspectRatioInternal((float)(viewSize_.x_) / (float)(viewSize_.y_));
 
     // Bind the face selection and indirection cube maps for point light shadows
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
     if (renderer_->GetDrawShadows())
     {
         graphics_->SetTexture(TU_FACESELECT, renderer_->GetFaceSelectCubeMap());
@@ -1806,7 +1806,7 @@ bool View::SetTextures(RenderPathCommand& command)
             continue;
         }
 
-#ifdef DESKTOP_GRAPHICS_OR_GLES3
+#if defined(DESKTOP_GRAPHICS) || defined(GL_ES_VERSION_3_0)
         Texture* texture = FindNamedTexture(command.textureNames_[i], false, i == TU_VOLUMEMAP);
 #else
         Texture* texture = FindNamedTexture(command.textureNames_[i], false, false);
@@ -2025,7 +2025,7 @@ void View::AllocateScreenBuffers()
 
         // If OpenGL ES, use substitute target to avoid resolve from the backbuffer, which may be slow. However if multisampling
         // is specified, there is no choice
-#ifdef URHO3D_GLES2
+#ifdef GL_ES_VERSION_2_0
         if (!renderTarget_ && graphics_->GetMultiSample() < 2)
             needSubstitute = true;
 #endif
@@ -2279,7 +2279,7 @@ void View::ProcessLight(LightQueryResult& query, unsigned threadIndex)
     if (isShadowed && light->GetShadowDistance() > 0.0f && light->GetDistance() > light->GetShadowDistance())
         isShadowed = false;
     // OpenGL ES can not support point light shadows
-#if defined(URHO3D_GLES2)
+#if defined(GL_ES_VERSION_2_0)
     if (isShadowed && type == LIGHT_POINT)
         isShadowed = false;
 #endif
@@ -3107,7 +3107,7 @@ void View::RenderShadowMap(const LightBatchQueue& queue)
 
         // Perform further modification of depth bias on OpenGL ES, as shadow calculations' precision is limited
         float addition = 0.0f;
-#ifdef MOBILE_GRAPHICS
+#if defined(MOBILE_GRAPHICS) 
         multiplier *= renderer_->GetMobileShadowBiasMul();
         addition = renderer_->GetMobileShadowBiasAdd();
 #endif
@@ -3201,7 +3201,7 @@ Texture* View::FindNamedTexture(const String& name, bool isRenderTarget, bool is
         if (GetExtension(name) == ".xml")
         {
             // Assume 3D textures are only bound to the volume map unit, otherwise it's a cube texture
-#ifdef DESKTOP_GRAPHICS_OR_GLES3
+#if defined(DESKTOP_GRAPHICS) || defined(GL_ES_VERSION_3_0)
             StringHash type = ParseTextureTypeXml(cache, name);
             if (!type && isVolumeMap)
                 type = Texture3D::GetTypeStatic();

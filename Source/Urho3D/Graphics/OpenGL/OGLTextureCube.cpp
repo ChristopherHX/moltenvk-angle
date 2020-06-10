@@ -508,7 +508,7 @@ bool TextureCube::Create()
     }
 
     levels_ = CheckMaxLevels(width_, height_, requestedLevels_);
-#if !defined(URHO3D_GLES2)
+#if !defined(GL_ES_VERSION_2_0)
     glTexParameteri(target_, GL_TEXTURE_BASE_LEVEL, 0);
     glTexParameteri(target_, GL_TEXTURE_MAX_LEVEL, levels_ - 1);
 #endif

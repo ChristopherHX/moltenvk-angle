@@ -51,7 +51,7 @@
 
 #include "../../DebugNew.h"
 
-#ifdef URHO3D_GLES2
+#ifdef GL_ES_VERSION_2_0
 #ifndef GL_DEPTH_COMPONENT24
 #define GL_DEPTH_COMPONENT24 GL_DEPTH_COMPONENT24_OES
 #endif
@@ -73,9 +73,9 @@
 
 
 #if defined(__EMSCRIPTEN__) || defined(URHO3D_ANGLE_METAL)
-#include "../Input/Input.h"
-#include "../UI/Cursor.h"
-#include "../UI/UI.h"
+#include "../../Input/Input.h"
+#include "../../UI/Cursor.h"
+#include "../../UI/UI.h"
 #if defined(__EMSCRIPTEN__)
 #include <emscripten/emscripten.h>
 #include <emscripten/bind.h>
@@ -247,7 +247,7 @@ static const unsigned glFillMode[] =
 };
 #endif
 
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
 static const unsigned glStencilOps[] =
 {
     GL_KEEP,
@@ -280,7 +280,7 @@ static const unsigned glElementComponents[] =
     4
 };
 
-#ifdef URHO3D_GLES2
+#ifdef GL_ES_VERSION_2_0
 static unsigned glesDepthStencilFormat = GL_DEPTH_COMPONENT16;
 static unsigned glesReadableDepthFormat = GL_DEPTH_COMPONENT;
 #endif
@@ -331,7 +331,7 @@ static void GetGLPrimitiveType(unsigned elementCount, PrimitiveType type, unsign
 }
 
 const Vector2 Graphics::pixelUVOffset(0.0f, 0.0f);
-#if URHO3D_GLES3
+#if GL_ES_VERSION_3_0
 bool Graphics::gl3Support = true;
 #else
 bool Graphics::gl3Support = false;
@@ -694,7 +694,7 @@ void Graphics::Clear(ClearTargetFlags flags, const Color& color, float depth, un
 {
     PrepareDraw();
 
-#ifdef URHO3D_GLES2
+#ifdef GL_ES_VERSION_2_0
     flags &= ~CLEAR_STENCIL;
 #endif
 
@@ -772,7 +772,7 @@ bool Graphics::ResolveToTexture(Texture2D* destination, const IntRect& viewport)
 
 bool Graphics::ResolveToTexture(Texture2D* texture)
 {
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
     if (!texture)
         return false;
     RenderSurface* surface = texture->GetRenderSurface();
@@ -827,7 +827,7 @@ bool Graphics::ResolveToTexture(Texture2D* texture)
 
 bool Graphics::ResolveToTexture(TextureCube* texture)
 {
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
     if (!texture)
         return false;
 
@@ -957,7 +957,7 @@ void Graphics::Draw(PrimitiveType type, unsigned indexStart, unsigned indexCount
 void Graphics::DrawInstanced(PrimitiveType type, unsigned indexStart, unsigned indexCount, unsigned minVertex, unsigned vertexCount,
     unsigned instanceCount)
 {
-#if !defined(URHO3D_GLES2) || defined(__EMSCRIPTEN__) || defined(URHO3D_ANGLE_METAL)
+#if !defined(GL_ES_VERSION_2_0) || defined(__EMSCRIPTEN__) || defined(URHO3D_ANGLE_METAL)
     if (!indexCount || !indexBuffer_ || !indexBuffer_->GetGPUObjectName() || !instancingSupport_)
         return;
 
@@ -969,7 +969,7 @@ void Graphics::DrawInstanced(PrimitiveType type, unsigned indexStart, unsigned i
 
     GetGLPrimitiveType(indexCount, type, primitiveCount, glPrimitiveType);
     GLenum indexType = indexSize == sizeof(unsigned short) ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT;
-#if defined(__EMSCRIPTEN__) || (defined(URHO3D_ANGLE_METAL) && defined(URHO3D_GLES2))
+#if defined(__EMSCRIPTEN__) || (defined(URHO3D_ANGLE_METAL) && defined(GL_ES_VERSION_2_0))
     glDrawElementsInstancedANGLE(glPrimitiveType, indexCount, indexType, reinterpret_cast<const GLvoid*>(indexStart * indexSize),
         instanceCount);
 #else
@@ -1170,7 +1170,7 @@ void Graphics::SetShaders(ShaderVariation* vs, ShaderVariation* ps)
     // Update the clip plane uniform, and set constant buffers (on GL3)
     if (impl_->shaderProgram_)
     {
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
         if (gl3Support && impl_->shaderProgram_)
         {
             const SharedPtr<ConstantBuffer>* constantBuffers = impl_->shaderProgram_->GetConstantBuffers();
@@ -2061,7 +2061,7 @@ void Graphics::SetClipPlane(bool enable, const Plane& clipPlane, const Matrix3x4
 void Graphics::SetStencilTest(bool enable, CompareMode mode, StencilOp pass, StencilOp fail, StencilOp zFail, unsigned stencilRef,
     unsigned compareMask, unsigned writeMask)
 {
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
     if (enable != stencilTest_)
     {
         if (enable)
@@ -2123,7 +2123,7 @@ PODVector<int> Graphics::GetMultiSampleLevels() const
     // No multisampling always supported
     ret.Push(1);
 
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
     int maxSamples = 0;
     glGetIntegerv(GL_MAX_SAMPLES, &maxSamples);
     for (int i = 2; i <= maxSamples && i <= 16; i *= 2)
@@ -2143,7 +2143,7 @@ unsigned Graphics::GetFormat(CompressedFormat format) const
     case CF_DXT1:
         return dxtTextureSupport_ ? GL_COMPRESSED_RGBA_S3TC_DXT1_EXT : 0;
 
-#if !defined(URHO3D_GLES2) || defined(__EMSCRIPTEN__) || defined(URHO3D_ANGLE_METAL)
+#if !defined(GL_ES_VERSION_2_0) || defined(__EMSCRIPTEN__) || defined(URHO3D_ANGLE_METAL)
     case CF_DXT3:
         return dxtTextureSupport_ ? GL_COMPRESSED_RGBA_S3TC_DXT3_EXT : 0;
 
@@ -2615,7 +2615,7 @@ void Graphics::SetVBO(unsigned object)
 
 void Graphics::SetUBO(unsigned object)
 {
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
     if (impl_->boundUBO_ != object)
     {
         if (object)
@@ -2691,7 +2691,7 @@ unsigned Graphics::GetRGBAFloat32Format()
 {
 #ifndef GL_ES_VERSION_2_0
     return GL_RGBA32F_ARB;
-#elif URHO3D_GLES3
+#elif GL_ES_VERSION_3_0
     return GL_RGBA32F;
 #else
     return GL_RGBA;
@@ -2702,7 +2702,7 @@ unsigned Graphics::GetRG16Format()
 {
 #ifndef GL_ES_VERSION_2_0
     return GL_RG16;
-#elif URHO3D_GLES3
+#elif GL_ES_VERSION_3_0
     return GL_RG16UI;
 #else
     return GL_RGBA;
@@ -2711,7 +2711,7 @@ unsigned Graphics::GetRG16Format()
 
 unsigned Graphics::GetRGFloat16Format()
 {
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
     return GL_RG16F;
 #else
     return GL_RGBA;
@@ -2720,7 +2720,7 @@ unsigned Graphics::GetRGFloat16Format()
 
 unsigned Graphics::GetRGFloat32Format()
 {
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
     return GL_RG32F;
 #else
     return GL_RGBA;
@@ -2729,7 +2729,7 @@ unsigned Graphics::GetRGFloat32Format()
 
 unsigned Graphics::GetFloat16Format()
 {
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
     return GL_R16F;
 #else
     return GL_LUMINANCE;
@@ -2738,7 +2738,7 @@ unsigned Graphics::GetFloat16Format()
 
 unsigned Graphics::GetFloat32Format()
 {
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
     return GL_R32F;
 #else
     return GL_LUMINANCE;
@@ -2866,6 +2866,13 @@ void Graphics::CheckFeatureSupport()
     if (renderer.Contains("Intel", false))
         dummyColorFormat_ = GetRGBAFormat();
 #endif
+
+#ifdef GL_ES_VERSION_3_0
+    instancingSupport_ = true;
+    drawBuffersSupport_ = true;
+    glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &numSupportedRTs);
+#endif
+
 #else // GL_ES_VERSION_2_0
     // Check for supported compressed texture formats
 #ifdef __EMSCRIPTEN__
@@ -2876,58 +2883,48 @@ void Graphics::CheckFeatureSupport()
     // Instancing is in core in WebGL 2, so the extension may not be present anymore. In WebGL 1, find https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/
     // TODO: In the distant future, this may break if WebGL 3 is introduced, so either improve the GL_VERSION parsing here, or keep track of which WebGL version we attempted to initialize.
     instancingSupport_ = (strstr((const char *)glGetString(GL_VERSION), "WebGL 2.") != 0) || CheckExtension("ANGLE_instanced_arrays");
-#else
+    glOESStandardDerivativesSupport_ = CheckExtension("GL_OES_standard_derivatives");
+    
+    if (!CheckExtension("WEBGL_depth_texture"))
+    {
+        shadowMapFormat_ = 0;
+        hiresShadowMapFormat_ = 0;
+        glesReadableDepthFormat = 0;
+    }
+    else
+    {
+        shadowMapFormat_ = GL_DEPTH_COMPONENT;
+        hiresShadowMapFormat_ = 0;
+        // WebGL shadow map rendering seems to be extremely slow without an attached dummy color texture
+        dummyColorFormat_ = GetRGBAFormat();
+    }
+
+#else // pure GLES2
     dxtTextureSupport_ = CheckExtension("EXT_texture_compression_dxt1");
     etcTextureSupport_ = CheckExtension("OES_compressed_ETC1_RGB8_texture");
     etc2TextureSupport_ = gl3Support || CheckExtension("OES_compressed_ETC2_RGBA8_texture");
     pvrtcTextureSupport_ = CheckExtension("IMG_texture_compression_pvrtc");
-#   ifdef GL_ES_VERSION_3_0
-    instancingSupport_ = true;
-    drawBuffersSupport_ = true;
-    glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &numSupportedRTs);
-#   else  // Pure GLES2
 
     // check whether  the extention GL_OES_standard_derivatives is supported
     glOESStandardDerivativesSupport_ = CheckExtension("GL_OES_standard_derivatives");
 
-#       if defined(URHO3D_ANGLE_METAL)
+#if defined(URHO3D_ANGLE_METAL)
     instancingSupport_ = CheckExtension("ANGLE_instanced_arrays");
-#       endif
+#endif
 
-#       ifdef GL_EXT_draw_buffers
+#ifdef GL_EXT_draw_buffers
     if (CheckExtension("GL_EXT_draw_buffers"))
     {
         drawBuffersSupport_ = true;
         glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, &numSupportedRTs);
     }
-#       endif
-#   endif
-
-    anisotropySupport_ = CheckExtension("EXT_texture_filter_anisotropic");
-
-    // Check if gl_ClipDistance is supproted
-    clipDistanceEXTSupport_ = CheckExtension("GL_EXT_clip_cull_distance");
-    clipDistanceAPPLESupport_ = CheckExtension("GL_APPLE_clip_distance");
-    clipDistanceSupport_ = clipDistanceEXTSupport_ || clipDistanceAPPLESupport_;
-
-    // Check for best supported depth renderbuffer format for GLES2
-#ifndef GL_ES_VERSION_3_0
-    if (CheckExtension("GL_OES_depth24"))
-        glesDepthStencilFormat = GL_DEPTH_COMPONENT24_OES;
-    if (CheckExtension("GL_OES_packed_depth_stencil"))
-        glesDepthStencilFormat = GL_DEPTH24_STENCIL8_OES;
-
-#ifdef __EMSCRIPTEN__
-    if (!CheckExtension("WEBGL_depth_texture"))
-#else
-    if (!CheckExtension("GL_OES_depth_texture"))
 #endif
+
+    if (!CheckExtension("GL_OES_depth_texture"))
     {
         shadowMapFormat_ = 0;
         hiresShadowMapFormat_ = 0;
-#ifndef GL_ES_VERSION_3_0
         glesReadableDepthFormat = 0;
-#endif
     }
     else
     {
@@ -2937,14 +2934,24 @@ void Graphics::CheckFeatureSupport()
 #endif
         shadowMapFormat_ = GL_DEPTH_COMPONENT;
         hiresShadowMapFormat_ = 0;
-        // WebGL shadow map rendering seems to be extremely slow without an attached dummy color texture
-#ifdef __EMSCRIPTEN__
-        dummyColorFormat_ = GetRGBAFormat();
-#endif
     }
-#endif
-#endif
-#endif
+
+#endif  // pure GLES2
+
+    anisotropySupport_ = CheckExtension("EXT_texture_filter_anisotropic");
+
+    // Check if gl_ClipDistance is supproted
+    clipDistanceEXTSupport_ = CheckExtension("GL_EXT_clip_cull_distance");
+    clipDistanceAPPLESupport_ = CheckExtension("GL_APPLE_clip_distance");
+    clipDistanceSupport_ = clipDistanceEXTSupport_ || clipDistanceAPPLESupport_;
+
+    // Check for best supported depth renderbuffer format for GLES2
+    if (CheckExtension("GL_OES_depth24"))
+        glesDepthStencilFormat = GL_DEPTH_COMPONENT24_OES;
+    if (CheckExtension("GL_OES_packed_depth_stencil"))
+        glesDepthStencilFormat = GL_DEPTH24_STENCIL8_OES;
+
+#endif //// GL_ES_VERSION_2_0
 
     // Must support 2 rendertargets for light pre-pass, and 4 for deferred
     if (numSupportedRTs >= 2)
@@ -2958,7 +2965,7 @@ void Graphics::CheckFeatureSupport()
 
 void Graphics::PrepareDraw()
 {
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
 #ifndef GL_ES_VERSION_3_0
     if (gl3Support)
 #endif
@@ -3036,7 +3043,7 @@ void Graphics::PrepareDraw()
             impl_->boundFBO_ = i->second_.fbo_;
         }
 
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
         // Setup readbuffers & drawbuffers if needed
         if (i->second_.readBuffers_ != GL_NONE)
         {
@@ -3045,7 +3052,7 @@ void Graphics::PrepareDraw()
         }
 #endif
 
-#if !defined(URHO3D_GLES2)
+#if !defined(GL_ES_VERSION_2_0)
 #if defined(GL_EXT_draw_buffers)
         if (drawBuffersSupport_)
         {
@@ -3131,7 +3138,7 @@ void Graphics::PrepareDraw()
         {
             // Bind either a renderbuffer or a depth texture, depending on what is available
             Texture* texture = depthStencil_->GetParentTexture();
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
             bool hasStencil = texture->GetFormat() == GL_DEPTH24_STENCIL8_EXT;
 #else
             bool hasStencil = texture->GetFormat() == GL_DEPTH24_STENCIL8_OES;
@@ -3380,16 +3387,14 @@ void Graphics::SetTextureUnitMappings()
     textureUnits_["LightSpotMap"] = TU_LIGHTSHAPE;
     textureUnits_["LightCubeMap"] = TU_LIGHTSHAPE;
     textureUnits_["ShadowMap"] = TU_SHADOWMAP;
-#ifdef DESKTOP_GRAPHICS
+#ifndef GL_ES_VERSION_2_0
+    textureUnits_["VolumeMap"] = TU_VOLUMEMAP;
     textureUnits_["FaceSelectCubeMap"] = TU_FACESELECT;
     textureUnits_["IndirectionCubeMap"] = TU_INDIRECTION;
     textureUnits_["DepthBuffer"] = TU_DEPTHBUFFER;
     textureUnits_["LightBuffer"] = TU_LIGHTBUFFER;
     textureUnits_["ZoneCubeMap"] = TU_ZONE;
-#ifndef URHO3D_GLES2
     textureUnits_["ZoneVolumeMap"] = TU_ZONE;
-    textureUnits_["VolumeMap"] = TU_VOLUMEMAP;
-#endif
 #endif
 }
 
@@ -3506,7 +3511,7 @@ bool Graphics::CheckFramebuffer()
 
 void Graphics::SetVertexAttribDivisor(unsigned location, unsigned divisor)
 {
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
 #ifndef GL_ES_VERSION_3_0
     if (gl3Support && instancingSupport_)
 #endif

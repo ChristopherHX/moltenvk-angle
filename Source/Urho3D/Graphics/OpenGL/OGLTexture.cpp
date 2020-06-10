@@ -32,7 +32,7 @@
 
 #include "../../DebugNew.h"
 
-#if URHO3D_GLES3
+#if GL_ES_VERSION_3_0
 #define GL_COMPARE_R_TO_TEXTURE GL_COMPARE_REF_TO_TEXTURE
 #endif
 
@@ -105,7 +105,7 @@ void Texture::UpdateParameters()
     // Wrapping
     glTexParameteri(target_, GL_TEXTURE_WRAP_S, GetWrapMode(addressModes_[COORD_U]));
     glTexParameteri(target_, GL_TEXTURE_WRAP_T, GetWrapMode(addressModes_[COORD_V]));
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
     glTexParameteri(target_, GL_TEXTURE_WRAP_R, GetWrapMode(addressModes_[COORD_W]));
 #endif
 
@@ -164,7 +164,7 @@ void Texture::UpdateParameters()
     glTexParameterfv(target_, GL_TEXTURE_BORDER_COLOR, borderColor_.Data());
 #endif
 
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
     // Shadow compare
     if (shadowCompare_)
     {
@@ -360,7 +360,7 @@ unsigned Texture::GetDataType(unsigned format)
 
 unsigned Texture::GetSRGBFormat(unsigned format)
 {
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
     if (!graphics_ || !graphics_->GetSRGBSupport())
         return format;
 

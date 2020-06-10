@@ -44,9 +44,6 @@
 #else
 #include <OpenGLES/ES2/gl.h>
 #include <OpenGLES/ES2/glext.h>
-#ifndef URHO3D_GLES2
-#define URHO3D_GLES2
-#endif
 #endif
 #elif defined(__ANDROID__) || defined (__arm__) || defined(__aarch64__) || defined (__EMSCRIPTEN__)
 #if URHO3D_GLES3
@@ -55,9 +52,6 @@
 #else
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
-#ifndef URHO3D_GLES2
-#define URHO3D_GLES2
-#endif
 #endif
 #else
 #include <GLEW/glew.h>

@@ -131,7 +131,7 @@ bool Texture3D::SetData(unsigned level, int x, int y, int z, int width, int heig
 
     graphics_->SetTextureForUpdate(this);
 
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
     bool wholeLevel = x == 0 && y == 0 && z == 0 && width == levelWidth && height == levelHeight && depth == levelDepth;
     unsigned format = GetSRGB() ? GetSRGBFormat(format_) : format_;
 

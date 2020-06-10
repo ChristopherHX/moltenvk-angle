@@ -524,7 +524,7 @@ void Batch::Prepare(View* view, Camera* camera, bool setModelTransform, bool all
                     }
 
                     normalOffsetScale *= light->GetShadowBias().normalOffset_;
-#ifdef MOBILE_GRAPHICS
+#if defined(MOBILE_GRAPHICS) 
                     normalOffsetScale *= renderer->GetMobileNormalOffsetMul();
 #endif
                     graphics->SetShaderParameter(VSP_NORMALOFFSETSCALE, normalOffsetScale);
@@ -585,7 +585,7 @@ void Batch::Prepare(View* view, Camera* camera, bool setModelTransform, bool all
     }
 
     // Set zone texture if necessary
-#ifndef URHO3D_GLES2
+#ifndef GL_ES_VERSION_2_0
     if (zone_ && graphics->HasTextureUnit(TU_ZONE))
         graphics->SetTexture(TU_ZONE, zone_->GetZoneTexture());
 #else
@@ -784,7 +784,7 @@ void BatchQueue::SortFrontToBack2Pass(PODVector<Batch*>& batches)
 {
     // Mobile devices likely use a tiled deferred approach, with which front-to-back sorting is irrelevant. The 2-pass
     // method is also time consuming, so just sort with state having priority
-#ifdef MOBILE_GRAPHICS
+#if defined(MOBILE_GRAPHICS) 
     Sort(batches.Begin(), batches.End(), CompareBatchesState);
 #else
     // For desktop, first sort by distance and remap shader/material/geometry IDs in the sort key

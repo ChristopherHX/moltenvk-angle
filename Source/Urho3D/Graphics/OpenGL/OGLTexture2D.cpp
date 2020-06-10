@@ -396,7 +396,7 @@ bool Texture2D::Create()
 
     // Create a renderbuffer instead of a texture if depth texture is not properly supported, or if this will be a packed
     // depth stencil texture
-#ifdef DESKTOP_GRAPHICS_OR_GLES3
+#ifndef GL_ES_VERSION_2_0
     if (format == Graphics::GetDepthStencilFormat())
 #else
     if (format == GL_DEPTH_COMPONENT16 || format == GL_DEPTH_COMPONENT24_OES || format == GL_DEPTH24_STENCIL8_OES ||
@@ -487,7 +487,7 @@ bool Texture2D::Create()
     }
 
     levels_ = CheckMaxLevels(width_, height_, requestedLevels_);
-#if !defined(URHO3D_GLES2)
+#if !defined(GL_ES_VERSION_2_0)
     glTexParameteri(target_, GL_TEXTURE_BASE_LEVEL, 0);
     glTexParameteri(target_, GL_TEXTURE_MAX_LEVEL, levels_ - 1);
 #endif
