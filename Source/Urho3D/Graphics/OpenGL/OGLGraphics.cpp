@@ -73,9 +73,9 @@
 
 
 #if defined(__EMSCRIPTEN__) || defined(URHO3D_ANGLE_METAL)
-#include "../Input/Input.h"
-#include "../UI/Cursor.h"
-#include "../UI/UI.h"
+#include "../../Input/Input.h"
+#include "../../UI/Cursor.h"
+#include "../../UI/UI.h"
 #if defined(__EMSCRIPTEN__)
 #include <emscripten/emscripten.h>
 #include <emscripten/bind.h>
@@ -2824,6 +2824,7 @@ unsigned Graphics::GetFormat(const String& formatName)
     return GetRGBFormat();
 }
 
+
 void Graphics::CheckFeatureSupport()
 {
     // Check supported features: light pre-pass, deferred rendering and hardware depth texture
@@ -2866,6 +2867,13 @@ void Graphics::CheckFeatureSupport()
     if (renderer.Contains("Intel", false))
         dummyColorFormat_ = GetRGBAFormat();
 #endif
+
+#ifdef GL_ES_VERSION_3_0
+    instancingSupport_ = true;
+    drawBuffersSupport_ = true;
+    glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &numSupportedRTs);
+#endif
+
 #else // GL_ES_VERSION_2_0
     // Check for supported compressed texture formats
 #ifdef __EMSCRIPTEN__
@@ -2876,32 +2884,64 @@ void Graphics::CheckFeatureSupport()
     // Instancing is in core in WebGL 2, so the extension may not be present anymore. In WebGL 1, find https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/
     // TODO: In the distant future, this may break if WebGL 3 is introduced, so either improve the GL_VERSION parsing here, or keep track of which WebGL version we attempted to initialize.
     instancingSupport_ = (strstr((const char *)glGetString(GL_VERSION), "WebGL 2.") != 0) || CheckExtension("ANGLE_instanced_arrays");
-#else
+    glOESStandardDerivativesSupport_ = CheckExtension("GL_OES_standard_derivatives");
+    
+    if (!CheckExtension("WEBGL_depth_texture"))
+    {
+        shadowMapFormat_ = 0;
+        hiresShadowMapFormat_ = 0;
+        glesReadableDepthFormat = 0;
+    }
+    else
+    {
+        shadowMapFormat_ = GL_DEPTH_COMPONENT;
+        hiresShadowMapFormat_ = 0;
+        // WebGL shadow map rendering seems to be extremely slow without an attached dummy color texture
+        dummyColorFormat_ = GetRGBAFormat();
+    }
+
+#else // pure GLES2
     dxtTextureSupport_ = CheckExtension("EXT_texture_compression_dxt1");
     etcTextureSupport_ = CheckExtension("OES_compressed_ETC1_RGB8_texture");
     etc2TextureSupport_ = gl3Support || CheckExtension("OES_compressed_ETC2_RGBA8_texture");
     pvrtcTextureSupport_ = CheckExtension("IMG_texture_compression_pvrtc");
-#   ifdef GL_ES_VERSION_3_0
-    instancingSupport_ = true;
-    drawBuffersSupport_ = true;
-    glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &numSupportedRTs);
-#   else  // Pure GLES2
 
     // check whether  the extention GL_OES_standard_derivatives is supported
     glOESStandardDerivativesSupport_ = CheckExtension("GL_OES_standard_derivatives");
 
-#       if defined(URHO3D_ANGLE_METAL)
+#if defined(URHO3D_ANGLE_METAL)
     instancingSupport_ = CheckExtension("ANGLE_instanced_arrays");
-#       endif
+#endif
 
-#       ifdef GL_EXT_draw_buffers
+#ifdef GL_EXT_draw_buffers
     if (CheckExtension("GL_EXT_draw_buffers"))
     {
         drawBuffersSupport_ = true;
         glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, &numSupportedRTs);
     }
-#       endif
+#endif
+
+    if (!CheckExtension("GL_OES_depth_texture"))
+    {
+        shadowMapFormat_ = 0;
+        hiresShadowMapFormat_ = 0;
+#ifdef URHO3D_GLES2
+        glesReadableDepthFormat = 0;
+#endif
+    }
+    else
+    {
+#if defined(IOS) || defined(TVOS)
+        // iOS hack: depth renderbuffer seems to fail, so use depth textures for everything if supported
+#   ifdef URHO3D_GLES2
+        glesDepthStencilFormat = GL_DEPTH_COMPONENT;
 #   endif
+#endif
+        shadowMapFormat_ = GL_DEPTH_COMPONENT;
+        hiresShadowMapFormat_ = 0;
+    }
+
+#endif  // pure GLES2
 
     anisotropySupport_ = CheckExtension("EXT_texture_filter_anisotropic");
 
@@ -2911,40 +2951,14 @@ void Graphics::CheckFeatureSupport()
     clipDistanceSupport_ = clipDistanceEXTSupport_ || clipDistanceAPPLESupport_;
 
     // Check for best supported depth renderbuffer format for GLES2
-#ifndef GL_ES_VERSION_3_0
+#ifdef URHO3D_GLES2
     if (CheckExtension("GL_OES_depth24"))
         glesDepthStencilFormat = GL_DEPTH_COMPONENT24_OES;
     if (CheckExtension("GL_OES_packed_depth_stencil"))
         glesDepthStencilFormat = GL_DEPTH24_STENCIL8_OES;
+#endif
 
-#ifdef __EMSCRIPTEN__
-    if (!CheckExtension("WEBGL_depth_texture"))
-#else
-    if (!CheckExtension("GL_OES_depth_texture"))
-#endif
-    {
-        shadowMapFormat_ = 0;
-        hiresShadowMapFormat_ = 0;
-#ifndef GL_ES_VERSION_3_0
-        glesReadableDepthFormat = 0;
-#endif
-    }
-    else
-    {
-#if defined(IOS) || defined(TVOS)
-        // iOS hack: depth renderbuffer seems to fail, so use depth textures for everything if supported
-        glesDepthStencilFormat = GL_DEPTH_COMPONENT;
-#endif
-        shadowMapFormat_ = GL_DEPTH_COMPONENT;
-        hiresShadowMapFormat_ = 0;
-        // WebGL shadow map rendering seems to be extremely slow without an attached dummy color texture
-#ifdef __EMSCRIPTEN__
-        dummyColorFormat_ = GetRGBAFormat();
-#endif
-    }
-#endif
-#endif
-#endif
+#endif //// GL_ES_VERSION_2_0
 
     // Must support 2 rendertargets for light pre-pass, and 4 for deferred
     if (numSupportedRTs >= 2)
@@ -3046,7 +3060,6 @@ void Graphics::PrepareDraw()
 #endif
 
 #if !defined(URHO3D_GLES2)
-#if defined(GL_EXT_draw_buffers)
         if (drawBuffersSupport_)
         {
             // Calculate the bit combination of non-zero color rendertargets to first check if the combination changed
@@ -3069,12 +3082,15 @@ void Graphics::PrepareDraw()
 
                     for (unsigned j = 0; j < MAX_RENDERTARGETS; ++j)
                     {
+                        if (renderTargets_[j])
+                        {
 #ifndef GL_ES_VERSION_3_0
-                        if (!gl3Support)
-                            drawBufferIds[drawBufferCount++] = GL_COLOR_ATTACHMENT0_EXT + j;
-                        else
+                            if (!gl3Support)
+                                drawBufferIds[drawBufferCount++] = GL_COLOR_ATTACHMENT0_EXT + j;
+                            else
 #endif
-                            drawBufferIds[drawBufferCount++] = GL_COLOR_ATTACHMENT0 + j;
+                                drawBufferIds[drawBufferCount++] = GL_COLOR_ATTACHMENT0 + j;
+                        }
                     }
                     glDrawBuffers(drawBufferCount, (const GLenum*)drawBufferIds);
                 }
@@ -3082,7 +3098,6 @@ void Graphics::PrepareDraw()
                 i->second_.drawBuffers_ = newDrawBuffers;
             }
         }
-#endif
 #endif
         for (unsigned j = 0; j < MAX_RENDERTARGETS; ++j)
         {
