@@ -73,9 +73,9 @@
 
 
 #if defined(__EMSCRIPTEN__) || defined(URHO3D_ANGLE_METAL)
-#include "../Input/Input.h"
-#include "../UI/Cursor.h"
-#include "../UI/UI.h"
+#include "../../Input/Input.h"
+#include "../../UI/Cursor.h"
+#include "../../UI/UI.h"
 #if defined(__EMSCRIPTEN__)
 #include <emscripten/emscripten.h>
 #include <emscripten/bind.h>
