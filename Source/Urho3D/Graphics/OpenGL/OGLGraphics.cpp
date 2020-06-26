@@ -2875,6 +2875,20 @@ void Graphics::CheckFeatureSupport()
 #endif
 
 #else // GL_ES_VERSION_2_0
+
+    anisotropySupport_ = CheckExtension("EXT_texture_filter_anisotropic");
+
+    // Check if gl_ClipDistance is supproted
+    clipDistanceEXTSupport_ = CheckExtension("GL_EXT_clip_cull_distance");
+    clipDistanceAPPLESupport_ = CheckExtension("GL_APPLE_clip_distance");
+    clipDistanceSupport_ = clipDistanceEXTSupport_ || clipDistanceAPPLESupport_;
+
+    // Check for best supported depth renderbuffer format for GLES2
+    if (CheckExtension("GL_OES_depth24"))
+        glesDepthStencilFormat = GL_DEPTH_COMPONENT24_OES;
+    if (CheckExtension("GL_OES_packed_depth_stencil"))
+        glesDepthStencilFormat = GL_DEPTH24_STENCIL8_OES;
+
     // Check for supported compressed texture formats
 #ifdef __EMSCRIPTEN__
     dxtTextureSupport_ = CheckExtension("WEBGL_compressed_texture_s3tc"); // https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_s3tc/
@@ -2925,39 +2939,19 @@ void Graphics::CheckFeatureSupport()
     {
         shadowMapFormat_ = 0;
         hiresShadowMapFormat_ = 0;
-#ifdef URHO3D_GLES2
         glesReadableDepthFormat = 0;
-#endif
     }
     else
     {
 #if defined(IOS) || defined(TVOS)
         // iOS hack: depth renderbuffer seems to fail, so use depth textures for everything if supported
-#   ifdef URHO3D_GLES2
         glesDepthStencilFormat = GL_DEPTH_COMPONENT;
-#   endif
 #endif
         shadowMapFormat_ = GL_DEPTH_COMPONENT;
         hiresShadowMapFormat_ = 0;
     }
 
 #endif  // pure GLES2
-
-    anisotropySupport_ = CheckExtension("EXT_texture_filter_anisotropic");
-
-    // Check if gl_ClipDistance is supproted
-    clipDistanceEXTSupport_ = CheckExtension("GL_EXT_clip_cull_distance");
-    clipDistanceAPPLESupport_ = CheckExtension("GL_APPLE_clip_distance");
-    clipDistanceSupport_ = clipDistanceEXTSupport_ || clipDistanceAPPLESupport_;
-
-    // Check for best supported depth renderbuffer format for GLES2
-#ifdef URHO3D_GLES2
-    if (CheckExtension("GL_OES_depth24"))
-        glesDepthStencilFormat = GL_DEPTH_COMPONENT24_OES;
-    if (CheckExtension("GL_OES_packed_depth_stencil"))
-        glesDepthStencilFormat = GL_DEPTH24_STENCIL8_OES;
-#endif
-
 #endif //// GL_ES_VERSION_2_0
 
     // Must support 2 rendertargets for light pre-pass, and 4 for deferred
