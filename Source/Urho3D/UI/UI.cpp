@@ -1617,6 +1617,11 @@ void UI::ProcessMove(const IntVector2& windowCursorPos, const IntVector2& cursor
             }
             else
             {
+                // TBD ELIX22 , ProcessMove is called twice in iOS , 1-usingTouchInput_=true , 2 usingTouchInput_=false .
+                // so this one can be disregarded.
+#if defined(IOS)
+                return;
+#endif
                 dragData->sumPos = cursorPos;
                 sendPos = cursorPos;
             }
