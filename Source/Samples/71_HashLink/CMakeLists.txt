@@ -20,19 +20,16 @@
 # THE SOFTWARE.
 #
 
-# Set CMake minimum version
-cmake_minimum_required (VERSION 3.10.2)
+# Define target name
+set (TARGET_NAME 71_Hashlink)
 
-# Set project name
-project (Urho3D-Launcher)
+# Define source files
+define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES} hashlink/hashlink_main.c glue_native.c )
 
-# Set CMake modules search path
-set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../CMake/Modules)
+set (INCLUDE_DIRS ${INCLUDE_DIRS} hashlink)
 
-# Include UrhoCommon.cmake module after setting project name
-include (UrhoCommon)
+# Setup target with resource copying
+setup_main_executable ()
 
-add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/../../Source/Tools/Urho3DPlayer Urho3DPlayer)
-add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/../../Source/Samples Samples)
-
-
+# Setup test cases
+setup_test ()
