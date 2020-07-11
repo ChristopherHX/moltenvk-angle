@@ -12,6 +12,7 @@ gcc  -O3 -o urho3d-main  -I out   main.o  Urho3DGlue.o  -lhl -lUrho3D  -L../Urho
 */
 
 #include <Urho3D/Urho3DAll.h>
+#include "global_types.h"
 
 class Sample : public Application
 {
@@ -52,7 +53,7 @@ class Sample : public Application
         SharedPtr<Text> helloText(new Text(context_));
 
         // Set String to display
-        helloText->SetText("Hello World from Urho3D-Hashlink!");
+        helloText->SetText("Hello World from Urho3D!");
 
         // Set font and text color
         helloText->SetFont(cache->GetResource<Font>("Fonts/Anonymous Pro.ttf"), 30);
@@ -74,4 +75,14 @@ HL_PRIM void HL_NAME(_start_urho3_dapplication)()
     application->Run();
 }
 
+
+
+ HL_PRIM void HL_NAME(_create_app)(urho3d_context * context)
+ {
+    Sample *application = new Sample(context);
+    application->Run();
+ }
+
+
 DEFINE_PRIM(_VOID, _start_urho3_dapplication, _NO_ARG);
+DEFINE_PRIM(_VOID, _create_app, URHO3D_CONTEXT);

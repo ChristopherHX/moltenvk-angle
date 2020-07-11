@@ -4,11 +4,42 @@
 // Abstract decls
 typedef struct _hl_bytes_map hl_bytes_map;
 typedef struct _hl_random hl_random;
+typedef struct _hl_urho3d_application hl_urho3d_application;
+typedef struct _hl_urho3d_stringhash hl_urho3d_stringhash;
+typedef struct _hl_urho3d_variant hl_urho3d_variant;
+typedef struct _hl_urho3d_variantmap hl_urho3d_variantmap;
+typedef struct _hl_urho3d_vector2 hl_urho3d_vector2;
+typedef struct _urho3d_context urho3d_context;
 
 #include <hl/natives.h>
+#include <_std/String.h>
 
 // Natives functions
-HL_API void Urho3D__start_urho3_dapplication(void);
+HL_API void Urho3D__application_subscribe_to_event(hl_urho3d_application*,hl_urho3d_stringhash*,vclosure*);
+HL_API hl_urho3d_application* Urho3D__create_application(urho3d_context*);
+HL_API urho3d_context* Urho3D__create_context(void);
+HL_API hl_urho3d_stringhash* Urho3D__create_stringhash(String);
+HL_API hl_urho3d_variant* Urho3D__create_variant(void);
+HL_API hl_urho3d_variantmap* Urho3D__create_variantmap(void);
+HL_API hl_urho3d_vector2* Urho3D__create_vector2(void);
+HL_API vbyte* Urho3D__get_stringhash_string(hl_urho3d_stringhash*);
+HL_API hl_urho3d_variant* Urho3D__get_value(hl_urho3d_variantmap*,hl_urho3d_stringhash*);
+HL_API float Urho3D__get_x(hl_urho3d_vector2*);
+HL_API float Urho3D__get_y(hl_urho3d_vector2*);
+HL_API void Urho3D__pass_stringhash(hl_urho3d_application*,hl_urho3d_stringhash*);
+HL_API void Urho3D__run_application(hl_urho3d_application*);
+HL_API hl_urho3d_variant* Urho3D__set_key_value(hl_urho3d_variantmap*,hl_urho3d_stringhash*,hl_urho3d_variant*);
+HL_API float Urho3D__set_x(hl_urho3d_vector2*,float);
+HL_API float Urho3D__set_y(hl_urho3d_vector2*,float);
+HL_API void Urho3D__setup_closure_application(hl_urho3d_application*,vclosure*);
+HL_API void Urho3D__start_closure_application(hl_urho3d_application*,vclosure*);
+HL_API void Urho3D__stop_closure_application(hl_urho3d_application*,vclosure*);
+HL_API float Urho3D__variant_get_float(hl_urho3d_variant*);
+HL_API int Urho3D__variant_get_int(hl_urho3d_variant*);
+HL_API void Urho3D__variant_get_vector2(hl_urho3d_variant*,hl_urho3d_vector2*);
+HL_API void Urho3D__variant_set_float(hl_urho3d_variant*,float);
+HL_API void Urho3D__variant_set_int(hl_urho3d_variant*,int);
+HL_API void Urho3D__variant_set_vector2(hl_urho3d_variant*,hl_urho3d_vector2*);
 HL_API varray* hl_alloc_array(hl_type*,int);
 HL_API vbyte* hl_alloc_bytes(int);
 HL_API vdynamic* hl_alloc_obj(hl_type*);
@@ -23,6 +54,8 @@ HL_API int hl_bytes_compare16(vbyte*,vbyte*,int);
 HL_API void hl_bytes_fill(vbyte*,int,int,int);
 HL_API int hl_bytes_find(vbyte*,int,int,vbyte*,int,int);
 HL_API vdynamic* hl_call_method(vdynamic*,varray*);
+HL_API int hl_date_new(int,int,int,int,int,int);
+HL_API vbyte* hl_date_to_string(int,int*);
 HL_API varray* hl_exception_stack(void);
 HL_API vdynamic* hl_get_closure_value(vdynamic*);
 HL_API vdynamic* hl_get_virtual_value(vdynamic*);
@@ -40,6 +73,8 @@ HL_API int hl_ptr_compare(vdynamic*,vdynamic*);
 HL_API hl_random* hl_rnd_init_system(void);
 HL_API void hl_set_error_handler(vclosure*);
 HL_API bool hl_sys_is64(void);
+HL_API void hl_sys_print(vbyte*);
+HL_API bool hl_sys_utf8_path(void);
 HL_API varray* hl_type_enum_fields(hl_type*);
 HL_API varray* hl_type_enum_values(hl_type*);
 HL_API vbyte* hl_type_name(hl_type*);

@@ -2,10 +2,33 @@
 #define HLC_BOOT
 #include <hlc.h>
 #include <_std/Main.h>
-#include <hl/natives.h>
+#include <_std/MyApplication.h>
+extern hl_type t$MyApplication;
+void MyApplication_new(MyApplication);
+#include <urho3d/Application.h>
+void urho3d_Application_Run(urho3d__Application);
+
+int Main_fibR(int r0) {
+	int r1, r2, r3;
+	r2 = 2;
+	if( r0 >= r2 ) goto label$36888b6_1_3;
+	return r0;
+	label$36888b6_1_3:
+	r2 = 2;
+	r1 = r0 - r2;
+	r1 = Main_fibR(r1);
+	r3 = 1;
+	r2 = r0 - r3;
+	r2 = Main_fibR(r2);
+	r1 = r1 + r2;
+	return r1;
+}
 
 void Main_main() {
-	Urho3D__start_urho3_dapplication();
+	MyApplication r0;
+	r0 = (MyApplication)hl_alloc_obj(&t$MyApplication);
+	MyApplication_new(r0);
+	urho3d_Application_Run(((urho3d__Application)r0));
 	return;
 }
 

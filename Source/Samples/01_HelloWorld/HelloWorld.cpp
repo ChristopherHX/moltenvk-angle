@@ -43,7 +43,26 @@ void HelloWorld::Start()
 {
     // Execute base class startup
     Sample::Start();
+    
+    /*
+    Timer t1;
+    auto start = t1.GetMSec(true);
+    for (int i =0 ; i< 2000000;i++)
+    {
+        Vector2 *v1 = new Vector2(10.0,10.0);
+        Vector2 *v2 = new Vector2(20.0,20.0);
+        
+        *v1 += *v2;
+        
+        delete v1;
+        delete v2;
+    }
+    auto end = t1.GetMSec(false);
+    
+    URHO3D_LOGDEBUGF("eli time %d" , end- start);
 
+     */
+    
     // Create "Hello World" Text
     CreateText();
 
