@@ -44,19 +44,32 @@ static int hlc_capture_stack( void **stack, int size ) {
 int hashlink_main(int argc, char** argv);
 
 #if defined(_MSC_VER) && defined(_DEBUG) && !defined(URHO3D_WIN32_CONSOLE)
+static char* argv[1];
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, int showCmd)
 {
+	char * str = ("hashlink_main");
+	int argc=1;
+	argv[1] = str;
+
     return hashlink_main(argc,argv);
 }
 #elif defined(_MSC_VER) && defined(URHO3D_MINIDUMPS) && !defined(URHO3D_WIN32_CONSOLE)
+static char* argv[1];
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, int showCmd)
 {
+	char * str = ("hashlink_main");
+	int argc = 1;
+	argv[1] = str;
     return hashlink_main(argc,argv);
 }
 #elif defined(_WIN32) && !defined(URHO3D_WIN32_CONSOLE)
+static char* argv[1];
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, int showCmd)
 {
-     return hashlink_main(argc,argv);
+	char * str = ("hashlink_main");
+	int argc = 1;
+	argv[1] = str;
+    return hashlink_main(argc,argv);
 }
 #elif defined(__ANDROID__) || defined(IOS) || defined(TVOS)
 extern "C" __attribute__((visibility("default"))) int SDL_main(int argc, char** argv);

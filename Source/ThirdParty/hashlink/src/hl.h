@@ -151,8 +151,8 @@
 #endif
 
 #if defined(HL_VCC) || defined(HL_MINGW)
-#	define EXPORT __declspec( dllexport )
-#	define IMPORT __declspec( dllimport )
+#	define EXPORT
+#	define IMPORT extern
 #else
 #	define EXPORT
 #	define IMPORT extern
