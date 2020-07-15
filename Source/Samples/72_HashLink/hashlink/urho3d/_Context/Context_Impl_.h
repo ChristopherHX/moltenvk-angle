@@ -16,6 +16,7 @@ struct _urho3d___Context__$Context_Impl_ {
 	varray* __implementedBy__;
 	String __name__;
 	vdynamic* __constructor__;
+	urho3d_context* context;
 	vclosure* _new;
 };
 struct _urho3d___Context__Context_Impl_ {

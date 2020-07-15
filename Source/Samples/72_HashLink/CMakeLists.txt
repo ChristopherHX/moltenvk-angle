@@ -24,7 +24,7 @@
 set (TARGET_NAME 72_Hashlink)
 
 # Define source files
-define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES} hashlink/hashlink_main.c Urho3DGlue.cpp )
+define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES} hashlink/hashlink_main.c )
 
 set (INCLUDE_DIRS ${INCLUDE_DIRS} hashlink)
 

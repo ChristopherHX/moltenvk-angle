@@ -8,6 +8,7 @@ extern hl_type t$_f32;
 String Std_string(vdynamic*);
 extern String s$853ae90;
 String String___add__(String,String);
+extern hl_type t$vrt_0267f1b;
 
 hl_urho3d_vector2* urho3d__Vector2_Vector2_Impl___new(vdynamic* r0,vdynamic* r1) {
 	hl_urho3d_vector2 *r3;
@@ -26,11 +27,11 @@ hl_urho3d_vector2* urho3d__Vector2_Vector2_Impl___new(vdynamic* r0,vdynamic* r1)
 	r3 = Urho3D__create_vector2();
 	if( !r0 ) goto label$f391fb7_1_10;
 	r4 = r0 ? r0->v.f : 0;
-	r4 = Urho3D__set_x(r3,r4);
+	r4 = Urho3D__vector2_set_x(r3,r4);
 	label$f391fb7_1_10:
 	if( !r1 ) goto label$f391fb7_1_13;
 	r4 = r1 ? r1->v.f : 0;
-	r4 = Urho3D__set_y(r3,r4);
+	r4 = Urho3D__vector2_set_y(r3,r4);
 	label$f391fb7_1_13:
 	return r3;
 }
@@ -39,13 +40,13 @@ String urho3d__Vector2_Vector2_Impl__toString(hl_urho3d_vector2* r0) {
 	String r1, r4;
 	float r2;
 	vdynamic *r3;
-	r2 = Urho3D__get_x(r0);
+	r2 = Urho3D__vector2_get_x(r0);
 	r3 = hl_alloc_dynamic(&t$_f32);
 	r3->v.f = r2;
 	r1 = Std_string(r3);
 	r4 = (String)s$853ae90;
 	r1 = String___add__(r1,r4);
-	r2 = Urho3D__get_y(r0);
+	r2 = Urho3D__vector2_get_y(r0);
 	r3 = hl_alloc_dynamic(&t$_f32);
 	r3->v.f = r2;
 	r4 = Std_string(r3);
@@ -82,31 +83,42 @@ hl_urho3d_vector2* urho3d__Vector2_Vector2_Impl__fromStructVector2(vvirtual* r0)
 	r6 = Urho3D__create_vector2();
 	if( !r2 ) goto label$f391fb7_3_19;
 	r1 = r2 ? r2->v.f : 0;
-	r1 = Urho3D__set_x(r6,r1);
+	r1 = Urho3D__vector2_set_x(r6,r1);
 	label$f391fb7_3_19:
 	if( !r3 ) goto label$f391fb7_3_22;
 	r1 = r3 ? r3->v.f : 0;
-	r1 = Urho3D__set_y(r6,r1);
+	r1 = Urho3D__vector2_set_y(r6,r1);
 	label$f391fb7_3_22:
 	return r6;
+}
+
+vvirtual* urho3d__Vector2_Vector2_Impl__toStructVector2(hl_urho3d_vector2* r0) {
+	vvirtual *r1;
+	float r2;
+	r1 = hl_alloc_virtual(&t$vrt_0267f1b);
+	r2 = Urho3D__vector2_get_x(r0);
+	if( hl_vfields(r1)[0] ) *(float*)(hl_vfields(r1)[0]) = (float)r2; else hl_dyn_setf(r1->value,120/*x*/,r2);
+	r2 = Urho3D__vector2_get_y(r0);
+	if( hl_vfields(r1)[1] ) *(float*)(hl_vfields(r1)[1]) = (float)r2; else hl_dyn_setf(r1->value,121/*y*/,r2);
+	return r1;
 }
 
 bool urho3d__Vector2_Vector2_Impl__isequal(hl_urho3d_vector2* r0,hl_urho3d_vector2* r1) {
 	bool r4;
 	float r2, r3;
-	r2 = Urho3D__get_x(r0);
-	r3 = Urho3D__get_x(r1);
-	if( r2 != r3 ) goto label$f391fb7_4_10;
-	r2 = Urho3D__get_y(r0);
-	r3 = Urho3D__get_y(r1);
-	if( r2 == r3 ) goto label$f391fb7_4_8;
+	r2 = Urho3D__vector2_get_x(r0);
+	r3 = Urho3D__vector2_get_x(r1);
+	if( r2 != r3 ) goto label$f391fb7_5_10;
+	r2 = Urho3D__vector2_get_y(r0);
+	r3 = Urho3D__vector2_get_y(r1);
+	if( r2 == r3 ) goto label$f391fb7_5_8;
 	r4 = false;
-	goto label$f391fb7_4_9;
-	label$f391fb7_4_8:
+	goto label$f391fb7_5_9;
+	label$f391fb7_5_8:
 	r4 = true;
-	label$f391fb7_4_9:
+	label$f391fb7_5_9:
 	return r4;
-	label$f391fb7_4_10:
+	label$f391fb7_5_10:
 	r4 = false;
 	return r4;
 }
@@ -114,17 +126,17 @@ bool urho3d__Vector2_Vector2_Impl__isequal(hl_urho3d_vector2* r0,hl_urho3d_vecto
 bool urho3d__Vector2_Vector2_Impl__isnotequal(hl_urho3d_vector2* r0,hl_urho3d_vector2* r1) {
 	bool r2;
 	float r3, r4;
-	r3 = Urho3D__get_x(r0);
-	r4 = Urho3D__get_x(r1);
-	if( r3 != r4 ) goto label$f391fb7_5_8;
-	r3 = Urho3D__get_y(r0);
-	r4 = Urho3D__get_y(r1);
-	if( r3 != r4 ) goto label$f391fb7_5_8;
+	r3 = Urho3D__vector2_get_x(r0);
+	r4 = Urho3D__vector2_get_x(r1);
+	if( r3 != r4 ) goto label$f391fb7_6_8;
+	r3 = Urho3D__vector2_get_y(r0);
+	r4 = Urho3D__vector2_get_y(r1);
+	if( r3 != r4 ) goto label$f391fb7_6_8;
 	r2 = true;
-	goto label$f391fb7_5_9;
-	label$f391fb7_5_8:
+	goto label$f391fb7_6_9;
+	label$f391fb7_6_8:
 	r2 = false;
-	label$f391fb7_5_9:
+	label$f391fb7_6_9:
 	r2 = !r2;
 	return r2;
 }
@@ -134,52 +146,52 @@ hl_urho3d_vector2* urho3d__Vector2_Vector2_Impl__add(hl_urho3d_vector2* r0,hl_ur
 	float r2, r4, r5;
 	double r9;
 	vdynamic *r6, *r7, *r8;
-	r2 = Urho3D__get_x(r0);
-	r4 = Urho3D__get_x(r1);
+	r2 = Urho3D__vector2_get_x(r0);
+	r4 = Urho3D__vector2_get_x(r1);
 	r2 = r2 + r4;
-	r4 = Urho3D__get_y(r0);
-	r5 = Urho3D__get_y(r1);
+	r4 = Urho3D__vector2_get_y(r0);
+	r5 = Urho3D__vector2_get_y(r1);
 	r4 = r4 + r5;
 	r6 = hl_alloc_dynamic(&t$_f32);
 	r6->v.f = r2;
 	r7 = hl_alloc_dynamic(&t$_f32);
 	r7->v.f = r4;
-	if( r7 ) goto label$f391fb7_6_13;
+	if( r7 ) goto label$f391fb7_7_13;
 	r9 = 0.;
 	r5 = (float)r9;
 	r8 = hl_alloc_dynamic(&t$_f32);
 	r8->v.f = r5;
 	r7 = r8;
-	label$f391fb7_6_13:
-	if( r6 ) goto label$f391fb7_6_18;
+	label$f391fb7_7_13:
+	if( r6 ) goto label$f391fb7_7_18;
 	r9 = 0.;
 	r5 = (float)r9;
 	r8 = hl_alloc_dynamic(&t$_f32);
 	r8->v.f = r5;
 	r6 = r8;
-	label$f391fb7_6_18:
+	label$f391fb7_7_18:
 	r3 = Urho3D__create_vector2();
-	if( !r6 ) goto label$f391fb7_6_22;
+	if( !r6 ) goto label$f391fb7_7_22;
 	r5 = r6 ? r6->v.f : 0;
-	r5 = Urho3D__set_x(r3,r5);
-	label$f391fb7_6_22:
-	if( !r7 ) goto label$f391fb7_6_25;
+	r5 = Urho3D__vector2_set_x(r3,r5);
+	label$f391fb7_7_22:
+	if( !r7 ) goto label$f391fb7_7_25;
 	r5 = r7 ? r7->v.f : 0;
-	r5 = Urho3D__set_y(r3,r5);
-	label$f391fb7_6_25:
+	r5 = Urho3D__vector2_set_y(r3,r5);
+	label$f391fb7_7_25:
 	return r3;
 }
 
 hl_urho3d_vector2* urho3d__Vector2_Vector2_Impl__add2(hl_urho3d_vector2* r0,hl_urho3d_vector2* r1) {
 	float r2, r3;
-	r2 = Urho3D__get_x(r0);
-	r3 = Urho3D__get_x(r1);
+	r2 = Urho3D__vector2_get_x(r0);
+	r3 = Urho3D__vector2_get_x(r1);
 	r2 = r2 + r3;
-	r2 = Urho3D__set_x(r0,r2);
-	r2 = Urho3D__get_y(r0);
-	r3 = Urho3D__get_y(r1);
+	r2 = Urho3D__vector2_set_x(r0,r2);
+	r2 = Urho3D__vector2_get_y(r0);
+	r3 = Urho3D__vector2_get_y(r1);
 	r2 = r2 + r3;
-	r2 = Urho3D__set_y(r0,r2);
+	r2 = Urho3D__vector2_set_y(r0,r2);
 	return r0;
 }
 
@@ -188,159 +200,209 @@ hl_urho3d_vector2* urho3d__Vector2_Vector2_Impl__sub(hl_urho3d_vector2* r0,hl_ur
 	float r2, r4, r5;
 	double r9;
 	vdynamic *r6, *r7, *r8;
-	r2 = Urho3D__get_x(r0);
-	r4 = Urho3D__get_x(r1);
+	r2 = Urho3D__vector2_get_x(r0);
+	r4 = Urho3D__vector2_get_x(r1);
 	r2 = r2 - r4;
-	r4 = Urho3D__get_y(r0);
-	r5 = Urho3D__get_y(r1);
+	r4 = Urho3D__vector2_get_y(r0);
+	r5 = Urho3D__vector2_get_y(r1);
 	r4 = r4 - r5;
 	r6 = hl_alloc_dynamic(&t$_f32);
 	r6->v.f = r2;
 	r7 = hl_alloc_dynamic(&t$_f32);
 	r7->v.f = r4;
-	if( r7 ) goto label$f391fb7_8_13;
+	if( r7 ) goto label$f391fb7_9_13;
 	r9 = 0.;
 	r5 = (float)r9;
 	r8 = hl_alloc_dynamic(&t$_f32);
 	r8->v.f = r5;
 	r7 = r8;
-	label$f391fb7_8_13:
-	if( r6 ) goto label$f391fb7_8_18;
+	label$f391fb7_9_13:
+	if( r6 ) goto label$f391fb7_9_18;
 	r9 = 0.;
 	r5 = (float)r9;
 	r8 = hl_alloc_dynamic(&t$_f32);
 	r8->v.f = r5;
 	r6 = r8;
-	label$f391fb7_8_18:
+	label$f391fb7_9_18:
 	r3 = Urho3D__create_vector2();
-	if( !r6 ) goto label$f391fb7_8_22;
+	if( !r6 ) goto label$f391fb7_9_22;
 	r5 = r6 ? r6->v.f : 0;
-	r5 = Urho3D__set_x(r3,r5);
-	label$f391fb7_8_22:
-	if( !r7 ) goto label$f391fb7_8_25;
+	r5 = Urho3D__vector2_set_x(r3,r5);
+	label$f391fb7_9_22:
+	if( !r7 ) goto label$f391fb7_9_25;
 	r5 = r7 ? r7->v.f : 0;
-	r5 = Urho3D__set_y(r3,r5);
-	label$f391fb7_8_25:
+	r5 = Urho3D__vector2_set_y(r3,r5);
+	label$f391fb7_9_25:
 	return r3;
 }
 
 hl_urho3d_vector2* urho3d__Vector2_Vector2_Impl__sub2(hl_urho3d_vector2* r0,hl_urho3d_vector2* r1) {
 	float r2, r3;
-	r2 = Urho3D__get_x(r0);
-	r3 = Urho3D__get_x(r1);
+	r2 = Urho3D__vector2_get_x(r0);
+	r3 = Urho3D__vector2_get_x(r1);
 	r2 = r2 - r3;
-	r2 = Urho3D__set_x(r0,r2);
-	r2 = Urho3D__get_y(r0);
-	r3 = Urho3D__get_y(r1);
+	r2 = Urho3D__vector2_set_x(r0,r2);
+	r2 = Urho3D__vector2_get_y(r0);
+	r3 = Urho3D__vector2_get_y(r1);
 	r2 = r2 - r3;
-	r2 = Urho3D__set_y(r0,r2);
+	r2 = Urho3D__vector2_set_y(r0,r2);
+	return r0;
+}
+
+hl_urho3d_vector2* urho3d__Vector2_Vector2_Impl__mul(hl_urho3d_vector2* r0,float r1) {
+	hl_urho3d_vector2 *r3;
+	float r2, r4, r5;
+	double r9;
+	vdynamic *r6, *r7, *r8;
+	r2 = Urho3D__vector2_get_x(r0);
+	r2 = r2 * r1;
+	r4 = Urho3D__vector2_get_y(r0);
+	r4 = r4 * r1;
+	r6 = hl_alloc_dynamic(&t$_f32);
+	r6->v.f = r2;
+	r7 = hl_alloc_dynamic(&t$_f32);
+	r7->v.f = r4;
+	if( r7 ) goto label$f391fb7_11_11;
+	r9 = 0.;
+	r5 = (float)r9;
+	r8 = hl_alloc_dynamic(&t$_f32);
+	r8->v.f = r5;
+	r7 = r8;
+	label$f391fb7_11_11:
+	if( r6 ) goto label$f391fb7_11_16;
+	r9 = 0.;
+	r5 = (float)r9;
+	r8 = hl_alloc_dynamic(&t$_f32);
+	r8->v.f = r5;
+	r6 = r8;
+	label$f391fb7_11_16:
+	r3 = Urho3D__create_vector2();
+	if( !r6 ) goto label$f391fb7_11_20;
+	r5 = r6 ? r6->v.f : 0;
+	r5 = Urho3D__vector2_set_x(r3,r5);
+	label$f391fb7_11_20:
+	if( !r7 ) goto label$f391fb7_11_23;
+	r5 = r7 ? r7->v.f : 0;
+	r5 = Urho3D__vector2_set_y(r3,r5);
+	label$f391fb7_11_23:
+	return r3;
+}
+
+hl_urho3d_vector2* urho3d__Vector2_Vector2_Impl__mul2(hl_urho3d_vector2* r0,float r1) {
+	float r2;
+	r2 = Urho3D__vector2_get_x(r0);
+	r2 = r2 * r1;
+	r2 = Urho3D__vector2_set_x(r0,r2);
+	r2 = Urho3D__vector2_get_y(r0);
+	r2 = r2 * r1;
+	r2 = Urho3D__vector2_set_y(r0,r2);
 	return r0;
 }
 
 hl_urho3d_vector2* urho3d__Vector2_Vector2_Impl__neg(hl_urho3d_vector2* r0) {
 	float r1;
-	r1 = Urho3D__get_x(r0);
+	r1 = Urho3D__vector2_get_x(r0);
 	r1 = -r1;
-	r1 = Urho3D__set_x(r0,r1);
-	r1 = Urho3D__get_y(r0);
+	r1 = Urho3D__vector2_set_x(r0,r1);
+	r1 = Urho3D__vector2_get_y(r0);
 	r1 = -r1;
-	r1 = Urho3D__set_y(r0,r1);
+	r1 = Urho3D__vector2_set_y(r0,r1);
 	return r0;
 }
 
 hl_urho3d_vector2* urho3d__Vector2_Vector2_Impl__preneg(hl_urho3d_vector2* r0) {
 	float r1, r3;
 	int r2;
-	r1 = Urho3D__get_x(r0);
+	r1 = Urho3D__vector2_get_x(r0);
 	r2 = 1;
 	r3 = (float)r2;
 	r1 = r1 - r3;
-	r1 = Urho3D__set_x(r0,r1);
-	r1 = Urho3D__set_x(r0,r1);
-	r1 = Urho3D__get_y(r0);
+	r1 = Urho3D__vector2_set_x(r0,r1);
+	r1 = Urho3D__vector2_set_x(r0,r1);
+	r1 = Urho3D__vector2_get_y(r0);
 	r2 = 1;
 	r3 = (float)r2;
 	r1 = r1 - r3;
-	r1 = Urho3D__set_y(r0,r1);
-	r1 = Urho3D__set_y(r0,r1);
+	r1 = Urho3D__vector2_set_y(r0,r1);
+	r1 = Urho3D__vector2_set_y(r0,r1);
 	return r0;
 }
 
 hl_urho3d_vector2* urho3d__Vector2_Vector2_Impl__postneg(hl_urho3d_vector2* r0) {
 	float r1, r2, r4;
 	int r3;
-	r1 = Urho3D__get_x(r0);
+	r1 = Urho3D__vector2_get_x(r0);
 	r3 = 1;
 	r4 = (float)r3;
 	r2 = r1 - r4;
-	r2 = Urho3D__set_x(r0,r2);
-	r2 = Urho3D__set_x(r0,r1);
-	r1 = Urho3D__get_y(r0);
+	r2 = Urho3D__vector2_set_x(r0,r2);
+	r2 = Urho3D__vector2_set_x(r0,r1);
+	r1 = Urho3D__vector2_get_y(r0);
 	r3 = 1;
 	r4 = (float)r3;
 	r2 = r1 - r4;
-	r2 = Urho3D__set_y(r0,r2);
-	r2 = Urho3D__set_y(r0,r1);
+	r2 = Urho3D__vector2_set_y(r0,r2);
+	r2 = Urho3D__vector2_set_y(r0,r1);
 	return r0;
 }
 
 hl_urho3d_vector2* urho3d__Vector2_Vector2_Impl__preadd(hl_urho3d_vector2* r0) {
 	float r1, r3;
 	int r2;
-	r1 = Urho3D__get_x(r0);
+	r1 = Urho3D__vector2_get_x(r0);
 	r2 = 1;
 	r3 = (float)r2;
 	r1 = r1 + r3;
-	r1 = Urho3D__set_x(r0,r1);
-	r1 = Urho3D__set_x(r0,r1);
-	r1 = Urho3D__get_y(r0);
+	r1 = Urho3D__vector2_set_x(r0,r1);
+	r1 = Urho3D__vector2_set_x(r0,r1);
+	r1 = Urho3D__vector2_get_y(r0);
 	r2 = 1;
 	r3 = (float)r2;
 	r1 = r1 + r3;
-	r1 = Urho3D__set_y(r0,r1);
-	r1 = Urho3D__set_y(r0,r1);
+	r1 = Urho3D__vector2_set_y(r0,r1);
+	r1 = Urho3D__vector2_set_y(r0,r1);
 	return r0;
 }
 
 hl_urho3d_vector2* urho3d__Vector2_Vector2_Impl__postadd(hl_urho3d_vector2* r0) {
 	float r1, r2, r4;
 	int r3;
-	r1 = Urho3D__get_x(r0);
+	r1 = Urho3D__vector2_get_x(r0);
 	r3 = 1;
 	r4 = (float)r3;
 	r2 = r1 + r4;
-	r2 = Urho3D__set_x(r0,r2);
-	r2 = Urho3D__set_x(r0,r1);
-	r1 = Urho3D__get_y(r0);
+	r2 = Urho3D__vector2_set_x(r0,r2);
+	r2 = Urho3D__vector2_set_x(r0,r1);
+	r1 = Urho3D__vector2_get_y(r0);
 	r3 = 1;
 	r4 = (float)r3;
 	r2 = r1 + r4;
-	r2 = Urho3D__set_y(r0,r2);
-	r2 = Urho3D__set_y(r0,r1);
+	r2 = Urho3D__vector2_set_y(r0,r2);
+	r2 = Urho3D__vector2_set_y(r0,r1);
 	return r0;
 }
 
 float urho3d__Vector2_Vector2_Impl__get_x(hl_urho3d_vector2* r0) {
 	float r1;
-	r1 = Urho3D__get_x(r0);
+	r1 = Urho3D__vector2_get_x(r0);
 	return r1;
 }
 
 float urho3d__Vector2_Vector2_Impl__set_x(hl_urho3d_vector2* r0,float r1) {
 	float r2;
-	r2 = Urho3D__set_x(r0,r1);
+	r2 = Urho3D__vector2_set_x(r0,r1);
 	return r2;
 }
 
 float urho3d__Vector2_Vector2_Impl__get_y(hl_urho3d_vector2* r0) {
 	float r1;
-	r1 = Urho3D__get_y(r0);
+	r1 = Urho3D__vector2_get_y(r0);
 	return r1;
 }
 
 float urho3d__Vector2_Vector2_Impl__set_y(hl_urho3d_vector2* r0,float r1) {
 	float r2;
-	r2 = Urho3D__set_y(r0,r1);
+	r2 = Urho3D__vector2_set_y(r0,r1);
 	return r2;
 }
 

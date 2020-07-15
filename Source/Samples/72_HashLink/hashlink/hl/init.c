@@ -13,12 +13,11 @@
 #include <_std/Std.h>
 #include <_std/Sys.h>
 #include <urho3d/Application.h>
+#include <urho3d/_Context/Context_Impl_.h>
 void Type_init(void);
 extern hl_type t$$Date;
 extern hl_type t$Date;
 hl__Class Type_initClass(hl_type*,hl_type*,vbyte*);
-extern hl_type t$$HVector2;
-extern hl_type t$HVector2;
 extern hl_type t$urho3d_$Application;
 extern hl_type t$urho3d_Application;
 extern hl_type t$$MyApplication;
@@ -127,10 +126,24 @@ extern hl_type t$hl_types__BytesMap_$BytesMap_Impl_;
 extern hl_type t$hl_types__BytesMap_BytesMap_Impl_;
 extern hl_type t$urho3d__AbstractApplication_$AbstractApplication_Impl_;
 extern hl_type t$urho3d__AbstractApplication_AbstractApplication_Impl_;
+extern hl_type t$urho3d__Color_$Color_Impl_;
+extern hl_type t$urho3d__Color_Color_Impl_;
 extern hl_type t$urho3d__Context_$Context_Impl_;
 extern hl_type t$urho3d__Context_Context_Impl_;
+extern hl_type t$urho3d_$Graphics;
+extern hl_type t$urho3d_Graphics;
+extern hl_type t$urho3d__IntVector2_$IntVector2_Impl_;
+extern hl_type t$urho3d__IntVector2_IntVector2_Impl_;
+extern hl_type t$urho3d__Sprite_$Sprite_Impl_;
+extern hl_type t$urho3d__Sprite_Sprite_Impl_;
 extern hl_type t$urho3d__StringHash_$StringHash_Impl_;
 extern hl_type t$urho3d__StringHash_StringHash_Impl_;
+extern hl_type t$urho3d__Texture2D_$Texture2D_Impl_;
+extern hl_type t$urho3d__Texture2D_Texture2D_Impl_;
+extern hl_type t$urho3d_$UI;
+extern hl_type t$urho3d_UI;
+extern hl_type t$urho3d__UIElement_$UIElement_Impl_;
+extern hl_type t$urho3d__UIElement_UIElement_Impl_;
 extern hl_type t$urho3d__Variant_$Variant_Impl_;
 extern hl_type t$urho3d__Variant_Variant_Impl_;
 extern hl_type t$urho3d__VariantMap_$VariantMap_Impl_;
@@ -140,6 +153,7 @@ extern hl_type t$urho3d__Vector2_Vector2_Impl_;
 extern $Std g$_Std;
 extern $Sys g$_Sys;
 extern urho3d__$Application g$_urho3d_Application;
+extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 void Main_main(void);
 
 void fun$init() {
@@ -154,6 +168,7 @@ void fun$init() {
 	$Std r16;
 	hl__Enum r8;
 	hl__types__$ArrayDyn r14;
+	urho3d___Context__$Context_Impl_ r21;
 	hl__CoreType r5;
 	hl__CoreEnum r7;
 	urho3d_context *r19;
@@ -166,10 +181,6 @@ void fun$init() {
 	r1 = &t$$Date;
 	r2 = &t$Date;
 	r3 = (vbyte*)USTR("Date");
-	r4 = Type_initClass(r1,r2,r3);
-	r1 = &t$$HVector2;
-	r2 = &t$HVector2;
-	r3 = (vbyte*)USTR("HVector2");
 	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$urho3d_$Application;
 	r2 = &t$urho3d_Application;
@@ -395,13 +406,41 @@ void fun$init() {
 	r2 = &t$urho3d__AbstractApplication_AbstractApplication_Impl_;
 	r3 = (vbyte*)USTR("urho3d._AbstractApplication.AbstractApplication_Impl_");
 	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d__Color_$Color_Impl_;
+	r2 = &t$urho3d__Color_Color_Impl_;
+	r3 = (vbyte*)USTR("urho3d._Color.Color_Impl_");
+	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$urho3d__Context_$Context_Impl_;
 	r2 = &t$urho3d__Context_Context_Impl_;
 	r3 = (vbyte*)USTR("urho3d._Context.Context_Impl_");
 	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d_$Graphics;
+	r2 = &t$urho3d_Graphics;
+	r3 = (vbyte*)USTR("urho3d.Graphics");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d__IntVector2_$IntVector2_Impl_;
+	r2 = &t$urho3d__IntVector2_IntVector2_Impl_;
+	r3 = (vbyte*)USTR("urho3d._IntVector2.IntVector2_Impl_");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d__Sprite_$Sprite_Impl_;
+	r2 = &t$urho3d__Sprite_Sprite_Impl_;
+	r3 = (vbyte*)USTR("urho3d._Sprite.Sprite_Impl_");
+	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$urho3d__StringHash_$StringHash_Impl_;
 	r2 = &t$urho3d__StringHash_StringHash_Impl_;
 	r3 = (vbyte*)USTR("urho3d._StringHash.StringHash_Impl_");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d__Texture2D_$Texture2D_Impl_;
+	r2 = &t$urho3d__Texture2D_Texture2D_Impl_;
+	r3 = (vbyte*)USTR("urho3d._Texture2D.Texture2D_Impl_");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d_$UI;
+	r2 = &t$urho3d_UI;
+	r3 = (vbyte*)USTR("urho3d.UI");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d__UIElement_$UIElement_Impl_;
+	r2 = &t$urho3d__UIElement_UIElement_Impl_;
+	r3 = (vbyte*)USTR("urho3d._UIElement.UIElement_Impl_");
 	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$urho3d__Variant_$Variant_Impl_;
 	r2 = &t$urho3d__Variant_Variant_Impl_;
@@ -427,6 +466,9 @@ void fun$init() {
 	r12 = 0;
 	r16 = ($Std)g$_Std;
 	r16->toStringDepth = r12;
+	r19 = NULL;
+	r21 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r21->context = r19;
 	Main_main();
 	return;
 }

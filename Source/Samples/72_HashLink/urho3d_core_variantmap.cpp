@@ -33,11 +33,11 @@ void finalize_urho3d(void * v)
 }
 
 
-hl_urho3d_type * hl_alloc_urho3d_variantmap_existing_no_finalize(Urho3D_Type *v)
+
+hl_urho3d_variantmap * hl_alloc_urho3d_variantmap_no_finlizer()
 {
     hl_urho3d_type  * p= (hl_urho3d_type *) hl_gc_alloc_finalizer(sizeof(hl_urho3d_type));
     p->finalizer = (void*)0;
-    p->ptr = v;
     return p;
 }
 

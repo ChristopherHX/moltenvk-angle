@@ -4,7 +4,6 @@
 #include <_std/MyApplication.h>
 #include <hl/types/ArrayDyn.h>
 #include <haxe/Log.h>
-#include <hl/natives.h>
 extern haxe__$Log g$_haxe_Log;
 extern String s$Setup;
 extern hl_type t$vrt_329ffa8;
@@ -13,26 +12,48 @@ extern hl_type t$String;
 extern hl_type t$_i32;
 extern String s$MyApplication;
 extern hl_type t$vrt_eaa6a3b;
+extern String s$Start;
+void MyApplication_CreateSprites(MyApplication);
+void MyApplication_SubscribeToEvents(MyApplication);
+#include <hl/natives.h>
+#include <urho3d/_Context/Context_Impl_.h>
+int urho3d_Graphics_get_width(void);
+int urho3d_Graphics_get_height(void);
+extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
+extern String s$Textures_UrhoDecal_dds;
+hl_urho3d_texture2d* urho3d__Sprite_Sprite_Impl__set_texture(hl_urho3d_sprite*,hl_urho3d_texture2d*);
+double urho3d_Application_Random(urho3d__Application,vdynamic*,vdynamic*);
+extern hl_type t$_f32;
+hl_urho3d_vector2* urho3d__Sprite_Sprite_Impl__set_position(hl_urho3d_sprite*,hl_urho3d_vector2*);
+hl_urho3d_intvector2* urho3d__Sprite_Sprite_Impl__set_size(hl_urho3d_sprite*,hl_urho3d_intvector2*);
+hl_urho3d_intvector2* urho3d__Sprite_Sprite_Impl__set_hotSpot(hl_urho3d_sprite*,hl_urho3d_intvector2*);
+float urho3d__Sprite_Sprite_Impl__set_rotation(hl_urho3d_sprite*,float);
+hl_urho3d_vector2* urho3d__Sprite_Sprite_Impl__set_scale(hl_urho3d_sprite*,hl_urho3d_vector2*);
+extern hl_type t$_f64;
+hl_urho3d_color* urho3d__Sprite_Sprite_Impl__set_color(hl_urho3d_sprite*,hl_urho3d_color*);
+int urho3d__Sprite_Sprite_Impl__set_blendMode(hl_urho3d_sprite*,int);
+hl_urho3d_uielement* urho3d_UI_get_root(void);
+void urho3d__UIElement_UIElement_Impl__AddChild(hl_urho3d_uielement*,hl_urho3d_uielement*);
+hl_urho3d_variantmap* urho3d__Sprite_Sprite_Impl__get_vars(hl_urho3d_sprite*);
+extern String s$Velocity;
+extern hl_type t$hl_urho3d_sprite;
+int hl_types_ArrayObj_push(hl__types__ArrayObj,vdynamic*);
+extern hl_type t$_dyn;
+float urho3d__Sprite_Sprite_Impl__get_rotation(hl_urho3d_sprite*);
+hl_urho3d_vector2* urho3d__Sprite_Sprite_Impl__get_position(hl_urho3d_sprite*);
 extern String s$Update;
 void MyApplication_HandleUpdate(MyApplication,hl_urho3d_stringhash*,hl_urho3d_variantmap*);
 extern hl_type t$fun_e268a04;
 void urho3d_Application_SubscribeToEvent(urho3d__Application,hl_urho3d_stringhash*,vclosure*);
-extern hl_type t$hl_urho3d_stringhash;
-extern String s$Start_;
-extern hl_type t$_type;
-String Std_string(vdynamic*);
-String String___add__(String,String);
-extern String s$Start;
-extern String s$update_hx;
-extern String s$HandleUpdate;
+extern String s$TimeStep;
+hl__types__ArrayObj hl_types_ArrayObj_alloc(varray*);
 void urho3d_Application_new(urho3d__Application);
 
 void MyApplication_Setup(MyApplication r0) {
-	hl_urho3d_stringhash *r9;
 	String r4, r6;
 	vvirtual *r5, *r8;
 	haxe__$Log r3;
-	vclosure *r2, *r10;
+	vclosure *r2;
 	int r7;
 	r3 = (haxe__$Log)g$_haxe_Log;
 	r2 = r3->trace;
@@ -41,7 +62,7 @@ void MyApplication_Setup(MyApplication r0) {
 	r5 = hl_alloc_virtual(&t$vrt_329ffa8);
 	r6 = (String)s$src_haxe_Main_hx;
 	if( hl_vfields(r5)[1] ) *(String*)(hl_vfields(r5)[1]) = (String)r6; else hl_dyn_setp(r5->value,37969014/*fileName*/,&t$String,r6);
-	r7 = 41;
+	r7 = 24;
 	if( hl_vfields(r5)[2] ) *(int*)(hl_vfields(r5)[2]) = (int)r7; else hl_dyn_seti(r5->value,371360620/*lineNumber*/,&t$_i32,r7);
 	r6 = (String)s$MyApplication;
 	if( hl_vfields(r5)[0] ) *(String*)(hl_vfields(r5)[0]) = (String)r6; else hl_dyn_setp(r5->value,-63073762/*className*/,&t$String,r6);
@@ -49,71 +70,500 @@ void MyApplication_Setup(MyApplication r0) {
 	if( hl_vfields(r5)[3] ) *(String*)(hl_vfields(r5)[3]) = (String)r6; else hl_dyn_setp(r5->value,302979532/*methodName*/,&t$String,r6);
 	r8 = hl_to_virtual(&t$vrt_eaa6a3b,(vdynamic*)r5);
 	r2->hasValue ? ((void (*)(vdynamic*,vdynamic*,vvirtual*))r2->fun)((vdynamic*)r2->value,((vdynamic*)r4),r8) : ((void (*)(vdynamic*,vvirtual*))r2->fun)(((vdynamic*)r4),r8);
-	r4 = (String)s$Update;
-	r9 = Urho3D__create_stringhash(r4);
-	r10 = hl_alloc_closure_ptr(&t$fun_e268a04,MyApplication_HandleUpdate,r0);
-	urho3d_Application_SubscribeToEvent(((urho3d__Application)r0),r9,r10);
 	return;
 }
 
 void MyApplication_Start(MyApplication r0) {
-	String r5, r6;
-	vvirtual *r8, *r10;
-	hl_type *r1;
-	haxe__$Log r4;
-	vclosure *r3;
-	vdynamic *r7;
-	int r9;
-	r1 = &t$hl_urho3d_stringhash;
-	r4 = (haxe__$Log)g$_haxe_Log;
-	r3 = r4->trace;
-	if( r3 == NULL ) hl_null_access();
-	r5 = (String)s$Start_;
-	if( r1 == NULL ) r7 = NULL; else {
-		r7 = hl_alloc_dynamic(&t$_type);
-		r7->v.ptr = r1;
-	}
-	r6 = Std_string(r7);
-	r5 = String___add__(r5,r6);
-	r8 = hl_alloc_virtual(&t$vrt_329ffa8);
+	String r4, r6;
+	vvirtual *r5, *r8;
+	haxe__$Log r3;
+	vclosure *r2;
+	int r7;
+	r3 = (haxe__$Log)g$_haxe_Log;
+	r2 = r3->trace;
+	if( r2 == NULL ) hl_null_access();
+	r4 = (String)s$Start;
+	r5 = hl_alloc_virtual(&t$vrt_329ffa8);
 	r6 = (String)s$src_haxe_Main_hx;
-	if( hl_vfields(r8)[1] ) *(String*)(hl_vfields(r8)[1]) = (String)r6; else hl_dyn_setp(r8->value,37969014/*fileName*/,&t$String,r6);
-	r9 = 64;
-	if( hl_vfields(r8)[2] ) *(int*)(hl_vfields(r8)[2]) = (int)r9; else hl_dyn_seti(r8->value,371360620/*lineNumber*/,&t$_i32,r9);
+	if( hl_vfields(r5)[1] ) *(String*)(hl_vfields(r5)[1]) = (String)r6; else hl_dyn_setp(r5->value,37969014/*fileName*/,&t$String,r6);
+	r7 = 28;
+	if( hl_vfields(r5)[2] ) *(int*)(hl_vfields(r5)[2]) = (int)r7; else hl_dyn_seti(r5->value,371360620/*lineNumber*/,&t$_i32,r7);
 	r6 = (String)s$MyApplication;
-	if( hl_vfields(r8)[0] ) *(String*)(hl_vfields(r8)[0]) = (String)r6; else hl_dyn_setp(r8->value,-63073762/*className*/,&t$String,r6);
+	if( hl_vfields(r5)[0] ) *(String*)(hl_vfields(r5)[0]) = (String)r6; else hl_dyn_setp(r5->value,-63073762/*className*/,&t$String,r6);
 	r6 = (String)s$Start;
-	if( hl_vfields(r8)[3] ) *(String*)(hl_vfields(r8)[3]) = (String)r6; else hl_dyn_setp(r8->value,302979532/*methodName*/,&t$String,r6);
-	r10 = hl_to_virtual(&t$vrt_eaa6a3b,(vdynamic*)r8);
-	r3->hasValue ? ((void (*)(vdynamic*,vdynamic*,vvirtual*))r3->fun)((vdynamic*)r3->value,((vdynamic*)r5),r10) : ((void (*)(vdynamic*,vvirtual*))r3->fun)(((vdynamic*)r5),r10);
+	if( hl_vfields(r5)[3] ) *(String*)(hl_vfields(r5)[3]) = (String)r6; else hl_dyn_setp(r5->value,302979532/*methodName*/,&t$String,r6);
+	r8 = hl_to_virtual(&t$vrt_eaa6a3b,(vdynamic*)r5);
+	r2->hasValue ? ((void (*)(vdynamic*,vdynamic*,vvirtual*))r2->fun)((vdynamic*)r2->value,((vdynamic*)r4),r8) : ((void (*)(vdynamic*,vvirtual*))r2->fun)(((vdynamic*)r4),r8);
+	MyApplication_CreateSprites(r0);
+	MyApplication_SubscribeToEvents(r0);
+	return;
+}
+
+void MyApplication_CreateSprites(MyApplication r0) {
+	hl_urho3d_stringhash *r43;
+	String r7;
+	hl__types__ArrayObj r48;
+	hl_urho3d_color *r35, *r39;
+	hl_urho3d_vector2 *r22, *r23, *r34;
+	hl_urho3d_intvector2 *r27, *r28, *r31;
+	hl_urho3d_texture2d *r4, *r8, *r13;
+	hl_urho3d_variantmap *r42;
+	urho3d___Context__$Context_Impl_ r6;
+	hl_urho3d_variant *r46, *r47;
+	float r18, r36, r37, r38;
+	urho3d_context *r5;
+	double r14, r17;
+	vdynamic *r15, *r16, *r19, *r20, *r21, *r24, *r25, *r26, *r29, *r30, *r32, *r33, *r44, *r45, *r49;
+	hl_urho3d_sprite *r12;
+	hl_urho3d_uielement *r40, *r41;
+	int r1, r3, r9, r10, r11;
+	r1 = urho3d_Graphics_get_width();
+	r3 = urho3d_Graphics_get_height();
+	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r5 = r6->context;
+	r7 = (String)s$Textures_UrhoDecal_dds;
+	r4 = Urho3D__create_texture2d(r5,r7);
+	r8 = r4;
+	r9 = 0;
+	r10 = r0->NUM_SPRITES;
+	label$7a66955_3_9:
+	if( r9 >= r10 ) goto label$7a66955_3_203;
+	++r9;
+	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r5 = r6->context;
+	r12 = Urho3D__create_sprite(r5);
+	r13 = urho3d__Sprite_Sprite_Impl__set_texture(r12,r8);
+	r15 = NULL;
+	r16 = NULL;
+	r14 = urho3d_Application_Random(((urho3d__Application)r0),r15,r16);
+	r17 = (double)r1;
+	r14 = r14 * r17;
+	r18 = (float)r14;
+	r19 = hl_alloc_dynamic(&t$_f32);
+	r19->v.f = r18;
+	r15 = NULL;
+	r16 = NULL;
+	r14 = urho3d_Application_Random(((urho3d__Application)r0),r15,r16);
+	r17 = (double)r3;
+	r14 = r14 * r17;
+	r18 = (float)r14;
+	r20 = hl_alloc_dynamic(&t$_f32);
+	r20->v.f = r18;
+	if( r20 ) goto label$7a66955_3_35;
+	r14 = 0.;
+	r18 = (float)r14;
+	r21 = hl_alloc_dynamic(&t$_f32);
+	r21->v.f = r18;
+	r20 = r21;
+	label$7a66955_3_35:
+	if( r19 ) goto label$7a66955_3_40;
+	r14 = 0.;
+	r18 = (float)r14;
+	r21 = hl_alloc_dynamic(&t$_f32);
+	r21->v.f = r18;
+	r19 = r21;
+	label$7a66955_3_40:
+	r22 = Urho3D__create_vector2();
+	if( !r19 ) goto label$7a66955_3_44;
+	r18 = r19 ? r19->v.f : 0;
+	r18 = Urho3D__vector2_set_x(r22,r18);
+	label$7a66955_3_44:
+	if( !r20 ) goto label$7a66955_3_47;
+	r18 = r20 ? r20->v.f : 0;
+	r18 = Urho3D__vector2_set_y(r22,r18);
+	label$7a66955_3_47:
+	r23 = urho3d__Sprite_Sprite_Impl__set_position(r12,r22);
+	r11 = 128;
+	r24 = hl_alloc_dynamic(&t$_i32);
+	r24->v.i = r11;
+	r11 = 128;
+	r25 = hl_alloc_dynamic(&t$_i32);
+	r25->v.i = r11;
+	if( r25 ) goto label$7a66955_3_56;
+	r11 = 0;
+	r26 = hl_alloc_dynamic(&t$_i32);
+	r26->v.i = r11;
+	r25 = r26;
+	label$7a66955_3_56:
+	if( r24 ) goto label$7a66955_3_60;
+	r11 = 0;
+	r26 = hl_alloc_dynamic(&t$_i32);
+	r26->v.i = r11;
+	r24 = r26;
+	label$7a66955_3_60:
+	r27 = Urho3D__create_intvector2();
+	if( !r24 ) goto label$7a66955_3_64;
+	r11 = r24 ? r24->v.i : 0;
+	r11 = Urho3D__intvector2_set_x(r27,r11);
+	label$7a66955_3_64:
+	if( !r25 ) goto label$7a66955_3_67;
+	r11 = r25 ? r25->v.i : 0;
+	r11 = Urho3D__intvector2_set_y(r27,r11);
+	label$7a66955_3_67:
+	r28 = urho3d__Sprite_Sprite_Impl__set_size(r12,r27);
+	r11 = 64;
+	r26 = hl_alloc_dynamic(&t$_i32);
+	r26->v.i = r11;
+	r11 = 64;
+	r29 = hl_alloc_dynamic(&t$_i32);
+	r29->v.i = r11;
+	if( r29 ) goto label$7a66955_3_76;
+	r11 = 0;
+	r30 = hl_alloc_dynamic(&t$_i32);
+	r30->v.i = r11;
+	r29 = r30;
+	label$7a66955_3_76:
+	if( r26 ) goto label$7a66955_3_80;
+	r11 = 0;
+	r30 = hl_alloc_dynamic(&t$_i32);
+	r30->v.i = r11;
+	r26 = r30;
+	label$7a66955_3_80:
+	r28 = Urho3D__create_intvector2();
+	if( !r26 ) goto label$7a66955_3_84;
+	r11 = r26 ? r26->v.i : 0;
+	r11 = Urho3D__intvector2_set_x(r28,r11);
+	label$7a66955_3_84:
+	if( !r29 ) goto label$7a66955_3_87;
+	r11 = r29 ? r29->v.i : 0;
+	r11 = Urho3D__intvector2_set_y(r28,r11);
+	label$7a66955_3_87:
+	r31 = urho3d__Sprite_Sprite_Impl__set_hotSpot(r12,r28);
+	r15 = NULL;
+	r16 = NULL;
+	r14 = urho3d_Application_Random(((urho3d__Application)r0),r15,r16);
+	r17 = 360.;
+	r14 = r14 * r17;
+	r18 = (float)r14;
+	r18 = urho3d__Sprite_Sprite_Impl__set_rotation(r12,r18);
+	r15 = NULL;
+	r16 = NULL;
+	r14 = urho3d_Application_Random(((urho3d__Application)r0),r15,r16);
+	r17 = 0.5;
+	r14 = r14 + r17;
+	r18 = (float)r14;
+	r21 = hl_alloc_dynamic(&t$_f32);
+	r21->v.f = r18;
+	r15 = NULL;
+	r16 = NULL;
+	r14 = urho3d_Application_Random(((urho3d__Application)r0),r15,r16);
+	r17 = 0.5;
+	r14 = r14 + r17;
+	r18 = (float)r14;
+	r32 = hl_alloc_dynamic(&t$_f32);
+	r32->v.f = r18;
+	if( r32 ) goto label$7a66955_3_114;
+	r14 = 0.;
+	r18 = (float)r14;
+	r33 = hl_alloc_dynamic(&t$_f32);
+	r33->v.f = r18;
+	r32 = r33;
+	label$7a66955_3_114:
+	if( r21 ) goto label$7a66955_3_119;
+	r14 = 0.;
+	r18 = (float)r14;
+	r33 = hl_alloc_dynamic(&t$_f32);
+	r33->v.f = r18;
+	r21 = r33;
+	label$7a66955_3_119:
+	r23 = Urho3D__create_vector2();
+	if( !r21 ) goto label$7a66955_3_123;
+	r18 = r21 ? r21->v.f : 0;
+	r18 = Urho3D__vector2_set_x(r23,r18);
+	label$7a66955_3_123:
+	if( !r32 ) goto label$7a66955_3_126;
+	r18 = r32 ? r32->v.f : 0;
+	r18 = Urho3D__vector2_set_y(r23,r18);
+	label$7a66955_3_126:
+	r34 = urho3d__Sprite_Sprite_Impl__set_scale(r12,r23);
+	r14 = 0.5;
+	r15 = hl_alloc_dynamic(&t$_f64);
+	r15->v.d = r14;
+	r16 = NULL;
+	r14 = urho3d_Application_Random(((urho3d__Application)r0),r15,r16);
+	r17 = 0.5;
+	r14 = r14 + r17;
+	r18 = (float)r14;
+	r14 = 0.5;
+	r15 = hl_alloc_dynamic(&t$_f64);
+	r15->v.d = r14;
+	r16 = NULL;
+	r14 = urho3d_Application_Random(((urho3d__Application)r0),r15,r16);
+	r17 = 0.5;
+	r14 = r14 + r17;
+	r36 = (float)r14;
+	r14 = 0.5;
+	r15 = hl_alloc_dynamic(&t$_f64);
+	r15->v.d = r14;
+	r16 = NULL;
+	r14 = urho3d_Application_Random(((urho3d__Application)r0),r15,r16);
+	r17 = 0.5;
+	r14 = r14 + r17;
+	r37 = (float)r14;
+	r14 = 1.;
+	r38 = (float)r14;
+	r35 = Urho3D__math_create_color(r18,r36,r37,r38);
+	r39 = urho3d__Sprite_Sprite_Impl__set_color(r12,r35);
+	r11 = 1;
+	r11 = urho3d__Sprite_Sprite_Impl__set_blendMode(r12,r11);
+	r40 = urho3d_UI_get_root();
+	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r5 = r6->context;
+	r41 = Urho3D__cast_sprite_to_uielement(r5,r12);
+	urho3d__UIElement_UIElement_Impl__AddChild(r40,r41);
+	r42 = urho3d__Sprite_Sprite_Impl__get_vars(r12);
+	r7 = (String)s$Velocity;
+	r43 = Urho3D__create_stringhash(r7);
+	r14 = 200.;
+	r15 = hl_alloc_dynamic(&t$_f64);
+	r15->v.d = r14;
+	r16 = NULL;
+	r14 = urho3d_Application_Random(((urho3d__Application)r0),r15,r16);
+	r17 = 100.;
+	r14 = r14 - r17;
+	r18 = (float)r14;
+	r33 = hl_alloc_dynamic(&t$_f32);
+	r33->v.f = r18;
+	r14 = 200.;
+	r15 = hl_alloc_dynamic(&t$_f64);
+	r15->v.d = r14;
+	r16 = NULL;
+	r14 = urho3d_Application_Random(((urho3d__Application)r0),r15,r16);
+	r17 = 100.;
+	r14 = r14 - r17;
+	r18 = (float)r14;
+	r44 = hl_alloc_dynamic(&t$_f32);
+	r44->v.f = r18;
+	if( r44 ) goto label$7a66955_3_183;
+	r14 = 0.;
+	r18 = (float)r14;
+	r45 = hl_alloc_dynamic(&t$_f32);
+	r45->v.f = r18;
+	r44 = r45;
+	label$7a66955_3_183:
+	if( r33 ) goto label$7a66955_3_188;
+	r14 = 0.;
+	r18 = (float)r14;
+	r45 = hl_alloc_dynamic(&t$_f32);
+	r45->v.f = r18;
+	r33 = r45;
+	label$7a66955_3_188:
+	r34 = Urho3D__create_vector2();
+	if( !r33 ) goto label$7a66955_3_192;
+	r18 = r33 ? r33->v.f : 0;
+	r18 = Urho3D__vector2_set_x(r34,r18);
+	label$7a66955_3_192:
+	if( !r44 ) goto label$7a66955_3_195;
+	r18 = r44 ? r44->v.f : 0;
+	r18 = Urho3D__vector2_set_y(r34,r18);
+	label$7a66955_3_195:
+	r46 = Urho3D__create_variant();
+	Urho3D__variant_set_vector2(r46,r34);
+	r47 = Urho3D__set_key_value(r42,r43,r46);
+	r48 = r0->sprites;
+	if( r48 == NULL ) hl_null_access();
+	if( r12 == NULL ) r49 = NULL; else {
+		r49 = hl_alloc_dynamic(&t$hl_urho3d_sprite);
+		r49->v.ptr = r12;
+	}
+	r11 = hl_types_ArrayObj_push(r48,r49);
+	goto label$7a66955_3_9;
+	label$7a66955_3_203:
+	return;
+}
+
+void MyApplication_MoveSprites(MyApplication r0,float r1) {
+	String r18;
+	hl_urho3d_stringhash *r17;
+	hl__types__ArrayObj r6;
+	hl_urho3d_vector2 *r15, *r20, *r21, *r27, *r32;
+	hl_urho3d_variantmap *r16;
+	hl_urho3d_variant *r19;
+	float r11, r22, r23, r28, r29, r33;
+	double r12, r13, r14;
+	vdynamic *r9, *r24, *r25, *r26, *r30, *r31;
+	hl_urho3d_sprite *r8;
+	varray *r10;
+	int r2, r4, r5, r7;
+	r2 = urho3d_Graphics_get_width();
+	r4 = urho3d_Graphics_get_height();
+	r5 = 0;
+	r6 = r0->sprites;
+	label$7a66955_4_4:
+	if( r6 == NULL ) hl_null_access();
+	r7 = r6->length;
+	if( r5 >= r7 ) goto label$7a66955_4_117;
+	r7 = r6->length;
+	if( ((unsigned)r5) < ((unsigned)r7) ) goto label$7a66955_4_12;
+	r8 = NULL;
+	goto label$7a66955_4_15;
+	label$7a66955_4_12:
+	r10 = r6->array;
+	r9 = ((vdynamic**)(r10 + 1))[r5];
+	r8 = (hl_urho3d_sprite*)hl_dyn_castp(&r9,&t$_dyn,&t$hl_urho3d_sprite);
+	label$7a66955_4_15:
+	++r5;
+	r11 = urho3d__Sprite_Sprite_Impl__get_rotation(r8);
+	r12 = (double)r11;
+	r13 = (double)r1;
+	r14 = 30.;
+	r13 = r13 * r14;
+	r12 = r12 + r13;
+	r11 = (float)r12;
+	r11 = urho3d__Sprite_Sprite_Impl__set_rotation(r8,r11);
+	r15 = urho3d__Sprite_Sprite_Impl__get_position(r8);
+	r16 = urho3d__Sprite_Sprite_Impl__get_vars(r8);
+	r18 = (String)s$Velocity;
+	r17 = Urho3D__create_stringhash(r18);
+	r19 = Urho3D__get_value(r16,r17);
+	r20 = Urho3D__create_vector2();
+	r12 = 0.;
+	r11 = (float)r12;
+	r11 = Urho3D__vector2_set_x(r20,r11);
+	r12 = 0.;
+	r11 = (float)r12;
+	r11 = Urho3D__vector2_set_y(r20,r11);
+	Urho3D__variant_get_vector2(r19,r20);
+	r11 = Urho3D__vector2_get_x(r20);
+	r11 = r11 * r1;
+	r22 = Urho3D__vector2_get_y(r20);
+	r22 = r22 * r1;
+	r24 = hl_alloc_dynamic(&t$_f32);
+	r24->v.f = r11;
+	r25 = hl_alloc_dynamic(&t$_f32);
+	r25->v.f = r22;
+	if( r25 ) goto label$7a66955_4_48;
+	r12 = 0.;
+	r23 = (float)r12;
+	r26 = hl_alloc_dynamic(&t$_f32);
+	r26->v.f = r23;
+	r25 = r26;
+	label$7a66955_4_48:
+	if( r24 ) goto label$7a66955_4_53;
+	r12 = 0.;
+	r23 = (float)r12;
+	r26 = hl_alloc_dynamic(&t$_f32);
+	r26->v.f = r23;
+	r24 = r26;
+	label$7a66955_4_53:
+	r21 = Urho3D__create_vector2();
+	if( !r24 ) goto label$7a66955_4_57;
+	r23 = r24 ? r24->v.f : 0;
+	r23 = Urho3D__vector2_set_x(r21,r23);
+	label$7a66955_4_57:
+	if( !r25 ) goto label$7a66955_4_60;
+	r23 = r25 ? r25->v.f : 0;
+	r23 = Urho3D__vector2_set_y(r21,r23);
+	label$7a66955_4_60:
+	r23 = Urho3D__vector2_get_x(r15);
+	r28 = Urho3D__vector2_get_x(r21);
+	r23 = r23 + r28;
+	r28 = Urho3D__vector2_get_y(r15);
+	r29 = Urho3D__vector2_get_y(r21);
+	r28 = r28 + r29;
+	r26 = hl_alloc_dynamic(&t$_f32);
+	r26->v.f = r23;
+	r30 = hl_alloc_dynamic(&t$_f32);
+	r30->v.f = r28;
+	if( r30 ) goto label$7a66955_4_73;
+	r12 = 0.;
+	r29 = (float)r12;
+	r31 = hl_alloc_dynamic(&t$_f32);
+	r31->v.f = r29;
+	r30 = r31;
+	label$7a66955_4_73:
+	if( r26 ) goto label$7a66955_4_78;
+	r12 = 0.;
+	r29 = (float)r12;
+	r31 = hl_alloc_dynamic(&t$_f32);
+	r31->v.f = r29;
+	r26 = r31;
+	label$7a66955_4_78:
+	r27 = Urho3D__create_vector2();
+	if( !r26 ) goto label$7a66955_4_82;
+	r29 = r26 ? r26->v.f : 0;
+	r29 = Urho3D__vector2_set_x(r27,r29);
+	label$7a66955_4_82:
+	if( !r30 ) goto label$7a66955_4_85;
+	r29 = r30 ? r30->v.f : 0;
+	r29 = Urho3D__vector2_set_y(r27,r29);
+	label$7a66955_4_85:
+	r29 = Urho3D__vector2_get_x(r27);
+	r12 = (double)r29;
+	r13 = 0.;
+	if( !(r12 < r13) ) goto label$7a66955_4_93;
+	r29 = Urho3D__vector2_get_x(r27);
+	r33 = (float)r2;
+	r29 = r29 + r33;
+	r29 = Urho3D__vector2_set_x(r27,r29);
+	label$7a66955_4_93:
+	r29 = Urho3D__vector2_get_x(r27);
+	r33 = (float)r2;
+	if( !(r29 >= r33) ) goto label$7a66955_4_100;
+	r29 = Urho3D__vector2_get_x(r27);
+	r33 = (float)r2;
+	r29 = r29 - r33;
+	r29 = Urho3D__vector2_set_x(r27,r29);
+	label$7a66955_4_100:
+	r29 = Urho3D__vector2_get_y(r27);
+	r12 = (double)r29;
+	r13 = 0.;
+	if( !(r12 < r13) ) goto label$7a66955_4_108;
+	r29 = Urho3D__vector2_get_y(r27);
+	r33 = (float)r4;
+	r29 = r29 + r33;
+	r29 = Urho3D__vector2_set_y(r27,r29);
+	label$7a66955_4_108:
+	r29 = Urho3D__vector2_get_y(r27);
+	r33 = (float)r4;
+	if( !(r29 >= r33) ) goto label$7a66955_4_115;
+	r29 = Urho3D__vector2_get_y(r27);
+	r33 = (float)r4;
+	r29 = r29 - r33;
+	r29 = Urho3D__vector2_set_y(r27,r29);
+	label$7a66955_4_115:
+	r32 = urho3d__Sprite_Sprite_Impl__set_position(r8,r27);
+	goto label$7a66955_4_4;
+	label$7a66955_4_117:
+	return;
+}
+
+void MyApplication_SubscribeToEvents(MyApplication r0) {
+	String r2;
+	hl_urho3d_stringhash *r1;
+	vclosure *r4;
+	r2 = (String)s$Update;
+	r1 = Urho3D__create_stringhash(r2);
+	r4 = hl_alloc_closure_ptr(&t$fun_e268a04,MyApplication_HandleUpdate,r0);
+	urho3d_Application_SubscribeToEvent(((urho3d__Application)r0),r1,r4);
 	return;
 }
 
 void MyApplication_HandleUpdate(MyApplication r0,hl_urho3d_stringhash* r1,hl_urho3d_variantmap* r2) {
-	String r6, r8;
-	vvirtual *r7, *r10;
-	haxe__$Log r5;
-	vclosure *r4;
-	int r9;
-	r5 = (haxe__$Log)g$_haxe_Log;
-	r4 = r5->trace;
-	if( r4 == NULL ) hl_null_access();
-	r6 = (String)s$update_hx;
-	r7 = hl_alloc_virtual(&t$vrt_329ffa8);
-	r8 = (String)s$src_haxe_Main_hx;
-	if( hl_vfields(r7)[1] ) *(String*)(hl_vfields(r7)[1]) = (String)r8; else hl_dyn_setp(r7->value,37969014/*fileName*/,&t$String,r8);
-	r9 = 81;
-	if( hl_vfields(r7)[2] ) *(int*)(hl_vfields(r7)[2]) = (int)r9; else hl_dyn_seti(r7->value,371360620/*lineNumber*/,&t$_i32,r9);
-	r8 = (String)s$MyApplication;
-	if( hl_vfields(r7)[0] ) *(String*)(hl_vfields(r7)[0]) = (String)r8; else hl_dyn_setp(r7->value,-63073762/*className*/,&t$String,r8);
-	r8 = (String)s$HandleUpdate;
-	if( hl_vfields(r7)[3] ) *(String*)(hl_vfields(r7)[3]) = (String)r8; else hl_dyn_setp(r7->value,302979532/*methodName*/,&t$String,r8);
-	r10 = hl_to_virtual(&t$vrt_eaa6a3b,(vdynamic*)r7);
-	r4->hasValue ? ((void (*)(vdynamic*,vdynamic*,vvirtual*))r4->fun)((vdynamic*)r4->value,((vdynamic*)r6),r10) : ((void (*)(vdynamic*,vvirtual*))r4->fun)(((vdynamic*)r6),r10);
+	String r4;
+	hl_urho3d_stringhash *r3;
+	hl_urho3d_variant *r7;
+	float r6;
+	r4 = (String)s$TimeStep;
+	r3 = Urho3D__create_stringhash(r4);
+	r7 = Urho3D__get_value(r2,r3);
+	r6 = Urho3D__variant_get_float(r7);
+	MyApplication_MoveSprites(r0,r6);
 	return;
 }
 
 void MyApplication_new(MyApplication r0) {
+	hl__types__ArrayObj r1;
+	hl_type *r3;
+	int r4;
+	varray *r2;
+	r3 = &t$_dyn;
+	r4 = 0;
+	r2 = hl_alloc_array(r3,r4);
+	r1 = hl_types_ArrayObj_alloc(r2);
+	r0->sprites = r1;
+	r4 = 100;
+	r0->NUM_SPRITES = r4;
 	urho3d_Application_new(((urho3d__Application)r0));
 	return;
 }

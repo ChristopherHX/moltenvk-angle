@@ -8,6 +8,7 @@ typedef struct _MyApplication *MyApplication;
 #include <_std/String.h>
 #include <urho3d/Application.h>
 #include <hl/natives.h>
+#include <hl/types/ArrayObj.h>
 
 
 struct _$MyApplication {
@@ -21,6 +22,8 @@ struct _$MyApplication {
 struct _MyApplication {
 	hl_type *$type;
 	hl_urho3d_application* abstractApplication;
+	int NUM_SPRITES;
+	hl__types__ArrayObj sprites;
 };
 #endif
 

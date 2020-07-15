@@ -2,8 +2,16 @@
 #define HLC_BOOT
 #include <hlc.h>
 #include <urho3d/_AbstractApplication/AbstractApplication_Impl_.h>
+extern hl_type t$vrt_18091c0;
 #include <hl/natives.h>
-extern String s$test;
+extern hl_type t$fun_fce5bcc;
+
+void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent2__$1(vclosure* r0,vdynamic* r1) {
+	vvirtual *r2;
+	r2 = hl_to_virtual(&t$vrt_18091c0,(vdynamic*)r1);
+	r0->hasValue ? ((void (*)(vdynamic*,vvirtual*))r0->fun)((vdynamic*)r0->value,r2) : ((void (*)(vvirtual*))r0->fun)(r2);
+	return;
+}
 
 hl_urho3d_application* urho3d__AbstractApplication_AbstractApplication_Impl___new(urho3d_context* r0) {
 	hl_urho3d_application *r1;
@@ -12,11 +20,6 @@ hl_urho3d_application* urho3d__AbstractApplication_AbstractApplication_Impl___ne
 }
 
 void urho3d__AbstractApplication_AbstractApplication_Impl__Run(hl_urho3d_application* r0) {
-	String r2;
-	hl_urho3d_stringhash *r1;
-	r2 = (String)s$test;
-	r1 = Urho3D__create_stringhash(r2);
-	Urho3D__pass_stringhash(r0,r1);
 	Urho3D__run_application(r0);
 	return;
 }
@@ -38,6 +41,18 @@ void urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStopClosure(h
 
 void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(hl_urho3d_application* r0,hl_urho3d_stringhash* r1,vclosure* r2) {
 	Urho3D__application_subscribe_to_event(r0,r1,r2);
+	return;
+}
+
+void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent2(hl_urho3d_application* r0,hl_urho3d_stringhash* r1,vclosure* r2) {
+	vclosure *r4;
+	if( r2 ) goto label$5f5dba0_8_3;
+	r4 = NULL;
+	goto label$5f5dba0_8_4;
+	label$5f5dba0_8_3:
+	r4 = hl_alloc_closure_ptr(&t$fun_fce5bcc,urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent2__$1,r2);
+	label$5f5dba0_8_4:
+	Urho3D__application_subscribe_to_event2(r0,r1,r4);
 	return;
 }
 

@@ -3,10 +3,14 @@
 #include <hlc.h>
 #include <urho3d/_Context/Context_Impl_.h>
 #include <hl/natives.h>
+extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 
 urho3d_context* urho3d__Context_Context_Impl___new() {
+	urho3d___Context__$Context_Impl_ r1;
 	urho3d_context *r0;
 	r0 = Urho3D__create_context();
+	r1 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r1->context = r0;
 	return r0;
 }
 

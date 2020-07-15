@@ -3,6 +3,8 @@
 #include <hlc.h>
 #include <urho3d/Application.h>
 #include <hl/natives.h>
+#include <urho3d/_Context/Context_Impl_.h>
+extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern urho3d__$Application g$_urho3d_Application;
 hl_urho3d_application* urho3d__AbstractApplication_AbstractApplication_Impl___new(urho3d_context*);
 extern hl_type t$fun_8ec9cc3;
@@ -12,28 +14,33 @@ void urho3d_Application_Stop(urho3d__Application);
 void urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStopClosure(hl_urho3d_application*,vclosure*);
 void urho3d__AbstractApplication_AbstractApplication_Impl__Run(hl_urho3d_application*);
 void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(hl_urho3d_application*,hl_urho3d_stringhash*,vclosure*);
+void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent2(hl_urho3d_application*,hl_urho3d_stringhash*,vclosure*);
+int Std_random(int);
 
 void urho3d_Application_new(urho3d__Application r0) {
-	urho3d__$Application r4;
-	hl_urho3d_application *r5;
+	urho3d__$Application r5;
+	hl_urho3d_application *r6;
+	urho3d___Context__$Context_Impl_ r4;
 	urho3d_context *r1, *r3;
-	vclosure *r6;
+	vclosure *r7;
 	r1 = Urho3D__create_context();
-	r4 = (urho3d__$Application)g$_urho3d_Application;
+	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r4->context = r1;
-	r4 = (urho3d__$Application)g$_urho3d_Application;
-	r3 = r4->context;
-	r5 = urho3d__AbstractApplication_AbstractApplication_Impl___new(r3);
-	r0->abstractApplication = r5;
-	r5 = r0->abstractApplication;
-	r6 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,r0->$type->vobj_proto[0],r0);
-	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterSetupClosure(r5,r6);
-	r5 = r0->abstractApplication;
-	r6 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,r0->$type->vobj_proto[1],r0);
-	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStartClosure(r5,r6);
-	r5 = r0->abstractApplication;
-	r6 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,urho3d_Application_Stop,r0);
-	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStopClosure(r5,r6);
+	r5 = (urho3d__$Application)g$_urho3d_Application;
+	r5->context = r1;
+	r5 = (urho3d__$Application)g$_urho3d_Application;
+	r3 = r5->context;
+	r6 = urho3d__AbstractApplication_AbstractApplication_Impl___new(r3);
+	r0->abstractApplication = r6;
+	r6 = r0->abstractApplication;
+	r7 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,r0->$type->vobj_proto[0],r0);
+	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterSetupClosure(r6,r7);
+	r6 = r0->abstractApplication;
+	r7 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,r0->$type->vobj_proto[1],r0);
+	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStartClosure(r6,r7);
+	r6 = r0->abstractApplication;
+	r7 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,urho3d_Application_Stop,r0);
+	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStopClosure(r6,r7);
 	return;
 }
 
@@ -61,5 +68,38 @@ void urho3d_Application_SubscribeToEvent(urho3d__Application r0,hl_urho3d_string
 	r4 = r0->abstractApplication;
 	urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(r4,r1,r2);
 	return;
+}
+
+void urho3d_Application_SubscribeToEvent2(urho3d__Application r0,hl_urho3d_stringhash* r1,vclosure* r2) {
+	hl_urho3d_application *r4;
+	r4 = r0->abstractApplication;
+	urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent2(r4,r1,r2);
+	return;
+}
+
+double urho3d_Application_Random(urho3d__Application r0,vdynamic* r1,vdynamic* r2) {
+	double r3, r5, r6, r7;
+	int r4;
+	r4 = 100000;
+	r4 = Std_random(r4);
+	r3 = (double)r4;
+	r5 = 100000.;
+	r3 = r3 / r5;
+	if( r1 ) goto label$7dad269_8_7;
+	return r3;
+	label$7dad269_8_7:
+	if( !r1 ) goto label$7dad269_8_12;
+	if( r2 ) goto label$7dad269_8_12;
+	r6 = r1 ? r1->v.d : 0;
+	r5 = r3 * r6;
+	return r5;
+	label$7dad269_8_12:
+	r6 = r2 ? r2->v.d : 0;
+	r7 = r1 ? r1->v.d : 0;
+	r6 = r6 - r7;
+	r5 = r3 * r6;
+	r6 = r1 ? r1->v.d : 0;
+	r5 = r5 + r6;
+	return r5;
 }
 

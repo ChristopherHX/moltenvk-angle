@@ -20,17 +20,17 @@ hl_urho3d_stringhash * hl_alloc_urho3d_existing_stringhash(hl_urho3d_stringhash 
 void finalize_urho3d_stringhash(void * v)
 {
    
-    hl_urho3d_stringhash  * v2ptr = (hl_urho3d_stringhash  * )v;
-    if(v2ptr)
+    hl_urho3d_stringhash  * hl_type_ptr = (hl_urho3d_stringhash  * )v;
+    if(hl_type_ptr)
     {
-         Urho3D::StringHash *vector2 = (Urho3D::StringHash *)v2ptr->ptr;
-         if(vector2)
+         Urho3D::StringHash *urh3d_type_ptr = (Urho3D::StringHash *)hl_type_ptr->ptr;
+         if(urh3d_type_ptr)
          {
               //printf("finalize_urho3d_stringhash %s\n",vector2->ToString().CString());
-             delete vector2;
-             v2ptr->ptr = NULL;
+             delete urh3d_type_ptr;
+             hl_type_ptr->ptr = NULL;
          }
-         v2ptr->finalizer = NULL;
+         hl_type_ptr->finalizer = NULL;
     }
     
 }
@@ -45,6 +45,14 @@ hl_urho3d_stringhash * hl_alloc_urho3d_stringhash(const char* str)
     p->ptr = v;
 
    // printf("hl_alloc_urho3d_stringhash %s %s\n", str, v->ToString().CString());
+    return p;
+}
+
+hl_urho3d_stringhash * hl_alloc_urho3d_stringhash_no_finlizer()
+{
+    hl_urho3d_stringhash  * p= (hl_urho3d_stringhash *) hl_gc_alloc_finalizer(sizeof(hl_urho3d_stringhash));
+
+    p->finalizer = (void*)0;
     return p;
 }
 
