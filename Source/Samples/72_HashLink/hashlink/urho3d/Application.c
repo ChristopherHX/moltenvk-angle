@@ -14,7 +14,6 @@ void urho3d_Application_Stop(urho3d__Application);
 void urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStopClosure(hl_urho3d_application*,vclosure*);
 void urho3d__AbstractApplication_AbstractApplication_Impl__Run(hl_urho3d_application*);
 void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(hl_urho3d_application*,hl_urho3d_stringhash*,vclosure*);
-void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent2(hl_urho3d_application*,hl_urho3d_stringhash*,vclosure*);
 int Std_random(int);
 
 void urho3d_Application_new(urho3d__Application r0) {
@@ -70,13 +69,6 @@ void urho3d_Application_SubscribeToEvent(urho3d__Application r0,hl_urho3d_string
 	return;
 }
 
-void urho3d_Application_SubscribeToEvent2(urho3d__Application r0,hl_urho3d_stringhash* r1,vclosure* r2) {
-	hl_urho3d_application *r4;
-	r4 = r0->abstractApplication;
-	urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent2(r4,r1,r2);
-	return;
-}
-
 double urho3d_Application_Random(urho3d__Application r0,vdynamic* r1,vdynamic* r2) {
 	double r3, r5, r6, r7;
 	int r4;
@@ -85,15 +77,15 @@ double urho3d_Application_Random(urho3d__Application r0,vdynamic* r1,vdynamic* r
 	r3 = (double)r4;
 	r5 = 100000.;
 	r3 = r3 / r5;
-	if( r1 ) goto label$7dad269_8_7;
+	if( r1 ) goto label$7dad269_7_7;
 	return r3;
-	label$7dad269_8_7:
-	if( !r1 ) goto label$7dad269_8_12;
-	if( r2 ) goto label$7dad269_8_12;
+	label$7dad269_7_7:
+	if( !r1 ) goto label$7dad269_7_12;
+	if( r2 ) goto label$7dad269_7_12;
 	r6 = r1 ? r1->v.d : 0;
 	r5 = r3 * r6;
 	return r5;
-	label$7dad269_8_12:
+	label$7dad269_7_12:
 	r6 = r2 ? r2->v.d : 0;
 	r7 = r1 ? r1->v.d : 0;
 	r6 = r6 - r7;

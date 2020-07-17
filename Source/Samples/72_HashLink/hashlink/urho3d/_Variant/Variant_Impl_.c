@@ -24,15 +24,13 @@ int urho3d__Variant_Variant_Impl__GetInt(hl_urho3d_variant* r0) {
 
 hl_urho3d_vector2* urho3d__Variant_Variant_Impl__GetVector2(hl_urho3d_variant* r0) {
 	hl_urho3d_vector2 *r1;
-	float r3;
-	double r4;
-	r1 = Urho3D__create_vector2();
-	r4 = 0.;
-	r3 = (float)r4;
-	r3 = Urho3D__vector2_set_x(r1,r3);
-	r4 = 0.;
-	r3 = (float)r4;
-	r3 = Urho3D__vector2_set_y(r1,r3);
+	float r3, r4;
+	double r2;
+	r2 = 0.;
+	r3 = (float)r2;
+	r2 = 0.;
+	r4 = (float)r2;
+	r1 = Urho3D__create_vector2(r3,r4);
 	Urho3D__variant_get_vector2(r0,r1);
 	return r1;
 }

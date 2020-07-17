@@ -22,11 +22,11 @@ struct _urho3d___IntVector2__$IntVector2_Impl_ {
 	vclosure* isequal;
 	vclosure* isnotequal;
 	vclosure* add;
-	vclosure* add2;
+	vclosure* addto;
 	vclosure* sub;
-	vclosure* sub2;
+	vclosure* subfrom;
 	vclosure* mul;
-	vclosure* mul2;
+	vclosure* mulwith;
 	vclosure* neg;
 	vclosure* preneg;
 	vclosure* postneg;

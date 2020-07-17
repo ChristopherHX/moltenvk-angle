@@ -21,18 +21,17 @@ typedef struct _urho3d_context urho3d_context;
 
 // Natives functions
 HL_API void Urho3D__application_subscribe_to_event(hl_urho3d_application*,hl_urho3d_stringhash*,vclosure*);
-HL_API void Urho3D__application_subscribe_to_event2(hl_urho3d_application*,hl_urho3d_stringhash*,vclosure*);
 HL_API hl_urho3d_uielement* Urho3D__cast_sprite_to_uielement(urho3d_context*,hl_urho3d_sprite*);
 HL_API hl_urho3d_application* Urho3D__create_application(urho3d_context*);
 HL_API urho3d_context* Urho3D__create_context(void);
-HL_API hl_urho3d_intvector2* Urho3D__create_intvector2(void);
+HL_API hl_urho3d_intvector2* Urho3D__create_intvector2(int,int);
 HL_API hl_urho3d_sprite* Urho3D__create_sprite(urho3d_context*);
 HL_API hl_urho3d_stringhash* Urho3D__create_stringhash(String);
 HL_API hl_urho3d_texture2d* Urho3D__create_texture2d(urho3d_context*,String);
 HL_API hl_urho3d_uielement* Urho3D__create_uielement(urho3d_context*);
 HL_API hl_urho3d_variant* Urho3D__create_variant(void);
 HL_API hl_urho3d_variantmap* Urho3D__create_variantmap(void);
-HL_API hl_urho3d_vector2* Urho3D__create_vector2(void);
+HL_API hl_urho3d_vector2* Urho3D__create_vector2(float,float);
 HL_API vbyte* Urho3D__get_stringhash_string(hl_urho3d_stringhash*);
 HL_API vbyte* Urho3D__get_texture2d_get_name(hl_urho3d_texture2d*);
 HL_API hl_urho3d_variant* Urho3D__get_value(hl_urho3d_variantmap*,hl_urho3d_stringhash*);

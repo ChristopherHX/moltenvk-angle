@@ -22,7 +22,6 @@ struct _urho3d___AbstractApplication__$AbstractApplication_Impl_ {
 	vclosure* RegisterStartClosure;
 	vclosure* RegisterStopClosure;
 	vclosure* SubscribeToEvent;
-	vclosure* SubscribeToEvent2;
 };
 struct _urho3d___AbstractApplication__AbstractApplication_Impl_ {
 	hl_type *$type;

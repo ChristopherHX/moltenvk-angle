@@ -32,7 +32,7 @@
 #include <Urho3D/DebugNew.h>
 
 // Number of sprites to draw
-static const unsigned NUM_SPRITES = 100;
+static const unsigned NUM_SPRITES = 700;
 
 // Custom variable identifier for storing sprite velocity within the UI element
 static const StringHash VAR_VELOCITY("Velocity");

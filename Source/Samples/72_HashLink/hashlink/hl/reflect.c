@@ -48,6 +48,8 @@ void *hlc_static_call( void *fun, hl_type *t, void **args, vdynamic *out ) {
 		chk |= TKIND[t->fun->args[0]->kind] << 3;
 		chk |= TKIND[t->fun->args[1]->kind] << 6;
 		switch( chk ) {
+		case 77:
+			return ((vdynamic* (*)(int,int))fun)(*(int*)args[0],*(int*)args[1]);
 		case 169:
 			out->v.i = ((int (*)(vdynamic*,float))fun)((vdynamic*)args[0],*(float*)args[1]);
 			return &out->v.i;
@@ -86,6 +88,8 @@ void *hlc_static_call( void *fun, hl_type *t, void **args, vdynamic *out ) {
 		case 362:
 			out->v.f = ((float (*)(vdynamic*,vdynamic*))fun)((vdynamic*)args[0],(vdynamic*)args[1]);
 			return &out->v.f;
+		case 149:
+			return ((vdynamic* (*)(float,float))fun)(*(float*)args[0],*(float*)args[1]);
 		case 360:
 			((void (*)(vdynamic*,vdynamic*))fun)((vdynamic*)args[0],(vdynamic*)args[1]);
 			return NULL;
@@ -280,6 +284,10 @@ static float wrap_p_f(void *value,vdynamic* p0) {
 	hl_wrapper_call(value,args,&ret);
 	return ret.v.f;
 }
+static vdynamic* wrap_ii_p(void *value,int p0,int p1) {
+	void *args[] = {&p0,&p1};
+	return hl_wrapper_call(value,args,NULL);
+}
 static int wrap_pf_i(void *value,vdynamic* p0,float p1) {
 	void *args[] = {p0,&p1};
 	vdynamic ret;
@@ -349,6 +357,10 @@ static float wrap_pp_f(void *value,vdynamic* p0,vdynamic* p1) {
 	vdynamic ret;
 	hl_wrapper_call(value,args,&ret);
 	return ret.v.f;
+}
+static vdynamic* wrap_ff_p(void *value,float p0,float p1) {
+	void *args[] = {&p0,&p1};
+	return hl_wrapper_call(value,args,NULL);
 }
 static void wrap_pp_v(void *value,vdynamic* p0,vdynamic* p1) {
 	void *args[] = {p0,p1};
@@ -543,6 +555,7 @@ void *hlc_get_wrapper( hl_type *t ) {
 		chk |= TKIND[t->fun->args[0]->kind] << 3;
 		chk |= TKIND[t->fun->args[1]->kind] << 6;
 		switch( chk ) {
+		case 77: return wrap_ii_p;
 		case 169: return wrap_pf_i;
 		case 361: return wrap_pp_i;
 		case 168: return wrap_pf_v;
@@ -557,6 +570,7 @@ void *hlc_get_wrapper( hl_type *t ) {
 		case 233: return wrap_pd_i;
 		case 104: return wrap_pi_v;
 		case 362: return wrap_pp_f;
+		case 149: return wrap_ff_p;
 		case 360: return wrap_pp_v;
 		}
 		break;

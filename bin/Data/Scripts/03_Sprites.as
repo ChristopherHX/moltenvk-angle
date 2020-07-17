@@ -7,7 +7,7 @@
 #include "Scripts/Utilities/Sample.as"
 
 // Number of sprites to draw
-const uint NUM_SPRITES = 100;
+const uint NUM_SPRITES = 1000;
 
 Array<Sprite@> sprites;
 
