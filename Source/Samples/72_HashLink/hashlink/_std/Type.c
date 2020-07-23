@@ -14,6 +14,16 @@ extern hl_type t$hl_types_ArrayObj;
 void hl_types_ArrayObj_new(hl__types__ArrayObj);
 extern hl_type t$_i32;
 int hl_types_ArrayObj_push(hl__types__ArrayObj,vdynamic*);
+extern hl_type t$hl_BaseType;
+extern venum* g$ValueType_TUnknown;
+extern venum* g$ValueType_TNull;
+extern venum* g$ValueType_TInt;
+extern venum* g$ValueType_TFloat;
+extern venum* g$ValueType_TBool;
+extern venum* g$ValueType_TFunction;
+extern hl__Class g$_hl_Class;
+extern venum* g$ValueType_TObject;
+extern hl_type t$ValueType;
 
 void Type_init() {
 	hl_bytes_map *r1;
@@ -113,5 +123,124 @@ void Type_register(vbyte* r0,hl__BaseType r1) {
 	r3 = (hl_bytes_map*)g$__types__;
 	hl_hbset(r3,r0,((vdynamic*)r1));
 	return;
+}
+
+hl__Class Type_getClass(vdynamic* r0) {
+	hl__Class r6;
+	hl_type *r1, *r4;
+	vdynamic *r2;
+	int r3, r5;
+	r1 = r0 ? ((vdynamic*)r0)->t : &hlt_void;
+	r3 = r1->kind;
+	r5 = 15;
+	if( r3 != r5 ) goto label$9fea9d9_5_7;
+	r2 = hl_get_virtual_value(r0);
+	r4 = r2 ? ((vdynamic*)r2)->t : &hlt_void;
+	r1 = r4;
+	label$9fea9d9_5_7:
+	r3 = r1->kind;
+	r5 = 11;
+	if( r3 != r5 ) goto label$9fea9d9_5_13;
+	r2 = hl_type_get_global(r1);
+	r6 = (hl__Class)hl_dyn_castp(&r2,&t$_dyn,&t$hl_Class);
+	return r6;
+	label$9fea9d9_5_13:
+	r6 = NULL;
+	return r6;
+}
+
+hl__BaseType Type_getEnum(vdynamic* r0) {
+	hl__BaseType r5;
+	hl_type *r1;
+	vdynamic *r2;
+	int r3, r4;
+	r1 = r0 ? ((vdynamic*)r0)->t : &hlt_void;
+	r3 = r1->kind;
+	r4 = 18;
+	if( r3 != r4 ) goto label$9fea9d9_6_7;
+	r2 = hl_type_get_global(r1);
+	r5 = (hl__BaseType)hl_dyn_castp(&r2,&t$_dyn,&t$hl_BaseType);
+	return r5;
+	label$9fea9d9_6_7:
+	r5 = NULL;
+	return r5;
+}
+
+venum* Type_typeof(vdynamic* r0) {
+	hl__BaseType r8;
+	hl__Class r7;
+	venum *r4;
+	hl_type *r1;
+	double r5, r6;
+	vdynamic *r2;
+	int r3;
+	r1 = r0 ? ((vdynamic*)r0)->t : &hlt_void;
+	r3 = r1->kind;
+	switch(r3) {
+		default:
+		case 4:
+		case 8:
+		case 9:
+		case 12:
+		case 13:
+		case 14:
+		case 17:
+			r4 = (venum*)g$ValueType_TUnknown;
+			return r4;
+		case 0:
+			r4 = (venum*)g$ValueType_TNull;
+			return r4;
+		case 1:
+		case 2:
+		case 3:
+			r4 = (venum*)g$ValueType_TInt;
+			return r4;
+		case 5:
+		case 6:
+			r3 = (int)hl_dyn_casti(&r0,&t$_dyn,&t$_i32);
+			r5 = (double)r3;
+			r6 = (double)hl_dyn_castd(&r0,&t$_dyn);
+			if( r5 != r6 ) goto label$9fea9d9_7_15;
+			r4 = (venum*)g$ValueType_TInt;
+			return r4;
+			label$9fea9d9_7_15:
+			r4 = (venum*)g$ValueType_TFloat;
+			return r4;
+		case 7:
+			r4 = (venum*)g$ValueType_TBool;
+			return r4;
+		case 10:
+			r4 = (venum*)g$ValueType_TFunction;
+			return r4;
+		case 11:
+			r7 = Type_getClass(r0);
+			r8 = (hl__BaseType)g$_hl_Class;
+			if( r7 == ((hl__Class)r8) ) goto label$9fea9d9_7_25;
+			if( r7 ) goto label$9fea9d9_7_27;
+			label$9fea9d9_7_25:
+			r4 = (venum*)g$ValueType_TObject;
+			return r4;
+			label$9fea9d9_7_27:
+			r7 = (hl__Class)hl_dyn_castp(&r7,&t$hl_Class,&t$hl_Class);
+			r4 = hl_alloc_enum(&t$ValueType,6);
+			((ValueType_TClass*)r4)->p0 = r7;
+			return r4;
+		case 15:
+			r2 = hl_get_virtual_value(r0);
+			if( r2 ) goto label$9fea9d9_7_34;
+			r4 = (venum*)g$ValueType_TObject;
+			return r4;
+			label$9fea9d9_7_34:
+			r4 = Type_typeof(r2);
+			return r4;
+		case 16:
+			r4 = (venum*)g$ValueType_TObject;
+			return r4;
+		case 18:
+			r8 = Type_getEnum(r0);
+			r4 = hl_alloc_enum(&t$ValueType,7);
+			((ValueType_TEnum*)r4)->p0 = r8;
+			return r4;
+	}
 }
 

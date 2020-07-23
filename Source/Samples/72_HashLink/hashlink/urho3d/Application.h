@@ -16,6 +16,7 @@ struct _urho3d__$Application {
 	varray* __implementedBy__;
 	String __name__;
 	vdynamic* __constructor__;
+	urho3d__Application application;
 	urho3d_context* context;
 };
 struct _urho3d__Application {

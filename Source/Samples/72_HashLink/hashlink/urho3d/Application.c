@@ -40,6 +40,8 @@ void urho3d_Application_new(urho3d__Application r0) {
 	r6 = r0->abstractApplication;
 	r7 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,urho3d_Application_Stop,r0);
 	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStopClosure(r6,r7);
+	r5 = (urho3d__$Application)g$_urho3d_Application;
+	r5->application = r0;
 	return;
 }
 
@@ -65,7 +67,10 @@ void urho3d_Application_Stop(urho3d__Application r0) {
 void urho3d_Application_SubscribeToEvent(urho3d__Application r0,hl_urho3d_stringhash* r1,vclosure* r2) {
 	hl_urho3d_application *r4;
 	r4 = r0->abstractApplication;
+	if( !r4 ) goto label$7dad269_6_4;
+	r4 = r0->abstractApplication;
 	urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(r4,r1,r2);
+	label$7dad269_6_4:
 	return;
 }
 

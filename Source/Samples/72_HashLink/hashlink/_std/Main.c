@@ -2,16 +2,22 @@
 #define HLC_BOOT
 #include <hlc.h>
 #include <_std/Main.h>
-#include <_std/MyApplication.h>
-extern hl_type t$MyApplication;
-void MyApplication_new(MyApplication);
+extern hl_type t$AnimatingSceneSample;
+void AnimatingSceneSample_new(AnimatingSceneSample);
+extern $Main g$_Main;
 #include <urho3d/Application.h>
 void urho3d_Application_Run(urho3d__Application);
 
 void Main_main() {
-	MyApplication r0;
-	r0 = (MyApplication)hl_alloc_obj(&t$MyApplication);
-	MyApplication_new(r0);
+	AnimatingSceneSample r0;
+	$Main r2;
+	r0 = (AnimatingSceneSample)hl_alloc_obj(&t$AnimatingSceneSample);
+	AnimatingSceneSample_new(r0);
+	r2 = ($Main)g$_Main;
+	r2->app = r0;
+	r2 = ($Main)g$_Main;
+	r0 = r2->app;
+	if( r0 == NULL ) hl_null_access();
 	urho3d_Application_Run(((urho3d__Application)r0));
 	return;
 }

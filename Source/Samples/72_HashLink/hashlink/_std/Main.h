@@ -6,6 +6,7 @@ typedef struct _Main *Main;
 #include <hl/Class.h>
 #include <hl/BaseType.h>
 #include <_std/String.h>
+#include <_std/AnimatingSceneSample.h>
 
 
 struct _$Main {
@@ -15,6 +16,7 @@ struct _$Main {
 	varray* __implementedBy__;
 	String __name__;
 	vdynamic* __constructor__;
+	AnimatingSceneSample app;
 	vclosure* main;
 };
 struct _Main {

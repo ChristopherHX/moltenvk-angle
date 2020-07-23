@@ -31,11 +31,13 @@ class ProxyApp : public Application
     void Setup() override
     {
         
-               //
+             
         engineParameters_[EP_RESOURCE_PREFIX_PATHS] = GetSubsystem<FileSystem>()->GetProgramDir();
 #if URHO3D_HAXE_HASHLINK
          engineParameters_[EP_RESOURCE_PATHS] = "Data;CoreData;";
 #else
+        // TBD ELI , should be dynamically modified
+        engineParameters_[EP_RESOURCE_PREFIX_PATHS] = "/Users/elialoni/projects/Urho3D-Hashlink";
         engineParameters_[EP_RESOURCE_PATHS] = "bin/Data;bin/CoreData;";
 #endif
         engineParameters_[EP_LOG_NAME] = GetSubsystem<FileSystem>()->GetProgramDir() + "UrhoHaxe.log";
@@ -48,8 +50,7 @@ class ProxyApp : public Application
 
         if(callback_setup)
         {
-            vdynamic *args[1];
-            hl_dyn_call(callback_setup, args, 0);
+            hl_dyn_call(callback_setup, NULL, 0);
         }
     }
 
@@ -72,8 +73,7 @@ class ProxyApp : public Application
         /*============*/
         if(callback_start)
         {
-            vdynamic *args[1];
-            hl_dyn_call(callback_start, args, 0);
+            hl_dyn_call(callback_start, NULL, 0);
         }
     }
 
@@ -487,7 +487,7 @@ HL_PRIM  void HL_NAME(_application_subscribe_to_event)(hl_urho3d_application * a
     if(ptr_app)
     {
         ProxyApp * proxyApp  = (ProxyApp *)ptr_app;
-        proxyApp->subscribeToEvent(stringhash,callback_fn);
+       // proxyApp->subscribeToEvent(stringhash,callback_fn);
     }
 }
 
