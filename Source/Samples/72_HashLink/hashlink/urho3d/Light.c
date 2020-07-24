@@ -30,7 +30,7 @@ int urho3d_Light_get_lightType(urho3d__Light r0) {
 	return r1;
 }
 
-double urho3d_Light_set_range(urho3d__Light r0,double r1) {
+float urho3d_Light_set_range(urho3d__Light r0,float r1) {
 	urho3d___Context__$Context_Impl_ r4;
 	urho3d_context *r3;
 	hl_urho3d_graphics_light *r5;
@@ -41,11 +41,11 @@ double urho3d_Light_set_range(urho3d__Light r0,double r1) {
 	return r1;
 }
 
-double urho3d_Light_get_range(urho3d__Light r0) {
+float urho3d_Light_get_range(urho3d__Light r0) {
 	urho3d___Context__$Context_Impl_ r3;
 	urho3d_context *r2;
+	float r1;
 	hl_urho3d_graphics_light *r4;
-	double r1;
 	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r2 = r3->context;
 	r4 = r0->_abstract;

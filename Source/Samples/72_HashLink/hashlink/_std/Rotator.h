@@ -26,6 +26,7 @@ struct _Rotator {
 	hl_urho3d_scene_component* abstractComponent;
 	hl_urho3d_scene_logic_component* abstractLogicComponent;
 	hl_urho3d_math_vector3* rotationSpeed;
+	hl_urho3d_math_quaternion* quat;
 };
 #endif
 

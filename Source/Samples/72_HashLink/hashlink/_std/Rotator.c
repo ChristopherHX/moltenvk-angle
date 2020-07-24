@@ -2,15 +2,10 @@
 #define HLC_BOOT
 #include <hlc.h>
 #include <_std/Rotator.h>
-void urho3d_LogicComponent_new(urho3d__LogicComponent);
 #include <hl/natives.h>
 urho3d__Node urho3d_Component_get_node(urho3d__Component);
 void urho3d_Node_Rotate(urho3d__Node,hl_urho3d_math_quaternion*,int*);
-
-void Rotator_new(Rotator r0) {
-	urho3d_LogicComponent_new(((urho3d__LogicComponent)r0));
-	return;
-}
+void urho3d_LogicComponent_new(urho3d__LogicComponent);
 
 void Rotator_SetRotationSpeed(Rotator r0,hl_urho3d_math_vector3* r1) {
 	r0->rotationSpeed = r1;
@@ -18,32 +13,52 @@ void Rotator_SetRotationSpeed(Rotator r0,hl_urho3d_math_vector3* r1) {
 }
 
 void Rotator_Update(Rotator r0,double r1) {
-	hl_urho3d_math_vector3 *r7;
-	hl_urho3d_math_quaternion *r4;
-	urho3d__Node r2;
-	float r6, r8, r9;
-	double r5;
+	urho3d__Node r9;
+	hl_urho3d_math_vector3 *r6;
+	hl_urho3d_math_quaternion *r3;
+	float r5, r7, r8;
+	double r4;
 	int *r10;
-	r2 = urho3d_Component_get_node(((urho3d__Component)r0));
-	r7 = r0->rotationSpeed;
-	r6 = Urho3D__math_vector3_get_x(r7);
-	r5 = (double)r6;
-	r5 = r5 * r1;
-	r6 = (float)r5;
-	r7 = r0->rotationSpeed;
-	r8 = Urho3D__math_vector3_get_y(r7);
-	r5 = (double)r8;
-	r5 = r5 * r1;
-	r8 = (float)r5;
-	r7 = r0->rotationSpeed;
-	r9 = Urho3D__math_vector3_get_z(r7);
-	r5 = (double)r9;
-	r5 = r5 * r1;
-	r9 = (float)r5;
-	r4 = Urho3D__math_quaternion_create(r6,r8,r9);
-	if( r2 == NULL ) hl_null_access();
+	r3 = r0->quat;
+	r6 = r0->rotationSpeed;
+	r5 = Urho3D__math_vector3_get_x(r6);
+	r4 = (double)r5;
+	r4 = r4 * r1;
+	r5 = (float)r4;
+	r6 = r0->rotationSpeed;
+	r7 = Urho3D__math_vector3_get_y(r6);
+	r4 = (double)r7;
+	r4 = r4 * r1;
+	r7 = (float)r4;
+	r6 = r0->rotationSpeed;
+	r8 = Urho3D__math_vector3_get_z(r6);
+	r4 = (double)r8;
+	r4 = r4 * r1;
+	r8 = (float)r4;
+	Urho3D__math_quaternion_set_euler_angles(r3,r5,r7,r8);
+	r9 = urho3d_Component_get_node(((urho3d__Component)r0));
+	if( r9 == NULL ) hl_null_access();
+	r3 = r0->quat;
 	r10 = NULL;
-	urho3d_Node_Rotate(r2,r4,r10);
+	urho3d_Node_Rotate(r9,r3,r10);
+	return;
+}
+
+void Rotator_new(Rotator r0) {
+	hl_urho3d_math_quaternion *r1;
+	float r4, r5, r6;
+	double r3;
+	r1 = NULL;
+	r0->quat = r1;
+	urho3d_LogicComponent_new(((urho3d__LogicComponent)r0));
+	r3 = 0.;
+	r4 = (float)r3;
+	r3 = 0.;
+	r5 = (float)r3;
+	r3 = 0.;
+	r6 = (float)r3;
+	r1 = Urho3D__math_quaternion_create(r4,r5,r6);
+	r0->quat = r1;
 	return;
 }
 

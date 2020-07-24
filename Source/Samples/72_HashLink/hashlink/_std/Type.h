@@ -7,7 +7,6 @@ typedef struct _Type *Type;
 #include <hl/BaseType.h>
 #include <_std/String.h>
 #include <hl/Enum.h>
-#include <_std/ValueType.h>
 
 
 struct _$Type {
@@ -21,9 +20,6 @@ struct _$Type {
 	vclosure* initClass;
 	vclosure* initEnum;
 	vclosure* _register;
-	vclosure* getClass;
-	vclosure* getEnum;
-	vclosure* _typeof;
 };
 struct _Type {
 	hl_type *$type;

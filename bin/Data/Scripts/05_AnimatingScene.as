@@ -48,7 +48,7 @@ void CreateScene()
     zone.fogEnd = 100.0f;
 
     // Create randomly positioned and oriented box StaticModels in the scene
-    const uint NUM_OBJECTS = 2000;
+    const uint NUM_OBJECTS = 4000;
     for (uint i = 0; i < NUM_OBJECTS; ++i)
     {
         Node@ boxNode = scene_.CreateChild("Box");
@@ -80,7 +80,7 @@ void CreateScene()
     // Create a point light to the camera scene node
     Light@ light = cameraNode.CreateComponent("Light");
     light.lightType = LIGHT_POINT;
-    light.range = 30.0f;
+    light.range = 100.0f;
 }
 
 void CreateInstructions()

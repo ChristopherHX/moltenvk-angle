@@ -26,6 +26,8 @@ struct _urho3d___Vector3__$Vector3_Impl_ {
 	vclosure* isTypeOf;
 	vclosure* toString;
 	vclosure* fromStructVector3;
+	vclosure* fromFloat;
+	vclosure* fromSingle;
 	vclosure* toStructVector3;
 	vclosure* isEqual;
 	vclosure* isNotEqual;

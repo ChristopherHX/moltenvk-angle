@@ -17,6 +17,7 @@ struct _urho3d___Quaternion__$Quaternion_Impl_ {
 	String __name__;
 	vdynamic* __constructor__;
 	vclosure* _new;
+	vclosure* SetAngles;
 };
 struct _urho3d___Quaternion__Quaternion_Impl_ {
 	hl_type *$type;

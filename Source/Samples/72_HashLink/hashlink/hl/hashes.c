@@ -106,10 +106,6 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("fileName"));
 	hl_hash((vbyte*)USTR("lineNumber"));
 	hl_hash((vbyte*)USTR("methodName"));
-	hl_hash((vbyte*)USTR("__ename__"));
-	hl_hash((vbyte*)USTR("__emap__"));
-	hl_hash((vbyte*)USTR("__constructs__"));
-	hl_hash((vbyte*)USTR("__evalues__"));
 	hl_hash((vbyte*)USTR("app"));
 	hl_hash((vbyte*)USTR("main"));
 	hl_hash((vbyte*)USTR("scene"));
@@ -134,6 +130,10 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("unwrap"));
 	hl_hash((vbyte*)USTR("get_message"));
 	hl_hash((vbyte*)USTR("get_native"));
+	hl_hash((vbyte*)USTR("__ename__"));
+	hl_hash((vbyte*)USTR("__emap__"));
+	hl_hash((vbyte*)USTR("__constructs__"));
+	hl_hash((vbyte*)USTR("__evalues__"));
 	hl_hash((vbyte*)USTR("ZERO"));
 	hl_hash((vbyte*)USTR("LEFT"));
 	hl_hash((vbyte*)USTR("RIGHT"));
@@ -183,6 +183,8 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("y"));
 	hl_hash((vbyte*)USTR("isTypeOf"));
 	hl_hash((vbyte*)USTR("fromStructVector3"));
+	hl_hash((vbyte*)USTR("fromFloat"));
+	hl_hash((vbyte*)USTR("fromSingle"));
 	hl_hash((vbyte*)USTR("toStructVector3"));
 	hl_hash((vbyte*)USTR("get_z"));
 	hl_hash((vbyte*)USTR("set_z"));
@@ -193,9 +195,6 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("initClass"));
 	hl_hash((vbyte*)USTR("initEnum"));
 	hl_hash((vbyte*)USTR("register"));
-	hl_hash((vbyte*)USTR("getClass"));
-	hl_hash((vbyte*)USTR("getEnum"));
-	hl_hash((vbyte*)USTR("typeof"));
 	hl_hash((vbyte*)USTR("saveStack"));
 	hl_hash((vbyte*)USTR("callStack"));
 	hl_hash((vbyte*)USTR("rec"));
@@ -242,6 +241,7 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("get_width"));
 	hl_hash((vbyte*)USTR("get_height"));
 	hl_hash((vbyte*)USTR("toNode"));
+	hl_hash((vbyte*)USTR("SetAngles"));
 	hl_hash((vbyte*)USTR("SetViewport"));
 	hl_hash((vbyte*)USTR("fromString"));
 	hl_hash((vbyte*)USTR("GetString"));
@@ -250,7 +250,6 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("GetVector2"));
 	hl_hash((vbyte*)USTR("fromVector2"));
 	hl_hash((vbyte*)USTR("fromInt"));
-	hl_hash((vbyte*)USTR("fromSingle"));
 	hl_hash((vbyte*)USTR("getValue"));
 	hl_hash((vbyte*)USTR("setKeyValue"));
 	hl_hash((vbyte*)USTR("abstractLogicComponent"));
@@ -260,6 +259,7 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("FixedUpdate"));
 	hl_hash((vbyte*)USTR("FixedPostUpdate"));
 	hl_hash((vbyte*)USTR("rotationSpeed"));
+	hl_hash((vbyte*)USTR("quat"));
 	hl_hash((vbyte*)USTR("SetRotationSpeed"));
 	hl_hash((vbyte*)USTR("t"));
 	hl_hash((vbyte*)USTR("b"));

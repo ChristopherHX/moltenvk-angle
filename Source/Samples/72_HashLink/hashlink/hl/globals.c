@@ -17,8 +17,6 @@
 #include <_std/AnimatingSceneSample.h>
 #include <haxe/Log.h>
 #include <urho3d/Zone.h>
-#include <hl/Enum.h>
-#include <_std/ValueType.h>
 #include <urho3d/StaticModel.h>
 #include <urho3d/Camera.h>
 #include <urho3d/Light.h>
@@ -28,6 +26,7 @@
 #include <_std/StringBuf.h>
 #include <_std/SysError.h>
 #include <hl/natives.h>
+#include <hl/Enum.h>
 #include <haxe/Exception.h>
 #include <haxe/ValueException.h>
 #include <haxe/iterators/ArrayIterator.h>
@@ -104,17 +103,6 @@ String s$AnimatingSceneSample = 0;
 String s$Octree = 0;
 String s$Zone = 0;
 urho3d__$Zone g$_urho3d_Zone = 0;
-String s$BoundingBox_ = 0;
-String s$853ae90 = 0;
-String s$23b58de = 0;
-hl__$Enum g$_hl_Enum = 0;
-$ValueType g$_ValueType = 0;
-String s$src_haxe_urho3d_BoundingBox_hx = 0;
-String s$4ad9bad = 0;
-String s$_new = 0;
-venum* g$ValueType_TFloat = 0;
-venum* g$ValueType_TInt = 0;
-String s$BoundingBox_CreateFF = 0;
 String s$Box = 0;
 String s$StaticModel = 0;
 urho3d__$StaticModel g$_urho3d_StaticModel = 0;
@@ -141,13 +129,10 @@ $SysError g$_SysError = 0;
 String s$SysError_ = 0;
 String s$68b329d = 0;
 hl_bytes_map* g$__types__ = 0;
-venum* g$ValueType_TUnknown = 0;
-venum* g$ValueType_TNull = 0;
-venum* g$ValueType_TBool = 0;
-venum* g$ValueType_TFunction = 0;
-venum* g$ValueType_TObject = 0;
+hl__$Enum g$_hl_Enum = 0;
 haxe__$Exception g$_haxe_Exception = 0;
 haxe__$ValueException g$_haxe_ValueException = 0;
+String s$853ae90 = 0;
 String s$fc763cb = 0;
 String s$e265492 = 0;
 String s$stack = 0;
@@ -223,13 +208,6 @@ static struct _String const_s$src_haxe_AnimatingSceneSample_hx = {&t$String,(vby
 static struct _String const_s$AnimatingSceneSample = {&t$String,(vbyte*)USTR("AnimatingSceneSample"),20};
 static struct _String const_s$Octree = {&t$String,(vbyte*)USTR("Octree"),6};
 static struct _String const_s$Zone = {&t$String,(vbyte*)USTR("Zone"),4};
-static struct _String const_s$BoundingBox_ = {&t$String,(vbyte*)USTR("BoundingBox "),12};
-static struct _String const_s$853ae90 = {&t$String,(vbyte*)USTR(":"),1};
-static struct _String const_s$23b58de = {&t$String,(vbyte*)USTR("  "),2};
-static struct _String const_s$src_haxe_urho3d_BoundingBox_hx = {&t$String,(vbyte*)USTR("src/haxe/urho3d/BoundingBox.hx"),30};
-static struct _String const_s$4ad9bad = {&t$String,(vbyte*)USTR("urho3d._BoundingBox.BoundingBox_Impl_"),37};
-static struct _String const_s$_new = {&t$String,(vbyte*)USTR("_new"),4};
-static struct _String const_s$BoundingBox_CreateFF = {&t$String,(vbyte*)USTR("BoundingBox CreateFF"),20};
 static struct _String const_s$Box = {&t$String,(vbyte*)USTR("Box"),3};
 static struct _String const_s$StaticModel = {&t$String,(vbyte*)USTR("StaticModel"),11};
 static struct _String const_s$Models_Box_mdl = {&t$String,(vbyte*)USTR("Models/Box.mdl"),14};
@@ -247,6 +225,7 @@ static struct _String const_s$null = {&t$String,(vbyte*)USTR("null"),4};
 static struct _String const_s$ = {&t$String,(vbyte*)USTR(""),0};
 static struct _String const_s$SysError_ = {&t$String,(vbyte*)USTR("SysError("),9};
 static struct _String const_s$68b329d = {&t$String,(vbyte*)USTR("\n"),1};
+static struct _String const_s$853ae90 = {&t$String,(vbyte*)USTR(":"),1};
 static struct _String const_s$fc763cb = {&t$String,(vbyte*)USTR(", "),2};
 static struct _String const_s$e265492 = {&t$String,(vbyte*)USTR(": "),2};
 static struct _String const_s$stack = {&t$String,(vbyte*)USTR("stack"),5};
@@ -269,13 +248,6 @@ void hl_init_roots() {
 	s$AnimatingSceneSample = &const_s$AnimatingSceneSample;
 	s$Octree = &const_s$Octree;
 	s$Zone = &const_s$Zone;
-	s$BoundingBox_ = &const_s$BoundingBox_;
-	s$853ae90 = &const_s$853ae90;
-	s$23b58de = &const_s$23b58de;
-	s$src_haxe_urho3d_BoundingBox_hx = &const_s$src_haxe_urho3d_BoundingBox_hx;
-	s$4ad9bad = &const_s$4ad9bad;
-	s$_new = &const_s$_new;
-	s$BoundingBox_CreateFF = &const_s$BoundingBox_CreateFF;
 	s$Box = &const_s$Box;
 	s$StaticModel = &const_s$StaticModel;
 	s$Models_Box_mdl = &const_s$Models_Box_mdl;
@@ -293,6 +265,7 @@ void hl_init_roots() {
 	s$ = &const_s$;
 	s$SysError_ = &const_s$SysError_;
 	s$68b329d = &const_s$68b329d;
+	s$853ae90 = &const_s$853ae90;
 	s$fc763cb = &const_s$fc763cb;
 	s$e265492 = &const_s$e265492;
 	s$stack = &const_s$stack;
@@ -324,10 +297,6 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_AnimatingSceneSample);
 	hl_add_root((void**)&g$_haxe_Log);
 	hl_add_root((void**)&g$_urho3d_Zone);
-	hl_add_root((void**)&g$_hl_Enum);
-	hl_add_root((void**)&g$_ValueType);
-	hl_add_root((void**)&g$ValueType_TFloat);
-	hl_add_root((void**)&g$ValueType_TInt);
 	hl_add_root((void**)&g$_urho3d_StaticModel);
 	hl_add_root((void**)&g$_urho3d_Camera);
 	hl_add_root((void**)&g$_urho3d_Light);
@@ -337,11 +306,7 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_StringBuf);
 	hl_add_root((void**)&g$_SysError);
 	hl_add_root((void**)&g$__types__);
-	hl_add_root((void**)&g$ValueType_TUnknown);
-	hl_add_root((void**)&g$ValueType_TNull);
-	hl_add_root((void**)&g$ValueType_TBool);
-	hl_add_root((void**)&g$ValueType_TFunction);
-	hl_add_root((void**)&g$ValueType_TObject);
+	hl_add_root((void**)&g$_hl_Enum);
 	hl_add_root((void**)&g$_haxe_Exception);
 	hl_add_root((void**)&g$_haxe_ValueException);
 	hl_add_root((void**)&g$_haxe_iterators_ArrayIterator);

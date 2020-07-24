@@ -29,3 +29,8 @@ hl_urho3d_math_quaternion* urho3d__Quaternion_Quaternion_Impl___new(float* r0,fl
 	return r6;
 }
 
+void urho3d__Quaternion_Quaternion_Impl__SetAngles(hl_urho3d_math_quaternion* r0,float r1,float r2,float r3) {
+	Urho3D__math_quaternion_set_euler_angles(r0,r1,r2,r3);
+	return;
+}
+

@@ -95,7 +95,7 @@ void AnimatingScene::CreateScene()
     zone->SetFogEnd(100.0f);
 
     // Create randomly positioned and oriented box StaticModels in the scene
-    const unsigned NUM_OBJECTS = 2000;
+    const unsigned NUM_OBJECTS = 4000;
     for (unsigned i = 0; i < NUM_OBJECTS; ++i)
     {
         Node* boxNode = scene_->CreateChild("Box");
@@ -124,7 +124,7 @@ void AnimatingScene::CreateScene()
     // Create a point light to the camera scene node
     auto* light = cameraNode_->CreateComponent<Light>();
     light->SetLightType(LIGHT_POINT);
-    light->SetRange(30.0f);
+    light->SetRange(100.0f);
 }
 
 void AnimatingScene::CreateInstructions()

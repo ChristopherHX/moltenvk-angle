@@ -94,6 +94,22 @@ hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__fromStructVector3(vvirtual
 	return r1;
 }
 
+hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__fromFloat(double r0) {
+	hl_urho3d_math_vector3 *r1;
+	float r2, r3, r4;
+	r2 = (float)r0;
+	r3 = (float)r0;
+	r4 = (float)r0;
+	r1 = Urho3D__math_vector3_create(r2,r3,r4);
+	return r1;
+}
+
+hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__fromSingle(float r0) {
+	hl_urho3d_math_vector3 *r1;
+	r1 = Urho3D__math_vector3_create(r0,r0,r0);
+	return r1;
+}
+
 vvirtual* urho3d__Vector3_Vector3_Impl__toStructVector3(hl_urho3d_math_vector3* r0) {
 	vvirtual *r1;
 	float r2;
@@ -112,20 +128,20 @@ bool urho3d__Vector3_Vector3_Impl__isEqual(hl_urho3d_math_vector3* r0,hl_urho3d_
 	float r2, r3;
 	r2 = Urho3D__math_vector3_get_x(r0);
 	r3 = Urho3D__math_vector3_get_x(r1);
-	if( r2 != r3 ) goto label$6f18471_6_13;
+	if( r2 != r3 ) goto label$6f18471_8_13;
 	r2 = Urho3D__math_vector3_get_y(r0);
 	r3 = Urho3D__math_vector3_get_y(r1);
-	if( r2 != r3 ) goto label$6f18471_6_13;
+	if( r2 != r3 ) goto label$6f18471_8_13;
 	r2 = Urho3D__math_vector3_get_z(r0);
 	r3 = Urho3D__math_vector3_get_z(r1);
-	if( r2 == r3 ) goto label$6f18471_6_11;
+	if( r2 == r3 ) goto label$6f18471_8_11;
 	r4 = false;
-	goto label$6f18471_6_12;
-	label$6f18471_6_11:
+	goto label$6f18471_8_12;
+	label$6f18471_8_11:
 	r4 = true;
-	label$6f18471_6_12:
+	label$6f18471_8_12:
 	return r4;
-	label$6f18471_6_13:
+	label$6f18471_8_13:
 	r4 = false;
 	return r4;
 }
@@ -135,18 +151,18 @@ bool urho3d__Vector3_Vector3_Impl__isNotEqual(hl_urho3d_math_vector3* r0,hl_urho
 	float r3, r4;
 	r3 = Urho3D__math_vector3_get_x(r0);
 	r4 = Urho3D__math_vector3_get_x(r1);
-	if( r3 != r4 ) goto label$6f18471_7_11;
+	if( r3 != r4 ) goto label$6f18471_9_11;
 	r3 = Urho3D__math_vector3_get_y(r0);
 	r4 = Urho3D__math_vector3_get_y(r1);
-	if( r3 != r4 ) goto label$6f18471_7_11;
+	if( r3 != r4 ) goto label$6f18471_9_11;
 	r3 = Urho3D__math_vector3_get_z(r0);
 	r4 = Urho3D__math_vector3_get_z(r1);
-	if( r3 != r4 ) goto label$6f18471_7_11;
+	if( r3 != r4 ) goto label$6f18471_9_11;
 	r2 = true;
-	goto label$6f18471_7_12;
-	label$6f18471_7_11:
+	goto label$6f18471_9_12;
+	label$6f18471_9_11:
 	r2 = false;
-	label$6f18471_7_12:
+	label$6f18471_9_12:
 	r2 = !r2;
 	return r2;
 }
@@ -577,18 +593,18 @@ hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__NormalizedOrDefault(hl_urh
 	float r7;
 	double r6;
 	vdynamic *r5;
-	if( r1 ) goto label$6f18471_37_4;
+	if( r1 ) goto label$6f18471_39_4;
 	r4 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
 	r3 = r4->ZERO;
 	r1 = r3;
-	label$6f18471_37_4:
-	if( r2 ) goto label$6f18471_37_9;
+	label$6f18471_39_4:
+	if( r2 ) goto label$6f18471_39_9;
 	r6 = 5.00000000000000024e-05;
 	r7 = (float)r6;
 	r5 = hl_alloc_dynamic(&t$_f32);
 	r5->v.f = r7;
 	r2 = r5;
-	label$6f18471_37_9:
+	label$6f18471_39_9:
 	r7 = r2 ? r2->v.f : 0;
 	r3 = Urho3D__math_vector3_normalized_or_default(r0,r1,r7);
 	return r3;
@@ -600,18 +616,18 @@ hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__ReNormalized(hl_urho3d_mat
 	float r9, r10;
 	double r8;
 	vdynamic *r7;
-	if( r3 ) goto label$6f18471_38_4;
+	if( r3 ) goto label$6f18471_40_4;
 	r6 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
 	r5 = r6->ZERO;
 	r3 = r5;
-	label$6f18471_38_4:
-	if( r4 ) goto label$6f18471_38_9;
+	label$6f18471_40_4:
+	if( r4 ) goto label$6f18471_40_9;
 	r8 = 5.00000000000000024e-05;
 	r9 = (float)r8;
 	r7 = hl_alloc_dynamic(&t$_f32);
 	r7->v.f = r9;
 	r4 = r7;
-	label$6f18471_38_9:
+	label$6f18471_40_9:
 	r10 = r4 ? r4->v.f : 0;
 	r5 = Urho3D__math_vector3_renormalized(r0,r1,r2,r3,r10);
 	return r5;
