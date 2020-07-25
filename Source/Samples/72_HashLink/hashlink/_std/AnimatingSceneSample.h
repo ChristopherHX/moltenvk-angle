@@ -26,6 +26,7 @@ struct _AnimatingSceneSample {
 	urho3d__Scene scene;
 	urho3d__Node cameraNode;
 	int NUM_OBJECTS;
+	int counter;
 };
 #endif
 

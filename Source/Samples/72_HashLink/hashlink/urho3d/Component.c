@@ -7,8 +7,7 @@
 extern hl_type t$urho3d_Node;
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 void urho3d_Node_new(urho3d__Node,hl_urho3d_scene_node*);
-#include <hl/types/ArrayObj.h>
-int hl_types_ArrayObj_push(hl__types__ArrayObj,vdynamic*);
+void urho3d_Node_bindComponent(urho3d__Node,urho3d__Component);
 
 urho3d__Node urho3d_Component_get_node(urho3d__Component r0) {
 	hl_urho3d_scene_component *r6;
@@ -30,31 +29,34 @@ urho3d__Node urho3d_Component_get_node(urho3d__Component r0) {
 	return r2;
 }
 
+urho3d__Node urho3d_Component_set_node(urho3d__Component r0,urho3d__Node r1) {
+	urho3d__Node r2;
+	r0->_node = r1;
+	r2 = r0->_node;
+	return r2;
+}
+
 void urho3d_Component_new(urho3d__Component r0,hl_urho3d_scene_component* r1) {
-	hl__types__ArrayObj r8;
 	hl_urho3d_scene_component *r2;
 	urho3d__Node r3;
 	urho3d___Context__$Context_Impl_ r6;
 	urho3d_context *r5;
-	int r7;
 	r2 = NULL;
 	r0->abstractComponent = r2;
 	r3 = NULL;
 	r0->_node = r3;
-	if( !r1 ) goto label$49625ec_2_7;
+	if( !r1 ) goto label$49625ec_3_7;
 	r0->abstractComponent = r1;
-	goto label$49625ec_2_11;
-	label$49625ec_2_7:
+	goto label$49625ec_3_11;
+	label$49625ec_3_7:
 	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r5 = r6->context;
 	r2 = Urho3D__scene_component_create(r5);
 	r0->abstractComponent = r2;
-	label$49625ec_2_11:
+	label$49625ec_3_11:
 	r3 = urho3d_Component_get_node(r0);
 	if( r3 == NULL ) hl_null_access();
-	r8 = r3->components;
-	if( r8 == NULL ) hl_null_access();
-	r7 = hl_types_ArrayObj_push(r8,((vdynamic*)r0));
+	urho3d_Node_bindComponent(r3,r0);
 	return;
 }
 

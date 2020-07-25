@@ -30,8 +30,8 @@ void urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStopClosure(h
 	return;
 }
 
-void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(hl_urho3d_application* r0,hl_urho3d_stringhash* r1,vclosure* r2) {
-	Urho3D__application_subscribe_to_event(r0,r1,r2);
+void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(hl_urho3d_application* r0,hl_urho3d_stringhash* r1,vdynamic* r2,String r3) {
+	Urho3D__application_subscribe_to_event(r0,r1,r2,r3);
 	return;
 }
 

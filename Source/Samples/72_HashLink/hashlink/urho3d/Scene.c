@@ -8,13 +8,11 @@ extern hl_type t$urho3d_Node;
 hl__types__ArrayObj hl_types_ArrayObj_alloc(varray*);
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 void urho3d_Node_new(urho3d__Node,hl_urho3d_scene_node*);
-extern urho3d__$Scene g$_urho3d_Scene;
 
 void urho3d_Scene_new(urho3d__Scene r0,hl_urho3d_scene_scene* r1) {
 	hl__types__ArrayObj r3;
 	hl_type *r5;
 	urho3d___Context__$Context_Impl_ r9;
-	urho3d__$Scene r11;
 	hl_urho3d_scene_node *r10;
 	urho3d_context *r8;
 	hl_urho3d_scene_scene *r2;
@@ -41,8 +39,6 @@ void urho3d_Scene_new(urho3d__Scene r0,hl_urho3d_scene_scene* r1) {
 	r2 = r0->abstractScene;
 	r10 = Urho3D__scene_scene_cast_to_node(r8,r2);
 	urho3d_Node_new(((urho3d__Node)r0),r10);
-	r11 = (urho3d__$Scene)g$_urho3d_Scene;
-	r11->currentScene = r0;
 	return;
 }
 

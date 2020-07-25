@@ -65,10 +65,10 @@ float urho3d_Light_set_range(urho3d__Light,float);
 hl_urho3d_scene_component* urho3d_Node_GetComponent(urho3d__Node,String);
 void urho3d_Renderer_SetViewport(int,hl_urho3d_graphics_viewport*);
 extern String s$Update;
-void AnimatingSceneSample_HandleUpdate(AnimatingSceneSample,hl_urho3d_stringhash*,hl_urho3d_variantmap*);
-extern hl_type t$fun_10a9764;
-void urho3d_Application_SubscribeToEvent(urho3d__Application,hl_urho3d_stringhash*,vclosure*);
+extern String s$HandleUpdate;
+void urho3d_Application_SubscribeToEvent(urho3d__Application,hl_urho3d_stringhash*,String);
 extern String s$TimeStep;
+extern String s$create_scene;
 void urho3d_Application_new(urho3d__Application);
 
 void AnimatingSceneSample_Setup(AnimatingSceneSample r0) {
@@ -84,7 +84,7 @@ void AnimatingSceneSample_Setup(AnimatingSceneSample r0) {
 	r5 = hl_alloc_virtual(&t$vrt_329ffa8);
 	r6 = (String)s$src_haxe_AnimatingSceneSample_hx;
 	if( hl_vfields(r5)[1] ) *(String*)(hl_vfields(r5)[1]) = (String)r6; else hl_dyn_setp(r5->value,37969014/*fileName*/,&t$String,r6);
-	r7 = 35;
+	r7 = 50;
 	if( hl_vfields(r5)[2] ) *(int*)(hl_vfields(r5)[2]) = (int)r7; else hl_dyn_seti(r5->value,371360620/*lineNumber*/,&t$_i32,r7);
 	r6 = (String)s$AnimatingSceneSample;
 	if( hl_vfields(r5)[0] ) *(String*)(hl_vfields(r5)[0]) = (String)r6; else hl_dyn_setp(r5->value,-63073762/*className*/,&t$String,r6);
@@ -370,23 +370,52 @@ void AnimatingSceneSample_SetupViewport(AnimatingSceneSample r0) {
 void AnimatingSceneSample_SubscribeToEvents(AnimatingSceneSample r0) {
 	String r2;
 	hl_urho3d_stringhash *r1;
-	vclosure *r4;
 	r2 = (String)s$Update;
 	r1 = Urho3D__create_stringhash(r2);
-	r4 = hl_alloc_closure_ptr(&t$fun_10a9764,AnimatingSceneSample_HandleUpdate,r0);
-	urho3d_Application_SubscribeToEvent(((urho3d__Application)r0),r1,r4);
+	r2 = (String)s$HandleUpdate;
+	urho3d_Application_SubscribeToEvent(((urho3d__Application)r0),r1,r2);
 	return;
 }
 
 void AnimatingSceneSample_HandleUpdate(AnimatingSceneSample r0,hl_urho3d_stringhash* r1,hl_urho3d_variantmap* r2) {
-	String r4;
+	String r4, r13;
 	hl_urho3d_stringhash *r3;
+	vvirtual *r12, *r14;
+	haxe__$Log r11;
 	hl_urho3d_variant *r7;
 	float r6;
+	vclosure *r10;
+	int r8, r9;
 	r4 = (String)s$TimeStep;
 	r3 = Urho3D__create_stringhash(r4);
 	r7 = Urho3D__get_value(r2,r3);
 	r6 = Urho3D__variant_get_float(r7);
+	r8 = r0->counter;
+	++r8;
+	r0->counter = r8;
+	r8 = r0->counter;
+	r9 = 1000;
+	r8 = r9 == 0 ? 0 : r8 % r9;
+	r9 = 0;
+	if( r8 != r9 ) goto label$d9beba3_6_29;
+	r11 = (haxe__$Log)g$_haxe_Log;
+	r10 = r11->trace;
+	if( r10 == NULL ) hl_null_access();
+	r4 = (String)s$create_scene;
+	r12 = hl_alloc_virtual(&t$vrt_329ffa8);
+	r13 = (String)s$src_haxe_AnimatingSceneSample_hx;
+	if( hl_vfields(r12)[1] ) *(String*)(hl_vfields(r12)[1]) = (String)r13; else hl_dyn_setp(r12->value,37969014/*fileName*/,&t$String,r13);
+	r8 = 108;
+	if( hl_vfields(r12)[2] ) *(int*)(hl_vfields(r12)[2]) = (int)r8; else hl_dyn_seti(r12->value,371360620/*lineNumber*/,&t$_i32,r8);
+	r13 = (String)s$AnimatingSceneSample;
+	if( hl_vfields(r12)[0] ) *(String*)(hl_vfields(r12)[0]) = (String)r13; else hl_dyn_setp(r12->value,-63073762/*className*/,&t$String,r13);
+	r13 = (String)s$HandleUpdate;
+	if( hl_vfields(r12)[3] ) *(String*)(hl_vfields(r12)[3]) = (String)r13; else hl_dyn_setp(r12->value,302979532/*methodName*/,&t$String,r13);
+	r14 = hl_to_virtual(&t$vrt_eaa6a3b,(vdynamic*)r12);
+	r10->hasValue ? ((void (*)(vdynamic*,vdynamic*,vvirtual*))r10->fun)((vdynamic*)r10->value,((vdynamic*)r4),r14) : ((void (*)(vdynamic*,vvirtual*))r10->fun)(((vdynamic*)r4),r14);
+	AnimatingSceneSample_CreateScene(r0);
+	AnimatingSceneSample_SetupViewport(r0);
+	label$d9beba3_6_29:
 	return;
 }
 
@@ -394,6 +423,8 @@ void AnimatingSceneSample_new(AnimatingSceneSample r0) {
 	urho3d__Scene r3;
 	urho3d__Node r2;
 	int r1;
+	r1 = 0;
+	r0->counter = r1;
 	r1 = 4000;
 	r0->NUM_OBJECTS = r1;
 	r2 = NULL;

@@ -2,6 +2,7 @@
 #define HLC_BOOT
 #include <hlc.h>
 #include <urho3d/LogicComponent.h>
+int Std_random(int);
 #include <hl/natives.h>
 #include <urho3d/_Context/Context_Impl_.h>
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
@@ -33,6 +34,32 @@ void urho3d_LogicComponent_FixedUpdate(urho3d__LogicComponent r0,double r1) {
 
 void urho3d_LogicComponent_FixedPostUpdate(urho3d__LogicComponent r0,double r1) {
 	return;
+}
+
+double urho3d_LogicComponent_Random(urho3d__LogicComponent r0,vdynamic* r1,vdynamic* r2) {
+	double r3, r5, r6, r7;
+	int r4;
+	r4 = 100000;
+	r4 = Std_random(r4);
+	r3 = (double)r4;
+	r5 = 100000.;
+	r3 = r3 / r5;
+	if( r1 ) goto label$8c73b8e_8_7;
+	return r3;
+	label$8c73b8e_8_7:
+	if( !r1 ) goto label$8c73b8e_8_12;
+	if( r2 ) goto label$8c73b8e_8_12;
+	r6 = r1 ? r1->v.d : 0;
+	r5 = r3 * r6;
+	return r5;
+	label$8c73b8e_8_12:
+	r6 = r2 ? r2->v.d : 0;
+	r7 = r1 ? r1->v.d : 0;
+	r6 = r6 - r7;
+	r5 = r3 * r6;
+	r6 = r1 ? r1->v.d : 0;
+	r5 = r5 + r6;
+	return r5;
 }
 
 void urho3d_LogicComponent_new(urho3d__LogicComponent r0) {

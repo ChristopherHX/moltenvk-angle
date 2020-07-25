@@ -23,10 +23,10 @@ void fun$init(void);
 #  include <_std/Rotator.c>
 #  include <urho3d/Application.c>
 #  include <urho3d/Scene.c>
-#  include <hl/types/ArrayDyn.c>
 #  include <hl/types/ArrayObj.c>
 #  include <_std/AnimatingSceneSample.c>
 #  include <haxe/Log.c>
+#  include <hl/types/ArrayDyn.c>
 #  include <urho3d/Zone.c>
 #  include <urho3d/StaticModel.c>
 #  include <urho3d/Camera.c>

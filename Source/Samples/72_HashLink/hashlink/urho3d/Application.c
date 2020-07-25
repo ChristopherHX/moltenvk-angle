@@ -13,7 +13,7 @@ void urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStartClosure(
 void urho3d_Application_Stop(urho3d__Application);
 void urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStopClosure(hl_urho3d_application*,vclosure*);
 void urho3d__AbstractApplication_AbstractApplication_Impl__Run(hl_urho3d_application*);
-void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(hl_urho3d_application*,hl_urho3d_stringhash*,vclosure*);
+void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(hl_urho3d_application*,hl_urho3d_stringhash*,vdynamic*,String);
 int Std_random(int);
 
 void urho3d_Application_new(urho3d__Application r0) {
@@ -64,12 +64,12 @@ void urho3d_Application_Stop(urho3d__Application r0) {
 	return;
 }
 
-void urho3d_Application_SubscribeToEvent(urho3d__Application r0,hl_urho3d_stringhash* r1,vclosure* r2) {
+void urho3d_Application_SubscribeToEvent(urho3d__Application r0,hl_urho3d_stringhash* r1,String r2) {
 	hl_urho3d_application *r4;
 	r4 = r0->abstractApplication;
 	if( !r4 ) goto label$7dad269_6_4;
 	r4 = r0->abstractApplication;
-	urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(r4,r1,r2);
+	urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(r4,r1,((vdynamic*)r0),r2);
 	label$7dad269_6_4:
 	return;
 }

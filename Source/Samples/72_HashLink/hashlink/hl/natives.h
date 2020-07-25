@@ -30,7 +30,7 @@ typedef struct _urho3d_context urho3d_context;
 #include <_std/String.h>
 
 // Natives functions
-HL_API void Urho3D__application_subscribe_to_event(hl_urho3d_application*,hl_urho3d_stringhash*,vclosure*);
+HL_API void Urho3D__application_subscribe_to_event(hl_urho3d_application*,hl_urho3d_stringhash*,vdynamic*,String);
 HL_API hl_urho3d_application* Urho3D__create_application(urho3d_context*);
 HL_API urho3d_context* Urho3D__create_context(void);
 HL_API hl_urho3d_stringhash* Urho3D__create_stringhash(String);
@@ -135,6 +135,7 @@ HL_API hl_urho3d_scene_component* Urho3D__scene_node_get_component(urho3d_contex
 HL_API hl_urho3d_math_vector3* Urho3D__scene_node_get_position(urho3d_context*,hl_urho3d_scene_node*);
 HL_API hl_urho3d_math_quaternion* Urho3D__scene_node_get_rotation(urho3d_context*,hl_urho3d_scene_node*);
 HL_API void Urho3D__scene_node_rotate(urho3d_context*,hl_urho3d_scene_node*,hl_urho3d_math_quaternion*,int);
+HL_API void Urho3D__scene_node_rotate_euler(urho3d_context*,hl_urho3d_scene_node*,float,float,float,int);
 HL_API void Urho3D__scene_node_set_position(urho3d_context*,hl_urho3d_scene_node*,hl_urho3d_math_vector3*);
 HL_API void Urho3D__scene_node_set_rotation(urho3d_context*,hl_urho3d_scene_node*,hl_urho3d_math_quaternion*);
 HL_API hl_urho3d_scene_node* Urho3D__scene_scene_cast_to_node(urho3d_context*,hl_urho3d_scene_scene*);

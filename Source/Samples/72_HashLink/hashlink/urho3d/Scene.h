@@ -7,7 +7,6 @@ typedef struct _urho3d__Scene *urho3d__Scene;
 #include <hl/BaseType.h>
 #include <_std/String.h>
 #include <urho3d/Node.h>
-#include <hl/types/ArrayDyn.h>
 #include <hl/types/ArrayObj.h>
 #include <hl/natives.h>
 
@@ -23,7 +22,7 @@ struct _urho3d__$Scene {
 };
 struct _urho3d__Scene {
 	hl_type *$type;
-	hl__types__ArrayDyn children;
+	hl__types__ArrayObj children;
 	hl__types__ArrayObj components;
 	hl_urho3d_scene_node* abstractNode;
 	hl__types__ArrayObj nodes;

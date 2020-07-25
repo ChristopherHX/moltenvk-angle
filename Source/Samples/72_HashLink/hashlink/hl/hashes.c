@@ -84,6 +84,7 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("children"));
 	hl_hash((vbyte*)USTR("components"));
 	hl_hash((vbyte*)USTR("abstractNode"));
+	hl_hash((vbyte*)USTR("bindComponent"));
 	hl_hash((vbyte*)USTR("CreateChild"));
 	hl_hash((vbyte*)USTR("CreateComponent"));
 	hl_hash((vbyte*)USTR("GetComponent"));
@@ -93,10 +94,8 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("get_rotation"));
 	hl_hash((vbyte*)USTR("set_rotation"));
 	hl_hash((vbyte*)USTR("Rotate"));
+	hl_hash((vbyte*)USTR("RotateEuler"));
 	hl_hash((vbyte*)USTR("array"));
-	hl_hash((vbyte*)USTR("allowReinterpret"));
-	hl_hash((vbyte*)USTR("get_length"));
-	hl_hash((vbyte*)USTR("__get_field"));
 	hl_hash((vbyte*)USTR("nodes"));
 	hl_hash((vbyte*)USTR("abstractScene"));
 	hl_hash((vbyte*)USTR("formatOutput"));
@@ -106,11 +105,15 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("fileName"));
 	hl_hash((vbyte*)USTR("lineNumber"));
 	hl_hash((vbyte*)USTR("methodName"));
+	hl_hash((vbyte*)USTR("allowReinterpret"));
+	hl_hash((vbyte*)USTR("get_length"));
+	hl_hash((vbyte*)USTR("__get_field"));
 	hl_hash((vbyte*)USTR("app"));
 	hl_hash((vbyte*)USTR("main"));
 	hl_hash((vbyte*)USTR("scene"));
 	hl_hash((vbyte*)USTR("cameraNode"));
 	hl_hash((vbyte*)USTR("NUM_OBJECTS"));
+	hl_hash((vbyte*)USTR("counter"));
 	hl_hash((vbyte*)USTR("CreateScene"));
 	hl_hash((vbyte*)USTR("SetupViewport"));
 	hl_hash((vbyte*)USTR("SubscribeToEvents"));
@@ -212,6 +215,7 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("_node"));
 	hl_hash((vbyte*)USTR("abstractComponent"));
 	hl_hash((vbyte*)USTR("get_node"));
+	hl_hash((vbyte*)USTR("set_node"));
 	hl_hash((vbyte*)USTR("_abstract"));
 	hl_hash((vbyte*)USTR("set_farClip"));
 	hl_hash((vbyte*)USTR("get_farClip"));
@@ -261,6 +265,7 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("rotationSpeed"));
 	hl_hash((vbyte*)USTR("quat"));
 	hl_hash((vbyte*)USTR("SetRotationSpeed"));
+	hl_hash((vbyte*)USTR("ResetRotation"));
 	hl_hash((vbyte*)USTR("t"));
 	hl_hash((vbyte*)USTR("b"));
 	hl_hash((vbyte*)USTR("pos"));
