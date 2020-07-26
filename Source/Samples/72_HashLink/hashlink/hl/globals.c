@@ -4,24 +4,22 @@
 #include <hl/BaseType.h>
 #include <hl/Class.h>
 #include <_std/String.h>
+#include <_std/Date.h>
+#include <urho3d/Application.h>
+#include <urho3d/Component.h>
 #include <hl/types/ArrayAccess.h>
 #include <hl/types/ArrayBase.h>
 #include <hl/types/ArrayBytes_hl_F32.h>
 #include <urho3d/Node.h>
-#include <urho3d/Component.h>
-#include <urho3d/_Context/Context_Impl_.h>
-#include <urho3d/LogicComponent.h>
-#include <_std/Rotator.h>
-#include <urho3d/Application.h>
 #include <urho3d/Scene.h>
-#include <_std/AnimatingSceneSample.h>
+#include <_std/StaticSceneSample.h>
+#include <_std/Main.h>
+#include <urho3d/_Context/Context_Impl_.h>
 #include <haxe/Log.h>
 #include <urho3d/Zone.h>
 #include <urho3d/StaticModel.h>
-#include <urho3d/Camera.h>
 #include <urho3d/Light.h>
-#include <_std/Date.h>
-#include <_std/Main.h>
+#include <urho3d/Camera.h>
 #include <_std/Std.h>
 #include <_std/StringBuf.h>
 #include <_std/SysError.h>
@@ -65,8 +63,9 @@
 #include <urho3d/_Color/Color_Impl_.h>
 #include <urho3d/_Component/AbstractComponent_Impl_.h>
 #include <urho3d/Graphics.h>
+#include <urho3d/Input.h>
+#include <urho3d/_IntVector2/IntVector2_Impl_.h>
 #include <urho3d/_Light/AbstractLight_Impl_.h>
-#include <urho3d/_LogicComponent/AbstractLogicComponent_Impl_.h>
 #include <urho3d/_Material/Material_Impl_.h>
 #include <urho3d/_Model/Model_Impl_.h>
 #include <urho3d/_Node/AbstractNode_Impl_.h>
@@ -85,39 +84,40 @@ extern hl_type t$String;
 hl__$BaseType g$_hl_BaseType = 0;
 hl__Class g$_hl_Class = 0;
 $String g$_String = 0;
+$Date g$_Date = 0;
+urho3d__$Application g$_urho3d_Application = 0;
+urho3d__$Component g$_urho3d_Component = 0;
 hl__types__$ArrayAccess g$_hl_types_ArrayAccess = 0;
 hl__types__$ArrayBase g$_hl_types_ArrayBase = 0;
 hl__types__$ArrayBytes_hl_F32 g$_hl_types_ArrayBytes_hl_F32 = 0;
 urho3d__$Node g$_urho3d_Node = 0;
-urho3d__$Component g$_urho3d_Component = 0;
-urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_ = 0;
-urho3d__$LogicComponent g$_urho3d_LogicComponent = 0;
-$Rotator g$_Rotator = 0;
-urho3d__$Application g$_urho3d_Application = 0;
 urho3d__$Scene g$_urho3d_Scene = 0;
-$AnimatingSceneSample g$_AnimatingSceneSample = 0;
+$StaticSceneSample g$_StaticSceneSample = 0;
+$Main g$_Main = 0;
+urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_ = 0;
 haxe__$Log g$_haxe_Log = 0;
 String s$Setup = 0;
-String s$src_haxe_AnimatingSceneSample_hx = 0;
-String s$AnimatingSceneSample = 0;
+String s$src_haxe_StaticSceneSample_hx = 0;
+String s$StaticSceneSample = 0;
 String s$Octree = 0;
 String s$Zone = 0;
 urho3d__$Zone g$_urho3d_Zone = 0;
-String s$Box = 0;
+String s$Plane = 0;
 String s$StaticModel = 0;
 urho3d__$StaticModel g$_urho3d_StaticModel = 0;
-String s$Models_Box_mdl = 0;
-String s$Materials_Stone_xml = 0;
-String s$Camera = 0;
-urho3d__$Camera g$_urho3d_Camera = 0;
+String s$Models_Plane_mdl = 0;
+String s$Materials_StoneTiled_xml = 0;
+String s$DirectionalLight = 0;
 String s$Light = 0;
 urho3d__$Light g$_urho3d_Light = 0;
+String s$Mushroom = 0;
+String s$Models_Mushroom_mdl = 0;
+String s$Materials_Mushroom_xml = 0;
+String s$Camera = 0;
+urho3d__$Camera g$_urho3d_Camera = 0;
 String s$Update = 0;
 String s$HandleUpdate = 0;
 String s$TimeStep = 0;
-String s$create_scene = 0;
-$Date g$_Date = 0;
-$Main g$_Main = 0;
 $Std g$_Std = 0;
 String s$Can_t_add_ = 0;
 String s$84c4047 = 0;
@@ -160,6 +160,10 @@ hl__types__$ArrayDynKeyValueIterator g$d29ca94 = 0;
 hl__types__$ArrayObjIterator g$_hl_types_ArrayObjIterator = 0;
 hl__types__$ArrayObjKeyValueIterator g$1813e5a = 0;
 String s$2f43b42 = 0;
+String s$IntVector2_ = 0;
+String s$fromStructVector2 = 0;
+String s$src_haxe_urho3d_IntVector2_hx = 0;
+String s$56cf1e1 = 0;
 String s$Vector2_ = 0;
 urho3d___Vector2__$Vector2_Impl_ g$_urho3d__Vector2_Vector2_Impl_ = 0;
 String s$Vector3_ = 0;
@@ -191,8 +195,9 @@ urho3d___Camera__$AbstractCamera_Impl_ g$b72081f = 0;
 urho3d___Color__$Color_Impl_ g$_urho3d__Color_Color_Impl_ = 0;
 urho3d___Component__$AbstractComponent_Impl_ g$e790caf = 0;
 urho3d__$Graphics g$_urho3d_Graphics = 0;
+urho3d__$Input g$_urho3d_Input = 0;
+urho3d___IntVector2__$IntVector2_Impl_ g$e8eb13c = 0;
 urho3d___Light__$AbstractLight_Impl_ g$82ddafb = 0;
-urho3d___LogicComponent__$AbstractLogicComponent_Impl_ g$6c6278b = 0;
 urho3d___Material__$Material_Impl_ g$_urho3d__Material_Material_Impl_ = 0;
 urho3d___Model__$Model_Impl_ g$_urho3d__Model_Model_Impl_ = 0;
 urho3d___Node__$AbstractNode_Impl_ g$_urho3d__Node_AbstractNode_Impl_ = 0;
@@ -206,20 +211,23 @@ urho3d___VariantMap__$VariantMap_Impl_ g$50a5cf6 = 0;
 urho3d___Viewport__$Viewport_Impl_ g$_urho3d__Viewport_Viewport_Impl_ = 0;
 urho3d___Zone__$AbstractZone_Impl_ g$_urho3d__Zone_AbstractZone_Impl_ = 0;
 static struct _String const_s$Setup = {&t$String,(vbyte*)USTR("Setup"),5};
-static struct _String const_s$src_haxe_AnimatingSceneSample_hx = {&t$String,(vbyte*)USTR("src/haxe/AnimatingSceneSample.hx"),32};
-static struct _String const_s$AnimatingSceneSample = {&t$String,(vbyte*)USTR("AnimatingSceneSample"),20};
+static struct _String const_s$src_haxe_StaticSceneSample_hx = {&t$String,(vbyte*)USTR("src/haxe/StaticSceneSample.hx"),29};
+static struct _String const_s$StaticSceneSample = {&t$String,(vbyte*)USTR("StaticSceneSample"),17};
 static struct _String const_s$Octree = {&t$String,(vbyte*)USTR("Octree"),6};
 static struct _String const_s$Zone = {&t$String,(vbyte*)USTR("Zone"),4};
-static struct _String const_s$Box = {&t$String,(vbyte*)USTR("Box"),3};
+static struct _String const_s$Plane = {&t$String,(vbyte*)USTR("Plane"),5};
 static struct _String const_s$StaticModel = {&t$String,(vbyte*)USTR("StaticModel"),11};
-static struct _String const_s$Models_Box_mdl = {&t$String,(vbyte*)USTR("Models/Box.mdl"),14};
-static struct _String const_s$Materials_Stone_xml = {&t$String,(vbyte*)USTR("Materials/Stone.xml"),19};
-static struct _String const_s$Camera = {&t$String,(vbyte*)USTR("Camera"),6};
+static struct _String const_s$Models_Plane_mdl = {&t$String,(vbyte*)USTR("Models/Plane.mdl"),16};
+static struct _String const_s$Materials_StoneTiled_xml = {&t$String,(vbyte*)USTR("Materials/StoneTiled.xml"),24};
+static struct _String const_s$DirectionalLight = {&t$String,(vbyte*)USTR("DirectionalLight"),16};
 static struct _String const_s$Light = {&t$String,(vbyte*)USTR("Light"),5};
+static struct _String const_s$Mushroom = {&t$String,(vbyte*)USTR("Mushroom"),8};
+static struct _String const_s$Models_Mushroom_mdl = {&t$String,(vbyte*)USTR("Models/Mushroom.mdl"),19};
+static struct _String const_s$Materials_Mushroom_xml = {&t$String,(vbyte*)USTR("Materials/Mushroom.xml"),22};
+static struct _String const_s$Camera = {&t$String,(vbyte*)USTR("Camera"),6};
 static struct _String const_s$Update = {&t$String,(vbyte*)USTR("Update"),6};
 static struct _String const_s$HandleUpdate = {&t$String,(vbyte*)USTR("HandleUpdate"),12};
 static struct _String const_s$TimeStep = {&t$String,(vbyte*)USTR("TimeStep"),8};
-static struct _String const_s$create_scene = {&t$String,(vbyte*)USTR("create scene"),12};
 static struct _String const_s$Can_t_add_ = {&t$String,(vbyte*)USTR("Can't add "),10};
 static struct _String const_s$84c4047 = {&t$String,(vbyte*)USTR("("),1};
 static struct _String const_s$_and_ = {&t$String,(vbyte*)USTR(") and "),6};
@@ -237,8 +245,12 @@ static struct _String const_s$NativeStackTrace_callStack = {&t$String,(vbyte*)US
 static struct _String const_s$Not_implemented = {&t$String,(vbyte*)USTR("Not implemented"),15};
 static struct _String const_s$Invalid_array_index_ = {&t$String,(vbyte*)USTR("Invalid array index "),20};
 static struct _String const_s$2f43b42 = {&t$String,(vbyte*)USTR("..."),3};
-static struct _String const_s$Vector2_ = {&t$String,(vbyte*)USTR("Vector2 "),8};
-static struct _String const_s$Vector3_ = {&t$String,(vbyte*)USTR("Vector3 "),8};
+static struct _String const_s$IntVector2_ = {&t$String,(vbyte*)USTR("IntVector2("),11};
+static struct _String const_s$fromStructVector2 = {&t$String,(vbyte*)USTR("fromStructVector2"),17};
+static struct _String const_s$src_haxe_urho3d_IntVector2_hx = {&t$String,(vbyte*)USTR("src/haxe/urho3d/IntVector2.hx"),29};
+static struct _String const_s$56cf1e1 = {&t$String,(vbyte*)USTR("urho3d._IntVector2.IntVector2_Impl_"),35};
+static struct _String const_s$Vector2_ = {&t$String,(vbyte*)USTR("Vector2 ("),9};
+static struct _String const_s$Vector3_ = {&t$String,(vbyte*)USTR("Vector3 ("),9};
 static struct _String const_s$Float = {&t$String,(vbyte*)USTR("Float"),5};
 static struct _String const_s$Int = {&t$String,(vbyte*)USTR("Int"),3};
 static struct _String const_s$Bool = {&t$String,(vbyte*)USTR("Bool"),4};
@@ -248,20 +260,23 @@ static struct _String const_s$hl_types_ArrayDyn = {&t$String,(vbyte*)USTR("hl.ty
 
 void hl_init_roots() {
 	s$Setup = &const_s$Setup;
-	s$src_haxe_AnimatingSceneSample_hx = &const_s$src_haxe_AnimatingSceneSample_hx;
-	s$AnimatingSceneSample = &const_s$AnimatingSceneSample;
+	s$src_haxe_StaticSceneSample_hx = &const_s$src_haxe_StaticSceneSample_hx;
+	s$StaticSceneSample = &const_s$StaticSceneSample;
 	s$Octree = &const_s$Octree;
 	s$Zone = &const_s$Zone;
-	s$Box = &const_s$Box;
+	s$Plane = &const_s$Plane;
 	s$StaticModel = &const_s$StaticModel;
-	s$Models_Box_mdl = &const_s$Models_Box_mdl;
-	s$Materials_Stone_xml = &const_s$Materials_Stone_xml;
-	s$Camera = &const_s$Camera;
+	s$Models_Plane_mdl = &const_s$Models_Plane_mdl;
+	s$Materials_StoneTiled_xml = &const_s$Materials_StoneTiled_xml;
+	s$DirectionalLight = &const_s$DirectionalLight;
 	s$Light = &const_s$Light;
+	s$Mushroom = &const_s$Mushroom;
+	s$Models_Mushroom_mdl = &const_s$Models_Mushroom_mdl;
+	s$Materials_Mushroom_xml = &const_s$Materials_Mushroom_xml;
+	s$Camera = &const_s$Camera;
 	s$Update = &const_s$Update;
 	s$HandleUpdate = &const_s$HandleUpdate;
 	s$TimeStep = &const_s$TimeStep;
-	s$create_scene = &const_s$create_scene;
 	s$Can_t_add_ = &const_s$Can_t_add_;
 	s$84c4047 = &const_s$84c4047;
 	s$_and_ = &const_s$_and_;
@@ -279,6 +294,10 @@ void hl_init_roots() {
 	s$Not_implemented = &const_s$Not_implemented;
 	s$Invalid_array_index_ = &const_s$Invalid_array_index_;
 	s$2f43b42 = &const_s$2f43b42;
+	s$IntVector2_ = &const_s$IntVector2_;
+	s$fromStructVector2 = &const_s$fromStructVector2;
+	s$src_haxe_urho3d_IntVector2_hx = &const_s$src_haxe_urho3d_IntVector2_hx;
+	s$56cf1e1 = &const_s$56cf1e1;
 	s$Vector2_ = &const_s$Vector2_;
 	s$Vector3_ = &const_s$Vector3_;
 	s$Float = &const_s$Float;
@@ -290,24 +309,22 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_hl_BaseType);
 	hl_add_root((void**)&g$_hl_Class);
 	hl_add_root((void**)&g$_String);
+	hl_add_root((void**)&g$_Date);
+	hl_add_root((void**)&g$_urho3d_Application);
+	hl_add_root((void**)&g$_urho3d_Component);
 	hl_add_root((void**)&g$_hl_types_ArrayAccess);
 	hl_add_root((void**)&g$_hl_types_ArrayBase);
 	hl_add_root((void**)&g$_hl_types_ArrayBytes_hl_F32);
 	hl_add_root((void**)&g$_urho3d_Node);
-	hl_add_root((void**)&g$_urho3d_Component);
-	hl_add_root((void**)&g$_urho3d__Context_Context_Impl_);
-	hl_add_root((void**)&g$_urho3d_LogicComponent);
-	hl_add_root((void**)&g$_Rotator);
-	hl_add_root((void**)&g$_urho3d_Application);
 	hl_add_root((void**)&g$_urho3d_Scene);
-	hl_add_root((void**)&g$_AnimatingSceneSample);
+	hl_add_root((void**)&g$_StaticSceneSample);
+	hl_add_root((void**)&g$_Main);
+	hl_add_root((void**)&g$_urho3d__Context_Context_Impl_);
 	hl_add_root((void**)&g$_haxe_Log);
 	hl_add_root((void**)&g$_urho3d_Zone);
 	hl_add_root((void**)&g$_urho3d_StaticModel);
-	hl_add_root((void**)&g$_urho3d_Camera);
 	hl_add_root((void**)&g$_urho3d_Light);
-	hl_add_root((void**)&g$_Date);
-	hl_add_root((void**)&g$_Main);
+	hl_add_root((void**)&g$_urho3d_Camera);
 	hl_add_root((void**)&g$_Std);
 	hl_add_root((void**)&g$_StringBuf);
 	hl_add_root((void**)&g$_SysError);
@@ -356,8 +373,9 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_urho3d__Color_Color_Impl_);
 	hl_add_root((void**)&g$e790caf);
 	hl_add_root((void**)&g$_urho3d_Graphics);
+	hl_add_root((void**)&g$_urho3d_Input);
+	hl_add_root((void**)&g$e8eb13c);
 	hl_add_root((void**)&g$82ddafb);
-	hl_add_root((void**)&g$6c6278b);
 	hl_add_root((void**)&g$_urho3d__Material_Material_Impl_);
 	hl_add_root((void**)&g$_urho3d__Model_Model_Impl_);
 	hl_add_root((void**)&g$_urho3d__Node_AbstractNode_Impl_);

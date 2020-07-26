@@ -22,7 +22,7 @@ struct _urho3d___Variant__$Variant_Impl_ {
 	vclosure* GetVector2;
 	vclosure* fromVector2;
 	vclosure* fromInt;
-	vclosure* fromSingle;
+	vclosure* fromFloat;
 };
 struct _urho3d___Variant__Variant_Impl_ {
 	hl_type *$type;

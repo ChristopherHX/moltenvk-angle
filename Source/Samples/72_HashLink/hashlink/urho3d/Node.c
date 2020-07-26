@@ -159,6 +159,52 @@ hl_urho3d_math_vector3* urho3d_Node_set_position(urho3d__Node r0,hl_urho3d_math_
 	return r1;
 }
 
+hl_urho3d_math_vector3* urho3d_Node_get_direction(urho3d__Node r0) {
+	hl_urho3d_math_vector3 *r1;
+	urho3d___Context__$Context_Impl_ r3;
+	hl_urho3d_scene_node *r4;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r4 = r0->abstractNode;
+	r1 = Urho3D__scene_node_get_direction(r2,r4);
+	return r1;
+}
+
+hl_urho3d_math_vector3* urho3d_Node_set_direction(urho3d__Node r0,hl_urho3d_math_vector3* r1) {
+	urho3d___Context__$Context_Impl_ r4;
+	hl_urho3d_scene_node *r5;
+	urho3d_context *r3;
+	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r3 = r4->context;
+	r5 = r0->abstractNode;
+	Urho3D__scene_node_set_direction(r3,r5,r1);
+	return r1;
+}
+
+hl_urho3d_math_vector3* urho3d_Node_get_scale(urho3d__Node r0) {
+	hl_urho3d_math_vector3 *r1;
+	urho3d___Context__$Context_Impl_ r3;
+	hl_urho3d_scene_node *r4;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r4 = r0->abstractNode;
+	r1 = Urho3D__scene_node_get_scale(r2,r4);
+	return r1;
+}
+
+hl_urho3d_math_vector3* urho3d_Node_set_scale(urho3d__Node r0,hl_urho3d_math_vector3* r1) {
+	urho3d___Context__$Context_Impl_ r4;
+	hl_urho3d_scene_node *r5;
+	urho3d_context *r3;
+	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r3 = r4->context;
+	r5 = r0->abstractNode;
+	Urho3D__scene_node_set_scale(r3,r5,r1);
+	return r1;
+}
+
 hl_urho3d_math_quaternion* urho3d_Node_get_rotation(urho3d__Node r0) {
 	hl_urho3d_math_quaternion *r1;
 	urho3d___Context__$Context_Impl_ r3;
@@ -187,12 +233,12 @@ void urho3d_Node_Rotate(urho3d__Node r0,hl_urho3d_math_quaternion* r1,int* r2) {
 	hl_urho3d_scene_node *r7;
 	urho3d_context *r5;
 	int r3;
-	if( r2 ) goto label$fd82567_10_3;
+	if( r2 ) goto label$fd82567_14_3;
 	r3 = 0;
-	goto label$fd82567_10_4;
-	label$fd82567_10_3:
+	goto label$fd82567_14_4;
+	label$fd82567_14_3:
 	r3 = *r2;
-	label$fd82567_10_4:
+	label$fd82567_14_4:
 	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r5 = r6->context;
 	r7 = r0->abstractNode;
@@ -200,21 +246,25 @@ void urho3d_Node_Rotate(urho3d__Node r0,hl_urho3d_math_quaternion* r1,int* r2) {
 	return;
 }
 
-void urho3d_Node_RotateEuler(urho3d__Node r0,float r1,float r2,float r3,int* r4) {
+void urho3d_Node_RotateEuler(urho3d__Node r0,double r1,double r2,double r3,int* r4) {
 	urho3d___Context__$Context_Impl_ r8;
+	float r10, r11, r12;
 	hl_urho3d_scene_node *r9;
 	urho3d_context *r7;
 	int r5;
-	if( r4 ) goto label$fd82567_11_3;
+	if( r4 ) goto label$fd82567_15_3;
 	r5 = 0;
-	goto label$fd82567_11_4;
-	label$fd82567_11_3:
+	goto label$fd82567_15_4;
+	label$fd82567_15_3:
 	r5 = *r4;
-	label$fd82567_11_4:
+	label$fd82567_15_4:
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	r9 = r0->abstractNode;
-	Urho3D__scene_node_rotate_euler(r7,r9,r1,r2,r3,r5);
+	r10 = (float)r1;
+	r11 = (float)r2;
+	r12 = (float)r3;
+	Urho3D__scene_node_rotate_euler(r7,r9,r10,r11,r12,r5);
 	return;
 }
 
@@ -240,25 +290,25 @@ void urho3d_Node_new(urho3d__Node r0,hl_urho3d_scene_node* r1) {
 	r4 = hl_alloc_array(r5,r6);
 	r3 = hl_types_ArrayObj_alloc(r4);
 	r0->children = r3;
-	if( !r1 ) goto label$fd82567_12_15;
+	if( !r1 ) goto label$fd82567_16_15;
 	r0->abstractNode = r1;
-	goto label$fd82567_12_19;
-	label$fd82567_12_15:
+	goto label$fd82567_16_19;
+	label$fd82567_16_15:
 	r9 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r8 = r9->context;
 	r2 = Urho3D__scene_node_create(r8);
 	r0->abstractNode = r2;
-	label$fd82567_12_19:
+	label$fd82567_16_19:
 	r11 = (urho3d__$Scene)g$_urho3d_Scene;
 	r10 = r11->currentScene;
-	if( !r10 ) goto label$fd82567_12_28;
+	if( !r10 ) goto label$fd82567_16_28;
 	r11 = (urho3d__$Scene)g$_urho3d_Scene;
 	r10 = r11->currentScene;
 	if( r10 == NULL ) hl_null_access();
 	r3 = r10->nodes;
 	if( r3 == NULL ) hl_null_access();
 	r6 = hl_types_ArrayObj_push(r3,((vdynamic*)r0));
-	label$fd82567_12_28:
+	label$fd82567_16_28:
 	return;
 }
 

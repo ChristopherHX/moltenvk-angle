@@ -10,10 +10,12 @@ hl_urho3d_variant* urho3d__Variant_Variant_Impl___new() {
 	return r0;
 }
 
-float urho3d__Variant_Variant_Impl__GetSingle(hl_urho3d_variant* r0) {
+double urho3d__Variant_Variant_Impl__GetSingle(hl_urho3d_variant* r0) {
 	float r1;
+	double r2;
 	r1 = Urho3D__variant_get_float(r0);
-	return r1;
+	r2 = (double)r1;
+	return r2;
 }
 
 int urho3d__Variant_Variant_Impl__GetInt(hl_urho3d_variant* r0) {
@@ -49,10 +51,12 @@ hl_urho3d_variant* urho3d__Variant_Variant_Impl__fromInt(int r0) {
 	return r1;
 }
 
-hl_urho3d_variant* urho3d__Variant_Variant_Impl__fromSingle(float r0) {
+hl_urho3d_variant* urho3d__Variant_Variant_Impl__fromFloat(double r0) {
 	hl_urho3d_variant *r1;
+	float r3;
 	r1 = Urho3D__create_variant();
-	Urho3D__variant_set_float(r1,r0);
+	r3 = (float)r0;
+	Urho3D__variant_set_float(r1,r3);
 	return r1;
 }
 

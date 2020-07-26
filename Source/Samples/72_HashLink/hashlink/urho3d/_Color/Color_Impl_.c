@@ -4,9 +4,10 @@
 #include <urho3d/_Color/Color_Impl_.h>
 #include <hl/natives.h>
 
-hl_urho3d_color* urho3d__Color_Color_Impl___new(float* r0,float* r1,float* r2,float* r3) {
+hl_urho3d_color* urho3d__Color_Color_Impl___new(double* r0,double* r1,double* r2,double* r3) {
 	hl_urho3d_color *r8;
-	float r4, r5, r6, r7;
+	float r9, r10, r11, r12;
+	double r4, r5, r6, r7;
 	if( r0 ) goto label$7ccca4c_1_3;
 	r4 = 0.;
 	goto label$7ccca4c_1_4;
@@ -31,7 +32,11 @@ hl_urho3d_color* urho3d__Color_Color_Impl___new(float* r0,float* r1,float* r2,fl
 	label$7ccca4c_1_15:
 	r7 = *r3;
 	label$7ccca4c_1_16:
-	r8 = Urho3D__math_create_color(r4,r5,r6,r7);
+	r9 = (float)r4;
+	r10 = (float)r5;
+	r11 = (float)r6;
+	r12 = (float)r7;
+	r8 = Urho3D__math_create_color(r9,r10,r11,r12);
 	return r8;
 }
 

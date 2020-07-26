@@ -30,6 +30,29 @@ float urho3d_Camera_get_farClip(urho3d__Camera r0) {
 	return r1;
 }
 
+float urho3d_Camera_set_fov(urho3d__Camera r0,float r1) {
+	hl_urho3d_graphics_camera *r5;
+	urho3d___Context__$Context_Impl_ r4;
+	urho3d_context *r3;
+	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r3 = r4->context;
+	r5 = r0->_abstract;
+	Urho3D__graphics_camera_set_fov(r3,r5,r1);
+	return r1;
+}
+
+float urho3d_Camera_get_fov(urho3d__Camera r0) {
+	hl_urho3d_graphics_camera *r4;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	float r1;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r4 = r0->_abstract;
+	r1 = Urho3D__graphics_camera_get_fov(r2,r4);
+	return r1;
+}
+
 void urho3d_Camera_new(urho3d__Camera r0,hl_urho3d_graphics_camera* r1) {
 	hl_urho3d_scene_component *r6;
 	urho3d___Context__$Context_Impl_ r5;
@@ -37,15 +60,15 @@ void urho3d_Camera_new(urho3d__Camera r0,hl_urho3d_graphics_camera* r1) {
 	urho3d_context *r4;
 	r2 = NULL;
 	r0->_abstract = r2;
-	if( !r1 ) goto label$3956400_3_5;
+	if( !r1 ) goto label$3956400_5_5;
 	r0->_abstract = r1;
-	goto label$3956400_3_9;
-	label$3956400_3_5:
+	goto label$3956400_5_9;
+	label$3956400_5_5:
 	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r4 = r5->context;
 	r2 = Urho3D__graphics_camera_create(r4);
 	r0->_abstract = r2;
-	label$3956400_3_9:
+	label$3956400_5_9:
 	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r4 = r5->context;
 	r2 = r0->_abstract;

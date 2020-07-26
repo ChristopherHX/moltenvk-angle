@@ -6,16 +6,18 @@
 extern hl_type t$hl_urho3d_math_vector3;
 extern hl_type t$_dyn;
 extern String s$Vector3_;
-extern hl_type t$_f32;
-String Std_string(vdynamic*);
+String String___alloc__(vbyte*,int);
 String String___add__(String,String);
 extern String s$853ae90;
-extern hl_type t$vrt_b975fcb;
+extern String s$9371d7a;
+extern hl_type t$vrt_5bf093d;
 extern urho3d___Vector3__$Vector3_Impl_ g$_urho3d__Vector3_Vector3_Impl_;
+extern hl_type t$_f32;
 
-hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl___new(float* r0,float* r1,float* r2) {
+hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl___new(double* r0,double* r1,double* r2) {
 	hl_urho3d_math_vector3 *r6;
-	float r3, r4, r5;
+	float r7, r8, r9;
+	double r3, r4, r5;
 	if( r0 ) goto label$6f18471_1_3;
 	r3 = 0.;
 	goto label$6f18471_1_4;
@@ -34,7 +36,10 @@ hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl___new(float* r0,float* r1,f
 	label$6f18471_1_11:
 	r5 = *r2;
 	label$6f18471_1_12:
-	r6 = Urho3D__math_vector3_create(r3,r4,r5);
+	r7 = (float)r3;
+	r8 = (float)r4;
+	r9 = (float)r5;
+	r6 = Urho3D__math_vector3_create(r7,r8,r9);
 	return r6;
 }
 
@@ -57,40 +62,52 @@ bool urho3d__Vector3_Vector3_Impl__isTypeOf(vdynamic* r0) {
 }
 
 String urho3d__Vector3_Vector3_Impl__toString(hl_urho3d_math_vector3* r0) {
-	String r1, r2;
-	float r3;
-	vdynamic *r4;
+	String r1, r7;
+	float r2;
+	double r3;
+	int *r5;
+	vbyte *r6;
+	int r4;
 	r1 = (String)s$Vector3_;
-	r3 = Urho3D__math_vector3_get_x(r0);
-	r4 = hl_alloc_dynamic(&t$_f32);
-	r4->v.f = r3;
-	r2 = Std_string(r4);
-	r1 = String___add__(r1,r2);
-	r2 = (String)s$853ae90;
-	r1 = String___add__(r1,r2);
-	r3 = Urho3D__math_vector3_get_y(r0);
-	r4 = hl_alloc_dynamic(&t$_f32);
-	r4->v.f = r3;
-	r2 = Std_string(r4);
-	r1 = String___add__(r1,r2);
-	r2 = (String)s$853ae90;
-	r1 = String___add__(r1,r2);
-	r3 = Urho3D__math_vector3_get_z(r0);
-	r4 = hl_alloc_dynamic(&t$_f32);
-	r4->v.f = r3;
-	r2 = Std_string(r4);
-	r1 = String___add__(r1,r2);
+	r2 = Urho3D__math_vector3_get_x(r0);
+	r3 = (double)r2;
+	r5 = &r4;
+	r6 = hl_ftos(r3,r5);
+	r7 = String___alloc__(r6,r4);
+	r1 = String___add__(r1,r7);
+	r7 = (String)s$853ae90;
+	r1 = String___add__(r1,r7);
+	r2 = Urho3D__math_vector3_get_y(r0);
+	r3 = (double)r2;
+	r5 = &r4;
+	r6 = hl_ftos(r3,r5);
+	r7 = String___alloc__(r6,r4);
+	r1 = String___add__(r1,r7);
+	r7 = (String)s$853ae90;
+	r1 = String___add__(r1,r7);
+	r2 = Urho3D__math_vector3_get_z(r0);
+	r3 = (double)r2;
+	r5 = &r4;
+	r6 = hl_ftos(r3,r5);
+	r7 = String___alloc__(r6,r4);
+	r1 = String___add__(r1,r7);
+	r7 = (String)s$9371d7a;
+	r1 = String___add__(r1,r7);
 	return r1;
 }
 
 hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__fromStructVector3(vvirtual* r0) {
 	hl_urho3d_math_vector3 *r1;
-	float r2, r3, r4;
+	float r3, r4, r5;
+	double r2;
 	if( r0 == NULL ) hl_null_access();
-	r2 = hl_vfields(r0)[0] ? (*(float*)(hl_vfields(r0)[0])) : (float)hl_dyn_getf(r0->value,120/*x*/);
-	r3 = hl_vfields(r0)[1] ? (*(float*)(hl_vfields(r0)[1])) : (float)hl_dyn_getf(r0->value,121/*y*/);
-	r4 = hl_vfields(r0)[2] ? (*(float*)(hl_vfields(r0)[2])) : (float)hl_dyn_getf(r0->value,122/*z*/);
-	r1 = Urho3D__math_vector3_create(r2,r3,r4);
+	r2 = hl_vfields(r0)[0] ? (*(double*)(hl_vfields(r0)[0])) : (double)hl_dyn_getd(r0->value,120/*x*/);
+	r3 = (float)r2;
+	r2 = hl_vfields(r0)[1] ? (*(double*)(hl_vfields(r0)[1])) : (double)hl_dyn_getd(r0->value,121/*y*/);
+	r4 = (float)r2;
+	r2 = hl_vfields(r0)[2] ? (*(double*)(hl_vfields(r0)[2])) : (double)hl_dyn_getd(r0->value,122/*z*/);
+	r5 = (float)r2;
+	r1 = Urho3D__math_vector3_create(r3,r4,r5);
 	return r1;
 }
 
@@ -113,185 +130,280 @@ hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__fromSingle(float r0) {
 vvirtual* urho3d__Vector3_Vector3_Impl__toStructVector3(hl_urho3d_math_vector3* r0) {
 	vvirtual *r1;
 	float r2;
-	r1 = hl_alloc_virtual(&t$vrt_b975fcb);
+	double r3;
+	r1 = hl_alloc_virtual(&t$vrt_5bf093d);
 	r2 = Urho3D__math_vector3_get_x(r0);
-	if( hl_vfields(r1)[0] ) *(float*)(hl_vfields(r1)[0]) = (float)r2; else hl_dyn_setf(r1->value,120/*x*/,r2);
+	r3 = (double)r2;
+	if( hl_vfields(r1)[0] ) *(double*)(hl_vfields(r1)[0]) = (double)r3; else hl_dyn_setd(r1->value,120/*x*/,r3);
 	r2 = Urho3D__math_vector3_get_y(r0);
-	if( hl_vfields(r1)[1] ) *(float*)(hl_vfields(r1)[1]) = (float)r2; else hl_dyn_setf(r1->value,121/*y*/,r2);
+	r3 = (double)r2;
+	if( hl_vfields(r1)[1] ) *(double*)(hl_vfields(r1)[1]) = (double)r3; else hl_dyn_setd(r1->value,121/*y*/,r3);
 	r2 = Urho3D__math_vector3_get_z(r0);
-	if( hl_vfields(r1)[2] ) *(float*)(hl_vfields(r1)[2]) = (float)r2; else hl_dyn_setf(r1->value,122/*z*/,r2);
+	r3 = (double)r2;
+	if( hl_vfields(r1)[2] ) *(double*)(hl_vfields(r1)[2]) = (double)r3; else hl_dyn_setd(r1->value,122/*z*/,r3);
 	return r1;
 }
 
 bool urho3d__Vector3_Vector3_Impl__isEqual(hl_urho3d_math_vector3* r0,hl_urho3d_math_vector3* r1) {
-	bool r4;
-	float r2, r3;
+	bool r5;
+	float r2;
+	double r3, r4;
 	r2 = Urho3D__math_vector3_get_x(r0);
-	r3 = Urho3D__math_vector3_get_x(r1);
-	if( r2 != r3 ) goto label$6f18471_8_13;
+	r3 = (double)r2;
+	r2 = Urho3D__math_vector3_get_x(r1);
+	r4 = (double)r2;
+	if( r3 != r4 ) goto label$6f18471_8_19;
 	r2 = Urho3D__math_vector3_get_y(r0);
-	r3 = Urho3D__math_vector3_get_y(r1);
-	if( r2 != r3 ) goto label$6f18471_8_13;
+	r3 = (double)r2;
+	r2 = Urho3D__math_vector3_get_y(r1);
+	r4 = (double)r2;
+	if( r3 != r4 ) goto label$6f18471_8_19;
 	r2 = Urho3D__math_vector3_get_z(r0);
-	r3 = Urho3D__math_vector3_get_z(r1);
-	if( r2 == r3 ) goto label$6f18471_8_11;
-	r4 = false;
-	goto label$6f18471_8_12;
-	label$6f18471_8_11:
-	r4 = true;
-	label$6f18471_8_12:
-	return r4;
-	label$6f18471_8_13:
-	r4 = false;
-	return r4;
+	r3 = (double)r2;
+	r2 = Urho3D__math_vector3_get_z(r1);
+	r4 = (double)r2;
+	if( r3 == r4 ) goto label$6f18471_8_17;
+	r5 = false;
+	goto label$6f18471_8_18;
+	label$6f18471_8_17:
+	r5 = true;
+	label$6f18471_8_18:
+	return r5;
+	label$6f18471_8_19:
+	r5 = false;
+	return r5;
 }
 
 bool urho3d__Vector3_Vector3_Impl__isNotEqual(hl_urho3d_math_vector3* r0,hl_urho3d_math_vector3* r1) {
 	bool r2;
-	float r3, r4;
+	float r3;
+	double r4, r5;
 	r3 = Urho3D__math_vector3_get_x(r0);
-	r4 = Urho3D__math_vector3_get_x(r1);
-	if( r3 != r4 ) goto label$6f18471_9_11;
+	r4 = (double)r3;
+	r3 = Urho3D__math_vector3_get_x(r1);
+	r5 = (double)r3;
+	if( r4 != r5 ) goto label$6f18471_9_17;
 	r3 = Urho3D__math_vector3_get_y(r0);
-	r4 = Urho3D__math_vector3_get_y(r1);
-	if( r3 != r4 ) goto label$6f18471_9_11;
+	r4 = (double)r3;
+	r3 = Urho3D__math_vector3_get_y(r1);
+	r5 = (double)r3;
+	if( r4 != r5 ) goto label$6f18471_9_17;
 	r3 = Urho3D__math_vector3_get_z(r0);
-	r4 = Urho3D__math_vector3_get_z(r1);
-	if( r3 != r4 ) goto label$6f18471_9_11;
+	r4 = (double)r3;
+	r3 = Urho3D__math_vector3_get_z(r1);
+	r5 = (double)r3;
+	if( r4 != r5 ) goto label$6f18471_9_17;
 	r2 = true;
-	goto label$6f18471_9_12;
-	label$6f18471_9_11:
+	goto label$6f18471_9_18;
+	label$6f18471_9_17:
 	r2 = false;
-	label$6f18471_9_12:
+	label$6f18471_9_18:
 	r2 = !r2;
 	return r2;
 }
 
 hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__add(hl_urho3d_math_vector3* r0,hl_urho3d_math_vector3* r1) {
-	hl_urho3d_math_vector3 *r3;
-	float r2, r4, r5, r6;
-	r2 = Urho3D__math_vector3_get_x(r0);
-	r4 = Urho3D__math_vector3_get_x(r1);
-	r2 = r2 + r4;
-	r4 = Urho3D__math_vector3_get_y(r0);
-	r5 = Urho3D__math_vector3_get_y(r1);
-	r4 = r4 + r5;
-	r5 = Urho3D__math_vector3_get_z(r0);
-	r6 = Urho3D__math_vector3_get_z(r1);
-	r5 = r5 + r6;
-	r3 = Urho3D__math_vector3_create(r2,r4,r5);
-	return r3;
+	hl_urho3d_math_vector3 *r4;
+	float r3, r6, r7;
+	double r2, r5;
+	r3 = Urho3D__math_vector3_get_x(r0);
+	r2 = (double)r3;
+	r3 = Urho3D__math_vector3_get_x(r1);
+	r5 = (double)r3;
+	r2 = r2 + r5;
+	r3 = (float)r2;
+	r6 = Urho3D__math_vector3_get_y(r0);
+	r2 = (double)r6;
+	r6 = Urho3D__math_vector3_get_y(r1);
+	r5 = (double)r6;
+	r2 = r2 + r5;
+	r6 = (float)r2;
+	r7 = Urho3D__math_vector3_get_z(r0);
+	r2 = (double)r7;
+	r7 = Urho3D__math_vector3_get_z(r1);
+	r5 = (double)r7;
+	r2 = r2 + r5;
+	r7 = (float)r2;
+	r4 = Urho3D__math_vector3_create(r3,r6,r7);
+	return r4;
 }
 
 hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__addTo(hl_urho3d_math_vector3* r0,hl_urho3d_math_vector3* r1) {
-	float r2, r3;
+	float r2;
+	double r3, r4;
 	r2 = Urho3D__math_vector3_get_x(r0);
-	r3 = Urho3D__math_vector3_get_x(r1);
-	r2 = r2 + r3;
+	r3 = (double)r2;
+	r2 = Urho3D__math_vector3_get_x(r1);
+	r4 = (double)r2;
+	r3 = r3 + r4;
+	r2 = (float)r3;
 	r2 = Urho3D__math_vector3_set_x(r0,r2);
 	r2 = Urho3D__math_vector3_get_y(r0);
-	r3 = Urho3D__math_vector3_get_y(r1);
-	r2 = r2 + r3;
+	r3 = (double)r2;
+	r2 = Urho3D__math_vector3_get_y(r1);
+	r4 = (double)r2;
+	r3 = r3 + r4;
+	r2 = (float)r3;
 	r2 = Urho3D__math_vector3_set_y(r0,r2);
 	r2 = Urho3D__math_vector3_get_z(r0);
-	r3 = Urho3D__math_vector3_get_z(r1);
-	r2 = r2 + r3;
+	r3 = (double)r2;
+	r2 = Urho3D__math_vector3_get_z(r1);
+	r4 = (double)r2;
+	r3 = r3 + r4;
+	r2 = (float)r3;
 	r2 = Urho3D__math_vector3_set_z(r0,r2);
 	return r0;
 }
 
 hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__sub(hl_urho3d_math_vector3* r0,hl_urho3d_math_vector3* r1) {
-	hl_urho3d_math_vector3 *r3;
-	float r2, r4, r5, r6, r8;
-	double r7;
-	r2 = Urho3D__math_vector3_get_x(r0);
-	r4 = Urho3D__math_vector3_get_x(r1);
-	r2 = r2 - r4;
-	r4 = Urho3D__math_vector3_get_y(r0);
-	r5 = Urho3D__math_vector3_get_y(r1);
-	r4 = r4 - r5;
-	r5 = Urho3D__math_vector3_get_z(r0);
-	r6 = Urho3D__math_vector3_get_z(r1);
-	r5 = r5 - r6;
-	r7 = 0.;
-	r8 = (float)r7;
-	r3 = Urho3D__math_vector3_create(r2,r4,r8);
-	return r3;
+	hl_urho3d_math_vector3 *r4;
+	float r3, r6, r7;
+	double r2, r5;
+	r3 = Urho3D__math_vector3_get_x(r0);
+	r2 = (double)r3;
+	r3 = Urho3D__math_vector3_get_x(r1);
+	r5 = (double)r3;
+	r2 = r2 - r5;
+	r3 = (float)r2;
+	r6 = Urho3D__math_vector3_get_y(r0);
+	r2 = (double)r6;
+	r6 = Urho3D__math_vector3_get_y(r1);
+	r5 = (double)r6;
+	r2 = r2 - r5;
+	r6 = (float)r2;
+	r7 = Urho3D__math_vector3_get_z(r0);
+	r2 = (double)r7;
+	r7 = Urho3D__math_vector3_get_z(r1);
+	r5 = (double)r7;
+	r2 = r2 - r5;
+	r7 = (float)r2;
+	r4 = Urho3D__math_vector3_create(r3,r6,r7);
+	return r4;
 }
 
 hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__subFrom(hl_urho3d_math_vector3* r0,hl_urho3d_math_vector3* r1) {
-	float r2, r3;
+	float r2;
+	double r3, r4;
 	r2 = Urho3D__math_vector3_get_x(r0);
-	r3 = Urho3D__math_vector3_get_x(r1);
-	r2 = r2 - r3;
+	r3 = (double)r2;
+	r2 = Urho3D__math_vector3_get_x(r1);
+	r4 = (double)r2;
+	r3 = r3 - r4;
+	r2 = (float)r3;
 	r2 = Urho3D__math_vector3_set_x(r0,r2);
 	r2 = Urho3D__math_vector3_get_y(r0);
-	r3 = Urho3D__math_vector3_get_y(r1);
-	r2 = r2 - r3;
+	r3 = (double)r2;
+	r2 = Urho3D__math_vector3_get_y(r1);
+	r4 = (double)r2;
+	r3 = r3 - r4;
+	r2 = (float)r3;
 	r2 = Urho3D__math_vector3_set_y(r0,r2);
 	r2 = Urho3D__math_vector3_get_z(r0);
-	r3 = Urho3D__math_vector3_get_z(r1);
-	r2 = r2 - r3;
+	r3 = (double)r2;
+	r2 = Urho3D__math_vector3_get_z(r1);
+	r4 = (double)r2;
+	r3 = r3 - r4;
+	r2 = (float)r3;
 	r2 = Urho3D__math_vector3_set_z(r0,r2);
 	return r0;
 }
 
 hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__mul(hl_urho3d_math_vector3* r0,float r1) {
-	hl_urho3d_math_vector3 *r3;
-	float r2, r4, r5;
-	r2 = Urho3D__math_vector3_get_x(r0);
-	r2 = r2 * r1;
-	r4 = Urho3D__math_vector3_get_y(r0);
-	r4 = r4 * r1;
-	r5 = Urho3D__math_vector3_get_z(r0);
-	r5 = r5 * r1;
-	r3 = Urho3D__math_vector3_create(r2,r4,r5);
-	return r3;
+	hl_urho3d_math_vector3 *r4;
+	float r3, r6, r7;
+	double r2, r5;
+	r3 = Urho3D__math_vector3_get_x(r0);
+	r2 = (double)r3;
+	r5 = (double)r1;
+	r2 = r2 * r5;
+	r3 = (float)r2;
+	r6 = Urho3D__math_vector3_get_y(r0);
+	r2 = (double)r6;
+	r5 = (double)r1;
+	r2 = r2 * r5;
+	r6 = (float)r2;
+	r7 = Urho3D__math_vector3_get_z(r0);
+	r2 = (double)r7;
+	r5 = (double)r1;
+	r2 = r2 * r5;
+	r7 = (float)r2;
+	r4 = Urho3D__math_vector3_create(r3,r6,r7);
+	return r4;
 }
 
 hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__mulWith(hl_urho3d_math_vector3* r0,float r1) {
 	float r2;
+	double r3, r4;
 	r2 = Urho3D__math_vector3_get_x(r0);
-	r2 = r2 * r1;
+	r3 = (double)r2;
+	r4 = (double)r1;
+	r3 = r3 * r4;
+	r2 = (float)r3;
 	r2 = Urho3D__math_vector3_set_x(r0,r2);
 	r2 = Urho3D__math_vector3_get_y(r0);
-	r2 = r2 * r1;
+	r3 = (double)r2;
+	r4 = (double)r1;
+	r3 = r3 * r4;
+	r2 = (float)r3;
 	r2 = Urho3D__math_vector3_set_y(r0,r2);
 	r2 = Urho3D__math_vector3_get_z(r0);
-	r2 = r2 * r1;
+	r3 = (double)r2;
+	r4 = (double)r1;
+	r3 = r3 * r4;
+	r2 = (float)r3;
 	r2 = Urho3D__math_vector3_set_z(r0,r2);
 	return r0;
 }
 
 hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__mulVector2(hl_urho3d_math_vector3* r0,hl_urho3d_math_vector3* r1) {
-	hl_urho3d_math_vector3 *r3;
-	float r2, r4, r5, r6;
-	r2 = Urho3D__math_vector3_get_x(r0);
-	r4 = Urho3D__math_vector3_get_x(r1);
-	r2 = r2 * r4;
-	r4 = Urho3D__math_vector3_get_y(r0);
-	r5 = Urho3D__math_vector3_get_y(r1);
-	r4 = r4 * r5;
-	r5 = Urho3D__math_vector3_get_z(r0);
-	r6 = Urho3D__math_vector3_get_z(r1);
-	r5 = r5 * r6;
-	r3 = Urho3D__math_vector3_create(r2,r4,r5);
-	return r3;
+	hl_urho3d_math_vector3 *r4;
+	float r3, r6, r7;
+	double r2, r5;
+	r3 = Urho3D__math_vector3_get_x(r0);
+	r2 = (double)r3;
+	r3 = Urho3D__math_vector3_get_x(r1);
+	r5 = (double)r3;
+	r2 = r2 * r5;
+	r3 = (float)r2;
+	r6 = Urho3D__math_vector3_get_y(r0);
+	r2 = (double)r6;
+	r6 = Urho3D__math_vector3_get_y(r1);
+	r5 = (double)r6;
+	r2 = r2 * r5;
+	r6 = (float)r2;
+	r7 = Urho3D__math_vector3_get_z(r0);
+	r2 = (double)r7;
+	r7 = Urho3D__math_vector3_get_z(r1);
+	r5 = (double)r7;
+	r2 = r2 * r5;
+	r7 = (float)r2;
+	r4 = Urho3D__math_vector3_create(r3,r6,r7);
+	return r4;
 }
 
 hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__mulWithVector2(hl_urho3d_math_vector3* r0,hl_urho3d_math_vector3* r1) {
-	float r2, r3;
+	float r2;
+	double r3, r4;
 	r2 = Urho3D__math_vector3_get_x(r0);
-	r3 = Urho3D__math_vector3_get_x(r1);
-	r2 = r2 * r3;
+	r3 = (double)r2;
+	r2 = Urho3D__math_vector3_get_x(r1);
+	r4 = (double)r2;
+	r3 = r3 * r4;
+	r2 = (float)r3;
 	r2 = Urho3D__math_vector3_set_x(r0,r2);
 	r2 = Urho3D__math_vector3_get_y(r0);
-	r3 = Urho3D__math_vector3_get_y(r1);
-	r2 = r2 * r3;
+	r3 = (double)r2;
+	r2 = Urho3D__math_vector3_get_y(r1);
+	r4 = (double)r2;
+	r3 = r3 * r4;
+	r2 = (float)r3;
 	r2 = Urho3D__math_vector3_set_y(r0,r2);
 	r2 = Urho3D__math_vector3_get_z(r0);
-	r3 = Urho3D__math_vector3_get_z(r1);
-	r2 = r2 * r3;
+	r3 = (double)r2;
+	r2 = Urho3D__math_vector3_get_z(r1);
+	r4 = (double)r2;
+	r3 = r3 * r4;
+	r2 = (float)r3;
 	r2 = Urho3D__math_vector3_set_z(r0,r2);
 	return r0;
 }
@@ -400,111 +512,138 @@ hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__divWithVector2(hl_urho3d_m
 
 hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__neg(hl_urho3d_math_vector3* r0) {
 	float r1;
+	double r2;
 	r1 = Urho3D__math_vector3_get_x(r0);
-	r1 = -r1;
+	r2 = (double)r1;
+	r2 = -r2;
+	r1 = (float)r2;
 	r1 = Urho3D__math_vector3_set_x(r0,r1);
 	r1 = Urho3D__math_vector3_get_y(r0);
-	r1 = -r1;
+	r2 = (double)r1;
+	r2 = -r2;
+	r1 = (float)r2;
 	r1 = Urho3D__math_vector3_set_y(r0,r1);
 	r1 = Urho3D__math_vector3_get_z(r0);
-	r1 = -r1;
+	r2 = (double)r1;
+	r2 = -r2;
+	r1 = (float)r2;
 	r1 = Urho3D__math_vector3_set_z(r0,r1);
 	return r0;
 }
 
 hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__preNeg(hl_urho3d_math_vector3* r0) {
-	float r1, r3;
-	int r2;
+	float r1;
+	double r2, r3;
 	r1 = Urho3D__math_vector3_get_x(r0);
-	r2 = 1;
-	r3 = (float)r2;
-	r1 = r1 - r3;
+	r2 = (double)r1;
+	r3 = 1.;
+	r2 = r2 - r3;
+	r1 = (float)r2;
 	r1 = Urho3D__math_vector3_set_x(r0,r1);
 	r1 = Urho3D__math_vector3_set_x(r0,r1);
 	r1 = Urho3D__math_vector3_get_y(r0);
-	r2 = 1;
-	r3 = (float)r2;
-	r1 = r1 - r3;
+	r2 = (double)r1;
+	r3 = 1.;
+	r2 = r2 - r3;
+	r1 = (float)r2;
 	r1 = Urho3D__math_vector3_set_y(r0,r1);
 	r1 = Urho3D__math_vector3_set_y(r0,r1);
 	r1 = Urho3D__math_vector3_get_z(r0);
-	r2 = 1;
-	r3 = (float)r2;
-	r1 = r1 - r3;
+	r2 = (double)r1;
+	r3 = 1.;
+	r2 = r2 - r3;
+	r1 = (float)r2;
 	r1 = Urho3D__math_vector3_set_z(r0,r1);
 	r1 = Urho3D__math_vector3_set_z(r0,r1);
 	return r0;
 }
 
 hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__postNeg(hl_urho3d_math_vector3* r0) {
-	float r1, r2, r4;
-	int r3;
+	float r1, r3, r5;
+	double r2;
+	int r4;
 	r1 = Urho3D__math_vector3_get_x(r0);
-	r3 = 1;
-	r4 = (float)r3;
-	r2 = r1 - r4;
-	r2 = Urho3D__math_vector3_set_x(r0,r2);
-	r2 = Urho3D__math_vector3_set_x(r0,r1);
+	r2 = (double)r1;
+	r1 = (float)r2;
+	r4 = 1;
+	r5 = (float)r4;
+	r3 = r1 - r5;
+	r3 = Urho3D__math_vector3_set_x(r0,r3);
+	r3 = Urho3D__math_vector3_set_x(r0,r1);
 	r1 = Urho3D__math_vector3_get_y(r0);
-	r3 = 1;
-	r4 = (float)r3;
-	r2 = r1 - r4;
-	r2 = Urho3D__math_vector3_set_y(r0,r2);
-	r2 = Urho3D__math_vector3_set_y(r0,r1);
+	r2 = (double)r1;
+	r1 = (float)r2;
+	r4 = 1;
+	r5 = (float)r4;
+	r3 = r1 - r5;
+	r3 = Urho3D__math_vector3_set_y(r0,r3);
+	r3 = Urho3D__math_vector3_set_y(r0,r1);
 	r1 = Urho3D__math_vector3_get_z(r0);
-	r3 = 1;
-	r4 = (float)r3;
-	r2 = r1 - r4;
-	r2 = Urho3D__math_vector3_set_z(r0,r2);
-	r2 = Urho3D__math_vector3_set_z(r0,r1);
+	r2 = (double)r1;
+	r1 = (float)r2;
+	r4 = 1;
+	r5 = (float)r4;
+	r3 = r1 - r5;
+	r3 = Urho3D__math_vector3_set_z(r0,r3);
+	r3 = Urho3D__math_vector3_set_z(r0,r1);
 	return r0;
 }
 
 hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__preAdd(hl_urho3d_math_vector3* r0) {
-	float r1, r3;
-	int r2;
+	float r1;
+	double r2, r3;
 	r1 = Urho3D__math_vector3_get_x(r0);
-	r2 = 1;
-	r3 = (float)r2;
-	r1 = r1 + r3;
+	r2 = (double)r1;
+	r3 = 1.;
+	r2 = r2 + r3;
+	r1 = (float)r2;
 	r1 = Urho3D__math_vector3_set_x(r0,r1);
 	r1 = Urho3D__math_vector3_set_x(r0,r1);
 	r1 = Urho3D__math_vector3_get_y(r0);
-	r2 = 1;
-	r3 = (float)r2;
-	r1 = r1 + r3;
+	r2 = (double)r1;
+	r3 = 1.;
+	r2 = r2 + r3;
+	r1 = (float)r2;
 	r1 = Urho3D__math_vector3_set_y(r0,r1);
 	r1 = Urho3D__math_vector3_set_y(r0,r1);
 	r1 = Urho3D__math_vector3_get_z(r0);
-	r2 = 1;
-	r3 = (float)r2;
-	r1 = r1 + r3;
+	r2 = (double)r1;
+	r3 = 1.;
+	r2 = r2 + r3;
+	r1 = (float)r2;
 	r1 = Urho3D__math_vector3_set_z(r0,r1);
 	r1 = Urho3D__math_vector3_set_z(r0,r1);
 	return r0;
 }
 
 hl_urho3d_math_vector3* urho3d__Vector3_Vector3_Impl__postAdd(hl_urho3d_math_vector3* r0) {
-	float r1, r2, r4;
-	int r3;
+	float r1, r3, r5;
+	double r2;
+	int r4;
 	r1 = Urho3D__math_vector3_get_x(r0);
-	r3 = 1;
-	r4 = (float)r3;
-	r2 = r1 + r4;
-	r2 = Urho3D__math_vector3_set_x(r0,r2);
-	r2 = Urho3D__math_vector3_set_x(r0,r1);
+	r2 = (double)r1;
+	r1 = (float)r2;
+	r4 = 1;
+	r5 = (float)r4;
+	r3 = r1 + r5;
+	r3 = Urho3D__math_vector3_set_x(r0,r3);
+	r3 = Urho3D__math_vector3_set_x(r0,r1);
 	r1 = Urho3D__math_vector3_get_y(r0);
-	r3 = 1;
-	r4 = (float)r3;
-	r2 = r1 + r4;
-	r2 = Urho3D__math_vector3_set_y(r0,r2);
-	r2 = Urho3D__math_vector3_set_y(r0,r1);
+	r2 = (double)r1;
+	r1 = (float)r2;
+	r4 = 1;
+	r5 = (float)r4;
+	r3 = r1 + r5;
+	r3 = Urho3D__math_vector3_set_y(r0,r3);
+	r3 = Urho3D__math_vector3_set_y(r0,r1);
 	r1 = Urho3D__math_vector3_get_z(r0);
-	r3 = 1;
-	r4 = (float)r3;
-	r2 = r1 + r4;
-	r2 = Urho3D__math_vector3_set_z(r0,r2);
-	r2 = Urho3D__math_vector3_set_z(r0,r1);
+	r2 = (double)r1;
+	r1 = (float)r2;
+	r4 = 1;
+	r5 = (float)r4;
+	r3 = r1 + r5;
+	r3 = Urho3D__math_vector3_set_z(r0,r3);
+	r3 = Urho3D__math_vector3_set_z(r0,r1);
 	return r0;
 }
 

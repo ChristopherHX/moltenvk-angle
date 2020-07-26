@@ -15,6 +15,7 @@ void urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStopClosure(h
 void urho3d__AbstractApplication_AbstractApplication_Impl__Run(hl_urho3d_application*);
 void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(hl_urho3d_application*,hl_urho3d_stringhash*,vdynamic*,String);
 int Std_random(int);
+extern hl_type t$_dyn;
 
 void urho3d_Application_new(urho3d__Application r0) {
 	urho3d__$Application r5;
@@ -98,5 +99,19 @@ double urho3d_Application_Random(urho3d__Application r0,vdynamic* r1,vdynamic* r
 	r6 = r1 ? r1->v.d : 0;
 	r5 = r5 + r6;
 	return r5;
+}
+
+double urho3d_Application_Clamp(urho3d__Application r0,vdynamic* r1,vdynamic* r2,vdynamic* r3) {
+	double r4;
+	{ int i = hl_dyn_compare((vdynamic*)r1,(vdynamic*)r2); if( i >= 0 && i != hl_invalid_comparison ) goto label$7dad269_8_3; };
+	r4 = (double)hl_dyn_castd(&r2,&t$_dyn);
+	return r4;
+	label$7dad269_8_3:
+	{ int i = hl_dyn_compare((vdynamic*)r3,(vdynamic*)r1); if( i >= 0 && i != hl_invalid_comparison ) goto label$7dad269_8_6; };
+	r4 = (double)hl_dyn_castd(&r3,&t$_dyn);
+	return r4;
+	label$7dad269_8_6:
+	r4 = (double)hl_dyn_castd(&r1,&t$_dyn);
+	return r4;
 }
 

@@ -4,9 +4,10 @@
 #include <urho3d/_Quaternion/Quaternion_Impl_.h>
 #include <hl/natives.h>
 
-hl_urho3d_math_quaternion* urho3d__Quaternion_Quaternion_Impl___new(float* r0,float* r1,float* r2) {
+hl_urho3d_math_quaternion* urho3d__Quaternion_Quaternion_Impl___new(double* r0,double* r1,double* r2) {
 	hl_urho3d_math_quaternion *r6;
-	float r3, r4, r5;
+	float r7, r8, r9;
+	double r3, r4, r5;
 	if( r0 ) goto label$e48a056_1_3;
 	r3 = 0.;
 	goto label$e48a056_1_4;
@@ -25,12 +26,19 @@ hl_urho3d_math_quaternion* urho3d__Quaternion_Quaternion_Impl___new(float* r0,fl
 	label$e48a056_1_11:
 	r5 = *r2;
 	label$e48a056_1_12:
-	r6 = Urho3D__math_quaternion_create(r3,r4,r5);
+	r7 = (float)r3;
+	r8 = (float)r4;
+	r9 = (float)r5;
+	r6 = Urho3D__math_quaternion_create(r7,r8,r9);
 	return r6;
 }
 
-void urho3d__Quaternion_Quaternion_Impl__SetAngles(hl_urho3d_math_quaternion* r0,float r1,float r2,float r3) {
-	Urho3D__math_quaternion_set_euler_angles(r0,r1,r2,r3);
+void urho3d__Quaternion_Quaternion_Impl__SetAngles(hl_urho3d_math_quaternion* r0,double r1,double r2,double r3) {
+	float r5, r6, r7;
+	r5 = (float)r1;
+	r6 = (float)r2;
+	r7 = (float)r3;
+	Urho3D__math_quaternion_set_euler_angles(r0,r5,r6,r7);
 	return;
 }
 
