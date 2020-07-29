@@ -2,10 +2,11 @@
 #define HLC_BOOT
 #include <hlc.h>
 #include <_std/Std.h>
+#include <hl/natives.h>
+extern $Std g$_Std;
 extern hl_type t$hl_BaseType;
 extern hl_type t$_dyn;
 bool hl_BaseType_check(hl__BaseType,vdynamic*);
-#include <hl/natives.h>
 extern hl_type t$String;
 String String___add__(String,String);
 extern hl_type t$_f64;
@@ -17,6 +18,24 @@ extern String s$_and_;
 extern String s$9371d7a;
 vdynamic* haxe_Exception_thrown(vdynamic*);
 
+int Std_random(int r0) {
+	hl_random *r3;
+	$Std r4;
+	int r1, r2;
+	r2 = 0;
+	if( r2 < r0 ) goto label$5427174_1_4;
+	r1 = 0;
+	return r1;
+	label$5427174_1_4:
+	r4 = ($Std)g$_Std;
+	r3 = r4->rnd;
+	r1 = hl_rnd_int(r3);
+	r2 = 1073741823;
+	r1 = r1 & r2;
+	r1 = r0 == 0 ? 0 : r1 % r0;
+	return r1;
+}
+
 bool Std_isOfType(vdynamic* r0,vdynamic* r1) {
 	hl__BaseType r2;
 	hl_type *r4, *r6;
@@ -25,10 +44,10 @@ bool Std_isOfType(vdynamic* r0,vdynamic* r1) {
 	vdynamic *r9;
 	int r5;
 	r2 = (hl__BaseType)hl_dyn_castp(&r1,&t$_dyn,&t$hl_BaseType);
-	if( r2 ) goto label$5427174_1_4;
+	if( r2 ) goto label$5427174_2_4;
 	r3 = false;
 	return r3;
-	label$5427174_1_4:
+	label$5427174_2_4:
 	if( r2 == NULL ) hl_null_access();
 	r4 = r2->__type__;
 	r5 = r4->kind;
@@ -41,7 +60,7 @@ bool Std_isOfType(vdynamic* r0,vdynamic* r1) {
 		case 5:
 		case 7:
 		case 8:
-			goto label$5427174_1_35;
+			goto label$5427174_2_35;
 		case 3:
 			r6 = r0 ? ((vdynamic*)r0)->t : &hlt_void;
 			r5 = r6->kind;
@@ -52,48 +71,48 @@ bool Std_isOfType(vdynamic* r0,vdynamic* r1) {
 				case 2:
 				case 3:
 				case 4:
-					goto label$5427174_1_21;
+					goto label$5427174_2_21;
 				case 5:
 				case 6:
 					r7 = (double)hl_dyn_castd(&r0,&t$_dyn);
 					r5 = (int)r7;
 					r8 = (double)r5;
-					if( r8 == r7 ) goto label$5427174_1_19;
+					if( r8 == r7 ) goto label$5427174_2_19;
 					r3 = false;
-					goto label$5427174_1_20;
-					label$5427174_1_19:
+					goto label$5427174_2_20;
+					label$5427174_2_19:
 					r3 = true;
-					label$5427174_1_20:
+					label$5427174_2_20:
 					return r3;
 			}
-			label$5427174_1_21:
-			goto label$5427174_1_35;
+			label$5427174_2_21:
+			goto label$5427174_2_35;
 		case 6:
 			r6 = r0 ? ((vdynamic*)r0)->t : &hlt_void;
 			r5 = r6->kind;
 			switch(r5) {
 				default:
 				case 0:
-					goto label$5427174_1_28;
+					goto label$5427174_2_28;
 				case 1:
 				case 2:
 				case 3:
 					r3 = true;
 					return r3;
 			}
-			label$5427174_1_28:
-			goto label$5427174_1_35;
+			label$5427174_2_28:
+			goto label$5427174_2_35;
 		case 9:
 			r9 = NULL;
-			{ int i = hl_dyn_compare((vdynamic*)r0,(vdynamic*)r9); if( i != 0 ) goto label$5427174_1_33; };
+			{ int i = hl_dyn_compare((vdynamic*)r0,(vdynamic*)r9); if( i != 0 ) goto label$5427174_2_33; };
 			r3 = false;
-			goto label$5427174_1_34;
-			label$5427174_1_33:
+			goto label$5427174_2_34;
+			label$5427174_2_33:
 			r3 = true;
-			label$5427174_1_34:
+			label$5427174_2_34:
 			return r3;
 	}
-	label$5427174_1_35:
+	label$5427174_2_35:
 	r3 = hl_BaseType_check(r2,r0);
 	return r3;
 }
@@ -121,30 +140,30 @@ vdynamic* Std___add__(vdynamic* r0,vdynamic* r1) {
 	r2 = r0 ? ((vdynamic*)r0)->t : &hlt_void;
 	r4 = r1 ? ((vdynamic*)r1)->t : &hlt_void;
 	r5 = &t$String;
-	if( hl_same_type(r2,r5) != 0 ) {} else goto label$5427174_3_8;
+	if( hl_same_type(r2,r5) != 0 ) {} else goto label$5427174_4_8;
 	r6 = (String)hl_dyn_castp(&r0,&t$_dyn,&t$String);
 	r7 = Std_string(r1);
 	r6 = String___add__(r6,r7);
 	return ((vdynamic*)r6);
-	label$5427174_3_8:
+	label$5427174_4_8:
 	r5 = &t$String;
-	if( hl_same_type(r4,r5) != 0 ) {} else goto label$5427174_3_14;
+	if( hl_same_type(r4,r5) != 0 ) {} else goto label$5427174_4_14;
 	r6 = Std_string(r0);
 	r7 = (String)hl_dyn_castp(&r1,&t$_dyn,&t$String);
 	r6 = String___add__(r6,r7);
 	return ((vdynamic*)r6);
-	label$5427174_3_14:
+	label$5427174_4_14:
 	r8 = r2->kind;
 	switch(r8) {
 		default:
 		case 4:
-			goto label$5427174_3_56;
+			goto label$5427174_4_56;
 		case 0:
 			r8 = r4->kind;
 			switch(r8) {
 				default:
 				case 4:
-					goto label$5427174_3_24;
+					goto label$5427174_4_24;
 				case 0:
 					r9 = 0.;
 					r3 = hl_alloc_dynamic(&t$_f64);
@@ -157,8 +176,8 @@ vdynamic* Std___add__(vdynamic* r0,vdynamic* r1) {
 				case 6:
 					return r1;
 			}
-			label$5427174_3_24:
-			goto label$5427174_3_56;
+			label$5427174_4_24:
+			goto label$5427174_4_56;
 		case 1:
 		case 2:
 		case 3:
@@ -167,7 +186,7 @@ vdynamic* Std___add__(vdynamic* r0,vdynamic* r1) {
 			switch(r10) {
 				default:
 				case 4:
-					goto label$5427174_3_40;
+					goto label$5427174_4_40;
 				case 0:
 					r3 = hl_alloc_dynamic(&t$_i32);
 					r3->v.i = r8;
@@ -189,8 +208,8 @@ vdynamic* Std___add__(vdynamic* r0,vdynamic* r1) {
 					r3->v.d = r9;
 					return r3;
 			}
-			label$5427174_3_40:
-			goto label$5427174_3_56;
+			label$5427174_4_40:
+			goto label$5427174_4_56;
 		case 5:
 		case 6:
 			r9 = (double)hl_dyn_castd(&r0,&t$_dyn);
@@ -198,7 +217,7 @@ vdynamic* Std___add__(vdynamic* r0,vdynamic* r1) {
 			switch(r8) {
 				default:
 				case 4:
-					goto label$5427174_3_56;
+					goto label$5427174_4_56;
 				case 0:
 					r3 = hl_alloc_dynamic(&t$_f64);
 					r3->v.d = r9;
@@ -221,7 +240,7 @@ vdynamic* Std___add__(vdynamic* r0,vdynamic* r1) {
 					return r3;
 			}
 	}
-	label$5427174_3_56:
+	label$5427174_4_56:
 	r6 = (String)s$Can_t_add_;
 	r7 = Std_string(r0);
 	r6 = String___add__(r6,r7);

@@ -18,6 +18,7 @@ struct _$Std {
 	vdynamic* __constructor__;
 	hl_random* rnd;
 	int toStringDepth;
+	vclosure* random;
 	vclosure* isOfType;
 	vclosure* string;
 	vclosure* __add__;

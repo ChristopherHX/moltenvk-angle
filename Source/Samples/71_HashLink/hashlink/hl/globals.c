@@ -5,12 +5,15 @@
 #include <hl/Class.h>
 #include <_std/String.h>
 #include <_std/Date.h>
-#include <_std/Calculator.h>
+#include <urho3d/Application.h>
 #include <hl/types/ArrayAccess.h>
 #include <hl/types/ArrayBase.h>
 #include <hl/types/ArrayBytes_hl_F32.h>
-#include <haxe/Log.h>
+#include <_std/SpritesSample.h>
 #include <_std/Main.h>
+#include <urho3d/_Context/Context_Impl_.h>
+#include <haxe/Log.h>
+#include <_std/Std.h>
 #include <_std/StringBuf.h>
 #include <_std/SysError.h>
 #include <hl/natives.h>
@@ -34,8 +37,7 @@
 #include <hl/types/ArrayDynKeyValueIterator.h>
 #include <hl/types/ArrayObjIterator.h>
 #include <hl/types/ArrayObjKeyValueIterator.h>
-#include <_std/Std.h>
-#include <_std/Native.h>
+#include <urho3d/_Vector2/Vector2_Impl_.h>
 #include <hl/CoreType.h>
 #include <hl/CoreEnum.h>
 #include <hl/_Bytes/Bytes_Impl_.h>
@@ -47,6 +49,18 @@
 #include <hl/_Type/Type_Impl_.h>
 #include <hl/types/ArrayDyn.h>
 #include <hl/types/_BytesMap/BytesMap_Impl_.h>
+#include <urho3d/_AbstractApplication/AbstractApplication_Impl_.h>
+#include <urho3d/_Color/Color_Impl_.h>
+#include <urho3d/Graphics.h>
+#include <urho3d/_IntVector2/IntVector2_Impl_.h>
+#include <urho3d/_Sprite/Sprite_Impl_.h>
+#include <urho3d/_StringHash/StringHash_Impl_.h>
+#include <urho3d/_TVector2/TVector2_Impl_.h>
+#include <urho3d/_Texture2D/Texture2D_Impl_.h>
+#include <urho3d/UI.h>
+#include <urho3d/_UIElement/UIElement_Impl_.h>
+#include <urho3d/_Variant/Variant_Impl_.h>
+#include <urho3d/_VariantMap/VariantMap_Impl_.h>
 extern hl_type t$String;
 
 // Globals
@@ -54,33 +68,24 @@ hl__$BaseType g$_hl_BaseType = 0;
 hl__Class g$_hl_Class = 0;
 $String g$_String = 0;
 $Date g$_Date = 0;
-$Calculator g$_Calculator = 0;
+urho3d__$Application g$_urho3d_Application = 0;
 hl__types__$ArrayAccess g$_hl_types_ArrayAccess = 0;
 hl__types__$ArrayBase g$_hl_types_ArrayBase = 0;
 hl__types__$ArrayBytes_hl_F32 g$_hl_types_ArrayBytes_hl_F32 = 0;
-haxe__$Log g$_haxe_Log = 0;
-String s$92a829d = 0;
-String s$Main_hx = 0;
-String s$Calculator = 0;
-String s$new = 0;
-String s$callback_fun_called_ = 0;
+$SpritesSample g$_SpritesSample = 0;
 $Main g$_Main = 0;
-String s$Apple = 0;
-String s$Pear = 0;
-String s$Banana = 0;
-String s$Main = 0;
-String s$main = 0;
-String s$A = 0;
-String s$B = 0;
-String s$C = 0;
-String s$D = 0;
-String s$E = 0;
-String s$apple = 0;
-String s$pear = 0;
-String s$banana = 0;
-String s$hello = 0;
-String s$world = 0;
-String s$fib_10_ = 0;
+urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_ = 0;
+haxe__$Log g$_haxe_Log = 0;
+String s$Setup = 0;
+String s$src_haxe_SpritesSample_hx = 0;
+String s$SpritesSample = 0;
+String s$Start = 0;
+String s$Textures_UrhoDecal_dds = 0;
+String s$Velocity = 0;
+String s$Update = 0;
+String s$HandleUpdate = 0;
+String s$TimeStep = 0;
+$Std g$_Std = 0;
 String s$Can_t_add_ = 0;
 String s$84c4047 = 0;
 String s$_and_ = 0;
@@ -121,9 +126,14 @@ hl__types__$ArrayDynIterator g$_hl_types_ArrayDynIterator = 0;
 hl__types__$ArrayDynKeyValueIterator g$d29ca94 = 0;
 hl__types__$ArrayObjIterator g$_hl_types_ArrayObjIterator = 0;
 hl__types__$ArrayObjKeyValueIterator g$1813e5a = 0;
-$Std g$_Std = 0;
 String s$2f43b42 = 0;
-$Native g$_Native = 0;
+String s$IntVector2_ = 0;
+String s$fromStructVector2 = 0;
+String s$src_haxe_urho3d_IntVector2_hx = 0;
+String s$56cf1e1 = 0;
+String s$TVector2_ = 0;
+String s$Vector2_ = 0;
+urho3d___Vector2__$Vector2_Impl_ g$_urho3d__Vector2_Vector2_Impl_ = 0;
 hl__CoreType g$_Float = 0;
 String s$Float = 0;
 hl__CoreType g$_Int = 0;
@@ -145,27 +155,27 @@ String s$Array = 0;
 hl__types__$ArrayDyn g$_hl_types_ArrayDyn = 0;
 String s$hl_types_ArrayDyn = 0;
 hl__types___BytesMap__$BytesMap_Impl_ g$2c4fafe = 0;
-static struct _String const_s$92a829d = {&t$String,(vbyte*)USTR("A new calculator instance was created!"),38};
-static struct _String const_s$Main_hx = {&t$String,(vbyte*)USTR("Main.hx"),7};
-static struct _String const_s$Calculator = {&t$String,(vbyte*)USTR("Calculator"),10};
-static struct _String const_s$new = {&t$String,(vbyte*)USTR("new"),3};
-static struct _String const_s$callback_fun_called_ = {&t$String,(vbyte*)USTR("callback_fun called "),20};
-static struct _String const_s$Apple = {&t$String,(vbyte*)USTR("Apple"),5};
-static struct _String const_s$Pear = {&t$String,(vbyte*)USTR("Pear"),4};
-static struct _String const_s$Banana = {&t$String,(vbyte*)USTR("Banana"),6};
-static struct _String const_s$Main = {&t$String,(vbyte*)USTR("Main"),4};
-static struct _String const_s$main = {&t$String,(vbyte*)USTR("main"),4};
-static struct _String const_s$A = {&t$String,(vbyte*)USTR("A"),1};
-static struct _String const_s$B = {&t$String,(vbyte*)USTR("B"),1};
-static struct _String const_s$C = {&t$String,(vbyte*)USTR("C"),1};
-static struct _String const_s$D = {&t$String,(vbyte*)USTR("D"),1};
-static struct _String const_s$E = {&t$String,(vbyte*)USTR("E"),1};
-static struct _String const_s$apple = {&t$String,(vbyte*)USTR("apple"),5};
-static struct _String const_s$pear = {&t$String,(vbyte*)USTR("pear"),4};
-static struct _String const_s$banana = {&t$String,(vbyte*)USTR("banana"),6};
-static struct _String const_s$hello = {&t$String,(vbyte*)USTR("hello"),5};
-static struct _String const_s$world = {&t$String,(vbyte*)USTR("world"),5};
-static struct _String const_s$fib_10_ = {&t$String,(vbyte*)USTR("fib 10 = "),9};
+urho3d___AbstractApplication__$AbstractApplication_Impl_ g$73bcf85 = 0;
+urho3d___Color__$Color_Impl_ g$_urho3d__Color_Color_Impl_ = 0;
+urho3d__$Graphics g$_urho3d_Graphics = 0;
+urho3d___IntVector2__$IntVector2_Impl_ g$e8eb13c = 0;
+urho3d___Sprite__$Sprite_Impl_ g$_urho3d__Sprite_Sprite_Impl_ = 0;
+urho3d___StringHash__$StringHash_Impl_ g$4d1fd18 = 0;
+urho3d___TVector2__$TVector2_Impl_ g$_urho3d__TVector2_TVector2_Impl_ = 0;
+urho3d___Texture2D__$Texture2D_Impl_ g$3b7b206 = 0;
+urho3d__$UI g$_urho3d_UI = 0;
+urho3d___UIElement__$UIElement_Impl_ g$b710c38 = 0;
+urho3d___Variant__$Variant_Impl_ g$_urho3d__Variant_Variant_Impl_ = 0;
+urho3d___VariantMap__$VariantMap_Impl_ g$50a5cf6 = 0;
+static struct _String const_s$Setup = {&t$String,(vbyte*)USTR("Setup"),5};
+static struct _String const_s$src_haxe_SpritesSample_hx = {&t$String,(vbyte*)USTR("src/haxe/SpritesSample.hx"),25};
+static struct _String const_s$SpritesSample = {&t$String,(vbyte*)USTR("SpritesSample"),13};
+static struct _String const_s$Start = {&t$String,(vbyte*)USTR("Start"),5};
+static struct _String const_s$Textures_UrhoDecal_dds = {&t$String,(vbyte*)USTR("Textures/UrhoDecal.dds"),22};
+static struct _String const_s$Velocity = {&t$String,(vbyte*)USTR("Velocity"),8};
+static struct _String const_s$Update = {&t$String,(vbyte*)USTR("Update"),6};
+static struct _String const_s$HandleUpdate = {&t$String,(vbyte*)USTR("HandleUpdate"),12};
+static struct _String const_s$TimeStep = {&t$String,(vbyte*)USTR("TimeStep"),8};
 static struct _String const_s$Can_t_add_ = {&t$String,(vbyte*)USTR("Can't add "),10};
 static struct _String const_s$84c4047 = {&t$String,(vbyte*)USTR("("),1};
 static struct _String const_s$_and_ = {&t$String,(vbyte*)USTR(") and "),6};
@@ -183,6 +193,12 @@ static struct _String const_s$NativeStackTrace_callStack = {&t$String,(vbyte*)US
 static struct _String const_s$Not_implemented = {&t$String,(vbyte*)USTR("Not implemented"),15};
 static struct _String const_s$Invalid_array_index_ = {&t$String,(vbyte*)USTR("Invalid array index "),20};
 static struct _String const_s$2f43b42 = {&t$String,(vbyte*)USTR("..."),3};
+static struct _String const_s$IntVector2_ = {&t$String,(vbyte*)USTR("IntVector2("),11};
+static struct _String const_s$fromStructVector2 = {&t$String,(vbyte*)USTR("fromStructVector2"),17};
+static struct _String const_s$src_haxe_urho3d_IntVector2_hx = {&t$String,(vbyte*)USTR("src/haxe/urho3d/IntVector2.hx"),29};
+static struct _String const_s$56cf1e1 = {&t$String,(vbyte*)USTR("urho3d._IntVector2.IntVector2_Impl_"),35};
+static struct _String const_s$TVector2_ = {&t$String,(vbyte*)USTR("TVector2 ("),10};
+static struct _String const_s$Vector2_ = {&t$String,(vbyte*)USTR("Vector2 ("),9};
 static struct _String const_s$Float = {&t$String,(vbyte*)USTR("Float"),5};
 static struct _String const_s$Int = {&t$String,(vbyte*)USTR("Int"),3};
 static struct _String const_s$Bool = {&t$String,(vbyte*)USTR("Bool"),4};
@@ -191,27 +207,15 @@ static struct _String const_s$Array = {&t$String,(vbyte*)USTR("Array"),5};
 static struct _String const_s$hl_types_ArrayDyn = {&t$String,(vbyte*)USTR("hl.types.ArrayDyn"),17};
 
 void hl_init_roots() {
-	s$92a829d = &const_s$92a829d;
-	s$Main_hx = &const_s$Main_hx;
-	s$Calculator = &const_s$Calculator;
-	s$new = &const_s$new;
-	s$callback_fun_called_ = &const_s$callback_fun_called_;
-	s$Apple = &const_s$Apple;
-	s$Pear = &const_s$Pear;
-	s$Banana = &const_s$Banana;
-	s$Main = &const_s$Main;
-	s$main = &const_s$main;
-	s$A = &const_s$A;
-	s$B = &const_s$B;
-	s$C = &const_s$C;
-	s$D = &const_s$D;
-	s$E = &const_s$E;
-	s$apple = &const_s$apple;
-	s$pear = &const_s$pear;
-	s$banana = &const_s$banana;
-	s$hello = &const_s$hello;
-	s$world = &const_s$world;
-	s$fib_10_ = &const_s$fib_10_;
+	s$Setup = &const_s$Setup;
+	s$src_haxe_SpritesSample_hx = &const_s$src_haxe_SpritesSample_hx;
+	s$SpritesSample = &const_s$SpritesSample;
+	s$Start = &const_s$Start;
+	s$Textures_UrhoDecal_dds = &const_s$Textures_UrhoDecal_dds;
+	s$Velocity = &const_s$Velocity;
+	s$Update = &const_s$Update;
+	s$HandleUpdate = &const_s$HandleUpdate;
+	s$TimeStep = &const_s$TimeStep;
 	s$Can_t_add_ = &const_s$Can_t_add_;
 	s$84c4047 = &const_s$84c4047;
 	s$_and_ = &const_s$_and_;
@@ -229,6 +233,12 @@ void hl_init_roots() {
 	s$Not_implemented = &const_s$Not_implemented;
 	s$Invalid_array_index_ = &const_s$Invalid_array_index_;
 	s$2f43b42 = &const_s$2f43b42;
+	s$IntVector2_ = &const_s$IntVector2_;
+	s$fromStructVector2 = &const_s$fromStructVector2;
+	s$src_haxe_urho3d_IntVector2_hx = &const_s$src_haxe_urho3d_IntVector2_hx;
+	s$56cf1e1 = &const_s$56cf1e1;
+	s$TVector2_ = &const_s$TVector2_;
+	s$Vector2_ = &const_s$Vector2_;
 	s$Float = &const_s$Float;
 	s$Int = &const_s$Int;
 	s$Bool = &const_s$Bool;
@@ -239,12 +249,15 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_hl_Class);
 	hl_add_root((void**)&g$_String);
 	hl_add_root((void**)&g$_Date);
-	hl_add_root((void**)&g$_Calculator);
+	hl_add_root((void**)&g$_urho3d_Application);
 	hl_add_root((void**)&g$_hl_types_ArrayAccess);
 	hl_add_root((void**)&g$_hl_types_ArrayBase);
 	hl_add_root((void**)&g$_hl_types_ArrayBytes_hl_F32);
-	hl_add_root((void**)&g$_haxe_Log);
+	hl_add_root((void**)&g$_SpritesSample);
 	hl_add_root((void**)&g$_Main);
+	hl_add_root((void**)&g$_urho3d__Context_Context_Impl_);
+	hl_add_root((void**)&g$_haxe_Log);
+	hl_add_root((void**)&g$_Std);
 	hl_add_root((void**)&g$_StringBuf);
 	hl_add_root((void**)&g$_SysError);
 	hl_add_root((void**)&g$__types__);
@@ -269,8 +282,7 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$d29ca94);
 	hl_add_root((void**)&g$_hl_types_ArrayObjIterator);
 	hl_add_root((void**)&g$1813e5a);
-	hl_add_root((void**)&g$_Std);
-	hl_add_root((void**)&g$_Native);
+	hl_add_root((void**)&g$_urho3d__Vector2_Vector2_Impl_);
 	hl_add_root((void**)&g$_Float);
 	hl_add_root((void**)&g$_Int);
 	hl_add_root((void**)&g$_Bool);
@@ -286,4 +298,16 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_hl__Type_Type_Impl_);
 	hl_add_root((void**)&g$_hl_types_ArrayDyn);
 	hl_add_root((void**)&g$2c4fafe);
+	hl_add_root((void**)&g$73bcf85);
+	hl_add_root((void**)&g$_urho3d__Color_Color_Impl_);
+	hl_add_root((void**)&g$_urho3d_Graphics);
+	hl_add_root((void**)&g$e8eb13c);
+	hl_add_root((void**)&g$_urho3d__Sprite_Sprite_Impl_);
+	hl_add_root((void**)&g$4d1fd18);
+	hl_add_root((void**)&g$_urho3d__TVector2_TVector2_Impl_);
+	hl_add_root((void**)&g$3b7b206);
+	hl_add_root((void**)&g$_urho3d_UI);
+	hl_add_root((void**)&g$b710c38);
+	hl_add_root((void**)&g$_urho3d__Variant_Variant_Impl_);
+	hl_add_root((void**)&g$50a5cf6);
 }
