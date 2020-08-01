@@ -26,27 +26,26 @@ int urho3d__Variant_Variant_Impl__GetInt(hl_urho3d_variant* r0) {
 
 hl_urho3d_math_vector2* urho3d__Variant_Variant_Impl__GetVector2(hl_urho3d_variant* r0) {
 	hl_urho3d_math_vector2 *r1;
-	float r3, r4;
-	double r2;
-	r2 = 0.;
-	r3 = (float)r2;
-	r2 = 0.;
-	r4 = (float)r2;
-	r1 = Urho3D__math_vector2_create(r3,r4);
-	Urho3D__variant_get_vector2(r0,r1);
+	r1 = Urho3D__variant_get_vector2(r0);
 	return r1;
 }
 
 hl_urho3d_math_tvector2* urho3d__Variant_Variant_Impl__GetTVector2(hl_urho3d_variant* r0) {
-	float r3, r4;
-	double r2;
 	hl_urho3d_math_tvector2 *r1;
-	r2 = 0.;
-	r3 = (float)r2;
-	r2 = 0.;
-	r4 = (float)r2;
-	r1 = Urho3D__math_tvector2_create(r3,r4);
-	Urho3D__variant_get_tvector2(r0,r1);
+	r1 = Urho3D__variant_get_tvector2(r0);
+	return r1;
+}
+
+hl_urho3d_math_tintvector2* urho3d__Variant_Variant_Impl__GetTIntVector2(hl_urho3d_variant* r0) {
+	hl_urho3d_math_tintvector2 *r1;
+	r1 = Urho3D__variant_get_tintvector2(r0);
+	return r1;
+}
+
+hl_urho3d_variant* urho3d__Variant_Variant_Impl__fromTIntVector2(hl_urho3d_math_tintvector2* r0) {
+	hl_urho3d_variant *r1;
+	r1 = Urho3D__create_variant();
+	Urho3D__variant_set_tintvector2(r1,r0);
 	return r1;
 }
 

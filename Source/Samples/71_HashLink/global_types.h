@@ -4,7 +4,14 @@
 #include <Urho3D/Urho3DAll.h>
 
 // TBD ELI size should depend on platform mobile/console/PC
-#define TVECTOR2_STACK_SIZE 20000
+#define TVECTOR2_STACK_SIZE 10000
+#define TINTVECTOR2_STACK_SIZE 10000
+#define TVECTOR3_STACK_SIZE 10000
+#define TQUATERNION_STACK_SIZE 10000
+#define TCOLOR_STACK_SIZE 10000
+#define TVARIANT_STACK_SIZE 10000
+#define TSTRINGHASH_STACK_SIZE 10000
+#define TVARIANTMAP_STACK_SIZE 10000
 
 typedef void (*hl_finalizer)(void *v);
 
@@ -21,6 +28,13 @@ typedef struct hl_urho3d_color
 hl_urho3d_color *hl_alloc_urho3d_color(const Urho3D::Color &color);
 hl_urho3d_color *hl_alloc_urho3d_color(float r = 0.0, float g = 0.0, float b = 0.0, float a = 1.0);
 
+
+typedef Urho3D::Color  hl_urho3d_tcolor;
+#define HL_URHO3D_TCOLOR _ABSTRACT(hl_urho3d_tcolor)
+Urho3D::Color *hl_alloc_urho3d_math_tcolor(const Urho3D::Color &color);
+Urho3D::Color *hl_alloc_urho3d_math_tcolor(float r = 0.0, float g = 0.0, float b = 0.0, float a = 1.0);
+
+
 typedef struct hl_urho3d_intvector2
 {
     void *finalizer;
@@ -29,6 +43,13 @@ typedef struct hl_urho3d_intvector2
 
 #define HL_URHO3D_INTVECTOR2 _ABSTRACT(hl_urho3d_intvector2)
 hl_urho3d_intvector2 *hl_alloc_urho3d_intvector2(int x = 0, int y = 0);
+
+
+typedef Urho3D::IntVector2  hl_urho3d_math_tintvector2;
+#define HL_URHO3D_TINTVECTOR2 _ABSTRACT(hl_urho3d_math_tintvector2)
+Urho3D::IntVector2 *hl_alloc_urho3d_math_tintvector2(int x = 0, int y = 0);
+Urho3D::IntVector2 *hl_alloc_urho3d_math_tintvector2(const Urho3D::IntVector2 &rhs);
+
 
 typedef struct hl_urho3d_math_quaternion
 {
@@ -39,6 +60,11 @@ typedef struct hl_urho3d_math_quaternion
 #define HL_URHO3D_QUATERNION _ABSTRACT(hl_urho3d_math_quaternion)
 hl_urho3d_math_quaternion *hl_alloc_urho3d_math_quaternion(float x, float y, float z);
 hl_urho3d_math_quaternion *hl_alloc_urho3d_math_quaternion(const Urho3D::Quaternion &);
+
+typedef Urho3D::Quaternion  hl_urho3d_math_tquaternion;
+#define HL_URHO3D_TQUATERNION _ABSTRACT(hl_urho3d_math_tquaternion)
+hl_urho3d_math_tquaternion *hl_alloc_urho3d_math_tquaternion(float x, float y, float z);
+hl_urho3d_math_tquaternion *hl_alloc_urho3d_math_tquaternion(const Urho3D::Quaternion &);
 
 typedef struct hl_urho3d_math_vector2
 {
@@ -65,6 +91,11 @@ typedef struct hl_urho3d_math_vector3
 hl_urho3d_math_vector3 *hl_alloc_urho3d_math_vector3(float x = 0.0, float y = 0.0, float z = 0.0);
 hl_urho3d_math_vector3 *hl_alloc_urho3d_math_vector3(const Urho3D::Vector3 &);
 
+typedef Urho3D::Vector3  hl_urho3d_math_tvector3;
+#define HL_URHO3D_TVECTOR3 _ABSTRACT(hl_urho3d_math_tvector3)
+Urho3D::Vector3 *hl_alloc_urho3d_math_tvector3(float x = 0.0, float y = 0.0, float z = 0.0);
+Urho3D::Vector3 *hl_alloc_urho3d_math_tvector3(const Urho3D::Vector3 &rhs);
+
 typedef struct hl_urho3d_math_boundingbox
 {
     void *finalizer;
@@ -85,6 +116,13 @@ typedef struct hl_urho3d_stringhash
 #define HL_URHO3D_STRINGHASH _ABSTRACT(hl_urho3d_stringhash)
 hl_urho3d_stringhash *hl_alloc_urho3d_stringhash(const char *str);
 hl_urho3d_stringhash *hl_alloc_urho3d_stringhash_no_finlizer();
+hl_urho3d_stringhash *hl_alloc_urho3d_stringhash(Urho3D::StringHash &rhs);
+
+typedef Urho3D::StringHash  hl_urho3d_tstringhash;
+#define HL_URHO3D_TSTRINGHASH _ABSTRACT(hl_urho3d_tstringhash)
+hl_urho3d_tstringhash *hl_alloc_urho3d_tstringhash(const char *str);
+hl_urho3d_tstringhash *hl_alloc_urho3d_tstringhash(Urho3D::StringHash &rhs);
+
 
 typedef struct hl_urho3d_variant
 {
@@ -94,6 +132,13 @@ typedef struct hl_urho3d_variant
 
 #define HL_URHO3D_VARIANT _ABSTRACT(hl_urho3d_variant)
 hl_urho3d_variant *hl_alloc_urho3d_variant();
+hl_urho3d_variant * hl_alloc_urho3d_variant(Variant & rhs);
+
+
+typedef Urho3D::Variant  hl_urho3d_tvariant;
+#define HL_URHO3D_TVARIANT _ABSTRACT(hl_urho3d_tvariant)
+hl_urho3d_tvariant *hl_alloc_urho3d_tvariant();
+
 
 typedef struct hl_urho3d_variantmap
 {
@@ -104,6 +149,11 @@ typedef struct hl_urho3d_variantmap
 #define HL_URHO3D_VARIANTMAP _ABSTRACT(hl_urho3d_variantmap)
 hl_urho3d_variantmap *hl_alloc_urho3d_variantmap();
 hl_urho3d_variantmap *hl_alloc_urho3d_variantmap_no_finlizer();
+
+typedef Urho3D::VariantMap  hl_urho3d_tvariantmap;
+#define HL_URHO3D_TVARIANTMAP _ABSTRACT(hl_urho3d_tvariantmap)
+hl_urho3d_tvariantmap *hl_alloc_urho3d_tvariantmap();
+
 
 typedef struct hl_urho3d_application
 {

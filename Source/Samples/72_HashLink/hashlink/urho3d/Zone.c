@@ -111,7 +111,7 @@ float urho3d_Zone_set_fogEnd(urho3d__Zone r0,float r1) {
 	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r3 = r4->context;
 	r5 = r0->abstractZone;
-	r2 = Urho3D__graphics_zone_set_fog_start(r3,r5,r1);
+	r2 = Urho3D__graphics_zone_set_fog_end(r3,r5,r1);
 	return r2;
 }
 
@@ -123,7 +123,7 @@ float urho3d_Zone_get_fogEnd(urho3d__Zone r0) {
 	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r2 = r3->context;
 	r4 = r0->abstractZone;
-	r1 = Urho3D__graphics_zone_get_fog_start(r2,r4);
+	r1 = Urho3D__graphics_zone_get_fog_end(r2,r4);
 	return r1;
 }
 

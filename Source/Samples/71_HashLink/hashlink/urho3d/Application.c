@@ -77,10 +77,10 @@ void urho3d_Application_SubscribeToEvent(urho3d__Application r0,hl_urho3d_string
 double urho3d_Application_Random(urho3d__Application r0,vdynamic* r1,vdynamic* r2) {
 	double r3, r5, r6, r7;
 	int r4;
-	r4 = 100000;
+	r4 = 1000000;
 	r4 = Std_random(r4);
 	r3 = (double)r4;
-	r5 = 100000.;
+	r5 = 1000000.;
 	r3 = r3 / r5;
 	if( r1 ) goto label$7dad269_7_7;
 	return r3;

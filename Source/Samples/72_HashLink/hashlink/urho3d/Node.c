@@ -136,11 +136,11 @@ void urho3d_Node_AddComponent(urho3d__Node r0,urho3d__Component r1,int* r2,int* 
 	return;
 }
 
-hl_urho3d_math_vector3* urho3d_Node_get_position(urho3d__Node r0) {
-	hl_urho3d_math_vector3 *r1;
+hl_urho3d_math_tvector3* urho3d_Node_get_position(urho3d__Node r0) {
 	urho3d___Context__$Context_Impl_ r3;
 	hl_urho3d_scene_node *r4;
 	urho3d_context *r2;
+	hl_urho3d_math_tvector3 *r1;
 	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r2 = r3->context;
 	r4 = r0->abstractNode;
@@ -148,7 +148,7 @@ hl_urho3d_math_vector3* urho3d_Node_get_position(urho3d__Node r0) {
 	return r1;
 }
 
-hl_urho3d_math_vector3* urho3d_Node_set_position(urho3d__Node r0,hl_urho3d_math_vector3* r1) {
+hl_urho3d_math_tvector3* urho3d_Node_set_position(urho3d__Node r0,hl_urho3d_math_tvector3* r1) {
 	urho3d___Context__$Context_Impl_ r4;
 	hl_urho3d_scene_node *r5;
 	urho3d_context *r3;
@@ -159,11 +159,11 @@ hl_urho3d_math_vector3* urho3d_Node_set_position(urho3d__Node r0,hl_urho3d_math_
 	return r1;
 }
 
-hl_urho3d_math_vector3* urho3d_Node_get_direction(urho3d__Node r0) {
-	hl_urho3d_math_vector3 *r1;
+hl_urho3d_math_tvector3* urho3d_Node_get_direction(urho3d__Node r0) {
 	urho3d___Context__$Context_Impl_ r3;
 	hl_urho3d_scene_node *r4;
 	urho3d_context *r2;
+	hl_urho3d_math_tvector3 *r1;
 	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r2 = r3->context;
 	r4 = r0->abstractNode;
@@ -171,7 +171,7 @@ hl_urho3d_math_vector3* urho3d_Node_get_direction(urho3d__Node r0) {
 	return r1;
 }
 
-hl_urho3d_math_vector3* urho3d_Node_set_direction(urho3d__Node r0,hl_urho3d_math_vector3* r1) {
+hl_urho3d_math_tvector3* urho3d_Node_set_direction(urho3d__Node r0,hl_urho3d_math_tvector3* r1) {
 	urho3d___Context__$Context_Impl_ r4;
 	hl_urho3d_scene_node *r5;
 	urho3d_context *r3;
@@ -182,11 +182,11 @@ hl_urho3d_math_vector3* urho3d_Node_set_direction(urho3d__Node r0,hl_urho3d_math
 	return r1;
 }
 
-hl_urho3d_math_vector3* urho3d_Node_get_scale(urho3d__Node r0) {
-	hl_urho3d_math_vector3 *r1;
+hl_urho3d_math_tvector3* urho3d_Node_get_scale(urho3d__Node r0) {
 	urho3d___Context__$Context_Impl_ r3;
 	hl_urho3d_scene_node *r4;
 	urho3d_context *r2;
+	hl_urho3d_math_tvector3 *r1;
 	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r2 = r3->context;
 	r4 = r0->abstractNode;
@@ -194,7 +194,7 @@ hl_urho3d_math_vector3* urho3d_Node_get_scale(urho3d__Node r0) {
 	return r1;
 }
 
-hl_urho3d_math_vector3* urho3d_Node_set_scale(urho3d__Node r0,hl_urho3d_math_vector3* r1) {
+hl_urho3d_math_tvector3* urho3d_Node_set_scale(urho3d__Node r0,hl_urho3d_math_tvector3* r1) {
 	urho3d___Context__$Context_Impl_ r4;
 	hl_urho3d_scene_node *r5;
 	urho3d_context *r3;
@@ -205,8 +205,8 @@ hl_urho3d_math_vector3* urho3d_Node_set_scale(urho3d__Node r0,hl_urho3d_math_vec
 	return r1;
 }
 
-hl_urho3d_math_quaternion* urho3d_Node_get_rotation(urho3d__Node r0) {
-	hl_urho3d_math_quaternion *r1;
+hl_urho3d_math_tquaternion* urho3d_Node_get_rotation(urho3d__Node r0) {
+	hl_urho3d_math_tquaternion *r1;
 	urho3d___Context__$Context_Impl_ r3;
 	hl_urho3d_scene_node *r4;
 	urho3d_context *r2;
@@ -217,7 +217,7 @@ hl_urho3d_math_quaternion* urho3d_Node_get_rotation(urho3d__Node r0) {
 	return r1;
 }
 
-hl_urho3d_math_quaternion* urho3d_Node_set_rotation(urho3d__Node r0,hl_urho3d_math_quaternion* r1) {
+hl_urho3d_math_tquaternion* urho3d_Node_set_rotation(urho3d__Node r0,hl_urho3d_math_tquaternion* r1) {
 	urho3d___Context__$Context_Impl_ r4;
 	hl_urho3d_scene_node *r5;
 	urho3d_context *r3;
@@ -228,7 +228,7 @@ hl_urho3d_math_quaternion* urho3d_Node_set_rotation(urho3d__Node r0,hl_urho3d_ma
 	return r1;
 }
 
-void urho3d_Node_Rotate(urho3d__Node r0,hl_urho3d_math_quaternion* r1,int* r2) {
+void urho3d_Node_Rotate(urho3d__Node r0,hl_urho3d_math_tquaternion* r1,int* r2) {
 	urho3d___Context__$Context_Impl_ r6;
 	hl_urho3d_scene_node *r7;
 	urho3d_context *r5;

@@ -74,8 +74,8 @@ hl_urho3d_math_tvector2* urho3d__Sprite_Sprite_Impl__get_position(hl_urho3d_spri
 	return r1;
 }
 
-hl_urho3d_intvector2* urho3d__Sprite_Sprite_Impl__set_size(hl_urho3d_sprite* r0,hl_urho3d_intvector2* r1) {
-	hl_urho3d_intvector2 *r2;
+hl_urho3d_math_tintvector2* urho3d__Sprite_Sprite_Impl__set_size(hl_urho3d_sprite* r0,hl_urho3d_math_tintvector2* r1) {
+	hl_urho3d_math_tintvector2 *r2;
 	urho3d___Context__$Context_Impl_ r4;
 	urho3d_context *r3;
 	if( !r1 ) goto label$3026bf4_7_5;
@@ -88,8 +88,8 @@ hl_urho3d_intvector2* urho3d__Sprite_Sprite_Impl__set_size(hl_urho3d_sprite* r0,
 	return r2;
 }
 
-hl_urho3d_intvector2* urho3d__Sprite_Sprite_Impl__get_size(hl_urho3d_sprite* r0) {
-	hl_urho3d_intvector2 *r1;
+hl_urho3d_math_tintvector2* urho3d__Sprite_Sprite_Impl__get_size(hl_urho3d_sprite* r0) {
+	hl_urho3d_math_tintvector2 *r1;
 	urho3d___Context__$Context_Impl_ r3;
 	urho3d_context *r2;
 	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
@@ -98,8 +98,8 @@ hl_urho3d_intvector2* urho3d__Sprite_Sprite_Impl__get_size(hl_urho3d_sprite* r0)
 	return r1;
 }
 
-hl_urho3d_intvector2* urho3d__Sprite_Sprite_Impl__set_hotSpot(hl_urho3d_sprite* r0,hl_urho3d_intvector2* r1) {
-	hl_urho3d_intvector2 *r2;
+hl_urho3d_math_tintvector2* urho3d__Sprite_Sprite_Impl__set_hotSpot(hl_urho3d_sprite* r0,hl_urho3d_math_tintvector2* r1) {
+	hl_urho3d_math_tintvector2 *r2;
 	urho3d___Context__$Context_Impl_ r4;
 	urho3d_context *r3;
 	if( !r1 ) goto label$3026bf4_9_5;
@@ -112,8 +112,8 @@ hl_urho3d_intvector2* urho3d__Sprite_Sprite_Impl__set_hotSpot(hl_urho3d_sprite* 
 	return r2;
 }
 
-hl_urho3d_intvector2* urho3d__Sprite_Sprite_Impl__get_hotSpot(hl_urho3d_sprite* r0) {
-	hl_urho3d_intvector2 *r1;
+hl_urho3d_math_tintvector2* urho3d__Sprite_Sprite_Impl__get_hotSpot(hl_urho3d_sprite* r0) {
+	hl_urho3d_math_tintvector2 *r1;
 	urho3d___Context__$Context_Impl_ r3;
 	urho3d_context *r2;
 	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
@@ -166,8 +166,8 @@ hl_urho3d_math_tvector2* urho3d__Sprite_Sprite_Impl__get_scale(hl_urho3d_sprite*
 	return r1;
 }
 
-hl_urho3d_color* urho3d__Sprite_Sprite_Impl__set_color(hl_urho3d_sprite* r0,hl_urho3d_color* r1) {
-	hl_urho3d_color *r2;
+hl_urho3d_tcolor* urho3d__Sprite_Sprite_Impl__set_color(hl_urho3d_sprite* r0,hl_urho3d_tcolor* r1) {
+	hl_urho3d_tcolor *r2;
 	urho3d___Context__$Context_Impl_ r4;
 	urho3d_context *r3;
 	if( !r1 ) goto label$3026bf4_15_5;
@@ -180,8 +180,8 @@ hl_urho3d_color* urho3d__Sprite_Sprite_Impl__set_color(hl_urho3d_sprite* r0,hl_u
 	return r2;
 }
 
-hl_urho3d_color* urho3d__Sprite_Sprite_Impl__get_color(hl_urho3d_sprite* r0) {
-	hl_urho3d_color *r1;
+hl_urho3d_tcolor* urho3d__Sprite_Sprite_Impl__get_color(hl_urho3d_sprite* r0) {
+	hl_urho3d_tcolor *r1;
 	urho3d___Context__$Context_Impl_ r3;
 	urho3d_context *r2;
 	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
@@ -210,8 +210,8 @@ int urho3d__Sprite_Sprite_Impl__get_blendMode(hl_urho3d_sprite* r0) {
 	return r1;
 }
 
-hl_urho3d_variantmap* urho3d__Sprite_Sprite_Impl__get_vars(hl_urho3d_sprite* r0) {
-	hl_urho3d_variantmap *r1;
+hl_urho3d_tvariantmap* urho3d__Sprite_Sprite_Impl__get_vars(hl_urho3d_sprite* r0) {
+	hl_urho3d_tvariantmap *r1;
 	urho3d___Context__$Context_Impl_ r3;
 	urho3d_context *r2;
 	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;

@@ -21,6 +21,8 @@ struct _urho3d___Variant__$Variant_Impl_ {
 	vclosure* GetInt;
 	vclosure* GetVector2;
 	vclosure* GetTVector2;
+	vclosure* GetTIntVector2;
+	vclosure* fromTIntVector2;
 	vclosure* fromTVector2;
 	vclosure* fromVector2;
 	vclosure* fromInt;

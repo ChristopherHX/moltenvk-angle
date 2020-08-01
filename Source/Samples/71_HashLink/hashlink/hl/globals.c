@@ -55,6 +55,11 @@
 #include <urho3d/_IntVector2/IntVector2_Impl_.h>
 #include <urho3d/_Sprite/Sprite_Impl_.h>
 #include <urho3d/_StringHash/StringHash_Impl_.h>
+#include <urho3d/_TColor/TColor_Impl_.h>
+#include <urho3d/_TIntVector2/TIntVector2_Impl_.h>
+#include <urho3d/_TStringHash/TStringHash_Impl_.h>
+#include <urho3d/_TVariant/TVariant_Impl_.h>
+#include <urho3d/_TVariantMap/TVariantMap_Impl_.h>
 #include <urho3d/_TVector2/TVector2_Impl_.h>
 #include <urho3d/_Texture2D/Texture2D_Impl_.h>
 #include <urho3d/UI.h>
@@ -131,6 +136,9 @@ String s$IntVector2_ = 0;
 String s$fromStructVector2 = 0;
 String s$src_haxe_urho3d_IntVector2_hx = 0;
 String s$56cf1e1 = 0;
+String s$StringHash_ = 0;
+String s$TIntVector2_ = 0;
+String s$TStringHash_ = 0;
 String s$TVector2_ = 0;
 String s$Vector2_ = 0;
 urho3d___Vector2__$Vector2_Impl_ g$_urho3d__Vector2_Vector2_Impl_ = 0;
@@ -161,6 +169,11 @@ urho3d__$Graphics g$_urho3d_Graphics = 0;
 urho3d___IntVector2__$IntVector2_Impl_ g$e8eb13c = 0;
 urho3d___Sprite__$Sprite_Impl_ g$_urho3d__Sprite_Sprite_Impl_ = 0;
 urho3d___StringHash__$StringHash_Impl_ g$4d1fd18 = 0;
+urho3d___TColor__$TColor_Impl_ g$_urho3d__TColor_TColor_Impl_ = 0;
+urho3d___TIntVector2__$TIntVector2_Impl_ g$41c7646 = 0;
+urho3d___TStringHash__$TStringHash_Impl_ g$9ea7242 = 0;
+urho3d___TVariant__$TVariant_Impl_ g$_urho3d__TVariant_TVariant_Impl_ = 0;
+urho3d___TVariantMap__$TVariantMap_Impl_ g$78176a5 = 0;
 urho3d___TVector2__$TVector2_Impl_ g$_urho3d__TVector2_TVector2_Impl_ = 0;
 urho3d___Texture2D__$Texture2D_Impl_ g$3b7b206 = 0;
 urho3d__$UI g$_urho3d_UI = 0;
@@ -197,6 +210,9 @@ static struct _String const_s$IntVector2_ = {&t$String,(vbyte*)USTR("IntVector2(
 static struct _String const_s$fromStructVector2 = {&t$String,(vbyte*)USTR("fromStructVector2"),17};
 static struct _String const_s$src_haxe_urho3d_IntVector2_hx = {&t$String,(vbyte*)USTR("src/haxe/urho3d/IntVector2.hx"),29};
 static struct _String const_s$56cf1e1 = {&t$String,(vbyte*)USTR("urho3d._IntVector2.IntVector2_Impl_"),35};
+static struct _String const_s$StringHash_ = {&t$String,(vbyte*)USTR("StringHash :"),12};
+static struct _String const_s$TIntVector2_ = {&t$String,(vbyte*)USTR("TIntVector2 ("),13};
+static struct _String const_s$TStringHash_ = {&t$String,(vbyte*)USTR("TStringHash :"),13};
 static struct _String const_s$TVector2_ = {&t$String,(vbyte*)USTR("TVector2 ("),10};
 static struct _String const_s$Vector2_ = {&t$String,(vbyte*)USTR("Vector2 ("),9};
 static struct _String const_s$Float = {&t$String,(vbyte*)USTR("Float"),5};
@@ -237,6 +253,9 @@ void hl_init_roots() {
 	s$fromStructVector2 = &const_s$fromStructVector2;
 	s$src_haxe_urho3d_IntVector2_hx = &const_s$src_haxe_urho3d_IntVector2_hx;
 	s$56cf1e1 = &const_s$56cf1e1;
+	s$StringHash_ = &const_s$StringHash_;
+	s$TIntVector2_ = &const_s$TIntVector2_;
+	s$TStringHash_ = &const_s$TStringHash_;
 	s$TVector2_ = &const_s$TVector2_;
 	s$Vector2_ = &const_s$Vector2_;
 	s$Float = &const_s$Float;
@@ -304,6 +323,11 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$e8eb13c);
 	hl_add_root((void**)&g$_urho3d__Sprite_Sprite_Impl_);
 	hl_add_root((void**)&g$4d1fd18);
+	hl_add_root((void**)&g$_urho3d__TColor_TColor_Impl_);
+	hl_add_root((void**)&g$41c7646);
+	hl_add_root((void**)&g$9ea7242);
+	hl_add_root((void**)&g$_urho3d__TVariant_TVariant_Impl_);
+	hl_add_root((void**)&g$78176a5);
 	hl_add_root((void**)&g$_urho3d__TVector2_TVector2_Impl_);
 	hl_add_root((void**)&g$3b7b206);
 	hl_add_root((void**)&g$_urho3d_UI);

@@ -15,7 +15,6 @@ void urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStopClosure(h
 void urho3d__AbstractApplication_AbstractApplication_Impl__Run(hl_urho3d_application*);
 void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(hl_urho3d_application*,hl_urho3d_stringhash*,vdynamic*,String);
 int Std_random(int);
-extern hl_type t$_dyn;
 
 void urho3d_Application_new(urho3d__Application r0) {
 	urho3d__$Application r5;
@@ -78,10 +77,10 @@ void urho3d_Application_SubscribeToEvent(urho3d__Application r0,hl_urho3d_string
 double urho3d_Application_Random(urho3d__Application r0,vdynamic* r1,vdynamic* r2) {
 	double r3, r5, r6, r7;
 	int r4;
-	r4 = 100000;
+	r4 = 1000000;
 	r4 = Std_random(r4);
 	r3 = (double)r4;
-	r5 = 100000.;
+	r5 = 1000000.;
 	r3 = r3 / r5;
 	if( r1 ) goto label$7dad269_7_7;
 	return r3;
@@ -101,17 +100,23 @@ double urho3d_Application_Random(urho3d__Application r0,vdynamic* r1,vdynamic* r
 	return r5;
 }
 
-double urho3d_Application_Clamp(urho3d__Application r0,vdynamic* r1,vdynamic* r2,vdynamic* r3) {
-	double r4;
-	{ int i = hl_dyn_compare((vdynamic*)r1,(vdynamic*)r2); if( i >= 0 && i != hl_invalid_comparison ) goto label$7dad269_8_3; };
-	r4 = (double)hl_dyn_castd(&r2,&t$_dyn);
-	return r4;
-	label$7dad269_8_3:
-	{ int i = hl_dyn_compare((vdynamic*)r3,(vdynamic*)r1); if( i >= 0 && i != hl_invalid_comparison ) goto label$7dad269_8_6; };
-	r4 = (double)hl_dyn_castd(&r3,&t$_dyn);
-	return r4;
-	label$7dad269_8_6:
-	r4 = (double)hl_dyn_castd(&r1,&t$_dyn);
-	return r4;
+double urho3d_Application_Clamp(urho3d__Application r0,double r1,double r2,double r3) {
+	if( !(r1 < r2) ) goto label$7dad269_8_2;
+	return r2;
+	label$7dad269_8_2:
+	if( !(r3 < r1) ) goto label$7dad269_8_4;
+	return r3;
+	label$7dad269_8_4:
+	return r1;
+}
+
+int urho3d_Application_IClamp(urho3d__Application r0,int r1,int r2,int r3) {
+	if( r1 >= r2 ) goto label$7dad269_9_2;
+	return r2;
+	label$7dad269_9_2:
+	if( r3 >= r1 ) goto label$7dad269_9_4;
+	return r3;
+	label$7dad269_9_4:
+	return r1;
 }
 

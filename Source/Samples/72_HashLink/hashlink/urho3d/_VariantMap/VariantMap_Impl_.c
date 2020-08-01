@@ -10,14 +10,14 @@ hl_urho3d_variantmap* urho3d__VariantMap_VariantMap_Impl___new() {
 	return r0;
 }
 
-hl_urho3d_variant* urho3d__VariantMap_VariantMap_Impl__getValue(hl_urho3d_variantmap* r0,hl_urho3d_stringhash* r1) {
-	hl_urho3d_variant *r2;
+hl_urho3d_tvariant* urho3d__VariantMap_VariantMap_Impl__getValue(hl_urho3d_variantmap* r0,hl_urho3d_tstringhash* r1) {
+	hl_urho3d_tvariant *r2;
 	r2 = Urho3D__get_value(r0,r1);
 	return r2;
 }
 
-hl_urho3d_variant* urho3d__VariantMap_VariantMap_Impl__setKeyValue(hl_urho3d_variantmap* r0,hl_urho3d_stringhash* r1,hl_urho3d_variant* r2) {
-	hl_urho3d_variant *r3;
+hl_urho3d_tvariant* urho3d__VariantMap_VariantMap_Impl__setKeyValue(hl_urho3d_variantmap* r0,hl_urho3d_tstringhash* r1,hl_urho3d_tvariant* r2) {
+	hl_urho3d_tvariant *r3;
 	r3 = Urho3D__set_key_value(r0,r1,r2);
 	return r3;
 }

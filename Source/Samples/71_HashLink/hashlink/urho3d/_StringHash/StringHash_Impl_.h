@@ -18,6 +18,7 @@ struct _urho3d___StringHash__$StringHash_Impl_ {
 	vdynamic* __constructor__;
 	vclosure* _new;
 	vclosure* fromString;
+	vclosure* toString;
 	vclosure* GetString;
 };
 struct _urho3d___StringHash__StringHash_Impl_ {
