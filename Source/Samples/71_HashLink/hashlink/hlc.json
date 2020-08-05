@@ -80,6 +80,7 @@
 		"urho3d/_TVariant/TVariant_Impl_.c",
 		"urho3d/_TVariantMap/TVariantMap_Impl_.c",
 		"urho3d/_TVector2/TVector2_Impl_.c",
+		"urho3d/_Texture/Texture_Impl_.c",
 		"urho3d/_Texture2D/Texture2D_Impl_.c",
 		"urho3d/UI.c",
 		"urho3d/_UIElement/UIElement_Impl_.c",

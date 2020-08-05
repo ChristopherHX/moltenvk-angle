@@ -3,7 +3,7 @@
 #include <hlc.h>
 void fun$init(void);
 
-//#include <hlc_main.c>
+#include <hlc_main.c>
 
 #ifndef HL_MAKE
 #  include <hl/hashes.c>
@@ -63,6 +63,7 @@ void fun$init(void);
 #  include <urho3d/_TVariant/TVariant_Impl_.c>
 #  include <urho3d/_TVariantMap/TVariantMap_Impl_.c>
 #  include <urho3d/_TVector2/TVector2_Impl_.c>
+#  include <urho3d/_Texture/Texture_Impl_.c>
 #  include <urho3d/_Texture2D/Texture2D_Impl_.c>
 #  include <urho3d/UI.c>
 #  include <urho3d/_UIElement/UIElement_Impl_.c>

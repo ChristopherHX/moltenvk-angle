@@ -26,9 +26,9 @@ hl_urho3d_uielement* urho3d__Sprite_Sprite_Impl__toUIElement(hl_urho3d_sprite* r
 	return r1;
 }
 
-hl_urho3d_texture2d* urho3d__Sprite_Sprite_Impl__set_texture(hl_urho3d_sprite* r0,hl_urho3d_texture2d* r1) {
-	hl_urho3d_texture2d *r2;
+hl_urho3d_graphics_texture* urho3d__Sprite_Sprite_Impl__set_texture(hl_urho3d_sprite* r0,hl_urho3d_graphics_texture* r1) {
 	urho3d___Context__$Context_Impl_ r4;
+	hl_urho3d_graphics_texture *r2;
 	urho3d_context *r3;
 	if( !r1 ) goto label$3026bf4_3_5;
 	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
@@ -40,9 +40,9 @@ hl_urho3d_texture2d* urho3d__Sprite_Sprite_Impl__set_texture(hl_urho3d_sprite* r
 	return r2;
 }
 
-hl_urho3d_texture2d* urho3d__Sprite_Sprite_Impl__get_texture(hl_urho3d_sprite* r0) {
-	hl_urho3d_texture2d *r1;
+hl_urho3d_graphics_texture* urho3d__Sprite_Sprite_Impl__get_texture(hl_urho3d_sprite* r0) {
 	urho3d___Context__$Context_Impl_ r3;
+	hl_urho3d_graphics_texture *r1;
 	urho3d_context *r2;
 	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r2 = r3->context;

@@ -61,6 +61,7 @@
 #include <urho3d/_TVariant/TVariant_Impl_.h>
 #include <urho3d/_TVariantMap/TVariantMap_Impl_.h>
 #include <urho3d/_TVector2/TVector2_Impl_.h>
+#include <urho3d/_Texture/Texture_Impl_.h>
 #include <urho3d/_Texture2D/Texture2D_Impl_.h>
 #include <urho3d/UI.h>
 #include <urho3d/_UIElement/UIElement_Impl_.h>
@@ -175,6 +176,7 @@ urho3d___TStringHash__$TStringHash_Impl_ g$9ea7242 = 0;
 urho3d___TVariant__$TVariant_Impl_ g$_urho3d__TVariant_TVariant_Impl_ = 0;
 urho3d___TVariantMap__$TVariantMap_Impl_ g$78176a5 = 0;
 urho3d___TVector2__$TVector2_Impl_ g$_urho3d__TVector2_TVector2_Impl_ = 0;
+urho3d___Texture__$Texture_Impl_ g$_urho3d__Texture_Texture_Impl_ = 0;
 urho3d___Texture2D__$Texture2D_Impl_ g$3b7b206 = 0;
 urho3d__$UI g$_urho3d_UI = 0;
 urho3d___UIElement__$UIElement_Impl_ g$b710c38 = 0;
@@ -329,6 +331,7 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_urho3d__TVariant_TVariant_Impl_);
 	hl_add_root((void**)&g$78176a5);
 	hl_add_root((void**)&g$_urho3d__TVector2_TVector2_Impl_);
+	hl_add_root((void**)&g$_urho3d__Texture_Texture_Impl_);
 	hl_add_root((void**)&g$3b7b206);
 	hl_add_root((void**)&g$_urho3d_UI);
 	hl_add_root((void**)&g$b710c38);

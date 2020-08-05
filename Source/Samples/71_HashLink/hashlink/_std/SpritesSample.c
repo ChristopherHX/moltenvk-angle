@@ -21,7 +21,7 @@ int urho3d_Graphics_get_width(void);
 int urho3d_Graphics_get_height(void);
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern String s$Textures_UrhoDecal_dds;
-hl_urho3d_texture2d* urho3d__Sprite_Sprite_Impl__set_texture(hl_urho3d_sprite*,hl_urho3d_texture2d*);
+hl_urho3d_graphics_texture* urho3d__Sprite_Sprite_Impl__set_texture(hl_urho3d_sprite*,hl_urho3d_graphics_texture*);
 double urho3d_Application_Random(urho3d__Application,vdynamic*,vdynamic*);
 hl_urho3d_math_tvector2* urho3d__Sprite_Sprite_Impl__set_position(hl_urho3d_sprite*,hl_urho3d_math_tvector2*);
 hl_urho3d_math_tintvector2* urho3d__Sprite_Sprite_Impl__set_size(hl_urho3d_sprite*,hl_urho3d_math_tintvector2*);
@@ -103,11 +103,12 @@ void SpritesSample_CreateSprites(SpritesSample r0) {
 	String r7;
 	hl__types__ArrayObj r37;
 	hl_urho3d_tstringhash *r34;
-	hl_urho3d_texture2d *r4, *r8, *r13;
+	hl_urho3d_texture2d *r4, *r8;
 	hl_urho3d_tvariant *r35, *r36;
 	hl_urho3d_tvariantmap *r33;
 	hl_urho3d_tcolor *r27, *r30;
 	hl_urho3d_math_tintvector2 *r22, *r24, *r25;
+	hl_urho3d_graphics_texture *r13;
 	urho3d___Context__$Context_Impl_ r6;
 	float r19, r20, r28, r29;
 	urho3d_context *r5;
@@ -122,17 +123,20 @@ void SpritesSample_CreateSprites(SpritesSample r0) {
 	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r5 = r6->context;
 	r7 = (String)s$Textures_UrhoDecal_dds;
-	r4 = Urho3D__create_texture2d(r5,r7);
+	r4 = Urho3D__graphics_texture2d_create(r5,r7);
 	r8 = r4;
 	r9 = 0;
 	r10 = r0->NUM_SPRITES;
 	label$200845f_3_9:
-	if( r9 >= r10 ) goto label$200845f_3_117;
+	if( r9 >= r10 ) goto label$200845f_3_120;
 	++r9;
 	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r5 = r6->context;
 	r12 = Urho3D__create_sprite(r5);
-	r13 = urho3d__Sprite_Sprite_Impl__set_texture(r12,r8);
+	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r5 = r6->context;
+	r13 = Urho3D__graphics_texture2d_cast_to_texture(r5,r8);
+	r13 = urho3d__Sprite_Sprite_Impl__set_texture(r12,r13);
 	r16 = NULL;
 	r17 = NULL;
 	r15 = urho3d_Application_Random(((urho3d__Application)r0),r16,r17);
@@ -242,7 +246,7 @@ void SpritesSample_CreateSprites(SpritesSample r0) {
 	}
 	r11 = hl_types_ArrayObj_push(r37,r38);
 	goto label$200845f_3_9;
-	label$200845f_3_117:
+	label$200845f_3_120:
 	return;
 }
 

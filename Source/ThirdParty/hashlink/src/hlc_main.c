@@ -19,6 +19,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+#if !defined(URHO3D_HAXE_HASHLINK)
 #include <hlc.h>
 
 #if defined(HL_MOBILE) && defined(sdl__Sdl__val)
@@ -147,3 +148,4 @@ int main(int argc, char *argv[]) {
 	sys_global_exit();
 	return (int)isExc;
 }
+#endif //URHO3D_HAXE_HASHLINK

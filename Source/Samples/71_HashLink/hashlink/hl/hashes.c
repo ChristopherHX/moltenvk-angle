@@ -246,6 +246,8 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("fromVector2"));
 	hl_hash((vbyte*)USTR("get_name"));
 	hl_hash((vbyte*)USTR("GetName"));
+	hl_hash((vbyte*)USTR("toTexture"));
+	hl_hash((vbyte*)USTR("fromTexture"));
 	hl_hash((vbyte*)USTR("get_root"));
 	hl_hash((vbyte*)USTR("AddChild"));
 	hl_hash((vbyte*)USTR("fromTIntVector2"));

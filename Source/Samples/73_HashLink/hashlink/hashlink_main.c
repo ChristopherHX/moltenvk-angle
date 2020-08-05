@@ -3,7 +3,7 @@
 #include <hlc.h>
 void fun$init(void);
 
-//#include <hlc_main.c>
+#include <hlc_main.c>
 
 #ifndef HL_MAKE
 #  include <hl/hashes.c>

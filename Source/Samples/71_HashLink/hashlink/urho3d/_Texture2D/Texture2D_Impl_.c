@@ -14,7 +14,7 @@ hl_urho3d_texture2d* urho3d__Texture2D_Texture2D_Impl___new(String r0) {
 	urho3d_context *r2;
 	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r2 = r3->context;
-	r1 = Urho3D__create_texture2d(r2,r0);
+	r1 = Urho3D__graphics_texture2d_create(r2,r0);
 	return r1;
 }
 
@@ -27,8 +27,28 @@ String urho3d__Texture2D_Texture2D_Impl__get_name(hl_urho3d_texture2d* r0) {
 String urho3d__Texture2D_Texture2D_Impl__GetName(hl_urho3d_texture2d* r0) {
 	String r1;
 	vbyte *r2;
-	r2 = Urho3D__get_texture2d_get_name(r0);
+	r2 = Urho3D__graphics_texture2d_get_name(r0);
 	r1 = String_fromUTF8(r2);
+	return r1;
+}
+
+hl_urho3d_graphics_texture* urho3d__Texture2D_Texture2D_Impl__toTexture(hl_urho3d_texture2d* r0) {
+	urho3d___Context__$Context_Impl_ r3;
+	hl_urho3d_graphics_texture *r1;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r1 = Urho3D__graphics_texture2d_cast_to_texture(r2,r0);
+	return r1;
+}
+
+hl_urho3d_texture2d* urho3d__Texture2D_Texture2D_Impl__fromTexture(hl_urho3d_graphics_texture* r0) {
+	hl_urho3d_texture2d *r1;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r1 = Urho3D__graphics_texture2d_cast_from_texture(r2,r0);
 	return r1;
 }
 

@@ -19,6 +19,8 @@ struct _urho3d___Texture2D__$Texture2D_Impl_ {
 	vclosure* _new;
 	vclosure* get_name;
 	vclosure* GetName;
+	vclosure* toTexture;
+	vclosure* fromTexture;
 };
 struct _urho3d___Texture2D__Texture2D_Impl_ {
 	hl_type *$type;
