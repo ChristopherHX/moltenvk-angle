@@ -9,7 +9,6 @@
 /bin/Screenshots/
 /bin/tool/
 /include/
-/lib*/
 generated/
 /Source/Urho3D/tolua++-prefix/
 build/
