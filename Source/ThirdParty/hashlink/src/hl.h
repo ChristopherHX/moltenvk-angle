@@ -154,8 +154,13 @@
 #	define EXPORT
 #	define IMPORT extern
 #else
+#ifdef HL_MAC
+#    define EXPORT __attribute__((visibility("default")))
+#    define IMPORT extern
+#else
 #	define EXPORT
 #	define IMPORT extern
+#endif
 #endif
 
 #ifdef HL_64

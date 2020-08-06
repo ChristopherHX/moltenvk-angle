@@ -151,6 +151,8 @@ option (URHO3D_GLES3 "Enable GLES3" FALSE)
 option (URHO3D_WEBP "Enable WebP support" TRUE)
 option (URHO3D_ANGLE_METAL "Enable Angle Metal graphics backend" FALSE)
 option (URHO3D_HAXE_HASHLINK "Enable haxe hashlink runtime" TRUE)
+option (URHO3D_HAXE_HASHLINK_HDLL "create URHO3D HDLL" FALSE)
+option (URHO3D_HAXE_HASHLINK_STATIC_LIB "create URHO3D static lib" FALSE)
 
 if ((ANDROID OR IOS OR URHO3D_ANGLE_METAL) AND NOT URHO3D_GLES3)
     set(URHO3D_GLES2 TRUE)
@@ -412,7 +414,9 @@ if (URHO3D_CLANG_TOOLS)
             URHO3D_PROFILING
             URHO3D_URHO2D
             URHO3D_ANGLE_METAL
-            URHO3D_HAXE_HASHLINK)
+            URHO3D_HAXE_HASHLINK
+            URHO3D_HAXE_HASHLINK_HDLL
+            URHO3D_HAXE_HASHLINK_STATIC_LIB)
         set (${OPT} 1)
     endforeach ()
     foreach (OPT URHO3D_TESTING URHO3D_LUAJIT URHO3D_DATABASE_ODBC)
@@ -469,7 +473,9 @@ foreach (OPT
         URHO3D_WEBP
         URHO3D_WIN32_CONSOLE
         URHO3D_ANGLE_METAL
-        URHO3D_HAXE_HASHLINK)
+        URHO3D_HAXE_HASHLINK
+        URHO3D_HAXE_HASHLINK_HDLL
+        URHO3D_HAXE_HASHLINK_STATIC_LIB)
     if (${OPT})
         add_definitions (-D${OPT})
     endif ()
@@ -947,6 +953,10 @@ macro (define_dependency_libs TARGET)
                 endif()
             endif ()
         endif ()
+
+        if(URHO3D_HAXE_HASHLINK_HDLL)
+            list (APPEND LIBS "hl")
+        endif()
 
         # Graphics
         if (URHO3D_OPENGL)

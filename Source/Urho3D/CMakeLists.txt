@@ -25,6 +25,10 @@ set (TARGET_NAME Urho3D)
 
 setup_lint ()
 
+if(URHO3D_HAXE_HASHLINK_HDLL)
+link_directories(../../lib)
+endif()
+
 # Prevent ICE from old MinGW versions, workaround from the GCC bugzilla https://gcc.gnu.org/bugzilla/show_bug.cgi?id=61189
 if (MINGW AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.9.1 AND NOT URHO3D_64BIT)
     set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mpreferred-stack-boundary=2")
@@ -321,7 +325,7 @@ endif ()
 
 setup_library (${URHO3D_LIB_TYPE} ${EXCLUDE_FROM_ALL})
 
-if (NOT ANDROID AND NOT WEB)
+if (NOT ANDROID AND NOT WEB AND NOT URHO3D_HAXE_HASHLINK_HDLL )
     file (READ .soversion SOVERSION)
     string (STRIP ${SOVERSION} SOVERSION)
     string (REGEX MATCH "([^.]+)\\.([^.]+)\\.(.+)" MATCHED ${SOVERSION})
@@ -332,6 +336,10 @@ if (NOT ANDROID AND NOT WEB)
     endif ()
 else ()
     set_target_properties (${TARGET_NAME} PROPERTIES NO_SONAME TRUE)
+if(URHO3D_HAXE_HASHLINK_HDLL)    
+    set_target_properties (${TARGET_NAME} PROPERTIES PREFIX "")
+    set_target_properties (${TARGET_NAME} PROPERTIES SUFFIX ".hdll")
+endif ()
 endif ()
 if (IOS)
     if (NOT IPHONEOS_DEPLOYMENT_TARGET STREQUAL "" AND IPHONEOS_DEPLOYMENT_TARGET VERSION_LESS 11.0)
@@ -580,3 +588,4 @@ if (URHO3D_SCP_TO_TARGET)
     add_custom_command (TARGET ${TARGET_NAME} POST_BUILD COMMAND scp $<TARGET_FILE:${TARGET_NAME}> ${URHO3D_SCP_TO_TARGET} || exit 0
         COMMENT "Scp-ing Urho3D library to target system")
 endif ()
+

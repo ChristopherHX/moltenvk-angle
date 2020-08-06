@@ -1,5 +1,5 @@
+if (NOT URHO3D_HAXE_HASHLINK_HDLL)
 set (TARGET_NAME hashlink)
-
 cmake_minimum_required(VERSION 3.1)
 
 
@@ -95,5 +95,8 @@ endif()
 
 # Setup target
 setup_library ()
+
+#if (NOT URHO3D_HAXE_HASHLINK_HDLL)
+endif() 
 
 install_header_files (DIRECTORY src/ DESTINATION ${DEST_INCLUDE_DIR}/ThirdParty/hashlink FILES_MATCHING PATTERN *.h)  
