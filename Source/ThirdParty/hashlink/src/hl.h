@@ -151,8 +151,13 @@
 #endif
 
 #if defined(HL_VCC) || defined(HL_MINGW)
+#if defined(URHO3D_HAXE_HASHLINK_HDLL)
+#	define EXPORT __declspec(dllexport)
+#	define IMPORT extern
+#else
 #	define EXPORT
 #	define IMPORT extern
+#endif
 #else
 #ifdef HL_MAC
 #    define EXPORT __attribute__((visibility("default")))

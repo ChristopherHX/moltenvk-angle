@@ -955,7 +955,11 @@ macro (define_dependency_libs TARGET)
         endif ()
 
         if(URHO3D_HAXE_HASHLINK_HDLL)
-            list (APPEND LIBS "hl")
+            if (WIN32)
+                list (APPEND LIBS "libhl")
+            else()
+                list (APPEND LIBS "hl")
+            endif()
         endif()
 
         # Graphics
