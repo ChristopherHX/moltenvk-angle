@@ -25,7 +25,7 @@ HL_PRIM hl_type hlt_f32 = { HF32 };
 HL_PRIM hl_type hlt_f64 = { HF64 };
 HL_PRIM hl_type hlt_void = { HVOID };
 HL_PRIM hl_type hlt_bool = { HBOOL };
-HL_PRIM hl_type hlt_abstract = { HABSTRACT, {USTR("<abstract>")} };
+HL_PRIM hl_type hlt_abstract = { HABSTRACT, {(const uchar *)USTR("<abstract>")} };
 #endif
 
 static void fun_var_args()
