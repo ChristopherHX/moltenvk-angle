@@ -19,6 +19,7 @@ struct _urho3d___TQuaternion__$TQuaternion_Impl_ {
 	vclosure* _new;
 	vclosure* toQuaternion;
 	vclosure* fromQuaternion;
+	vclosure* mulVector3;
 };
 struct _urho3d___TQuaternion__TQuaternion_Impl_ {
 	hl_type *$type;

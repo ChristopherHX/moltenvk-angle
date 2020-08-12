@@ -15,3 +15,31 @@ void urho3d_Renderer_SetViewport(int r0,hl_urho3d_graphics_viewport* r1) {
 	return;
 }
 
+int urho3d_Renderer_set_numViewports(int r0) {
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	Urho3D__graphics_renderer_set_num_viewports(r2,r0);
+	return r0;
+}
+
+int urho3d_Renderer_get_numViewports() {
+	urho3d___Context__$Context_Impl_ r2;
+	urho3d_context *r1;
+	int r0;
+	r2 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r1 = r2->context;
+	r0 = Urho3D__graphics_renderer_get_num_viewports(r1);
+	return r0;
+}
+
+void urho3d_Renderer_DrawDebugGeometry(bool r0) {
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	Urho3D__graphics_renderer_draw_debug_geometry(r2,r0);
+	return;
+}
+

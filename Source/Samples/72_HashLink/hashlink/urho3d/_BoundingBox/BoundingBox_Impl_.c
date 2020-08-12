@@ -10,3 +10,25 @@ hl_urho3d_math_boundingbox* urho3d__BoundingBox_BoundingBox_Impl___new(hl_urho3d
 	return r2;
 }
 
+hl_urho3d_math_tvector3* urho3d__BoundingBox_BoundingBox_Impl__set_min(hl_urho3d_math_boundingbox* r0,hl_urho3d_math_tvector3* r1) {
+	Urho3D__math_boundingbox_set_min(r0,r1);
+	return r1;
+}
+
+hl_urho3d_math_tvector3* urho3d__BoundingBox_BoundingBox_Impl__get_min(hl_urho3d_math_boundingbox* r0) {
+	hl_urho3d_math_tvector3 *r1;
+	r1 = Urho3D__math_boundingbox_get_min(r0);
+	return r1;
+}
+
+hl_urho3d_math_tvector3* urho3d__BoundingBox_BoundingBox_Impl__set_max(hl_urho3d_math_boundingbox* r0,hl_urho3d_math_tvector3* r1) {
+	Urho3D__math_boundingbox_set_max(r0,r1);
+	return r1;
+}
+
+hl_urho3d_math_tvector3* urho3d__BoundingBox_BoundingBox_Impl__get_max(hl_urho3d_math_boundingbox* r0) {
+	hl_urho3d_math_tvector3 *r1;
+	r1 = Urho3D__math_boundingbox_get_max(r0);
+	return r1;
+}
+

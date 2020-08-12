@@ -6,6 +6,7 @@ typedef struct _urho3d__Input *urho3d__Input;
 #include <hl/Class.h>
 #include <hl/BaseType.h>
 #include <_std/String.h>
+#include <hl/natives.h>
 
 
 struct _urho3d__$Input {
@@ -15,10 +16,18 @@ struct _urho3d__$Input {
 	varray* __implementedBy__;
 	String __name__;
 	vdynamic* __constructor__;
+	int keyDown;
+	int keyPress;
+	vclosure* GetKeyDown;
+	vclosure* GetKeyPress;
 	vclosure* get_mouseMove;
 	vclosure* get_numTouches;
-	vclosure* touchState;
 	vclosure* touchID;
+	vclosure* GetTouch;
+	vclosure* SetMouseVisible;
+	vclosure* SetMouseMode;
+	vclosure* GetMouseButtonPress;
+	vclosure* GetMouseButtonDown;
 };
 struct _urho3d__Input {
 	hl_type *$type;

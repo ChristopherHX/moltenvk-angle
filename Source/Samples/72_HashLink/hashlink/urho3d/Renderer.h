@@ -16,7 +16,11 @@ struct _urho3d__$Renderer {
 	varray* __implementedBy__;
 	String __name__;
 	vdynamic* __constructor__;
+	hl_urho3d_graphics_viewport* viewports;
 	vclosure* SetViewport;
+	vclosure* set_numViewports;
+	vclosure* get_numViewports;
+	vclosure* DrawDebugGeometry;
 };
 struct _urho3d__Renderer {
 	hl_type *$type;

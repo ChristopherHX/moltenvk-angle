@@ -21,6 +21,8 @@ struct _urho3d___Vector3__$Vector3_Impl_ {
 	hl_urho3d_math_vector3* RIGHT;
 	hl_urho3d_math_vector3* UP;
 	hl_urho3d_math_vector3* DOWN;
+	hl_urho3d_math_vector3* FORWARD;
+	hl_urho3d_math_vector3* BACK;
 	hl_urho3d_math_vector3* ONE;
 	vclosure* _new;
 	vclosure* isTypeOf;

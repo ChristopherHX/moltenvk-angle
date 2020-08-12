@@ -11,6 +11,8 @@ extern String s$;
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern hl_type t$urho3d_Node;
 void urho3d_Node_new(urho3d__Node,hl_urho3d_scene_node*);
+extern hl_type t$hl_types_ArrayObj;
+void hl_types_ArrayObj_new(hl__types__ArrayObj);
 #include <urho3d/Scene.h>
 extern hl_type t$urho3d_Component;
 hl__types__ArrayObj hl_types_ArrayObj_alloc(varray*);
@@ -96,16 +98,23 @@ hl_urho3d_scene_component* urho3d_Node_CreateComponent(urho3d__Node r0,String r1
 	return r6;
 }
 
-hl_urho3d_scene_component* urho3d_Node_GetComponent(urho3d__Node r0,String r1) {
-	hl_urho3d_scene_component *r2;
-	urho3d___Context__$Context_Impl_ r4;
-	hl_urho3d_scene_node *r5;
-	urho3d_context *r3;
-	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r3 = r4->context;
-	r5 = r0->abstractNode;
-	r2 = Urho3D__scene_node_get_component(r3,r5,r1);
-	return r2;
+hl_urho3d_scene_component* urho3d_Node_GetComponent(urho3d__Node r0,String r1,bool* r2) {
+	hl_urho3d_scene_component *r4;
+	bool r3;
+	urho3d___Context__$Context_Impl_ r6;
+	hl_urho3d_scene_node *r7;
+	urho3d_context *r5;
+	if( r2 ) goto label$fd82567_4_3;
+	r3 = false;
+	goto label$fd82567_4_4;
+	label$fd82567_4_3:
+	r3 = *r2;
+	label$fd82567_4_4:
+	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r5 = r6->context;
+	r7 = r0->abstractNode;
+	r4 = Urho3D__scene_node_get_component(r5,r7,r1,r3);
+	return r4;
 }
 
 void urho3d_Node_AddComponent(urho3d__Node r0,urho3d__Component r1,int* r2,int* r3) {
@@ -268,6 +277,126 @@ void urho3d_Node_RotateEuler(urho3d__Node r0,double r1,double r2,double r3,int* 
 	return;
 }
 
+void urho3d_Node_Translate(urho3d__Node r0,hl_urho3d_math_tvector3* r1,int* r2) {
+	urho3d___Context__$Context_Impl_ r6;
+	hl_urho3d_scene_node *r7;
+	urho3d_context *r5;
+	int r3;
+	if( r2 ) goto label$fd82567_16_3;
+	r3 = 0;
+	goto label$fd82567_16_4;
+	label$fd82567_16_3:
+	r3 = *r2;
+	label$fd82567_16_4:
+	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r5 = r6->context;
+	r7 = r0->abstractNode;
+	Urho3D__scene_node_translate(r5,r7,r1,r3);
+	return;
+}
+
+void urho3d_Node_Yaw(urho3d__Node r0,double r1,int* r2) {
+	urho3d___Context__$Context_Impl_ r6;
+	float r8;
+	hl_urho3d_scene_node *r7;
+	urho3d_context *r5;
+	int r3;
+	if( r2 ) goto label$fd82567_17_3;
+	r3 = 0;
+	goto label$fd82567_17_4;
+	label$fd82567_17_3:
+	r3 = *r2;
+	label$fd82567_17_4:
+	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r5 = r6->context;
+	r7 = r0->abstractNode;
+	r8 = (float)r1;
+	Urho3D__scene_node_yaw(r5,r7,r8,r3);
+	return;
+}
+
+void urho3d_Node_Pitch(urho3d__Node r0,double r1,int* r2) {
+	urho3d___Context__$Context_Impl_ r6;
+	float r8;
+	hl_urho3d_scene_node *r7;
+	urho3d_context *r5;
+	int r3;
+	if( r2 ) goto label$fd82567_18_3;
+	r3 = 0;
+	goto label$fd82567_18_4;
+	label$fd82567_18_3:
+	r3 = *r2;
+	label$fd82567_18_4:
+	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r5 = r6->context;
+	r7 = r0->abstractNode;
+	r8 = (float)r1;
+	Urho3D__scene_node_pitch(r5,r7,r8,r3);
+	return;
+}
+
+void urho3d_Node_Roll(urho3d__Node r0,double r1,int* r2) {
+	urho3d___Context__$Context_Impl_ r6;
+	float r8;
+	hl_urho3d_scene_node *r7;
+	urho3d_context *r5;
+	int r3;
+	if( r2 ) goto label$fd82567_19_3;
+	r3 = 0;
+	goto label$fd82567_19_4;
+	label$fd82567_19_3:
+	r3 = *r2;
+	label$fd82567_19_4:
+	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r5 = r6->context;
+	r7 = r0->abstractNode;
+	r8 = (float)r1;
+	Urho3D__scene_node_roll(r5,r7,r8,r3);
+	return;
+}
+
+hl__types__ArrayObj urho3d_Node_GetChildrenWithComponent(urho3d__Node r0,hl_urho3d_tstringhash* r1,bool* r2) {
+	hl__types__ArrayObj r9;
+	bool r3;
+	urho3d__Node r15;
+	urho3d___Context__$Context_Impl_ r6;
+	hl_urho3d_scene_node *r7;
+	urho3d_context *r5;
+	int r10, r11, r12, r13, r14;
+	hl_urho3d_scene_pod_node *r4;
+	if( r2 ) goto label$fd82567_20_3;
+	r3 = false;
+	goto label$fd82567_20_4;
+	label$fd82567_20_3:
+	r3 = *r2;
+	label$fd82567_20_4:
+	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r5 = r6->context;
+	r7 = r0->abstractNode;
+	r4 = Urho3D__scene_node_get_children_with_component(r5,r7,r1,r3);
+	r9 = (hl__types__ArrayObj)hl_alloc_obj(&t$hl_types_ArrayObj);
+	hl_types_ArrayObj_new(r9);
+	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r5 = r6->context;
+	r10 = Urho3D__scene_node_get_pod_vector_size(r5,r4);
+	r11 = 0;
+	r12 = r10;
+	label$fd82567_20_15:
+	if( r11 >= r12 ) goto label$fd82567_20_27;
+	r13 = r11;
+	++r11;
+	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r5 = r6->context;
+	r7 = Urho3D__scene_node_get_from_pod_vector(r5,r4,r13);
+	if( r9 == NULL ) hl_null_access();
+	r15 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
+	urho3d_Node_new(r15,r7);
+	r14 = hl_types_ArrayObj_push(r9,((vdynamic*)r15));
+	goto label$fd82567_20_15;
+	label$fd82567_20_27:
+	return r9;
+}
+
 void urho3d_Node_new(urho3d__Node r0,hl_urho3d_scene_node* r1) {
 	hl__types__ArrayObj r3;
 	hl_type *r5;
@@ -290,25 +419,25 @@ void urho3d_Node_new(urho3d__Node r0,hl_urho3d_scene_node* r1) {
 	r4 = hl_alloc_array(r5,r6);
 	r3 = hl_types_ArrayObj_alloc(r4);
 	r0->children = r3;
-	if( !r1 ) goto label$fd82567_16_15;
+	if( !r1 ) goto label$fd82567_21_15;
 	r0->abstractNode = r1;
-	goto label$fd82567_16_19;
-	label$fd82567_16_15:
+	goto label$fd82567_21_19;
+	label$fd82567_21_15:
 	r9 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r8 = r9->context;
 	r2 = Urho3D__scene_node_create(r8);
 	r0->abstractNode = r2;
-	label$fd82567_16_19:
+	label$fd82567_21_19:
 	r11 = (urho3d__$Scene)g$_urho3d_Scene;
 	r10 = r11->currentScene;
-	if( !r10 ) goto label$fd82567_16_28;
+	if( !r10 ) goto label$fd82567_21_28;
 	r11 = (urho3d__$Scene)g$_urho3d_Scene;
 	r10 = r11->currentScene;
 	if( r10 == NULL ) hl_null_access();
 	r3 = r10->nodes;
 	if( r3 == NULL ) hl_null_access();
 	r6 = hl_types_ArrayObj_push(r3,((vdynamic*)r0));
-	label$fd82567_16_28:
+	label$fd82567_21_28:
 	return;
 }
 

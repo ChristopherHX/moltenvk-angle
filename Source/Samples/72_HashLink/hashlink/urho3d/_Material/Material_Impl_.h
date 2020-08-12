@@ -17,6 +17,10 @@ struct _urho3d___Material__$Material_Impl_ {
 	String __name__;
 	vdynamic* __constructor__;
 	vclosure* _new;
+	vclosure* SetTechnique;
+	vclosure* SetTexture;
+	vclosure* set_depthBias;
+	vclosure* get_depthBias;
 };
 struct _urho3d___Material__Material_Impl_ {
 	hl_type *$type;

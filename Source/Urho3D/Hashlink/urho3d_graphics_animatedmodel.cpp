@@ -103,7 +103,28 @@ HL_PRIM void HL_NAME(_graphics_animatedmodel_set_cast_shadows)(urho3d_context *c
 HL_PRIM bool HL_NAME(_graphics_animatedmodel_get_cast_shadows)(urho3d_context *context, hl_urho3d_graphics_animatedmodel *animatedmodel)
 {
      return animatedmodel->ptr->GetCastShadows();
+}
 
+HL_PRIM void HL_NAME(_graphics_animatedmodel_set_occluder)(urho3d_context *context, hl_urho3d_graphics_animatedmodel *animatedmodel, bool occluder)
+{
+    animatedmodel->ptr->SetOccluder(occluder);
+
+}
+
+HL_PRIM bool HL_NAME(_graphics_animatedmodel_get_occluder)(urho3d_context *context, hl_urho3d_graphics_animatedmodel *animatedmodel)
+{
+    return animatedmodel->ptr->IsOccluder();
+}
+
+HL_PRIM void HL_NAME(_graphics_animatedmodel_set_occludee)(urho3d_context *context, hl_urho3d_graphics_animatedmodel *animatedmodel, bool occludee)
+{
+    animatedmodel->ptr->SetOccludee(occludee);
+
+}
+
+HL_PRIM bool HL_NAME(_graphics_animatedmodel_get_occludee)(urho3d_context *context, hl_urho3d_graphics_animatedmodel *animatedmodel)
+{
+    return animatedmodel->ptr->IsOccludee();
 }
 
 
@@ -118,3 +139,7 @@ DEFINE_PRIM(HL_URHO3D_TANIMATION_STATE, _graphics_animatedmodel_add_animation_st
 DEFINE_PRIM(HL_URHO3D_TANIMATION_STATE, _graphics_animatedmodel_get_animation_state, URHO3D_CONTEXT HL_URHO3D_ANIMATEDMODEL _I32);
 DEFINE_PRIM(_VOID, _graphics_animatedmodel_set_cast_shadows, URHO3D_CONTEXT HL_URHO3D_ANIMATEDMODEL _BOOL);
 DEFINE_PRIM(_BOOL, _graphics_animatedmodel_get_cast_shadows, URHO3D_CONTEXT HL_URHO3D_ANIMATEDMODEL );
+DEFINE_PRIM(_VOID, _graphics_animatedmodel_set_occluder, URHO3D_CONTEXT HL_URHO3D_ANIMATEDMODEL _BOOL);
+DEFINE_PRIM(_BOOL, _graphics_animatedmodel_get_occluder, URHO3D_CONTEXT HL_URHO3D_ANIMATEDMODEL );
+DEFINE_PRIM(_VOID, _graphics_animatedmodel_set_occludee, URHO3D_CONTEXT HL_URHO3D_ANIMATEDMODEL _BOOL);
+DEFINE_PRIM(_BOOL, _graphics_animatedmodel_get_occludee, URHO3D_CONTEXT HL_URHO3D_ANIMATEDMODEL );

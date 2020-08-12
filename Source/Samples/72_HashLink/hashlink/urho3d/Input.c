@@ -4,11 +4,29 @@
 #include <urho3d/Input.h>
 #include <hl/natives.h>
 #include <urho3d/_Context/Context_Impl_.h>
-extern hl_type t$vrt_e52a26e;
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
+extern hl_type t$vrt_e52a26e;
 extern hl_type t$_i32;
-extern hl_type t$vrt_0bf31e0;
-extern hl_type t$_f32;
+
+bool urho3d_Input_GetKeyDown(int r0) {
+	bool r1;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r1 = Urho3D__input_get_key_down(r2,r0);
+	return r1;
+}
+
+bool urho3d_Input_GetKeyPress(int r0) {
+	bool r1;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r1 = Urho3D__input_get_key_press(r2,r0);
+	return r1;
+}
 
 vvirtual* urho3d_Input_get_mouseMove() {
 	vvirtual *r0;
@@ -37,56 +55,6 @@ int urho3d_Input_get_numTouches() {
 	return r0;
 }
 
-vvirtual* urho3d_Input_touchState(int r0) {
-	vvirtual *r1, *r5;
-	urho3d___Context__$Context_Impl_ r4;
-	float r6;
-	urho3d_context *r3;
-	double r7;
-	int r2;
-	r1 = hl_alloc_virtual(&t$vrt_0bf31e0);
-	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r3 = r4->context;
-	r2 = Urho3D__input_get_touch_id(r3,r0);
-	if( hl_vfields(r1)[4] ) *(int*)(hl_vfields(r1)[4]) = (int)r2; else hl_dyn_seti(r1->value,-117963563/*touchID*/,&t$_i32,r2);
-	r5 = hl_alloc_virtual(&t$vrt_e52a26e);
-	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r3 = r4->context;
-	r2 = Urho3D__input_get_touch_position_x(r3,r0);
-	if( hl_vfields(r5)[0] ) *(int*)(hl_vfields(r5)[0]) = (int)r2; else hl_dyn_seti(r5->value,120/*x*/,&t$_i32,r2);
-	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r3 = r4->context;
-	r2 = Urho3D__input_get_touch_position_y(r3,r0);
-	if( hl_vfields(r5)[1] ) *(int*)(hl_vfields(r5)[1]) = (int)r2; else hl_dyn_seti(r5->value,121/*y*/,&t$_i32,r2);
-	if( hl_vfields(r1)[2] ) *(vvirtual**)(hl_vfields(r1)[2]) = (vvirtual*)r5; else hl_dyn_setp(r1->value,-352673756/*position*/,&t$vrt_e52a26e,r5);
-	r5 = hl_alloc_virtual(&t$vrt_e52a26e);
-	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r3 = r4->context;
-	r2 = Urho3D__input_get_touch_last_position_x(r3,r0);
-	if( hl_vfields(r5)[0] ) *(int*)(hl_vfields(r5)[0]) = (int)r2; else hl_dyn_seti(r5->value,120/*x*/,&t$_i32,r2);
-	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r3 = r4->context;
-	r2 = Urho3D__input_get_touch_last_position_y(r3,r0);
-	if( hl_vfields(r5)[1] ) *(int*)(hl_vfields(r5)[1]) = (int)r2; else hl_dyn_seti(r5->value,121/*y*/,&t$_i32,r2);
-	if( hl_vfields(r1)[1] ) *(vvirtual**)(hl_vfields(r1)[1]) = (vvirtual*)r5; else hl_dyn_setp(r1->value,210546084/*lastPosition*/,&t$vrt_e52a26e,r5);
-	r5 = hl_alloc_virtual(&t$vrt_e52a26e);
-	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r3 = r4->context;
-	r2 = Urho3D__input_get_touch_delta_x(r3,r0);
-	if( hl_vfields(r5)[0] ) *(int*)(hl_vfields(r5)[0]) = (int)r2; else hl_dyn_seti(r5->value,120/*x*/,&t$_i32,r2);
-	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r3 = r4->context;
-	r2 = Urho3D__input_get_touch_delta_y(r3,r0);
-	if( hl_vfields(r5)[1] ) *(int*)(hl_vfields(r5)[1]) = (int)r2; else hl_dyn_seti(r5->value,121/*y*/,&t$_i32,r2);
-	if( hl_vfields(r1)[0] ) *(vvirtual**)(hl_vfields(r1)[0]) = (vvirtual*)r5; else hl_dyn_setp(r1->value,-148445325/*delta*/,&t$vrt_e52a26e,r5);
-	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r3 = r4->context;
-	r6 = Urho3D__input_get_touch_pressure(r3,r0);
-	r7 = (double)hl_dyn_castd(&r6,&t$_f32);
-	if( hl_vfields(r1)[3] ) *(double*)(hl_vfields(r1)[3]) = (double)r7; else hl_dyn_setd(r1->value,270380372/*pressure*/,r7);
-	return r1;
-}
-
 int urho3d_Input_touchID(int r0) {
 	urho3d___Context__$Context_Impl_ r3;
 	urho3d_context *r2;
@@ -94,6 +62,54 @@ int urho3d_Input_touchID(int r0) {
 	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r2 = r3->context;
 	r1 = Urho3D__input_get_touch_id(r2,r0);
+	return r1;
+}
+
+hl_urho3d_input_touch_state* urho3d_Input_GetTouch(int r0) {
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	hl_urho3d_input_touch_state *r1;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r1 = Urho3D__input_touch_state_get(r2,r0);
+	return r1;
+}
+
+void urho3d_Input_SetMouseVisible(bool r0) {
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	Urho3D__input_set_mouse_visible(r2,r0);
+	return;
+}
+
+void urho3d_Input_SetMouseMode(int r0) {
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	Urho3D__input_set_mouse_mode(r2,r0);
+	return;
+}
+
+bool urho3d_Input_GetMouseButtonPress(int r0) {
+	bool r1;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r1 = Urho3D__input_get_mouse_button_press(r2,r0);
+	return r1;
+}
+
+bool urho3d_Input_GetMouseButtonDown(int r0) {
+	bool r1;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r1 = Urho3D__input_get_mouse_button_down(r2,r0);
 	return r1;
 }
 

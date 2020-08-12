@@ -45,3 +45,9 @@ hl_urho3d_math_tquaternion* urho3d__TQuaternion_TQuaternion_Impl__fromQuaternion
 	return r1;
 }
 
+hl_urho3d_math_tvector3* urho3d__TQuaternion_TQuaternion_Impl__mulVector3(hl_urho3d_math_tquaternion* r0,hl_urho3d_math_tvector3* r1) {
+	hl_urho3d_math_tvector3 *r2;
+	r2 = Urho3D__math_tquaternion_multiply_tvector3(r0,r1);
+	return r2;
+}
+

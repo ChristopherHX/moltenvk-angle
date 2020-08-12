@@ -19,6 +19,8 @@ struct _urho3d___Viewport__$Viewport_Impl_ {
 	String __name__;
 	vdynamic* __constructor__;
 	vclosure* _new;
+	vclosure* set_renderPath;
+	vclosure* get_renderPath;
 };
 struct _urho3d___Viewport__Viewport_Impl_ {
 	hl_type *$type;

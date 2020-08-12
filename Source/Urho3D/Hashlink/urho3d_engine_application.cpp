@@ -57,11 +57,7 @@ class ProxyApp : public Application
 
         engineParameters_[EP_RESOURCE_PREFIX_PATHS] = GetSubsystem<FileSystem>()->GetProgramDir();
 #if URHO3D_HAXE_HASHLINK
-#   if defined(URHO3D_HAXE_HASHLINK_HDLL) || defined(URHO3D_HAXE_HASHLINK_STATIC_LIB)
-        engineParameters_[EP_RESOURCE_PATHS] = "bin/Data;bin/CoreData;";
-#   else
         engineParameters_[EP_RESOURCE_PATHS] = "Data;CoreData;";
-#   endif
 #else
         // TBD ELI , should be dynamically modified
         engineParameters_[EP_RESOURCE_PREFIX_PATHS] = "/Users/elialoni/projects/Urho3D-Hashlink";

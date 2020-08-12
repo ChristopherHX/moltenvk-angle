@@ -4,33 +4,39 @@
 #include <urho3d/_Quaternion/Quaternion_Impl_.h>
 #include <hl/natives.h>
 
-hl_urho3d_math_quaternion* urho3d__Quaternion_Quaternion_Impl___new(double* r0,double* r1,double* r2) {
-	hl_urho3d_math_quaternion *r6;
-	float r7, r8, r9;
-	double r3, r4, r5;
+hl_urho3d_math_quaternion* urho3d__Quaternion_Quaternion_Impl___new(double* r0,double* r1,double* r2,hl_urho3d_math_tvector3* r3) {
+	hl_urho3d_math_quaternion *r7;
+	float r8, r9, r10;
+	double r4, r5, r6;
 	if( r0 ) goto label$e48a056_1_3;
-	r3 = 0.;
+	r4 = 0.;
 	goto label$e48a056_1_4;
 	label$e48a056_1_3:
-	r3 = *r0;
+	r4 = *r0;
 	label$e48a056_1_4:
 	if( r1 ) goto label$e48a056_1_7;
-	r4 = 0.;
+	r5 = 0.;
 	goto label$e48a056_1_8;
 	label$e48a056_1_7:
-	r4 = *r1;
+	r5 = *r1;
 	label$e48a056_1_8:
 	if( r2 ) goto label$e48a056_1_11;
-	r5 = 0.;
+	r6 = 0.;
 	goto label$e48a056_1_12;
 	label$e48a056_1_11:
-	r5 = *r2;
+	r6 = *r2;
 	label$e48a056_1_12:
-	r7 = (float)r3;
+	if( !r3 ) goto label$e48a056_1_16;
+	r8 = (float)r4;
+	r7 = Urho3D__math_quaternion_create_fv(r8,r3);
+	goto label$e48a056_1_20;
+	label$e48a056_1_16:
 	r8 = (float)r4;
 	r9 = (float)r5;
-	r6 = Urho3D__math_quaternion_create(r7,r8,r9);
-	return r6;
+	r10 = (float)r6;
+	r7 = Urho3D__math_quaternion_create(r8,r9,r10);
+	label$e48a056_1_20:
+	return r7;
 }
 
 void urho3d__Quaternion_Quaternion_Impl__SetAngles(hl_urho3d_math_quaternion* r0,double r1,double r2,double r3) {

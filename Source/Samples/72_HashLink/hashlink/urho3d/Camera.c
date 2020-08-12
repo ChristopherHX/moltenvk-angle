@@ -7,6 +7,21 @@
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 void urho3d_Component_new(urho3d__Component,hl_urho3d_scene_component*);
 
+hl_urho3d_math_ray* urho3d_Camera_GetScreenRay(urho3d__Camera r0,double r1,double r2) {
+	hl_urho3d_math_ray *r3;
+	hl_urho3d_graphics_camera *r6;
+	urho3d___Context__$Context_Impl_ r5;
+	float r7, r8;
+	urho3d_context *r4;
+	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r4 = r5->context;
+	r6 = r0->_abstract;
+	r7 = (float)r1;
+	r8 = (float)r2;
+	r3 = Urho3D__graphics_camera_get_screen_ray(r4,r6,r7,r8);
+	return r3;
+}
+
 float urho3d_Camera_set_farClip(urho3d__Camera r0,float r1) {
 	hl_urho3d_graphics_camera *r5;
 	urho3d___Context__$Context_Impl_ r4;
@@ -53,6 +68,29 @@ float urho3d_Camera_get_fov(urho3d__Camera r0) {
 	return r1;
 }
 
+int urho3d_Camera_set_viewOverrideFlags(urho3d__Camera r0,int r1) {
+	hl_urho3d_graphics_camera *r5;
+	urho3d___Context__$Context_Impl_ r4;
+	urho3d_context *r3;
+	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r3 = r4->context;
+	r5 = r0->_abstract;
+	Urho3D__graphics_camera_set_view_override_flags(r3,r5,r1);
+	return r1;
+}
+
+int urho3d_Camera_get_viewOverrideFlags(urho3d__Camera r0) {
+	hl_urho3d_graphics_camera *r4;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	int r1;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r4 = r0->_abstract;
+	r1 = Urho3D__graphics_camera_get_view_override_flags(r2,r4);
+	return r1;
+}
+
 void urho3d_Camera_new(urho3d__Camera r0,hl_urho3d_graphics_camera* r1) {
 	hl_urho3d_scene_component *r6;
 	urho3d___Context__$Context_Impl_ r5;
@@ -60,15 +98,15 @@ void urho3d_Camera_new(urho3d__Camera r0,hl_urho3d_graphics_camera* r1) {
 	urho3d_context *r4;
 	r2 = NULL;
 	r0->_abstract = r2;
-	if( !r1 ) goto label$3956400_5_5;
+	if( !r1 ) goto label$3956400_8_5;
 	r0->_abstract = r1;
-	goto label$3956400_5_9;
-	label$3956400_5_5:
+	goto label$3956400_8_9;
+	label$3956400_8_5:
 	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r4 = r5->context;
 	r2 = Urho3D__graphics_camera_create(r4);
 	r0->_abstract = r2;
-	label$3956400_5_9:
+	label$3956400_8_9:
 	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r4 = r5->context;
 	r2 = r0->_abstract;

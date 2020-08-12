@@ -2,9 +2,138 @@
 #define HLC_BOOT
 #include <hlc.h>
 #include <urho3d/Graphics.h>
+extern urho3d__$Graphics g$_urho3d_Graphics;
 #include <hl/natives.h>
 #include <urho3d/_Context/Context_Impl_.h>
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
+
+int urho3d_Graphics_GetAlphaFormat() {
+	urho3d__$Graphics r1;
+	bool r0;
+	int r2;
+	r1 = (urho3d__$Graphics)g$_urho3d_Graphics;
+	r0 = r1->gl3Support;
+	if( !r0 ) goto label$cee1bc6_1_5;
+	r2 = 33321;
+	return r2;
+	label$cee1bc6_1_5:
+	r2 = 6406;
+	return r2;
+}
+
+int urho3d_Graphics_GetLuminanceFormat() {
+	urho3d__$Graphics r1;
+	bool r0;
+	int r2;
+	r1 = (urho3d__$Graphics)g$_urho3d_Graphics;
+	r0 = r1->gl3Support;
+	if( !r0 ) goto label$cee1bc6_2_5;
+	r2 = 33321;
+	return r2;
+	label$cee1bc6_2_5:
+	r2 = 6409;
+	return r2;
+}
+
+int urho3d_Graphics_GetLuminanceAlphaFormat() {
+	urho3d__$Graphics r1;
+	bool r0;
+	int r2;
+	r1 = (urho3d__$Graphics)g$_urho3d_Graphics;
+	r0 = r1->gl3Support;
+	if( !r0 ) goto label$cee1bc6_3_5;
+	r2 = 33323;
+	return r2;
+	label$cee1bc6_3_5:
+	r2 = 6410;
+	return r2;
+}
+
+int urho3d_Graphics_GetRGBFormat() {
+	int r0;
+	r0 = 6407;
+	return r0;
+}
+
+int urho3d_Graphics_GetRGBAFormat() {
+	int r0;
+	r0 = 6408;
+	return r0;
+}
+
+int urho3d_Graphics_GetRGBA16Format() {
+	int r0;
+	r0 = 32859;
+	return r0;
+}
+
+int urho3d_Graphics_GetRGBAFloat16Format() {
+	int r0;
+	r0 = 34842;
+	return r0;
+}
+
+int urho3d_Graphics_GetRGBAFloat32Format() {
+	int r0;
+	r0 = 34836;
+	return r0;
+}
+
+int urho3d_Graphics_GetRG16Format() {
+	int r0;
+	r0 = 33324;
+	return r0;
+}
+
+int urho3d_Graphics_GetRGFloat16Format() {
+	int r0;
+	r0 = 33327;
+	return r0;
+}
+
+int urho3d_Graphics_GetRGFloat32Format() {
+	int r0;
+	r0 = 33328;
+	return r0;
+}
+
+int urho3d_Graphics_GetFloat16Format() {
+	int r0;
+	r0 = 33325;
+	return r0;
+}
+
+int urho3d_Graphics_GetFloat32Format() {
+	int r0;
+	r0 = 33326;
+	return r0;
+}
+
+int urho3d_Graphics_GetLinearDepthFormat() {
+	urho3d__$Graphics r1;
+	bool r0;
+	int r2;
+	r1 = (urho3d__$Graphics)g$_urho3d_Graphics;
+	r0 = r1->gl3Support;
+	if( !r0 ) goto label$cee1bc6_14_5;
+	r2 = 33326;
+	return r2;
+	label$cee1bc6_14_5:
+	r2 = 6408;
+	return r2;
+}
+
+int urho3d_Graphics_GetDepthStencilFormat() {
+	int r0;
+	r0 = 35056;
+	return r0;
+}
+
+int urho3d_Graphics_GetReadableDepthFormat() {
+	int r0;
+	r0 = 33190;
+	return r0;
+}
 
 int urho3d_Graphics_get_width() {
 	urho3d___Context__$Context_Impl_ r2;

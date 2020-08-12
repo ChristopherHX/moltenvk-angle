@@ -17,6 +17,10 @@ struct _urho3d___BoundingBox__$BoundingBox_Impl_ {
 	String __name__;
 	vdynamic* __constructor__;
 	vclosure* _new;
+	vclosure* set_min;
+	vclosure* get_min;
+	vclosure* set_max;
+	vclosure* get_max;
 };
 struct _urho3d___BoundingBox__BoundingBox_Impl_ {
 	hl_type *$type;
