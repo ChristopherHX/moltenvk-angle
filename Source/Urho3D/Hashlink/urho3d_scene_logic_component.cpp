@@ -8,7 +8,7 @@ extern "C"
 #endif
 }
 
-#include "global_types.h"
+#include "global_types.inc"
 
 static int hl_hash_start = 0;
 static int hl_hash_delayed_start = 0;

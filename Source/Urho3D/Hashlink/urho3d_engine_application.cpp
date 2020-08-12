@@ -9,7 +9,7 @@ extern "C"
 }
 
 
-#include "global_types.h"
+#include "global_types.inc"
 
 vdynamic *hl_dyn_abstract_call(vclosure *c, vdynamic **args, int nargs);
 void *hl_dyn_getp_internal(vdynamic *d, hl_field_lookup **f, int hfield, vclosure *c = NULL);

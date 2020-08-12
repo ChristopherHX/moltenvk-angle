@@ -1,4 +1,9 @@
 {
     "git.ignoreLimitWarning": true,
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "files.associations": {
+        "*.as": "cpp",
+        "*.inc": "cpp",
+        "valarray": "cpp"
+    }
 }

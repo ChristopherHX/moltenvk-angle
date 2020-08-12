@@ -163,8 +163,13 @@
 #    define EXPORT __attribute__((visibility("default")))
 #    define IMPORT extern
 #else
+#ifdef HL_ANDROID
+#	define EXPORT __attribute__((visibility("default")))
+#	define IMPORT extern
+#else
 #	define EXPORT
 #	define IMPORT extern
+#endif
 #endif
 #endif
 
