@@ -94,7 +94,7 @@ void AnimatingSceneSample_Setup(AnimatingSceneSample r0) {
 	r5 = hl_alloc_virtual(&t$vrt_329ffa8);
 	r6 = (String)s$src_haxe_AnimatingSceneSample_hx;
 	if( hl_vfields(r5)[1] ) *(String*)(hl_vfields(r5)[1]) = (String)r6; else hl_dyn_setp(r5->value,37969014/*fileName*/,&t$String,r6);
-	r7 = 58;
+	r7 = 62;
 	if( hl_vfields(r5)[2] ) *(int*)(hl_vfields(r5)[2]) = (int)r7; else hl_dyn_seti(r5->value,371360620/*lineNumber*/,&t$_i32,r7);
 	r6 = (String)s$AnimatingSceneSample;
 	if( hl_vfields(r5)[0] ) *(String*)(hl_vfields(r5)[0]) = (String)r6; else hl_dyn_setp(r5->value,-63073762/*className*/,&t$String,r6);
@@ -757,7 +757,7 @@ void AnimatingSceneSample_HandleUpdate(AnimatingSceneSample r0,hl_urho3d_stringh
 	r13 = hl_alloc_virtual(&t$vrt_329ffa8);
 	r14 = (String)s$src_haxe_AnimatingSceneSample_hx;
 	if( hl_vfields(r13)[1] ) *(String*)(hl_vfields(r13)[1]) = (String)r14; else hl_dyn_setp(r13->value,37969014/*fileName*/,&t$String,r14);
-	r9 = 154;
+	r9 = 158;
 	if( hl_vfields(r13)[2] ) *(int*)(hl_vfields(r13)[2]) = (int)r9; else hl_dyn_seti(r13->value,371360620/*lineNumber*/,&t$_i32,r9);
 	r14 = (String)s$AnimatingSceneSample;
 	if( hl_vfields(r13)[0] ) *(String*)(hl_vfields(r13)[0]) = (String)r14; else hl_dyn_setp(r13->value,-63073762/*className*/,&t$String,r14);
@@ -778,7 +778,7 @@ void AnimatingSceneSample_new(AnimatingSceneSample r0) {
 	int r1;
 	r1 = 1;
 	r0->counter = r1;
-	r1 = 4000;
+	r1 = 500;
 	r0->NUM_OBJECTS = r1;
 	r2 = 0.;
 	r0->pitch = r2;

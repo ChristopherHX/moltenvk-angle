@@ -5,6 +5,12 @@
 #include <hl/natives.h>
 extern hl_type t$urho3d_Node;
 void urho3d_Node_new(urho3d__Node,hl_urho3d_scene_node*);
+#include <urho3d/Scene.h>
+extern hl_type t$urho3d_Scene;
+void urho3d_Scene_new(urho3d__Scene,hl_urho3d_scene_scene*);
+void urho3d_LogicComponent_OnSceneSet(urho3d__LogicComponent,urho3d__Scene);
+void urho3d_LogicComponent_OnMarkedDirty(urho3d__LogicComponent,urho3d__Node);
+void urho3d_LogicComponent_OnNodeSetEnabled(urho3d__LogicComponent,urho3d__Node);
 int Std_random(int);
 #include <urho3d/_Context/Context_Impl_.h>
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
@@ -46,6 +52,42 @@ void urho3d_LogicComponent_OnNodeSet(urho3d__LogicComponent r0,urho3d__Node r1) 
 	return;
 }
 
+void urho3d_LogicComponent__OnSceneSet(urho3d__LogicComponent r0,hl_urho3d_scene_scene* r1) {
+	urho3d__Scene r3;
+	r3 = (urho3d__Scene)hl_alloc_obj(&t$urho3d_Scene);
+	urho3d_Scene_new(r3,r1);
+	urho3d_LogicComponent_OnSceneSet(r0,r3);
+	return;
+}
+
+void urho3d_LogicComponent_OnSceneSet(urho3d__LogicComponent r0,urho3d__Scene r1) {
+	return;
+}
+
+void urho3d_LogicComponent__OnMarkedDirty(urho3d__LogicComponent r0,hl_urho3d_scene_node* r1) {
+	urho3d__Node r3;
+	r3 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
+	urho3d_Node_new(r3,r1);
+	urho3d_LogicComponent_OnMarkedDirty(r0,r3);
+	return;
+}
+
+void urho3d_LogicComponent_OnMarkedDirty(urho3d__LogicComponent r0,urho3d__Node r1) {
+	return;
+}
+
+void urho3d_LogicComponent__OnNodeSetEnabled(urho3d__LogicComponent r0,hl_urho3d_scene_node* r1) {
+	urho3d__Node r3;
+	r3 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
+	urho3d_Node_new(r3,r1);
+	urho3d_LogicComponent_OnNodeSetEnabled(r0,r3);
+	return;
+}
+
+void urho3d_LogicComponent_OnNodeSetEnabled(urho3d__LogicComponent r0,urho3d__Node r1) {
+	return;
+}
+
 double urho3d_LogicComponent_Random(urho3d__LogicComponent r0,vdynamic* r1,vdynamic* r2) {
 	double r3, r5, r6, r7;
 	int r4;
@@ -54,15 +96,15 @@ double urho3d_LogicComponent_Random(urho3d__LogicComponent r0,vdynamic* r1,vdyna
 	r3 = (double)r4;
 	r5 = 100000.;
 	r3 = r3 / r5;
-	if( r1 ) goto label$8c73b8e_9_7;
+	if( r1 ) goto label$8c73b8e_15_7;
 	return r3;
-	label$8c73b8e_9_7:
-	if( !r1 ) goto label$8c73b8e_9_12;
-	if( r2 ) goto label$8c73b8e_9_12;
+	label$8c73b8e_15_7:
+	if( !r1 ) goto label$8c73b8e_15_12;
+	if( r2 ) goto label$8c73b8e_15_12;
 	r6 = r1 ? r1->v.d : 0;
 	r5 = r3 * r6;
 	return r5;
-	label$8c73b8e_9_12:
+	label$8c73b8e_15_12:
 	r6 = r2 ? r2->v.d : 0;
 	r7 = r1 ? r1->v.d : 0;
 	r6 = r6 - r7;

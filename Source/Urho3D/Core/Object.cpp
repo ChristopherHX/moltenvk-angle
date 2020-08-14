@@ -290,6 +290,31 @@ void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& excepti
     }
 }
 
+void Object::UnsubscribeFromEvents(void * userData)
+{
+    EventHandler* handler = eventHandlers_.First();
+    EventHandler* previous = nullptr;
+
+    while (handler)
+    {
+        EventHandler* next = eventHandlers_.Next(handler);
+
+        if ( handler->GetUserData() == userData)
+        {
+            if (handler->GetSender())
+                context_->RemoveEventReceiver(this, handler->GetSender(), handler->GetEventType());
+            else
+                context_->RemoveEventReceiver(this, handler->GetEventType());
+
+            eventHandlers_.Erase(handler, previous);
+        }
+        else
+            previous = handler;
+
+        handler = next;
+    }
+}
+
 void Object::SendEvent(StringHash eventType)
 {
     VariantMap noEventData;

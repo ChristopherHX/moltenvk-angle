@@ -18,6 +18,9 @@ static int hl_hash_post_update = 0;
 static int hl_hash_fixed_update = 0;
 static int hl_hash_fixed_post_update = 0;
 static int hl_hash_on_node_set = 0;
+static int hl_hash_on_scene_set = 0;
+static int hl_hash_on_marked_dirty = 0;
+static int hl_hash_on_node_set_enabled = 0;
 
 vdynamic *hl_dyn_abstract_call(vclosure *c, vdynamic **args, int nargs);
 // very fast function
@@ -28,9 +31,9 @@ class ProxyLogicComponent : public LogicComponent
     URHO3D_OBJECT(ProxyLogicComponent, LogicComponent);
 
 public:
-    ProxyLogicComponent(Context *context) : LogicComponent(context)
+    ProxyLogicComponent(Context *context,vdynamic * dyn = NULL) : LogicComponent(context)
     {
-        dyn_obj = NULL;
+        dyn_obj = dyn;
         dyn_obj_field_start = NULL;
         dyn_obj_field_delayed_start = NULL;
         dyn_obj_field_stop = NULL;
@@ -53,9 +56,13 @@ public:
         if (hl_hash_fixed_post_update == 0)
             hl_hash_fixed_post_update = hl_hash_utf8("FixedPostUpdate");
         if (hl_hash_on_node_set == 0)
-        {
             hl_hash_on_node_set = hl_hash_utf8("_OnNodeSet");
-        }
+        if (hl_hash_on_scene_set == 0)
+            hl_hash_on_scene_set = hl_hash_utf8("_OnSceneSet");
+        if (hl_hash_on_marked_dirty == 0)
+            hl_hash_on_marked_dirty = hl_hash_utf8("_OnMarkedDirty");
+        if (hl_hash_on_node_set_enabled == 0)
+            hl_hash_on_node_set_enabled = hl_hash_utf8("_OnNodeSetEnabled");
     }
 
     /// Destruct.
@@ -211,18 +218,69 @@ public:
         }
     }
 
-    virtual void OnNodeSet(Node* node)
+    virtual void OnNodeSet(Node *node)
     {
-       if (dyn_obj)
+        if (dyn_obj)
         {
-            // hl_type hl_type_urho3d_node = { HABSTRACT, {(const uchar *)USTR("hl_urho3d_scene_node")} };
-            //hl_type hl_type_urho3d_node = { HABSTRACT};
             vclosure *closure = (vclosure *)hl_dyn_getp(dyn_obj, hl_hash_on_node_set, &hlt_dyn);
             vdynamic *dyn_urho3d_node = hl_alloc_dynamic(&hlt_abstract);
             dyn_urho3d_node->v.ptr = hl_alloc_urho3d_scene_node_no_finalizer(NULL, node);
-            vdynamic *vargs[1]={dyn_urho3d_node};
+            vdynamic *vargs[1] = {dyn_urho3d_node};
             hl_dyn_abstract_call(closure, vargs, 1);
-        }   
+        }
+
+        LogicComponent::OnNodeSet(node);
+    }
+
+
+    virtual void OnSceneSet(Scene* scene)
+    {
+        
+        if (dyn_obj && scene)
+        {
+            vclosure *closure = (vclosure *)hl_dyn_getp(dyn_obj, hl_hash_on_scene_set, &hlt_dyn);
+            vdynamic *dyn_urho3d = hl_alloc_dynamic(&hlt_abstract);
+            hl_urho3d_scene_scene * hl_scene= hl_alloc_urho3d_scene_scene_no_finalizer(NULL,scene);
+            dyn_urho3d->v.ptr = hl_scene;
+            vdynamic *vargs[1] = {dyn_urho3d};
+            hl_dyn_abstract_call(closure, vargs, 1);
+
+            // Don't keep a reference to the scene , will cause a crash.
+            hl_scene->ptr = NULL;
+            
+        }
+        
+    
+       LogicComponent::OnSceneSet(scene);
+    }
+
+
+    virtual void OnMarkedDirty(Node* node)
+    {
+        if (dyn_obj)
+        {
+            vclosure *closure = (vclosure *)hl_dyn_getp(dyn_obj, hl_hash_on_marked_dirty, &hlt_dyn);
+            vdynamic *dyn_urho3d_node = hl_alloc_dynamic(&hlt_abstract);
+            dyn_urho3d_node->v.ptr = hl_alloc_urho3d_scene_node_no_finalizer(NULL, node);
+            vdynamic *vargs[1] = {dyn_urho3d_node};
+            hl_dyn_abstract_call(closure, vargs, 1);
+        }
+
+        LogicComponent::OnMarkedDirty(node);
+    }
+
+    virtual void OnNodeSetEnabled(Node* node)
+    {
+        if (dyn_obj)
+        {
+            vclosure *closure = (vclosure *)hl_dyn_getp(dyn_obj, hl_hash_on_node_set_enabled, &hlt_dyn);
+            vdynamic *dyn_urho3d_node = hl_alloc_dynamic(&hlt_abstract);
+            dyn_urho3d_node->v.ptr = hl_alloc_urho3d_scene_node_no_finalizer(NULL, node);
+            vdynamic *vargs[1] = {dyn_urho3d_node};
+            hl_dyn_abstract_call(closure, vargs, 1);
+        }  
+
+        LogicComponent::OnNodeSetEnabled(node);
     }
 
     vdynamic *dyn_obj;
@@ -257,10 +315,9 @@ hl_urho3d_scene_logic_component *hl_alloc_urho3d_scene_logic_component(urho3d_co
     hl_urho3d_scene_logic_component *p = (hl_urho3d_scene_logic_component *)hl_gc_alloc_finalizer(sizeof(hl_urho3d_scene_logic_component));
     memset(p, 0, sizeof(hl_urho3d_scene_logic_component));
     p->finalizer = (void *)finalize_urho3d_scene_logic_component;
-    ProxyLogicComponent *c = new ProxyLogicComponent(context);
-    c->dyn_obj = dyn_obj;
-    // hl_add_root(&dyn_obj);
+    ProxyLogicComponent *c = new ProxyLogicComponent(context,dyn_obj);
     p->ptr = c;
+    p->dyn_obj = dyn_obj;
     return p;
 }
 
@@ -271,6 +328,7 @@ hl_urho3d_scene_logic_component *hl_alloc_urho3d_scene_logic_component(urho3d_co
     memset(p, 0, sizeof(hl_urho3d_scene_logic_component));
     p->finalizer = (void *)finalize_urho3d_scene_logic_component;
     p->ptr = new ProxyLogicComponent(context);
+    p->dyn_obj = NULL;
     return p;
 }
 
@@ -282,6 +340,7 @@ hl_urho3d_scene_logic_component *hl_alloc_urho3d_scene_logic_component(LogicComp
         memset(p, 0, sizeof(hl_urho3d_scene_logic_component));
         p->finalizer = (void *)finalize_urho3d_scene_logic_component;
         p->ptr = component;
+        p->dyn_obj = NULL;
         return p;
     }
     return NULL;

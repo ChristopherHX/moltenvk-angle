@@ -5,6 +5,8 @@
 #include <hl/natives.h>
 #include <urho3d/_Context/Context_Impl_.h>
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
+extern hl_type t$urho3d_Scene;
+void urho3d_Scene_new(urho3d__Scene,hl_urho3d_scene_scene*);
 
 hl_urho3d_scene_scene* urho3d__Scene_AbstractScene_Impl___new() {
 	urho3d___Context__$Context_Impl_ r2;
@@ -14,5 +16,12 @@ hl_urho3d_scene_scene* urho3d__Scene_AbstractScene_Impl___new() {
 	r1 = r2->context;
 	r0 = Urho3D__scene_scene_create(r1);
 	return r0;
+}
+
+urho3d__Scene urho3d__Scene_AbstractScene_Impl__toScene(hl_urho3d_scene_scene* r0) {
+	urho3d__Scene r1;
+	r1 = (urho3d__Scene)hl_alloc_obj(&t$urho3d_Scene);
+	urho3d_Scene_new(r1,r0);
+	return r1;
 }
 

@@ -367,6 +367,7 @@ HL_API void Urho3D__physics_rigid_body_set_mass(urho3d_context*,hl_urho3d_physic
 HL_API void Urho3D__run_application(hl_urho3d_application*);
 HL_API hl_urho3d_scene_component* Urho3D__scene_component_create(urho3d_context*);
 HL_API hl_urho3d_scene_node* Urho3D__scene_component_get_node(urho3d_context*,hl_urho3d_scene_component*);
+HL_API void Urho3D__scene_component_subscribe_to_event(urho3d_context*,hl_urho3d_scene_component*,hl_urho3d_stringhash*,vdynamic*,String);
 HL_API hl_urho3d_scene_logic_component* Urho3D__scene_logic_component_cast_from_component(urho3d_context*,hl_urho3d_scene_component*);
 HL_API hl_urho3d_scene_component* Urho3D__scene_logic_component_cast_to_component(urho3d_context*,hl_urho3d_scene_logic_component*);
 HL_API hl_urho3d_scene_logic_component* Urho3D__scene_logic_component_create(urho3d_context*,vdynamic*);
@@ -390,6 +391,7 @@ HL_API void Urho3D__scene_node_set_direction(urho3d_context*,hl_urho3d_scene_nod
 HL_API void Urho3D__scene_node_set_position(urho3d_context*,hl_urho3d_scene_node*,hl_urho3d_math_tvector3*);
 HL_API void Urho3D__scene_node_set_rotation(urho3d_context*,hl_urho3d_scene_node*,hl_urho3d_math_tquaternion*);
 HL_API void Urho3D__scene_node_set_scale(urho3d_context*,hl_urho3d_scene_node*,hl_urho3d_math_tvector3*);
+HL_API void Urho3D__scene_node_subscribe_to_event(urho3d_context*,hl_urho3d_scene_node*,hl_urho3d_stringhash*,vdynamic*,String);
 HL_API void Urho3D__scene_node_translate(urho3d_context*,hl_urho3d_scene_node*,hl_urho3d_math_tvector3*,int);
 HL_API void Urho3D__scene_node_yaw(urho3d_context*,hl_urho3d_scene_node*,float,int);
 HL_API hl_urho3d_scene_node* Urho3D__scene_scene_cast_to_node(urho3d_context*,hl_urho3d_scene_scene*);

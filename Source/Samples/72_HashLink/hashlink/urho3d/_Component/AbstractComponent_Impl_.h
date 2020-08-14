@@ -39,6 +39,7 @@ struct _urho3d___Component__$AbstractComponent_Impl_ {
 	vclosure* toRigidBody;
 	vclosure* toCollisionShape;
 	vclosure* toSkybox;
+	vclosure* SubscribeToEvent;
 };
 struct _urho3d___Component__AbstractComponent_Impl_ {
 	hl_type *$type;

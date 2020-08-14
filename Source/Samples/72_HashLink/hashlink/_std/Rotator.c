@@ -3,26 +3,13 @@
 #include <hlc.h>
 #include <_std/Rotator.h>
 #include <hl/natives.h>
+extern String s$Update;
+extern String s$HandleMyUpdate;
+void urho3d_Component_SubscribeToEvent(urho3d__Component,hl_urho3d_stringhash*,String);
+extern String s$TimeStep;
 urho3d__Node urho3d_Component_get_node(urho3d__Component);
 void urho3d_Node_Rotate(urho3d__Node,hl_urho3d_math_tquaternion*,int*);
-#include <hl/types/ArrayDyn.h>
-#include <haxe/Log.h>
-extern haxe__$Log g$_haxe_Log;
-hl_urho3d_math_tvector3* urho3d_Node_get_position(urho3d__Node);
-extern String s$null;
-extern String s$TVector3_;
-String String___alloc__(vbyte*,int);
-String String___add__(String,String);
-extern String s$853ae90;
-extern String s$9371d7a;
-extern String s$Rotator_OnNodeSet_;
-extern hl_type t$vrt_329ffa8;
-extern String s$src_haxe_AnimatingSceneSample_hx;
-extern hl_type t$String;
-extern hl_type t$_i32;
-extern String s$Rotator;
-extern String s$OnNodeSet;
-extern hl_type t$vrt_eaa6a3b;
+void Rotator_ResetRotation(Rotator);
 extern hl_type t$_f64;
 double urho3d_LogicComponent_Random(urho3d__LogicComponent,vdynamic*,vdynamic*);
 hl_urho3d_math_tquaternion* urho3d_Node_set_rotation(urho3d__Node,hl_urho3d_math_tquaternion*);
@@ -34,6 +21,12 @@ void Rotator_SetRotationSpeed(Rotator r0,hl_urho3d_math_vector3* r1) {
 }
 
 void Rotator_Start(Rotator r0) {
+	String r2;
+	hl_urho3d_stringhash *r1;
+	r2 = (String)s$Update;
+	r1 = Urho3D__create_stringhash(r2);
+	r2 = (String)s$HandleMyUpdate;
+	urho3d_Component_SubscribeToEvent(((urho3d__Component)r0),r1,r2);
 	return;
 }
 
@@ -42,96 +35,59 @@ void Rotator_DelayedStart(Rotator r0) {
 }
 
 void Rotator_Update(Rotator r0,double r1) {
-	hl_urho3d_math_vector3 *r7;
-	urho3d__Node r2;
-	hl_urho3d_math_tquaternion *r4;
-	float r6, r8, r9;
-	double r5;
-	int *r10;
-	r2 = urho3d_Component_get_node(((urho3d__Component)r0));
-	r7 = r0->rotationSpeed;
-	r6 = Urho3D__math_vector3_get_x(r7);
-	r5 = (double)r6;
-	r5 = r5 * r1;
-	r6 = (float)r5;
-	r7 = r0->rotationSpeed;
-	r8 = Urho3D__math_vector3_get_y(r7);
-	r5 = (double)r8;
-	r5 = r5 * r1;
-	r8 = (float)r5;
-	r7 = r0->rotationSpeed;
-	r9 = Urho3D__math_vector3_get_z(r7);
-	r5 = (double)r9;
-	r5 = r5 * r1;
-	r9 = (float)r5;
-	r4 = Urho3D__math_tquaternion_create(r6,r8,r9);
-	if( r2 == NULL ) hl_null_access();
-	r10 = NULL;
-	urho3d_Node_Rotate(r2,r4,r10);
+	return;
+}
+
+void Rotator_HandleMyUpdate(Rotator r0,hl_urho3d_stringhash* r1,hl_urho3d_variantmap* r2) {
+	String r4;
+	hl_urho3d_tstringhash *r3;
+	hl_urho3d_math_vector3 *r12;
+	urho3d__Node r9;
+	hl_urho3d_tvariant *r7;
+	hl_urho3d_math_tquaternion *r10;
+	float r6, r13, r14;
+	double r8, r11;
+	int *r15;
+	int r16, r17;
+	r4 = (String)s$TimeStep;
+	r3 = Urho3D__math_tstringhash_create(r4);
+	r7 = Urho3D__get_value(r2,r3);
+	r6 = Urho3D__tvariant_get_float(r7);
+	r8 = (double)r6;
+	r9 = urho3d_Component_get_node(((urho3d__Component)r0));
+	r12 = r0->rotationSpeed;
+	r6 = Urho3D__math_vector3_get_x(r12);
+	r11 = (double)r6;
+	r11 = r11 * r8;
+	r6 = (float)r11;
+	r12 = r0->rotationSpeed;
+	r13 = Urho3D__math_vector3_get_y(r12);
+	r11 = (double)r13;
+	r11 = r11 * r8;
+	r13 = (float)r11;
+	r12 = r0->rotationSpeed;
+	r14 = Urho3D__math_vector3_get_z(r12);
+	r11 = (double)r14;
+	r11 = r11 * r8;
+	r14 = (float)r11;
+	r10 = Urho3D__math_tquaternion_create(r6,r13,r14);
+	if( r9 == NULL ) hl_null_access();
+	r15 = NULL;
+	urho3d_Node_Rotate(r9,r10,r15);
+	r16 = r0->counter;
+	++r16;
+	r0->counter = r16;
+	r16 = r0->counter;
+	r17 = 200;
+	r16 = r17 == 0 ? 0 : r16 % r17;
+	r17 = 0;
+	if( r16 != r17 ) goto label$dce0da2_5_34;
+	Rotator_ResetRotation(r0);
+	label$dce0da2_5_34:
 	return;
 }
 
 void Rotator_OnNodeSet(Rotator r0,urho3d__Node r1) {
-	String r6, r7, r13;
-	vvirtual *r14, *r15;
-	haxe__$Log r3;
-	float r8;
-	double r9;
-	vclosure *r2;
-	int *r11;
-	hl_urho3d_math_tvector3 *r5;
-	vbyte *r12;
-	int r10;
-	r3 = (haxe__$Log)g$_haxe_Log;
-	r2 = r3->trace;
-	if( r1 == NULL ) hl_null_access();
-	r5 = urho3d_Node_get_position(r1);
-	if( r5 ) goto label$dce0da2_5_8;
-	r7 = (String)s$null;
-	r6 = r7;
-	goto label$dce0da2_5_34;
-	label$dce0da2_5_8:
-	r7 = (String)s$TVector3_;
-	r8 = Urho3D__math_tvector3_get_x(r5);
-	r9 = (double)r8;
-	r11 = &r10;
-	r12 = hl_ftos(r9,r11);
-	r13 = String___alloc__(r12,r10);
-	r7 = String___add__(r7,r13);
-	r13 = (String)s$853ae90;
-	r7 = String___add__(r7,r13);
-	r8 = Urho3D__math_tvector3_get_y(r5);
-	r9 = (double)r8;
-	r11 = &r10;
-	r12 = hl_ftos(r9,r11);
-	r13 = String___alloc__(r12,r10);
-	r7 = String___add__(r7,r13);
-	r13 = (String)s$853ae90;
-	r7 = String___add__(r7,r13);
-	r8 = Urho3D__math_tvector3_get_z(r5);
-	r9 = (double)r8;
-	r11 = &r10;
-	r12 = hl_ftos(r9,r11);
-	r13 = String___alloc__(r12,r10);
-	r7 = String___add__(r7,r13);
-	r13 = (String)s$9371d7a;
-	r7 = String___add__(r7,r13);
-	r6 = r7;
-	label$dce0da2_5_34:
-	if( r2 == NULL ) hl_null_access();
-	r7 = (String)s$Rotator_OnNodeSet_;
-	r7 = String___add__(r7,r6);
-	r14 = hl_alloc_virtual(&t$vrt_329ffa8);
-	r13 = (String)s$src_haxe_AnimatingSceneSample_hx;
-	if( hl_vfields(r14)[1] ) *(String*)(hl_vfields(r14)[1]) = (String)r13; else hl_dyn_setp(r14->value,37969014/*fileName*/,&t$String,r13);
-	r10 = 39;
-	if( hl_vfields(r14)[2] ) *(int*)(hl_vfields(r14)[2]) = (int)r10; else hl_dyn_seti(r14->value,371360620/*lineNumber*/,&t$_i32,r10);
-	r13 = (String)s$Rotator;
-	if( hl_vfields(r14)[0] ) *(String*)(hl_vfields(r14)[0]) = (String)r13; else hl_dyn_setp(r14->value,-63073762/*className*/,&t$String,r13);
-	r13 = (String)s$OnNodeSet;
-	if( hl_vfields(r14)[3] ) *(String*)(hl_vfields(r14)[3]) = (String)r13; else hl_dyn_setp(r14->value,302979532/*methodName*/,&t$String,r13);
-	r15 = hl_to_virtual(&t$vrt_eaa6a3b,(vdynamic*)r14);
-	r2->hasValue ? ((void (*)(vdynamic*,vdynamic*,vvirtual*))r2->fun)((vdynamic*)r2->value,((vdynamic*)r7),r15) : ((void (*)(vdynamic*,vvirtual*))r2->fun)(((vdynamic*)r7),r15);
 	return;
 }
 
@@ -160,16 +116,16 @@ void Rotator_ResetRotation(Rotator r0) {
 	r5 = NULL;
 	r7 = urho3d_LogicComponent_Random(((urho3d__LogicComponent)r0),r4,r5);
 	r8 = NULL;
-	if( !r8 ) goto label$dce0da2_6_18;
+	if( !r8 ) goto label$dce0da2_7_18;
 	r10 = (float)r3;
 	r9 = Urho3D__math_quaternion_create_fv(r10,r8);
-	goto label$dce0da2_6_22;
-	label$dce0da2_6_18:
+	goto label$dce0da2_7_22;
+	label$dce0da2_7_18:
 	r10 = (float)r3;
 	r11 = (float)r6;
 	r12 = (float)r7;
 	r9 = Urho3D__math_quaternion_create(r10,r11,r12);
-	label$dce0da2_6_22:
+	label$dce0da2_7_22:
 	if( r1 == NULL ) hl_null_access();
 	r13 = Urho3D__math_tquaternion_cast_from_quaternion(r9);
 	r13 = urho3d_Node_set_rotation(r1,r13);

@@ -10,16 +10,22 @@
 #include <urho3d/Node.h>
 #include <urho3d/Component.h>
 #include <urho3d/_Context/Context_Impl_.h>
-#include <urho3d/LogicComponent.h>
-#include <_std/Rotator.h>
-#include <haxe/Log.h>
-#include <urho3d/Application.h>
-#include <urho3d/Scene.h>
-#include <_std/AnimatingSceneSample.h>
 #include <urho3d/Zone.h>
 #include <urho3d/StaticModel.h>
+#include <urho3d/AnimatedModel.h>
 #include <urho3d/Camera.h>
 #include <urho3d/Light.h>
+#include <urho3d/BillboardSet.h>
+#include <urho3d/DecalSet.h>
+#include <urho3d/RigidBody.h>
+#include <urho3d/CollisionShape.h>
+#include <urho3d/Skybox.h>
+#include <urho3d/LogicComponent.h>
+#include <urho3d/Scene.h>
+#include <_std/Rotator.h>
+#include <urho3d/Application.h>
+#include <_std/AnimatingSceneSample.h>
+#include <haxe/Log.h>
 #include <urho3d/_Vector3/Vector3_Impl_.h>
 #include <_std/Date.h>
 #include <_std/Main.h>
@@ -50,12 +56,6 @@
 #include <sys/ssl/Certificate.h>
 #include <sys/ssl/SNICbResult.h>
 #include <sys/ssl/Key.h>
-#include <urho3d/AnimatedModel.h>
-#include <urho3d/BillboardSet.h>
-#include <urho3d/CollisionShape.h>
-#include <urho3d/DecalSet.h>
-#include <urho3d/RigidBody.h>
-#include <urho3d/Skybox.h>
 #include <urho3d/Graphics.h>
 #include <urho3d/_Vector2/Vector2_Impl_.h>
 #include <hl/CoreType.h>
@@ -136,38 +136,38 @@ hl__types__$ArrayBytes_hl_F32 g$_hl_types_ArrayBytes_hl_F32 = 0;
 urho3d__$Node g$_urho3d_Node = 0;
 urho3d__$Component g$_urho3d_Component = 0;
 urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_ = 0;
+urho3d__$Zone g$_urho3d_Zone = 0;
+urho3d__$StaticModel g$_urho3d_StaticModel = 0;
+urho3d__$AnimatedModel g$_urho3d_AnimatedModel = 0;
+urho3d__$Camera g$_urho3d_Camera = 0;
+urho3d__$Light g$_urho3d_Light = 0;
+urho3d__$BillboardSet g$_urho3d_BillboardSet = 0;
+urho3d__$DecalSet g$_urho3d_DecalSet = 0;
+urho3d__$RigidBody g$_urho3d_RigidBody = 0;
+urho3d__$CollisionShape g$_urho3d_CollisionShape = 0;
+urho3d__$Skybox g$_urho3d_Skybox = 0;
 urho3d__$LogicComponent g$_urho3d_LogicComponent = 0;
-$Rotator g$_Rotator = 0;
-haxe__$Log g$_haxe_Log = 0;
-String s$null = 0;
-String s$TVector3_ = 0;
-String s$853ae90 = 0;
-String s$9371d7a = 0;
-String s$Rotator_OnNodeSet_ = 0;
-String s$src_haxe_AnimatingSceneSample_hx = 0;
-String s$Rotator = 0;
-String s$OnNodeSet = 0;
-urho3d__$Application g$_urho3d_Application = 0;
 urho3d__$Scene g$_urho3d_Scene = 0;
+$Rotator g$_Rotator = 0;
+String s$Update = 0;
+String s$HandleMyUpdate = 0;
+String s$TimeStep = 0;
+urho3d__$Application g$_urho3d_Application = 0;
 $AnimatingSceneSample g$_AnimatingSceneSample = 0;
+haxe__$Log g$_haxe_Log = 0;
 String s$Setup = 0;
+String s$src_haxe_AnimatingSceneSample_hx = 0;
 String s$AnimatingSceneSample = 0;
 String s$Octree = 0;
 String s$Zone = 0;
-urho3d__$Zone g$_urho3d_Zone = 0;
 String s$Box = 0;
 String s$StaticModel = 0;
-urho3d__$StaticModel g$_urho3d_StaticModel = 0;
 String s$Models_Box_mdl = 0;
 String s$Materials_Stone_xml = 0;
 String s$Camera = 0;
-urho3d__$Camera g$_urho3d_Camera = 0;
 String s$Light = 0;
-urho3d__$Light g$_urho3d_Light = 0;
-String s$Update = 0;
 String s$HandleUpdate = 0;
 urho3d___Vector3__$Vector3_Impl_ g$_urho3d__Vector3_Vector3_Impl_ = 0;
-String s$TimeStep = 0;
 String s$create_scene = 0;
 $Date g$_Date = 0;
 $Main g$_Main = 0;
@@ -175,7 +175,9 @@ $Std g$_Std = 0;
 String s$Can_t_add_ = 0;
 String s$84c4047 = 0;
 String s$_and_ = 0;
+String s$9371d7a = 0;
 String s$Invalid_unicode_char_ = 0;
+String s$null = 0;
 String s$ = 0;
 $StringBuf g$_StringBuf = 0;
 $SysError g$_SysError = 0;
@@ -185,6 +187,7 @@ hl_bytes_map* g$__types__ = 0;
 hl__$Enum g$_hl_Enum = 0;
 haxe__$Exception g$_haxe_Exception = 0;
 haxe__$ValueException g$_haxe_ValueException = 0;
+String s$853ae90 = 0;
 String s$fc763cb = 0;
 String s$e265492 = 0;
 String s$stack = 0;
@@ -213,12 +216,6 @@ String s$2f43b42 = 0;
 sys__ssl__$Certificate g$_sys_ssl_Certificate = 0;
 sys__ssl__$SNICbResult g$_sys_ssl_SNICbResult = 0;
 sys__ssl__$Key g$_sys_ssl_Key = 0;
-urho3d__$AnimatedModel g$_urho3d_AnimatedModel = 0;
-urho3d__$BillboardSet g$_urho3d_BillboardSet = 0;
-urho3d__$CollisionShape g$_urho3d_CollisionShape = 0;
-urho3d__$DecalSet g$_urho3d_DecalSet = 0;
-urho3d__$RigidBody g$_urho3d_RigidBody = 0;
-urho3d__$Skybox g$_urho3d_Skybox = 0;
 urho3d__$Graphics g$_urho3d_Graphics = 0;
 String s$IntVector2_ = 0;
 String s$fromStructVector2 = 0;
@@ -228,6 +225,7 @@ String s$StringHash_ = 0;
 String s$TIntVector2_ = 0;
 String s$TStringHash_ = 0;
 String s$TVector2_ = 0;
+String s$TVector3_ = 0;
 String s$Vector2_ = 0;
 urho3d___Vector2__$Vector2_Impl_ g$_urho3d__Vector2_Vector2_Impl_ = 0;
 String s$Vector3_ = 0;
@@ -307,15 +305,11 @@ urho3d___VariantMap__$VariantMap_Impl_ g$50a5cf6 = 0;
 urho3d___Viewport__$Viewport_Impl_ g$_urho3d__Viewport_Viewport_Impl_ = 0;
 urho3d___XMLFile__$XMLFile_Impl_ g$_urho3d__XMLFile_XMLFile_Impl_ = 0;
 urho3d___Zone__$AbstractZone_Impl_ g$_urho3d__Zone_AbstractZone_Impl_ = 0;
-static struct _String const_s$null = {&t$String,(vbyte*)USTR("null"),4};
-static struct _String const_s$TVector3_ = {&t$String,(vbyte*)USTR("TVector3 ("),10};
-static struct _String const_s$853ae90 = {&t$String,(vbyte*)USTR(":"),1};
-static struct _String const_s$9371d7a = {&t$String,(vbyte*)USTR(")"),1};
-static struct _String const_s$Rotator_OnNodeSet_ = {&t$String,(vbyte*)USTR("Rotator OnNodeSet "),18};
-static struct _String const_s$src_haxe_AnimatingSceneSample_hx = {&t$String,(vbyte*)USTR("src/haxe/AnimatingSceneSample.hx"),32};
-static struct _String const_s$Rotator = {&t$String,(vbyte*)USTR("Rotator"),7};
-static struct _String const_s$OnNodeSet = {&t$String,(vbyte*)USTR("OnNodeSet"),9};
+static struct _String const_s$Update = {&t$String,(vbyte*)USTR("Update"),6};
+static struct _String const_s$HandleMyUpdate = {&t$String,(vbyte*)USTR("HandleMyUpdate"),14};
+static struct _String const_s$TimeStep = {&t$String,(vbyte*)USTR("TimeStep"),8};
 static struct _String const_s$Setup = {&t$String,(vbyte*)USTR("Setup"),5};
+static struct _String const_s$src_haxe_AnimatingSceneSample_hx = {&t$String,(vbyte*)USTR("src/haxe/AnimatingSceneSample.hx"),32};
 static struct _String const_s$AnimatingSceneSample = {&t$String,(vbyte*)USTR("AnimatingSceneSample"),20};
 static struct _String const_s$Octree = {&t$String,(vbyte*)USTR("Octree"),6};
 static struct _String const_s$Zone = {&t$String,(vbyte*)USTR("Zone"),4};
@@ -325,17 +319,18 @@ static struct _String const_s$Models_Box_mdl = {&t$String,(vbyte*)USTR("Models/B
 static struct _String const_s$Materials_Stone_xml = {&t$String,(vbyte*)USTR("Materials/Stone.xml"),19};
 static struct _String const_s$Camera = {&t$String,(vbyte*)USTR("Camera"),6};
 static struct _String const_s$Light = {&t$String,(vbyte*)USTR("Light"),5};
-static struct _String const_s$Update = {&t$String,(vbyte*)USTR("Update"),6};
 static struct _String const_s$HandleUpdate = {&t$String,(vbyte*)USTR("HandleUpdate"),12};
-static struct _String const_s$TimeStep = {&t$String,(vbyte*)USTR("TimeStep"),8};
 static struct _String const_s$create_scene = {&t$String,(vbyte*)USTR("create scene"),12};
 static struct _String const_s$Can_t_add_ = {&t$String,(vbyte*)USTR("Can't add "),10};
 static struct _String const_s$84c4047 = {&t$String,(vbyte*)USTR("("),1};
 static struct _String const_s$_and_ = {&t$String,(vbyte*)USTR(") and "),6};
+static struct _String const_s$9371d7a = {&t$String,(vbyte*)USTR(")"),1};
 static struct _String const_s$Invalid_unicode_char_ = {&t$String,(vbyte*)USTR("Invalid unicode char "),21};
+static struct _String const_s$null = {&t$String,(vbyte*)USTR("null"),4};
 static struct _String const_s$ = {&t$String,(vbyte*)USTR(""),0};
 static struct _String const_s$SysError_ = {&t$String,(vbyte*)USTR("SysError("),9};
 static struct _String const_s$68b329d = {&t$String,(vbyte*)USTR("\n"),1};
+static struct _String const_s$853ae90 = {&t$String,(vbyte*)USTR(":"),1};
 static struct _String const_s$fc763cb = {&t$String,(vbyte*)USTR(", "),2};
 static struct _String const_s$e265492 = {&t$String,(vbyte*)USTR(": "),2};
 static struct _String const_s$stack = {&t$String,(vbyte*)USTR("stack"),5};
@@ -351,6 +346,7 @@ static struct _String const_s$StringHash_ = {&t$String,(vbyte*)USTR("StringHash 
 static struct _String const_s$TIntVector2_ = {&t$String,(vbyte*)USTR("TIntVector2 ("),13};
 static struct _String const_s$TStringHash_ = {&t$String,(vbyte*)USTR("TStringHash :"),13};
 static struct _String const_s$TVector2_ = {&t$String,(vbyte*)USTR("TVector2 ("),10};
+static struct _String const_s$TVector3_ = {&t$String,(vbyte*)USTR("TVector3 ("),10};
 static struct _String const_s$Vector2_ = {&t$String,(vbyte*)USTR("Vector2 ("),9};
 static struct _String const_s$Vector3_ = {&t$String,(vbyte*)USTR("Vector3 ("),9};
 static struct _String const_s$Float = {&t$String,(vbyte*)USTR("Float"),5};
@@ -361,15 +357,11 @@ static struct _String const_s$Array = {&t$String,(vbyte*)USTR("Array"),5};
 static struct _String const_s$hl_types_ArrayDyn = {&t$String,(vbyte*)USTR("hl.types.ArrayDyn"),17};
 
 void hl_init_roots() {
-	s$null = &const_s$null;
-	s$TVector3_ = &const_s$TVector3_;
-	s$853ae90 = &const_s$853ae90;
-	s$9371d7a = &const_s$9371d7a;
-	s$Rotator_OnNodeSet_ = &const_s$Rotator_OnNodeSet_;
-	s$src_haxe_AnimatingSceneSample_hx = &const_s$src_haxe_AnimatingSceneSample_hx;
-	s$Rotator = &const_s$Rotator;
-	s$OnNodeSet = &const_s$OnNodeSet;
+	s$Update = &const_s$Update;
+	s$HandleMyUpdate = &const_s$HandleMyUpdate;
+	s$TimeStep = &const_s$TimeStep;
 	s$Setup = &const_s$Setup;
+	s$src_haxe_AnimatingSceneSample_hx = &const_s$src_haxe_AnimatingSceneSample_hx;
 	s$AnimatingSceneSample = &const_s$AnimatingSceneSample;
 	s$Octree = &const_s$Octree;
 	s$Zone = &const_s$Zone;
@@ -379,17 +371,18 @@ void hl_init_roots() {
 	s$Materials_Stone_xml = &const_s$Materials_Stone_xml;
 	s$Camera = &const_s$Camera;
 	s$Light = &const_s$Light;
-	s$Update = &const_s$Update;
 	s$HandleUpdate = &const_s$HandleUpdate;
-	s$TimeStep = &const_s$TimeStep;
 	s$create_scene = &const_s$create_scene;
 	s$Can_t_add_ = &const_s$Can_t_add_;
 	s$84c4047 = &const_s$84c4047;
 	s$_and_ = &const_s$_and_;
+	s$9371d7a = &const_s$9371d7a;
 	s$Invalid_unicode_char_ = &const_s$Invalid_unicode_char_;
+	s$null = &const_s$null;
 	s$ = &const_s$;
 	s$SysError_ = &const_s$SysError_;
 	s$68b329d = &const_s$68b329d;
+	s$853ae90 = &const_s$853ae90;
 	s$fc763cb = &const_s$fc763cb;
 	s$e265492 = &const_s$e265492;
 	s$stack = &const_s$stack;
@@ -405,6 +398,7 @@ void hl_init_roots() {
 	s$TIntVector2_ = &const_s$TIntVector2_;
 	s$TStringHash_ = &const_s$TStringHash_;
 	s$TVector2_ = &const_s$TVector2_;
+	s$TVector3_ = &const_s$TVector3_;
 	s$Vector2_ = &const_s$Vector2_;
 	s$Vector3_ = &const_s$Vector3_;
 	s$Float = &const_s$Float;
@@ -422,16 +416,22 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_urho3d_Node);
 	hl_add_root((void**)&g$_urho3d_Component);
 	hl_add_root((void**)&g$_urho3d__Context_Context_Impl_);
-	hl_add_root((void**)&g$_urho3d_LogicComponent);
-	hl_add_root((void**)&g$_Rotator);
-	hl_add_root((void**)&g$_haxe_Log);
-	hl_add_root((void**)&g$_urho3d_Application);
-	hl_add_root((void**)&g$_urho3d_Scene);
-	hl_add_root((void**)&g$_AnimatingSceneSample);
 	hl_add_root((void**)&g$_urho3d_Zone);
 	hl_add_root((void**)&g$_urho3d_StaticModel);
+	hl_add_root((void**)&g$_urho3d_AnimatedModel);
 	hl_add_root((void**)&g$_urho3d_Camera);
 	hl_add_root((void**)&g$_urho3d_Light);
+	hl_add_root((void**)&g$_urho3d_BillboardSet);
+	hl_add_root((void**)&g$_urho3d_DecalSet);
+	hl_add_root((void**)&g$_urho3d_RigidBody);
+	hl_add_root((void**)&g$_urho3d_CollisionShape);
+	hl_add_root((void**)&g$_urho3d_Skybox);
+	hl_add_root((void**)&g$_urho3d_LogicComponent);
+	hl_add_root((void**)&g$_urho3d_Scene);
+	hl_add_root((void**)&g$_Rotator);
+	hl_add_root((void**)&g$_urho3d_Application);
+	hl_add_root((void**)&g$_AnimatingSceneSample);
+	hl_add_root((void**)&g$_haxe_Log);
 	hl_add_root((void**)&g$_urho3d__Vector3_Vector3_Impl_);
 	hl_add_root((void**)&g$_Date);
 	hl_add_root((void**)&g$_Main);
@@ -463,12 +463,6 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_sys_ssl_Certificate);
 	hl_add_root((void**)&g$_sys_ssl_SNICbResult);
 	hl_add_root((void**)&g$_sys_ssl_Key);
-	hl_add_root((void**)&g$_urho3d_AnimatedModel);
-	hl_add_root((void**)&g$_urho3d_BillboardSet);
-	hl_add_root((void**)&g$_urho3d_CollisionShape);
-	hl_add_root((void**)&g$_urho3d_DecalSet);
-	hl_add_root((void**)&g$_urho3d_RigidBody);
-	hl_add_root((void**)&g$_urho3d_Skybox);
 	hl_add_root((void**)&g$_urho3d_Graphics);
 	hl_add_root((void**)&g$_urho3d__Vector2_Vector2_Impl_);
 	hl_add_root((void**)&g$_Float);

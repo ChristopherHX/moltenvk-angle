@@ -19,6 +19,7 @@ struct _urho3d___Node__$AbstractNode_Impl_ {
 	vdynamic* __constructor__;
 	vclosure* _new;
 	vclosure* toNode;
+	vclosure* SubscribeToEvent;
 };
 struct _urho3d___Node__AbstractNode_Impl_ {
 	hl_type *$type;

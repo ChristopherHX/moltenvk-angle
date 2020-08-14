@@ -7,6 +7,7 @@ typedef struct _urho3d___Scene__AbstractScene_Impl_ *urho3d___Scene__AbstractSce
 #include <hl/BaseType.h>
 #include <_std/String.h>
 #include <hl/natives.h>
+#include <urho3d/Scene.h>
 
 
 struct _urho3d___Scene__$AbstractScene_Impl_ {
@@ -17,6 +18,7 @@ struct _urho3d___Scene__$AbstractScene_Impl_ {
 	String __name__;
 	vdynamic* __constructor__;
 	vclosure* _new;
+	vclosure* toScene;
 };
 struct _urho3d___Scene__AbstractScene_Impl_ {
 	hl_type *$type;

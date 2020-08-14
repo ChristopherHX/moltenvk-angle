@@ -3,11 +3,52 @@
 #include <hlc.h>
 #include <urho3d/Component.h>
 #include <hl/natives.h>
+void urho3d__Component_AbstractComponent_Impl__SubscribeToEvent(hl_urho3d_scene_component*,hl_urho3d_stringhash*,vdynamic*,String);
 #include <urho3d/_Context/Context_Impl_.h>
 extern hl_type t$urho3d_Node;
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 void urho3d_Node_new(urho3d__Node,hl_urho3d_scene_node*);
+#include <urho3d/Zone.h>
+extern hl_type t$urho3d_Zone;
+void urho3d_Zone_new(urho3d__Zone,hl_urho3d_graphics_zone*);
+#include <urho3d/StaticModel.h>
+extern hl_type t$urho3d_StaticModel;
+void urho3d_StaticModel_new(urho3d__StaticModel,hl_urho3d_graphics_staticmodel*);
+#include <urho3d/AnimatedModel.h>
+extern hl_type t$urho3d_AnimatedModel;
+void urho3d_AnimatedModel_new(urho3d__AnimatedModel,hl_urho3d_graphics_animatedmodel*);
+#include <urho3d/Camera.h>
+extern hl_type t$urho3d_Camera;
+void urho3d_Camera_new(urho3d__Camera,hl_urho3d_graphics_camera*);
+#include <urho3d/Light.h>
+extern hl_type t$urho3d_Light;
+void urho3d_Light_new(urho3d__Light,hl_urho3d_graphics_light*);
+#include <urho3d/BillboardSet.h>
+extern hl_type t$urho3d_BillboardSet;
+void urho3d_BillboardSet_new(urho3d__BillboardSet,hl_urho3d_graphics_billboardset*);
+#include <urho3d/DecalSet.h>
+extern hl_type t$urho3d_DecalSet;
+void urho3d_DecalSet_new(urho3d__DecalSet,hl_urho3d_graphics_decalset*);
+#include <urho3d/RigidBody.h>
+extern hl_type t$urho3d_RigidBody;
+void urho3d_RigidBody_new(urho3d__RigidBody,hl_urho3d_physics_rigid_body*);
+#include <urho3d/CollisionShape.h>
+extern hl_type t$urho3d_CollisionShape;
+void urho3d_CollisionShape_new(urho3d__CollisionShape,hl_urho3d_physics_collision_shape*);
+#include <urho3d/Skybox.h>
+extern hl_type t$urho3d_Skybox;
+void urho3d_Skybox_new(urho3d__Skybox,hl_urho3d_graphics_skybox*);
 void urho3d_Node_bindComponent(urho3d__Node,urho3d__Component);
+
+void urho3d_Component_SubscribeToEvent(urho3d__Component r0,hl_urho3d_stringhash* r1,String r2) {
+	hl_urho3d_scene_component *r4;
+	r4 = r0->abstractComponent;
+	if( !r4 ) goto label$49625ec_1_4;
+	r4 = r0->abstractComponent;
+	urho3d__Component_AbstractComponent_Impl__SubscribeToEvent(r4,r1,((vdynamic*)r0),r2);
+	label$49625ec_1_4:
+	return;
+}
 
 urho3d__Node urho3d_Component_get_node(urho3d__Component r0) {
 	hl_urho3d_scene_component *r6;
@@ -16,7 +57,7 @@ urho3d__Node urho3d_Component_get_node(urho3d__Component r0) {
 	urho3d_context *r4;
 	hl_urho3d_scene_node *r3;
 	r2 = r0->_node;
-	if( r2 ) goto label$49625ec_1_9;
+	if( r2 ) goto label$49625ec_2_9;
 	r2 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
 	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r4 = r5->context;
@@ -24,7 +65,7 @@ urho3d__Node urho3d_Component_get_node(urho3d__Component r0) {
 	r3 = Urho3D__scene_component_get_node(r4,r6);
 	urho3d_Node_new(r2,r3);
 	r0->_node = r2;
-	label$49625ec_1_9:
+	label$49625ec_2_9:
 	r2 = r0->_node;
 	return r2;
 }
@@ -36,6 +77,172 @@ urho3d__Node urho3d_Component_set_node(urho3d__Component r0,urho3d__Node r1) {
 	return r2;
 }
 
+urho3d__Zone urho3d_Component_toZone(urho3d__Component r0) {
+	hl_urho3d_scene_component *r4;
+	hl_urho3d_graphics_zone *r1;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d__Zone r6;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r4 = r0->abstractComponent;
+	r1 = Urho3D__graphics_zone_cast_from_component(r2,r4);
+	r6 = (urho3d__Zone)hl_alloc_obj(&t$urho3d_Zone);
+	urho3d_Zone_new(r6,r1);
+	return r6;
+}
+
+urho3d__StaticModel urho3d_Component_toStaticModel(urho3d__Component r0) {
+	hl_urho3d_scene_component *r4;
+	urho3d__StaticModel r6;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	hl_urho3d_graphics_staticmodel *r1;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r4 = r0->abstractComponent;
+	r1 = Urho3D__graphics_staticmodel_cast_from_component(r2,r4);
+	r6 = (urho3d__StaticModel)hl_alloc_obj(&t$urho3d_StaticModel);
+	urho3d_StaticModel_new(r6,r1);
+	return r6;
+}
+
+urho3d__AnimatedModel urho3d_Component_toAnimatedModel(urho3d__Component r0) {
+	hl_urho3d_scene_component *r4;
+	urho3d__AnimatedModel r6;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	hl_urho3d_graphics_animatedmodel *r1;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r4 = r0->abstractComponent;
+	r1 = Urho3D__graphics_animatedmodel_cast_from_component(r2,r4);
+	r6 = (urho3d__AnimatedModel)hl_alloc_obj(&t$urho3d_AnimatedModel);
+	urho3d_AnimatedModel_new(r6,r1);
+	return r6;
+}
+
+urho3d__Camera urho3d_Component_toCamera(urho3d__Component r0) {
+	urho3d__Camera r6;
+	hl_urho3d_scene_component *r4;
+	urho3d___Context__$Context_Impl_ r3;
+	hl_urho3d_graphics_camera *r1;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r4 = r0->abstractComponent;
+	r1 = Urho3D__graphics_camera_cast_from_component(r2,r4);
+	r6 = (urho3d__Camera)hl_alloc_obj(&t$urho3d_Camera);
+	urho3d_Camera_new(r6,r1);
+	return r6;
+}
+
+urho3d__Light urho3d_Component_toLight(urho3d__Component r0) {
+	hl_urho3d_scene_component *r4;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	urho3d__Light r6;
+	hl_urho3d_graphics_light *r1;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r4 = r0->abstractComponent;
+	r1 = Urho3D__graphics_light_cast_from_component(r2,r4);
+	r6 = (urho3d__Light)hl_alloc_obj(&t$urho3d_Light);
+	urho3d_Light_new(r6,r1);
+	return r6;
+}
+
+urho3d__BillboardSet urho3d_Component_toBillboardset(urho3d__Component r0) {
+	urho3d__BillboardSet r6;
+	hl_urho3d_graphics_billboardset *r1;
+	hl_urho3d_scene_component *r4;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r4 = r0->abstractComponent;
+	r1 = Urho3D__graphics_billboardset_cast_from_component(r2,r4);
+	r6 = (urho3d__BillboardSet)hl_alloc_obj(&t$urho3d_BillboardSet);
+	urho3d_BillboardSet_new(r6,r1);
+	return r6;
+}
+
+urho3d__DecalSet urho3d_Component_toDecalset(urho3d__Component r0) {
+	hl_urho3d_scene_component *r4;
+	urho3d__DecalSet r6;
+	hl_urho3d_graphics_decalset *r1;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r4 = r0->abstractComponent;
+	r1 = Urho3D__graphics_decalset_cast_from_component(r2,r4);
+	if( !r1 ) goto label$49625ec_10_8;
+	r6 = (urho3d__DecalSet)hl_alloc_obj(&t$urho3d_DecalSet);
+	urho3d_DecalSet_new(r6,r1);
+	return r6;
+	label$49625ec_10_8:
+	r6 = NULL;
+	return r6;
+}
+
+urho3d__RigidBody urho3d_Component_toRigidBody(urho3d__Component r0) {
+	hl_urho3d_physics_rigid_body *r1;
+	hl_urho3d_scene_component *r4;
+	urho3d__RigidBody r6;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r4 = r0->abstractComponent;
+	r1 = Urho3D__physics_rigid_body_cast_from_component(r2,r4);
+	if( !r1 ) goto label$49625ec_11_8;
+	r6 = (urho3d__RigidBody)hl_alloc_obj(&t$urho3d_RigidBody);
+	urho3d_RigidBody_new(r6,r1);
+	return r6;
+	label$49625ec_11_8:
+	r6 = NULL;
+	return r6;
+}
+
+urho3d__CollisionShape urho3d_Component_toCollisionShape(urho3d__Component r0) {
+	hl_urho3d_scene_component *r4;
+	urho3d__CollisionShape r6;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	hl_urho3d_physics_collision_shape *r1;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r4 = r0->abstractComponent;
+	r1 = Urho3D__physics_collision_shape_cast_from_component(r2,r4);
+	if( !r1 ) goto label$49625ec_12_8;
+	r6 = (urho3d__CollisionShape)hl_alloc_obj(&t$urho3d_CollisionShape);
+	urho3d_CollisionShape_new(r6,r1);
+	return r6;
+	label$49625ec_12_8:
+	r6 = NULL;
+	return r6;
+}
+
+urho3d__Skybox urho3d_Component_toSkybox(urho3d__Component r0) {
+	urho3d__Skybox r6;
+	hl_urho3d_scene_component *r4;
+	urho3d___Context__$Context_Impl_ r3;
+	hl_urho3d_graphics_skybox *r1;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r4 = r0->abstractComponent;
+	r1 = Urho3D__graphics_skybox_cast_from_component(r2,r4);
+	if( !r1 ) goto label$49625ec_13_8;
+	r6 = (urho3d__Skybox)hl_alloc_obj(&t$urho3d_Skybox);
+	urho3d_Skybox_new(r6,r1);
+	return r6;
+	label$49625ec_13_8:
+	r6 = NULL;
+	return r6;
+}
+
 void urho3d_Component_new(urho3d__Component r0,hl_urho3d_scene_component* r1) {
 	hl_urho3d_scene_component *r2;
 	urho3d__Node r3;
@@ -45,18 +252,21 @@ void urho3d_Component_new(urho3d__Component r0,hl_urho3d_scene_component* r1) {
 	r0->abstractComponent = r2;
 	r3 = NULL;
 	r0->_node = r3;
-	if( !r1 ) goto label$49625ec_3_7;
+	if( !r1 ) goto label$49625ec_14_7;
 	r0->abstractComponent = r1;
-	goto label$49625ec_3_11;
-	label$49625ec_3_7:
+	goto label$49625ec_14_11;
+	label$49625ec_14_7:
 	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r5 = r6->context;
 	r2 = Urho3D__scene_component_create(r5);
 	r0->abstractComponent = r2;
-	label$49625ec_3_11:
+	label$49625ec_14_11:
+	r3 = urho3d_Component_get_node(r0);
+	if( !r3 ) goto label$49625ec_14_16;
 	r3 = urho3d_Component_get_node(r0);
 	if( r3 == NULL ) hl_null_access();
 	urho3d_Node_bindComponent(r3,r0);
+	label$49625ec_14_16:
 	return;
 }
 

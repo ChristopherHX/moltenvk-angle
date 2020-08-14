@@ -25,3 +25,12 @@ urho3d__Node urho3d__Node_AbstractNode_Impl__toNode(hl_urho3d_scene_node* r0) {
 	return r1;
 }
 
+void urho3d__Node_AbstractNode_Impl__SubscribeToEvent(hl_urho3d_scene_node* r0,hl_urho3d_stringhash* r1,vdynamic* r2,String r3) {
+	urho3d___Context__$Context_Impl_ r6;
+	urho3d_context *r5;
+	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r5 = r6->context;
+	Urho3D__scene_node_subscribe_to_event(r5,r0,r1,r2,r3);
+	return;
+}
+
