@@ -125,24 +125,26 @@ class ProxyApp : public Application
         vclosure closure;
         vclosure *callback_fn = (vclosure *)hl_dyn_getp_internal(event_handler->dyn_obj, &event_handler->dyn_obj_field_lookup, event_handler->hl_hash_name, &closure);
 
-        // vclosure *callback_fn = (vclosure *)hl_dyn_getp(event_handler->dyn_obj, event_handler->hl_hash_name, &hlt_dyn);
         if (callback_fn && callback_fn->hasValue)
         {
-            hl_urho3d_stringhash *hl_stringhsh = hl_alloc_urho3d_stringhash_no_finlizer();
+            hl_urho3d_stringhash *hl_stringhsh = (hl_urho3d_stringhash *)alloca(sizeof(hl_urho3d_stringhash));
             hl_stringhsh->ptr = &eventType;
-            vdynamic *dyn_urho3d_stringhash = hl_alloc_dynamic(&hlt_abstract);
+            vdynamic *dyn_urho3d_stringhash = (vdynamic *)alloca(sizeof(vdynamic));
+            dyn_urho3d_stringhash->t = &hlt_abstract;
             dyn_urho3d_stringhash->v.ptr = hl_stringhsh;
 
-            hl_urho3d_variantmap *hl_variantmap = hl_alloc_urho3d_variantmap_no_finlizer();
+            hl_urho3d_variantmap *hl_variantmap = (hl_urho3d_variantmap *)alloca(sizeof(hl_urho3d_variantmap));
             hl_variantmap->ptr = &eventData;
-            vdynamic *dyn_urho3d_variantmap = hl_alloc_dynamic(&hlt_abstract);
+            vdynamic *dyn_urho3d_variantmap = (vdynamic *)alloca(sizeof(vdynamic));
+            dyn_urho3d_variantmap->t = &hlt_abstract;
             dyn_urho3d_variantmap->v.ptr = hl_variantmap;
-
+            /*
             vdynamic *args[2];
             args[0] = dyn_urho3d_stringhash;
             args[1] = dyn_urho3d_variantmap;
-
             hl_dyn_abstract_call(callback_fn, args, 2);
+            */
+            ((void (*)(vdynamic *, vdynamic *, vdynamic *))closure.fun)((vdynamic *)closure.value, (vdynamic *)(*(void **)(&dyn_urho3d_stringhash->v)), (vdynamic *)(*(void **)(&dyn_urho3d_variantmap->v)));
         }
     }
 

@@ -78,7 +78,6 @@ bool urho3d_Input_GetKeyDown(int);
 extern urho3d___Vector3__$Vector3_Impl_ g$_urho3d__Vector3_Vector3_Impl_;
 void urho3d_Node_Translate(urho3d__Node,hl_urho3d_math_tvector3*,int*);
 extern String s$TimeStep;
-extern String s$create_scene;
 void urho3d_Application_new(urho3d__Application);
 
 void AnimatingSceneSample_Setup(AnimatingSceneSample r0) {
@@ -727,47 +726,17 @@ void AnimatingSceneSample_MoveCamera(AnimatingSceneSample r0,double r1) {
 }
 
 void AnimatingSceneSample_HandleUpdate(AnimatingSceneSample r0,hl_urho3d_stringhash* r1,hl_urho3d_variantmap* r2) {
-	String r4, r14;
-	vvirtual *r13, *r15;
+	String r4;
 	hl_urho3d_tstringhash *r3;
-	haxe__$Log r12;
 	hl_urho3d_tvariant *r7;
 	float r6;
-	vclosure *r11;
 	double r8;
-	int r9, r10;
 	r4 = (String)s$TimeStep;
 	r3 = Urho3D__math_tstringhash_create(r4);
 	r7 = Urho3D__get_value(r2,r3);
 	r6 = Urho3D__tvariant_get_float(r7);
 	r8 = (double)r6;
 	AnimatingSceneSample_MoveCamera(r0,r8);
-	r9 = r0->counter;
-	++r9;
-	r0->counter = r9;
-	r9 = r0->counter;
-	r10 = 1000;
-	r9 = r10 == 0 ? 0 : r9 % r10;
-	r10 = 0;
-	if( r9 != r10 ) goto label$d9beba3_7_31;
-	r12 = (haxe__$Log)g$_haxe_Log;
-	r11 = r12->trace;
-	if( r11 == NULL ) hl_null_access();
-	r4 = (String)s$create_scene;
-	r13 = hl_alloc_virtual(&t$vrt_329ffa8);
-	r14 = (String)s$src_haxe_AnimatingSceneSample_hx;
-	if( hl_vfields(r13)[1] ) *(String*)(hl_vfields(r13)[1]) = (String)r14; else hl_dyn_setp(r13->value,37969014/*fileName*/,&t$String,r14);
-	r9 = 158;
-	if( hl_vfields(r13)[2] ) *(int*)(hl_vfields(r13)[2]) = (int)r9; else hl_dyn_seti(r13->value,371360620/*lineNumber*/,&t$_i32,r9);
-	r14 = (String)s$AnimatingSceneSample;
-	if( hl_vfields(r13)[0] ) *(String*)(hl_vfields(r13)[0]) = (String)r14; else hl_dyn_setp(r13->value,-63073762/*className*/,&t$String,r14);
-	r14 = (String)s$HandleUpdate;
-	if( hl_vfields(r13)[3] ) *(String*)(hl_vfields(r13)[3]) = (String)r14; else hl_dyn_setp(r13->value,302979532/*methodName*/,&t$String,r14);
-	r15 = hl_to_virtual(&t$vrt_eaa6a3b,(vdynamic*)r13);
-	r11->hasValue ? ((void (*)(vdynamic*,vdynamic*,vvirtual*))r11->fun)((vdynamic*)r11->value,((vdynamic*)r4),r15) : ((void (*)(vdynamic*,vvirtual*))r11->fun)(((vdynamic*)r4),r15);
-	AnimatingSceneSample_CreateScene(r0);
-	AnimatingSceneSample_SetupViewport(r0);
-	label$d9beba3_7_31:
 	return;
 }
 
@@ -778,7 +747,7 @@ void AnimatingSceneSample_new(AnimatingSceneSample r0) {
 	int r1;
 	r1 = 1;
 	r0->counter = r1;
-	r1 = 500;
+	r1 = 4000;
 	r0->NUM_OBJECTS = r1;
 	r2 = 0.;
 	r0->pitch = r2;
