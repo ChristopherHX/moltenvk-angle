@@ -43,6 +43,8 @@ public:
 
     /// Return rotation speed.
     const Vector3& GetRotationSpeed() const { return rotationSpeed_; }
+    
+    void HandleUpdate(StringHash eventType, VariantMap& eventData);
 
 private:
     /// Rotation speed.

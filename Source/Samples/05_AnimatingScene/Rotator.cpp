@@ -19,7 +19,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-
+#include <Urho3D/Core/CoreEvents.h>
 #include <Urho3D/Scene/Scene.h>
 
 #include "Rotator.h"
@@ -32,6 +32,7 @@ Rotator::Rotator(Context* context) :
 {
     // Only the scene update event is needed: unsubscribe from the rest for optimization
     SetUpdateEventMask(USE_UPDATE);
+    SubscribeToEvent(E_UPDATE, URHO3D_HANDLER(Rotator, HandleUpdate));
 }
 
 void Rotator::SetRotationSpeed(const Vector3& speed)
@@ -44,4 +45,12 @@ void Rotator::Update(float timeStep)
     // Components have their scene node as a member variable for convenient access. Rotate the scene node now: construct a
     // rotation quaternion from Euler angles, scale rotation speed with the scene update time step
     node_->Rotate(Quaternion(rotationSpeed_.x_ * timeStep, rotationSpeed_.y_ * timeStep, rotationSpeed_.z_ * timeStep));
+}
+
+void Rotator::HandleUpdate(StringHash eventType, VariantMap& eventData)
+{
+        using namespace Update;
+    
+        // Take the frame time step, which is stored as a float
+        float timeStep = eventData[P_TIMESTEP].GetFloat();
 }

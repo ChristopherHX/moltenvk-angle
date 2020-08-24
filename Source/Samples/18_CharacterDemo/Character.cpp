@@ -52,6 +52,7 @@ void Character::RegisterObject(Context* context)
     URHO3D_ATTRIBUTE("On Ground", bool, onGround_, false, AM_DEFAULT);
     URHO3D_ATTRIBUTE("OK To Jump", bool, okToJump_, true, AM_DEFAULT);
     URHO3D_ATTRIBUTE("In Air Timer", float, inAirTimer_, 0.0f, AM_DEFAULT);
+    URHO3D_ATTRIBUTE("Test Vector3", Vector3, testVector3_, 0.0f, AM_DEFAULT);
 }
 
 void Character::Start()
