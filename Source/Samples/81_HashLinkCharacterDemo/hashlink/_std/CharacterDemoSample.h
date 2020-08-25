@@ -10,7 +10,6 @@ typedef struct _CharacterDemoSample *CharacterDemoSample;
 #include <hl/natives.h>
 #include <urho3d/Scene.h>
 #include <urho3d/Node.h>
-#include <utils/Character.h>
 
 
 struct _$CharacterDemoSample {
@@ -26,10 +25,8 @@ struct _CharacterDemoSample {
 	hl_urho3d_application* abstractApplication;
 	urho3d__Scene scene;
 	urho3d__Node cameraNode;
-	double yaw;
-	double pitch;
 	urho3d__Node characterNode;
-	utils__Character character;
+	bool firstPerson;
 	int CTRL_FORWARD;
 	int CTRL_BACK;
 	int CTRL_LEFT;
@@ -43,6 +40,7 @@ struct _CharacterDemoSample {
 	double INAIR_THRESHOLD_TIME;
 	double cameraDistance;
 	double CAMERA_MIN_DIST;
+	String patchInstructions;
 };
 #endif
 

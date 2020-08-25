@@ -28,6 +28,7 @@ struct _PhysicsSample {
 	double yaw;
 	double pitch;
 	int NUM_OBJECTS;
+	String patchInstructions;
 };
 #endif
 

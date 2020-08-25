@@ -47,9 +47,9 @@ int hashlink_main(int argc, char** argv);
 static char* argv[1];
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, int showCmd)
 {
-	char * str = ("hashlink_main");
-	int argc=1;
-	argv[1] = str;
+    char * str = ("hashlink_main");
+    int argc=1;
+    argv[1] = str;
 
     return hashlink_main(argc,argv);
 }
@@ -57,18 +57,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, in
 static char* argv[1];
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, int showCmd)
 {
-	char * str = ("hashlink_main");
-	int argc = 1;
-	argv[1] = str;
+    char * str = ("hashlink_main");
+    int argc = 1;
+    argv[1] = str;
     return hashlink_main(argc,argv);
 }
 #elif defined(_WIN32) && !defined(URHO3D_WIN32_CONSOLE)
 static char* argv[1];
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, int showCmd)
 {
-	char * str = ("hashlink_main");
-	int argc = 1;
-	argv[1] = str;
+    char * str = ("hashlink_main");
+    int argc = 1;
+    argv[1] = str;
     return hashlink_main(argc,argv);
 }
 #elif defined(__ANDROID__) || defined(IOS) || defined(TVOS)
@@ -86,6 +86,30 @@ int main(int argc, char** argv)
 }
 #endif
 
+
+
+// Entry point
+extern "C"{
+    void hl_init_hashes();
+    void hl_init_roots();
+    void hl_init_types( hl_module_context *ctx );
+    extern void *hl_functions_ptrs[];
+    extern hl_type *hl_functions_types[];
+
+    typedef void (hashlink_initialization)();
+    void urho3d_set_hashhlink_initialization_callback(hashlink_initialization* callbackfun);
+
+    static hl_module_context urho3d_hashlink_ctx;
+    void hl_urho3d_initialize_hashlink() {
+        hl_alloc_init(&urho3d_hashlink_ctx.alloc);
+        urho3d_hashlink_ctx.functions_ptrs = hl_functions_ptrs;
+        urho3d_hashlink_ctx.functions_types = hl_functions_types;
+        hl_init_types(&urho3d_hashlink_ctx);
+        hl_init_hashes();
+        hl_init_roots();
+    }
+}
+
 int hashlink_main(int argc, char** argv)
 {
     #define sys_global_init()
@@ -96,6 +120,9 @@ int hashlink_main(int argc, char** argv)
     hl_type_fun tf = { 0 };
     hl_type clt = {  };
     vclosure cl = {  };
+    
+    urho3d_set_hashhlink_initialization_callback(hl_urho3d_initialize_hashlink);
+    
     sys_global_init();
     hl_global_init();
     hl_register_thread(&ret);

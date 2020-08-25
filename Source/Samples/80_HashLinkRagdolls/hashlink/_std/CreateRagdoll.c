@@ -719,7 +719,7 @@ void CreateRagdoll_CreateRagdollBone(CreateRagdoll r0,String r1,int r2,hl_urho3d
 	r14 = hl_alloc_virtual(&t$vrt_329ffa8);
 	r13 = (String)s$src_haxe_RagdollsSample_hx;
 	if( hl_vfields(r14)[1] ) *(String*)(hl_vfields(r14)[1]) = (String)r13; else hl_dyn_setp(r14->value,37969014/*fileName*/,&t$String,r13);
-	r15 = 53;
+	r15 = 58;
 	if( hl_vfields(r14)[2] ) *(int*)(hl_vfields(r14)[2]) = (int)r15; else hl_dyn_seti(r14->value,371360620/*lineNumber*/,&t$_i32,r15);
 	r13 = (String)s$CreateRagdoll;
 	if( hl_vfields(r14)[0] ) *(String*)(hl_vfields(r14)[0]) = (String)r13; else hl_dyn_setp(r14->value,-63073762/*className*/,&t$String,r13);
@@ -916,7 +916,7 @@ void CreateRagdoll_CreateRagdollConstraint(CreateRagdoll r0,String r1,String r2,
 	r19 = hl_alloc_virtual(&t$vrt_329ffa8);
 	r18 = (String)s$src_haxe_RagdollsSample_hx;
 	if( hl_vfields(r19)[1] ) *(String*)(hl_vfields(r19)[1]) = (String)r18; else hl_dyn_setp(r19->value,37969014/*fileName*/,&t$String,r18);
-	r20 = 80;
+	r20 = 85;
 	if( hl_vfields(r19)[2] ) *(int*)(hl_vfields(r19)[2]) = (int)r20; else hl_dyn_seti(r19->value,371360620/*lineNumber*/,&t$_i32,r20);
 	r18 = (String)s$CreateRagdoll;
 	if( hl_vfields(r19)[0] ) *(String*)(hl_vfields(r19)[0]) = (String)r18; else hl_dyn_setp(r19->value,-63073762/*className*/,&t$String,r18);
@@ -937,7 +937,7 @@ void CreateRagdoll_CreateRagdollConstraint(CreateRagdoll r0,String r1,String r2,
 	r19 = hl_alloc_virtual(&t$vrt_329ffa8);
 	r18 = (String)s$src_haxe_RagdollsSample_hx;
 	if( hl_vfields(r19)[1] ) *(String*)(hl_vfields(r19)[1]) = (String)r18; else hl_dyn_setp(r19->value,37969014/*fileName*/,&t$String,r18);
-	r20 = 84;
+	r20 = 89;
 	if( hl_vfields(r19)[2] ) *(int*)(hl_vfields(r19)[2]) = (int)r20; else hl_dyn_seti(r19->value,371360620/*lineNumber*/,&t$_i32,r20);
 	r18 = (String)s$CreateRagdoll;
 	if( hl_vfields(r19)[0] ) *(String*)(hl_vfields(r19)[0]) = (String)r18; else hl_dyn_setp(r19->value,-63073762/*className*/,&t$String,r18);

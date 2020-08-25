@@ -28,6 +28,7 @@ class ProxyApp : public Application
         callback_setup = NULL;
         callback_start = NULL;
         callback_stop = NULL;
+        screenJoystickpatchString_ = "";
     }
 
     void Setup() override
@@ -116,7 +117,7 @@ class ProxyApp : public Application
         }
     }
 
-    void subscribeToEvent(Urho3D::Object * object, hl_urho3d_stringhash *stringhash, vdynamic *dyn_obj, vstring *str)
+    void subscribeToEvent(Urho3D::Object *object, hl_urho3d_stringhash *stringhash, vdynamic *dyn_obj, vstring *str)
     {
         if (stringhash)
         {
@@ -126,7 +127,7 @@ class ProxyApp : public Application
                 const char *closure_name = (char *)hl_to_utf8(str->bytes);
                 hl_event_closures[*urho3d_stringhash] = new HL_Urho3DEventHandler(context_, dyn_obj, String(closure_name));
 
-                SubscribeToEvent(object,*urho3d_stringhash, URHO3D_HANDLER(ProxyApp, HandlEvents));
+                SubscribeToEvent(object, *urho3d_stringhash, URHO3D_HANDLER(ProxyApp, HandlEvents));
             }
         }
     }
@@ -349,7 +350,12 @@ class ProxyApp : public Application
         input->SetScreenJoystickVisible(screenJoystickSettingsIndex_, true);
     }
 
-    virtual String GetScreenJoystickPatchString() const { return String::EMPTY; }
+    virtual String GetScreenJoystickPatchString() const { return screenJoystickpatchString_; }
+
+    void SetScreenJoystickPatchString(String patch_string)
+    {
+        screenJoystickpatchString_=patch_string;
+    }
 
     void CreateConsoleAndDebugHud()
     {
@@ -406,6 +412,8 @@ public:
     unsigned screenJoystickSettingsIndex_;
     /// Pause flag.
     bool paused_;
+
+    String screenJoystickpatchString_;
     /*=================================================================================================================*/
     /*=================================================================================================================*/
 };
@@ -497,13 +505,13 @@ HL_PRIM void HL_NAME(_application_subscribe_to_event)(hl_urho3d_application *app
     }
 }
 
-HL_PRIM void HL_NAME(_application_subscribe_to_event_sender)(hl_urho3d_application *app,Urho3D::Object * object, hl_urho3d_stringhash *stringhash, vdynamic *dyn_obj, vstring *str)
+HL_PRIM void HL_NAME(_application_subscribe_to_event_sender)(hl_urho3d_application *app, Urho3D::Object *object, hl_urho3d_stringhash *stringhash, vdynamic *dyn_obj, vstring *str)
 {
     Urho3D::Application *ptr_app = app->ptr;
     if (ptr_app)
     {
         ProxyApp *proxyApp = (ProxyApp *)ptr_app;
-        proxyApp->subscribeToEvent(object,stringhash, dyn_obj, str);
+        proxyApp->subscribeToEvent(object, stringhash, dyn_obj, str);
     }
 }
 
@@ -513,12 +521,46 @@ HL_PRIM bool HL_NAME(_application_is_touch_enabled)(hl_urho3d_application *app)
     if (ptr_app)
     {
         ProxyApp *proxyApp = (ProxyApp *)ptr_app;
-        return proxyApp->touchEnabled_;  
+        return proxyApp->touchEnabled_;
     }
     return false;
 }
-DEFINE_PRIM(_BOOL, _application_is_touch_enabled, HL_URHO3D_APPLICATION);
 
+
+HL_PRIM void HL_NAME(_application_set_joystick_patch_string)(hl_urho3d_application *app,vstring * vpatch_string)
+{
+    const char *patch_string = (char *)hl_to_utf8(vpatch_string->bytes);
+    Urho3D::Application *ptr_app = app->ptr;
+    if (ptr_app)
+    {
+        ProxyApp *proxyApp = (ProxyApp *)ptr_app;
+        proxyApp->SetScreenJoystickPatchString(String(patch_string));
+    }
+
+}
+
+
+typedef void(hashlink_initialization)();
+static hashlink_initialization *urho3d_hashlink_initialize_callback = NULL;
+HL_PRIM void HL_NAME(_application_initialize_hashlink)(hl_urho3d_application *app)
+{
+    if (urho3d_hashlink_initialize_callback != NULL)
+    {
+        urho3d_hashlink_initialize_callback();
+    }
+}
+
+extern "C"
+{
+    void urho3d_set_hashhlink_initialization_callback(hashlink_initialization *callbackfun)
+    {
+        urho3d_hashlink_initialize_callback = callbackfun;
+    }
+}
+
+DEFINE_PRIM(_VOID, _application_initialize_hashlink, HL_URHO3D_APPLICATION);
+
+DEFINE_PRIM(_BOOL, _application_is_touch_enabled, HL_URHO3D_APPLICATION);
 DEFINE_PRIM(HL_URHO3D_APPLICATION, _create_application, URHO3D_CONTEXT);
 DEFINE_PRIM(_VOID, _run_application, HL_URHO3D_APPLICATION);
 DEFINE_PRIM(_VOID, _setup_closure_application, HL_URHO3D_APPLICATION _FUN(_VOID, _NO_ARG));
@@ -526,4 +568,6 @@ DEFINE_PRIM(_VOID, _start_closure_application, HL_URHO3D_APPLICATION _FUN(_VOID,
 DEFINE_PRIM(_VOID, _stop_closure_application, HL_URHO3D_APPLICATION _FUN(_VOID, _NO_ARG));
 DEFINE_PRIM(_VOID, _application_subscribe_to_event, HL_URHO3D_APPLICATION HL_URHO3D_STRINGHASH _DYN _STRING);
 DEFINE_PRIM(_VOID, _application_subscribe_to_event_sender, HL_URHO3D_APPLICATION HL_URHO3D_OBJECT HL_URHO3D_STRINGHASH _DYN _STRING);
+
+DEFINE_PRIM(_VOID, _application_set_joystick_patch_string, HL_URHO3D_APPLICATION _STRING);
 //

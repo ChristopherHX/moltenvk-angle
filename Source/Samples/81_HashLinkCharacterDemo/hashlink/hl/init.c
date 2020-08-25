@@ -28,13 +28,7 @@
 #include <urho3d/_Vector2/Vector2_Impl_.h>
 #include <urho3d/_Vector3/Vector3_Impl_.h>
 extern hl_type t$fun_363696b;
-hl_urho3d_math_vector2* fun$init__$2(void);
 extern hl_type t$fun_f0a94e3;
-hl_urho3d_math_vector2* fun$init__$3(void);
-hl_urho3d_math_vector2* fun$init__$4(void);
-hl_urho3d_math_vector2* fun$init__$5(void);
-hl_urho3d_math_vector2* fun$init__$6(void);
-hl_urho3d_math_vector2* fun$init__$7(void);
 hl_urho3d_math_vector3* fun$init__$8(void);
 extern hl_type t$fun_dc27400;
 hl_urho3d_math_vector3* fun$init__$9(void);
@@ -394,6 +388,78 @@ hl_urho3d_math_quaternion* fun$init__$1() {
 	r2 = Urho3D__math_quaternion_create(r4,r5,r6);
 	label$e988165_1_12:
 	return r2;
+}
+
+hl_urho3d_math_vector2* fun$init__$2() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 0.;
+	r2 = (float)r1;
+	r1 = 0.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$3() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = -1.;
+	r2 = (float)r1;
+	r1 = 0.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$4() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 1.;
+	r2 = (float)r1;
+	r1 = 0.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$5() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 0.;
+	r2 = (float)r1;
+	r1 = 1.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$6() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 0.;
+	r2 = (float)r1;
+	r1 = -1.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$7() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 1.;
+	r2 = (float)r1;
+	r1 = 1.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
 }
 
 void fun$init() {
@@ -1235,78 +1301,6 @@ void fun$init() {
 	Main_main();
 	haxe_EntryPoint_run();
 	return;
-}
-
-hl_urho3d_math_vector2* fun$init__$2() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 0.;
-	r2 = (float)r1;
-	r1 = 0.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$3() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = -1.;
-	r2 = (float)r1;
-	r1 = 0.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$4() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 1.;
-	r2 = (float)r1;
-	r1 = 0.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$5() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 0.;
-	r2 = (float)r1;
-	r1 = 1.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$6() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 0.;
-	r2 = (float)r1;
-	r1 = -1.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$7() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 1.;
-	r2 = (float)r1;
-	r1 = 1.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
 }
 
 hl_urho3d_math_vector3* fun$init__$8() {

@@ -39,6 +39,7 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("Setup"));
 	hl_hash((vbyte*)USTR("Start"));
 	hl_hash((vbyte*)USTR("Stop"));
+	hl_hash((vbyte*)USTR("SetScreenJoystickPatchString"));
 	hl_hash((vbyte*)USTR("SubscribeToEvent"));
 	hl_hash((vbyte*)USTR("Random"));
 	hl_hash((vbyte*)USTR("Clamp"));
@@ -140,6 +141,7 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("yaw"));
 	hl_hash((vbyte*)USTR("pitch"));
 	hl_hash((vbyte*)USTR("NUM_OBJECTS"));
+	hl_hash((vbyte*)USTR("patchInstructions"));
 	hl_hash((vbyte*)USTR("CreateScene"));
 	hl_hash((vbyte*)USTR("SetupViewport"));
 	hl_hash((vbyte*)USTR("SubscribeToEvents"));

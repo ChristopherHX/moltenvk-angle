@@ -6,15 +6,12 @@
 #include <_std/String.h>
 #include <urho3d/Application.h>
 #include <urho3d/_Context/Context_Impl_.h>
-#include <urho3d/Component.h>
-#include <urho3d/LogicComponent.h>
-#include <urho3d/Controls.h>
 #include <haxe/ds/StringMap.h>
+#include <urho3d/Component.h>
 #include <hl/types/ArrayAccess.h>
 #include <hl/types/ArrayBase.h>
 #include <hl/types/ArrayBytes_hl_F32.h>
 #include <urho3d/Node.h>
-#include <utils/Character.h>
 #include <urho3d/Scene.h>
 #include <_std/CharacterDemoSample.h>
 #include <haxe/Log.h>
@@ -27,6 +24,9 @@
 #include <urho3d/CollisionShape.h>
 #include <urho3d/_Vector3/Vector3_Impl_.h>
 #include <urho3d/AnimatedModel.h>
+#include <urho3d/LogicComponent.h>
+#include <urho3d/Controls.h>
+#include <utils/Character.h>
 #include <_std/Date.h>
 #include <_std/Main.h>
 #include <_std/Std.h>
@@ -147,6 +147,16 @@
 #include <urho3d/_XMLFile/XMLFile_Impl_.h>
 #include <urho3d/_Zone/AbstractZone_Impl_.h>
 extern hl_type t$String;
+extern vbyte string$cb939d4[];
+extern vbyte string$814831e[];
+extern vbyte string$b86a896[];
+extern vbyte string$85bc4b3[];
+extern vbyte string$73ed8c0[];
+extern vbyte string$f402a98[];
+extern vbyte string$64803b9[];
+extern vbyte string$d21e2af[];
+extern vbyte string$6df70a8[];
+extern vbyte string$23a1cae[];
 
 // Globals
 hl__$BaseType g$_hl_BaseType = 0;
@@ -154,17 +164,48 @@ hl__Class g$_hl_Class = 0;
 $String g$_String = 0;
 urho3d__$Application g$_urho3d_Application = 0;
 urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_ = 0;
-urho3d__$Component g$_urho3d_Component = 0;
-urho3d__$LogicComponent g$_urho3d_LogicComponent = 0;
-urho3d__$Controls g$_urho3d_Controls = 0;
 haxe__ds__$StringMap g$_haxe_ds_StringMap = 0;
+urho3d__$Component g$_urho3d_Component = 0;
 hl__types__$ArrayAccess g$_hl_types_ArrayAccess = 0;
 hl__types__$ArrayBase g$_hl_types_ArrayBase = 0;
 hl__types__$ArrayBytes_hl_F32 g$_hl_types_ArrayBytes_hl_F32 = 0;
 urho3d__$Node g$_urho3d_Node = 0;
-utils__$Character g$_utils_Character = 0;
 urho3d__$Scene g$_urho3d_Scene = 0;
 $CharacterDemoSample g$_CharacterDemoSample = 0;
+String s$92325a1 = 0;
+String s$_add_sel_element_ = 0;
+String s$_element_type_Button_ = 0;
+String s$493c8cd = 0;
+String s$add9445 = 0;
+String s$6488c1a = 0;
+String s$7fee705 = 0;
+String s$05c58bf = 0;
+String s$cb939d4 = 0;
+String s$0c569c5 = 0;
+String s$11e6ea7 = 0;
+String s$814831e = 0;
+String s$d814464 = 0;
+String s$b408c3c = 0;
+String s$b86a896 = 0;
+String s$85bc4b3 = 0;
+String s$33914d0 = 0;
+String s$88c5118 = 0;
+String s$9de6d71 = 0;
+String s$e1e0a8d = 0;
+String s$07405bc = 0;
+String s$b18eb2f = 0;
+String s$_add_ = 0;
+String s$73ed8c0 = 0;
+String s$f402a98 = 0;
+String s$64803b9 = 0;
+String s$aaf4d98 = 0;
+String s$650d821 = 0;
+String s$7a27545 = 0;
+String s$d21e2af = 0;
+String s$6df70a8 = 0;
+String s$23a1cae = 0;
+String s$8164dd8 = 0;
+String s$f292ea2 = 0;
 haxe__$Log g$_haxe_Log = 0;
 String s$Setup = 0;
 String s$src_haxe_CharacterDemoSample_hx = 0;
@@ -201,16 +242,16 @@ String s$Models_Mutant_Mutant_mdl = 0;
 String s$16e6a02 = 0;
 String s$AnimationController = 0;
 String s$Mutant_Head = 0;
+urho3d__$LogicComponent g$_urho3d_LogicComponent = 0;
+urho3d__$Controls g$_urho3d_Controls = 0;
+utils__$Character g$_utils_Character = 0;
 String s$Update = 0;
 String s$HandleUpdate = 0;
 String s$PostUpdate = 0;
 String s$HandlePostUpdate = 0;
-String s$CharacterDemoSample_xml = 0;
+String s$CharacterDemo_xml = 0;
 String s$5e732a1 = 0;
 String s$SaveXML_ = 0;
-String s$MoveCamera = 0;
-String s$LoadXML_ = 0;
-String s$CharacterDemo_xml = 0;
 $Date g$_Date = 0;
 $Main g$_Main = 0;
 String s$Invalid_function_ = 0;
@@ -378,6 +419,40 @@ urho3d___VectorBuffer__$VectorBuffer_Impl_ g$30f2db9 = 0;
 urho3d___Viewport__$Viewport_Impl_ g$_urho3d__Viewport_Viewport_Impl_ = 0;
 urho3d___XMLFile__$XMLFile_Impl_ g$_urho3d__XMLFile_XMLFile_Impl_ = 0;
 urho3d___Zone__$AbstractZone_Impl_ g$_urho3d__Zone_AbstractZone_Impl_ = 0;
+static struct _String const_s$92325a1 = {&t$String,(vbyte*)USTR("<patch>"),7};
+static struct _String const_s$_add_sel_element_ = {&t$String,(vbyte*)USTR("    <add sel=\"/element\">"),24};
+static struct _String const_s$_element_type_Button_ = {&t$String,(vbyte*)USTR("        <element type=\"Button\">"),31};
+static struct _String const_s$493c8cd = {&t$String,(vbyte*)USTR("            <attribute name=\"Name\" value=\"Button3\" />"),53};
+static struct _String const_s$add9445 = {&t$String,(vbyte*)USTR("            <attribute name=\"Position\" value=\"-120 -120\" />"),59};
+static struct _String const_s$6488c1a = {&t$String,(vbyte*)USTR("            <attribute name=\"Size\" value=\"96 96\" />"),51};
+static struct _String const_s$7fee705 = {&t$String,(vbyte*)USTR("            <attribute name=\"Horiz Alignment\" value=\"Right\" />"),62};
+static struct _String const_s$05c58bf = {&t$String,(vbyte*)USTR("            <attribute name=\"Vert Alignment\" value=\"Bottom\" />"),62};
+static struct _String const_s$cb939d4 = {&t$String,(vbyte*)string$cb939d4,82};
+static struct _String const_s$0c569c5 = {&t$String,(vbyte*)USTR("            <attribute name=\"Image Rect\" value=\"96 0 192 96\" />"),63};
+static struct _String const_s$11e6ea7 = {&t$String,(vbyte*)USTR("            <attribute name=\"Hover Image Offset\" value=\"0 0\" />"),63};
+static struct _String const_s$814831e = {&t$String,(vbyte*)string$814831e,65};
+static struct _String const_s$d814464 = {&t$String,(vbyte*)USTR("            <element type=\"Text\">"),33};
+static struct _String const_s$b408c3c = {&t$String,(vbyte*)USTR("                <attribute name=\"Name\" value=\"Label\" />"),55};
+static struct _String const_s$b86a896 = {&t$String,(vbyte*)string$b86a896,67};
+static struct _String const_s$85bc4b3 = {&t$String,(vbyte*)string$85bc4b3,66};
+static struct _String const_s$33914d0 = {&t$String,(vbyte*)USTR("                <attribute name=\"Color\" value=\"0 0 0 1\" />"),58};
+static struct _String const_s$88c5118 = {&t$String,(vbyte*)USTR("                <attribute name=\"Text\" value=\"Gyroscope\" />"),59};
+static struct _String const_s$9de6d71 = {&t$String,(vbyte*)USTR("            </element>"),22};
+static struct _String const_s$e1e0a8d = {&t$String,(vbyte*)USTR("                <attribute name=\"Name\" value=\"KeyBinding\" />"),60};
+static struct _String const_s$07405bc = {&t$String,(vbyte*)USTR("                <attribute name=\"Text\" value=\"G\" />"),51};
+static struct _String const_s$b18eb2f = {&t$String,(vbyte*)USTR("        </element>"),18};
+static struct _String const_s$_add_ = {&t$String,(vbyte*)USTR("    </add>"),10};
+static struct _String const_s$73ed8c0 = {&t$String,(vbyte*)string$73ed8c0,115};
+static struct _String const_s$f402a98 = {&t$String,(vbyte*)string$f402a98,186};
+static struct _String const_s$64803b9 = {&t$String,(vbyte*)string$64803b9,80};
+static struct _String const_s$aaf4d98 = {&t$String,(vbyte*)USTR("        <element type=\"Text\">"),29};
+static struct _String const_s$650d821 = {&t$String,(vbyte*)USTR("            <attribute name=\"Name\" value=\"KeyBinding\" />"),56};
+static struct _String const_s$7a27545 = {&t$String,(vbyte*)USTR("            <attribute name=\"Text\" value=\"F\" />"),47};
+static struct _String const_s$d21e2af = {&t$String,(vbyte*)string$d21e2af,115};
+static struct _String const_s$6df70a8 = {&t$String,(vbyte*)string$6df70a8,183};
+static struct _String const_s$23a1cae = {&t$String,(vbyte*)string$23a1cae,80};
+static struct _String const_s$8164dd8 = {&t$String,(vbyte*)USTR("            <attribute name=\"Text\" value=\"SPACE\" />"),51};
+static struct _String const_s$f292ea2 = {&t$String,(vbyte*)USTR("</patch>"),8};
 static struct _String const_s$Setup = {&t$String,(vbyte*)USTR("Setup"),5};
 static struct _String const_s$src_haxe_CharacterDemoSample_hx = {&t$String,(vbyte*)USTR("src/haxe/CharacterDemoSample.hx"),31};
 static struct _String const_s$CharacterDemoSample = {&t$String,(vbyte*)USTR("CharacterDemoSample"),19};
@@ -408,12 +483,9 @@ static struct _String const_s$Update = {&t$String,(vbyte*)USTR("Update"),6};
 static struct _String const_s$HandleUpdate = {&t$String,(vbyte*)USTR("HandleUpdate"),12};
 static struct _String const_s$PostUpdate = {&t$String,(vbyte*)USTR("PostUpdate"),10};
 static struct _String const_s$HandlePostUpdate = {&t$String,(vbyte*)USTR("HandlePostUpdate"),16};
-static struct _String const_s$CharacterDemoSample_xml = {&t$String,(vbyte*)USTR("CharacterDemoSample.xml"),23};
+static struct _String const_s$CharacterDemo_xml = {&t$String,(vbyte*)USTR("CharacterDemo.xml"),17};
 static struct _String const_s$5e732a1 = {&t$String,(vbyte*)USTR("\t"),1};
 static struct _String const_s$SaveXML_ = {&t$String,(vbyte*)USTR("SaveXML = "),10};
-static struct _String const_s$MoveCamera = {&t$String,(vbyte*)USTR("MoveCamera"),10};
-static struct _String const_s$LoadXML_ = {&t$String,(vbyte*)USTR("LoadXML = "),10};
-static struct _String const_s$CharacterDemo_xml = {&t$String,(vbyte*)USTR("CharacterDemo.xml"),17};
 static struct _String const_s$Invalid_function_ = {&t$String,(vbyte*)USTR("Invalid function "),17};
 static struct _String const_s$Can_t_add_ = {&t$String,(vbyte*)USTR("Can't add "),10};
 static struct _String const_s$84c4047 = {&t$String,(vbyte*)USTR("("),1};
@@ -459,6 +531,40 @@ static struct _String const_s$Array = {&t$String,(vbyte*)USTR("Array"),5};
 static struct _String const_s$hl_types_ArrayDyn = {&t$String,(vbyte*)USTR("hl.types.ArrayDyn"),17};
 
 void hl_init_roots() {
+	s$92325a1 = &const_s$92325a1;
+	s$_add_sel_element_ = &const_s$_add_sel_element_;
+	s$_element_type_Button_ = &const_s$_element_type_Button_;
+	s$493c8cd = &const_s$493c8cd;
+	s$add9445 = &const_s$add9445;
+	s$6488c1a = &const_s$6488c1a;
+	s$7fee705 = &const_s$7fee705;
+	s$05c58bf = &const_s$05c58bf;
+	s$cb939d4 = &const_s$cb939d4;
+	s$0c569c5 = &const_s$0c569c5;
+	s$11e6ea7 = &const_s$11e6ea7;
+	s$814831e = &const_s$814831e;
+	s$d814464 = &const_s$d814464;
+	s$b408c3c = &const_s$b408c3c;
+	s$b86a896 = &const_s$b86a896;
+	s$85bc4b3 = &const_s$85bc4b3;
+	s$33914d0 = &const_s$33914d0;
+	s$88c5118 = &const_s$88c5118;
+	s$9de6d71 = &const_s$9de6d71;
+	s$e1e0a8d = &const_s$e1e0a8d;
+	s$07405bc = &const_s$07405bc;
+	s$b18eb2f = &const_s$b18eb2f;
+	s$_add_ = &const_s$_add_;
+	s$73ed8c0 = &const_s$73ed8c0;
+	s$f402a98 = &const_s$f402a98;
+	s$64803b9 = &const_s$64803b9;
+	s$aaf4d98 = &const_s$aaf4d98;
+	s$650d821 = &const_s$650d821;
+	s$7a27545 = &const_s$7a27545;
+	s$d21e2af = &const_s$d21e2af;
+	s$6df70a8 = &const_s$6df70a8;
+	s$23a1cae = &const_s$23a1cae;
+	s$8164dd8 = &const_s$8164dd8;
+	s$f292ea2 = &const_s$f292ea2;
 	s$Setup = &const_s$Setup;
 	s$src_haxe_CharacterDemoSample_hx = &const_s$src_haxe_CharacterDemoSample_hx;
 	s$CharacterDemoSample = &const_s$CharacterDemoSample;
@@ -489,12 +595,9 @@ void hl_init_roots() {
 	s$HandleUpdate = &const_s$HandleUpdate;
 	s$PostUpdate = &const_s$PostUpdate;
 	s$HandlePostUpdate = &const_s$HandlePostUpdate;
-	s$CharacterDemoSample_xml = &const_s$CharacterDemoSample_xml;
+	s$CharacterDemo_xml = &const_s$CharacterDemo_xml;
 	s$5e732a1 = &const_s$5e732a1;
 	s$SaveXML_ = &const_s$SaveXML_;
-	s$MoveCamera = &const_s$MoveCamera;
-	s$LoadXML_ = &const_s$LoadXML_;
-	s$CharacterDemo_xml = &const_s$CharacterDemo_xml;
 	s$Invalid_function_ = &const_s$Invalid_function_;
 	s$Can_t_add_ = &const_s$Can_t_add_;
 	s$84c4047 = &const_s$84c4047;
@@ -543,15 +646,12 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_String);
 	hl_add_root((void**)&g$_urho3d_Application);
 	hl_add_root((void**)&g$_urho3d__Context_Context_Impl_);
-	hl_add_root((void**)&g$_urho3d_Component);
-	hl_add_root((void**)&g$_urho3d_LogicComponent);
-	hl_add_root((void**)&g$_urho3d_Controls);
 	hl_add_root((void**)&g$_haxe_ds_StringMap);
+	hl_add_root((void**)&g$_urho3d_Component);
 	hl_add_root((void**)&g$_hl_types_ArrayAccess);
 	hl_add_root((void**)&g$_hl_types_ArrayBase);
 	hl_add_root((void**)&g$_hl_types_ArrayBytes_hl_F32);
 	hl_add_root((void**)&g$_urho3d_Node);
-	hl_add_root((void**)&g$_utils_Character);
 	hl_add_root((void**)&g$_urho3d_Scene);
 	hl_add_root((void**)&g$_CharacterDemoSample);
 	hl_add_root((void**)&g$_haxe_Log);
@@ -564,6 +664,9 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_urho3d_CollisionShape);
 	hl_add_root((void**)&g$_urho3d__Vector3_Vector3_Impl_);
 	hl_add_root((void**)&g$_urho3d_AnimatedModel);
+	hl_add_root((void**)&g$_urho3d_LogicComponent);
+	hl_add_root((void**)&g$_urho3d_Controls);
+	hl_add_root((void**)&g$_utils_Character);
 	hl_add_root((void**)&g$_Date);
 	hl_add_root((void**)&g$_Main);
 	hl_add_root((void**)&g$_Std);
@@ -689,3 +792,35 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_urho3d__XMLFile_XMLFile_Impl_);
 	hl_add_root((void**)&g$_urho3d__Zone_AbstractZone_Impl_);
 }
+//             <attribute name=\"Texture\" value=\"Texture2D;Textu...
+vbyte string$cb939d4[] = {32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,60,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,32,0,110,0,97,0,109,0,101,0,61,0,34,0,84,0,101,0,120,0,116,0,117,0,114,0,101,0,34,0,32,0,118,0,97,0,108,0,117,0,101,0,61,0,34,0,84,0,101,0,120,0,116,0,117,0,114,0,101,0,50,0,68,0,59,0,84,0,101,0,120,0,116,0,117,0,114,0,101,0,115,0,47\
+	,0,84,0,111,0,117,0,99,0,104,0,73,0,110,0,112,0,117,0,116,0,46,0,112,0,110,0,103,0,34,0,32,0,47,0,62,0,0,0};
+//             <attribute name=\"Pressed Image Offset\" value=\"0 ...
+vbyte string$814831e[] = {32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,60,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,32,0,110,0,97,0,109,0,101,0,61,0,34,0,80,0,114,0,101,0,115,0,115,0,101,0,100,0,32,0,73,0,109,0,97,0,103,0,101,0,32,0,79,0,102,0,102,0,115,0,101,0,116,0,34,0,32,0,118,0,97,0,108,0,117,0,101,0,61,0,34,0,48,0,32,0,48,0,34,0,32,0,47\
+	,0,62,0,0,0};
+//                 <attribute name=\"Horiz Alignment\" value=\"Cen...
+vbyte string$b86a896[] = {32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,60,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,32,0,110,0,97,0,109,0,101,0,61,0,34,0,72,0,111,0,114,0,105,0,122,0,32,0,65,0,108,0,105,0,103,0,110,0,109,0,101,0,110,0,116,0,34,0,32,0,118,0,97,0,108,0,117,0,101,0,61,0,34,0,67,0,101,0,110,0,116,0,101,0,114,0,34\
+	,0,32,0,47,0,62,0,0,0};
+//                 <attribute name=\"Vert Alignment\" value=\"Cent...
+vbyte string$85bc4b3[] = {32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,60,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,32,0,110,0,97,0,109,0,101,0,61,0,34,0,86,0,101,0,114,0,116,0,32,0,65,0,108,0,105,0,103,0,110,0,109,0,101,0,110,0,116,0,34,0,32,0,118,0,97,0,108,0,117,0,101,0,61,0,34,0,67,0,101,0,110,0,116,0,101,0,114,0,34,0,32\
+	,0,47,0,62,0,0,0};
+//     <remove sel=\"/element/element[./attribute[@name='Name' a...
+vbyte string$73ed8c0[] = {32,0,32,0,32,0,32,0,60,0,114,0,101,0,109,0,111,0,118,0,101,0,32,0,115,0,101,0,108,0,61,0,34,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,91,0,46,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,78,0,97,0,109,0,101,0,39,0,32,0,97,0,110,0,100,0,32,0,64\
+	,0,118,0,97,0,108,0,117,0,101,0,61,0,39,0,66,0,117,0,116,0,116,0,111,0,110,0,48,0,39,0,93,0,93,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,73,0,115,0,32,0,86,0,105,0,115,0,105,0,98,0,108,0,101,0,39,0,93,0,34,0,32,0,47,0,62,0,0,0};
+//     <replace sel=\"/element/element[./attribute[@name='Name' ...
+vbyte string$f402a98[] = {32,0,32,0,32,0,32,0,60,0,114,0,101,0,112,0,108,0,97,0,99,0,101,0,32,0,115,0,101,0,108,0,61,0,34,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,91,0,46,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,78,0,97,0,109,0,101,0,39,0,32,0,97,0,110,0,100,0,32\
+	,0,64,0,118,0,97,0,108,0,117,0,101,0,61,0,39,0,66,0,117,0,116,0,116,0,111,0,110,0,48,0,39,0,93,0,93,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,91,0,46,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,78,0,97,0,109,0,101,0,39,0,32,0,97,0,110,0,100,0,32,0,64,0,118,0,97,0,108,0,117,0,101,0,61,0,39\
+	,0,76,0,97,0,98,0,101,0,108,0,39,0,93,0,93,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,84,0,101,0,120,0,116,0,39,0,93,0,47,0,64,0,118,0,97,0,108,0,117,0,101,0,34,0,62,0,49,0,115,0,116,0,47,0,51,0,114,0,100,0,60,0,47,0,114,0,101,0,112,0,108,0,97,0,99,0,101,0,62,0,0,0};
+//     <add sel=\"/element/element[./attribute[@name='Name' and ...
+vbyte string$64803b9[] = {32,0,32,0,32,0,32,0,60,0,97,0,100,0,100,0,32,0,115,0,101,0,108,0,61,0,34,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,91,0,46,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,78,0,97,0,109,0,101,0,39,0,32,0,97,0,110,0,100,0,32,0,64,0,118,0,97,0,108\
+	,0,117,0,101,0,61,0,39,0,66,0,117,0,116,0,116,0,111,0,110,0,48,0,39,0,93,0,93,0,34,0,62,0,0,0};
+//     <remove sel=\"/element/element[./attribute[@name='Name' a...
+vbyte string$d21e2af[] = {32,0,32,0,32,0,32,0,60,0,114,0,101,0,109,0,111,0,118,0,101,0,32,0,115,0,101,0,108,0,61,0,34,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,91,0,46,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,78,0,97,0,109,0,101,0,39,0,32,0,97,0,110,0,100,0,32,0,64\
+	,0,118,0,97,0,108,0,117,0,101,0,61,0,39,0,66,0,117,0,116,0,116,0,111,0,110,0,49,0,39,0,93,0,93,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,73,0,115,0,32,0,86,0,105,0,115,0,105,0,98,0,108,0,101,0,39,0,93,0,34,0,32,0,47,0,62,0,0,0};
+//     <replace sel=\"/element/element[./attribute[@name='Name' ...
+vbyte string$6df70a8[] = {32,0,32,0,32,0,32,0,60,0,114,0,101,0,112,0,108,0,97,0,99,0,101,0,32,0,115,0,101,0,108,0,61,0,34,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,91,0,46,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,78,0,97,0,109,0,101,0,39,0,32,0,97,0,110,0,100,0,32\
+	,0,64,0,118,0,97,0,108,0,117,0,101,0,61,0,39,0,66,0,117,0,116,0,116,0,111,0,110,0,49,0,39,0,93,0,93,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,91,0,46,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,78,0,97,0,109,0,101,0,39,0,32,0,97,0,110,0,100,0,32,0,64,0,118,0,97,0,108,0,117,0,101,0,61,0,39\
+	,0,76,0,97,0,98,0,101,0,108,0,39,0,93,0,93,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,84,0,101,0,120,0,116,0,39,0,93,0,47,0,64,0,118,0,97,0,108,0,117,0,101,0,34,0,62,0,74,0,117,0,109,0,112,0,60,0,47,0,114,0,101,0,112,0,108,0,97,0,99,0,101,0,62,0,0,0};
+//     <add sel=\"/element/element[./attribute[@name='Name' and ...
+vbyte string$23a1cae[] = {32,0,32,0,32,0,32,0,60,0,97,0,100,0,100,0,32,0,115,0,101,0,108,0,61,0,34,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,91,0,46,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,78,0,97,0,109,0,101,0,39,0,32,0,97,0,110,0,100,0,32,0,64,0,118,0,97,0,108\
+	,0,117,0,101,0,61,0,39,0,66,0,117,0,116,0,116,0,111,0,110,0,49,0,39,0,93,0,93,0,34,0,62,0,0,0};

@@ -146,6 +146,13 @@
 #include <urho3d/_XMLFile/XMLFile_Impl_.h>
 #include <urho3d/_Zone/AbstractZone_Impl_.h>
 extern hl_type t$String;
+extern vbyte string$73ed8c0[];
+extern vbyte string$6bdf1ed[];
+extern vbyte string$64803b9[];
+extern vbyte string$6aee3d1[];
+extern vbyte string$d21e2af[];
+extern vbyte string$d263c4e[];
+extern vbyte string$23a1cae[];
 
 // Globals
 hl__$BaseType g$_hl_BaseType = 0;
@@ -204,6 +211,21 @@ String s$_for_creating_ragdoll_constraint = 0;
 String s$CreateRagdollConstraint = 0;
 String s$Constraint = 0;
 urho3d__$Constraint g$_urho3d_Constraint = 0;
+String s$92325a1 = 0;
+String s$73ed8c0 = 0;
+String s$6bdf1ed = 0;
+String s$64803b9 = 0;
+String s$_element_type_Text_ = 0;
+String s$6aee3d1 = 0;
+String s$69e24c0 = 0;
+String s$_element_ = 0;
+String s$_add_ = 0;
+String s$d21e2af = 0;
+String s$d263c4e = 0;
+String s$23a1cae = 0;
+String s$650d821 = 0;
+String s$8164dd8 = 0;
+String s$f292ea2 = 0;
 String s$Setup = 0;
 String s$RagdollsSample = 0;
 String s$Octree = 0;
@@ -406,6 +428,21 @@ static struct _String const_s$CreateRagdollBone = {&t$String,(vbyte*)USTR("Creat
 static struct _String const_s$_for_creating_ragdoll_constraint = {&t$String,(vbyte*)USTR(" for creating ragdoll constraint"),32};
 static struct _String const_s$CreateRagdollConstraint = {&t$String,(vbyte*)USTR("CreateRagdollConstraint"),23};
 static struct _String const_s$Constraint = {&t$String,(vbyte*)USTR("Constraint"),10};
+static struct _String const_s$92325a1 = {&t$String,(vbyte*)USTR("<patch>"),7};
+static struct _String const_s$73ed8c0 = {&t$String,(vbyte*)string$73ed8c0,115};
+static struct _String const_s$6bdf1ed = {&t$String,(vbyte*)string$6bdf1ed,184};
+static struct _String const_s$64803b9 = {&t$String,(vbyte*)string$64803b9,80};
+static struct _String const_s$_element_type_Text_ = {&t$String,(vbyte*)USTR("        <element type=\"Text\">"),29};
+static struct _String const_s$6aee3d1 = {&t$String,(vbyte*)string$6aee3d1,64};
+static struct _String const_s$69e24c0 = {&t$String,(vbyte*)USTR("            <attribute name=\"Text\" value=\"LEFT\" />"),50};
+static struct _String const_s$_element_ = {&t$String,(vbyte*)USTR("        </element>"),18};
+static struct _String const_s$_add_ = {&t$String,(vbyte*)USTR("    </add>"),10};
+static struct _String const_s$d21e2af = {&t$String,(vbyte*)string$d21e2af,115};
+static struct _String const_s$d263c4e = {&t$String,(vbyte*)string$d263c4e,184};
+static struct _String const_s$23a1cae = {&t$String,(vbyte*)string$23a1cae,80};
+static struct _String const_s$650d821 = {&t$String,(vbyte*)USTR("            <attribute name=\"Name\" value=\"KeyBinding\" />"),56};
+static struct _String const_s$8164dd8 = {&t$String,(vbyte*)USTR("            <attribute name=\"Text\" value=\"SPACE\" />"),51};
+static struct _String const_s$f292ea2 = {&t$String,(vbyte*)USTR("</patch>"),8};
 static struct _String const_s$Setup = {&t$String,(vbyte*)USTR("Setup"),5};
 static struct _String const_s$RagdollsSample = {&t$String,(vbyte*)USTR("RagdollsSample"),14};
 static struct _String const_s$Octree = {&t$String,(vbyte*)USTR("Octree"),6};
@@ -493,6 +530,21 @@ void hl_init_roots() {
 	s$_for_creating_ragdoll_constraint = &const_s$_for_creating_ragdoll_constraint;
 	s$CreateRagdollConstraint = &const_s$CreateRagdollConstraint;
 	s$Constraint = &const_s$Constraint;
+	s$92325a1 = &const_s$92325a1;
+	s$73ed8c0 = &const_s$73ed8c0;
+	s$6bdf1ed = &const_s$6bdf1ed;
+	s$64803b9 = &const_s$64803b9;
+	s$_element_type_Text_ = &const_s$_element_type_Text_;
+	s$6aee3d1 = &const_s$6aee3d1;
+	s$69e24c0 = &const_s$69e24c0;
+	s$_element_ = &const_s$_element_;
+	s$_add_ = &const_s$_add_;
+	s$d21e2af = &const_s$d21e2af;
+	s$d263c4e = &const_s$d263c4e;
+	s$23a1cae = &const_s$23a1cae;
+	s$650d821 = &const_s$650d821;
+	s$8164dd8 = &const_s$8164dd8;
+	s$f292ea2 = &const_s$f292ea2;
 	s$Setup = &const_s$Setup;
 	s$RagdollsSample = &const_s$RagdollsSample;
 	s$Octree = &const_s$Octree;
@@ -704,3 +756,26 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_urho3d__XMLFile_XMLFile_Impl_);
 	hl_add_root((void**)&g$_urho3d__Zone_AbstractZone_Impl_);
 }
+//     <remove sel=\"/element/element[./attribute[@name='Name' a...
+vbyte string$73ed8c0[] = {32,0,32,0,32,0,32,0,60,0,114,0,101,0,109,0,111,0,118,0,101,0,32,0,115,0,101,0,108,0,61,0,34,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,91,0,46,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,78,0,97,0,109,0,101,0,39,0,32,0,97,0,110,0,100,0,32,0,64\
+	,0,118,0,97,0,108,0,117,0,101,0,61,0,39,0,66,0,117,0,116,0,116,0,111,0,110,0,48,0,39,0,93,0,93,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,73,0,115,0,32,0,86,0,105,0,115,0,105,0,98,0,108,0,101,0,39,0,93,0,34,0,32,0,47,0,62,0,0,0};
+//     <replace sel=\"/element/element[./attribute[@name='Name' ...
+vbyte string$6bdf1ed[] = {32,0,32,0,32,0,32,0,60,0,114,0,101,0,112,0,108,0,97,0,99,0,101,0,32,0,115,0,101,0,108,0,61,0,34,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,91,0,46,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,78,0,97,0,109,0,101,0,39,0,32,0,97,0,110,0,100,0,32\
+	,0,64,0,118,0,97,0,108,0,117,0,101,0,61,0,39,0,66,0,117,0,116,0,116,0,111,0,110,0,48,0,39,0,93,0,93,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,91,0,46,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,78,0,97,0,109,0,101,0,39,0,32,0,97,0,110,0,100,0,32,0,64,0,118,0,97,0,108,0,117,0,101,0,61,0,39\
+	,0,76,0,97,0,98,0,101,0,108,0,39,0,93,0,93,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,84,0,101,0,120,0,116,0,39,0,93,0,47,0,64,0,118,0,97,0,108,0,117,0,101,0,34,0,62,0,83,0,112,0,97,0,119,0,110,0,60,0,47,0,114,0,101,0,112,0,108,0,97,0,99,0,101,0,62,0,0,0};
+//     <add sel=\"/element/element[./attribute[@name='Name' and ...
+vbyte string$64803b9[] = {32,0,32,0,32,0,32,0,60,0,97,0,100,0,100,0,32,0,115,0,101,0,108,0,61,0,34,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,91,0,46,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,78,0,97,0,109,0,101,0,39,0,32,0,97,0,110,0,100,0,32,0,64,0,118,0,97,0,108\
+	,0,117,0,101,0,61,0,39,0,66,0,117,0,116,0,116,0,111,0,110,0,48,0,39,0,93,0,93,0,34,0,62,0,0,0};
+//             <attribute name=\"Name\" value=\"MouseButtonBinding...
+vbyte string$6aee3d1[] = {32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,32,0,60,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,32,0,110,0,97,0,109,0,101,0,61,0,34,0,78,0,97,0,109,0,101,0,34,0,32,0,118,0,97,0,108,0,117,0,101,0,61,0,34,0,77,0,111,0,117,0,115,0,101,0,66,0,117,0,116,0,116,0,111,0,110,0,66,0,105,0,110,0,100,0,105,0,110,0,103,0,34,0,32,0,47,0,62\
+	,0,0,0};
+//     <remove sel=\"/element/element[./attribute[@name='Name' a...
+vbyte string$d21e2af[] = {32,0,32,0,32,0,32,0,60,0,114,0,101,0,109,0,111,0,118,0,101,0,32,0,115,0,101,0,108,0,61,0,34,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,91,0,46,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,78,0,97,0,109,0,101,0,39,0,32,0,97,0,110,0,100,0,32,0,64\
+	,0,118,0,97,0,108,0,117,0,101,0,61,0,39,0,66,0,117,0,116,0,116,0,111,0,110,0,49,0,39,0,93,0,93,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,73,0,115,0,32,0,86,0,105,0,115,0,105,0,98,0,108,0,101,0,39,0,93,0,34,0,32,0,47,0,62,0,0,0};
+//     <replace sel=\"/element/element[./attribute[@name='Name' ...
+vbyte string$d263c4e[] = {32,0,32,0,32,0,32,0,60,0,114,0,101,0,112,0,108,0,97,0,99,0,101,0,32,0,115,0,101,0,108,0,61,0,34,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,91,0,46,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,78,0,97,0,109,0,101,0,39,0,32,0,97,0,110,0,100,0,32\
+	,0,64,0,118,0,97,0,108,0,117,0,101,0,61,0,39,0,66,0,117,0,116,0,116,0,111,0,110,0,49,0,39,0,93,0,93,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,91,0,46,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,78,0,97,0,109,0,101,0,39,0,32,0,97,0,110,0,100,0,32,0,64,0,118,0,97,0,108,0,117,0,101,0,61,0,39\
+	,0,76,0,97,0,98,0,101,0,108,0,39,0,93,0,93,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,84,0,101,0,120,0,116,0,39,0,93,0,47,0,64,0,118,0,97,0,108,0,117,0,101,0,34,0,62,0,68,0,101,0,98,0,117,0,103,0,60,0,47,0,114,0,101,0,112,0,108,0,97,0,99,0,101,0,62,0,0,0};
+//     <add sel=\"/element/element[./attribute[@name='Name' and ...
+vbyte string$23a1cae[] = {32,0,32,0,32,0,32,0,60,0,97,0,100,0,100,0,32,0,115,0,101,0,108,0,61,0,34,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,47,0,101,0,108,0,101,0,109,0,101,0,110,0,116,0,91,0,46,0,47,0,97,0,116,0,116,0,114,0,105,0,98,0,117,0,116,0,101,0,91,0,64,0,110,0,97,0,109,0,101,0,61,0,39,0,78,0,97,0,109,0,101,0,39,0,32,0,97,0,110,0,100,0,32,0,64,0,118,0,97,0,108\
+	,0,117,0,101,0,61,0,39,0,66,0,117,0,116,0,116,0,111,0,110,0,49,0,39,0,93,0,93,0,34,0,62,0,0,0};

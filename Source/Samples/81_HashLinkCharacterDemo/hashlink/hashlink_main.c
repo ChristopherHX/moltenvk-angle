@@ -12,10 +12,8 @@ void fun$init(void);
 #  include <_std/String.c>
 #  include <urho3d/Application.c>
 #  include <urho3d/_Context/Context_Impl_.c>
-#  include <urho3d/Component.c>
-#  include <urho3d/LogicComponent.c>
-#  include <urho3d/Controls.c>
 #  include <haxe/ds/StringMap.c>
+#  include <urho3d/Component.c>
 #  include <hl/types/ArrayAccess.c>
 #  include <hl/types/ArrayBase.c>
 #  include <hl/types/ArrayBytes_Int.c>
@@ -23,7 +21,6 @@ void fun$init(void);
 #  include <hl/types/ArrayBytes_hl_F32.c>
 #  include <hl/types/ArrayBytes_Float.c>
 #  include <urho3d/Node.c>
-#  include <utils/Character.c>
 #  include <urho3d/Scene.c>
 #  include <hl/types/ArrayObj.c>
 #  include <_std/CharacterDemoSample.c>
@@ -38,6 +35,9 @@ void fun$init(void);
 #  include <urho3d/CollisionShape.c>
 #  include <urho3d/_Vector3/Vector3_Impl_.c>
 #  include <urho3d/AnimatedModel.c>
+#  include <urho3d/LogicComponent.c>
+#  include <urho3d/Controls.c>
+#  include <utils/Character.c>
 #  include <_std/Date.c>
 #  include <_std/Main.c>
 #  include <_std/Std.c>

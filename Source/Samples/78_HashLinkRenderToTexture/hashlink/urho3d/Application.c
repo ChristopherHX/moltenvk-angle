@@ -66,15 +66,22 @@ void urho3d_Application_Stop(urho3d__Application r0) {
 	return;
 }
 
+void urho3d_Application_SetScreenJoystickPatchString(urho3d__Application r0,String r1) {
+	hl_urho3d_application *r3;
+	r3 = r0->abstractApplication;
+	Urho3D__application_set_joystick_patch_string(r3,r1);
+	return;
+}
+
 void urho3d_Application_SubscribeToEvent(urho3d__Application r0,hl_urho3d_core_object* r1,hl_urho3d_stringhash* r2,String r3) {
 	hl_urho3d_core_object *r6;
 	hl_urho3d_application *r5;
 	r5 = r0->abstractApplication;
-	if( !r5 ) goto label$7dad269_6_5;
+	if( !r5 ) goto label$7dad269_7_5;
 	r5 = r0->abstractApplication;
 	r6 = NULL;
 	urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(r5,r6,r2,((vdynamic*)r0),r3);
-	label$7dad269_6_5:
+	label$7dad269_7_5:
 	return;
 }
 
@@ -86,15 +93,15 @@ double urho3d_Application_Random(urho3d__Application r0,vdynamic* r1,vdynamic* r
 	r3 = (double)r4;
 	r5 = 1000000.;
 	r3 = r3 / r5;
-	if( r1 ) goto label$7dad269_7_7;
+	if( r1 ) goto label$7dad269_8_7;
 	return r3;
-	label$7dad269_7_7:
-	if( !r1 ) goto label$7dad269_7_12;
-	if( r2 ) goto label$7dad269_7_12;
+	label$7dad269_8_7:
+	if( !r1 ) goto label$7dad269_8_12;
+	if( r2 ) goto label$7dad269_8_12;
 	r6 = r1 ? r1->v.d : 0;
 	r5 = r3 * r6;
 	return r5;
-	label$7dad269_7_12:
+	label$7dad269_8_12:
 	r6 = r2 ? r2->v.d : 0;
 	r7 = r1 ? r1->v.d : 0;
 	r6 = r6 - r7;
@@ -105,22 +112,22 @@ double urho3d_Application_Random(urho3d__Application r0,vdynamic* r1,vdynamic* r
 }
 
 double urho3d_Application_Clamp(urho3d__Application r0,double r1,double r2,double r3) {
-	if( !(r1 < r2) ) goto label$7dad269_8_2;
+	if( !(r1 < r2) ) goto label$7dad269_9_2;
 	return r2;
-	label$7dad269_8_2:
-	if( !(r3 < r1) ) goto label$7dad269_8_4;
+	label$7dad269_9_2:
+	if( !(r3 < r1) ) goto label$7dad269_9_4;
 	return r3;
-	label$7dad269_8_4:
+	label$7dad269_9_4:
 	return r1;
 }
 
 int urho3d_Application_IClamp(urho3d__Application r0,int r1,int r2,int r3) {
-	if( r1 >= r2 ) goto label$7dad269_9_2;
+	if( r1 >= r2 ) goto label$7dad269_10_2;
 	return r2;
-	label$7dad269_9_2:
-	if( r3 >= r1 ) goto label$7dad269_9_4;
+	label$7dad269_10_2:
+	if( r3 >= r1 ) goto label$7dad269_10_4;
 	return r3;
-	label$7dad269_9_4:
+	label$7dad269_10_4:
 	return r1;
 }
 

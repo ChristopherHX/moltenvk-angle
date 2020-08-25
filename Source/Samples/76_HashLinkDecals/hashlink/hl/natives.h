@@ -76,7 +76,9 @@ typedef struct _urho3d_context urho3d_context;
 #include <_std/String.h>
 
 // Natives functions
+HL_API void Urho3D__application_initialize_hashlink(hl_urho3d_application*);
 HL_API bool Urho3D__application_is_touch_enabled(hl_urho3d_application*);
+HL_API void Urho3D__application_set_joystick_patch_string(hl_urho3d_application*,String);
 HL_API void Urho3D__application_subscribe_to_event(hl_urho3d_application*,hl_urho3d_stringhash*,vdynamic*,String);
 HL_API void Urho3D__application_subscribe_to_event_sender(hl_urho3d_application*,hl_urho3d_core_object*,hl_urho3d_stringhash*,vdynamic*,String);
 HL_API hl_urho3d_core_object* Urho3D__core_object_cast_from_component(urho3d_context*,hl_urho3d_scene_component*);

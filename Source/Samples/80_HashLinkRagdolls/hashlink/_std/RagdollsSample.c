@@ -4,6 +4,7 @@
 #include <_std/RagdollsSample.h>
 #include <hl/types/ArrayDyn.h>
 #include <haxe/Log.h>
+#include <hl/natives.h>
 extern haxe__$Log g$_haxe_Log;
 extern String s$Setup;
 extern hl_type t$vrt_329ffa8;
@@ -15,7 +16,6 @@ extern hl_type t$vrt_eaa6a3b;
 void RagdollsSample_CreateScene(RagdollsSample);
 void RagdollsSample_SetupViewport(RagdollsSample);
 void RagdollsSample_SubscribeToEvents(RagdollsSample);
-#include <hl/natives.h>
 #include <urho3d/_Context/Context_Impl_.h>
 #include <urho3d/Zone.h>
 #include <urho3d/Light.h>
@@ -111,11 +111,28 @@ extern String s$Materials_StoneSmall_xml;
 bool urho3d_StaticModel_set_castShadows(urho3d__StaticModel,bool);
 float urho3d_RigidBody_set_mass(urho3d__RigidBody,float);
 hl_urho3d_math_tvector3* urho3d_RigidBody_set_linearVelocity(urho3d__RigidBody,hl_urho3d_math_tvector3*);
+extern String s$92325a1;
+extern String s$73ed8c0;
+String String___add__(String,String);
+extern String s$6bdf1ed;
+extern String s$64803b9;
+extern String s$_element_type_Text_;
+extern String s$6aee3d1;
+extern String s$69e24c0;
+extern String s$_element_;
+extern String s$_add_;
+extern String s$d21e2af;
+extern String s$d263c4e;
+extern String s$23a1cae;
+extern String s$650d821;
+extern String s$8164dd8;
+extern String s$f292ea2;
 void urho3d_Application_new(urho3d__Application);
 
 void RagdollsSample_Setup(RagdollsSample r0) {
 	String r4, r6;
 	vvirtual *r5, *r8;
+	hl_urho3d_application *r9;
 	haxe__$Log r3;
 	vclosure *r2;
 	int r7;
@@ -126,7 +143,7 @@ void RagdollsSample_Setup(RagdollsSample r0) {
 	r5 = hl_alloc_virtual(&t$vrt_329ffa8);
 	r6 = (String)s$src_haxe_RagdollsSample_hx;
 	if( hl_vfields(r5)[1] ) *(String*)(hl_vfields(r5)[1]) = (String)r6; else hl_dyn_setp(r5->value,37969014/*fileName*/,&t$String,r6);
-	r7 = 113;
+	r7 = 140;
 	if( hl_vfields(r5)[2] ) *(int*)(hl_vfields(r5)[2]) = (int)r7; else hl_dyn_seti(r5->value,371360620/*lineNumber*/,&t$_i32,r7);
 	r6 = (String)s$RagdollsSample;
 	if( hl_vfields(r5)[0] ) *(String*)(hl_vfields(r5)[0]) = (String)r6; else hl_dyn_setp(r5->value,-63073762/*className*/,&t$String,r6);
@@ -134,6 +151,9 @@ void RagdollsSample_Setup(RagdollsSample r0) {
 	if( hl_vfields(r5)[3] ) *(String*)(hl_vfields(r5)[3]) = (String)r6; else hl_dyn_setp(r5->value,302979532/*methodName*/,&t$String,r6);
 	r8 = hl_to_virtual(&t$vrt_eaa6a3b,(vdynamic*)r5);
 	r2->hasValue ? ((void (*)(vdynamic*,vdynamic*,vvirtual*))r2->fun)((vdynamic*)r2->value,((vdynamic*)r4),r8) : ((void (*)(vdynamic*,vvirtual*))r2->fun)(((vdynamic*)r4),r8);
+	r9 = r0->abstractApplication;
+	r4 = r0->patchInstructions;
+	Urho3D__application_set_joystick_patch_string(r9,r4);
 	return;
 }
 
@@ -1401,15 +1421,52 @@ void RagdollsSample_SpawnObject(RagdollsSample r0) {
 }
 
 void RagdollsSample_new(RagdollsSample r0) {
-	urho3d__Scene r3;
-	urho3d__Node r2;
-	int r1;
-	r1 = 200;
-	r0->NUM_OBJECTS = r1;
-	r2 = NULL;
-	r0->cameraNode = r2;
-	r3 = NULL;
-	r0->scene = r3;
+	String r1, r2;
+	urho3d__Scene r5;
+	urho3d__Node r4;
+	int r3;
+	r1 = (String)s$92325a1;
+	r2 = (String)s$73ed8c0;
+	r1 = String___add__(r1,r2);
+	r2 = (String)s$6bdf1ed;
+	r1 = String___add__(r1,r2);
+	r2 = (String)s$64803b9;
+	r1 = String___add__(r1,r2);
+	r2 = (String)s$_element_type_Text_;
+	r1 = String___add__(r1,r2);
+	r2 = (String)s$6aee3d1;
+	r1 = String___add__(r1,r2);
+	r2 = (String)s$69e24c0;
+	r1 = String___add__(r1,r2);
+	r2 = (String)s$_element_;
+	r1 = String___add__(r1,r2);
+	r2 = (String)s$_add_;
+	r1 = String___add__(r1,r2);
+	r2 = (String)s$d21e2af;
+	r1 = String___add__(r1,r2);
+	r2 = (String)s$d263c4e;
+	r1 = String___add__(r1,r2);
+	r2 = (String)s$23a1cae;
+	r1 = String___add__(r1,r2);
+	r2 = (String)s$_element_type_Text_;
+	r1 = String___add__(r1,r2);
+	r2 = (String)s$650d821;
+	r1 = String___add__(r1,r2);
+	r2 = (String)s$8164dd8;
+	r1 = String___add__(r1,r2);
+	r2 = (String)s$_element_;
+	r1 = String___add__(r1,r2);
+	r2 = (String)s$_add_;
+	r1 = String___add__(r1,r2);
+	r2 = (String)s$f292ea2;
+	r1 = String___add__(r1,r2);
+	r0->patchInstructions = r1;
+	r3 = 200;
+	r0->NUM_OBJECTS = r3;
+	r4 = NULL;
+	r0->cameraNode = r4;
+	r5 = NULL;
+	r0->scene = r5;
 	urho3d_Application_new(((urho3d__Application)r0));
 	return;
 }

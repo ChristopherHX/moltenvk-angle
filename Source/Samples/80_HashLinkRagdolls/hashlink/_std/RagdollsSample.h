@@ -28,6 +28,7 @@ struct _RagdollsSample {
 	double yaw;
 	double pitch;
 	int NUM_OBJECTS;
+	String patchInstructions;
 };
 #endif
 

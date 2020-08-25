@@ -70,7 +70,7 @@ if(ANDROID)
 endif()
 
 if(IOS)
-    add_definitions(-DHL_MOBILE  -DHL_IOS)
+    add_definitions(-DHL_MOBILE  -DHL_IOS -DLIBHL_STATIC)
     list(APPEND std_srcs
         src/std/sys_ios.m
     )

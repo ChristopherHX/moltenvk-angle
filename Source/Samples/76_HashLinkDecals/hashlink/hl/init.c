@@ -27,7 +27,6 @@
 #include <urho3d/Scene.h>
 #include <urho3d/_Vector2/Vector2_Impl_.h>
 #include <urho3d/_Vector3/Vector3_Impl_.h>
-hl_urho3d_math_quaternion* fun$init__$1(void);
 extern hl_type t$fun_363696b;
 extern hl_type t$fun_f0a94e3;
 extern hl_type t$fun_dc27400;
@@ -361,78 +360,6 @@ extern urho3d___Vector3__$Vector3_Impl_ g$_urho3d__Vector3_Vector3_Impl_;
 void Main_main(void);
 void haxe_EntryPoint_run(void);
 
-hl_urho3d_math_vector2* fun$init__$2() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 0.;
-	r2 = (float)r1;
-	r1 = 0.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$3() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = -1.;
-	r2 = (float)r1;
-	r1 = 0.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$4() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 1.;
-	r2 = (float)r1;
-	r1 = 0.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$5() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 0.;
-	r2 = (float)r1;
-	r1 = 1.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$6() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 0.;
-	r2 = (float)r1;
-	r1 = -1.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$7() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 1.;
-	r2 = (float)r1;
-	r1 = 1.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
 hl_urho3d_math_vector3* fun$init__$8() {
 	hl_urho3d_math_vector3 *r0;
 	float r2, r3, r4;
@@ -542,6 +469,100 @@ hl_urho3d_math_vector3* fun$init__$15() {
 	r1 = 1.;
 	r4 = (float)r1;
 	r0 = Urho3D__math_vector3_create(r2,r3,r4);
+	return r0;
+}
+
+hl_urho3d_math_quaternion* fun$init__$1() {
+	hl_urho3d_math_quaternion *r2;
+	float r4, r5, r6;
+	double r0, r3;
+	hl_urho3d_math_tvector3 *r1;
+	r0 = 0.;
+	r1 = NULL;
+	if( !r1 ) goto label$e988165_9_6;
+	r4 = (float)r0;
+	r2 = Urho3D__math_quaternion_create_fv(r4,r1);
+	goto label$e988165_9_12;
+	label$e988165_9_6:
+	r4 = (float)r0;
+	r3 = 0.;
+	r5 = (float)r3;
+	r3 = 0.;
+	r6 = (float)r3;
+	r2 = Urho3D__math_quaternion_create(r4,r5,r6);
+	label$e988165_9_12:
+	return r2;
+}
+
+hl_urho3d_math_vector2* fun$init__$2() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 0.;
+	r2 = (float)r1;
+	r1 = 0.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$3() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = -1.;
+	r2 = (float)r1;
+	r1 = 0.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$4() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 1.;
+	r2 = (float)r1;
+	r1 = 0.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$5() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 0.;
+	r2 = (float)r1;
+	r1 = 1.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$6() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 0.;
+	r2 = (float)r1;
+	r1 = -1.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$7() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 1.;
+	r2 = (float)r1;
+	r1 = 1.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
 	return r0;
 }
 
@@ -1384,27 +1405,5 @@ void fun$init() {
 	Main_main();
 	haxe_EntryPoint_run();
 	return;
-}
-
-hl_urho3d_math_quaternion* fun$init__$1() {
-	hl_urho3d_math_quaternion *r2;
-	float r4, r5, r6;
-	double r0, r3;
-	hl_urho3d_math_tvector3 *r1;
-	r0 = 0.;
-	r1 = NULL;
-	if( !r1 ) goto label$e988165_16_6;
-	r4 = (float)r0;
-	r2 = Urho3D__math_quaternion_create_fv(r4,r1);
-	goto label$e988165_16_12;
-	label$e988165_16_6:
-	r4 = (float)r0;
-	r3 = 0.;
-	r5 = (float)r3;
-	r3 = 0.;
-	r6 = (float)r3;
-	r2 = Urho3D__math_quaternion_create(r4,r5,r6);
-	label$e988165_16_12:
-	return r2;
 }
 

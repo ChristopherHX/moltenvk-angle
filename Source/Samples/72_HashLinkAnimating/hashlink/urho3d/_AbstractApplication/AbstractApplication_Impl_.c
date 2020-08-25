@@ -11,6 +11,7 @@ hl_urho3d_application* urho3d__AbstractApplication_AbstractApplication_Impl___ne
 }
 
 void urho3d__AbstractApplication_AbstractApplication_Impl__Run(hl_urho3d_application* r0) {
+	Urho3D__application_initialize_hashlink(r0);
 	Urho3D__run_application(r0);
 	return;
 }
@@ -43,6 +44,11 @@ void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(hl_u
 	label$5f5dba0_7_3:
 	Urho3D__application_subscribe_to_event(r0,r2,r3,r4);
 	label$5f5dba0_7_4:
+	return;
+}
+
+void urho3d__AbstractApplication_AbstractApplication_Impl__SetScreenJoystickPatchString(hl_urho3d_application* r0,String r1) {
+	Urho3D__application_set_joystick_patch_string(r0,r1);
 	return;
 }
 
