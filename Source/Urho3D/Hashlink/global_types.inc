@@ -20,7 +20,10 @@
 typedef void (*hl_finalizer)(void *v);
 
 vdynamic *GetDynamicHashLinkLogicComponent(Node *node, const char *type, bool recursive=true);
+void GetDynamicHashLinkLogicComponents(Node *node, const char *type,PODVector<vdynamic *> & hl_components, bool recursive=true);
+void GetAllDynamicHashLinkLogicComponents(Node *node,PODVector<vdynamic *> & hl_components, bool recursive=true);
 
+vbyte *HLCreateVBString(const String & value);
 class HL_Urho3DEventHandler : public Object
 {
     URHO3D_OBJECT(HL_Urho3DEventHandler, Object);
@@ -42,9 +45,34 @@ public:
 typedef Urho3D::Context urho3d_context;
 #define URHO3D_CONTEXT _ABSTRACT(urho3d_context)
 
+typedef Urho3D::RefCounted * urho3d_refcounted;
+#define URHO3D_REFCOUNTED _ABSTRACT(urho3d_refcounted)
 
 typedef Urho3D::Object  hl_urho3d_core_object;
 #define HL_URHO3D_OBJECT _ABSTRACT(hl_urho3d_core_object)
+
+
+typedef struct hl_urho3d_audio_sound
+{
+    void *finalizer;
+    int hash;
+    SharedPtr<Urho3D::Sound> ptr;
+    vdynamic *dyn_obj;
+} hl_urho3d_audio_sound;
+
+#define HL_URHO3D_SOUND _ABSTRACT(hl_urho3d_audio_sound)
+
+
+typedef struct hl_urho3d_audio_sound_source
+{
+    void *finalizer;
+    int hash;
+    SharedPtr<Urho3D::SoundSource> ptr;
+    vdynamic *dyn_obj;
+} hl_urho3d_audio_sound_source;
+
+#define HL_URHO3D_SOUND_SOURCE _ABSTRACT(hl_urho3d_audio_sound_source)
+
 
 
 typedef struct hl_urho3d_structure
@@ -307,6 +335,27 @@ typedef struct hl_urho3d_uielement
 hl_urho3d_uielement *hl_alloc_urho3d_uilement();
 hl_urho3d_uielement *hl_alloc_urho3d_uielement(urho3d_context *context, Urho3D::UIElement *uielement);
 
+
+typedef struct hl_urho3d_ui_text
+{
+    void *finalizer;
+    int hash;
+    SharedPtr<Urho3D::Text> ptr;
+    vdynamic *dyn_obj;
+} hl_urho3d_ui_text;
+#define HL_URHO3D_UI_TEXT _ABSTRACT(hl_urho3d_ui_text)
+
+
+typedef struct hl_urho3d_ui_font
+{
+    void *finalizer;
+    int hash;
+    SharedPtr<Urho3D::Font> ptr;
+    vdynamic *dyn_obj;
+} hl_urho3d_ui_font;
+#define HL_URHO3D_UI_FONT _ABSTRACT(hl_urho3d_ui_font)
+
+
 typedef struct hl_urho3d_scene_component
 {
     void *finalizer;
@@ -319,6 +368,10 @@ typedef struct hl_urho3d_scene_component
 #define HL_URHO3D_COMPONENT _ABSTRACT(hl_urho3d_scene_component)
 hl_urho3d_scene_component *hl_alloc_urho3d_scene_component();
 hl_urho3d_scene_component *hl_alloc_urho3d_scene_component(Component *component);
+
+typedef Urho3D::Component * hl_urho3d_scene_component_ptr;
+#define URHO3D_COMPONENT_PTR _ABSTRACT(hl_urho3d_scene_component_ptr)
+
 
 typedef struct hl_urho3d_scene_logic_component
 {
@@ -345,8 +398,14 @@ hl_urho3d_scene_node *hl_alloc_urho3d_scene_node();
 hl_urho3d_scene_node *hl_alloc_urho3d_scene_node(urho3d_context *context, Node *node);
 hl_urho3d_scene_node *hl_alloc_urho3d_scene_node_no_finalizer(urho3d_context *context, Node *node);
 
+typedef Urho3D::Node * hl_urho3d_scene_t_node;
+#define HL_URHO3D_T_NODE _ABSTRACT(hl_urho3d_scene_t_node)
+
 typedef PODVector<Node *> hl_urho3d_scene_pod_node;
 #define HL_URHO3D_POD_NODE _ABSTRACT(hl_urho3d_scene_pod_node)
+
+typedef Urho3D::Node * hl_urho3d_scene_node_ptr;
+#define URHO3D_NODE_PTR _ABSTRACT(hl_urho3d_scene_node_ptr)
 
 typedef struct hl_urho3d_scene_scene
 {
@@ -360,6 +419,17 @@ typedef struct hl_urho3d_scene_scene
 hl_urho3d_scene_scene *hl_alloc_urho3d_scene_scene();
 hl_urho3d_scene_scene *hl_alloc_urho3d_scene_scene_no_finalizer(urho3d_context *context,Scene *scene);
 
+//ValueAnimation
+typedef struct hl_urho3d_scene_value_animation
+{
+    void *finalizer;
+    int hash;
+    SharedPtr<Urho3D::ValueAnimation> ptr;
+    vdynamic *dyn_obj;
+} hl_urho3d_scene_value_animation;
+
+#define HL_URHO3D_VALUE_ANIMATION _ABSTRACT(hl_urho3d_scene_value_animation)
+hl_urho3d_scene_value_animation *hl_alloc_urho3d_scene_value_animation(urho3d_context *context, ValueAnimation * va);
 
 
 
@@ -730,5 +800,29 @@ hl_urho3d_physics_rigid_body *hl_alloc_urho3d_physics_rigid_body(Urho3D::RigidBo
 
 typedef Urho3D::RigidBody  hl_urho3d_physics_t_rigid_body;
 #define HL_URHO3D_T_RIGID_BODY _ABSTRACT(hl_urho3d_physics_t_rigid_body)
+
+//urho3d_urho2d_particle_emitter2d
+
+typedef struct hl_urho3d_urho2d_particle_emitter2d
+{
+    void *finalizer;
+    int hash;
+    SharedPtr<Urho3D::ParticleEmitter2D> ptr;
+    vdynamic *dyn_obj;
+} hl_urho3d_urho2d_particle_emitter2d;
+
+#define HL_URHO3D_PARTICLE_EMITTER_2D _ABSTRACT(hl_urho3d_urho2d_particle_emitter2d)
+
+
+typedef struct hl_urho3d_urho2d_particle_effect2d
+{
+    void *finalizer;
+    int hash;
+    SharedPtr<Urho3D::ParticleEffect2D> ptr;
+    vdynamic *dyn_obj;
+} hl_urho3d_urho2d_particle_effect2d;
+
+#define HL_URHO3D_PARTICLE_EFFECT_2D _ABSTRACT(hl_urho3d_urho2d_particle_effect2d)
+hl_urho3d_urho2d_particle_effect2d *hl_alloc_urho3d_urho2d_particle_effect2d(Urho3D::ParticleEffect2D *obj);
 
 #endif

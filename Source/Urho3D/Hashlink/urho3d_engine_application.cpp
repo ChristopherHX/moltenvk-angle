@@ -373,6 +373,11 @@ class ProxyApp : public Application
         debugHud->SetDefaultStyle(xmlFile);
     }
 
+    VariantMap * GetEngineParameters()
+    {
+        return &engineParameters_;
+    }
+
     /*=================================================================================================================*/
     /*=================================================================================================================*/
     /*=================================================================================================================*/
@@ -539,6 +544,22 @@ HL_PRIM void HL_NAME(_application_set_joystick_patch_string)(hl_urho3d_applicati
 
 }
 
+//  VariantMap engineParameters_;
+HL_PRIM VariantMap * HL_NAME(_application_get_engine_parameters)(hl_urho3d_application *app)
+{
+    Urho3D::Application *ptr_app = app->ptr;
+    if (ptr_app)
+    {
+        ProxyApp *proxyApp = (ProxyApp *)ptr_app;
+        return  proxyApp->GetEngineParameters();
+    }
+    else
+    {
+        return NULL;
+    }
+    
+}
+
 
 typedef void(hashlink_initialization)();
 static hashlink_initialization *urho3d_hashlink_initialize_callback = NULL;
@@ -558,6 +579,7 @@ extern "C"
     }
 }
 
+DEFINE_PRIM(HL_URHO3D_TVARIANTMAP, _application_get_engine_parameters, HL_URHO3D_APPLICATION);
 DEFINE_PRIM(_VOID, _application_initialize_hashlink, HL_URHO3D_APPLICATION);
 
 DEFINE_PRIM(_BOOL, _application_is_touch_enabled, HL_URHO3D_APPLICATION);

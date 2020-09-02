@@ -234,7 +234,53 @@ HL_PRIM hl_urho3d_scene_component *HL_NAME(_scene_node_get_component)(urho3d_con
 HL_PRIM vdynamic *HL_NAME(_scene_node_get_logic_component)(urho3d_context *context, hl_urho3d_scene_node *this_node, vstring *vtype, bool recursive)
 {
     const char *type = (char *)hl_to_utf8(vtype->bytes);
-    return GetDynamicHashLinkLogicComponent(this_node->ptr.Get(), type,recursive);
+    return GetDynamicHashLinkLogicComponent(this_node->ptr.Get(), type, recursive);
+}
+
+//void GetDynamicHashLinkLogicComponents(Node *node, const char *type,PODVector<vdynamic *> & hl_components, bool recursive=true);
+//HL_API varray *hl_alloc_array( hl_type *t, int size );
+/*
+HL_PRIM hl_type hlt_dynobj = {HDYNOBJ};
+HL_PRIM hl_type hlt_dyn = {HDYN};
+*/
+HL_PRIM varray *HL_NAME(_scene_node_get_logic_components)(urho3d_context *context, hl_urho3d_scene_node *this_node, vstring *vtype, bool recursive)
+{
+    const char *type = (char *)hl_to_utf8(vtype->bytes);
+    PODVector<vdynamic *> hl_components;
+    GetDynamicHashLinkLogicComponents(this_node->ptr.Get(), type, hl_components, recursive);
+
+    if (hl_components.Size() > 0)
+    {
+        varray *varr = hl_alloc_array(&hlt_dyn, hl_components.Size());
+
+        for (int k = 0; k < hl_components.Size(); k++)
+        {
+            hl_aptr(varr, vdynamic *)[k] = hl_components[k];
+        }
+        return varr;
+    }
+    else
+        return NULL;
+}
+
+
+HL_PRIM varray *HL_NAME(_scene_node_get_all_logic_components)(urho3d_context *context, hl_urho3d_scene_node *this_node, bool recursive)
+{
+    PODVector<vdynamic *> hl_components;
+    GetAllDynamicHashLinkLogicComponents(this_node->ptr.Get(), hl_components, recursive);
+
+    if (hl_components.Size() > 0)
+    {
+        varray *varr = hl_alloc_array(&hlt_dyn, hl_components.Size());
+
+        for (int k = 0; k < hl_components.Size(); k++)
+        {
+            hl_aptr(varr, vdynamic *)[k] = hl_components[k];
+        }
+        return varr;
+    }
+    else
+        return NULL;
 }
 
 HL_PRIM void HL_NAME(_scene_node_add_component)(urho3d_context *context, hl_urho3d_scene_node *this_node, hl_urho3d_scene_component *component, int id, int mode)
@@ -318,6 +364,12 @@ HL_PRIM void HL_NAME(_scene_node_rotate)(urho3d_context *context, hl_urho3d_scen
     this_node->ptr->Rotate(*(qt), (TransformSpace)space);
 }
 
+//  void RotateAround(const Vector3& point, const Quaternion& delta, TransformSpace space = TS_LOCAL);
+HL_PRIM void HL_NAME(_scene_node_rotate_around)(urho3d_context *context, hl_urho3d_scene_node *this_node, hl_urho3d_math_tvector3 *vector, hl_urho3d_math_tquaternion *qt, int space)
+{
+    this_node->ptr->RotateAround(*vector, *qt, (TransformSpace)space);
+}
+
 HL_PRIM void HL_NAME(_scene_node_rotate_euler)(urho3d_context *context, hl_urho3d_scene_node *this_node, float x, float y, float z, int space)
 {
     this_node->ptr->Rotate(Quaternion(x, y, z), (TransformSpace)space);
@@ -396,6 +448,77 @@ HL_PRIM void HL_NAME(_scene_node_subscribe_to_event_sender)(urho3d_context *cont
     subscribeToEvent(context, object, this_node, stringhash, dyn_obj, str);
 }
 
+HL_PRIM Urho3D::Node *HL_NAME(_scene_node_get_node_pointer)(urho3d_context *context, hl_urho3d_scene_node *this_node)
+{
+    return this_node->ptr;
+}
+
+HL_PRIM hl_urho3d_scene_node *HL_NAME(_scene_node_get_parent)(urho3d_context *context, hl_urho3d_scene_node *this_node)
+{
+    Node *parent = this_node->ptr->GetParent();
+    if (parent)
+    {
+        hl_urho3d_scene_node *v = hl_alloc_urho3d_scene_node(context, parent);
+        return v;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
+HL_PRIM void HL_NAME(_scene_node_remove)(urho3d_context *context, hl_urho3d_scene_node *this_node)
+{
+    this_node->ptr->Remove();
+}
+
+HL_PRIM void HL_NAME(_scene_node_remove_child)(urho3d_context *context, hl_urho3d_scene_node *this_node, hl_urho3d_scene_node *child_node)
+{
+    this_node->ptr->RemoveChild(child_node->ptr);
+}
+
+HL_PRIM vbyte *HL_NAME(_scene_node_get_name)(urho3d_context *context, hl_urho3d_scene_node *this_node)
+{
+    return HLCreateVBString(this_node->ptr->GetName());
+}
+
+HL_PRIM hl_urho3d_scene_node *HL_NAME(_scene_node_clone)(urho3d_context *context, hl_urho3d_scene_node *this_node)
+{
+    return hl_alloc_urho3d_scene_node(context, this_node->ptr->Clone());
+}
+
+//vars
+HL_PRIM const Urho3D::VariantMap *HL_NAME(_scene_node_get_vars)(urho3d_context *context, hl_urho3d_scene_node *this_node)
+{
+    const VariantMap& vars = this_node->ptr->GetVars();
+    return &vars;
+}
+
+HL_PRIM void HL_NAME(_scene_node_set_enabled)(urho3d_context *context, hl_urho3d_scene_node *this_node,bool enabled)
+{
+     this_node->ptr->SetEnabled(enabled);
+}
+
+HL_PRIM bool HL_NAME(_scene_node_get_enabled)(urho3d_context *context, hl_urho3d_scene_node *this_node)
+{
+     return this_node->ptr->IsEnabled();
+}
+
+DEFINE_PRIM(_VOID, _scene_node_set_enabled, URHO3D_CONTEXT HL_URHO3D_NODE _BOOL);
+DEFINE_PRIM(_BOOL, _scene_node_get_enabled, URHO3D_CONTEXT HL_URHO3D_NODE);
+
+DEFINE_PRIM(HL_URHO3D_TVARIANTMAP, _scene_node_get_vars, URHO3D_CONTEXT HL_URHO3D_NODE);
+
+DEFINE_PRIM(_BYTES, _scene_node_get_name, URHO3D_CONTEXT HL_URHO3D_NODE);
+
+DEFINE_PRIM(_VOID, _scene_node_remove, URHO3D_CONTEXT HL_URHO3D_NODE);
+DEFINE_PRIM(_VOID, _scene_node_remove_child, URHO3D_CONTEXT HL_URHO3D_NODE HL_URHO3D_NODE);
+
+DEFINE_PRIM(HL_URHO3D_NODE, _scene_node_get_parent, URHO3D_CONTEXT HL_URHO3D_NODE);
+DEFINE_PRIM(HL_URHO3D_NODE, _scene_node_clone, URHO3D_CONTEXT HL_URHO3D_NODE);
+
+DEFINE_PRIM(URHO3D_NODE_PTR, _scene_node_get_node_pointer, URHO3D_CONTEXT HL_URHO3D_NODE);
+
 DEFINE_PRIM(HL_URHO3D_POD_NODE, _scene_node_get_children_with_component, URHO3D_CONTEXT HL_URHO3D_NODE HL_URHO3D_TSTRINGHASH _BOOL);
 DEFINE_PRIM(_I32, _scene_node_get_pod_vector_size, URHO3D_CONTEXT HL_URHO3D_POD_NODE);
 DEFINE_PRIM(HL_URHO3D_NODE, _scene_node_get_from_pod_vector, URHO3D_CONTEXT HL_URHO3D_POD_NODE _I32);
@@ -406,6 +529,8 @@ DEFINE_PRIM(_VOID, _scene_node_set_dynamic, URHO3D_CONTEXT HL_URHO3D_NODE _DYN);
 DEFINE_PRIM(HL_URHO3D_COMPONENT, _scene_node_create_component, URHO3D_CONTEXT HL_URHO3D_NODE _STRING _I32 _I32);
 DEFINE_PRIM(HL_URHO3D_COMPONENT, _scene_node_get_component, URHO3D_CONTEXT HL_URHO3D_NODE _STRING _BOOL);
 DEFINE_PRIM(_DYN, _scene_node_get_logic_component, URHO3D_CONTEXT HL_URHO3D_NODE _STRING _BOOL);
+DEFINE_PRIM(_ARR, _scene_node_get_logic_components, URHO3D_CONTEXT HL_URHO3D_NODE _STRING _BOOL);
+DEFINE_PRIM(_ARR, _scene_node_get_all_logic_components, URHO3D_CONTEXT HL_URHO3D_NODE _BOOL);
 DEFINE_PRIM(_VOID, _scene_node_add_component, URHO3D_CONTEXT HL_URHO3D_NODE HL_URHO3D_COMPONENT _I32 _I32);
 DEFINE_PRIM(_VOID, _scene_node_remove_component, URHO3D_CONTEXT HL_URHO3D_NODE HL_URHO3D_COMPONENT);
 DEFINE_PRIM(_VOID, _scene_node_remove_component_string, URHO3D_CONTEXT HL_URHO3D_NODE _STRING);
@@ -427,6 +552,9 @@ DEFINE_PRIM(HL_URHO3D_TQUATERNION, _scene_node_get_rotation, URHO3D_CONTEXT HL_U
 
 DEFINE_PRIM(_VOID, _scene_node_rotate, URHO3D_CONTEXT HL_URHO3D_NODE HL_URHO3D_TQUATERNION _I32);
 DEFINE_PRIM(_VOID, _scene_node_rotate_euler, URHO3D_CONTEXT HL_URHO3D_NODE _F32 _F32 _F32 _I32);
+
+//HL_PRIM void HL_NAME(_scene_node_rotate_around)(urho3d_context *context, hl_urho3d_scene_node *this_node,hl_urho3d_math_tvector3 *vector, hl_urho3d_math_tquaternion *qt, int space)
+DEFINE_PRIM(_VOID, _scene_node_rotate_around, URHO3D_CONTEXT HL_URHO3D_NODE HL_URHO3D_TVECTOR3 HL_URHO3D_TQUATERNION _I32);
 
 DEFINE_PRIM(_VOID, _scene_node_translate, URHO3D_CONTEXT HL_URHO3D_NODE HL_URHO3D_TVECTOR3 _I32);
 DEFINE_PRIM(_VOID, _scene_node_yaw, URHO3D_CONTEXT HL_URHO3D_NODE _F32 _I32);

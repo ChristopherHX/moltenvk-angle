@@ -53,12 +53,6 @@ static bool IsAbstractType(vdynamic *dyn_field, const char *type)
     return false;
 }
 
-static vbyte *HLCreateVBString(String value)
-{
-    hl_buffer *b = hl_alloc_buffer();
-    hl_buffer_str(b, (uchar *)(hl_to_utf16(value.CString())));
-    return (vbyte *)hl_buffer_content(b, NULL);
-}
 
 class HashLinkLogicComponent : public LogicComponent
 {
@@ -723,6 +717,33 @@ vdynamic *GetDynamicHashLinkLogicComponent(Node *node, const char *type, bool re
         }
     }
     return NULL;
+}
+
+void GetDynamicHashLinkLogicComponents(Node *node, const char *type,PODVector<vdynamic *> & hl_components, bool recursive)
+{
+
+    PODVector<Component *> components;
+    node->GetComponents(components, "HashLinkLogicComponent", recursive);
+    for (PODVector<Component *>::Iterator component = components.Begin(); component != components.End(); ++component)
+    {
+        HashLinkLogicComponent *logic_comp = dynamic_cast<HashLinkLogicComponent *>(*component);
+        if (logic_comp && logic_comp->GetClassName() == String(type))
+        {
+            hl_components.Push(logic_comp->dyn_obj);
+        }
+    }
+}
+
+void GetAllDynamicHashLinkLogicComponents(Node *node,PODVector<vdynamic *> & hl_components, bool recursive)
+{
+
+    PODVector<Component *> components;
+    node->GetComponents(components, "HashLinkLogicComponent", recursive);
+    for (PODVector<Component *>::Iterator component = components.Begin(); component != components.End(); ++component)
+    {
+        HashLinkLogicComponent *logic_comp = dynamic_cast<HashLinkLogicComponent *>(*component);
+        hl_components.Push(logic_comp->dyn_obj);
+    }
 }
 
 void finalize_urho3d_scene_logic_component(void *v)
