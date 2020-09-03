@@ -34,6 +34,10 @@ void urho3d_AnimationController_new(urho3d__AnimationController,hl_urho3d_graphi
 extern hl_type t$urho3d_LogicComponent;
 extern hl_type t$hl_urho3d_scene_logic_component;
 void urho3d_LogicComponent_new(urho3d__LogicComponent,vdynamic*);
+extern hl_type t$urho3d_SoundSource;
+void urho3d_SoundSource_new(urho3d__SoundSource,hl_urho3d_audio_sound_source*);
+extern hl_type t$urho3d_ParticleEmitter2D;
+void urho3d_ParticleEmitter2D_new(urho3d__ParticleEmitter2D,hl_urho3d_urho2d_particle_emitter2d*);
 
 hl_urho3d_scene_component* urho3d__Component_AbstractComponent_Impl___new() {
 	hl_urho3d_scene_component *r0;
@@ -360,19 +364,61 @@ hl_urho3d_scene_logic_component* urho3d__Component_AbstractComponent_Impl__toAbs
 	return r1;
 }
 
+urho3d__SoundSource urho3d__Component_AbstractComponent_Impl__toSoundSource(hl_urho3d_scene_component* r0) {
+	urho3d__SoundSource r5;
+	urho3d___Context__$Context_Impl_ r4;
+	urho3d_context *r3;
+	hl_urho3d_audio_sound_source *r2;
+	if( !r0 ) goto label$3b3ff52_19_10;
+	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r3 = r4->context;
+	r2 = Urho3D__audio_sound_source_cast_from_component(r3,r0);
+	if( !r2 ) goto label$3b3ff52_19_8;
+	r5 = (urho3d__SoundSource)hl_alloc_obj(&t$urho3d_SoundSource);
+	urho3d_SoundSource_new(r5,r2);
+	return r5;
+	label$3b3ff52_19_8:
+	r5 = NULL;
+	return r5;
+	label$3b3ff52_19_10:
+	r5 = NULL;
+	return r5;
+}
+
+urho3d__ParticleEmitter2D urho3d__Component_AbstractComponent_Impl__toParticleEmitter2D(hl_urho3d_scene_component* r0) {
+	urho3d__ParticleEmitter2D r5;
+	hl_urho3d_urho2d_particle_emitter2d *r2;
+	urho3d___Context__$Context_Impl_ r4;
+	urho3d_context *r3;
+	if( !r0 ) goto label$3b3ff52_20_10;
+	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r3 = r4->context;
+	r2 = Urho3D__urho2d_particle_emitter2d_cast_from_component(r3,r0);
+	if( !r2 ) goto label$3b3ff52_20_8;
+	r5 = (urho3d__ParticleEmitter2D)hl_alloc_obj(&t$urho3d_ParticleEmitter2D);
+	urho3d_ParticleEmitter2D_new(r5,r2);
+	return r5;
+	label$3b3ff52_20_8:
+	r5 = NULL;
+	return r5;
+	label$3b3ff52_20_10:
+	r5 = NULL;
+	return r5;
+}
+
 void urho3d__Component_AbstractComponent_Impl__SubscribeToEvent(hl_urho3d_scene_component* r0,hl_urho3d_core_object* r1,hl_urho3d_stringhash* r2,vdynamic* r3,String r4) {
 	urho3d___Context__$Context_Impl_ r7;
 	urho3d_context *r6;
-	if( !r1 ) goto label$3b3ff52_19_5;
+	if( !r1 ) goto label$3b3ff52_21_5;
 	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r6 = r7->context;
 	Urho3D__scene_component_subscribe_to_event_sender(r6,r1,r0,r2,r3,r4);
-	goto label$3b3ff52_19_8;
-	label$3b3ff52_19_5:
+	goto label$3b3ff52_21_8;
+	label$3b3ff52_21_5:
 	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r6 = r7->context;
 	Urho3D__scene_component_subscribe_to_event(r6,r0,r2,r3,r4);
-	label$3b3ff52_19_8:
+	label$3b3ff52_21_8:
 	return;
 }
 

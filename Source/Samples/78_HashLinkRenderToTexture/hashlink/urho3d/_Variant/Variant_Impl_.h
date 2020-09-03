@@ -7,6 +7,7 @@ typedef struct _urho3d___Variant__Variant_Impl_ *urho3d___Variant__Variant_Impl_
 #include <hl/BaseType.h>
 #include <_std/String.h>
 #include <hl/natives.h>
+#include <urho3d/Node.h>
 #include <urho3d/RigidBody.h>
 
 
@@ -18,18 +19,24 @@ struct _urho3d___Variant__$Variant_Impl_ {
 	String __name__;
 	vdynamic* __constructor__;
 	vclosure* _new;
+	vclosure* GetPtr;
+	vclosure* GetNode;
 	vclosure* GetRigidBody;
 	vclosure* GetObject;
 	vclosure* GetSingle;
+	vclosure* GetBool;
 	vclosure* GetInt;
 	vclosure* GetVector2;
 	vclosure* GetTVector2;
 	vclosure* GetTIntVector2;
+	vclosure* GetString;
+	vclosure* fromString;
 	vclosure* fromObject;
 	vclosure* fromTIntVector2;
 	vclosure* fromTVector2;
 	vclosure* fromVector2;
 	vclosure* fromInt;
+	vclosure* fromBool;
 	vclosure* fromFloat;
 };
 struct _urho3d___Variant__Variant_Impl_ {

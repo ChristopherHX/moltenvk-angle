@@ -9,6 +9,7 @@ typedef struct _utils__Character *utils__Character;
 #include <urho3d/LogicComponent.h>
 #include <urho3d/Component.h>
 #include <urho3d/Node.h>
+#include <urho3d/Scene.h>
 #include <hl/natives.h>
 #include <urho3d/Controls.h>
 
@@ -24,6 +25,7 @@ struct _utils__$Character {
 struct _utils__Character {
 	hl_type *$type;
 	urho3d__Node _node;
+	urho3d__Scene _scene;
 	hl_urho3d_scene_component* abstractComponent;
 	hl_urho3d_scene_logic_component* abstractLogicComponent;
 	int CTRL_FORWARD;

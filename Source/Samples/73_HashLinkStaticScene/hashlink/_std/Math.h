@@ -15,6 +15,7 @@ struct _$Math {
 	varray* __implementedBy__;
 	String __name__;
 	vdynamic* __constructor__;
+	vclosure* random;
 	double PI;
 	double NaN;
 	double POSITIVE_INFINITY;

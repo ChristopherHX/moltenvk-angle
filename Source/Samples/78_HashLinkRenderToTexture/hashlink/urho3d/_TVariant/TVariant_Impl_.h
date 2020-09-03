@@ -7,7 +7,9 @@ typedef struct _urho3d___TVariant__TVariant_Impl_ *urho3d___TVariant__TVariant_I
 #include <hl/BaseType.h>
 #include <_std/String.h>
 #include <hl/natives.h>
+#include <urho3d/Node.h>
 #include <urho3d/RigidBody.h>
+#include <urho3d/Component.h>
 
 
 struct _urho3d___TVariant__$TVariant_Impl_ {
@@ -27,24 +29,36 @@ struct _urho3d___TVariant__$TVariant_Impl_ {
 	vclosure* get_tintvector2;
 	vclosure* get_object;
 	vclosure* get_component;
+	vclosure* GetNode;
+	vclosure* GetPtr;
 	vclosure* GetRigidBody;
 	vclosure* GetComponent;
 	vclosure* GetObject;
 	vclosure* ToVariant;
 	vclosure* GetSingle;
 	vclosure* GetFloat;
+	vclosure* GetBool;
 	vclosure* GetInt;
 	vclosure* GetVector2;
 	vclosure* GetTVector2;
 	vclosure* GetTIntVector2;
 	vclosure* GetTIntVectorBuffer;
+	vclosure* GetString;
+	vclosure* GetColor;
+	vclosure* GetTColor;
+	vclosure* fromColor;
+	vclosure* fromTColor;
+	vclosure* fromString;
 	vclosure* fromTVectorBuffer;
+	vclosure* fromComponent;
+	vclosure* fromNode;
 	vclosure* fromObject;
 	vclosure* FromVariant;
 	vclosure* FromTIntVector2;
 	vclosure* FromTVector2;
 	vclosure* FromVector2;
 	vclosure* FromInt;
+	vclosure* FromBool;
 	vclosure* FromFloat;
 };
 struct _urho3d___TVariant__TVariant_Impl_ {

@@ -39,6 +39,11 @@ hl_urho3d_math_quaternion* urho3d__Quaternion_Quaternion_Impl___new(double* r0,d
 	return r7;
 }
 
+void urho3d__Quaternion_Quaternion_Impl__Normalize(hl_urho3d_math_quaternion* r0) {
+	Urho3D__math_quaternion_normalize(r0);
+	return;
+}
+
 void urho3d__Quaternion_Quaternion_Impl__SetAngles(hl_urho3d_math_quaternion* r0,double r1,double r2,double r3) {
 	float r5, r6, r7;
 	r5 = (float)r1;
@@ -46,5 +51,32 @@ void urho3d__Quaternion_Quaternion_Impl__SetAngles(hl_urho3d_math_quaternion* r0
 	r7 = (float)r3;
 	Urho3D__math_quaternion_set_euler_angles(r0,r5,r6,r7);
 	return;
+}
+
+hl_urho3d_math_tquaternion* urho3d__Quaternion_Quaternion_Impl__mulTQuaternion(hl_urho3d_math_quaternion* r0,hl_urho3d_math_tquaternion* r1) {
+	hl_urho3d_math_tquaternion *r2;
+	r2 = Urho3D__math_t_quaternion_cast_from_quaternion(r0);
+	r2 = Urho3D__math_t_quaternion_multiply_tquaternion(r2,r1);
+	return r2;
+}
+
+hl_urho3d_math_tquaternion* urho3d__Quaternion_Quaternion_Impl__mulQuaternion(hl_urho3d_math_quaternion* r0,hl_urho3d_math_quaternion* r1) {
+	hl_urho3d_math_tquaternion *r2, *r3;
+	r2 = Urho3D__math_t_quaternion_cast_from_quaternion(r0);
+	r3 = Urho3D__math_t_quaternion_cast_from_quaternion(r1);
+	r2 = Urho3D__math_t_quaternion_multiply_tquaternion(r2,r3);
+	return r2;
+}
+
+hl_urho3d_math_tquaternion* urho3d__Quaternion_Quaternion_Impl__toTQuaternion(hl_urho3d_math_quaternion* r0) {
+	hl_urho3d_math_tquaternion *r1;
+	r1 = Urho3D__math_t_quaternion_cast_from_quaternion(r0);
+	return r1;
+}
+
+hl_urho3d_math_quaternion* urho3d__Quaternion_Quaternion_Impl__fromTQuaternion(hl_urho3d_math_tquaternion* r0) {
+	hl_urho3d_math_quaternion *r1;
+	r1 = Urho3D__math_t_quaternion_cast_to_quaternion(r0);
+	return r1;
 }
 

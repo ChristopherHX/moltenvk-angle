@@ -16,6 +16,9 @@ struct _urho3d___PhysicsWorld__$PhysicsWorld_Impl_ {
 	varray* __implementedBy__;
 	String __name__;
 	vdynamic* __constructor__;
+	vclosure* fromComponent;
+	vclosure* set_gravity;
+	vclosure* get_gravity;
 	vclosure* RaycastSingle;
 };
 struct _urho3d___PhysicsWorld__PhysicsWorld_Impl_ {

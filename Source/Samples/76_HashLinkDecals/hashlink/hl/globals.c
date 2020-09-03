@@ -8,14 +8,15 @@
 #include <urho3d/Application.h>
 #include <urho3d/_Context/Context_Impl_.h>
 #include <haxe/ds/StringMap.h>
-#include <urho3d/Component.h>
+#include <haxe/ds/ObjectMap.h>
+#include <urho3d/Node.h>
 #include <hl/types/ArrayAccess.h>
 #include <hl/types/ArrayBase.h>
 #include <hl/types/ArrayBytes_hl_F32.h>
-#include <urho3d/Node.h>
 #include <urho3d/Scene.h>
 #include <_std/DecalsSample.h>
 #include <haxe/Log.h>
+#include <urho3d/Component.h>
 #include <urho3d/StaticModel.h>
 #include <urho3d/Zone.h>
 #include <urho3d/Light.h>
@@ -33,12 +34,13 @@
 #include <haxe/EntryPoint.h>
 #include <haxe/Exception.h>
 #include <haxe/ValueException.h>
+#include <haxe/_Int64/___Int64.h>
 #include <haxe/MainEvent.h>
 #include <_std/Math.h>
 #include <haxe/MainLoop.h>
+#include <hl/NativeArrayIterator_Dynamic.h>
 #include <haxe/iterators/ArrayIterator.h>
 #include <haxe/iterators/ArrayKeyValueIterator.h>
-#include <hl/NativeArrayIterator_Dynamic.h>
 #include <hl/NativeArrayIterator_Int.h>
 #include <haxe/io/Error.h>
 #include <hl/types/BytesIterator_Float.h>
@@ -61,7 +63,10 @@
 #include <urho3d/AnimationController.h>
 #include <urho3d/LogicComponent.h>
 #include <urho3d/Constraint.h>
+#include <urho3d/SoundSource.h>
+#include <urho3d/ParticleEmitter2D.h>
 #include <urho3d/Graphics.h>
+#include <urho3d/Math.h>
 #include <_std/Reflect.h>
 #include <hl/CoreType.h>
 #include <hl/CoreEnum.h>
@@ -71,12 +76,14 @@
 #include <haxe/IMap.h>
 #include <sys/thread/_Mutex/Mutex_Impl_.h>
 #include <sys/thread/_Deque/Deque_Impl_.h>
+#include <haxe/_Int32/Int32_Impl_.h>
 #include <haxe/NativeStackTrace.h>
 #include <haxe/ds/ArraySort.h>
 #include <hl/_NativeArray/NativeArray_Impl_.h>
 #include <hl/_Type/Type_Impl_.h>
 #include <hl/types/ArrayDyn.h>
 #include <hl/types/_BytesMap/BytesMap_Impl_.h>
+#include <hl/types/_ObjectMap/ObjectMap_Impl_.h>
 #include <urho3d/_AbstractApplication/AbstractApplication_Impl_.h>
 #include <urho3d/_AnimatedModel/AbstractAnimatedModel_Impl_.h>
 #include <urho3d/_Animation/Animation_Impl_.h>
@@ -111,12 +118,15 @@
 #include <urho3d/_Node/AbstractNode_Impl_.h>
 #include <urho3d/_Object/Object_Impl_.h>
 #include <urho3d/_Octree/Octree_Impl_.h>
+#include <urho3d/_ParticleEffect2D/ParticleEffect2D_Impl_.h>
+#include <urho3d/_ParticleEmitter2D/AbstractParticleEmitter2D_Impl_.h>
 #include <urho3d/_PhysicsRaycastResult/PhysicsRaycastResult_Impl_.h>
 #include <urho3d/_PhysicsWorld/PhysicsWorld_Impl_.h>
 #include <urho3d/_Quaternion/Quaternion_Impl_.h>
 #include <urho3d/_Ray/Ray_Impl_.h>
 #include <urho3d/_RayQueryResult/RayQueryResult_Impl_.h>
 #include <urho3d/_RayQueryResults/RayQueryResults_Impl_.h>
+#include <urho3d/_RefCounted/RefCounted_Impl_.h>
 #include <urho3d/_RenderPath/RenderPath_Impl_.h>
 #include <urho3d/_Renderer/Viewports_Impl_.h>
 #include <urho3d/Renderer.h>
@@ -124,14 +134,19 @@
 #include <urho3d/_Scene/AbstractScene_Impl_.h>
 #include <urho3d/_Skeleton/Skeleton_Impl_.h>
 #include <urho3d/_Skybox/AbstractSkybox_Impl_.h>
+#include <urho3d/_Sound/Sound_Impl_.h>
+#include <urho3d/_SoundSource/AbstractSoundSource_Impl_.h>
 #include <urho3d/_StaticModel/AbstractStaticModel_Impl_.h>
 #include <urho3d/_StringHash/StringHash_Impl_.h>
+#include <urho3d/_TColor/TColor_Impl_.h>
 #include <urho3d/_TIntVector2/TIntVector2_Impl_.h>
+#include <urho3d/_TNode/TNode_Impl_.h>
 #include <urho3d/_TQuaternion/TQuaternion_Impl_.h>
 #include <urho3d/_TRay/TRay_Impl_.h>
 #include <urho3d/_TRigidBody/TRigidBody_Impl_.h>
 #include <urho3d/_TStringHash/TStringHash_Impl_.h>
 #include <urho3d/_TVariant/TVariant_Impl_.h>
+#include <urho3d/_TVariantMap/TVariantMap_Impl_.h>
 #include <urho3d/_TVector2/TVector2_Impl_.h>
 #include <urho3d/_TVector3/TVector3_Impl_.h>
 #include <urho3d/_TVectorBuffer/TVectorBuffer_Impl_.h>
@@ -140,6 +155,7 @@
 #include <urho3d/_TouchState/TouchState_Impl_.h>
 #include <urho3d/UI.h>
 #include <urho3d/_UIElement/UIElement_Impl_.h>
+#include <urho3d/_ValueAnimation/ValueAnimation_Impl_.h>
 #include <urho3d/_Variant/Variant_Impl_.h>
 #include <urho3d/_VariantMap/VariantMap_Impl_.h>
 #include <urho3d/_VectorBuffer/VectorBuffer_Impl_.h>
@@ -154,13 +170,60 @@ hl__Class g$_hl_Class = 0;
 $String g$_String = 0;
 $Date g$_Date = 0;
 urho3d__$Application g$_urho3d_Application = 0;
+String s$WorkerThreads = 0;
+String s$WindowWidth = 0;
+String s$WindowTitle = 0;
+String s$WindowResizable = 0;
+String s$WindowPositionY = 0;
+String s$WindowPositionX = 0;
+String s$WindowIcon = 0;
+String s$WindowHeight = 0;
+String s$VSync = 0;
+String s$TripleBuffer = 0;
+String s$TouchEmulation = 0;
+String s$TimeOut = 0;
+String s$TextureQuality = 0;
+String s$TextureFilterMode = 0;
+String s$TextureAnisotropy = 0;
+String s$SoundStereo = 0;
+String s$SoundMixRate = 0;
+String s$SoundInterpolation = 0;
+String s$SoundBuffer = 0;
+String s$Sound = 0;
+String s$Shadows = 0;
+String s$ShaderCacheDir = 0;
+String s$ResourcePrefixPaths = 0;
+String s$ResourcePaths = 0;
+String s$ResourcePackages = 0;
+String s$RefreshRate = 0;
+String s$RenderPath = 0;
+String s$PackageCacheDir = 0;
+String s$Orientations = 0;
+String s$MultiSample = 0;
+String s$Monitor = 0;
+String s$MaterialQuality = 0;
+String s$LowQualityShadows = 0;
+String s$LogQuiet = 0;
+String s$LogName = 0;
+String s$LogLevel = 0;
+String s$HighDPI = 0;
+String s$Headless = 0;
+String s$FullScreen = 0;
+String s$FrameLimiter = 0;
+String s$ForceGL2 = 0;
+String s$FlushGPU = 0;
+String s$ExternalWindow = 0;
+String s$EventProfiler = 0;
+String s$DumpShaders = 0;
+String s$Borderless = 0;
+String s$AutoloadPaths = 0;
 urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_ = 0;
 haxe__ds__$StringMap g$_haxe_ds_StringMap = 0;
-urho3d__$Component g$_urho3d_Component = 0;
+haxe__ds__$ObjectMap g$_haxe_ds_ObjectMap = 0;
+urho3d__$Node g$_urho3d_Node = 0;
 hl__types__$ArrayAccess g$_hl_types_ArrayAccess = 0;
 hl__types__$ArrayBase g$_hl_types_ArrayBase = 0;
 hl__types__$ArrayBytes_hl_F32 g$_hl_types_ArrayBytes_hl_F32 = 0;
-urho3d__$Node g$_urho3d_Node = 0;
 urho3d__$Scene g$_urho3d_Scene = 0;
 $DecalsSample g$_DecalsSample = 0;
 haxe__$Log g$_haxe_Log = 0;
@@ -170,7 +233,9 @@ String s$DecalsSample = 0;
 String s$Octree = 0;
 String s$DebugRenderer = 0;
 String s$Plane = 0;
+String s$ = 0;
 String s$StaticModel = 0;
+urho3d__$Component g$_urho3d_Component = 0;
 urho3d__$StaticModel g$_urho3d_StaticModel = 0;
 String s$Models_Plane_mdl = 0;
 String s$Materials_StoneTiled_xml = 0;
@@ -198,15 +263,14 @@ String s$Materials_UrhoDecal_xml = 0;
 urho3d___Vector2__$Vector2_Impl_ g$_urho3d__Vector2_Vector2_Impl_ = 0;
 String s$TimeStep = 0;
 $Main g$_Main = 0;
-String s$Invalid_function_ = 0;
 $Std g$_Std = 0;
+String s$Invalid_function_ = 0;
 String s$Can_t_add_ = 0;
 String s$84c4047 = 0;
 String s$_and_ = 0;
 String s$9371d7a = 0;
 String s$Invalid_unicode_char_ = 0;
 String s$null = 0;
-String s$ = 0;
 $StringBuf g$_StringBuf = 0;
 $SysError g$_SysError = 0;
 String s$SysError_ = 0;
@@ -217,6 +281,7 @@ sys__thread__$Lock g$_sys_thread_Lock = 0;
 haxe__$EntryPoint g$_haxe_EntryPoint = 0;
 haxe__$Exception g$_haxe_Exception = 0;
 haxe__$ValueException g$_haxe_ValueException = 0;
+haxe___Int64__$___Int64 g$_haxe__Int64____Int64 = 0;
 String s$853ae90 = 0;
 String s$fc763cb = 0;
 String s$e265492 = 0;
@@ -225,9 +290,9 @@ $Math g$_Math = 0;
 haxe__$MainLoop g$_haxe_MainLoop = 0;
 String s$stack = 0;
 String s$NativeStackTrace_callStack = 0;
+hl__$NativeArrayIterator_Dynamic g$_hl_NativeArrayIterator_Dynamic = 0;
 haxe__iterators__$ArrayIterator g$_haxe_iterators_ArrayIterator = 0;
 haxe__iterators__$ArrayKeyValueIterator g$19142ef = 0;
-hl__$NativeArrayIterator_Dynamic g$_hl_NativeArrayIterator_Dynamic = 0;
 hl__$NativeArrayIterator_Int g$_hl_NativeArrayIterator_Int = 0;
 String s$Not_implemented = 0;
 haxe__io__$Error g$haxe_io_Error = 0;
@@ -254,11 +319,14 @@ urho3d__$Skybox g$_urho3d_Skybox = 0;
 urho3d__$AnimationController g$_urho3d_AnimationController = 0;
 urho3d__$LogicComponent g$_urho3d_LogicComponent = 0;
 urho3d__$Constraint g$_urho3d_Constraint = 0;
+urho3d__$SoundSource g$_urho3d_SoundSource = 0;
+urho3d__$ParticleEmitter2D g$_urho3d_ParticleEmitter2D = 0;
 urho3d__$Graphics g$_urho3d_Graphics = 0;
 String s$IntVector2_ = 0;
 String s$fromStructVector2 = 0;
 String s$src_haxe_urho3d_IntVector2_hx = 0;
 String s$56cf1e1 = 0;
+urho3d__$Math g$_urho3d_Math = 0;
 String s$5058f1a = 0;
 String s$c3e97dd = 0;
 String s$5e732a1 = 0;
@@ -284,6 +352,7 @@ $Type g$_Type = 0;
 haxe__$IMap g$_haxe_IMap = 0;
 sys__thread___Mutex__$Mutex_Impl_ g$_sys_thread__Mutex_Mutex_Impl_ = 0;
 sys__thread___Deque__$Deque_Impl_ g$_sys_thread__Deque_Deque_Impl_ = 0;
+haxe___Int32__$Int32_Impl_ g$_haxe__Int32_Int32_Impl_ = 0;
 haxe__$NativeStackTrace g$_haxe_NativeStackTrace = 0;
 haxe__ds__$ArraySort g$_haxe_ds_ArraySort = 0;
 venum* g$haxe_io_Error_Blocked = 0;
@@ -294,6 +363,7 @@ String s$Array = 0;
 hl__types__$ArrayDyn g$_hl_types_ArrayDyn = 0;
 String s$hl_types_ArrayDyn = 0;
 hl__types___BytesMap__$BytesMap_Impl_ g$2c4fafe = 0;
+hl__types___ObjectMap__$ObjectMap_Impl_ g$5fc41f7 = 0;
 urho3d___AbstractApplication__$AbstractApplication_Impl_ g$73bcf85 = 0;
 urho3d___AnimatedModel__$AbstractAnimatedModel_Impl_ g$4cfeda0 = 0;
 urho3d___Animation__$Animation_Impl_ g$93b32b0 = 0;
@@ -328,12 +398,15 @@ urho3d___Model__$Model_Impl_ g$_urho3d__Model_Model_Impl_ = 0;
 urho3d___Node__$AbstractNode_Impl_ g$_urho3d__Node_AbstractNode_Impl_ = 0;
 urho3d___Object__$Object_Impl_ g$_urho3d__Object_Object_Impl_ = 0;
 urho3d___Octree__$Octree_Impl_ g$_urho3d__Octree_Octree_Impl_ = 0;
+urho3d___ParticleEffect2D__$ParticleEffect2D_Impl_ g$63cbf6c = 0;
+urho3d___ParticleEmitter2D__$AbstractParticleEmitter2D_Impl_ g$85f35bd = 0;
 urho3d___PhysicsRaycastResult__$PhysicsRaycastResult_Impl_ g$f8746a8 = 0;
 urho3d___PhysicsWorld__$PhysicsWorld_Impl_ g$ea05d62 = 0;
 urho3d___Quaternion__$Quaternion_Impl_ g$abe14a3 = 0;
 urho3d___Ray__$Ray_Impl_ g$_urho3d__Ray_Ray_Impl_ = 0;
 urho3d___RayQueryResult__$RayQueryResult_Impl_ g$1a78d58 = 0;
 urho3d___RayQueryResults__$RayQueryResults_Impl_ g$8933580 = 0;
+urho3d___RefCounted__$RefCounted_Impl_ g$3ce7ccc = 0;
 urho3d___RenderPath__$RenderPath_Impl_ g$adad2bc = 0;
 urho3d___Renderer__$Viewports_Impl_ g$049917e = 0;
 urho3d__$Renderer g$_urho3d_Renderer = 0;
@@ -341,14 +414,19 @@ urho3d___RigidBody__$AbstractRigidBody_Impl_ g$0fbe7e1 = 0;
 urho3d___Scene__$AbstractScene_Impl_ g$580026d = 0;
 urho3d___Skeleton__$Skeleton_Impl_ g$_urho3d__Skeleton_Skeleton_Impl_ = 0;
 urho3d___Skybox__$AbstractSkybox_Impl_ g$ac7172f = 0;
+urho3d___Sound__$Sound_Impl_ g$_urho3d__Sound_Sound_Impl_ = 0;
+urho3d___SoundSource__$AbstractSoundSource_Impl_ g$24764c8 = 0;
 urho3d___StaticModel__$AbstractStaticModel_Impl_ g$bb27b12 = 0;
 urho3d___StringHash__$StringHash_Impl_ g$4d1fd18 = 0;
+urho3d___TColor__$TColor_Impl_ g$_urho3d__TColor_TColor_Impl_ = 0;
 urho3d___TIntVector2__$TIntVector2_Impl_ g$41c7646 = 0;
+urho3d___TNode__$TNode_Impl_ g$_urho3d__TNode_TNode_Impl_ = 0;
 urho3d___TQuaternion__$TQuaternion_Impl_ g$a84cef1 = 0;
 urho3d___TRay__$TRay_Impl_ g$_urho3d__TRay_TRay_Impl_ = 0;
 urho3d___TRigidBody__$TRigidBody_Impl_ g$ec145fe = 0;
 urho3d___TStringHash__$TStringHash_Impl_ g$9ea7242 = 0;
 urho3d___TVariant__$TVariant_Impl_ g$_urho3d__TVariant_TVariant_Impl_ = 0;
+urho3d___TVariantMap__$TVariantMap_Impl_ g$78176a5 = 0;
 urho3d___TVector2__$TVector2_Impl_ g$_urho3d__TVector2_TVector2_Impl_ = 0;
 urho3d___TVector3__$TVector3_Impl_ g$_urho3d__TVector3_TVector3_Impl_ = 0;
 urho3d___TVectorBuffer__$TVectorBuffer_Impl_ g$0130c06 = 0;
@@ -357,18 +435,67 @@ urho3d___Texture__$Texture_Impl_ g$_urho3d__Texture_Texture_Impl_ = 0;
 urho3d___TouchState__$TouchState_Impl_ g$552ed39 = 0;
 urho3d__$UI g$_urho3d_UI = 0;
 urho3d___UIElement__$UIElement_Impl_ g$b710c38 = 0;
+urho3d___ValueAnimation__$ValueAnimation_Impl_ g$cd84af1 = 0;
 urho3d___Variant__$Variant_Impl_ g$_urho3d__Variant_Variant_Impl_ = 0;
 urho3d___VariantMap__$VariantMap_Impl_ g$50a5cf6 = 0;
 urho3d___VectorBuffer__$VectorBuffer_Impl_ g$30f2db9 = 0;
 urho3d___Viewport__$Viewport_Impl_ g$_urho3d__Viewport_Viewport_Impl_ = 0;
 urho3d___XMLFile__$XMLFile_Impl_ g$_urho3d__XMLFile_XMLFile_Impl_ = 0;
 urho3d___Zone__$AbstractZone_Impl_ g$_urho3d__Zone_AbstractZone_Impl_ = 0;
+static struct _String const_s$WorkerThreads = {&t$String,(vbyte*)USTR("WorkerThreads"),13};
+static struct _String const_s$WindowWidth = {&t$String,(vbyte*)USTR("WindowWidth"),11};
+static struct _String const_s$WindowTitle = {&t$String,(vbyte*)USTR("WindowTitle"),11};
+static struct _String const_s$WindowResizable = {&t$String,(vbyte*)USTR("WindowResizable"),15};
+static struct _String const_s$WindowPositionY = {&t$String,(vbyte*)USTR("WindowPositionY"),15};
+static struct _String const_s$WindowPositionX = {&t$String,(vbyte*)USTR("WindowPositionX"),15};
+static struct _String const_s$WindowIcon = {&t$String,(vbyte*)USTR("WindowIcon"),10};
+static struct _String const_s$WindowHeight = {&t$String,(vbyte*)USTR("WindowHeight"),12};
+static struct _String const_s$VSync = {&t$String,(vbyte*)USTR("VSync"),5};
+static struct _String const_s$TripleBuffer = {&t$String,(vbyte*)USTR("TripleBuffer"),12};
+static struct _String const_s$TouchEmulation = {&t$String,(vbyte*)USTR("TouchEmulation"),14};
+static struct _String const_s$TimeOut = {&t$String,(vbyte*)USTR("TimeOut"),7};
+static struct _String const_s$TextureQuality = {&t$String,(vbyte*)USTR("TextureQuality"),14};
+static struct _String const_s$TextureFilterMode = {&t$String,(vbyte*)USTR("TextureFilterMode"),17};
+static struct _String const_s$TextureAnisotropy = {&t$String,(vbyte*)USTR("TextureAnisotropy"),17};
+static struct _String const_s$SoundStereo = {&t$String,(vbyte*)USTR("SoundStereo"),11};
+static struct _String const_s$SoundMixRate = {&t$String,(vbyte*)USTR("SoundMixRate"),12};
+static struct _String const_s$SoundInterpolation = {&t$String,(vbyte*)USTR("SoundInterpolation"),18};
+static struct _String const_s$SoundBuffer = {&t$String,(vbyte*)USTR("SoundBuffer"),11};
+static struct _String const_s$Sound = {&t$String,(vbyte*)USTR("Sound"),5};
+static struct _String const_s$Shadows = {&t$String,(vbyte*)USTR("Shadows"),7};
+static struct _String const_s$ShaderCacheDir = {&t$String,(vbyte*)USTR("ShaderCacheDir"),14};
+static struct _String const_s$ResourcePrefixPaths = {&t$String,(vbyte*)USTR("ResourcePrefixPaths"),19};
+static struct _String const_s$ResourcePaths = {&t$String,(vbyte*)USTR("ResourcePaths"),13};
+static struct _String const_s$ResourcePackages = {&t$String,(vbyte*)USTR("ResourcePackages"),16};
+static struct _String const_s$RefreshRate = {&t$String,(vbyte*)USTR("RefreshRate"),11};
+static struct _String const_s$RenderPath = {&t$String,(vbyte*)USTR("RenderPath"),10};
+static struct _String const_s$PackageCacheDir = {&t$String,(vbyte*)USTR("PackageCacheDir"),15};
+static struct _String const_s$Orientations = {&t$String,(vbyte*)USTR("Orientations"),12};
+static struct _String const_s$MultiSample = {&t$String,(vbyte*)USTR("MultiSample"),11};
+static struct _String const_s$Monitor = {&t$String,(vbyte*)USTR("Monitor"),7};
+static struct _String const_s$MaterialQuality = {&t$String,(vbyte*)USTR("MaterialQuality"),15};
+static struct _String const_s$LowQualityShadows = {&t$String,(vbyte*)USTR("LowQualityShadows"),17};
+static struct _String const_s$LogQuiet = {&t$String,(vbyte*)USTR("LogQuiet"),8};
+static struct _String const_s$LogName = {&t$String,(vbyte*)USTR("LogName"),7};
+static struct _String const_s$LogLevel = {&t$String,(vbyte*)USTR("LogLevel"),8};
+static struct _String const_s$HighDPI = {&t$String,(vbyte*)USTR("HighDPI"),7};
+static struct _String const_s$Headless = {&t$String,(vbyte*)USTR("Headless"),8};
+static struct _String const_s$FullScreen = {&t$String,(vbyte*)USTR("FullScreen"),10};
+static struct _String const_s$FrameLimiter = {&t$String,(vbyte*)USTR("FrameLimiter"),12};
+static struct _String const_s$ForceGL2 = {&t$String,(vbyte*)USTR("ForceGL2"),8};
+static struct _String const_s$FlushGPU = {&t$String,(vbyte*)USTR("FlushGPU"),8};
+static struct _String const_s$ExternalWindow = {&t$String,(vbyte*)USTR("ExternalWindow"),14};
+static struct _String const_s$EventProfiler = {&t$String,(vbyte*)USTR("EventProfiler"),13};
+static struct _String const_s$DumpShaders = {&t$String,(vbyte*)USTR("DumpShaders"),11};
+static struct _String const_s$Borderless = {&t$String,(vbyte*)USTR("Borderless"),10};
+static struct _String const_s$AutoloadPaths = {&t$String,(vbyte*)USTR("AutoloadPaths"),13};
 static struct _String const_s$Setup = {&t$String,(vbyte*)USTR("Setup"),5};
 static struct _String const_s$src_haxe_DecalsSample_hx = {&t$String,(vbyte*)USTR("src/haxe/DecalsSample.hx"),24};
 static struct _String const_s$DecalsSample = {&t$String,(vbyte*)USTR("DecalsSample"),12};
 static struct _String const_s$Octree = {&t$String,(vbyte*)USTR("Octree"),6};
 static struct _String const_s$DebugRenderer = {&t$String,(vbyte*)USTR("DebugRenderer"),13};
 static struct _String const_s$Plane = {&t$String,(vbyte*)USTR("Plane"),5};
+static struct _String const_s$ = {&t$String,(vbyte*)USTR(""),0};
 static struct _String const_s$StaticModel = {&t$String,(vbyte*)USTR("StaticModel"),11};
 static struct _String const_s$Models_Plane_mdl = {&t$String,(vbyte*)USTR("Models/Plane.mdl"),16};
 static struct _String const_s$Materials_StoneTiled_xml = {&t$String,(vbyte*)USTR("Materials/StoneTiled.xml"),24};
@@ -396,7 +523,6 @@ static struct _String const_s$_and_ = {&t$String,(vbyte*)USTR(") and "),6};
 static struct _String const_s$9371d7a = {&t$String,(vbyte*)USTR(")"),1};
 static struct _String const_s$Invalid_unicode_char_ = {&t$String,(vbyte*)USTR("Invalid unicode char "),21};
 static struct _String const_s$null = {&t$String,(vbyte*)USTR("null"),4};
-static struct _String const_s$ = {&t$String,(vbyte*)USTR(""),0};
 static struct _String const_s$SysError_ = {&t$String,(vbyte*)USTR("SysError("),9};
 static struct _String const_s$68b329d = {&t$String,(vbyte*)USTR("\n"),1};
 static struct _String const_s$853ae90 = {&t$String,(vbyte*)USTR(":"),1};
@@ -429,12 +555,60 @@ static struct _String const_s$Array = {&t$String,(vbyte*)USTR("Array"),5};
 static struct _String const_s$hl_types_ArrayDyn = {&t$String,(vbyte*)USTR("hl.types.ArrayDyn"),17};
 
 void hl_init_roots() {
+	s$WorkerThreads = &const_s$WorkerThreads;
+	s$WindowWidth = &const_s$WindowWidth;
+	s$WindowTitle = &const_s$WindowTitle;
+	s$WindowResizable = &const_s$WindowResizable;
+	s$WindowPositionY = &const_s$WindowPositionY;
+	s$WindowPositionX = &const_s$WindowPositionX;
+	s$WindowIcon = &const_s$WindowIcon;
+	s$WindowHeight = &const_s$WindowHeight;
+	s$VSync = &const_s$VSync;
+	s$TripleBuffer = &const_s$TripleBuffer;
+	s$TouchEmulation = &const_s$TouchEmulation;
+	s$TimeOut = &const_s$TimeOut;
+	s$TextureQuality = &const_s$TextureQuality;
+	s$TextureFilterMode = &const_s$TextureFilterMode;
+	s$TextureAnisotropy = &const_s$TextureAnisotropy;
+	s$SoundStereo = &const_s$SoundStereo;
+	s$SoundMixRate = &const_s$SoundMixRate;
+	s$SoundInterpolation = &const_s$SoundInterpolation;
+	s$SoundBuffer = &const_s$SoundBuffer;
+	s$Sound = &const_s$Sound;
+	s$Shadows = &const_s$Shadows;
+	s$ShaderCacheDir = &const_s$ShaderCacheDir;
+	s$ResourcePrefixPaths = &const_s$ResourcePrefixPaths;
+	s$ResourcePaths = &const_s$ResourcePaths;
+	s$ResourcePackages = &const_s$ResourcePackages;
+	s$RefreshRate = &const_s$RefreshRate;
+	s$RenderPath = &const_s$RenderPath;
+	s$PackageCacheDir = &const_s$PackageCacheDir;
+	s$Orientations = &const_s$Orientations;
+	s$MultiSample = &const_s$MultiSample;
+	s$Monitor = &const_s$Monitor;
+	s$MaterialQuality = &const_s$MaterialQuality;
+	s$LowQualityShadows = &const_s$LowQualityShadows;
+	s$LogQuiet = &const_s$LogQuiet;
+	s$LogName = &const_s$LogName;
+	s$LogLevel = &const_s$LogLevel;
+	s$HighDPI = &const_s$HighDPI;
+	s$Headless = &const_s$Headless;
+	s$FullScreen = &const_s$FullScreen;
+	s$FrameLimiter = &const_s$FrameLimiter;
+	s$ForceGL2 = &const_s$ForceGL2;
+	s$FlushGPU = &const_s$FlushGPU;
+	s$ExternalWindow = &const_s$ExternalWindow;
+	s$EventProfiler = &const_s$EventProfiler;
+	s$DumpShaders = &const_s$DumpShaders;
+	s$Borderless = &const_s$Borderless;
+	s$AutoloadPaths = &const_s$AutoloadPaths;
 	s$Setup = &const_s$Setup;
 	s$src_haxe_DecalsSample_hx = &const_s$src_haxe_DecalsSample_hx;
 	s$DecalsSample = &const_s$DecalsSample;
 	s$Octree = &const_s$Octree;
 	s$DebugRenderer = &const_s$DebugRenderer;
 	s$Plane = &const_s$Plane;
+	s$ = &const_s$;
 	s$StaticModel = &const_s$StaticModel;
 	s$Models_Plane_mdl = &const_s$Models_Plane_mdl;
 	s$Materials_StoneTiled_xml = &const_s$Materials_StoneTiled_xml;
@@ -462,7 +636,6 @@ void hl_init_roots() {
 	s$9371d7a = &const_s$9371d7a;
 	s$Invalid_unicode_char_ = &const_s$Invalid_unicode_char_;
 	s$null = &const_s$null;
-	s$ = &const_s$;
 	s$SysError_ = &const_s$SysError_;
 	s$68b329d = &const_s$68b329d;
 	s$853ae90 = &const_s$853ae90;
@@ -500,14 +673,15 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_urho3d_Application);
 	hl_add_root((void**)&g$_urho3d__Context_Context_Impl_);
 	hl_add_root((void**)&g$_haxe_ds_StringMap);
-	hl_add_root((void**)&g$_urho3d_Component);
+	hl_add_root((void**)&g$_haxe_ds_ObjectMap);
+	hl_add_root((void**)&g$_urho3d_Node);
 	hl_add_root((void**)&g$_hl_types_ArrayAccess);
 	hl_add_root((void**)&g$_hl_types_ArrayBase);
 	hl_add_root((void**)&g$_hl_types_ArrayBytes_hl_F32);
-	hl_add_root((void**)&g$_urho3d_Node);
 	hl_add_root((void**)&g$_urho3d_Scene);
 	hl_add_root((void**)&g$_DecalsSample);
 	hl_add_root((void**)&g$_haxe_Log);
+	hl_add_root((void**)&g$_urho3d_Component);
 	hl_add_root((void**)&g$_urho3d_StaticModel);
 	hl_add_root((void**)&g$_urho3d_Zone);
 	hl_add_root((void**)&g$_urho3d_Light);
@@ -525,12 +699,13 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_haxe_EntryPoint);
 	hl_add_root((void**)&g$_haxe_Exception);
 	hl_add_root((void**)&g$_haxe_ValueException);
+	hl_add_root((void**)&g$_haxe__Int64____Int64);
 	hl_add_root((void**)&g$_haxe_MainEvent);
 	hl_add_root((void**)&g$_Math);
 	hl_add_root((void**)&g$_haxe_MainLoop);
+	hl_add_root((void**)&g$_hl_NativeArrayIterator_Dynamic);
 	hl_add_root((void**)&g$_haxe_iterators_ArrayIterator);
 	hl_add_root((void**)&g$19142ef);
-	hl_add_root((void**)&g$_hl_NativeArrayIterator_Dynamic);
 	hl_add_root((void**)&g$_hl_NativeArrayIterator_Int);
 	hl_add_root((void**)&g$haxe_io_Error);
 	hl_add_root((void**)&g$haxe_io_Error_OutsideBounds);
@@ -554,7 +729,10 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_urho3d_AnimationController);
 	hl_add_root((void**)&g$_urho3d_LogicComponent);
 	hl_add_root((void**)&g$_urho3d_Constraint);
+	hl_add_root((void**)&g$_urho3d_SoundSource);
+	hl_add_root((void**)&g$_urho3d_ParticleEmitter2D);
 	hl_add_root((void**)&g$_urho3d_Graphics);
+	hl_add_root((void**)&g$_urho3d_Math);
 	hl_add_root((void**)&g$_Reflect);
 	hl_add_root((void**)&g$_Float);
 	hl_add_root((void**)&g$_Int);
@@ -566,6 +744,7 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_haxe_IMap);
 	hl_add_root((void**)&g$_sys_thread__Mutex_Mutex_Impl_);
 	hl_add_root((void**)&g$_sys_thread__Deque_Deque_Impl_);
+	hl_add_root((void**)&g$_haxe__Int32_Int32_Impl_);
 	hl_add_root((void**)&g$_haxe_NativeStackTrace);
 	hl_add_root((void**)&g$_haxe_ds_ArraySort);
 	hl_add_root((void**)&g$haxe_io_Error_Blocked);
@@ -574,6 +753,7 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_hl__Type_Type_Impl_);
 	hl_add_root((void**)&g$_hl_types_ArrayDyn);
 	hl_add_root((void**)&g$2c4fafe);
+	hl_add_root((void**)&g$5fc41f7);
 	hl_add_root((void**)&g$73bcf85);
 	hl_add_root((void**)&g$4cfeda0);
 	hl_add_root((void**)&g$93b32b0);
@@ -608,12 +788,15 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_urho3d__Node_AbstractNode_Impl_);
 	hl_add_root((void**)&g$_urho3d__Object_Object_Impl_);
 	hl_add_root((void**)&g$_urho3d__Octree_Octree_Impl_);
+	hl_add_root((void**)&g$63cbf6c);
+	hl_add_root((void**)&g$85f35bd);
 	hl_add_root((void**)&g$f8746a8);
 	hl_add_root((void**)&g$ea05d62);
 	hl_add_root((void**)&g$abe14a3);
 	hl_add_root((void**)&g$_urho3d__Ray_Ray_Impl_);
 	hl_add_root((void**)&g$1a78d58);
 	hl_add_root((void**)&g$8933580);
+	hl_add_root((void**)&g$3ce7ccc);
 	hl_add_root((void**)&g$adad2bc);
 	hl_add_root((void**)&g$049917e);
 	hl_add_root((void**)&g$_urho3d_Renderer);
@@ -621,14 +804,19 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$580026d);
 	hl_add_root((void**)&g$_urho3d__Skeleton_Skeleton_Impl_);
 	hl_add_root((void**)&g$ac7172f);
+	hl_add_root((void**)&g$_urho3d__Sound_Sound_Impl_);
+	hl_add_root((void**)&g$24764c8);
 	hl_add_root((void**)&g$bb27b12);
 	hl_add_root((void**)&g$4d1fd18);
+	hl_add_root((void**)&g$_urho3d__TColor_TColor_Impl_);
 	hl_add_root((void**)&g$41c7646);
+	hl_add_root((void**)&g$_urho3d__TNode_TNode_Impl_);
 	hl_add_root((void**)&g$a84cef1);
 	hl_add_root((void**)&g$_urho3d__TRay_TRay_Impl_);
 	hl_add_root((void**)&g$ec145fe);
 	hl_add_root((void**)&g$9ea7242);
 	hl_add_root((void**)&g$_urho3d__TVariant_TVariant_Impl_);
+	hl_add_root((void**)&g$78176a5);
 	hl_add_root((void**)&g$_urho3d__TVector2_TVector2_Impl_);
 	hl_add_root((void**)&g$_urho3d__TVector3_TVector3_Impl_);
 	hl_add_root((void**)&g$0130c06);
@@ -637,6 +825,7 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$552ed39);
 	hl_add_root((void**)&g$_urho3d_UI);
 	hl_add_root((void**)&g$b710c38);
+	hl_add_root((void**)&g$cd84af1);
 	hl_add_root((void**)&g$_urho3d__Variant_Variant_Impl_);
 	hl_add_root((void**)&g$50a5cf6);
 	hl_add_root((void**)&g$30f2db9);

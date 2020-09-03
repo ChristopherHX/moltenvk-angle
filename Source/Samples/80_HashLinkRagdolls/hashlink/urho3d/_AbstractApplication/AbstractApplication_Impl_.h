@@ -24,6 +24,7 @@ struct _urho3d___AbstractApplication__$AbstractApplication_Impl_ {
 	vclosure* RegisterStopClosure;
 	vclosure* SubscribeToEvent;
 	vclosure* SetScreenJoystickPatchString;
+	vclosure* GetEngineParameters;
 };
 struct _urho3d___AbstractApplication__AbstractApplication_Impl_ {
 	hl_type *$type;

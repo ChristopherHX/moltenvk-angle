@@ -6,16 +6,45 @@
 #include <urho3d/_Context/Context_Impl_.h>
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 
+hl_urho3d_physics_physics_world* urho3d__PhysicsWorld_PhysicsWorld_Impl__fromComponent(hl_urho3d_scene_component* r0) {
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	hl_urho3d_physics_physics_world *r1;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r1 = Urho3D__physics_physics_world_cast_from_component(r2,r0);
+	return r1;
+}
+
+hl_urho3d_math_tvector3* urho3d__PhysicsWorld_PhysicsWorld_Impl__set_gravity(hl_urho3d_physics_physics_world* r0,hl_urho3d_math_tvector3* r1) {
+	urho3d___Context__$Context_Impl_ r4;
+	urho3d_context *r3;
+	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r3 = r4->context;
+	Urho3D__physics_physics_world_set_gravity(r3,r0,r1);
+	return r1;
+}
+
+hl_urho3d_math_tvector3* urho3d__PhysicsWorld_PhysicsWorld_Impl__get_gravity(hl_urho3d_physics_physics_world* r0) {
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	hl_urho3d_math_tvector3 *r1;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r1 = Urho3D__physics_physics_world_get_gravity(r2,r0);
+	return r1;
+}
+
 hl_urho3d_physics_raycast_result* urho3d__PhysicsWorld_PhysicsWorld_Impl__RaycastSingle(hl_urho3d_physics_physics_world* r0,hl_urho3d_math_t_ray* r1,float r2,int r3) {
 	hl_urho3d_physics_raycast_result *r4;
 	urho3d___Context__$Context_Impl_ r6;
 	urho3d_context *r5;
-	if( !r0 ) goto label$e59cf01_1_5;
+	if( !r0 ) goto label$e59cf01_4_5;
 	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r5 = r6->context;
 	r4 = Urho3D__physics_physics_world_raycast_single(r5,r0,r1,r2,r3);
 	return r4;
-	label$e59cf01_1_5:
+	label$e59cf01_4_5:
 	r4 = NULL;
 	return r4;
 }

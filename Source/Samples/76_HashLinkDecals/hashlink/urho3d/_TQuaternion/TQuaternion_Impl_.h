@@ -17,11 +17,13 @@ struct _urho3d___TQuaternion__$TQuaternion_Impl_ {
 	String __name__;
 	vdynamic* __constructor__;
 	vclosure* _new;
+	vclosure* Normalize;
 	vclosure* toQuaternion;
 	vclosure* fromQuaternion;
 	vclosure* mulTVector3;
 	vclosure* mulVector3;
 	vclosure* mulTQuaternion;
+	vclosure* mulQuaternion;
 };
 struct _urho3d___TQuaternion__TQuaternion_Impl_ {
 	hl_type *$type;

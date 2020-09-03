@@ -5,6 +5,7 @@
 #include <hl/natives.h>
 #include <urho3d/_Context/Context_Impl_.h>
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
+extern String s$;
 
 hl_urho3d_graphics_material* urho3d__Material_Material_Impl___new(String r0) {
 	urho3d___Context__$Context_Impl_ r3;
@@ -55,6 +56,73 @@ void urho3d__Material_Material_Impl__SetTexture(hl_urho3d_graphics_material* r0,
 	r4 = r5->context;
 	Urho3D__graphics_material_set_texture(r4,r0,r1,r2);
 	return;
+}
+
+void urho3d__Material_Material_Impl__SetShaderParameter(hl_urho3d_graphics_material* r0,String r1,hl_urho3d_tvariant* r2) {
+	urho3d___Context__$Context_Impl_ r5;
+	urho3d_context *r4;
+	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r4 = r5->context;
+	Urho3D__graphics_material_set_shader_parameter(r4,r0,r1,r2);
+	return;
+}
+
+hl_urho3d_tvariant* urho3d__Material_Material_Impl__GetShaderParameter(hl_urho3d_graphics_material* r0,String r1) {
+	hl_urho3d_tvariant *r2;
+	urho3d___Context__$Context_Impl_ r4;
+	urho3d_context *r3;
+	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r3 = r4->context;
+	r2 = Urho3D__graphics_material_get_shader_parameter(r3,r0,r1);
+	return r2;
+}
+
+void urho3d__Material_Material_Impl__SetShaderParameterAnimation(hl_urho3d_graphics_material* r0,String r1,hl_urho3d_scene_value_animation* r2,int* r3,float* r4) {
+	urho3d___Context__$Context_Impl_ r9;
+	urho3d_context *r8;
+	float r6;
+	int r5;
+	if( r3 ) goto label$ee16075_6_3;
+	r5 = 0;
+	goto label$ee16075_6_4;
+	label$ee16075_6_3:
+	r5 = *r3;
+	label$ee16075_6_4:
+	if( r4 ) goto label$ee16075_6_7;
+	r6 = 1.;
+	goto label$ee16075_6_8;
+	label$ee16075_6_7:
+	r6 = *r4;
+	label$ee16075_6_8:
+	r9 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r8 = r9->context;
+	Urho3D__graphics_material_set_shader_parameter_animation(r8,r0,r1,r2,r5,r6);
+	return;
+}
+
+hl_urho3d_scene_value_animation* urho3d__Material_Material_Impl__GetShaderParameterAnimation(hl_urho3d_graphics_material* r0,String r1) {
+	hl_urho3d_scene_value_animation *r2;
+	urho3d___Context__$Context_Impl_ r4;
+	urho3d_context *r3;
+	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r3 = r4->context;
+	r2 = Urho3D__graphics_material_get_shader_parameter_animation(r3,r0,r1);
+	return r2;
+}
+
+hl_urho3d_graphics_material* urho3d__Material_Material_Impl__Clone(hl_urho3d_graphics_material* r0,String r1) {
+	String r2;
+	urho3d___Context__$Context_Impl_ r5;
+	hl_urho3d_graphics_material *r3;
+	urho3d_context *r4;
+	if( r1 ) goto label$ee16075_8_3;
+	r2 = (String)s$;
+	r1 = r2;
+	label$ee16075_8_3:
+	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r4 = r5->context;
+	r3 = Urho3D__graphics_material_clone(r4,r0,r1);
+	return r3;
 }
 
 hl_urho3d_graphics_light_bias_parameters* urho3d__Material_Material_Impl__set_depthBias(hl_urho3d_graphics_material* r0,hl_urho3d_graphics_light_bias_parameters* r1) {

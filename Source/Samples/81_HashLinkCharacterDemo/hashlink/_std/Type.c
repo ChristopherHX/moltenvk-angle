@@ -14,6 +14,7 @@ extern hl_type t$hl_types_ArrayObj;
 void hl_types_ArrayObj_new(hl__types__ArrayObj);
 extern hl_type t$_i32;
 int hl_types_ArrayObj_push(hl__types__ArrayObj,vdynamic*);
+extern hl_type t$_void;
 extern hl_type t$hl_BaseType;
 extern hl__Class g$_hl_Class;
 bool Std_isOfType(vdynamic*,vdynamic*);
@@ -125,6 +126,47 @@ void Type_register(vbyte* r0,hl__BaseType r1) {
 	return;
 }
 
+hl__Class Type_getClass(vdynamic* r0) {
+	hl__Class r6;
+	hl_type *r1, *r4;
+	vdynamic *r2;
+	int r3, r5;
+	r1 = r0 ? ((vdynamic*)r0)->t : &hlt_void;
+	r3 = r1->kind;
+	r5 = 15;
+	if( r3 != r5 ) goto label$9fea9d9_5_7;
+	r2 = hl_get_virtual_value(r0);
+	r4 = r2 ? ((vdynamic*)r2)->t : &hlt_void;
+	r1 = r4;
+	label$9fea9d9_5_7:
+	r3 = r1->kind;
+	r5 = 11;
+	if( r3 != r5 ) goto label$9fea9d9_5_13;
+	r2 = hl_type_get_global(r1);
+	r6 = (hl__Class)hl_dyn_castp(&r2,&t$_dyn,&t$hl_Class);
+	return r6;
+	label$9fea9d9_5_13:
+	r6 = NULL;
+	return r6;
+}
+
+hl__Class Type_getSuperClass(hl__Class r0) {
+	hl__Class r2;
+	hl_type *r1, *r3;
+	vdynamic *r4;
+	if( r0 == NULL ) hl_null_access();
+	r1 = r0->__type__;
+	r1 = hl_type_super(r1);
+	r3 = &t$_void;
+	if( hl_same_type(r1,r3) != 0 ) {} else goto label$9fea9d9_6_7;
+	r2 = NULL;
+	return r2;
+	label$9fea9d9_6_7:
+	r4 = hl_type_get_global(r1);
+	r2 = (hl__Class)hl_dyn_castp(&r4,&t$_dyn,&t$hl_Class);
+	return r2;
+}
+
 hl__Class Type_resolveClass(String r0) {
 	hl__BaseType r4;
 	hl__Class r6;
@@ -137,14 +179,14 @@ hl__Class Type_resolveClass(String r0) {
 	r3 = r0->bytes;
 	r1 = hl_hbget(r2,r3);
 	r4 = (hl__BaseType)hl_dyn_castp(&r1,&t$_dyn,&t$hl_BaseType);
-	if( !r4 ) goto label$9fea9d9_5_9;
+	if( !r4 ) goto label$9fea9d9_7_9;
 	r6 = (hl__Class)g$_hl_Class;
 	r5 = Std_isOfType(((vdynamic*)r4),((vdynamic*)r6));
-	if( r5 ) goto label$9fea9d9_5_11;
-	label$9fea9d9_5_9:
+	if( r5 ) goto label$9fea9d9_7_11;
+	label$9fea9d9_7_9:
 	r6 = NULL;
 	return r6;
-	label$9fea9d9_5_11:
+	label$9fea9d9_7_11:
 	r6 = (hl__Class)hl_dyn_castp(&r4,&t$hl_BaseType,&t$hl_Class);
 	return r6;
 }
@@ -158,14 +200,14 @@ vdynamic* Type_createInstance(hl__Class r0,hl__types__ArrayDyn r1) {
 	r3 = r0->__type__;
 	r4 = NULL;
 	r5 = &t$hl_types_ArrayAccess;
-	if( hl_same_type(r3,r5) != 0 ) {} else goto label$9fea9d9_6_8;
+	if( hl_same_type(r3,r5) != 0 ) {} else goto label$9fea9d9_8_8;
 	r6 = (hl__types__ArrayDyn)hl_alloc_obj(&t$hl_types_ArrayDyn);
 	hl_types_ArrayDyn_new(r6);
 	return ((vdynamic*)r6);
-	label$9fea9d9_6_8:
+	label$9fea9d9_8_8:
 	r7 = hl_alloc_obj(r3);
 	r8 = r0->__constructor__;
-	if( !r8 ) goto label$9fea9d9_6_19;
+	if( !r8 ) goto label$9fea9d9_8_19;
 	r8 = r0->__constructor__;
 	r8 = hl_no_closure(r8);
 	if( r1 == NULL ) hl_null_access();
@@ -174,7 +216,7 @@ vdynamic* Type_createInstance(hl__Class r0,hl__types__ArrayDyn r1) {
 	hl_types_ArrayDyn_unshift(r6,r7);
 	r9 = NULL;
 	r9 = Reflect_callMethod(r9,r8,r6);
-	label$9fea9d9_6_19:
+	label$9fea9d9_8_19:
 	return r7;
 }
 

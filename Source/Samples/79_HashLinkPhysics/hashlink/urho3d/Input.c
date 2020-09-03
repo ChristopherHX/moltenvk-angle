@@ -8,6 +8,16 @@ extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern hl_type t$vrt_e52a26e;
 extern hl_type t$_i32;
 
+hl_urho3d_math_tintvector2* urho3d_Input_get_mousePosition() {
+	hl_urho3d_math_tintvector2 *r0;
+	urho3d___Context__$Context_Impl_ r2;
+	urho3d_context *r1;
+	r2 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r1 = r2->context;
+	r0 = Urho3D__input_get_mouse_position(r1);
+	return r0;
+}
+
 bool urho3d_Input_GetKeyDown(int r0) {
 	bool r1;
 	urho3d___Context__$Context_Impl_ r3;

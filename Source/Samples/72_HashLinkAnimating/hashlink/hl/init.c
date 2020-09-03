@@ -23,11 +23,11 @@
 #include <urho3d/_Context/Context_Impl_.h>
 #include <urho3d/Graphics.h>
 #include <urho3d/_LogicComponent/UpdateEvent_Impl_.h>
+#include <urho3d/Math.h>
 #include <urho3d/_Quaternion/Quaternion_Impl_.h>
 #include <urho3d/Scene.h>
 #include <urho3d/_Vector2/Vector2_Impl_.h>
 #include <urho3d/_Vector3/Vector3_Impl_.h>
-hl_urho3d_math_quaternion* fun$init__$1(void);
 extern hl_type t$fun_363696b;
 extern hl_type t$fun_f0a94e3;
 extern hl_type t$fun_dc27400;
@@ -79,6 +79,7 @@ extern hl_type t$haxe_$IMap;
 extern hl_type t$vrt_b840ca7;
 extern hl_type t$_type;
 extern hl_type t$haxe_ds_StringMap;
+extern hl_type t$haxe_ds_ObjectMap;
 extern hl_type t$hl_Class;
 extern haxe__$IMap g$_haxe_IMap;
 extern hl_type t$sys_thread__Mutex_$Mutex_Impl_;
@@ -91,6 +92,10 @@ extern hl_type t$haxe_$EntryPoint;
 extern hl_type t$haxe_EntryPoint;
 extern hl_type t$haxe_$Exception;
 extern hl_type t$haxe_Exception;
+extern hl_type t$haxe__Int32_$Int32_Impl_;
+extern hl_type t$haxe__Int32_Int32_Impl_;
+extern hl_type t$haxe__Int64_$___Int64;
+extern hl_type t$haxe__Int64____Int64;
 extern hl_type t$haxe_$Log;
 extern hl_type t$haxe_Log;
 extern hl_type t$haxe_$MainEvent;
@@ -103,6 +108,7 @@ extern hl_type t$haxe_$ValueException;
 extern hl_type t$haxe_ValueException;
 extern hl_type t$haxe_ds_$ArraySort;
 extern hl_type t$haxe_ds_ArraySort;
+extern hl_type t$haxe_ds_$ObjectMap;
 extern hl_type t$haxe_ds_$StringMap;
 extern hl_type t$haxe_io_$Error;
 extern hl_type t$haxe_io_Error;
@@ -163,6 +169,8 @@ extern hl_type t$hl_types_$BytesKeyValueIterator_hl_UI16;
 extern hl_type t$hl_types_BytesKeyValueIterator_hl_UI16;
 extern hl_type t$hl_types__BytesMap_$BytesMap_Impl_;
 extern hl_type t$hl_types__BytesMap_BytesMap_Impl_;
+extern hl_type t$hl_types__ObjectMap_$ObjectMap_Impl_;
+extern hl_type t$hl_types__ObjectMap_ObjectMap_Impl_;
 extern hl_type t$urho3d__AbstractApplication_$AbstractApplication_Impl_;
 extern hl_type t$urho3d__AbstractApplication_AbstractApplication_Impl_;
 extern hl_type t$urho3d_$Component;
@@ -247,6 +255,8 @@ extern hl_type t$urho3d__LogicComponent_$AbstractLogicComponent_Impl_;
 extern hl_type t$urho3d__LogicComponent_AbstractLogicComponent_Impl_;
 extern hl_type t$urho3d__Material_$Material_Impl_;
 extern hl_type t$urho3d__Material_Material_Impl_;
+extern hl_type t$urho3d_$Math;
+extern hl_type t$urho3d_Math;
 extern hl_type t$urho3d__Model_$Model_Impl_;
 extern hl_type t$urho3d__Model_Model_Impl_;
 extern hl_type t$urho3d_$Node;
@@ -257,6 +267,12 @@ extern hl_type t$urho3d__Object_$Object_Impl_;
 extern hl_type t$urho3d__Object_Object_Impl_;
 extern hl_type t$urho3d__Octree_$Octree_Impl_;
 extern hl_type t$urho3d__Octree_Octree_Impl_;
+extern hl_type t$urho3d__ParticleEffect2D_$ParticleEffect2D_Impl_;
+extern hl_type t$urho3d__ParticleEffect2D_ParticleEffect2D_Impl_;
+extern hl_type t$urho3d_$ParticleEmitter2D;
+extern hl_type t$urho3d_ParticleEmitter2D;
+extern hl_type t$urho3d__ParticleEmitter2D_$AbstractParticleEmitter2D_Impl_;
+extern hl_type t$urho3d__ParticleEmitter2D_AbstractParticleEmitter2D_Impl_;
 extern hl_type t$urho3d__PhysicsRaycastResult_$PhysicsRaycastResult_Impl_;
 extern hl_type t$urho3d__PhysicsRaycastResult_PhysicsRaycastResult_Impl_;
 extern hl_type t$urho3d__PhysicsWorld_$PhysicsWorld_Impl_;
@@ -269,6 +285,8 @@ extern hl_type t$urho3d__RayQueryResult_$RayQueryResult_Impl_;
 extern hl_type t$urho3d__RayQueryResult_RayQueryResult_Impl_;
 extern hl_type t$urho3d__RayQueryResults_$RayQueryResults_Impl_;
 extern hl_type t$urho3d__RayQueryResults_RayQueryResults_Impl_;
+extern hl_type t$urho3d__RefCounted_$RefCounted_Impl_;
+extern hl_type t$urho3d__RefCounted_RefCounted_Impl_;
 extern hl_type t$urho3d__RenderPath_$RenderPath_Impl_;
 extern hl_type t$urho3d__RenderPath_RenderPath_Impl_;
 extern hl_type t$urho3d__Renderer_$Viewports_Impl_;
@@ -291,12 +309,22 @@ extern hl_type t$urho3d_$Skybox;
 extern hl_type t$urho3d_Skybox;
 extern hl_type t$urho3d__Skybox_$AbstractSkybox_Impl_;
 extern hl_type t$urho3d__Skybox_AbstractSkybox_Impl_;
+extern hl_type t$urho3d__Sound_$Sound_Impl_;
+extern hl_type t$urho3d__Sound_Sound_Impl_;
+extern hl_type t$urho3d_$SoundSource;
+extern hl_type t$urho3d_SoundSource;
+extern hl_type t$urho3d__SoundSource_$AbstractSoundSource_Impl_;
+extern hl_type t$urho3d__SoundSource_AbstractSoundSource_Impl_;
 extern hl_type t$urho3d__StaticModel_$AbstractStaticModel_Impl_;
 extern hl_type t$urho3d__StaticModel_AbstractStaticModel_Impl_;
 extern hl_type t$urho3d__StringHash_$StringHash_Impl_;
 extern hl_type t$urho3d__StringHash_StringHash_Impl_;
+extern hl_type t$urho3d__TColor_$TColor_Impl_;
+extern hl_type t$urho3d__TColor_TColor_Impl_;
 extern hl_type t$urho3d__TIntVector2_$TIntVector2_Impl_;
 extern hl_type t$urho3d__TIntVector2_TIntVector2_Impl_;
+extern hl_type t$urho3d__TNode_$TNode_Impl_;
+extern hl_type t$urho3d__TNode_TNode_Impl_;
 extern hl_type t$urho3d__TQuaternion_$TQuaternion_Impl_;
 extern hl_type t$urho3d__TQuaternion_TQuaternion_Impl_;
 extern hl_type t$urho3d__TRay_$TRay_Impl_;
@@ -307,6 +335,8 @@ extern hl_type t$urho3d__TStringHash_$TStringHash_Impl_;
 extern hl_type t$urho3d__TStringHash_TStringHash_Impl_;
 extern hl_type t$urho3d__TVariant_$TVariant_Impl_;
 extern hl_type t$urho3d__TVariant_TVariant_Impl_;
+extern hl_type t$urho3d__TVariantMap_$TVariantMap_Impl_;
+extern hl_type t$urho3d__TVariantMap_TVariantMap_Impl_;
 extern hl_type t$urho3d__TVector2_$TVector2_Impl_;
 extern hl_type t$urho3d__TVector2_TVector2_Impl_;
 extern hl_type t$urho3d__TVector3_$TVector3_Impl_;
@@ -319,6 +349,8 @@ extern hl_type t$urho3d__Texture_$Texture_Impl_;
 extern hl_type t$urho3d__Texture_Texture_Impl_;
 extern hl_type t$urho3d__TouchState_$TouchState_Impl_;
 extern hl_type t$urho3d__TouchState_TouchState_Impl_;
+extern hl_type t$urho3d__ValueAnimation_$ValueAnimation_Impl_;
+extern hl_type t$urho3d__ValueAnimation_ValueAnimation_Impl_;
 extern hl_type t$urho3d__Variant_$Variant_Impl_;
 extern hl_type t$urho3d__Variant_Variant_Impl_;
 extern hl_type t$urho3d__VariantMap_$VariantMap_Impl_;
@@ -352,6 +384,7 @@ void hl_types_ArrayObj_new(hl__types__ArrayObj);
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern urho3d__$Graphics g$_urho3d_Graphics;
 extern urho3d___LogicComponent__$UpdateEvent_Impl_ g$e87da15;
+extern urho3d__$Math g$_urho3d_Math;
 extern urho3d___Quaternion__$Quaternion_Impl_ g$abe14a3;
 extern urho3d__$Scene g$_urho3d_Scene;
 extern urho3d___Vector2__$Vector2_Impl_ g$_urho3d__Vector2_Vector2_Impl_;
@@ -359,76 +392,26 @@ extern urho3d___Vector3__$Vector3_Impl_ g$_urho3d__Vector3_Vector3_Impl_;
 void Main_main(void);
 void haxe_EntryPoint_run(void);
 
-hl_urho3d_math_vector2* fun$init__$2() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 0.;
-	r2 = (float)r1;
-	r1 = 0.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$3() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = -1.;
-	r2 = (float)r1;
-	r1 = 0.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$4() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 1.;
-	r2 = (float)r1;
-	r1 = 0.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$5() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 0.;
-	r2 = (float)r1;
-	r1 = 1.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$6() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 0.;
-	r2 = (float)r1;
-	r1 = -1.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$7() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 1.;
-	r2 = (float)r1;
-	r1 = 1.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
+hl_urho3d_math_quaternion* fun$init__$1() {
+	hl_urho3d_math_quaternion *r2;
+	float r4, r5, r6;
+	double r0, r3;
+	hl_urho3d_math_tvector3 *r1;
+	r0 = 0.;
+	r1 = NULL;
+	if( !r1 ) goto label$e988165_1_6;
+	r4 = (float)r0;
+	r2 = Urho3D__math_quaternion_create_fv(r4,r1);
+	goto label$e988165_1_12;
+	label$e988165_1_6:
+	r4 = (float)r0;
+	r3 = 0.;
+	r5 = (float)r3;
+	r3 = 0.;
+	r6 = (float)r3;
+	r2 = Urho3D__math_quaternion_create(r4,r5,r6);
+	label$e988165_1_12:
+	return r2;
 }
 
 hl_urho3d_math_vector3* fun$init__$8() {
@@ -543,6 +526,78 @@ hl_urho3d_math_vector3* fun$init__$15() {
 	return r0;
 }
 
+hl_urho3d_math_vector2* fun$init__$2() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 0.;
+	r2 = (float)r1;
+	r1 = 0.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$3() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = -1.;
+	r2 = (float)r1;
+	r1 = 0.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$4() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 1.;
+	r2 = (float)r1;
+	r1 = 0.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$5() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 0.;
+	r2 = (float)r1;
+	r1 = 1.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$6() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 0.;
+	r2 = (float)r1;
+	r1 = -1.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$7() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 1.;
+	r2 = (float)r1;
+	r1 = 1.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
 void fun$init() {
 	urho3d__Application r23;
 	String r6;
@@ -550,17 +605,18 @@ void fun$init() {
 	urho3d__$Graphics r33;
 	urho3d___LogicComponent__$UpdateEvent_Impl_ r34;
 	bool r21;
+	urho3d__$Math r35;
 	AnimatingSceneSample r26;
-	hl_urho3d_math_vector3 *r43;
-	urho3d__Scene r38;
-	hl_urho3d_math_quaternion *r35;
+	hl_urho3d_math_vector3 *r44;
+	urho3d__Scene r39;
+	hl_urho3d_math_quaternion *r36;
 	$Main r27;
-	hl_urho3d_math_vector2 *r40;
+	hl_urho3d_math_vector2 *r41;
 	sys__thread__Lock r28;
 	hl__CoreType r5;
 	hl__CoreEnum r7;
 	urho3d_context *r25;
-	vclosure *r36, *r41, *r44;
+	vclosure *r37, *r42, *r45;
 	hl__types__$ArrayBase r14;
 	vdynamic *r13;
 	int r9;
@@ -568,7 +624,7 @@ void fun$init() {
 	urho3d__$Application r24;
 	venum *r12;
 	hl_type *r1, *r2;
-	urho3d___Vector3__$Vector3_Impl_ r45;
+	urho3d___Vector3__$Vector3_Impl_ r46;
 	$Sys r22;
 	haxe__$EntryPoint r29;
 	hl_random *r19;
@@ -576,10 +632,10 @@ void fun$init() {
 	hl__Enum r11;
 	$Math r17;
 	hl__types__$ArrayDyn r15;
-	urho3d___Vector2__$Vector2_Impl_ r42;
+	urho3d___Vector2__$Vector2_Impl_ r43;
 	urho3d___Context__$Context_Impl_ r32;
-	urho3d___Quaternion__$Quaternion_Impl_ r37;
-	urho3d__$Scene r39;
+	urho3d___Quaternion__$Quaternion_Impl_ r38;
+	urho3d__$Scene r40;
 	hl_mutex *r30;
 	double r16, r18;
 	haxe__$IMap r10;
@@ -690,10 +746,13 @@ void fun$init() {
 	r3 = (vbyte*)USTR("haxe.IMap");
 	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$_type;
-	r9 = 1;
+	r9 = 2;
 	r8 = hl_alloc_array(r1,r9);
 	r1 = &t$haxe_ds_StringMap;
 	r9 = 0;
+	((hl_type**)(r8 + 1))[r9] = r1;
+	r1 = &t$haxe_ds_ObjectMap;
+	r9 = 1;
 	((hl_type**)(r8 + 1))[r9] = r1;
 	r4->__implementedBy__ = r8;
 	r10 = (haxe__$IMap)hl_dyn_castp(&r4,&t$hl_Class,&t$haxe_$IMap);
@@ -718,6 +777,14 @@ void fun$init() {
 	r2 = &t$haxe_Exception;
 	r3 = (vbyte*)USTR("haxe.Exception");
 	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$haxe__Int32_$Int32_Impl_;
+	r2 = &t$haxe__Int32_Int32_Impl_;
+	r3 = (vbyte*)USTR("haxe._Int32.Int32_Impl_");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$haxe__Int64_$___Int64;
+	r2 = &t$haxe__Int64____Int64;
+	r3 = (vbyte*)USTR("haxe._Int64.___Int64");
+	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$haxe_$Log;
 	r2 = &t$haxe_Log;
 	r3 = (vbyte*)USTR("haxe.Log");
@@ -741,6 +808,10 @@ void fun$init() {
 	r1 = &t$haxe_ds_$ArraySort;
 	r2 = &t$haxe_ds_ArraySort;
 	r3 = (vbyte*)USTR("haxe.ds.ArraySort");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$haxe_ds_$ObjectMap;
+	r2 = &t$haxe_ds_ObjectMap;
+	r3 = (vbyte*)USTR("haxe.ds.ObjectMap");
 	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$haxe_ds_$StringMap;
 	r2 = &t$haxe_ds_StringMap;
@@ -873,6 +944,10 @@ void fun$init() {
 	r1 = &t$hl_types__BytesMap_$BytesMap_Impl_;
 	r2 = &t$hl_types__BytesMap_BytesMap_Impl_;
 	r3 = (vbyte*)USTR("hl.types._BytesMap.BytesMap_Impl_");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$hl_types__ObjectMap_$ObjectMap_Impl_;
+	r2 = &t$hl_types__ObjectMap_ObjectMap_Impl_;
+	r3 = (vbyte*)USTR("hl.types._ObjectMap.ObjectMap_Impl_");
 	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$urho3d__AbstractApplication_$AbstractApplication_Impl_;
 	r2 = &t$urho3d__AbstractApplication_AbstractApplication_Impl_;
@@ -1042,6 +1117,10 @@ void fun$init() {
 	r2 = &t$urho3d__Material_Material_Impl_;
 	r3 = (vbyte*)USTR("urho3d._Material.Material_Impl_");
 	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d_$Math;
+	r2 = &t$urho3d_Math;
+	r3 = (vbyte*)USTR("urho3d.Math");
+	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$urho3d__Model_$Model_Impl_;
 	r2 = &t$urho3d__Model_Model_Impl_;
 	r3 = (vbyte*)USTR("urho3d._Model.Model_Impl_");
@@ -1061,6 +1140,18 @@ void fun$init() {
 	r1 = &t$urho3d__Octree_$Octree_Impl_;
 	r2 = &t$urho3d__Octree_Octree_Impl_;
 	r3 = (vbyte*)USTR("urho3d._Octree.Octree_Impl_");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d__ParticleEffect2D_$ParticleEffect2D_Impl_;
+	r2 = &t$urho3d__ParticleEffect2D_ParticleEffect2D_Impl_;
+	r3 = (vbyte*)USTR("urho3d._ParticleEffect2D.ParticleEffect2D_Impl_");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d_$ParticleEmitter2D;
+	r2 = &t$urho3d_ParticleEmitter2D;
+	r3 = (vbyte*)USTR("urho3d.ParticleEmitter2D");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d__ParticleEmitter2D_$AbstractParticleEmitter2D_Impl_;
+	r2 = &t$urho3d__ParticleEmitter2D_AbstractParticleEmitter2D_Impl_;
+	r3 = (vbyte*)USTR("urho3d._ParticleEmitter2D.AbstractParticleEmitter2D_Impl_");
 	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$urho3d__PhysicsRaycastResult_$PhysicsRaycastResult_Impl_;
 	r2 = &t$urho3d__PhysicsRaycastResult_PhysicsRaycastResult_Impl_;
@@ -1085,6 +1176,10 @@ void fun$init() {
 	r1 = &t$urho3d__RayQueryResults_$RayQueryResults_Impl_;
 	r2 = &t$urho3d__RayQueryResults_RayQueryResults_Impl_;
 	r3 = (vbyte*)USTR("urho3d._RayQueryResults.RayQueryResults_Impl_");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d__RefCounted_$RefCounted_Impl_;
+	r2 = &t$urho3d__RefCounted_RefCounted_Impl_;
+	r3 = (vbyte*)USTR("urho3d._RefCounted.RefCounted_Impl_");
 	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$urho3d__RenderPath_$RenderPath_Impl_;
 	r2 = &t$urho3d__RenderPath_RenderPath_Impl_;
@@ -1130,6 +1225,18 @@ void fun$init() {
 	r2 = &t$urho3d__Skybox_AbstractSkybox_Impl_;
 	r3 = (vbyte*)USTR("urho3d._Skybox.AbstractSkybox_Impl_");
 	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d__Sound_$Sound_Impl_;
+	r2 = &t$urho3d__Sound_Sound_Impl_;
+	r3 = (vbyte*)USTR("urho3d._Sound.Sound_Impl_");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d_$SoundSource;
+	r2 = &t$urho3d_SoundSource;
+	r3 = (vbyte*)USTR("urho3d.SoundSource");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d__SoundSource_$AbstractSoundSource_Impl_;
+	r2 = &t$urho3d__SoundSource_AbstractSoundSource_Impl_;
+	r3 = (vbyte*)USTR("urho3d._SoundSource.AbstractSoundSource_Impl_");
+	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$urho3d__StaticModel_$AbstractStaticModel_Impl_;
 	r2 = &t$urho3d__StaticModel_AbstractStaticModel_Impl_;
 	r3 = (vbyte*)USTR("urho3d._StaticModel.AbstractStaticModel_Impl_");
@@ -1138,9 +1245,17 @@ void fun$init() {
 	r2 = &t$urho3d__StringHash_StringHash_Impl_;
 	r3 = (vbyte*)USTR("urho3d._StringHash.StringHash_Impl_");
 	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d__TColor_$TColor_Impl_;
+	r2 = &t$urho3d__TColor_TColor_Impl_;
+	r3 = (vbyte*)USTR("urho3d._TColor.TColor_Impl_");
+	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$urho3d__TIntVector2_$TIntVector2_Impl_;
 	r2 = &t$urho3d__TIntVector2_TIntVector2_Impl_;
 	r3 = (vbyte*)USTR("urho3d._TIntVector2.TIntVector2_Impl_");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d__TNode_$TNode_Impl_;
+	r2 = &t$urho3d__TNode_TNode_Impl_;
+	r3 = (vbyte*)USTR("urho3d._TNode.TNode_Impl_");
 	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$urho3d__TQuaternion_$TQuaternion_Impl_;
 	r2 = &t$urho3d__TQuaternion_TQuaternion_Impl_;
@@ -1161,6 +1276,10 @@ void fun$init() {
 	r1 = &t$urho3d__TVariant_$TVariant_Impl_;
 	r2 = &t$urho3d__TVariant_TVariant_Impl_;
 	r3 = (vbyte*)USTR("urho3d._TVariant.TVariant_Impl_");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d__TVariantMap_$TVariantMap_Impl_;
+	r2 = &t$urho3d__TVariantMap_TVariantMap_Impl_;
+	r3 = (vbyte*)USTR("urho3d._TVariantMap.TVariantMap_Impl_");
 	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$urho3d__TVector2_$TVector2_Impl_;
 	r2 = &t$urho3d__TVector2_TVector2_Impl_;
@@ -1185,6 +1304,10 @@ void fun$init() {
 	r1 = &t$urho3d__TouchState_$TouchState_Impl_;
 	r2 = &t$urho3d__TouchState_TouchState_Impl_;
 	r3 = (vbyte*)USTR("urho3d._TouchState.TouchState_Impl_");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d__ValueAnimation_$ValueAnimation_Impl_;
+	r2 = &t$urho3d__ValueAnimation_ValueAnimation_Impl_;
+	r3 = (vbyte*)USTR("urho3d._ValueAnimation.ValueAnimation_Impl_");
 	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$urho3d__Variant_$Variant_Impl_;
 	r2 = &t$urho3d__Variant_Variant_Impl_;
@@ -1297,108 +1420,131 @@ void fun$init() {
 	r9 = 8;
 	r34 = (urho3d___LogicComponent__$UpdateEvent_Impl_)g$e87da15;
 	r34->USE_FIXEDPOSTUPDATE = r9;
-	r36 = &cl$0;
-	if( r36 == NULL ) hl_null_access();
-	r35 = r36->hasValue ? ((hl_urho3d_math_quaternion* (*)(vdynamic*))r36->fun)((vdynamic*)r36->value) : ((hl_urho3d_math_quaternion* (*)(void))r36->fun)();
-	r37 = (urho3d___Quaternion__$Quaternion_Impl_)g$abe14a3;
-	r37->IDENTITY = r35;
-	r38 = NULL;
-	r39 = (urho3d__$Scene)g$_urho3d_Scene;
-	r39->currentScene = r38;
-	r41 = &cl$1;
-	if( r41 == NULL ) hl_null_access();
-	r40 = r41->hasValue ? ((hl_urho3d_math_vector2* (*)(vdynamic*))r41->fun)((vdynamic*)r41->value) : ((hl_urho3d_math_vector2* (*)(void))r41->fun)();
-	r42 = (urho3d___Vector2__$Vector2_Impl_)g$_urho3d__Vector2_Vector2_Impl_;
-	r42->ZERO = r40;
-	r41 = &cl$2;
-	if( r41 == NULL ) hl_null_access();
-	r40 = r41->hasValue ? ((hl_urho3d_math_vector2* (*)(vdynamic*))r41->fun)((vdynamic*)r41->value) : ((hl_urho3d_math_vector2* (*)(void))r41->fun)();
-	r42 = (urho3d___Vector2__$Vector2_Impl_)g$_urho3d__Vector2_Vector2_Impl_;
-	r42->LEFT = r40;
-	r41 = &cl$3;
-	if( r41 == NULL ) hl_null_access();
-	r40 = r41->hasValue ? ((hl_urho3d_math_vector2* (*)(vdynamic*))r41->fun)((vdynamic*)r41->value) : ((hl_urho3d_math_vector2* (*)(void))r41->fun)();
-	r42 = (urho3d___Vector2__$Vector2_Impl_)g$_urho3d__Vector2_Vector2_Impl_;
-	r42->RIGHT = r40;
-	r41 = &cl$4;
-	if( r41 == NULL ) hl_null_access();
-	r40 = r41->hasValue ? ((hl_urho3d_math_vector2* (*)(vdynamic*))r41->fun)((vdynamic*)r41->value) : ((hl_urho3d_math_vector2* (*)(void))r41->fun)();
-	r42 = (urho3d___Vector2__$Vector2_Impl_)g$_urho3d__Vector2_Vector2_Impl_;
-	r42->UP = r40;
-	r41 = &cl$5;
-	if( r41 == NULL ) hl_null_access();
-	r40 = r41->hasValue ? ((hl_urho3d_math_vector2* (*)(vdynamic*))r41->fun)((vdynamic*)r41->value) : ((hl_urho3d_math_vector2* (*)(void))r41->fun)();
-	r42 = (urho3d___Vector2__$Vector2_Impl_)g$_urho3d__Vector2_Vector2_Impl_;
-	r42->DOWN = r40;
-	r41 = &cl$6;
-	if( r41 == NULL ) hl_null_access();
-	r40 = r41->hasValue ? ((hl_urho3d_math_vector2* (*)(vdynamic*))r41->fun)((vdynamic*)r41->value) : ((hl_urho3d_math_vector2* (*)(void))r41->fun)();
-	r42 = (urho3d___Vector2__$Vector2_Impl_)g$_urho3d__Vector2_Vector2_Impl_;
-	r42->ONE = r40;
-	r44 = &cl$7;
-	if( r44 == NULL ) hl_null_access();
-	r43 = r44->hasValue ? ((hl_urho3d_math_vector3* (*)(vdynamic*))r44->fun)((vdynamic*)r44->value) : ((hl_urho3d_math_vector3* (*)(void))r44->fun)();
-	r45 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r45->ZERO = r43;
-	r44 = &cl$8;
-	if( r44 == NULL ) hl_null_access();
-	r43 = r44->hasValue ? ((hl_urho3d_math_vector3* (*)(vdynamic*))r44->fun)((vdynamic*)r44->value) : ((hl_urho3d_math_vector3* (*)(void))r44->fun)();
-	r45 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r45->LEFT = r43;
-	r44 = &cl$9;
-	if( r44 == NULL ) hl_null_access();
-	r43 = r44->hasValue ? ((hl_urho3d_math_vector3* (*)(vdynamic*))r44->fun)((vdynamic*)r44->value) : ((hl_urho3d_math_vector3* (*)(void))r44->fun)();
-	r45 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r45->RIGHT = r43;
-	r44 = &cl$10;
-	if( r44 == NULL ) hl_null_access();
-	r43 = r44->hasValue ? ((hl_urho3d_math_vector3* (*)(vdynamic*))r44->fun)((vdynamic*)r44->value) : ((hl_urho3d_math_vector3* (*)(void))r44->fun)();
-	r45 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r45->UP = r43;
-	r44 = &cl$11;
-	if( r44 == NULL ) hl_null_access();
-	r43 = r44->hasValue ? ((hl_urho3d_math_vector3* (*)(vdynamic*))r44->fun)((vdynamic*)r44->value) : ((hl_urho3d_math_vector3* (*)(void))r44->fun)();
-	r45 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r45->DOWN = r43;
-	r44 = &cl$12;
-	if( r44 == NULL ) hl_null_access();
-	r43 = r44->hasValue ? ((hl_urho3d_math_vector3* (*)(vdynamic*))r44->fun)((vdynamic*)r44->value) : ((hl_urho3d_math_vector3* (*)(void))r44->fun)();
-	r45 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r45->FORWARD = r43;
-	r44 = &cl$13;
-	if( r44 == NULL ) hl_null_access();
-	r43 = r44->hasValue ? ((hl_urho3d_math_vector3* (*)(vdynamic*))r44->fun)((vdynamic*)r44->value) : ((hl_urho3d_math_vector3* (*)(void))r44->fun)();
-	r45 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r45->BACK = r43;
-	r44 = &cl$14;
-	if( r44 == NULL ) hl_null_access();
-	r43 = r44->hasValue ? ((hl_urho3d_math_vector3* (*)(vdynamic*))r44->fun)((vdynamic*)r44->value) : ((hl_urho3d_math_vector3* (*)(void))r44->fun)();
-	r45 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r45->ONE = r43;
+	r16 = 3.141592653589793116;
+	r35 = (urho3d__$Math)g$_urho3d_Math;
+	r35->_PI_ = r16;
+	r16 = 1.570796326794896558;
+	r35 = (urho3d__$Math)g$_urho3d_Math;
+	r35->_HALF_PI_ = r16;
+	r16 = 9.999999999999999547e-07;
+	r35 = (urho3d__$Math)g$_urho3d_Math;
+	r35->_EPSILON_ = r16;
+	r16 = 5.00000000000000024e-05;
+	r35 = (urho3d__$Math)g$_urho3d_Math;
+	r35->_LARGE_EPSILON_ = r16;
+	r16 = 0.01000000000000000021;
+	r35 = (urho3d__$Math)g$_urho3d_Math;
+	r35->_MIN_NEARCLIP_ = r16;
+	r16 = 160.;
+	r35 = (urho3d__$Math)g$_urho3d_Math;
+	r35->_MAX_FOV_ = r16;
+	r16 = 100000000.;
+	r35 = (urho3d__$Math)g$_urho3d_Math;
+	r35->_LARGE_VALUE_ = r16;
+	r16 = 10000000000.;
+	r35 = (urho3d__$Math)g$_urho3d_Math;
+	r35->_INFINITY_ = r16;
+	r16 = 0.01745329251994329547;
+	r35 = (urho3d__$Math)g$_urho3d_Math;
+	r35->_DEGTORAD_ = r16;
+	r16 = 0.008726646259971647737;
+	r35 = (urho3d__$Math)g$_urho3d_Math;
+	r35->_DEGTORAD_2_ = r16;
+	r16 = 57.29577951308232286;
+	r35 = (urho3d__$Math)g$_urho3d_Math;
+	r35->_RADTODEG_ = r16;
+	r9 = 0x80000000;
+	r35 = (urho3d__$Math)g$_urho3d_Math;
+	r35->_MIN_INT_ = r9;
+	r9 = 2147483647;
+	r35 = (urho3d__$Math)g$_urho3d_Math;
+	r35->_MAX_INT_ = r9;
+	r9 = 0;
+	r35 = (urho3d__$Math)g$_urho3d_Math;
+	r35->_MIN_UNSIGNED_ = r9;
+	r9 = -1;
+	r35 = (urho3d__$Math)g$_urho3d_Math;
+	r35->_MAX_UNSIGNED_ = r9;
+	r37 = &cl$0;
+	if( r37 == NULL ) hl_null_access();
+	r36 = r37->hasValue ? ((hl_urho3d_math_quaternion* (*)(vdynamic*))r37->fun)((vdynamic*)r37->value) : ((hl_urho3d_math_quaternion* (*)(void))r37->fun)();
+	r38 = (urho3d___Quaternion__$Quaternion_Impl_)g$abe14a3;
+	r38->IDENTITY = r36;
+	r39 = NULL;
+	r40 = (urho3d__$Scene)g$_urho3d_Scene;
+	r40->currentScene = r39;
+	r42 = &cl$1;
+	if( r42 == NULL ) hl_null_access();
+	r41 = r42->hasValue ? ((hl_urho3d_math_vector2* (*)(vdynamic*))r42->fun)((vdynamic*)r42->value) : ((hl_urho3d_math_vector2* (*)(void))r42->fun)();
+	r43 = (urho3d___Vector2__$Vector2_Impl_)g$_urho3d__Vector2_Vector2_Impl_;
+	r43->ZERO = r41;
+	r42 = &cl$2;
+	if( r42 == NULL ) hl_null_access();
+	r41 = r42->hasValue ? ((hl_urho3d_math_vector2* (*)(vdynamic*))r42->fun)((vdynamic*)r42->value) : ((hl_urho3d_math_vector2* (*)(void))r42->fun)();
+	r43 = (urho3d___Vector2__$Vector2_Impl_)g$_urho3d__Vector2_Vector2_Impl_;
+	r43->LEFT = r41;
+	r42 = &cl$3;
+	if( r42 == NULL ) hl_null_access();
+	r41 = r42->hasValue ? ((hl_urho3d_math_vector2* (*)(vdynamic*))r42->fun)((vdynamic*)r42->value) : ((hl_urho3d_math_vector2* (*)(void))r42->fun)();
+	r43 = (urho3d___Vector2__$Vector2_Impl_)g$_urho3d__Vector2_Vector2_Impl_;
+	r43->RIGHT = r41;
+	r42 = &cl$4;
+	if( r42 == NULL ) hl_null_access();
+	r41 = r42->hasValue ? ((hl_urho3d_math_vector2* (*)(vdynamic*))r42->fun)((vdynamic*)r42->value) : ((hl_urho3d_math_vector2* (*)(void))r42->fun)();
+	r43 = (urho3d___Vector2__$Vector2_Impl_)g$_urho3d__Vector2_Vector2_Impl_;
+	r43->UP = r41;
+	r42 = &cl$5;
+	if( r42 == NULL ) hl_null_access();
+	r41 = r42->hasValue ? ((hl_urho3d_math_vector2* (*)(vdynamic*))r42->fun)((vdynamic*)r42->value) : ((hl_urho3d_math_vector2* (*)(void))r42->fun)();
+	r43 = (urho3d___Vector2__$Vector2_Impl_)g$_urho3d__Vector2_Vector2_Impl_;
+	r43->DOWN = r41;
+	r42 = &cl$6;
+	if( r42 == NULL ) hl_null_access();
+	r41 = r42->hasValue ? ((hl_urho3d_math_vector2* (*)(vdynamic*))r42->fun)((vdynamic*)r42->value) : ((hl_urho3d_math_vector2* (*)(void))r42->fun)();
+	r43 = (urho3d___Vector2__$Vector2_Impl_)g$_urho3d__Vector2_Vector2_Impl_;
+	r43->ONE = r41;
+	r45 = &cl$7;
+	if( r45 == NULL ) hl_null_access();
+	r44 = r45->hasValue ? ((hl_urho3d_math_vector3* (*)(vdynamic*))r45->fun)((vdynamic*)r45->value) : ((hl_urho3d_math_vector3* (*)(void))r45->fun)();
+	r46 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r46->ZERO = r44;
+	r45 = &cl$8;
+	if( r45 == NULL ) hl_null_access();
+	r44 = r45->hasValue ? ((hl_urho3d_math_vector3* (*)(vdynamic*))r45->fun)((vdynamic*)r45->value) : ((hl_urho3d_math_vector3* (*)(void))r45->fun)();
+	r46 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r46->LEFT = r44;
+	r45 = &cl$9;
+	if( r45 == NULL ) hl_null_access();
+	r44 = r45->hasValue ? ((hl_urho3d_math_vector3* (*)(vdynamic*))r45->fun)((vdynamic*)r45->value) : ((hl_urho3d_math_vector3* (*)(void))r45->fun)();
+	r46 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r46->RIGHT = r44;
+	r45 = &cl$10;
+	if( r45 == NULL ) hl_null_access();
+	r44 = r45->hasValue ? ((hl_urho3d_math_vector3* (*)(vdynamic*))r45->fun)((vdynamic*)r45->value) : ((hl_urho3d_math_vector3* (*)(void))r45->fun)();
+	r46 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r46->UP = r44;
+	r45 = &cl$11;
+	if( r45 == NULL ) hl_null_access();
+	r44 = r45->hasValue ? ((hl_urho3d_math_vector3* (*)(vdynamic*))r45->fun)((vdynamic*)r45->value) : ((hl_urho3d_math_vector3* (*)(void))r45->fun)();
+	r46 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r46->DOWN = r44;
+	r45 = &cl$12;
+	if( r45 == NULL ) hl_null_access();
+	r44 = r45->hasValue ? ((hl_urho3d_math_vector3* (*)(vdynamic*))r45->fun)((vdynamic*)r45->value) : ((hl_urho3d_math_vector3* (*)(void))r45->fun)();
+	r46 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r46->FORWARD = r44;
+	r45 = &cl$13;
+	if( r45 == NULL ) hl_null_access();
+	r44 = r45->hasValue ? ((hl_urho3d_math_vector3* (*)(vdynamic*))r45->fun)((vdynamic*)r45->value) : ((hl_urho3d_math_vector3* (*)(void))r45->fun)();
+	r46 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r46->BACK = r44;
+	r45 = &cl$14;
+	if( r45 == NULL ) hl_null_access();
+	r44 = r45->hasValue ? ((hl_urho3d_math_vector3* (*)(vdynamic*))r45->fun)((vdynamic*)r45->value) : ((hl_urho3d_math_vector3* (*)(void))r45->fun)();
+	r46 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r46->ONE = r44;
 	Main_main();
 	haxe_EntryPoint_run();
 	return;
-}
-
-hl_urho3d_math_quaternion* fun$init__$1() {
-	hl_urho3d_math_quaternion *r2;
-	float r4, r5, r6;
-	double r0, r3;
-	hl_urho3d_math_tvector3 *r1;
-	r0 = 0.;
-	r1 = NULL;
-	if( !r1 ) goto label$e988165_16_6;
-	r4 = (float)r0;
-	r2 = Urho3D__math_quaternion_create_fv(r4,r1);
-	goto label$e988165_16_12;
-	label$e988165_16_6:
-	r4 = (float)r0;
-	r3 = 0.;
-	r5 = (float)r3;
-	r3 = 0.;
-	r6 = (float)r3;
-	r2 = Urho3D__math_quaternion_create(r4,r5,r6);
-	label$e988165_16_12:
-	return r2;
 }
 

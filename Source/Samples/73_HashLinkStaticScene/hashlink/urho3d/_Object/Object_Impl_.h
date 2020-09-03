@@ -22,6 +22,8 @@ struct _urho3d___Object__$Object_Impl_ {
 	vclosure* fromComponent;
 	vclosure* toNode;
 	vclosure* fromNode;
+	vclosure* toAbstractNode;
+	vclosure* fromAbstractNode;
 };
 struct _urho3d___Object__Object_Impl_ {
 	hl_type *$type;

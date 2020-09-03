@@ -18,6 +18,7 @@ struct _urho3d__$Input {
 	vdynamic* __constructor__;
 	int keyDown;
 	int keyPress;
+	vclosure* get_mousePosition;
 	vclosure* GetKeyDown;
 	vclosure* GetKeyPress;
 	vclosure* get_mouseMove;

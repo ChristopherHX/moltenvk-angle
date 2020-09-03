@@ -7,6 +7,7 @@ typedef struct _urho3d__Component *urho3d__Component;
 #include <hl/BaseType.h>
 #include <_std/String.h>
 #include <urho3d/Node.h>
+#include <urho3d/Scene.h>
 #include <hl/natives.h>
 
 
@@ -21,6 +22,7 @@ struct _urho3d__$Component {
 struct _urho3d__Component {
 	hl_type *$type;
 	urho3d__Node _node;
+	urho3d__Scene _scene;
 	hl_urho3d_scene_component* abstractComponent;
 };
 #endif

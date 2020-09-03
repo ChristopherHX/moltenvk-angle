@@ -6,7 +6,14 @@
 #include <urho3d/_Context/Context_Impl_.h>
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern String s$5e732a1;
+vvirtual* haxe_ds_ObjectMap_iterator(haxe__ds__ObjectMap);
+extern hl_type t$vrt_1cffe76;
+extern hl_type t$fun_bf7849e;
+extern hl_type t$fun_d937e10;
 void urho3d_Node_CleanChildData(urho3d__Node);
+vvirtual* haxe_ds_StringMap_iterator(haxe__ds__StringMap);
+void haxe_ds_StringMap_clear(haxe__ds__StringMap);
+void haxe_ds_ObjectMap_clear(haxe__ds__ObjectMap);
 extern hl_type t$urho3d_Node;
 hl__types__ArrayObj hl_types_ArrayObj_alloc(varray*);
 void urho3d_Node_new(urho3d__Node,hl_urho3d_scene_node*);
@@ -45,20 +52,175 @@ bool urho3d_Scene_SaveXML(urho3d__Scene r0,String r1,String r2) {
 }
 
 bool urho3d_Scene_LoadXML(urho3d__Scene r0,String r1) {
-	bool r3;
-	urho3d___Context__$Context_Impl_ r5;
-	urho3d_context *r4;
-	hl_urho3d_scene_scene *r6;
-	urho3d_Node_CleanChildData(((urho3d__Node)r0));
-	if( !r1 ) goto label$27beee0_3_7;
-	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r4 = r5->context;
-	r6 = r0->abstractScene;
-	r3 = Urho3D__scene_scene_load_xml_string(r4,r6,r1);
-	return r3;
-	label$27beee0_3_7:
-	r3 = false;
-	return r3;
+	haxe__ds__ObjectMap r3;
+	haxe__ds__StringMap r10;
+	vvirtual *r2, *r4, *r7;
+	bool r6;
+	urho3d__Node r8, r9;
+	urho3d___Context__$Context_Impl_ r12;
+	urho3d_context *r11;
+	hl_urho3d_scene_scene *r13;
+	r3 = r0->children_pointers_map;
+	if( r3 == NULL ) hl_null_access();
+	r2 = haxe_ds_ObjectMap_iterator(r3);
+	r4 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r2);
+	label$27beee0_3_4:
+	if( r4 == NULL ) hl_null_access();
+	if( hl_vfields(r4)[0] ) r6 = ((bool (*)(vdynamic*))hl_vfields(r4)[0])(r4->value); else {
+		vdynamic ret;
+		hl_dyn_call_obj(r4->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
+		r6 = (bool)ret.v.i;
+	}
+	if( !r6 ) goto label$27beee0_3_49;
+	if( hl_vfields(r4)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r4)[1])(r4->value); else {
+		r8 = (urho3d__Node)hl_dyn_call_obj(r4->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
+	}
+	if( r8 == NULL ) hl_null_access();
+	r3 = r8->children_pointers_map;
+	if( r3 == NULL ) hl_null_access();
+	r2 = haxe_ds_ObjectMap_iterator(r3);
+	r7 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r2);
+	label$27beee0_3_14:
+	if( r7 == NULL ) hl_null_access();
+	if( hl_vfields(r7)[0] ) r6 = ((bool (*)(vdynamic*))hl_vfields(r7)[0])(r7->value); else {
+		vdynamic ret;
+		hl_dyn_call_obj(r7->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
+		r6 = (bool)ret.v.i;
+	}
+	if( !r6 ) goto label$27beee0_3_22;
+	if( hl_vfields(r7)[1] ) r9 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r7)[1])(r7->value); else {
+		r9 = (urho3d__Node)hl_dyn_call_obj(r7->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
+	}
+	if( r9 == NULL ) hl_null_access();
+	urho3d_Node_CleanChildData(r9);
+	goto label$27beee0_3_14;
+	label$27beee0_3_22:
+	if( r8 == NULL ) hl_null_access();
+	r10 = r8->children_name_map;
+	if( r10 == NULL ) hl_null_access();
+	r2 = haxe_ds_StringMap_iterator(r10);
+	r7 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r2);
+	label$27beee0_3_27:
+	if( r7 == NULL ) hl_null_access();
+	if( hl_vfields(r7)[0] ) r6 = ((bool (*)(vdynamic*))hl_vfields(r7)[0])(r7->value); else {
+		vdynamic ret;
+		hl_dyn_call_obj(r7->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
+		r6 = (bool)ret.v.i;
+	}
+	if( !r6 ) goto label$27beee0_3_35;
+	if( hl_vfields(r7)[1] ) r9 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r7)[1])(r7->value); else {
+		r9 = (urho3d__Node)hl_dyn_call_obj(r7->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
+	}
+	if( r9 == NULL ) hl_null_access();
+	urho3d_Node_CleanChildData(r9);
+	goto label$27beee0_3_27;
+	label$27beee0_3_35:
+	if( r8 == NULL ) hl_null_access();
+	r10 = r8->children_name_map;
+	if( r10 == NULL ) hl_null_access();
+	haxe_ds_StringMap_clear(r10);
+	r3 = r8->components_map;
+	if( r3 == NULL ) hl_null_access();
+	haxe_ds_ObjectMap_clear(r3);
+	r10 = r8->logic_components_map;
+	if( r10 == NULL ) hl_null_access();
+	haxe_ds_StringMap_clear(r10);
+	r3 = r8->children_pointers_map;
+	if( r3 == NULL ) hl_null_access();
+	haxe_ds_ObjectMap_clear(r3);
+	goto label$27beee0_3_4;
+	label$27beee0_3_49:
+	r10 = r0->children_name_map;
+	if( r10 == NULL ) hl_null_access();
+	r2 = haxe_ds_StringMap_iterator(r10);
+	r4 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r2);
+	label$27beee0_3_53:
+	if( r4 == NULL ) hl_null_access();
+	if( hl_vfields(r4)[0] ) r6 = ((bool (*)(vdynamic*))hl_vfields(r4)[0])(r4->value); else {
+		vdynamic ret;
+		hl_dyn_call_obj(r4->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
+		r6 = (bool)ret.v.i;
+	}
+	if( !r6 ) goto label$27beee0_3_98;
+	if( hl_vfields(r4)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r4)[1])(r4->value); else {
+		r8 = (urho3d__Node)hl_dyn_call_obj(r4->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
+	}
+	if( r8 == NULL ) hl_null_access();
+	r3 = r8->children_pointers_map;
+	if( r3 == NULL ) hl_null_access();
+	r2 = haxe_ds_ObjectMap_iterator(r3);
+	r7 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r2);
+	label$27beee0_3_63:
+	if( r7 == NULL ) hl_null_access();
+	if( hl_vfields(r7)[0] ) r6 = ((bool (*)(vdynamic*))hl_vfields(r7)[0])(r7->value); else {
+		vdynamic ret;
+		hl_dyn_call_obj(r7->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
+		r6 = (bool)ret.v.i;
+	}
+	if( !r6 ) goto label$27beee0_3_71;
+	if( hl_vfields(r7)[1] ) r9 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r7)[1])(r7->value); else {
+		r9 = (urho3d__Node)hl_dyn_call_obj(r7->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
+	}
+	if( r9 == NULL ) hl_null_access();
+	urho3d_Node_CleanChildData(r9);
+	goto label$27beee0_3_63;
+	label$27beee0_3_71:
+	if( r8 == NULL ) hl_null_access();
+	r10 = r8->children_name_map;
+	if( r10 == NULL ) hl_null_access();
+	r2 = haxe_ds_StringMap_iterator(r10);
+	r7 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r2);
+	label$27beee0_3_76:
+	if( r7 == NULL ) hl_null_access();
+	if( hl_vfields(r7)[0] ) r6 = ((bool (*)(vdynamic*))hl_vfields(r7)[0])(r7->value); else {
+		vdynamic ret;
+		hl_dyn_call_obj(r7->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
+		r6 = (bool)ret.v.i;
+	}
+	if( !r6 ) goto label$27beee0_3_84;
+	if( hl_vfields(r7)[1] ) r9 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r7)[1])(r7->value); else {
+		r9 = (urho3d__Node)hl_dyn_call_obj(r7->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
+	}
+	if( r9 == NULL ) hl_null_access();
+	urho3d_Node_CleanChildData(r9);
+	goto label$27beee0_3_76;
+	label$27beee0_3_84:
+	if( r8 == NULL ) hl_null_access();
+	r10 = r8->children_name_map;
+	if( r10 == NULL ) hl_null_access();
+	haxe_ds_StringMap_clear(r10);
+	r3 = r8->components_map;
+	if( r3 == NULL ) hl_null_access();
+	haxe_ds_ObjectMap_clear(r3);
+	r10 = r8->logic_components_map;
+	if( r10 == NULL ) hl_null_access();
+	haxe_ds_StringMap_clear(r10);
+	r3 = r8->children_pointers_map;
+	if( r3 == NULL ) hl_null_access();
+	haxe_ds_ObjectMap_clear(r3);
+	goto label$27beee0_3_53;
+	label$27beee0_3_98:
+	r10 = r0->children_name_map;
+	if( r10 == NULL ) hl_null_access();
+	haxe_ds_StringMap_clear(r10);
+	r3 = r0->components_map;
+	if( r3 == NULL ) hl_null_access();
+	haxe_ds_ObjectMap_clear(r3);
+	r10 = r0->logic_components_map;
+	if( r10 == NULL ) hl_null_access();
+	haxe_ds_StringMap_clear(r10);
+	r3 = r0->children_pointers_map;
+	if( r3 == NULL ) hl_null_access();
+	haxe_ds_ObjectMap_clear(r3);
+	if( !r1 ) goto label$27beee0_3_116;
+	r12 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r11 = r12->context;
+	r13 = r0->abstractScene;
+	r6 = Urho3D__scene_scene_load_xml_string(r11,r13,r1);
+	return r6;
+	label$27beee0_3_116:
+	r6 = false;
+	return r6;
 }
 
 hl_urho3d_physics_physics_world* urho3d_Scene_get_physicsWorld(urho3d__Scene r0) {

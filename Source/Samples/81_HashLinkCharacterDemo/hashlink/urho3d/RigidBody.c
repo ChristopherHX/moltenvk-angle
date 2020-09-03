@@ -330,6 +330,29 @@ int urho3d_RigidBody_get_collisionEventMode(urho3d__RigidBody r0) {
 	return r1;
 }
 
+bool urho3d_RigidBody_get_kinematic(urho3d__RigidBody r0) {
+	hl_urho3d_physics_rigid_body *r4;
+	bool r1;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r4 = r0->_abstract;
+	r1 = Urho3D__physics_rigid_body_get_kinematic(r2,r4);
+	return r1;
+}
+
+bool urho3d_RigidBody_set_kinematic(urho3d__RigidBody r0,bool r1) {
+	hl_urho3d_physics_rigid_body *r5;
+	urho3d___Context__$Context_Impl_ r4;
+	urho3d_context *r3;
+	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r3 = r4->context;
+	r5 = r0->_abstract;
+	Urho3D__physics_rigid_body_set_kinematic(r3,r5,r1);
+	return r1;
+}
+
 void urho3d_RigidBody_new(urho3d__RigidBody r0,hl_urho3d_physics_rigid_body* r1) {
 	hl_urho3d_physics_rigid_body *r2;
 	hl_urho3d_scene_component *r6;
@@ -337,15 +360,15 @@ void urho3d_RigidBody_new(urho3d__RigidBody r0,hl_urho3d_physics_rigid_body* r1)
 	urho3d_context *r4;
 	r2 = NULL;
 	r0->_abstract = r2;
-	if( !r1 ) goto label$c485e59_28_5;
+	if( !r1 ) goto label$c485e59_30_5;
 	r0->_abstract = r1;
-	goto label$c485e59_28_9;
-	label$c485e59_28_5:
+	goto label$c485e59_30_9;
+	label$c485e59_30_5:
 	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r4 = r5->context;
 	r2 = Urho3D__physics_rigid_body_create(r4);
 	r0->_abstract = r2;
-	label$c485e59_28_9:
+	label$c485e59_30_9:
 	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r4 = r5->context;
 	r2 = r0->_abstract;

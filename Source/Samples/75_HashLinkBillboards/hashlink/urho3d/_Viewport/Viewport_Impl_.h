@@ -21,6 +21,7 @@ struct _urho3d___Viewport__$Viewport_Impl_ {
 	vclosure* _new;
 	vclosure* set_renderPath;
 	vclosure* get_renderPath;
+	vclosure* ScreenToWorldPoint;
 };
 struct _urho3d___Viewport__Viewport_Impl_ {
 	hl_type *$type;

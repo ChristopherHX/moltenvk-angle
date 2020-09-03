@@ -52,3 +52,15 @@ hl_urho3d_graphics_render_path* urho3d__Viewport_Viewport_Impl__get_renderPath(h
 	return r1;
 }
 
+hl_urho3d_math_tvector3* urho3d__Viewport_Viewport_Impl__ScreenToWorldPoint(hl_urho3d_graphics_viewport* r0,int r1,int r2,double r3) {
+	urho3d___Context__$Context_Impl_ r6;
+	float r7;
+	urho3d_context *r5;
+	hl_urho3d_math_tvector3 *r4;
+	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r5 = r6->context;
+	r7 = (float)r3;
+	r4 = Urho3D__graphics_viewport_screen_to_world_point(r5,r0,r1,r2,r7);
+	return r4;
+}
+

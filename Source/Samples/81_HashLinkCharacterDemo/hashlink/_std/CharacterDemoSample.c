@@ -19,6 +19,8 @@ void CharacterDemoSample_SubscribeToEvents(CharacterDemoSample);
 #include <urho3d/_Context/Context_Impl_.h>
 #include <urho3d/Camera.h>
 #include <urho3d/Renderer.h>
+#include <haxe/ds/ObjectMap.h>
+#include <haxe/ds/StringMap.h>
 #include <urho3d/Zone.h>
 #include <urho3d/Light.h>
 #include <urho3d/StaticModel.h>
@@ -27,20 +29,23 @@ void CharacterDemoSample_SubscribeToEvents(CharacterDemoSample);
 #include <urho3d/_Vector3/Vector3_Impl_.h>
 extern hl_type t$urho3d_Scene;
 void urho3d_Scene_new(urho3d__Scene,hl_urho3d_scene_scene*);
+extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern String s$Octree;
-hl_urho3d_scene_component* urho3d_Node_CreateComponent(urho3d__Node,String,int*,int*);
 extern String s$PhysicsWorld;
 extern hl_type t$urho3d_Node;
 void urho3d_Node_new(urho3d__Node,hl_urho3d_scene_node*);
 extern String s$Camera;
-extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern hl_type t$urho3d_Camera;
 void urho3d_Camera_new(urho3d__Camera,hl_urho3d_graphics_camera*);
 float urho3d_Camera_set_farClip(urho3d__Camera,float);
-hl_urho3d_math_tvector3* urho3d_Node_set_position(urho3d__Node,hl_urho3d_math_tvector3*);
 extern urho3d__$Renderer g$_urho3d_Renderer;
 extern String s$Zone;
-urho3d__Node urho3d_Node_CreateChild(urho3d__Node,String,int*,int*,bool*);
+extern String s$;
+hl_urho3d_scene_node_ptr* urho3d_Node_get_pointer(urho3d__Node);
+extern hl_type t$hl_urho3d_scene_node_ptr;
+void haxe_ds_ObjectMap_set(haxe__ds__ObjectMap,vdynamic*,vdynamic*);
+int String___compare(String,vdynamic*);
+void haxe_ds_StringMap_set(haxe__ds__StringMap,String,vdynamic*);
 extern hl_type t$urho3d_Zone;
 void urho3d_Zone_new(urho3d__Zone,hl_urho3d_graphics_zone*);
 hl_urho3d_math_boundingbox* urho3d_Zone_set_boundingBox(urho3d__Zone,hl_urho3d_math_boundingbox*);
@@ -49,7 +54,6 @@ hl_urho3d_color* urho3d_Zone_set_fogColor(urho3d__Zone,hl_urho3d_color*);
 float urho3d_Zone_set_fogStart(urho3d__Zone,float);
 float urho3d_Zone_set_fogEnd(urho3d__Zone,float);
 extern String s$DirectionalLight;
-hl_urho3d_math_tvector3* urho3d_Node_set_direction(urho3d__Node,hl_urho3d_math_tvector3*);
 extern String s$Light;
 extern hl_type t$urho3d_Light;
 void urho3d_Light_new(urho3d__Light,hl_urho3d_graphics_light*);
@@ -60,7 +64,6 @@ hl_urho3d_graphics_light_bias_parameters* urho3d_Light_set_shadowBias(urho3d__Li
 hl_urho3d_graphics_light_cascade_parameters* urho3d__CascadeParameters_CascadeParameters_Impl___new(double,double,double,double,double,double*);
 hl_urho3d_graphics_light_cascade_parameters* urho3d_Light_set_shadowCascade(urho3d__Light,hl_urho3d_graphics_light_cascade_parameters*);
 extern String s$Floor;
-hl_urho3d_math_tvector3* urho3d_Node_set_scale(urho3d__Node,hl_urho3d_math_tvector3*);
 extern String s$StaticModel;
 extern hl_type t$urho3d_StaticModel;
 void urho3d_StaticModel_new(urho3d__StaticModel,hl_urho3d_graphics_staticmodel*);
@@ -78,7 +81,6 @@ void urho3d_CollisionShape_new(urho3d__CollisionShape,hl_urho3d_physics_collisio
 extern urho3d___Vector3__$Vector3_Impl_ g$_urho3d__Vector3_Vector3_Impl_;
 extern String s$Mushroom;
 int Std_random(int);
-hl_urho3d_math_tquaternion* urho3d_Node_set_rotation(urho3d__Node,hl_urho3d_math_tquaternion*);
 extern String s$Models_Mushroom_mdl;
 extern String s$Materials_Mushroom_xml;
 bool urho3d_StaticModel_set_castShadows(urho3d__StaticModel,bool);
@@ -87,6 +89,8 @@ extern String s$Box;
 float urho3d_RigidBody_set_mass(urho3d__RigidBody,float);
 #include <urho3d/AnimatedModel.h>
 #include <utils/Character.h>
+#include <urho3d/Component.h>
+#include <hl/types/ArrayObj.h>
 extern String s$Jack;
 extern String s$AdjNode;
 extern String s$AnimatedModel;
@@ -105,7 +109,19 @@ hl_urho3d_math_tvector3* urho3d_RigidBody_set_angularFactor(urho3d__RigidBody,hl
 int urho3d_RigidBody_set_collisionEventMode(urho3d__RigidBody,int);
 extern hl_type t$utils_Character;
 void utils_Character_new(utils__Character,vdynamic*);
-void urho3d_Node_AddLogicComponent(urho3d__Node,vdynamic*,int*,int*);
+extern hl_type t$urho3d_Component;
+hl_urho3d_scene_component_ptr* urho3d_Component_get_pointer(urho3d__Component);
+extern hl_type t$hl_urho3d_scene_component_ptr;
+urho3d__Node urho3d_Component_set_node(urho3d__Component,urho3d__Node);
+extern hl_type t$_dyn;
+extern hl_type t$hl_urho3d_scene_component;
+String Std_string(vdynamic*);
+vdynamic* haxe_ds_StringMap_get(haxe__ds__StringMap,String);
+extern hl_type t$hl_types_ArrayDyn;
+hl__types__ArrayObj hl_types_ArrayObj_alloc(varray*);
+#include <hl/types/ArrayBase.h>
+hl__types__ArrayDyn hl_types_ArrayDyn_alloc(hl__types__ArrayBase,bool*);
+int hl_types_ArrayDyn_push(hl__types__ArrayDyn,vdynamic*);
 extern String s$Update;
 extern String s$HandleUpdate;
 void urho3d_Application_SubscribeToEvent(urho3d__Application,hl_urho3d_core_object*,hl_urho3d_stringhash*,String);
@@ -113,20 +129,16 @@ extern String s$PostUpdate;
 extern String s$HandlePostUpdate;
 #include <urho3d/Controls.h>
 extern utils__$Character g$_utils_Character;
-vdynamic* urho3d_Node_GetLogicComponent(urho3d__Node,vdynamic*,bool*);
-extern hl_type t$_dyn;
-hl_urho3d_math_tquaternion* urho3d_Node_get_rotation(urho3d__Node);
-urho3d__Node urho3d_Node_GetChild(urho3d__Node,String,bool*);
-hl_urho3d_math_tvector3* urho3d_Node_get_worldPosition(urho3d__Node);
-hl_urho3d_math_tvector3* urho3d_Node_get_position(urho3d__Node);
+extern String s$c3e97dd;
+hl__types__ArrayObj String_split(String,String);
+String hl_types_ArrayObj_join(hl__types__ArrayObj,String);
+vdynamic* haxe_ds_ObjectMap_get(haxe__ds__ObjectMap,vdynamic*);
 hl_urho3d_physics_physics_world* urho3d_Scene_get_physicsWorld(urho3d__Scene);
 hl_urho3d_physics_raycast_result* urho3d__PhysicsWorld_PhysicsWorld_Impl__RaycastSingle(hl_urho3d_physics_physics_world*,hl_urho3d_math_t_ray*,float,int);
 hl_urho3d_physics_t_rigid_body* urho3d__PhysicsRaycastResult_PhysicsRaycastResult_Impl__get_body(hl_urho3d_physics_raycast_result*);
 float urho3d__PhysicsRaycastResult_PhysicsRaycastResult_Impl__get_distance(hl_urho3d_physics_raycast_result*);
-double Math_min(double,double);
 bool urho3d_Input_GetKeyDown(int);
 int urho3d_Input_get_numTouches(void);
-hl_urho3d_scene_component* urho3d_Node_GetComponent(urho3d__Node,String,bool*);
 hl_urho3d_math_tintvector2* urho3d__TouchState_TouchState_Impl__get_delta(hl_urho3d_input_touch_state*);
 float urho3d_Camera_get_fov(urho3d__Camera);
 int urho3d_Graphics_get_height(void);
@@ -136,9 +148,15 @@ bool urho3d_Input_GetKeyPress(int);
 extern String s$CharacterDemo_xml;
 extern String s$5e732a1;
 extern String s$SaveXML_;
-String Std_string(vdynamic*);
 String String___add__(String,String);
+vvirtual* haxe_ds_ObjectMap_iterator(haxe__ds__ObjectMap);
+extern hl_type t$vrt_1cffe76;
+extern hl_type t$fun_bf7849e;
+extern hl_type t$fun_d937e10;
 void urho3d_Node_CleanChildData(urho3d__Node);
+vvirtual* haxe_ds_StringMap_iterator(haxe__ds__StringMap);
+void haxe_ds_StringMap_clear(haxe__ds__StringMap);
+void haxe_ds_ObjectMap_clear(haxe__ds__ObjectMap);
 extern String s$92325a1;
 extern String s$_add_sel_element_;
 extern String s$_element_type_Button_;
@@ -189,7 +207,7 @@ void CharacterDemoSample_Setup(CharacterDemoSample r0) {
 	r5 = hl_alloc_virtual(&t$vrt_329ffa8);
 	r6 = (String)s$src_haxe_CharacterDemoSample_hx;
 	if( hl_vfields(r5)[1] ) *(String*)(hl_vfields(r5)[1]) = (String)r6; else hl_dyn_setp(r5->value,37969014/*fileName*/,&t$String,r6);
-	r7 = 74;
+	r7 = 75;
 	if( hl_vfields(r5)[2] ) *(int*)(hl_vfields(r5)[2]) = (int)r7; else hl_dyn_seti(r5->value,371360620/*lineNumber*/,&t$_i32,r7);
 	r6 = (String)s$CharacterDemoSample;
 	if( hl_vfields(r5)[0] ) *(String*)(hl_vfields(r5)[0]) = (String)r6; else hl_dyn_setp(r5->value,-63073762/*className*/,&t$String,r6);
@@ -211,1107 +229,1596 @@ void CharacterDemoSample_Start(CharacterDemoSample r0) {
 }
 
 void CharacterDemoSample_CreateScene(CharacterDemoSample r0) {
-	bool *r28;
-	String r5;
-	hl_urho3d_physics_rigid_body *r65;
-	hl_urho3d_color *r38, *r40, *r41;
-	hl_urho3d_math_intrect *r25;
-	hl_urho3d_scene_component *r4, *r10, *r30, *r43, *r57, *r64, *r67, *r90, *r94;
-	urho3d__StaticModel r59, r91;
-	bool r46;
-	hl_urho3d_graphics_zone *r31;
-	hl_urho3d_math_quaternion *r84;
-	urho3d__$Renderer r24;
-	hl_urho3d_math_vector3 *r17, *r22, *r33, *r35, *r36, *r55, *r56, *r83;
-	urho3d__Node r8, r21, r29, r42, r54;
-	urho3d__Scene r1;
-	urho3d__CollisionShape r69, r96;
-	hl_urho3d_math_tquaternion *r72, *r75;
-	hl_urho3d_graphics_material *r62, *r63, *r93;
-	hl_urho3d_graphics_camera *r11;
-	hl_urho3d_graphics_viewport *r23, *r26;
-	urho3d_context *r12;
-	urho3d__Light r45;
-	vdynamic *r80, *r81, *r82, *r85, *r87, *r99, *r101;
-	hl_urho3d_graphics_light_cascade_parameters *r50;
-	int *r6, *r7;
+	String r9, r28, r33, r45, r56, r75;
+	hl_urho3d_physics_rigid_body *r63;
+	hl_urho3d_color *r40, *r42, *r43;
+	hl_urho3d_scene_node_ptr *r31;
+	hl_urho3d_math_intrect *r26;
+	hl_urho3d_scene_component *r6;
+	urho3d__StaticModel r58, r80;
+	bool r29;
+	hl_urho3d_graphics_zone *r35;
+	hl_urho3d_math_quaternion *r79;
+	urho3d__$Renderer r25;
+	hl_urho3d_math_vector3 *r18, *r22, *r38;
+	urho3d__Node r12, r13;
+	urho3d__Scene r1, r5, r44, r55;
+	urho3d__CollisionShape r66, r84;
+	hl_urho3d_math_tquaternion *r68, *r70;
+	hl_urho3d_graphics_material *r61, *r62, *r82;
+	hl_urho3d_graphics_camera *r14;
+	hl_urho3d_graphics_viewport *r24, *r27;
+	urho3d_context *r7;
+	urho3d__Light r47;
+	hl_urho3d_graphics_light_cascade_parameters *r51;
+	vdynamic *r32, *r76, *r77, *r78, *r86;
 	hl_urho3d_scene_scene *r2;
-	hl_urho3d_graphics_model *r60, *r61, *r92;
-	int r27, r76, r77, r78, r79, r98;
-	urho3d__Camera r14;
-	urho3d___Vector3__$Vector3_Impl_ r70;
-	urho3d__RigidBody r66, r95;
-	urho3d___Context__$Context_Impl_ r13;
-	urho3d__Zone r32;
-	hl_urho3d_graphics_light_bias_parameters *r47;
-	float r15, r18, r19, r39;
-	hl_urho3d_scene_node *r9;
-	hl_urho3d_graphics_staticmodel *r58;
-	hl_urho3d_graphics_light *r44;
-	double r16, r48, r51, r52, r53, r86, r88, r89, r100, r102, r103, r104;
-	hl_urho3d_physics_collision_shape *r68;
-	double *r49;
-	hl_urho3d_math_tvector3 *r20, *r71, *r73, *r74, *r97;
-	hl_urho3d_math_boundingbox *r34, *r37;
+	hl_urho3d_graphics_model *r59, *r60, *r81;
+	int r10, r11, r71, r72, r73, r74, r85;
+	urho3d__Camera r15;
+	haxe__ds__ObjectMap r30;
+	haxe__ds__StringMap r34;
+	urho3d___Vector3__$Vector3_Impl_ r67;
+	urho3d__RigidBody r64, r83;
+	urho3d___Context__$Context_Impl_ r8;
+	urho3d__Zone r36;
+	hl_urho3d_graphics_light_bias_parameters *r48;
+	float r16, r19, r20, r41;
+	hl_urho3d_scene_node *r4;
+	hl_urho3d_graphics_staticmodel *r57;
+	hl_urho3d_graphics_light *r46;
+	double r17, r49, r52, r53, r54, r87, r88, r89, r90;
+	hl_urho3d_physics_collision_shape *r65;
+	double *r50;
+	hl_urho3d_math_tvector3 *r21, *r23, *r69;
+	hl_urho3d_math_boundingbox *r37, *r39;
 	r1 = (urho3d__Scene)hl_alloc_obj(&t$urho3d_Scene);
 	r2 = NULL;
 	urho3d_Scene_new(r1,r2);
 	r0->scene = r1;
 	r1 = r0->scene;
 	if( r1 == NULL ) hl_null_access();
-	r5 = (String)s$Octree;
-	r6 = NULL;
-	r7 = NULL;
-	r4 = urho3d_Node_CreateComponent(((urho3d__Node)r1),r5,r6,r7);
+	r4 = r1->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_15;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r1->abstractNode;
+	r9 = (String)s$Octree;
+	r10 = 0;
+	r11 = 0;
+	r6 = Urho3D__scene_node_create_component(r7,r4,r9,r10,r11);
+	label$d2c7ce2_3_15:
 	r1 = r0->scene;
 	if( r1 == NULL ) hl_null_access();
-	r5 = (String)s$PhysicsWorld;
+	r4 = r1->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_26;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r1->abstractNode;
+	r9 = (String)s$PhysicsWorld;
+	r10 = 0;
+	r11 = 0;
+	r6 = Urho3D__scene_node_create_component(r7,r4,r9,r10,r11);
+	label$d2c7ce2_3_26:
+	r12 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
+	r4 = NULL;
+	urho3d_Node_new(r12,r4);
+	r0->cameraNode = r12;
+	r12 = r0->cameraNode;
+	if( r12 == NULL ) hl_null_access();
+	r4 = r12->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_42;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r12->abstractNode;
+	r9 = (String)s$Camera;
+	r10 = 0;
+	r11 = 0;
+	r6 = Urho3D__scene_node_create_component(r7,r4,r9,r10,r11);
+	goto label$d2c7ce2_3_43;
+	label$d2c7ce2_3_42:
 	r6 = NULL;
-	r7 = NULL;
-	r4 = urho3d_Node_CreateComponent(((urho3d__Node)r1),r5,r6,r7);
-	r8 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
-	r9 = NULL;
-	urho3d_Node_new(r8,r9);
-	r0->cameraNode = r8;
-	r8 = r0->cameraNode;
-	if( r8 == NULL ) hl_null_access();
-	r5 = (String)s$Camera;
-	r6 = NULL;
-	r7 = NULL;
-	r4 = urho3d_Node_CreateComponent(r8,r5,r6,r7);
-	if( !r4 ) goto label$d2c7ce2_3_33;
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r11 = Urho3D__graphics_camera_cast_from_component(r12,r4);
-	r14 = (urho3d__Camera)hl_alloc_obj(&t$urho3d_Camera);
-	urho3d_Camera_new(r14,r11);
-	goto label$d2c7ce2_3_34;
-	label$d2c7ce2_3_33:
-	r14 = NULL;
-	label$d2c7ce2_3_34:
-	if( r14 == NULL ) hl_null_access();
-	r16 = 300.;
-	r15 = (float)r16;
-	r15 = urho3d_Camera_set_farClip(r14,r15);
-	r16 = (double)r15;
-	r8 = r0->cameraNode;
-	r16 = 0.;
-	r15 = (float)r16;
-	r16 = 2.;
-	r18 = (float)r16;
-	r16 = -5.;
-	r19 = (float)r16;
-	r17 = Urho3D__math_vector3_create(r15,r18,r19);
-	if( r8 == NULL ) hl_null_access();
-	r20 = Urho3D__math_tvector3_cast_from_vector3(r17);
-	r20 = urho3d_Node_set_position(r8,r20);
-	r24 = (urho3d__$Renderer)g$_urho3d_Renderer;
-	r23 = r24->viewports;
+	label$d2c7ce2_3_43:
+	if( !r6 ) goto label$d2c7ce2_3_50;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r14 = Urho3D__graphics_camera_cast_from_component(r7,r6);
+	r15 = (urho3d__Camera)hl_alloc_obj(&t$urho3d_Camera);
+	urho3d_Camera_new(r15,r14);
+	goto label$d2c7ce2_3_51;
+	label$d2c7ce2_3_50:
+	r15 = NULL;
+	label$d2c7ce2_3_51:
+	if( r15 == NULL ) hl_null_access();
+	r17 = 300.;
+	r16 = (float)r17;
+	r16 = urho3d_Camera_set_farClip(r15,r16);
+	r17 = (double)r16;
+	r13 = r0->cameraNode;
+	r17 = 0.;
+	r16 = (float)r17;
+	r17 = 2.;
+	r19 = (float)r17;
+	r17 = -5.;
+	r20 = (float)r17;
+	r18 = Urho3D__math_vector3_create(r16,r19,r20);
+	r21 = Urho3D__math_tvector3_cast_from_vector3(r18);
+	if( r13 == NULL ) hl_null_access();
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_72;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	Urho3D__scene_node_set_position(r7,r4,r21);
+	label$d2c7ce2_3_72:
+	r25 = (urho3d__$Renderer)g$_urho3d_Renderer;
+	r24 = r25->viewports;
 	r1 = r0->scene;
-	r25 = NULL;
-	if( !r25 ) goto label$d2c7ce2_3_62;
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
+	r26 = NULL;
+	if( !r26 ) goto label$d2c7ce2_3_84;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
 	if( r1 == NULL ) hl_null_access();
 	r2 = r1->abstractScene;
-	r11 = r14->_abstract;
-	r26 = Urho3D__graphics_viewport_create_r(r12,r2,r11,r25);
-	goto label$d2c7ce2_3_68;
-	label$d2c7ce2_3_62:
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
+	r14 = r15->_abstract;
+	r27 = Urho3D__graphics_viewport_create_r(r7,r2,r14,r26);
+	goto label$d2c7ce2_3_90;
+	label$d2c7ce2_3_84:
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
 	if( r1 == NULL ) hl_null_access();
 	r2 = r1->abstractScene;
-	r11 = r14->_abstract;
-	r26 = Urho3D__graphics_viewport_create(r12,r2,r11);
-	label$d2c7ce2_3_68:
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r27 = 0;
-	Urho3D__graphics_renderer_set_viewport(r12,r27,r26);
+	r14 = r15->_abstract;
+	r27 = Urho3D__graphics_viewport_create(r7,r2,r14);
+	label$d2c7ce2_3_90:
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r10 = 0;
+	Urho3D__graphics_renderer_set_viewport(r7,r10,r27);
 	r1 = r0->scene;
+	r9 = (String)s$Zone;
+	if( r9 ) goto label$d2c7ce2_3_99;
+	r28 = (String)s$;
+	r9 = r28;
+	label$d2c7ce2_3_99:
 	if( r1 == NULL ) hl_null_access();
-	r5 = (String)s$Zone;
+	r4 = r1->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_123;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r1->abstractNode;
+	r10 = 0;
+	r11 = 0;
+	r29 = false;
+	r4 = Urho3D__scene_node_create_child(r7,r4,r9,r10,r11,r29);
+	r13 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
+	urho3d_Node_new(r13,r4);
+	r30 = r1->children_pointers_map;
+	if( r30 == NULL ) hl_null_access();
+	r31 = urho3d_Node_get_pointer(r13);
+	if( r31 == NULL ) r32 = NULL; else {
+		r32 = hl_alloc_dynamic(&t$hl_urho3d_scene_node_ptr);
+		r32->v.ptr = r31;
+	}
+	haxe_ds_ObjectMap_set(r30,r32,((vdynamic*)r13));
+	r33 = (String)s$;
+	if( r9 == r33 || (r9 && r33 && String___compare(r9,(vdynamic*)r33) == 0) ) goto label$d2c7ce2_3_121;
+	r34 = r1->children_name_map;
+	if( r34 == NULL ) hl_null_access();
+	haxe_ds_StringMap_set(r34,r9,((vdynamic*)r13));
+	label$d2c7ce2_3_121:
+	r13->_parent = ((urho3d__Node)r1);
+	goto label$d2c7ce2_3_124;
+	label$d2c7ce2_3_123:
+	r13 = NULL;
+	label$d2c7ce2_3_124:
+	if( r13 == NULL ) hl_null_access();
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_135;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	r28 = (String)s$Zone;
+	r10 = 0;
+	r11 = 0;
+	r6 = Urho3D__scene_node_create_component(r7,r4,r28,r10,r11);
+	goto label$d2c7ce2_3_136;
+	label$d2c7ce2_3_135:
 	r6 = NULL;
-	r7 = NULL;
-	r28 = NULL;
-	r21 = urho3d_Node_CreateChild(((urho3d__Node)r1),r5,r6,r7,r28);
-	if( r21 == NULL ) hl_null_access();
-	r5 = (String)s$Zone;
+	label$d2c7ce2_3_136:
+	if( !r6 ) goto label$d2c7ce2_3_143;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r35 = Urho3D__graphics_zone_cast_from_component(r7,r6);
+	r36 = (urho3d__Zone)hl_alloc_obj(&t$urho3d_Zone);
+	urho3d_Zone_new(r36,r35);
+	goto label$d2c7ce2_3_144;
+	label$d2c7ce2_3_143:
+	r36 = NULL;
+	label$d2c7ce2_3_144:
+	r17 = -1000.;
+	r16 = (float)r17;
+	r17 = -1000.;
+	r19 = (float)r17;
+	r17 = -1000.;
+	r20 = (float)r17;
+	r18 = Urho3D__math_vector3_create(r16,r19,r20);
+	r17 = 1000.;
+	r16 = (float)r17;
+	r17 = 1000.;
+	r19 = (float)r17;
+	r17 = 1000.;
+	r20 = (float)r17;
+	r22 = Urho3D__math_vector3_create(r16,r19,r20);
+	r37 = Urho3D__math_boundingbox_create_v3_v3(r18,r22);
+	if( r36 == NULL ) hl_null_access();
+	r39 = urho3d_Zone_set_boundingBox(r36,r37);
+	r17 = 0.1499999999999999944;
+	r16 = (float)r17;
+	r17 = 0.1499999999999999944;
+	r19 = (float)r17;
+	r17 = 0.1499999999999999944;
+	r20 = (float)r17;
+	r17 = 1.;
+	r41 = (float)r17;
+	r40 = Urho3D__math_create_color(r16,r19,r20,r41);
+	r42 = urho3d_Zone_set_ambientColor(r36,r40);
+	r17 = 0.5;
+	r16 = (float)r17;
+	r17 = 0.5;
+	r19 = (float)r17;
+	r17 = 0.6999999999999999556;
+	r20 = (float)r17;
+	r17 = 1.;
+	r41 = (float)r17;
+	r42 = Urho3D__math_create_color(r16,r19,r20,r41);
+	r43 = urho3d_Zone_set_fogColor(r36,r42);
+	r17 = 100.;
+	r16 = (float)r17;
+	r16 = urho3d_Zone_set_fogStart(r36,r16);
+	r17 = (double)r16;
+	r17 = 300.;
+	r16 = (float)r17;
+	r16 = urho3d_Zone_set_fogEnd(r36,r16);
+	r17 = (double)r16;
+	r5 = r0->scene;
+	r28 = (String)s$DirectionalLight;
+	if( r28 ) goto label$d2c7ce2_3_194;
+	r33 = (String)s$;
+	r28 = r33;
+	label$d2c7ce2_3_194:
+	if( r5 == NULL ) hl_null_access();
+	r4 = r5->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_218;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r5->abstractNode;
+	r10 = 0;
+	r11 = 0;
+	r29 = false;
+	r4 = Urho3D__scene_node_create_child(r7,r4,r28,r10,r11,r29);
+	r13 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
+	urho3d_Node_new(r13,r4);
+	r30 = r5->children_pointers_map;
+	if( r30 == NULL ) hl_null_access();
+	r31 = urho3d_Node_get_pointer(r13);
+	if( r31 == NULL ) r32 = NULL; else {
+		r32 = hl_alloc_dynamic(&t$hl_urho3d_scene_node_ptr);
+		r32->v.ptr = r31;
+	}
+	haxe_ds_ObjectMap_set(r30,r32,((vdynamic*)r13));
+	r45 = (String)s$;
+	if( r28 == r45 || (r28 && r45 && String___compare(r28,(vdynamic*)r45) == 0) ) goto label$d2c7ce2_3_216;
+	r34 = r5->children_name_map;
+	if( r34 == NULL ) hl_null_access();
+	haxe_ds_StringMap_set(r34,r28,((vdynamic*)r13));
+	label$d2c7ce2_3_216:
+	r13->_parent = ((urho3d__Node)r5);
+	goto label$d2c7ce2_3_219;
+	label$d2c7ce2_3_218:
+	r13 = NULL;
+	label$d2c7ce2_3_219:
+	r17 = 0.5999999999999999778;
+	r16 = (float)r17;
+	r17 = -1.;
+	r19 = (float)r17;
+	r17 = 0.8000000000000000444;
+	r20 = (float)r17;
+	r38 = Urho3D__math_vector3_create(r16,r19,r20);
+	r21 = Urho3D__math_tvector3_cast_from_vector3(r38);
+	if( r13 == NULL ) hl_null_access();
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_234;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	Urho3D__scene_node_set_direction(r7,r4,r21);
+	label$d2c7ce2_3_234:
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_244;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	r33 = (String)s$Light;
+	r10 = 0;
+	r11 = 0;
+	r6 = Urho3D__scene_node_create_component(r7,r4,r33,r10,r11);
+	goto label$d2c7ce2_3_245;
+	label$d2c7ce2_3_244:
 	r6 = NULL;
-	r7 = NULL;
-	r10 = urho3d_Node_CreateComponent(r21,r5,r6,r7);
-	if( !r10 ) goto label$d2c7ce2_3_91;
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r31 = Urho3D__graphics_zone_cast_from_component(r12,r10);
-	r32 = (urho3d__Zone)hl_alloc_obj(&t$urho3d_Zone);
-	urho3d_Zone_new(r32,r31);
-	goto label$d2c7ce2_3_92;
-	label$d2c7ce2_3_91:
-	r32 = NULL;
-	label$d2c7ce2_3_92:
-	r16 = -1000.;
-	r15 = (float)r16;
-	r16 = -1000.;
-	r18 = (float)r16;
-	r16 = -1000.;
-	r19 = (float)r16;
-	r22 = Urho3D__math_vector3_create(r15,r18,r19);
-	r16 = 1000.;
-	r15 = (float)r16;
-	r16 = 1000.;
-	r18 = (float)r16;
-	r16 = 1000.;
-	r19 = (float)r16;
-	r33 = Urho3D__math_vector3_create(r15,r18,r19);
-	r34 = Urho3D__math_boundingbox_create_v3_v3(r22,r33);
-	if( r32 == NULL ) hl_null_access();
-	r37 = urho3d_Zone_set_boundingBox(r32,r34);
-	r16 = 0.1499999999999999944;
-	r15 = (float)r16;
-	r16 = 0.1499999999999999944;
-	r18 = (float)r16;
-	r16 = 0.1499999999999999944;
-	r19 = (float)r16;
-	r16 = 1.;
-	r39 = (float)r16;
-	r38 = Urho3D__math_create_color(r15,r18,r19,r39);
-	r40 = urho3d_Zone_set_ambientColor(r32,r38);
-	r16 = 0.5;
-	r15 = (float)r16;
-	r16 = 0.5;
-	r18 = (float)r16;
-	r16 = 0.6999999999999999556;
-	r19 = (float)r16;
-	r16 = 1.;
-	r39 = (float)r16;
-	r40 = Urho3D__math_create_color(r15,r18,r19,r39);
-	r41 = urho3d_Zone_set_fogColor(r32,r40);
-	r16 = 100.;
-	r15 = (float)r16;
-	r15 = urho3d_Zone_set_fogStart(r32,r15);
-	r16 = (double)r15;
-	r16 = 300.;
-	r15 = (float)r16;
-	r15 = urho3d_Zone_set_fogEnd(r32,r15);
-	r16 = (double)r15;
-	r1 = r0->scene;
-	if( r1 == NULL ) hl_null_access();
-	r5 = (String)s$DirectionalLight;
-	r6 = NULL;
-	r7 = NULL;
-	r28 = NULL;
-	r29 = urho3d_Node_CreateChild(((urho3d__Node)r1),r5,r6,r7,r28);
-	r16 = 0.5999999999999999778;
-	r15 = (float)r16;
-	r16 = -1.;
-	r18 = (float)r16;
-	r16 = 0.8000000000000000444;
-	r19 = (float)r16;
-	r35 = Urho3D__math_vector3_create(r15,r18,r19);
-	if( r29 == NULL ) hl_null_access();
-	r20 = Urho3D__math_tvector3_cast_from_vector3(r35);
-	r20 = urho3d_Node_set_direction(r29,r20);
-	r5 = (String)s$Light;
-	r6 = NULL;
-	r7 = NULL;
-	r30 = urho3d_Node_CreateComponent(r29,r5,r6,r7);
-	if( !r30 ) goto label$d2c7ce2_3_165;
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r44 = Urho3D__graphics_light_cast_from_component(r12,r30);
-	r45 = (urho3d__Light)hl_alloc_obj(&t$urho3d_Light);
-	urho3d_Light_new(r45,r44);
-	goto label$d2c7ce2_3_166;
-	label$d2c7ce2_3_165:
-	r45 = NULL;
-	label$d2c7ce2_3_166:
-	if( r45 == NULL ) hl_null_access();
-	r27 = 0;
-	r27 = urho3d_Light_set_lightType(r45,r27);
-	r46 = true;
-	r46 = urho3d_Light_set_castShadows(r45,r46);
-	r16 = 0.0002500000000000000052;
-	r48 = 0.5;
-	r49 = NULL;
-	r47 = urho3d__BiasParameters_BiasParameters_Impl___new(r16,r48,r49);
-	r47 = urho3d_Light_set_shadowBias(r45,r47);
-	r16 = 10.;
-	r48 = 50.;
-	r51 = 200.;
-	r52 = 0.;
-	r53 = 0.8000000000000000444;
-	r49 = NULL;
-	r50 = urho3d__CascadeParameters_CascadeParameters_Impl___new(r16,r48,r51,r52,r53,r49);
-	r50 = urho3d_Light_set_shadowCascade(r45,r50);
-	r1 = r0->scene;
-	if( r1 == NULL ) hl_null_access();
-	r5 = (String)s$Floor;
-	r6 = NULL;
-	r7 = NULL;
-	r28 = NULL;
-	r42 = urho3d_Node_CreateChild(((urho3d__Node)r1),r5,r6,r7,r28);
-	r16 = 0.;
-	r15 = (float)r16;
-	r16 = -0.5;
-	r18 = (float)r16;
-	r16 = 0.;
-	r19 = (float)r16;
-	r36 = Urho3D__math_vector3_create(r15,r18,r19);
-	if( r42 == NULL ) hl_null_access();
-	r20 = Urho3D__math_tvector3_cast_from_vector3(r36);
-	r20 = urho3d_Node_set_position(r42,r20);
-	r16 = 200.;
-	r15 = (float)r16;
-	r16 = 1.;
-	r18 = (float)r16;
-	r16 = 200.;
-	r19 = (float)r16;
-	r55 = Urho3D__math_vector3_create(r15,r18,r19);
-	r20 = Urho3D__math_tvector3_cast_from_vector3(r55);
-	r20 = urho3d_Node_set_scale(r42,r20);
-	r5 = (String)s$StaticModel;
-	r6 = NULL;
-	r7 = NULL;
-	r43 = urho3d_Node_CreateComponent(r42,r5,r6,r7);
-	if( !r43 ) goto label$d2c7ce2_3_221;
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r58 = Urho3D__graphics_staticmodel_cast_from_component(r12,r43);
-	r59 = (urho3d__StaticModel)hl_alloc_obj(&t$urho3d_StaticModel);
-	urho3d_StaticModel_new(r59,r58);
-	goto label$d2c7ce2_3_222;
-	label$d2c7ce2_3_221:
-	r59 = NULL;
-	label$d2c7ce2_3_222:
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r5 = (String)s$Models_Box_mdl;
-	r60 = Urho3D__graphics_model_create(r12,r5);
-	if( r59 == NULL ) hl_null_access();
-	r61 = urho3d_StaticModel_set_model(r59,r60);
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r5 = (String)s$Materials_Stone_xml;
-	r62 = Urho3D__graphics_material_create(r12,r5);
-	r63 = urho3d_StaticModel_set_material(r59,r62);
-	r5 = (String)s$RigidBody;
-	r6 = NULL;
-	r7 = NULL;
-	r57 = urho3d_Node_CreateComponent(r42,r5,r6,r7);
-	if( !r57 ) goto label$d2c7ce2_3_247;
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r65 = Urho3D__physics_rigid_body_cast_from_component(r12,r57);
-	if( !r65 ) goto label$d2c7ce2_3_245;
-	r66 = (urho3d__RigidBody)hl_alloc_obj(&t$urho3d_RigidBody);
-	urho3d_RigidBody_new(r66,r65);
-	goto label$d2c7ce2_3_246;
 	label$d2c7ce2_3_245:
-	r66 = NULL;
-	label$d2c7ce2_3_246:
-	goto label$d2c7ce2_3_248;
-	label$d2c7ce2_3_247:
-	r66 = NULL;
-	label$d2c7ce2_3_248:
-	if( r66 == NULL ) hl_null_access();
-	r27 = 2;
-	r27 = urho3d_RigidBody_set_collisionLayer(r66,r27);
-	r5 = (String)s$CollisionShape;
+	if( !r6 ) goto label$d2c7ce2_3_252;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r46 = Urho3D__graphics_light_cast_from_component(r7,r6);
+	r47 = (urho3d__Light)hl_alloc_obj(&t$urho3d_Light);
+	urho3d_Light_new(r47,r46);
+	goto label$d2c7ce2_3_253;
+	label$d2c7ce2_3_252:
+	r47 = NULL;
+	label$d2c7ce2_3_253:
+	if( r47 == NULL ) hl_null_access();
+	r10 = 0;
+	r10 = urho3d_Light_set_lightType(r47,r10);
+	r29 = true;
+	r29 = urho3d_Light_set_castShadows(r47,r29);
+	r17 = 0.0002500000000000000052;
+	r49 = 0.5;
+	r50 = NULL;
+	r48 = urho3d__BiasParameters_BiasParameters_Impl___new(r17,r49,r50);
+	r48 = urho3d_Light_set_shadowBias(r47,r48);
+	r17 = 10.;
+	r49 = 50.;
+	r52 = 200.;
+	r53 = 0.;
+	r54 = 0.8000000000000000444;
+	r50 = NULL;
+	r51 = urho3d__CascadeParameters_CascadeParameters_Impl___new(r17,r49,r52,r53,r54,r50);
+	r51 = urho3d_Light_set_shadowCascade(r47,r51);
+	r44 = r0->scene;
+	r33 = (String)s$Floor;
+	if( r33 ) goto label$d2c7ce2_3_276;
+	r45 = (String)s$;
+	r33 = r45;
+	label$d2c7ce2_3_276:
+	if( r44 == NULL ) hl_null_access();
+	r4 = r44->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_300;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r44->abstractNode;
+	r10 = 0;
+	r11 = 0;
+	r29 = false;
+	r4 = Urho3D__scene_node_create_child(r7,r4,r33,r10,r11,r29);
+	r13 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
+	urho3d_Node_new(r13,r4);
+	r30 = r44->children_pointers_map;
+	if( r30 == NULL ) hl_null_access();
+	r31 = urho3d_Node_get_pointer(r13);
+	if( r31 == NULL ) r32 = NULL; else {
+		r32 = hl_alloc_dynamic(&t$hl_urho3d_scene_node_ptr);
+		r32->v.ptr = r31;
+	}
+	haxe_ds_ObjectMap_set(r30,r32,((vdynamic*)r13));
+	r56 = (String)s$;
+	if( r33 == r56 || (r33 && r56 && String___compare(r33,(vdynamic*)r56) == 0) ) goto label$d2c7ce2_3_298;
+	r34 = r44->children_name_map;
+	if( r34 == NULL ) hl_null_access();
+	haxe_ds_StringMap_set(r34,r33,((vdynamic*)r13));
+	label$d2c7ce2_3_298:
+	r13->_parent = ((urho3d__Node)r44);
+	goto label$d2c7ce2_3_301;
+	label$d2c7ce2_3_300:
+	r13 = NULL;
+	label$d2c7ce2_3_301:
+	r17 = 0.;
+	r16 = (float)r17;
+	r17 = -0.5;
+	r19 = (float)r17;
+	r17 = 0.;
+	r20 = (float)r17;
+	r38 = Urho3D__math_vector3_create(r16,r19,r20);
+	r21 = Urho3D__math_tvector3_cast_from_vector3(r38);
+	if( r13 == NULL ) hl_null_access();
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_316;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	Urho3D__scene_node_set_position(r7,r4,r21);
+	label$d2c7ce2_3_316:
+	r17 = 200.;
+	r16 = (float)r17;
+	r17 = 1.;
+	r19 = (float)r17;
+	r17 = 200.;
+	r20 = (float)r17;
+	r38 = Urho3D__math_vector3_create(r16,r19,r20);
+	r21 = Urho3D__math_tvector3_cast_from_vector3(r38);
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_330;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	Urho3D__scene_node_set_scale(r7,r4,r21);
+	label$d2c7ce2_3_330:
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_340;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	r45 = (String)s$StaticModel;
+	r10 = 0;
+	r11 = 0;
+	r6 = Urho3D__scene_node_create_component(r7,r4,r45,r10,r11);
+	goto label$d2c7ce2_3_341;
+	label$d2c7ce2_3_340:
 	r6 = NULL;
-	r7 = NULL;
-	r64 = urho3d_Node_CreateComponent(r42,r5,r6,r7);
-	if( !r64 ) goto label$d2c7ce2_3_265;
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r68 = Urho3D__physics_collision_shape_cast_from_component(r12,r64);
-	if( !r68 ) goto label$d2c7ce2_3_263;
-	r69 = (urho3d__CollisionShape)hl_alloc_obj(&t$urho3d_CollisionShape);
-	urho3d_CollisionShape_new(r69,r68);
-	goto label$d2c7ce2_3_264;
-	label$d2c7ce2_3_263:
-	r69 = NULL;
-	label$d2c7ce2_3_264:
-	goto label$d2c7ce2_3_266;
-	label$d2c7ce2_3_265:
-	r69 = NULL;
-	label$d2c7ce2_3_266:
-	r70 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r56 = r70->ONE;
-	r20 = Urho3D__math_tvector3_cast_from_vector3(r56);
-	r71 = NULL;
-	r72 = NULL;
-	if( r71 ) goto label$d2c7ce2_3_280;
-	r16 = 0.;
-	r15 = (float)r16;
-	r16 = 0.;
-	r18 = (float)r16;
-	r16 = 0.;
-	r19 = (float)r16;
-	r73 = Urho3D__math_tvector3_create(r15,r18,r19);
-	r71 = r73;
-	label$d2c7ce2_3_280:
-	if( r72 ) goto label$d2c7ce2_3_294;
-	r16 = 0.;
-	r73 = NULL;
-	if( !r73 ) goto label$d2c7ce2_3_287;
-	r15 = (float)r16;
-	r75 = Urho3D__math_tquaternion_create_fv(r15,r73);
-	goto label$d2c7ce2_3_293;
-	label$d2c7ce2_3_287:
-	r15 = (float)r16;
-	r48 = 0.;
-	r18 = (float)r48;
-	r48 = 0.;
-	r19 = (float)r48;
-	r75 = Urho3D__math_tquaternion_create(r15,r18,r19);
-	label$d2c7ce2_3_293:
-	r72 = r75;
-	label$d2c7ce2_3_294:
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	if( r69 == NULL ) hl_null_access();
-	r68 = r69->_abstract;
-	Urho3D__physics_collision_shape_set_box(r12,r68,r20,r71,r72);
-	r27 = 60;
-	r76 = 0;
-	r77 = r27;
-	label$d2c7ce2_3_302:
-	if( r76 >= r77 ) goto label$d2c7ce2_3_502;
-	++r76;
-	r1 = r0->scene;
-	if( r1 == NULL ) hl_null_access();
-	r5 = (String)s$Mushroom;
-	r6 = NULL;
-	r7 = NULL;
-	r28 = NULL;
-	r54 = urho3d_Node_CreateChild(((urho3d__Node)r1),r5,r6,r7,r28);
-	r80 = NULL;
-	r79 = 1000000;
-	r79 = Std_random(r79);
-	r16 = (double)r79;
-	r48 = 1000000.;
-	r16 = r16 / r48;
-	r81 = NULL;
-	r79 = 1000000;
-	r79 = Std_random(r79);
-	r48 = (double)r79;
-	r51 = 1000000.;
-	r48 = r48 / r51;
-	if( r80 ) goto label$d2c7ce2_3_328;
-	r52 = 180.;
-	r51 = r16 * r52;
-	goto label$d2c7ce2_3_334;
-	label$d2c7ce2_3_328:
-	r52 = r80 ? r80->v.d : 0;
-	r53 = 180.;
-	r52 = r52 - r53;
-	r51 = r16 * r52;
-	r52 = 180.;
-	r51 = r51 + r52;
-	label$d2c7ce2_3_334:
-	r52 = 90.;
-	r51 = r51 - r52;
-	r15 = (float)r51;
-	r51 = 0.;
-	r18 = (float)r51;
-	if( r81 ) goto label$d2c7ce2_3_343;
-	r52 = 180.;
-	r51 = r48 * r52;
+	label$d2c7ce2_3_341:
+	if( !r6 ) goto label$d2c7ce2_3_348;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r57 = Urho3D__graphics_staticmodel_cast_from_component(r7,r6);
+	r58 = (urho3d__StaticModel)hl_alloc_obj(&t$urho3d_StaticModel);
+	urho3d_StaticModel_new(r58,r57);
 	goto label$d2c7ce2_3_349;
-	label$d2c7ce2_3_343:
-	r52 = r81 ? r81->v.d : 0;
-	r53 = 180.;
-	r52 = r52 - r53;
-	r51 = r48 * r52;
-	r52 = 180.;
-	r51 = r51 + r52;
+	label$d2c7ce2_3_348:
+	r58 = NULL;
 	label$d2c7ce2_3_349:
-	r52 = 90.;
-	r51 = r51 - r52;
-	r19 = (float)r51;
-	r56 = Urho3D__math_vector3_create(r15,r18,r19);
-	if( r54 == NULL ) hl_null_access();
-	r20 = Urho3D__math_tvector3_cast_from_vector3(r56);
-	r20 = urho3d_Node_set_position(r54,r20);
-	r82 = NULL;
-	r79 = 1000000;
-	r79 = Std_random(r79);
-	r51 = (double)r79;
-	r52 = 1000000.;
-	r51 = r51 / r52;
-	r20 = NULL;
-	if( !r20 ) goto label$d2c7ce2_3_368;
-	r52 = 0.;
-	r15 = (float)r52;
-	r84 = Urho3D__math_quaternion_create_fv(r15,r20);
-	goto label$d2c7ce2_3_384;
-	label$d2c7ce2_3_368:
-	r52 = 0.;
-	r15 = (float)r52;
-	if( r82 ) goto label$d2c7ce2_3_374;
-	r53 = 360.;
-	r52 = r51 * r53;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r45 = (String)s$Models_Box_mdl;
+	r59 = Urho3D__graphics_model_create(r7,r45);
+	if( r58 == NULL ) hl_null_access();
+	r60 = urho3d_StaticModel_set_model(r58,r59);
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r45 = (String)s$Materials_Stone_xml;
+	r61 = Urho3D__graphics_material_create(r7,r45);
+	r62 = urho3d_StaticModel_set_material(r58,r61);
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_370;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	r45 = (String)s$RigidBody;
+	r10 = 0;
+	r11 = 0;
+	r6 = Urho3D__scene_node_create_component(r7,r4,r45,r10,r11);
+	goto label$d2c7ce2_3_371;
+	label$d2c7ce2_3_370:
+	r6 = NULL;
+	label$d2c7ce2_3_371:
+	if( !r6 ) goto label$d2c7ce2_3_381;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r63 = Urho3D__physics_rigid_body_cast_from_component(r7,r6);
+	if( !r63 ) goto label$d2c7ce2_3_379;
+	r64 = (urho3d__RigidBody)hl_alloc_obj(&t$urho3d_RigidBody);
+	urho3d_RigidBody_new(r64,r63);
 	goto label$d2c7ce2_3_380;
-	label$d2c7ce2_3_374:
-	r53 = r82 ? r82->v.d : 0;
-	r86 = 360.;
-	r53 = r53 - r86;
-	r52 = r51 * r53;
-	r53 = 360.;
-	r52 = r52 + r53;
+	label$d2c7ce2_3_379:
+	r64 = NULL;
 	label$d2c7ce2_3_380:
-	r18 = (float)r52;
+	goto label$d2c7ce2_3_382;
+	label$d2c7ce2_3_381:
+	r64 = NULL;
+	label$d2c7ce2_3_382:
+	if( r64 == NULL ) hl_null_access();
+	r10 = 2;
+	r10 = urho3d_RigidBody_set_collisionLayer(r64,r10);
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_395;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	r45 = (String)s$CollisionShape;
+	r10 = 0;
+	r11 = 0;
+	r6 = Urho3D__scene_node_create_component(r7,r4,r45,r10,r11);
+	goto label$d2c7ce2_3_396;
+	label$d2c7ce2_3_395:
+	r6 = NULL;
+	label$d2c7ce2_3_396:
+	if( !r6 ) goto label$d2c7ce2_3_406;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r65 = Urho3D__physics_collision_shape_cast_from_component(r7,r6);
+	if( !r65 ) goto label$d2c7ce2_3_404;
+	r66 = (urho3d__CollisionShape)hl_alloc_obj(&t$urho3d_CollisionShape);
+	urho3d_CollisionShape_new(r66,r65);
+	goto label$d2c7ce2_3_405;
+	label$d2c7ce2_3_404:
+	r66 = NULL;
+	label$d2c7ce2_3_405:
+	goto label$d2c7ce2_3_407;
+	label$d2c7ce2_3_406:
+	r66 = NULL;
+	label$d2c7ce2_3_407:
+	r67 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r38 = r67->ONE;
+	r21 = Urho3D__math_tvector3_cast_from_vector3(r38);
+	r23 = NULL;
+	r68 = NULL;
+	if( r23 ) goto label$d2c7ce2_3_421;
+	r17 = 0.;
+	r16 = (float)r17;
+	r17 = 0.;
+	r19 = (float)r17;
+	r17 = 0.;
+	r20 = (float)r17;
+	r69 = Urho3D__math_tvector3_create(r16,r19,r20);
+	r23 = r69;
+	label$d2c7ce2_3_421:
+	if( r68 ) goto label$d2c7ce2_3_435;
+	r17 = 0.;
+	r69 = NULL;
+	if( !r69 ) goto label$d2c7ce2_3_428;
+	r16 = (float)r17;
+	r70 = Urho3D__math_t_quaternion_create_fv(r16,r69);
+	goto label$d2c7ce2_3_434;
+	label$d2c7ce2_3_428:
+	r16 = (float)r17;
+	r49 = 0.;
+	r19 = (float)r49;
+	r49 = 0.;
+	r20 = (float)r49;
+	r70 = Urho3D__math_t_quaternion_create(r16,r19,r20);
+	label$d2c7ce2_3_434:
+	r68 = r70;
+	label$d2c7ce2_3_435:
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	if( r66 == NULL ) hl_null_access();
+	r65 = r66->_abstract;
+	Urho3D__physics_collision_shape_set_box(r7,r65,r21,r23,r68);
+	r10 = 60;
+	r11 = 0;
+	r71 = r10;
+	label$d2c7ce2_3_443:
+	if( r11 >= r71 ) goto label$d2c7ce2_3_702;
+	++r11;
+	r55 = r0->scene;
+	r45 = (String)s$Mushroom;
+	if( r45 ) goto label$d2c7ce2_3_451;
+	r56 = (String)s$;
+	r45 = r56;
+	label$d2c7ce2_3_451:
+	if( r55 == NULL ) hl_null_access();
+	r4 = r55->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_475;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r55->abstractNode;
+	r73 = 0;
+	r74 = 0;
+	r29 = false;
+	r4 = Urho3D__scene_node_create_child(r7,r4,r45,r73,r74,r29);
+	r13 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
+	urho3d_Node_new(r13,r4);
+	r30 = r55->children_pointers_map;
+	if( r30 == NULL ) hl_null_access();
+	r31 = urho3d_Node_get_pointer(r13);
+	if( r31 == NULL ) r32 = NULL; else {
+		r32 = hl_alloc_dynamic(&t$hl_urho3d_scene_node_ptr);
+		r32->v.ptr = r31;
+	}
+	haxe_ds_ObjectMap_set(r30,r32,((vdynamic*)r13));
+	r75 = (String)s$;
+	if( r45 == r75 || (r45 && r75 && String___compare(r45,(vdynamic*)r75) == 0) ) goto label$d2c7ce2_3_473;
+	r34 = r55->children_name_map;
+	if( r34 == NULL ) hl_null_access();
+	haxe_ds_StringMap_set(r34,r45,((vdynamic*)r13));
+	label$d2c7ce2_3_473:
+	r13->_parent = ((urho3d__Node)r55);
+	goto label$d2c7ce2_3_476;
+	label$d2c7ce2_3_475:
+	r13 = NULL;
+	label$d2c7ce2_3_476:
+	r76 = NULL;
+	r73 = 1000000;
+	r73 = Std_random(r73);
+	r17 = (double)r73;
+	r49 = 1000000.;
+	r17 = r17 / r49;
+	r77 = NULL;
+	r73 = 1000000;
+	r73 = Std_random(r73);
+	r49 = (double)r73;
+	r52 = 1000000.;
+	r49 = r49 / r52;
+	if( r76 ) goto label$d2c7ce2_3_492;
+	r53 = 180.;
+	r52 = r17 * r53;
+	goto label$d2c7ce2_3_498;
+	label$d2c7ce2_3_492:
+	r53 = r76 ? r76->v.d : 0;
+	r54 = 180.;
+	r53 = r53 - r54;
+	r52 = r17 * r53;
+	r53 = 180.;
+	r52 = r52 + r53;
+	label$d2c7ce2_3_498:
+	r53 = 90.;
+	r52 = r52 - r53;
+	r16 = (float)r52;
 	r52 = 0.;
 	r19 = (float)r52;
-	r84 = Urho3D__math_quaternion_create(r15,r18,r19);
-	label$d2c7ce2_3_384:
-	r72 = Urho3D__math_tquaternion_cast_from_quaternion(r84);
-	r72 = urho3d_Node_set_rotation(r54,r72);
-	r85 = NULL;
-	r79 = 1000000;
-	r79 = Std_random(r79);
-	r52 = (double)r79;
-	r53 = 1000000.;
-	r52 = r52 / r53;
-	r53 = 2.;
-	if( r85 ) goto label$d2c7ce2_3_397;
-	r88 = 5.;
-	r86 = r52 * r88;
-	goto label$d2c7ce2_3_403;
-	label$d2c7ce2_3_397:
-	r88 = r85 ? r85->v.d : 0;
-	r89 = 5.;
-	r88 = r88 - r89;
-	r86 = r52 * r88;
-	r88 = 5.;
-	r86 = r86 + r88;
-	label$d2c7ce2_3_403:
-	r53 = r53 + r86;
-	r15 = (float)r53;
-	r18 = (float)r53;
-	r19 = (float)r53;
-	r71 = Urho3D__math_tvector3_create(r15,r18,r19);
-	r73 = urho3d_Node_set_scale(r54,r71);
-	r5 = (String)s$StaticModel;
+	if( r77 ) goto label$d2c7ce2_3_507;
+	r53 = 180.;
+	r52 = r49 * r53;
+	goto label$d2c7ce2_3_513;
+	label$d2c7ce2_3_507:
+	r53 = r77 ? r77->v.d : 0;
+	r54 = 180.;
+	r53 = r53 - r54;
+	r52 = r49 * r53;
+	r53 = 180.;
+	r52 = r52 + r53;
+	label$d2c7ce2_3_513:
+	r53 = 90.;
+	r52 = r52 - r53;
+	r20 = (float)r52;
+	r38 = Urho3D__math_vector3_create(r16,r19,r20);
+	r21 = Urho3D__math_tvector3_cast_from_vector3(r38);
+	if( r13 == NULL ) hl_null_access();
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_525;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	Urho3D__scene_node_set_position(r7,r4,r21);
+	label$d2c7ce2_3_525:
+	r76 = NULL;
+	r73 = 1000000;
+	r73 = Std_random(r73);
+	r17 = (double)r73;
+	r49 = 1000000.;
+	r17 = r17 / r49;
+	r21 = NULL;
+	if( !r21 ) goto label$d2c7ce2_3_537;
+	r49 = 0.;
+	r16 = (float)r49;
+	r79 = Urho3D__math_quaternion_create_fv(r16,r21);
+	goto label$d2c7ce2_3_553;
+	label$d2c7ce2_3_537:
+	r49 = 0.;
+	r16 = (float)r49;
+	if( r76 ) goto label$d2c7ce2_3_543;
+	r52 = 360.;
+	r49 = r17 * r52;
+	goto label$d2c7ce2_3_549;
+	label$d2c7ce2_3_543:
+	r52 = r76 ? r76->v.d : 0;
+	r53 = 360.;
+	r52 = r52 - r53;
+	r49 = r17 * r52;
+	r52 = 360.;
+	r49 = r49 + r52;
+	label$d2c7ce2_3_549:
+	r19 = (float)r49;
+	r49 = 0.;
+	r20 = (float)r49;
+	r79 = Urho3D__math_quaternion_create(r16,r19,r20);
+	label$d2c7ce2_3_553:
+	r68 = Urho3D__math_t_quaternion_cast_from_quaternion(r79);
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_560;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	Urho3D__scene_node_set_rotation(r7,r4,r68);
+	label$d2c7ce2_3_560:
+	r76 = NULL;
+	r73 = 1000000;
+	r73 = Std_random(r73);
+	r17 = (double)r73;
+	r49 = 1000000.;
+	r17 = r17 / r49;
+	r49 = 2.;
+	if( r76 ) goto label$d2c7ce2_3_571;
+	r53 = 5.;
+	r52 = r17 * r53;
+	goto label$d2c7ce2_3_577;
+	label$d2c7ce2_3_571:
+	r53 = r76 ? r76->v.d : 0;
+	r54 = 5.;
+	r53 = r53 - r54;
+	r52 = r17 * r53;
+	r53 = 5.;
+	r52 = r52 + r53;
+	label$d2c7ce2_3_577:
+	r49 = r49 + r52;
+	r16 = (float)r49;
+	r19 = (float)r49;
+	r20 = (float)r49;
+	r21 = Urho3D__math_tvector3_create(r16,r19,r20);
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_588;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	Urho3D__scene_node_set_scale(r7,r4,r21);
+	label$d2c7ce2_3_588:
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_598;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	r56 = (String)s$StaticModel;
+	r73 = 0;
+	r74 = 0;
+	r6 = Urho3D__scene_node_create_component(r7,r4,r56,r73,r74);
+	goto label$d2c7ce2_3_599;
+	label$d2c7ce2_3_598:
 	r6 = NULL;
-	r7 = NULL;
-	r67 = urho3d_Node_CreateComponent(r54,r5,r6,r7);
-	if( !r67 ) goto label$d2c7ce2_3_420;
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r58 = Urho3D__graphics_staticmodel_cast_from_component(r12,r67);
-	r91 = (urho3d__StaticModel)hl_alloc_obj(&t$urho3d_StaticModel);
-	urho3d_StaticModel_new(r91,r58);
-	goto label$d2c7ce2_3_421;
-	label$d2c7ce2_3_420:
-	r91 = NULL;
-	label$d2c7ce2_3_421:
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r5 = (String)s$Models_Mushroom_mdl;
-	r61 = Urho3D__graphics_model_create(r12,r5);
-	if( r91 == NULL ) hl_null_access();
-	r92 = urho3d_StaticModel_set_model(r91,r61);
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r5 = (String)s$Materials_Mushroom_xml;
-	r63 = Urho3D__graphics_material_create(r12,r5);
-	r93 = urho3d_StaticModel_set_material(r91,r63);
-	r46 = true;
-	r46 = urho3d_StaticModel_set_castShadows(r91,r46);
-	r5 = (String)s$RigidBody;
-	r6 = NULL;
-	r7 = NULL;
-	r90 = urho3d_Node_CreateComponent(r54,r5,r6,r7);
-	if( !r90 ) goto label$d2c7ce2_3_448;
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r65 = Urho3D__physics_rigid_body_cast_from_component(r12,r90);
-	if( !r65 ) goto label$d2c7ce2_3_446;
-	r95 = (urho3d__RigidBody)hl_alloc_obj(&t$urho3d_RigidBody);
-	urho3d_RigidBody_new(r95,r65);
-	goto label$d2c7ce2_3_447;
-	label$d2c7ce2_3_446:
-	r95 = NULL;
-	label$d2c7ce2_3_447:
-	goto label$d2c7ce2_3_449;
-	label$d2c7ce2_3_448:
-	r95 = NULL;
-	label$d2c7ce2_3_449:
-	if( r95 == NULL ) hl_null_access();
-	r79 = 2;
-	r79 = urho3d_RigidBody_set_collisionLayer(r95,r79);
-	r5 = (String)s$CollisionShape;
-	r6 = NULL;
-	r7 = NULL;
-	r94 = urho3d_Node_CreateComponent(r54,r5,r6,r7);
-	if( !r94 ) goto label$d2c7ce2_3_466;
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r68 = Urho3D__physics_collision_shape_cast_from_component(r12,r94);
-	if( !r68 ) goto label$d2c7ce2_3_464;
-	r96 = (urho3d__CollisionShape)hl_alloc_obj(&t$urho3d_CollisionShape);
-	urho3d_CollisionShape_new(r96,r68);
-	goto label$d2c7ce2_3_465;
-	label$d2c7ce2_3_464:
-	r96 = NULL;
-	label$d2c7ce2_3_465:
-	goto label$d2c7ce2_3_467;
-	label$d2c7ce2_3_466:
-	r96 = NULL;
-	label$d2c7ce2_3_467:
-	r92 = urho3d_StaticModel_get_model(r91);
-	r73 = NULL;
-	r74 = NULL;
-	r72 = NULL;
-	if( r73 ) goto label$d2c7ce2_3_476;
-	r70 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r83 = r70->ONE;
-	r97 = Urho3D__math_tvector3_cast_from_vector3(r83);
-	r73 = r97;
-	label$d2c7ce2_3_476:
-	if( r74 ) goto label$d2c7ce2_3_481;
-	r70 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r83 = r70->ZERO;
-	r97 = Urho3D__math_tvector3_cast_from_vector3(r83);
-	r74 = r97;
-	label$d2c7ce2_3_481:
-	if( r72 ) goto label$d2c7ce2_3_495;
-	r86 = 0.;
-	r97 = NULL;
-	if( !r97 ) goto label$d2c7ce2_3_488;
-	r15 = (float)r86;
-	r75 = Urho3D__math_tquaternion_create_fv(r15,r97);
-	goto label$d2c7ce2_3_494;
-	label$d2c7ce2_3_488:
-	r15 = (float)r86;
-	r88 = 0.;
-	r18 = (float)r88;
-	r88 = 0.;
-	r19 = (float)r88;
-	r75 = Urho3D__math_tquaternion_create(r15,r18,r19);
-	label$d2c7ce2_3_494:
-	r72 = r75;
-	label$d2c7ce2_3_495:
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	if( r96 == NULL ) hl_null_access();
-	r68 = r96->_abstract;
-	r79 = 0;
-	Urho3D__physics_collision_shape_set_triangle_mesh(r12,r68,r92,r79,r73,r74,r72);
-	goto label$d2c7ce2_3_302;
-	label$d2c7ce2_3_502:
-	r76 = 100;
-	r77 = 0;
-	r78 = r76;
-	label$d2c7ce2_3_505:
-	if( r77 >= r78 ) goto label$d2c7ce2_3_755;
-	++r77;
+	label$d2c7ce2_3_599:
+	if( !r6 ) goto label$d2c7ce2_3_606;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r57 = Urho3D__graphics_staticmodel_cast_from_component(r7,r6);
+	r80 = (urho3d__StaticModel)hl_alloc_obj(&t$urho3d_StaticModel);
+	urho3d_StaticModel_new(r80,r57);
+	goto label$d2c7ce2_3_607;
+	label$d2c7ce2_3_606:
 	r80 = NULL;
-	r98 = 1000000;
-	r98 = Std_random(r98);
-	r16 = (double)r98;
-	r48 = 1000000.;
-	r16 = r16 / r48;
-	if( r80 ) goto label$d2c7ce2_3_518;
-	r51 = 2.;
-	r48 = r16 * r51;
-	goto label$d2c7ce2_3_524;
-	label$d2c7ce2_3_518:
-	r51 = r80 ? r80->v.d : 0;
-	r52 = 2.;
-	r51 = r51 - r52;
-	r48 = r16 * r51;
-	r51 = 2.;
-	r48 = r48 + r51;
-	label$d2c7ce2_3_524:
-	r51 = 0.5;
-	r48 = r48 + r51;
-	r1 = r0->scene;
-	if( r1 == NULL ) hl_null_access();
-	r5 = (String)s$Box;
+	label$d2c7ce2_3_607:
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r56 = (String)s$Models_Mushroom_mdl;
+	r60 = Urho3D__graphics_model_create(r7,r56);
+	if( r80 == NULL ) hl_null_access();
+	r81 = urho3d_StaticModel_set_model(r80,r60);
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r56 = (String)s$Materials_Mushroom_xml;
+	r62 = Urho3D__graphics_material_create(r7,r56);
+	r82 = urho3d_StaticModel_set_material(r80,r62);
+	r29 = true;
+	r29 = urho3d_StaticModel_set_castShadows(r80,r29);
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_630;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	r56 = (String)s$RigidBody;
+	r73 = 0;
+	r74 = 0;
+	r6 = Urho3D__scene_node_create_component(r7,r4,r56,r73,r74);
+	goto label$d2c7ce2_3_631;
+	label$d2c7ce2_3_630:
 	r6 = NULL;
-	r7 = NULL;
-	r28 = NULL;
-	r54 = urho3d_Node_CreateChild(((urho3d__Node)r1),r5,r6,r7,r28);
-	r81 = NULL;
-	r98 = 1000000;
-	r98 = Std_random(r98);
-	r51 = (double)r98;
-	r52 = 1000000.;
-	r51 = r51 / r52;
-	r82 = NULL;
-	r98 = 1000000;
-	r98 = Std_random(r98);
-	r52 = (double)r98;
+	label$d2c7ce2_3_631:
+	if( !r6 ) goto label$d2c7ce2_3_641;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r63 = Urho3D__physics_rigid_body_cast_from_component(r7,r6);
+	if( !r63 ) goto label$d2c7ce2_3_639;
+	r83 = (urho3d__RigidBody)hl_alloc_obj(&t$urho3d_RigidBody);
+	urho3d_RigidBody_new(r83,r63);
+	goto label$d2c7ce2_3_640;
+	label$d2c7ce2_3_639:
+	r83 = NULL;
+	label$d2c7ce2_3_640:
+	goto label$d2c7ce2_3_642;
+	label$d2c7ce2_3_641:
+	r83 = NULL;
+	label$d2c7ce2_3_642:
+	if( r83 == NULL ) hl_null_access();
+	r73 = 2;
+	r73 = urho3d_RigidBody_set_collisionLayer(r83,r73);
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_655;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	r56 = (String)s$CollisionShape;
+	r73 = 0;
+	r74 = 0;
+	r6 = Urho3D__scene_node_create_component(r7,r4,r56,r73,r74);
+	goto label$d2c7ce2_3_656;
+	label$d2c7ce2_3_655:
+	r6 = NULL;
+	label$d2c7ce2_3_656:
+	if( !r6 ) goto label$d2c7ce2_3_666;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r65 = Urho3D__physics_collision_shape_cast_from_component(r7,r6);
+	if( !r65 ) goto label$d2c7ce2_3_664;
+	r84 = (urho3d__CollisionShape)hl_alloc_obj(&t$urho3d_CollisionShape);
+	urho3d_CollisionShape_new(r84,r65);
+	goto label$d2c7ce2_3_665;
+	label$d2c7ce2_3_664:
+	r84 = NULL;
+	label$d2c7ce2_3_665:
+	goto label$d2c7ce2_3_667;
+	label$d2c7ce2_3_666:
+	r84 = NULL;
+	label$d2c7ce2_3_667:
+	r81 = urho3d_StaticModel_get_model(r80);
+	r21 = NULL;
+	r23 = NULL;
+	r68 = NULL;
+	if( r21 ) goto label$d2c7ce2_3_676;
+	r67 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r38 = r67->ONE;
+	r69 = Urho3D__math_tvector3_cast_from_vector3(r38);
+	r21 = r69;
+	label$d2c7ce2_3_676:
+	if( r23 ) goto label$d2c7ce2_3_681;
+	r67 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r38 = r67->ZERO;
+	r69 = Urho3D__math_tvector3_cast_from_vector3(r38);
+	r23 = r69;
+	label$d2c7ce2_3_681:
+	if( r68 ) goto label$d2c7ce2_3_695;
+	r17 = 0.;
+	r69 = NULL;
+	if( !r69 ) goto label$d2c7ce2_3_688;
+	r16 = (float)r17;
+	r70 = Urho3D__math_t_quaternion_create_fv(r16,r69);
+	goto label$d2c7ce2_3_694;
+	label$d2c7ce2_3_688:
+	r16 = (float)r17;
+	r49 = 0.;
+	r19 = (float)r49;
+	r49 = 0.;
+	r20 = (float)r49;
+	r70 = Urho3D__math_t_quaternion_create(r16,r19,r20);
+	label$d2c7ce2_3_694:
+	r68 = r70;
+	label$d2c7ce2_3_695:
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	if( r84 == NULL ) hl_null_access();
+	r65 = r84->_abstract;
+	r73 = 0;
+	Urho3D__physics_collision_shape_set_triangle_mesh(r7,r65,r81,r73,r21,r23,r68);
+	goto label$d2c7ce2_3_443;
+	label$d2c7ce2_3_702:
+	r11 = 100;
+	r71 = 0;
+	r72 = r11;
+	label$d2c7ce2_3_705:
+	if( r71 >= r72 ) goto label$d2c7ce2_3_1014;
+	++r71;
+	r76 = NULL;
+	r74 = 1000000;
+	r74 = Std_random(r74);
+	r17 = (double)r74;
+	r49 = 1000000.;
+	r17 = r17 / r49;
+	if( r76 ) goto label$d2c7ce2_3_718;
+	r52 = 2.;
+	r49 = r17 * r52;
+	goto label$d2c7ce2_3_724;
+	label$d2c7ce2_3_718:
+	r52 = r76 ? r76->v.d : 0;
+	r53 = 2.;
+	r52 = r52 - r53;
+	r49 = r17 * r52;
+	r52 = 2.;
+	r49 = r49 + r52;
+	label$d2c7ce2_3_724:
+	r52 = 0.5;
+	r49 = r49 + r52;
+	r55 = r0->scene;
+	r45 = (String)s$Box;
+	if( r45 ) goto label$d2c7ce2_3_731;
+	r56 = (String)s$;
+	r45 = r56;
+	label$d2c7ce2_3_731:
+	if( r55 == NULL ) hl_null_access();
+	r4 = r55->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_755;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r55->abstractNode;
+	r74 = 0;
+	r85 = 0;
+	r29 = false;
+	r4 = Urho3D__scene_node_create_child(r7,r4,r45,r74,r85,r29);
+	r13 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
+	urho3d_Node_new(r13,r4);
+	r30 = r55->children_pointers_map;
+	if( r30 == NULL ) hl_null_access();
+	r31 = urho3d_Node_get_pointer(r13);
+	if( r31 == NULL ) r32 = NULL; else {
+		r32 = hl_alloc_dynamic(&t$hl_urho3d_scene_node_ptr);
+		r32->v.ptr = r31;
+	}
+	haxe_ds_ObjectMap_set(r30,r32,((vdynamic*)r13));
+	r75 = (String)s$;
+	if( r45 == r75 || (r45 && r75 && String___compare(r45,(vdynamic*)r75) == 0) ) goto label$d2c7ce2_3_753;
+	r34 = r55->children_name_map;
+	if( r34 == NULL ) hl_null_access();
+	haxe_ds_StringMap_set(r34,r45,((vdynamic*)r13));
+	label$d2c7ce2_3_753:
+	r13->_parent = ((urho3d__Node)r55);
+	goto label$d2c7ce2_3_756;
+	label$d2c7ce2_3_755:
+	r13 = NULL;
+	label$d2c7ce2_3_756:
+	r77 = NULL;
+	r74 = 1000000;
+	r74 = Std_random(r74);
+	r52 = (double)r74;
 	r53 = 1000000.;
 	r52 = r52 / r53;
-	r85 = NULL;
-	r98 = 1000000;
-	r98 = Std_random(r98);
-	r53 = (double)r98;
-	r86 = 1000000.;
-	r53 = r53 / r86;
-	if( r81 ) goto label$d2c7ce2_3_555;
+	r78 = NULL;
+	r74 = 1000000;
+	r74 = Std_random(r74);
+	r53 = (double)r74;
+	r54 = 1000000.;
+	r53 = r53 / r54;
+	r86 = NULL;
+	r74 = 1000000;
+	r74 = Std_random(r74);
+	r54 = (double)r74;
+	r87 = 1000000.;
+	r54 = r54 / r87;
+	if( r77 ) goto label$d2c7ce2_3_778;
 	r88 = 180.;
-	r86 = r51 * r88;
-	goto label$d2c7ce2_3_561;
-	label$d2c7ce2_3_555:
-	r88 = r81 ? r81->v.d : 0;
+	r87 = r52 * r88;
+	goto label$d2c7ce2_3_784;
+	label$d2c7ce2_3_778:
+	r88 = r77 ? r77->v.d : 0;
 	r89 = 180.;
 	r88 = r88 - r89;
-	r86 = r51 * r88;
+	r87 = r52 * r88;
 	r88 = 180.;
-	r86 = r86 + r88;
-	label$d2c7ce2_3_561:
+	r87 = r87 + r88;
+	label$d2c7ce2_3_784:
 	r88 = 90.;
-	r86 = r86 - r88;
-	r15 = (float)r86;
-	if( r82 ) goto label$d2c7ce2_3_568;
+	r87 = r87 - r88;
+	r16 = (float)r87;
+	if( r78 ) goto label$d2c7ce2_3_791;
 	r88 = 10.;
-	r86 = r52 * r88;
-	goto label$d2c7ce2_3_574;
-	label$d2c7ce2_3_568:
-	r88 = r82 ? r82->v.d : 0;
+	r87 = r53 * r88;
+	goto label$d2c7ce2_3_797;
+	label$d2c7ce2_3_791:
+	r88 = r78 ? r78->v.d : 0;
 	r89 = 10.;
 	r88 = r88 - r89;
-	r86 = r52 * r88;
+	r87 = r53 * r88;
 	r88 = 10.;
-	r86 = r86 + r88;
-	label$d2c7ce2_3_574:
+	r87 = r87 + r88;
+	label$d2c7ce2_3_797:
 	r88 = 10.;
-	r86 = r86 + r88;
-	r18 = (float)r86;
-	if( r85 ) goto label$d2c7ce2_3_581;
+	r87 = r87 + r88;
+	r19 = (float)r87;
+	if( r86 ) goto label$d2c7ce2_3_804;
 	r88 = 180.;
-	r86 = r53 * r88;
-	goto label$d2c7ce2_3_587;
-	label$d2c7ce2_3_581:
-	r88 = r85 ? r85->v.d : 0;
+	r87 = r54 * r88;
+	goto label$d2c7ce2_3_810;
+	label$d2c7ce2_3_804:
+	r88 = r86 ? r86->v.d : 0;
 	r89 = 180.;
 	r88 = r88 - r89;
-	r86 = r53 * r88;
+	r87 = r54 * r88;
 	r88 = 180.;
-	r86 = r86 + r88;
-	label$d2c7ce2_3_587:
+	r87 = r87 + r88;
+	label$d2c7ce2_3_810:
 	r88 = 90.;
-	r86 = r86 - r88;
-	r19 = (float)r86;
-	r56 = Urho3D__math_vector3_create(r15,r18,r19);
-	if( r54 == NULL ) hl_null_access();
-	r20 = Urho3D__math_tvector3_cast_from_vector3(r56);
-	r20 = urho3d_Node_set_position(r54,r20);
-	r87 = NULL;
-	r98 = 1000000;
-	r98 = Std_random(r98);
-	r86 = (double)r98;
+	r87 = r87 - r88;
+	r20 = (float)r87;
+	r38 = Urho3D__math_vector3_create(r16,r19,r20);
+	r21 = Urho3D__math_tvector3_cast_from_vector3(r38);
+	if( r13 == NULL ) hl_null_access();
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_822;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	Urho3D__scene_node_set_position(r7,r4,r21);
+	label$d2c7ce2_3_822:
+	r77 = NULL;
+	r74 = 1000000;
+	r74 = Std_random(r74);
+	r52 = (double)r74;
+	r53 = 1000000.;
+	r52 = r52 / r53;
+	if( r77 ) goto label$d2c7ce2_3_832;
+	r54 = 360.;
+	r53 = r52 * r54;
+	goto label$d2c7ce2_3_838;
+	label$d2c7ce2_3_832:
+	r54 = r77 ? r77->v.d : 0;
+	r87 = 360.;
+	r54 = r54 - r87;
+	r53 = r52 * r54;
+	r54 = 360.;
+	r53 = r53 + r54;
+	label$d2c7ce2_3_838:
+	r78 = NULL;
+	r74 = 1000000;
+	r74 = Std_random(r74);
+	r54 = (double)r74;
+	r87 = 1000000.;
+	r54 = r54 / r87;
+	r86 = NULL;
+	r74 = 1000000;
+	r74 = Std_random(r74);
+	r87 = (double)r74;
 	r88 = 1000000.;
-	r86 = r86 / r88;
-	if( r87 ) goto label$d2c7ce2_3_604;
+	r87 = r87 / r88;
+	r21 = NULL;
+	if( !r21 ) goto label$d2c7ce2_3_855;
+	r16 = (float)r53;
+	r79 = Urho3D__math_quaternion_create_fv(r16,r21);
+	goto label$d2c7ce2_3_879;
+	label$d2c7ce2_3_855:
+	r16 = (float)r53;
+	if( r78 ) goto label$d2c7ce2_3_860;
 	r89 = 360.;
-	r88 = r86 * r89;
-	goto label$d2c7ce2_3_610;
-	label$d2c7ce2_3_604:
-	r89 = r87 ? r87->v.d : 0;
-	r100 = 360.;
-	r89 = r89 - r100;
-	r88 = r86 * r89;
+	r88 = r54 * r89;
+	goto label$d2c7ce2_3_866;
+	label$d2c7ce2_3_860:
+	r89 = r78 ? r78->v.d : 0;
+	r90 = 360.;
+	r89 = r89 - r90;
+	r88 = r54 * r89;
 	r89 = 360.;
 	r88 = r88 + r89;
-	label$d2c7ce2_3_610:
-	r99 = NULL;
-	r98 = 1000000;
-	r98 = Std_random(r98);
-	r89 = (double)r98;
-	r100 = 1000000.;
-	r89 = r89 / r100;
-	r101 = NULL;
-	r98 = 1000000;
-	r98 = Std_random(r98);
-	r100 = (double)r98;
-	r102 = 1000000.;
-	r100 = r100 / r102;
-	r20 = NULL;
-	if( !r20 ) goto label$d2c7ce2_3_627;
-	r15 = (float)r88;
-	r84 = Urho3D__math_quaternion_create_fv(r15,r20);
-	goto label$d2c7ce2_3_651;
-	label$d2c7ce2_3_627:
-	r15 = (float)r88;
-	if( r99 ) goto label$d2c7ce2_3_632;
-	r103 = 360.;
-	r102 = r89 * r103;
-	goto label$d2c7ce2_3_638;
-	label$d2c7ce2_3_632:
-	r103 = r99 ? r99->v.d : 0;
-	r104 = 360.;
-	r103 = r103 - r104;
-	r102 = r89 * r103;
-	r103 = 360.;
-	r102 = r102 + r103;
-	label$d2c7ce2_3_638:
-	r18 = (float)r102;
-	if( r101 ) goto label$d2c7ce2_3_643;
-	r103 = 360.;
-	r102 = r100 * r103;
-	goto label$d2c7ce2_3_649;
-	label$d2c7ce2_3_643:
-	r103 = r101 ? r101->v.d : 0;
-	r104 = 360.;
-	r103 = r103 - r104;
-	r102 = r100 * r103;
-	r103 = 360.;
-	r102 = r102 + r103;
-	label$d2c7ce2_3_649:
-	r19 = (float)r102;
-	r84 = Urho3D__math_quaternion_create(r15,r18,r19);
-	label$d2c7ce2_3_651:
-	r72 = Urho3D__math_tquaternion_cast_from_quaternion(r84);
-	r72 = urho3d_Node_set_rotation(r54,r72);
-	r15 = (float)r48;
-	r18 = (float)r48;
-	r19 = (float)r48;
-	r71 = Urho3D__math_tvector3_create(r15,r18,r19);
-	r73 = urho3d_Node_set_scale(r54,r71);
-	r5 = (String)s$StaticModel;
+	label$d2c7ce2_3_866:
+	r19 = (float)r88;
+	if( r86 ) goto label$d2c7ce2_3_871;
+	r89 = 360.;
+	r88 = r87 * r89;
+	goto label$d2c7ce2_3_877;
+	label$d2c7ce2_3_871:
+	r89 = r86 ? r86->v.d : 0;
+	r90 = 360.;
+	r89 = r89 - r90;
+	r88 = r87 * r89;
+	r89 = 360.;
+	r88 = r88 + r89;
+	label$d2c7ce2_3_877:
+	r20 = (float)r88;
+	r79 = Urho3D__math_quaternion_create(r16,r19,r20);
+	label$d2c7ce2_3_879:
+	r68 = Urho3D__math_t_quaternion_cast_from_quaternion(r79);
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_886;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	Urho3D__scene_node_set_rotation(r7,r4,r68);
+	label$d2c7ce2_3_886:
+	r16 = (float)r49;
+	r19 = (float)r49;
+	r20 = (float)r49;
+	r21 = Urho3D__math_tvector3_create(r16,r19,r20);
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_896;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	Urho3D__scene_node_set_scale(r7,r4,r21);
+	label$d2c7ce2_3_896:
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_906;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	r56 = (String)s$StaticModel;
+	r74 = 0;
+	r85 = 0;
+	r6 = Urho3D__scene_node_create_component(r7,r4,r56,r74,r85);
+	goto label$d2c7ce2_3_907;
+	label$d2c7ce2_3_906:
 	r6 = NULL;
-	r7 = NULL;
-	r67 = urho3d_Node_CreateComponent(r54,r5,r6,r7);
-	if( !r67 ) goto label$d2c7ce2_3_669;
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r58 = Urho3D__graphics_staticmodel_cast_from_component(r12,r67);
-	r91 = (urho3d__StaticModel)hl_alloc_obj(&t$urho3d_StaticModel);
-	urho3d_StaticModel_new(r91,r58);
-	goto label$d2c7ce2_3_670;
-	label$d2c7ce2_3_669:
-	r91 = NULL;
-	label$d2c7ce2_3_670:
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r5 = (String)s$Models_Box_mdl;
-	r61 = Urho3D__graphics_model_create(r12,r5);
-	if( r91 == NULL ) hl_null_access();
-	r92 = urho3d_StaticModel_set_model(r91,r61);
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r5 = (String)s$Materials_Stone_xml;
-	r63 = Urho3D__graphics_material_create(r12,r5);
-	r93 = urho3d_StaticModel_set_material(r91,r63);
-	r46 = true;
-	r46 = urho3d_StaticModel_set_castShadows(r91,r46);
-	r5 = (String)s$RigidBody;
+	label$d2c7ce2_3_907:
+	if( !r6 ) goto label$d2c7ce2_3_914;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r57 = Urho3D__graphics_staticmodel_cast_from_component(r7,r6);
+	r80 = (urho3d__StaticModel)hl_alloc_obj(&t$urho3d_StaticModel);
+	urho3d_StaticModel_new(r80,r57);
+	goto label$d2c7ce2_3_915;
+	label$d2c7ce2_3_914:
+	r80 = NULL;
+	label$d2c7ce2_3_915:
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r56 = (String)s$Models_Box_mdl;
+	r60 = Urho3D__graphics_model_create(r7,r56);
+	if( r80 == NULL ) hl_null_access();
+	r81 = urho3d_StaticModel_set_model(r80,r60);
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r56 = (String)s$Materials_Stone_xml;
+	r62 = Urho3D__graphics_material_create(r7,r56);
+	r82 = urho3d_StaticModel_set_material(r80,r62);
+	r29 = true;
+	r29 = urho3d_StaticModel_set_castShadows(r80,r29);
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_938;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	r56 = (String)s$RigidBody;
+	r74 = 0;
+	r85 = 0;
+	r6 = Urho3D__scene_node_create_component(r7,r4,r56,r74,r85);
+	goto label$d2c7ce2_3_939;
+	label$d2c7ce2_3_938:
 	r6 = NULL;
-	r7 = NULL;
-	r90 = urho3d_Node_CreateComponent(r54,r5,r6,r7);
-	if( !r90 ) goto label$d2c7ce2_3_697;
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r65 = Urho3D__physics_rigid_body_cast_from_component(r12,r90);
-	if( !r65 ) goto label$d2c7ce2_3_695;
-	r95 = (urho3d__RigidBody)hl_alloc_obj(&t$urho3d_RigidBody);
-	urho3d_RigidBody_new(r95,r65);
-	goto label$d2c7ce2_3_696;
-	label$d2c7ce2_3_695:
-	r95 = NULL;
-	label$d2c7ce2_3_696:
-	goto label$d2c7ce2_3_698;
-	label$d2c7ce2_3_697:
-	r95 = NULL;
-	label$d2c7ce2_3_698:
-	if( r95 == NULL ) hl_null_access();
-	r98 = 2;
-	r98 = urho3d_RigidBody_set_collisionLayer(r95,r98);
-	r103 = 2.;
-	r102 = r48 * r103;
-	r15 = (float)r102;
-	r15 = urho3d_RigidBody_set_mass(r95,r15);
-	r102 = (double)r15;
-	r5 = (String)s$CollisionShape;
+	label$d2c7ce2_3_939:
+	if( !r6 ) goto label$d2c7ce2_3_949;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r63 = Urho3D__physics_rigid_body_cast_from_component(r7,r6);
+	if( !r63 ) goto label$d2c7ce2_3_947;
+	r83 = (urho3d__RigidBody)hl_alloc_obj(&t$urho3d_RigidBody);
+	urho3d_RigidBody_new(r83,r63);
+	goto label$d2c7ce2_3_948;
+	label$d2c7ce2_3_947:
+	r83 = NULL;
+	label$d2c7ce2_3_948:
+	goto label$d2c7ce2_3_950;
+	label$d2c7ce2_3_949:
+	r83 = NULL;
+	label$d2c7ce2_3_950:
+	if( r83 == NULL ) hl_null_access();
+	r74 = 2;
+	r74 = urho3d_RigidBody_set_collisionLayer(r83,r74);
+	r53 = 2.;
+	r52 = r49 * r53;
+	r16 = (float)r52;
+	r16 = urho3d_RigidBody_set_mass(r83,r16);
+	r52 = (double)r16;
+	r4 = r13->abstractNode;
+	if( !r4 ) goto label$d2c7ce2_3_968;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r13->abstractNode;
+	r56 = (String)s$CollisionShape;
+	r74 = 0;
+	r85 = 0;
+	r6 = Urho3D__scene_node_create_component(r7,r4,r56,r74,r85);
+	goto label$d2c7ce2_3_969;
+	label$d2c7ce2_3_968:
 	r6 = NULL;
-	r7 = NULL;
-	r94 = urho3d_Node_CreateComponent(r54,r5,r6,r7);
-	if( !r94 ) goto label$d2c7ce2_3_720;
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	r68 = Urho3D__physics_collision_shape_cast_from_component(r12,r94);
-	if( !r68 ) goto label$d2c7ce2_3_718;
-	r96 = (urho3d__CollisionShape)hl_alloc_obj(&t$urho3d_CollisionShape);
-	urho3d_CollisionShape_new(r96,r68);
-	goto label$d2c7ce2_3_719;
-	label$d2c7ce2_3_718:
-	r96 = NULL;
-	label$d2c7ce2_3_719:
-	goto label$d2c7ce2_3_721;
-	label$d2c7ce2_3_720:
-	r96 = NULL;
-	label$d2c7ce2_3_721:
-	r70 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r83 = r70->ONE;
-	r73 = Urho3D__math_tvector3_cast_from_vector3(r83);
-	r74 = NULL;
-	r72 = NULL;
-	if( r74 ) goto label$d2c7ce2_3_735;
-	r102 = 0.;
-	r15 = (float)r102;
-	r102 = 0.;
-	r18 = (float)r102;
-	r102 = 0.;
-	r19 = (float)r102;
-	r97 = Urho3D__math_tvector3_create(r15,r18,r19);
-	r74 = r97;
-	label$d2c7ce2_3_735:
-	if( r72 ) goto label$d2c7ce2_3_749;
-	r102 = 0.;
-	r97 = NULL;
-	if( !r97 ) goto label$d2c7ce2_3_742;
-	r15 = (float)r102;
-	r75 = Urho3D__math_tquaternion_create_fv(r15,r97);
-	goto label$d2c7ce2_3_748;
-	label$d2c7ce2_3_742:
-	r15 = (float)r102;
-	r103 = 0.;
-	r18 = (float)r103;
-	r103 = 0.;
-	r19 = (float)r103;
-	r75 = Urho3D__math_tquaternion_create(r15,r18,r19);
-	label$d2c7ce2_3_748:
-	r72 = r75;
-	label$d2c7ce2_3_749:
-	r13 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r12 = r13->context;
-	if( r96 == NULL ) hl_null_access();
-	r68 = r96->_abstract;
-	Urho3D__physics_collision_shape_set_box(r12,r68,r73,r74,r72);
-	goto label$d2c7ce2_3_505;
-	label$d2c7ce2_3_755:
+	label$d2c7ce2_3_969:
+	if( !r6 ) goto label$d2c7ce2_3_979;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r65 = Urho3D__physics_collision_shape_cast_from_component(r7,r6);
+	if( !r65 ) goto label$d2c7ce2_3_977;
+	r84 = (urho3d__CollisionShape)hl_alloc_obj(&t$urho3d_CollisionShape);
+	urho3d_CollisionShape_new(r84,r65);
+	goto label$d2c7ce2_3_978;
+	label$d2c7ce2_3_977:
+	r84 = NULL;
+	label$d2c7ce2_3_978:
+	goto label$d2c7ce2_3_980;
+	label$d2c7ce2_3_979:
+	r84 = NULL;
+	label$d2c7ce2_3_980:
+	r67 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r38 = r67->ONE;
+	r21 = Urho3D__math_tvector3_cast_from_vector3(r38);
+	r23 = NULL;
+	r68 = NULL;
+	if( r23 ) goto label$d2c7ce2_3_994;
+	r52 = 0.;
+	r16 = (float)r52;
+	r52 = 0.;
+	r19 = (float)r52;
+	r52 = 0.;
+	r20 = (float)r52;
+	r69 = Urho3D__math_tvector3_create(r16,r19,r20);
+	r23 = r69;
+	label$d2c7ce2_3_994:
+	if( r68 ) goto label$d2c7ce2_3_1008;
+	r52 = 0.;
+	r69 = NULL;
+	if( !r69 ) goto label$d2c7ce2_3_1001;
+	r16 = (float)r52;
+	r70 = Urho3D__math_t_quaternion_create_fv(r16,r69);
+	goto label$d2c7ce2_3_1007;
+	label$d2c7ce2_3_1001:
+	r16 = (float)r52;
+	r53 = 0.;
+	r19 = (float)r53;
+	r53 = 0.;
+	r20 = (float)r53;
+	r70 = Urho3D__math_t_quaternion_create(r16,r19,r20);
+	label$d2c7ce2_3_1007:
+	r68 = r70;
+	label$d2c7ce2_3_1008:
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	if( r84 == NULL ) hl_null_access();
+	r65 = r84->_abstract;
+	Urho3D__physics_collision_shape_set_box(r7,r65,r21,r23,r68);
+	goto label$d2c7ce2_3_705;
+	label$d2c7ce2_3_1014:
 	return;
 }
 
 void CharacterDemoSample_CreateCharacter(CharacterDemoSample r0) {
-	bool *r6;
-	String r3;
-	hl_urho3d_physics_rigid_body *r35;
-	hl_urho3d_graphics_bone *r33;
-	hl_urho3d_graphics_skeleton *r32;
-	hl_urho3d_scene_component *r21, *r22, *r34;
-	utils__Character r43;
-	urho3d__RigidBody r36;
-	bool r31;
-	urho3d___Vector3__$Vector3_Impl_ r16;
-	urho3d__AnimatedModel r26;
-	hl_urho3d_math_quaternion *r18;
-	hl_urho3d_math_vector3 *r8, *r15;
-	urho3d__Scene r2;
-	urho3d__Node r1, r14, r20;
-	urho3d__CollisionShape r39;
-	hl_urho3d_math_tquaternion *r19, *r41;
-	hl_urho3d_graphics_material *r29, *r30;
-	urho3d___Context__$Context_Impl_ r25;
-	urho3d_context *r24;
-	float r10, r11, r12;
-	hl_urho3d_graphics_animatedmodel *r23;
-	double r9, r42;
-	vdynamic *r44;
-	hl_urho3d_physics_collision_shape *r38;
-	hl_urho3d_math_tvector3 *r13, *r17, *r40;
-	int *r4, *r5;
-	int r37;
-	hl_urho3d_graphics_model *r27, *r28;
-	r2 = r0->scene;
-	if( r2 == NULL ) hl_null_access();
+	bool *r55;
+	String r3, r4, r15, r25;
+	hl_urho3d_physics_rigid_body *r39;
+	hl_urho3d_graphics_skeleton *r37;
+	hl_urho3d_scene_component *r30;
+	hl_urho3d_scene_node_ptr *r13;
+	utils__Character r46;
+	bool r10;
+	urho3d__AnimatedModel r32;
+	hl_urho3d_math_quaternion *r28;
+	hl_urho3d_math_vector3 *r18;
+	urho3d__Node r11, r17, r26, r41, r47;
+	urho3d__Scene r1;
+	urho3d__CollisionShape r43;
+	hl_urho3d_math_tquaternion *r29, *r44;
+	urho3d__Component r49;
+	hl_urho3d_graphics_material *r35, *r36;
+	urho3d_context *r6;
+	hl_urho3d_scene_component_ptr *r50;
+	hl_urho3d_graphics_animatedmodel *r31;
+	vdynamic *r14, *r48;
+	hl_urho3d_graphics_model *r33, *r34;
+	int r8, r9;
+	haxe__ds__ObjectMap r12;
+	hl__types__ArrayObj r54;
+	hl_urho3d_graphics_bone *r38;
+	haxe__ds__StringMap r16;
+	hl_type *r53;
+	urho3d__RigidBody r40;
+	urho3d___Vector3__$Vector3_Impl_ r27;
+	urho3d___Context__$Context_Impl_ r7;
+	float r20, r21, r22;
+	hl_urho3d_scene_node *r5;
+	hl__types__ArrayDyn r51;
+	double r19, r45;
+	hl_urho3d_physics_collision_shape *r42;
+	hl_urho3d_math_tvector3 *r23, *r24;
+	varray *r52;
+	r1 = r0->scene;
 	r3 = (String)s$Jack;
-	r4 = NULL;
-	r5 = NULL;
-	r6 = NULL;
-	r1 = urho3d_Node_CreateChild(((urho3d__Node)r2),r3,r4,r5,r6);
-	r0->characterNode = r1;
-	r1 = r0->characterNode;
-	r9 = 0.;
-	r10 = (float)r9;
-	r9 = 1.;
-	r11 = (float)r9;
-	r9 = 0.;
-	r12 = (float)r9;
-	r8 = Urho3D__math_vector3_create(r10,r11,r12);
+	if( r3 ) goto label$d2c7ce2_4_5;
+	r4 = (String)s$;
+	r3 = r4;
+	label$d2c7ce2_4_5:
 	if( r1 == NULL ) hl_null_access();
-	r13 = Urho3D__math_tvector3_cast_from_vector3(r8);
-	r13 = urho3d_Node_set_position(r1,r13);
-	r14 = r0->characterNode;
-	if( r14 == NULL ) hl_null_access();
-	r3 = (String)s$AdjNode;
-	r4 = NULL;
-	r5 = NULL;
-	r6 = NULL;
-	r14 = urho3d_Node_CreateChild(r14,r3,r4,r5,r6);
-	r16 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r15 = r16->UP;
-	r13 = Urho3D__math_tvector3_cast_from_vector3(r15);
-	if( !r13 ) goto label$d2c7ce2_4_34;
-	r9 = 180.;
-	r10 = (float)r9;
-	r18 = Urho3D__math_quaternion_create_fv(r10,r13);
-	goto label$d2c7ce2_4_41;
-	label$d2c7ce2_4_34:
-	r9 = 180.;
-	r10 = (float)r9;
-	r9 = 0.;
-	r11 = (float)r9;
-	r9 = 0.;
-	r12 = (float)r9;
-	r18 = Urho3D__math_quaternion_create(r10,r11,r12);
-	label$d2c7ce2_4_41:
-	if( r14 == NULL ) hl_null_access();
-	r19 = Urho3D__math_tquaternion_cast_from_quaternion(r18);
-	r19 = urho3d_Node_set_rotation(r14,r19);
-	r3 = (String)s$AnimatedModel;
-	r4 = NULL;
-	r5 = NULL;
-	r21 = urho3d_Node_CreateComponent(r14,r3,r4,r5);
-	if( !r21 ) goto label$d2c7ce2_4_55;
-	r25 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r24 = r25->context;
-	r23 = Urho3D__graphics_animatedmodel_cast_from_component(r24,r21);
-	r26 = (urho3d__AnimatedModel)hl_alloc_obj(&t$urho3d_AnimatedModel);
-	urho3d_AnimatedModel_new(r26,r23);
-	goto label$d2c7ce2_4_56;
-	label$d2c7ce2_4_55:
-	r26 = NULL;
-	label$d2c7ce2_4_56:
-	r25 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r24 = r25->context;
-	r3 = (String)s$Models_Mutant_Mutant_mdl;
-	r27 = Urho3D__graphics_model_create(r24,r3);
-	if( r26 == NULL ) hl_null_access();
-	r28 = urho3d_AnimatedModel_set_model(r26,r27);
-	r25 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r24 = r25->context;
-	r3 = (String)s$16e6a02;
-	r29 = Urho3D__graphics_material_create(r24,r3);
-	r30 = urho3d_AnimatedModel_set_material(r26,r29);
-	r31 = true;
-	r31 = urho3d_AnimatedModel_set_castShadows(r26,r31);
-	r3 = (String)s$AnimationController;
-	r4 = NULL;
-	r5 = NULL;
-	r22 = urho3d_Node_CreateComponent(r14,r3,r4,r5);
-	r32 = urho3d_AnimatedModel_get_skeleton(r26);
-	r25 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r24 = r25->context;
-	r3 = (String)s$Mutant_Head;
-	r33 = Urho3D__graphics_skeleton_get_bone(r24,r32,r3);
-	r31 = false;
-	r31 = urho3d__Bone_Bone_Impl__set_animated(r33,r31);
-	r20 = r0->characterNode;
-	if( r20 == NULL ) hl_null_access();
-	r3 = (String)s$RigidBody;
-	r4 = NULL;
-	r5 = NULL;
-	r22 = urho3d_Node_CreateComponent(r20,r3,r4,r5);
-	if( !r22 ) goto label$d2c7ce2_4_96;
-	r25 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r24 = r25->context;
-	r35 = Urho3D__physics_rigid_body_cast_from_component(r24,r22);
-	if( !r35 ) goto label$d2c7ce2_4_94;
-	r36 = (urho3d__RigidBody)hl_alloc_obj(&t$urho3d_RigidBody);
-	urho3d_RigidBody_new(r36,r35);
-	goto label$d2c7ce2_4_95;
-	label$d2c7ce2_4_94:
-	r36 = NULL;
-	label$d2c7ce2_4_95:
-	goto label$d2c7ce2_4_97;
-	label$d2c7ce2_4_96:
-	r36 = NULL;
-	label$d2c7ce2_4_97:
-	if( r36 == NULL ) hl_null_access();
-	r37 = 1;
-	r37 = urho3d_RigidBody_set_collisionLayer(r36,r37);
-	r9 = 1.;
-	r10 = (float)r9;
-	r10 = urho3d_RigidBody_set_mass(r36,r10);
-	r9 = (double)r10;
-	r16 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r15 = r16->ZERO;
-	r17 = Urho3D__math_tvector3_cast_from_vector3(r15);
-	r17 = urho3d_RigidBody_set_angularFactor(r36,r17);
-	r37 = 2;
-	r37 = urho3d_RigidBody_set_collisionEventMode(r36,r37);
-	r20 = r0->characterNode;
-	if( r20 == NULL ) hl_null_access();
-	r3 = (String)s$CollisionShape;
-	r4 = NULL;
-	r5 = NULL;
-	r34 = urho3d_Node_CreateComponent(r20,r3,r4,r5);
-	if( !r34 ) goto label$d2c7ce2_4_126;
-	r25 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r24 = r25->context;
-	r38 = Urho3D__physics_collision_shape_cast_from_component(r24,r34);
-	if( !r38 ) goto label$d2c7ce2_4_124;
-	r39 = (urho3d__CollisionShape)hl_alloc_obj(&t$urho3d_CollisionShape);
-	urho3d_CollisionShape_new(r39,r38);
-	goto label$d2c7ce2_4_125;
-	label$d2c7ce2_4_124:
-	r39 = NULL;
-	label$d2c7ce2_4_125:
-	goto label$d2c7ce2_4_127;
-	label$d2c7ce2_4_126:
-	r39 = NULL;
-	label$d2c7ce2_4_127:
-	r9 = 0.;
-	r10 = (float)r9;
-	r9 = 0.9000000000000000222;
-	r11 = (float)r9;
-	r9 = 0.;
-	r12 = (float)r9;
-	r15 = Urho3D__math_vector3_create(r10,r11,r12);
-	r17 = Urho3D__math_tvector3_cast_from_vector3(r15);
-	r19 = NULL;
-	if( r17 ) goto label$d2c7ce2_4_145;
-	r9 = 0.;
-	r10 = (float)r9;
-	r9 = 0.;
-	r11 = (float)r9;
-	r9 = 0.;
-	r12 = (float)r9;
-	r40 = Urho3D__math_tvector3_create(r10,r11,r12);
-	r17 = r40;
-	label$d2c7ce2_4_145:
-	if( r19 ) goto label$d2c7ce2_4_159;
-	r9 = 0.;
+	r5 = r1->abstractNode;
+	if( !r5 ) goto label$d2c7ce2_4_29;
+	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r6 = r7->context;
+	r5 = r1->abstractNode;
+	r8 = 0;
+	r9 = 0;
+	r10 = false;
+	r5 = Urho3D__scene_node_create_child(r6,r5,r3,r8,r9,r10);
+	r11 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
+	urho3d_Node_new(r11,r5);
+	r12 = r1->children_pointers_map;
+	if( r12 == NULL ) hl_null_access();
+	r13 = urho3d_Node_get_pointer(r11);
+	if( r13 == NULL ) r14 = NULL; else {
+		r14 = hl_alloc_dynamic(&t$hl_urho3d_scene_node_ptr);
+		r14->v.ptr = r13;
+	}
+	haxe_ds_ObjectMap_set(r12,r14,((vdynamic*)r11));
+	r15 = (String)s$;
+	if( r3 == r15 || (r3 && r15 && String___compare(r3,(vdynamic*)r15) == 0) ) goto label$d2c7ce2_4_27;
+	r16 = r1->children_name_map;
+	if( r16 == NULL ) hl_null_access();
+	haxe_ds_StringMap_set(r16,r3,((vdynamic*)r11));
+	label$d2c7ce2_4_27:
+	r11->_parent = ((urho3d__Node)r1);
+	goto label$d2c7ce2_4_30;
+	label$d2c7ce2_4_29:
+	r11 = NULL;
+	label$d2c7ce2_4_30:
+	r0->characterNode = r11;
+	r11 = r0->characterNode;
+	r19 = 0.;
+	r20 = (float)r19;
+	r19 = 1.;
+	r21 = (float)r19;
+	r19 = 0.;
+	r22 = (float)r19;
+	r18 = Urho3D__math_vector3_create(r20,r21,r22);
+	r23 = Urho3D__math_tvector3_cast_from_vector3(r18);
+	if( r11 == NULL ) hl_null_access();
+	r5 = r11->abstractNode;
+	if( !r5 ) goto label$d2c7ce2_4_47;
+	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r6 = r7->context;
+	r5 = r11->abstractNode;
+	Urho3D__scene_node_set_position(r6,r5,r23);
+	label$d2c7ce2_4_47:
+	r11 = r0->characterNode;
+	r4 = (String)s$AdjNode;
+	if( r4 ) goto label$d2c7ce2_4_52;
+	r15 = (String)s$;
+	r4 = r15;
+	label$d2c7ce2_4_52:
+	if( r11 == NULL ) hl_null_access();
+	r5 = r11->abstractNode;
+	if( !r5 ) goto label$d2c7ce2_4_76;
+	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r6 = r7->context;
+	r5 = r11->abstractNode;
+	r8 = 0;
+	r9 = 0;
+	r10 = false;
+	r5 = Urho3D__scene_node_create_child(r6,r5,r4,r8,r9,r10);
+	r17 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
+	urho3d_Node_new(r17,r5);
+	r12 = r11->children_pointers_map;
+	if( r12 == NULL ) hl_null_access();
+	r13 = urho3d_Node_get_pointer(r17);
+	if( r13 == NULL ) r14 = NULL; else {
+		r14 = hl_alloc_dynamic(&t$hl_urho3d_scene_node_ptr);
+		r14->v.ptr = r13;
+	}
+	haxe_ds_ObjectMap_set(r12,r14,((vdynamic*)r17));
+	r25 = (String)s$;
+	if( r4 == r25 || (r4 && r25 && String___compare(r4,(vdynamic*)r25) == 0) ) goto label$d2c7ce2_4_74;
+	r16 = r11->children_name_map;
+	if( r16 == NULL ) hl_null_access();
+	haxe_ds_StringMap_set(r16,r4,((vdynamic*)r17));
+	label$d2c7ce2_4_74:
+	r17->_parent = r11;
+	goto label$d2c7ce2_4_77;
+	label$d2c7ce2_4_76:
+	r17 = NULL;
+	label$d2c7ce2_4_77:
+	r27 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r18 = r27->UP;
+	r23 = Urho3D__math_tvector3_cast_from_vector3(r18);
+	if( !r23 ) goto label$d2c7ce2_4_85;
+	r19 = 180.;
+	r20 = (float)r19;
+	r28 = Urho3D__math_quaternion_create_fv(r20,r23);
+	goto label$d2c7ce2_4_92;
+	label$d2c7ce2_4_85:
+	r19 = 180.;
+	r20 = (float)r19;
+	r19 = 0.;
+	r21 = (float)r19;
+	r19 = 0.;
+	r22 = (float)r19;
+	r28 = Urho3D__math_quaternion_create(r20,r21,r22);
+	label$d2c7ce2_4_92:
+	r29 = Urho3D__math_t_quaternion_cast_from_quaternion(r28);
+	if( r17 == NULL ) hl_null_access();
+	r5 = r17->abstractNode;
+	if( !r5 ) goto label$d2c7ce2_4_100;
+	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r6 = r7->context;
+	r5 = r17->abstractNode;
+	Urho3D__scene_node_set_rotation(r6,r5,r29);
+	label$d2c7ce2_4_100:
+	r5 = r17->abstractNode;
+	if( !r5 ) goto label$d2c7ce2_4_110;
+	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r6 = r7->context;
+	r5 = r17->abstractNode;
+	r15 = (String)s$AnimatedModel;
+	r8 = 0;
+	r9 = 0;
+	r30 = Urho3D__scene_node_create_component(r6,r5,r15,r8,r9);
+	goto label$d2c7ce2_4_111;
+	label$d2c7ce2_4_110:
+	r30 = NULL;
+	label$d2c7ce2_4_111:
+	if( !r30 ) goto label$d2c7ce2_4_118;
+	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r6 = r7->context;
+	r31 = Urho3D__graphics_animatedmodel_cast_from_component(r6,r30);
+	r32 = (urho3d__AnimatedModel)hl_alloc_obj(&t$urho3d_AnimatedModel);
+	urho3d_AnimatedModel_new(r32,r31);
+	goto label$d2c7ce2_4_119;
+	label$d2c7ce2_4_118:
+	r32 = NULL;
+	label$d2c7ce2_4_119:
+	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r6 = r7->context;
+	r15 = (String)s$Models_Mutant_Mutant_mdl;
+	r33 = Urho3D__graphics_model_create(r6,r15);
+	if( r32 == NULL ) hl_null_access();
+	r34 = urho3d_AnimatedModel_set_model(r32,r33);
+	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r6 = r7->context;
+	r15 = (String)s$16e6a02;
+	r35 = Urho3D__graphics_material_create(r6,r15);
+	r36 = urho3d_AnimatedModel_set_material(r32,r35);
+	r10 = true;
+	r10 = urho3d_AnimatedModel_set_castShadows(r32,r10);
+	r5 = r17->abstractNode;
+	if( !r5 ) goto label$d2c7ce2_4_141;
+	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r6 = r7->context;
+	r5 = r17->abstractNode;
+	r15 = (String)s$AnimationController;
+	r8 = 0;
+	r9 = 0;
+	r30 = Urho3D__scene_node_create_component(r6,r5,r15,r8,r9);
+	label$d2c7ce2_4_141:
+	r37 = urho3d_AnimatedModel_get_skeleton(r32);
+	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r6 = r7->context;
+	r15 = (String)s$Mutant_Head;
+	r38 = Urho3D__graphics_skeleton_get_bone(r6,r37,r15);
+	r10 = false;
+	r10 = urho3d__Bone_Bone_Impl__set_animated(r38,r10);
+	r17 = r0->characterNode;
+	if( r17 == NULL ) hl_null_access();
+	r5 = r17->abstractNode;
+	if( !r5 ) goto label$d2c7ce2_4_160;
+	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r6 = r7->context;
+	r5 = r17->abstractNode;
+	r15 = (String)s$RigidBody;
+	r8 = 0;
+	r9 = 0;
+	r30 = Urho3D__scene_node_create_component(r6,r5,r15,r8,r9);
+	goto label$d2c7ce2_4_161;
+	label$d2c7ce2_4_160:
+	r30 = NULL;
+	label$d2c7ce2_4_161:
+	if( !r30 ) goto label$d2c7ce2_4_171;
+	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r6 = r7->context;
+	r39 = Urho3D__physics_rigid_body_cast_from_component(r6,r30);
+	if( !r39 ) goto label$d2c7ce2_4_169;
+	r40 = (urho3d__RigidBody)hl_alloc_obj(&t$urho3d_RigidBody);
+	urho3d_RigidBody_new(r40,r39);
+	goto label$d2c7ce2_4_170;
+	label$d2c7ce2_4_169:
 	r40 = NULL;
-	if( !r40 ) goto label$d2c7ce2_4_152;
-	r10 = (float)r9;
-	r41 = Urho3D__math_tquaternion_create_fv(r10,r40);
-	goto label$d2c7ce2_4_158;
-	label$d2c7ce2_4_152:
-	r10 = (float)r9;
-	r42 = 0.;
-	r11 = (float)r42;
-	r42 = 0.;
-	r12 = (float)r42;
-	r41 = Urho3D__math_tquaternion_create(r10,r11,r12);
-	label$d2c7ce2_4_158:
-	r19 = r41;
-	label$d2c7ce2_4_159:
-	r25 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r24 = r25->context;
-	if( r39 == NULL ) hl_null_access();
-	r38 = r39->_abstract;
-	r9 = 0.6999999999999999556;
-	r10 = (float)r9;
-	r9 = 1.800000000000000044;
-	r11 = (float)r9;
-	Urho3D__physics_collision_shape_set_capsule(r24,r38,r10,r11,r17,r19);
-	r20 = r0->characterNode;
-	if( r20 == NULL ) hl_null_access();
-	r43 = (utils__Character)hl_alloc_obj(&t$utils_Character);
-	r44 = NULL;
-	utils_Character_new(r43,r44);
-	r4 = NULL;
-	r5 = NULL;
-	urho3d_Node_AddLogicComponent(r20,((vdynamic*)r43),r4,r5);
+	label$d2c7ce2_4_170:
+	goto label$d2c7ce2_4_172;
+	label$d2c7ce2_4_171:
+	r40 = NULL;
+	label$d2c7ce2_4_172:
+	if( r40 == NULL ) hl_null_access();
+	r8 = 1;
+	r8 = urho3d_RigidBody_set_collisionLayer(r40,r8);
+	r19 = 1.;
+	r20 = (float)r19;
+	r20 = urho3d_RigidBody_set_mass(r40,r20);
+	r19 = (double)r20;
+	r27 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r18 = r27->ZERO;
+	r23 = Urho3D__math_tvector3_cast_from_vector3(r18);
+	r23 = urho3d_RigidBody_set_angularFactor(r40,r23);
+	r8 = 2;
+	r8 = urho3d_RigidBody_set_collisionEventMode(r40,r8);
+	r26 = r0->characterNode;
+	if( r26 == NULL ) hl_null_access();
+	r5 = r26->abstractNode;
+	if( !r5 ) goto label$d2c7ce2_4_197;
+	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r6 = r7->context;
+	r5 = r26->abstractNode;
+	r15 = (String)s$CollisionShape;
+	r8 = 0;
+	r9 = 0;
+	r30 = Urho3D__scene_node_create_component(r6,r5,r15,r8,r9);
+	goto label$d2c7ce2_4_198;
+	label$d2c7ce2_4_197:
+	r30 = NULL;
+	label$d2c7ce2_4_198:
+	if( !r30 ) goto label$d2c7ce2_4_208;
+	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r6 = r7->context;
+	r42 = Urho3D__physics_collision_shape_cast_from_component(r6,r30);
+	if( !r42 ) goto label$d2c7ce2_4_206;
+	r43 = (urho3d__CollisionShape)hl_alloc_obj(&t$urho3d_CollisionShape);
+	urho3d_CollisionShape_new(r43,r42);
+	goto label$d2c7ce2_4_207;
+	label$d2c7ce2_4_206:
+	r43 = NULL;
+	label$d2c7ce2_4_207:
+	goto label$d2c7ce2_4_209;
+	label$d2c7ce2_4_208:
+	r43 = NULL;
+	label$d2c7ce2_4_209:
+	r19 = 0.;
+	r20 = (float)r19;
+	r19 = 0.9000000000000000222;
+	r21 = (float)r19;
+	r19 = 0.;
+	r22 = (float)r19;
+	r18 = Urho3D__math_vector3_create(r20,r21,r22);
+	r23 = Urho3D__math_tvector3_cast_from_vector3(r18);
+	r29 = NULL;
+	if( r23 ) goto label$d2c7ce2_4_227;
+	r19 = 0.;
+	r20 = (float)r19;
+	r19 = 0.;
+	r21 = (float)r19;
+	r19 = 0.;
+	r22 = (float)r19;
+	r24 = Urho3D__math_tvector3_create(r20,r21,r22);
+	r23 = r24;
+	label$d2c7ce2_4_227:
+	if( r29 ) goto label$d2c7ce2_4_241;
+	r19 = 0.;
+	r24 = NULL;
+	if( !r24 ) goto label$d2c7ce2_4_234;
+	r20 = (float)r19;
+	r44 = Urho3D__math_t_quaternion_create_fv(r20,r24);
+	goto label$d2c7ce2_4_240;
+	label$d2c7ce2_4_234:
+	r20 = (float)r19;
+	r45 = 0.;
+	r21 = (float)r45;
+	r45 = 0.;
+	r22 = (float)r45;
+	r44 = Urho3D__math_t_quaternion_create(r20,r21,r22);
+	label$d2c7ce2_4_240:
+	r29 = r44;
+	label$d2c7ce2_4_241:
+	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r6 = r7->context;
+	if( r43 == NULL ) hl_null_access();
+	r42 = r43->_abstract;
+	r19 = 0.6999999999999999556;
+	r20 = (float)r19;
+	r19 = 1.800000000000000044;
+	r21 = (float)r19;
+	Urho3D__physics_collision_shape_set_capsule(r6,r42,r20,r21,r23,r29);
+	r41 = r0->characterNode;
+	r46 = (utils__Character)hl_alloc_obj(&t$utils_Character);
+	r14 = NULL;
+	utils_Character_new(r46,r14);
+	if( r41 == NULL ) hl_null_access();
+	r5 = r41->abstractNode;
+	if( !r5 ) goto label$d2c7ce2_4_297;
+	r49 = (urho3d__Component)hl_dyn_castp(&r46,&t$utils_Character,&t$urho3d_Component);
+	r12 = r41->components_map;
+	if( r12 == NULL ) hl_null_access();
+	if( r49 == NULL ) hl_null_access();
+	r50 = urho3d_Component_get_pointer(r49);
+	if( r50 == NULL ) r48 = NULL; else {
+		r48 = hl_alloc_dynamic(&t$hl_urho3d_scene_component_ptr);
+		r48->v.ptr = r50;
+	}
+	haxe_ds_ObjectMap_set(r12,r48,((vdynamic*)r49));
+	r47 = urho3d_Component_set_node(r49,r41);
+	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r6 = r7->context;
+	r5 = r41->abstractNode;
+	r48 = (vdynamic*)hl_dyn_getp((vdynamic*)r46,-460463503/*abstractComponent*/,&t$_dyn);
+	r30 = (hl_urho3d_scene_component*)hl_dyn_castp(&r48,&t$_dyn,&t$hl_urho3d_scene_component);
+	r8 = 0;
+	r9 = 0;
+	Urho3D__scene_node_add_component(r6,r5,r30,r8,r9);
+	r16 = r41->logic_components_map;
+	if( r16 == NULL ) hl_null_access();
+	r15 = Std_string(((vdynamic*)r46));
+	r48 = haxe_ds_StringMap_get(r16,r15);
+	r51 = (hl__types__ArrayDyn)hl_dyn_castp(&r48,&t$_dyn,&t$hl_types_ArrayDyn);
+	if( r51 ) goto label$d2c7ce2_4_290;
+	r53 = &t$_dyn;
+	r8 = 0;
+	r52 = hl_alloc_array(r53,r8);
+	r54 = hl_types_ArrayObj_alloc(r52);
+	r10 = true;
+	r55 = &r10;
+	r51 = hl_types_ArrayDyn_alloc(((hl__types__ArrayBase)r54),r55);
+	r16 = r41->logic_components_map;
+	if( r16 == NULL ) hl_null_access();
+	r15 = Std_string(((vdynamic*)r46));
+	haxe_ds_StringMap_set(r16,r15,((vdynamic*)r51));
+	label$d2c7ce2_4_290:
+	r16 = r41->logic_components_map;
+	if( r16 == NULL ) hl_null_access();
+	r15 = Std_string(((vdynamic*)r46));
+	r48 = haxe_ds_StringMap_get(r16,r15);
+	r51 = (hl__types__ArrayDyn)hl_dyn_castp(&r48,&t$_dyn,&t$hl_types_ArrayDyn);
+	if( r51 == NULL ) hl_null_access();
+	r8 = hl_types_ArrayDyn_push(r51,((vdynamic*)r46));
+	label$d2c7ce2_4_297:
 	return;
 }
 
@@ -1333,637 +1840,1148 @@ void CharacterDemoSample_SubscribeToEvents(CharacterDemoSample r0) {
 }
 
 void CharacterDemoSample_HandlePostUpdate(CharacterDemoSample r0,hl_urho3d_stringhash* r1,hl_urho3d_variantmap* r2) {
-	String r23;
-	bool *r7;
-	hl_urho3d_physics_raycast_result *r57;
-	bool r24, r41;
-	urho3d___Vector3__$Vector3_Impl_ r14;
-	urho3d__Controls r11;
-	utils__Character r8;
-	hl_urho3d_physics_t_rigid_body *r58;
-	urho3d__Scene r54;
-	hl_urho3d_math_vector3 *r13;
-	urho3d__Node r4, r30, r47;
-	hl_urho3d_math_tquaternion *r9, *r16, *r17, *r22, *r28, *r29;
-	utils__$Character r6;
-	urho3d___Context__$Context_Impl_ r43;
-	hl_urho3d_math_t_ray *r55;
-	hl_urho3d_scene_node *r44;
-	urho3d_context *r42;
-	float r19, r20, r21, r35, r36, r37, r48, r49, r50, r62, r63, r64;
-	double r10, r18, r25, r26, r34, r59, r60, r61;
-	hl_urho3d_math_tvector3 *r12, *r15, *r27, *r31, *r32, *r33, *r38, *r39, *r40, *r45, *r51, *r52, *r56, *r65, *r66;
-	vdynamic *r5;
-	hl_urho3d_physics_physics_world *r53;
-	int r46;
+	bool *r22;
+	String r8, r11;
+	haxe__ds__ObjectMap r40;
+	haxe__ds__StringMap r12;
+	hl__types__ArrayObj r9;
+	hl_urho3d_physics_raycast_result *r66;
+	hl_urho3d_scene_node_ptr *r41;
+	hl_type *r21;
+	urho3d___Vector3__$Vector3_Impl_ r36;
+	urho3d__Controls r34;
+	bool r18;
+	utils__Character r15;
+	hl_urho3d_physics_t_rigid_body *r67;
+	urho3d__Scene r63;
+	hl_urho3d_math_vector3 *r35;
+	urho3d__Node r4, r7, r23, r38, r39, r42;
+	hl_urho3d_math_tquaternion *r24, *r25, *r29, *r37, *r46;
+	utils__$Character r10;
+	urho3d___Context__$Context_Impl_ r17;
+	hl_urho3d_math_t_ray *r64;
+	float r31, r32, r33, r51, r52, r53, r58, r59, r60, r71, r72, r73;
+	urho3d_context *r16;
+	hl_urho3d_scene_node *r6;
+	double r26, r30, r43, r44, r50, r68, r69, r70;
+	hl__types__ArrayDyn r13;
+	hl_urho3d_math_tvector3 *r27, *r28, *r45, *r47, *r48, *r49, *r54, *r55, *r56, *r57, *r61, *r65, *r74;
+	vdynamic *r5, *r19;
+	hl_urho3d_physics_physics_world *r62;
+	varray *r20;
+	int r14;
 	r4 = r0->characterNode;
 	if( r4 ) goto label$d2c7ce2_6_3;
 	return;
 	label$d2c7ce2_6_3:
 	r4 = r0->characterNode;
 	if( r4 == NULL ) hl_null_access();
-	r6 = (utils__$Character)g$_utils_Character;
-	r7 = NULL;
-	r5 = urho3d_Node_GetLogicComponent(r4,((vdynamic*)r6),r7);
-	r8 = (utils__Character)hl_dyn_castp(&r5,&t$_dyn,&t$utils_Character);
-	if( r8 ) goto label$d2c7ce2_6_11;
-	return;
-	label$d2c7ce2_6_11:
-	r4 = r0->characterNode;
-	if( r4 == NULL ) hl_null_access();
-	r9 = urho3d_Node_get_rotation(r4);
+	r6 = r4->abstractNode;
+	if( !r6 ) goto label$d2c7ce2_6_61;
+	r10 = (utils__$Character)g$_utils_Character;
+	r8 = Std_string(((vdynamic*)r10));
 	if( r8 == NULL ) hl_null_access();
-	r11 = r8->controls;
-	if( r11 == NULL ) hl_null_access();
-	r10 = r11->pitch;
-	r14 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r13 = r14->RIGHT;
-	r12 = Urho3D__math_tvector3_cast_from_vector3(r13);
-	if( !r12 ) goto label$d2c7ce2_6_26;
-	r19 = (float)r10;
-	r17 = Urho3D__math_tquaternion_create_fv(r19,r12);
-	r16 = r17;
-	goto label$d2c7ce2_6_33;
-	label$d2c7ce2_6_26:
-	r19 = (float)r10;
-	r18 = 0.;
-	r20 = (float)r18;
-	r18 = 0.;
-	r21 = (float)r18;
-	r17 = Urho3D__math_tquaternion_create(r19,r20,r21);
-	r16 = r17;
-	label$d2c7ce2_6_33:
-	r17 = Urho3D__math_tquaternion_multiply_tquaternion(r9,r16);
-	r4 = r0->characterNode;
-	if( r4 == NULL ) hl_null_access();
-	r23 = (String)s$Mutant_Head;
-	r24 = true;
-	r7 = &r24;
-	r4 = urho3d_Node_GetChild(r4,r23,r7);
-	r11 = r8->controls;
-	if( r11 == NULL ) hl_null_access();
-	r18 = r11->pitch;
-	r26 = -45.;
-	if( !(r18 < r26) ) goto label$d2c7ce2_6_47;
-	r25 = -45.;
-	goto label$d2c7ce2_6_52;
-	label$d2c7ce2_6_47:
-	r26 = 45.;
-	if( !(r26 < r18) ) goto label$d2c7ce2_6_51;
-	r25 = 45.;
-	goto label$d2c7ce2_6_52;
-	label$d2c7ce2_6_51:
-	r25 = r18;
-	label$d2c7ce2_6_52:
-	r26 = 1.;
-	r19 = (float)r26;
+	r11 = (String)s$c3e97dd;
+	r9 = String_split(r8,r11);
+	if( r9 == NULL ) hl_null_access();
+	r8 = (String)s$;
+	r8 = hl_types_ArrayObj_join(r9,r8);
+	r12 = r4->logic_components_map;
+	if( r12 == NULL ) hl_null_access();
+	r5 = haxe_ds_StringMap_get(r12,r8);
+	r13 = (hl__types__ArrayDyn)hl_dyn_castp(&r5,&t$_dyn,&t$hl_types_ArrayDyn);
+	if( !r13 ) goto label$d2c7ce2_6_29;
+	r12 = r4->logic_components_map;
+	if( r12 == NULL ) hl_null_access();
+	r5 = haxe_ds_StringMap_get(r12,r8);
+	r13 = (hl__types__ArrayDyn)hl_dyn_castp(&r5,&t$_dyn,&t$hl_types_ArrayDyn);
+	if( r13 == NULL ) hl_null_access();
+	r14 = 0;
+	r5 = ((vdynamic* (*)(hl__types__ArrayDyn,int))r13->$type->vobj_proto[0])(r13,r14);
+	r15 = (utils__Character)hl_dyn_castp(&r5,&t$_dyn,&t$utils_Character);
+	goto label$d2c7ce2_6_60;
+	label$d2c7ce2_6_29:
+	r17 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r16 = r17->context;
+	r6 = r4->abstractNode;
+	r18 = true;
+	r5 = Urho3D__scene_node_get_logic_component(r16,r6,r8,r18);
+	if( !r5 ) goto label$d2c7ce2_6_58;
+	r12 = r4->logic_components_map;
+	if( r12 == NULL ) hl_null_access();
+	r19 = haxe_ds_StringMap_get(r12,r8);
+	r13 = (hl__types__ArrayDyn)hl_dyn_castp(&r19,&t$_dyn,&t$hl_types_ArrayDyn);
+	if( r13 ) goto label$d2c7ce2_6_50;
+	r21 = &t$_dyn;
+	r14 = 0;
+	r20 = hl_alloc_array(r21,r14);
+	r9 = hl_types_ArrayObj_alloc(r20);
+	r18 = true;
+	r22 = &r18;
+	r13 = hl_types_ArrayDyn_alloc(((hl__types__ArrayBase)r9),r22);
+	r12 = r4->logic_components_map;
+	if( r12 == NULL ) hl_null_access();
+	haxe_ds_StringMap_set(r12,r8,((vdynamic*)r13));
+	label$d2c7ce2_6_50:
+	r12 = r4->logic_components_map;
+	if( r12 == NULL ) hl_null_access();
+	r19 = haxe_ds_StringMap_get(r12,r8);
+	r13 = (hl__types__ArrayDyn)hl_dyn_castp(&r19,&t$_dyn,&t$hl_types_ArrayDyn);
+	if( r13 == NULL ) hl_null_access();
+	r14 = hl_types_ArrayDyn_push(r13,r5);
+	r15 = (utils__Character)hl_dyn_castp(&r5,&t$_dyn,&t$utils_Character);
+	goto label$d2c7ce2_6_60;
+	label$d2c7ce2_6_58:
+	r19 = NULL;
+	r15 = (utils__Character)hl_dyn_castp(&r19,&t$_dyn,&t$utils_Character);
+	label$d2c7ce2_6_60:
+	goto label$d2c7ce2_6_63;
+	label$d2c7ce2_6_61:
+	r5 = NULL;
+	r15 = (utils__Character)hl_dyn_castp(&r5,&t$_dyn,&t$utils_Character);
+	label$d2c7ce2_6_63:
+	if( r15 ) goto label$d2c7ce2_6_65;
+	return;
+	label$d2c7ce2_6_65:
+	r7 = r0->characterNode;
+	if( r7 == NULL ) hl_null_access();
+	r6 = r7->abstractNode;
+	if( !r6 ) goto label$d2c7ce2_6_75;
+	r17 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r16 = r17->context;
+	r6 = r7->abstractNode;
+	r25 = Urho3D__scene_node_get_rotation(r16,r6);
+	r24 = r25;
+	goto label$d2c7ce2_6_88;
+	label$d2c7ce2_6_75:
 	r26 = 0.;
-	r20 = (float)r26;
-	r26 = 0.;
-	r21 = (float)r26;
-	r15 = Urho3D__math_tvector3_create(r19,r20,r21);
-	if( !r15 ) goto label$d2c7ce2_6_64;
-	r19 = (float)r25;
-	r28 = Urho3D__math_tquaternion_create_fv(r19,r15);
-	r22 = r28;
-	goto label$d2c7ce2_6_71;
-	label$d2c7ce2_6_64:
-	r19 = (float)r25;
-	r26 = 0.;
-	r20 = (float)r26;
-	r26 = 0.;
-	r21 = (float)r26;
-	r28 = Urho3D__math_tquaternion_create(r19,r20,r21);
-	r22 = r28;
-	label$d2c7ce2_6_71:
-	r28 = Urho3D__math_tquaternion_multiply_tquaternion(r9,r22);
-	if( r4 == NULL ) hl_null_access();
-	r27 = urho3d_Node_get_worldPosition(r4);
-	r26 = 0.;
-	r19 = (float)r26;
-	r26 = 0.;
-	r20 = (float)r26;
-	r26 = -1.;
-	r21 = (float)r26;
-	r31 = Urho3D__math_tvector3_create(r19,r20,r21);
-	r32 = Urho3D__math_tquaternion_multiply_tvector3(r28,r31);
-	r19 = Urho3D__math_tvector3_get_x(r27);
-	r26 = (double)r19;
-	r19 = Urho3D__math_tvector3_get_x(r32);
-	r34 = (double)r19;
-	r26 = r26 + r34;
-	r19 = (float)r26;
-	r20 = Urho3D__math_tvector3_get_y(r27);
-	r26 = (double)r20;
-	r20 = Urho3D__math_tvector3_get_y(r32);
-	r34 = (double)r20;
-	r26 = r26 + r34;
-	r20 = (float)r26;
-	r21 = Urho3D__math_tvector3_get_z(r27);
-	r26 = (double)r21;
-	r21 = Urho3D__math_tvector3_get_z(r32);
-	r34 = (double)r21;
-	r26 = r26 + r34;
-	r21 = (float)r26;
-	r33 = Urho3D__math_tvector3_create(r19,r20,r21);
-	r26 = 0.;
-	r35 = (float)r26;
-	r26 = 1.;
-	r36 = (float)r26;
-	r26 = 0.;
-	r37 = (float)r26;
-	r38 = Urho3D__math_tvector3_create(r35,r36,r37);
-	r39 = r38;
-	if( r38 ) goto label$d2c7ce2_6_114;
-	r14 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r13 = r14->UP;
-	r40 = Urho3D__math_tvector3_cast_from_vector3(r13);
-	r39 = r40;
-	label$d2c7ce2_6_114:
-	r43 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r42 = r43->context;
-	r44 = r4->abstractNode;
-	r46 = 2;
-	r41 = Urho3D__scene_node_look_at(r42,r44,r33,r39,r46);
-	r41 = r0->firstPerson;
-	if( !r41 ) goto label$d2c7ce2_6_156;
-	r30 = r0->cameraNode;
-	r38 = urho3d_Node_get_worldPosition(r4);
-	r26 = 0.;
-	r35 = (float)r26;
-	r26 = 0.1499999999999999944;
-	r36 = (float)r26;
-	r26 = 0.2000000000000000111;
-	r37 = (float)r26;
-	r39 = Urho3D__math_tvector3_create(r35,r36,r37);
-	r40 = Urho3D__math_tquaternion_multiply_tvector3(r9,r39);
-	r35 = Urho3D__math_tvector3_get_x(r38);
-	r26 = (double)r35;
-	r35 = Urho3D__math_tvector3_get_x(r40);
-	r34 = (double)r35;
-	r26 = r26 + r34;
-	r35 = (float)r26;
-	r36 = Urho3D__math_tvector3_get_y(r38);
-	r26 = (double)r36;
-	r36 = Urho3D__math_tvector3_get_y(r40);
-	r34 = (double)r36;
-	r26 = r26 + r34;
-	r36 = (float)r26;
-	r37 = Urho3D__math_tvector3_get_z(r38);
-	r26 = (double)r37;
-	r37 = Urho3D__math_tvector3_get_z(r40);
-	r34 = (double)r37;
-	r26 = r26 + r34;
-	r37 = (float)r26;
-	r45 = Urho3D__math_tvector3_create(r35,r36,r37);
-	if( r30 == NULL ) hl_null_access();
-	r51 = urho3d_Node_set_position(r30,r45);
-	r47 = r0->cameraNode;
-	if( r47 == NULL ) hl_null_access();
-	r29 = urho3d_Node_set_rotation(r47,r17);
-	goto label$d2c7ce2_6_249;
-	label$d2c7ce2_6_156:
-	r30 = r0->characterNode;
-	if( r30 == NULL ) hl_null_access();
-	r38 = urho3d_Node_get_position(r30);
-	r26 = 0.;
-	r35 = (float)r26;
-	r26 = 1.699999999999999956;
-	r36 = (float)r26;
-	r26 = 0.;
-	r37 = (float)r26;
-	r39 = Urho3D__math_tvector3_create(r35,r36,r37);
-	r40 = Urho3D__math_tquaternion_multiply_tvector3(r9,r39);
-	r35 = Urho3D__math_tvector3_get_x(r38);
-	r26 = (double)r35;
-	r35 = Urho3D__math_tvector3_get_x(r40);
-	r34 = (double)r35;
-	r26 = r26 + r34;
-	r35 = (float)r26;
-	r36 = Urho3D__math_tvector3_get_y(r38);
-	r26 = (double)r36;
-	r36 = Urho3D__math_tvector3_get_y(r40);
-	r34 = (double)r36;
-	r26 = r26 + r34;
-	r36 = (float)r26;
-	r37 = Urho3D__math_tvector3_get_z(r38);
-	r26 = (double)r37;
-	r37 = Urho3D__math_tvector3_get_z(r40);
-	r34 = (double)r37;
-	r26 = r26 + r34;
-	r37 = (float)r26;
-	r45 = Urho3D__math_tvector3_create(r35,r36,r37);
-	r14 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r13 = r14->BACK;
-	r52 = Urho3D__math_tvector3_cast_from_vector3(r13);
-	r52 = Urho3D__math_tquaternion_multiply_tvector3(r17,r52);
-	r26 = r0->cameraDistance;
-	r54 = r0->scene;
-	if( r54 == NULL ) hl_null_access();
-	r53 = urho3d_Scene_get_physicsWorld(r54);
-	r55 = Urho3D__math_t_ray_create(r45,r52);
-	r48 = (float)r26;
-	r46 = 2;
-	r57 = urho3d__PhysicsWorld_PhysicsWorld_Impl__RaycastSingle(r53,r55,r48,r46);
-	r58 = urho3d__PhysicsRaycastResult_PhysicsRaycastResult_Impl__get_body(r57);
-	if( !r58 ) goto label$d2c7ce2_6_204;
-	r48 = urho3d__PhysicsRaycastResult_PhysicsRaycastResult_Impl__get_distance(r57);
-	r59 = (double)r48;
-	r34 = Math_min(r26,r59);
-	r26 = r34;
-	label$d2c7ce2_6_204:
-	r34 = r0->CAMERA_MIN_DIST;
-	r59 = r0->cameraDistance;
-	if( !(r26 < r34) ) goto label$d2c7ce2_6_209;
-	r26 = r34;
-	goto label$d2c7ce2_6_211;
-	label$d2c7ce2_6_209:
-	if( !(r59 < r26) ) goto label$d2c7ce2_6_211;
-	r26 = r59;
-	label$d2c7ce2_6_211:
-	r30 = r0->cameraNode;
-	r48 = Urho3D__math_tvector3_get_x(r52);
-	r60 = (double)r48;
-	r60 = r60 * r26;
-	r48 = (float)r60;
-	r49 = Urho3D__math_tvector3_get_y(r52);
-	r60 = (double)r49;
-	r60 = r60 * r26;
-	r49 = (float)r60;
-	r50 = Urho3D__math_tvector3_get_z(r52);
-	r60 = (double)r50;
-	r60 = r60 * r26;
-	r50 = (float)r60;
-	r56 = Urho3D__math_tvector3_create(r48,r49,r50);
-	r62 = Urho3D__math_tvector3_get_x(r45);
-	r60 = (double)r62;
-	r62 = Urho3D__math_tvector3_get_x(r56);
-	r61 = (double)r62;
-	r60 = r60 + r61;
-	r62 = (float)r60;
-	r63 = Urho3D__math_tvector3_get_y(r45);
-	r60 = (double)r63;
-	r63 = Urho3D__math_tvector3_get_y(r56);
-	r61 = (double)r63;
-	r60 = r60 + r61;
-	r63 = (float)r60;
-	r64 = Urho3D__math_tvector3_get_z(r45);
-	r60 = (double)r64;
-	r64 = Urho3D__math_tvector3_get_z(r56);
-	r61 = (double)r64;
-	r60 = r60 + r61;
-	r64 = (float)r60;
-	r65 = Urho3D__math_tvector3_create(r62,r63,r64);
-	if( r30 == NULL ) hl_null_access();
-	r66 = urho3d_Node_set_position(r30,r65);
-	r47 = r0->cameraNode;
-	if( r47 == NULL ) hl_null_access();
-	r29 = urho3d_Node_set_rotation(r47,r17);
-	label$d2c7ce2_6_249:
+	r27 = NULL;
+	if( !r27 ) goto label$d2c7ce2_6_81;
+	r31 = (float)r26;
+	r29 = Urho3D__math_t_quaternion_create_fv(r31,r27);
+	goto label$d2c7ce2_6_87;
+	label$d2c7ce2_6_81:
+	r31 = (float)r26;
+	r30 = 0.;
+	r32 = (float)r30;
+	r30 = 0.;
+	r33 = (float)r30;
+	r29 = Urho3D__math_t_quaternion_create(r31,r32,r33);
+	label$d2c7ce2_6_87:
+	r24 = r29;
+	label$d2c7ce2_6_88:
+	if( r15 == NULL ) hl_null_access();
+	r34 = r15->controls;
+	if( r34 == NULL ) hl_null_access();
+	r26 = r34->pitch;
+	r36 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r35 = r36->RIGHT;
+	r27 = Urho3D__math_tvector3_cast_from_vector3(r35);
+	if( !r27 ) goto label$d2c7ce2_6_100;
+	r31 = (float)r26;
+	r29 = Urho3D__math_t_quaternion_create_fv(r31,r27);
+	r25 = r29;
+	goto label$d2c7ce2_6_107;
+	label$d2c7ce2_6_100:
+	r31 = (float)r26;
+	r30 = 0.;
+	r32 = (float)r30;
+	r30 = 0.;
+	r33 = (float)r30;
+	r29 = Urho3D__math_t_quaternion_create(r31,r32,r33);
+	r25 = r29;
+	label$d2c7ce2_6_107:
+	r29 = Urho3D__math_t_quaternion_multiply_tquaternion(r24,r25);
+	r23 = r0->characterNode;
+	if( r23 == NULL ) hl_null_access();
+	r6 = r23->abstractNode;
+	if( !r6 ) goto label$d2c7ce2_6_155;
+	r12 = r23->children_name_map;
+	if( r12 == NULL ) hl_null_access();
+	r8 = (String)s$Mutant_Head;
+	r5 = haxe_ds_StringMap_get(r12,r8);
+	r38 = (urho3d__Node)r5;
+	if( !r38 ) goto label$d2c7ce2_6_125;
+	r12 = r23->children_name_map;
+	if( r12 == NULL ) hl_null_access();
+	r8 = (String)s$Mutant_Head;
+	r5 = haxe_ds_StringMap_get(r12,r8);
+	r39 = (urho3d__Node)r5;
+	r38 = r39;
+	goto label$d2c7ce2_6_154;
+	label$d2c7ce2_6_125:
+	r17 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r16 = r17->context;
+	r6 = r23->abstractNode;
+	r8 = (String)s$Mutant_Head;
+	r18 = true;
+	r6 = Urho3D__scene_node_get_child(r16,r6,r8,r18);
+	if( !r6 ) goto label$d2c7ce2_6_152;
+	r40 = r23->children_pointers_map;
+	if( r40 == NULL ) hl_null_access();
+	r17 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r16 = r17->context;
+	r41 = Urho3D__scene_node_get_node_pointer(r16,r6);
+	if( r41 == NULL ) r5 = NULL; else {
+		r5 = hl_alloc_dynamic(&t$hl_urho3d_scene_node_ptr);
+		r5->v.ptr = r41;
+	}
+	r5 = haxe_ds_ObjectMap_get(r40,r5);
+	r39 = (urho3d__Node)r5;
+	if( r39 ) goto label$d2c7ce2_6_144;
+	r42 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
+	urho3d_Node_new(r42,r6);
+	r39 = r42;
+	label$d2c7ce2_6_144:
+	if( r39 == NULL ) hl_null_access();
+	r39->_parent = r23;
+	r12 = r23->children_name_map;
+	if( r12 == NULL ) hl_null_access();
+	r8 = (String)s$Mutant_Head;
+	haxe_ds_StringMap_set(r12,r8,((vdynamic*)r39));
+	r38 = r39;
+	goto label$d2c7ce2_6_154;
+	label$d2c7ce2_6_152:
+	r39 = NULL;
+	r38 = r39;
+	label$d2c7ce2_6_154:
+	goto label$d2c7ce2_6_157;
+	label$d2c7ce2_6_155:
+	r39 = NULL;
+	r38 = r39;
+	label$d2c7ce2_6_157:
+	r34 = r15->controls;
+	if( r34 == NULL ) hl_null_access();
+	r30 = r34->pitch;
+	r44 = -45.;
+	if( !(r30 < r44) ) goto label$d2c7ce2_6_164;
+	r43 = -45.;
+	goto label$d2c7ce2_6_169;
+	label$d2c7ce2_6_164:
+	r44 = 45.;
+	if( !(r44 < r30) ) goto label$d2c7ce2_6_168;
+	r43 = 45.;
+	goto label$d2c7ce2_6_169;
+	label$d2c7ce2_6_168:
+	r43 = r30;
+	label$d2c7ce2_6_169:
+	r44 = 1.;
+	r31 = (float)r44;
+	r44 = 0.;
+	r32 = (float)r44;
+	r44 = 0.;
+	r33 = (float)r44;
+	r28 = Urho3D__math_tvector3_create(r31,r32,r33);
+	if( !r28 ) goto label$d2c7ce2_6_181;
+	r31 = (float)r43;
+	r46 = Urho3D__math_t_quaternion_create_fv(r31,r28);
+	r37 = r46;
+	goto label$d2c7ce2_6_188;
+	label$d2c7ce2_6_181:
+	r31 = (float)r43;
+	r44 = 0.;
+	r32 = (float)r44;
+	r44 = 0.;
+	r33 = (float)r44;
+	r46 = Urho3D__math_t_quaternion_create(r31,r32,r33);
+	r37 = r46;
+	label$d2c7ce2_6_188:
+	r46 = Urho3D__math_t_quaternion_multiply_tquaternion(r24,r37);
+	if( r39 == NULL ) hl_null_access();
+	r6 = r39->abstractNode;
+	if( !r6 ) goto label$d2c7ce2_6_198;
+	r17 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r16 = r17->context;
+	r6 = r39->abstractNode;
+	r47 = Urho3D__scene_node_get_world_position(r16,r6);
+	r45 = r47;
+	goto label$d2c7ce2_6_206;
+	label$d2c7ce2_6_198:
+	r44 = 0.;
+	r31 = (float)r44;
+	r44 = 0.;
+	r32 = (float)r44;
+	r44 = 0.;
+	r33 = (float)r44;
+	r47 = Urho3D__math_tvector3_create(r31,r32,r33);
+	r45 = r47;
+	label$d2c7ce2_6_206:
+	r44 = 0.;
+	r31 = (float)r44;
+	r44 = 0.;
+	r32 = (float)r44;
+	r44 = -1.;
+	r33 = (float)r44;
+	r47 = Urho3D__math_tvector3_create(r31,r32,r33);
+	r48 = Urho3D__math_t_quaternion_multiply_tvector3(r46,r47);
+	r31 = Urho3D__math_tvector3_get_x(r45);
+	r44 = (double)r31;
+	r31 = Urho3D__math_tvector3_get_x(r48);
+	r50 = (double)r31;
+	r44 = r44 + r50;
+	r31 = (float)r44;
+	r32 = Urho3D__math_tvector3_get_y(r45);
+	r44 = (double)r32;
+	r32 = Urho3D__math_tvector3_get_y(r48);
+	r50 = (double)r32;
+	r44 = r44 + r50;
+	r32 = (float)r44;
+	r33 = Urho3D__math_tvector3_get_z(r45);
+	r44 = (double)r33;
+	r33 = Urho3D__math_tvector3_get_z(r48);
+	r50 = (double)r33;
+	r44 = r44 + r50;
+	r33 = (float)r44;
+	r49 = Urho3D__math_tvector3_create(r31,r32,r33);
+	r44 = 0.;
+	r51 = (float)r44;
+	r44 = 1.;
+	r52 = (float)r44;
+	r44 = 0.;
+	r53 = (float)r44;
+	r54 = Urho3D__math_tvector3_create(r51,r52,r53);
+	r55 = r54;
+	r6 = r39->abstractNode;
+	if( !r6 ) goto label$d2c7ce2_6_253;
+	if( r54 ) goto label$d2c7ce2_6_248;
+	r36 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r35 = r36->UP;
+	r56 = Urho3D__math_tvector3_cast_from_vector3(r35);
+	r55 = r56;
+	label$d2c7ce2_6_248:
+	r17 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r16 = r17->context;
+	r6 = r39->abstractNode;
+	r14 = 2;
+	r18 = Urho3D__scene_node_look_at(r16,r6,r49,r55,r14);
+	label$d2c7ce2_6_253:
+	r18 = r0->firstPerson;
+	if( !r18 ) goto label$d2c7ce2_6_316;
+	r39 = r0->cameraNode;
+	if( r38 == NULL ) hl_null_access();
+	r6 = r38->abstractNode;
+	if( !r6 ) goto label$d2c7ce2_6_265;
+	r17 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r16 = r17->context;
+	r6 = r38->abstractNode;
+	r55 = Urho3D__scene_node_get_world_position(r16,r6);
+	r54 = r55;
+	goto label$d2c7ce2_6_273;
+	label$d2c7ce2_6_265:
+	r44 = 0.;
+	r51 = (float)r44;
+	r44 = 0.;
+	r52 = (float)r44;
+	r44 = 0.;
+	r53 = (float)r44;
+	r55 = Urho3D__math_tvector3_create(r51,r52,r53);
+	r54 = r55;
+	label$d2c7ce2_6_273:
+	r44 = 0.;
+	r51 = (float)r44;
+	r44 = 0.1499999999999999944;
+	r52 = (float)r44;
+	r44 = 0.2000000000000000111;
+	r53 = (float)r44;
+	r55 = Urho3D__math_tvector3_create(r51,r52,r53);
+	r56 = Urho3D__math_t_quaternion_multiply_tvector3(r24,r55);
+	r51 = Urho3D__math_tvector3_get_x(r54);
+	r44 = (double)r51;
+	r51 = Urho3D__math_tvector3_get_x(r56);
+	r50 = (double)r51;
+	r44 = r44 + r50;
+	r51 = (float)r44;
+	r52 = Urho3D__math_tvector3_get_y(r54);
+	r44 = (double)r52;
+	r52 = Urho3D__math_tvector3_get_y(r56);
+	r50 = (double)r52;
+	r44 = r44 + r50;
+	r52 = (float)r44;
+	r53 = Urho3D__math_tvector3_get_z(r54);
+	r44 = (double)r53;
+	r53 = Urho3D__math_tvector3_get_z(r56);
+	r50 = (double)r53;
+	r44 = r44 + r50;
+	r53 = (float)r44;
+	r57 = Urho3D__math_tvector3_create(r51,r52,r53);
+	if( r39 == NULL ) hl_null_access();
+	r6 = r39->abstractNode;
+	if( !r6 ) goto label$d2c7ce2_6_307;
+	r17 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r16 = r17->context;
+	r6 = r39->abstractNode;
+	Urho3D__scene_node_set_position(r16,r6,r57);
+	label$d2c7ce2_6_307:
+	r39 = r0->cameraNode;
+	if( r39 == NULL ) hl_null_access();
+	r6 = r39->abstractNode;
+	if( !r6 ) goto label$d2c7ce2_6_315;
+	r17 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r16 = r17->context;
+	r6 = r39->abstractNode;
+	Urho3D__scene_node_set_rotation(r16,r6,r29);
+	label$d2c7ce2_6_315:
+	goto label$d2c7ce2_6_436;
+	label$d2c7ce2_6_316:
+	r39 = r0->characterNode;
+	if( r39 == NULL ) hl_null_access();
+	r6 = r39->abstractNode;
+	if( !r6 ) goto label$d2c7ce2_6_326;
+	r17 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r16 = r17->context;
+	r6 = r39->abstractNode;
+	r55 = Urho3D__scene_node_get_position(r16,r6);
+	r54 = r55;
+	goto label$d2c7ce2_6_334;
+	label$d2c7ce2_6_326:
+	r44 = 0.;
+	r51 = (float)r44;
+	r44 = 0.;
+	r52 = (float)r44;
+	r44 = 0.;
+	r53 = (float)r44;
+	r55 = Urho3D__math_tvector3_create(r51,r52,r53);
+	r54 = r55;
+	label$d2c7ce2_6_334:
+	r44 = 0.;
+	r51 = (float)r44;
+	r44 = 1.699999999999999956;
+	r52 = (float)r44;
+	r44 = 0.;
+	r53 = (float)r44;
+	r55 = Urho3D__math_tvector3_create(r51,r52,r53);
+	r56 = Urho3D__math_t_quaternion_multiply_tvector3(r24,r55);
+	r51 = Urho3D__math_tvector3_get_x(r54);
+	r44 = (double)r51;
+	r51 = Urho3D__math_tvector3_get_x(r56);
+	r50 = (double)r51;
+	r44 = r44 + r50;
+	r51 = (float)r44;
+	r52 = Urho3D__math_tvector3_get_y(r54);
+	r44 = (double)r52;
+	r52 = Urho3D__math_tvector3_get_y(r56);
+	r50 = (double)r52;
+	r44 = r44 + r50;
+	r52 = (float)r44;
+	r53 = Urho3D__math_tvector3_get_z(r54);
+	r44 = (double)r53;
+	r53 = Urho3D__math_tvector3_get_z(r56);
+	r50 = (double)r53;
+	r44 = r44 + r50;
+	r53 = (float)r44;
+	r57 = Urho3D__math_tvector3_create(r51,r52,r53);
+	r36 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r35 = r36->BACK;
+	r61 = Urho3D__math_tvector3_cast_from_vector3(r35);
+	r61 = Urho3D__math_t_quaternion_multiply_tvector3(r29,r61);
+	r44 = r0->cameraDistance;
+	r63 = r0->scene;
+	if( r63 == NULL ) hl_null_access();
+	r62 = urho3d_Scene_get_physicsWorld(r63);
+	r64 = Urho3D__math_t_ray_create(r57,r61);
+	r58 = (float)r44;
+	r14 = 2;
+	r66 = urho3d__PhysicsWorld_PhysicsWorld_Impl__RaycastSingle(r62,r64,r58,r14);
+	r67 = urho3d__PhysicsRaycastResult_PhysicsRaycastResult_Impl__get_body(r66);
+	if( !r67 ) goto label$d2c7ce2_6_381;
+	r58 = urho3d__PhysicsRaycastResult_PhysicsRaycastResult_Impl__get_distance(r66);
+	r50 = (double)r58;
+	if( r44 < r50 ) goto label$d2c7ce2_6_381;
+	r18 = hl_math_isnan(r44);
+	if( r18 ) goto label$d2c7ce2_6_381;
+	r44 = r50;
+	label$d2c7ce2_6_381:
+	r50 = r0->CAMERA_MIN_DIST;
+	r68 = r0->cameraDistance;
+	if( !(r44 < r50) ) goto label$d2c7ce2_6_386;
+	r44 = r50;
+	goto label$d2c7ce2_6_388;
+	label$d2c7ce2_6_386:
+	if( !(r68 < r44) ) goto label$d2c7ce2_6_388;
+	r44 = r68;
+	label$d2c7ce2_6_388:
+	r42 = r0->cameraNode;
+	r58 = Urho3D__math_tvector3_get_x(r61);
+	r69 = (double)r58;
+	r69 = r69 * r44;
+	r58 = (float)r69;
+	r59 = Urho3D__math_tvector3_get_y(r61);
+	r69 = (double)r59;
+	r69 = r69 * r44;
+	r59 = (float)r69;
+	r60 = Urho3D__math_tvector3_get_z(r61);
+	r69 = (double)r60;
+	r69 = r69 * r44;
+	r60 = (float)r69;
+	r65 = Urho3D__math_tvector3_create(r58,r59,r60);
+	r71 = Urho3D__math_tvector3_get_x(r57);
+	r69 = (double)r71;
+	r71 = Urho3D__math_tvector3_get_x(r65);
+	r70 = (double)r71;
+	r69 = r69 + r70;
+	r71 = (float)r69;
+	r72 = Urho3D__math_tvector3_get_y(r57);
+	r69 = (double)r72;
+	r72 = Urho3D__math_tvector3_get_y(r65);
+	r70 = (double)r72;
+	r69 = r69 + r70;
+	r72 = (float)r69;
+	r73 = Urho3D__math_tvector3_get_z(r57);
+	r69 = (double)r73;
+	r73 = Urho3D__math_tvector3_get_z(r65);
+	r70 = (double)r73;
+	r69 = r69 + r70;
+	r73 = (float)r69;
+	r74 = Urho3D__math_tvector3_create(r71,r72,r73);
+	if( r42 == NULL ) hl_null_access();
+	r6 = r42->abstractNode;
+	if( !r6 ) goto label$d2c7ce2_6_428;
+	r17 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r16 = r17->context;
+	r6 = r42->abstractNode;
+	Urho3D__scene_node_set_position(r16,r6,r74);
+	label$d2c7ce2_6_428:
+	r42 = r0->cameraNode;
+	if( r42 == NULL ) hl_null_access();
+	r6 = r42->abstractNode;
+	if( !r6 ) goto label$d2c7ce2_6_436;
+	r17 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r16 = r17->context;
+	r6 = r42->abstractNode;
+	Urho3D__scene_node_set_rotation(r16,r6,r29);
+	label$d2c7ce2_6_436:
 	return;
 }
 
 void CharacterDemoSample_HandleUpdate(CharacterDemoSample r0,hl_urho3d_stringhash* r1,hl_urho3d_variantmap* r2) {
-	urho3d__Camera r20, r21;
-	String r16, r39;
-	bool *r7;
-	vvirtual *r42, *r43;
-	hl_urho3d_scene_component *r15;
-	urho3d___Vector3__$Vector3_Impl_ r32;
-	bool r14;
-	urho3d__Controls r9;
-	utils__Character r8;
-	urho3d__Scene r38;
-	hl_urho3d_math_vector3 *r31;
-	urho3d__Node r4, r36;
-	haxe__$Log r41;
-	hl_urho3d_math_tquaternion *r33;
-	hl_urho3d_math_tintvector2 *r24;
-	utils__$Character r6;
-	urho3d___Context__$Context_Impl_ r19;
-	hl_urho3d_graphics_camera *r17;
-	float r28, r34, r35;
-	hl_urho3d_input_touch_state *r23;
-	urho3d_context *r18;
-	vclosure *r40;
-	double r22, r26, r27, r29;
-	hl_urho3d_scene_scene *r37;
-	hl_urho3d_math_tvector3 *r30;
-	vdynamic *r5;
-	int r10, r11, r12, r13, r25;
+	bool *r23;
+	String r8, r11;
+	hl_urho3d_scene_node_ptr *r58;
+	hl_urho3d_scene_component *r29;
+	bool r19;
+	utils__Character r14, r16;
+	urho3d__Scene r48;
+	hl_urho3d_math_vector3 *r42;
+	urho3d__Node r4, r7, r28, r57;
+	hl_urho3d_math_tquaternion *r44;
+	hl_urho3d_graphics_camera *r30;
+	urho3d_context *r17;
+	vclosure *r49;
+	hl_urho3d_scene_scene *r47;
+	vdynamic *r5, *r20;
+	int r15, r25, r26, r27, r36;
+	urho3d__Camera r31, r32;
+	haxe__ds__ObjectMap r54;
+	vvirtual *r51, *r52, *r53, *r55, *r56;
+	haxe__ds__StringMap r12;
+	hl__types__ArrayObj r9;
+	hl_type *r22;
+	urho3d___Vector3__$Vector3_Impl_ r43;
+	urho3d__Controls r24;
+	haxe__$Log r50;
+	hl_urho3d_math_tintvector2 *r35;
+	utils__$Character r10;
+	urho3d___Context__$Context_Impl_ r18;
+	float r39, r45, r46;
+	hl_urho3d_input_touch_state *r34;
+	hl_urho3d_scene_node *r6;
+	double r33, r37, r38, r40;
+	hl__types__ArrayDyn r13;
+	hl_urho3d_math_tvector3 *r41;
+	varray *r21;
 	r4 = r0->characterNode;
 	if( r4 ) goto label$d2c7ce2_7_3;
 	return;
 	label$d2c7ce2_7_3:
 	r4 = r0->characterNode;
 	if( r4 == NULL ) hl_null_access();
-	r6 = (utils__$Character)g$_utils_Character;
-	r7 = NULL;
-	r5 = urho3d_Node_GetLogicComponent(r4,((vdynamic*)r6),r7);
-	r8 = (utils__Character)hl_dyn_castp(&r5,&t$_dyn,&t$utils_Character);
+	r6 = r4->abstractNode;
+	if( !r6 ) goto label$d2c7ce2_7_64;
+	r10 = (utils__$Character)g$_utils_Character;
+	r8 = Std_string(((vdynamic*)r10));
 	if( r8 == NULL ) hl_null_access();
-	r9 = r8->controls;
-	r10 = r0->CTRL_FORWARD;
-	r11 = r0->CTRL_BACK;
-	r10 = r10 | r11;
-	r11 = r0->CTRL_LEFT;
-	r10 = r10 | r11;
-	r11 = r0->CTRL_RIGHT;
-	r10 = r10 | r11;
-	r11 = r0->CTRL_JUMP;
-	r10 = r10 | r11;
+	r11 = (String)s$c3e97dd;
+	r9 = String_split(r8,r11);
 	if( r9 == NULL ) hl_null_access();
-	r11 = r9->buttons;
-	r13 = -1;
-	r12 = r10 ^ r13;
-	r11 = r11 & r12;
-	r9->buttons = r11;
-	r9 = r8->controls;
-	r10 = r0->CTRL_FORWARD;
-	r11 = 119;
-	r14 = urho3d_Input_GetKeyDown(r11);
-	if( !r14 ) goto label$d2c7ce2_7_36;
-	if( r9 == NULL ) hl_null_access();
-	r11 = r9->buttons;
-	r11 = r11 | r10;
-	r9->buttons = r11;
-	goto label$d2c7ce2_7_42;
-	label$d2c7ce2_7_36:
-	if( r9 == NULL ) hl_null_access();
-	r11 = r9->buttons;
-	r13 = -1;
-	r12 = r10 ^ r13;
-	r11 = r11 & r12;
-	r9->buttons = r11;
-	label$d2c7ce2_7_42:
-	r9 = r8->controls;
-	r10 = r0->CTRL_BACK;
-	r11 = 115;
-	r14 = urho3d_Input_GetKeyDown(r11);
-	if( !r14 ) goto label$d2c7ce2_7_52;
-	if( r9 == NULL ) hl_null_access();
-	r11 = r9->buttons;
-	r11 = r11 | r10;
-	r9->buttons = r11;
-	goto label$d2c7ce2_7_58;
-	label$d2c7ce2_7_52:
-	if( r9 == NULL ) hl_null_access();
-	r11 = r9->buttons;
-	r13 = -1;
-	r12 = r10 ^ r13;
-	r11 = r11 & r12;
-	r9->buttons = r11;
-	label$d2c7ce2_7_58:
-	r9 = r8->controls;
-	r10 = r0->CTRL_LEFT;
-	r11 = 97;
-	r14 = urho3d_Input_GetKeyDown(r11);
-	if( !r14 ) goto label$d2c7ce2_7_68;
-	if( r9 == NULL ) hl_null_access();
-	r11 = r9->buttons;
-	r11 = r11 | r10;
-	r9->buttons = r11;
-	goto label$d2c7ce2_7_74;
-	label$d2c7ce2_7_68:
-	if( r9 == NULL ) hl_null_access();
-	r11 = r9->buttons;
-	r13 = -1;
-	r12 = r10 ^ r13;
-	r11 = r11 & r12;
-	r9->buttons = r11;
-	label$d2c7ce2_7_74:
-	r9 = r8->controls;
-	r10 = r0->CTRL_RIGHT;
-	r11 = 100;
-	r14 = urho3d_Input_GetKeyDown(r11);
-	if( !r14 ) goto label$d2c7ce2_7_84;
-	if( r9 == NULL ) hl_null_access();
-	r11 = r9->buttons;
-	r11 = r11 | r10;
-	r9->buttons = r11;
-	goto label$d2c7ce2_7_90;
-	label$d2c7ce2_7_84:
-	if( r9 == NULL ) hl_null_access();
-	r11 = r9->buttons;
-	r13 = -1;
-	r12 = r10 ^ r13;
-	r11 = r11 & r12;
-	r9->buttons = r11;
-	label$d2c7ce2_7_90:
-	r9 = r8->controls;
-	r10 = r0->CTRL_JUMP;
-	r11 = 32;
-	r14 = urho3d_Input_GetKeyDown(r11);
-	if( !r14 ) goto label$d2c7ce2_7_100;
-	if( r9 == NULL ) hl_null_access();
-	r11 = r9->buttons;
-	r11 = r11 | r10;
-	r9->buttons = r11;
-	goto label$d2c7ce2_7_106;
+	r8 = (String)s$;
+	r8 = hl_types_ArrayObj_join(r9,r8);
+	r12 = r4->logic_components_map;
+	if( r12 == NULL ) hl_null_access();
+	r5 = haxe_ds_StringMap_get(r12,r8);
+	r13 = (hl__types__ArrayDyn)hl_dyn_castp(&r5,&t$_dyn,&t$hl_types_ArrayDyn);
+	if( !r13 ) goto label$d2c7ce2_7_30;
+	r12 = r4->logic_components_map;
+	if( r12 == NULL ) hl_null_access();
+	r5 = haxe_ds_StringMap_get(r12,r8);
+	r13 = (hl__types__ArrayDyn)hl_dyn_castp(&r5,&t$_dyn,&t$hl_types_ArrayDyn);
+	if( r13 == NULL ) hl_null_access();
+	r15 = 0;
+	r5 = ((vdynamic* (*)(hl__types__ArrayDyn,int))r13->$type->vobj_proto[0])(r13,r15);
+	r16 = (utils__Character)hl_dyn_castp(&r5,&t$_dyn,&t$utils_Character);
+	r14 = r16;
+	goto label$d2c7ce2_7_63;
+	label$d2c7ce2_7_30:
+	r18 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r17 = r18->context;
+	r6 = r4->abstractNode;
+	r19 = true;
+	r5 = Urho3D__scene_node_get_logic_component(r17,r6,r8,r19);
+	if( !r5 ) goto label$d2c7ce2_7_60;
+	r12 = r4->logic_components_map;
+	if( r12 == NULL ) hl_null_access();
+	r20 = haxe_ds_StringMap_get(r12,r8);
+	r13 = (hl__types__ArrayDyn)hl_dyn_castp(&r20,&t$_dyn,&t$hl_types_ArrayDyn);
+	if( r13 ) goto label$d2c7ce2_7_51;
+	r22 = &t$_dyn;
+	r15 = 0;
+	r21 = hl_alloc_array(r22,r15);
+	r9 = hl_types_ArrayObj_alloc(r21);
+	r19 = true;
+	r23 = &r19;
+	r13 = hl_types_ArrayDyn_alloc(((hl__types__ArrayBase)r9),r23);
+	r12 = r4->logic_components_map;
+	if( r12 == NULL ) hl_null_access();
+	haxe_ds_StringMap_set(r12,r8,((vdynamic*)r13));
+	label$d2c7ce2_7_51:
+	r12 = r4->logic_components_map;
+	if( r12 == NULL ) hl_null_access();
+	r20 = haxe_ds_StringMap_get(r12,r8);
+	r13 = (hl__types__ArrayDyn)hl_dyn_castp(&r20,&t$_dyn,&t$hl_types_ArrayDyn);
+	if( r13 == NULL ) hl_null_access();
+	r15 = hl_types_ArrayDyn_push(r13,r5);
+	r16 = (utils__Character)hl_dyn_castp(&r5,&t$_dyn,&t$utils_Character);
+	r14 = r16;
+	goto label$d2c7ce2_7_63;
+	label$d2c7ce2_7_60:
+	r20 = NULL;
+	r16 = (utils__Character)hl_dyn_castp(&r20,&t$_dyn,&t$utils_Character);
+	r14 = r16;
+	label$d2c7ce2_7_63:
+	goto label$d2c7ce2_7_67;
+	label$d2c7ce2_7_64:
+	r5 = NULL;
+	r16 = (utils__Character)hl_dyn_castp(&r5,&t$_dyn,&t$utils_Character);
+	r14 = r16;
+	label$d2c7ce2_7_67:
+	if( r16 == NULL ) hl_null_access();
+	r24 = r16->controls;
+	r15 = r0->CTRL_FORWARD;
+	r25 = r0->CTRL_BACK;
+	r15 = r15 | r25;
+	r25 = r0->CTRL_LEFT;
+	r15 = r15 | r25;
+	r25 = r0->CTRL_RIGHT;
+	r15 = r15 | r25;
+	r25 = r0->CTRL_JUMP;
+	r15 = r15 | r25;
+	if( r24 == NULL ) hl_null_access();
+	r25 = r24->buttons;
+	r27 = -1;
+	r26 = r15 ^ r27;
+	r25 = r25 & r26;
+	r24->buttons = r25;
+	r24 = r16->controls;
+	r15 = r0->CTRL_FORWARD;
+	r25 = 119;
+	r19 = urho3d_Input_GetKeyDown(r25);
+	if( !r19 ) goto label$d2c7ce2_7_94;
+	if( r24 == NULL ) hl_null_access();
+	r25 = r24->buttons;
+	r25 = r25 | r15;
+	r24->buttons = r25;
+	goto label$d2c7ce2_7_100;
+	label$d2c7ce2_7_94:
+	if( r24 == NULL ) hl_null_access();
+	r25 = r24->buttons;
+	r27 = -1;
+	r26 = r15 ^ r27;
+	r25 = r25 & r26;
+	r24->buttons = r25;
 	label$d2c7ce2_7_100:
-	if( r9 == NULL ) hl_null_access();
-	r11 = r9->buttons;
-	r13 = -1;
-	r12 = r10 ^ r13;
-	r11 = r11 & r12;
-	r9->buttons = r11;
-	label$d2c7ce2_7_106:
-	r10 = urho3d_Input_get_numTouches();
-	r11 = 0;
-	if( r11 >= r10 ) goto label$d2c7ce2_7_177;
-	r4 = r0->cameraNode;
-	if( r4 == NULL ) hl_null_access();
-	r16 = (String)s$Camera;
-	r7 = NULL;
-	r15 = urho3d_Node_GetComponent(r4,r16,r7);
-	if( !r15 ) goto label$d2c7ce2_7_122;
-	r19 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r18 = r19->context;
-	r17 = Urho3D__graphics_camera_cast_from_component(r18,r15);
-	r21 = (urho3d__Camera)hl_alloc_obj(&t$urho3d_Camera);
-	urho3d_Camera_new(r21,r17);
-	r20 = r21;
-	goto label$d2c7ce2_7_124;
-	label$d2c7ce2_7_122:
-	r21 = NULL;
-	r20 = r21;
-	label$d2c7ce2_7_124:
-	r22 = 2.;
-	if( !r21 ) goto label$d2c7ce2_7_176;
-	r10 = 0;
-	r11 = urho3d_Input_get_numTouches();
-	label$d2c7ce2_7_128:
-	if( r10 >= r11 ) goto label$d2c7ce2_7_176;
-	r12 = r10;
-	++r10;
-	r19 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r18 = r19->context;
-	r23 = Urho3D__input_touch_state_get(r18,r12);
-	r24 = urho3d__TouchState_TouchState_Impl__get_delta(r23);
-	r13 = Urho3D__math_tintvector2_get_x(r24);
+	r24 = r16->controls;
+	r15 = r0->CTRL_BACK;
+	r25 = 115;
+	r19 = urho3d_Input_GetKeyDown(r25);
+	if( !r19 ) goto label$d2c7ce2_7_110;
+	if( r24 == NULL ) hl_null_access();
+	r25 = r24->buttons;
+	r25 = r25 | r15;
+	r24->buttons = r25;
+	goto label$d2c7ce2_7_116;
+	label$d2c7ce2_7_110:
+	if( r24 == NULL ) hl_null_access();
+	r25 = r24->buttons;
+	r27 = -1;
+	r26 = r15 ^ r27;
+	r25 = r25 & r26;
+	r24->buttons = r25;
+	label$d2c7ce2_7_116:
+	r24 = r16->controls;
+	r15 = r0->CTRL_LEFT;
+	r25 = 97;
+	r19 = urho3d_Input_GetKeyDown(r25);
+	if( !r19 ) goto label$d2c7ce2_7_126;
+	if( r24 == NULL ) hl_null_access();
+	r25 = r24->buttons;
+	r25 = r25 | r15;
+	r24->buttons = r25;
+	goto label$d2c7ce2_7_132;
+	label$d2c7ce2_7_126:
+	if( r24 == NULL ) hl_null_access();
+	r25 = r24->buttons;
+	r27 = -1;
+	r26 = r15 ^ r27;
+	r25 = r25 & r26;
+	r24->buttons = r25;
+	label$d2c7ce2_7_132:
+	r24 = r16->controls;
+	r15 = r0->CTRL_RIGHT;
+	r25 = 100;
+	r19 = urho3d_Input_GetKeyDown(r25);
+	if( !r19 ) goto label$d2c7ce2_7_142;
+	if( r24 == NULL ) hl_null_access();
+	r25 = r24->buttons;
+	r25 = r25 | r15;
+	r24->buttons = r25;
+	goto label$d2c7ce2_7_148;
+	label$d2c7ce2_7_142:
+	if( r24 == NULL ) hl_null_access();
+	r25 = r24->buttons;
+	r27 = -1;
+	r26 = r15 ^ r27;
+	r25 = r25 & r26;
+	r24->buttons = r25;
+	label$d2c7ce2_7_148:
+	r24 = r16->controls;
+	r15 = r0->CTRL_JUMP;
+	r25 = 32;
+	r19 = urho3d_Input_GetKeyDown(r25);
+	if( !r19 ) goto label$d2c7ce2_7_158;
+	if( r24 == NULL ) hl_null_access();
+	r25 = r24->buttons;
+	r25 = r25 | r15;
+	r24->buttons = r25;
+	goto label$d2c7ce2_7_164;
+	label$d2c7ce2_7_158:
+	if( r24 == NULL ) hl_null_access();
+	r25 = r24->buttons;
+	r27 = -1;
+	r26 = r15 ^ r27;
+	r25 = r25 & r26;
+	r24->buttons = r25;
+	label$d2c7ce2_7_164:
+	r15 = urho3d_Input_get_numTouches();
 	r25 = 0;
-	if( r13 != r25 ) goto label$d2c7ce2_7_143;
-	r24 = urho3d__TouchState_TouchState_Impl__get_delta(r23);
-	r13 = Urho3D__math_tintvector2_get_y(r24);
-	r25 = 0;
-	if( r13 == r25 ) goto label$d2c7ce2_7_175;
-	label$d2c7ce2_7_143:
-	if( r8 == NULL ) hl_null_access();
-	r9 = r8->controls;
-	if( r9 == NULL ) hl_null_access();
-	r26 = r9->yaw;
-	if( r20 == NULL ) hl_null_access();
-	r28 = urho3d_Camera_get_fov(r20);
-	r29 = (double)r28;
-	r27 = r22 * r29;
-	r13 = urho3d_Graphics_get_height();
-	r29 = (double)r13;
-	r27 = r27 / r29;
-	r24 = urho3d__TouchState_TouchState_Impl__get_delta(r23);
-	r13 = Urho3D__math_tintvector2_get_x(r24);
-	r29 = (double)r13;
-	r27 = r27 * r29;
-	r26 = r26 + r27;
-	r9->yaw = r26;
-	r9 = r8->controls;
-	if( r9 == NULL ) hl_null_access();
-	r26 = r9->pitch;
-	r28 = urho3d_Camera_get_fov(r20);
-	r29 = (double)r28;
-	r27 = r22 * r29;
-	r13 = urho3d_Graphics_get_height();
-	r29 = (double)r13;
-	r27 = r27 / r29;
-	r24 = urho3d__TouchState_TouchState_Impl__get_delta(r23);
-	r13 = Urho3D__math_tintvector2_get_y(r24);
-	r29 = (double)r13;
-	r27 = r27 * r29;
-	r26 = r26 + r27;
-	r9->pitch = r26;
-	label$d2c7ce2_7_175:
-	goto label$d2c7ce2_7_128;
-	label$d2c7ce2_7_176:
-	goto label$d2c7ce2_7_195;
-	label$d2c7ce2_7_177:
-	r9 = r8->controls;
-	if( r9 == NULL ) hl_null_access();
-	r22 = r9->yaw;
-	r10 = urho3d_Input_get_mouseMoveX();
-	r26 = (double)r10;
-	r27 = r0->YAW_SENSITIVITY;
-	r26 = r26 * r27;
-	r22 = r22 + r26;
-	r9->yaw = r22;
-	r9 = r8->controls;
-	if( r9 == NULL ) hl_null_access();
-	r22 = r9->pitch;
-	r10 = urho3d_Input_get_mouseMoveY();
-	r26 = (double)r10;
-	r27 = r0->YAW_SENSITIVITY;
-	r26 = r26 * r27;
-	r22 = r22 + r26;
-	r9->pitch = r22;
-	label$d2c7ce2_7_195:
-	if( r8 == NULL ) hl_null_access();
-	r9 = r8->controls;
-	if( r9 == NULL ) hl_null_access();
-	r22 = r9->pitch;
-	r9 = r8->controls;
-	if( r9 == NULL ) hl_null_access();
-	r27 = -80.;
-	if( !(r22 < r27) ) goto label$d2c7ce2_7_205;
-	r26 = -80.;
-	goto label$d2c7ce2_7_210;
-	label$d2c7ce2_7_205:
-	r27 = 80.;
-	if( !(r27 < r22) ) goto label$d2c7ce2_7_209;
-	r26 = 80.;
-	goto label$d2c7ce2_7_210;
-	label$d2c7ce2_7_209:
-	r26 = r22;
-	label$d2c7ce2_7_210:
-	r9->pitch = r26;
-	r4 = r0->characterNode;
-	r9 = r8->controls;
-	if( r9 == NULL ) hl_null_access();
-	r26 = r9->yaw;
-	r32 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
-	r31 = r32->UP;
-	r30 = Urho3D__math_tvector3_cast_from_vector3(r31);
-	if( !r30 ) goto label$d2c7ce2_7_222;
-	r28 = (float)r26;
-	r33 = Urho3D__math_tquaternion_create_fv(r28,r30);
-	goto label$d2c7ce2_7_228;
-	label$d2c7ce2_7_222:
-	r28 = (float)r26;
-	r27 = 0.;
-	r34 = (float)r27;
-	r27 = 0.;
-	r35 = (float)r27;
-	r33 = Urho3D__math_tquaternion_create(r28,r34,r35);
-	label$d2c7ce2_7_228:
-	if( r4 == NULL ) hl_null_access();
-	r33 = urho3d_Node_set_rotation(r4,r33);
-	r10 = 102;
-	r14 = urho3d_Input_GetKeyPress(r10);
-	if( !r14 ) goto label$d2c7ce2_7_236;
-	r14 = r0->firstPerson;
-	r14 = !r14;
-	r0->firstPerson = r14;
-	label$d2c7ce2_7_236:
-	r10 = 1073741824;
-	r11 = 62;
-	r10 = r10 | r11;
-	r14 = urho3d_Input_GetKeyPress(r10);
-	if( !r14 ) goto label$d2c7ce2_7_267;
-	r19 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r18 = r19->context;
-	r38 = r0->scene;
-	if( r38 == NULL ) hl_null_access();
-	r37 = r38->abstractScene;
-	r16 = (String)s$CharacterDemo_xml;
-	r39 = (String)s$5e732a1;
-	r14 = Urho3D__scene_scene_save_xml_string(r18,r37,r16,r39);
-	r41 = (haxe__$Log)g$_haxe_Log;
-	r40 = r41->trace;
-	if( r40 == NULL ) hl_null_access();
-	r16 = (String)s$SaveXML_;
-	r5 = hl_alloc_dynbool(r14);
-	r39 = Std_string(r5);
-	r16 = String___add__(r16,r39);
-	r42 = hl_alloc_virtual(&t$vrt_329ffa8);
-	r39 = (String)s$src_haxe_CharacterDemoSample_hx;
-	if( hl_vfields(r42)[1] ) *(String*)(hl_vfields(r42)[1]) = (String)r39; else hl_dyn_setp(r42->value,37969014/*fileName*/,&t$String,r39);
-	r10 = 313;
-	if( hl_vfields(r42)[2] ) *(int*)(hl_vfields(r42)[2]) = (int)r10; else hl_dyn_seti(r42->value,371360620/*lineNumber*/,&t$_i32,r10);
-	r39 = (String)s$CharacterDemoSample;
-	if( hl_vfields(r42)[0] ) *(String*)(hl_vfields(r42)[0]) = (String)r39; else hl_dyn_setp(r42->value,-63073762/*className*/,&t$String,r39);
-	r39 = (String)s$HandleUpdate;
-	if( hl_vfields(r42)[3] ) *(String*)(hl_vfields(r42)[3]) = (String)r39; else hl_dyn_setp(r42->value,302979532/*methodName*/,&t$String,r39);
-	r43 = hl_to_virtual(&t$vrt_eaa6a3b,(vdynamic*)r42);
-	r40->hasValue ? ((void (*)(vdynamic*,vdynamic*,vvirtual*))r40->fun)((vdynamic*)r40->value,((vdynamic*)r16),r43) : ((void (*)(vdynamic*,vvirtual*))r40->fun)(((vdynamic*)r16),r43);
-	label$d2c7ce2_7_267:
-	r10 = 1073741824;
-	r11 = 64;
-	r10 = r10 | r11;
-	r14 = urho3d_Input_GetKeyPress(r10);
-	if( !r14 ) goto label$d2c7ce2_7_287;
-	r38 = r0->scene;
-	if( r38 == NULL ) hl_null_access();
-	urho3d_Node_CleanChildData(((urho3d__Node)r38));
-	r19 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r18 = r19->context;
-	r37 = r38->abstractScene;
-	r16 = (String)s$CharacterDemo_xml;
-	r14 = Urho3D__scene_scene_load_xml_string(r18,r37,r16);
-	r38 = r0->scene;
-	if( r38 == NULL ) hl_null_access();
-	r16 = (String)s$Jack;
-	r14 = true;
-	r7 = &r14;
-	r36 = urho3d_Node_GetChild(((urho3d__Node)r38),r16,r7);
-	r0->characterNode = r36;
+	if( r25 >= r15 ) goto label$d2c7ce2_7_242;
+	r7 = r0->cameraNode;
+	if( r7 == NULL ) hl_null_access();
+	r6 = r7->abstractNode;
+	if( !r6 ) goto label$d2c7ce2_7_178;
+	r18 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r17 = r18->context;
+	r6 = r7->abstractNode;
+	r8 = (String)s$Camera;
+	r19 = false;
+	r29 = Urho3D__scene_node_get_component(r17,r6,r8,r19);
+	goto label$d2c7ce2_7_179;
+	label$d2c7ce2_7_178:
+	r29 = NULL;
+	label$d2c7ce2_7_179:
+	if( !r29 ) goto label$d2c7ce2_7_187;
+	r18 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r17 = r18->context;
+	r30 = Urho3D__graphics_camera_cast_from_component(r17,r29);
+	r32 = (urho3d__Camera)hl_alloc_obj(&t$urho3d_Camera);
+	urho3d_Camera_new(r32,r30);
+	r31 = r32;
+	goto label$d2c7ce2_7_189;
+	label$d2c7ce2_7_187:
+	r32 = NULL;
+	r31 = r32;
+	label$d2c7ce2_7_189:
+	r33 = 2.;
+	if( !r32 ) goto label$d2c7ce2_7_241;
+	r15 = 0;
+	r25 = urho3d_Input_get_numTouches();
+	label$d2c7ce2_7_193:
+	if( r15 >= r25 ) goto label$d2c7ce2_7_241;
+	r26 = r15;
+	++r15;
+	r18 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r17 = r18->context;
+	r34 = Urho3D__input_touch_state_get(r17,r26);
+	r35 = urho3d__TouchState_TouchState_Impl__get_delta(r34);
+	r27 = Urho3D__math_tintvector2_get_x(r35);
+	r36 = 0;
+	if( r27 != r36 ) goto label$d2c7ce2_7_208;
+	r35 = urho3d__TouchState_TouchState_Impl__get_delta(r34);
+	r27 = Urho3D__math_tintvector2_get_y(r35);
+	r36 = 0;
+	if( r27 == r36 ) goto label$d2c7ce2_7_240;
+	label$d2c7ce2_7_208:
+	if( r14 == NULL ) hl_null_access();
+	r24 = r14->controls;
+	if( r24 == NULL ) hl_null_access();
+	r37 = r24->yaw;
+	if( r31 == NULL ) hl_null_access();
+	r39 = urho3d_Camera_get_fov(r31);
+	r40 = (double)r39;
+	r38 = r33 * r40;
+	r27 = urho3d_Graphics_get_height();
+	r40 = (double)r27;
+	r38 = r38 / r40;
+	r35 = urho3d__TouchState_TouchState_Impl__get_delta(r34);
+	r27 = Urho3D__math_tintvector2_get_x(r35);
+	r40 = (double)r27;
+	r38 = r38 * r40;
+	r37 = r37 + r38;
+	r24->yaw = r37;
+	r24 = r14->controls;
+	if( r24 == NULL ) hl_null_access();
+	r37 = r24->pitch;
+	r39 = urho3d_Camera_get_fov(r31);
+	r40 = (double)r39;
+	r38 = r33 * r40;
+	r27 = urho3d_Graphics_get_height();
+	r40 = (double)r27;
+	r38 = r38 / r40;
+	r35 = urho3d__TouchState_TouchState_Impl__get_delta(r34);
+	r27 = Urho3D__math_tintvector2_get_y(r35);
+	r40 = (double)r27;
+	r38 = r38 * r40;
+	r37 = r37 + r38;
+	r24->pitch = r37;
+	label$d2c7ce2_7_240:
+	goto label$d2c7ce2_7_193;
+	label$d2c7ce2_7_241:
+	goto label$d2c7ce2_7_260;
+	label$d2c7ce2_7_242:
+	r24 = r16->controls;
+	if( r24 == NULL ) hl_null_access();
+	r33 = r24->yaw;
+	r15 = urho3d_Input_get_mouseMoveX();
+	r37 = (double)r15;
+	r38 = r0->YAW_SENSITIVITY;
+	r37 = r37 * r38;
+	r33 = r33 + r37;
+	r24->yaw = r33;
+	r24 = r16->controls;
+	if( r24 == NULL ) hl_null_access();
+	r33 = r24->pitch;
+	r15 = urho3d_Input_get_mouseMoveY();
+	r37 = (double)r15;
+	r38 = r0->YAW_SENSITIVITY;
+	r37 = r37 * r38;
+	r33 = r33 + r37;
+	r24->pitch = r33;
+	label$d2c7ce2_7_260:
+	if( r14 == NULL ) hl_null_access();
+	r24 = r14->controls;
+	if( r24 == NULL ) hl_null_access();
+	r33 = r24->pitch;
+	r24 = r14->controls;
+	if( r24 == NULL ) hl_null_access();
+	r38 = -80.;
+	if( !(r33 < r38) ) goto label$d2c7ce2_7_270;
+	r37 = -80.;
+	goto label$d2c7ce2_7_275;
+	label$d2c7ce2_7_270:
+	r38 = 80.;
+	if( !(r38 < r33) ) goto label$d2c7ce2_7_274;
+	r37 = 80.;
+	goto label$d2c7ce2_7_275;
+	label$d2c7ce2_7_274:
+	r37 = r33;
+	label$d2c7ce2_7_275:
+	r24->pitch = r37;
+	r7 = r0->characterNode;
+	r24 = r14->controls;
+	if( r24 == NULL ) hl_null_access();
+	r37 = r24->yaw;
+	r43 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
+	r42 = r43->UP;
+	r41 = Urho3D__math_tvector3_cast_from_vector3(r42);
+	if( !r41 ) goto label$d2c7ce2_7_287;
+	r39 = (float)r37;
+	r44 = Urho3D__math_t_quaternion_create_fv(r39,r41);
+	goto label$d2c7ce2_7_293;
 	label$d2c7ce2_7_287:
+	r39 = (float)r37;
+	r38 = 0.;
+	r45 = (float)r38;
+	r38 = 0.;
+	r46 = (float)r38;
+	r44 = Urho3D__math_t_quaternion_create(r39,r45,r46);
+	label$d2c7ce2_7_293:
+	if( r7 == NULL ) hl_null_access();
+	r6 = r7->abstractNode;
+	if( !r6 ) goto label$d2c7ce2_7_300;
+	r18 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r17 = r18->context;
+	r6 = r7->abstractNode;
+	Urho3D__scene_node_set_rotation(r17,r6,r44);
+	label$d2c7ce2_7_300:
+	r15 = 102;
+	r19 = urho3d_Input_GetKeyPress(r15);
+	if( !r19 ) goto label$d2c7ce2_7_306;
+	r19 = r0->firstPerson;
+	r19 = !r19;
+	r0->firstPerson = r19;
+	label$d2c7ce2_7_306:
+	r15 = 1073741824;
+	r25 = 62;
+	r15 = r15 | r25;
+	r19 = urho3d_Input_GetKeyPress(r15);
+	if( !r19 ) goto label$d2c7ce2_7_337;
+	r18 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r17 = r18->context;
+	r48 = r0->scene;
+	if( r48 == NULL ) hl_null_access();
+	r47 = r48->abstractScene;
+	r8 = (String)s$CharacterDemo_xml;
+	r11 = (String)s$5e732a1;
+	r19 = Urho3D__scene_scene_save_xml_string(r17,r47,r8,r11);
+	r50 = (haxe__$Log)g$_haxe_Log;
+	r49 = r50->trace;
+	if( r49 == NULL ) hl_null_access();
+	r8 = (String)s$SaveXML_;
+	r5 = hl_alloc_dynbool(r19);
+	r11 = Std_string(r5);
+	r8 = String___add__(r8,r11);
+	r51 = hl_alloc_virtual(&t$vrt_329ffa8);
+	r11 = (String)s$src_haxe_CharacterDemoSample_hx;
+	if( hl_vfields(r51)[1] ) *(String*)(hl_vfields(r51)[1]) = (String)r11; else hl_dyn_setp(r51->value,37969014/*fileName*/,&t$String,r11);
+	r15 = 314;
+	if( hl_vfields(r51)[2] ) *(int*)(hl_vfields(r51)[2]) = (int)r15; else hl_dyn_seti(r51->value,371360620/*lineNumber*/,&t$_i32,r15);
+	r11 = (String)s$CharacterDemoSample;
+	if( hl_vfields(r51)[0] ) *(String*)(hl_vfields(r51)[0]) = (String)r11; else hl_dyn_setp(r51->value,-63073762/*className*/,&t$String,r11);
+	r11 = (String)s$HandleUpdate;
+	if( hl_vfields(r51)[3] ) *(String*)(hl_vfields(r51)[3]) = (String)r11; else hl_dyn_setp(r51->value,302979532/*methodName*/,&t$String,r11);
+	r52 = hl_to_virtual(&t$vrt_eaa6a3b,(vdynamic*)r51);
+	r49->hasValue ? ((void (*)(vdynamic*,vdynamic*,vvirtual*))r49->fun)((vdynamic*)r49->value,((vdynamic*)r8),r52) : ((void (*)(vdynamic*,vvirtual*))r49->fun)(((vdynamic*)r8),r52);
+	label$d2c7ce2_7_337:
+	r15 = 1073741824;
+	r25 = 64;
+	r15 = r15 | r25;
+	r19 = urho3d_Input_GetKeyPress(r15);
+	if( !r19 ) goto label$d2c7ce2_7_507;
+	r48 = r0->scene;
+	if( r48 == NULL ) hl_null_access();
+	r54 = r48->children_pointers_map;
+	if( r54 == NULL ) hl_null_access();
+	r53 = haxe_ds_ObjectMap_iterator(r54);
+	r55 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r53);
+	label$d2c7ce2_7_348:
+	if( r55 == NULL ) hl_null_access();
+	if( hl_vfields(r55)[0] ) r19 = ((bool (*)(vdynamic*))hl_vfields(r55)[0])(r55->value); else {
+		vdynamic ret;
+		hl_dyn_call_obj(r55->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
+		r19 = (bool)ret.v.i;
+	}
+	if( !r19 ) goto label$d2c7ce2_7_393;
+	if( hl_vfields(r55)[1] ) r7 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r55)[1])(r55->value); else {
+		r7 = (urho3d__Node)hl_dyn_call_obj(r55->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
+	}
+	if( r7 == NULL ) hl_null_access();
+	r54 = r7->children_pointers_map;
+	if( r54 == NULL ) hl_null_access();
+	r53 = haxe_ds_ObjectMap_iterator(r54);
+	r56 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r53);
+	label$d2c7ce2_7_358:
+	if( r56 == NULL ) hl_null_access();
+	if( hl_vfields(r56)[0] ) r19 = ((bool (*)(vdynamic*))hl_vfields(r56)[0])(r56->value); else {
+		vdynamic ret;
+		hl_dyn_call_obj(r56->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
+		r19 = (bool)ret.v.i;
+	}
+	if( !r19 ) goto label$d2c7ce2_7_366;
+	if( hl_vfields(r56)[1] ) r28 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r56)[1])(r56->value); else {
+		r28 = (urho3d__Node)hl_dyn_call_obj(r56->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
+	}
+	if( r28 == NULL ) hl_null_access();
+	urho3d_Node_CleanChildData(r28);
+	goto label$d2c7ce2_7_358;
+	label$d2c7ce2_7_366:
+	if( r7 == NULL ) hl_null_access();
+	r12 = r7->children_name_map;
+	if( r12 == NULL ) hl_null_access();
+	r53 = haxe_ds_StringMap_iterator(r12);
+	r56 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r53);
+	label$d2c7ce2_7_371:
+	if( r56 == NULL ) hl_null_access();
+	if( hl_vfields(r56)[0] ) r19 = ((bool (*)(vdynamic*))hl_vfields(r56)[0])(r56->value); else {
+		vdynamic ret;
+		hl_dyn_call_obj(r56->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
+		r19 = (bool)ret.v.i;
+	}
+	if( !r19 ) goto label$d2c7ce2_7_379;
+	if( hl_vfields(r56)[1] ) r28 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r56)[1])(r56->value); else {
+		r28 = (urho3d__Node)hl_dyn_call_obj(r56->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
+	}
+	if( r28 == NULL ) hl_null_access();
+	urho3d_Node_CleanChildData(r28);
+	goto label$d2c7ce2_7_371;
+	label$d2c7ce2_7_379:
+	if( r7 == NULL ) hl_null_access();
+	r12 = r7->children_name_map;
+	if( r12 == NULL ) hl_null_access();
+	haxe_ds_StringMap_clear(r12);
+	r54 = r7->components_map;
+	if( r54 == NULL ) hl_null_access();
+	haxe_ds_ObjectMap_clear(r54);
+	r12 = r7->logic_components_map;
+	if( r12 == NULL ) hl_null_access();
+	haxe_ds_StringMap_clear(r12);
+	r54 = r7->children_pointers_map;
+	if( r54 == NULL ) hl_null_access();
+	haxe_ds_ObjectMap_clear(r54);
+	goto label$d2c7ce2_7_348;
+	label$d2c7ce2_7_393:
+	if( r48 == NULL ) hl_null_access();
+	r12 = r48->children_name_map;
+	if( r12 == NULL ) hl_null_access();
+	r53 = haxe_ds_StringMap_iterator(r12);
+	r55 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r53);
+	label$d2c7ce2_7_398:
+	if( r55 == NULL ) hl_null_access();
+	if( hl_vfields(r55)[0] ) r19 = ((bool (*)(vdynamic*))hl_vfields(r55)[0])(r55->value); else {
+		vdynamic ret;
+		hl_dyn_call_obj(r55->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
+		r19 = (bool)ret.v.i;
+	}
+	if( !r19 ) goto label$d2c7ce2_7_443;
+	if( hl_vfields(r55)[1] ) r7 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r55)[1])(r55->value); else {
+		r7 = (urho3d__Node)hl_dyn_call_obj(r55->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
+	}
+	if( r7 == NULL ) hl_null_access();
+	r54 = r7->children_pointers_map;
+	if( r54 == NULL ) hl_null_access();
+	r53 = haxe_ds_ObjectMap_iterator(r54);
+	r56 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r53);
+	label$d2c7ce2_7_408:
+	if( r56 == NULL ) hl_null_access();
+	if( hl_vfields(r56)[0] ) r19 = ((bool (*)(vdynamic*))hl_vfields(r56)[0])(r56->value); else {
+		vdynamic ret;
+		hl_dyn_call_obj(r56->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
+		r19 = (bool)ret.v.i;
+	}
+	if( !r19 ) goto label$d2c7ce2_7_416;
+	if( hl_vfields(r56)[1] ) r28 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r56)[1])(r56->value); else {
+		r28 = (urho3d__Node)hl_dyn_call_obj(r56->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
+	}
+	if( r28 == NULL ) hl_null_access();
+	urho3d_Node_CleanChildData(r28);
+	goto label$d2c7ce2_7_408;
+	label$d2c7ce2_7_416:
+	if( r7 == NULL ) hl_null_access();
+	r12 = r7->children_name_map;
+	if( r12 == NULL ) hl_null_access();
+	r53 = haxe_ds_StringMap_iterator(r12);
+	r56 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r53);
+	label$d2c7ce2_7_421:
+	if( r56 == NULL ) hl_null_access();
+	if( hl_vfields(r56)[0] ) r19 = ((bool (*)(vdynamic*))hl_vfields(r56)[0])(r56->value); else {
+		vdynamic ret;
+		hl_dyn_call_obj(r56->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
+		r19 = (bool)ret.v.i;
+	}
+	if( !r19 ) goto label$d2c7ce2_7_429;
+	if( hl_vfields(r56)[1] ) r28 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r56)[1])(r56->value); else {
+		r28 = (urho3d__Node)hl_dyn_call_obj(r56->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
+	}
+	if( r28 == NULL ) hl_null_access();
+	urho3d_Node_CleanChildData(r28);
+	goto label$d2c7ce2_7_421;
+	label$d2c7ce2_7_429:
+	if( r7 == NULL ) hl_null_access();
+	r12 = r7->children_name_map;
+	if( r12 == NULL ) hl_null_access();
+	haxe_ds_StringMap_clear(r12);
+	r54 = r7->components_map;
+	if( r54 == NULL ) hl_null_access();
+	haxe_ds_ObjectMap_clear(r54);
+	r12 = r7->logic_components_map;
+	if( r12 == NULL ) hl_null_access();
+	haxe_ds_StringMap_clear(r12);
+	r54 = r7->children_pointers_map;
+	if( r54 == NULL ) hl_null_access();
+	haxe_ds_ObjectMap_clear(r54);
+	goto label$d2c7ce2_7_398;
+	label$d2c7ce2_7_443:
+	if( r48 == NULL ) hl_null_access();
+	r12 = r48->children_name_map;
+	if( r12 == NULL ) hl_null_access();
+	haxe_ds_StringMap_clear(r12);
+	r54 = r48->components_map;
+	if( r54 == NULL ) hl_null_access();
+	haxe_ds_ObjectMap_clear(r54);
+	r12 = r48->logic_components_map;
+	if( r12 == NULL ) hl_null_access();
+	haxe_ds_StringMap_clear(r12);
+	r54 = r48->children_pointers_map;
+	if( r54 == NULL ) hl_null_access();
+	haxe_ds_ObjectMap_clear(r54);
+	r18 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r17 = r18->context;
+	r47 = r48->abstractScene;
+	r8 = (String)s$CharacterDemo_xml;
+	r19 = Urho3D__scene_scene_load_xml_string(r17,r47,r8);
+	r48 = r0->scene;
+	if( r48 == NULL ) hl_null_access();
+	r6 = r48->abstractNode;
+	if( !r6 ) goto label$d2c7ce2_7_505;
+	r12 = r48->children_name_map;
+	if( r12 == NULL ) hl_null_access();
+	r8 = (String)s$Jack;
+	r5 = haxe_ds_StringMap_get(r12,r8);
+	r7 = (urho3d__Node)r5;
+	if( !r7 ) goto label$d2c7ce2_7_477;
+	r12 = r48->children_name_map;
+	if( r12 == NULL ) hl_null_access();
+	r8 = (String)s$Jack;
+	r5 = haxe_ds_StringMap_get(r12,r8);
+	r28 = (urho3d__Node)r5;
+	goto label$d2c7ce2_7_504;
+	label$d2c7ce2_7_477:
+	r18 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r17 = r18->context;
+	r6 = r48->abstractNode;
+	r8 = (String)s$Jack;
+	r19 = true;
+	r6 = Urho3D__scene_node_get_child(r17,r6,r8,r19);
+	if( !r6 ) goto label$d2c7ce2_7_503;
+	r54 = r48->children_pointers_map;
+	if( r54 == NULL ) hl_null_access();
+	r18 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r17 = r18->context;
+	r58 = Urho3D__scene_node_get_node_pointer(r17,r6);
+	if( r58 == NULL ) r5 = NULL; else {
+		r5 = hl_alloc_dynamic(&t$hl_urho3d_scene_node_ptr);
+		r5->v.ptr = r58;
+	}
+	r5 = haxe_ds_ObjectMap_get(r54,r5);
+	r28 = (urho3d__Node)r5;
+	if( r28 ) goto label$d2c7ce2_7_496;
+	r57 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
+	urho3d_Node_new(r57,r6);
+	r28 = r57;
+	label$d2c7ce2_7_496:
+	if( r28 == NULL ) hl_null_access();
+	r28->_parent = ((urho3d__Node)r48);
+	r12 = r48->children_name_map;
+	if( r12 == NULL ) hl_null_access();
+	r8 = (String)s$Jack;
+	haxe_ds_StringMap_set(r12,r8,((vdynamic*)r28));
+	goto label$d2c7ce2_7_504;
+	label$d2c7ce2_7_503:
+	r28 = NULL;
+	label$d2c7ce2_7_504:
+	goto label$d2c7ce2_7_506;
+	label$d2c7ce2_7_505:
+	r28 = NULL;
+	label$d2c7ce2_7_506:
+	r0->characterNode = r28;
+	label$d2c7ce2_7_507:
 	return;
 }
 

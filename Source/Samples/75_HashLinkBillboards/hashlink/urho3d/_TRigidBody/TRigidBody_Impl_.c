@@ -5,6 +5,8 @@
 #include <hl/natives.h>
 #include <urho3d/_Context/Context_Impl_.h>
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
+extern hl_type t$urho3d_RigidBody;
+void urho3d_RigidBody_new(urho3d__RigidBody,hl_urho3d_physics_rigid_body*);
 
 float urho3d__TRigidBody_TRigidBody_Impl__set_mass(hl_urho3d_physics_t_rigid_body* r0,float r1) {
 	urho3d___Context__$Context_Impl_ r4;
@@ -215,13 +217,32 @@ int urho3d__TRigidBody_TRigidBody_Impl__get_collisionMask(hl_urho3d_physics_t_ri
 	return r1;
 }
 
+bool urho3d__TRigidBody_TRigidBody_Impl__get_kinematic(hl_urho3d_physics_t_rigid_body* r0) {
+	bool r1;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r1 = Urho3D__physics_t_rigid_body_get_kinematic(r2,r0);
+	return r1;
+}
+
+bool urho3d__TRigidBody_TRigidBody_Impl__set_kinematic(hl_urho3d_physics_t_rigid_body* r0,bool r1) {
+	urho3d___Context__$Context_Impl_ r4;
+	urho3d_context *r3;
+	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r3 = r4->context;
+	Urho3D__physics_t_rigid_body_set_kinematic(r3,r0,r1);
+	return r1;
+}
+
 void urho3d__TRigidBody_TRigidBody_Impl__ApplyImpulse(hl_urho3d_physics_t_rigid_body* r0,hl_urho3d_math_tvector3* r1,hl_urho3d_math_tvector3* r2) {
 	urho3d___Context__$Context_Impl_ r10;
 	urho3d_context *r9;
 	float r6, r7, r8;
 	double r5;
 	hl_urho3d_math_tvector3 *r4;
-	if( r2 ) goto label$eae3321_23_9;
+	if( r2 ) goto label$eae3321_25_9;
 	r5 = 0.;
 	r6 = (float)r5;
 	r5 = 0.;
@@ -230,7 +251,7 @@ void urho3d__TRigidBody_TRigidBody_Impl__ApplyImpulse(hl_urho3d_physics_t_rigid_
 	r8 = (float)r5;
 	r4 = Urho3D__math_tvector3_create(r6,r7,r8);
 	r2 = r4;
-	label$eae3321_23_9:
+	label$eae3321_25_9:
 	r10 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r9 = r10->context;
 	Urho3D__physics_t_rigid_body_apply_impulse(r9,r0,r1,r2);
@@ -272,6 +293,29 @@ int urho3d__TRigidBody_TRigidBody_Impl__get_collisionEventMode(hl_urho3d_physics
 	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r2 = r3->context;
 	r1 = Urho3D__physics_t_rigid_body_get_collision_event_mode(r2,r0);
+	return r1;
+}
+
+urho3d__RigidBody urho3d__TRigidBody_TRigidBody_Impl__ToRigidBody(hl_urho3d_physics_t_rigid_body* r0) {
+	hl_urho3d_physics_rigid_body *r2;
+	urho3d__RigidBody r1;
+	urho3d___Context__$Context_Impl_ r4;
+	urho3d_context *r3;
+	r1 = (urho3d__RigidBody)hl_alloc_obj(&t$urho3d_RigidBody);
+	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r3 = r4->context;
+	r2 = Urho3D__physics_t_rigid_body_cast_to_rigid_body(r3,r0);
+	urho3d_RigidBody_new(r1,r2);
+	return r1;
+}
+
+hl_urho3d_physics_rigid_body* urho3d__TRigidBody_TRigidBody_Impl__ToAbstractRigidBody(hl_urho3d_physics_t_rigid_body* r0) {
+	hl_urho3d_physics_rigid_body *r1;
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r1 = Urho3D__physics_t_rigid_body_cast_to_rigid_body(r2,r0);
 	return r1;
 }
 

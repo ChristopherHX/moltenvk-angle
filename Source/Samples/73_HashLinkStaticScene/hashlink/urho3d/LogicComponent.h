@@ -9,6 +9,7 @@ typedef struct _urho3d__LogicComponent *urho3d__LogicComponent;
 #include <hl/natives.h>
 #include <urho3d/Component.h>
 #include <urho3d/Node.h>
+#include <urho3d/Scene.h>
 
 
 struct _urho3d__$LogicComponent {
@@ -24,6 +25,7 @@ struct _urho3d__$LogicComponent {
 struct _urho3d__LogicComponent {
 	hl_type *$type;
 	urho3d__Node _node;
+	urho3d__Scene _scene;
 	hl_urho3d_scene_component* abstractComponent;
 	hl_urho3d_scene_logic_component* abstractLogicComponent;
 };

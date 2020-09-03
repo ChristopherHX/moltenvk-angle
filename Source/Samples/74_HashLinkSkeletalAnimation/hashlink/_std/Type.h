@@ -21,6 +21,8 @@ struct _$Type {
 	vclosure* initClass;
 	vclosure* initEnum;
 	vclosure* _register;
+	vclosure* getClass;
+	vclosure* getSuperClass;
 	vclosure* resolveClass;
 	vclosure* createInstance;
 };

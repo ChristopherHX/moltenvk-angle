@@ -9,7 +9,9 @@ String String___add__(String,String);
 extern String s$853ae90;
 extern String s$9371d7a;
 extern hl_type t$vrt_0241c6a;
+#include <urho3d/Math.h>
 extern urho3d___Vector2__$Vector2_Impl_ g$_urho3d__Vector2_Vector2_Impl_;
+extern urho3d__$Math g$_urho3d_Math;
 extern hl_type t$_f32;
 
 hl_urho3d_math_vector2* urho3d__Vector2_Vector2_Impl___new(double* r0,double* r1) {
@@ -550,9 +552,10 @@ hl_urho3d_math_vector2* urho3d__Vector2_Vector2_Impl__Normalized(hl_urho3d_math_
 }
 
 hl_urho3d_math_vector2* urho3d__Vector2_Vector2_Impl__NormalizedOrDefault(hl_urho3d_math_vector2* r0,hl_urho3d_math_vector2* r1,vdynamic* r2) {
+	urho3d__$Math r7;
 	urho3d___Vector2__$Vector2_Impl_ r4;
 	hl_urho3d_math_vector2 *r3;
-	float r7;
+	float r8;
 	double r6;
 	vdynamic *r5;
 	if( r1 ) goto label$f391fb7_36_4;
@@ -560,22 +563,24 @@ hl_urho3d_math_vector2* urho3d__Vector2_Vector2_Impl__NormalizedOrDefault(hl_urh
 	r3 = r4->ZERO;
 	r1 = r3;
 	label$f391fb7_36_4:
-	if( r2 ) goto label$f391fb7_36_9;
-	r6 = 5.00000000000000024e-05;
-	r7 = (float)r6;
+	if( r2 ) goto label$f391fb7_36_10;
+	r7 = (urho3d__$Math)g$_urho3d_Math;
+	r6 = r7->_LARGE_EPSILON_;
+	r8 = (float)r6;
 	r5 = hl_alloc_dynamic(&t$_f32);
-	r5->v.f = r7;
+	r5->v.f = r8;
 	r2 = r5;
-	label$f391fb7_36_9:
-	r7 = r2 ? r2->v.f : 0;
-	r3 = Urho3D__math_vector2_normalized_or_default(r0,r1,r7);
+	label$f391fb7_36_10:
+	r8 = r2 ? r2->v.f : 0;
+	r3 = Urho3D__math_vector2_normalized_or_default(r0,r1,r8);
 	return r3;
 }
 
 hl_urho3d_math_vector2* urho3d__Vector2_Vector2_Impl__ReNormalized(hl_urho3d_math_vector2* r0,float r1,float r2,hl_urho3d_math_vector2* r3,vdynamic* r4) {
+	urho3d__$Math r9;
 	urho3d___Vector2__$Vector2_Impl_ r6;
 	hl_urho3d_math_vector2 *r5;
-	float r9, r10;
+	float r10, r11;
 	double r8;
 	vdynamic *r7;
 	if( r3 ) goto label$f391fb7_37_4;
@@ -583,15 +588,16 @@ hl_urho3d_math_vector2* urho3d__Vector2_Vector2_Impl__ReNormalized(hl_urho3d_mat
 	r5 = r6->ZERO;
 	r3 = r5;
 	label$f391fb7_37_4:
-	if( r4 ) goto label$f391fb7_37_9;
-	r8 = 5.00000000000000024e-05;
-	r9 = (float)r8;
+	if( r4 ) goto label$f391fb7_37_10;
+	r9 = (urho3d__$Math)g$_urho3d_Math;
+	r8 = r9->_LARGE_EPSILON_;
+	r10 = (float)r8;
 	r7 = hl_alloc_dynamic(&t$_f32);
-	r7->v.f = r9;
+	r7->v.f = r10;
 	r4 = r7;
-	label$f391fb7_37_9:
-	r10 = r4 ? r4->v.f : 0;
-	r5 = Urho3D__math_vector2_renormalized(r0,r1,r2,r3,r10);
+	label$f391fb7_37_10:
+	r11 = r4 ? r4->v.f : 0;
+	r5 = Urho3D__math_vector2_renormalized(r0,r1,r2,r3,r11);
 	return r5;
 }
 

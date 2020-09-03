@@ -7,9 +7,10 @@ typedef struct _urho3d__Scene *urho3d__Scene;
 #include <hl/BaseType.h>
 #include <_std/String.h>
 #include <urho3d/Node.h>
-#include <hl/types/ArrayObj.h>
 #include <haxe/ds/StringMap.h>
+#include <haxe/ds/ObjectMap.h>
 #include <hl/natives.h>
+#include <hl/types/ArrayObj.h>
 
 
 struct _urho3d__$Scene {
@@ -23,11 +24,13 @@ struct _urho3d__$Scene {
 };
 struct _urho3d__Scene {
 	hl_type *$type;
-	hl__types__ArrayObj children;
-	haxe__ds__StringMap children_map;
-	hl__types__ArrayObj components;
-	haxe__ds__StringMap dynamic_map;
+	haxe__ds__StringMap children_name_map;
+	haxe__ds__ObjectMap children_pointers_map;
+	haxe__ds__ObjectMap components_map;
+	haxe__ds__StringMap logic_components_map;
+	urho3d__Node _parent;
 	hl_urho3d_scene_node* abstractNode;
+	String _name;
 	hl__types__ArrayObj nodes;
 	hl_urho3d_scene_scene* abstractScene;
 };

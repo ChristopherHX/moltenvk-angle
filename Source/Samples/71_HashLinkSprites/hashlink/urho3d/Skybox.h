@@ -9,6 +9,7 @@ typedef struct _urho3d__Skybox *urho3d__Skybox;
 #include <urho3d/StaticModel.h>
 #include <urho3d/Component.h>
 #include <urho3d/Node.h>
+#include <urho3d/Scene.h>
 #include <hl/natives.h>
 
 
@@ -23,6 +24,7 @@ struct _urho3d__$Skybox {
 struct _urho3d__Skybox {
 	hl_type *$type;
 	urho3d__Node _node;
+	urho3d__Scene _scene;
 	hl_urho3d_scene_component* abstractComponent;
 	hl_urho3d_graphics_staticmodel* _abstract;
 	hl_urho3d_graphics_skybox* _abstractSkybox;

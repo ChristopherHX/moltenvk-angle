@@ -18,7 +18,12 @@ struct _urho3d___Quaternion__$Quaternion_Impl_ {
 	vdynamic* __constructor__;
 	hl_urho3d_math_quaternion* IDENTITY;
 	vclosure* _new;
+	vclosure* Normalize;
 	vclosure* SetAngles;
+	vclosure* mulTQuaternion;
+	vclosure* mulQuaternion;
+	vclosure* toTQuaternion;
+	vclosure* fromTQuaternion;
 };
 struct _urho3d___Quaternion__Quaternion_Impl_ {
 	hl_type *$type;

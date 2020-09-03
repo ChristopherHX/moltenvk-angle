@@ -52,3 +52,9 @@ void urho3d__AbstractApplication_AbstractApplication_Impl__SetScreenJoystickPatc
 	return;
 }
 
+hl_urho3d_tvariantmap* urho3d__AbstractApplication_AbstractApplication_Impl__GetEngineParameters(hl_urho3d_application* r0) {
+	hl_urho3d_tvariantmap *r1;
+	r1 = Urho3D__application_get_engine_parameters(r0);
+	return r1;
+}
+

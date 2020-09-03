@@ -21,6 +21,8 @@ typedef struct _urho3d___Component__AbstractComponent_Impl_ *urho3d___Component_
 #include <urho3d/Skybox.h>
 #include <urho3d/AnimationController.h>
 #include <urho3d/LogicComponent.h>
+#include <urho3d/SoundSource.h>
+#include <urho3d/ParticleEmitter2D.h>
 
 
 struct _urho3d___Component__$AbstractComponent_Impl_ {
@@ -48,6 +50,8 @@ struct _urho3d___Component__$AbstractComponent_Impl_ {
 	vclosure* toAnimationController;
 	vclosure* toLogicComponent;
 	vclosure* toAbstractLogicComponent;
+	vclosure* toSoundSource;
+	vclosure* toParticleEmitter2D;
 	vclosure* SubscribeToEvent;
 };
 struct _urho3d___Component__AbstractComponent_Impl_ {

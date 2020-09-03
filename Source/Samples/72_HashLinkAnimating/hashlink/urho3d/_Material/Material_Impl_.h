@@ -19,6 +19,11 @@ struct _urho3d___Material__$Material_Impl_ {
 	vclosure* _new;
 	vclosure* SetTechnique;
 	vclosure* SetTexture;
+	vclosure* SetShaderParameter;
+	vclosure* GetShaderParameter;
+	vclosure* SetShaderParameterAnimation;
+	vclosure* GetShaderParameterAnimation;
+	vclosure* Clone;
 	vclosure* set_depthBias;
 	vclosure* get_depthBias;
 };

@@ -32,7 +32,7 @@ void urho3d_CollisionShape_SetBox(urho3d__CollisionShape r0,hl_urho3d_math_tvect
 	r5 = NULL;
 	if( !r5 ) goto label$376a5b5_1_16;
 	r7 = (float)r6;
-	r10 = Urho3D__math_tquaternion_create_fv(r7,r5);
+	r10 = Urho3D__math_t_quaternion_create_fv(r7,r5);
 	goto label$376a5b5_1_22;
 	label$376a5b5_1_16:
 	r7 = (float)r6;
@@ -40,7 +40,7 @@ void urho3d_CollisionShape_SetBox(urho3d__CollisionShape r0,hl_urho3d_math_tvect
 	r8 = (float)r11;
 	r11 = 0.;
 	r9 = (float)r11;
-	r10 = Urho3D__math_tquaternion_create(r7,r8,r9);
+	r10 = Urho3D__math_t_quaternion_create(r7,r8,r9);
 	label$376a5b5_1_22:
 	r3 = r10;
 	label$376a5b5_1_23:
@@ -74,7 +74,7 @@ void urho3d_CollisionShape_SetSphere(urho3d__CollisionShape r0,double r1,hl_urho
 	r5 = NULL;
 	if( !r5 ) goto label$376a5b5_2_16;
 	r7 = (float)r6;
-	r10 = Urho3D__math_tquaternion_create_fv(r7,r5);
+	r10 = Urho3D__math_t_quaternion_create_fv(r7,r5);
 	goto label$376a5b5_2_22;
 	label$376a5b5_2_16:
 	r7 = (float)r6;
@@ -82,7 +82,7 @@ void urho3d_CollisionShape_SetSphere(urho3d__CollisionShape r0,double r1,hl_urho
 	r8 = (float)r11;
 	r11 = 0.;
 	r9 = (float)r11;
-	r10 = Urho3D__math_tquaternion_create(r7,r8,r9);
+	r10 = Urho3D__math_t_quaternion_create(r7,r8,r9);
 	label$376a5b5_2_22:
 	r3 = r10;
 	label$376a5b5_2_23:
@@ -117,7 +117,7 @@ void urho3d_CollisionShape_SetStaticPlane(urho3d__CollisionShape r0,hl_urho3d_ma
 	r4 = NULL;
 	if( !r4 ) goto label$376a5b5_3_16;
 	r6 = (float)r5;
-	r9 = Urho3D__math_tquaternion_create_fv(r6,r4);
+	r9 = Urho3D__math_t_quaternion_create_fv(r6,r4);
 	goto label$376a5b5_3_22;
 	label$376a5b5_3_16:
 	r6 = (float)r5;
@@ -125,7 +125,7 @@ void urho3d_CollisionShape_SetStaticPlane(urho3d__CollisionShape r0,hl_urho3d_ma
 	r7 = (float)r10;
 	r10 = 0.;
 	r8 = (float)r10;
-	r9 = Urho3D__math_tquaternion_create(r6,r7,r8);
+	r9 = Urho3D__math_t_quaternion_create(r6,r7,r8);
 	label$376a5b5_3_22:
 	r2 = r9;
 	label$376a5b5_3_23:
@@ -159,7 +159,7 @@ void urho3d_CollisionShape_SetCylinder(urho3d__CollisionShape r0,double r1,doubl
 	r6 = NULL;
 	if( !r6 ) goto label$376a5b5_4_16;
 	r8 = (float)r7;
-	r11 = Urho3D__math_tquaternion_create_fv(r8,r6);
+	r11 = Urho3D__math_t_quaternion_create_fv(r8,r6);
 	goto label$376a5b5_4_22;
 	label$376a5b5_4_16:
 	r8 = (float)r7;
@@ -167,7 +167,7 @@ void urho3d_CollisionShape_SetCylinder(urho3d__CollisionShape r0,double r1,doubl
 	r9 = (float)r12;
 	r12 = 0.;
 	r10 = (float)r12;
-	r11 = Urho3D__math_tquaternion_create(r8,r9,r10);
+	r11 = Urho3D__math_t_quaternion_create(r8,r9,r10);
 	label$376a5b5_4_22:
 	r4 = r11;
 	label$376a5b5_4_23:
@@ -203,7 +203,7 @@ void urho3d_CollisionShape_SetCapsule(urho3d__CollisionShape r0,double r1,double
 	r6 = NULL;
 	if( !r6 ) goto label$376a5b5_5_16;
 	r8 = (float)r7;
-	r11 = Urho3D__math_tquaternion_create_fv(r8,r6);
+	r11 = Urho3D__math_t_quaternion_create_fv(r8,r6);
 	goto label$376a5b5_5_22;
 	label$376a5b5_5_16:
 	r8 = (float)r7;
@@ -211,7 +211,7 @@ void urho3d_CollisionShape_SetCapsule(urho3d__CollisionShape r0,double r1,double
 	r9 = (float)r12;
 	r12 = 0.;
 	r10 = (float)r12;
-	r11 = Urho3D__math_tquaternion_create(r8,r9,r10);
+	r11 = Urho3D__math_t_quaternion_create(r8,r9,r10);
 	label$376a5b5_5_22:
 	r4 = r11;
 	label$376a5b5_5_23:
@@ -258,7 +258,7 @@ void urho3d_CollisionShape_SetTriangleMesh(urho3d__CollisionShape r0,hl_urho3d_g
 	r8 = NULL;
 	if( !r8 ) goto label$376a5b5_6_21;
 	r14 = (float)r11;
-	r12 = Urho3D__math_tquaternion_create_fv(r14,r8);
+	r12 = Urho3D__math_t_quaternion_create_fv(r14,r8);
 	goto label$376a5b5_6_27;
 	label$376a5b5_6_21:
 	r14 = (float)r11;
@@ -266,7 +266,7 @@ void urho3d_CollisionShape_SetTriangleMesh(urho3d__CollisionShape r0,hl_urho3d_g
 	r15 = (float)r13;
 	r13 = 0.;
 	r16 = (float)r13;
-	r12 = Urho3D__math_tquaternion_create(r14,r15,r16);
+	r12 = Urho3D__math_t_quaternion_create(r14,r15,r16);
 	label$376a5b5_6_27:
 	r5 = r12;
 	label$376a5b5_6_28:

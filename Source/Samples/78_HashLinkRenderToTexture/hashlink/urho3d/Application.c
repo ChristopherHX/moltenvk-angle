@@ -3,49 +3,65 @@
 #include <hlc.h>
 #include <urho3d/Application.h>
 #include <hl/natives.h>
+void urho3d__AbstractApplication_AbstractApplication_Impl__Run(hl_urho3d_application*);
+void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(hl_urho3d_application*,hl_urho3d_core_object*,hl_urho3d_stringhash*,vdynamic*,String);
+int Std_random(int);
 #include <urho3d/_Context/Context_Impl_.h>
+extern String s$WorkerThreads;
+extern String s$WindowWidth;
+extern String s$WindowTitle;
+extern String s$WindowResizable;
+extern String s$WindowPositionY;
+extern String s$WindowPositionX;
+extern String s$WindowIcon;
+extern String s$WindowHeight;
+extern String s$VSync;
+extern String s$TripleBuffer;
+extern String s$TouchEmulation;
+extern String s$TimeOut;
+extern String s$TextureQuality;
+extern String s$TextureFilterMode;
+extern String s$TextureAnisotropy;
+extern String s$SoundStereo;
+extern String s$SoundMixRate;
+extern String s$SoundInterpolation;
+extern String s$SoundBuffer;
+extern String s$Sound;
+extern String s$Shadows;
+extern String s$ShaderCacheDir;
+extern String s$ResourcePrefixPaths;
+extern String s$ResourcePaths;
+extern String s$ResourcePackages;
+extern String s$RefreshRate;
+extern String s$RenderPath;
+extern String s$PackageCacheDir;
+extern String s$Orientations;
+extern String s$MultiSample;
+extern String s$Monitor;
+extern String s$MaterialQuality;
+extern String s$LowQualityShadows;
+extern String s$LogQuiet;
+extern String s$LogName;
+extern String s$LogLevel;
+extern String s$HighDPI;
+extern String s$Headless;
+extern String s$FullScreen;
+extern String s$FrameLimiter;
+extern String s$ForceGL2;
+extern String s$FlushGPU;
+extern String s$ExternalWindow;
+extern String s$EventProfiler;
+extern String s$DumpShaders;
+extern String s$Borderless;
+extern String s$AutoloadPaths;
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern urho3d__$Application g$_urho3d_Application;
 hl_urho3d_application* urho3d__AbstractApplication_AbstractApplication_Impl___new(urho3d_context*);
 extern hl_type t$fun_8ec9cc3;
 void urho3d__AbstractApplication_AbstractApplication_Impl__RegisterSetupClosure(hl_urho3d_application*,vclosure*);
 void urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStartClosure(hl_urho3d_application*,vclosure*);
-void urho3d_Application_Stop(urho3d__Application);
 void urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStopClosure(hl_urho3d_application*,vclosure*);
 void urho3d_LogicComponent_RegisterObject(void);
-void urho3d__AbstractApplication_AbstractApplication_Impl__Run(hl_urho3d_application*);
-void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(hl_urho3d_application*,hl_urho3d_core_object*,hl_urho3d_stringhash*,vdynamic*,String);
-int Std_random(int);
-
-void urho3d_Application_new(urho3d__Application r0) {
-	urho3d__$Application r5;
-	hl_urho3d_application *r6;
-	urho3d___Context__$Context_Impl_ r4;
-	urho3d_context *r1, *r3;
-	vclosure *r7;
-	r1 = Urho3D__create_context();
-	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r4->context = r1;
-	r5 = (urho3d__$Application)g$_urho3d_Application;
-	r5->context = r1;
-	r5 = (urho3d__$Application)g$_urho3d_Application;
-	r3 = r5->context;
-	r6 = urho3d__AbstractApplication_AbstractApplication_Impl___new(r3);
-	r0->abstractApplication = r6;
-	r6 = r0->abstractApplication;
-	r7 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,r0->$type->vobj_proto[0],r0);
-	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterSetupClosure(r6,r7);
-	r6 = r0->abstractApplication;
-	r7 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,r0->$type->vobj_proto[1],r0);
-	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStartClosure(r6,r7);
-	r6 = r0->abstractApplication;
-	r7 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,urho3d_Application_Stop,r0);
-	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStopClosure(r6,r7);
-	r5 = (urho3d__$Application)g$_urho3d_Application;
-	r5->application = r0;
-	urho3d_LogicComponent_RegisterObject();
-	return;
-}
 
 void urho3d_Application_Run(urho3d__Application r0) {
 	hl_urho3d_application *r2;
@@ -77,12 +93,20 @@ void urho3d_Application_SubscribeToEvent(urho3d__Application r0,hl_urho3d_core_o
 	hl_urho3d_core_object *r6;
 	hl_urho3d_application *r5;
 	r5 = r0->abstractApplication;
-	if( !r5 ) goto label$7dad269_7_5;
+	if( !r5 ) goto label$7dad269_6_5;
 	r5 = r0->abstractApplication;
 	r6 = NULL;
 	urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(r5,r6,r2,((vdynamic*)r0),r3);
-	label$7dad269_7_5:
+	label$7dad269_6_5:
 	return;
+}
+
+hl_urho3d_tvariantmap* urho3d_Application_get_engineParameters(urho3d__Application r0) {
+	hl_urho3d_application *r2;
+	hl_urho3d_tvariantmap *r1;
+	r2 = r0->abstractApplication;
+	r1 = Urho3D__application_get_engine_parameters(r2);
+	return r1;
 }
 
 double urho3d_Application_Random(urho3d__Application r0,vdynamic* r1,vdynamic* r2) {
@@ -137,5 +161,130 @@ bool urho3d_Application_IsTouchEnabled(urho3d__Application r0) {
 	r2 = r0->abstractApplication;
 	r1 = Urho3D__application_is_touch_enabled(r2);
 	return r1;
+}
+
+void urho3d_Application_new(urho3d__Application r0) {
+	String r1;
+	urho3d__$Application r6;
+	hl_urho3d_application *r7;
+	urho3d___Context__$Context_Impl_ r5;
+	urho3d_context *r2, *r4;
+	vclosure *r8;
+	r1 = (String)s$WorkerThreads;
+	r0->EP_WORKER_THREADS = r1;
+	r1 = (String)s$WindowWidth;
+	r0->EP_WINDOW_WIDTH = r1;
+	r1 = (String)s$WindowTitle;
+	r0->EP_WINDOW_TITLE = r1;
+	r1 = (String)s$WindowResizable;
+	r0->EP_WINDOW_RESIZABLE = r1;
+	r1 = (String)s$WindowPositionY;
+	r0->EP_WINDOW_POSITION_Y = r1;
+	r1 = (String)s$WindowPositionX;
+	r0->EP_WINDOW_POSITION_X = r1;
+	r1 = (String)s$WindowIcon;
+	r0->EP_WINDOW_ICON = r1;
+	r1 = (String)s$WindowHeight;
+	r0->EP_WINDOW_HEIGHT = r1;
+	r1 = (String)s$VSync;
+	r0->EP_VSYNC = r1;
+	r1 = (String)s$TripleBuffer;
+	r0->EP_TRIPLE_BUFFER = r1;
+	r1 = (String)s$TouchEmulation;
+	r0->EP_TOUCH_EMULATION = r1;
+	r1 = (String)s$TimeOut;
+	r0->EP_TIME_OUT = r1;
+	r1 = (String)s$TextureQuality;
+	r0->EP_TEXTURE_QUALITY = r1;
+	r1 = (String)s$TextureFilterMode;
+	r0->EP_TEXTURE_FILTER_MODE = r1;
+	r1 = (String)s$TextureAnisotropy;
+	r0->EP_TEXTURE_ANISOTROPY = r1;
+	r1 = (String)s$SoundStereo;
+	r0->EP_SOUND_STEREO = r1;
+	r1 = (String)s$SoundMixRate;
+	r0->EP_SOUND_MIX_RATE = r1;
+	r1 = (String)s$SoundInterpolation;
+	r0->EP_SOUND_INTERPOLATION = r1;
+	r1 = (String)s$SoundBuffer;
+	r0->EP_SOUND_BUFFER = r1;
+	r1 = (String)s$Sound;
+	r0->EP_SOUND = r1;
+	r1 = (String)s$Shadows;
+	r0->EP_SHADOWS = r1;
+	r1 = (String)s$ShaderCacheDir;
+	r0->EP_SHADER_CACHE_DIR = r1;
+	r1 = (String)s$ResourcePrefixPaths;
+	r0->EP_RESOURCE_PREFIX_PATHS = r1;
+	r1 = (String)s$ResourcePaths;
+	r0->EP_RESOURCE_PATHS = r1;
+	r1 = (String)s$ResourcePackages;
+	r0->EP_RESOURCE_PACKAGES = r1;
+	r1 = (String)s$RefreshRate;
+	r0->EP_REFRESH_RATE = r1;
+	r1 = (String)s$RenderPath;
+	r0->EP_RENDER_PATH = r1;
+	r1 = (String)s$PackageCacheDir;
+	r0->EP_PACKAGE_CACHE_DIR = r1;
+	r1 = (String)s$Orientations;
+	r0->EP_ORIENTATIONS = r1;
+	r1 = (String)s$MultiSample;
+	r0->EP_MULTI_SAMPLE = r1;
+	r1 = (String)s$Monitor;
+	r0->EP_MONITOR = r1;
+	r1 = (String)s$MaterialQuality;
+	r0->EP_MATERIAL_QUALITY = r1;
+	r1 = (String)s$LowQualityShadows;
+	r0->EP_LOW_QUALITY_SHADOWS = r1;
+	r1 = (String)s$LogQuiet;
+	r0->EP_LOG_QUIET = r1;
+	r1 = (String)s$LogName;
+	r0->EP_LOG_NAME = r1;
+	r1 = (String)s$LogLevel;
+	r0->EP_LOG_LEVEL = r1;
+	r1 = (String)s$HighDPI;
+	r0->EP_HIGH_DPI = r1;
+	r1 = (String)s$Headless;
+	r0->EP_HEADLESS = r1;
+	r1 = (String)s$FullScreen;
+	r0->EP_FULL_SCREEN = r1;
+	r1 = (String)s$FrameLimiter;
+	r0->EP_FRAME_LIMITER = r1;
+	r1 = (String)s$ForceGL2;
+	r0->EP_FORCE_GL2 = r1;
+	r1 = (String)s$FlushGPU;
+	r0->EP_FLUSH_GPU = r1;
+	r1 = (String)s$ExternalWindow;
+	r0->EP_EXTERNAL_WINDOW = r1;
+	r1 = (String)s$EventProfiler;
+	r0->EP_EVENT_PROFILER = r1;
+	r1 = (String)s$DumpShaders;
+	r0->EP_DUMP_SHADERS = r1;
+	r1 = (String)s$Borderless;
+	r0->EP_BORDERLESS = r1;
+	r1 = (String)s$AutoloadPaths;
+	r0->EP_AUTOLOAD_PATHS = r1;
+	r2 = Urho3D__create_context();
+	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r5->context = r2;
+	r6 = (urho3d__$Application)g$_urho3d_Application;
+	r6->context = r2;
+	r6 = (urho3d__$Application)g$_urho3d_Application;
+	r4 = r6->context;
+	r7 = urho3d__AbstractApplication_AbstractApplication_Impl___new(r4);
+	r0->abstractApplication = r7;
+	r7 = r0->abstractApplication;
+	r8 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,r0->$type->vobj_proto[0],r0);
+	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterSetupClosure(r7,r8);
+	r7 = r0->abstractApplication;
+	r8 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,r0->$type->vobj_proto[1],r0);
+	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStartClosure(r7,r8);
+	r7 = r0->abstractApplication;
+	r8 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,urho3d_Application_Stop,r0);
+	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStopClosure(r7,r8);
+	r6 = (urho3d__$Application)g$_urho3d_Application;
+	r6->application = r0;
+	urho3d_LogicComponent_RegisterObject();
+	return;
 }
 

@@ -8,6 +8,7 @@ typedef struct _urho3d__DecalSet *urho3d__DecalSet;
 #include <_std/String.h>
 #include <urho3d/Component.h>
 #include <urho3d/Node.h>
+#include <urho3d/Scene.h>
 #include <hl/natives.h>
 
 
@@ -22,6 +23,7 @@ struct _urho3d__$DecalSet {
 struct _urho3d__DecalSet {
 	hl_type *$type;
 	urho3d__Node _node;
+	urho3d__Scene _scene;
 	hl_urho3d_scene_component* abstractComponent;
 	hl_urho3d_graphics_decalset* _abstract;
 };

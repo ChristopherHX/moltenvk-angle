@@ -12,6 +12,10 @@ hl__types__ArrayObj hl_types_ArrayObj_alloc(varray*);
 #include <hl/types/ArrayBase.h>
 hl__types__ArrayDyn hl_types_ArrayDyn_alloc(hl__types__ArrayBase,bool*);
 vdynamic* Type_createInstance(hl__Class,hl__types__ArrayDyn);
+hl__Class Type_getClass(vdynamic*);
+extern hl_type t$hl_Class;
+hl__Class Type_getSuperClass(hl__Class);
+String urho3d_LogicComponent_GetClassName(urho3d__LogicComponent);
 #include <urho3d/_Context/Context_Impl_.h>
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern hl_type t$String;
@@ -21,7 +25,6 @@ String Std_string(vdynamic*);
 extern hl_type t$urho3d_Node;
 void urho3d_Node_new(urho3d__Node,hl_urho3d_scene_node*);
 void urho3d_LogicComponent_OnNodeSet(urho3d__LogicComponent,urho3d__Node);
-#include <urho3d/Scene.h>
 extern hl_type t$urho3d_Scene;
 void urho3d_Scene_new(urho3d__Scene,hl_urho3d_scene_scene*);
 void urho3d_LogicComponent_OnSceneSet(urho3d__LogicComponent,urho3d__Scene);
@@ -41,6 +44,7 @@ vdynamic* urho3d_LogicComponent_CreateFactory(String r0,hl_urho3d_scene_logic_co
 	vdynamic *r2;
 	int r7;
 	varray *r5;
+	if( !r1 ) goto label$8c73b8e_1_14;
 	r3 = Type_resolveClass(r0);
 	r6 = &t$_dyn;
 	r7 = 1;
@@ -57,6 +61,48 @@ vdynamic* urho3d_LogicComponent_CreateFactory(String r0,hl_urho3d_scene_logic_co
 	r4 = hl_types_ArrayDyn_alloc(((hl__types__ArrayBase)r8),r10);
 	r2 = Type_createInstance(r3,r4);
 	return r2;
+	label$8c73b8e_1_14:
+	r3 = Type_resolveClass(r0);
+	r6 = &t$_dyn;
+	r7 = 0;
+	r5 = hl_alloc_array(r6,r7);
+	r8 = hl_types_ArrayObj_alloc(r5);
+	r9 = true;
+	r10 = &r9;
+	r4 = hl_types_ArrayDyn_alloc(((hl__types__ArrayBase)r8),r10);
+	r2 = Type_createInstance(r3,r4);
+	return r2;
+}
+
+bool urho3d_LogicComponent_IsA(urho3d__LogicComponent r0,vdynamic* r1) {
+	hl__Class r2;
+	bool r4;
+	vdynamic *r3;
+	r2 = Type_getClass(((vdynamic*)r0));
+	r3 = ((vdynamic*)r2);
+	label$8c73b8e_2_2:
+	r4 = true;
+	if( !r4 ) goto label$8c73b8e_2_14;
+	{ int i = hl_dyn_compare((vdynamic*)r1,(vdynamic*)r3); if( i != 0 ) goto label$8c73b8e_2_8; };
+	r4 = true;
+	return r4;
+	label$8c73b8e_2_8:
+	r2 = (hl__Class)hl_dyn_castp(&r3,&t$_dyn,&t$hl_Class);
+	r2 = Type_getSuperClass(r2);
+	r3 = ((vdynamic*)r2);
+	if( r2 ) goto label$8c73b8e_2_13;
+	goto label$8c73b8e_2_14;
+	label$8c73b8e_2_13:
+	goto label$8c73b8e_2_2;
+	label$8c73b8e_2_14:
+	r4 = false;
+	return r4;
+}
+
+String urho3d_LogicComponent_get_className(urho3d__LogicComponent r0) {
+	String r1;
+	r1 = urho3d_LogicComponent_GetClassName(r0);
+	return r1;
 }
 
 String urho3d_LogicComponent_GetClassName(urho3d__LogicComponent r0) {
@@ -70,10 +116,10 @@ String urho3d_LogicComponent_GetClassName(urho3d__LogicComponent r0) {
 	r2 = r3->context;
 	r4 = r0->abstractLogicComponent;
 	r1 = Urho3D__scene_logic_component_get_class_name(r2,r4);
-	if( r1 ) goto label$8c73b8e_2_7;
+	if( r1 ) goto label$8c73b8e_4_7;
 	r5 = NULL;
 	return r5;
-	label$8c73b8e_2_7:
+	label$8c73b8e_4_7:
 	r5 = (String)hl_alloc_obj(&t$String);
 	r5->bytes = r1;
 	r6 = 0;
@@ -200,13 +246,13 @@ void urho3d_LogicComponent_OnNodeSetEnabled(urho3d__LogicComponent r0,urho3d__No
 void urho3d_LogicComponent_CallMethod(urho3d__LogicComponent r0,String r1,hl__types__ArrayDyn r2) {
 	vdynamic *r3, *r5;
 	hl_trap_ctx trap$0;
-	hl_trap(trap$0,r3,label$8c73b8e_22_5);
+	hl_trap(trap$0,r3,label$8c73b8e_24_5);
 	r3 = Reflect_field(((vdynamic*)r0),r1);
-	if( !r3 ) goto label$8c73b8e_22_4;
+	if( !r3 ) goto label$8c73b8e_24_4;
 	r5 = Reflect_callMethod(((vdynamic*)r0),r3,r2);
-	label$8c73b8e_22_4:
+	label$8c73b8e_24_4:
 	hl_endtrap(trap$0);
-	label$8c73b8e_22_5:
+	label$8c73b8e_24_5:
 	return;
 }
 
@@ -218,15 +264,15 @@ double urho3d_LogicComponent_Random(urho3d__LogicComponent r0,vdynamic* r1,vdyna
 	r3 = (double)r4;
 	r5 = 100000.;
 	r3 = r3 / r5;
-	if( r1 ) goto label$8c73b8e_23_7;
+	if( r1 ) goto label$8c73b8e_25_7;
 	return r3;
-	label$8c73b8e_23_7:
-	if( !r1 ) goto label$8c73b8e_23_12;
-	if( r2 ) goto label$8c73b8e_23_12;
+	label$8c73b8e_25_7:
+	if( !r1 ) goto label$8c73b8e_25_12;
+	if( r2 ) goto label$8c73b8e_25_12;
 	r6 = r1 ? r1->v.d : 0;
 	r5 = r3 * r6;
 	return r5;
-	label$8c73b8e_23_12:
+	label$8c73b8e_25_12:
 	r6 = r2 ? r2->v.d : 0;
 	r7 = r1 ? r1->v.d : 0;
 	r6 = r6 - r7;
@@ -253,17 +299,17 @@ void urho3d_LogicComponent_new(urho3d__LogicComponent r0,vdynamic* r1) {
 	urho3d_context *r5;
 	r2 = NULL;
 	r0->abstractLogicComponent = r2;
-	if( !r1 ) goto label$8c73b8e_25_6;
+	if( !r1 ) goto label$8c73b8e_27_6;
 	r2 = (hl_urho3d_scene_logic_component*)hl_dyn_castp(&r1,&t$_dyn,&t$hl_urho3d_scene_logic_component);
 	r0->abstractLogicComponent = r2;
-	goto label$8c73b8e_25_11;
-	label$8c73b8e_25_6:
+	goto label$8c73b8e_27_11;
+	label$8c73b8e_27_6:
 	r4 = Std_string(((vdynamic*)r0));
 	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r5 = r6->context;
 	r2 = Urho3D__scene_logic_component_create(r5,((vdynamic*)r0),r4);
 	r0->abstractLogicComponent = r2;
-	label$8c73b8e_25_11:
+	label$8c73b8e_27_11:
 	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r5 = r6->context;
 	r2 = r0->abstractLogicComponent;

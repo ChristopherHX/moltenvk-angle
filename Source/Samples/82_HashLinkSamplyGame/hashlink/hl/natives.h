@@ -112,7 +112,7 @@ HL_API hl_urho3d_core_object* Urho3D__core_object_cast_from_component(urho3d_con
 HL_API hl_urho3d_core_object* Urho3D__core_object_cast_from_node(urho3d_context*,hl_urho3d_scene_node*);
 HL_API hl_urho3d_scene_component* Urho3D__core_object_cast_to_component(urho3d_context*,hl_urho3d_core_object*);
 HL_API hl_urho3d_scene_node* Urho3D__core_object_cast_to_node(urho3d_context*,hl_urho3d_core_object*);
-HL_API int Urho3D__core_time_get_system_time(urho3d_context*);
+HL_API double Urho3D__core_time_get_system_time(urho3d_context*);
 HL_API hl_urho3d_tvariantmap* Urho3D__core_tvariantmap_create(void);
 HL_API hl_urho3d_tvariant* Urho3D__core_tvariantmap_get_value(hl_urho3d_tvariantmap*,hl_urho3d_tstringhash*);
 HL_API hl_urho3d_tvariant* Urho3D__core_tvariantmap_set_key_value(hl_urho3d_tvariantmap*,hl_urho3d_tstringhash*,hl_urho3d_tvariant*);

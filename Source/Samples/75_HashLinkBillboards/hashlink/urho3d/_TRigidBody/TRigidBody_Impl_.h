@@ -7,6 +7,7 @@ typedef struct _urho3d___TRigidBody__TRigidBody_Impl_ *urho3d___TRigidBody__TRig
 #include <hl/BaseType.h>
 #include <_std/String.h>
 #include <hl/natives.h>
+#include <urho3d/RigidBody.h>
 
 
 struct _urho3d___TRigidBody__$TRigidBody_Impl_ {
@@ -38,11 +39,15 @@ struct _urho3d___TRigidBody__$TRigidBody_Impl_ {
 	vclosure* get_collisionLayer;
 	vclosure* set_collisionMask;
 	vclosure* get_collisionMask;
+	vclosure* get_kinematic;
+	vclosure* set_kinematic;
 	vclosure* ApplyImpulse;
 	vclosure* set_angularFactor;
 	vclosure* get_angularFactor;
 	vclosure* set_collisionEventMode;
 	vclosure* get_collisionEventMode;
+	vclosure* ToRigidBody;
+	vclosure* ToAbstractRigidBody;
 };
 struct _urho3d___TRigidBody__TRigidBody_Impl_ {
 	hl_type *$type;

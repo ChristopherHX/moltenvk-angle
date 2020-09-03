@@ -306,6 +306,29 @@ float urho3d_Light_get_shadowNearFarRatio(urho3d__Light r0) {
 	return r1;
 }
 
+float urho3d_Light_get_brightness(urho3d__Light r0) {
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	float r1;
+	hl_urho3d_graphics_light *r4;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r4 = r0->_abstract;
+	r1 = Urho3D__graphics_light_get_brightness(r2,r4);
+	return r1;
+}
+
+float urho3d_Light_set_brightness(urho3d__Light r0,float r1) {
+	urho3d___Context__$Context_Impl_ r4;
+	urho3d_context *r3;
+	hl_urho3d_graphics_light *r5;
+	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r3 = r4->context;
+	r5 = r0->_abstract;
+	Urho3D__graphics_light_set_brightness(r3,r5,r1);
+	return r1;
+}
+
 void urho3d_Light_new(urho3d__Light r0,hl_urho3d_graphics_light* r1) {
 	hl_urho3d_scene_component *r6;
 	urho3d___Context__$Context_Impl_ r5;
@@ -313,15 +336,15 @@ void urho3d_Light_new(urho3d__Light r0,hl_urho3d_graphics_light* r1) {
 	hl_urho3d_graphics_light *r2;
 	r2 = NULL;
 	r0->_abstract = r2;
-	if( !r1 ) goto label$ff815c4_27_5;
+	if( !r1 ) goto label$ff815c4_29_5;
 	r0->_abstract = r1;
-	goto label$ff815c4_27_9;
-	label$ff815c4_27_5:
+	goto label$ff815c4_29_9;
+	label$ff815c4_29_5:
 	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r4 = r5->context;
 	r2 = Urho3D__graphics_light_create(r4);
 	r0->_abstract = r2;
-	label$ff815c4_27_9:
+	label$ff815c4_29_9:
 	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r4 = r5->context;
 	r2 = r0->_abstract;
