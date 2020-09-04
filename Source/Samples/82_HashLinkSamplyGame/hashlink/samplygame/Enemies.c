@@ -3,9 +3,6 @@
 #include <hlc.h>
 #include <samplygame/Enemies.h>
 #include <samplygame/SpawnEntry.h>
-#include <samplygame/Enemy.h>
-extern hl_type t$samplygame_Enemy;
-extern hl_type t$_dyn;
 #include <hl/natives.h>
 #include <urho3d/_Context/Context_Impl_.h>
 #include <haxe/ds/ObjectMap.h>
@@ -31,6 +28,7 @@ extern hl_type t$urho3d_Component;
 hl_urho3d_scene_component_ptr* urho3d_Component_get_pointer(urho3d__Component);
 extern hl_type t$hl_urho3d_scene_component_ptr;
 urho3d__Node urho3d_Component_set_node(urho3d__Component,urho3d__Node);
+extern hl_type t$_dyn;
 extern hl_type t$hl_urho3d_scene_component;
 String Std_string(vdynamic*);
 vdynamic* haxe_ds_StringMap_get(haxe__ds__StringMap,String);
@@ -49,6 +47,7 @@ extern hl_type t$fun_dab7fe1;
 actions__ActionID actions_ActionManager_AddAction(actions__ActionDef,actions__FiniteTimeAction,urho3d__Node,actions__FiniteTimeActionState,vclosure*);
 #include <samplygame/SpawnMonitorScreenEntry.h>
 #include <samplygame/EnemyMonitorScreen.h>
+#include <samplygame/Enemy.h>
 extern hl_type t$samplygame_SpawnMonitorScreenEntry;
 extern hl_type t$samplygame_SpawnEntry;
 extern String s$EnemyMonitorScreen;
@@ -87,20 +86,14 @@ void urho3d_LogicComponent_new(urho3d__LogicComponent,vdynamic*);
 void samplygame_SpawnArray_new(samplygame__SpawnArray);
 extern samplygame__$EnemySlotMachine g$_samplygame_EnemySlotMachine;
 extern hl_type t$fun_fa1bfb5;
+samplygame__Enemy samplygame_Enemies_new__$1(vclosure*,samplygame__SpawnEntry);
 extern hl_type t$fun_9f9398d;
 void samplygame_SpawnEntry_new(samplygame__SpawnEntry,vdynamic*,vclosure*,vdynamic*,vdynamic*);
 void samplygame_SpawnArray_Push(samplygame__SpawnArray,samplygame__SpawnEntry);
 extern samplygame__$EnemyBat g$_samplygame_EnemyBat;
 extern hl_type t$fun_b5edd84;
 void samplygame_SpawnMonitorScreenEntry_new(samplygame__SpawnMonitorScreenEntry,bool*,vclosure*,int*,int*);
-
-samplygame__Enemy samplygame_Enemies_new__$1(vclosure* r0,samplygame__SpawnEntry r1) {
-	samplygame__Enemy r3;
-	vdynamic *r2;
-	r2 = r0->hasValue ? ((vdynamic* (*)(vdynamic*,samplygame__SpawnEntry))r0->fun)((vdynamic*)r0->value,r1) : ((vdynamic* (*)(samplygame__SpawnEntry))r0->fun)(r1);
-	r3 = (samplygame__Enemy)hl_dyn_castp(&r2,&t$_dyn,&t$samplygame_Enemy);
-	return r3;
-}
+extern hl_type t$samplygame_Enemy;
 
 void samplygame_Enemies_SetPlayer(samplygame__Enemies r0,samplygame__Player r1) {
 	r0->player_ = r1;
@@ -147,13 +140,13 @@ vdynamic* samplygame_Enemies_CreateObject(samplygame__Enemies r0,samplygame__Spa
 	r4 = urho3d_Component_get_scene(((urho3d__Component)r0));
 	if( r1 == NULL ) hl_null_access();
 	r5 = r1->name;
-	if( r5 ) goto label$6237dfe_4_7;
+	if( r5 ) goto label$6237dfe_3_7;
 	r6 = (String)s$;
 	r5 = r6;
-	label$6237dfe_4_7:
+	label$6237dfe_3_7:
 	if( r4 == NULL ) hl_null_access();
 	r7 = r4->abstractNode;
-	if( !r7 ) goto label$6237dfe_4_32;
+	if( !r7 ) goto label$6237dfe_3_32;
 	r9 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r8 = r9->context;
 	r7 = r4->abstractNode;
@@ -172,25 +165,25 @@ vdynamic* samplygame_Enemies_CreateObject(samplygame__Enemies r0,samplygame__Spa
 	}
 	haxe_ds_ObjectMap_set(r14,r17,((vdynamic*)r13));
 	r18 = (String)s$;
-	if( r5 == r18 || (r5 && r18 && String___compare(r5,(vdynamic*)r18) == 0) ) goto label$6237dfe_4_29;
+	if( r5 == r18 || (r5 && r18 && String___compare(r5,(vdynamic*)r18) == 0) ) goto label$6237dfe_3_29;
 	r19 = r4->children_name_map;
 	if( r19 == NULL ) hl_null_access();
 	haxe_ds_StringMap_set(r19,r5,((vdynamic*)r13));
-	label$6237dfe_4_29:
+	label$6237dfe_3_29:
 	r13->_parent = ((urho3d__Node)r4);
 	r16 = r13;
-	goto label$6237dfe_4_34;
-	label$6237dfe_4_32:
+	goto label$6237dfe_3_34;
+	label$6237dfe_3_32:
 	r13 = NULL;
 	r16 = r13;
-	label$6237dfe_4_34:
+	label$6237dfe_3_34:
 	r6 = r1->name;
 	r20 = NULL;
 	r17 = urho3d_LogicComponent_CreateFactory(r6,r20);
 	r21 = hl_to_virtual(&t$vrt_e07b697,(vdynamic*)r17);
 	if( r13 == NULL ) hl_null_access();
 	r7 = r13->abstractNode;
-	if( !r7 ) goto label$6237dfe_4_83;
+	if( !r7 ) goto label$6237dfe_3_83;
 	r23 = (urho3d__Component)hl_dyn_castp(&r21,&t$vrt_e07b697,&t$urho3d_Component);
 	r14 = r13->components_map;
 	if( r14 == NULL ) hl_null_access();
@@ -217,7 +210,7 @@ vdynamic* samplygame_Enemies_CreateObject(samplygame__Enemies r0,samplygame__Spa
 	r6 = Std_string(((vdynamic*)r21));
 	r22 = haxe_ds_StringMap_get(r19,r6);
 	r26 = (hl__types__ArrayDyn)hl_dyn_castp(&r22,&t$_dyn,&t$hl_types_ArrayDyn);
-	if( r26 ) goto label$6237dfe_4_76;
+	if( r26 ) goto label$6237dfe_3_76;
 	r28 = &t$_dyn;
 	r10 = 0;
 	r27 = hl_alloc_array(r28,r10);
@@ -229,7 +222,7 @@ vdynamic* samplygame_Enemies_CreateObject(samplygame__Enemies r0,samplygame__Spa
 	if( r19 == NULL ) hl_null_access();
 	r6 = Std_string(((vdynamic*)r21));
 	haxe_ds_StringMap_set(r19,r6,((vdynamic*)r26));
-	label$6237dfe_4_76:
+	label$6237dfe_3_76:
 	r19 = r16->logic_components_map;
 	if( r19 == NULL ) hl_null_access();
 	r6 = Std_string(((vdynamic*)r21));
@@ -237,14 +230,14 @@ vdynamic* samplygame_Enemies_CreateObject(samplygame__Enemies r0,samplygame__Spa
 	r26 = (hl__types__ArrayDyn)hl_dyn_castp(&r22,&t$_dyn,&t$hl_types_ArrayDyn);
 	if( r26 == NULL ) hl_null_access();
 	r10 = hl_types_ArrayDyn_push(r26,((vdynamic*)r21));
-	label$6237dfe_4_83:
+	label$6237dfe_3_83:
 	if( r21 == NULL ) hl_null_access();
 	r31 = hl_vfields(r21)[0] ? (*(vclosure**)(hl_vfields(r21)[0])) : (vclosure*)hl_dyn_getp(r21->value,355687065/*Play*/,&t$fun_32f7ff2);
 	if( r31 == NULL ) hl_null_access();
 	r17 = r31->hasValue ? ((vdynamic* (*)(vdynamic*))r31->fun)((vdynamic*)r31->value) : ((vdynamic* (*)(void))r31->fun)();
 	r10 = r1->msDelay;
 	r11 = 0;
-	if( r11 >= r10 ) goto label$6237dfe_4_103;
+	if( r11 >= r10 ) goto label$6237dfe_3_103;
 	if( r16 == NULL ) hl_null_access();
 	r12 = false;
 	r12 = urho3d_Node_set_enabled(r16,r12);
@@ -258,7 +251,7 @@ vdynamic* samplygame_Enemies_CreateObject(samplygame__Enemies r0,samplygame__Spa
 	r37 = NULL;
 	r38 = hl_alloc_closure_ptr(&t$fun_dab7fe1,samplygame_Enemies_StartDelayedPlay,r0);
 	r32 = actions_ActionManager_AddAction(r33,((actions__FiniteTimeAction)r34),r16,r37,r38);
-	label$6237dfe_4_103:
+	label$6237dfe_3_103:
 	return ((vdynamic*)r21);
 }
 
@@ -276,68 +269,68 @@ void samplygame_Enemies_StartDelayedPlay(samplygame__Enemies r0,actions__ActionI
 	r5 = r1->_action;
 	if( r5 == NULL ) hl_null_access();
 	r4 = r5->length;
-	label$6237dfe_5_5:
-	if( r2 >= r4 ) goto label$6237dfe_5_57;
+	label$6237dfe_4_5:
+	if( r2 >= r4 ) goto label$6237dfe_4_57;
 	r6 = r2;
 	++r2;
 	if( r1 == NULL ) hl_null_access();
 	r5 = r1->_action;
 	if( r5 == NULL ) hl_null_access();
 	r7 = r5->length;
-	if( ((unsigned)r6) < ((unsigned)r7) ) goto label$6237dfe_5_16;
+	if( ((unsigned)r6) < ((unsigned)r7) ) goto label$6237dfe_4_16;
 	r8 = NULL;
-	goto label$6237dfe_5_19;
-	label$6237dfe_5_16:
+	goto label$6237dfe_4_19;
+	label$6237dfe_4_16:
 	r10 = r5->array;
 	r9 = ((vdynamic**)(r10 + 1))[r6];
 	r8 = (actions__ActionDef)r9;
-	label$6237dfe_5_19:
+	label$6237dfe_4_19:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->actionState;
-	if( !r12 ) goto label$6237dfe_5_30;
+	if( !r12 ) goto label$6237dfe_4_30;
 	r12 = r8->actionState;
 	if( r12 == NULL ) hl_null_access();
 	r11 = r12->Target;
-	if( !r11 ) goto label$6237dfe_5_30;
+	if( !r11 ) goto label$6237dfe_4_30;
 	r12 = r8->actionState;
 	if( r12 == NULL ) hl_null_access();
 	r11 = r12->Target;
-	goto label$6237dfe_5_31;
-	label$6237dfe_5_30:
+	goto label$6237dfe_4_31;
+	label$6237dfe_4_30:
 	r11 = NULL;
-	label$6237dfe_5_31:
-	if( !r11 ) goto label$6237dfe_5_56;
+	label$6237dfe_4_31:
+	if( !r11 ) goto label$6237dfe_4_56;
 	r5 = r1->_action;
 	if( r5 == NULL ) hl_null_access();
 	r7 = r5->length;
-	if( ((unsigned)r6) < ((unsigned)r7) ) goto label$6237dfe_5_38;
+	if( ((unsigned)r6) < ((unsigned)r7) ) goto label$6237dfe_4_38;
 	r13 = NULL;
-	goto label$6237dfe_5_41;
-	label$6237dfe_5_38:
+	goto label$6237dfe_4_41;
+	label$6237dfe_4_38:
 	r10 = r5->array;
 	r9 = ((vdynamic**)(r10 + 1))[r6];
 	r13 = (actions__ActionDef)r9;
-	label$6237dfe_5_41:
+	label$6237dfe_4_41:
 	if( r13 == NULL ) hl_null_access();
 	r12 = r13->actionState;
-	if( !r12 ) goto label$6237dfe_5_52;
+	if( !r12 ) goto label$6237dfe_4_52;
 	r12 = r13->actionState;
 	if( r12 == NULL ) hl_null_access();
 	r11 = r12->Target;
-	if( !r11 ) goto label$6237dfe_5_52;
+	if( !r11 ) goto label$6237dfe_4_52;
 	r12 = r13->actionState;
 	if( r12 == NULL ) hl_null_access();
 	r11 = r12->Target;
-	goto label$6237dfe_5_53;
-	label$6237dfe_5_52:
+	goto label$6237dfe_4_53;
+	label$6237dfe_4_52:
 	r11 = NULL;
-	label$6237dfe_5_53:
+	label$6237dfe_4_53:
 	if( r11 == NULL ) hl_null_access();
 	r14 = true;
 	r14 = urho3d_Node_set_enabled(r11,r14);
-	label$6237dfe_5_56:
-	goto label$6237dfe_5_5;
-	label$6237dfe_5_57:
+	label$6237dfe_4_56:
+	goto label$6237dfe_4_5;
+	label$6237dfe_4_57:
 	return;
 }
 
@@ -373,13 +366,13 @@ samplygame__Enemy samplygame_Enemies_CreateEnemyMonitorScreenObject(samplygame__
 	r2 = (samplygame__SpawnMonitorScreenEntry)hl_dyn_castp(&r1,&t$samplygame_SpawnEntry,&t$samplygame_SpawnMonitorScreenEntry);
 	r4 = urho3d_Component_get_scene(((urho3d__Component)r0));
 	r5 = (String)s$EnemyMonitorScreen;
-	if( r5 ) goto label$6237dfe_6_6;
+	if( r5 ) goto label$6237dfe_5_6;
 	r6 = (String)s$;
 	r5 = r6;
-	label$6237dfe_6_6:
+	label$6237dfe_5_6:
 	if( r4 == NULL ) hl_null_access();
 	r7 = r4->abstractNode;
-	if( !r7 ) goto label$6237dfe_6_31;
+	if( !r7 ) goto label$6237dfe_5_31;
 	r9 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r8 = r9->context;
 	r7 = r4->abstractNode;
@@ -398,18 +391,18 @@ samplygame__Enemy samplygame_Enemies_CreateEnemyMonitorScreenObject(samplygame__
 	}
 	haxe_ds_ObjectMap_set(r14,r17,((vdynamic*)r13));
 	r18 = (String)s$;
-	if( r5 == r18 || (r5 && r18 && String___compare(r5,(vdynamic*)r18) == 0) ) goto label$6237dfe_6_28;
+	if( r5 == r18 || (r5 && r18 && String___compare(r5,(vdynamic*)r18) == 0) ) goto label$6237dfe_5_28;
 	r19 = r4->children_name_map;
 	if( r19 == NULL ) hl_null_access();
 	haxe_ds_StringMap_set(r19,r5,((vdynamic*)r13));
-	label$6237dfe_6_28:
+	label$6237dfe_5_28:
 	r13->_parent = ((urho3d__Node)r4);
 	r16 = r13;
-	goto label$6237dfe_6_33;
-	label$6237dfe_6_31:
+	goto label$6237dfe_5_33;
+	label$6237dfe_5_31:
 	r13 = NULL;
 	r16 = r13;
-	label$6237dfe_6_33:
+	label$6237dfe_5_33:
 	r20 = (samplygame__EnemyMonitorScreen)hl_alloc_obj(&t$samplygame_EnemyMonitorScreen);
 	if( r2 == NULL ) hl_null_access();
 	r12 = r2->fromLeftSide;
@@ -417,7 +410,7 @@ samplygame__Enemy samplygame_Enemies_CreateEnemyMonitorScreenObject(samplygame__
 	samplygame_EnemyMonitorScreen_new(r20,r21);
 	if( r13 == NULL ) hl_null_access();
 	r7 = r13->abstractNode;
-	if( !r7 ) goto label$6237dfe_6_82;
+	if( !r7 ) goto label$6237dfe_5_82;
 	r23 = (urho3d__Component)hl_dyn_castp(&r20,&t$samplygame_EnemyMonitorScreen,&t$urho3d_Component);
 	r14 = r13->components_map;
 	if( r14 == NULL ) hl_null_access();
@@ -443,7 +436,7 @@ samplygame__Enemy samplygame_Enemies_CreateEnemyMonitorScreenObject(samplygame__
 	r6 = Std_string(((vdynamic*)r20));
 	r22 = haxe_ds_StringMap_get(r19,r6);
 	r26 = (hl__types__ArrayDyn)hl_dyn_castp(&r22,&t$_dyn,&t$hl_types_ArrayDyn);
-	if( r26 ) goto label$6237dfe_6_75;
+	if( r26 ) goto label$6237dfe_5_75;
 	r28 = &t$_dyn;
 	r10 = 0;
 	r27 = hl_alloc_array(r28,r10);
@@ -455,7 +448,7 @@ samplygame__Enemy samplygame_Enemies_CreateEnemyMonitorScreenObject(samplygame__
 	if( r19 == NULL ) hl_null_access();
 	r6 = Std_string(((vdynamic*)r20));
 	haxe_ds_StringMap_set(r19,r6,((vdynamic*)r26));
-	label$6237dfe_6_75:
+	label$6237dfe_5_75:
 	r19 = r16->logic_components_map;
 	if( r19 == NULL ) hl_null_access();
 	r6 = Std_string(((vdynamic*)r20));
@@ -463,12 +456,12 @@ samplygame__Enemy samplygame_Enemies_CreateEnemyMonitorScreenObject(samplygame__
 	r26 = (hl__types__ArrayDyn)hl_dyn_castp(&r22,&t$_dyn,&t$hl_types_ArrayDyn);
 	if( r26 == NULL ) hl_null_access();
 	r10 = hl_types_ArrayDyn_push(r26,((vdynamic*)r20));
-	label$6237dfe_6_82:
+	label$6237dfe_5_82:
 	samplygame_Aircraft_Play(((samplygame__Aircraft)r20));
 	if( r1 == NULL ) hl_null_access();
 	r10 = r1->msDelay;
 	r11 = 0;
-	if( r11 >= r10 ) goto label$6237dfe_6_100;
+	if( r11 >= r10 ) goto label$6237dfe_5_100;
 	if( r16 == NULL ) hl_null_access();
 	r30 = false;
 	r30 = urho3d_Node_set_enabled(r16,r30);
@@ -482,7 +475,7 @@ samplygame__Enemy samplygame_Enemies_CreateEnemyMonitorScreenObject(samplygame__
 	r36 = NULL;
 	r37 = hl_alloc_closure_ptr(&t$fun_dab7fe1,samplygame_Enemies_StartDelayedPlay,r0);
 	r31 = actions_ActionManager_AddAction(r32,((actions__FiniteTimeAction)r33),r16,r36,r37);
-	label$6237dfe_6_100:
+	label$6237dfe_5_100:
 	return ((samplygame__Enemy)r20);
 }
 
@@ -504,122 +497,122 @@ void samplygame_Enemies_Update(samplygame__Enemies r0,double r1) {
 	r2 = r2 + r1;
 	r0->spawnInterval = r2;
 	r5 = r0->player_;
-	if( !r5 ) goto label$6237dfe_7_122;
+	if( !r5 ) goto label$6237dfe_6_122;
 	r5 = r0->player_;
 	if( r5 == NULL ) hl_null_access();
 	r6 = samplygame_Aircraft_IsAlive(((samplygame__Aircraft)r5));
-	if( !r6 ) goto label$6237dfe_7_122;
+	if( !r6 ) goto label$6237dfe_6_122;
 	r7 = 0;
 	r9 = r0->enemies;
 	if( r9 == NULL ) hl_null_access();
 	r8 = r9->length;
-	label$6237dfe_7_13:
-	if( r7 >= r8 ) goto label$6237dfe_7_92;
+	label$6237dfe_6_13:
+	if( r7 >= r8 ) goto label$6237dfe_6_92;
 	r10 = r7;
 	++r7;
 	r9 = r0->enemies;
 	if( r9 == NULL ) hl_null_access();
 	r11 = r9->length;
-	if( ((unsigned)r10) < ((unsigned)r11) ) goto label$6237dfe_7_23;
+	if( ((unsigned)r10) < ((unsigned)r11) ) goto label$6237dfe_6_23;
 	r12 = NULL;
-	goto label$6237dfe_7_26;
-	label$6237dfe_7_23:
+	goto label$6237dfe_6_26;
+	label$6237dfe_6_23:
 	r14 = r9->array;
 	r13 = ((vdynamic**)(r14 + 1))[r10];
 	r12 = (samplygame__SpawnEntry)r13;
-	label$6237dfe_7_26:
-	if( !r12 ) goto label$6237dfe_7_91;
+	label$6237dfe_6_26:
+	if( !r12 ) goto label$6237dfe_6_91;
 	r9 = r0->enemies;
 	if( r9 == NULL ) hl_null_access();
 	r11 = r9->length;
-	if( ((unsigned)r10) < ((unsigned)r11) ) goto label$6237dfe_7_33;
+	if( ((unsigned)r10) < ((unsigned)r11) ) goto label$6237dfe_6_33;
 	r12 = NULL;
-	goto label$6237dfe_7_36;
-	label$6237dfe_7_33:
+	goto label$6237dfe_6_36;
+	label$6237dfe_6_33:
 	r14 = r9->array;
 	r13 = ((vdynamic**)(r14 + 1))[r10];
 	r12 = (samplygame__SpawnEntry)r13;
-	label$6237dfe_7_36:
+	label$6237dfe_6_36:
 	if( r12 == NULL ) hl_null_access();
 	r15 = samplygame_SpawnEntry_get_enemy(r12);
-	if( !r15 ) goto label$6237dfe_7_91;
+	if( !r15 ) goto label$6237dfe_6_91;
 	r9 = r0->enemies;
 	if( r9 == NULL ) hl_null_access();
 	r11 = r9->length;
-	if( ((unsigned)r10) < ((unsigned)r11) ) goto label$6237dfe_7_45;
+	if( ((unsigned)r10) < ((unsigned)r11) ) goto label$6237dfe_6_45;
 	r12 = NULL;
-	goto label$6237dfe_7_48;
-	label$6237dfe_7_45:
+	goto label$6237dfe_6_48;
+	label$6237dfe_6_45:
 	r14 = r9->array;
 	r13 = ((vdynamic**)(r14 + 1))[r10];
 	r12 = (samplygame__SpawnEntry)r13;
-	label$6237dfe_7_48:
+	label$6237dfe_6_48:
 	if( r12 == NULL ) hl_null_access();
 	r15 = samplygame_SpawnEntry_get_enemy(r12);
 	if( r15 == NULL ) hl_null_access();
 	r6 = samplygame_Aircraft_IsAlive(((samplygame__Aircraft)r15));
 	r16 = false;
-	if( r6 != r16 ) goto label$6237dfe_7_91;
+	if( r6 != r16 ) goto label$6237dfe_6_91;
 	r9 = r0->enemies;
 	if( r9 == NULL ) hl_null_access();
 	r11 = r9->length;
-	if( ((unsigned)r10) < ((unsigned)r11) ) goto label$6237dfe_7_60;
+	if( ((unsigned)r10) < ((unsigned)r11) ) goto label$6237dfe_6_60;
 	r12 = NULL;
-	goto label$6237dfe_7_63;
-	label$6237dfe_7_60:
+	goto label$6237dfe_6_63;
+	label$6237dfe_6_60:
 	r14 = r9->array;
 	r13 = ((vdynamic**)(r14 + 1))[r10];
 	r12 = (samplygame__SpawnEntry)r13;
-	label$6237dfe_7_63:
+	label$6237dfe_6_63:
 	if( r12 == NULL ) hl_null_access();
 	r6 = samplygame_SpawnEntry_get_isRepeat(r12);
 	r16 = true;
-	if( r6 != r16 ) goto label$6237dfe_7_79;
+	if( r6 != r16 ) goto label$6237dfe_6_79;
 	r9 = r0->enemies;
 	if( r9 == NULL ) hl_null_access();
 	r11 = r9->length;
-	if( ((unsigned)r10) < ((unsigned)r11) ) goto label$6237dfe_7_73;
+	if( ((unsigned)r10) < ((unsigned)r11) ) goto label$6237dfe_6_73;
 	r12 = NULL;
-	goto label$6237dfe_7_76;
-	label$6237dfe_7_73:
+	goto label$6237dfe_6_76;
+	label$6237dfe_6_73:
 	r14 = r9->array;
 	r13 = ((vdynamic**)(r14 + 1))[r10];
 	r12 = (samplygame__SpawnEntry)r13;
-	label$6237dfe_7_76:
+	label$6237dfe_6_76:
 	if( r12 == NULL ) hl_null_access();
 	r15 = samplygame_SpawnEntry_CreateObject(r12);
-	goto label$6237dfe_7_91;
-	label$6237dfe_7_79:
+	goto label$6237dfe_6_91;
+	label$6237dfe_6_79:
 	r9 = r0->enemies;
 	if( r9 == NULL ) hl_null_access();
 	r17 = r0->enemies;
 	if( r17 == NULL ) hl_null_access();
 	r11 = r17->length;
-	if( ((unsigned)r10) < ((unsigned)r11) ) goto label$6237dfe_7_87;
+	if( ((unsigned)r10) < ((unsigned)r11) ) goto label$6237dfe_6_87;
 	r12 = NULL;
-	goto label$6237dfe_7_90;
-	label$6237dfe_7_87:
+	goto label$6237dfe_6_90;
+	label$6237dfe_6_87:
 	r14 = r17->array;
 	r13 = ((vdynamic**)(r14 + 1))[r10];
 	r12 = (samplygame__SpawnEntry)r13;
-	label$6237dfe_7_90:
+	label$6237dfe_6_90:
 	r6 = hl_types_ArrayObj_remove(r9,((vdynamic*)r12));
-	label$6237dfe_7_91:
-	goto label$6237dfe_7_13;
-	label$6237dfe_7_92:
+	label$6237dfe_6_91:
+	goto label$6237dfe_6_13;
+	label$6237dfe_6_92:
 	r9 = r0->enemies;
 	if( r9 == NULL ) hl_null_access();
 	r7 = r9->length;
 	r8 = 0;
-	if( r7 != r8 ) goto label$6237dfe_7_101;
+	if( r7 != r8 ) goto label$6237dfe_6_101;
 	r2 = 0.;
 	r0->spawnInterval = r2;
 	samplygame_Enemies_spawnNext(r0);
-	goto label$6237dfe_7_122;
-	label$6237dfe_7_101:
+	goto label$6237dfe_6_122;
+	label$6237dfe_6_101:
 	r2 = r0->spawnInterval;
 	r3 = r0->spawnIntervalThreshold;
-	if( !(r3 < r2) ) goto label$6237dfe_7_122;
+	if( !(r3 < r2) ) goto label$6237dfe_6_122;
 	r19 = (haxe__$Log)g$_haxe_Log;
 	r18 = r19->trace;
 	if( r18 == NULL ) hl_null_access();
@@ -638,7 +631,7 @@ void samplygame_Enemies_Update(samplygame__Enemies r0,double r1) {
 	samplygame_Enemies_spawnNext(r0);
 	r2 = 0.;
 	r0->spawnInterval = r2;
-	label$6237dfe_7_122:
+	label$6237dfe_6_122:
 	return;
 }
 
@@ -653,27 +646,27 @@ void samplygame_Enemies_KillAll(samplygame__Enemies r0) {
 	r4 = r0->enemies;
 	if( r4 == NULL ) hl_null_access();
 	r3 = r4->length;
-	label$6237dfe_8_4:
-	if( r1 >= r3 ) goto label$6237dfe_8_22;
+	label$6237dfe_7_4:
+	if( r1 >= r3 ) goto label$6237dfe_7_22;
 	r5 = r1;
 	++r1;
 	r4 = r0->enemies;
 	if( r4 == NULL ) hl_null_access();
 	r7 = r4->length;
-	if( ((unsigned)r5) < ((unsigned)r7) ) goto label$6237dfe_8_14;
+	if( ((unsigned)r5) < ((unsigned)r7) ) goto label$6237dfe_7_14;
 	r8 = NULL;
-	goto label$6237dfe_8_17;
-	label$6237dfe_8_14:
+	goto label$6237dfe_7_17;
+	label$6237dfe_7_14:
 	r10 = r4->array;
 	r9 = ((vdynamic**)(r10 + 1))[r5];
 	r8 = (samplygame__SpawnEntry)r9;
-	label$6237dfe_8_17:
+	label$6237dfe_7_17:
 	if( r8 == NULL ) hl_null_access();
 	r6 = samplygame_SpawnEntry_get_enemy(r8);
 	if( r6 == NULL ) hl_null_access();
 	samplygame_Aircraft_Explode(((samplygame__Aircraft)r6));
-	goto label$6237dfe_8_4;
-	label$6237dfe_8_22:
+	goto label$6237dfe_7_4;
+	label$6237dfe_7_22:
 	return;
 }
 
@@ -689,16 +682,16 @@ void samplygame_Enemies_spawnNext(samplygame__Enemies r0) {
 	varray *r11;
 	int r4, r5, r12, r13;
 	r2 = r0->player_;
-	if( !r2 ) goto label$6237dfe_9_61;
+	if( !r2 ) goto label$6237dfe_8_61;
 	r2 = r0->player_;
 	if( r2 == NULL ) hl_null_access();
 	r3 = samplygame_Aircraft_IsAlive(((samplygame__Aircraft)r2));
-	if( !r3 ) goto label$6237dfe_9_61;
+	if( !r3 ) goto label$6237dfe_8_61;
 	r4 = r0->spawnIndex;
 	r6 = r0->spwanManager;
 	if( r6 == NULL ) hl_null_access();
 	r5 = r6->length;
-	if( r4 < r5 ) goto label$6237dfe_9_22;
+	if( r4 < r5 ) goto label$6237dfe_8_22;
 	r4 = 0;
 	r0->spawnIndex = r4;
 	r7 = r0->spawnIntervalThreshold;
@@ -707,27 +700,27 @@ void samplygame_Enemies_spawnNext(samplygame__Enemies r0) {
 	r0->spawnIntervalThreshold = r7;
 	r7 = r0->spawnIntervalThreshold;
 	r8 = 10.;
-	if( !(r7 < r8) ) goto label$6237dfe_9_22;
+	if( !(r7 < r8) ) goto label$6237dfe_8_22;
 	r7 = 10.;
 	r0->spawnIntervalThreshold = r7;
-	label$6237dfe_9_22:
+	label$6237dfe_8_22:
 	r6 = r0->spwanManager;
 	if( r6 == NULL ) hl_null_access();
 	r4 = r0->spawnIndex;
 	r5 = r6->length;
-	if( ((unsigned)r4) < ((unsigned)r5) ) goto label$6237dfe_9_29;
+	if( ((unsigned)r4) < ((unsigned)r5) ) goto label$6237dfe_8_29;
 	r9 = NULL;
-	goto label$6237dfe_9_32;
-	label$6237dfe_9_29:
+	goto label$6237dfe_8_32;
+	label$6237dfe_8_29:
 	r11 = r6->array;
 	r10 = ((vdynamic**)(r11 + 1))[r4];
 	r9 = (samplygame__SpawnArray)r10;
-	label$6237dfe_9_32:
+	label$6237dfe_8_32:
 	r4 = 0;
 	if( r9 == NULL ) hl_null_access();
 	r5 = samplygame_SpawnArray_get_length(r9);
-	label$6237dfe_9_35:
-	if( r4 >= r5 ) goto label$6237dfe_9_48;
+	label$6237dfe_8_35:
+	if( r4 >= r5 ) goto label$6237dfe_8_48;
 	r12 = r4;
 	++r4;
 	if( r9 == NULL ) hl_null_access();
@@ -738,23 +731,23 @@ void samplygame_Enemies_spawnNext(samplygame__Enemies r0) {
 	r6 = r0->enemies;
 	if( r6 == NULL ) hl_null_access();
 	r13 = hl_types_ArrayObj_push(r6,((vdynamic*)r14));
-	goto label$6237dfe_9_35;
-	label$6237dfe_9_48:
+	goto label$6237dfe_8_35;
+	label$6237dfe_8_48:
 	if( r9 == NULL ) hl_null_access();
 	r3 = samplygame_SpawnArray_get_isRepeat(r9);
 	r16 = true;
-	if( r3 != r16 ) goto label$6237dfe_9_57;
+	if( r3 != r16 ) goto label$6237dfe_8_57;
 	r4 = r9->repeatCounter;
 	r5 = 1;
 	r4 = r4 + r5;
 	r9->repeatCounter = r4;
-	goto label$6237dfe_9_61;
-	label$6237dfe_9_57:
+	goto label$6237dfe_8_61;
+	label$6237dfe_8_57:
 	r4 = r0->spawnIndex;
 	++r4;
 	r0->spawnIndex = r4;
 	samplygame_SpawnArray_ResetRepeatCounter(r9);
-	label$6237dfe_9_61:
+	label$6237dfe_8_61:
 	return;
 }
 
@@ -762,13 +755,13 @@ void samplygame_Enemies_StartSpawning(samplygame__Enemies r0) {
 	bool r3;
 	samplygame__Player r2;
 	r2 = r0->player_;
-	if( !r2 ) goto label$6237dfe_10_7;
+	if( !r2 ) goto label$6237dfe_9_7;
 	r2 = r0->player_;
 	if( r2 == NULL ) hl_null_access();
 	r3 = samplygame_Aircraft_IsAlive(((samplygame__Aircraft)r2));
-	if( !r3 ) goto label$6237dfe_10_7;
+	if( !r3 ) goto label$6237dfe_9_7;
 	samplygame_Enemies_spawnNext(r0);
-	label$6237dfe_10_7:
+	label$6237dfe_9_7:
 	return;
 }
 
@@ -814,12 +807,12 @@ void samplygame_Enemies_new(samplygame__Enemies r0,samplygame__Player r1) {
 	r11 = (samplygame__SpawnEntry)hl_alloc_obj(&t$samplygame_SpawnEntry);
 	r12 = (samplygame__$EnemySlotMachine)g$_samplygame_EnemySlotMachine;
 	r13 = hl_alloc_closure_ptr(&t$fun_fa1bfb5,samplygame_Enemies_CreateObject,r0);
-	if( r13 ) goto label$6237dfe_11_29;
+	if( r13 ) goto label$6237dfe_10_29;
 	r14 = NULL;
-	goto label$6237dfe_11_30;
-	label$6237dfe_11_29:
+	goto label$6237dfe_10_30;
+	label$6237dfe_10_29:
 	r14 = hl_alloc_closure_ptr(&t$fun_9f9398d,samplygame_Enemies_new__$1,r13);
-	label$6237dfe_11_30:
+	label$6237dfe_10_30:
 	r3 = 0;
 	r15 = hl_alloc_dynamic(&t$_i32);
 	r15->v.i = r3;
@@ -829,12 +822,12 @@ void samplygame_Enemies_new(samplygame__Enemies r0,samplygame__Player r1) {
 	r11 = (samplygame__SpawnEntry)hl_alloc_obj(&t$samplygame_SpawnEntry);
 	r17 = (samplygame__$EnemyBat)g$_samplygame_EnemyBat;
 	r13 = hl_alloc_closure_ptr(&t$fun_fa1bfb5,samplygame_Enemies_CreateObject,r0);
-	if( r13 ) goto label$6237dfe_11_41;
+	if( r13 ) goto label$6237dfe_10_41;
 	r14 = NULL;
-	goto label$6237dfe_11_42;
-	label$6237dfe_11_41:
+	goto label$6237dfe_10_42;
+	label$6237dfe_10_41:
 	r14 = hl_alloc_closure_ptr(&t$fun_9f9398d,samplygame_Enemies_new__$1,r13);
-	label$6237dfe_11_42:
+	label$6237dfe_10_42:
 	r3 = 0;
 	r15 = hl_alloc_dynamic(&t$_i32);
 	r15->v.i = r3;
@@ -846,12 +839,12 @@ void samplygame_Enemies_new(samplygame__Enemies r0,samplygame__Player r1) {
 	r11 = (samplygame__SpawnEntry)hl_alloc_obj(&t$samplygame_SpawnEntry);
 	r17 = (samplygame__$EnemyBat)g$_samplygame_EnemyBat;
 	r13 = hl_alloc_closure_ptr(&t$fun_fa1bfb5,samplygame_Enemies_CreateObject,r0);
-	if( r13 ) goto label$6237dfe_11_54;
+	if( r13 ) goto label$6237dfe_10_54;
 	r14 = NULL;
-	goto label$6237dfe_11_55;
-	label$6237dfe_11_54:
+	goto label$6237dfe_10_55;
+	label$6237dfe_10_54:
 	r14 = hl_alloc_closure_ptr(&t$fun_9f9398d,samplygame_Enemies_new__$1,r13);
-	label$6237dfe_11_55:
+	label$6237dfe_10_55:
 	r3 = 0;
 	r15 = hl_alloc_dynamic(&t$_i32);
 	r15->v.i = r3;
@@ -863,12 +856,12 @@ void samplygame_Enemies_new(samplygame__Enemies r0,samplygame__Player r1) {
 	r11 = (samplygame__SpawnEntry)hl_alloc_obj(&t$samplygame_SpawnEntry);
 	r17 = (samplygame__$EnemyBat)g$_samplygame_EnemyBat;
 	r13 = hl_alloc_closure_ptr(&t$fun_fa1bfb5,samplygame_Enemies_CreateObject,r0);
-	if( r13 ) goto label$6237dfe_11_67;
+	if( r13 ) goto label$6237dfe_10_67;
 	r14 = NULL;
-	goto label$6237dfe_11_68;
-	label$6237dfe_11_67:
+	goto label$6237dfe_10_68;
+	label$6237dfe_10_67:
 	r14 = hl_alloc_closure_ptr(&t$fun_9f9398d,samplygame_Enemies_new__$1,r13);
-	label$6237dfe_11_68:
+	label$6237dfe_10_68:
 	r3 = 0;
 	r15 = hl_alloc_dynamic(&t$_i32);
 	r15->v.i = r3;
@@ -906,12 +899,12 @@ void samplygame_Enemies_new(samplygame__Enemies r0,samplygame__Player r1) {
 	r11 = (samplygame__SpawnEntry)hl_alloc_obj(&t$samplygame_SpawnEntry);
 	r12 = (samplygame__$EnemySlotMachine)g$_samplygame_EnemySlotMachine;
 	r13 = hl_alloc_closure_ptr(&t$fun_fa1bfb5,samplygame_Enemies_CreateObject,r0);
-	if( r13 ) goto label$6237dfe_11_106;
+	if( r13 ) goto label$6237dfe_10_106;
 	r14 = NULL;
-	goto label$6237dfe_11_107;
-	label$6237dfe_11_106:
+	goto label$6237dfe_10_107;
+	label$6237dfe_10_106:
 	r14 = hl_alloc_closure_ptr(&t$fun_9f9398d,samplygame_Enemies_new__$1,r13);
-	label$6237dfe_11_107:
+	label$6237dfe_10_107:
 	r3 = 0;
 	r15 = hl_alloc_dynamic(&t$_i32);
 	r15->v.i = r3;
@@ -921,12 +914,12 @@ void samplygame_Enemies_new(samplygame__Enemies r0,samplygame__Player r1) {
 	r11 = (samplygame__SpawnEntry)hl_alloc_obj(&t$samplygame_SpawnEntry);
 	r17 = (samplygame__$EnemyBat)g$_samplygame_EnemyBat;
 	r13 = hl_alloc_closure_ptr(&t$fun_fa1bfb5,samplygame_Enemies_CreateObject,r0);
-	if( r13 ) goto label$6237dfe_11_118;
+	if( r13 ) goto label$6237dfe_10_118;
 	r14 = NULL;
-	goto label$6237dfe_11_119;
-	label$6237dfe_11_118:
+	goto label$6237dfe_10_119;
+	label$6237dfe_10_118:
 	r14 = hl_alloc_closure_ptr(&t$fun_9f9398d,samplygame_Enemies_new__$1,r13);
-	label$6237dfe_11_119:
+	label$6237dfe_10_119:
 	r3 = 0;
 	r15 = hl_alloc_dynamic(&t$_i32);
 	r15->v.i = r3;
@@ -936,12 +929,12 @@ void samplygame_Enemies_new(samplygame__Enemies r0,samplygame__Player r1) {
 	r11 = (samplygame__SpawnEntry)hl_alloc_obj(&t$samplygame_SpawnEntry);
 	r17 = (samplygame__$EnemyBat)g$_samplygame_EnemyBat;
 	r13 = hl_alloc_closure_ptr(&t$fun_fa1bfb5,samplygame_Enemies_CreateObject,r0);
-	if( r13 ) goto label$6237dfe_11_130;
+	if( r13 ) goto label$6237dfe_10_130;
 	r14 = NULL;
-	goto label$6237dfe_11_131;
-	label$6237dfe_11_130:
+	goto label$6237dfe_10_131;
+	label$6237dfe_10_130:
 	r14 = hl_alloc_closure_ptr(&t$fun_9f9398d,samplygame_Enemies_new__$1,r13);
-	label$6237dfe_11_131:
+	label$6237dfe_10_131:
 	r3 = 0;
 	r15 = hl_alloc_dynamic(&t$_i32);
 	r15->v.i = r3;
@@ -956,12 +949,12 @@ void samplygame_Enemies_new(samplygame__Enemies r0,samplygame__Player r1) {
 	r11 = (samplygame__SpawnEntry)hl_alloc_obj(&t$samplygame_SpawnEntry);
 	r17 = (samplygame__$EnemyBat)g$_samplygame_EnemyBat;
 	r13 = hl_alloc_closure_ptr(&t$fun_fa1bfb5,samplygame_Enemies_CreateObject,r0);
-	if( r13 ) goto label$6237dfe_11_147;
+	if( r13 ) goto label$6237dfe_10_147;
 	r14 = NULL;
-	goto label$6237dfe_11_148;
-	label$6237dfe_11_147:
+	goto label$6237dfe_10_148;
+	label$6237dfe_10_147:
 	r14 = hl_alloc_closure_ptr(&t$fun_9f9398d,samplygame_Enemies_new__$1,r13);
-	label$6237dfe_11_148:
+	label$6237dfe_10_148:
 	r3 = 0;
 	r15 = hl_alloc_dynamic(&t$_i32);
 	r15->v.i = r3;
@@ -973,12 +966,12 @@ void samplygame_Enemies_new(samplygame__Enemies r0,samplygame__Player r1) {
 	r11 = (samplygame__SpawnEntry)hl_alloc_obj(&t$samplygame_SpawnEntry);
 	r17 = (samplygame__$EnemyBat)g$_samplygame_EnemyBat;
 	r13 = hl_alloc_closure_ptr(&t$fun_fa1bfb5,samplygame_Enemies_CreateObject,r0);
-	if( r13 ) goto label$6237dfe_11_160;
+	if( r13 ) goto label$6237dfe_10_160;
 	r14 = NULL;
-	goto label$6237dfe_11_161;
-	label$6237dfe_11_160:
+	goto label$6237dfe_10_161;
+	label$6237dfe_10_160:
 	r14 = hl_alloc_closure_ptr(&t$fun_9f9398d,samplygame_Enemies_new__$1,r13);
-	label$6237dfe_11_161:
+	label$6237dfe_10_161:
 	r3 = 0;
 	r15 = hl_alloc_dynamic(&t$_i32);
 	r15->v.i = r3;
@@ -990,12 +983,12 @@ void samplygame_Enemies_new(samplygame__Enemies r0,samplygame__Player r1) {
 	r11 = (samplygame__SpawnEntry)hl_alloc_obj(&t$samplygame_SpawnEntry);
 	r12 = (samplygame__$EnemySlotMachine)g$_samplygame_EnemySlotMachine;
 	r13 = hl_alloc_closure_ptr(&t$fun_fa1bfb5,samplygame_Enemies_CreateObject,r0);
-	if( r13 ) goto label$6237dfe_11_173;
+	if( r13 ) goto label$6237dfe_10_173;
 	r14 = NULL;
-	goto label$6237dfe_11_174;
-	label$6237dfe_11_173:
+	goto label$6237dfe_10_174;
+	label$6237dfe_10_173:
 	r14 = hl_alloc_closure_ptr(&t$fun_9f9398d,samplygame_Enemies_new__$1,r13);
-	label$6237dfe_11_174:
+	label$6237dfe_10_174:
 	r3 = 0;
 	r15 = hl_alloc_dynamic(&t$_i32);
 	r15->v.i = r3;
@@ -1010,12 +1003,12 @@ void samplygame_Enemies_new(samplygame__Enemies r0,samplygame__Player r1) {
 	r11 = (samplygame__SpawnEntry)hl_alloc_obj(&t$samplygame_SpawnEntry);
 	r17 = (samplygame__$EnemyBat)g$_samplygame_EnemyBat;
 	r13 = hl_alloc_closure_ptr(&t$fun_fa1bfb5,samplygame_Enemies_CreateObject,r0);
-	if( r13 ) goto label$6237dfe_11_190;
+	if( r13 ) goto label$6237dfe_10_190;
 	r14 = NULL;
-	goto label$6237dfe_11_191;
-	label$6237dfe_11_190:
+	goto label$6237dfe_10_191;
+	label$6237dfe_10_190:
 	r14 = hl_alloc_closure_ptr(&t$fun_9f9398d,samplygame_Enemies_new__$1,r13);
-	label$6237dfe_11_191:
+	label$6237dfe_10_191:
 	r3 = 0;
 	r15 = hl_alloc_dynamic(&t$_i32);
 	r15->v.i = r3;
@@ -1050,12 +1043,12 @@ void samplygame_Enemies_new(samplygame__Enemies r0,samplygame__Player r1) {
 	r11 = (samplygame__SpawnEntry)hl_alloc_obj(&t$samplygame_SpawnEntry);
 	r17 = (samplygame__$EnemyBat)g$_samplygame_EnemyBat;
 	r13 = hl_alloc_closure_ptr(&t$fun_fa1bfb5,samplygame_Enemies_CreateObject,r0);
-	if( r13 ) goto label$6237dfe_11_226;
+	if( r13 ) goto label$6237dfe_10_226;
 	r14 = NULL;
-	goto label$6237dfe_11_227;
-	label$6237dfe_11_226:
+	goto label$6237dfe_10_227;
+	label$6237dfe_10_226:
 	r14 = hl_alloc_closure_ptr(&t$fun_9f9398d,samplygame_Enemies_new__$1,r13);
-	label$6237dfe_11_227:
+	label$6237dfe_10_227:
 	r27 = 0;
 	r15 = hl_alloc_dynamic(&t$_i32);
 	r15->v.i = r27;
@@ -1067,12 +1060,12 @@ void samplygame_Enemies_new(samplygame__Enemies r0,samplygame__Player r1) {
 	r11 = (samplygame__SpawnEntry)hl_alloc_obj(&t$samplygame_SpawnEntry);
 	r17 = (samplygame__$EnemyBat)g$_samplygame_EnemyBat;
 	r13 = hl_alloc_closure_ptr(&t$fun_fa1bfb5,samplygame_Enemies_CreateObject,r0);
-	if( r13 ) goto label$6237dfe_11_239;
+	if( r13 ) goto label$6237dfe_10_239;
 	r14 = NULL;
-	goto label$6237dfe_11_240;
-	label$6237dfe_11_239:
+	goto label$6237dfe_10_240;
+	label$6237dfe_10_239:
 	r14 = hl_alloc_closure_ptr(&t$fun_9f9398d,samplygame_Enemies_new__$1,r13);
-	label$6237dfe_11_240:
+	label$6237dfe_10_240:
 	r27 = 0;
 	r15 = hl_alloc_dynamic(&t$_i32);
 	r15->v.i = r27;
@@ -1107,12 +1100,12 @@ void samplygame_Enemies_new(samplygame__Enemies r0,samplygame__Player r1) {
 	r11 = (samplygame__SpawnEntry)hl_alloc_obj(&t$samplygame_SpawnEntry);
 	r12 = (samplygame__$EnemySlotMachine)g$_samplygame_EnemySlotMachine;
 	r13 = hl_alloc_closure_ptr(&t$fun_fa1bfb5,samplygame_Enemies_CreateObject,r0);
-	if( r13 ) goto label$6237dfe_11_275;
+	if( r13 ) goto label$6237dfe_10_275;
 	r14 = NULL;
-	goto label$6237dfe_11_276;
-	label$6237dfe_11_275:
+	goto label$6237dfe_10_276;
+	label$6237dfe_10_275:
 	r14 = hl_alloc_closure_ptr(&t$fun_9f9398d,samplygame_Enemies_new__$1,r13);
-	label$6237dfe_11_276:
+	label$6237dfe_10_276:
 	r31 = 0;
 	r15 = hl_alloc_dynamic(&t$_i32);
 	r15->v.i = r31;
@@ -1143,5 +1136,13 @@ void samplygame_Enemies_new(samplygame__Enemies r0,samplygame__Player r1) {
 	if( r4 == NULL ) hl_null_access();
 	r35 = hl_types_ArrayObj_push(r4,((vdynamic*)r10));
 	return;
+}
+
+samplygame__Enemy samplygame_Enemies_new__$1(vclosure* r0,samplygame__SpawnEntry r1) {
+	samplygame__Enemy r3;
+	vdynamic *r2;
+	r2 = r0->hasValue ? ((vdynamic* (*)(vdynamic*,samplygame__SpawnEntry))r0->fun)((vdynamic*)r0->value,r1) : ((vdynamic* (*)(samplygame__SpawnEntry))r0->fun)(r1);
+	r3 = (samplygame__Enemy)hl_dyn_castp(&r2,&t$_dyn,&t$samplygame_Enemy);
+	return r3;
 }
 

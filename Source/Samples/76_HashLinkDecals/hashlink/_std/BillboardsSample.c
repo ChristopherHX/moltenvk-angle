@@ -111,7 +111,6 @@ vvirtual* urho3d_Input_get_mouseMove(void);
 bool urho3d_Input_GetKeyDown(int);
 extern urho3d___Vector3__$Vector3_Impl_ g$_urho3d__Vector3_Vector3_Impl_;
 bool urho3d_Input_GetKeyPress(int);
-#include <hl/types/ArrayObj.h>
 hl__types__ArrayObj urho3d_Node_GetChildrenWithComponent(urho3d__Node,hl_urho3d_tstringhash*,bool*);
 int urho3d_BillboardSet_get_numBillboards(urho3d__BillboardSet);
 float urho3d__Billboard_Billboard_Impl__get_rotation(hl_urho3d_graphics_billboard*);

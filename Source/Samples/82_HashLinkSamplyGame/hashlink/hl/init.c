@@ -2,9 +2,20 @@
 #define HLC_BOOT
 #include <hlc.h>
 #include <hl/natives.h>
+#include <haxe/ds/StringMap.h>
+#include <_std/String.h>
+extern hl_type t$haxe_ds_StringMap;
+void haxe_ds_StringMap_new(haxe__ds__StringMap);
+extern String s$samplygame_BigWhiteCube;
+extern hl_type t$_i32;
+void haxe_ds_StringMap_set(haxe__ds__StringMap,String,vdynamic*);
+extern String s$samplygame_MachineGun;
+extern String s$samplygame_Missile;
+extern String s$samplygame_SmallPlates;
+extern String s$samplygame_Joysticks;
+extern String s$samplygame_Coin;
 #include <hl/Class.h>
 #include <hl/CoreType.h>
-#include <_std/String.h>
 #include <hl/CoreEnum.h>
 #include <haxe/IMap.h>
 #include <hl/Enum.h>
@@ -21,7 +32,6 @@
 #include <actions/ActionManager.h>
 #include <sys/thread/Lock.h>
 #include <haxe/EntryPoint.h>
-#include <haxe/ds/StringMap.h>
 #include <samplygame/Globals.h>
 #include <urho3d/Application.h>
 #include <urho3d/_Context/Context_Impl_.h>
@@ -32,19 +42,16 @@
 #include <urho3d/Scene.h>
 #include <urho3d/_Vector2/Vector2_Impl_.h>
 #include <urho3d/_Vector3/Vector3_Impl_.h>
-haxe__ds__StringMap fun$init__$1(void);
 extern hl_type t$fun_16c9071;
 extern hl_type t$fun_363696b;
+hl_urho3d_math_vector2* fun$init__$3(void);
 extern hl_type t$fun_f0a94e3;
-hl_urho3d_math_vector3* fun$init__$9(void);
+hl_urho3d_math_vector2* fun$init__$4(void);
+hl_urho3d_math_vector2* fun$init__$5(void);
+hl_urho3d_math_vector2* fun$init__$6(void);
+hl_urho3d_math_vector2* fun$init__$7(void);
+hl_urho3d_math_vector2* fun$init__$8(void);
 extern hl_type t$fun_dc27400;
-hl_urho3d_math_vector3* fun$init__$10(void);
-hl_urho3d_math_vector3* fun$init__$11(void);
-hl_urho3d_math_vector3* fun$init__$12(void);
-hl_urho3d_math_vector3* fun$init__$13(void);
-hl_urho3d_math_vector3* fun$init__$14(void);
-hl_urho3d_math_vector3* fun$init__$15(void);
-hl_urho3d_math_vector3* fun$init__$16(void);
 void Type_init(void);
 extern hl_type t$$Date;
 extern hl_type t$Date;
@@ -63,7 +70,6 @@ extern String s$Float;
 extern hl__CoreType g$_Float;
 #include <hl/BaseType.h>
 void Type_register(vbyte*,hl__BaseType);
-extern hl_type t$_i32;
 extern String s$Int;
 extern hl__CoreType g$_Int;
 extern hl_type t$hl_CoreEnum;
@@ -162,7 +168,6 @@ extern hl_type t$actions_SequenceState;
 extern hl_type t$haxe_$IMap;
 extern hl_type t$vrt_b840ca7;
 extern hl_type t$_type;
-extern hl_type t$haxe_ds_StringMap;
 extern hl_type t$haxe_ds_ObjectMap;
 extern hl_type t$hl_Class;
 extern haxe__$IMap g$_haxe_IMap;
@@ -317,6 +322,8 @@ extern hl_type t$urho3d__AnimationController_$AbstractAnimationController_Impl_;
 extern hl_type t$urho3d__AnimationController_AbstractAnimationController_Impl_;
 extern hl_type t$urho3d__AnimationState_$AnimationState_Impl_;
 extern hl_type t$urho3d__AnimationState_AnimationState_Impl_;
+extern hl_type t$urho3d_$DelayedCall;
+extern hl_type t$urho3d_DelayedCall;
 extern hl_type t$urho3d__BiasParameters_$BiasParameters_Impl_;
 extern hl_type t$urho3d__BiasParameters_BiasParameters_Impl_;
 extern hl_type t$urho3d__Billboard_$Billboard_Impl_;
@@ -532,14 +539,6 @@ extern urho3d___Vector2__$Vector2_Impl_ g$_urho3d__Vector2_Vector2_Impl_;
 extern urho3d___Vector3__$Vector3_Impl_ g$_urho3d__Vector3_Vector3_Impl_;
 void Main_main(void);
 void haxe_EntryPoint_run(void);
-void haxe_ds_StringMap_new(haxe__ds__StringMap);
-extern String s$samplygame_BigWhiteCube;
-void haxe_ds_StringMap_set(haxe__ds__StringMap,String,vdynamic*);
-extern String s$samplygame_MachineGun;
-extern String s$samplygame_Missile;
-extern String s$samplygame_SmallPlates;
-extern String s$samplygame_Joysticks;
-extern String s$samplygame_Coin;
 
 hl_urho3d_math_quaternion* fun$init__$2() {
 	hl_urho3d_math_quaternion *r2;
@@ -563,75 +562,155 @@ hl_urho3d_math_quaternion* fun$init__$2() {
 	return r2;
 }
 
-hl_urho3d_math_vector2* fun$init__$3() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
+haxe__ds__StringMap fun$init__$1() {
+	String r2;
+	haxe__ds__StringMap r0;
+	vdynamic *r4;
+	int r3;
+	r0 = (haxe__ds__StringMap)hl_alloc_obj(&t$haxe_ds_StringMap);
+	haxe_ds_StringMap_new(r0);
+	r2 = (String)s$samplygame_BigWhiteCube;
+	r3 = 20;
+	r4 = hl_alloc_dynamic(&t$_i32);
+	r4->v.i = r3;
+	haxe_ds_StringMap_set(r0,r2,((vdynamic*)r4));
+	r2 = (String)s$samplygame_MachineGun;
+	r3 = 3;
+	r4 = hl_alloc_dynamic(&t$_i32);
+	r4->v.i = r3;
+	haxe_ds_StringMap_set(r0,r2,((vdynamic*)r4));
+	r2 = (String)s$samplygame_Missile;
+	r3 = 8;
+	r4 = hl_alloc_dynamic(&t$_i32);
+	r4->v.i = r3;
+	haxe_ds_StringMap_set(r0,r2,((vdynamic*)r4));
+	r2 = (String)s$samplygame_SmallPlates;
+	r3 = 10;
+	r4 = hl_alloc_dynamic(&t$_i32);
+	r4->v.i = r3;
+	haxe_ds_StringMap_set(r0,r2,((vdynamic*)r4));
+	r2 = (String)s$samplygame_Joysticks;
+	r3 = 10;
+	r4 = hl_alloc_dynamic(&t$_i32);
+	r4->v.i = r3;
+	haxe_ds_StringMap_set(r0,r2,((vdynamic*)r4));
+	r2 = (String)s$samplygame_Coin;
+	r3 = 0;
+	r4 = hl_alloc_dynamic(&t$_i32);
+	r4->v.i = r3;
+	haxe_ds_StringMap_set(r0,r2,((vdynamic*)r4));
+	return r0;
+}
+
+hl_urho3d_math_vector3* fun$init__$9() {
+	hl_urho3d_math_vector3 *r0;
+	float r2, r3, r4;
 	double r1;
 	r1 = 0.;
 	r2 = (float)r1;
 	r1 = 0.;
 	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
+	r1 = 0.;
+	r4 = (float)r1;
+	r0 = Urho3D__math_vector3_create(r2,r3,r4);
 	return r0;
 }
 
-hl_urho3d_math_vector2* fun$init__$4() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
+hl_urho3d_math_vector3* fun$init__$10() {
+	hl_urho3d_math_vector3 *r0;
+	float r2, r3, r4;
 	double r1;
 	r1 = -1.;
 	r2 = (float)r1;
 	r1 = 0.;
 	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
+	r1 = 0.;
+	r4 = (float)r1;
+	r0 = Urho3D__math_vector3_create(r2,r3,r4);
 	return r0;
 }
 
-hl_urho3d_math_vector2* fun$init__$5() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
+hl_urho3d_math_vector3* fun$init__$11() {
+	hl_urho3d_math_vector3 *r0;
+	float r2, r3, r4;
 	double r1;
 	r1 = 1.;
 	r2 = (float)r1;
 	r1 = 0.;
 	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
+	r1 = 0.;
+	r4 = (float)r1;
+	r0 = Urho3D__math_vector3_create(r2,r3,r4);
 	return r0;
 }
 
-hl_urho3d_math_vector2* fun$init__$6() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
+hl_urho3d_math_vector3* fun$init__$12() {
+	hl_urho3d_math_vector3 *r0;
+	float r2, r3, r4;
 	double r1;
 	r1 = 0.;
 	r2 = (float)r1;
 	r1 = 1.;
 	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
+	r1 = 0.;
+	r4 = (float)r1;
+	r0 = Urho3D__math_vector3_create(r2,r3,r4);
 	return r0;
 }
 
-hl_urho3d_math_vector2* fun$init__$7() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
+hl_urho3d_math_vector3* fun$init__$13() {
+	hl_urho3d_math_vector3 *r0;
+	float r2, r3, r4;
 	double r1;
 	r1 = 0.;
 	r2 = (float)r1;
 	r1 = -1.;
 	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
+	r1 = 0.;
+	r4 = (float)r1;
+	r0 = Urho3D__math_vector3_create(r2,r3,r4);
 	return r0;
 }
 
-hl_urho3d_math_vector2* fun$init__$8() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
+hl_urho3d_math_vector3* fun$init__$14() {
+	hl_urho3d_math_vector3 *r0;
+	float r2, r3, r4;
+	double r1;
+	r1 = 0.;
+	r2 = (float)r1;
+	r1 = 0.;
+	r3 = (float)r1;
+	r1 = 1.;
+	r4 = (float)r1;
+	r0 = Urho3D__math_vector3_create(r2,r3,r4);
+	return r0;
+}
+
+hl_urho3d_math_vector3* fun$init__$15() {
+	hl_urho3d_math_vector3 *r0;
+	float r2, r3, r4;
+	double r1;
+	r1 = 0.;
+	r2 = (float)r1;
+	r1 = 0.;
+	r3 = (float)r1;
+	r1 = -1.;
+	r4 = (float)r1;
+	r0 = Urho3D__math_vector3_create(r2,r3,r4);
+	return r0;
+}
+
+hl_urho3d_math_vector3* fun$init__$16() {
+	hl_urho3d_math_vector3 *r0;
+	float r2, r3, r4;
 	double r1;
 	r1 = 1.;
 	r2 = (float)r1;
 	r1 = 1.;
 	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
+	r1 = 1.;
+	r4 = (float)r1;
+	r0 = Urho3D__math_vector3_create(r2,r3,r4);
 	return r0;
 }
 
@@ -1256,6 +1335,10 @@ void fun$init() {
 	r2 = &t$urho3d__AnimationState_AnimationState_Impl_;
 	r3 = (vbyte*)USTR("urho3d._AnimationState.AnimationState_Impl_");
 	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d_$DelayedCall;
+	r2 = &t$urho3d_DelayedCall;
+	r3 = (vbyte*)USTR("urho3d.DelayedCall");
+	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$urho3d__BiasParameters_$BiasParameters_Impl_;
 	r2 = &t$urho3d__BiasParameters_BiasParameters_Impl_;
 	r3 = (vbyte*)USTR("urho3d._BiasParameters.BiasParameters_Impl_");
@@ -1852,155 +1935,75 @@ void fun$init() {
 	return;
 }
 
-hl_urho3d_math_vector3* fun$init__$9() {
-	hl_urho3d_math_vector3 *r0;
-	float r2, r3, r4;
+hl_urho3d_math_vector2* fun$init__$3() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
 	double r1;
 	r1 = 0.;
 	r2 = (float)r1;
 	r1 = 0.;
 	r3 = (float)r1;
-	r1 = 0.;
-	r4 = (float)r1;
-	r0 = Urho3D__math_vector3_create(r2,r3,r4);
+	r0 = Urho3D__math_vector2_create(r2,r3);
 	return r0;
 }
 
-hl_urho3d_math_vector3* fun$init__$10() {
-	hl_urho3d_math_vector3 *r0;
-	float r2, r3, r4;
+hl_urho3d_math_vector2* fun$init__$4() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
 	double r1;
 	r1 = -1.;
 	r2 = (float)r1;
 	r1 = 0.;
 	r3 = (float)r1;
-	r1 = 0.;
-	r4 = (float)r1;
-	r0 = Urho3D__math_vector3_create(r2,r3,r4);
+	r0 = Urho3D__math_vector2_create(r2,r3);
 	return r0;
 }
 
-hl_urho3d_math_vector3* fun$init__$11() {
-	hl_urho3d_math_vector3 *r0;
-	float r2, r3, r4;
+hl_urho3d_math_vector2* fun$init__$5() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
 	double r1;
 	r1 = 1.;
 	r2 = (float)r1;
 	r1 = 0.;
 	r3 = (float)r1;
-	r1 = 0.;
-	r4 = (float)r1;
-	r0 = Urho3D__math_vector3_create(r2,r3,r4);
+	r0 = Urho3D__math_vector2_create(r2,r3);
 	return r0;
 }
 
-hl_urho3d_math_vector3* fun$init__$12() {
-	hl_urho3d_math_vector3 *r0;
-	float r2, r3, r4;
+hl_urho3d_math_vector2* fun$init__$6() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
 	double r1;
 	r1 = 0.;
 	r2 = (float)r1;
 	r1 = 1.;
 	r3 = (float)r1;
-	r1 = 0.;
-	r4 = (float)r1;
-	r0 = Urho3D__math_vector3_create(r2,r3,r4);
+	r0 = Urho3D__math_vector2_create(r2,r3);
 	return r0;
 }
 
-hl_urho3d_math_vector3* fun$init__$13() {
-	hl_urho3d_math_vector3 *r0;
-	float r2, r3, r4;
+hl_urho3d_math_vector2* fun$init__$7() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
 	double r1;
 	r1 = 0.;
 	r2 = (float)r1;
 	r1 = -1.;
 	r3 = (float)r1;
-	r1 = 0.;
-	r4 = (float)r1;
-	r0 = Urho3D__math_vector3_create(r2,r3,r4);
+	r0 = Urho3D__math_vector2_create(r2,r3);
 	return r0;
 }
 
-hl_urho3d_math_vector3* fun$init__$14() {
-	hl_urho3d_math_vector3 *r0;
-	float r2, r3, r4;
-	double r1;
-	r1 = 0.;
-	r2 = (float)r1;
-	r1 = 0.;
-	r3 = (float)r1;
-	r1 = 1.;
-	r4 = (float)r1;
-	r0 = Urho3D__math_vector3_create(r2,r3,r4);
-	return r0;
-}
-
-hl_urho3d_math_vector3* fun$init__$15() {
-	hl_urho3d_math_vector3 *r0;
-	float r2, r3, r4;
-	double r1;
-	r1 = 0.;
-	r2 = (float)r1;
-	r1 = 0.;
-	r3 = (float)r1;
-	r1 = -1.;
-	r4 = (float)r1;
-	r0 = Urho3D__math_vector3_create(r2,r3,r4);
-	return r0;
-}
-
-hl_urho3d_math_vector3* fun$init__$16() {
-	hl_urho3d_math_vector3 *r0;
-	float r2, r3, r4;
+hl_urho3d_math_vector2* fun$init__$8() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
 	double r1;
 	r1 = 1.;
 	r2 = (float)r1;
 	r1 = 1.;
 	r3 = (float)r1;
-	r1 = 1.;
-	r4 = (float)r1;
-	r0 = Urho3D__math_vector3_create(r2,r3,r4);
-	return r0;
-}
-
-haxe__ds__StringMap fun$init__$1() {
-	String r2;
-	haxe__ds__StringMap r0;
-	vdynamic *r4;
-	int r3;
-	r0 = (haxe__ds__StringMap)hl_alloc_obj(&t$haxe_ds_StringMap);
-	haxe_ds_StringMap_new(r0);
-	r2 = (String)s$samplygame_BigWhiteCube;
-	r3 = 20;
-	r4 = hl_alloc_dynamic(&t$_i32);
-	r4->v.i = r3;
-	haxe_ds_StringMap_set(r0,r2,((vdynamic*)r4));
-	r2 = (String)s$samplygame_MachineGun;
-	r3 = 3;
-	r4 = hl_alloc_dynamic(&t$_i32);
-	r4->v.i = r3;
-	haxe_ds_StringMap_set(r0,r2,((vdynamic*)r4));
-	r2 = (String)s$samplygame_Missile;
-	r3 = 8;
-	r4 = hl_alloc_dynamic(&t$_i32);
-	r4->v.i = r3;
-	haxe_ds_StringMap_set(r0,r2,((vdynamic*)r4));
-	r2 = (String)s$samplygame_SmallPlates;
-	r3 = 10;
-	r4 = hl_alloc_dynamic(&t$_i32);
-	r4->v.i = r3;
-	haxe_ds_StringMap_set(r0,r2,((vdynamic*)r4));
-	r2 = (String)s$samplygame_Joysticks;
-	r3 = 10;
-	r4 = hl_alloc_dynamic(&t$_i32);
-	r4->v.i = r3;
-	haxe_ds_StringMap_set(r0,r2,((vdynamic*)r4));
-	r2 = (String)s$samplygame_Coin;
-	r3 = 0;
-	r4 = hl_alloc_dynamic(&t$_i32);
-	r4->v.i = r3;
-	haxe_ds_StringMap_set(r0,r2,((vdynamic*)r4));
+	r0 = Urho3D__math_vector2_create(r2,r3);
 	return r0;
 }
 

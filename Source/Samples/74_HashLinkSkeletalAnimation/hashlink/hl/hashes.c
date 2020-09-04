@@ -35,6 +35,7 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("application"));
 	hl_hash((vbyte*)USTR("context"));
 	hl_hash((vbyte*)USTR("abstractApplication"));
+	hl_hash((vbyte*)USTR("delayedCalls"));
 	hl_hash((vbyte*)USTR("EP_AUTOLOAD_PATHS"));
 	hl_hash((vbyte*)USTR("EP_BORDERLESS"));
 	hl_hash((vbyte*)USTR("EP_DUMP_SHADERS"));
@@ -83,9 +84,11 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("EP_WINDOW_WIDTH"));
 	hl_hash((vbyte*)USTR("EP_WORKER_THREADS"));
 	hl_hash((vbyte*)USTR("Run"));
+	hl_hash((vbyte*)USTR("PreSetup"));
 	hl_hash((vbyte*)USTR("Setup"));
 	hl_hash((vbyte*)USTR("Start"));
 	hl_hash((vbyte*)USTR("Stop"));
+	hl_hash((vbyte*)USTR("OnTick"));
 	hl_hash((vbyte*)USTR("SetScreenJoystickPatchString"));
 	hl_hash((vbyte*)USTR("SubscribeToEvent"));
 	hl_hash((vbyte*)USTR("get_engineParameters"));
@@ -93,10 +96,12 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("Clamp"));
 	hl_hash((vbyte*)USTR("IClamp"));
 	hl_hash((vbyte*)USTR("IsTouchEnabled"));
-	hl_hash((vbyte*)USTR("allocI32"));
-	hl_hash((vbyte*)USTR("allocUI16"));
-	hl_hash((vbyte*)USTR("allocF32"));
-	hl_hash((vbyte*)USTR("allocF64"));
+	hl_hash((vbyte*)USTR("Invoke"));
+	hl_hash((vbyte*)USTR("InvokeObject"));
+	hl_hash((vbyte*)USTR("InvokeDelayed"));
+	hl_hash((vbyte*)USTR("InvokeDelayedObject"));
+	hl_hash((vbyte*)USTR("ClearInvokeDelayed"));
+	hl_hash((vbyte*)USTR("ClearInvokeDelayedObject"));
 	hl_hash((vbyte*)USTR("getDyn"));
 	hl_hash((vbyte*)USTR("setDyn"));
 	hl_hash((vbyte*)USTR("blit"));
@@ -115,7 +120,7 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("resize"));
 	hl_hash((vbyte*)USTR("__cast"));
 	hl_hash((vbyte*)USTR("isArrayObj"));
-	hl_hash((vbyte*)USTR("size"));
+	hl_hash((vbyte*)USTR("array"));
 	hl_hash((vbyte*)USTR("concat"));
 	hl_hash((vbyte*)USTR("pop"));
 	hl_hash((vbyte*)USTR("push"));
@@ -131,6 +136,11 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("map"));
 	hl_hash((vbyte*)USTR("filter"));
 	hl_hash((vbyte*)USTR("__expand"));
+	hl_hash((vbyte*)USTR("allocI32"));
+	hl_hash((vbyte*)USTR("allocUI16"));
+	hl_hash((vbyte*)USTR("allocF32"));
+	hl_hash((vbyte*)USTR("allocF64"));
+	hl_hash((vbyte*)USTR("size"));
 	hl_hash((vbyte*)USTR("currentScene"));
 	hl_hash((vbyte*)USTR("children_name_map"));
 	hl_hash((vbyte*)USTR("children_pointers_map"));
@@ -200,7 +210,6 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("SaveXML"));
 	hl_hash((vbyte*)USTR("LoadXML"));
 	hl_hash((vbyte*)USTR("get_physicsWorld"));
-	hl_hash((vbyte*)USTR("array"));
 	hl_hash((vbyte*)USTR("app"));
 	hl_hash((vbyte*)USTR("main"));
 	hl_hash((vbyte*)USTR("scene"));
@@ -289,6 +298,11 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("x"));
 	hl_hash((vbyte*)USTR("y"));
 	hl_hash((vbyte*)USTR("z"));
+	hl_hash((vbyte*)USTR("utf8Path"));
+	hl_hash((vbyte*)USTR("makePath"));
+	hl_hash((vbyte*)USTR("println"));
+	hl_hash((vbyte*)USTR("args"));
+	hl_hash((vbyte*)USTR("getCwd"));
 	hl_hash((vbyte*)USTR("sleepLock"));
 	hl_hash((vbyte*)USTR("mutex"));
 	hl_hash((vbyte*)USTR("pending"));
@@ -405,8 +419,6 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("field"));
 	hl_hash((vbyte*)USTR("callMethod"));
 	hl_hash((vbyte*)USTR("fields"));
-	hl_hash((vbyte*)USTR("utf8Path"));
-	hl_hash((vbyte*)USTR("println"));
 	hl_hash((vbyte*)USTR("init"));
 	hl_hash((vbyte*)USTR("initClass"));
 	hl_hash((vbyte*)USTR("initEnum"));
@@ -611,7 +623,6 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("OnMarkedDirty"));
 	hl_hash((vbyte*)USTR("_OnNodeSetEnabled"));
 	hl_hash((vbyte*)USTR("OnNodeSetEnabled"));
-	hl_hash((vbyte*)USTR("CallMethod"));
 	hl_hash((vbyte*)USTR("Play"));
 	hl_hash((vbyte*)USTR("get_gain"));
 	hl_hash((vbyte*)USTR("set_gain"));
@@ -775,6 +786,12 @@ void hl_init_hashes() {
 	hl_hash((vbyte*)USTR("get_renderPath"));
 	hl_hash((vbyte*)USTR("ScreenToWorldPoint"));
 	hl_hash((vbyte*)USTR("t"));
+	hl_hash((vbyte*)USTR("period_"));
+	hl_hash((vbyte*)USTR("delay_"));
+	hl_hash((vbyte*)USTR("repeat_"));
+	hl_hash((vbyte*)USTR("obj_"));
+	hl_hash((vbyte*)USTR("declaration_"));
+	hl_hash((vbyte*)USTR("parameters_"));
 	hl_hash((vbyte*)USTR("moveSpeed"));
 	hl_hash((vbyte*)USTR("rotationSpeed"));
 	hl_hash((vbyte*)USTR("SetParameters"));

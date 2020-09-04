@@ -23,7 +23,6 @@ void RenderToTextureSample_SubscribeToEvents(RenderToTextureSample);
 #include <urho3d/StaticModel.h>
 #include <_std/Rotator.h>
 #include <urho3d/Component.h>
-#include <hl/types/ArrayObj.h>
 #include <urho3d/Camera.h>
 #include <urho3d/Light.h>
 extern hl_type t$urho3d_Scene;

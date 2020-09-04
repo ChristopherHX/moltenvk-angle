@@ -30,7 +30,6 @@ void urho3d_Scene_new(urho3d__Scene,hl_urho3d_scene_scene*);
 void urho3d_LogicComponent_OnSceneSet(urho3d__LogicComponent,urho3d__Scene);
 void urho3d_LogicComponent_OnMarkedDirty(urho3d__LogicComponent,urho3d__Node);
 void urho3d_LogicComponent_OnNodeSetEnabled(urho3d__LogicComponent,urho3d__Node);
-vdynamic* Reflect_callMethod(vdynamic*,vdynamic*,hl__types__ArrayDyn);
 int Std_random(int);
 void urho3d_Component_new(urho3d__Component,hl_urho3d_scene_component*);
 
@@ -219,6 +218,10 @@ void urho3d_LogicComponent_OnSceneSet(urho3d__LogicComponent r0,urho3d__Scene r1
 	return;
 }
 
+void urho3d_LogicComponent_OnTick(urho3d__LogicComponent r0,double r1) {
+	return;
+}
+
 void urho3d_LogicComponent__OnMarkedDirty(urho3d__LogicComponent r0,hl_urho3d_scene_node* r1) {
 	urho3d__Node r3;
 	r3 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
@@ -240,19 +243,6 @@ void urho3d_LogicComponent__OnNodeSetEnabled(urho3d__LogicComponent r0,hl_urho3d
 }
 
 void urho3d_LogicComponent_OnNodeSetEnabled(urho3d__LogicComponent r0,urho3d__Node r1) {
-	return;
-}
-
-void urho3d_LogicComponent_CallMethod(urho3d__LogicComponent r0,String r1,hl__types__ArrayDyn r2) {
-	vdynamic *r3, *r5;
-	hl_trap_ctx trap$0;
-	hl_trap(trap$0,r3,label$8c73b8e_24_5);
-	r3 = Reflect_field(((vdynamic*)r0),r1);
-	if( !r3 ) goto label$8c73b8e_24_4;
-	r5 = Reflect_callMethod(((vdynamic*)r0),r3,r2);
-	label$8c73b8e_24_4:
-	hl_endtrap(trap$0);
-	label$8c73b8e_24_5:
 	return;
 }
 

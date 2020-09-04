@@ -9,6 +9,7 @@
 #include <hl/types/ArrayAccess.h>
 #include <hl/types/ArrayBase.h>
 #include <hl/types/ArrayBytes_hl_F32.h>
+#include <urho3d/DelayedCall.h>
 #include <_std/SpritesSample.h>
 #include <_std/Main.h>
 #include <_std/Std.h>
@@ -16,6 +17,7 @@
 #include <haxe/Log.h>
 #include <_std/StringBuf.h>
 #include <_std/SysError.h>
+#include <_std/Sys.h>
 #include <hl/natives.h>
 #include <hl/Enum.h>
 #include <sys/thread/Lock.h>
@@ -71,7 +73,6 @@
 #include <hl/CoreType.h>
 #include <hl/CoreEnum.h>
 #include <hl/_Bytes/Bytes_Impl_.h>
-#include <_std/Sys.h>
 #include <_std/Type.h>
 #include <haxe/IMap.h>
 #include <sys/thread/_Mutex/Mutex_Impl_.h>
@@ -170,6 +171,7 @@ urho3d__$Application g$_urho3d_Application = 0;
 hl__types__$ArrayAccess g$_hl_types_ArrayAccess = 0;
 hl__types__$ArrayBase g$_hl_types_ArrayBase = 0;
 hl__types__$ArrayBytes_hl_F32 g$_hl_types_ArrayBytes_hl_F32 = 0;
+urho3d__$DelayedCall g$_urho3d_DelayedCall = 0;
 $SpritesSample g$_SpritesSample = 0;
 $Main g$_Main = 0;
 $Std g$_Std = 0;
@@ -222,6 +224,10 @@ String s$DumpShaders = 0;
 String s$Borderless = 0;
 String s$AutoloadPaths = 0;
 urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_ = 0;
+String s$ = 0;
+String s$_hl = 0;
+String s$_rpp = 0;
+String s$_bin = 0;
 haxe__$Log g$_haxe_Log = 0;
 String s$Setup = 0;
 String s$src_haxe_SpritesSample_hx = 0;
@@ -238,10 +244,10 @@ String s$_and_ = 0;
 String s$9371d7a = 0;
 String s$Invalid_unicode_char_ = 0;
 String s$null = 0;
-String s$ = 0;
 $StringBuf g$_StringBuf = 0;
 $SysError g$_SysError = 0;
 String s$SysError_ = 0;
+$Sys g$_Sys = 0;
 String s$68b329d = 0;
 hl_bytes_map* g$__types__ = 0;
 hl__$Enum g$_hl_Enum = 0;
@@ -327,7 +333,6 @@ String s$Bool = 0;
 hl__CoreType g$_Dynamic = 0;
 String s$Dynamic = 0;
 hl___Bytes__$Bytes_Impl_ g$_hl__Bytes_Bytes_Impl_ = 0;
-$Sys g$_Sys = 0;
 $Type g$_Type = 0;
 haxe__$IMap g$_haxe_IMap = 0;
 sys__thread___Mutex__$Mutex_Impl_ g$_sys_thread__Mutex_Mutex_Impl_ = 0;
@@ -467,6 +472,10 @@ static struct _String const_s$EventProfiler = {&t$String,(vbyte*)USTR("EventProf
 static struct _String const_s$DumpShaders = {&t$String,(vbyte*)USTR("DumpShaders"),11};
 static struct _String const_s$Borderless = {&t$String,(vbyte*)USTR("Borderless"),10};
 static struct _String const_s$AutoloadPaths = {&t$String,(vbyte*)USTR("AutoloadPaths"),13};
+static struct _String const_s$ = {&t$String,(vbyte*)USTR(""),0};
+static struct _String const_s$_hl = {&t$String,(vbyte*)USTR("-hl"),3};
+static struct _String const_s$_rpp = {&t$String,(vbyte*)USTR("-rpp"),4};
+static struct _String const_s$_bin = {&t$String,(vbyte*)USTR("/bin"),4};
 static struct _String const_s$Setup = {&t$String,(vbyte*)USTR("Setup"),5};
 static struct _String const_s$src_haxe_SpritesSample_hx = {&t$String,(vbyte*)USTR("src/haxe/SpritesSample.hx"),25};
 static struct _String const_s$SpritesSample = {&t$String,(vbyte*)USTR("SpritesSample"),13};
@@ -482,7 +491,6 @@ static struct _String const_s$_and_ = {&t$String,(vbyte*)USTR(") and "),6};
 static struct _String const_s$9371d7a = {&t$String,(vbyte*)USTR(")"),1};
 static struct _String const_s$Invalid_unicode_char_ = {&t$String,(vbyte*)USTR("Invalid unicode char "),21};
 static struct _String const_s$null = {&t$String,(vbyte*)USTR("null"),4};
-static struct _String const_s$ = {&t$String,(vbyte*)USTR(""),0};
 static struct _String const_s$SysError_ = {&t$String,(vbyte*)USTR("SysError("),9};
 static struct _String const_s$68b329d = {&t$String,(vbyte*)USTR("\n"),1};
 static struct _String const_s$853ae90 = {&t$String,(vbyte*)USTR(":"),1};
@@ -563,6 +571,10 @@ void hl_init_roots() {
 	s$DumpShaders = &const_s$DumpShaders;
 	s$Borderless = &const_s$Borderless;
 	s$AutoloadPaths = &const_s$AutoloadPaths;
+	s$ = &const_s$;
+	s$_hl = &const_s$_hl;
+	s$_rpp = &const_s$_rpp;
+	s$_bin = &const_s$_bin;
 	s$Setup = &const_s$Setup;
 	s$src_haxe_SpritesSample_hx = &const_s$src_haxe_SpritesSample_hx;
 	s$SpritesSample = &const_s$SpritesSample;
@@ -578,7 +590,6 @@ void hl_init_roots() {
 	s$9371d7a = &const_s$9371d7a;
 	s$Invalid_unicode_char_ = &const_s$Invalid_unicode_char_;
 	s$null = &const_s$null;
-	s$ = &const_s$;
 	s$SysError_ = &const_s$SysError_;
 	s$68b329d = &const_s$68b329d;
 	s$853ae90 = &const_s$853ae90;
@@ -617,6 +628,7 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_hl_types_ArrayAccess);
 	hl_add_root((void**)&g$_hl_types_ArrayBase);
 	hl_add_root((void**)&g$_hl_types_ArrayBytes_hl_F32);
+	hl_add_root((void**)&g$_urho3d_DelayedCall);
 	hl_add_root((void**)&g$_SpritesSample);
 	hl_add_root((void**)&g$_Main);
 	hl_add_root((void**)&g$_Std);
@@ -624,6 +636,7 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_haxe_Log);
 	hl_add_root((void**)&g$_StringBuf);
 	hl_add_root((void**)&g$_SysError);
+	hl_add_root((void**)&g$_Sys);
 	hl_add_root((void**)&g$__types__);
 	hl_add_root((void**)&g$_hl_Enum);
 	hl_add_root((void**)&g$_sys_thread_Lock);
@@ -682,7 +695,6 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_Bool);
 	hl_add_root((void**)&g$_Dynamic);
 	hl_add_root((void**)&g$_hl__Bytes_Bytes_Impl_);
-	hl_add_root((void**)&g$_Sys);
 	hl_add_root((void**)&g$_Type);
 	hl_add_root((void**)&g$_haxe_IMap);
 	hl_add_root((void**)&g$_sys_thread__Mutex_Mutex_Impl_);

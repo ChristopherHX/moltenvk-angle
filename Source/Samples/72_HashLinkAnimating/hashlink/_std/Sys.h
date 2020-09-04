@@ -6,6 +6,7 @@ typedef struct _Sys *Sys;
 #include <hl/Class.h>
 #include <hl/BaseType.h>
 #include <_std/String.h>
+#include <hl/types/ArrayObj.h>
 
 
 struct _$Sys {
@@ -16,7 +17,10 @@ struct _$Sys {
 	String __name__;
 	vdynamic* __constructor__;
 	bool utf8Path;
+	vclosure* makePath;
 	vclosure* println;
+	vclosure* args;
+	vclosure* getCwd;
 };
 struct _Sys {
 	hl_type *$type;

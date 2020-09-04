@@ -13,6 +13,7 @@
 #include <hl/types/ArrayBase.h>
 #include <hl/types/ArrayBytes_hl_F32.h>
 #include <urho3d/Scene.h>
+#include <urho3d/DelayedCall.h>
 #include <_std/RenderToTextureSample.h>
 #include <_std/Main.h>
 #include <_std/Std.h>
@@ -35,6 +36,7 @@
 #include <urho3d/_Vector3/Vector3_Impl_.h>
 #include <_std/StringBuf.h>
 #include <_std/SysError.h>
+#include <_std/Sys.h>
 #include <hl/natives.h>
 #include <hl/Enum.h>
 #include <sys/thread/Lock.h>
@@ -72,7 +74,6 @@
 #include <hl/CoreType.h>
 #include <hl/CoreEnum.h>
 #include <hl/_Bytes/Bytes_Impl_.h>
-#include <_std/Sys.h>
 #include <_std/Type.h>
 #include <haxe/IMap.h>
 #include <sys/thread/_Mutex/Mutex_Impl_.h>
@@ -178,12 +179,14 @@ hl__types__$ArrayAccess g$_hl_types_ArrayAccess = 0;
 hl__types__$ArrayBase g$_hl_types_ArrayBase = 0;
 hl__types__$ArrayBytes_hl_F32 g$_hl_types_ArrayBytes_hl_F32 = 0;
 urho3d__$Scene g$_urho3d_Scene = 0;
+urho3d__$DelayedCall g$_urho3d_DelayedCall = 0;
 $RenderToTextureSample g$_RenderToTextureSample = 0;
 $Main g$_Main = 0;
 $Std g$_Std = 0;
 String s$Invalid_function_ = 0;
 urho3d__$Component g$_urho3d_Component = 0;
 urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_ = 0;
+String s$ = 0;
 urho3d__$Zone g$_urho3d_Zone = 0;
 urho3d__$StaticModel g$_urho3d_StaticModel = 0;
 urho3d__$AnimatedModel g$_urho3d_AnimatedModel = 0;
@@ -244,13 +247,15 @@ String s$EventProfiler = 0;
 String s$DumpShaders = 0;
 String s$Borderless = 0;
 String s$AutoloadPaths = 0;
+String s$_hl = 0;
+String s$_rpp = 0;
+String s$_bin = 0;
 haxe__$Log g$_haxe_Log = 0;
 String s$Setup = 0;
 String s$60a9c9d = 0;
 String s$RenderToTextureSample = 0;
 String s$Octree = 0;
 String s$Zone = 0;
-String s$ = 0;
 String s$Box = 0;
 String s$StaticModel = 0;
 String s$Models_Box_mdl = 0;
@@ -276,6 +281,7 @@ String s$null = 0;
 $StringBuf g$_StringBuf = 0;
 $SysError g$_SysError = 0;
 String s$SysError_ = 0;
+$Sys g$_Sys = 0;
 String s$68b329d = 0;
 hl_bytes_map* g$__types__ = 0;
 hl__$Enum g$_hl_Enum = 0;
@@ -343,7 +349,6 @@ String s$Bool = 0;
 hl__CoreType g$_Dynamic = 0;
 String s$Dynamic = 0;
 hl___Bytes__$Bytes_Impl_ g$_hl__Bytes_Bytes_Impl_ = 0;
-$Sys g$_Sys = 0;
 $Type g$_Type = 0;
 haxe__$IMap g$_haxe_IMap = 0;
 sys__thread___Mutex__$Mutex_Impl_ g$_sys_thread__Mutex_Mutex_Impl_ = 0;
@@ -439,6 +444,7 @@ urho3d___Viewport__$Viewport_Impl_ g$_urho3d__Viewport_Viewport_Impl_ = 0;
 urho3d___XMLFile__$XMLFile_Impl_ g$_urho3d__XMLFile_XMLFile_Impl_ = 0;
 urho3d___Zone__$AbstractZone_Impl_ g$_urho3d__Zone_AbstractZone_Impl_ = 0;
 static struct _String const_s$Invalid_function_ = {&t$String,(vbyte*)USTR("Invalid function "),17};
+static struct _String const_s$ = {&t$String,(vbyte*)USTR(""),0};
 static struct _String const_s$WorkerThreads = {&t$String,(vbyte*)USTR("WorkerThreads"),13};
 static struct _String const_s$WindowWidth = {&t$String,(vbyte*)USTR("WindowWidth"),11};
 static struct _String const_s$WindowTitle = {&t$String,(vbyte*)USTR("WindowTitle"),11};
@@ -486,12 +492,14 @@ static struct _String const_s$EventProfiler = {&t$String,(vbyte*)USTR("EventProf
 static struct _String const_s$DumpShaders = {&t$String,(vbyte*)USTR("DumpShaders"),11};
 static struct _String const_s$Borderless = {&t$String,(vbyte*)USTR("Borderless"),10};
 static struct _String const_s$AutoloadPaths = {&t$String,(vbyte*)USTR("AutoloadPaths"),13};
+static struct _String const_s$_hl = {&t$String,(vbyte*)USTR("-hl"),3};
+static struct _String const_s$_rpp = {&t$String,(vbyte*)USTR("-rpp"),4};
+static struct _String const_s$_bin = {&t$String,(vbyte*)USTR("/bin"),4};
 static struct _String const_s$Setup = {&t$String,(vbyte*)USTR("Setup"),5};
 static struct _String const_s$60a9c9d = {&t$String,(vbyte*)USTR("src/haxe/RenderToTextureSample.hx"),33};
 static struct _String const_s$RenderToTextureSample = {&t$String,(vbyte*)USTR("RenderToTextureSample"),21};
 static struct _String const_s$Octree = {&t$String,(vbyte*)USTR("Octree"),6};
 static struct _String const_s$Zone = {&t$String,(vbyte*)USTR("Zone"),4};
-static struct _String const_s$ = {&t$String,(vbyte*)USTR(""),0};
 static struct _String const_s$Box = {&t$String,(vbyte*)USTR("Box"),3};
 static struct _String const_s$StaticModel = {&t$String,(vbyte*)USTR("StaticModel"),11};
 static struct _String const_s$Models_Box_mdl = {&t$String,(vbyte*)USTR("Models/Box.mdl"),14};
@@ -546,6 +554,7 @@ static struct _String const_s$hl_types_ArrayDyn = {&t$String,(vbyte*)USTR("hl.ty
 
 void hl_init_roots() {
 	s$Invalid_function_ = &const_s$Invalid_function_;
+	s$ = &const_s$;
 	s$WorkerThreads = &const_s$WorkerThreads;
 	s$WindowWidth = &const_s$WindowWidth;
 	s$WindowTitle = &const_s$WindowTitle;
@@ -593,12 +602,14 @@ void hl_init_roots() {
 	s$DumpShaders = &const_s$DumpShaders;
 	s$Borderless = &const_s$Borderless;
 	s$AutoloadPaths = &const_s$AutoloadPaths;
+	s$_hl = &const_s$_hl;
+	s$_rpp = &const_s$_rpp;
+	s$_bin = &const_s$_bin;
 	s$Setup = &const_s$Setup;
 	s$60a9c9d = &const_s$60a9c9d;
 	s$RenderToTextureSample = &const_s$RenderToTextureSample;
 	s$Octree = &const_s$Octree;
 	s$Zone = &const_s$Zone;
-	s$ = &const_s$;
 	s$Box = &const_s$Box;
 	s$StaticModel = &const_s$StaticModel;
 	s$Models_Box_mdl = &const_s$Models_Box_mdl;
@@ -662,6 +673,7 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_hl_types_ArrayBase);
 	hl_add_root((void**)&g$_hl_types_ArrayBytes_hl_F32);
 	hl_add_root((void**)&g$_urho3d_Scene);
+	hl_add_root((void**)&g$_urho3d_DelayedCall);
 	hl_add_root((void**)&g$_RenderToTextureSample);
 	hl_add_root((void**)&g$_Main);
 	hl_add_root((void**)&g$_Std);
@@ -684,6 +696,7 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_urho3d__Vector3_Vector3_Impl_);
 	hl_add_root((void**)&g$_StringBuf);
 	hl_add_root((void**)&g$_SysError);
+	hl_add_root((void**)&g$_Sys);
 	hl_add_root((void**)&g$__types__);
 	hl_add_root((void**)&g$_hl_Enum);
 	hl_add_root((void**)&g$_sys_thread_Lock);
@@ -724,7 +737,6 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_Bool);
 	hl_add_root((void**)&g$_Dynamic);
 	hl_add_root((void**)&g$_hl__Bytes_Bytes_Impl_);
-	hl_add_root((void**)&g$_Sys);
 	hl_add_root((void**)&g$_Type);
 	hl_add_root((void**)&g$_haxe_IMap);
 	hl_add_root((void**)&g$_sys_thread__Mutex_Mutex_Impl_);

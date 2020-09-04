@@ -8,6 +8,7 @@ typedef struct _samplygame__SamplyGame *samplygame__SamplyGame;
 #include <_std/String.h>
 #include <urho3d/Application.h>
 #include <hl/natives.h>
+#include <hl/types/ArrayObj.h>
 #include <urho3d/Scene.h>
 #include <urho3d/Node.h>
 #include <samplygame/Enemies.h>
@@ -27,6 +28,7 @@ struct _samplygame__$SamplyGame {
 struct _samplygame__SamplyGame {
 	hl_type *$type;
 	hl_urho3d_application* abstractApplication;
+	hl__types__ArrayObj delayedCalls;
 	String EP_AUTOLOAD_PATHS;
 	String EP_BORDERLESS;
 	String EP_DUMP_SHADERS;

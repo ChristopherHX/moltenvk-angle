@@ -4,10 +4,10 @@
 #include <urho3d/_AbstractApplication/AbstractApplication_Impl_.h>
 #include <hl/natives.h>
 
-hl_urho3d_application* urho3d__AbstractApplication_AbstractApplication_Impl___new(urho3d_context* r0) {
-	hl_urho3d_application *r1;
-	r1 = Urho3D__create_application(r0);
-	return r1;
+hl_urho3d_application* urho3d__AbstractApplication_AbstractApplication_Impl___new(urho3d_context* r0,vdynamic* r1) {
+	hl_urho3d_application *r2;
+	r2 = Urho3D__create_application(r0,r1);
+	return r2;
 }
 
 void urho3d__AbstractApplication_AbstractApplication_Impl__Run(hl_urho3d_application* r0) {

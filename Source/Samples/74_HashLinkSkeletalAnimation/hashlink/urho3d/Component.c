@@ -6,6 +6,14 @@
 #include <urho3d/_Context/Context_Impl_.h>
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 void urho3d__Component_AbstractComponent_Impl__SubscribeToEvent(hl_urho3d_scene_component*,hl_urho3d_core_object*,hl_urho3d_stringhash*,vdynamic*,String);
+#include <hl/types/ArrayDyn.h>
+vdynamic* Reflect_field(vdynamic*,String);
+vdynamic* Reflect_callMethod(vdynamic*,vdynamic*,hl__types__ArrayDyn);
+#include <urho3d/Application.h>
+extern urho3d__$Application g$_urho3d_Application;
+void urho3d_Application_InvokeDelayedObject(urho3d__Application,double*,bool*,vdynamic*,String,hl__types__ArrayDyn);
+extern String s$;
+void urho3d_Application_ClearInvokeDelayedObject(urho3d__Application,vdynamic*,String);
 extern hl_type t$urho3d_Scene;
 void urho3d_Scene_new(urho3d__Scene,hl_urho3d_scene_scene*);
 extern hl_type t$urho3d_Node;
@@ -73,6 +81,118 @@ void urho3d_Component_SubscribeToEvent(urho3d__Component r0,hl_urho3d_core_objec
 	return;
 }
 
+void urho3d_Component_Invoke(urho3d__Component r0,String r1,hl__types__ArrayDyn r2) {
+	vdynamic *r3, *r5;
+	hl_trap_ctx trap$0;
+	hl_trap(trap$0,r3,label$49625ec_3_5);
+	r3 = Reflect_field(((vdynamic*)r0),r1);
+	if( !r3 ) goto label$49625ec_3_4;
+	r5 = Reflect_callMethod(((vdynamic*)r0),r3,r2);
+	label$49625ec_3_4:
+	hl_endtrap(trap$0);
+	label$49625ec_3_5:
+	return;
+}
+
+void urho3d_Component_InvokeDelayed(urho3d__Component r0,double* r1,bool* r2,String r3,hl__types__ArrayDyn r4) {
+	urho3d__Application r8;
+	urho3d__$Application r9;
+	bool r6, r11;
+	double r5, r10;
+	if( r1 ) goto label$49625ec_4_3;
+	r5 = 0.;
+	goto label$49625ec_4_4;
+	label$49625ec_4_3:
+	r5 = *r1;
+	label$49625ec_4_4:
+	if( r2 ) goto label$49625ec_4_7;
+	r6 = false;
+	goto label$49625ec_4_8;
+	label$49625ec_4_7:
+	r6 = *r2;
+	label$49625ec_4_8:
+	r9 = (urho3d__$Application)g$_urho3d_Application;
+	r8 = r9->application;
+	if( r8 == NULL ) hl_null_access();
+	r10 = r5;
+	r1 = &r10;
+	r11 = r6;
+	r2 = &r11;
+	urho3d_Application_InvokeDelayedObject(r8,r1,r2,((vdynamic*)r0),r3,r4);
+	return;
+}
+
+void urho3d_Component_InvokeObject(urho3d__Component r0,vdynamic* r1,String r2,hl__types__ArrayDyn r3) {
+	vdynamic *r4, *r6;
+	hl_trap_ctx trap$0;
+	hl_trap(trap$0,r4,label$49625ec_5_5);
+	r4 = Reflect_field(r1,r2);
+	if( !r4 ) goto label$49625ec_5_4;
+	r6 = Reflect_callMethod(r1,r4,r3);
+	label$49625ec_5_4:
+	hl_endtrap(trap$0);
+	label$49625ec_5_5:
+	return;
+}
+
+void urho3d_Component_InvokeDelayedObject(urho3d__Component r0,double* r1,bool* r2,vdynamic* r3,String r4,hl__types__ArrayDyn r5) {
+	urho3d__Application r9;
+	urho3d__$Application r10;
+	bool r7, r12;
+	double r6, r11;
+	if( r1 ) goto label$49625ec_6_3;
+	r6 = 0.;
+	goto label$49625ec_6_4;
+	label$49625ec_6_3:
+	r6 = *r1;
+	label$49625ec_6_4:
+	if( r2 ) goto label$49625ec_6_7;
+	r7 = false;
+	goto label$49625ec_6_8;
+	label$49625ec_6_7:
+	r7 = *r2;
+	label$49625ec_6_8:
+	r10 = (urho3d__$Application)g$_urho3d_Application;
+	r9 = r10->application;
+	if( r9 == NULL ) hl_null_access();
+	r11 = r6;
+	r1 = &r11;
+	r12 = r7;
+	r2 = &r12;
+	urho3d_Application_InvokeDelayedObject(r9,r1,r2,r3,r4,r5);
+	return;
+}
+
+void urho3d_Component_ClearInvokeDelayed(urho3d__Component r0,String r1) {
+	urho3d__Application r4;
+	String r2;
+	urho3d__$Application r5;
+	if( r1 ) goto label$49625ec_7_3;
+	r2 = (String)s$;
+	r1 = r2;
+	label$49625ec_7_3:
+	r5 = (urho3d__$Application)g$_urho3d_Application;
+	r4 = r5->application;
+	if( r4 == NULL ) hl_null_access();
+	urho3d_Application_ClearInvokeDelayedObject(r4,((vdynamic*)r0),r1);
+	return;
+}
+
+void urho3d_Component_ClearInvokeDelayedObject(urho3d__Component r0,vdynamic* r1,String r2) {
+	urho3d__Application r5;
+	String r3;
+	urho3d__$Application r6;
+	if( r2 ) goto label$49625ec_8_3;
+	r3 = (String)s$;
+	r2 = r3;
+	label$49625ec_8_3:
+	r6 = (urho3d__$Application)g$_urho3d_Application;
+	r5 = r6->application;
+	if( r5 == NULL ) hl_null_access();
+	urho3d_Application_ClearInvokeDelayedObject(r5,r1,r2);
+	return;
+}
+
 bool urho3d_Component_get_enabled(urho3d__Component r0) {
 	hl_urho3d_scene_component *r4;
 	bool r1;
@@ -103,7 +223,7 @@ urho3d__Scene urho3d_Component_get_scene(urho3d__Component r0) {
 	urho3d_context *r4;
 	hl_urho3d_scene_scene *r3;
 	r2 = r0->_scene;
-	if( r2 ) goto label$49625ec_5_9;
+	if( r2 ) goto label$49625ec_11_9;
 	r2 = (urho3d__Scene)hl_alloc_obj(&t$urho3d_Scene);
 	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r4 = r5->context;
@@ -111,7 +231,7 @@ urho3d__Scene urho3d_Component_get_scene(urho3d__Component r0) {
 	r3 = Urho3D__scene_component_get_scene(r4,r6);
 	urho3d_Scene_new(r2,r3);
 	r0->_scene = r2;
-	label$49625ec_5_9:
+	label$49625ec_11_9:
 	r2 = r0->_scene;
 	return r2;
 }
@@ -123,7 +243,7 @@ urho3d__Node urho3d_Component_get_node(urho3d__Component r0) {
 	urho3d_context *r4;
 	hl_urho3d_scene_node *r3;
 	r2 = r0->_node;
-	if( r2 ) goto label$49625ec_6_9;
+	if( r2 ) goto label$49625ec_12_9;
 	r2 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
 	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r4 = r5->context;
@@ -131,7 +251,7 @@ urho3d__Node urho3d_Component_get_node(urho3d__Component r0) {
 	r3 = Urho3D__scene_component_get_node(r4,r6);
 	urho3d_Node_new(r2,r3);
 	r0->_node = r2;
-	label$49625ec_6_9:
+	label$49625ec_12_9:
 	r2 = r0->_node;
 	return r2;
 }
@@ -243,11 +363,11 @@ urho3d__DecalSet urho3d_Component_toDecalset(urho3d__Component r0) {
 	r2 = r3->context;
 	r4 = r0->abstractComponent;
 	r1 = Urho3D__graphics_decalset_cast_from_component(r2,r4);
-	if( !r1 ) goto label$49625ec_14_8;
+	if( !r1 ) goto label$49625ec_20_8;
 	r6 = (urho3d__DecalSet)hl_alloc_obj(&t$urho3d_DecalSet);
 	urho3d_DecalSet_new(r6,r1);
 	return r6;
-	label$49625ec_14_8:
+	label$49625ec_20_8:
 	r6 = NULL;
 	return r6;
 }
@@ -262,11 +382,11 @@ urho3d__RigidBody urho3d_Component_toRigidBody(urho3d__Component r0) {
 	r2 = r3->context;
 	r4 = r0->abstractComponent;
 	r1 = Urho3D__physics_rigid_body_cast_from_component(r2,r4);
-	if( !r1 ) goto label$49625ec_15_8;
+	if( !r1 ) goto label$49625ec_21_8;
 	r6 = (urho3d__RigidBody)hl_alloc_obj(&t$urho3d_RigidBody);
 	urho3d_RigidBody_new(r6,r1);
 	return r6;
-	label$49625ec_15_8:
+	label$49625ec_21_8:
 	r6 = NULL;
 	return r6;
 }
@@ -281,11 +401,11 @@ urho3d__CollisionShape urho3d_Component_toCollisionShape(urho3d__Component r0) {
 	r2 = r3->context;
 	r4 = r0->abstractComponent;
 	r1 = Urho3D__physics_collision_shape_cast_from_component(r2,r4);
-	if( !r1 ) goto label$49625ec_16_8;
+	if( !r1 ) goto label$49625ec_22_8;
 	r6 = (urho3d__CollisionShape)hl_alloc_obj(&t$urho3d_CollisionShape);
 	urho3d_CollisionShape_new(r6,r1);
 	return r6;
-	label$49625ec_16_8:
+	label$49625ec_22_8:
 	r6 = NULL;
 	return r6;
 }
@@ -300,11 +420,11 @@ urho3d__Skybox urho3d_Component_toSkybox(urho3d__Component r0) {
 	r2 = r3->context;
 	r4 = r0->abstractComponent;
 	r1 = Urho3D__graphics_skybox_cast_from_component(r2,r4);
-	if( !r1 ) goto label$49625ec_17_8;
+	if( !r1 ) goto label$49625ec_23_8;
 	r6 = (urho3d__Skybox)hl_alloc_obj(&t$urho3d_Skybox);
 	urho3d_Skybox_new(r6,r1);
 	return r6;
-	label$49625ec_17_8:
+	label$49625ec_23_8:
 	r6 = NULL;
 	return r6;
 }
@@ -319,11 +439,11 @@ urho3d__AnimationController urho3d_Component_toAnimationController(urho3d__Compo
 	r2 = r3->context;
 	r4 = r0->abstractComponent;
 	r1 = Urho3D__graphics_animation_controller_cast_from_component(r2,r4);
-	if( !r1 ) goto label$49625ec_18_8;
+	if( !r1 ) goto label$49625ec_24_8;
 	r6 = (urho3d__AnimationController)hl_alloc_obj(&t$urho3d_AnimationController);
 	urho3d_AnimationController_new(r6,r1);
 	return r6;
-	label$49625ec_18_8:
+	label$49625ec_24_8:
 	r6 = NULL;
 	return r6;
 }
@@ -339,7 +459,7 @@ urho3d__LogicComponent urho3d_Component_toLogicComponent(urho3d__Component r0) {
 	r2 = r3->context;
 	r4 = r0->abstractComponent;
 	r1 = Urho3D__scene_logic_component_cast_from_component(r2,r4);
-	if( !r1 ) goto label$49625ec_19_9;
+	if( !r1 ) goto label$49625ec_25_9;
 	r6 = (urho3d__LogicComponent)hl_alloc_obj(&t$urho3d_LogicComponent);
 	if( r1 == NULL ) r7 = NULL; else {
 		r7 = hl_alloc_dynamic(&t$hl_urho3d_scene_logic_component);
@@ -347,7 +467,7 @@ urho3d__LogicComponent urho3d_Component_toLogicComponent(urho3d__Component r0) {
 	}
 	urho3d_LogicComponent_new(r6,r7);
 	return r6;
-	label$49625ec_19_9:
+	label$49625ec_25_9:
 	r6 = NULL;
 	return r6;
 }
@@ -367,17 +487,17 @@ void urho3d_Component_new(urho3d__Component r0,hl_urho3d_scene_component* r1) {
 	r0->_scene = r3;
 	r4 = NULL;
 	r0->_node = r4;
-	if( !r1 ) goto label$49625ec_20_9;
+	if( !r1 ) goto label$49625ec_26_9;
 	r0->abstractComponent = r1;
-	goto label$49625ec_20_13;
-	label$49625ec_20_9:
+	goto label$49625ec_26_13;
+	label$49625ec_26_9:
 	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r6 = r7->context;
 	r2 = Urho3D__scene_component_create(r6);
 	r0->abstractComponent = r2;
-	label$49625ec_20_13:
+	label$49625ec_26_13:
 	r4 = urho3d_Component_get_node(r0);
-	if( !r4 ) goto label$49625ec_20_23;
+	if( !r4 ) goto label$49625ec_26_23;
 	r4 = urho3d_Component_get_node(r0);
 	if( r4 == NULL ) hl_null_access();
 	r8 = r4->components_map;
@@ -389,7 +509,7 @@ void urho3d_Component_new(urho3d__Component r0,hl_urho3d_scene_component* r1) {
 	}
 	haxe_ds_ObjectMap_set(r8,r11,((vdynamic*)r0));
 	r9 = urho3d_Component_set_node(r0,r4);
-	label$49625ec_20_23:
+	label$49625ec_26_23:
 	return;
 }
 

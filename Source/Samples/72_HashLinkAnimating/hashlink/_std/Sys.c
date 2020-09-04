@@ -2,9 +2,37 @@
 #define HLC_BOOT
 #include <hlc.h>
 #include <_std/Sys.h>
-String Std_string(vdynamic*);
+extern $Sys g$_Sys;
+String String_fromUTF8(vbyte*);
+extern hl_type t$String;
 #include <hl/natives.h>
+String Std_string(vdynamic*);
 extern String s$68b329d;
+hl__types__ArrayObj hl_types_ArrayObj_alloc(varray*);
+int hl_types_ArrayObj_push(hl__types__ArrayObj,vdynamic*);
+
+String Sys_makePath(vbyte* r0) {
+	String r1;
+	$Sys r3;
+	bool r2;
+	int r4;
+	if( r0 ) goto label$e42c1e8_1_3;
+	r1 = NULL;
+	return r1;
+	label$e42c1e8_1_3:
+	r3 = ($Sys)g$_Sys;
+	r2 = r3->utf8Path;
+	if( !r2 ) goto label$e42c1e8_1_8;
+	r1 = String_fromUTF8(r0);
+	return r1;
+	label$e42c1e8_1_8:
+	r1 = (String)hl_alloc_obj(&t$String);
+	r1->bytes = r0;
+	r4 = 0;
+	r4 = hl_ucs2length(r0,r4);
+	r1->length = r4;
+	return r1;
+}
 
 void Sys_println(vdynamic* r0) {
 	String r3;
@@ -18,5 +46,39 @@ void Sys_println(vdynamic* r0) {
 	r2 = r3->bytes;
 	hl_sys_print(r2);
 	return;
+}
+
+hl__types__ArrayObj Sys_args() {
+	String r7;
+	hl__types__ArrayObj r0;
+	hl_type *r2;
+	vbyte *r6;
+	int r3, r4, r5;
+	varray *r1;
+	r2 = &t$String;
+	r3 = 0;
+	r1 = hl_alloc_array(r2,r3);
+	r0 = hl_types_ArrayObj_alloc(r1);
+	r3 = 0;
+	r1 = hl_sys_args();
+	label$e42c1e8_3_6:
+	r5 = r1->size;
+	if( r3 >= r5 ) goto label$e42c1e8_3_15;
+	r6 = ((vbyte**)(r1 + 1))[r3];
+	++r3;
+	if( r0 == NULL ) hl_null_access();
+	r7 = Sys_makePath(r6);
+	r4 = hl_types_ArrayObj_push(r0,((vdynamic*)r7));
+	goto label$e42c1e8_3_6;
+	label$e42c1e8_3_15:
+	return r0;
+}
+
+String Sys_getCwd() {
+	String r0;
+	vbyte *r1;
+	r1 = hl_sys_get_cwd();
+	r0 = Sys_makePath(r1);
+	return r0;
 }
 

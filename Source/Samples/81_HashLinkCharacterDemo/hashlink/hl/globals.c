@@ -4,14 +4,15 @@
 #include <hl/BaseType.h>
 #include <hl/Class.h>
 #include <_std/String.h>
+#include <hl/types/ArrayAccess.h>
+#include <hl/types/ArrayBase.h>
+#include <hl/types/ArrayBytes_hl_F32.h>
+#include <urho3d/DelayedCall.h>
 #include <urho3d/Application.h>
 #include <urho3d/_Context/Context_Impl_.h>
 #include <haxe/ds/StringMap.h>
 #include <haxe/ds/ObjectMap.h>
 #include <urho3d/Node.h>
-#include <hl/types/ArrayAccess.h>
-#include <hl/types/ArrayBase.h>
-#include <hl/types/ArrayBytes_hl_F32.h>
 #include <urho3d/Scene.h>
 #include <_std/CharacterDemoSample.h>
 #include <haxe/Log.h>
@@ -33,6 +34,7 @@
 #include <_std/Std.h>
 #include <_std/StringBuf.h>
 #include <_std/SysError.h>
+#include <_std/Sys.h>
 #include <hl/natives.h>
 #include <hl/Enum.h>
 #include <sys/thread/Lock.h>
@@ -74,7 +76,6 @@
 #include <hl/CoreType.h>
 #include <hl/CoreEnum.h>
 #include <hl/_Bytes/Bytes_Impl_.h>
-#include <_std/Sys.h>
 #include <_std/Type.h>
 #include <haxe/IMap.h>
 #include <sys/thread/_Mutex/Mutex_Impl_.h>
@@ -178,6 +179,10 @@ extern vbyte string$23a1cae[];
 hl__$BaseType g$_hl_BaseType = 0;
 hl__Class g$_hl_Class = 0;
 $String g$_String = 0;
+hl__types__$ArrayAccess g$_hl_types_ArrayAccess = 0;
+hl__types__$ArrayBase g$_hl_types_ArrayBase = 0;
+hl__types__$ArrayBytes_hl_F32 g$_hl_types_ArrayBytes_hl_F32 = 0;
+urho3d__$DelayedCall g$_urho3d_DelayedCall = 0;
 urho3d__$Application g$_urho3d_Application = 0;
 String s$WorkerThreads = 0;
 String s$WindowWidth = 0;
@@ -227,12 +232,13 @@ String s$DumpShaders = 0;
 String s$Borderless = 0;
 String s$AutoloadPaths = 0;
 urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_ = 0;
+String s$ = 0;
+String s$_hl = 0;
+String s$_rpp = 0;
+String s$_bin = 0;
 haxe__ds__$StringMap g$_haxe_ds_StringMap = 0;
 haxe__ds__$ObjectMap g$_haxe_ds_ObjectMap = 0;
 urho3d__$Node g$_urho3d_Node = 0;
-hl__types__$ArrayAccess g$_hl_types_ArrayAccess = 0;
-hl__types__$ArrayBase g$_hl_types_ArrayBase = 0;
-hl__types__$ArrayBytes_hl_F32 g$_hl_types_ArrayBytes_hl_F32 = 0;
 urho3d__$Scene g$_urho3d_Scene = 0;
 $CharacterDemoSample g$_CharacterDemoSample = 0;
 String s$92325a1 = 0;
@@ -280,7 +286,6 @@ urho3d__$Component g$_urho3d_Component = 0;
 urho3d__$Camera g$_urho3d_Camera = 0;
 urho3d__$Renderer g$_urho3d_Renderer = 0;
 String s$Zone = 0;
-String s$ = 0;
 urho3d__$Zone g$_urho3d_Zone = 0;
 String s$DirectionalLight = 0;
 String s$Light = 0;
@@ -331,6 +336,7 @@ String s$null = 0;
 $StringBuf g$_StringBuf = 0;
 $SysError g$_SysError = 0;
 String s$SysError_ = 0;
+$Sys g$_Sys = 0;
 String s$68b329d = 0;
 hl_bytes_map* g$__types__ = 0;
 hl__$Enum g$_hl_Enum = 0;
@@ -406,7 +412,6 @@ String s$Bool = 0;
 hl__CoreType g$_Dynamic = 0;
 String s$Dynamic = 0;
 hl___Bytes__$Bytes_Impl_ g$_hl__Bytes_Bytes_Impl_ = 0;
-$Sys g$_Sys = 0;
 $Type g$_Type = 0;
 haxe__$IMap g$_haxe_IMap = 0;
 sys__thread___Mutex__$Mutex_Impl_ g$_sys_thread__Mutex_Mutex_Impl_ = 0;
@@ -545,6 +550,10 @@ static struct _String const_s$EventProfiler = {&t$String,(vbyte*)USTR("EventProf
 static struct _String const_s$DumpShaders = {&t$String,(vbyte*)USTR("DumpShaders"),11};
 static struct _String const_s$Borderless = {&t$String,(vbyte*)USTR("Borderless"),10};
 static struct _String const_s$AutoloadPaths = {&t$String,(vbyte*)USTR("AutoloadPaths"),13};
+static struct _String const_s$ = {&t$String,(vbyte*)USTR(""),0};
+static struct _String const_s$_hl = {&t$String,(vbyte*)USTR("-hl"),3};
+static struct _String const_s$_rpp = {&t$String,(vbyte*)USTR("-rpp"),4};
+static struct _String const_s$_bin = {&t$String,(vbyte*)USTR("/bin"),4};
 static struct _String const_s$92325a1 = {&t$String,(vbyte*)USTR("<patch>"),7};
 static struct _String const_s$_add_sel_element_ = {&t$String,(vbyte*)USTR("    <add sel=\"/element\">"),24};
 static struct _String const_s$_element_type_Button_ = {&t$String,(vbyte*)USTR("        <element type=\"Button\">"),31};
@@ -586,7 +595,6 @@ static struct _String const_s$Octree = {&t$String,(vbyte*)USTR("Octree"),6};
 static struct _String const_s$PhysicsWorld = {&t$String,(vbyte*)USTR("PhysicsWorld"),12};
 static struct _String const_s$Camera = {&t$String,(vbyte*)USTR("Camera"),6};
 static struct _String const_s$Zone = {&t$String,(vbyte*)USTR("Zone"),4};
-static struct _String const_s$ = {&t$String,(vbyte*)USTR(""),0};
 static struct _String const_s$DirectionalLight = {&t$String,(vbyte*)USTR("DirectionalLight"),16};
 static struct _String const_s$Light = {&t$String,(vbyte*)USTR("Light"),5};
 static struct _String const_s$Floor = {&t$String,(vbyte*)USTR("Floor"),5};
@@ -704,6 +712,10 @@ void hl_init_roots() {
 	s$DumpShaders = &const_s$DumpShaders;
 	s$Borderless = &const_s$Borderless;
 	s$AutoloadPaths = &const_s$AutoloadPaths;
+	s$ = &const_s$;
+	s$_hl = &const_s$_hl;
+	s$_rpp = &const_s$_rpp;
+	s$_bin = &const_s$_bin;
 	s$92325a1 = &const_s$92325a1;
 	s$_add_sel_element_ = &const_s$_add_sel_element_;
 	s$_element_type_Button_ = &const_s$_element_type_Button_;
@@ -745,7 +757,6 @@ void hl_init_roots() {
 	s$PhysicsWorld = &const_s$PhysicsWorld;
 	s$Camera = &const_s$Camera;
 	s$Zone = &const_s$Zone;
-	s$ = &const_s$;
 	s$DirectionalLight = &const_s$DirectionalLight;
 	s$Light = &const_s$Light;
 	s$Floor = &const_s$Floor;
@@ -817,14 +828,15 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_hl_BaseType);
 	hl_add_root((void**)&g$_hl_Class);
 	hl_add_root((void**)&g$_String);
+	hl_add_root((void**)&g$_hl_types_ArrayAccess);
+	hl_add_root((void**)&g$_hl_types_ArrayBase);
+	hl_add_root((void**)&g$_hl_types_ArrayBytes_hl_F32);
+	hl_add_root((void**)&g$_urho3d_DelayedCall);
 	hl_add_root((void**)&g$_urho3d_Application);
 	hl_add_root((void**)&g$_urho3d__Context_Context_Impl_);
 	hl_add_root((void**)&g$_haxe_ds_StringMap);
 	hl_add_root((void**)&g$_haxe_ds_ObjectMap);
 	hl_add_root((void**)&g$_urho3d_Node);
-	hl_add_root((void**)&g$_hl_types_ArrayAccess);
-	hl_add_root((void**)&g$_hl_types_ArrayBase);
-	hl_add_root((void**)&g$_hl_types_ArrayBytes_hl_F32);
 	hl_add_root((void**)&g$_urho3d_Scene);
 	hl_add_root((void**)&g$_CharacterDemoSample);
 	hl_add_root((void**)&g$_haxe_Log);
@@ -846,6 +858,7 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_Std);
 	hl_add_root((void**)&g$_StringBuf);
 	hl_add_root((void**)&g$_SysError);
+	hl_add_root((void**)&g$_Sys);
 	hl_add_root((void**)&g$__types__);
 	hl_add_root((void**)&g$_hl_Enum);
 	hl_add_root((void**)&g$_sys_thread_Lock);
@@ -890,7 +903,6 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_Bool);
 	hl_add_root((void**)&g$_Dynamic);
 	hl_add_root((void**)&g$_hl__Bytes_Bytes_Impl_);
-	hl_add_root((void**)&g$_Sys);
 	hl_add_root((void**)&g$_Type);
 	hl_add_root((void**)&g$_haxe_IMap);
 	hl_add_root((void**)&g$_sys_thread__Mutex_Mutex_Impl_);

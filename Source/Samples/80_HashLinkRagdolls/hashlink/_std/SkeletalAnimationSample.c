@@ -25,7 +25,6 @@ void SkeletalAnimationSample_SubscribeToEvents(SkeletalAnimationSample);
 #include <urho3d/AnimatedModel.h>
 #include <_std/Mover.h>
 #include <urho3d/Component.h>
-#include <hl/types/ArrayObj.h>
 #include <urho3d/Camera.h>
 extern hl_type t$urho3d_Scene;
 void urho3d_Scene_new(urho3d__Scene,hl_urho3d_scene_scene*);

@@ -187,6 +187,8 @@ extern hl_type t$urho3d__AnimationController_$AbstractAnimationController_Impl_;
 extern hl_type t$urho3d__AnimationController_AbstractAnimationController_Impl_;
 extern hl_type t$urho3d__AnimationState_$AnimationState_Impl_;
 extern hl_type t$urho3d__AnimationState_AnimationState_Impl_;
+extern hl_type t$urho3d_$DelayedCall;
+extern hl_type t$urho3d_DelayedCall;
 extern hl_type t$urho3d__BiasParameters_$BiasParameters_Impl_;
 extern hl_type t$urho3d__BiasParameters_BiasParameters_Impl_;
 extern hl_type t$urho3d__Billboard_$Billboard_Impl_;
@@ -414,6 +416,78 @@ hl_urho3d_math_quaternion* fun$init__$1() {
 	return r2;
 }
 
+hl_urho3d_math_vector2* fun$init__$2() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 0.;
+	r2 = (float)r1;
+	r1 = 0.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$3() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = -1.;
+	r2 = (float)r1;
+	r1 = 0.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$4() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 1.;
+	r2 = (float)r1;
+	r1 = 0.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$5() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 0.;
+	r2 = (float)r1;
+	r1 = 1.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$6() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 0.;
+	r2 = (float)r1;
+	r1 = -1.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
+hl_urho3d_math_vector2* fun$init__$7() {
+	hl_urho3d_math_vector2 *r0;
+	float r2, r3;
+	double r1;
+	r1 = 1.;
+	r2 = (float)r1;
+	r1 = 1.;
+	r3 = (float)r1;
+	r0 = Urho3D__math_vector2_create(r2,r3);
+	return r0;
+}
+
 hl_urho3d_math_vector3* fun$init__$8() {
 	hl_urho3d_math_vector3 *r0;
 	float r2, r3, r4;
@@ -523,78 +597,6 @@ hl_urho3d_math_vector3* fun$init__$15() {
 	r1 = 1.;
 	r4 = (float)r1;
 	r0 = Urho3D__math_vector3_create(r2,r3,r4);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$2() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 0.;
-	r2 = (float)r1;
-	r1 = 0.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$3() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = -1.;
-	r2 = (float)r1;
-	r1 = 0.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$4() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 1.;
-	r2 = (float)r1;
-	r1 = 0.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$5() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 0.;
-	r2 = (float)r1;
-	r1 = 1.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$6() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 0.;
-	r2 = (float)r1;
-	r1 = -1.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
-	return r0;
-}
-
-hl_urho3d_math_vector2* fun$init__$7() {
-	hl_urho3d_math_vector2 *r0;
-	float r2, r3;
-	double r1;
-	r1 = 1.;
-	r2 = (float)r1;
-	r1 = 1.;
-	r3 = (float)r1;
-	r0 = Urho3D__math_vector2_create(r2,r3);
 	return r0;
 }
 
@@ -980,6 +982,10 @@ void fun$init() {
 	r1 = &t$urho3d__AnimationState_$AnimationState_Impl_;
 	r2 = &t$urho3d__AnimationState_AnimationState_Impl_;
 	r3 = (vbyte*)USTR("urho3d._AnimationState.AnimationState_Impl_");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d_$DelayedCall;
+	r2 = &t$urho3d_DelayedCall;
+	r3 = (vbyte*)USTR("urho3d.DelayedCall");
 	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$urho3d__BiasParameters_$BiasParameters_Impl_;
 	r2 = &t$urho3d__BiasParameters_BiasParameters_Impl_;

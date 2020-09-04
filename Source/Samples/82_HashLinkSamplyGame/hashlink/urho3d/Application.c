@@ -4,8 +4,27 @@
 #include <urho3d/Application.h>
 #include <hl/natives.h>
 void urho3d__AbstractApplication_AbstractApplication_Impl__Run(hl_urho3d_application*);
+hl__types__ArrayObj Sys_args(void);
+extern String s$;
+extern String s$_hl;
+int String___compare(String,vdynamic*);
+extern String s$_rpp;
+hl_urho3d_tvariantmap* urho3d_Application_get_engineParameters(urho3d__Application);
+String Sys_getCwd(void);
+extern String s$_bin;
+String String___add__(String,String);
+#include <urho3d/DelayedCall.h>
+#include <hl/types/ArrayDyn.h>
+void urho3d_Application_InvokeObject(urho3d__Application,vdynamic*,String,hl__types__ArrayDyn);
+bool hl_types_ArrayObj_remove(hl__types__ArrayObj,vdynamic*);
 void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(hl_urho3d_application*,hl_urho3d_core_object*,hl_urho3d_stringhash*,vdynamic*,String);
 int Std_random(int);
+vdynamic* Reflect_field(vdynamic*,String);
+vdynamic* Reflect_callMethod(vdynamic*,vdynamic*,hl__types__ArrayDyn);
+void urho3d_Application_InvokeDelayedObject(urho3d__Application,double*,bool*,vdynamic*,String,hl__types__ArrayDyn);
+extern hl_type t$urho3d_DelayedCall;
+void urho3d_DelayedCall_new(urho3d__DelayedCall);
+int hl_types_ArrayObj_push(hl__types__ArrayObj,vdynamic*);
 #include <urho3d/_Context/Context_Impl_.h>
 extern String s$WorkerThreads;
 extern String s$WindowWidth;
@@ -54,9 +73,10 @@ extern String s$EventProfiler;
 extern String s$DumpShaders;
 extern String s$Borderless;
 extern String s$AutoloadPaths;
+hl__types__ArrayObj hl_types_ArrayObj_alloc(varray*);
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern urho3d__$Application g$_urho3d_Application;
-hl_urho3d_application* urho3d__AbstractApplication_AbstractApplication_Impl___new(urho3d_context*);
+hl_urho3d_application* urho3d__AbstractApplication_AbstractApplication_Impl___new(urho3d_context*,vdynamic*);
 extern hl_type t$fun_8ec9cc3;
 void urho3d__AbstractApplication_AbstractApplication_Impl__RegisterSetupClosure(hl_urho3d_application*,vclosure*);
 void urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStartClosure(hl_urho3d_application*,vclosure*);
@@ -67,6 +87,95 @@ void urho3d_Application_Run(urho3d__Application r0) {
 	hl_urho3d_application *r2;
 	r2 = r0->abstractApplication;
 	urho3d__AbstractApplication_AbstractApplication_Impl__Run(r2);
+	return;
+}
+
+void urho3d_Application_PreSetup(urho3d__Application r0) {
+	String r4, r10, r13;
+	hl__types__ArrayObj r1;
+	hl_urho3d_tstringhash *r17;
+	bool r3, r14, r15;
+	hl_urho3d_tvariant *r18, *r19;
+	hl_urho3d_tvariantmap *r16;
+	vdynamic *r11;
+	varray *r12;
+	int r5, r6, r7, r8, r9;
+	r1 = Sys_args();
+	r3 = false;
+	r4 = (String)s$;
+	r5 = 0;
+	if( r1 == NULL ) hl_null_access();
+	r6 = r1->length;
+	label$7dad269_2_6:
+	if( r5 >= r6 ) goto label$7dad269_2_46;
+	r7 = r5;
+	++r5;
+	if( r1 == NULL ) hl_null_access();
+	r9 = r1->length;
+	if( ((unsigned)r7) < ((unsigned)r9) ) goto label$7dad269_2_15;
+	r10 = NULL;
+	goto label$7dad269_2_18;
+	label$7dad269_2_15:
+	r12 = r1->array;
+	r11 = ((vdynamic**)(r12 + 1))[r7];
+	r10 = (String)r11;
+	label$7dad269_2_18:
+	r13 = (String)s$_hl;
+	if( r10 != r13 && (!r10 || !r13 || String___compare(r10,(vdynamic*)r13) != 0) ) goto label$7dad269_2_22;
+	r14 = true;
+	r3 = r14;
+	label$7dad269_2_22:
+	r9 = r1->length;
+	if( ((unsigned)r7) < ((unsigned)r9) ) goto label$7dad269_2_26;
+	r10 = NULL;
+	goto label$7dad269_2_29;
+	label$7dad269_2_26:
+	r12 = r1->array;
+	r11 = ((vdynamic**)(r12 + 1))[r7];
+	r10 = (String)r11;
+	label$7dad269_2_29:
+	r13 = (String)s$_rpp;
+	if( r10 != r13 && (!r10 || !r13 || String___compare(r10,(vdynamic*)r13) != 0) ) goto label$7dad269_2_45;
+	r9 = 1;
+	r8 = r7 + r9;
+	r9 = r1->length;
+	if( r8 >= r9 ) goto label$7dad269_2_45;
+	r9 = 1;
+	r8 = r7 + r9;
+	r9 = r1->length;
+	if( ((unsigned)r8) < ((unsigned)r9) ) goto label$7dad269_2_41;
+	r10 = NULL;
+	goto label$7dad269_2_44;
+	label$7dad269_2_41:
+	r12 = r1->array;
+	r11 = ((vdynamic**)(r12 + 1))[r8];
+	r10 = (String)r11;
+	label$7dad269_2_44:
+	r4 = r10;
+	label$7dad269_2_45:
+	goto label$7dad269_2_6;
+	label$7dad269_2_46:
+	r15 = true;
+	if( r3 != r15 ) goto label$7dad269_2_57;
+	r16 = urho3d_Application_get_engineParameters(r0);
+	r10 = r0->EP_RESOURCE_PREFIX_PATHS;
+	r17 = Urho3D__math_tstringhash_create(r10);
+	r10 = Sys_getCwd();
+	r13 = (String)s$_bin;
+	r10 = String___add__(r10,r13);
+	r18 = Urho3D__create_tvariant();
+	Urho3D__t_variant_set_string(r18,r10);
+	r19 = Urho3D__core_tvariantmap_set_key_value(r16,r17,r18);
+	label$7dad269_2_57:
+	r13 = (String)s$;
+	if( r4 == r13 || (r4 && r13 && String___compare(r4,(vdynamic*)r13) == 0) ) goto label$7dad269_2_65;
+	r16 = urho3d_Application_get_engineParameters(r0);
+	r10 = r0->EP_RESOURCE_PREFIX_PATHS;
+	r17 = Urho3D__math_tstringhash_create(r10);
+	r18 = Urho3D__create_tvariant();
+	Urho3D__t_variant_set_string(r18,r4);
+	r19 = Urho3D__core_tvariantmap_set_key_value(r16,r17,r18);
+	label$7dad269_2_65:
 	return;
 }
 
@@ -82,6 +191,66 @@ void urho3d_Application_Stop(urho3d__Application r0) {
 	return;
 }
 
+void urho3d_Application_OnTick(urho3d__Application r0,double r1) {
+	String r14;
+	hl__types__ArrayObj r4, r6;
+	bool r10, r13;
+	hl__types__ArrayDyn r15;
+	double r11, r12;
+	urho3d__DelayedCall r7;
+	vdynamic *r8;
+	varray *r9;
+	int r2, r5;
+	r2 = 0;
+	r4 = r0->delayedCalls;
+	label$7dad269_6_2:
+	if( r4 == NULL ) hl_null_access();
+	r5 = r4->length;
+	if( r2 >= r5 ) goto label$7dad269_6_40;
+	r5 = r4->length;
+	if( ((unsigned)r2) < ((unsigned)r5) ) goto label$7dad269_6_10;
+	r7 = NULL;
+	goto label$7dad269_6_13;
+	label$7dad269_6_10:
+	r9 = r4->array;
+	r8 = ((vdynamic**)(r9 + 1))[r2];
+	r7 = (urho3d__DelayedCall)r8;
+	label$7dad269_6_13:
+	++r2;
+	r10 = false;
+	if( r7 == NULL ) hl_null_access();
+	r11 = r7->delay_;
+	r11 = r11 - r1;
+	r7->delay_ = r11;
+	r11 = r7->delay_;
+	r12 = 0.;
+	if( !(r12 >= r11) ) goto label$7dad269_6_35;
+	r13 = r7->repeat_;
+	if( r13 ) goto label$7dad269_6_27;
+	r13 = true;
+	r10 = r13;
+	goto label$7dad269_6_31;
+	label$7dad269_6_27:
+	r11 = r7->delay_;
+	r12 = r7->period_;
+	r11 = r11 + r12;
+	r7->delay_ = r11;
+	label$7dad269_6_31:
+	r8 = r7->obj_;
+	r14 = r7->declaration_;
+	r15 = r7->parameters_;
+	urho3d_Application_InvokeObject(r0,r8,r14,r15);
+	label$7dad269_6_35:
+	if( !r10 ) goto label$7dad269_6_39;
+	r6 = r0->delayedCalls;
+	if( r6 == NULL ) hl_null_access();
+	r13 = hl_types_ArrayObj_remove(r6,((vdynamic*)r7));
+	label$7dad269_6_39:
+	goto label$7dad269_6_2;
+	label$7dad269_6_40:
+	return;
+}
+
 void urho3d_Application_SetScreenJoystickPatchString(urho3d__Application r0,String r1) {
 	hl_urho3d_application *r3;
 	r3 = r0->abstractApplication;
@@ -93,11 +262,11 @@ void urho3d_Application_SubscribeToEvent(urho3d__Application r0,hl_urho3d_core_o
 	hl_urho3d_core_object *r6;
 	hl_urho3d_application *r5;
 	r5 = r0->abstractApplication;
-	if( !r5 ) goto label$7dad269_6_5;
+	if( !r5 ) goto label$7dad269_8_5;
 	r5 = r0->abstractApplication;
 	r6 = NULL;
 	urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(r5,r6,r2,((vdynamic*)r0),r3);
-	label$7dad269_6_5:
+	label$7dad269_8_5:
 	return;
 }
 
@@ -117,15 +286,15 @@ double urho3d_Application_Random(urho3d__Application r0,vdynamic* r1,vdynamic* r
 	r3 = (double)r4;
 	r5 = 1000000.;
 	r3 = r3 / r5;
-	if( r1 ) goto label$7dad269_8_7;
+	if( r1 ) goto label$7dad269_10_7;
 	return r3;
-	label$7dad269_8_7:
-	if( !r1 ) goto label$7dad269_8_12;
-	if( r2 ) goto label$7dad269_8_12;
+	label$7dad269_10_7:
+	if( !r1 ) goto label$7dad269_10_12;
+	if( r2 ) goto label$7dad269_10_12;
 	r6 = r1 ? r1->v.d : 0;
 	r5 = r3 * r6;
 	return r5;
-	label$7dad269_8_12:
+	label$7dad269_10_12:
 	r6 = r2 ? r2->v.d : 0;
 	r7 = r1 ? r1->v.d : 0;
 	r6 = r6 - r7;
@@ -136,22 +305,22 @@ double urho3d_Application_Random(urho3d__Application r0,vdynamic* r1,vdynamic* r
 }
 
 double urho3d_Application_Clamp(urho3d__Application r0,double r1,double r2,double r3) {
-	if( !(r1 < r2) ) goto label$7dad269_9_2;
+	if( !(r1 < r2) ) goto label$7dad269_11_2;
 	return r2;
-	label$7dad269_9_2:
-	if( !(r3 < r1) ) goto label$7dad269_9_4;
+	label$7dad269_11_2:
+	if( !(r3 < r1) ) goto label$7dad269_11_4;
 	return r3;
-	label$7dad269_9_4:
+	label$7dad269_11_4:
 	return r1;
 }
 
 int urho3d_Application_IClamp(urho3d__Application r0,int r1,int r2,int r3) {
-	if( r1 >= r2 ) goto label$7dad269_10_2;
+	if( r1 >= r2 ) goto label$7dad269_12_2;
 	return r2;
-	label$7dad269_10_2:
-	if( r3 >= r1 ) goto label$7dad269_10_4;
+	label$7dad269_12_2:
+	if( r3 >= r1 ) goto label$7dad269_12_4;
 	return r3;
-	label$7dad269_10_4:
+	label$7dad269_12_4:
 	return r1;
 }
 
@@ -163,13 +332,219 @@ bool urho3d_Application_IsTouchEnabled(urho3d__Application r0) {
 	return r1;
 }
 
+void urho3d_Application_Invoke(urho3d__Application r0,String r1,hl__types__ArrayDyn r2) {
+	vdynamic *r3, *r5;
+	hl_trap_ctx trap$0;
+	hl_trap(trap$0,r3,label$7dad269_14_5);
+	r3 = Reflect_field(((vdynamic*)r0),r1);
+	if( !r3 ) goto label$7dad269_14_4;
+	r5 = Reflect_callMethod(((vdynamic*)r0),r3,r2);
+	label$7dad269_14_4:
+	hl_endtrap(trap$0);
+	label$7dad269_14_5:
+	return;
+}
+
+void urho3d_Application_InvokeObject(urho3d__Application r0,vdynamic* r1,String r2,hl__types__ArrayDyn r3) {
+	vdynamic *r4, *r6;
+	hl_trap_ctx trap$0;
+	hl_trap(trap$0,r4,label$7dad269_15_6);
+	if( !r1 ) goto label$7dad269_15_5;
+	r4 = Reflect_field(r1,r2);
+	if( !r4 ) goto label$7dad269_15_5;
+	r6 = Reflect_callMethod(r1,r4,r3);
+	label$7dad269_15_5:
+	hl_endtrap(trap$0);
+	label$7dad269_15_6:
+	return;
+}
+
+void urho3d_Application_InvokeDelayed(urho3d__Application r0,double* r1,bool* r2,String r3,hl__types__ArrayDyn r4) {
+	bool r6, r9;
+	double r5, r8;
+	if( r1 ) goto label$7dad269_16_3;
+	r5 = 0.;
+	goto label$7dad269_16_4;
+	label$7dad269_16_3:
+	r5 = *r1;
+	label$7dad269_16_4:
+	if( r2 ) goto label$7dad269_16_7;
+	r6 = false;
+	goto label$7dad269_16_8;
+	label$7dad269_16_7:
+	r6 = *r2;
+	label$7dad269_16_8:
+	r8 = r5;
+	r1 = &r8;
+	r9 = r6;
+	r2 = &r9;
+	urho3d_Application_InvokeDelayedObject(r0,r1,r2,((vdynamic*)r0),r3,r4);
+	return;
+}
+
+void urho3d_Application_InvokeDelayedObject(urho3d__Application r0,double* r1,bool* r2,vdynamic* r3,String r4,hl__types__ArrayDyn r5) {
+	hl__types__ArrayObj r14;
+	bool r7, r12;
+	urho3d__DelayedCall r11;
+	double r6, r9, r10;
+	int r13;
+	if( r1 ) goto label$7dad269_17_3;
+	r6 = 0.;
+	goto label$7dad269_17_4;
+	label$7dad269_17_3:
+	r6 = *r1;
+	label$7dad269_17_4:
+	if( r2 ) goto label$7dad269_17_7;
+	r7 = false;
+	goto label$7dad269_17_8;
+	label$7dad269_17_7:
+	r7 = *r2;
+	label$7dad269_17_8:
+	r10 = 0.;
+	if( r6 != r10 ) goto label$7dad269_17_12;
+	urho3d_Application_InvokeObject(r0,r3,r4,r5);
+	goto label$7dad269_17_31;
+	label$7dad269_17_12:
+	r11 = (urho3d__DelayedCall)hl_alloc_obj(&t$urho3d_DelayedCall);
+	urho3d_DelayedCall_new(r11);
+	r10 = 0.;
+	if( r6 < r10 ) goto label$7dad269_17_19;
+	r9 = 0.;
+	r12 = hl_math_isnan(r9);
+	if( !r12 ) goto label$7dad269_17_21;
+	label$7dad269_17_19:
+	r9 = 0.;
+	goto label$7dad269_17_22;
+	label$7dad269_17_21:
+	r9 = r6;
+	label$7dad269_17_22:
+	r11->delay_ = r9;
+	r11->period_ = r9;
+	r11->repeat_ = r7;
+	r11->declaration_ = r4;
+	r11->parameters_ = r5;
+	r11->obj_ = r3;
+	r14 = r0->delayedCalls;
+	if( r14 == NULL ) hl_null_access();
+	r13 = hl_types_ArrayObj_push(r14,((vdynamic*)r11));
+	label$7dad269_17_31:
+	return;
+}
+
+void urho3d_Application_ClearInvokeDelayed(urho3d__Application r0,String r1) {
+	String r2, r11;
+	hl__types__ArrayObj r5, r7;
+	bool r12;
+	urho3d__DelayedCall r8;
+	vdynamic *r9;
+	varray *r10;
+	int r3, r6;
+	if( r1 ) goto label$7dad269_18_3;
+	r2 = (String)s$;
+	r1 = r2;
+	label$7dad269_18_3:
+	r3 = 0;
+	r5 = r0->delayedCalls;
+	label$7dad269_18_5:
+	if( r5 == NULL ) hl_null_access();
+	r6 = r5->length;
+	if( r3 >= r6 ) goto label$7dad269_18_34;
+	r6 = r5->length;
+	if( ((unsigned)r3) < ((unsigned)r6) ) goto label$7dad269_18_13;
+	r8 = NULL;
+	goto label$7dad269_18_16;
+	label$7dad269_18_13:
+	r10 = r5->array;
+	r9 = ((vdynamic**)(r10 + 1))[r3];
+	r8 = (urho3d__DelayedCall)r9;
+	label$7dad269_18_16:
+	++r3;
+	if( r8 == NULL ) hl_null_access();
+	r2 = r8->declaration_;
+	if( r2 != r1 && (!r2 || !r1 || String___compare(r2,(vdynamic*)r1) != 0) ) goto label$7dad269_18_26;
+	r9 = r8->obj_;
+	{ int i = hl_dyn_compare((vdynamic*)r9,(vdynamic*)r0); if( i != 0 ) goto label$7dad269_18_26; };
+	r7 = r0->delayedCalls;
+	if( r7 == NULL ) hl_null_access();
+	r12 = hl_types_ArrayObj_remove(r7,((vdynamic*)r8));
+	goto label$7dad269_18_33;
+	label$7dad269_18_26:
+	r11 = (String)s$;
+	if( r1 != r11 && (!r1 || !r11 || String___compare(r1,(vdynamic*)r11) != 0) ) goto label$7dad269_18_33;
+	r9 = r8->obj_;
+	{ int i = hl_dyn_compare((vdynamic*)r9,(vdynamic*)r0); if( i != 0 ) goto label$7dad269_18_33; };
+	r7 = r0->delayedCalls;
+	if( r7 == NULL ) hl_null_access();
+	r12 = hl_types_ArrayObj_remove(r7,((vdynamic*)r8));
+	label$7dad269_18_33:
+	goto label$7dad269_18_5;
+	label$7dad269_18_34:
+	return;
+}
+
+void urho3d_Application_ClearInvokeDelayedObject(urho3d__Application r0,vdynamic* r1,String r2) {
+	String r3, r12;
+	hl__types__ArrayObj r7, r9;
+	bool r13;
+	urho3d__DelayedCall r10;
+	vdynamic *r5;
+	varray *r11;
+	int r6, r8;
+	if( r2 ) goto label$7dad269_19_3;
+	r3 = (String)s$;
+	r2 = r3;
+	label$7dad269_19_3:
+	if( !r1 ) goto label$7dad269_19_35;
+	r6 = 0;
+	r7 = r0->delayedCalls;
+	label$7dad269_19_6:
+	if( r7 == NULL ) hl_null_access();
+	r8 = r7->length;
+	if( r6 >= r8 ) goto label$7dad269_19_35;
+	r8 = r7->length;
+	if( ((unsigned)r6) < ((unsigned)r8) ) goto label$7dad269_19_14;
+	r10 = NULL;
+	goto label$7dad269_19_17;
+	label$7dad269_19_14:
+	r11 = r7->array;
+	r5 = ((vdynamic**)(r11 + 1))[r6];
+	r10 = (urho3d__DelayedCall)r5;
+	label$7dad269_19_17:
+	++r6;
+	if( r10 == NULL ) hl_null_access();
+	r3 = r10->declaration_;
+	if( r3 != r2 && (!r3 || !r2 || String___compare(r3,(vdynamic*)r2) != 0) ) goto label$7dad269_19_27;
+	r5 = r10->obj_;
+	{ int i = hl_dyn_compare((vdynamic*)r5,(vdynamic*)r1); if( i != 0 ) goto label$7dad269_19_27; };
+	r9 = r0->delayedCalls;
+	if( r9 == NULL ) hl_null_access();
+	r13 = hl_types_ArrayObj_remove(r9,((vdynamic*)r10));
+	goto label$7dad269_19_34;
+	label$7dad269_19_27:
+	r12 = (String)s$;
+	if( r2 != r12 && (!r2 || !r12 || String___compare(r2,(vdynamic*)r12) != 0) ) goto label$7dad269_19_34;
+	r5 = r10->obj_;
+	{ int i = hl_dyn_compare((vdynamic*)r5,(vdynamic*)r1); if( i != 0 ) goto label$7dad269_19_34; };
+	r9 = r0->delayedCalls;
+	if( r9 == NULL ) hl_null_access();
+	r13 = hl_types_ArrayObj_remove(r9,((vdynamic*)r10));
+	label$7dad269_19_34:
+	goto label$7dad269_19_6;
+	label$7dad269_19_35:
+	return;
+}
+
 void urho3d_Application_new(urho3d__Application r0) {
 	String r1;
-	urho3d__$Application r6;
-	hl_urho3d_application *r7;
-	urho3d___Context__$Context_Impl_ r5;
-	urho3d_context *r2, *r4;
-	vclosure *r8;
+	urho3d__$Application r10;
+	hl__types__ArrayObj r2;
+	hl_type *r4;
+	hl_urho3d_application *r11;
+	urho3d___Context__$Context_Impl_ r9;
+	urho3d_context *r6, *r8;
+	vclosure *r12;
+	int r5;
+	varray *r3;
 	r1 = (String)s$WorkerThreads;
 	r0->EP_WORKER_THREADS = r1;
 	r1 = (String)s$WindowWidth;
@@ -264,26 +639,31 @@ void urho3d_Application_new(urho3d__Application r0) {
 	r0->EP_BORDERLESS = r1;
 	r1 = (String)s$AutoloadPaths;
 	r0->EP_AUTOLOAD_PATHS = r1;
-	r2 = Urho3D__create_context();
-	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r5->context = r2;
-	r6 = (urho3d__$Application)g$_urho3d_Application;
-	r6->context = r2;
-	r6 = (urho3d__$Application)g$_urho3d_Application;
-	r4 = r6->context;
-	r7 = urho3d__AbstractApplication_AbstractApplication_Impl___new(r4);
-	r0->abstractApplication = r7;
-	r7 = r0->abstractApplication;
-	r8 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,r0->$type->vobj_proto[0],r0);
-	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterSetupClosure(r7,r8);
-	r7 = r0->abstractApplication;
-	r8 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,r0->$type->vobj_proto[1],r0);
-	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStartClosure(r7,r8);
-	r7 = r0->abstractApplication;
-	r8 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,urho3d_Application_Stop,r0);
-	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStopClosure(r7,r8);
-	r6 = (urho3d__$Application)g$_urho3d_Application;
-	r6->application = r0;
+	r4 = &t$urho3d_DelayedCall;
+	r5 = 0;
+	r3 = hl_alloc_array(r4,r5);
+	r2 = hl_types_ArrayObj_alloc(r3);
+	r0->delayedCalls = r2;
+	r6 = Urho3D__create_context();
+	r9 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r9->context = r6;
+	r10 = (urho3d__$Application)g$_urho3d_Application;
+	r10->context = r6;
+	r10 = (urho3d__$Application)g$_urho3d_Application;
+	r8 = r10->context;
+	r11 = urho3d__AbstractApplication_AbstractApplication_Impl___new(r8,((vdynamic*)r0));
+	r0->abstractApplication = r11;
+	r11 = r0->abstractApplication;
+	r12 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,r0->$type->vobj_proto[0],r0);
+	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterSetupClosure(r11,r12);
+	r11 = r0->abstractApplication;
+	r12 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,r0->$type->vobj_proto[1],r0);
+	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStartClosure(r11,r12);
+	r11 = r0->abstractApplication;
+	r12 = hl_alloc_closure_ptr(&t$fun_8ec9cc3,urho3d_Application_Stop,r0);
+	urho3d__AbstractApplication_AbstractApplication_Impl__RegisterStopClosure(r11,r12);
+	r10 = (urho3d__$Application)g$_urho3d_Application;
+	r10->application = r0;
 	urho3d_LogicComponent_RegisterObject();
 	return;
 }

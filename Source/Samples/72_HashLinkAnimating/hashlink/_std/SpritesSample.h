@@ -22,6 +22,7 @@ struct _$SpritesSample {
 struct _SpritesSample {
 	hl_type *$type;
 	hl_urho3d_application* abstractApplication;
+	hl__types__ArrayObj delayedCalls;
 	String EP_AUTOLOAD_PATHS;
 	String EP_BORDERLESS;
 	String EP_DUMP_SHADERS;

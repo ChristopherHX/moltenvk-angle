@@ -7,6 +7,7 @@ typedef struct _urho3d__Application *urho3d__Application;
 #include <hl/BaseType.h>
 #include <_std/String.h>
 #include <hl/natives.h>
+#include <hl/types/ArrayObj.h>
 
 
 struct _urho3d__$Application {
@@ -22,6 +23,7 @@ struct _urho3d__$Application {
 struct _urho3d__Application {
 	hl_type *$type;
 	hl_urho3d_application* abstractApplication;
+	hl__types__ArrayObj delayedCalls;
 	String EP_AUTOLOAD_PATHS;
 	String EP_BORDERLESS;
 	String EP_DUMP_SHADERS;

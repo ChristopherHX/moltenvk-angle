@@ -26,11 +26,13 @@
 #include <samplygame/SpawnEntry.h>
 #include <samplygame/SpawnArray.h>
 #include <samplygame/Enemies.h>
+#include <urho3d/DelayedCall.h>
 #include <samplygame/SamplyGame.h>
 #include <_std/Main.h>
 #include <_std/Std.h>
 #include <_std/StringBuf.h>
 #include <_std/SysError.h>
+#include <_std/Sys.h>
 #include <hl/natives.h>
 #include <hl/Enum.h>
 #include <actions/ActionEase.h>
@@ -129,7 +131,6 @@
 #include <hl/CoreType.h>
 #include <hl/CoreEnum.h>
 #include <hl/_Bytes/Bytes_Impl_.h>
-#include <_std/Sys.h>
 #include <_std/Type.h>
 #include <haxe/IMap.h>
 #include <sys/thread/_Mutex/Mutex_Impl_.h>
@@ -250,6 +251,7 @@ samplygame__$Enemy g$_samplygame_Enemy = 0;
 samplygame__$SpawnEntry g$_samplygame_SpawnEntry = 0;
 samplygame__$SpawnArray g$_samplygame_SpawnArray = 0;
 samplygame__$Enemies g$_samplygame_Enemies = 0;
+urho3d__$DelayedCall g$_urho3d_DelayedCall = 0;
 samplygame__$SamplyGame g$_samplygame_SamplyGame = 0;
 $Main g$_Main = 0;
 $Std g$_Std = 0;
@@ -264,6 +266,7 @@ String s$ = 0;
 $StringBuf g$_StringBuf = 0;
 $SysError g$_SysError = 0;
 String s$SysError_ = 0;
+$Sys g$_Sys = 0;
 String s$68b329d = 0;
 hl_bytes_map* g$__types__ = 0;
 hl__$Enum g$_hl_Enum = 0;
@@ -462,6 +465,9 @@ String s$EventProfiler = 0;
 String s$DumpShaders = 0;
 String s$Borderless = 0;
 String s$AutoloadPaths = 0;
+String s$_hl = 0;
+String s$_rpp = 0;
+String s$_bin = 0;
 String s$Health_ = 0;
 String s$_Coins = 0;
 String s$Setup = 0;
@@ -482,6 +488,7 @@ String s$Light = 0;
 String s$HandleUpdate = 0;
 String s$TimeStep = 0;
 String s$PlayerNode = 0;
+String s$CreateStartMenu = 0;
 String s$StartMenuNode = 0;
 String s$coinNode = 0;
 String s$Models_Enemy3weapon_mdl = 0;
@@ -520,7 +527,6 @@ String s$Bool = 0;
 hl__CoreType g$_Dynamic = 0;
 String s$Dynamic = 0;
 hl___Bytes__$Bytes_Impl_ g$_hl__Bytes_Bytes_Impl_ = 0;
-$Sys g$_Sys = 0;
 $Type g$_Type = 0;
 haxe__$IMap g$_haxe_IMap = 0;
 sys__thread___Mutex__$Mutex_Impl_ g$_sys_thread__Mutex_Mutex_Impl_ = 0;
@@ -738,6 +744,9 @@ static struct _String const_s$EventProfiler = {&t$String,(vbyte*)USTR("EventProf
 static struct _String const_s$DumpShaders = {&t$String,(vbyte*)USTR("DumpShaders"),11};
 static struct _String const_s$Borderless = {&t$String,(vbyte*)USTR("Borderless"),10};
 static struct _String const_s$AutoloadPaths = {&t$String,(vbyte*)USTR("AutoloadPaths"),13};
+static struct _String const_s$_hl = {&t$String,(vbyte*)USTR("-hl"),3};
+static struct _String const_s$_rpp = {&t$String,(vbyte*)USTR("-rpp"),4};
+static struct _String const_s$_bin = {&t$String,(vbyte*)USTR("/bin"),4};
 static struct _String const_s$Health_ = {&t$String,(vbyte*)USTR("Health : "),9};
 static struct _String const_s$_Coins = {&t$String,(vbyte*)USTR(" Coins"),6};
 static struct _String const_s$Setup = {&t$String,(vbyte*)USTR("Setup"),5};
@@ -758,6 +767,7 @@ static struct _String const_s$Light = {&t$String,(vbyte*)USTR("Light"),5};
 static struct _String const_s$HandleUpdate = {&t$String,(vbyte*)USTR("HandleUpdate"),12};
 static struct _String const_s$TimeStep = {&t$String,(vbyte*)USTR("TimeStep"),8};
 static struct _String const_s$PlayerNode = {&t$String,(vbyte*)USTR("PlayerNode"),10};
+static struct _String const_s$CreateStartMenu = {&t$String,(vbyte*)USTR("CreateStartMenu"),15};
 static struct _String const_s$StartMenuNode = {&t$String,(vbyte*)USTR("StartMenuNode"),13};
 static struct _String const_s$coinNode = {&t$String,(vbyte*)USTR("coinNode"),8};
 static struct _String const_s$Models_Enemy3weapon_mdl = {&t$String,(vbyte*)USTR("Models/Enemy3weapon.mdl"),23};
@@ -912,6 +922,9 @@ void hl_init_roots() {
 	s$DumpShaders = &const_s$DumpShaders;
 	s$Borderless = &const_s$Borderless;
 	s$AutoloadPaths = &const_s$AutoloadPaths;
+	s$_hl = &const_s$_hl;
+	s$_rpp = &const_s$_rpp;
+	s$_bin = &const_s$_bin;
 	s$Health_ = &const_s$Health_;
 	s$_Coins = &const_s$_Coins;
 	s$Setup = &const_s$Setup;
@@ -932,6 +945,7 @@ void hl_init_roots() {
 	s$HandleUpdate = &const_s$HandleUpdate;
 	s$TimeStep = &const_s$TimeStep;
 	s$PlayerNode = &const_s$PlayerNode;
+	s$CreateStartMenu = &const_s$CreateStartMenu;
 	s$StartMenuNode = &const_s$StartMenuNode;
 	s$coinNode = &const_s$coinNode;
 	s$Models_Enemy3weapon_mdl = &const_s$Models_Enemy3weapon_mdl;
@@ -994,11 +1008,13 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_samplygame_SpawnEntry);
 	hl_add_root((void**)&g$_samplygame_SpawnArray);
 	hl_add_root((void**)&g$_samplygame_Enemies);
+	hl_add_root((void**)&g$_urho3d_DelayedCall);
 	hl_add_root((void**)&g$_samplygame_SamplyGame);
 	hl_add_root((void**)&g$_Main);
 	hl_add_root((void**)&g$_Std);
 	hl_add_root((void**)&g$_StringBuf);
 	hl_add_root((void**)&g$_SysError);
+	hl_add_root((void**)&g$_Sys);
 	hl_add_root((void**)&g$__types__);
 	hl_add_root((void**)&g$_hl_Enum);
 	hl_add_root((void**)&g$_actions_ActionEase);
@@ -1100,7 +1116,6 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_Bool);
 	hl_add_root((void**)&g$_Dynamic);
 	hl_add_root((void**)&g$_hl__Bytes_Bytes_Impl_);
-	hl_add_root((void**)&g$_Sys);
 	hl_add_root((void**)&g$_Type);
 	hl_add_root((void**)&g$_haxe_IMap);
 	hl_add_root((void**)&g$_sys_thread__Mutex_Mutex_Impl_);

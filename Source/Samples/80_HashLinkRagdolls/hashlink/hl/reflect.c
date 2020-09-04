@@ -308,11 +308,11 @@ void *hlc_static_call( void *fun, hl_type *t, void **args, vdynamic *out ) {
 		case 168809:
 			out->v.i = ((int (*)(vdynamic*,vdynamic*,int,int,vdynamic*))fun)((vdynamic*)args[0],(vdynamic*)args[1],*(int*)args[2],*(int*)args[3],(vdynamic*)args[4]);
 			return &out->v.i;
-		case 187240:
-			((void (*)(vdynamic*,vdynamic*,vdynamic*,vdynamic*,vdynamic*))fun)((vdynamic*)args[0],(vdynamic*)args[1],(vdynamic*)args[2],(vdynamic*)args[3],(vdynamic*)args[4]);
-			return NULL;
 		case 39528:
 			((void (*)(vdynamic*,int,vdynamic*,int,int))fun)((vdynamic*)args[0],*(int*)args[1],(vdynamic*)args[2],*(int*)args[3],*(int*)args[4]);
+			return NULL;
+		case 187240:
+			((void (*)(vdynamic*,vdynamic*,vdynamic*,vdynamic*,vdynamic*))fun)((vdynamic*)args[0],(vdynamic*)args[1],(vdynamic*)args[2],(vdynamic*)args[3],(vdynamic*)args[4]);
 			return NULL;
 		case 39784:
 			((void (*)(vdynamic*,vdynamic*,vdynamic*,int,int))fun)((vdynamic*)args[0],(vdynamic*)args[1],(vdynamic*)args[2],*(int*)args[3],*(int*)args[4]);
@@ -908,12 +908,12 @@ static int wrap_ppiip_i(void *value,vdynamic* p0,vdynamic* p1,int p2,int p3,vdyn
 	hl_wrapper_call(value,args,&ret);
 	return ret.v.i;
 }
-static void wrap_ppppp_v(void *value,vdynamic* p0,vdynamic* p1,vdynamic* p2,vdynamic* p3,vdynamic* p4) {
-	void *args[] = {p0,p1,p2,p3,p4};
-	hl_wrapper_call(value,args,NULL);
-}
 static void wrap_pipii_v(void *value,vdynamic* p0,int p1,vdynamic* p2,int p3,int p4) {
 	void *args[] = {p0,&p1,p2,&p3,&p4};
+	hl_wrapper_call(value,args,NULL);
+}
+static void wrap_ppppp_v(void *value,vdynamic* p0,vdynamic* p1,vdynamic* p2,vdynamic* p3,vdynamic* p4) {
+	void *args[] = {p0,p1,p2,p3,p4};
 	hl_wrapper_call(value,args,NULL);
 }
 static void wrap_pppii_v(void *value,vdynamic* p0,vdynamic* p1,vdynamic* p2,int p3,int p4) {
@@ -1202,8 +1202,8 @@ void *hlc_get_wrapper( hl_type *t ) {
 		case 37737: return wrap_ppiii_i;
 		case 186088: return wrap_pddpp_v;
 		case 168809: return wrap_ppiip_i;
-		case 187240: return wrap_ppppp_v;
 		case 39528: return wrap_pipii_v;
+		case 187240: return wrap_ppppp_v;
 		case 39784: return wrap_pppii_v;
 		case 177896: return wrap_pdddp_v;
 		case 187245: return wrap_ppppp_p;

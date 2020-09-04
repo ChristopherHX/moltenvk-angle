@@ -12,17 +12,18 @@ void fun$init(void);
 #  include <_std/String.c>
 #  include <_std/Date.c>
 #  include <urho3d/Application.c>
+#  include <hl/types/ArrayAccess.c>
+#  include <hl/types/ArrayBase.c>
+#  include <hl/types/ArrayObj.c>
 #  include <haxe/ds/StringMap.c>
 #  include <haxe/ds/ObjectMap.c>
 #  include <urho3d/Node.c>
-#  include <hl/types/ArrayAccess.c>
-#  include <hl/types/ArrayBase.c>
 #  include <hl/types/ArrayBytes_Int.c>
 #  include <hl/types/ArrayBytes_hl_UI16.c>
 #  include <hl/types/ArrayBytes_hl_F32.c>
 #  include <hl/types/ArrayBytes_Float.c>
 #  include <urho3d/Scene.c>
-#  include <hl/types/ArrayObj.c>
+#  include <urho3d/DelayedCall.c>
 #  include <_std/StaticSceneSample.c>
 #  include <_std/Main.c>
 #  include <_std/Std.c>
@@ -37,6 +38,7 @@ void fun$init(void);
 #  include <urho3d/_Vector3/Vector3_Impl_.c>
 #  include <_std/StringBuf.c>
 #  include <_std/SysError.c>
+#  include <_std/Sys.c>
 #  include <sys/thread/Lock.c>
 #  include <haxe/EntryPoint.c>
 #  include <haxe/Exception.c>
@@ -77,7 +79,6 @@ void fun$init(void);
 #  include <urho3d/_Vector2/Vector2_Impl_.c>
 #  include <_std/Reflect.c>
 #  include <hl/_Bytes/Bytes_Impl_.c>
-#  include <_std/Sys.c>
 #  include <_std/Type.c>
 #  include <sys/thread/_Mutex/Mutex_Impl_.c>
 #  include <sys/thread/_Deque/Deque_Impl_.c>

@@ -41,7 +41,12 @@ static int hlc_capture_stack( void **stack, int size ) {
     return count;
 }
 
-int hashlink_main(int argc, char** argv);
+
+#if  defined(IOS) || defined(TVOS)
+    int hashlink_main_ios(int argc, char** argv);
+#else
+    int hashlink_main(int argc, char** argv);
+#endif
 
 #if defined(_MSC_VER) && defined(_DEBUG) && !defined(URHO3D_WIN32_CONSOLE)
 static char* argv[1];
@@ -71,12 +76,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, in
     argv[1] = str;
     return hashlink_main(argc,argv);
 }
-#elif defined(__ANDROID__) || defined(IOS) || defined(TVOS)
+#elif defined(__ANDROID__)
 extern "C" __attribute__((visibility("default"))) int SDL_main(int argc, char** argv);
 extern "C" {
 int SDL_main(int argc, char** argv)
 {
     return hashlink_main(argc,argv);
+}
+}
+#elif  defined(IOS) || defined(TVOS)
+extern "C" __attribute__((visibility("default"))) int SDL_main(int argc, char** argv);
+extern "C" {
+int SDL_main(int argc, char** argv)
+{
+    return hashlink_main_ios(argc,argv);
 }
 }
 #else
@@ -110,6 +123,35 @@ extern "C"{
     }
 }
 
+#if  defined(IOS) || defined(TVOS)
+int hashlink_main_ios(int argc, char** argv)
+{
+    #define sys_global_init()
+    #define sys_global_exit()
+    
+    vdynamic *ret;
+    bool isExc = false;
+    hl_type_fun tf = { 0 };
+    hl_type clt = {  };
+    vclosure cl = {  };
+    
+    urho3d_set_hashhlink_initialization_callback(hl_urho3d_initialize_hashlink);
+    
+    sys_global_init();
+    hl_global_init();
+    hl_register_thread(&ret);
+    hl_setup_exception((void*)hlc_resolve_symbol,(void*)hlc_capture_stack);
+    hl_setup_callbacks((void*)hlc_static_call, (void*)hlc_get_wrapper);
+    hl_sys_init((void**)(argv + 1),argc - 1,NULL);
+    tf.ret = &hlt_void;
+    clt.kind = HFUN;
+    clt.fun = &tf;
+    cl.t = &clt;
+    cl.fun = (void*)hl_entry_point;
+    ret = hl_dyn_call_safe(&cl, NULL, 0, &isExc);
+    return 0;
+}
+#else
 int hashlink_main(int argc, char** argv)
 {
     #define sys_global_init()
@@ -139,5 +181,6 @@ int hashlink_main(int argc, char** argv)
     sys_global_exit();
     return 0;
 }
+#endif
 
 

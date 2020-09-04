@@ -119,7 +119,7 @@ HL_API hl_urho3d_tvariant* Urho3D__core_variantmap_get_key_string_value(hl_urho3
 HL_API hl_urho3d_tvariant* Urho3D__core_variantmap_get_value(hl_urho3d_variantmap*,hl_urho3d_tstringhash*);
 HL_API void Urho3D__core_variantmap_set_key_string_value(hl_urho3d_variantmap*,String,hl_urho3d_tvariant*);
 HL_API hl_urho3d_tvariant* Urho3D__core_variantmap_set_key_value(hl_urho3d_variantmap*,hl_urho3d_tstringhash*,hl_urho3d_tvariant*);
-HL_API hl_urho3d_application* Urho3D__create_application(urho3d_context*);
+HL_API hl_urho3d_application* Urho3D__create_application(urho3d_context*,vdynamic*);
 HL_API urho3d_context* Urho3D__create_context(void);
 HL_API hl_urho3d_intvector2* Urho3D__create_intvector2(int,int);
 HL_API hl_urho3d_resource_xml_file* Urho3D__create_resource_xml_file(urho3d_context*,String);
@@ -734,6 +734,8 @@ HL_API double hl_rnd_float(hl_random*);
 HL_API hl_random* hl_rnd_init_system(void);
 HL_API int hl_rnd_int(hl_random*);
 HL_API void hl_set_error_handler(vclosure*);
+HL_API varray* hl_sys_args(void);
+HL_API vbyte* hl_sys_get_cwd(void);
 HL_API bool hl_sys_is64(void);
 HL_API void hl_sys_print(vbyte*);
 HL_API double hl_sys_time(void);
