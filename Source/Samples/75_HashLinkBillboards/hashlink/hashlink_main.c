@@ -20,9 +20,13 @@ void fun$init(void);
 #  include <urho3d/Application.c>
 #  include <hl/types/ArrayObj.c>
 #  include <urho3d/_Context/Context_Impl_.c>
+#  include <urho3d/actions/FiniteTimeAction.c>
 #  include <haxe/ds/StringMap.c>
 #  include <haxe/ds/ObjectMap.c>
 #  include <urho3d/Node.c>
+#  include <urho3d/actions/FiniteTimeActionState.c>
+#  include <urho3d/actions/ActionDef.c>
+#  include <urho3d/actions/ActionID.c>
 #  include <urho3d/Scene.c>
 #  include <_std/BillboardsSample.c>
 #  include <haxe/Log.c>
@@ -77,6 +81,8 @@ void fun$init(void);
 #  include <urho3d/ParticleEmitter2D.c>
 #  include <urho3d/Graphics.c>
 #  include <urho3d/_Vector2/Vector2_Impl_.c>
+#  include <urho3d/actions/ActionGroup.c>
+#  include <urho3d/actions/ActionManager.c>
 #  include <_std/Reflect.c>
 #  include <hl/_Bytes/Bytes_Impl_.c>
 #  include <_std/Type.c>

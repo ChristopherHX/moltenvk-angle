@@ -16,25 +16,3 @@ double Math_random() {
 	return r0;
 }
 
-double Math_min(double r0,double r1) {
-	bool r2;
-	if( r0 < r1 ) goto label$dde6e1d_2_3;
-	r2 = hl_math_isnan(r0);
-	if( !r2 ) goto label$dde6e1d_2_4;
-	label$dde6e1d_2_3:
-	return r0;
-	label$dde6e1d_2_4:
-	return r1;
-}
-
-double Math_max(double r0,double r1) {
-	bool r2;
-	if( r0 < r1 ) goto label$dde6e1d_3_3;
-	r2 = hl_math_isnan(r1);
-	if( !r2 ) goto label$dde6e1d_3_4;
-	label$dde6e1d_3_3:
-	return r1;
-	label$dde6e1d_3_4:
-	return r0;
-}
-

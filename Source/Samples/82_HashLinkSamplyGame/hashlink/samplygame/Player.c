@@ -6,21 +6,21 @@
 #include <urho3d/_Context/Context_Impl_.h>
 #include <urho3d/StaticModel.h>
 #include <haxe/ds/ObjectMap.h>
-#include <actions/ActionDef.h>
-#include <actions/RepeatForever.h>
-#include <actions/RotateBy.h>
-#include <actions/FiniteTimeActionState.h>
+#include <urho3d/actions/ActionDef.h>
+#include <urho3d/actions/RepeatForever.h>
+#include <urho3d/actions/RotateBy.h>
+#include <urho3d/actions/FiniteTimeActionState.h>
 #include <samplygame/MachineGun.h>
 #include <haxe/ds/StringMap.h>
 #include <hl/types/ArrayDyn.h>
 #include <hl/types/ArrayObj.h>
 #include <samplygame/Missile.h>
-#include <actions/EaseOut.h>
-#include <actions/MoveBy.h>
-#include <actions/Sequence.h>
-#include <actions/EaseBackInOut.h>
-#include <actions/DelayTime.h>
-#include <actions/FiniteTimeAction.h>
+#include <urho3d/actions/EaseOut.h>
+#include <urho3d/actions/MoveBy.h>
+#include <urho3d/actions/Sequence.h>
+#include <urho3d/actions/EaseBackInOut.h>
+#include <urho3d/actions/DelayTime.h>
+#include <urho3d/actions/FiniteTimeAction.h>
 urho3d__Node urho3d_Component_get_node(urho3d__Component);
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern String s$StaticModel;
@@ -38,12 +38,12 @@ extern hl_type t$hl_urho3d_scene_node_ptr;
 void haxe_ds_ObjectMap_set(haxe__ds__ObjectMap,vdynamic*,vdynamic*);
 extern String s$Models_Box_mdl;
 extern String s$Materials_Black_xml;
-extern hl_type t$actions_RepeatForever;
-extern hl_type t$actions_RotateBy;
+extern hl_type t$urho3d_actions_RepeatForever;
+extern hl_type t$urho3d_actions_RotateBy;
 extern hl_type t$_f64;
-void actions_RotateBy_new(actions__RotateBy,double,double,vdynamic*,vdynamic*);
-void actions_RepeatForever_new(actions__RepeatForever,actions__FiniteTimeAction);
-actions__ActionID actions_ActionManager_AddAction(actions__ActionDef,actions__FiniteTimeAction,urho3d__Node,actions__FiniteTimeActionState,vclosure*);
+void urho3d_actions_RotateBy_new(urho3d__actions__RotateBy,double,double,vdynamic*,vdynamic*);
+void urho3d_actions_RepeatForever_new(urho3d__actions__RepeatForever,urho3d__actions__FiniteTimeAction);
+urho3d__actions__ActionID urho3d_actions_ActionManager_AddAction(urho3d__actions__ActionDef,urho3d__actions__FiniteTimeAction,urho3d__Node,urho3d__actions__FiniteTimeActionState,vclosure*);
 extern hl_type t$samplygame_MachineGun;
 void samplygame_MachineGun_new(samplygame__MachineGun);
 extern hl_type t$urho3d_Component;
@@ -62,16 +62,16 @@ void haxe_ds_StringMap_set(haxe__ds__StringMap,String,vdynamic*);
 int hl_types_ArrayDyn_push(hl__types__ArrayDyn,vdynamic*);
 extern hl_type t$samplygame_Missile;
 void samplygame_Missile_new(samplygame__Missile);
-extern hl_type t$actions_EaseOut;
-extern hl_type t$actions_MoveBy;
-void actions_MoveBy_new(actions__MoveBy,double,hl_urho3d_math_vector3*);
-void actions_EaseOut_new(actions__EaseOut,actions__FiniteTimeAction,double);
-extern hl_type t$actions_Sequence;
-extern hl_type t$actions_EaseBackInOut;
-void actions_EaseBackInOut_new(actions__EaseBackInOut,actions__FiniteTimeAction);
-extern hl_type t$actions_DelayTime;
-void actions_DelayTime_new(actions__DelayTime,double);
-void actions_Sequence_new(actions__Sequence,actions__FiniteTimeAction,actions__FiniteTimeAction,hl__types__ArrayObj);
+extern hl_type t$urho3d_actions_EaseOut;
+extern hl_type t$urho3d_actions_MoveBy;
+void urho3d_actions_MoveBy_new(urho3d__actions__MoveBy,double,hl_urho3d_math_vector3*);
+void urho3d_actions_EaseOut_new(urho3d__actions__EaseOut,urho3d__actions__FiniteTimeAction,double);
+extern hl_type t$urho3d_actions_Sequence;
+extern hl_type t$urho3d_actions_EaseBackInOut;
+void urho3d_actions_EaseBackInOut_new(urho3d__actions__EaseBackInOut,urho3d__actions__FiniteTimeAction);
+extern hl_type t$urho3d_actions_DelayTime;
+void urho3d_actions_DelayTime_new(urho3d__actions__DelayTime,double);
+void urho3d_actions_Sequence_new(urho3d__actions__Sequence,urho3d__actions__FiniteTimeAction,urho3d__actions__FiniteTimeAction,hl__types__ArrayObj);
 void samplygame_Player_MoveRandomly(samplygame__Player);
 #include <urho3d/Renderer.h>
 #include <samplygame/Weapon.h>
@@ -87,10 +87,10 @@ extern hl_type t$_bool;
 int hl_types_ArrayDyn_get_length(hl__types__ArrayDyn);
 extern urho3d___Vector3__$Vector3_Impl_ g$_urho3d__Vector3_Vector3_Impl_;
 double urho3d_LogicComponent_Random(urho3d__LogicComponent,vdynamic*,vdynamic*);
-void samplygame_Player_RandmoMoveDone(samplygame__Player,actions__ActionID);
-extern hl_type t$fun_4fe0b12;
+void samplygame_Player_RandmoMoveDone(samplygame__Player,urho3d__actions__ActionID);
+extern hl_type t$fun_1e14212;
 #include <urho3d/ParticleEmitter2D.h>
-void actions_ActionManager_RemoveAllActions(urho3d__Node);
+void urho3d_actions_ActionManager_RemoveAllActions(urho3d__Node);
 bool haxe_ds_ObjectMap_remove(haxe__ds__ObjectMap,vdynamic*);
 extern hl_type t$vrt_b840ca7;
 extern hl_type t$String;
@@ -121,44 +121,44 @@ void samplygame_Player_Init(samplygame__Player r0) {
 	bool *r54;
 	String r8;
 	samplygame__MachineGun r45;
+	urho3d__actions__EaseBackInOut r59;
 	hl_urho3d_scene_node_ptr *r28;
 	hl_urho3d_scene_component *r5;
+	urho3d__actions__EaseOut r56;
+	urho3d__actions__FiniteTimeActionState r43;
 	bool r26;
 	urho3d__StaticModel r12, r31;
-	actions__DelayTime r60;
+	urho3d__actions__MoveBy r57;
 	hl_urho3d_math_vector3 *r25;
 	hl_urho3d_math_quaternion *r23;
 	urho3d__Node r2, r4, r22, r30, r34;
 	hl_urho3d_math_tquaternion *r24;
 	urho3d__Component r47;
 	hl_urho3d_graphics_material *r15, *r16, *r33;
-	actions__ActionDef r36;
-	actions__ActionID r35;
-	actions__EaseBackInOut r59;
-	actions__Sequence r58;
+	urho3d__actions__FiniteTimeAction r61, r62;
 	urho3d_context *r6;
 	hl_urho3d_scene_component_ptr *r48;
 	vclosure *r44;
+	urho3d__actions__DelayTime r60;
+	urho3d__actions__RotateBy r38;
 	vdynamic *r29, *r41, *r42, *r46;
+	urho3d__actions__ActionID r35;
 	hl_urho3d_graphics_model *r13, *r14, *r32;
 	int r9, r10;
+	urho3d__actions__Sequence r58;
 	haxe__ds__ObjectMap r27;
 	hl__types__ArrayObj r53;
 	haxe__ds__StringMap r49;
+	urho3d__actions__RepeatForever r37;
 	hl_type *r52;
-	actions__FiniteTimeActionState r43;
-	actions__FiniteTimeAction r61, r62;
-	actions__MoveBy r57;
-	actions__EaseOut r56;
+	urho3d__actions__ActionDef r36;
 	urho3d___Context__$Context_Impl_ r7;
 	samplygame__Missile r55;
 	float r19, r20, r21;
 	hl_urho3d_scene_node *r3;
 	hl__types__ArrayDyn r50;
-	actions__RotateBy r38;
 	double r18, r39, r40;
 	hl_urho3d_graphics_staticmodel *r11;
-	actions__RepeatForever r37;
 	hl_urho3d_math_tvector3 *r17;
 	varray *r51;
 	r2 = urho3d_Component_get_node(((urho3d__Component)r0));
@@ -379,8 +379,8 @@ void samplygame_Player_Init(samplygame__Player r0) {
 	Urho3D__scene_node_set_position(r6,r3,r17);
 	label$defaeaf_1_194:
 	r36 = NULL;
-	r37 = (actions__RepeatForever)hl_alloc_obj(&t$actions_RepeatForever);
-	r38 = (actions__RotateBy)hl_alloc_obj(&t$actions_RotateBy);
+	r37 = (urho3d__actions__RepeatForever)hl_alloc_obj(&t$urho3d_actions_RepeatForever);
+	r38 = (urho3d__actions__RotateBy)hl_alloc_obj(&t$urho3d_actions_RotateBy);
 	r18 = 1.;
 	r39 = 0.;
 	r9 = 0;
@@ -390,12 +390,12 @@ void samplygame_Player_Init(samplygame__Player r0) {
 	r40 = 1440.;
 	r42 = hl_alloc_dynamic(&t$_f64);
 	r42->v.d = r40;
-	actions_RotateBy_new(r38,r18,r39,r41,r42);
-	actions_RepeatForever_new(r37,((actions__FiniteTimeAction)r38));
+	urho3d_actions_RotateBy_new(r38,r18,r39,r41,r42);
+	urho3d_actions_RepeatForever_new(r37,((urho3d__actions__FiniteTimeAction)r38));
 	r30 = r0->rotor;
 	r43 = NULL;
 	r44 = NULL;
-	r35 = actions_ActionManager_AddAction(r36,((actions__FiniteTimeAction)r37),r30,r43,r44);
+	r35 = urho3d_actions_ActionManager_AddAction(r36,((urho3d__actions__FiniteTimeAction)r37),r30,r43,r44);
 	r30 = urho3d_Component_get_node(((urho3d__Component)r0));
 	r45 = (samplygame__MachineGun)hl_alloc_obj(&t$samplygame_MachineGun);
 	samplygame_MachineGun_new(r45);
@@ -506,19 +506,19 @@ void samplygame_Player_Init(samplygame__Player r0) {
 	r21 = (float)r9;
 	r25 = Urho3D__math_vector3_create(r19,r20,r21);
 	r36 = NULL;
-	r56 = (actions__EaseOut)hl_alloc_obj(&t$actions_EaseOut);
-	r57 = (actions__MoveBy)hl_alloc_obj(&t$actions_MoveBy);
+	r56 = (urho3d__actions__EaseOut)hl_alloc_obj(&t$urho3d_actions_EaseOut);
+	r57 = (urho3d__actions__MoveBy)hl_alloc_obj(&t$urho3d_actions_MoveBy);
 	r18 = 0.5;
-	actions_MoveBy_new(r57,r18,r25);
+	urho3d_actions_MoveBy_new(r57,r18,r25);
 	r18 = 2.;
-	actions_EaseOut_new(r56,((actions__FiniteTimeAction)r57),r18);
+	urho3d_actions_EaseOut_new(r56,((urho3d__actions__FiniteTimeAction)r57),r18);
 	r30 = urho3d_Component_get_node(((urho3d__Component)r0));
 	r43 = NULL;
 	r44 = NULL;
-	r35 = actions_ActionManager_AddAction(r36,((actions__FiniteTimeAction)r56),r30,r43,r44);
-	r58 = (actions__Sequence)hl_alloc_obj(&t$actions_Sequence);
-	r59 = (actions__EaseBackInOut)hl_alloc_obj(&t$actions_EaseBackInOut);
-	r38 = (actions__RotateBy)hl_alloc_obj(&t$actions_RotateBy);
+	r35 = urho3d_actions_ActionManager_AddAction(r36,((urho3d__actions__FiniteTimeAction)r56),r30,r43,r44);
+	r58 = (urho3d__actions__Sequence)hl_alloc_obj(&t$urho3d_actions_Sequence);
+	r59 = (urho3d__actions__EaseBackInOut)hl_alloc_obj(&t$urho3d_actions_EaseBackInOut);
+	r38 = (urho3d__actions__RotateBy)hl_alloc_obj(&t$urho3d_actions_RotateBy);
 	r18 = 1.;
 	r39 = 0.;
 	r40 = 0.;
@@ -527,17 +527,17 @@ void samplygame_Player_Init(samplygame__Player r0) {
 	r40 = 360.;
 	r42 = hl_alloc_dynamic(&t$_f64);
 	r42->v.d = r40;
-	actions_RotateBy_new(r38,r18,r39,r41,r42);
-	actions_EaseBackInOut_new(r59,((actions__FiniteTimeAction)r38));
-	r60 = (actions__DelayTime)hl_alloc_obj(&t$actions_DelayTime);
+	urho3d_actions_RotateBy_new(r38,r18,r39,r41,r42);
+	urho3d_actions_EaseBackInOut_new(r59,((urho3d__actions__FiniteTimeAction)r38));
+	r60 = (urho3d__actions__DelayTime)hl_alloc_obj(&t$urho3d_actions_DelayTime);
 	r18 = 5.;
-	actions_DelayTime_new(r60,r18);
+	urho3d_actions_DelayTime_new(r60,r18);
 	r53 = NULL;
-	actions_Sequence_new(r58,((actions__FiniteTimeAction)r59),((actions__FiniteTimeAction)r60),r53);
-	r61 = ((actions__FiniteTimeAction)r58);
-	r58 = (actions__Sequence)hl_alloc_obj(&t$actions_Sequence);
-	r59 = (actions__EaseBackInOut)hl_alloc_obj(&t$actions_EaseBackInOut);
-	r38 = (actions__RotateBy)hl_alloc_obj(&t$actions_RotateBy);
+	urho3d_actions_Sequence_new(r58,((urho3d__actions__FiniteTimeAction)r59),((urho3d__actions__FiniteTimeAction)r60),r53);
+	r61 = ((urho3d__actions__FiniteTimeAction)r58);
+	r58 = (urho3d__actions__Sequence)hl_alloc_obj(&t$urho3d_actions_Sequence);
+	r59 = (urho3d__actions__EaseBackInOut)hl_alloc_obj(&t$urho3d_actions_EaseBackInOut);
+	r38 = (urho3d__actions__RotateBy)hl_alloc_obj(&t$urho3d_actions_RotateBy);
 	r18 = 1.;
 	r39 = 0.;
 	r40 = 0.;
@@ -546,24 +546,24 @@ void samplygame_Player_Init(samplygame__Player r0) {
 	r40 = -360.;
 	r42 = hl_alloc_dynamic(&t$_f64);
 	r42->v.d = r40;
-	actions_RotateBy_new(r38,r18,r39,r41,r42);
-	actions_EaseBackInOut_new(r59,((actions__FiniteTimeAction)r38));
-	r60 = (actions__DelayTime)hl_alloc_obj(&t$actions_DelayTime);
+	urho3d_actions_RotateBy_new(r38,r18,r39,r41,r42);
+	urho3d_actions_EaseBackInOut_new(r59,((urho3d__actions__FiniteTimeAction)r38));
+	r60 = (urho3d__actions__DelayTime)hl_alloc_obj(&t$urho3d_actions_DelayTime);
 	r18 = 5.;
-	actions_DelayTime_new(r60,r18);
+	urho3d_actions_DelayTime_new(r60,r18);
 	r53 = NULL;
-	actions_Sequence_new(r58,((actions__FiniteTimeAction)r59),((actions__FiniteTimeAction)r60),r53);
-	r62 = ((actions__FiniteTimeAction)r58);
+	urho3d_actions_Sequence_new(r58,((urho3d__actions__FiniteTimeAction)r59),((urho3d__actions__FiniteTimeAction)r60),r53);
+	r62 = ((urho3d__actions__FiniteTimeAction)r58);
 	r36 = NULL;
-	r37 = (actions__RepeatForever)hl_alloc_obj(&t$actions_RepeatForever);
-	r58 = (actions__Sequence)hl_alloc_obj(&t$actions_Sequence);
+	r37 = (urho3d__actions__RepeatForever)hl_alloc_obj(&t$urho3d_actions_RepeatForever);
+	r58 = (urho3d__actions__Sequence)hl_alloc_obj(&t$urho3d_actions_Sequence);
 	r53 = NULL;
-	actions_Sequence_new(r58,r61,r62,r53);
-	actions_RepeatForever_new(r37,((actions__FiniteTimeAction)r58));
+	urho3d_actions_Sequence_new(r58,r61,r62,r53);
+	urho3d_actions_RepeatForever_new(r37,((urho3d__actions__FiniteTimeAction)r58));
 	r30 = urho3d_Component_get_node(((urho3d__Component)r0));
 	r43 = NULL;
 	r44 = NULL;
-	r35 = actions_ActionManager_AddAction(r36,((actions__FiniteTimeAction)r37),r30,r43,r44);
+	r35 = urho3d_actions_ActionManager_AddAction(r36,((urho3d__actions__FiniteTimeAction)r37),r30,r43,r44);
 	samplygame_Player_MoveRandomly(r0);
 	return;
 }
@@ -816,20 +816,20 @@ void samplygame_Player_Update(samplygame__Player r0,double r1) {
 }
 
 void samplygame_Player_MoveRandomly(samplygame__Player r0) {
+	urho3d__actions__Sequence r14;
 	hl__types__ArrayObj r16;
-	actions__FiniteTimeActionState r18;
+	urho3d__actions__ActionDef r13;
+	urho3d__actions__FiniteTimeActionState r18;
 	bool r2;
 	urho3d__Node r17;
-	actions__FiniteTimeAction r15;
+	urho3d__actions__MoveBy r11;
 	hl_urho3d_math_vector3 *r3;
-	actions__MoveBy r11;
-	actions__ActionDef r13;
-	actions__ActionID r12;
-	actions__Sequence r14;
+	urho3d__actions__FiniteTimeAction r15;
 	float r7, r8, r10;
 	vclosure *r19;
 	double r4;
 	vdynamic *r5, *r6;
+	urho3d__actions__ActionID r12;
 	int r9;
 	r2 = samplygame_Aircraft_IsAlive(((samplygame__Aircraft)r0));
 	if( !r2 ) goto label$defaeaf_3_29;
@@ -852,37 +852,37 @@ void samplygame_Player_MoveRandomly(samplygame__Player r0) {
 	r9 = 0;
 	r10 = (float)r9;
 	r3 = Urho3D__math_vector3_create(r7,r8,r10);
-	r11 = (actions__MoveBy)hl_alloc_obj(&t$actions_MoveBy);
+	r11 = (urho3d__actions__MoveBy)hl_alloc_obj(&t$urho3d_actions_MoveBy);
 	r4 = 0.75;
-	actions_MoveBy_new(r11,r4,r3);
+	urho3d_actions_MoveBy_new(r11,r4,r3);
 	r13 = NULL;
-	r14 = (actions__Sequence)hl_alloc_obj(&t$actions_Sequence);
-	r15 = ((actions__FiniteTimeAction (*)(actions__MoveBy))r11->$type->vobj_proto[0])(r11);
+	r14 = (urho3d__actions__Sequence)hl_alloc_obj(&t$urho3d_actions_Sequence);
+	r15 = ((urho3d__actions__FiniteTimeAction (*)(urho3d__actions__MoveBy))r11->$type->vobj_proto[0])(r11);
 	r16 = NULL;
-	actions_Sequence_new(r14,((actions__FiniteTimeAction)r11),r15,r16);
+	urho3d_actions_Sequence_new(r14,((urho3d__actions__FiniteTimeAction)r11),r15,r16);
 	r17 = urho3d_Component_get_node(((urho3d__Component)r0));
 	r18 = NULL;
-	r19 = hl_alloc_closure_ptr(&t$fun_4fe0b12,samplygame_Player_RandmoMoveDone,r0);
-	r12 = actions_ActionManager_AddAction(r13,((actions__FiniteTimeAction)r14),r17,r18,r19);
+	r19 = hl_alloc_closure_ptr(&t$fun_1e14212,samplygame_Player_RandmoMoveDone,r0);
+	r12 = urho3d_actions_ActionManager_AddAction(r13,((urho3d__actions__FiniteTimeAction)r14),r17,r18,r19);
 	label$defaeaf_3_29:
 	return;
 }
 
-void samplygame_Player_RandmoMoveDone(samplygame__Player r0,actions__ActionID r1) {
+void samplygame_Player_RandmoMoveDone(samplygame__Player r0,urho3d__actions__ActionID r1) {
+	urho3d__actions__Sequence r15;
 	hl__types__ArrayObj r17;
-	actions__FiniteTimeActionState r19;
+	urho3d__actions__ActionDef r14;
+	urho3d__actions__FiniteTimeActionState r19;
 	bool r3;
 	urho3d__Node r18;
-	actions__FiniteTimeAction r16;
+	urho3d__actions__MoveBy r12;
 	hl_urho3d_math_vector3 *r4;
-	actions__MoveBy r12;
-	actions__ActionDef r14;
-	actions__ActionID r13;
-	actions__Sequence r15;
+	urho3d__actions__FiniteTimeAction r16;
 	float r8, r9, r11;
 	vclosure *r20;
 	double r5;
 	vdynamic *r6, *r7;
+	urho3d__actions__ActionID r13;
 	int r10;
 	r3 = samplygame_Aircraft_IsAlive(((samplygame__Aircraft)r0));
 	if( !r3 ) goto label$defaeaf_4_29;
@@ -905,18 +905,18 @@ void samplygame_Player_RandmoMoveDone(samplygame__Player r0,actions__ActionID r1
 	r10 = 0;
 	r11 = (float)r10;
 	r4 = Urho3D__math_vector3_create(r8,r9,r11);
-	r12 = (actions__MoveBy)hl_alloc_obj(&t$actions_MoveBy);
+	r12 = (urho3d__actions__MoveBy)hl_alloc_obj(&t$urho3d_actions_MoveBy);
 	r5 = 0.75;
-	actions_MoveBy_new(r12,r5,r4);
+	urho3d_actions_MoveBy_new(r12,r5,r4);
 	r14 = NULL;
-	r15 = (actions__Sequence)hl_alloc_obj(&t$actions_Sequence);
-	r16 = ((actions__FiniteTimeAction (*)(actions__MoveBy))r12->$type->vobj_proto[0])(r12);
+	r15 = (urho3d__actions__Sequence)hl_alloc_obj(&t$urho3d_actions_Sequence);
+	r16 = ((urho3d__actions__FiniteTimeAction (*)(urho3d__actions__MoveBy))r12->$type->vobj_proto[0])(r12);
 	r17 = NULL;
-	actions_Sequence_new(r15,((actions__FiniteTimeAction)r12),r16,r17);
+	urho3d_actions_Sequence_new(r15,((urho3d__actions__FiniteTimeAction)r12),r16,r17);
 	r18 = urho3d_Component_get_node(((urho3d__Component)r0));
 	r19 = NULL;
-	r20 = hl_alloc_closure_ptr(&t$fun_4fe0b12,samplygame_Player_RandmoMoveDone,r0);
-	r13 = actions_ActionManager_AddAction(r14,((actions__FiniteTimeAction)r15),r18,r19,r20);
+	r20 = hl_alloc_closure_ptr(&t$fun_1e14212,samplygame_Player_RandmoMoveDone,r0);
+	r13 = urho3d_actions_ActionManager_AddAction(r14,((urho3d__actions__FiniteTimeAction)r15),r18,r19,r20);
 	label$defaeaf_4_29:
 	return;
 }
@@ -943,7 +943,7 @@ void samplygame_Player_OnExplode(samplygame__Player r0,urho3d__Node r1) {
 	int r20, r33;
 	vbyte *r16;
 	r3 = r0->rotor;
-	actions_ActionManager_RemoveAllActions(r3);
+	urho3d_actions_ActionManager_RemoveAllActions(r3);
 	r3 = r0->rotor;
 	if( r3 == NULL ) hl_null_access();
 	r5 = r3->abstractNode;

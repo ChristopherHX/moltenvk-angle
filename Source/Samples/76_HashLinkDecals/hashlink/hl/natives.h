@@ -644,7 +644,8 @@ HL_API void Urho3D__tvariant_set_tvector2(hl_urho3d_tvariant*,hl_urho3d_math_tve
 HL_API void Urho3D__tvariant_set_vector2(hl_urho3d_tvariant*,hl_urho3d_math_vector2*);
 HL_API hl_urho3d_math_tintvector2* Urho3D__ui_get_cursor_position(urho3d_context*);
 HL_API hl_urho3d_uielement* Urho3D__ui_get_root(urho3d_context*);
-HL_API void Urho3D__ui_uielement_addchild(urho3d_context*,hl_urho3d_uielement*,hl_urho3d_uielement*);
+HL_API void Urho3D__ui_uielement_add_child(urho3d_context*,hl_urho3d_uielement*,hl_urho3d_uielement*);
+HL_API void Urho3D__ui_uielement_remove_child(urho3d_context*,hl_urho3d_uielement*,hl_urho3d_uielement*,int);
 HL_API hl_urho3d_urho2d_particle_effect2d* Urho3D__urho2d_particle_effect2d_create(urho3d_context*,String);
 HL_API vbyte* Urho3D__urho2d_particle_effect2d_get_name(hl_urho3d_urho2d_particle_effect2d*);
 HL_API hl_urho3d_urho2d_particle_emitter2d* Urho3D__urho2d_particle_emitter2d_cast_from_component(urho3d_context*,hl_urho3d_scene_component*);

@@ -18,6 +18,7 @@ struct _urho3d___UIElement__$UIElement_Impl_ {
 	vdynamic* __constructor__;
 	vclosure* _new;
 	vclosure* AddChild;
+	vclosure* RemoveChild;
 };
 struct _urho3d___UIElement__UIElement_Impl_ {
 	hl_type *$type;

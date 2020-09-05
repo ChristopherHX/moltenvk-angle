@@ -6,10 +6,10 @@
 #include <urho3d/_Context/Context_Impl_.h>
 #include <urho3d/StaticModel.h>
 #include <urho3d/_Vector3/Vector3_Impl_.h>
-#include <actions/MoveBy.h>
-#include <actions/ActionID.h>
-#include <actions/ActionDef.h>
-#include <actions/FiniteTimeActionState.h>
+#include <urho3d/actions/MoveBy.h>
+#include <urho3d/actions/ActionID.h>
+#include <urho3d/actions/ActionDef.h>
+#include <urho3d/actions/FiniteTimeActionState.h>
 urho3d__Node samplygame_Weapon_CreateRigidBullet(samplygame__Weapon,bool,hl_urho3d_math_vector3*);
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern String s$StaticModel;
@@ -22,13 +22,13 @@ hl_urho3d_graphics_material* urho3d_StaticModel_set_material(urho3d__StaticModel
 extern urho3d___Vector3__$Vector3_Impl_ g$_urho3d__Vector3_Vector3_Impl_;
 extern String s$Sounds_MachineGun_wav;
 void urho3d_SoundSource_Play(urho3d__SoundSource,hl_urho3d_audio_sound*,vdynamic*,vdynamic*,vdynamic*);
-extern hl_type t$actions_MoveBy;
-void actions_MoveBy_new(actions__MoveBy,double,hl_urho3d_math_vector3*);
-void samplygame_MachineGun_bulletNodeRemove(samplygame__MachineGun,actions__ActionID);
-extern hl_type t$fun_61e9c9b;
-#include <actions/FiniteTimeAction.h>
-actions__ActionID actions_ActionManager_AddAction(actions__ActionDef,actions__FiniteTimeAction,urho3d__Node,actions__FiniteTimeActionState,vclosure*);
-void actions_ActionID_DeleteTargets(actions__ActionID);
+extern hl_type t$urho3d_actions_MoveBy;
+void urho3d_actions_MoveBy_new(urho3d__actions__MoveBy,double,hl_urho3d_math_vector3*);
+void samplygame_MachineGun_bulletNodeRemove(samplygame__MachineGun,urho3d__actions__ActionID);
+extern hl_type t$fun_7ca3bb3;
+#include <urho3d/actions/FiniteTimeAction.h>
+urho3d__actions__ActionID urho3d_actions_ActionManager_AddAction(urho3d__actions__ActionDef,urho3d__actions__FiniteTimeAction,urho3d__Node,urho3d__actions__FiniteTimeActionState,vclosure*);
+void urho3d_actions_ActionID_DeleteTargets(urho3d__actions__ActionID);
 urho3d__Node urho3d_Component_get_node(urho3d__Component);
 extern String s$SoundSource;
 extern hl_type t$urho3d_SoundSource;
@@ -39,20 +39,19 @@ void samplygame_Weapon_new(samplygame__Weapon,vdynamic*);
 void samplygame_MachineGun_OnFire(samplygame__MachineGun r0,bool r1) {
 	String r18;
 	urho3d__SoundSource r32;
+	urho3d__actions__ActionDef r39;
 	hl_urho3d_scene_component *r17;
-	actions__FiniteTimeActionState r40;
+	urho3d__actions__FiniteTimeActionState r40;
 	urho3d___Vector3__$Vector3_Impl_ r29;
 	urho3d__StaticModel r21;
 	bool r6;
+	urho3d__actions__MoveBy r37;
 	hl_urho3d_audio_sound *r31;
 	hl_urho3d_math_vector3 *r7;
 	urho3d__Node r5;
-	actions__MoveBy r37;
 	hl_urho3d_math_tquaternion *r30;
 	hl_urho3d_graphics_material *r24, *r25;
 	urho3d___Context__$Context_Impl_ r15;
-	actions__ActionDef r39;
-	actions__ActionID r38;
 	urho3d_context *r14;
 	hl_urho3d_scene_node *r13;
 	float r9, r11, r12, r36;
@@ -61,6 +60,7 @@ void samplygame_MachineGun_OnFire(samplygame__MachineGun r0,bool r1) {
 	double r2, r3;
 	vdynamic *r33, *r34, *r35;
 	hl_urho3d_math_tvector3 *r8, *r16, *r26, *r27, *r28;
+	urho3d__actions__ActionID r38;
 	hl_urho3d_graphics_model *r22, *r23;
 	int r10, r19;
 	r2 = r0->currentGunOffset;
@@ -251,20 +251,20 @@ void samplygame_MachineGun_OnFire(samplygame__MachineGun r0,bool r1) {
 	r2 = r2 * r3;
 	r36 = (float)r2;
 	r26 = Urho3D__math_tvector3_create(r11,r12,r36);
-	r37 = (actions__MoveBy)hl_alloc_obj(&t$actions_MoveBy);
+	r37 = (urho3d__actions__MoveBy)hl_alloc_obj(&t$urho3d_actions_MoveBy);
 	r2 = 0.6999999999999999556;
 	r7 = Urho3D__math_tvector3_cast_to_vector3(r26);
-	actions_MoveBy_new(r37,r2,r7);
+	urho3d_actions_MoveBy_new(r37,r2,r7);
 	r39 = NULL;
 	r40 = NULL;
-	r41 = hl_alloc_closure_ptr(&t$fun_61e9c9b,samplygame_MachineGun_bulletNodeRemove,r0);
-	r38 = actions_ActionManager_AddAction(r39,((actions__FiniteTimeAction)r37),r5,r40,r41);
+	r41 = hl_alloc_closure_ptr(&t$fun_7ca3bb3,samplygame_MachineGun_bulletNodeRemove,r0);
+	r38 = urho3d_actions_ActionManager_AddAction(r39,((urho3d__actions__FiniteTimeAction)r37),r5,r40,r41);
 	return;
 }
 
-void samplygame_MachineGun_bulletNodeRemove(samplygame__MachineGun r0,actions__ActionID r1) {
+void samplygame_MachineGun_bulletNodeRemove(samplygame__MachineGun r0,urho3d__actions__ActionID r1) {
 	if( r1 == NULL ) hl_null_access();
-	actions_ActionID_DeleteTargets(r1);
+	urho3d_actions_ActionID_DeleteTargets(r1);
 	return;
 }
 

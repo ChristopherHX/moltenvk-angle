@@ -54,7 +54,7 @@ file(GLOB std_srcs
 )
 
 if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
-if(NOT IOS)
+if(NOT IOS AND NOT EMSCRIPTEN)
     list(APPEND std_srcs
         include/mdbg/mdbg.c
         include/mdbg/mach_excServer.c
@@ -76,6 +76,9 @@ if(IOS)
     )
 endif()
 
+if (EMSCRIPTEN)
+ add_definitions( -DLIBHL_STATIC -DHL_NO_THREADS)
+endif()
 
 
 set (SOURCE_FILES ${pcre_srcs} src/gc.c ${std_srcs} src/hl.h src/hlc.h)

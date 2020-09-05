@@ -17,21 +17,21 @@ extern hl_type t$vrt_eaa6a3b;
 urho3d__Node samplygame_Background_CreateTile(samplygame__Background,int);
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 void samplygame_Background_CreateBackGroundMovingAction(samplygame__Background);
-#include <actions/ActionID.h>
+#include <urho3d/actions/ActionID.h>
 void samplygame_Background_SwitchTiles(samplygame__Background);
 #include <urho3d/Math.h>
-#include <actions/ActionGroup.h>
-#include <actions/MoveBy.h>
+#include <urho3d/actions/ActionGroup.h>
+#include <urho3d/actions/MoveBy.h>
 #include <hl/types/ArrayObj.h>
 extern urho3d__$Math g$_urho3d_Math;
-extern hl_type t$actions_ActionGroup;
-void actions_ActionGroup_new(actions__ActionGroup);
-extern hl_type t$actions_MoveBy;
-void actions_MoveBy_new(actions__MoveBy,double,hl_urho3d_math_vector3*);
-#include <actions/FiniteTimeAction.h>
-void actions_ActionGroup_Push(actions__ActionGroup,actions__FiniteTimeAction,urho3d__Node);
-extern hl_type t$fun_9f38ab7;
-actions__ActionID actions_ActionManager_AddActions(hl__types__ArrayObj,actions__ActionGroup,vclosure*);
+extern hl_type t$urho3d_actions_ActionGroup;
+void urho3d_actions_ActionGroup_new(urho3d__actions__ActionGroup);
+extern hl_type t$urho3d_actions_MoveBy;
+void urho3d_actions_MoveBy_new(urho3d__actions__MoveBy,double,hl_urho3d_math_vector3*);
+#include <urho3d/actions/FiniteTimeAction.h>
+void urho3d_actions_ActionGroup_Push(urho3d__actions__ActionGroup,urho3d__actions__FiniteTimeAction,urho3d__Node);
+extern hl_type t$fun_7a0a5cf;
+urho3d__actions__ActionID urho3d_actions_ActionManager_AddActions(hl__types__ArrayObj,urho3d__actions__ActionGroup,vclosure*);
 #include <haxe/ds/ObjectMap.h>
 #include <urho3d/StaticModel.h>
 #include <haxe/ds/StringMap.h>
@@ -149,7 +149,7 @@ void samplygame_Background_DelayedStart(samplygame__Background r0) {
 	return;
 }
 
-void samplygame_Background_OnActionDone(samplygame__Background r0,actions__ActionID r1) {
+void samplygame_Background_OnActionDone(samplygame__Background r0,urho3d__actions__ActionID r1) {
 	samplygame_Background_SwitchTiles(r0);
 	samplygame_Background_CreateBackGroundMovingAction(r0);
 	return;
@@ -157,15 +157,15 @@ void samplygame_Background_OnActionDone(samplygame__Background r0,actions__Actio
 
 void samplygame_Background_CreateBackGroundMovingAction(samplygame__Background r0) {
 	hl__types__ArrayObj r20;
+	urho3d__actions__ActionGroup r8;
 	urho3d__$Math r4;
 	urho3d__Node r17;
+	urho3d__actions__MoveBy r15;
 	hl_urho3d_math_vector3 *r10, *r16;
-	actions__MoveBy r15;
-	actions__ActionID r19;
 	float r12, r13, r14;
 	vclosure *r21;
-	actions__ActionGroup r8;
 	double r1, r2, r3, r6, r7, r9, r18;
+	urho3d__actions__ActionID r19;
 	int r11;
 	r1 = r0->BackgroundScale;
 	r2 = 90.;
@@ -193,8 +193,8 @@ void samplygame_Background_CreateBackGroundMovingAction(samplygame__Background r
 	r6 = r6 * r7;
 	r6 = hl_math_tan(r6);
 	r6 = r6 * r3;
-	r8 = (actions__ActionGroup)hl_alloc_obj(&t$actions_ActionGroup);
-	actions_ActionGroup_new(r8);
+	r8 = (urho3d__actions__ActionGroup)hl_alloc_obj(&t$urho3d_actions_ActionGroup);
+	urho3d_actions_ActionGroup_new(r8);
 	r7 = 1.;
 	r9 = r0->BackgroundSpeed;
 	r7 = r7 / r9;
@@ -205,10 +205,10 @@ void samplygame_Background_CreateBackGroundMovingAction(samplygame__Background r
 	r9 = -r6;
 	r14 = (float)r9;
 	r10 = Urho3D__math_vector3_create(r12,r13,r14);
-	r15 = (actions__MoveBy)hl_alloc_obj(&t$actions_MoveBy);
-	actions_MoveBy_new(r15,r7,r10);
+	r15 = (urho3d__actions__MoveBy)hl_alloc_obj(&t$urho3d_actions_MoveBy);
+	urho3d_actions_MoveBy_new(r15,r7,r10);
 	r17 = r0->frontTile;
-	actions_ActionGroup_Push(r8,((actions__FiniteTimeAction)r15),r17);
+	urho3d_actions_ActionGroup_Push(r8,((urho3d__actions__FiniteTimeAction)r15),r17);
 	r9 = 1.;
 	r18 = r0->BackgroundSpeed;
 	r9 = r9 / r18;
@@ -219,13 +219,13 @@ void samplygame_Background_CreateBackGroundMovingAction(samplygame__Background r
 	r18 = -r6;
 	r14 = (float)r18;
 	r16 = Urho3D__math_vector3_create(r12,r13,r14);
-	r15 = (actions__MoveBy)hl_alloc_obj(&t$actions_MoveBy);
-	actions_MoveBy_new(r15,r9,r16);
+	r15 = (urho3d__actions__MoveBy)hl_alloc_obj(&t$urho3d_actions_MoveBy);
+	urho3d_actions_MoveBy_new(r15,r9,r16);
 	r17 = r0->rearTile;
-	actions_ActionGroup_Push(r8,((actions__FiniteTimeAction)r15),r17);
+	urho3d_actions_ActionGroup_Push(r8,((urho3d__actions__FiniteTimeAction)r15),r17);
 	r20 = NULL;
-	r21 = hl_alloc_closure_ptr(&t$fun_9f38ab7,samplygame_Background_OnActionDone,r0);
-	r19 = actions_ActionManager_AddActions(r20,r8,r21);
+	r21 = hl_alloc_closure_ptr(&t$fun_7a0a5cf,samplygame_Background_OnActionDone,r0);
+	r19 = urho3d_actions_ActionManager_AddActions(r20,r8,r21);
 	return;
 }
 

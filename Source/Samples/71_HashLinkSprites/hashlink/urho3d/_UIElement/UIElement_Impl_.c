@@ -21,7 +21,23 @@ void urho3d__UIElement_UIElement_Impl__AddChild(hl_urho3d_uielement* r0,hl_urho3
 	urho3d_context *r3;
 	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r3 = r4->context;
-	Urho3D__ui_uielement_addchild(r3,r0,r1);
+	Urho3D__ui_uielement_add_child(r3,r0,r1);
+	return;
+}
+
+void urho3d__UIElement_UIElement_Impl__RemoveChild(hl_urho3d_uielement* r0,hl_urho3d_uielement* r1,int* r2) {
+	urho3d___Context__$Context_Impl_ r6;
+	urho3d_context *r5;
+	int r3;
+	if( r2 ) goto label$a4a987c_3_3;
+	r3 = 0;
+	goto label$a4a987c_3_4;
+	label$a4a987c_3_3:
+	r3 = *r2;
+	label$a4a987c_3_4:
+	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r5 = r6->context;
+	Urho3D__ui_uielement_remove_child(r5,r0,r1,r3);
 	return;
 }
 

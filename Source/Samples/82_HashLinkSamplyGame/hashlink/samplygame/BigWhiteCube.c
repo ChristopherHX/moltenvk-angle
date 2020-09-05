@@ -8,14 +8,14 @@ void samplygame_Weapon_new(samplygame__Weapon,vdynamic*);
 #include <haxe/ds/ObjectMap.h>
 #include <urho3d/StaticModel.h>
 #include <urho3d/ParticleEmitter2D.h>
-#include <actions/BezierConfig.h>
-#include <actions/ActionGroup.h>
-#include <actions/RotateBy.h>
-#include <actions/BezierBy.h>
-#include <actions/Sequence.h>
-#include <actions/DelayTime.h>
+#include <urho3d/actions/BezierConfig.h>
+#include <urho3d/actions/ActionGroup.h>
+#include <urho3d/actions/RotateBy.h>
+#include <urho3d/actions/BezierBy.h>
+#include <urho3d/actions/Sequence.h>
+#include <urho3d/actions/DelayTime.h>
 #include <hl/types/ArrayObj.h>
-#include <actions/ActionID.h>
+#include <urho3d/actions/ActionID.h>
 urho3d__Node samplygame_Weapon_CreateRigidBullet(samplygame__Weapon,bool,hl_urho3d_math_vector3*);
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern String s$;
@@ -36,24 +36,24 @@ extern hl_type t$urho3d_ParticleEmitter2D;
 void urho3d_ParticleEmitter2D_new(urho3d__ParticleEmitter2D,hl_urho3d_urho2d_particle_emitter2d*);
 extern String s$Particles_Explosion_pex;
 hl_urho3d_urho2d_particle_effect2d* urho3d_ParticleEmitter2D_set_effect(urho3d__ParticleEmitter2D,hl_urho3d_urho2d_particle_effect2d*);
-extern hl_type t$actions_BezierConfig;
-void actions_BezierConfig_new(actions__BezierConfig);
-extern hl_type t$actions_ActionGroup;
-void actions_ActionGroup_new(actions__ActionGroup);
-extern hl_type t$actions_RotateBy;
-void actions_RotateBy_new(actions__RotateBy,double,double,vdynamic*,vdynamic*);
-#include <actions/FiniteTimeAction.h>
-void actions_ActionGroup_Push(actions__ActionGroup,actions__FiniteTimeAction,urho3d__Node);
-extern hl_type t$actions_BezierBy;
-void actions_BezierBy_new(actions__BezierBy,double,actions__BezierConfig);
-extern hl_type t$actions_Sequence;
-extern hl_type t$actions_DelayTime;
-void actions_DelayTime_new(actions__DelayTime,double);
-void actions_Sequence_new(actions__Sequence,actions__FiniteTimeAction,actions__FiniteTimeAction,hl__types__ArrayObj);
-void samplygame_BigWhiteCube_bulletNodeRemove(samplygame__BigWhiteCube,actions__ActionID);
-extern hl_type t$fun_a0af39e;
-actions__ActionID actions_ActionManager_AddActions(hl__types__ArrayObj,actions__ActionGroup,vclosure*);
-void actions_ActionID_DeleteTargets(actions__ActionID);
+extern hl_type t$urho3d_actions_BezierConfig;
+void urho3d_actions_BezierConfig_new(urho3d__actions__BezierConfig);
+extern hl_type t$urho3d_actions_ActionGroup;
+void urho3d_actions_ActionGroup_new(urho3d__actions__ActionGroup);
+extern hl_type t$urho3d_actions_RotateBy;
+void urho3d_actions_RotateBy_new(urho3d__actions__RotateBy,double,double,vdynamic*,vdynamic*);
+#include <urho3d/actions/FiniteTimeAction.h>
+void urho3d_actions_ActionGroup_Push(urho3d__actions__ActionGroup,urho3d__actions__FiniteTimeAction,urho3d__Node);
+extern hl_type t$urho3d_actions_BezierBy;
+void urho3d_actions_BezierBy_new(urho3d__actions__BezierBy,double,urho3d__actions__BezierConfig);
+extern hl_type t$urho3d_actions_Sequence;
+extern hl_type t$urho3d_actions_DelayTime;
+void urho3d_actions_DelayTime_new(urho3d__actions__DelayTime,double);
+void urho3d_actions_Sequence_new(urho3d__actions__Sequence,urho3d__actions__FiniteTimeAction,urho3d__actions__FiniteTimeAction,hl__types__ArrayObj);
+void samplygame_BigWhiteCube_bulletNodeRemove(samplygame__BigWhiteCube,urho3d__actions__ActionID);
+extern hl_type t$fun_c3d69c0;
+urho3d__actions__ActionID urho3d_actions_ActionManager_AddActions(hl__types__ArrayObj,urho3d__actions__ActionGroup,vclosure*);
+void urho3d_actions_ActionID_DeleteTargets(urho3d__actions__ActionID);
 
 void samplygame_BigWhiteCube_new(samplygame__BigWhiteCube r0) {
 	vdynamic *r2;
@@ -68,6 +68,8 @@ void samplygame_BigWhiteCube_new(samplygame__BigWhiteCube r0) {
 }
 
 void samplygame_BigWhiteCube_OnFire(samplygame__BigWhiteCube r0,bool r1) {
+	urho3d__actions__Sequence r42;
+	urho3d__actions__BezierBy r41;
 	hl_urho3d_urho2d_particle_effect2d *r33, *r34;
 	String r10;
 	urho3d__ParticleEmitter2D r32;
@@ -75,28 +77,26 @@ void samplygame_BigWhiteCube_OnFire(samplygame__BigWhiteCube r0,bool r1) {
 	hl__types__ArrayObj r44;
 	hl_urho3d_scene_component *r17;
 	hl_urho3d_scene_node_ptr *r15;
-	actions__BezierConfig r35;
 	hl_urho3d_urho2d_particle_emitter2d *r31;
 	urho3d__StaticModel r19;
 	bool r3;
-	actions__DelayTime r43;
+	urho3d__actions__ActionGroup r38;
 	hl_urho3d_math_vector3 *r4, *r36, *r37;
 	urho3d__Node r2, r7, r14;
 	hl_urho3d_math_tquaternion *r27;
 	urho3d___Context__$Context_Impl_ r9;
-	actions__BezierBy r41;
-	actions__ActionID r45;
-	actions__Sequence r42;
+	urho3d__actions__BezierConfig r35;
 	float r24, r25, r26;
 	urho3d_context *r8;
 	hl_urho3d_scene_node *r6;
 	vclosure *r46;
-	actions__RotateBy r39;
-	actions__ActionGroup r38;
 	double r23, r30, r40;
 	hl_urho3d_graphics_staticmodel *r18;
+	urho3d__actions__DelayTime r43;
+	urho3d__actions__RotateBy r39;
 	hl_urho3d_math_tvector3 *r22;
 	vdynamic *r16, *r28, *r29;
+	urho3d__actions__ActionID r45;
 	hl_urho3d_graphics_model *r20, *r21;
 	int r11, r12;
 	r4 = NULL;
@@ -294,8 +294,8 @@ void samplygame_BigWhiteCube_OnFire(samplygame__BigWhiteCube r0,bool r1) {
 	label$56eab30_2_164:
 	r11 = -1;
 	label$56eab30_2_165:
-	r35 = (actions__BezierConfig)hl_alloc_obj(&t$actions_BezierConfig);
-	actions_BezierConfig_new(r35);
+	r35 = (urho3d__actions__BezierConfig)hl_alloc_obj(&t$urho3d_actions_BezierConfig);
+	urho3d_actions_BezierConfig_new(r35);
 	r12 = 0;
 	r24 = (float)r12;
 	r23 = 3.;
@@ -330,9 +330,9 @@ void samplygame_BigWhiteCube_OnFire(samplygame__BigWhiteCube r0,bool r1) {
 	r26 = (float)r12;
 	r37 = Urho3D__math_vector3_create(r24,r25,r26);
 	r35->EndPosition = r37;
-	r38 = (actions__ActionGroup)hl_alloc_obj(&t$actions_ActionGroup);
-	actions_ActionGroup_new(r38);
-	r39 = (actions__RotateBy)hl_alloc_obj(&t$actions_RotateBy);
+	r38 = (urho3d__actions__ActionGroup)hl_alloc_obj(&t$urho3d_actions_ActionGroup);
+	urho3d_actions_ActionGroup_new(r38);
+	r39 = (urho3d__actions__RotateBy)hl_alloc_obj(&t$urho3d_actions_RotateBy);
 	r23 = 3.;
 	r30 = 0.;
 	r12 = 1000;
@@ -343,27 +343,27 @@ void samplygame_BigWhiteCube_OnFire(samplygame__BigWhiteCube r0,bool r1) {
 	r40 = (double)r12;
 	r29 = hl_alloc_dynamic(&t$_f64);
 	r29->v.d = r40;
-	actions_RotateBy_new(r39,r23,r30,r28,r29);
-	actions_ActionGroup_Push(r38,((actions__FiniteTimeAction)r39),r14);
-	r41 = (actions__BezierBy)hl_alloc_obj(&t$actions_BezierBy);
+	urho3d_actions_RotateBy_new(r39,r23,r30,r28,r29);
+	urho3d_actions_ActionGroup_Push(r38,((urho3d__actions__FiniteTimeAction)r39),r14);
+	r41 = (urho3d__actions__BezierBy)hl_alloc_obj(&t$urho3d_actions_BezierBy);
 	r23 = 4.;
-	actions_BezierBy_new(r41,r23,r35);
-	r42 = (actions__Sequence)hl_alloc_obj(&t$actions_Sequence);
-	r43 = (actions__DelayTime)hl_alloc_obj(&t$actions_DelayTime);
+	urho3d_actions_BezierBy_new(r41,r23,r35);
+	r42 = (urho3d__actions__Sequence)hl_alloc_obj(&t$urho3d_actions_Sequence);
+	r43 = (urho3d__actions__DelayTime)hl_alloc_obj(&t$urho3d_actions_DelayTime);
 	r23 = 5.;
-	actions_DelayTime_new(r43,r23);
+	urho3d_actions_DelayTime_new(r43,r23);
 	r44 = NULL;
-	actions_Sequence_new(r42,((actions__FiniteTimeAction)r41),((actions__FiniteTimeAction)r43),r44);
-	actions_ActionGroup_Push(r38,((actions__FiniteTimeAction)r42),r2);
+	urho3d_actions_Sequence_new(r42,((urho3d__actions__FiniteTimeAction)r41),((urho3d__actions__FiniteTimeAction)r43),r44);
+	urho3d_actions_ActionGroup_Push(r38,((urho3d__actions__FiniteTimeAction)r42),r2);
 	r44 = NULL;
-	r46 = hl_alloc_closure_ptr(&t$fun_a0af39e,samplygame_BigWhiteCube_bulletNodeRemove,r0);
-	r45 = actions_ActionManager_AddActions(r44,r38,r46);
+	r46 = hl_alloc_closure_ptr(&t$fun_c3d69c0,samplygame_BigWhiteCube_bulletNodeRemove,r0);
+	r45 = urho3d_actions_ActionManager_AddActions(r44,r38,r46);
 	return;
 }
 
-void samplygame_BigWhiteCube_bulletNodeRemove(samplygame__BigWhiteCube r0,actions__ActionID r1) {
+void samplygame_BigWhiteCube_bulletNodeRemove(samplygame__BigWhiteCube r0,urho3d__actions__ActionID r1) {
 	if( r1 == NULL ) hl_null_access();
-	actions_ActionID_DeleteTargets(r1);
+	urho3d_actions_ActionID_DeleteTargets(r1);
 	return;
 }
 

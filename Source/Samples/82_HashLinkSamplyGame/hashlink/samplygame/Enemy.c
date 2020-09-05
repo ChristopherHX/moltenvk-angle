@@ -4,24 +4,24 @@
 #include <samplygame/Enemy.h>
 void samplygame_Aircraft_new(samplygame__Aircraft,vdynamic*);
 #include <hl/natives.h>
-#include <actions/ActionID.h>
-#include <actions/ActionDef.h>
-#include <actions/MoveBy.h>
-#include <actions/FiniteTimeActionState.h>
-extern hl_type t$actions_MoveBy;
-void actions_MoveBy_new(actions__MoveBy,double,hl_urho3d_math_vector3*);
+#include <urho3d/actions/ActionID.h>
+#include <urho3d/actions/ActionDef.h>
+#include <urho3d/actions/MoveBy.h>
+#include <urho3d/actions/FiniteTimeActionState.h>
+extern hl_type t$urho3d_actions_MoveBy;
+void urho3d_actions_MoveBy_new(urho3d__actions__MoveBy,double,hl_urho3d_math_vector3*);
 urho3d__Node urho3d_Component_get_node(urho3d__Component);
-void samplygame_Enemy_InitializedDone(samplygame__Enemy,actions__ActionID);
-extern hl_type t$fun_e5c507c;
-#include <actions/FiniteTimeAction.h>
-actions__ActionID actions_ActionManager_AddAction(actions__ActionDef,actions__FiniteTimeAction,urho3d__Node,actions__FiniteTimeActionState,vclosure*);
+void samplygame_Enemy_InitializedDone(samplygame__Enemy,urho3d__actions__ActionID);
+extern hl_type t$fun_a76a924;
+#include <urho3d/actions/FiniteTimeAction.h>
+urho3d__actions__ActionID urho3d_actions_ActionManager_AddAction(urho3d__actions__ActionDef,urho3d__actions__FiniteTimeAction,urho3d__Node,urho3d__actions__FiniteTimeActionState,vclosure*);
 void samplygame_Enemy_MoveRandomly(samplygame__Enemy,double,double,double,double,double);
 void samplygame_Enemy_StartShooting(samplygame__Enemy);
 #include <samplygame/Weapon.h>
 #include <urho3d/_Context/Context_Impl_.h>
 #include <hl/types/ArrayDyn.h>
 #include <hl/types/ArrayObj.h>
-#include <actions/DelayTime.h>
+#include <urho3d/actions/DelayTime.h>
 bool samplygame_Aircraft_IsAlive(samplygame__Aircraft);
 extern samplygame__$Weapon g$_samplygame_Weapon;
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
@@ -32,15 +32,15 @@ hl__types__ArrayDyn hl_types_ArrayDyn_alloc(hl__types__ArrayBase,bool*);
 extern hl_type t$_bool;
 int hl_types_ArrayDyn_push(hl__types__ArrayDyn,vdynamic*);
 int hl_types_ArrayDyn_get_length(hl__types__ArrayDyn);
-extern hl_type t$actions_DelayTime;
+extern hl_type t$urho3d_actions_DelayTime;
 extern hl_type t$_f64;
 double urho3d_LogicComponent_Random(urho3d__LogicComponent,vdynamic*,vdynamic*);
-void actions_DelayTime_new(actions__DelayTime,double);
-void samplygame_Enemy_ShootingLoop(samplygame__Enemy,actions__ActionID);
-#include <actions/Sequence.h>
-extern hl_type t$actions_Sequence;
-void actions_Sequence_new(actions__Sequence,actions__FiniteTimeAction,actions__FiniteTimeAction,hl__types__ArrayObj);
-void samplygame_Enemy_MoveRandomLoop(samplygame__Enemy,actions__ActionID);
+void urho3d_actions_DelayTime_new(urho3d__actions__DelayTime,double);
+void samplygame_Enemy_ShootingLoop(samplygame__Enemy,urho3d__actions__ActionID);
+#include <urho3d/actions/Sequence.h>
+extern hl_type t$urho3d_actions_Sequence;
+void urho3d_actions_Sequence_new(urho3d__actions__Sequence,urho3d__actions__FiniteTimeAction,urho3d__actions__FiniteTimeAction,hl__types__ArrayObj);
+void samplygame_Enemy_MoveRandomLoop(samplygame__Enemy,urho3d__actions__ActionID);
 #include <urho3d/_Vector3/Vector3_Impl_.h>
 void urho3d_LogicComponent_Update(urho3d__LogicComponent,double);
 extern urho3d___Vector3__$Vector3_Impl_ g$_urho3d__Vector3_Vector3_Impl_;
@@ -56,15 +56,15 @@ void samplygame_Enemy_new(samplygame__Enemy r0) {
 }
 
 void samplygame_Enemy_Init(samplygame__Enemy r0) {
-	actions__FiniteTimeActionState r12;
+	urho3d__actions__ActionDef r8;
+	urho3d__actions__FiniteTimeActionState r12;
 	urho3d__Node r11;
+	urho3d__actions__MoveBy r9;
 	hl_urho3d_math_vector3 *r1;
-	actions__MoveBy r9;
-	actions__ActionDef r8;
-	actions__ActionID r7;
 	float r3, r4, r5;
 	vclosure *r13;
 	double r10;
+	urho3d__actions__ActionID r7;
 	int r2;
 	r2 = 0;
 	r3 = (float)r2;
@@ -74,23 +74,23 @@ void samplygame_Enemy_Init(samplygame__Enemy r0) {
 	r5 = (float)r2;
 	r1 = Urho3D__math_vector3_create(r3,r4,r5);
 	r8 = NULL;
-	r9 = (actions__MoveBy)hl_alloc_obj(&t$actions_MoveBy);
+	r9 = (urho3d__actions__MoveBy)hl_alloc_obj(&t$urho3d_actions_MoveBy);
 	r10 = 0.5999999999999999778;
-	actions_MoveBy_new(r9,r10,r1);
+	urho3d_actions_MoveBy_new(r9,r10,r1);
 	r11 = urho3d_Component_get_node(((urho3d__Component)r0));
 	r12 = NULL;
-	r13 = hl_alloc_closure_ptr(&t$fun_e5c507c,samplygame_Enemy_InitializedDone,r0);
-	r7 = actions_ActionManager_AddAction(r8,((actions__FiniteTimeAction)r9),r11,r12,r13);
+	r13 = hl_alloc_closure_ptr(&t$fun_a76a924,samplygame_Enemy_InitializedDone,r0);
+	r7 = urho3d_actions_ActionManager_AddAction(r8,((urho3d__actions__FiniteTimeAction)r9),r11,r12,r13);
 	return;
 }
 
-void samplygame_Enemy_InitializedDone(samplygame__Enemy r0,actions__ActionID r1) {
+void samplygame_Enemy_InitializedDone(samplygame__Enemy r0,urho3d__actions__ActionID r1) {
 	double r3, r4, r5, r6, r7;
 	r3 = 1.;
 	r4 = 2.;
 	r5 = -3.;
 	r6 = 3.;
-	r7 = 1.5;
+	r7 = 1.;
 	samplygame_Enemy_MoveRandomly(r0,r3,r4,r5,r6,r7);
 	samplygame_Enemy_StartShooting(r0);
 	return;
@@ -100,20 +100,20 @@ void samplygame_Enemy_StartShooting(samplygame__Enemy r0) {
 	bool *r17;
 	samplygame__$Weapon r4;
 	hl__types__ArrayObj r16;
+	urho3d__actions__ActionDef r26;
 	hl_type *r14;
-	actions__FiniteTimeActionState r31;
+	urho3d__actions__FiniteTimeActionState r31;
 	bool r2, r11;
-	actions__DelayTime r27;
 	urho3d__Node r3, r7;
 	urho3d___Context__$Context_Impl_ r10;
-	actions__ActionDef r26;
-	actions__ActionID r25;
 	urho3d_context *r9;
 	hl_urho3d_scene_node *r6;
 	vclosure *r32;
 	double r28;
 	hl__types__ArrayDyn r12, r23;
+	urho3d__actions__DelayTime r27;
 	vdynamic *r5, *r21, *r22, *r24, *r29, *r30;
+	urho3d__actions__ActionID r25;
 	int r15, r18, r19, r20;
 	varray *r8, *r13;
 	r2 = samplygame_Aircraft_IsAlive(((samplygame__Aircraft)r0));
@@ -190,7 +190,7 @@ void samplygame_Enemy_StartShooting(samplygame__Enemy r0) {
 	goto label$6a0ec5f_4_49;
 	label$6a0ec5f_4_62:
 	r26 = NULL;
-	r27 = (actions__DelayTime)hl_alloc_obj(&t$actions_DelayTime);
+	r27 = (urho3d__actions__DelayTime)hl_alloc_obj(&t$urho3d_actions_DelayTime);
 	r28 = 0.1000000000000000056;
 	r29 = hl_alloc_dynamic(&t$_f64);
 	r29->v.d = r28;
@@ -198,16 +198,16 @@ void samplygame_Enemy_StartShooting(samplygame__Enemy r0) {
 	r30 = hl_alloc_dynamic(&t$_f64);
 	r30->v.d = r28;
 	r28 = urho3d_LogicComponent_Random(((urho3d__LogicComponent)r0),r29,r30);
-	actions_DelayTime_new(r27,r28);
+	urho3d_actions_DelayTime_new(r27,r28);
 	r7 = urho3d_Component_get_node(((urho3d__Component)r0));
 	r31 = NULL;
-	r32 = hl_alloc_closure_ptr(&t$fun_e5c507c,samplygame_Enemy_ShootingLoop,r0);
-	r25 = actions_ActionManager_AddAction(r26,((actions__FiniteTimeAction)r27),r7,r31,r32);
+	r32 = hl_alloc_closure_ptr(&t$fun_a76a924,samplygame_Enemy_ShootingLoop,r0);
+	r25 = urho3d_actions_ActionManager_AddAction(r26,((urho3d__actions__FiniteTimeAction)r27),r7,r31,r32);
 	label$6a0ec5f_4_74:
 	return;
 }
 
-void samplygame_Enemy_ShootingLoop(samplygame__Enemy r0,actions__ActionID r1) {
+void samplygame_Enemy_ShootingLoop(samplygame__Enemy r0,urho3d__actions__ActionID r1) {
 	bool r3;
 	r3 = samplygame_Aircraft_IsAlive(((samplygame__Aircraft)r0));
 	if( !r3 ) goto label$6a0ec5f_5_3;
@@ -217,20 +217,20 @@ void samplygame_Enemy_ShootingLoop(samplygame__Enemy r0,actions__ActionID r1) {
 }
 
 void samplygame_Enemy_MoveRandomly(samplygame__Enemy r0,double r1,double r2,double r3,double r4,double r5) {
+	urho3d__actions__Sequence r19;
 	hl__types__ArrayObj r21;
-	actions__FiniteTimeActionState r23;
+	urho3d__actions__ActionDef r18;
+	urho3d__actions__FiniteTimeActionState r23;
 	bool r7;
 	urho3d__Node r22;
-	actions__FiniteTimeAction r20;
+	urho3d__actions__MoveBy r16;
 	hl_urho3d_math_vector3 *r8;
-	actions__MoveBy r16;
-	actions__ActionDef r18;
-	actions__ActionID r17;
-	actions__Sequence r19;
+	urho3d__actions__FiniteTimeAction r20;
 	float r12, r13, r15;
 	vclosure *r24;
 	double r9;
 	vdynamic *r10, *r11;
+	urho3d__actions__ActionID r17;
 	int r14;
 	r7 = samplygame_Aircraft_IsAlive(((samplygame__Aircraft)r0));
 	if( !r7 ) goto label$6a0ec5f_6_24;
@@ -249,22 +249,22 @@ void samplygame_Enemy_MoveRandomly(samplygame__Enemy r0,double r1,double r2,doub
 	r14 = 0;
 	r15 = (float)r14;
 	r8 = Urho3D__math_vector3_create(r12,r13,r15);
-	r16 = (actions__MoveBy)hl_alloc_obj(&t$actions_MoveBy);
-	actions_MoveBy_new(r16,r5,r8);
+	r16 = (urho3d__actions__MoveBy)hl_alloc_obj(&t$urho3d_actions_MoveBy);
+	urho3d_actions_MoveBy_new(r16,r5,r8);
 	r18 = NULL;
-	r19 = (actions__Sequence)hl_alloc_obj(&t$actions_Sequence);
-	r20 = ((actions__FiniteTimeAction (*)(actions__MoveBy))r16->$type->vobj_proto[0])(r16);
+	r19 = (urho3d__actions__Sequence)hl_alloc_obj(&t$urho3d_actions_Sequence);
+	r20 = ((urho3d__actions__FiniteTimeAction (*)(urho3d__actions__MoveBy))r16->$type->vobj_proto[0])(r16);
 	r21 = NULL;
-	actions_Sequence_new(r19,((actions__FiniteTimeAction)r16),r20,r21);
+	urho3d_actions_Sequence_new(r19,((urho3d__actions__FiniteTimeAction)r16),r20,r21);
 	r22 = urho3d_Component_get_node(((urho3d__Component)r0));
 	r23 = NULL;
-	r24 = hl_alloc_closure_ptr(&t$fun_e5c507c,samplygame_Enemy_MoveRandomLoop,r0);
-	r17 = actions_ActionManager_AddAction(r18,((actions__FiniteTimeAction)r19),r22,r23,r24);
+	r24 = hl_alloc_closure_ptr(&t$fun_a76a924,samplygame_Enemy_MoveRandomLoop,r0);
+	r17 = urho3d_actions_ActionManager_AddAction(r18,((urho3d__actions__FiniteTimeAction)r19),r22,r23,r24);
 	label$6a0ec5f_6_24:
 	return;
 }
 
-void samplygame_Enemy_MoveRandomLoop(samplygame__Enemy r0,actions__ActionID r1) {
+void samplygame_Enemy_MoveRandomLoop(samplygame__Enemy r0,urho3d__actions__ActionID r1) {
 	bool r3;
 	double r4, r5, r6, r7, r8;
 	r3 = samplygame_Aircraft_IsAlive(((samplygame__Aircraft)r0));
@@ -273,7 +273,7 @@ void samplygame_Enemy_MoveRandomLoop(samplygame__Enemy r0,actions__ActionID r1) 
 	r5 = 2.;
 	r6 = -3.;
 	r7 = 3.;
-	r8 = 1.5;
+	r8 = 1.;
 	samplygame_Enemy_MoveRandomly(r0,r4,r5,r6,r7,r8);
 	label$6a0ec5f_7_8:
 	return;

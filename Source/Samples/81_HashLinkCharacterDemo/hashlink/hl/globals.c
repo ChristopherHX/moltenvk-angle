@@ -10,9 +10,13 @@
 #include <urho3d/DelayedCall.h>
 #include <urho3d/Application.h>
 #include <urho3d/_Context/Context_Impl_.h>
+#include <urho3d/actions/FiniteTimeAction.h>
 #include <haxe/ds/StringMap.h>
 #include <haxe/ds/ObjectMap.h>
 #include <urho3d/Node.h>
+#include <urho3d/actions/FiniteTimeActionState.h>
+#include <urho3d/actions/ActionDef.h>
+#include <urho3d/actions/ActionID.h>
 #include <urho3d/Scene.h>
 #include <_std/CharacterDemoSample.h>
 #include <haxe/Log.h>
@@ -72,6 +76,8 @@
 #include <urho3d/Graphics.h>
 #include <urho3d/Math.h>
 #include <urho3d/_Vector2/Vector2_Impl_.h>
+#include <urho3d/actions/ActionGroup.h>
+#include <urho3d/actions/ActionManager.h>
 #include <_std/Reflect.h>
 #include <hl/CoreType.h>
 #include <hl/CoreEnum.h>
@@ -236,9 +242,13 @@ String s$ = 0;
 String s$_hl = 0;
 String s$_rpp = 0;
 String s$_bin = 0;
+urho3d__actions__$FiniteTimeAction g$_urho3d_actions_FiniteTimeAction = 0;
 haxe__ds__$StringMap g$_haxe_ds_StringMap = 0;
 haxe__ds__$ObjectMap g$_haxe_ds_ObjectMap = 0;
 urho3d__$Node g$_urho3d_Node = 0;
+urho3d__actions__$FiniteTimeActionState g$05530c5 = 0;
+urho3d__actions__$ActionDef g$_urho3d_actions_ActionDef = 0;
+urho3d__actions__$ActionID g$_urho3d_actions_ActionID = 0;
 urho3d__$Scene g$_urho3d_Scene = 0;
 $CharacterDemoSample g$_CharacterDemoSample = 0;
 String s$92325a1 = 0;
@@ -396,6 +406,8 @@ String s$TVector3_ = 0;
 String s$Vector2_ = 0;
 urho3d___Vector2__$Vector2_Impl_ g$_urho3d__Vector2_Vector2_Impl_ = 0;
 String s$Vector3_ = 0;
+urho3d__actions__$ActionGroup g$_urho3d_actions_ActionGroup = 0;
+urho3d__actions__$ActionManager g$_urho3d_actions_ActionManager = 0;
 String s$NodeCollision = 0;
 String s$HandleNodeCollision = 0;
 String s$Models_Mutant_Mutant_Jump1_ani = 0;
@@ -834,9 +846,13 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_urho3d_DelayedCall);
 	hl_add_root((void**)&g$_urho3d_Application);
 	hl_add_root((void**)&g$_urho3d__Context_Context_Impl_);
+	hl_add_root((void**)&g$_urho3d_actions_FiniteTimeAction);
 	hl_add_root((void**)&g$_haxe_ds_StringMap);
 	hl_add_root((void**)&g$_haxe_ds_ObjectMap);
 	hl_add_root((void**)&g$_urho3d_Node);
+	hl_add_root((void**)&g$05530c5);
+	hl_add_root((void**)&g$_urho3d_actions_ActionDef);
+	hl_add_root((void**)&g$_urho3d_actions_ActionID);
 	hl_add_root((void**)&g$_urho3d_Scene);
 	hl_add_root((void**)&g$_CharacterDemoSample);
 	hl_add_root((void**)&g$_haxe_Log);
@@ -897,6 +913,8 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_urho3d_Graphics);
 	hl_add_root((void**)&g$_urho3d_Math);
 	hl_add_root((void**)&g$_urho3d__Vector2_Vector2_Impl_);
+	hl_add_root((void**)&g$_urho3d_actions_ActionGroup);
+	hl_add_root((void**)&g$_urho3d_actions_ActionManager);
 	hl_add_root((void**)&g$_Reflect);
 	hl_add_root((void**)&g$_Float);
 	hl_add_root((void**)&g$_Int);

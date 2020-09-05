@@ -28,6 +28,8 @@
 #include <urho3d/Scene.h>
 #include <urho3d/_Vector2/Vector2_Impl_.h>
 #include <urho3d/_Vector3/Vector3_Impl_.h>
+#include <urho3d/actions/ActionID.h>
+#include <urho3d/actions/ActionManager.h>
 extern hl_type t$fun_363696b;
 extern hl_type t$fun_f0a94e3;
 extern hl_type t$fun_dc27400;
@@ -371,6 +373,18 @@ extern hl_type t$urho3d_$Zone;
 extern hl_type t$urho3d_Zone;
 extern hl_type t$urho3d__Zone_$AbstractZone_Impl_;
 extern hl_type t$urho3d__Zone_AbstractZone_Impl_;
+extern hl_type t$urho3d_actions_$ActionID;
+extern hl_type t$urho3d_actions_ActionID;
+extern hl_type t$urho3d_actions_$ActionGroup;
+extern hl_type t$urho3d_actions_ActionGroup;
+extern hl_type t$urho3d_actions_$ActionDef;
+extern hl_type t$urho3d_actions_ActionDef;
+extern hl_type t$urho3d_actions_$ActionManager;
+extern hl_type t$urho3d_actions_ActionManager;
+extern hl_type t$urho3d_actions_$FiniteTimeAction;
+extern hl_type t$urho3d_actions_FiniteTimeAction;
+extern hl_type t$urho3d_actions_$FiniteTimeActionState;
+extern hl_type t$urho3d_actions_FiniteTimeActionState;
 extern hl_type t$utils_$Rotator;
 extern hl_type t$utils_Rotator;
 extern $Math g$_Math;
@@ -391,6 +405,9 @@ extern urho3d___Quaternion__$Quaternion_Impl_ g$abe14a3;
 extern urho3d__$Scene g$_urho3d_Scene;
 extern urho3d___Vector2__$Vector2_Impl_ g$_urho3d__Vector2_Vector2_Impl_;
 extern urho3d___Vector3__$Vector3_Impl_ g$_urho3d__Vector3_Vector3_Impl_;
+extern urho3d__actions__$ActionID g$_urho3d_actions_ActionID;
+hl__types__ArrayObj hl_types_ArrayObj_alloc(varray*);
+extern urho3d__actions__$ActionManager g$_urho3d_actions_ActionManager;
 void Main_main(void);
 void haxe_EntryPoint_run(void);
 
@@ -617,6 +634,7 @@ void fun$init() {
 	sys__thread__Lock r28;
 	hl__CoreType r5;
 	hl__CoreEnum r7;
+	urho3d__actions__$ActionManager r48;
 	urho3d_context *r25;
 	vclosure *r37, *r42, *r45;
 	hl__types__$ArrayBase r14;
@@ -632,6 +650,7 @@ void fun$init() {
 	hl_random *r19;
 	$Std r20;
 	hl__Enum r11;
+	urho3d__actions__$ActionID r47;
 	$Math r17;
 	hl__types__$ArrayDyn r15;
 	urho3d___Vector2__$Vector2_Impl_ r43;
@@ -1351,6 +1370,30 @@ void fun$init() {
 	r2 = &t$urho3d__Zone_AbstractZone_Impl_;
 	r3 = (vbyte*)USTR("urho3d._Zone.AbstractZone_Impl_");
 	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d_actions_$ActionID;
+	r2 = &t$urho3d_actions_ActionID;
+	r3 = (vbyte*)USTR("urho3d.actions.ActionID");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d_actions_$ActionGroup;
+	r2 = &t$urho3d_actions_ActionGroup;
+	r3 = (vbyte*)USTR("urho3d.actions.ActionGroup");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d_actions_$ActionDef;
+	r2 = &t$urho3d_actions_ActionDef;
+	r3 = (vbyte*)USTR("urho3d.actions.ActionDef");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d_actions_$ActionManager;
+	r2 = &t$urho3d_actions_ActionManager;
+	r3 = (vbyte*)USTR("urho3d.actions.ActionManager");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d_actions_$FiniteTimeAction;
+	r2 = &t$urho3d_actions_FiniteTimeAction;
+	r3 = (vbyte*)USTR("urho3d.actions.FiniteTimeAction");
+	r4 = Type_initClass(r1,r2,r3);
+	r1 = &t$urho3d_actions_$FiniteTimeActionState;
+	r2 = &t$urho3d_actions_FiniteTimeActionState;
+	r3 = (vbyte*)USTR("urho3d.actions.FiniteTimeActionState");
+	r4 = Type_initClass(r1,r2,r3);
 	r1 = &t$utils_$Rotator;
 	r2 = &t$utils_Rotator;
 	r3 = (vbyte*)USTR("utils.Rotator");
@@ -1429,6 +1472,9 @@ void fun$init() {
 	r16 = 3.141592653589793116;
 	r35 = (urho3d__$Math)g$_urho3d_Math;
 	r35->_PI_ = r16;
+	r16 = 6.283185307179586232;
+	r35 = (urho3d__$Math)g$_urho3d_Math;
+	r35->_TWO_PI_ = r16;
 	r16 = 1.570796326794896558;
 	r35 = (urho3d__$Math)g$_urho3d_Math;
 	r35->_HALF_PI_ = r16;
@@ -1549,6 +1595,15 @@ void fun$init() {
 	r44 = r45->hasValue ? ((hl_urho3d_math_vector3* (*)(vdynamic*))r45->fun)((vdynamic*)r45->value) : ((hl_urho3d_math_vector3* (*)(void))r45->fun)();
 	r46 = (urho3d___Vector3__$Vector3_Impl_)g$_urho3d__Vector3_Vector3_Impl_;
 	r46->ONE = r44;
+	r9 = 0;
+	r47 = (urho3d__actions__$ActionID)g$_urho3d_actions_ActionID;
+	r47->_index_id = r9;
+	r1 = &t$urho3d_actions_ActionID;
+	r9 = 0;
+	r8 = hl_alloc_array(r1,r9);
+	r31 = hl_types_ArrayObj_alloc(r8);
+	r48 = (urho3d__actions__$ActionManager)g$_urho3d_actions_ActionManager;
+	r48->actions = r31;
 	Main_main();
 	haxe_EntryPoint_run();
 	return;

@@ -77,6 +77,25 @@ int urho3d__Text_Text_Impl__set_horizontalAlignment(hl_urho3d_ui_text* r0,int r1
 	return r1;
 }
 
+int urho3d__Text_Text_Impl__get_verticalAlignment(hl_urho3d_ui_text* r0) {
+	urho3d___Context__$Context_Impl_ r3;
+	urho3d_context *r2;
+	int r1;
+	r3 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r2 = r3->context;
+	r1 = Urho3D__ui_text_get_vertical_alignment(r2,r0);
+	return r1;
+}
+
+int urho3d__Text_Text_Impl__set_verticalAlignment(hl_urho3d_ui_text* r0,int r1) {
+	urho3d___Context__$Context_Impl_ r4;
+	urho3d_context *r3;
+	r4 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r3 = r4->context;
+	Urho3D__ui_text_set_vertical_alignment(r3,r0,r1);
+	return r1;
+}
+
 void urho3d__Text_Text_Impl__AddChild(hl_urho3d_ui_text* r0,hl_urho3d_uielement* r1) {
 	urho3d___Context__$Context_Impl_ r4;
 	urho3d_context *r3;
@@ -92,12 +111,12 @@ void urho3d__Text_Text_Impl__SetFont(hl_urho3d_ui_text* r0,hl_urho3d_ui_font* r1
 	float r7;
 	urho3d_context *r5;
 	double r3;
-	if( r2 ) goto label$bfa4ce3_9_3;
+	if( r2 ) goto label$bfa4ce3_11_3;
 	r3 = 12.;
-	goto label$bfa4ce3_9_4;
-	label$bfa4ce3_9_3:
+	goto label$bfa4ce3_11_4;
+	label$bfa4ce3_11_3:
 	r3 = *r2;
-	label$bfa4ce3_9_4:
+	label$bfa4ce3_11_4:
 	r6 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r5 = r6->context;
 	r7 = (float)r3;

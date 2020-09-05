@@ -16,8 +16,6 @@ struct _$Math {
 	String __name__;
 	vdynamic* __constructor__;
 	vclosure* random;
-	vclosure* min;
-	vclosure* max;
 	double PI;
 	double NaN;
 	double POSITIVE_INFINITY;

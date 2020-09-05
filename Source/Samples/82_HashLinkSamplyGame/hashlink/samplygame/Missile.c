@@ -8,13 +8,13 @@ void samplygame_Missile_LaunchSingleMissile(samplygame__Missile,double,bool,bool
 #include <urho3d/_Context/Context_Impl_.h>
 #include <haxe/ds/ObjectMap.h>
 #include <urho3d/ParticleEmitter2D.h>
-#include <actions/BezierConfig.h>
-#include <actions/ActionGroup.h>
-#include <actions/Sequence.h>
-#include <actions/DelayTime.h>
-#include <actions/BezierBy.h>
+#include <urho3d/actions/BezierConfig.h>
+#include <urho3d/actions/ActionGroup.h>
+#include <urho3d/actions/Sequence.h>
+#include <urho3d/actions/DelayTime.h>
+#include <urho3d/actions/BezierBy.h>
 #include <hl/types/ArrayObj.h>
-#include <actions/ActionID.h>
+#include <urho3d/actions/ActionID.h>
 urho3d__Node urho3d_Component_get_node(urho3d__Component);
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 urho3d__Node samplygame_Weapon_CreateRigidBullet(samplygame__Weapon,bool,hl_urho3d_math_vector3*);
@@ -30,28 +30,28 @@ void urho3d_ParticleEmitter2D_new(urho3d__ParticleEmitter2D,hl_urho3d_urho2d_par
 extern String s$Particles_MissileTrace_pex;
 hl_urho3d_urho2d_particle_effect2d* urho3d_ParticleEmitter2D_set_effect(urho3d__ParticleEmitter2D,hl_urho3d_urho2d_particle_effect2d*);
 extern String s$Particles_Explosion_pex;
-extern hl_type t$actions_BezierConfig;
-void actions_BezierConfig_new(actions__BezierConfig);
+extern hl_type t$urho3d_actions_BezierConfig;
+void urho3d_actions_BezierConfig_new(urho3d__actions__BezierConfig);
 extern hl_type t$_f64;
 double urho3d_LogicComponent_Random(urho3d__LogicComponent,vdynamic*,vdynamic*);
-extern hl_type t$actions_ActionGroup;
-void actions_ActionGroup_new(actions__ActionGroup);
-extern hl_type t$actions_Sequence;
-extern hl_type t$actions_DelayTime;
-void actions_DelayTime_new(actions__DelayTime,double);
-extern hl_type t$actions_BezierBy;
-void actions_BezierBy_new(actions__BezierBy,double,actions__BezierConfig);
-#include <actions/FiniteTimeAction.h>
-void actions_Sequence_new(actions__Sequence,actions__FiniteTimeAction,actions__FiniteTimeAction,hl__types__ArrayObj);
-void actions_ActionGroup_Push(actions__ActionGroup,actions__FiniteTimeAction,urho3d__Node);
-void samplygame_Missile_bulletNodeRemove(samplygame__Missile,actions__ActionID);
-extern hl_type t$fun_ecdc087;
-actions__ActionID actions_ActionManager_AddActions(hl__types__ArrayObj,actions__ActionGroup,vclosure*);
-void actions_ActionID_DeleteTargets(actions__ActionID);
+extern hl_type t$urho3d_actions_ActionGroup;
+void urho3d_actions_ActionGroup_new(urho3d__actions__ActionGroup);
+extern hl_type t$urho3d_actions_Sequence;
+extern hl_type t$urho3d_actions_DelayTime;
+void urho3d_actions_DelayTime_new(urho3d__actions__DelayTime,double);
+extern hl_type t$urho3d_actions_BezierBy;
+void urho3d_actions_BezierBy_new(urho3d__actions__BezierBy,double,urho3d__actions__BezierConfig);
+#include <urho3d/actions/FiniteTimeAction.h>
+void urho3d_actions_Sequence_new(urho3d__actions__Sequence,urho3d__actions__FiniteTimeAction,urho3d__actions__FiniteTimeAction,hl__types__ArrayObj);
+void urho3d_actions_ActionGroup_Push(urho3d__actions__ActionGroup,urho3d__actions__FiniteTimeAction,urho3d__Node);
+void samplygame_Missile_bulletNodeRemove(samplygame__Missile,urho3d__actions__ActionID);
+extern hl_type t$fun_fba1ac6;
+urho3d__actions__ActionID urho3d_actions_ActionManager_AddActions(hl__types__ArrayObj,urho3d__actions__ActionGroup,vclosure*);
+void urho3d_actions_ActionID_DeleteTargets(urho3d__actions__ActionID);
 #include <urho3d/SoundSource.h>
-#include <actions/ActionDef.h>
-#include <actions/ScaleTo.h>
-#include <actions/FiniteTimeActionState.h>
+#include <urho3d/actions/ActionDef.h>
+#include <urho3d/actions/ScaleTo.h>
+#include <urho3d/actions/FiniteTimeActionState.h>
 void samplygame_Weapon_OnHit(samplygame__Weapon,urho3d__LogicComponent,bool,urho3d__Node);
 urho3d__Scene urho3d_Component_get_scene(urho3d__Component);
 extern String s$SoundSource;
@@ -60,10 +60,10 @@ void urho3d_SoundSource_new(urho3d__SoundSource,hl_urho3d_audio_sound_source*);
 extern String s$Sounds_SmallExplosion_wav;
 void urho3d_SoundSource_Play(urho3d__SoundSource,hl_urho3d_audio_sound*,vdynamic*,vdynamic*,vdynamic*);
 float urho3d_SoundSource_set_gain(urho3d__SoundSource,float);
-extern hl_type t$actions_ScaleTo;
-void actions_ScaleTo_new(actions__ScaleTo,double,double,vdynamic*,vdynamic*);
-void samplygame_Missile_explosionNodeRemove(samplygame__Missile,actions__ActionID);
-actions__ActionID actions_ActionManager_AddAction(actions__ActionDef,actions__FiniteTimeAction,urho3d__Node,actions__FiniteTimeActionState,vclosure*);
+extern hl_type t$urho3d_actions_ScaleTo;
+void urho3d_actions_ScaleTo_new(urho3d__actions__ScaleTo,double,double,vdynamic*,vdynamic*);
+void samplygame_Missile_explosionNodeRemove(samplygame__Missile,urho3d__actions__ActionID);
+urho3d__actions__ActionID urho3d_actions_ActionManager_AddAction(urho3d__actions__ActionDef,urho3d__actions__FiniteTimeAction,urho3d__Node,urho3d__actions__FiniteTimeActionState,vclosure*);
 
 void samplygame_Missile_new(samplygame__Missile r0) {
 	vdynamic *r2;
@@ -157,6 +157,8 @@ void samplygame_Missile_OnFire(samplygame__Missile r0,bool r1) {
 }
 
 void samplygame_Missile_LaunchSingleMissile(samplygame__Missile r0,double r1,bool r2,bool r3) {
+	urho3d__actions__BezierBy r42;
+	urho3d__actions__Sequence r40;
 	hl_urho3d_urho2d_particle_effect2d *r31, *r32, *r34;
 	String r23;
 	urho3d__ParticleEmitter2D r30, r33;
@@ -164,24 +166,22 @@ void samplygame_Missile_LaunchSingleMissile(samplygame__Missile r0,double r1,boo
 	hl__types__ArrayObj r43;
 	hl_urho3d_scene_component *r28;
 	hl_urho3d_scene_node_ptr *r26;
-	actions__BezierConfig r35;
 	hl_urho3d_urho2d_particle_emitter2d *r29;
 	bool r16;
-	actions__DelayTime r41;
+	urho3d__actions__ActionGroup r39;
 	hl_urho3d_math_vector3 *r17;
 	urho3d__Node r4, r7, r21;
 	urho3d___Context__$Context_Impl_ r10;
-	actions__BezierBy r42;
-	actions__ActionID r44;
-	actions__Sequence r40;
+	urho3d__actions__BezierConfig r35;
 	float r12, r13, r14;
 	urho3d_context *r9;
 	hl_urho3d_scene_node *r6;
 	vclosure *r45;
-	actions__ActionGroup r39;
 	double r11, r18, r20;
+	urho3d__actions__DelayTime r41;
 	vdynamic *r27, *r37, *r38;
 	hl_urho3d_math_tvector3 *r8, *r15, *r22;
+	urho3d__actions__ActionID r44;
 	int r19, r24, r36;
 	r4 = urho3d_Component_get_node(((urho3d__Component)r0));
 	if( r4 == NULL ) hl_null_access();
@@ -383,8 +383,8 @@ void samplygame_Missile_LaunchSingleMissile(samplygame__Missile r0,double r1,boo
 	label$ebd3b70_3_171:
 	r24 = 1;
 	label$ebd3b70_3_172:
-	r35 = (actions__BezierConfig)hl_alloc_obj(&t$actions_BezierConfig);
-	actions_BezierConfig_new(r35);
+	r35 = (urho3d__actions__BezierConfig)hl_alloc_obj(&t$urho3d_actions_BezierConfig);
+	urho3d_actions_BezierConfig_new(r35);
 	r36 = -r24;
 	r12 = (float)r36;
 	r11 = 2.;
@@ -436,62 +436,62 @@ void samplygame_Missile_LaunchSingleMissile(samplygame__Missile r0,double r1,boo
 	r22 = Urho3D__math_tvector3_create(r12,r13,r14);
 	r17 = Urho3D__math_tvector3_cast_to_vector3(r22);
 	r35->EndPosition = r17;
-	r39 = (actions__ActionGroup)hl_alloc_obj(&t$actions_ActionGroup);
-	actions_ActionGroup_new(r39);
-	r40 = (actions__Sequence)hl_alloc_obj(&t$actions_Sequence);
-	r41 = (actions__DelayTime)hl_alloc_obj(&t$actions_DelayTime);
-	actions_DelayTime_new(r41,r1);
-	r42 = (actions__BezierBy)hl_alloc_obj(&t$actions_BezierBy);
+	r39 = (urho3d__actions__ActionGroup)hl_alloc_obj(&t$urho3d_actions_ActionGroup);
+	urho3d_actions_ActionGroup_new(r39);
+	r40 = (urho3d__actions__Sequence)hl_alloc_obj(&t$urho3d_actions_Sequence);
+	r41 = (urho3d__actions__DelayTime)hl_alloc_obj(&t$urho3d_actions_DelayTime);
+	urho3d_actions_DelayTime_new(r41,r1);
+	r42 = (urho3d__actions__BezierBy)hl_alloc_obj(&t$urho3d_actions_BezierBy);
 	r11 = 1.;
-	actions_BezierBy_new(r42,r11,r35);
+	urho3d_actions_BezierBy_new(r42,r11,r35);
 	r43 = NULL;
-	actions_Sequence_new(r40,((actions__FiniteTimeAction)r41),((actions__FiniteTimeAction)r42),r43);
-	actions_ActionGroup_Push(r39,((actions__FiniteTimeAction)r40),r7);
-	r41 = (actions__DelayTime)hl_alloc_obj(&t$actions_DelayTime);
+	urho3d_actions_Sequence_new(r40,((urho3d__actions__FiniteTimeAction)r41),((urho3d__actions__FiniteTimeAction)r42),r43);
+	urho3d_actions_ActionGroup_Push(r39,((urho3d__actions__FiniteTimeAction)r40),r7);
+	r41 = (urho3d__actions__DelayTime)hl_alloc_obj(&t$urho3d_actions_DelayTime);
 	r11 = 2.;
-	actions_DelayTime_new(r41,r11);
-	actions_ActionGroup_Push(r39,((actions__FiniteTimeAction)r41),r7);
+	urho3d_actions_DelayTime_new(r41,r11);
+	urho3d_actions_ActionGroup_Push(r39,((urho3d__actions__FiniteTimeAction)r41),r7);
 	r43 = NULL;
-	r45 = hl_alloc_closure_ptr(&t$fun_ecdc087,samplygame_Missile_bulletNodeRemove,r0);
-	r44 = actions_ActionManager_AddActions(r43,r39,r45);
+	r45 = hl_alloc_closure_ptr(&t$fun_fba1ac6,samplygame_Missile_bulletNodeRemove,r0);
+	r44 = urho3d_actions_ActionManager_AddActions(r43,r39,r45);
 	return;
 }
 
-void samplygame_Missile_bulletNodeRemove(samplygame__Missile r0,actions__ActionID r1) {
+void samplygame_Missile_bulletNodeRemove(samplygame__Missile r0,urho3d__actions__ActionID r1) {
 	if( r1 == NULL ) hl_null_access();
-	actions_ActionID_DeleteTargets(r1);
+	urho3d_actions_ActionID_DeleteTargets(r1);
 	return;
 }
 
 void samplygame_Missile_OnHit(samplygame__Missile r0,urho3d__LogicComponent r1,bool r2,urho3d__Node r3) {
-	actions__ScaleTo r38;
+	urho3d__actions__Sequence r37;
 	hl_urho3d_urho2d_particle_effect2d *r33, *r34;
 	String r11;
 	urho3d__ParticleEmitter2D r32;
 	haxe__ds__ObjectMap r14;
 	hl__types__ArrayObj r41;
 	urho3d__SoundSource r20;
+	urho3d__actions__ActionDef r36;
 	hl_urho3d_scene_component *r18;
 	hl_urho3d_scene_node_ptr *r15;
-	actions__FiniteTimeActionState r42;
+	urho3d__actions__FiniteTimeActionState r42;
+	urho3d__actions__ScaleTo r38;
 	hl_urho3d_urho2d_particle_emitter2d *r31;
 	bool r5;
-	actions__DelayTime r40;
 	hl_urho3d_audio_sound *r21;
 	urho3d__Scene r7;
 	urho3d__Node r6, r16;
 	urho3d___Context__$Context_Impl_ r10;
-	actions__ActionDef r36;
-	actions__ActionID r35;
-	actions__Sequence r37;
 	float r25, r29, r30;
 	urho3d_context *r9;
 	hl_urho3d_scene_node *r8;
 	vclosure *r43;
 	double r26, r39;
+	urho3d__actions__DelayTime r40;
 	hl_urho3d_math_tvector3 *r27, *r28;
 	hl_urho3d_audio_sound_source *r19;
 	vdynamic *r17, *r22, *r23, *r24;
+	urho3d__actions__ActionID r35;
 	int r12, r13;
 	samplygame_Weapon_OnHit(((samplygame__Weapon)r0),r1,r2,r3);
 	r7 = urho3d_Component_get_scene(((urho3d__Component)r0));
@@ -643,27 +643,27 @@ void samplygame_Missile_OnHit(samplygame__Missile r0,urho3d__LogicComponent r1,b
 	if( r32 == NULL ) hl_null_access();
 	r34 = urho3d_ParticleEmitter2D_set_effect(r32,r33);
 	r36 = NULL;
-	r37 = (actions__Sequence)hl_alloc_obj(&t$actions_Sequence);
-	r38 = (actions__ScaleTo)hl_alloc_obj(&t$actions_ScaleTo);
+	r37 = (urho3d__actions__Sequence)hl_alloc_obj(&t$urho3d_actions_Sequence);
+	r38 = (urho3d__actions__ScaleTo)hl_alloc_obj(&t$urho3d_actions_ScaleTo);
 	r26 = 0.5;
 	r39 = 0.;
 	r22 = NULL;
 	r23 = NULL;
-	actions_ScaleTo_new(r38,r26,r39,r22,r23);
-	r40 = (actions__DelayTime)hl_alloc_obj(&t$actions_DelayTime);
+	urho3d_actions_ScaleTo_new(r38,r26,r39,r22,r23);
+	r40 = (urho3d__actions__DelayTime)hl_alloc_obj(&t$urho3d_actions_DelayTime);
 	r26 = 0.5;
-	actions_DelayTime_new(r40,r26);
+	urho3d_actions_DelayTime_new(r40,r26);
 	r41 = NULL;
-	actions_Sequence_new(r37,((actions__FiniteTimeAction)r38),((actions__FiniteTimeAction)r40),r41);
+	urho3d_actions_Sequence_new(r37,((urho3d__actions__FiniteTimeAction)r38),((urho3d__actions__FiniteTimeAction)r40),r41);
 	r42 = NULL;
-	r43 = hl_alloc_closure_ptr(&t$fun_ecdc087,samplygame_Missile_explosionNodeRemove,r0);
-	r35 = actions_ActionManager_AddAction(r36,((actions__FiniteTimeAction)r37),r16,r42,r43);
+	r43 = hl_alloc_closure_ptr(&t$fun_fba1ac6,samplygame_Missile_explosionNodeRemove,r0);
+	r35 = urho3d_actions_ActionManager_AddAction(r36,((urho3d__actions__FiniteTimeAction)r37),r16,r42,r43);
 	return;
 }
 
-void samplygame_Missile_explosionNodeRemove(samplygame__Missile r0,actions__ActionID r1) {
+void samplygame_Missile_explosionNodeRemove(samplygame__Missile r0,urho3d__actions__ActionID r1) {
 	if( r1 == NULL ) hl_null_access();
-	actions_ActionID_DeleteTargets(r1);
+	urho3d_actions_ActionID_DeleteTargets(r1);
 	return;
 }
 

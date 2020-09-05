@@ -29,6 +29,7 @@ struct _samplygame__StartMenu {
 	hl_urho3d_scene_logic_component* abstractLogicComponent;
 	urho3d__Node bigAircraft;
 	urho3d__Node rotor;
+	hl_urho3d_ui_text* textBlock;
 	urho3d__Node menuLight;
 	bool finished;
 	bool startPlay;

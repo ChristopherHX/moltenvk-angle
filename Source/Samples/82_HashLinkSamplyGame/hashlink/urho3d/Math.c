@@ -1414,23 +1414,32 @@ double urho3d_Math_RandomNormal(double r0,double r1) {
 	return r3;
 }
 
-double urho3d_Math_ExponentialOut(double r0) {
-	double r1, r2, r3;
+double urho3d_Math_BackIn(double r0) {
+	double r1, r2, r3, r4;
+	r1 = 1.701580000000000092;
+	r2 = r0 * r0;
+	r4 = 1.;
+	r3 = r1 + r4;
+	r3 = r3 * r0;
+	r3 = r3 - r1;
+	r2 = r2 * r3;
+	return r2;
+}
+
+double urho3d_Math_BackOut(double r0) {
+	double r1, r2, r3, r4;
+	r1 = 1.701580000000000092;
 	r2 = 1.;
-	if( r0 != r2 ) goto label$e53f207_42_4;
-	r1 = 1.;
-	return r1;
-	label$e53f207_42_4:
-	r1 = 2.;
-	r2 = -10.;
-	r2 = r2 * r0;
+	r0 = r0 - r2;
+	r2 = r0 * r0;
+	r4 = 1.;
+	r3 = r1 + r4;
+	r3 = r3 * r0;
+	r3 = r3 + r1;
+	r2 = r2 * r3;
 	r3 = 1.;
-	r2 = r2 / r3;
-	r1 = hl_math_pow(r1,r2);
-	r1 = -r1;
-	r2 = 1.;
-	r1 = r1 + r2;
-	return r1;
+	r2 = r2 + r3;
+	return r2;
 }
 
 double urho3d_Math_BackInOut(double r0) {
@@ -1440,7 +1449,7 @@ double urho3d_Math_BackInOut(double r0) {
 	r2 = r0 * r3;
 	r0 = r2;
 	r3 = 1.;
-	if( !(r2 < r3) ) goto label$e53f207_43_15;
+	if( !(r2 < r3) ) goto label$e53f207_44_15;
 	r2 = r2 * r2;
 	r4 = 1.;
 	r3 = r1 + r4;
@@ -1450,7 +1459,7 @@ double urho3d_Math_BackInOut(double r0) {
 	r3 = 2.;
 	r2 = r2 / r3;
 	return r2;
-	label$e53f207_43_15:
+	label$e53f207_44_15:
 	r3 = 2.;
 	r2 = r2 - r3;
 	r0 = r2;
@@ -1465,6 +1474,530 @@ double urho3d_Math_BackInOut(double r0) {
 	r3 = 1.;
 	r2 = r2 + r3;
 	return r2;
+}
+
+double urho3d_Math_BounceOut(double r0) {
+	double r1, r2, r3;
+	r1 = 0.;
+	r3 = 0.3636363636363636465;
+	if( !(r0 < r3) ) goto label$e53f207_45_7;
+	r2 = 7.5625;
+	r2 = r2 * r0;
+	r2 = r2 * r0;
+	goto label$e53f207_45_37;
+	label$e53f207_45_7:
+	r3 = 0.7272727272727272929;
+	if( !(r0 < r3) ) goto label$e53f207_45_18;
+	r3 = 0.5454545454545454142;
+	r2 = r0 - r3;
+	r0 = r2;
+	r2 = 7.5625;
+	r2 = r2 * r0;
+	r2 = r2 * r0;
+	r3 = 0.75;
+	r2 = r2 + r3;
+	goto label$e53f207_45_37;
+	label$e53f207_45_18:
+	r3 = 0.9090909090909090606;
+	if( !(r0 < r3) ) goto label$e53f207_45_29;
+	r3 = 0.8181818181818182323;
+	r2 = r0 - r3;
+	r0 = r2;
+	r2 = 7.5625;
+	r2 = r2 * r0;
+	r2 = r2 * r0;
+	r3 = 0.9375;
+	r2 = r2 + r3;
+	goto label$e53f207_45_37;
+	label$e53f207_45_29:
+	r3 = 0.9545454545454545858;
+	r2 = r0 - r3;
+	r0 = r2;
+	r2 = 7.5625;
+	r2 = r2 * r0;
+	r2 = r2 * r0;
+	r3 = 0.984375;
+	r2 = r2 + r3;
+	label$e53f207_45_37:
+	return r2;
+}
+
+double urho3d_Math_BounceIn(double r0) {
+	double r1, r2, r3, r4;
+	r1 = 1.;
+	r1 = r1 - r0;
+	r2 = 0.;
+	r4 = 0.3636363636363636465;
+	if( !(r1 < r4) ) goto label$e53f207_46_10;
+	r3 = 7.5625;
+	r3 = r3 * r1;
+	r3 = r3 * r1;
+	r2 = r3;
+	goto label$e53f207_46_43;
+	label$e53f207_46_10:
+	r4 = 0.7272727272727272929;
+	if( !(r1 < r4) ) goto label$e53f207_46_22;
+	r4 = 0.5454545454545454142;
+	r3 = r1 - r4;
+	r1 = r3;
+	r3 = 7.5625;
+	r3 = r3 * r1;
+	r3 = r3 * r1;
+	r4 = 0.75;
+	r3 = r3 + r4;
+	r2 = r3;
+	goto label$e53f207_46_43;
+	label$e53f207_46_22:
+	r4 = 0.9090909090909090606;
+	if( !(r1 < r4) ) goto label$e53f207_46_34;
+	r4 = 0.8181818181818182323;
+	r3 = r1 - r4;
+	r1 = r3;
+	r3 = 7.5625;
+	r3 = r3 * r1;
+	r3 = r3 * r1;
+	r4 = 0.9375;
+	r3 = r3 + r4;
+	r2 = r3;
+	goto label$e53f207_46_43;
+	label$e53f207_46_34:
+	r4 = 0.9545454545454545858;
+	r3 = r1 - r4;
+	r1 = r3;
+	r3 = 7.5625;
+	r3 = r3 * r1;
+	r3 = r3 * r1;
+	r4 = 0.984375;
+	r3 = r3 + r4;
+	r2 = r3;
+	label$e53f207_46_43:
+	r3 = 1.;
+	r3 = r3 - r2;
+	return r3;
+}
+
+double urho3d_Math_BounceInOut(double r0) {
+	double r1, r2, r3, r4;
+	r2 = 0.5;
+	if( !(r0 < r2) ) goto label$e53f207_47_53;
+	r2 = 2.;
+	r1 = r0 * r2;
+	r0 = r1;
+	r1 = 1.;
+	r1 = r1 - r0;
+	r2 = 0.;
+	r4 = 0.3636363636363636465;
+	if( !(r1 < r4) ) goto label$e53f207_47_15;
+	r3 = 7.5625;
+	r3 = r3 * r1;
+	r3 = r3 * r1;
+	r2 = r3;
+	goto label$e53f207_47_48;
+	label$e53f207_47_15:
+	r4 = 0.7272727272727272929;
+	if( !(r1 < r4) ) goto label$e53f207_47_27;
+	r4 = 0.5454545454545454142;
+	r3 = r1 - r4;
+	r1 = r3;
+	r3 = 7.5625;
+	r3 = r3 * r1;
+	r3 = r3 * r1;
+	r4 = 0.75;
+	r3 = r3 + r4;
+	r2 = r3;
+	goto label$e53f207_47_48;
+	label$e53f207_47_27:
+	r4 = 0.9090909090909090606;
+	if( !(r1 < r4) ) goto label$e53f207_47_39;
+	r4 = 0.8181818181818182323;
+	r3 = r1 - r4;
+	r1 = r3;
+	r3 = 7.5625;
+	r3 = r3 * r1;
+	r3 = r3 * r1;
+	r4 = 0.9375;
+	r3 = r3 + r4;
+	r2 = r3;
+	goto label$e53f207_47_48;
+	label$e53f207_47_39:
+	r4 = 0.9545454545454545858;
+	r3 = r1 - r4;
+	r1 = r3;
+	r3 = 7.5625;
+	r3 = r3 * r1;
+	r3 = r3 * r1;
+	r4 = 0.984375;
+	r3 = r3 + r4;
+	r2 = r3;
+	label$e53f207_47_48:
+	r3 = 1.;
+	r3 = r3 - r2;
+	r4 = 0.5;
+	r3 = r3 * r4;
+	return r3;
+	label$e53f207_47_53:
+	r2 = 2.;
+	r1 = r0 * r2;
+	r2 = 1.;
+	r1 = r1 - r2;
+	r2 = 0.;
+	r4 = 0.3636363636363636465;
+	if( !(r1 < r4) ) goto label$e53f207_47_64;
+	r3 = 7.5625;
+	r3 = r3 * r1;
+	r3 = r3 * r1;
+	goto label$e53f207_47_94;
+	label$e53f207_47_64:
+	r4 = 0.7272727272727272929;
+	if( !(r1 < r4) ) goto label$e53f207_47_75;
+	r4 = 0.5454545454545454142;
+	r3 = r1 - r4;
+	r1 = r3;
+	r3 = 7.5625;
+	r3 = r3 * r1;
+	r3 = r3 * r1;
+	r4 = 0.75;
+	r3 = r3 + r4;
+	goto label$e53f207_47_94;
+	label$e53f207_47_75:
+	r4 = 0.9090909090909090606;
+	if( !(r1 < r4) ) goto label$e53f207_47_86;
+	r4 = 0.8181818181818182323;
+	r3 = r1 - r4;
+	r1 = r3;
+	r3 = 7.5625;
+	r3 = r3 * r1;
+	r3 = r3 * r1;
+	r4 = 0.9375;
+	r3 = r3 + r4;
+	goto label$e53f207_47_94;
+	label$e53f207_47_86:
+	r4 = 0.9545454545454545858;
+	r3 = r1 - r4;
+	r1 = r3;
+	r3 = 7.5625;
+	r3 = r3 * r1;
+	r3 = r3 * r1;
+	r4 = 0.984375;
+	r3 = r3 + r4;
+	label$e53f207_47_94:
+	r4 = 0.5;
+	r3 = r3 * r4;
+	r4 = 0.5;
+	r3 = r3 + r4;
+	return r3;
+}
+
+double urho3d_Math_SineOut(double r0) {
+	urho3d__$Math r3;
+	double r1, r2;
+	r3 = (urho3d__$Math)g$_urho3d_Math;
+	r2 = r3->_HALF_PI_;
+	r1 = r0 * r2;
+	r1 = hl_math_sin(r1);
+	return r1;
+}
+
+double urho3d_Math_SineIn(double r0) {
+	urho3d__$Math r4;
+	double r1, r2, r3;
+	r1 = -1.;
+	r4 = (urho3d__$Math)g$_urho3d_Math;
+	r3 = r4->_HALF_PI_;
+	r2 = r0 * r3;
+	r2 = hl_math_cos(r2);
+	r1 = r1 * r2;
+	r2 = 1.;
+	r1 = r1 + r2;
+	return r1;
+}
+
+double urho3d_Math_SineInOut(double r0) {
+	urho3d__$Math r3;
+	double r1, r2, r4;
+	r1 = -0.5;
+	r3 = (urho3d__$Math)g$_urho3d_Math;
+	r2 = r3->_PI_;
+	r2 = r2 * r0;
+	r2 = hl_math_cos(r2);
+	r4 = 1.;
+	r2 = r2 - r4;
+	r1 = r1 * r2;
+	return r1;
+}
+
+double urho3d_Math_ExponentialOut(double r0) {
+	double r1, r2, r3;
+	r2 = 1.;
+	if( r0 != r2 ) goto label$e53f207_51_4;
+	r1 = 1.;
+	return r1;
+	label$e53f207_51_4:
+	r1 = 2.;
+	r2 = -10.;
+	r2 = r2 * r0;
+	r3 = 1.;
+	r2 = r2 / r3;
+	r1 = hl_math_pow(r1,r2);
+	r1 = -r1;
+	r2 = 1.;
+	r1 = r1 + r2;
+	return r1;
+}
+
+double urho3d_Math_ExponentialIn(double r0) {
+	double r1, r2, r3, r4;
+	r2 = 0.;
+	if( r0 != r2 ) goto label$e53f207_52_4;
+	r1 = 0.;
+	return r1;
+	label$e53f207_52_4:
+	r1 = 2.;
+	r2 = 10.;
+	r4 = 1.;
+	r3 = r0 / r4;
+	r4 = 1.;
+	r3 = r3 - r4;
+	r2 = r2 * r3;
+	r1 = hl_math_pow(r1,r2);
+	r2 = 0.001000000000000000021;
+	r1 = r1 - r2;
+	return r1;
+}
+
+double urho3d_Math_ExponentialInOut(double r0) {
+	double r1, r2, r3, r4, r5;
+	r2 = 0.5;
+	r1 = r0 / r2;
+	r0 = r1;
+	r2 = 1.;
+	if( !(r1 < r2) ) goto label$e53f207_53_14;
+	r1 = 0.5;
+	r2 = 2.;
+	r3 = 10.;
+	r5 = 1.;
+	r4 = r0 - r5;
+	r3 = r3 * r4;
+	r2 = hl_math_pow(r2,r3);
+	r1 = r1 * r2;
+	return r1;
+	label$e53f207_53_14:
+	r1 = 0.5;
+	r2 = 2.;
+	r3 = -10.;
+	r5 = 1.;
+	r4 = r0 - r5;
+	r3 = r3 * r4;
+	r2 = hl_math_pow(r2,r3);
+	r2 = -r2;
+	r3 = 2.;
+	r2 = r2 + r3;
+	r1 = r1 * r2;
+	return r1;
+}
+
+double urho3d_Math_ElasticIn(double r0,double r1) {
+	urho3d__$Math r6;
+	double r2, r3, r4, r5;
+	r3 = 0.;
+	if( r0 == r3 ) goto label$e53f207_54_4;
+	r3 = 1.;
+	if( r0 != r3 ) goto label$e53f207_54_5;
+	label$e53f207_54_4:
+	return r0;
+	label$e53f207_54_5:
+	r3 = 4.;
+	r2 = r1 / r3;
+	r3 = 1.;
+	r0 = r0 - r3;
+	r3 = 2.;
+	r4 = 10.;
+	r4 = r4 * r0;
+	r3 = hl_math_pow(r3,r4);
+	r4 = r0 - r2;
+	r6 = (urho3d__$Math)g$_urho3d_Math;
+	r5 = r6->_PI_;
+	r4 = r4 * r5;
+	r5 = 2.;
+	r4 = r4 * r5;
+	r4 = r4 / r1;
+	r4 = hl_math_sin(r4);
+	r3 = r3 * r4;
+	r3 = -r3;
+	return r3;
+}
+
+double urho3d_Math_ElasticOut(double r0,double r1) {
+	urho3d__$Math r6;
+	double r2, r3, r4, r5;
+	r3 = 0.;
+	if( r0 == r3 ) goto label$e53f207_55_4;
+	r3 = 1.;
+	if( r0 != r3 ) goto label$e53f207_55_5;
+	label$e53f207_55_4:
+	return r0;
+	label$e53f207_55_5:
+	r3 = 4.;
+	r2 = r1 / r3;
+	r3 = 2.;
+	r4 = -10.;
+	r4 = r4 * r0;
+	r3 = hl_math_pow(r3,r4);
+	r4 = r0 - r2;
+	r6 = (urho3d__$Math)g$_urho3d_Math;
+	r5 = r6->_PI_;
+	r4 = r4 * r5;
+	r5 = 2.;
+	r4 = r4 * r5;
+	r4 = r4 / r1;
+	r4 = hl_math_sin(r4);
+	r3 = r3 * r4;
+	r4 = 1.;
+	r3 = r3 + r4;
+	return r3;
+}
+
+double urho3d_Math_ElasticInOut(double r0,double r1) {
+	urho3d__$Math r6;
+	double r2, r3, r4, r5;
+	r3 = 0.;
+	if( r0 == r3 ) goto label$e53f207_56_4;
+	r3 = 1.;
+	if( r0 != r3 ) goto label$e53f207_56_5;
+	label$e53f207_56_4:
+	return r0;
+	label$e53f207_56_5:
+	r3 = 2.;
+	r2 = r0 * r3;
+	r0 = r2;
+	r3 = 0.;
+	if( r1 != r3 ) goto label$e53f207_56_12;
+	r2 = 0.4499999999999999556;
+	r1 = r2;
+	label$e53f207_56_12:
+	r3 = 4.;
+	r2 = r1 / r3;
+	r3 = 1.;
+	r0 = r0 - r3;
+	r4 = 0.;
+	if( !(r0 < r4) ) goto label$e53f207_56_32;
+	r3 = -0.5;
+	r4 = 2.;
+	r5 = 10.;
+	r5 = r5 * r0;
+	r4 = hl_math_pow(r4,r5);
+	r3 = r3 * r4;
+	r4 = r0 - r2;
+	r6 = (urho3d__$Math)g$_urho3d_Math;
+	r5 = r6->_TWO_PI_;
+	r4 = r4 * r5;
+	r4 = r4 / r1;
+	r4 = hl_math_sin(r4);
+	r3 = r3 * r4;
+	return r3;
+	label$e53f207_56_32:
+	r3 = 2.;
+	r4 = -10.;
+	r4 = r4 * r0;
+	r3 = hl_math_pow(r3,r4);
+	r4 = r0 - r2;
+	r6 = (urho3d__$Math)g$_urho3d_Math;
+	r5 = r6->_TWO_PI_;
+	r4 = r4 * r5;
+	r4 = r4 / r1;
+	r4 = hl_math_sin(r4);
+	r3 = r3 * r4;
+	r4 = 0.5;
+	r3 = r3 * r4;
+	r4 = 1.;
+	r3 = r3 + r4;
+	return r3;
+}
+
+hl_urho3d_math_tvector2* urho3d_Math_CardinalSplineAt(hl_urho3d_math_tvector2* r0,hl_urho3d_math_tvector2* r1,hl_urho3d_math_tvector2* r2,hl_urho3d_math_tvector2* r3,double r4,double r5) {
+	float r15, r18;
+	double r6, r7, r8, r9, r10, r11, r12, r13, r14, r17;
+	hl_urho3d_math_tvector2 *r16;
+	r7 = 0.;
+	if( !(r4 < r7) ) goto label$e53f207_57_4;
+	r6 = 0.;
+	r4 = r6;
+	label$e53f207_57_4:
+	r7 = 1.;
+	if( !(r7 < r4) ) goto label$e53f207_57_8;
+	r6 = 1.;
+	r4 = r6;
+	label$e53f207_57_8:
+	r6 = r5 * r5;
+	r7 = r6 * r5;
+	r8 = 1.;
+	r8 = r8 - r4;
+	r9 = 2.;
+	r8 = r8 / r9;
+	r10 = -r7;
+	r11 = 2.;
+	r11 = r11 * r6;
+	r10 = r10 + r11;
+	r10 = r10 - r5;
+	r9 = r8 * r10;
+	r11 = -r7;
+	r11 = r11 + r6;
+	r10 = r8 * r11;
+	r11 = 2.;
+	r11 = r11 * r7;
+	r12 = 3.;
+	r12 = r12 * r6;
+	r11 = r11 - r12;
+	r12 = 1.;
+	r11 = r11 + r12;
+	r10 = r10 + r11;
+	r13 = 2.;
+	r13 = r13 * r6;
+	r12 = r7 - r13;
+	r12 = r12 + r5;
+	r11 = r8 * r12;
+	r12 = -2.;
+	r12 = r12 * r7;
+	r13 = 3.;
+	r13 = r13 * r6;
+	r12 = r12 + r13;
+	r11 = r11 + r12;
+	r13 = r7 - r6;
+	r12 = r8 * r13;
+	r15 = Urho3D__math_tvector2_get_x(r0);
+	r13 = (double)r15;
+	r13 = r13 * r9;
+	r15 = Urho3D__math_tvector2_get_x(r1);
+	r14 = (double)r15;
+	r14 = r14 * r10;
+	r13 = r13 + r14;
+	r15 = Urho3D__math_tvector2_get_x(r2);
+	r14 = (double)r15;
+	r14 = r14 * r11;
+	r13 = r13 + r14;
+	r15 = Urho3D__math_tvector2_get_x(r3);
+	r14 = (double)r15;
+	r14 = r14 * r12;
+	r13 = r13 + r14;
+	r15 = Urho3D__math_tvector2_get_y(r0);
+	r14 = (double)r15;
+	r14 = r14 * r9;
+	r15 = Urho3D__math_tvector2_get_y(r1);
+	r17 = (double)r15;
+	r17 = r17 * r10;
+	r14 = r14 + r17;
+	r15 = Urho3D__math_tvector2_get_y(r2);
+	r17 = (double)r15;
+	r17 = r17 * r11;
+	r14 = r14 + r17;
+	r15 = Urho3D__math_tvector2_get_y(r3);
+	r17 = (double)r15;
+	r17 = r17 * r12;
+	r14 = r14 + r17;
+	r15 = (float)r13;
+	r18 = (float)r14;
+	r16 = Urho3D__math_tvector2_create(r15,r18);
+	return r16;
 }
 
 double urho3d_Math_CubicBezier(double r0,double r1,double r2,double r3,double r4) {

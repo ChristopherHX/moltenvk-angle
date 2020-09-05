@@ -23,6 +23,8 @@ struct _urho3d___Text__$Text_Impl_ {
 	vclosure* set_text;
 	vclosure* get_horizontalAlignment;
 	vclosure* set_horizontalAlignment;
+	vclosure* get_verticalAlignment;
+	vclosure* set_verticalAlignment;
 	vclosure* AddChild;
 	vclosure* SetFont;
 };

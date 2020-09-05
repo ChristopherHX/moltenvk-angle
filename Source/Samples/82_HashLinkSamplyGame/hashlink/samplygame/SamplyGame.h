@@ -89,6 +89,7 @@ struct _samplygame__SamplyGame {
 	String HealthString;
 	hl_urho3d_ui_text* coinsText;
 	hl_urho3d_ui_text* healthText;
+	bool drawDebug;
 };
 #endif
 

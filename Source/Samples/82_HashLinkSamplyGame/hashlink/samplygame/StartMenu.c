@@ -8,15 +8,15 @@
 #include <urho3d/_Context/Context_Impl_.h>
 #include <haxe/ds/ObjectMap.h>
 #include <urho3d/StaticModel.h>
-#include <actions/ActionID.h>
-#include <actions/ActionDef.h>
-#include <actions/RepeatForever.h>
-#include <actions/Sequence.h>
-#include <actions/RotateBy.h>
+#include <urho3d/actions/ActionID.h>
+#include <urho3d/actions/ActionDef.h>
+#include <urho3d/actions/RepeatForever.h>
+#include <urho3d/actions/Sequence.h>
+#include <urho3d/actions/RotateBy.h>
 #include <hl/types/ArrayObj.h>
-#include <actions/FiniteTimeActionState.h>
-#include <actions/EaseIn.h>
-#include <actions/MoveBy.h>
+#include <urho3d/actions/FiniteTimeActionState.h>
+#include <urho3d/actions/EaseIn.h>
+#include <urho3d/actions/MoveBy.h>
 extern haxe__$Log g$_haxe_Log;
 extern String s$StartMenu_DelayedStart;
 extern hl_type t$vrt_329ffa8;
@@ -41,60 +41,74 @@ extern String s$Models_Player_mdl;
 hl_urho3d_graphics_model* urho3d_StaticModel_set_model(urho3d__StaticModel,hl_urho3d_graphics_model*);
 extern String s$Materials_Player_xml;
 hl_urho3d_graphics_material* urho3d_StaticModel_set_material(urho3d__StaticModel,hl_urho3d_graphics_material*);
-extern hl_type t$actions_RepeatForever;
-extern hl_type t$actions_Sequence;
-extern hl_type t$actions_RotateBy;
+extern hl_type t$urho3d_actions_RepeatForever;
+extern hl_type t$urho3d_actions_Sequence;
+extern hl_type t$urho3d_actions_RotateBy;
 extern hl_type t$_f64;
-void actions_RotateBy_new(actions__RotateBy,double,double,vdynamic*,vdynamic*);
-#include <actions/FiniteTimeAction.h>
-void actions_Sequence_new(actions__Sequence,actions__FiniteTimeAction,actions__FiniteTimeAction,hl__types__ArrayObj);
-void actions_RepeatForever_new(actions__RepeatForever,actions__FiniteTimeAction);
-actions__ActionID actions_ActionManager_AddAction(actions__ActionDef,actions__FiniteTimeAction,urho3d__Node,actions__FiniteTimeActionState,vclosure*);
+void urho3d_actions_RotateBy_new(urho3d__actions__RotateBy,double,double,vdynamic*,vdynamic*);
+#include <urho3d/actions/FiniteTimeAction.h>
+void urho3d_actions_Sequence_new(urho3d__actions__Sequence,urho3d__actions__FiniteTimeAction,urho3d__actions__FiniteTimeAction,hl__types__ArrayObj);
+void urho3d_actions_RepeatForever_new(urho3d__actions__RepeatForever,urho3d__actions__FiniteTimeAction);
+urho3d__actions__ActionID urho3d_actions_ActionManager_AddAction(urho3d__actions__ActionDef,urho3d__actions__FiniteTimeAction,urho3d__Node,urho3d__actions__FiniteTimeActionState,vclosure*);
 extern String s$Models_Box_mdl;
 extern String s$Materials_Black_xml;
-extern hl_type t$actions_EaseIn;
-extern hl_type t$actions_MoveBy;
-void actions_MoveBy_new(actions__MoveBy,double,hl_urho3d_math_vector3*);
-void actions_EaseIn_new(actions__EaseIn,actions__FiniteTimeAction,double);
+extern hl_type t$urho3d_actions_EaseIn;
+extern hl_type t$urho3d_actions_MoveBy;
+void urho3d_actions_MoveBy_new(urho3d__actions__MoveBy,double,hl_urho3d_math_vector3*);
+void urho3d_actions_EaseIn_new(urho3d__actions__EaseIn,urho3d__actions__FiniteTimeAction,double);
+extern String s$TAP_TO_START;
+String urho3d__Text_Text_Impl__set_text(hl_urho3d_ui_text*,String);
+int urho3d__Text_Text_Impl__set_horizontalAlignment(hl_urho3d_ui_text*,int);
+int urho3d__Text_Text_Impl__set_verticalAlignment(hl_urho3d_ui_text*,int);
+extern String s$Fonts_Font_ttf;
+int urho3d_Graphics_get_width(void);
+void urho3d__Text_Text_Impl__SetFont(hl_urho3d_ui_text*,hl_urho3d_ui_font*,double*);
+hl_urho3d_uielement* urho3d_UI_get_root(void);
+void urho3d__UIElement_UIElement_Impl__AddChild(hl_urho3d_uielement*,hl_urho3d_uielement*);
 int urho3d_Input_get_numTouches(void);
-void samplygame_StartMenu_StartPlay(samplygame__StartMenu,actions__ActionID);
-extern hl_type t$fun_2f896be;
+void urho3d__UIElement_UIElement_Impl__RemoveChild(hl_urho3d_uielement*,hl_urho3d_uielement*,int*);
+void samplygame_StartMenu_StartPlay(samplygame__StartMenu,urho3d__actions__ActionID);
+extern hl_type t$fun_e2f5a0c;
 void urho3d_LogicComponent_new(urho3d__LogicComponent,vdynamic*);
 
 void samplygame_StartMenu_DelayedStart(samplygame__StartMenu r0) {
 	String r4, r6;
 	hl_urho3d_scene_component *r20;
 	hl_urho3d_scene_node_ptr *r18;
+	urho3d__actions__FiniteTimeActionState r47;
 	urho3d__StaticModel r22, r50;
 	bool r16;
-	actions__EaseIn r53;
+	urho3d__actions__MoveBy r54;
 	hl_urho3d_math_vector3 *r35;
 	hl_urho3d_math_quaternion *r33;
 	urho3d__Node r10, r12, r19, r32, r49;
 	hl_urho3d_math_tquaternion *r34;
+	urho3d__actions__EaseIn r53;
 	hl_urho3d_graphics_material *r25, *r26, *r52;
-	actions__ActionDef r37;
-	actions__ActionID r36;
-	actions__Sequence r39;
 	urho3d_context *r13;
 	vclosure *r2, *r48;
+	urho3d__actions__RotateBy r40, r45;
 	vdynamic *r8, *r43, *r44;
+	urho3d__actions__ActionID r36;
 	hl_urho3d_graphics_model *r23, *r24, *r51;
 	int r7, r15;
+	urho3d__actions__Sequence r39;
 	haxe__ds__ObjectMap r17;
 	hl__types__ArrayObj r46;
+	urho3d__actions__RepeatForever r38;
 	vvirtual *r5, *r9;
-	actions__FiniteTimeActionState r47;
-	actions__MoveBy r54;
+	urho3d__actions__ActionDef r37;
 	haxe__$Log r3;
 	urho3d___Context__$Context_Impl_ r14;
+	hl_urho3d_ui_font *r57;
 	float r29, r30, r31;
 	hl_urho3d_scene_node *r11;
-	actions__RotateBy r40, r45;
 	double r28, r41, r42;
 	hl_urho3d_graphics_staticmodel *r21;
-	actions__RepeatForever r38;
+	double *r59;
 	hl_urho3d_math_tvector3 *r27;
+	hl_urho3d_uielement *r60, *r61;
+	hl_urho3d_ui_text *r55, *r56, *r58;
 	r3 = (haxe__$Log)g$_haxe_Log;
 	r2 = r3->trace;
 	if( r2 == NULL ) hl_null_access();
@@ -102,7 +116,7 @@ void samplygame_StartMenu_DelayedStart(samplygame__StartMenu r0) {
 	r5 = hl_alloc_virtual(&t$vrt_329ffa8);
 	r6 = (String)s$src_haxe_samplygame_StartMenu_hx;
 	if( hl_vfields(r5)[1] ) *(String*)(hl_vfields(r5)[1]) = (String)r6; else hl_dyn_setp(r5->value,37969014/*fileName*/,&t$String,r6);
-	r7 = 22;
+	r7 = 25;
 	if( hl_vfields(r5)[2] ) *(int*)(hl_vfields(r5)[2]) = (int)r7; else hl_dyn_seti(r5->value,371360620/*lineNumber*/,&t$_i32,r7);
 	r6 = (String)s$samplygame_StartMenu;
 	if( hl_vfields(r5)[0] ) *(String*)(hl_vfields(r5)[0]) = (String)r6; else hl_dyn_setp(r5->value,-63073762/*className*/,&t$String,r6);
@@ -234,9 +248,9 @@ void samplygame_StartMenu_DelayedStart(samplygame__StartMenu r0) {
 	Urho3D__scene_node_set_position(r13,r11,r27);
 	label$2c5108b_1_124:
 	r37 = NULL;
-	r38 = (actions__RepeatForever)hl_alloc_obj(&t$actions_RepeatForever);
-	r39 = (actions__Sequence)hl_alloc_obj(&t$actions_Sequence);
-	r40 = (actions__RotateBy)hl_alloc_obj(&t$actions_RotateBy);
+	r38 = (urho3d__actions__RepeatForever)hl_alloc_obj(&t$urho3d_actions_RepeatForever);
+	r39 = (urho3d__actions__Sequence)hl_alloc_obj(&t$urho3d_actions_Sequence);
+	r40 = (urho3d__actions__RotateBy)hl_alloc_obj(&t$urho3d_actions_RotateBy);
 	r28 = 1.;
 	r41 = 0.;
 	r42 = 0.;
@@ -245,8 +259,8 @@ void samplygame_StartMenu_DelayedStart(samplygame__StartMenu r0) {
 	r42 = 0.1000000000000000056;
 	r44 = hl_alloc_dynamic(&t$_f64);
 	r44->v.d = r42;
-	actions_RotateBy_new(r40,r28,r41,r43,r44);
-	r45 = (actions__RotateBy)hl_alloc_obj(&t$actions_RotateBy);
+	urho3d_actions_RotateBy_new(r40,r28,r41,r43,r44);
+	r45 = (urho3d__actions__RotateBy)hl_alloc_obj(&t$urho3d_actions_RotateBy);
 	r28 = 1.;
 	r41 = 0.;
 	r42 = 0.;
@@ -255,14 +269,14 @@ void samplygame_StartMenu_DelayedStart(samplygame__StartMenu r0) {
 	r42 = -0.1000000000000000056;
 	r44 = hl_alloc_dynamic(&t$_f64);
 	r44->v.d = r42;
-	actions_RotateBy_new(r45,r28,r41,r43,r44);
+	urho3d_actions_RotateBy_new(r45,r28,r41,r43,r44);
 	r46 = NULL;
-	actions_Sequence_new(r39,((actions__FiniteTimeAction)r40),((actions__FiniteTimeAction)r45),r46);
-	actions_RepeatForever_new(r38,((actions__FiniteTimeAction)r39));
+	urho3d_actions_Sequence_new(r39,((urho3d__actions__FiniteTimeAction)r40),((urho3d__actions__FiniteTimeAction)r45),r46);
+	urho3d_actions_RepeatForever_new(r38,((urho3d__actions__FiniteTimeAction)r39));
 	r19 = r0->bigAircraft;
 	r47 = NULL;
 	r48 = NULL;
-	r36 = actions_ActionManager_AddAction(r37,((actions__FiniteTimeAction)r38),r19,r47,r48);
+	r36 = urho3d_actions_ActionManager_AddAction(r37,((urho3d__actions__FiniteTimeAction)r38),r19,r47,r48);
 	r19 = r0->bigAircraft;
 	if( r19 == NULL ) hl_null_access();
 	r11 = r19->abstractNode;
@@ -387,8 +401,8 @@ void samplygame_StartMenu_DelayedStart(samplygame__StartMenu r0) {
 	Urho3D__scene_node_set_position(r13,r11,r27);
 	label$2c5108b_1_259:
 	r37 = NULL;
-	r38 = (actions__RepeatForever)hl_alloc_obj(&t$actions_RepeatForever);
-	r40 = (actions__RotateBy)hl_alloc_obj(&t$actions_RotateBy);
+	r38 = (urho3d__actions__RepeatForever)hl_alloc_obj(&t$urho3d_actions_RepeatForever);
+	r40 = (urho3d__actions__RotateBy)hl_alloc_obj(&t$urho3d_actions_RotateBy);
 	r28 = 1.;
 	r41 = 0.;
 	r7 = 0;
@@ -398,12 +412,12 @@ void samplygame_StartMenu_DelayedStart(samplygame__StartMenu r0) {
 	r42 = 1080.;
 	r44 = hl_alloc_dynamic(&t$_f64);
 	r44->v.d = r42;
-	actions_RotateBy_new(r40,r28,r41,r43,r44);
-	actions_RepeatForever_new(r38,((actions__FiniteTimeAction)r40));
+	urho3d_actions_RotateBy_new(r40,r28,r41,r43,r44);
+	urho3d_actions_RepeatForever_new(r38,((urho3d__actions__FiniteTimeAction)r40));
 	r49 = r0->rotor;
 	r47 = NULL;
 	r48 = NULL;
-	r36 = actions_ActionManager_AddAction(r37,((actions__FiniteTimeAction)r38),r49,r47,r48);
+	r36 = urho3d_actions_ActionManager_AddAction(r37,((urho3d__actions__FiniteTimeAction)r38),r49,r47,r48);
 	r7 = -10;
 	r29 = (float)r7;
 	r7 = -2;
@@ -412,16 +426,46 @@ void samplygame_StartMenu_DelayedStart(samplygame__StartMenu r0) {
 	r31 = (float)r7;
 	r35 = Urho3D__math_vector3_create(r29,r30,r31);
 	r37 = NULL;
-	r53 = (actions__EaseIn)hl_alloc_obj(&t$actions_EaseIn);
-	r54 = (actions__MoveBy)hl_alloc_obj(&t$actions_MoveBy);
+	r53 = (urho3d__actions__EaseIn)hl_alloc_obj(&t$urho3d_actions_EaseIn);
+	r54 = (urho3d__actions__MoveBy)hl_alloc_obj(&t$urho3d_actions_MoveBy);
 	r28 = 1.;
-	actions_MoveBy_new(r54,r28,r35);
+	urho3d_actions_MoveBy_new(r54,r28,r35);
 	r28 = 2.;
-	actions_EaseIn_new(r53,((actions__FiniteTimeAction)r54),r28);
+	urho3d_actions_EaseIn_new(r53,((urho3d__actions__FiniteTimeAction)r54),r28);
 	r49 = r0->bigAircraft;
 	r47 = NULL;
 	r48 = NULL;
-	r36 = actions_ActionManager_AddAction(r37,((actions__FiniteTimeAction)r53),r49,r47,r48);
+	r36 = urho3d_actions_ActionManager_AddAction(r37,((urho3d__actions__FiniteTimeAction)r53),r49,r47,r48);
+	r14 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r13 = r14->context;
+	r55 = Urho3D__ui_text_create(r13);
+	r0->textBlock = r55;
+	r56 = r0->textBlock;
+	r4 = (String)s$TAP_TO_START;
+	r4 = urho3d__Text_Text_Impl__set_text(r56,r4);
+	r56 = r0->textBlock;
+	r7 = 1;
+	r7 = urho3d__Text_Text_Impl__set_horizontalAlignment(r56,r7);
+	r56 = r0->textBlock;
+	r7 = 2;
+	r7 = urho3d__Text_Text_Impl__set_verticalAlignment(r56,r7);
+	r56 = r0->textBlock;
+	r14 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r13 = r14->context;
+	r4 = (String)s$Fonts_Font_ttf;
+	r57 = Urho3D__ui_font_create(r13,r4);
+	r7 = urho3d_Graphics_get_width();
+	r28 = (double)r7;
+	r41 = 15.;
+	r28 = r28 / r41;
+	r59 = &r28;
+	urho3d__Text_Text_Impl__SetFont(r56,r57,r59);
+	r60 = urho3d_UI_get_root();
+	r14 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r13 = r14->context;
+	r58 = r0->textBlock;
+	r61 = Urho3D__ui_text_cast_to_uielement(r13,r58);
+	urho3d__UIElement_UIElement_Impl__AddChild(r60,r61);
 	r16 = false;
 	r0->finished = r16;
 	r16 = false;
@@ -430,19 +474,22 @@ void samplygame_StartMenu_DelayedStart(samplygame__StartMenu r0) {
 }
 
 void samplygame_StartMenu_Update(samplygame__StartMenu r0,double r1) {
-	actions__FiniteTimeActionState r18;
+	urho3d__actions__ActionDef r17;
+	urho3d__actions__FiniteTimeActionState r22;
 	bool r3;
-	actions__EaseIn r14;
-	urho3d__Node r17;
-	hl_urho3d_math_vector3 *r8;
-	actions__MoveBy r15;
+	urho3d__Node r21;
+	urho3d__actions__MoveBy r19;
+	hl_urho3d_math_vector3 *r12;
+	urho3d__actions__EaseIn r18;
 	urho3d___Context__$Context_Impl_ r5;
-	actions__ActionDef r13;
-	actions__ActionID r12;
-	float r9, r10, r11;
+	float r13, r14, r15;
 	urho3d_context *r4;
-	vclosure *r19;
-	double r16;
+	vclosure *r23;
+	double r20;
+	int *r11;
+	urho3d__actions__ActionID r16;
+	hl_urho3d_ui_text *r10;
+	hl_urho3d_uielement *r8, *r9;
 	int r6, r7;
 	r3 = r0->finished;
 	if( !r3 ) goto label$2c5108b_2_3;
@@ -455,33 +502,40 @@ void samplygame_StartMenu_Update(samplygame__StartMenu r0,double r1) {
 	if( r3 ) goto label$2c5108b_2_11;
 	r6 = urho3d_Input_get_numTouches();
 	r7 = 0;
-	if( r7 >= r6 ) goto label$2c5108b_2_31;
+	if( r7 >= r6 ) goto label$2c5108b_2_38;
 	label$2c5108b_2_11:
 	r3 = true;
 	r0->finished = r3;
+	r8 = urho3d_UI_get_root();
+	r5 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r4 = r5->context;
+	r10 = r0->textBlock;
+	r9 = Urho3D__ui_text_cast_to_uielement(r4,r10);
+	r11 = NULL;
+	urho3d__UIElement_UIElement_Impl__RemoveChild(r8,r9,r11);
 	r6 = -10;
-	r9 = (float)r6;
+	r13 = (float)r6;
 	r6 = -2;
-	r10 = (float)r6;
+	r14 = (float)r6;
 	r6 = -10;
-	r11 = (float)r6;
-	r8 = Urho3D__math_vector3_create(r9,r10,r11);
-	r13 = NULL;
-	r14 = (actions__EaseIn)hl_alloc_obj(&t$actions_EaseIn);
-	r15 = (actions__MoveBy)hl_alloc_obj(&t$actions_MoveBy);
-	r16 = 1.;
-	actions_MoveBy_new(r15,r16,r8);
-	r16 = 3.;
-	actions_EaseIn_new(r14,((actions__FiniteTimeAction)r15),r16);
-	r17 = r0->bigAircraft;
-	r18 = NULL;
-	r19 = hl_alloc_closure_ptr(&t$fun_2f896be,samplygame_StartMenu_StartPlay,r0);
-	r12 = actions_ActionManager_AddAction(r13,((actions__FiniteTimeAction)r14),r17,r18,r19);
-	label$2c5108b_2_31:
+	r15 = (float)r6;
+	r12 = Urho3D__math_vector3_create(r13,r14,r15);
+	r17 = NULL;
+	r18 = (urho3d__actions__EaseIn)hl_alloc_obj(&t$urho3d_actions_EaseIn);
+	r19 = (urho3d__actions__MoveBy)hl_alloc_obj(&t$urho3d_actions_MoveBy);
+	r20 = 1.;
+	urho3d_actions_MoveBy_new(r19,r20,r12);
+	r20 = 3.;
+	urho3d_actions_EaseIn_new(r18,((urho3d__actions__FiniteTimeAction)r19),r20);
+	r21 = r0->bigAircraft;
+	r22 = NULL;
+	r23 = hl_alloc_closure_ptr(&t$fun_e2f5a0c,samplygame_StartMenu_StartPlay,r0);
+	r16 = urho3d_actions_ActionManager_AddAction(r17,((urho3d__actions__FiniteTimeAction)r18),r21,r22,r23);
+	label$2c5108b_2_38:
 	return;
 }
 
-void samplygame_StartMenu_StartPlay(samplygame__StartMenu r0,actions__ActionID r1) {
+void samplygame_StartMenu_StartPlay(samplygame__StartMenu r0,urho3d__actions__ActionID r1) {
 	bool r2;
 	r2 = true;
 	r0->startPlay = r2;
@@ -491,12 +545,15 @@ void samplygame_StartMenu_StartPlay(samplygame__StartMenu r0,actions__ActionID r
 void samplygame_StartMenu_new(samplygame__StartMenu r0,vdynamic* r1) {
 	bool r2;
 	urho3d__Node r3;
+	hl_urho3d_ui_text *r4;
 	r2 = false;
 	r0->startPlay = r2;
 	r2 = true;
 	r0->finished = r2;
 	r3 = NULL;
 	r0->menuLight = r3;
+	r4 = NULL;
+	r0->textBlock = r4;
 	r3 = NULL;
 	r0->rotor = r3;
 	r3 = NULL;

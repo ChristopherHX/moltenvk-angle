@@ -16,19 +16,19 @@ hl_urho3d_graphics_model* urho3d_StaticModel_set_model(urho3d__StaticModel,hl_ur
 extern String s$Materials_Enemy3weapon_xml;
 hl_urho3d_graphics_material* urho3d_StaticModel_set_material(urho3d__StaticModel,hl_urho3d_graphics_material*);
 void samplygame_SmallPlates_Launch(samplygame__SmallPlates,urho3d__Node);
-#include <actions/ActionID.h>
-#include <actions/ActionDef.h>
-#include <actions/MoveTo.h>
-#include <actions/FiniteTimeActionState.h>
+#include <urho3d/actions/ActionID.h>
+#include <urho3d/actions/ActionDef.h>
+#include <urho3d/actions/MoveTo.h>
+#include <urho3d/actions/FiniteTimeActionState.h>
 extern hl_type t$_f64;
 double urho3d_LogicComponent_Random(urho3d__LogicComponent,vdynamic*,vdynamic*);
-extern hl_type t$actions_MoveTo;
-void actions_MoveTo_new(actions__MoveTo,double,hl_urho3d_math_vector3*);
-void samplygame_SmallPlates_bulletNodeRemove(samplygame__SmallPlates,actions__ActionID);
-extern hl_type t$fun_db4b3be;
-#include <actions/FiniteTimeAction.h>
-actions__ActionID actions_ActionManager_AddAction(actions__ActionDef,actions__FiniteTimeAction,urho3d__Node,actions__FiniteTimeActionState,vclosure*);
-void actions_ActionID_DeleteTargets(actions__ActionID);
+extern hl_type t$urho3d_actions_MoveTo;
+void urho3d_actions_MoveTo_new(urho3d__actions__MoveTo,double,hl_urho3d_math_vector3*);
+void samplygame_SmallPlates_bulletNodeRemove(samplygame__SmallPlates,urho3d__actions__ActionID);
+extern hl_type t$fun_250c702;
+#include <urho3d/actions/FiniteTimeAction.h>
+urho3d__actions__ActionID urho3d_actions_ActionManager_AddAction(urho3d__actions__ActionDef,urho3d__actions__FiniteTimeAction,urho3d__Node,urho3d__actions__FiniteTimeActionState,vclosure*);
+void urho3d_actions_ActionID_DeleteTargets(urho3d__actions__ActionID);
 
 void samplygame_SmallPlates_new(samplygame__SmallPlates r0) {
 	vdynamic *r2;
@@ -161,15 +161,15 @@ void samplygame_SmallPlates_OnFire(samplygame__SmallPlates r0,bool r1) {
 }
 
 void samplygame_SmallPlates_Launch(samplygame__SmallPlates r0,urho3d__Node r1) {
-	actions__FiniteTimeActionState r14;
+	urho3d__actions__ActionDef r12;
+	urho3d__actions__FiniteTimeActionState r14;
 	hl_urho3d_math_vector3 *r2;
-	actions__ActionDef r12;
-	actions__ActionID r11;
+	urho3d__actions__MoveTo r13;
 	float r6, r8, r9;
 	vclosure *r15;
-	actions__MoveTo r13;
 	double r3;
 	vdynamic *r4, *r5;
+	urho3d__actions__ActionID r11;
 	int r7;
 	r3 = -6.;
 	r4 = hl_alloc_dynamic(&t$_f64);
@@ -185,18 +185,18 @@ void samplygame_SmallPlates_Launch(samplygame__SmallPlates r0,urho3d__Node r1) {
 	r9 = (float)r7;
 	r2 = Urho3D__math_vector3_create(r6,r8,r9);
 	r12 = NULL;
-	r13 = (actions__MoveTo)hl_alloc_obj(&t$actions_MoveTo);
+	r13 = (urho3d__actions__MoveTo)hl_alloc_obj(&t$urho3d_actions_MoveTo);
 	r3 = 3.;
-	actions_MoveTo_new(r13,r3,r2);
+	urho3d_actions_MoveTo_new(r13,r3,r2);
 	r14 = NULL;
-	r15 = hl_alloc_closure_ptr(&t$fun_db4b3be,samplygame_SmallPlates_bulletNodeRemove,r0);
-	r11 = actions_ActionManager_AddAction(r12,((actions__FiniteTimeAction)r13),r1,r14,r15);
+	r15 = hl_alloc_closure_ptr(&t$fun_250c702,samplygame_SmallPlates_bulletNodeRemove,r0);
+	r11 = urho3d_actions_ActionManager_AddAction(r12,((urho3d__actions__FiniteTimeAction)r13),r1,r14,r15);
 	return;
 }
 
-void samplygame_SmallPlates_bulletNodeRemove(samplygame__SmallPlates r0,actions__ActionID r1) {
+void samplygame_SmallPlates_bulletNodeRemove(samplygame__SmallPlates r0,urho3d__actions__ActionID r1) {
 	if( r1 == NULL ) hl_null_access();
-	actions_ActionID_DeleteTargets(r1);
+	urho3d_actions_ActionID_DeleteTargets(r1);
 	return;
 }
 

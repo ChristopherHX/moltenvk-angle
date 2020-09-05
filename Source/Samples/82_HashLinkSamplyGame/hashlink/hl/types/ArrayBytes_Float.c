@@ -2,6 +2,7 @@
 #define HLC_BOOT
 #include <hlc.h>
 #include <hl/types/ArrayBytes_Float.h>
+extern hl_type t$_f64;
 extern hl_type t$hl_types_ArrayBytes_Float;
 void hl_types_ArrayBytes_Float_new(hl__types__ArrayBytes_Float);
 #include <hl/natives.h>
@@ -10,7 +11,6 @@ void hl_types_ArrayBytes_Float_new(hl__types__ArrayBytes_Float);
 extern hl_type t$StringBuf;
 void StringBuf_new(StringBuf);
 void StringBuf_add(StringBuf,vdynamic*);
-extern hl_type t$_f64;
 String StringBuf_toString(StringBuf);
 void hl_types_ArrayBytes_Float___expand(hl__types__ArrayBytes_Float,int);
 #include <haxe/io/Error.h>
@@ -19,7 +19,6 @@ extern venum* g$haxe_io_Error_OutsideBounds;
 vdynamic* haxe_Exception_thrown(vdynamic*);
 vbyte* hl__Bytes_Bytes_Impl__sub(vbyte*,int,int);
 extern hl_type t$_i32;
-int hl_types_ArrayBytes_Float_sort__$1(vclosure*,int,int);
 extern hl_type t$fun_026a163;
 void StringBuf_addChar(StringBuf,int);
 int hl_types_ArrayBytes_Float_indexOf(hl__types__ArrayBytes_Float,double,vdynamic*);
@@ -38,11 +37,29 @@ void hl_types_ArrayObj_new(hl__types__ArrayObj);
 void hl_types_ArrayObj___expand(hl__types__ArrayObj,int);
 hl__types__ArrayDyn hl_types_ArrayDyn_alloc(hl__types__ArrayBase,bool*);
 extern hl_type t$_dyn;
-int hl_types_ArrayBytes_Float_sortDyn__$1(vclosure*,double,double);
 extern hl_type t$fun_cae6940;
 extern String s$Invalid_array_index_;
 String String___alloc__(vbyte*,int);
 String String___add__(String,String);
+
+int hl_types_ArrayBytes_Float_sort__$1(vclosure* r0,int r1,int r2) {
+	double r3, r4;
+	r3 = (double)r1;
+	r4 = (double)r2;
+	r1 = r0->hasValue ? ((int (*)(vdynamic*,double,double))r0->fun)((vdynamic*)r0->value,r3,r4) : ((int (*)(double,double))r0->fun)(r3,r4);
+	return r1;
+}
+
+int hl_types_ArrayBytes_Float_sortDyn__$1(vclosure* r0,double r1,double r2) {
+	vdynamic *r3, *r4;
+	int r5;
+	r3 = hl_alloc_dynamic(&t$_f64);
+	r3->v.d = r1;
+	r4 = hl_alloc_dynamic(&t$_f64);
+	r4->v.d = r2;
+	r5 = r0->hasValue ? ((int (*)(vdynamic*,vdynamic*,vdynamic*))r0->fun)((vdynamic*)r0->value,r3,r4) : ((int (*)(vdynamic*,vdynamic*))r0->fun)(r3,r4);
+	return r5;
+}
 
 hl__types__ArrayBytes_Float hl_types_ArrayBytes_Float_concat(hl__types__ArrayBytes_Float r0,hl__types__ArrayBytes_Float r1) {
 	hl__types__ArrayBytes_Float r2;
@@ -93,15 +110,15 @@ String hl_types_ArrayBytes_Float_join(hl__types__ArrayBytes_Float r0,String r1) 
 	StringBuf_new(r2);
 	r4 = 0;
 	r5 = r0->length;
-	label$d05ef5b_2_4:
-	if( r4 >= r5 ) goto label$d05ef5b_2_20;
+	label$d05ef5b_4_4:
+	if( r4 >= r5 ) goto label$d05ef5b_4_20;
 	r6 = r4;
 	++r4;
 	r7 = 0;
-	if( r7 >= r6 ) goto label$d05ef5b_2_12;
+	if( r7 >= r6 ) goto label$d05ef5b_4_12;
 	if( r2 == NULL ) hl_null_access();
 	StringBuf_add(r2,((vdynamic*)r1));
-	label$d05ef5b_2_12:
+	label$d05ef5b_4_12:
 	r9 = r0->bytes;
 	if( r2 == NULL ) hl_null_access();
 	r7 = 3;
@@ -110,8 +127,8 @@ String hl_types_ArrayBytes_Float_join(hl__types__ArrayBytes_Float r0,String r1) 
 	r11 = hl_alloc_dynamic(&t$_f64);
 	r11->v.d = r10;
 	StringBuf_add(r2,((vdynamic*)r11));
-	goto label$d05ef5b_2_4;
-	label$d05ef5b_2_20:
+	goto label$d05ef5b_4_4;
+	label$d05ef5b_4_20:
 	if( r2 == NULL ) hl_null_access();
 	r8 = StringBuf_toString(r2);
 	return r8;
@@ -124,10 +141,10 @@ vdynamic* hl_types_ArrayBytes_Float_pop(hl__types__ArrayBytes_Float r0) {
 	int r1, r2, r6;
 	r1 = r0->length;
 	r2 = 0;
-	if( r1 != r2 ) goto label$d05ef5b_3_5;
+	if( r1 != r2 ) goto label$d05ef5b_5_5;
 	r3 = NULL;
 	return r3;
-	label$d05ef5b_3_5:
+	label$d05ef5b_5_5:
 	r1 = r0->length;
 	--r1;
 	r0->length = r1;
@@ -146,14 +163,14 @@ int hl_types_ArrayBytes_Float_push(hl__types__ArrayBytes_Float r0,double r1) {
 	int r2, r4, r5;
 	r2 = r0->length;
 	r4 = r0->size;
-	if( r4 != r2 ) goto label$d05ef5b_4_5;
+	if( r4 != r2 ) goto label$d05ef5b_6_5;
 	hl_types_ArrayBytes_Float___expand(r0,r2);
-	goto label$d05ef5b_4_8;
-	label$d05ef5b_4_5:
+	goto label$d05ef5b_6_8;
+	label$d05ef5b_6_5:
 	r4 = r0->length;
 	++r4;
 	r0->length = r4;
-	label$d05ef5b_4_8:
+	label$d05ef5b_6_8:
 	r6 = r0->bytes;
 	r5 = 3;
 	r5 = r2 << r5;
@@ -170,8 +187,8 @@ void hl_types_ArrayBytes_Float_reverse(hl__types__ArrayBytes_Float r0) {
 	r3 = r0->length;
 	r4 = 1;
 	r3 = r3 >> r4;
-	label$d05ef5b_5_4:
-	if( r1 >= r3 ) goto label$d05ef5b_5_29;
+	label$d05ef5b_7_4:
+	if( r1 >= r3 ) goto label$d05ef5b_7_29;
 	r4 = r1;
 	++r1;
 	r5 = r0->length;
@@ -194,8 +211,8 @@ void hl_types_ArrayBytes_Float_reverse(hl__types__ArrayBytes_Float r0) {
 	r10 = 3;
 	r10 = r5 << r10;
 	*(double*)(r8 + r10) = r9;
-	goto label$d05ef5b_5_4;
-	label$d05ef5b_5_29:
+	goto label$d05ef5b_7_4;
+	label$d05ef5b_7_29:
 	return;
 }
 
@@ -206,10 +223,10 @@ vdynamic* hl_types_ArrayBytes_Float_shift(hl__types__ArrayBytes_Float r0) {
 	int r2, r3, r11, r12;
 	r2 = r0->length;
 	r3 = 0;
-	if( r2 != r3 ) goto label$d05ef5b_6_5;
+	if( r2 != r3 ) goto label$d05ef5b_8_5;
 	r4 = NULL;
 	return r4;
-	label$d05ef5b_6_5:
+	label$d05ef5b_8_5:
 	r5 = r0->bytes;
 	r2 = 0;
 	r3 = 3;
@@ -243,23 +260,23 @@ void hl_types_ArrayBytes_Float_blit(hl__types__ArrayBytes_Float r0,int r1,hl__ty
 	int r7, r8, r15, r17, r18;
 	r5 = (hl__types__ArrayBytes_Float)hl_dyn_castp(&r2,&t$hl_types_ArrayAccess,&t$hl_types_ArrayBytes_Float);
 	r8 = 0;
-	if( r1 < r8 ) goto label$d05ef5b_7_14;
+	if( r1 < r8 ) goto label$d05ef5b_9_14;
 	r8 = 0;
-	if( r3 < r8 ) goto label$d05ef5b_7_14;
+	if( r3 < r8 ) goto label$d05ef5b_9_14;
 	r8 = 0;
-	if( r4 < r8 ) goto label$d05ef5b_7_14;
+	if( r4 < r8 ) goto label$d05ef5b_9_14;
 	r7 = r1 + r4;
 	r8 = r0->length;
-	if( r8 < r7 ) goto label$d05ef5b_7_14;
+	if( r8 < r7 ) goto label$d05ef5b_9_14;
 	r7 = r3 + r4;
 	if( r5 == NULL ) hl_null_access();
 	r8 = r5->length;
-	if( r8 >= r7 ) goto label$d05ef5b_7_17;
-	label$d05ef5b_7_14:
+	if( r8 >= r7 ) goto label$d05ef5b_9_17;
+	label$d05ef5b_9_14:
 	r10 = (venum*)g$haxe_io_Error_OutsideBounds;
 	r9 = haxe_Exception_thrown(((vdynamic*)r10));
 	hl_throw((vdynamic*)r9);
-	label$d05ef5b_7_17:
+	label$d05ef5b_9_17:
 	r11 = r0->bytes;
 	r12 = r0->bytes;
 	r8 = 3;
@@ -280,36 +297,36 @@ hl__types__ArrayBase hl_types_ArrayBytes_Float_slice(hl__types__ArrayBytes_Float
 	vbyte *r9, *r10, *r11, *r12;
 	int r4, r5, r6, r7, r13, r14;
 	r5 = 0;
-	if( r1 >= r5 ) goto label$d05ef5b_8_9;
+	if( r1 >= r5 ) goto label$d05ef5b_10_9;
 	r4 = r0->length;
 	r4 = r4 + r1;
 	r1 = r4;
 	r5 = 0;
-	if( r4 >= r5 ) goto label$d05ef5b_8_9;
+	if( r4 >= r5 ) goto label$d05ef5b_10_9;
 	r4 = 0;
 	r1 = r4;
-	label$d05ef5b_8_9:
-	if( r2 ) goto label$d05ef5b_8_12;
+	label$d05ef5b_10_9:
+	if( r2 ) goto label$d05ef5b_10_12;
 	r5 = r0->length;
-	goto label$d05ef5b_8_20;
-	label$d05ef5b_8_12:
+	goto label$d05ef5b_10_20;
+	label$d05ef5b_10_12:
 	r5 = r2 ? r2->v.i : 0;
 	r6 = 0;
-	if( r5 >= r6 ) goto label$d05ef5b_8_17;
+	if( r5 >= r6 ) goto label$d05ef5b_10_17;
 	r6 = r0->length;
 	r5 = r5 + r6;
-	label$d05ef5b_8_17:
+	label$d05ef5b_10_17:
 	r6 = r0->length;
-	if( r6 >= r5 ) goto label$d05ef5b_8_20;
+	if( r6 >= r5 ) goto label$d05ef5b_10_20;
 	r5 = r0->length;
-	label$d05ef5b_8_20:
+	label$d05ef5b_10_20:
 	r5 = r5 - r1;
 	r7 = 0;
-	if( r5 >= r7 ) goto label$d05ef5b_8_26;
+	if( r5 >= r7 ) goto label$d05ef5b_10_26;
 	r8 = (hl__types__ArrayBytes_Float)hl_alloc_obj(&t$hl_types_ArrayBytes_Float);
 	hl_types_ArrayBytes_Float_new(r8);
 	return ((hl__types__ArrayBase)r8);
-	label$d05ef5b_8_26:
+	label$d05ef5b_10_26:
 	r8 = (hl__types__ArrayBytes_Float)hl_alloc_obj(&t$hl_types_ArrayBytes_Float);
 	hl_types_ArrayBytes_Float_new(r8);
 	r8->size = r5;
@@ -333,24 +350,24 @@ void hl_types_ArrayBytes_Float_sort(hl__types__ArrayBytes_Float r0,vclosure* r1)
 	vbyte *r5;
 	r3 = &t$_f64;
 	r4 = &t$_i32;
-	if( hl_same_type(r3,r4) != 0 ) {} else goto label$d05ef5b_9_12;
+	if( hl_same_type(r3,r4) != 0 ) {} else goto label$d05ef5b_11_12;
 	r5 = r0->bytes;
 	r6 = 0;
 	r7 = r0->length;
-	if( r1 ) goto label$d05ef5b_9_9;
+	if( r1 ) goto label$d05ef5b_11_9;
 	r8 = NULL;
-	goto label$d05ef5b_9_10;
-	label$d05ef5b_9_9:
+	goto label$d05ef5b_11_10;
+	label$d05ef5b_11_9:
 	r8 = hl_alloc_closure_ptr(&t$fun_026a163,hl_types_ArrayBytes_Float_sort__$1,r1);
-	label$d05ef5b_9_10:
+	label$d05ef5b_11_10:
 	hl_bsort_i32(r5,r6,r7,r8);
-	goto label$d05ef5b_9_16;
-	label$d05ef5b_9_12:
+	goto label$d05ef5b_11_16;
+	label$d05ef5b_11_12:
 	r5 = r0->bytes;
 	r6 = 0;
 	r7 = r0->length;
 	hl_bsort_f64(r5,r6,r7,r1);
-	label$d05ef5b_9_16:
+	label$d05ef5b_11_16:
 	return;
 }
 
@@ -359,46 +376,46 @@ hl__types__ArrayBase hl_types_ArrayBytes_Float_splice(hl__types__ArrayBytes_Floa
 	vbyte *r7, *r8, *r9, *r10, *r13, *r14, *r15, *r17;
 	int r4, r5, r11, r12, r16, r18, r19;
 	r5 = 0;
-	if( r2 >= r5 ) goto label$d05ef5b_10_5;
+	if( r2 >= r5 ) goto label$d05ef5b_12_5;
 	r6 = (hl__types__ArrayBytes_Float)hl_alloc_obj(&t$hl_types_ArrayBytes_Float);
 	hl_types_ArrayBytes_Float_new(r6);
 	return ((hl__types__ArrayBase)r6);
-	label$d05ef5b_10_5:
+	label$d05ef5b_12_5:
 	r5 = 0;
-	if( r1 >= r5 ) goto label$d05ef5b_10_14;
+	if( r1 >= r5 ) goto label$d05ef5b_12_14;
 	r4 = r0->length;
 	r4 = r4 + r1;
 	r1 = r4;
 	r5 = 0;
-	if( r4 >= r5 ) goto label$d05ef5b_10_14;
+	if( r4 >= r5 ) goto label$d05ef5b_12_14;
 	r4 = 0;
 	r1 = r4;
-	label$d05ef5b_10_14:
+	label$d05ef5b_12_14:
 	r5 = r0->length;
-	if( r5 >= r1 ) goto label$d05ef5b_10_21;
+	if( r5 >= r1 ) goto label$d05ef5b_12_21;
 	r4 = 0;
 	r1 = r4;
 	r4 = 0;
 	r2 = r4;
-	goto label$d05ef5b_10_31;
-	label$d05ef5b_10_21:
+	goto label$d05ef5b_12_31;
+	label$d05ef5b_12_21:
 	r4 = r1 + r2;
 	r5 = r0->length;
-	if( r5 >= r4 ) goto label$d05ef5b_10_31;
+	if( r5 >= r4 ) goto label$d05ef5b_12_31;
 	r4 = r0->length;
 	r4 = r4 - r1;
 	r2 = r4;
 	r5 = 0;
-	if( r4 >= r5 ) goto label$d05ef5b_10_31;
+	if( r4 >= r5 ) goto label$d05ef5b_12_31;
 	r4 = 0;
 	r2 = r4;
-	label$d05ef5b_10_31:
+	label$d05ef5b_12_31:
 	r5 = 0;
-	if( r2 != r5 ) goto label$d05ef5b_10_36;
+	if( r2 != r5 ) goto label$d05ef5b_12_36;
 	r6 = (hl__types__ArrayBytes_Float)hl_alloc_obj(&t$hl_types_ArrayBytes_Float);
 	hl_types_ArrayBytes_Float_new(r6);
 	return ((hl__types__ArrayBase)r6);
-	label$d05ef5b_10_36:
+	label$d05ef5b_12_36:
 	r6 = (hl__types__ArrayBytes_Float)hl_alloc_obj(&t$hl_types_ArrayBytes_Float);
 	hl_types_ArrayBytes_Float_new(r6);
 	r7 = r0->bytes;
@@ -446,16 +463,16 @@ String hl_types_ArrayBytes_Float_toString(hl__types__ArrayBytes_Float r0) {
 	StringBuf_addChar(r1,r3);
 	r3 = 0;
 	r4 = r0->length;
-	label$d05ef5b_11_6:
-	if( r3 >= r4 ) goto label$d05ef5b_11_23;
+	label$d05ef5b_13_6:
+	if( r3 >= r4 ) goto label$d05ef5b_13_23;
 	r5 = r3;
 	++r3;
 	r7 = 0;
-	if( r7 >= r5 ) goto label$d05ef5b_11_15;
+	if( r7 >= r5 ) goto label$d05ef5b_13_15;
 	if( r1 == NULL ) hl_null_access();
 	r6 = 44;
 	StringBuf_addChar(r1,r6);
-	label$d05ef5b_11_15:
+	label$d05ef5b_13_15:
 	r8 = r0->bytes;
 	if( r1 == NULL ) hl_null_access();
 	r7 = 3;
@@ -464,8 +481,8 @@ String hl_types_ArrayBytes_Float_toString(hl__types__ArrayBytes_Float r0) {
 	r10 = hl_alloc_dynamic(&t$_f64);
 	r10->v.d = r9;
 	StringBuf_add(r1,((vdynamic*)r10));
-	goto label$d05ef5b_11_6;
-	label$d05ef5b_11_23:
+	goto label$d05ef5b_13_6;
+	label$d05ef5b_13_23:
 	if( r1 == NULL ) hl_null_access();
 	r3 = 93;
 	StringBuf_addChar(r1,r3);
@@ -478,15 +495,15 @@ void hl_types_ArrayBytes_Float_unshift(hl__types__ArrayBytes_Float r0,double r1)
 	int r3, r4, r10, r11, r12;
 	r3 = r0->length;
 	r4 = r0->size;
-	if( r3 != r4 ) goto label$d05ef5b_12_6;
+	if( r3 != r4 ) goto label$d05ef5b_14_6;
 	r3 = r0->length;
 	hl_types_ArrayBytes_Float___expand(r0,r3);
-	goto label$d05ef5b_12_9;
-	label$d05ef5b_12_6:
+	goto label$d05ef5b_14_9;
+	label$d05ef5b_14_6:
 	r3 = r0->length;
 	++r3;
 	r0->length = r3;
-	label$d05ef5b_12_9:
+	label$d05ef5b_14_9:
 	r5 = r0->bytes;
 	r6 = r0->bytes;
 	r3 = 1;
@@ -513,33 +530,33 @@ void hl_types_ArrayBytes_Float_insert(hl__types__ArrayBytes_Float r0,int r1,doub
 	vbyte *r6, *r7, *r8, *r9, *r11, *r12;
 	int r4, r5, r10, r13, r14, r15;
 	r5 = 0;
-	if( r1 >= r5 ) goto label$d05ef5b_13_10;
+	if( r1 >= r5 ) goto label$d05ef5b_15_10;
 	r4 = r0->length;
 	r4 = r4 + r1;
 	r1 = r4;
 	r5 = 0;
-	if( r4 >= r5 ) goto label$d05ef5b_13_9;
+	if( r4 >= r5 ) goto label$d05ef5b_15_9;
 	r4 = 0;
 	r1 = r4;
-	label$d05ef5b_13_9:
-	goto label$d05ef5b_13_14;
-	label$d05ef5b_13_10:
+	label$d05ef5b_15_9:
+	goto label$d05ef5b_15_14;
+	label$d05ef5b_15_10:
 	r5 = r0->length;
-	if( r5 >= r1 ) goto label$d05ef5b_13_14;
+	if( r5 >= r1 ) goto label$d05ef5b_15_14;
 	r4 = r0->length;
 	r1 = r4;
-	label$d05ef5b_13_14:
+	label$d05ef5b_15_14:
 	r4 = r0->length;
 	r5 = r0->size;
-	if( r4 != r5 ) goto label$d05ef5b_13_20;
+	if( r4 != r5 ) goto label$d05ef5b_15_20;
 	r4 = r0->length;
 	hl_types_ArrayBytes_Float___expand(r0,r4);
-	goto label$d05ef5b_13_23;
-	label$d05ef5b_13_20:
+	goto label$d05ef5b_15_23;
+	label$d05ef5b_15_20:
 	r4 = r0->length;
 	++r4;
 	r0->length = r4;
-	label$d05ef5b_13_23:
+	label$d05ef5b_15_23:
 	r6 = r0->bytes;
 	r7 = r0->bytes;
 	r5 = 1;
@@ -572,12 +589,12 @@ bool hl_types_ArrayBytes_Float_contains(hl__types__ArrayBytes_Float r0,double r1
 	r4 = NULL;
 	r3 = hl_types_ArrayBytes_Float_indexOf(r0,r1,r4);
 	r5 = -1;
-	if( r3 != r5 ) goto label$d05ef5b_14_6;
+	if( r3 != r5 ) goto label$d05ef5b_16_6;
 	r2 = false;
-	goto label$d05ef5b_14_7;
-	label$d05ef5b_14_6:
+	goto label$d05ef5b_16_7;
+	label$d05ef5b_16_6:
 	r2 = true;
-	label$d05ef5b_14_7:
+	label$d05ef5b_16_7:
 	return r2;
 }
 
@@ -589,10 +606,10 @@ bool hl_types_ArrayBytes_Float_remove(hl__types__ArrayBytes_Float r0,double r1) 
 	r3 = NULL;
 	r2 = hl_types_ArrayBytes_Float_indexOf(r0,r1,r3);
 	r6 = 0;
-	if( r2 >= r6 ) goto label$d05ef5b_15_6;
+	if( r2 >= r6 ) goto label$d05ef5b_17_6;
 	r7 = false;
 	return r7;
-	label$d05ef5b_15_6:
+	label$d05ef5b_17_6:
 	r5 = r0->length;
 	--r5;
 	r0->length = r5;
@@ -620,37 +637,37 @@ int hl_types_ArrayBytes_Float_indexOf(hl__types__ArrayBytes_Float r0,double r1,v
 	double r8;
 	vbyte *r7;
 	int r3, r4, r5, r6, r9;
-	if( r2 ) goto label$d05ef5b_16_3;
+	if( r2 ) goto label$d05ef5b_18_3;
 	r3 = 0;
-	goto label$d05ef5b_16_4;
-	label$d05ef5b_16_3:
+	goto label$d05ef5b_18_4;
+	label$d05ef5b_18_3:
 	r3 = r2 ? r2->v.i : 0;
-	label$d05ef5b_16_4:
+	label$d05ef5b_18_4:
 	r5 = 0;
-	if( r3 >= r5 ) goto label$d05ef5b_16_13;
+	if( r3 >= r5 ) goto label$d05ef5b_18_13;
 	r5 = r0->length;
 	r4 = r3 + r5;
 	r3 = r4;
 	r5 = 0;
-	if( r4 >= r5 ) goto label$d05ef5b_16_13;
+	if( r4 >= r5 ) goto label$d05ef5b_18_13;
 	r4 = 0;
 	r3 = r4;
-	label$d05ef5b_16_13:
+	label$d05ef5b_18_13:
 	r4 = r3;
 	r5 = r0->length;
-	label$d05ef5b_16_15:
-	if( r4 >= r5 ) goto label$d05ef5b_16_26;
+	label$d05ef5b_18_15:
+	if( r4 >= r5 ) goto label$d05ef5b_18_26;
 	r6 = r4;
 	++r4;
 	r7 = r0->bytes;
 	r9 = 3;
 	r9 = r6 << r9;
 	r8 = *(double*)(r7 + r9);
-	if( r8 != r1 ) goto label$d05ef5b_16_25;
+	if( r8 != r1 ) goto label$d05ef5b_18_25;
 	return r6;
-	label$d05ef5b_16_25:
-	goto label$d05ef5b_16_15;
-	label$d05ef5b_16_26:
+	label$d05ef5b_18_25:
+	goto label$d05ef5b_18_15;
+	label$d05ef5b_18_26:
 	r4 = -1;
 	return r4;
 }
@@ -660,36 +677,36 @@ int hl_types_ArrayBytes_Float_lastIndexOf(hl__types__ArrayBytes_Float r0,double 
 	vbyte *r7;
 	int r3, r4, r5, r6;
 	r3 = r0->length;
-	if( !r2 ) goto label$d05ef5b_17_4;
+	if( !r2 ) goto label$d05ef5b_19_4;
 	r4 = r2 ? r2->v.i : 0;
-	goto label$d05ef5b_17_6;
-	label$d05ef5b_17_4:
+	goto label$d05ef5b_19_6;
+	label$d05ef5b_19_4:
 	r5 = 1;
 	r4 = r3 - r5;
-	label$d05ef5b_17_6:
-	if( r4 < r3 ) goto label$d05ef5b_17_11;
+	label$d05ef5b_19_6:
+	if( r4 < r3 ) goto label$d05ef5b_19_11;
 	r6 = 1;
 	r5 = r3 - r6;
 	r4 = r5;
-	goto label$d05ef5b_17_15;
-	label$d05ef5b_17_11:
+	goto label$d05ef5b_19_15;
+	label$d05ef5b_19_11:
 	r6 = 0;
-	if( r4 >= r6 ) goto label$d05ef5b_17_15;
+	if( r4 >= r6 ) goto label$d05ef5b_19_15;
 	r5 = r4 + r3;
 	r4 = r5;
-	label$d05ef5b_17_15:
+	label$d05ef5b_19_15:
 	r6 = 0;
-	if( r4 < r6 ) goto label$d05ef5b_17_26;
+	if( r4 < r6 ) goto label$d05ef5b_19_26;
 	r7 = r0->bytes;
 	r6 = 3;
 	r6 = r4 << r6;
 	r8 = *(double*)(r7 + r6);
-	if( r8 != r1 ) goto label$d05ef5b_17_24;
+	if( r8 != r1 ) goto label$d05ef5b_19_24;
 	return r4;
-	label$d05ef5b_17_24:
+	label$d05ef5b_19_24:
 	--r4;
-	goto label$d05ef5b_17_15;
-	label$d05ef5b_17_26:
+	goto label$d05ef5b_19_15;
+	label$d05ef5b_19_26:
 	r5 = -1;
 	return r5;
 }
@@ -749,16 +766,16 @@ hl__types__ArrayDyn hl_types_ArrayBytes_Float_map(hl__types__ArrayBytes_Float r0
 	hl_types_ArrayObj_new(r2);
 	r4 = r0->length;
 	r5 = 0;
-	if( r5 >= r4 ) goto label$d05ef5b_21_9;
+	if( r5 >= r4 ) goto label$d05ef5b_23_9;
 	r4 = r0->length;
 	r5 = 1;
 	r4 = r4 - r5;
 	hl_types_ArrayObj___expand(r2,r4);
-	label$d05ef5b_21_9:
+	label$d05ef5b_23_9:
 	r4 = 0;
 	r5 = r0->length;
-	label$d05ef5b_21_11:
-	if( r4 >= r5 ) goto label$d05ef5b_21_25;
+	label$d05ef5b_23_11:
+	if( r4 >= r5 ) goto label$d05ef5b_23_25;
 	r6 = r4;
 	++r4;
 	if( r2 == NULL ) hl_null_access();
@@ -770,8 +787,8 @@ hl__types__ArrayDyn hl_types_ArrayBytes_Float_map(hl__types__ArrayBytes_Float r0
 	r10 = *(double*)(r8 + r11);
 	r9 = r1->hasValue ? ((vdynamic* (*)(vdynamic*,double))r1->fun)((vdynamic*)r1->value,r10) : ((vdynamic* (*)(double))r1->fun)(r10);
 	((vdynamic**)(r7 + 1))[r6] = r9;
-	goto label$d05ef5b_21_11;
-	label$d05ef5b_21_25:
+	goto label$d05ef5b_23_11;
+	label$d05ef5b_23_25:
 	r13 = true;
 	r14 = &r13;
 	r12 = hl_types_ArrayDyn_alloc(((hl__types__ArrayBase)r2),r14);
@@ -788,8 +805,8 @@ hl__types__ArrayBytes_Float hl_types_ArrayBytes_Float_filter(hl__types__ArrayByt
 	hl_types_ArrayBytes_Float_new(r2);
 	r4 = 0;
 	r5 = r0->length;
-	label$d05ef5b_22_4:
-	if( r4 >= r5 ) goto label$d05ef5b_22_18;
+	label$d05ef5b_24_4:
+	if( r4 >= r5 ) goto label$d05ef5b_24_18;
 	r6 = r4;
 	++r4;
 	r8 = r0->bytes;
@@ -798,12 +815,12 @@ hl__types__ArrayBytes_Float hl_types_ArrayBytes_Float_filter(hl__types__ArrayByt
 	r9 = *(double*)(r8 + r10);
 	if( r1 == NULL ) hl_null_access();
 	r11 = r1->hasValue ? ((bool (*)(vdynamic*,double))r1->fun)((vdynamic*)r1->value,r9) : ((bool (*)(double))r1->fun)(r9);
-	if( !r11 ) goto label$d05ef5b_22_17;
+	if( !r11 ) goto label$d05ef5b_24_17;
 	if( r2 == NULL ) hl_null_access();
 	r7 = hl_types_ArrayBytes_Float_push(r2,r9);
-	label$d05ef5b_22_17:
-	goto label$d05ef5b_22_4;
-	label$d05ef5b_22_18:
+	label$d05ef5b_24_17:
+	goto label$d05ef5b_24_4;
+	label$d05ef5b_24_18:
 	return r2;
 }
 
@@ -811,14 +828,14 @@ void hl_types_ArrayBytes_Float_resize(hl__types__ArrayBytes_Float r0,int r1) {
 	vbyte *r5, *r6, *r7;
 	int r3, r4, r8, r9;
 	r3 = r0->length;
-	if( r3 >= r1 ) goto label$d05ef5b_23_6;
+	if( r3 >= r1 ) goto label$d05ef5b_25_6;
 	r4 = 1;
 	r3 = r1 - r4;
 	hl_types_ArrayBytes_Float___expand(r0,r3);
-	goto label$d05ef5b_23_20;
-	label$d05ef5b_23_6:
+	goto label$d05ef5b_25_20;
+	label$d05ef5b_25_6:
 	r3 = r0->length;
-	if( r1 >= r3 ) goto label$d05ef5b_23_20;
+	if( r1 >= r3 ) goto label$d05ef5b_25_20;
 	r5 = r0->bytes;
 	r6 = r0->bytes;
 	r4 = 3;
@@ -831,7 +848,7 @@ void hl_types_ArrayBytes_Float_resize(hl__types__ArrayBytes_Float r0,int r1) {
 	r9 = 0;
 	hl_bytes_fill(r5,r3,r8,r9);
 	r0->length = r1;
-	label$d05ef5b_23_20:
+	label$d05ef5b_25_20:
 	return;
 }
 
@@ -841,13 +858,13 @@ vdynamic* hl_types_ArrayBytes_Float_getDyn(hl__types__ArrayBytes_Float r0,int r1
 	vbyte *r3;
 	int r2;
 	r2 = r0->length;
-	if( r1 < r2 ) goto label$d05ef5b_24_6;
+	if( r1 < r2 ) goto label$d05ef5b_26_6;
 	r3 = r0->bytes;
 	r4 = 0.;
 	r5 = hl_alloc_dynamic(&t$_f64);
 	r5->v.d = r4;
 	return r5;
-	label$d05ef5b_24_6:
+	label$d05ef5b_26_6:
 	r3 = r0->bytes;
 	r2 = 3;
 	r2 = r1 << r2;
@@ -862,9 +879,9 @@ void hl_types_ArrayBytes_Float_setDyn(hl__types__ArrayBytes_Float r0,int r1,vdyn
 	vbyte *r5;
 	int r4;
 	r4 = r0->length;
-	if( r1 < r4 ) goto label$d05ef5b_25_3;
+	if( r1 < r4 ) goto label$d05ef5b_27_3;
 	hl_types_ArrayBytes_Float___expand(r0,r1);
-	label$d05ef5b_25_3:
+	label$d05ef5b_27_3:
 	r5 = r0->bytes;
 	r6 = (double)hl_dyn_castd(&r2,&t$_dyn);
 	r4 = 3;
@@ -925,12 +942,12 @@ bool hl_types_ArrayBytes_Float_removeDyn(hl__types__ArrayBytes_Float r0,vdynamic
 
 void hl_types_ArrayBytes_Float_sortDyn(hl__types__ArrayBytes_Float r0,vclosure* r1) {
 	vclosure *r3;
-	if( r1 ) goto label$d05ef5b_33_3;
+	if( r1 ) goto label$d05ef5b_35_3;
 	r3 = NULL;
-	goto label$d05ef5b_33_4;
-	label$d05ef5b_33_3:
+	goto label$d05ef5b_35_4;
+	label$d05ef5b_35_3:
 	r3 = hl_alloc_closure_ptr(&t$fun_cae6940,hl_types_ArrayBytes_Float_sortDyn__$1,r1);
-	label$d05ef5b_33_4:
+	label$d05ef5b_35_4:
 	hl_types_ArrayBytes_Float_sort(r0,r3);
 	return;
 }
@@ -942,7 +959,7 @@ void hl_types_ArrayBytes_Float___expand(hl__types__ArrayBytes_Float r0,int r1) {
 	vbyte *r8, *r12, *r13, *r14, *r15;
 	int r3, r4, r10, r11, r16, r17;
 	r4 = 0;
-	if( r1 >= r4 ) goto label$d05ef5b_34_10;
+	if( r1 >= r4 ) goto label$d05ef5b_36_10;
 	r6 = (String)s$Invalid_array_index_;
 	r3 = r1;
 	r7 = &r3;
@@ -951,19 +968,19 @@ void hl_types_ArrayBytes_Float___expand(hl__types__ArrayBytes_Float r0,int r1) {
 	r6 = String___add__(r6,r9);
 	r5 = haxe_Exception_thrown(((vdynamic*)r6));
 	hl_throw((vdynamic*)r5);
-	label$d05ef5b_34_10:
+	label$d05ef5b_36_10:
 	r4 = 1;
 	r3 = r1 + r4;
 	r10 = r0->size;
-	if( r10 >= r3 ) goto label$d05ef5b_34_41;
+	if( r10 >= r3 ) goto label$d05ef5b_36_41;
 	r4 = r0->size;
 	r10 = 3;
 	r4 = r4 * r10;
 	r10 = 1;
 	r4 = r4 >> r10;
-	if( r4 >= r3 ) goto label$d05ef5b_34_21;
+	if( r4 >= r3 ) goto label$d05ef5b_36_21;
 	r4 = r3;
-	label$d05ef5b_34_21:
+	label$d05ef5b_36_21:
 	r8 = r0->bytes;
 	r11 = 3;
 	r10 = r4 << r11;
@@ -984,27 +1001,8 @@ void hl_types_ArrayBytes_Float___expand(hl__types__ArrayBytes_Float r0,int r1) {
 	hl_bytes_fill(r12,r10,r16,r17);
 	r0->bytes = r12;
 	r0->size = r4;
-	label$d05ef5b_34_41:
+	label$d05ef5b_36_41:
 	r0->length = r3;
 	return;
-}
-
-int hl_types_ArrayBytes_Float_sort__$1(vclosure* r0,int r1,int r2) {
-	double r3, r4;
-	r3 = (double)r1;
-	r4 = (double)r2;
-	r1 = r0->hasValue ? ((int (*)(vdynamic*,double,double))r0->fun)((vdynamic*)r0->value,r3,r4) : ((int (*)(double,double))r0->fun)(r3,r4);
-	return r1;
-}
-
-int hl_types_ArrayBytes_Float_sortDyn__$1(vclosure* r0,double r1,double r2) {
-	vdynamic *r3, *r4;
-	int r5;
-	r3 = hl_alloc_dynamic(&t$_f64);
-	r3->v.d = r1;
-	r4 = hl_alloc_dynamic(&t$_f64);
-	r4->v.d = r2;
-	r5 = r0->hasValue ? ((int (*)(vdynamic*,vdynamic*,vdynamic*))r0->fun)((vdynamic*)r0->value,r3,r4) : ((int (*)(vdynamic*,vdynamic*))r0->fun)(r3,r4);
-	return r5;
 }
 

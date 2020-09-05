@@ -12,7 +12,7 @@ typedef struct _samplygame__Player *samplygame__Player;
 #include <urho3d/Node.h>
 #include <urho3d/Scene.h>
 #include <hl/natives.h>
-#include <actions/ActionID.h>
+#include <urho3d/actions/ActionID.h>
 
 
 struct _samplygame__$Player {
@@ -36,7 +36,7 @@ struct _samplygame__Player {
 	hl_urho3d_math_vector3* CollisionShapeSize;
 	String name;
 	urho3d__Node rotor;
-	actions__ActionID actionID;
+	urho3d__actions__ActionID actionID;
 	int offsetY;
 };
 #endif

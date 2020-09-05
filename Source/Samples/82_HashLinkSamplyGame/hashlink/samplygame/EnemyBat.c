@@ -12,10 +12,10 @@ extern String s$EnemyBat;
 #include <haxe/ds/StringMap.h>
 #include <hl/types/ArrayDyn.h>
 #include <hl/types/ArrayObj.h>
-#include <actions/ActionID.h>
-#include <actions/ActionDef.h>
-#include <actions/MoveTo.h>
-#include <actions/FiniteTimeActionState.h>
+#include <urho3d/actions/ActionID.h>
+#include <urho3d/actions/ActionDef.h>
+#include <urho3d/actions/MoveTo.h>
+#include <urho3d/actions/FiniteTimeActionState.h>
 urho3d__Node urho3d_Component_get_node(urho3d__Component);
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern String s$StaticModel;
@@ -45,15 +45,15 @@ hl__types__ArrayObj hl_types_ArrayObj_alloc(varray*);
 hl__types__ArrayDyn hl_types_ArrayDyn_alloc(hl__types__ArrayBase,bool*);
 void haxe_ds_StringMap_set(haxe__ds__StringMap,String,vdynamic*);
 int hl_types_ArrayDyn_push(hl__types__ArrayDyn,vdynamic*);
-extern hl_type t$actions_MoveTo;
-void actions_MoveTo_new(actions__MoveTo,double,hl_urho3d_math_vector3*);
-void samplygame_EnemyBat_StartMoveRandomLoop(samplygame__EnemyBat,actions__ActionID);
-extern hl_type t$fun_e5da5e1;
-#include <actions/FiniteTimeAction.h>
-actions__ActionID actions_ActionManager_AddAction(actions__ActionDef,actions__FiniteTimeAction,urho3d__Node,actions__FiniteTimeActionState,vclosure*);
+extern hl_type t$urho3d_actions_MoveTo;
+void urho3d_actions_MoveTo_new(urho3d__actions__MoveTo,double,hl_urho3d_math_vector3*);
+void samplygame_EnemyBat_StartMoveRandomLoop(samplygame__EnemyBat,urho3d__actions__ActionID);
+extern hl_type t$fun_93e1f1f;
+#include <urho3d/actions/FiniteTimeAction.h>
+urho3d__actions__ActionID urho3d_actions_ActionManager_AddAction(urho3d__actions__ActionDef,urho3d__actions__FiniteTimeAction,urho3d__Node,urho3d__actions__FiniteTimeActionState,vclosure*);
 void samplygame_Enemy_MoveRandomly(samplygame__Enemy,double,double,double,double,double);
 void samplygame_Enemy_StartShooting(samplygame__Enemy);
-void actions_ActionID_DeleteTargets(actions__ActionID);
+void urho3d_actions_ActionID_DeleteTargets(urho3d__actions__ActionID);
 
 void samplygame_EnemyBat_new(samplygame__EnemyBat r0) {
 	String r3;
@@ -72,30 +72,30 @@ void samplygame_EnemyBat_Init(samplygame__EnemyBat r0) {
 	haxe__ds__ObjectMap r31;
 	hl__types__ArrayObj r37;
 	haxe__ds__StringMap r33;
+	urho3d__actions__ActionDef r44;
 	hl_type *r36;
 	hl_urho3d_scene_component *r5;
-	actions__FiniteTimeActionState r46;
+	urho3d__actions__FiniteTimeActionState r46;
 	bool r38;
 	samplygame__BigWhiteCube r28;
 	urho3d__StaticModel r12;
 	hl_urho3d_math_vector3 *r27;
 	urho3d__Node r2, r4, r26;
+	urho3d__actions__MoveTo r45;
 	urho3d__Component r30;
 	hl_urho3d_graphics_material *r15, *r17;
 	urho3d___Context__$Context_Impl_ r7;
-	actions__ActionDef r44;
-	actions__ActionID r43;
 	float r23, r24, r25;
 	urho3d_context *r6;
 	hl_urho3d_scene_node *r3;
 	vclosure *r47;
-	actions__MoveTo r45;
 	hl__types__ArrayDyn r34;
 	hl_urho3d_scene_component_ptr *r32;
 	double r18, r22, r40;
 	hl_urho3d_graphics_staticmodel *r11;
 	hl_urho3d_math_tvector3 *r21;
 	vdynamic *r19, *r20, *r29;
+	urho3d__actions__ActionID r43;
 	varray *r35;
 	hl_urho3d_graphics_model *r13, *r14;
 	int r9, r10, r41, r42;
@@ -164,15 +164,15 @@ void samplygame_EnemyBat_Init(samplygame__EnemyBat r0) {
 	Urho3D__scene_node_set_scale(r6,r3,r21);
 	label$64e7113_2_56:
 	r4 = urho3d_Component_get_node(((urho3d__Component)r0));
-	r18 = -2.;
+	r18 = -1.5;
 	r19 = hl_alloc_dynamic(&t$_f64);
 	r19->v.d = r18;
-	r18 = 2.;
+	r18 = 1.5;
 	r20 = hl_alloc_dynamic(&t$_f64);
 	r20->v.d = r18;
 	r18 = urho3d_LogicComponent_Random(((urho3d__LogicComponent)r0),r19,r20);
 	r23 = (float)r18;
-	r18 = 5.;
+	r18 = 7.;
 	r24 = (float)r18;
 	r18 = 0.;
 	r25 = (float)r18;
@@ -307,17 +307,17 @@ void samplygame_EnemyBat_Init(samplygame__EnemyBat r0) {
 	r25 = (float)r10;
 	r27 = Urho3D__math_vector3_create(r23,r24,r25);
 	r44 = NULL;
-	r45 = (actions__MoveTo)hl_alloc_obj(&t$actions_MoveTo);
+	r45 = (urho3d__actions__MoveTo)hl_alloc_obj(&t$urho3d_actions_MoveTo);
 	r22 = 1.;
-	actions_MoveTo_new(r45,r22,r27);
+	urho3d_actions_MoveTo_new(r45,r22,r27);
 	r4 = urho3d_Component_get_node(((urho3d__Component)r0));
 	r46 = NULL;
-	r47 = hl_alloc_closure_ptr(&t$fun_e5da5e1,samplygame_EnemyBat_StartMoveRandomLoop,r0);
-	r43 = actions_ActionManager_AddAction(r44,((actions__FiniteTimeAction)r45),r4,r46,r47);
+	r47 = hl_alloc_closure_ptr(&t$fun_93e1f1f,samplygame_EnemyBat_StartMoveRandomLoop,r0);
+	r43 = urho3d_actions_ActionManager_AddAction(r44,((urho3d__actions__FiniteTimeAction)r45),r4,r46,r47);
 	return;
 }
 
-void samplygame_EnemyBat_StartMoveRandomLoop(samplygame__EnemyBat r0,actions__ActionID r1) {
+void samplygame_EnemyBat_StartMoveRandomLoop(samplygame__EnemyBat r0,urho3d__actions__ActionID r1) {
 	double r3, r4, r5, r6, r7;
 	r3 = -2.;
 	r4 = 2.;
@@ -329,9 +329,9 @@ void samplygame_EnemyBat_StartMoveRandomLoop(samplygame__EnemyBat r0,actions__Ac
 	return;
 }
 
-void samplygame_EnemyBat_RemoveTargets(samplygame__EnemyBat r0,actions__ActionID r1) {
+void samplygame_EnemyBat_RemoveTargets(samplygame__EnemyBat r0,urho3d__actions__ActionID r1) {
 	if( r1 == NULL ) hl_null_access();
-	actions_ActionID_DeleteTargets(r1);
+	urho3d_actions_ActionID_DeleteTargets(r1);
 	return;
 }
 

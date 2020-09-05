@@ -42,6 +42,10 @@ void fun$init(void);
 #  include <urho3d/AnimationController.c>
 #  include <urho3d/LogicComponent.c>
 #  include <_std/Rotator.c>
+#  include <urho3d/actions/FiniteTimeAction.c>
+#  include <urho3d/actions/FiniteTimeActionState.c>
+#  include <urho3d/actions/ActionDef.c>
+#  include <urho3d/actions/ActionID.c>
 #  include <haxe/Log.c>
 #  include <hl/types/ArrayDyn.c>
 #  include <urho3d/_Vector3/Vector3_Impl_.c>
@@ -78,6 +82,8 @@ void fun$init(void);
 #  include <urho3d/Graphics.c>
 #  include <urho3d/Math.c>
 #  include <urho3d/_Vector2/Vector2_Impl_.c>
+#  include <urho3d/actions/ActionGroup.c>
+#  include <urho3d/actions/ActionManager.c>
 #  include <_std/Reflect.c>
 #  include <hl/_Bytes/Bytes_Impl_.c>
 #  include <_std/Type.c>

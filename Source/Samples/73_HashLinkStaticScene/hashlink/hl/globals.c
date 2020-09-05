@@ -18,6 +18,10 @@
 #include <_std/Main.h>
 #include <_std/Std.h>
 #include <urho3d/_Context/Context_Impl_.h>
+#include <urho3d/actions/FiniteTimeAction.h>
+#include <urho3d/actions/FiniteTimeActionState.h>
+#include <urho3d/actions/ActionDef.h>
+#include <urho3d/actions/ActionID.h>
 #include <haxe/Log.h>
 #include <urho3d/Component.h>
 #include <urho3d/Zone.h>
@@ -69,6 +73,8 @@
 #include <urho3d/Graphics.h>
 #include <urho3d/Math.h>
 #include <urho3d/_Vector2/Vector2_Impl_.h>
+#include <urho3d/actions/ActionGroup.h>
+#include <urho3d/actions/ActionManager.h>
 #include <_std/Reflect.h>
 #include <hl/CoreType.h>
 #include <hl/CoreEnum.h>
@@ -233,6 +239,10 @@ String s$ = 0;
 String s$_hl = 0;
 String s$_rpp = 0;
 String s$_bin = 0;
+urho3d__actions__$FiniteTimeAction g$_urho3d_actions_FiniteTimeAction = 0;
+urho3d__actions__$FiniteTimeActionState g$05530c5 = 0;
+urho3d__actions__$ActionDef g$_urho3d_actions_ActionDef = 0;
+urho3d__actions__$ActionID g$_urho3d_actions_ActionID = 0;
 haxe__$Log g$_haxe_Log = 0;
 String s$Setup = 0;
 String s$src_haxe_StaticSceneSample_hx = 0;
@@ -333,6 +343,8 @@ String s$TVector3_ = 0;
 String s$Vector2_ = 0;
 urho3d___Vector2__$Vector2_Impl_ g$_urho3d__Vector2_Vector2_Impl_ = 0;
 String s$Vector3_ = 0;
+urho3d__actions__$ActionGroup g$_urho3d_actions_ActionGroup = 0;
+urho3d__actions__$ActionManager g$_urho3d_actions_ActionManager = 0;
 $Reflect g$_Reflect = 0;
 hl__CoreType g$_Float = 0;
 String s$Float = 0;
@@ -666,6 +678,10 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_Main);
 	hl_add_root((void**)&g$_Std);
 	hl_add_root((void**)&g$_urho3d__Context_Context_Impl_);
+	hl_add_root((void**)&g$_urho3d_actions_FiniteTimeAction);
+	hl_add_root((void**)&g$05530c5);
+	hl_add_root((void**)&g$_urho3d_actions_ActionDef);
+	hl_add_root((void**)&g$_urho3d_actions_ActionID);
 	hl_add_root((void**)&g$_haxe_Log);
 	hl_add_root((void**)&g$_urho3d_Component);
 	hl_add_root((void**)&g$_urho3d_Zone);
@@ -718,6 +734,8 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_urho3d_Graphics);
 	hl_add_root((void**)&g$_urho3d_Math);
 	hl_add_root((void**)&g$_urho3d__Vector2_Vector2_Impl_);
+	hl_add_root((void**)&g$_urho3d_actions_ActionGroup);
+	hl_add_root((void**)&g$_urho3d_actions_ActionManager);
 	hl_add_root((void**)&g$_Reflect);
 	hl_add_root((void**)&g$_Float);
 	hl_add_root((void**)&g$_Int);

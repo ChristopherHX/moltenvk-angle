@@ -3,21 +3,21 @@
 #include <hlc.h>
 #include <samplygame/Joysticks.h>
 void samplygame_Weapon_new(samplygame__Weapon,vdynamic*);
-#include <actions/ActionGroup.h>
+#include <urho3d/actions/ActionGroup.h>
 #include <urho3d/Math.h>
 #include <hl/natives.h>
-#include <actions/ActionID.h>
+#include <urho3d/actions/ActionID.h>
 #include <hl/types/ArrayObj.h>
-extern hl_type t$actions_ActionGroup;
-void actions_ActionGroup_new(actions__ActionGroup);
+extern hl_type t$urho3d_actions_ActionGroup;
+void urho3d_actions_ActionGroup_new(urho3d__actions__ActionGroup);
 extern urho3d__$Math g$_urho3d_Math;
-void samplygame_Joysticks_Fire(samplygame__Joysticks,hl_urho3d_math_vector3*,bool,actions__ActionGroup);
-void samplygame_Joysticks_bulletNodeRemove(samplygame__Joysticks,actions__ActionID);
-extern hl_type t$fun_cd54adc;
-actions__ActionID actions_ActionManager_AddActions(hl__types__ArrayObj,actions__ActionGroup,vclosure*);
+void samplygame_Joysticks_Fire(samplygame__Joysticks,hl_urho3d_math_vector3*,bool,urho3d__actions__ActionGroup);
+void samplygame_Joysticks_bulletNodeRemove(samplygame__Joysticks,urho3d__actions__ActionID);
+extern hl_type t$fun_1eda1f8;
+urho3d__actions__ActionID urho3d_actions_ActionManager_AddActions(hl__types__ArrayObj,urho3d__actions__ActionGroup,vclosure*);
 #include <urho3d/_Context/Context_Impl_.h>
 #include <urho3d/StaticModel.h>
-#include <actions/MoveBy.h>
+#include <urho3d/actions/MoveBy.h>
 urho3d__Node samplygame_Weapon_CreateRigidBullet(samplygame__Weapon,bool,hl_urho3d_math_vector3*);
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern String s$StaticModel;
@@ -27,11 +27,11 @@ extern String s$Models_SMWeapon_mdl;
 hl_urho3d_graphics_model* urho3d_StaticModel_set_model(urho3d__StaticModel,hl_urho3d_graphics_model*);
 extern String s$Materials_SMWeapon_xml;
 hl_urho3d_graphics_material* urho3d_StaticModel_set_material(urho3d__StaticModel,hl_urho3d_graphics_material*);
-extern hl_type t$actions_MoveBy;
-void actions_MoveBy_new(actions__MoveBy,double,hl_urho3d_math_vector3*);
-#include <actions/FiniteTimeAction.h>
-void actions_ActionGroup_Push(actions__ActionGroup,actions__FiniteTimeAction,urho3d__Node);
-void actions_ActionID_DeleteTargets(actions__ActionID);
+extern hl_type t$urho3d_actions_MoveBy;
+void urho3d_actions_MoveBy_new(urho3d__actions__MoveBy,double,hl_urho3d_math_vector3*);
+#include <urho3d/actions/FiniteTimeAction.h>
+void urho3d_actions_ActionGroup_Push(urho3d__actions__ActionGroup,urho3d__actions__FiniteTimeAction,urho3d__Node);
+void urho3d_actions_ActionID_DeleteTargets(urho3d__actions__ActionID);
 
 void samplygame_Joysticks_new(samplygame__Joysticks r0) {
 	vdynamic *r2;
@@ -48,17 +48,17 @@ void samplygame_Joysticks_new(samplygame__Joysticks r0) {
 void samplygame_Joysticks_OnFire(samplygame__Joysticks r0,bool r1) {
 	hl__types__ArrayObj r20;
 	urho3d__$Math r13;
+	urho3d__actions__ActionGroup r5;
 	hl_urho3d_math_vector3 *r15;
-	actions__ActionID r19;
 	float r16, r17, r18;
 	vclosure *r21;
-	actions__ActionGroup r5;
 	double r4, r10, r11, r12, r14;
+	urho3d__actions__ActionID r19;
 	int r2, r6, r7, r8, r9;
 	r2 = 12;
 	r4 = 10.;
-	r5 = (actions__ActionGroup)hl_alloc_obj(&t$actions_ActionGroup);
-	actions_ActionGroup_new(r5);
+	r5 = (urho3d__actions__ActionGroup)hl_alloc_obj(&t$urho3d_actions_ActionGroup);
+	urho3d_actions_ActionGroup_new(r5);
 	r6 = 0;
 	r7 = r2;
 	label$1718f78_2_6:
@@ -89,18 +89,18 @@ void samplygame_Joysticks_OnFire(samplygame__Joysticks r0,bool r1) {
 	goto label$1718f78_2_6;
 	label$1718f78_2_32:
 	r20 = NULL;
-	r21 = hl_alloc_closure_ptr(&t$fun_cd54adc,samplygame_Joysticks_bulletNodeRemove,r0);
-	r19 = actions_ActionManager_AddActions(r20,r5,r21);
+	r21 = hl_alloc_closure_ptr(&t$fun_1eda1f8,samplygame_Joysticks_bulletNodeRemove,r0);
+	r19 = urho3d_actions_ActionManager_AddActions(r20,r5,r21);
 	return;
 }
 
-void samplygame_Joysticks_Fire(samplygame__Joysticks r0,hl_urho3d_math_vector3* r1,bool r2,actions__ActionGroup r3) {
+void samplygame_Joysticks_Fire(samplygame__Joysticks r0,hl_urho3d_math_vector3* r1,bool r2,urho3d__actions__ActionGroup r3) {
 	String r18;
 	hl_urho3d_scene_component *r17;
 	urho3d__StaticModel r21;
+	urho3d__actions__MoveBy r26;
 	hl_urho3d_math_vector3 *r5;
 	urho3d__Node r4;
-	actions__MoveBy r26;
 	hl_urho3d_math_tquaternion *r8;
 	hl_urho3d_graphics_material *r24, *r25;
 	urho3d___Context__$Context_Impl_ r15;
@@ -186,16 +186,16 @@ void samplygame_Joysticks_Fire(samplygame__Joysticks r0,hl_urho3d_math_vector3* 
 	r24 = Urho3D__graphics_material_create(r14,r18);
 	r25 = urho3d_StaticModel_set_material(r21,r24);
 	if( r3 == NULL ) hl_null_access();
-	r26 = (actions__MoveBy)hl_alloc_obj(&t$actions_MoveBy);
+	r26 = (urho3d__actions__MoveBy)hl_alloc_obj(&t$urho3d_actions_MoveBy);
 	r16 = 5.;
-	actions_MoveBy_new(r26,r16,r1);
-	actions_ActionGroup_Push(r3,((actions__FiniteTimeAction)r26),r4);
+	urho3d_actions_MoveBy_new(r26,r16,r1);
+	urho3d_actions_ActionGroup_Push(r3,((urho3d__actions__FiniteTimeAction)r26),r4);
 	return;
 }
 
-void samplygame_Joysticks_bulletNodeRemove(samplygame__Joysticks r0,actions__ActionID r1) {
+void samplygame_Joysticks_bulletNodeRemove(samplygame__Joysticks r0,urho3d__actions__ActionID r1) {
 	if( r1 == NULL ) hl_null_access();
-	actions_ActionID_DeleteTargets(r1);
+	urho3d_actions_ActionID_DeleteTargets(r1);
 	return;
 }
 

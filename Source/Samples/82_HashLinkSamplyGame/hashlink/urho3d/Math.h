@@ -7,6 +7,7 @@ typedef struct _urho3d__Math *urho3d__Math;
 #include <hl/BaseType.h>
 #include <_std/String.h>
 #include <haxe/_Int64/___Int64.h>
+#include <hl/natives.h>
 
 
 struct _urho3d__$Math {
@@ -17,6 +18,7 @@ struct _urho3d__$Math {
 	String __name__;
 	vdynamic* __constructor__;
 	double _PI_;
+	double _TWO_PI_;
 	double _HALF_PI_;
 	double _EPSILON_;
 	double _LARGE_EPSILON_;
@@ -72,8 +74,22 @@ struct _urho3d__$Math {
 	vclosure* Random;
 	vclosure* RandStandardNormal;
 	vclosure* RandomNormal;
-	vclosure* ExponentialOut;
+	vclosure* BackIn;
+	vclosure* BackOut;
 	vclosure* BackInOut;
+	vclosure* BounceOut;
+	vclosure* BounceIn;
+	vclosure* BounceInOut;
+	vclosure* SineOut;
+	vclosure* SineIn;
+	vclosure* SineInOut;
+	vclosure* ExponentialOut;
+	vclosure* ExponentialIn;
+	vclosure* ExponentialInOut;
+	vclosure* ElasticIn;
+	vclosure* ElasticOut;
+	vclosure* ElasticInOut;
+	vclosure* CardinalSplineAt;
 	vclosure* CubicBezier;
 	vclosure* QuadBezier;
 };

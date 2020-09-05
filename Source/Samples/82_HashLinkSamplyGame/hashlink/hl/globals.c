@@ -17,10 +17,10 @@
 #include <urho3d/Scene.h>
 #include <samplygame/StartMenu.h>
 #include <samplygame/Aircraft.h>
-#include <actions/FiniteTimeAction.h>
-#include <actions/FiniteTimeActionState.h>
-#include <actions/ActionDef.h>
-#include <actions/ActionID.h>
+#include <urho3d/actions/FiniteTimeAction.h>
+#include <urho3d/actions/FiniteTimeActionState.h>
+#include <urho3d/actions/ActionDef.h>
+#include <urho3d/actions/ActionID.h>
 #include <samplygame/Player.h>
 #include <samplygame/Enemy.h>
 #include <samplygame/SpawnEntry.h>
@@ -35,40 +35,6 @@
 #include <_std/Sys.h>
 #include <hl/natives.h>
 #include <hl/Enum.h>
-#include <actions/ActionEase.h>
-#include <actions/ActionEaseState.h>
-#include <urho3d/_Context/Context_Impl_.h>
-#include <actions/ActionGroup.h>
-#include <actions/ActionManager.h>
-#include <actions/BezierConfig.h>
-#include <actions/BezierBy.h>
-#include <actions/BezierByState.h>
-#include <actions/DelayTime.h>
-#include <actions/DelayTimeState.h>
-#include <actions/EaseBackInOut.h>
-#include <actions/EaseBackInOutState.h>
-#include <actions/EaseRateAction.h>
-#include <actions/EaseRateActionState.h>
-#include <actions/EaseIn.h>
-#include <actions/EaseInState.h>
-#include <actions/EaseOut.h>
-#include <actions/EaseOutState.h>
-#include <actions/ExtraAction.h>
-#include <actions/ExtraActionState.h>
-#include <actions/MoveBy.h>
-#include <actions/MoveByState.h>
-#include <actions/MoveTo.h>
-#include <actions/MoveToState.h>
-#include <actions/Parallel.h>
-#include <actions/Sequence.h>
-#include <actions/ParallelState.h>
-#include <actions/RepeatForever.h>
-#include <actions/RepeatForeverState.h>
-#include <actions/RotateBy.h>
-#include <actions/RotateByState.h>
-#include <actions/ScaleTo.h>
-#include <actions/ScaleToState.h>
-#include <actions/SequenceState.h>
 #include <sys/thread/Lock.h>
 #include <haxe/EntryPoint.h>
 #include <haxe/Exception.h>
@@ -94,6 +60,7 @@
 #include <hl/types/ArrayDynKeyValueIterator.h>
 #include <hl/types/ArrayObjIterator.h>
 #include <hl/types/ArrayObjKeyValueIterator.h>
+#include <urho3d/_Context/Context_Impl_.h>
 #include <urho3d/Zone.h>
 #include <urho3d/StaticModel.h>
 #include <urho3d/AnimatedModel.h>
@@ -108,25 +75,58 @@
 #include <samplygame/Weapon.h>
 #include <samplygame/Globals.h>
 #include <urho3d/SoundSource.h>
+#include <urho3d/actions/ActionGroup.h>
+#include <urho3d/actions/ScaleTo.h>
+#include <urho3d/actions/DelayTime.h>
 #include <urho3d/ParticleEmitter2D.h>
 #include <samplygame/Background.h>
 #include <haxe/Log.h>
 #include <urho3d/Math.h>
+#include <urho3d/actions/MoveBy.h>
 #include <samplygame/BigWhiteCube.h>
+#include <urho3d/actions/BezierConfig.h>
+#include <urho3d/actions/RotateBy.h>
+#include <urho3d/actions/BezierBy.h>
+#include <urho3d/actions/Sequence.h>
 #include <samplygame/Coin.h>
+#include <urho3d/actions/Parallel.h>
 #include <samplygame/EnemySlotMachine.h>
 #include <samplygame/EnemyBat.h>
 #include <samplygame/SpawnMonitorScreenEntry.h>
 #include <samplygame/EnemyMonitorScreen.h>
 #include <urho3d/_Vector3/Vector3_Impl_.h>
+#include <urho3d/actions/MoveTo.h>
 #include <samplygame/SmallPlates.h>
 #include <samplygame/Joysticks.h>
 #include <samplygame/MachineGun.h>
 #include <samplygame/Missile.h>
+#include <urho3d/actions/RepeatForever.h>
+#include <urho3d/actions/ActionEase.h>
+#include <urho3d/actions/EaseRateAction.h>
+#include <urho3d/actions/EaseOut.h>
+#include <urho3d/actions/EaseBackInOut.h>
 #include <urho3d/Renderer.h>
+#include <urho3d/actions/EaseIn.h>
 #include <urho3d/Constraint.h>
 #include <urho3d/Graphics.h>
 #include <urho3d/_Vector2/Vector2_Impl_.h>
+#include <urho3d/actions/ActionEaseState.h>
+#include <urho3d/actions/ActionManager.h>
+#include <urho3d/actions/BezierByState.h>
+#include <urho3d/actions/DelayTimeState.h>
+#include <urho3d/actions/EaseBackInOutState.h>
+#include <urho3d/actions/EaseRateActionState.h>
+#include <urho3d/actions/EaseInState.h>
+#include <urho3d/actions/EaseOutState.h>
+#include <urho3d/actions/ExtraAction.h>
+#include <urho3d/actions/ExtraActionState.h>
+#include <urho3d/actions/MoveByState.h>
+#include <urho3d/actions/MoveToState.h>
+#include <urho3d/actions/ParallelState.h>
+#include <urho3d/actions/RepeatForeverState.h>
+#include <urho3d/actions/RotateByState.h>
+#include <urho3d/actions/ScaleToState.h>
+#include <urho3d/actions/SequenceState.h>
 #include <_std/Reflect.h>
 #include <hl/CoreType.h>
 #include <hl/CoreEnum.h>
@@ -242,10 +242,10 @@ hl__types__$ArrayBytes_hl_F32 g$_hl_types_ArrayBytes_hl_F32 = 0;
 urho3d__$Scene g$_urho3d_Scene = 0;
 samplygame__$StartMenu g$_samplygame_StartMenu = 0;
 samplygame__$Aircraft g$_samplygame_Aircraft = 0;
-actions__$FiniteTimeAction g$_actions_FiniteTimeAction = 0;
-actions__$FiniteTimeActionState g$_actions_FiniteTimeActionState = 0;
-actions__$ActionDef g$_actions_ActionDef = 0;
-actions__$ActionID g$_actions_ActionID = 0;
+urho3d__actions__$FiniteTimeAction g$_urho3d_actions_FiniteTimeAction = 0;
+urho3d__actions__$FiniteTimeActionState g$05530c5 = 0;
+urho3d__actions__$ActionDef g$_urho3d_actions_ActionDef = 0;
+urho3d__actions__$ActionID g$_urho3d_actions_ActionID = 0;
 samplygame__$Player g$_samplygame_Player = 0;
 samplygame__$Enemy g$_samplygame_Enemy = 0;
 samplygame__$SpawnEntry g$_samplygame_SpawnEntry = 0;
@@ -270,40 +270,6 @@ $Sys g$_Sys = 0;
 String s$68b329d = 0;
 hl_bytes_map* g$__types__ = 0;
 hl__$Enum g$_hl_Enum = 0;
-actions__$ActionEase g$_actions_ActionEase = 0;
-actions__$ActionEaseState g$_actions_ActionEaseState = 0;
-urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_ = 0;
-actions__$ActionGroup g$_actions_ActionGroup = 0;
-actions__$ActionManager g$_actions_ActionManager = 0;
-actions__$BezierConfig g$_actions_BezierConfig = 0;
-actions__$BezierBy g$_actions_BezierBy = 0;
-actions__$BezierByState g$_actions_BezierByState = 0;
-actions__$DelayTime g$_actions_DelayTime = 0;
-actions__$DelayTimeState g$_actions_DelayTimeState = 0;
-actions__$EaseBackInOut g$_actions_EaseBackInOut = 0;
-actions__$EaseBackInOutState g$_actions_EaseBackInOutState = 0;
-actions__$EaseRateAction g$_actions_EaseRateAction = 0;
-actions__$EaseRateActionState g$_actions_EaseRateActionState = 0;
-actions__$EaseIn g$_actions_EaseIn = 0;
-actions__$EaseInState g$_actions_EaseInState = 0;
-actions__$EaseOut g$_actions_EaseOut = 0;
-actions__$EaseOutState g$_actions_EaseOutState = 0;
-actions__$ExtraAction g$_actions_ExtraAction = 0;
-actions__$ExtraActionState g$_actions_ExtraActionState = 0;
-actions__$MoveBy g$_actions_MoveBy = 0;
-actions__$MoveByState g$_actions_MoveByState = 0;
-actions__$MoveTo g$_actions_MoveTo = 0;
-actions__$MoveToState g$_actions_MoveToState = 0;
-actions__$Parallel g$_actions_Parallel = 0;
-actions__$Sequence g$_actions_Sequence = 0;
-actions__$ParallelState g$_actions_ParallelState = 0;
-actions__$RepeatForever g$_actions_RepeatForever = 0;
-actions__$RepeatForeverState g$_actions_RepeatForeverState = 0;
-actions__$RotateBy g$_actions_RotateBy = 0;
-actions__$RotateByState g$_actions_RotateByState = 0;
-actions__$ScaleTo g$_actions_ScaleTo = 0;
-actions__$ScaleToState g$_actions_ScaleToState = 0;
-actions__$SequenceState g$_actions_SequenceState = 0;
 sys__thread__$Lock g$_sys_thread_Lock = 0;
 haxe__$EntryPoint g$_haxe_EntryPoint = 0;
 haxe__$Exception g$_haxe_Exception = 0;
@@ -338,6 +304,7 @@ hl__types__$ArrayDynKeyValueIterator g$d29ca94 = 0;
 hl__types__$ArrayObjIterator g$_hl_types_ArrayObjIterator = 0;
 hl__types__$ArrayObjKeyValueIterator g$1813e5a = 0;
 String s$2f43b42 = 0;
+urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_ = 0;
 urho3d__$Zone g$_urho3d_Zone = 0;
 urho3d__$StaticModel g$_urho3d_StaticModel = 0;
 urho3d__$AnimatedModel g$_urho3d_AnimatedModel = 0;
@@ -365,6 +332,9 @@ String s$MatSpecColor = 0;
 String s$SoundSource = 0;
 urho3d__$SoundSource g$_urho3d_SoundSource = 0;
 String s$Sounds_BigExplosion_wav = 0;
+urho3d__actions__$ActionGroup g$_urho3d_actions_ActionGroup = 0;
+urho3d__actions__$ScaleTo g$_urho3d_actions_ScaleTo = 0;
+urho3d__actions__$DelayTime g$_urho3d_actions_DelayTime = 0;
 String s$ParticleEmitter2D = 0;
 urho3d__$ParticleEmitter2D g$_urho3d_ParticleEmitter2D = 0;
 String s$Particles_Explosion_pex = 0;
@@ -374,6 +344,7 @@ String s$DelayedStart = 0;
 String s$c385087 = 0;
 String s$samplygame_Background = 0;
 urho3d__$Math g$_urho3d_Math = 0;
+urho3d__actions__$MoveBy g$_urho3d_actions_MoveBy = 0;
 String s$Models_Plane_mdl = 0;
 String s$Materials_Grass_xml = 0;
 String s$Models_Tree_mdl = 0;
@@ -381,9 +352,14 @@ String s$Materials_TreeMaterial_xml = 0;
 String s$bullet = 0;
 samplygame__$BigWhiteCube g$_samplygame_BigWhiteCube = 0;
 String s$Models_Box_mdl = 0;
+urho3d__actions__$BezierConfig g$_urho3d_actions_BezierConfig = 0;
+urho3d__actions__$RotateBy g$_urho3d_actions_RotateBy = 0;
+urho3d__actions__$BezierBy g$_urho3d_actions_BezierBy = 0;
+urho3d__actions__$Sequence g$_urho3d_actions_Sequence = 0;
 samplygame__$Coin g$_samplygame_Coin = 0;
 String s$Models_Apple_mdl = 0;
 String s$Materials_Apple_xml = 0;
+urho3d__actions__$Parallel g$_urho3d_actions_Parallel = 0;
 String s$Sounds_Powerup_wav = 0;
 samplygame__$EnemySlotMachine g$_samplygame_EnemySlotMachine = 0;
 samplygame__$EnemyBat g$_samplygame_EnemyBat = 0;
@@ -398,6 +374,7 @@ urho3d___Vector3__$Vector3_Impl_ g$_urho3d__Vector3_Vector3_Impl_ = 0;
 String s$EnemyBat = 0;
 String s$Models_Enemy1_mdl = 0;
 String s$Materials_Enemy1_xml = 0;
+urho3d__actions__$MoveTo g$_urho3d_actions_MoveTo = 0;
 String s$Models_Enemy3_mdl = 0;
 String s$Materials_Enemy3_xml = 0;
 samplygame__$SmallPlates g$_samplygame_SmallPlates = 0;
@@ -416,6 +393,11 @@ String s$Sounds_SmallExplosion_wav = 0;
 String s$Models_Player_mdl = 0;
 String s$Materials_Player_xml = 0;
 String s$Materials_Black_xml = 0;
+urho3d__actions__$RepeatForever g$_urho3d_actions_RepeatForever = 0;
+urho3d__actions__$ActionEase g$_urho3d_actions_ActionEase = 0;
+urho3d__actions__$EaseRateAction g$_urho3d_actions_EaseRateAction = 0;
+urho3d__actions__$EaseOut g$_urho3d_actions_EaseOut = 0;
+urho3d__actions__$EaseBackInOut g$_urho3d_actions_EaseBackInOut = 0;
 urho3d__$Renderer g$_urho3d_Renderer = 0;
 String s$Particles_PlayerExplosion_pex = 0;
 String s$WorkerThreads = 0;
@@ -480,12 +462,15 @@ String s$Portrait = 0;
 String s$Fonts_Font_ttf = 0;
 String s$0bcef9c = 0;
 String s$Octree = 0;
+String s$DebugRenderer = 0;
 String s$PhysicsWorld = 0;
 String s$Camera = 0;
 String s$Zone = 0;
 String s$DirectionalLight = 0;
 String s$Light = 0;
 String s$HandleUpdate = 0;
+String s$PostRenderUpdate = 0;
+String s$HandlePostRenderUpdate = 0;
 String s$TimeStep = 0;
 String s$PlayerNode = 0;
 String s$CreateStartMenu = 0;
@@ -501,6 +486,8 @@ String s$CreateObject = 0;
 String s$StartMenu_DelayedStart = 0;
 String s$src_haxe_samplygame_StartMenu_hx = 0;
 String s$samplygame_StartMenu = 0;
+urho3d__actions__$EaseIn g$_urho3d_actions_EaseIn = 0;
+String s$TAP_TO_START = 0;
 urho3d__$Constraint g$_urho3d_Constraint = 0;
 urho3d__$Graphics g$_urho3d_Graphics = 0;
 String s$IntVector2_ = 0;
@@ -517,6 +504,23 @@ String s$TVector3_ = 0;
 String s$Vector2_ = 0;
 urho3d___Vector2__$Vector2_Impl_ g$_urho3d__Vector2_Vector2_Impl_ = 0;
 String s$Vector3_ = 0;
+urho3d__actions__$ActionEaseState g$_urho3d_actions_ActionEaseState = 0;
+urho3d__actions__$ActionManager g$_urho3d_actions_ActionManager = 0;
+urho3d__actions__$BezierByState g$_urho3d_actions_BezierByState = 0;
+urho3d__actions__$DelayTimeState g$_urho3d_actions_DelayTimeState = 0;
+urho3d__actions__$EaseBackInOutState g$24df99f = 0;
+urho3d__actions__$EaseRateActionState g$88f724b = 0;
+urho3d__actions__$EaseInState g$_urho3d_actions_EaseInState = 0;
+urho3d__actions__$EaseOutState g$_urho3d_actions_EaseOutState = 0;
+urho3d__actions__$ExtraAction g$_urho3d_actions_ExtraAction = 0;
+urho3d__actions__$ExtraActionState g$_urho3d_actions_ExtraActionState = 0;
+urho3d__actions__$MoveByState g$_urho3d_actions_MoveByState = 0;
+urho3d__actions__$MoveToState g$_urho3d_actions_MoveToState = 0;
+urho3d__actions__$ParallelState g$_urho3d_actions_ParallelState = 0;
+urho3d__actions__$RepeatForeverState g$9e21268 = 0;
+urho3d__actions__$RotateByState g$_urho3d_actions_RotateByState = 0;
+urho3d__actions__$ScaleToState g$_urho3d_actions_ScaleToState = 0;
+urho3d__actions__$SequenceState g$_urho3d_actions_SequenceState = 0;
 $Reflect g$_Reflect = 0;
 hl__CoreType g$_Float = 0;
 String s$Float = 0;
@@ -759,12 +763,15 @@ static struct _String const_s$Portrait = {&t$String,(vbyte*)USTR("Portrait"),8};
 static struct _String const_s$Fonts_Font_ttf = {&t$String,(vbyte*)USTR("Fonts/Font.ttf"),14};
 static struct _String const_s$0bcef9c = {&t$String,(vbyte*)USTR("%"),1};
 static struct _String const_s$Octree = {&t$String,(vbyte*)USTR("Octree"),6};
+static struct _String const_s$DebugRenderer = {&t$String,(vbyte*)USTR("DebugRenderer"),13};
 static struct _String const_s$PhysicsWorld = {&t$String,(vbyte*)USTR("PhysicsWorld"),12};
 static struct _String const_s$Camera = {&t$String,(vbyte*)USTR("Camera"),6};
 static struct _String const_s$Zone = {&t$String,(vbyte*)USTR("Zone"),4};
 static struct _String const_s$DirectionalLight = {&t$String,(vbyte*)USTR("DirectionalLight"),16};
 static struct _String const_s$Light = {&t$String,(vbyte*)USTR("Light"),5};
 static struct _String const_s$HandleUpdate = {&t$String,(vbyte*)USTR("HandleUpdate"),12};
+static struct _String const_s$PostRenderUpdate = {&t$String,(vbyte*)USTR("PostRenderUpdate"),16};
+static struct _String const_s$HandlePostRenderUpdate = {&t$String,(vbyte*)USTR("HandlePostRenderUpdate"),22};
 static struct _String const_s$TimeStep = {&t$String,(vbyte*)USTR("TimeStep"),8};
 static struct _String const_s$PlayerNode = {&t$String,(vbyte*)USTR("PlayerNode"),10};
 static struct _String const_s$CreateStartMenu = {&t$String,(vbyte*)USTR("CreateStartMenu"),15};
@@ -780,6 +787,7 @@ static struct _String const_s$CreateObject = {&t$String,(vbyte*)USTR("CreateObje
 static struct _String const_s$StartMenu_DelayedStart = {&t$String,(vbyte*)USTR("StartMenu DelayedStart"),22};
 static struct _String const_s$src_haxe_samplygame_StartMenu_hx = {&t$String,(vbyte*)USTR("src/haxe/samplygame/StartMenu.hx"),32};
 static struct _String const_s$samplygame_StartMenu = {&t$String,(vbyte*)USTR("samplygame.StartMenu"),20};
+static struct _String const_s$TAP_TO_START = {&t$String,(vbyte*)USTR("TAP TO START"),12};
 static struct _String const_s$IntVector2_ = {&t$String,(vbyte*)USTR("IntVector2("),11};
 static struct _String const_s$fromStructVector2 = {&t$String,(vbyte*)USTR("fromStructVector2"),17};
 static struct _String const_s$src_haxe_urho3d_IntVector2_hx = {&t$String,(vbyte*)USTR("src/haxe/urho3d/IntVector2.hx"),29};
@@ -937,12 +945,15 @@ void hl_init_roots() {
 	s$Fonts_Font_ttf = &const_s$Fonts_Font_ttf;
 	s$0bcef9c = &const_s$0bcef9c;
 	s$Octree = &const_s$Octree;
+	s$DebugRenderer = &const_s$DebugRenderer;
 	s$PhysicsWorld = &const_s$PhysicsWorld;
 	s$Camera = &const_s$Camera;
 	s$Zone = &const_s$Zone;
 	s$DirectionalLight = &const_s$DirectionalLight;
 	s$Light = &const_s$Light;
 	s$HandleUpdate = &const_s$HandleUpdate;
+	s$PostRenderUpdate = &const_s$PostRenderUpdate;
+	s$HandlePostRenderUpdate = &const_s$HandlePostRenderUpdate;
 	s$TimeStep = &const_s$TimeStep;
 	s$PlayerNode = &const_s$PlayerNode;
 	s$CreateStartMenu = &const_s$CreateStartMenu;
@@ -958,6 +969,7 @@ void hl_init_roots() {
 	s$StartMenu_DelayedStart = &const_s$StartMenu_DelayedStart;
 	s$src_haxe_samplygame_StartMenu_hx = &const_s$src_haxe_samplygame_StartMenu_hx;
 	s$samplygame_StartMenu = &const_s$samplygame_StartMenu;
+	s$TAP_TO_START = &const_s$TAP_TO_START;
 	s$IntVector2_ = &const_s$IntVector2_;
 	s$fromStructVector2 = &const_s$fromStructVector2;
 	s$src_haxe_urho3d_IntVector2_hx = &const_s$src_haxe_urho3d_IntVector2_hx;
@@ -999,10 +1011,10 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_urho3d_Scene);
 	hl_add_root((void**)&g$_samplygame_StartMenu);
 	hl_add_root((void**)&g$_samplygame_Aircraft);
-	hl_add_root((void**)&g$_actions_FiniteTimeAction);
-	hl_add_root((void**)&g$_actions_FiniteTimeActionState);
-	hl_add_root((void**)&g$_actions_ActionDef);
-	hl_add_root((void**)&g$_actions_ActionID);
+	hl_add_root((void**)&g$_urho3d_actions_FiniteTimeAction);
+	hl_add_root((void**)&g$05530c5);
+	hl_add_root((void**)&g$_urho3d_actions_ActionDef);
+	hl_add_root((void**)&g$_urho3d_actions_ActionID);
 	hl_add_root((void**)&g$_samplygame_Player);
 	hl_add_root((void**)&g$_samplygame_Enemy);
 	hl_add_root((void**)&g$_samplygame_SpawnEntry);
@@ -1017,40 +1029,6 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_Sys);
 	hl_add_root((void**)&g$__types__);
 	hl_add_root((void**)&g$_hl_Enum);
-	hl_add_root((void**)&g$_actions_ActionEase);
-	hl_add_root((void**)&g$_actions_ActionEaseState);
-	hl_add_root((void**)&g$_urho3d__Context_Context_Impl_);
-	hl_add_root((void**)&g$_actions_ActionGroup);
-	hl_add_root((void**)&g$_actions_ActionManager);
-	hl_add_root((void**)&g$_actions_BezierConfig);
-	hl_add_root((void**)&g$_actions_BezierBy);
-	hl_add_root((void**)&g$_actions_BezierByState);
-	hl_add_root((void**)&g$_actions_DelayTime);
-	hl_add_root((void**)&g$_actions_DelayTimeState);
-	hl_add_root((void**)&g$_actions_EaseBackInOut);
-	hl_add_root((void**)&g$_actions_EaseBackInOutState);
-	hl_add_root((void**)&g$_actions_EaseRateAction);
-	hl_add_root((void**)&g$_actions_EaseRateActionState);
-	hl_add_root((void**)&g$_actions_EaseIn);
-	hl_add_root((void**)&g$_actions_EaseInState);
-	hl_add_root((void**)&g$_actions_EaseOut);
-	hl_add_root((void**)&g$_actions_EaseOutState);
-	hl_add_root((void**)&g$_actions_ExtraAction);
-	hl_add_root((void**)&g$_actions_ExtraActionState);
-	hl_add_root((void**)&g$_actions_MoveBy);
-	hl_add_root((void**)&g$_actions_MoveByState);
-	hl_add_root((void**)&g$_actions_MoveTo);
-	hl_add_root((void**)&g$_actions_MoveToState);
-	hl_add_root((void**)&g$_actions_Parallel);
-	hl_add_root((void**)&g$_actions_Sequence);
-	hl_add_root((void**)&g$_actions_ParallelState);
-	hl_add_root((void**)&g$_actions_RepeatForever);
-	hl_add_root((void**)&g$_actions_RepeatForeverState);
-	hl_add_root((void**)&g$_actions_RotateBy);
-	hl_add_root((void**)&g$_actions_RotateByState);
-	hl_add_root((void**)&g$_actions_ScaleTo);
-	hl_add_root((void**)&g$_actions_ScaleToState);
-	hl_add_root((void**)&g$_actions_SequenceState);
 	hl_add_root((void**)&g$_sys_thread_Lock);
 	hl_add_root((void**)&g$_haxe_EntryPoint);
 	hl_add_root((void**)&g$_haxe_Exception);
@@ -1077,6 +1055,7 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$d29ca94);
 	hl_add_root((void**)&g$_hl_types_ArrayObjIterator);
 	hl_add_root((void**)&g$1813e5a);
+	hl_add_root((void**)&g$_urho3d__Context_Context_Impl_);
 	hl_add_root((void**)&g$_urho3d_Zone);
 	hl_add_root((void**)&g$_urho3d_StaticModel);
 	hl_add_root((void**)&g$_urho3d_AnimatedModel);
@@ -1091,25 +1070,58 @@ void hl_init_roots() {
 	hl_add_root((void**)&g$_samplygame_Weapon);
 	hl_add_root((void**)&g$_samplygame_Globals);
 	hl_add_root((void**)&g$_urho3d_SoundSource);
+	hl_add_root((void**)&g$_urho3d_actions_ActionGroup);
+	hl_add_root((void**)&g$_urho3d_actions_ScaleTo);
+	hl_add_root((void**)&g$_urho3d_actions_DelayTime);
 	hl_add_root((void**)&g$_urho3d_ParticleEmitter2D);
 	hl_add_root((void**)&g$_samplygame_Background);
 	hl_add_root((void**)&g$_haxe_Log);
 	hl_add_root((void**)&g$_urho3d_Math);
+	hl_add_root((void**)&g$_urho3d_actions_MoveBy);
 	hl_add_root((void**)&g$_samplygame_BigWhiteCube);
+	hl_add_root((void**)&g$_urho3d_actions_BezierConfig);
+	hl_add_root((void**)&g$_urho3d_actions_RotateBy);
+	hl_add_root((void**)&g$_urho3d_actions_BezierBy);
+	hl_add_root((void**)&g$_urho3d_actions_Sequence);
 	hl_add_root((void**)&g$_samplygame_Coin);
+	hl_add_root((void**)&g$_urho3d_actions_Parallel);
 	hl_add_root((void**)&g$_samplygame_EnemySlotMachine);
 	hl_add_root((void**)&g$_samplygame_EnemyBat);
 	hl_add_root((void**)&g$a488eed);
 	hl_add_root((void**)&g$_samplygame_EnemyMonitorScreen);
 	hl_add_root((void**)&g$_urho3d__Vector3_Vector3_Impl_);
+	hl_add_root((void**)&g$_urho3d_actions_MoveTo);
 	hl_add_root((void**)&g$_samplygame_SmallPlates);
 	hl_add_root((void**)&g$_samplygame_Joysticks);
 	hl_add_root((void**)&g$_samplygame_MachineGun);
 	hl_add_root((void**)&g$_samplygame_Missile);
+	hl_add_root((void**)&g$_urho3d_actions_RepeatForever);
+	hl_add_root((void**)&g$_urho3d_actions_ActionEase);
+	hl_add_root((void**)&g$_urho3d_actions_EaseRateAction);
+	hl_add_root((void**)&g$_urho3d_actions_EaseOut);
+	hl_add_root((void**)&g$_urho3d_actions_EaseBackInOut);
 	hl_add_root((void**)&g$_urho3d_Renderer);
+	hl_add_root((void**)&g$_urho3d_actions_EaseIn);
 	hl_add_root((void**)&g$_urho3d_Constraint);
 	hl_add_root((void**)&g$_urho3d_Graphics);
 	hl_add_root((void**)&g$_urho3d__Vector2_Vector2_Impl_);
+	hl_add_root((void**)&g$_urho3d_actions_ActionEaseState);
+	hl_add_root((void**)&g$_urho3d_actions_ActionManager);
+	hl_add_root((void**)&g$_urho3d_actions_BezierByState);
+	hl_add_root((void**)&g$_urho3d_actions_DelayTimeState);
+	hl_add_root((void**)&g$24df99f);
+	hl_add_root((void**)&g$88f724b);
+	hl_add_root((void**)&g$_urho3d_actions_EaseInState);
+	hl_add_root((void**)&g$_urho3d_actions_EaseOutState);
+	hl_add_root((void**)&g$_urho3d_actions_ExtraAction);
+	hl_add_root((void**)&g$_urho3d_actions_ExtraActionState);
+	hl_add_root((void**)&g$_urho3d_actions_MoveByState);
+	hl_add_root((void**)&g$_urho3d_actions_MoveToState);
+	hl_add_root((void**)&g$_urho3d_actions_ParallelState);
+	hl_add_root((void**)&g$9e21268);
+	hl_add_root((void**)&g$_urho3d_actions_RotateByState);
+	hl_add_root((void**)&g$_urho3d_actions_ScaleToState);
+	hl_add_root((void**)&g$_urho3d_actions_SequenceState);
 	hl_add_root((void**)&g$_Reflect);
 	hl_add_root((void**)&g$_Float);
 	hl_add_root((void**)&g$_Int);

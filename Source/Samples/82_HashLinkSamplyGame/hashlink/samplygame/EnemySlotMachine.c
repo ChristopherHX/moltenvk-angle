@@ -147,15 +147,15 @@ void samplygame_EnemySlotMachine_Init(samplygame__EnemySlotMachine r0) {
 	Urho3D__scene_node_set_scale(r6,r3,r21);
 	label$19ab316_2_56:
 	r4 = urho3d_Component_get_node(((urho3d__Component)r0));
-	r18 = -2.;
+	r18 = -1.5;
 	r19 = hl_alloc_dynamic(&t$_f64);
 	r19->v.d = r18;
-	r18 = 2.;
+	r18 = 1.5;
 	r20 = hl_alloc_dynamic(&t$_f64);
 	r20->v.d = r18;
 	r18 = urho3d_LogicComponent_Random(((urho3d__LogicComponent)r0),r19,r20);
 	r22 = (float)r18;
-	r18 = 5.;
+	r18 = 6.;
 	r23 = (float)r18;
 	r18 = 0.;
 	r24 = (float)r18;

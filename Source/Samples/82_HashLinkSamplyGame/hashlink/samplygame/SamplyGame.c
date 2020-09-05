@@ -44,6 +44,7 @@ extern String s$0bcef9c;
 extern hl_type t$urho3d_Scene;
 void urho3d_Scene_new(urho3d__Scene,hl_urho3d_scene_scene*);
 extern String s$Octree;
+extern String s$DebugRenderer;
 extern String s$PhysicsWorld;
 hl_urho3d_math_tvector3* urho3d__PhysicsWorld_PhysicsWorld_Impl__set_gravity(hl_urho3d_physics_physics_world*,hl_urho3d_math_tvector3*);
 extern String s$Camera;
@@ -88,8 +89,9 @@ float urho3d_Light_set_brightness(urho3d__Light,float);
 extern String s$Update;
 extern String s$HandleUpdate;
 void urho3d_Application_SubscribeToEvent(urho3d__Application,hl_urho3d_core_object*,hl_urho3d_stringhash*,String);
+extern String s$PostRenderUpdate;
+extern String s$HandlePostRenderUpdate;
 extern String s$TimeStep;
-bool actions_ActionManager_Step(double);
 extern String s$PlayerNode;
 extern hl_type t$samplygame_Player;
 void samplygame_Player_new(samplygame__Player,vdynamic*);
@@ -106,6 +108,8 @@ void samplygame_Enemies_KillAll(samplygame__Enemies);
 void samplygame_Enemies_RemovePlayer(samplygame__Enemies);
 extern String s$CreateStartMenu;
 void urho3d_Application_InvokeDelayed(urho3d__Application,double*,bool*,String,hl__types__ArrayDyn);
+bool urho3d_Input_GetKeyPress(int);
+void urho3d_Renderer_DrawDebugGeometry(bool);
 extern String s$StartMenuNode;
 extern hl_type t$samplygame_StartMenu;
 void samplygame_StartMenu_new(samplygame__StartMenu,vdynamic*);
@@ -123,23 +127,23 @@ void urho3d_Node_CleanChildData(urho3d__Node);
 void haxe_ds_StringMap_clear(haxe__ds__StringMap);
 void haxe_ds_ObjectMap_clear(haxe__ds__ObjectMap);
 #include <samplygame/Coin.h>
-#include <actions/ActionID.h>
-#include <actions/ActionDef.h>
-#include <actions/DelayTime.h>
-#include <actions/FiniteTimeActionState.h>
+#include <urho3d/actions/ActionID.h>
+#include <urho3d/actions/ActionDef.h>
+#include <urho3d/actions/DelayTime.h>
+#include <urho3d/actions/FiniteTimeActionState.h>
 extern String s$coinNode;
 int Std_random(int);
 extern hl_type t$samplygame_Coin;
 void samplygame_Coin_new(samplygame__Coin);
 #include <samplygame/Weapon.h>
 bool samplygame_Weapon_FireAsync(samplygame__Weapon,bool);
-extern hl_type t$actions_DelayTime;
-void actions_DelayTime_new(actions__DelayTime,double);
-void samplygame_SamplyGame_SpawnCoinsLoop(samplygame__SamplyGame,actions__ActionID);
-extern hl_type t$fun_8ff1711;
-#include <actions/FiniteTimeAction.h>
-actions__ActionID actions_ActionManager_AddAction(actions__ActionDef,actions__FiniteTimeAction,urho3d__Node,actions__FiniteTimeActionState,vclosure*);
-void actions_ActionID_DeleteTargets(actions__ActionID);
+extern hl_type t$urho3d_actions_DelayTime;
+void urho3d_actions_DelayTime_new(urho3d__actions__DelayTime,double);
+void samplygame_SamplyGame_SpawnCoinsLoop(samplygame__SamplyGame,urho3d__actions__ActionID);
+extern hl_type t$fun_34660c3;
+#include <urho3d/actions/FiniteTimeAction.h>
+urho3d__actions__ActionID urho3d_actions_ActionManager_AddAction(urho3d__actions__ActionDef,urho3d__actions__FiniteTimeAction,urho3d__Node,urho3d__actions__FiniteTimeActionState,vclosure*);
+void urho3d_actions_ActionID_DeleteTargets(urho3d__actions__ActionID);
 extern hl_type t$_f64;
 extern String s$Health_;
 extern String s$_Coins;
@@ -163,7 +167,7 @@ void samplygame_SamplyGame_Setup(samplygame__SamplyGame r0) {
 	r5 = hl_alloc_virtual(&t$vrt_329ffa8);
 	r6 = (String)s$7d084a8;
 	if( hl_vfields(r5)[1] ) *(String*)(hl_vfields(r5)[1]) = (String)r6; else hl_dyn_setp(r5->value,37969014/*fileName*/,&t$String,r6);
-	r7 = 30;
+	r7 = 32;
 	if( hl_vfields(r5)[2] ) *(int*)(hl_vfields(r5)[2]) = (int)r7; else hl_dyn_seti(r5->value,371360620/*lineNumber*/,&t$_i32,r7);
 	r6 = (String)s$samplygame_SamplyGame;
 	if( hl_vfields(r5)[0] ) *(String*)(hl_vfields(r5)[0]) = (String)r6; else hl_dyn_setp(r5->value,-63073762/*className*/,&t$String,r6);
@@ -371,7 +375,19 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 	r1 = r0->scene;
 	if( r1 == NULL ) hl_null_access();
 	r4 = r1->abstractNode;
-	if( !r4 ) goto label$0caf0a1_3_27;
+	if( !r4 ) goto label$0caf0a1_3_26;
+	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r7 = r8->context;
+	r4 = r1->abstractNode;
+	r9 = (String)s$DebugRenderer;
+	r10 = 0;
+	r11 = 0;
+	r6 = Urho3D__scene_node_create_component(r7,r4,r9,r10,r11);
+	label$0caf0a1_3_26:
+	r1 = r0->scene;
+	if( r1 == NULL ) hl_null_access();
+	r4 = r1->abstractNode;
+	if( !r4 ) goto label$0caf0a1_3_38;
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	r4 = r1->abstractNode;
@@ -379,10 +395,10 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 	r10 = 0;
 	r11 = 0;
 	r6 = Urho3D__scene_node_create_component(r7,r4,r9,r10,r11);
-	goto label$0caf0a1_3_28;
-	label$0caf0a1_3_27:
+	goto label$0caf0a1_3_39;
+	label$0caf0a1_3_38:
 	r6 = NULL;
-	label$0caf0a1_3_28:
+	label$0caf0a1_3_39:
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	r12 = Urho3D__physics_physics_world_cast_from_component(r7,r6);
@@ -397,13 +413,13 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 	r18 = urho3d__PhysicsWorld_PhysicsWorld_Impl__set_gravity(r12,r18);
 	r5 = r0->scene;
 	r9 = (String)s$Camera;
-	if( r9 ) goto label$0caf0a1_3_45;
+	if( r9 ) goto label$0caf0a1_3_56;
 	r20 = (String)s$;
 	r9 = r20;
-	label$0caf0a1_3_45:
+	label$0caf0a1_3_56:
 	if( r5 == NULL ) hl_null_access();
 	r4 = r5->abstractNode;
-	if( !r4 ) goto label$0caf0a1_3_69;
+	if( !r4 ) goto label$0caf0a1_3_80;
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	r4 = r5->abstractNode;
@@ -422,21 +438,21 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 	}
 	haxe_ds_ObjectMap_set(r24,r26,((vdynamic*)r23));
 	r27 = (String)s$;
-	if( r9 == r27 || (r9 && r27 && String___compare(r9,(vdynamic*)r27) == 0) ) goto label$0caf0a1_3_67;
+	if( r9 == r27 || (r9 && r27 && String___compare(r9,(vdynamic*)r27) == 0) ) goto label$0caf0a1_3_78;
 	r28 = r5->children_name_map;
 	if( r28 == NULL ) hl_null_access();
 	haxe_ds_StringMap_set(r28,r9,((vdynamic*)r23));
-	label$0caf0a1_3_67:
+	label$0caf0a1_3_78:
 	r23->_parent = ((urho3d__Node)r5);
-	goto label$0caf0a1_3_70;
-	label$0caf0a1_3_69:
+	goto label$0caf0a1_3_81;
+	label$0caf0a1_3_80:
 	r23 = NULL;
-	label$0caf0a1_3_70:
+	label$0caf0a1_3_81:
 	r0->cameraNode = r23;
 	r23 = r0->cameraNode;
 	if( r23 == NULL ) hl_null_access();
 	r4 = r23->abstractNode;
-	if( !r4 ) goto label$0caf0a1_3_83;
+	if( !r4 ) goto label$0caf0a1_3_94;
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	r4 = r23->abstractNode;
@@ -444,20 +460,20 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 	r10 = 0;
 	r11 = 0;
 	r6 = Urho3D__scene_node_create_component(r7,r4,r20,r10,r11);
-	goto label$0caf0a1_3_84;
-	label$0caf0a1_3_83:
+	goto label$0caf0a1_3_95;
+	label$0caf0a1_3_94:
 	r6 = NULL;
-	label$0caf0a1_3_84:
-	if( !r6 ) goto label$0caf0a1_3_91;
+	label$0caf0a1_3_95:
+	if( !r6 ) goto label$0caf0a1_3_102;
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	r30 = Urho3D__graphics_camera_cast_from_component(r7,r6);
 	r31 = (urho3d__Camera)hl_alloc_obj(&t$urho3d_Camera);
 	urho3d_Camera_new(r31,r30);
-	goto label$0caf0a1_3_92;
-	label$0caf0a1_3_91:
+	goto label$0caf0a1_3_103;
+	label$0caf0a1_3_102:
 	r31 = NULL;
-	label$0caf0a1_3_92:
+	label$0caf0a1_3_103:
 	r29 = r0->cameraNode;
 	r14 = 0.;
 	r15 = (float)r14;
@@ -469,39 +485,39 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 	r18 = Urho3D__math_tvector3_cast_from_vector3(r19);
 	if( r29 == NULL ) hl_null_access();
 	r4 = r29->abstractNode;
-	if( !r4 ) goto label$0caf0a1_3_108;
+	if( !r4 ) goto label$0caf0a1_3_119;
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	r4 = r29->abstractNode;
 	Urho3D__scene_node_set_position(r7,r4,r18);
-	label$0caf0a1_3_108:
+	label$0caf0a1_3_119:
 	r21 = r0->scene;
 	r29 = r0->cameraNode;
 	if( r29 == NULL ) hl_null_access();
 	r4 = r29->abstractNode;
-	if( !r4 ) goto label$0caf0a1_3_120;
+	if( !r4 ) goto label$0caf0a1_3_131;
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	r4 = r29->abstractNode;
 	r20 = (String)s$Camera;
 	r22 = false;
 	r6 = Urho3D__scene_node_get_component(r7,r4,r20,r22);
-	goto label$0caf0a1_3_121;
-	label$0caf0a1_3_120:
+	goto label$0caf0a1_3_132;
+	label$0caf0a1_3_131:
 	r6 = NULL;
-	label$0caf0a1_3_121:
-	if( !r6 ) goto label$0caf0a1_3_128;
+	label$0caf0a1_3_132:
+	if( !r6 ) goto label$0caf0a1_3_139;
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	r30 = Urho3D__graphics_camera_cast_from_component(r7,r6);
 	r34 = (urho3d__Camera)hl_alloc_obj(&t$urho3d_Camera);
 	urho3d_Camera_new(r34,r30);
-	goto label$0caf0a1_3_129;
-	label$0caf0a1_3_128:
+	goto label$0caf0a1_3_140;
+	label$0caf0a1_3_139:
 	r34 = NULL;
-	label$0caf0a1_3_129:
+	label$0caf0a1_3_140:
 	r35 = NULL;
-	if( !r35 ) goto label$0caf0a1_3_139;
+	if( !r35 ) goto label$0caf0a1_3_150;
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	if( r21 == NULL ) hl_null_access();
@@ -509,8 +525,8 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 	if( r34 == NULL ) hl_null_access();
 	r30 = r34->_abstract;
 	r36 = Urho3D__graphics_viewport_create_r(r7,r2,r30,r35);
-	goto label$0caf0a1_3_146;
-	label$0caf0a1_3_139:
+	goto label$0caf0a1_3_157;
+	label$0caf0a1_3_150:
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	if( r21 == NULL ) hl_null_access();
@@ -518,18 +534,18 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 	if( r34 == NULL ) hl_null_access();
 	r30 = r34->_abstract;
 	r36 = Urho3D__graphics_viewport_create(r7,r2,r30);
-	label$0caf0a1_3_146:
+	label$0caf0a1_3_157:
 	r10 = 0;
 	urho3d_Renderer_SetViewport(r10,r36);
 	r37 = r0->scene;
 	r20 = (String)s$Zone;
-	if( r20 ) goto label$0caf0a1_3_153;
+	if( r20 ) goto label$0caf0a1_3_164;
 	r27 = (String)s$;
 	r20 = r27;
-	label$0caf0a1_3_153:
+	label$0caf0a1_3_164:
 	if( r37 == NULL ) hl_null_access();
 	r4 = r37->abstractNode;
-	if( !r4 ) goto label$0caf0a1_3_177;
+	if( !r4 ) goto label$0caf0a1_3_188;
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	r4 = r37->abstractNode;
@@ -548,19 +564,19 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 	}
 	haxe_ds_ObjectMap_set(r24,r26,((vdynamic*)r33));
 	r39 = (String)s$;
-	if( r20 == r39 || (r20 && r39 && String___compare(r20,(vdynamic*)r39) == 0) ) goto label$0caf0a1_3_175;
+	if( r20 == r39 || (r20 && r39 && String___compare(r20,(vdynamic*)r39) == 0) ) goto label$0caf0a1_3_186;
 	r28 = r37->children_name_map;
 	if( r28 == NULL ) hl_null_access();
 	haxe_ds_StringMap_set(r28,r20,((vdynamic*)r33));
-	label$0caf0a1_3_175:
+	label$0caf0a1_3_186:
 	r33->_parent = ((urho3d__Node)r37);
-	goto label$0caf0a1_3_178;
-	label$0caf0a1_3_177:
+	goto label$0caf0a1_3_189;
+	label$0caf0a1_3_188:
 	r33 = NULL;
-	label$0caf0a1_3_178:
+	label$0caf0a1_3_189:
 	if( r33 == NULL ) hl_null_access();
 	r4 = r33->abstractNode;
-	if( !r4 ) goto label$0caf0a1_3_189;
+	if( !r4 ) goto label$0caf0a1_3_200;
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	r4 = r33->abstractNode;
@@ -568,20 +584,20 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 	r10 = 0;
 	r11 = 0;
 	r6 = Urho3D__scene_node_create_component(r7,r4,r27,r10,r11);
-	goto label$0caf0a1_3_190;
-	label$0caf0a1_3_189:
+	goto label$0caf0a1_3_201;
+	label$0caf0a1_3_200:
 	r6 = NULL;
-	label$0caf0a1_3_190:
-	if( !r6 ) goto label$0caf0a1_3_197;
+	label$0caf0a1_3_201:
+	if( !r6 ) goto label$0caf0a1_3_208;
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	r40 = Urho3D__graphics_zone_cast_from_component(r7,r6);
 	r41 = (urho3d__Zone)hl_alloc_obj(&t$urho3d_Zone);
 	urho3d_Zone_new(r41,r40);
-	goto label$0caf0a1_3_198;
-	label$0caf0a1_3_197:
+	goto label$0caf0a1_3_209;
+	label$0caf0a1_3_208:
 	r41 = NULL;
-	label$0caf0a1_3_198:
+	label$0caf0a1_3_209:
 	r14 = -300.;
 	r15 = (float)r14;
 	r14 = -300.;
@@ -615,7 +631,7 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 	samplygame_Background_new(r48,r26);
 	if( r38 == NULL ) hl_null_access();
 	r4 = r38->abstractNode;
-	if( !r4 ) goto label$0caf0a1_3_272;
+	if( !r4 ) goto label$0caf0a1_3_283;
 	r50 = (urho3d__Component)hl_dyn_castp(&r48,&t$samplygame_Background,&t$urho3d_Component);
 	r24 = r38->components_map;
 	if( r24 == NULL ) hl_null_access();
@@ -640,7 +656,7 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 	r27 = Std_string(((vdynamic*)r48));
 	r49 = haxe_ds_StringMap_get(r28,r27);
 	r52 = (hl__types__ArrayDyn)hl_dyn_castp(&r49,&t$_dyn,&t$hl_types_ArrayDyn);
-	if( r52 ) goto label$0caf0a1_3_265;
+	if( r52 ) goto label$0caf0a1_3_276;
 	r54 = &t$_dyn;
 	r10 = 0;
 	r53 = hl_alloc_array(r54,r10);
@@ -652,7 +668,7 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 	if( r28 == NULL ) hl_null_access();
 	r27 = Std_string(((vdynamic*)r48));
 	haxe_ds_StringMap_set(r28,r27,((vdynamic*)r52));
-	label$0caf0a1_3_265:
+	label$0caf0a1_3_276:
 	r28 = r38->logic_components_map;
 	if( r28 == NULL ) hl_null_access();
 	r27 = Std_string(((vdynamic*)r48));
@@ -660,16 +676,16 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 	r52 = (hl__types__ArrayDyn)hl_dyn_castp(&r49,&t$_dyn,&t$hl_types_ArrayDyn);
 	if( r52 == NULL ) hl_null_access();
 	r10 = hl_types_ArrayDyn_push(r52,((vdynamic*)r48));
-	label$0caf0a1_3_272:
+	label$0caf0a1_3_283:
 	r38 = r0->scene;
 	r27 = (String)s$DirectionalLight;
-	if( r27 ) goto label$0caf0a1_3_277;
+	if( r27 ) goto label$0caf0a1_3_288;
 	r39 = (String)s$;
 	r27 = r39;
-	label$0caf0a1_3_277:
+	label$0caf0a1_3_288:
 	if( r38 == NULL ) hl_null_access();
 	r4 = r38->abstractNode;
-	if( !r4 ) goto label$0caf0a1_3_301;
+	if( !r4 ) goto label$0caf0a1_3_312;
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	r4 = r38->abstractNode;
@@ -688,16 +704,16 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 	}
 	haxe_ds_ObjectMap_set(r24,r26,((vdynamic*)r33));
 	r57 = (String)s$;
-	if( r27 == r57 || (r27 && r57 && String___compare(r27,(vdynamic*)r57) == 0) ) goto label$0caf0a1_3_299;
+	if( r27 == r57 || (r27 && r57 && String___compare(r27,(vdynamic*)r57) == 0) ) goto label$0caf0a1_3_310;
 	r28 = r38->children_name_map;
 	if( r28 == NULL ) hl_null_access();
 	haxe_ds_StringMap_set(r28,r27,((vdynamic*)r33));
-	label$0caf0a1_3_299:
+	label$0caf0a1_3_310:
 	r33->_parent = ((urho3d__Node)r38);
-	goto label$0caf0a1_3_302;
-	label$0caf0a1_3_301:
+	goto label$0caf0a1_3_313;
+	label$0caf0a1_3_312:
 	r33 = NULL;
-	label$0caf0a1_3_302:
+	label$0caf0a1_3_313:
 	r10 = 0;
 	r15 = (float)r10;
 	r10 = -5;
@@ -708,14 +724,14 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 	r18 = Urho3D__math_tvector3_cast_from_vector3(r43);
 	if( r33 == NULL ) hl_null_access();
 	r4 = r33->abstractNode;
-	if( !r4 ) goto label$0caf0a1_3_317;
+	if( !r4 ) goto label$0caf0a1_3_328;
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	r4 = r33->abstractNode;
 	Urho3D__scene_node_set_position(r7,r4,r18);
-	label$0caf0a1_3_317:
+	label$0caf0a1_3_328:
 	r4 = r33->abstractNode;
-	if( !r4 ) goto label$0caf0a1_3_327;
+	if( !r4 ) goto label$0caf0a1_3_338;
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	r4 = r33->abstractNode;
@@ -723,20 +739,20 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 	r10 = 0;
 	r11 = 0;
 	r6 = Urho3D__scene_node_create_component(r7,r4,r39,r10,r11);
-	goto label$0caf0a1_3_328;
-	label$0caf0a1_3_327:
+	goto label$0caf0a1_3_339;
+	label$0caf0a1_3_338:
 	r6 = NULL;
-	label$0caf0a1_3_328:
-	if( !r6 ) goto label$0caf0a1_3_335;
+	label$0caf0a1_3_339:
+	if( !r6 ) goto label$0caf0a1_3_346;
 	r8 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r7 = r8->context;
 	r58 = Urho3D__graphics_light_cast_from_component(r7,r6);
 	r59 = (urho3d__Light)hl_alloc_obj(&t$urho3d_Light);
 	urho3d_Light_new(r59,r58);
-	goto label$0caf0a1_3_336;
-	label$0caf0a1_3_335:
+	goto label$0caf0a1_3_347;
+	label$0caf0a1_3_346:
 	r59 = NULL;
-	label$0caf0a1_3_336:
+	label$0caf0a1_3_347:
 	if( r59 == NULL ) hl_null_access();
 	r10 = 2;
 	r10 = urho3d_Light_set_lightType(r59,r10);
@@ -753,282 +769,303 @@ void samplygame_SamplyGame_CreateScene(samplygame__SamplyGame r0) {
 
 void samplygame_SamplyGame_SubscribeToEvents(samplygame__SamplyGame r0) {
 	String r2;
-	hl_urho3d_stringhash *r1;
+	hl_urho3d_stringhash *r1, *r5;
 	hl_urho3d_core_object *r4;
 	r2 = (String)s$Update;
 	r1 = Urho3D__create_stringhash(r2);
 	r4 = NULL;
 	r2 = (String)s$HandleUpdate;
 	urho3d_Application_SubscribeToEvent(((urho3d__Application)r0),r4,r1,r2);
+	r2 = (String)s$PostRenderUpdate;
+	r5 = Urho3D__create_stringhash(r2);
+	r4 = NULL;
+	r2 = (String)s$HandlePostRenderUpdate;
+	urho3d_Application_SubscribeToEvent(((urho3d__Application)r0),r4,r5,r2);
 	return;
 }
 
 void samplygame_SamplyGame_HandleUpdate(samplygame__SamplyGame r0,hl_urho3d_stringhash* r1,hl_urho3d_variantmap* r2) {
-	bool *r39, *r42;
-	String r5, r16, r28;
-	haxe__ds__ObjectMap r24;
-	hl__types__ArrayObj r38;
-	haxe__ds__StringMap r29;
-	hl_type *r37;
-	hl_urho3d_scene_component *r34;
-	hl_urho3d_scene_node_ptr *r25;
-	bool r8, r11;
-	urho3d__Node r23, r26;
-	urho3d__Scene r17, r19;
-	samplygame__Enemies r40;
+	bool *r38, *r42;
+	String r5, r15, r27;
+	haxe__ds__ObjectMap r23;
+	hl__types__ArrayObj r37;
+	haxe__ds__StringMap r28;
+	hl_type *r36;
+	hl_urho3d_scene_component *r33;
+	hl_urho3d_scene_node_ptr *r24;
+	bool r9, r10;
+	urho3d__Node r22, r25;
+	urho3d__Scene r16, r18;
+	samplygame__Enemies r39;
 	hl_urho3d_tvariant *r4;
-	urho3d__Component r32;
-	urho3d___Context__$Context_Impl_ r21;
-	urho3d_context *r20;
-	hl_urho3d_scene_node *r18;
+	urho3d__Component r31;
+	urho3d___Context__$Context_Impl_ r20;
+	urho3d_context *r19;
+	hl_urho3d_scene_node *r17;
 	float r3;
-	hl__types__ArrayDyn r35;
-	hl_urho3d_scene_component_ptr *r33;
-	samplygame__Player r30;
-	samplygame__StartMenu r10;
-	double r6, r9;
+	hl__types__ArrayDyn r34;
+	hl_urho3d_scene_component_ptr *r32;
+	samplygame__Player r29;
+	samplygame__StartMenu r8;
+	double r6, r40;
 	double *r41;
-	vdynamic *r27, *r31;
-	int *r14;
-	varray *r36;
-	vbyte *r15;
-	int r13, r22;
-	hl_urho3d_ui_text *r12;
+	vdynamic *r26, *r30;
+	int *r13;
+	varray *r35;
+	vbyte *r14;
+	int r12, r21;
+	hl_urho3d_ui_text *r11;
 	r5 = (String)s$TimeStep;
 	r4 = Urho3D__core_variantmap_get_key_string_value(r2,r5);
 	r3 = Urho3D__tvariant_get_float(r4);
 	r6 = (double)r3;
-	r8 = actions_ActionManager_Step(r6);
-	r10 = r0->startMenu_;
-	if( !r10 ) goto label$0caf0a1_5_174;
-	r10 = r0->startMenu_;
-	if( r10 == NULL ) hl_null_access();
-	r8 = r10->startPlay;
-	r11 = true;
-	if( r8 != r11 ) goto label$0caf0a1_5_174;
-	r8 = r0->playing;
-	r11 = false;
-	if( r8 != r11 ) goto label$0caf0a1_5_174;
-	r8 = true;
-	r0->playing = r8;
-	r12 = r0->healthText;
+	r8 = r0->startMenu_;
+	if( !r8 ) goto label$0caf0a1_5_173;
+	r8 = r0->startMenu_;
+	if( r8 == NULL ) hl_null_access();
+	r9 = r8->startPlay;
+	r10 = true;
+	if( r9 != r10 ) goto label$0caf0a1_5_173;
+	r9 = r0->playing;
+	r10 = false;
+	if( r9 != r10 ) goto label$0caf0a1_5_173;
+	r9 = true;
+	r0->playing = r9;
+	r11 = r0->healthText;
 	r5 = r0->HealthString;
-	r13 = 100;
-	r14 = &r13;
-	r15 = hl_itos(r13,r14);
-	r16 = String___alloc__(r15,r13);
-	r5 = String___add__(r5,r16);
-	r16 = (String)s$0bcef9c;
-	r5 = String___add__(r5,r16);
-	r5 = urho3d__Text_Text_Impl__set_text(r12,r5);
-	r17 = r0->scene;
+	r12 = 100;
+	r13 = &r12;
+	r14 = hl_itos(r12,r13);
+	r15 = String___alloc__(r14,r12);
+	r5 = String___add__(r5,r15);
+	r15 = (String)s$0bcef9c;
+	r5 = String___add__(r5,r15);
+	r5 = urho3d__Text_Text_Impl__set_text(r11,r5);
+	r16 = r0->scene;
 	r5 = (String)s$PlayerNode;
-	if( r5 ) goto label$0caf0a1_5_32;
-	r16 = (String)s$;
-	r5 = r16;
-	label$0caf0a1_5_32:
-	if( r17 == NULL ) hl_null_access();
-	r18 = r17->abstractNode;
-	if( !r18 ) goto label$0caf0a1_5_57;
-	r21 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r20 = r21->context;
-	r18 = r17->abstractNode;
-	r13 = 0;
-	r22 = 0;
-	r8 = false;
-	r18 = Urho3D__scene_node_create_child(r20,r18,r5,r13,r22,r8);
-	r23 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
-	urho3d_Node_new(r23,r18);
-	r24 = r17->children_pointers_map;
-	if( r24 == NULL ) hl_null_access();
-	r25 = urho3d_Node_get_pointer(r23);
-	if( r25 == NULL ) r27 = NULL; else {
-		r27 = hl_alloc_dynamic(&t$hl_urho3d_scene_node_ptr);
-		r27->v.ptr = r25;
-	}
-	haxe_ds_ObjectMap_set(r24,r27,((vdynamic*)r23));
-	r28 = (String)s$;
-	if( r5 == r28 || (r5 && r28 && String___compare(r5,(vdynamic*)r28) == 0) ) goto label$0caf0a1_5_54;
-	r29 = r17->children_name_map;
-	if( r29 == NULL ) hl_null_access();
-	haxe_ds_StringMap_set(r29,r5,((vdynamic*)r23));
-	label$0caf0a1_5_54:
-	r23->_parent = ((urho3d__Node)r17);
-	r26 = r23;
-	goto label$0caf0a1_5_59;
-	label$0caf0a1_5_57:
-	r23 = NULL;
-	r26 = r23;
-	label$0caf0a1_5_59:
-	r30 = (samplygame__Player)hl_alloc_obj(&t$samplygame_Player);
-	r27 = NULL;
-	samplygame_Player_new(r30,r27);
-	r0->player_ = r30;
-	r30 = r0->player_;
+	if( r5 ) goto label$0caf0a1_5_31;
+	r15 = (String)s$;
+	r5 = r15;
+	label$0caf0a1_5_31:
+	if( r16 == NULL ) hl_null_access();
+	r17 = r16->abstractNode;
+	if( !r17 ) goto label$0caf0a1_5_56;
+	r20 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r19 = r20->context;
+	r17 = r16->abstractNode;
+	r12 = 0;
+	r21 = 0;
+	r9 = false;
+	r17 = Urho3D__scene_node_create_child(r19,r17,r5,r12,r21,r9);
+	r22 = (urho3d__Node)hl_alloc_obj(&t$urho3d_Node);
+	urho3d_Node_new(r22,r17);
+	r23 = r16->children_pointers_map;
 	if( r23 == NULL ) hl_null_access();
-	r18 = r23->abstractNode;
-	if( !r18 ) goto label$0caf0a1_5_109;
-	r32 = (urho3d__Component)hl_dyn_castp(&r30,&t$samplygame_Player,&t$urho3d_Component);
-	r24 = r23->components_map;
-	if( r24 == NULL ) hl_null_access();
-	if( r32 == NULL ) hl_null_access();
-	r33 = urho3d_Component_get_pointer(r32);
-	if( r33 == NULL ) r31 = NULL; else {
-		r31 = hl_alloc_dynamic(&t$hl_urho3d_scene_component_ptr);
-		r31->v.ptr = r33;
+	r24 = urho3d_Node_get_pointer(r22);
+	if( r24 == NULL ) r26 = NULL; else {
+		r26 = hl_alloc_dynamic(&t$hl_urho3d_scene_node_ptr);
+		r26->v.ptr = r24;
 	}
-	haxe_ds_ObjectMap_set(r24,r31,((vdynamic*)r32));
-	r23 = urho3d_Component_set_node(r32,r23);
-	r21 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r20 = r21->context;
-	if( r26 == NULL ) hl_null_access();
-	r18 = r26->abstractNode;
-	if( r30 == NULL ) hl_null_access();
-	r31 = (vdynamic*)hl_dyn_getp((vdynamic*)r30,-460463503/*abstractComponent*/,&t$_dyn);
-	r34 = (hl_urho3d_scene_component*)hl_dyn_castp(&r31,&t$_dyn,&t$hl_urho3d_scene_component);
-	r13 = 0;
-	r22 = 0;
-	Urho3D__scene_node_add_component(r20,r18,r34,r13,r22);
-	r29 = r26->logic_components_map;
+	haxe_ds_ObjectMap_set(r23,r26,((vdynamic*)r22));
+	r27 = (String)s$;
+	if( r5 == r27 || (r5 && r27 && String___compare(r5,(vdynamic*)r27) == 0) ) goto label$0caf0a1_5_53;
+	r28 = r16->children_name_map;
+	if( r28 == NULL ) hl_null_access();
+	haxe_ds_StringMap_set(r28,r5,((vdynamic*)r22));
+	label$0caf0a1_5_53:
+	r22->_parent = ((urho3d__Node)r16);
+	r25 = r22;
+	goto label$0caf0a1_5_58;
+	label$0caf0a1_5_56:
+	r22 = NULL;
+	r25 = r22;
+	label$0caf0a1_5_58:
+	r29 = (samplygame__Player)hl_alloc_obj(&t$samplygame_Player);
+	r26 = NULL;
+	samplygame_Player_new(r29,r26);
+	r0->player_ = r29;
+	r29 = r0->player_;
+	if( r22 == NULL ) hl_null_access();
+	r17 = r22->abstractNode;
+	if( !r17 ) goto label$0caf0a1_5_108;
+	r31 = (urho3d__Component)hl_dyn_castp(&r29,&t$samplygame_Player,&t$urho3d_Component);
+	r23 = r22->components_map;
+	if( r23 == NULL ) hl_null_access();
+	if( r31 == NULL ) hl_null_access();
+	r32 = urho3d_Component_get_pointer(r31);
+	if( r32 == NULL ) r30 = NULL; else {
+		r30 = hl_alloc_dynamic(&t$hl_urho3d_scene_component_ptr);
+		r30->v.ptr = r32;
+	}
+	haxe_ds_ObjectMap_set(r23,r30,((vdynamic*)r31));
+	r22 = urho3d_Component_set_node(r31,r22);
+	r20 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r19 = r20->context;
+	if( r25 == NULL ) hl_null_access();
+	r17 = r25->abstractNode;
 	if( r29 == NULL ) hl_null_access();
-	r16 = Std_string(((vdynamic*)r30));
-	r31 = haxe_ds_StringMap_get(r29,r16);
-	r35 = (hl__types__ArrayDyn)hl_dyn_castp(&r31,&t$_dyn,&t$hl_types_ArrayDyn);
-	if( r35 ) goto label$0caf0a1_5_102;
-	r37 = &t$_dyn;
-	r13 = 0;
-	r36 = hl_alloc_array(r37,r13);
-	r38 = hl_types_ArrayObj_alloc(r36);
-	r8 = true;
-	r39 = &r8;
-	r35 = hl_types_ArrayDyn_alloc(((hl__types__ArrayBase)r38),r39);
-	r29 = r26->logic_components_map;
-	if( r29 == NULL ) hl_null_access();
-	r16 = Std_string(((vdynamic*)r30));
-	haxe_ds_StringMap_set(r29,r16,((vdynamic*)r35));
-	label$0caf0a1_5_102:
-	r29 = r26->logic_components_map;
-	if( r29 == NULL ) hl_null_access();
-	r16 = Std_string(((vdynamic*)r30));
-	r31 = haxe_ds_StringMap_get(r29,r16);
-	r35 = (hl__types__ArrayDyn)hl_dyn_castp(&r31,&t$_dyn,&t$hl_types_ArrayDyn);
-	if( r35 == NULL ) hl_null_access();
-	r13 = hl_types_ArrayDyn_push(r35,((vdynamic*)r30));
-	label$0caf0a1_5_109:
-	r30 = r0->player_;
-	if( !r30 ) goto label$0caf0a1_5_173;
+	r30 = (vdynamic*)hl_dyn_getp((vdynamic*)r29,-460463503/*abstractComponent*/,&t$_dyn);
+	r33 = (hl_urho3d_scene_component*)hl_dyn_castp(&r30,&t$_dyn,&t$hl_urho3d_scene_component);
+	r12 = 0;
+	r21 = 0;
+	Urho3D__scene_node_add_component(r19,r17,r33,r12,r21);
+	r28 = r25->logic_components_map;
+	if( r28 == NULL ) hl_null_access();
+	r15 = Std_string(((vdynamic*)r29));
+	r30 = haxe_ds_StringMap_get(r28,r15);
+	r34 = (hl__types__ArrayDyn)hl_dyn_castp(&r30,&t$_dyn,&t$hl_types_ArrayDyn);
+	if( r34 ) goto label$0caf0a1_5_101;
+	r36 = &t$_dyn;
+	r12 = 0;
+	r35 = hl_alloc_array(r36,r12);
+	r37 = hl_types_ArrayObj_alloc(r35);
+	r9 = true;
+	r38 = &r9;
+	r34 = hl_types_ArrayDyn_alloc(((hl__types__ArrayBase)r37),r38);
+	r28 = r25->logic_components_map;
+	if( r28 == NULL ) hl_null_access();
+	r15 = Std_string(((vdynamic*)r29));
+	haxe_ds_StringMap_set(r28,r15,((vdynamic*)r34));
+	label$0caf0a1_5_101:
+	r28 = r25->logic_components_map;
+	if( r28 == NULL ) hl_null_access();
+	r15 = Std_string(((vdynamic*)r29));
+	r30 = haxe_ds_StringMap_get(r28,r15);
+	r34 = (hl__types__ArrayDyn)hl_dyn_castp(&r30,&t$_dyn,&t$hl_types_ArrayDyn);
+	if( r34 == NULL ) hl_null_access();
+	r12 = hl_types_ArrayDyn_push(r34,((vdynamic*)r29));
+	label$0caf0a1_5_108:
+	r29 = r0->player_;
+	if( !r29 ) goto label$0caf0a1_5_172;
 	samplygame_SamplyGame_DeleteStartMenu(r0);
-	r30 = r0->player_;
-	if( r30 == NULL ) hl_null_access();
-	samplygame_Aircraft_Play(((samplygame__Aircraft)r30));
-	r40 = (samplygame__Enemies)hl_alloc_obj(&t$samplygame_Enemies);
-	r30 = NULL;
-	samplygame_Enemies_new(r40,r30);
-	r0->enemies_ = r40;
-	r19 = r0->scene;
-	r40 = r0->enemies_;
-	if( r19 == NULL ) hl_null_access();
-	r18 = r19->abstractNode;
-	if( !r18 ) goto label$0caf0a1_5_165;
-	r32 = (urho3d__Component)hl_dyn_castp(&r40,&t$samplygame_Enemies,&t$urho3d_Component);
-	r24 = r19->components_map;
-	if( r24 == NULL ) hl_null_access();
-	if( r32 == NULL ) hl_null_access();
-	r33 = urho3d_Component_get_pointer(r32);
-	if( r33 == NULL ) r31 = NULL; else {
-		r31 = hl_alloc_dynamic(&t$hl_urho3d_scene_component_ptr);
-		r31->v.ptr = r33;
+	r29 = r0->player_;
+	if( r29 == NULL ) hl_null_access();
+	samplygame_Aircraft_Play(((samplygame__Aircraft)r29));
+	r39 = (samplygame__Enemies)hl_alloc_obj(&t$samplygame_Enemies);
+	r29 = NULL;
+	samplygame_Enemies_new(r39,r29);
+	r0->enemies_ = r39;
+	r18 = r0->scene;
+	r39 = r0->enemies_;
+	if( r18 == NULL ) hl_null_access();
+	r17 = r18->abstractNode;
+	if( !r17 ) goto label$0caf0a1_5_164;
+	r31 = (urho3d__Component)hl_dyn_castp(&r39,&t$samplygame_Enemies,&t$urho3d_Component);
+	r23 = r18->components_map;
+	if( r23 == NULL ) hl_null_access();
+	if( r31 == NULL ) hl_null_access();
+	r32 = urho3d_Component_get_pointer(r31);
+	if( r32 == NULL ) r30 = NULL; else {
+		r30 = hl_alloc_dynamic(&t$hl_urho3d_scene_component_ptr);
+		r30->v.ptr = r32;
 	}
-	haxe_ds_ObjectMap_set(r24,r31,((vdynamic*)r32));
-	r23 = urho3d_Component_set_node(r32,((urho3d__Node)r19));
-	r21 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
-	r20 = r21->context;
-	r18 = r19->abstractNode;
-	if( r40 == NULL ) hl_null_access();
-	r31 = (vdynamic*)hl_dyn_getp((vdynamic*)r40,-460463503/*abstractComponent*/,&t$_dyn);
-	r34 = (hl_urho3d_scene_component*)hl_dyn_castp(&r31,&t$_dyn,&t$hl_urho3d_scene_component);
-	r13 = 0;
-	r22 = 0;
-	Urho3D__scene_node_add_component(r20,r18,r34,r13,r22);
-	r29 = r19->logic_components_map;
-	if( r29 == NULL ) hl_null_access();
-	r16 = Std_string(((vdynamic*)r40));
-	r31 = haxe_ds_StringMap_get(r29,r16);
-	r35 = (hl__types__ArrayDyn)hl_dyn_castp(&r31,&t$_dyn,&t$hl_types_ArrayDyn);
-	if( r35 ) goto label$0caf0a1_5_158;
-	r37 = &t$_dyn;
-	r13 = 0;
-	r36 = hl_alloc_array(r37,r13);
-	r38 = hl_types_ArrayObj_alloc(r36);
-	r8 = true;
-	r39 = &r8;
-	r35 = hl_types_ArrayDyn_alloc(((hl__types__ArrayBase)r38),r39);
-	r29 = r19->logic_components_map;
-	if( r29 == NULL ) hl_null_access();
-	r16 = Std_string(((vdynamic*)r40));
-	haxe_ds_StringMap_set(r29,r16,((vdynamic*)r35));
-	label$0caf0a1_5_158:
-	r29 = r19->logic_components_map;
-	if( r29 == NULL ) hl_null_access();
-	r16 = Std_string(((vdynamic*)r40));
-	r31 = haxe_ds_StringMap_get(r29,r16);
-	r35 = (hl__types__ArrayDyn)hl_dyn_castp(&r31,&t$_dyn,&t$hl_types_ArrayDyn);
-	if( r35 == NULL ) hl_null_access();
-	r13 = hl_types_ArrayDyn_push(r35,((vdynamic*)r40));
-	label$0caf0a1_5_165:
-	r40 = r0->enemies_;
-	if( r40 == NULL ) hl_null_access();
-	r30 = r0->player_;
-	samplygame_Enemies_SetPlayer(r40,r30);
-	r40 = r0->enemies_;
-	if( r40 == NULL ) hl_null_access();
-	samplygame_Enemies_StartSpawning(r40);
+	haxe_ds_ObjectMap_set(r23,r30,((vdynamic*)r31));
+	r22 = urho3d_Component_set_node(r31,((urho3d__Node)r18));
+	r20 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
+	r19 = r20->context;
+	r17 = r18->abstractNode;
+	if( r39 == NULL ) hl_null_access();
+	r30 = (vdynamic*)hl_dyn_getp((vdynamic*)r39,-460463503/*abstractComponent*/,&t$_dyn);
+	r33 = (hl_urho3d_scene_component*)hl_dyn_castp(&r30,&t$_dyn,&t$hl_urho3d_scene_component);
+	r12 = 0;
+	r21 = 0;
+	Urho3D__scene_node_add_component(r19,r17,r33,r12,r21);
+	r28 = r18->logic_components_map;
+	if( r28 == NULL ) hl_null_access();
+	r15 = Std_string(((vdynamic*)r39));
+	r30 = haxe_ds_StringMap_get(r28,r15);
+	r34 = (hl__types__ArrayDyn)hl_dyn_castp(&r30,&t$_dyn,&t$hl_types_ArrayDyn);
+	if( r34 ) goto label$0caf0a1_5_157;
+	r36 = &t$_dyn;
+	r12 = 0;
+	r35 = hl_alloc_array(r36,r12);
+	r37 = hl_types_ArrayObj_alloc(r35);
+	r9 = true;
+	r38 = &r9;
+	r34 = hl_types_ArrayDyn_alloc(((hl__types__ArrayBase)r37),r38);
+	r28 = r18->logic_components_map;
+	if( r28 == NULL ) hl_null_access();
+	r15 = Std_string(((vdynamic*)r39));
+	haxe_ds_StringMap_set(r28,r15,((vdynamic*)r34));
+	label$0caf0a1_5_157:
+	r28 = r18->logic_components_map;
+	if( r28 == NULL ) hl_null_access();
+	r15 = Std_string(((vdynamic*)r39));
+	r30 = haxe_ds_StringMap_get(r28,r15);
+	r34 = (hl__types__ArrayDyn)hl_dyn_castp(&r30,&t$_dyn,&t$hl_types_ArrayDyn);
+	if( r34 == NULL ) hl_null_access();
+	r12 = hl_types_ArrayDyn_push(r34,((vdynamic*)r39));
+	label$0caf0a1_5_164:
+	r39 = r0->enemies_;
+	if( r39 == NULL ) hl_null_access();
+	r29 = r0->player_;
+	samplygame_Enemies_SetPlayer(r39,r29);
+	r39 = r0->enemies_;
+	if( r39 == NULL ) hl_null_access();
+	samplygame_Enemies_StartSpawning(r39);
 	samplygame_SamplyGame_SpawnCoins(r0);
+	label$0caf0a1_5_172:
+	goto label$0caf0a1_5_214;
 	label$0caf0a1_5_173:
-	goto label$0caf0a1_5_215;
-	label$0caf0a1_5_174:
-	r30 = r0->player_;
-	if( !r30 ) goto label$0caf0a1_5_215;
-	r30 = r0->player_;
-	if( r30 == NULL ) hl_null_access();
-	r8 = samplygame_Aircraft_IsAlive(((samplygame__Aircraft)r30));
-	r11 = false;
-	if( r8 != r11 ) goto label$0caf0a1_5_215;
-	r8 = false;
-	r0->playing = r8;
-	r40 = r0->enemies_;
-	if( r40 == NULL ) hl_null_access();
-	samplygame_Enemies_KillAll(r40);
-	r40 = r0->enemies_;
-	if( r40 == NULL ) hl_null_access();
-	samplygame_Enemies_RemovePlayer(r40);
-	r30 = NULL;
-	r0->player_ = r30;
-	r40 = NULL;
-	r0->enemies_ = r40;
-	r9 = 1.;
-	r41 = &r9;
+	r29 = r0->player_;
+	if( !r29 ) goto label$0caf0a1_5_214;
+	r29 = r0->player_;
+	if( r29 == NULL ) hl_null_access();
+	r9 = samplygame_Aircraft_IsAlive(((samplygame__Aircraft)r29));
+	r10 = false;
+	if( r9 != r10 ) goto label$0caf0a1_5_214;
+	r9 = false;
+	r0->playing = r9;
+	r39 = r0->enemies_;
+	if( r39 == NULL ) hl_null_access();
+	samplygame_Enemies_KillAll(r39);
+	r39 = r0->enemies_;
+	if( r39 == NULL ) hl_null_access();
+	samplygame_Enemies_RemovePlayer(r39);
+	r29 = NULL;
+	r0->player_ = r29;
 	r39 = NULL;
+	r0->enemies_ = r39;
+	r40 = 1.;
+	r41 = &r40;
+	r38 = NULL;
 	r5 = (String)s$CreateStartMenu;
-	r37 = &t$_dyn;
-	r13 = 0;
-	r36 = hl_alloc_array(r37,r13);
-	r38 = hl_types_ArrayObj_alloc(r36);
-	r8 = true;
-	r42 = &r8;
-	r35 = hl_types_ArrayDyn_alloc(((hl__types__ArrayBase)r38),r42);
-	urho3d_Application_InvokeDelayed(((urho3d__Application)r0),r41,r39,r5,r35);
-	r13 = 0;
-	r0->coins = r13;
-	r12 = r0->coinsText;
-	r13 = r0->coins;
-	r14 = &r13;
-	r15 = hl_itos(r13,r14);
-	r5 = String___alloc__(r15,r13);
-	r16 = r0->CoinsString;
-	r5 = String___add__(r5,r16);
-	r5 = urho3d__Text_Text_Impl__set_text(r12,r5);
-	label$0caf0a1_5_215:
+	r36 = &t$_dyn;
+	r12 = 0;
+	r35 = hl_alloc_array(r36,r12);
+	r37 = hl_types_ArrayObj_alloc(r35);
+	r9 = true;
+	r42 = &r9;
+	r34 = hl_types_ArrayDyn_alloc(((hl__types__ArrayBase)r37),r42);
+	urho3d_Application_InvokeDelayed(((urho3d__Application)r0),r41,r38,r5,r34);
+	r12 = 0;
+	r0->coins = r12;
+	r11 = r0->coinsText;
+	r12 = r0->coins;
+	r13 = &r12;
+	r14 = hl_itos(r12,r13);
+	r5 = String___alloc__(r14,r12);
+	r15 = r0->CoinsString;
+	r5 = String___add__(r5,r15);
+	r5 = urho3d__Text_Text_Impl__set_text(r11,r5);
+	label$0caf0a1_5_214:
+	r12 = 32;
+	r9 = urho3d_Input_GetKeyPress(r12);
+	if( !r9 ) goto label$0caf0a1_5_220;
+	r9 = r0->drawDebug;
+	r9 = !r9;
+	r0->drawDebug = r9;
+	label$0caf0a1_5_220:
+	return;
+}
+
+void samplygame_SamplyGame_HandlePostRenderUpdate(samplygame__SamplyGame r0,hl_urho3d_stringhash* r1,hl_urho3d_variantmap* r2) {
+	bool r4;
+	r4 = r0->drawDebug;
+	if( !r4 ) goto label$0caf0a1_6_4;
+	r4 = true;
+	urho3d_Renderer_DrawDebugGeometry(r4);
+	label$0caf0a1_6_4:
 	return;
 }
 
@@ -1056,13 +1093,13 @@ void samplygame_SamplyGame_CreateStartMenu(samplygame__SamplyGame r0) {
 	int r8, r9;
 	r1 = r0->scene;
 	r3 = (String)s$StartMenuNode;
-	if( r3 ) goto label$0caf0a1_6_5;
+	if( r3 ) goto label$0caf0a1_7_5;
 	r4 = (String)s$;
 	r3 = r4;
-	label$0caf0a1_6_5:
+	label$0caf0a1_7_5:
 	if( r1 == NULL ) hl_null_access();
 	r5 = r1->abstractNode;
-	if( !r5 ) goto label$0caf0a1_6_29;
+	if( !r5 ) goto label$0caf0a1_7_29;
 	r7 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r6 = r7->context;
 	r5 = r1->abstractNode;
@@ -1081,19 +1118,19 @@ void samplygame_SamplyGame_CreateStartMenu(samplygame__SamplyGame r0) {
 	}
 	haxe_ds_ObjectMap_set(r12,r14,((vdynamic*)r11));
 	r15 = (String)s$;
-	if( r3 == r15 || (r3 && r15 && String___compare(r3,(vdynamic*)r15) == 0) ) goto label$0caf0a1_6_27;
+	if( r3 == r15 || (r3 && r15 && String___compare(r3,(vdynamic*)r15) == 0) ) goto label$0caf0a1_7_27;
 	r16 = r1->children_name_map;
 	if( r16 == NULL ) hl_null_access();
 	haxe_ds_StringMap_set(r16,r3,((vdynamic*)r11));
-	label$0caf0a1_6_27:
+	label$0caf0a1_7_27:
 	r11->_parent = ((urho3d__Node)r1);
-	goto label$0caf0a1_6_30;
-	label$0caf0a1_6_29:
+	goto label$0caf0a1_7_30;
+	label$0caf0a1_7_29:
 	r11 = NULL;
-	label$0caf0a1_6_30:
+	label$0caf0a1_7_30:
 	r0->startMenuNode_ = r11;
 	r11 = r0->startMenuNode_;
-	if( !r11 ) goto label$0caf0a1_6_83;
+	if( !r11 ) goto label$0caf0a1_7_83;
 	r18 = (samplygame__StartMenu)hl_alloc_obj(&t$samplygame_StartMenu);
 	r14 = NULL;
 	samplygame_StartMenu_new(r18,r14);
@@ -1102,7 +1139,7 @@ void samplygame_SamplyGame_CreateStartMenu(samplygame__SamplyGame r0) {
 	r18 = r0->startMenu_;
 	if( r11 == NULL ) hl_null_access();
 	r5 = r11->abstractNode;
-	if( !r5 ) goto label$0caf0a1_6_83;
+	if( !r5 ) goto label$0caf0a1_7_83;
 	r20 = (urho3d__Component)hl_dyn_castp(&r18,&t$samplygame_StartMenu,&t$urho3d_Component);
 	r12 = r11->components_map;
 	if( r12 == NULL ) hl_null_access();
@@ -1128,7 +1165,7 @@ void samplygame_SamplyGame_CreateStartMenu(samplygame__SamplyGame r0) {
 	r4 = Std_string(((vdynamic*)r18));
 	r19 = haxe_ds_StringMap_get(r16,r4);
 	r23 = (hl__types__ArrayDyn)hl_dyn_castp(&r19,&t$_dyn,&t$hl_types_ArrayDyn);
-	if( r23 ) goto label$0caf0a1_6_76;
+	if( r23 ) goto label$0caf0a1_7_76;
 	r25 = &t$_dyn;
 	r8 = 0;
 	r24 = hl_alloc_array(r25,r8);
@@ -1140,7 +1177,7 @@ void samplygame_SamplyGame_CreateStartMenu(samplygame__SamplyGame r0) {
 	if( r16 == NULL ) hl_null_access();
 	r4 = Std_string(((vdynamic*)r18));
 	haxe_ds_StringMap_set(r16,r4,((vdynamic*)r23));
-	label$0caf0a1_6_76:
+	label$0caf0a1_7_76:
 	r16 = r11->logic_components_map;
 	if( r16 == NULL ) hl_null_access();
 	r4 = Std_string(((vdynamic*)r18));
@@ -1148,7 +1185,7 @@ void samplygame_SamplyGame_CreateStartMenu(samplygame__SamplyGame r0) {
 	r23 = (hl__types__ArrayDyn)hl_dyn_castp(&r19,&t$_dyn,&t$hl_types_ArrayDyn);
 	if( r23 == NULL ) hl_null_access();
 	r8 = hl_types_ArrayDyn_push(r23,((vdynamic*)r18));
-	label$0caf0a1_6_83:
+	label$0caf0a1_7_83:
 	return;
 }
 
@@ -1168,43 +1205,43 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	int r19;
 	vbyte *r15;
 	r2 = r0->startMenuNode_;
-	if( !r2 ) goto label$0caf0a1_7_924;
+	if( !r2 ) goto label$0caf0a1_8_924;
 	r2 = r0->startMenuNode_;
 	if( r2 == NULL ) hl_null_access();
 	r4 = r2->abstractNode;
 	r6 = NULL;
-	if( r4 != r6 ) goto label$0caf0a1_7_9;
+	if( r4 != r6 ) goto label$0caf0a1_8_9;
 	r3 = false;
-	goto label$0caf0a1_7_10;
-	label$0caf0a1_7_9:
+	goto label$0caf0a1_8_10;
+	label$0caf0a1_8_9:
 	r3 = true;
-	label$0caf0a1_7_10:
+	label$0caf0a1_8_10:
 	r7 = true;
-	if( r3 != r7 ) goto label$0caf0a1_7_922;
+	if( r3 != r7 ) goto label$0caf0a1_8_922;
 	r5 = r2->_parent;
-	if( !r5 ) goto label$0caf0a1_7_496;
+	if( !r5 ) goto label$0caf0a1_8_496;
 	r5 = r2->_parent;
 	if( r5 == NULL ) hl_null_access();
 	r4 = r5->abstractNode;
 	r6 = NULL;
-	if( r4 != r6 ) goto label$0caf0a1_7_21;
+	if( r4 != r6 ) goto label$0caf0a1_8_21;
 	r3 = false;
-	goto label$0caf0a1_7_22;
-	label$0caf0a1_7_21:
+	goto label$0caf0a1_8_22;
+	label$0caf0a1_8_21:
 	r3 = true;
-	label$0caf0a1_7_22:
+	label$0caf0a1_8_22:
 	r7 = true;
-	if( r3 != r7 ) goto label$0caf0a1_7_495;
+	if( r3 != r7 ) goto label$0caf0a1_8_495;
 	r4 = r2->abstractNode;
 	r6 = NULL;
-	if( r4 != r6 ) goto label$0caf0a1_7_29;
+	if( r4 != r6 ) goto label$0caf0a1_8_29;
 	r3 = false;
-	goto label$0caf0a1_7_30;
-	label$0caf0a1_7_29:
+	goto label$0caf0a1_8_30;
+	label$0caf0a1_8_29:
 	r3 = true;
-	label$0caf0a1_7_30:
+	label$0caf0a1_8_30:
 	r7 = true;
-	if( r3 != r7 ) goto label$0caf0a1_7_495;
+	if( r3 != r7 ) goto label$0caf0a1_8_495;
 	r9 = r5->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	r10 = urho3d_Node_get_pointer(r2);
@@ -1214,40 +1251,40 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	}
 	r3 = haxe_ds_ObjectMap_remove(r9,r11);
 	r12 = r5->children_name_map;
-	if( r12 ) goto label$0caf0a1_7_41;
+	if( r12 ) goto label$0caf0a1_8_41;
 	r13 = NULL;
-	goto label$0caf0a1_7_45;
-	label$0caf0a1_7_41:
+	goto label$0caf0a1_8_45;
+	label$0caf0a1_8_41:
 	r13 = r12->f$1;
-	if( r13 ) goto label$0caf0a1_7_45;
+	if( r13 ) goto label$0caf0a1_8_45;
 	r13 = hl_to_virtual(&t$vrt_b840ca7,(vdynamic*)r12);
 	r12->f$1 = r13;
-	label$0caf0a1_7_45:
+	label$0caf0a1_8_45:
 	r4 = r2->abstractNode;
-	if( !r4 ) goto label$0caf0a1_7_64;
+	if( !r4 ) goto label$0caf0a1_8_64;
 	r14 = r2->_name;
-	if( r14 ) goto label$0caf0a1_7_62;
+	if( r14 ) goto label$0caf0a1_8_62;
 	r17 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r16 = r17->context;
 	r4 = r2->abstractNode;
 	r15 = Urho3D__scene_node_get_name(r16,r4);
-	if( r15 ) goto label$0caf0a1_7_56;
+	if( r15 ) goto label$0caf0a1_8_56;
 	r18 = NULL;
-	goto label$0caf0a1_7_61;
-	label$0caf0a1_7_56:
+	goto label$0caf0a1_8_61;
+	label$0caf0a1_8_56:
 	r18 = (String)hl_alloc_obj(&t$String);
 	r18->bytes = r15;
 	r19 = 0;
 	r19 = hl_ucs2length(r15,r19);
 	r18->length = r19;
-	label$0caf0a1_7_61:
+	label$0caf0a1_8_61:
 	r2->_name = r18;
-	label$0caf0a1_7_62:
+	label$0caf0a1_8_62:
 	r18 = r2->_name;
-	goto label$0caf0a1_7_65;
-	label$0caf0a1_7_64:
+	goto label$0caf0a1_8_65;
+	label$0caf0a1_8_64:
 	r18 = (String)s$;
-	label$0caf0a1_7_65:
+	label$0caf0a1_8_65:
 	r12 = (haxe__ds__StringMap)hl_dyn_castp(&r13,&t$vrt_b840ca7,&t$haxe_ds_StringMap);
 	if( r12 == NULL ) hl_null_access();
 	r3 = haxe_ds_StringMap_remove(r12,r18);
@@ -1260,14 +1297,14 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r21 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_77:
+	label$0caf0a1_8_77:
 	if( r21 == NULL ) hl_null_access();
 	if( hl_vfields(r21)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r21)[0])(r21->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r21->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_226;
+	if( !r3 ) goto label$0caf0a1_8_226;
 	if( hl_vfields(r21)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r21)[1])(r21->value); else {
 		r8 = (urho3d__Node)hl_dyn_call_obj(r21->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
@@ -1276,56 +1313,56 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_87:
+	label$0caf0a1_8_87:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_96;
+	if( !r3 ) goto label$0caf0a1_8_96;
 	if( hl_vfields(r22)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r23 == NULL ) hl_null_access();
 	r3 = false;
 	r3 = urho3d_Node_set_valid(r23,r3);
-	goto label$0caf0a1_7_87;
-	label$0caf0a1_7_96:
+	goto label$0caf0a1_8_87;
+	label$0caf0a1_8_96:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_101:
+	label$0caf0a1_8_101:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_110;
+	if( !r3 ) goto label$0caf0a1_8_110;
 	if( hl_vfields(r22)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r23 == NULL ) hl_null_access();
 	r3 = false;
 	r3 = urho3d_Node_set_valid(r23,r3);
-	goto label$0caf0a1_7_101;
-	label$0caf0a1_7_110:
+	goto label$0caf0a1_8_101;
+	label$0caf0a1_8_110:
 	if( r8 == NULL ) hl_null_access();
 	r9 = r8->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_115:
+	label$0caf0a1_8_115:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_160;
+	if( !r3 ) goto label$0caf0a1_8_160;
 	if( hl_vfields(r22)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
@@ -1334,41 +1371,41 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r24 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_125:
+	label$0caf0a1_8_125:
 	if( r24 == NULL ) hl_null_access();
 	if( hl_vfields(r24)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r24)[0])(r24->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r24->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_133;
+	if( !r3 ) goto label$0caf0a1_8_133;
 	if( hl_vfields(r24)[1] ) r25 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r24)[1])(r24->value); else {
 		r25 = (urho3d__Node)hl_dyn_call_obj(r24->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r25 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r25);
-	goto label$0caf0a1_7_125;
-	label$0caf0a1_7_133:
+	goto label$0caf0a1_8_125;
+	label$0caf0a1_8_133:
 	if( r23 == NULL ) hl_null_access();
 	r12 = r23->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r24 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_138:
+	label$0caf0a1_8_138:
 	if( r24 == NULL ) hl_null_access();
 	if( hl_vfields(r24)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r24)[0])(r24->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r24->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_146;
+	if( !r3 ) goto label$0caf0a1_8_146;
 	if( hl_vfields(r24)[1] ) r25 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r24)[1])(r24->value); else {
 		r25 = (urho3d__Node)hl_dyn_call_obj(r24->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r25 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r25);
-	goto label$0caf0a1_7_138;
-	label$0caf0a1_7_146:
+	goto label$0caf0a1_8_138;
+	label$0caf0a1_8_146:
 	if( r23 == NULL ) hl_null_access();
 	r12 = r23->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -1382,21 +1419,21 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	r9 = r23->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	haxe_ds_ObjectMap_clear(r9);
-	goto label$0caf0a1_7_115;
-	label$0caf0a1_7_160:
+	goto label$0caf0a1_8_115;
+	label$0caf0a1_8_160:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_165:
+	label$0caf0a1_8_165:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_210;
+	if( !r3 ) goto label$0caf0a1_8_210;
 	if( hl_vfields(r22)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
@@ -1405,41 +1442,41 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r24 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_175:
+	label$0caf0a1_8_175:
 	if( r24 == NULL ) hl_null_access();
 	if( hl_vfields(r24)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r24)[0])(r24->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r24->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_183;
+	if( !r3 ) goto label$0caf0a1_8_183;
 	if( hl_vfields(r24)[1] ) r25 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r24)[1])(r24->value); else {
 		r25 = (urho3d__Node)hl_dyn_call_obj(r24->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r25 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r25);
-	goto label$0caf0a1_7_175;
-	label$0caf0a1_7_183:
+	goto label$0caf0a1_8_175;
+	label$0caf0a1_8_183:
 	if( r23 == NULL ) hl_null_access();
 	r12 = r23->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r24 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_188:
+	label$0caf0a1_8_188:
 	if( r24 == NULL ) hl_null_access();
 	if( hl_vfields(r24)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r24)[0])(r24->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r24->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_196;
+	if( !r3 ) goto label$0caf0a1_8_196;
 	if( hl_vfields(r24)[1] ) r25 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r24)[1])(r24->value); else {
 		r25 = (urho3d__Node)hl_dyn_call_obj(r24->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r25 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r25);
-	goto label$0caf0a1_7_188;
-	label$0caf0a1_7_196:
+	goto label$0caf0a1_8_188;
+	label$0caf0a1_8_196:
 	if( r23 == NULL ) hl_null_access();
 	r12 = r23->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -1453,8 +1490,8 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	r9 = r23->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	haxe_ds_ObjectMap_clear(r9);
-	goto label$0caf0a1_7_165;
-	label$0caf0a1_7_210:
+	goto label$0caf0a1_8_165;
+	label$0caf0a1_8_210:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -1470,21 +1507,21 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	haxe_ds_ObjectMap_clear(r9);
 	r4 = NULL;
 	r8->abstractNode = r4;
-	goto label$0caf0a1_7_77;
-	label$0caf0a1_7_226:
+	goto label$0caf0a1_8_77;
+	label$0caf0a1_8_226:
 	if( r2 == NULL ) hl_null_access();
 	r12 = r2->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r21 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_231:
+	label$0caf0a1_8_231:
 	if( r21 == NULL ) hl_null_access();
 	if( hl_vfields(r21)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r21)[0])(r21->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r21->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_380;
+	if( !r3 ) goto label$0caf0a1_8_380;
 	if( hl_vfields(r21)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r21)[1])(r21->value); else {
 		r8 = (urho3d__Node)hl_dyn_call_obj(r21->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
@@ -1493,56 +1530,56 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_241:
+	label$0caf0a1_8_241:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_250;
+	if( !r3 ) goto label$0caf0a1_8_250;
 	if( hl_vfields(r22)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r23 == NULL ) hl_null_access();
 	r3 = false;
 	r3 = urho3d_Node_set_valid(r23,r3);
-	goto label$0caf0a1_7_241;
-	label$0caf0a1_7_250:
+	goto label$0caf0a1_8_241;
+	label$0caf0a1_8_250:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_255:
+	label$0caf0a1_8_255:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_264;
+	if( !r3 ) goto label$0caf0a1_8_264;
 	if( hl_vfields(r22)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r23 == NULL ) hl_null_access();
 	r3 = false;
 	r3 = urho3d_Node_set_valid(r23,r3);
-	goto label$0caf0a1_7_255;
-	label$0caf0a1_7_264:
+	goto label$0caf0a1_8_255;
+	label$0caf0a1_8_264:
 	if( r8 == NULL ) hl_null_access();
 	r9 = r8->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_269:
+	label$0caf0a1_8_269:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_314;
+	if( !r3 ) goto label$0caf0a1_8_314;
 	if( hl_vfields(r22)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
@@ -1551,41 +1588,41 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r24 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_279:
+	label$0caf0a1_8_279:
 	if( r24 == NULL ) hl_null_access();
 	if( hl_vfields(r24)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r24)[0])(r24->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r24->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_287;
+	if( !r3 ) goto label$0caf0a1_8_287;
 	if( hl_vfields(r24)[1] ) r25 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r24)[1])(r24->value); else {
 		r25 = (urho3d__Node)hl_dyn_call_obj(r24->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r25 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r25);
-	goto label$0caf0a1_7_279;
-	label$0caf0a1_7_287:
+	goto label$0caf0a1_8_279;
+	label$0caf0a1_8_287:
 	if( r23 == NULL ) hl_null_access();
 	r12 = r23->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r24 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_292:
+	label$0caf0a1_8_292:
 	if( r24 == NULL ) hl_null_access();
 	if( hl_vfields(r24)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r24)[0])(r24->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r24->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_300;
+	if( !r3 ) goto label$0caf0a1_8_300;
 	if( hl_vfields(r24)[1] ) r25 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r24)[1])(r24->value); else {
 		r25 = (urho3d__Node)hl_dyn_call_obj(r24->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r25 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r25);
-	goto label$0caf0a1_7_292;
-	label$0caf0a1_7_300:
+	goto label$0caf0a1_8_292;
+	label$0caf0a1_8_300:
 	if( r23 == NULL ) hl_null_access();
 	r12 = r23->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -1599,21 +1636,21 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	r9 = r23->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	haxe_ds_ObjectMap_clear(r9);
-	goto label$0caf0a1_7_269;
-	label$0caf0a1_7_314:
+	goto label$0caf0a1_8_269;
+	label$0caf0a1_8_314:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_319:
+	label$0caf0a1_8_319:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_364;
+	if( !r3 ) goto label$0caf0a1_8_364;
 	if( hl_vfields(r22)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
@@ -1622,41 +1659,41 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r24 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_329:
+	label$0caf0a1_8_329:
 	if( r24 == NULL ) hl_null_access();
 	if( hl_vfields(r24)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r24)[0])(r24->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r24->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_337;
+	if( !r3 ) goto label$0caf0a1_8_337;
 	if( hl_vfields(r24)[1] ) r25 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r24)[1])(r24->value); else {
 		r25 = (urho3d__Node)hl_dyn_call_obj(r24->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r25 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r25);
-	goto label$0caf0a1_7_329;
-	label$0caf0a1_7_337:
+	goto label$0caf0a1_8_329;
+	label$0caf0a1_8_337:
 	if( r23 == NULL ) hl_null_access();
 	r12 = r23->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r24 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_342:
+	label$0caf0a1_8_342:
 	if( r24 == NULL ) hl_null_access();
 	if( hl_vfields(r24)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r24)[0])(r24->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r24->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_350;
+	if( !r3 ) goto label$0caf0a1_8_350;
 	if( hl_vfields(r24)[1] ) r25 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r24)[1])(r24->value); else {
 		r25 = (urho3d__Node)hl_dyn_call_obj(r24->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r25 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r25);
-	goto label$0caf0a1_7_342;
-	label$0caf0a1_7_350:
+	goto label$0caf0a1_8_342;
+	label$0caf0a1_8_350:
 	if( r23 == NULL ) hl_null_access();
 	r12 = r23->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -1670,8 +1707,8 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	r9 = r23->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	haxe_ds_ObjectMap_clear(r9);
-	goto label$0caf0a1_7_319;
-	label$0caf0a1_7_364:
+	goto label$0caf0a1_8_319;
+	label$0caf0a1_8_364:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -1687,21 +1724,21 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	haxe_ds_ObjectMap_clear(r9);
 	r4 = NULL;
 	r8->abstractNode = r4;
-	goto label$0caf0a1_7_231;
-	label$0caf0a1_7_380:
+	goto label$0caf0a1_8_231;
+	label$0caf0a1_8_380:
 	if( r2 == NULL ) hl_null_access();
 	r9 = r2->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r21 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_385:
+	label$0caf0a1_8_385:
 	if( r21 == NULL ) hl_null_access();
 	if( hl_vfields(r21)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r21)[0])(r21->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r21->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_430;
+	if( !r3 ) goto label$0caf0a1_8_430;
 	if( hl_vfields(r21)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r21)[1])(r21->value); else {
 		r8 = (urho3d__Node)hl_dyn_call_obj(r21->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
@@ -1710,41 +1747,41 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_395:
+	label$0caf0a1_8_395:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_403;
+	if( !r3 ) goto label$0caf0a1_8_403;
 	if( hl_vfields(r22)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r23 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r23);
-	goto label$0caf0a1_7_395;
-	label$0caf0a1_7_403:
+	goto label$0caf0a1_8_395;
+	label$0caf0a1_8_403:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_408:
+	label$0caf0a1_8_408:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_416;
+	if( !r3 ) goto label$0caf0a1_8_416;
 	if( hl_vfields(r22)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r23 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r23);
-	goto label$0caf0a1_7_408;
-	label$0caf0a1_7_416:
+	goto label$0caf0a1_8_408;
+	label$0caf0a1_8_416:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -1758,21 +1795,21 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	r9 = r8->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	haxe_ds_ObjectMap_clear(r9);
-	goto label$0caf0a1_7_385;
-	label$0caf0a1_7_430:
+	goto label$0caf0a1_8_385;
+	label$0caf0a1_8_430:
 	if( r2 == NULL ) hl_null_access();
 	r12 = r2->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r21 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_435:
+	label$0caf0a1_8_435:
 	if( r21 == NULL ) hl_null_access();
 	if( hl_vfields(r21)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r21)[0])(r21->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r21->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_480;
+	if( !r3 ) goto label$0caf0a1_8_480;
 	if( hl_vfields(r21)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r21)[1])(r21->value); else {
 		r8 = (urho3d__Node)hl_dyn_call_obj(r21->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
@@ -1781,41 +1818,41 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_445:
+	label$0caf0a1_8_445:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_453;
+	if( !r3 ) goto label$0caf0a1_8_453;
 	if( hl_vfields(r22)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r23 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r23);
-	goto label$0caf0a1_7_445;
-	label$0caf0a1_7_453:
+	goto label$0caf0a1_8_445;
+	label$0caf0a1_8_453:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_458:
+	label$0caf0a1_8_458:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_466;
+	if( !r3 ) goto label$0caf0a1_8_466;
 	if( hl_vfields(r22)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r23 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r23);
-	goto label$0caf0a1_7_458;
-	label$0caf0a1_7_466:
+	goto label$0caf0a1_8_458;
+	label$0caf0a1_8_466:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -1829,8 +1866,8 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	r9 = r8->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	haxe_ds_ObjectMap_clear(r9);
-	goto label$0caf0a1_7_435;
-	label$0caf0a1_7_480:
+	goto label$0caf0a1_8_435;
+	label$0caf0a1_8_480:
 	if( r2 == NULL ) hl_null_access();
 	r12 = r2->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -1846,9 +1883,9 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	haxe_ds_ObjectMap_clear(r9);
 	r4 = NULL;
 	r2->abstractNode = r4;
-	label$0caf0a1_7_495:
-	goto label$0caf0a1_7_922;
-	label$0caf0a1_7_496:
+	label$0caf0a1_8_495:
+	goto label$0caf0a1_8_922;
+	label$0caf0a1_8_496:
 	r17 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r16 = r17->context;
 	r4 = r2->abstractNode;
@@ -1857,14 +1894,14 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r21 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_504:
+	label$0caf0a1_8_504:
 	if( r21 == NULL ) hl_null_access();
 	if( hl_vfields(r21)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r21)[0])(r21->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r21->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_653;
+	if( !r3 ) goto label$0caf0a1_8_653;
 	if( hl_vfields(r21)[1] ) r5 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r21)[1])(r21->value); else {
 		r5 = (urho3d__Node)hl_dyn_call_obj(r21->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
@@ -1873,56 +1910,56 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_514:
+	label$0caf0a1_8_514:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_523;
+	if( !r3 ) goto label$0caf0a1_8_523;
 	if( hl_vfields(r22)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r8 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r8 == NULL ) hl_null_access();
 	r3 = false;
 	r3 = urho3d_Node_set_valid(r8,r3);
-	goto label$0caf0a1_7_514;
-	label$0caf0a1_7_523:
+	goto label$0caf0a1_8_514;
+	label$0caf0a1_8_523:
 	if( r5 == NULL ) hl_null_access();
 	r12 = r5->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_528:
+	label$0caf0a1_8_528:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_537;
+	if( !r3 ) goto label$0caf0a1_8_537;
 	if( hl_vfields(r22)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r8 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r8 == NULL ) hl_null_access();
 	r3 = false;
 	r3 = urho3d_Node_set_valid(r8,r3);
-	goto label$0caf0a1_7_528;
-	label$0caf0a1_7_537:
+	goto label$0caf0a1_8_528;
+	label$0caf0a1_8_537:
 	if( r5 == NULL ) hl_null_access();
 	r9 = r5->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_542:
+	label$0caf0a1_8_542:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_587;
+	if( !r3 ) goto label$0caf0a1_8_587;
 	if( hl_vfields(r22)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r8 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
@@ -1931,41 +1968,41 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r24 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_552:
+	label$0caf0a1_8_552:
 	if( r24 == NULL ) hl_null_access();
 	if( hl_vfields(r24)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r24)[0])(r24->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r24->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_560;
+	if( !r3 ) goto label$0caf0a1_8_560;
 	if( hl_vfields(r24)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r24)[1])(r24->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r24->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r23 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r23);
-	goto label$0caf0a1_7_552;
-	label$0caf0a1_7_560:
+	goto label$0caf0a1_8_552;
+	label$0caf0a1_8_560:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r24 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_565:
+	label$0caf0a1_8_565:
 	if( r24 == NULL ) hl_null_access();
 	if( hl_vfields(r24)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r24)[0])(r24->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r24->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_573;
+	if( !r3 ) goto label$0caf0a1_8_573;
 	if( hl_vfields(r24)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r24)[1])(r24->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r24->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r23 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r23);
-	goto label$0caf0a1_7_565;
-	label$0caf0a1_7_573:
+	goto label$0caf0a1_8_565;
+	label$0caf0a1_8_573:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -1979,21 +2016,21 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	r9 = r8->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	haxe_ds_ObjectMap_clear(r9);
-	goto label$0caf0a1_7_542;
-	label$0caf0a1_7_587:
+	goto label$0caf0a1_8_542;
+	label$0caf0a1_8_587:
 	if( r5 == NULL ) hl_null_access();
 	r12 = r5->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_592:
+	label$0caf0a1_8_592:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_637;
+	if( !r3 ) goto label$0caf0a1_8_637;
 	if( hl_vfields(r22)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r8 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
@@ -2002,41 +2039,41 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r24 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_602:
+	label$0caf0a1_8_602:
 	if( r24 == NULL ) hl_null_access();
 	if( hl_vfields(r24)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r24)[0])(r24->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r24->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_610;
+	if( !r3 ) goto label$0caf0a1_8_610;
 	if( hl_vfields(r24)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r24)[1])(r24->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r24->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r23 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r23);
-	goto label$0caf0a1_7_602;
-	label$0caf0a1_7_610:
+	goto label$0caf0a1_8_602;
+	label$0caf0a1_8_610:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r24 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_615:
+	label$0caf0a1_8_615:
 	if( r24 == NULL ) hl_null_access();
 	if( hl_vfields(r24)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r24)[0])(r24->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r24->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_623;
+	if( !r3 ) goto label$0caf0a1_8_623;
 	if( hl_vfields(r24)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r24)[1])(r24->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r24->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r23 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r23);
-	goto label$0caf0a1_7_615;
-	label$0caf0a1_7_623:
+	goto label$0caf0a1_8_615;
+	label$0caf0a1_8_623:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -2050,8 +2087,8 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	r9 = r8->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	haxe_ds_ObjectMap_clear(r9);
-	goto label$0caf0a1_7_592;
-	label$0caf0a1_7_637:
+	goto label$0caf0a1_8_592;
+	label$0caf0a1_8_637:
 	if( r5 == NULL ) hl_null_access();
 	r12 = r5->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -2067,21 +2104,21 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	haxe_ds_ObjectMap_clear(r9);
 	r4 = NULL;
 	r5->abstractNode = r4;
-	goto label$0caf0a1_7_504;
-	label$0caf0a1_7_653:
+	goto label$0caf0a1_8_504;
+	label$0caf0a1_8_653:
 	if( r2 == NULL ) hl_null_access();
 	r12 = r2->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r21 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_658:
+	label$0caf0a1_8_658:
 	if( r21 == NULL ) hl_null_access();
 	if( hl_vfields(r21)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r21)[0])(r21->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r21->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_807;
+	if( !r3 ) goto label$0caf0a1_8_807;
 	if( hl_vfields(r21)[1] ) r5 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r21)[1])(r21->value); else {
 		r5 = (urho3d__Node)hl_dyn_call_obj(r21->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
@@ -2090,56 +2127,56 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_668:
+	label$0caf0a1_8_668:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_677;
+	if( !r3 ) goto label$0caf0a1_8_677;
 	if( hl_vfields(r22)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r8 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r8 == NULL ) hl_null_access();
 	r3 = false;
 	r3 = urho3d_Node_set_valid(r8,r3);
-	goto label$0caf0a1_7_668;
-	label$0caf0a1_7_677:
+	goto label$0caf0a1_8_668;
+	label$0caf0a1_8_677:
 	if( r5 == NULL ) hl_null_access();
 	r12 = r5->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_682:
+	label$0caf0a1_8_682:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_691;
+	if( !r3 ) goto label$0caf0a1_8_691;
 	if( hl_vfields(r22)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r8 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r8 == NULL ) hl_null_access();
 	r3 = false;
 	r3 = urho3d_Node_set_valid(r8,r3);
-	goto label$0caf0a1_7_682;
-	label$0caf0a1_7_691:
+	goto label$0caf0a1_8_682;
+	label$0caf0a1_8_691:
 	if( r5 == NULL ) hl_null_access();
 	r9 = r5->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_696:
+	label$0caf0a1_8_696:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_741;
+	if( !r3 ) goto label$0caf0a1_8_741;
 	if( hl_vfields(r22)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r8 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
@@ -2148,41 +2185,41 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r24 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_706:
+	label$0caf0a1_8_706:
 	if( r24 == NULL ) hl_null_access();
 	if( hl_vfields(r24)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r24)[0])(r24->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r24->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_714;
+	if( !r3 ) goto label$0caf0a1_8_714;
 	if( hl_vfields(r24)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r24)[1])(r24->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r24->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r23 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r23);
-	goto label$0caf0a1_7_706;
-	label$0caf0a1_7_714:
+	goto label$0caf0a1_8_706;
+	label$0caf0a1_8_714:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r24 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_719:
+	label$0caf0a1_8_719:
 	if( r24 == NULL ) hl_null_access();
 	if( hl_vfields(r24)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r24)[0])(r24->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r24->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_727;
+	if( !r3 ) goto label$0caf0a1_8_727;
 	if( hl_vfields(r24)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r24)[1])(r24->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r24->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r23 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r23);
-	goto label$0caf0a1_7_719;
-	label$0caf0a1_7_727:
+	goto label$0caf0a1_8_719;
+	label$0caf0a1_8_727:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -2196,21 +2233,21 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	r9 = r8->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	haxe_ds_ObjectMap_clear(r9);
-	goto label$0caf0a1_7_696;
-	label$0caf0a1_7_741:
+	goto label$0caf0a1_8_696;
+	label$0caf0a1_8_741:
 	if( r5 == NULL ) hl_null_access();
 	r12 = r5->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_746:
+	label$0caf0a1_8_746:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_791;
+	if( !r3 ) goto label$0caf0a1_8_791;
 	if( hl_vfields(r22)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r8 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
@@ -2219,41 +2256,41 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r24 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_756:
+	label$0caf0a1_8_756:
 	if( r24 == NULL ) hl_null_access();
 	if( hl_vfields(r24)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r24)[0])(r24->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r24->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_764;
+	if( !r3 ) goto label$0caf0a1_8_764;
 	if( hl_vfields(r24)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r24)[1])(r24->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r24->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r23 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r23);
-	goto label$0caf0a1_7_756;
-	label$0caf0a1_7_764:
+	goto label$0caf0a1_8_756;
+	label$0caf0a1_8_764:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r24 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_769:
+	label$0caf0a1_8_769:
 	if( r24 == NULL ) hl_null_access();
 	if( hl_vfields(r24)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r24)[0])(r24->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r24->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_777;
+	if( !r3 ) goto label$0caf0a1_8_777;
 	if( hl_vfields(r24)[1] ) r23 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r24)[1])(r24->value); else {
 		r23 = (urho3d__Node)hl_dyn_call_obj(r24->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r23 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r23);
-	goto label$0caf0a1_7_769;
-	label$0caf0a1_7_777:
+	goto label$0caf0a1_8_769;
+	label$0caf0a1_8_777:
 	if( r8 == NULL ) hl_null_access();
 	r12 = r8->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -2267,8 +2304,8 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	r9 = r8->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	haxe_ds_ObjectMap_clear(r9);
-	goto label$0caf0a1_7_746;
-	label$0caf0a1_7_791:
+	goto label$0caf0a1_8_746;
+	label$0caf0a1_8_791:
 	if( r5 == NULL ) hl_null_access();
 	r12 = r5->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -2284,21 +2321,21 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	haxe_ds_ObjectMap_clear(r9);
 	r4 = NULL;
 	r5->abstractNode = r4;
-	goto label$0caf0a1_7_658;
-	label$0caf0a1_7_807:
+	goto label$0caf0a1_8_658;
+	label$0caf0a1_8_807:
 	if( r2 == NULL ) hl_null_access();
 	r9 = r2->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r21 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_812:
+	label$0caf0a1_8_812:
 	if( r21 == NULL ) hl_null_access();
 	if( hl_vfields(r21)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r21)[0])(r21->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r21->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_857;
+	if( !r3 ) goto label$0caf0a1_8_857;
 	if( hl_vfields(r21)[1] ) r5 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r21)[1])(r21->value); else {
 		r5 = (urho3d__Node)hl_dyn_call_obj(r21->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
@@ -2307,41 +2344,41 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_822:
+	label$0caf0a1_8_822:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_830;
+	if( !r3 ) goto label$0caf0a1_8_830;
 	if( hl_vfields(r22)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r8 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r8 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r8);
-	goto label$0caf0a1_7_822;
-	label$0caf0a1_7_830:
+	goto label$0caf0a1_8_822;
+	label$0caf0a1_8_830:
 	if( r5 == NULL ) hl_null_access();
 	r12 = r5->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_835:
+	label$0caf0a1_8_835:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_843;
+	if( !r3 ) goto label$0caf0a1_8_843;
 	if( hl_vfields(r22)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r8 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r8 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r8);
-	goto label$0caf0a1_7_835;
-	label$0caf0a1_7_843:
+	goto label$0caf0a1_8_835;
+	label$0caf0a1_8_843:
 	if( r5 == NULL ) hl_null_access();
 	r12 = r5->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -2355,21 +2392,21 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	r9 = r5->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	haxe_ds_ObjectMap_clear(r9);
-	goto label$0caf0a1_7_812;
-	label$0caf0a1_7_857:
+	goto label$0caf0a1_8_812;
+	label$0caf0a1_8_857:
 	if( r2 == NULL ) hl_null_access();
 	r12 = r2->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r21 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_862:
+	label$0caf0a1_8_862:
 	if( r21 == NULL ) hl_null_access();
 	if( hl_vfields(r21)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r21)[0])(r21->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r21->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_907;
+	if( !r3 ) goto label$0caf0a1_8_907;
 	if( hl_vfields(r21)[1] ) r5 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r21)[1])(r21->value); else {
 		r5 = (urho3d__Node)hl_dyn_call_obj(r21->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
@@ -2378,41 +2415,41 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	if( r9 == NULL ) hl_null_access();
 	r20 = haxe_ds_ObjectMap_iterator(r9);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_872:
+	label$0caf0a1_8_872:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_880;
+	if( !r3 ) goto label$0caf0a1_8_880;
 	if( hl_vfields(r22)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r8 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r8 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r8);
-	goto label$0caf0a1_7_872;
-	label$0caf0a1_7_880:
+	goto label$0caf0a1_8_872;
+	label$0caf0a1_8_880:
 	if( r5 == NULL ) hl_null_access();
 	r12 = r5->children_name_map;
 	if( r12 == NULL ) hl_null_access();
 	r20 = haxe_ds_StringMap_iterator(r12);
 	r22 = hl_to_virtual(&t$vrt_1cffe76,(vdynamic*)r20);
-	label$0caf0a1_7_885:
+	label$0caf0a1_8_885:
 	if( r22 == NULL ) hl_null_access();
 	if( hl_vfields(r22)[0] ) r3 = ((bool (*)(vdynamic*))hl_vfields(r22)[0])(r22->value); else {
 		vdynamic ret;
 		hl_dyn_call_obj(r22->value,&t$fun_bf7849e,407283053/*hasNext*/,NULL,&ret);
 		r3 = (bool)ret.v.i;
 	}
-	if( !r3 ) goto label$0caf0a1_7_893;
+	if( !r3 ) goto label$0caf0a1_8_893;
 	if( hl_vfields(r22)[1] ) r8 = ((urho3d__Node (*)(vdynamic*))hl_vfields(r22)[1])(r22->value); else {
 		r8 = (urho3d__Node)hl_dyn_call_obj(r22->value,&t$fun_d937e10,151160317/*next*/,NULL,NULL);
 	}
 	if( r8 == NULL ) hl_null_access();
 	urho3d_Node_CleanChildData(r8);
-	goto label$0caf0a1_7_885;
-	label$0caf0a1_7_893:
+	goto label$0caf0a1_8_885;
+	label$0caf0a1_8_893:
 	if( r5 == NULL ) hl_null_access();
 	r12 = r5->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -2426,8 +2463,8 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	r9 = r5->children_pointers_map;
 	if( r9 == NULL ) hl_null_access();
 	haxe_ds_ObjectMap_clear(r9);
-	goto label$0caf0a1_7_862;
-	label$0caf0a1_7_907:
+	goto label$0caf0a1_8_862;
+	label$0caf0a1_8_907:
 	if( r2 == NULL ) hl_null_access();
 	r12 = r2->children_name_map;
 	if( r12 == NULL ) hl_null_access();
@@ -2443,10 +2480,10 @@ void samplygame_SamplyGame_DeleteStartMenu(samplygame__SamplyGame r0) {
 	haxe_ds_ObjectMap_clear(r9);
 	r4 = NULL;
 	r2->abstractNode = r4;
-	label$0caf0a1_7_922:
+	label$0caf0a1_8_922:
 	r26 = NULL;
 	r0->startMenu_ = r26;
-	label$0caf0a1_7_924:
+	label$0caf0a1_8_924:
 	return;
 }
 
@@ -2456,18 +2493,16 @@ void samplygame_SamplyGame_SpawnCoins(samplygame__SamplyGame r0) {
 	haxe__ds__ObjectMap r13;
 	hl__types__ArrayObj r34;
 	haxe__ds__StringMap r18;
+	urho3d__actions__ActionDef r37;
 	hl_type *r33;
 	hl_urho3d_scene_component *r30;
 	hl_urho3d_scene_node_ptr *r14;
-	actions__FiniteTimeActionState r39;
+	urho3d__actions__FiniteTimeActionState r39;
 	bool r3;
-	actions__DelayTime r38;
 	urho3d__Node r12, r15;
 	urho3d__Scene r4;
 	urho3d__Component r28;
 	urho3d___Context__$Context_Impl_ r9;
-	actions__ActionDef r37;
-	actions__ActionID r36;
 	samplygame__Coin r26;
 	float r23, r24, r25;
 	urho3d_context *r8;
@@ -2477,25 +2512,27 @@ void samplygame_SamplyGame_SpawnCoins(samplygame__SamplyGame r0) {
 	hl_urho3d_scene_component_ptr *r29;
 	double r19, r20, r22;
 	samplygame__Player r2;
+	urho3d__actions__DelayTime r38;
 	hl_urho3d_math_tvector3 *r21;
 	vdynamic *r16, *r27;
+	urho3d__actions__ActionID r36;
 	varray *r32;
 	int r10, r11;
 	r2 = r0->player_;
-	if( !r2 ) goto label$0caf0a1_8_114;
+	if( !r2 ) goto label$0caf0a1_9_114;
 	r2 = r0->player_;
 	if( r2 == NULL ) hl_null_access();
 	r3 = samplygame_Aircraft_IsAlive(((samplygame__Aircraft)r2));
-	if( !r3 ) goto label$0caf0a1_8_114;
+	if( !r3 ) goto label$0caf0a1_9_114;
 	r4 = r0->scene;
 	r5 = (String)s$coinNode;
-	if( r5 ) goto label$0caf0a1_8_11;
+	if( r5 ) goto label$0caf0a1_9_11;
 	r6 = (String)s$;
 	r5 = r6;
-	label$0caf0a1_8_11:
+	label$0caf0a1_9_11:
 	if( r4 == NULL ) hl_null_access();
 	r7 = r4->abstractNode;
-	if( !r7 ) goto label$0caf0a1_8_36;
+	if( !r7 ) goto label$0caf0a1_9_36;
 	r9 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r8 = r9->context;
 	r7 = r4->abstractNode;
@@ -2514,18 +2551,18 @@ void samplygame_SamplyGame_SpawnCoins(samplygame__SamplyGame r0) {
 	}
 	haxe_ds_ObjectMap_set(r13,r16,((vdynamic*)r12));
 	r17 = (String)s$;
-	if( r5 == r17 || (r5 && r17 && String___compare(r5,(vdynamic*)r17) == 0) ) goto label$0caf0a1_8_33;
+	if( r5 == r17 || (r5 && r17 && String___compare(r5,(vdynamic*)r17) == 0) ) goto label$0caf0a1_9_33;
 	r18 = r4->children_name_map;
 	if( r18 == NULL ) hl_null_access();
 	haxe_ds_StringMap_set(r18,r5,((vdynamic*)r12));
-	label$0caf0a1_8_33:
+	label$0caf0a1_9_33:
 	r12->_parent = ((urho3d__Node)r4);
 	r15 = r12;
-	goto label$0caf0a1_8_38;
-	label$0caf0a1_8_36:
+	goto label$0caf0a1_9_38;
+	label$0caf0a1_9_36:
 	r12 = NULL;
 	r15 = r12;
-	label$0caf0a1_8_38:
+	label$0caf0a1_9_38:
 	r10 = 1000000;
 	r10 = Std_random(r10);
 	r19 = (double)r10;
@@ -2543,16 +2580,16 @@ void samplygame_SamplyGame_SpawnCoins(samplygame__SamplyGame r0) {
 	r21 = Urho3D__math_tvector3_create(r23,r24,r25);
 	if( r12 == NULL ) hl_null_access();
 	r7 = r12->abstractNode;
-	if( !r7 ) goto label$0caf0a1_8_60;
+	if( !r7 ) goto label$0caf0a1_9_60;
 	r9 = (urho3d___Context__$Context_Impl_)g$_urho3d__Context_Context_Impl_;
 	r8 = r9->context;
 	r7 = r12->abstractNode;
 	Urho3D__scene_node_set_position(r8,r7,r21);
-	label$0caf0a1_8_60:
+	label$0caf0a1_9_60:
 	r26 = (samplygame__Coin)hl_alloc_obj(&t$samplygame_Coin);
 	samplygame_Coin_new(r26);
 	r7 = r12->abstractNode;
-	if( !r7 ) goto label$0caf0a1_8_105;
+	if( !r7 ) goto label$0caf0a1_9_105;
 	r28 = (urho3d__Component)hl_dyn_castp(&r26,&t$samplygame_Coin,&t$urho3d_Component);
 	r13 = r12->components_map;
 	if( r13 == NULL ) hl_null_access();
@@ -2578,7 +2615,7 @@ void samplygame_SamplyGame_SpawnCoins(samplygame__SamplyGame r0) {
 	r6 = Std_string(((vdynamic*)r26));
 	r27 = haxe_ds_StringMap_get(r18,r6);
 	r31 = (hl__types__ArrayDyn)hl_dyn_castp(&r27,&t$_dyn,&t$hl_types_ArrayDyn);
-	if( r31 ) goto label$0caf0a1_8_98;
+	if( r31 ) goto label$0caf0a1_9_98;
 	r33 = &t$_dyn;
 	r10 = 0;
 	r32 = hl_alloc_array(r33,r10);
@@ -2590,7 +2627,7 @@ void samplygame_SamplyGame_SpawnCoins(samplygame__SamplyGame r0) {
 	if( r18 == NULL ) hl_null_access();
 	r6 = Std_string(((vdynamic*)r26));
 	haxe_ds_StringMap_set(r18,r6,((vdynamic*)r31));
-	label$0caf0a1_8_98:
+	label$0caf0a1_9_98:
 	r18 = r15->logic_components_map;
 	if( r18 == NULL ) hl_null_access();
 	r6 = Std_string(((vdynamic*)r26));
@@ -2598,23 +2635,23 @@ void samplygame_SamplyGame_SpawnCoins(samplygame__SamplyGame r0) {
 	r31 = (hl__types__ArrayDyn)hl_dyn_castp(&r27,&t$_dyn,&t$hl_types_ArrayDyn);
 	if( r31 == NULL ) hl_null_access();
 	r10 = hl_types_ArrayDyn_push(r31,((vdynamic*)r26));
-	label$0caf0a1_8_105:
+	label$0caf0a1_9_105:
 	r3 = false;
 	r3 = samplygame_Weapon_FireAsync(((samplygame__Weapon)r26),r3);
 	r37 = NULL;
-	r38 = (actions__DelayTime)hl_alloc_obj(&t$actions_DelayTime);
+	r38 = (urho3d__actions__DelayTime)hl_alloc_obj(&t$urho3d_actions_DelayTime);
 	r19 = 4.;
-	actions_DelayTime_new(r38,r19);
+	urho3d_actions_DelayTime_new(r38,r19);
 	r39 = NULL;
-	r40 = hl_alloc_closure_ptr(&t$fun_8ff1711,samplygame_SamplyGame_SpawnCoinsLoop,r0);
-	r36 = actions_ActionManager_AddAction(r37,((actions__FiniteTimeAction)r38),r15,r39,r40);
-	label$0caf0a1_8_114:
+	r40 = hl_alloc_closure_ptr(&t$fun_34660c3,samplygame_SamplyGame_SpawnCoinsLoop,r0);
+	r36 = urho3d_actions_ActionManager_AddAction(r37,((urho3d__actions__FiniteTimeAction)r38),r15,r39,r40);
+	label$0caf0a1_9_114:
 	return;
 }
 
-void samplygame_SamplyGame_SpawnCoinsLoop(samplygame__SamplyGame r0,actions__ActionID r1) {
+void samplygame_SamplyGame_SpawnCoinsLoop(samplygame__SamplyGame r0,urho3d__actions__ActionID r1) {
 	if( r1 == NULL ) hl_null_access();
-	actions_ActionID_DeleteTargets(r1);
+	urho3d_actions_ActionID_DeleteTargets(r1);
 	samplygame_SamplyGame_SpawnCoins(r0);
 	return;
 }
@@ -2659,36 +2696,38 @@ void samplygame_SamplyGame_OnPlayerHealthUpdate(samplygame__SamplyGame r0,double
 }
 
 void samplygame_SamplyGame_new(samplygame__SamplyGame r0) {
-	String r2;
-	bool r7;
+	String r3;
+	bool r1;
 	urho3d__Scene r8;
-	urho3d__Node r4;
-	samplygame__Enemies r6;
-	samplygame__StartMenu r5;
-	int r3;
-	hl_urho3d_ui_text *r1;
-	r1 = NULL;
-	r0->healthText = r1;
-	r1 = NULL;
-	r0->coinsText = r1;
-	r2 = (String)s$Health_;
-	r0->HealthString = r2;
-	r2 = (String)s$_Coins;
-	r0->CoinsString = r2;
-	r3 = 0;
-	r0->coins = r3;
-	r4 = NULL;
-	r0->startMenuNode_ = r4;
+	urho3d__Node r5;
+	samplygame__Enemies r7;
+	samplygame__StartMenu r6;
+	int r4;
+	hl_urho3d_ui_text *r2;
+	r1 = false;
+	r0->drawDebug = r1;
+	r2 = NULL;
+	r0->healthText = r2;
+	r2 = NULL;
+	r0->coinsText = r2;
+	r3 = (String)s$Health_;
+	r0->HealthString = r3;
+	r3 = (String)s$_Coins;
+	r0->CoinsString = r3;
+	r4 = 0;
+	r0->coins = r4;
 	r5 = NULL;
-	r0->startMenu_ = r5;
+	r0->startMenuNode_ = r5;
 	r6 = NULL;
-	r0->enemies_ = r6;
-	r7 = false;
-	r0->playing = r7;
-	r4 = NULL;
-	r0->cameraNode = r4;
-	r4 = NULL;
-	r0->gameNode = r4;
+	r0->startMenu_ = r6;
+	r7 = NULL;
+	r0->enemies_ = r7;
+	r1 = false;
+	r0->playing = r1;
+	r5 = NULL;
+	r0->cameraNode = r5;
+	r5 = NULL;
+	r0->gameNode = r5;
 	r8 = NULL;
 	r0->scene = r8;
 	urho3d_Application_new(((urho3d__Application)r0));

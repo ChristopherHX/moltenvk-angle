@@ -57,10 +57,10 @@ extern String s$MatSpecColor;
 bool urho3d__ValueAnimation_ValueAnimation_Impl__SetKeyFrame(hl_urho3d_scene_value_animation*,double,hl_urho3d_tvariant*);
 #include <haxe/ds/ObjectMap.h>
 #include <urho3d/SoundSource.h>
-#include <actions/ActionGroup.h>
-#include <actions/ScaleTo.h>
-#include <actions/DelayTime.h>
-#include <actions/ActionID.h>
+#include <urho3d/actions/ActionGroup.h>
+#include <urho3d/actions/ScaleTo.h>
+#include <urho3d/actions/DelayTime.h>
+#include <urho3d/actions/ActionID.h>
 urho3d__Scene urho3d_Component_get_scene(urho3d__Component);
 extern String s$;
 hl_urho3d_scene_node_ptr* urho3d_Node_get_pointer(urho3d__Node);
@@ -73,29 +73,29 @@ extern String s$Sounds_BigExplosion_wav;
 void urho3d_SoundSource_Play(urho3d__SoundSource,hl_urho3d_audio_sound*,vdynamic*,vdynamic*,vdynamic*);
 float urho3d_SoundSource_set_gain(urho3d__SoundSource,float);
 int urho3d_SoundSource_set_autoRemoveMode(urho3d__SoundSource,int);
-void actions_ActionManager_RemoveAllActions(urho3d__Node);
-extern hl_type t$actions_ActionGroup;
-void actions_ActionGroup_new(actions__ActionGroup);
-extern hl_type t$actions_ScaleTo;
-void actions_ScaleTo_new(actions__ScaleTo,double,double,vdynamic*,vdynamic*);
-#include <actions/FiniteTimeAction.h>
-void actions_ActionGroup_Push(actions__ActionGroup,actions__FiniteTimeAction,urho3d__Node);
-extern hl_type t$actions_DelayTime;
-void actions_DelayTime_new(actions__DelayTime,double);
-void samplygame_Aircraft_ExplodeDone(samplygame__Aircraft,actions__ActionID);
-extern hl_type t$fun_e4fcee9;
-actions__ActionID actions_ActionManager_AddActions(hl__types__ArrayObj,actions__ActionGroup,vclosure*);
+void urho3d_actions_ActionManager_RemoveAllActions(urho3d__Node);
+extern hl_type t$urho3d_actions_ActionGroup;
+void urho3d_actions_ActionGroup_new(urho3d__actions__ActionGroup);
+extern hl_type t$urho3d_actions_ScaleTo;
+void urho3d_actions_ScaleTo_new(urho3d__actions__ScaleTo,double,double,vdynamic*,vdynamic*);
+#include <urho3d/actions/FiniteTimeAction.h>
+void urho3d_actions_ActionGroup_Push(urho3d__actions__ActionGroup,urho3d__actions__FiniteTimeAction,urho3d__Node);
+extern hl_type t$urho3d_actions_DelayTime;
+void urho3d_actions_DelayTime_new(urho3d__actions__DelayTime,double);
+void samplygame_Aircraft_ExplodeDone(samplygame__Aircraft,urho3d__actions__ActionID);
+extern hl_type t$fun_3050c0b;
+urho3d__actions__ActionID urho3d_actions_ActionManager_AddActions(hl__types__ArrayObj,urho3d__actions__ActionGroup,vclosure*);
 #include <urho3d/ParticleEmitter2D.h>
 extern String s$ParticleEmitter2D;
 extern hl_type t$urho3d_ParticleEmitter2D;
 void urho3d_ParticleEmitter2D_new(urho3d__ParticleEmitter2D,hl_urho3d_urho2d_particle_emitter2d*);
 extern String s$Particles_Explosion_pex;
 hl_urho3d_urho2d_particle_effect2d* urho3d_ParticleEmitter2D_set_effect(urho3d__ParticleEmitter2D,hl_urho3d_urho2d_particle_effect2d*);
-#include <actions/ActionDef.h>
-#include <actions/FiniteTimeActionState.h>
-void actions_ActionID_DeleteTargets(actions__ActionID);
-void samplygame_Aircraft_DisableNode(samplygame__Aircraft,actions__ActionID);
-actions__ActionID actions_ActionManager_AddAction(actions__ActionDef,actions__FiniteTimeAction,urho3d__Node,actions__FiniteTimeActionState,vclosure*);
+#include <urho3d/actions/ActionDef.h>
+#include <urho3d/actions/FiniteTimeActionState.h>
+void urho3d_actions_ActionID_DeleteTargets(urho3d__actions__ActionID);
+void samplygame_Aircraft_DisableNode(samplygame__Aircraft,urho3d__actions__ActionID);
+urho3d__actions__ActionID urho3d_actions_ActionManager_AddAction(urho3d__actions__ActionDef,urho3d__actions__FiniteTimeAction,urho3d__Node,urho3d__actions__FiniteTimeActionState,vclosure*);
 bool urho3d_Node_set_enabled(urho3d__Node,bool);
 bool haxe_ds_ObjectMap_remove(haxe__ds__ObjectMap,vdynamic*);
 extern hl_type t$vrt_b840ca7;
@@ -591,29 +591,29 @@ void samplygame_Aircraft_Hit(samplygame__Aircraft r0) {
 }
 
 void samplygame_Aircraft_Explode(samplygame__Aircraft r0) {
-	actions__ScaleTo r29;
 	String r7;
 	haxe__ds__ObjectMap r11;
 	hl__types__ArrayObj r33;
 	urho3d__SoundSource r17;
 	hl_urho3d_scene_component *r15;
 	hl_urho3d_scene_node_ptr *r12;
+	urho3d__actions__ScaleTo r29;
 	bool r9;
-	actions__DelayTime r31;
+	urho3d__actions__ActionGroup r28;
 	hl_urho3d_audio_sound *r18;
 	urho3d__Node r10, r13;
 	urho3d__Scene r2;
 	urho3d___Context__$Context_Impl_ r6;
-	actions__ActionID r32;
 	float r22, r26, r27;
 	urho3d_context *r5;
 	hl_urho3d_scene_node *r4;
 	vclosure *r34;
-	actions__ActionGroup r28;
 	double r23, r30;
+	urho3d__actions__DelayTime r31;
 	hl_urho3d_math_tvector3 *r24, *r25;
 	hl_urho3d_audio_sound_source *r16;
 	vdynamic *r14, *r19, *r20, *r21;
+	urho3d__actions__ActionID r32;
 	int r1, r8;
 	r1 = 0;
 	r0->Health = r1;
@@ -720,7 +720,7 @@ void samplygame_Aircraft_Explode(samplygame__Aircraft r0) {
 	label$49dff5b_8_88:
 	((void (*)(samplygame__Aircraft,urho3d__Node))r0->$type->vobj_proto[4])(r0,r13);
 	r10 = urho3d_Component_get_node(((urho3d__Component)r0));
-	actions_ActionManager_RemoveAllActions(r10);
+	urho3d_actions_ActionManager_RemoveAllActions(r10);
 	r10 = urho3d_Component_get_node(((urho3d__Component)r0));
 	r23 = 0.;
 	r22 = (float)r23;
@@ -737,22 +737,22 @@ void samplygame_Aircraft_Explode(samplygame__Aircraft r0) {
 	r4 = r10->abstractNode;
 	Urho3D__scene_node_set_scale(r5,r4,r24);
 	label$49dff5b_8_106:
-	r28 = (actions__ActionGroup)hl_alloc_obj(&t$actions_ActionGroup);
-	actions_ActionGroup_new(r28);
-	r29 = (actions__ScaleTo)hl_alloc_obj(&t$actions_ScaleTo);
+	r28 = (urho3d__actions__ActionGroup)hl_alloc_obj(&t$urho3d_actions_ActionGroup);
+	urho3d_actions_ActionGroup_new(r28);
+	r29 = (urho3d__actions__ScaleTo)hl_alloc_obj(&t$urho3d_actions_ScaleTo);
 	r23 = 1.;
 	r30 = 0.;
 	r19 = NULL;
 	r20 = NULL;
-	actions_ScaleTo_new(r29,r23,r30,r19,r20);
-	actions_ActionGroup_Push(r28,((actions__FiniteTimeAction)r29),r13);
-	r31 = (actions__DelayTime)hl_alloc_obj(&t$actions_DelayTime);
+	urho3d_actions_ScaleTo_new(r29,r23,r30,r19,r20);
+	urho3d_actions_ActionGroup_Push(r28,((urho3d__actions__FiniteTimeAction)r29),r13);
+	r31 = (urho3d__actions__DelayTime)hl_alloc_obj(&t$urho3d_actions_DelayTime);
 	r23 = 1.;
-	actions_DelayTime_new(r31,r23);
-	actions_ActionGroup_Push(r28,((actions__FiniteTimeAction)r31),r13);
+	urho3d_actions_DelayTime_new(r31,r23);
+	urho3d_actions_ActionGroup_Push(r28,((urho3d__actions__FiniteTimeAction)r31),r13);
 	r33 = NULL;
-	r34 = hl_alloc_closure_ptr(&t$fun_e4fcee9,samplygame_Aircraft_ExplodeDone,r0);
-	r32 = actions_ActionManager_AddActions(r33,r28,r34);
+	r34 = hl_alloc_closure_ptr(&t$fun_3050c0b,samplygame_Aircraft_ExplodeDone,r0);
+	r32 = urho3d_actions_ActionManager_AddActions(r33,r28,r34);
 	return;
 }
 
@@ -821,28 +821,28 @@ void samplygame_Aircraft_OnExplode(samplygame__Aircraft r0,urho3d__Node r1) {
 	return;
 }
 
-void samplygame_Aircraft_ExplodeDone(samplygame__Aircraft r0,actions__ActionID r1) {
+void samplygame_Aircraft_ExplodeDone(samplygame__Aircraft r0,urho3d__actions__ActionID r1) {
 	bool *r19;
 	samplygame__$Weapon r5;
 	hl__types__ArrayObj r18;
+	urho3d__actions__ActionDef r26;
 	hl_type *r16;
-	actions__FiniteTimeActionState r29;
+	urho3d__actions__FiniteTimeActionState r29;
 	bool r7, r13;
-	actions__DelayTime r27;
 	urho3d__Node r4, r9;
 	urho3d___Context__$Context_Impl_ r12;
-	actions__ActionDef r26;
-	actions__ActionID r3;
 	urho3d_context *r11;
 	hl_urho3d_scene_node *r8;
 	vclosure *r30;
 	double r28;
 	hl__types__ArrayDyn r14, r25;
+	urho3d__actions__DelayTime r27;
 	vdynamic *r6, *r23, *r24;
 	int r17, r20, r21, r22;
 	varray *r10, *r15;
+	urho3d__actions__ActionID r3;
 	if( r1 == NULL ) hl_null_access();
-	actions_ActionID_DeleteTargets(r1);
+	urho3d_actions_ActionID_DeleteTargets(r1);
 	r4 = urho3d_Component_get_node(((urho3d__Component)r0));
 	r5 = (samplygame__$Weapon)g$_samplygame_Weapon;
 	r6 = ((vdynamic*)r5);
@@ -912,17 +912,17 @@ void samplygame_Aircraft_ExplodeDone(samplygame__Aircraft r0,actions__ActionID r
 	goto label$49dff5b_10_49;
 	label$49dff5b_10_60:
 	r26 = NULL;
-	r27 = (actions__DelayTime)hl_alloc_obj(&t$actions_DelayTime);
+	r27 = (urho3d__actions__DelayTime)hl_alloc_obj(&t$urho3d_actions_DelayTime);
 	r28 = 5.;
-	actions_DelayTime_new(r27,r28);
+	urho3d_actions_DelayTime_new(r27,r28);
 	r9 = urho3d_Component_get_node(((urho3d__Component)r0));
 	r29 = NULL;
-	r30 = hl_alloc_closure_ptr(&t$fun_e4fcee9,samplygame_Aircraft_DisableNode,r0);
-	r3 = actions_ActionManager_AddAction(r26,((actions__FiniteTimeAction)r27),r9,r29,r30);
+	r30 = hl_alloc_closure_ptr(&t$fun_3050c0b,samplygame_Aircraft_DisableNode,r0);
+	r3 = urho3d_actions_ActionManager_AddAction(r26,((urho3d__actions__FiniteTimeAction)r27),r9,r29,r30);
 	return;
 }
 
-void samplygame_Aircraft_DisableNode(samplygame__Aircraft r0,actions__ActionID r1) {
+void samplygame_Aircraft_DisableNode(samplygame__Aircraft r0,urho3d__actions__ActionID r1) {
 	String r15, r19;
 	haxe__ds__ObjectMap r10;
 	vvirtual *r14, *r21, *r22, *r23, *r25;

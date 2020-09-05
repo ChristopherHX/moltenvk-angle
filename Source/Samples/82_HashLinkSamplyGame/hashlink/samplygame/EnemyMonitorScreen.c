@@ -12,10 +12,10 @@ extern String s$EnemyMonitorScreen;
 #include <haxe/ds/StringMap.h>
 #include <hl/types/ArrayDyn.h>
 #include <hl/types/ArrayObj.h>
-#include <actions/ActionID.h>
-#include <actions/ActionDef.h>
-#include <actions/MoveTo.h>
-#include <actions/FiniteTimeActionState.h>
+#include <urho3d/actions/ActionID.h>
+#include <urho3d/actions/ActionDef.h>
+#include <urho3d/actions/MoveTo.h>
+#include <urho3d/actions/FiniteTimeActionState.h>
 urho3d__Node urho3d_Component_get_node(urho3d__Component);
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern String s$StaticModel;
@@ -43,12 +43,12 @@ hl__types__ArrayObj hl_types_ArrayObj_alloc(varray*);
 hl__types__ArrayDyn hl_types_ArrayDyn_alloc(hl__types__ArrayBase,bool*);
 void haxe_ds_StringMap_set(haxe__ds__StringMap,String,vdynamic*);
 int hl_types_ArrayDyn_push(hl__types__ArrayDyn,vdynamic*);
-extern hl_type t$actions_MoveTo;
-void actions_MoveTo_new(actions__MoveTo,double,hl_urho3d_math_vector3*);
-void samplygame_EnemyMonitorScreen_StartMoveRandomLoop(samplygame__EnemyMonitorScreen,actions__ActionID);
-extern hl_type t$fun_25612f9;
-#include <actions/FiniteTimeAction.h>
-actions__ActionID actions_ActionManager_AddAction(actions__ActionDef,actions__FiniteTimeAction,urho3d__Node,actions__FiniteTimeActionState,vclosure*);
+extern hl_type t$urho3d_actions_MoveTo;
+void urho3d_actions_MoveTo_new(urho3d__actions__MoveTo,double,hl_urho3d_math_vector3*);
+void samplygame_EnemyMonitorScreen_StartMoveRandomLoop(samplygame__EnemyMonitorScreen,urho3d__actions__ActionID);
+extern hl_type t$fun_c3034b0;
+#include <urho3d/actions/FiniteTimeAction.h>
+urho3d__actions__ActionID urho3d_actions_ActionManager_AddAction(urho3d__actions__ActionDef,urho3d__actions__FiniteTimeAction,urho3d__Node,urho3d__actions__FiniteTimeActionState,vclosure*);
 void samplygame_Enemy_MoveRandomly(samplygame__Enemy,double,double,double,double,double);
 void samplygame_Enemy_StartShooting(samplygame__Enemy);
 
@@ -104,23 +104,22 @@ void samplygame_EnemyMonitorScreen_Init(samplygame__EnemyMonitorScreen r0) {
 	haxe__ds__ObjectMap r26;
 	hl__types__ArrayObj r32;
 	haxe__ds__StringMap r28;
+	urho3d__actions__ActionDef r38;
 	hl_type *r31;
 	hl_urho3d_scene_component *r5;
-	actions__FiniteTimeActionState r40;
+	urho3d__actions__FiniteTimeActionState r40;
 	bool r33;
 	urho3d__StaticModel r12;
 	hl_urho3d_math_vector3 *r35;
 	urho3d__Node r2, r4, r22;
+	urho3d__actions__MoveTo r39;
 	urho3d__Component r25;
 	hl_urho3d_graphics_material *r15, *r16;
 	urho3d___Context__$Context_Impl_ r7;
-	actions__ActionDef r38;
-	actions__ActionID r37;
 	float r19, r20, r21;
 	urho3d_context *r6;
 	hl_urho3d_scene_node *r3;
 	vclosure *r41;
-	actions__MoveTo r39;
 	hl__types__ArrayDyn r29;
 	hl_urho3d_scene_component_ptr *r27;
 	double r18, r36;
@@ -128,6 +127,7 @@ void samplygame_EnemyMonitorScreen_Init(samplygame__EnemyMonitorScreen r0) {
 	vdynamic *r24;
 	samplygame__SmallPlates r23;
 	hl_urho3d_math_tvector3 *r17;
+	urho3d__actions__ActionID r37;
 	varray *r30;
 	hl_urho3d_graphics_model *r13, *r14;
 	int r9, r10;
@@ -273,17 +273,17 @@ void samplygame_EnemyMonitorScreen_Init(samplygame__EnemyMonitorScreen r0) {
 	r21 = (float)r10;
 	r35 = Urho3D__math_vector3_create(r19,r20,r21);
 	r38 = NULL;
-	r39 = (actions__MoveTo)hl_alloc_obj(&t$actions_MoveTo);
+	r39 = (urho3d__actions__MoveTo)hl_alloc_obj(&t$urho3d_actions_MoveTo);
 	r18 = 0.5;
-	actions_MoveTo_new(r39,r18,r35);
+	urho3d_actions_MoveTo_new(r39,r18,r35);
 	r4 = urho3d_Component_get_node(((urho3d__Component)r0));
 	r40 = NULL;
-	r41 = hl_alloc_closure_ptr(&t$fun_25612f9,samplygame_EnemyMonitorScreen_StartMoveRandomLoop,r0);
-	r37 = actions_ActionManager_AddAction(r38,((actions__FiniteTimeAction)r39),r4,r40,r41);
+	r41 = hl_alloc_closure_ptr(&t$fun_c3034b0,samplygame_EnemyMonitorScreen_StartMoveRandomLoop,r0);
+	r37 = urho3d_actions_ActionManager_AddAction(r38,((urho3d__actions__FiniteTimeAction)r39),r4,r40,r41);
 	return;
 }
 
-void samplygame_EnemyMonitorScreen_StartMoveRandomLoop(samplygame__EnemyMonitorScreen r0,actions__ActionID r1) {
+void samplygame_EnemyMonitorScreen_StartMoveRandomLoop(samplygame__EnemyMonitorScreen r0,urho3d__actions__ActionID r1) {
 	double r3, r4, r5, r6, r7;
 	r3 = -0.2999999999999999889;
 	r4 = 0.2999999999999999889;

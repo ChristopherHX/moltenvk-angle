@@ -13,8 +13,11 @@ hl_urho3d_tvariantmap* urho3d_Application_get_engineParameters(urho3d__Applicati
 String Sys_getCwd(void);
 extern String s$_bin;
 String String___add__(String,String);
+#include <urho3d/actions/ActionID.h>
 #include <urho3d/DelayedCall.h>
 #include <hl/types/ArrayDyn.h>
+bool urho3d_actions_ActionManager_IsRunning(urho3d__actions__ActionID);
+bool urho3d_actions_ActionManager_Step(double);
 void urho3d_Application_InvokeObject(urho3d__Application,vdynamic*,String,hl__types__ArrayDyn);
 bool hl_types_ArrayObj_remove(hl__types__ArrayObj,vdynamic*);
 void urho3d__AbstractApplication_AbstractApplication_Impl__SubscribeToEvent(hl_urho3d_application*,hl_urho3d_core_object*,hl_urho3d_stringhash*,vdynamic*,String);
@@ -192,62 +195,68 @@ void urho3d_Application_Stop(urho3d__Application r0) {
 }
 
 void urho3d_Application_OnTick(urho3d__Application r0,double r1) {
-	String r14;
-	hl__types__ArrayObj r4, r6;
-	bool r10, r13;
-	hl__types__ArrayDyn r15;
-	double r11, r12;
-	urho3d__DelayedCall r7;
-	vdynamic *r8;
-	varray *r9;
-	int r2, r5;
-	r2 = 0;
-	r4 = r0->delayedCalls;
-	label$7dad269_6_2:
-	if( r4 == NULL ) hl_null_access();
-	r5 = r4->length;
-	if( r2 >= r5 ) goto label$7dad269_6_40;
-	r5 = r4->length;
-	if( ((unsigned)r2) < ((unsigned)r5) ) goto label$7dad269_6_10;
-	r7 = NULL;
-	goto label$7dad269_6_13;
-	label$7dad269_6_10:
-	r9 = r4->array;
-	r8 = ((vdynamic**)(r9 + 1))[r2];
-	r7 = (urho3d__DelayedCall)r8;
-	label$7dad269_6_13:
-	++r2;
-	r10 = false;
+	String r15;
+	hl__types__ArrayObj r7, r9;
+	bool r3, r14;
+	hl__types__ArrayDyn r16;
+	urho3d__DelayedCall r10;
+	double r5, r13;
+	vdynamic *r11;
+	varray *r12;
+	int r6, r8;
+	urho3d__actions__ActionID r4;
+	r4 = NULL;
+	r3 = urho3d_actions_ActionManager_IsRunning(r4);
+	if( !r3 ) goto label$7dad269_6_4;
+	r3 = urho3d_actions_ActionManager_Step(r1);
+	label$7dad269_6_4:
+	r6 = 0;
+	r7 = r0->delayedCalls;
+	label$7dad269_6_6:
 	if( r7 == NULL ) hl_null_access();
-	r11 = r7->delay_;
-	r11 = r11 - r1;
-	r7->delay_ = r11;
-	r11 = r7->delay_;
-	r12 = 0.;
-	if( !(r12 >= r11) ) goto label$7dad269_6_35;
-	r13 = r7->repeat_;
-	if( r13 ) goto label$7dad269_6_27;
-	r13 = true;
-	r10 = r13;
-	goto label$7dad269_6_31;
-	label$7dad269_6_27:
-	r11 = r7->delay_;
-	r12 = r7->period_;
-	r11 = r11 + r12;
-	r7->delay_ = r11;
+	r8 = r7->length;
+	if( r6 >= r8 ) goto label$7dad269_6_44;
+	r8 = r7->length;
+	if( ((unsigned)r6) < ((unsigned)r8) ) goto label$7dad269_6_14;
+	r10 = NULL;
+	goto label$7dad269_6_17;
+	label$7dad269_6_14:
+	r12 = r7->array;
+	r11 = ((vdynamic**)(r12 + 1))[r6];
+	r10 = (urho3d__DelayedCall)r11;
+	label$7dad269_6_17:
+	++r6;
+	r3 = false;
+	if( r10 == NULL ) hl_null_access();
+	r5 = r10->delay_;
+	r5 = r5 - r1;
+	r10->delay_ = r5;
+	r5 = r10->delay_;
+	r13 = 0.;
+	if( !(r13 >= r5) ) goto label$7dad269_6_39;
+	r14 = r10->repeat_;
+	if( r14 ) goto label$7dad269_6_31;
+	r14 = true;
+	r3 = r14;
+	goto label$7dad269_6_35;
 	label$7dad269_6_31:
-	r8 = r7->obj_;
-	r14 = r7->declaration_;
-	r15 = r7->parameters_;
-	urho3d_Application_InvokeObject(r0,r8,r14,r15);
+	r5 = r10->delay_;
+	r13 = r10->period_;
+	r5 = r5 + r13;
+	r10->delay_ = r5;
 	label$7dad269_6_35:
-	if( !r10 ) goto label$7dad269_6_39;
-	r6 = r0->delayedCalls;
-	if( r6 == NULL ) hl_null_access();
-	r13 = hl_types_ArrayObj_remove(r6,((vdynamic*)r7));
+	r11 = r10->obj_;
+	r15 = r10->declaration_;
+	r16 = r10->parameters_;
+	urho3d_Application_InvokeObject(r0,r11,r15,r16);
 	label$7dad269_6_39:
-	goto label$7dad269_6_2;
-	label$7dad269_6_40:
+	if( !r3 ) goto label$7dad269_6_43;
+	r9 = r0->delayedCalls;
+	if( r9 == NULL ) hl_null_access();
+	r14 = hl_types_ArrayObj_remove(r9,((vdynamic*)r10));
+	label$7dad269_6_43:
+	goto label$7dad269_6_6;
+	label$7dad269_6_44:
 	return;
 }
 

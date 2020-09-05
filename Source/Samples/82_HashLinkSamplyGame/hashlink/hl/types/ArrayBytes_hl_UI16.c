@@ -2,6 +2,7 @@
 #define HLC_BOOT
 #include <hlc.h>
 #include <hl/types/ArrayBytes_hl_UI16.h>
+extern hl_type t$_ui16;
 extern hl_type t$hl_types_ArrayBytes_hl_UI16;
 void hl_types_ArrayBytes_hl_UI16_new(hl__types__ArrayBytes_hl_UI16);
 #include <hl/natives.h>
@@ -10,7 +11,6 @@ void hl_types_ArrayBytes_hl_UI16_new(hl__types__ArrayBytes_hl_UI16);
 extern hl_type t$StringBuf;
 void StringBuf_new(StringBuf);
 void StringBuf_add(StringBuf,vdynamic*);
-extern hl_type t$_ui16;
 String StringBuf_toString(StringBuf);
 void hl_types_ArrayBytes_hl_UI16___expand(hl__types__ArrayBytes_hl_UI16,int);
 #include <haxe/io/Error.h>
@@ -19,9 +19,7 @@ extern venum* g$haxe_io_Error_OutsideBounds;
 vdynamic* haxe_Exception_thrown(vdynamic*);
 vbyte* hl__Bytes_Bytes_Impl__sub(vbyte*,int,int);
 extern hl_type t$_i32;
-int hl_types_ArrayBytes_hl_UI16_sort__$1(vclosure*,int,int);
 extern hl_type t$fun_f38af0d;
-int hl_types_ArrayBytes_hl_UI16_sort__$2(vclosure*,double,double);
 extern hl_type t$fun_3193805;
 void StringBuf_addChar(StringBuf,int);
 int hl_types_ArrayBytes_hl_UI16_indexOf(hl__types__ArrayBytes_hl_UI16,unsigned short,vdynamic*);
@@ -40,11 +38,38 @@ void hl_types_ArrayObj_new(hl__types__ArrayObj);
 void hl_types_ArrayObj___expand(hl__types__ArrayObj,int);
 hl__types__ArrayDyn hl_types_ArrayDyn_alloc(hl__types__ArrayBase,bool*);
 extern hl_type t$_dyn;
-int hl_types_ArrayBytes_hl_UI16_sortDyn__$1(vclosure*,unsigned short,unsigned short);
 extern hl_type t$fun_63e5768;
 extern String s$Invalid_array_index_;
 String String___alloc__(vbyte*,int);
 String String___add__(String,String);
+
+int hl_types_ArrayBytes_hl_UI16_sort__$2(vclosure* r0,double r1,double r2) {
+	unsigned short r3, r4;
+	int r5;
+	r3 = (int)r1;
+	r4 = (int)r2;
+	r5 = r0->hasValue ? ((int (*)(vdynamic*,unsigned short,unsigned short))r0->fun)((vdynamic*)r0->value,r3,r4) : ((int (*)(unsigned short,unsigned short))r0->fun)(r3,r4);
+	return r5;
+}
+
+int hl_types_ArrayBytes_hl_UI16_sort__$1(vclosure* r0,int r1,int r2) {
+	unsigned short r3, r4;
+	r3 = (int)r1;
+	r4 = (int)r2;
+	r1 = r0->hasValue ? ((int (*)(vdynamic*,unsigned short,unsigned short))r0->fun)((vdynamic*)r0->value,r3,r4) : ((int (*)(unsigned short,unsigned short))r0->fun)(r3,r4);
+	return r1;
+}
+
+int hl_types_ArrayBytes_hl_UI16_sortDyn__$1(vclosure* r0,unsigned short r1,unsigned short r2) {
+	vdynamic *r3, *r4;
+	int r5;
+	r3 = hl_alloc_dynamic(&t$_ui16);
+	r3->v.i = r1;
+	r4 = hl_alloc_dynamic(&t$_ui16);
+	r4->v.i = r2;
+	r5 = r0->hasValue ? ((int (*)(vdynamic*,vdynamic*,vdynamic*))r0->fun)((vdynamic*)r0->value,r3,r4) : ((int (*)(vdynamic*,vdynamic*))r0->fun)(r3,r4);
+	return r5;
+}
 
 hl__types__ArrayBytes_hl_UI16 hl_types_ArrayBytes_hl_UI16_concat(hl__types__ArrayBytes_hl_UI16 r0,hl__types__ArrayBytes_hl_UI16 r1) {
 	hl__types__ArrayBytes_hl_UI16 r2;
@@ -95,15 +120,15 @@ String hl_types_ArrayBytes_hl_UI16_join(hl__types__ArrayBytes_hl_UI16 r0,String 
 	StringBuf_new(r2);
 	r4 = 0;
 	r5 = r0->length;
-	label$039cf2f_2_4:
-	if( r4 >= r5 ) goto label$039cf2f_2_21;
+	label$039cf2f_5_4:
+	if( r4 >= r5 ) goto label$039cf2f_5_21;
 	r6 = r4;
 	++r4;
 	r8 = 0;
-	if( r8 >= r6 ) goto label$039cf2f_2_12;
+	if( r8 >= r6 ) goto label$039cf2f_5_12;
 	if( r2 == NULL ) hl_null_access();
 	StringBuf_add(r2,((vdynamic*)r1));
-	label$039cf2f_2_12:
+	label$039cf2f_5_12:
 	r10 = r0->bytes;
 	if( r2 == NULL ) hl_null_access();
 	r8 = 1;
@@ -113,8 +138,8 @@ String hl_types_ArrayBytes_hl_UI16_join(hl__types__ArrayBytes_hl_UI16 r0,String 
 	r12 = hl_alloc_dynamic(&t$_ui16);
 	r12->v.i = r11;
 	StringBuf_add(r2,((vdynamic*)r12));
-	goto label$039cf2f_2_4;
-	label$039cf2f_2_21:
+	goto label$039cf2f_5_4;
+	label$039cf2f_5_21:
 	if( r2 == NULL ) hl_null_access();
 	r9 = StringBuf_toString(r2);
 	return r9;
@@ -127,10 +152,10 @@ vdynamic* hl_types_ArrayBytes_hl_UI16_pop(hl__types__ArrayBytes_hl_UI16 r0) {
 	int r1, r2, r5;
 	r1 = r0->length;
 	r2 = 0;
-	if( r1 != r2 ) goto label$039cf2f_3_5;
+	if( r1 != r2 ) goto label$039cf2f_6_5;
 	r3 = NULL;
 	return r3;
-	label$039cf2f_3_5:
+	label$039cf2f_6_5:
 	r1 = r0->length;
 	--r1;
 	r0->length = r1;
@@ -150,14 +175,14 @@ int hl_types_ArrayBytes_hl_UI16_push(hl__types__ArrayBytes_hl_UI16 r0,unsigned s
 	int r2, r4, r5, r7;
 	r2 = r0->length;
 	r4 = r0->size;
-	if( r4 != r2 ) goto label$039cf2f_4_5;
+	if( r4 != r2 ) goto label$039cf2f_7_5;
 	hl_types_ArrayBytes_hl_UI16___expand(r0,r2);
-	goto label$039cf2f_4_8;
-	label$039cf2f_4_5:
+	goto label$039cf2f_7_8;
+	label$039cf2f_7_5:
 	r4 = r0->length;
 	++r4;
 	r0->length = r4;
-	label$039cf2f_4_8:
+	label$039cf2f_7_8:
 	r6 = r0->bytes;
 	r5 = (int)r1;
 	r7 = 1;
@@ -175,8 +200,8 @@ void hl_types_ArrayBytes_hl_UI16_reverse(hl__types__ArrayBytes_hl_UI16 r0) {
 	r3 = r0->length;
 	r4 = 1;
 	r3 = r3 >> r4;
-	label$039cf2f_5_4:
-	if( r1 >= r3 ) goto label$039cf2f_5_33;
+	label$039cf2f_8_4:
+	if( r1 >= r3 ) goto label$039cf2f_8_33;
 	r4 = r1;
 	++r1;
 	r5 = r0->length;
@@ -203,8 +228,8 @@ void hl_types_ArrayBytes_hl_UI16_reverse(hl__types__ArrayBytes_hl_UI16 r0) {
 	r13 = 1;
 	r13 = r5 << r13;
 	*(unsigned short*)(r8 + r13) = (unsigned short)r9;
-	goto label$039cf2f_5_4;
-	label$039cf2f_5_33:
+	goto label$039cf2f_8_4;
+	label$039cf2f_8_33:
 	return;
 }
 
@@ -215,10 +240,10 @@ vdynamic* hl_types_ArrayBytes_hl_UI16_shift(hl__types__ArrayBytes_hl_UI16 r0) {
 	int r2, r3, r11, r12;
 	r2 = r0->length;
 	r3 = 0;
-	if( r2 != r3 ) goto label$039cf2f_6_5;
+	if( r2 != r3 ) goto label$039cf2f_9_5;
 	r4 = NULL;
 	return r4;
-	label$039cf2f_6_5:
+	label$039cf2f_9_5:
 	r5 = r0->bytes;
 	r2 = 0;
 	r3 = 1;
@@ -253,23 +278,23 @@ void hl_types_ArrayBytes_hl_UI16_blit(hl__types__ArrayBytes_hl_UI16 r0,int r1,hl
 	int r7, r8, r15, r17, r18;
 	r5 = (hl__types__ArrayBytes_hl_UI16)hl_dyn_castp(&r2,&t$hl_types_ArrayAccess,&t$hl_types_ArrayBytes_hl_UI16);
 	r8 = 0;
-	if( r1 < r8 ) goto label$039cf2f_7_14;
+	if( r1 < r8 ) goto label$039cf2f_10_14;
 	r8 = 0;
-	if( r3 < r8 ) goto label$039cf2f_7_14;
+	if( r3 < r8 ) goto label$039cf2f_10_14;
 	r8 = 0;
-	if( r4 < r8 ) goto label$039cf2f_7_14;
+	if( r4 < r8 ) goto label$039cf2f_10_14;
 	r7 = r1 + r4;
 	r8 = r0->length;
-	if( r8 < r7 ) goto label$039cf2f_7_14;
+	if( r8 < r7 ) goto label$039cf2f_10_14;
 	r7 = r3 + r4;
 	if( r5 == NULL ) hl_null_access();
 	r8 = r5->length;
-	if( r8 >= r7 ) goto label$039cf2f_7_17;
-	label$039cf2f_7_14:
+	if( r8 >= r7 ) goto label$039cf2f_10_17;
+	label$039cf2f_10_14:
 	r10 = (venum*)g$haxe_io_Error_OutsideBounds;
 	r9 = haxe_Exception_thrown(((vdynamic*)r10));
 	hl_throw((vdynamic*)r9);
-	label$039cf2f_7_17:
+	label$039cf2f_10_17:
 	r11 = r0->bytes;
 	r12 = r0->bytes;
 	r8 = 1;
@@ -290,36 +315,36 @@ hl__types__ArrayBase hl_types_ArrayBytes_hl_UI16_slice(hl__types__ArrayBytes_hl_
 	vbyte *r9, *r10, *r11, *r12;
 	int r4, r5, r6, r7, r13, r14;
 	r5 = 0;
-	if( r1 >= r5 ) goto label$039cf2f_8_9;
+	if( r1 >= r5 ) goto label$039cf2f_11_9;
 	r4 = r0->length;
 	r4 = r4 + r1;
 	r1 = r4;
 	r5 = 0;
-	if( r4 >= r5 ) goto label$039cf2f_8_9;
+	if( r4 >= r5 ) goto label$039cf2f_11_9;
 	r4 = 0;
 	r1 = r4;
-	label$039cf2f_8_9:
-	if( r2 ) goto label$039cf2f_8_12;
+	label$039cf2f_11_9:
+	if( r2 ) goto label$039cf2f_11_12;
 	r5 = r0->length;
-	goto label$039cf2f_8_20;
-	label$039cf2f_8_12:
+	goto label$039cf2f_11_20;
+	label$039cf2f_11_12:
 	r5 = r2 ? r2->v.i : 0;
 	r6 = 0;
-	if( r5 >= r6 ) goto label$039cf2f_8_17;
+	if( r5 >= r6 ) goto label$039cf2f_11_17;
 	r6 = r0->length;
 	r5 = r5 + r6;
-	label$039cf2f_8_17:
+	label$039cf2f_11_17:
 	r6 = r0->length;
-	if( r6 >= r5 ) goto label$039cf2f_8_20;
+	if( r6 >= r5 ) goto label$039cf2f_11_20;
 	r5 = r0->length;
-	label$039cf2f_8_20:
+	label$039cf2f_11_20:
 	r5 = r5 - r1;
 	r7 = 0;
-	if( r5 >= r7 ) goto label$039cf2f_8_26;
+	if( r5 >= r7 ) goto label$039cf2f_11_26;
 	r8 = (hl__types__ArrayBytes_hl_UI16)hl_alloc_obj(&t$hl_types_ArrayBytes_hl_UI16);
 	hl_types_ArrayBytes_hl_UI16_new(r8);
 	return ((hl__types__ArrayBase)r8);
-	label$039cf2f_8_26:
+	label$039cf2f_11_26:
 	r8 = (hl__types__ArrayBytes_hl_UI16)hl_alloc_obj(&t$hl_types_ArrayBytes_hl_UI16);
 	hl_types_ArrayBytes_hl_UI16_new(r8);
 	r8->size = r5;
@@ -343,30 +368,30 @@ void hl_types_ArrayBytes_hl_UI16_sort(hl__types__ArrayBytes_hl_UI16 r0,vclosure*
 	vbyte *r5;
 	r3 = &t$_ui16;
 	r4 = &t$_i32;
-	if( hl_same_type(r3,r4) != 0 ) {} else goto label$039cf2f_9_12;
+	if( hl_same_type(r3,r4) != 0 ) {} else goto label$039cf2f_12_12;
 	r5 = r0->bytes;
 	r6 = 0;
 	r7 = r0->length;
-	if( r1 ) goto label$039cf2f_9_9;
+	if( r1 ) goto label$039cf2f_12_9;
 	r8 = NULL;
-	goto label$039cf2f_9_10;
-	label$039cf2f_9_9:
+	goto label$039cf2f_12_10;
+	label$039cf2f_12_9:
 	r8 = hl_alloc_closure_ptr(&t$fun_f38af0d,hl_types_ArrayBytes_hl_UI16_sort__$1,r1);
-	label$039cf2f_9_10:
+	label$039cf2f_12_10:
 	hl_bsort_i32(r5,r6,r7,r8);
-	goto label$039cf2f_9_20;
-	label$039cf2f_9_12:
+	goto label$039cf2f_12_20;
+	label$039cf2f_12_12:
 	r5 = r0->bytes;
 	r6 = 0;
 	r7 = r0->length;
-	if( r1 ) goto label$039cf2f_9_18;
+	if( r1 ) goto label$039cf2f_12_18;
 	r9 = NULL;
-	goto label$039cf2f_9_19;
-	label$039cf2f_9_18:
+	goto label$039cf2f_12_19;
+	label$039cf2f_12_18:
 	r9 = hl_alloc_closure_ptr(&t$fun_3193805,hl_types_ArrayBytes_hl_UI16_sort__$2,r1);
-	label$039cf2f_9_19:
+	label$039cf2f_12_19:
 	hl_bsort_f64(r5,r6,r7,r9);
-	label$039cf2f_9_20:
+	label$039cf2f_12_20:
 	return;
 }
 
@@ -375,46 +400,46 @@ hl__types__ArrayBase hl_types_ArrayBytes_hl_UI16_splice(hl__types__ArrayBytes_hl
 	vbyte *r7, *r8, *r9, *r10, *r13, *r14, *r15, *r17;
 	int r4, r5, r11, r12, r16, r18, r19;
 	r5 = 0;
-	if( r2 >= r5 ) goto label$039cf2f_10_5;
+	if( r2 >= r5 ) goto label$039cf2f_13_5;
 	r6 = (hl__types__ArrayBytes_hl_UI16)hl_alloc_obj(&t$hl_types_ArrayBytes_hl_UI16);
 	hl_types_ArrayBytes_hl_UI16_new(r6);
 	return ((hl__types__ArrayBase)r6);
-	label$039cf2f_10_5:
+	label$039cf2f_13_5:
 	r5 = 0;
-	if( r1 >= r5 ) goto label$039cf2f_10_14;
+	if( r1 >= r5 ) goto label$039cf2f_13_14;
 	r4 = r0->length;
 	r4 = r4 + r1;
 	r1 = r4;
 	r5 = 0;
-	if( r4 >= r5 ) goto label$039cf2f_10_14;
+	if( r4 >= r5 ) goto label$039cf2f_13_14;
 	r4 = 0;
 	r1 = r4;
-	label$039cf2f_10_14:
+	label$039cf2f_13_14:
 	r5 = r0->length;
-	if( r5 >= r1 ) goto label$039cf2f_10_21;
+	if( r5 >= r1 ) goto label$039cf2f_13_21;
 	r4 = 0;
 	r1 = r4;
 	r4 = 0;
 	r2 = r4;
-	goto label$039cf2f_10_31;
-	label$039cf2f_10_21:
+	goto label$039cf2f_13_31;
+	label$039cf2f_13_21:
 	r4 = r1 + r2;
 	r5 = r0->length;
-	if( r5 >= r4 ) goto label$039cf2f_10_31;
+	if( r5 >= r4 ) goto label$039cf2f_13_31;
 	r4 = r0->length;
 	r4 = r4 - r1;
 	r2 = r4;
 	r5 = 0;
-	if( r4 >= r5 ) goto label$039cf2f_10_31;
+	if( r4 >= r5 ) goto label$039cf2f_13_31;
 	r4 = 0;
 	r2 = r4;
-	label$039cf2f_10_31:
+	label$039cf2f_13_31:
 	r5 = 0;
-	if( r2 != r5 ) goto label$039cf2f_10_36;
+	if( r2 != r5 ) goto label$039cf2f_13_36;
 	r6 = (hl__types__ArrayBytes_hl_UI16)hl_alloc_obj(&t$hl_types_ArrayBytes_hl_UI16);
 	hl_types_ArrayBytes_hl_UI16_new(r6);
 	return ((hl__types__ArrayBase)r6);
-	label$039cf2f_10_36:
+	label$039cf2f_13_36:
 	r6 = (hl__types__ArrayBytes_hl_UI16)hl_alloc_obj(&t$hl_types_ArrayBytes_hl_UI16);
 	hl_types_ArrayBytes_hl_UI16_new(r6);
 	r7 = r0->bytes;
@@ -462,16 +487,16 @@ String hl_types_ArrayBytes_hl_UI16_toString(hl__types__ArrayBytes_hl_UI16 r0) {
 	StringBuf_addChar(r1,r3);
 	r3 = 0;
 	r4 = r0->length;
-	label$039cf2f_11_6:
-	if( r3 >= r4 ) goto label$039cf2f_11_24;
+	label$039cf2f_14_6:
+	if( r3 >= r4 ) goto label$039cf2f_14_24;
 	r5 = r3;
 	++r3;
 	r7 = 0;
-	if( r7 >= r5 ) goto label$039cf2f_11_15;
+	if( r7 >= r5 ) goto label$039cf2f_14_15;
 	if( r1 == NULL ) hl_null_access();
 	r6 = 44;
 	StringBuf_addChar(r1,r6);
-	label$039cf2f_11_15:
+	label$039cf2f_14_15:
 	r8 = r0->bytes;
 	if( r1 == NULL ) hl_null_access();
 	r7 = 1;
@@ -481,8 +506,8 @@ String hl_types_ArrayBytes_hl_UI16_toString(hl__types__ArrayBytes_hl_UI16 r0) {
 	r10 = hl_alloc_dynamic(&t$_ui16);
 	r10->v.i = r9;
 	StringBuf_add(r1,((vdynamic*)r10));
-	goto label$039cf2f_11_6;
-	label$039cf2f_11_24:
+	goto label$039cf2f_14_6;
+	label$039cf2f_14_24:
 	if( r1 == NULL ) hl_null_access();
 	r3 = 93;
 	StringBuf_addChar(r1,r3);
@@ -495,15 +520,15 @@ void hl_types_ArrayBytes_hl_UI16_unshift(hl__types__ArrayBytes_hl_UI16 r0,unsign
 	int r3, r4, r10, r11, r12;
 	r3 = r0->length;
 	r4 = r0->size;
-	if( r3 != r4 ) goto label$039cf2f_12_6;
+	if( r3 != r4 ) goto label$039cf2f_15_6;
 	r3 = r0->length;
 	hl_types_ArrayBytes_hl_UI16___expand(r0,r3);
-	goto label$039cf2f_12_9;
-	label$039cf2f_12_6:
+	goto label$039cf2f_15_9;
+	label$039cf2f_15_6:
 	r3 = r0->length;
 	++r3;
 	r0->length = r3;
-	label$039cf2f_12_9:
+	label$039cf2f_15_9:
 	r5 = r0->bytes;
 	r6 = r0->bytes;
 	r3 = 1;
@@ -531,33 +556,33 @@ void hl_types_ArrayBytes_hl_UI16_insert(hl__types__ArrayBytes_hl_UI16 r0,int r1,
 	vbyte *r6, *r7, *r8, *r9, *r11, *r12;
 	int r4, r5, r10, r13, r14, r15;
 	r5 = 0;
-	if( r1 >= r5 ) goto label$039cf2f_13_10;
+	if( r1 >= r5 ) goto label$039cf2f_16_10;
 	r4 = r0->length;
 	r4 = r4 + r1;
 	r1 = r4;
 	r5 = 0;
-	if( r4 >= r5 ) goto label$039cf2f_13_9;
+	if( r4 >= r5 ) goto label$039cf2f_16_9;
 	r4 = 0;
 	r1 = r4;
-	label$039cf2f_13_9:
-	goto label$039cf2f_13_14;
-	label$039cf2f_13_10:
+	label$039cf2f_16_9:
+	goto label$039cf2f_16_14;
+	label$039cf2f_16_10:
 	r5 = r0->length;
-	if( r5 >= r1 ) goto label$039cf2f_13_14;
+	if( r5 >= r1 ) goto label$039cf2f_16_14;
 	r4 = r0->length;
 	r1 = r4;
-	label$039cf2f_13_14:
+	label$039cf2f_16_14:
 	r4 = r0->length;
 	r5 = r0->size;
-	if( r4 != r5 ) goto label$039cf2f_13_20;
+	if( r4 != r5 ) goto label$039cf2f_16_20;
 	r4 = r0->length;
 	hl_types_ArrayBytes_hl_UI16___expand(r0,r4);
-	goto label$039cf2f_13_23;
-	label$039cf2f_13_20:
+	goto label$039cf2f_16_23;
+	label$039cf2f_16_20:
 	r4 = r0->length;
 	++r4;
 	r0->length = r4;
-	label$039cf2f_13_23:
+	label$039cf2f_16_23:
 	r6 = r0->bytes;
 	r7 = r0->bytes;
 	r5 = 1;
@@ -591,12 +616,12 @@ bool hl_types_ArrayBytes_hl_UI16_contains(hl__types__ArrayBytes_hl_UI16 r0,unsig
 	r4 = NULL;
 	r3 = hl_types_ArrayBytes_hl_UI16_indexOf(r0,r1,r4);
 	r5 = -1;
-	if( r3 != r5 ) goto label$039cf2f_14_6;
+	if( r3 != r5 ) goto label$039cf2f_17_6;
 	r2 = false;
-	goto label$039cf2f_14_7;
-	label$039cf2f_14_6:
+	goto label$039cf2f_17_7;
+	label$039cf2f_17_6:
 	r2 = true;
-	label$039cf2f_14_7:
+	label$039cf2f_17_7:
 	return r2;
 }
 
@@ -608,10 +633,10 @@ bool hl_types_ArrayBytes_hl_UI16_remove(hl__types__ArrayBytes_hl_UI16 r0,unsigne
 	r3 = NULL;
 	r2 = hl_types_ArrayBytes_hl_UI16_indexOf(r0,r1,r3);
 	r6 = 0;
-	if( r2 >= r6 ) goto label$039cf2f_15_6;
+	if( r2 >= r6 ) goto label$039cf2f_18_6;
 	r7 = false;
 	return r7;
-	label$039cf2f_15_6:
+	label$039cf2f_18_6:
 	r5 = r0->length;
 	--r5;
 	r0->length = r5;
@@ -639,26 +664,26 @@ int hl_types_ArrayBytes_hl_UI16_indexOf(hl__types__ArrayBytes_hl_UI16 r0,unsigne
 	unsigned short r10;
 	vbyte *r8;
 	int r3, r4, r5, r6, r7, r9;
-	if( r2 ) goto label$039cf2f_16_3;
+	if( r2 ) goto label$039cf2f_19_3;
 	r3 = 0;
-	goto label$039cf2f_16_4;
-	label$039cf2f_16_3:
+	goto label$039cf2f_19_4;
+	label$039cf2f_19_3:
 	r3 = r2 ? r2->v.i : 0;
-	label$039cf2f_16_4:
+	label$039cf2f_19_4:
 	r5 = 0;
-	if( r3 >= r5 ) goto label$039cf2f_16_13;
+	if( r3 >= r5 ) goto label$039cf2f_19_13;
 	r5 = r0->length;
 	r4 = r3 + r5;
 	r3 = r4;
 	r5 = 0;
-	if( r4 >= r5 ) goto label$039cf2f_16_13;
+	if( r4 >= r5 ) goto label$039cf2f_19_13;
 	r4 = 0;
 	r3 = r4;
-	label$039cf2f_16_13:
+	label$039cf2f_19_13:
 	r4 = r3;
 	r5 = r0->length;
-	label$039cf2f_16_15:
-	if( r4 >= r5 ) goto label$039cf2f_16_27;
+	label$039cf2f_19_15:
+	if( r4 >= r5 ) goto label$039cf2f_19_27;
 	r6 = r4;
 	++r4;
 	r8 = r0->bytes;
@@ -666,11 +691,11 @@ int hl_types_ArrayBytes_hl_UI16_indexOf(hl__types__ArrayBytes_hl_UI16 r0,unsigne
 	r9 = r6 << r9;
 	r7 = *(unsigned short*)(r8 + r9);
 	r10 = (int)r7;
-	if( r10 != r1 ) goto label$039cf2f_16_26;
+	if( r10 != r1 ) goto label$039cf2f_19_26;
 	return r6;
-	label$039cf2f_16_26:
-	goto label$039cf2f_16_15;
-	label$039cf2f_16_27:
+	label$039cf2f_19_26:
+	goto label$039cf2f_19_15;
+	label$039cf2f_19_27:
 	r4 = -1;
 	return r4;
 }
@@ -680,37 +705,37 @@ int hl_types_ArrayBytes_hl_UI16_lastIndexOf(hl__types__ArrayBytes_hl_UI16 r0,uns
 	vbyte *r7;
 	int r3, r4, r5, r6;
 	r3 = r0->length;
-	if( !r2 ) goto label$039cf2f_17_4;
+	if( !r2 ) goto label$039cf2f_20_4;
 	r4 = r2 ? r2->v.i : 0;
-	goto label$039cf2f_17_6;
-	label$039cf2f_17_4:
+	goto label$039cf2f_20_6;
+	label$039cf2f_20_4:
 	r5 = 1;
 	r4 = r3 - r5;
-	label$039cf2f_17_6:
-	if( r4 < r3 ) goto label$039cf2f_17_11;
+	label$039cf2f_20_6:
+	if( r4 < r3 ) goto label$039cf2f_20_11;
 	r6 = 1;
 	r5 = r3 - r6;
 	r4 = r5;
-	goto label$039cf2f_17_15;
-	label$039cf2f_17_11:
+	goto label$039cf2f_20_15;
+	label$039cf2f_20_11:
 	r6 = 0;
-	if( r4 >= r6 ) goto label$039cf2f_17_15;
+	if( r4 >= r6 ) goto label$039cf2f_20_15;
 	r5 = r4 + r3;
 	r4 = r5;
-	label$039cf2f_17_15:
+	label$039cf2f_20_15:
 	r6 = 0;
-	if( r4 < r6 ) goto label$039cf2f_17_27;
+	if( r4 < r6 ) goto label$039cf2f_20_27;
 	r7 = r0->bytes;
 	r6 = 1;
 	r6 = r4 << r6;
 	r5 = *(unsigned short*)(r7 + r6);
 	r8 = (int)r5;
-	if( r8 != r1 ) goto label$039cf2f_17_25;
+	if( r8 != r1 ) goto label$039cf2f_20_25;
 	return r4;
-	label$039cf2f_17_25:
+	label$039cf2f_20_25:
 	--r4;
-	goto label$039cf2f_17_15;
-	label$039cf2f_17_27:
+	goto label$039cf2f_20_15;
+	label$039cf2f_20_27:
 	r5 = -1;
 	return r5;
 }
@@ -770,16 +795,16 @@ hl__types__ArrayDyn hl_types_ArrayBytes_hl_UI16_map(hl__types__ArrayBytes_hl_UI1
 	hl_types_ArrayObj_new(r2);
 	r4 = r0->length;
 	r5 = 0;
-	if( r5 >= r4 ) goto label$039cf2f_21_9;
+	if( r5 >= r4 ) goto label$039cf2f_24_9;
 	r4 = r0->length;
 	r5 = 1;
 	r4 = r4 - r5;
 	hl_types_ArrayObj___expand(r2,r4);
-	label$039cf2f_21_9:
+	label$039cf2f_24_9:
 	r4 = 0;
 	r5 = r0->length;
-	label$039cf2f_21_11:
-	if( r4 >= r5 ) goto label$039cf2f_21_26;
+	label$039cf2f_24_11:
+	if( r4 >= r5 ) goto label$039cf2f_24_26;
 	r6 = r4;
 	++r4;
 	if( r2 == NULL ) hl_null_access();
@@ -792,8 +817,8 @@ hl__types__ArrayDyn hl_types_ArrayBytes_hl_UI16_map(hl__types__ArrayBytes_hl_UI1
 	r12 = (int)r7;
 	r10 = r1->hasValue ? ((vdynamic* (*)(vdynamic*,unsigned short))r1->fun)((vdynamic*)r1->value,r12) : ((vdynamic* (*)(unsigned short))r1->fun)(r12);
 	((vdynamic**)(r8 + 1))[r6] = r10;
-	goto label$039cf2f_21_11;
-	label$039cf2f_21_26:
+	goto label$039cf2f_24_11;
+	label$039cf2f_24_26:
 	r14 = true;
 	r15 = &r14;
 	r13 = hl_types_ArrayDyn_alloc(((hl__types__ArrayBase)r2),r15);
@@ -810,8 +835,8 @@ hl__types__ArrayBytes_hl_UI16 hl_types_ArrayBytes_hl_UI16_filter(hl__types__Arra
 	hl_types_ArrayBytes_hl_UI16_new(r2);
 	r4 = 0;
 	r5 = r0->length;
-	label$039cf2f_22_4:
-	if( r4 >= r5 ) goto label$039cf2f_22_19;
+	label$039cf2f_25_4:
+	if( r4 >= r5 ) goto label$039cf2f_25_19;
 	r6 = r4;
 	++r4;
 	r8 = r0->bytes;
@@ -821,12 +846,12 @@ hl__types__ArrayBytes_hl_UI16 hl_types_ArrayBytes_hl_UI16_filter(hl__types__Arra
 	r10 = (int)r7;
 	if( r1 == NULL ) hl_null_access();
 	r11 = r1->hasValue ? ((bool (*)(vdynamic*,unsigned short))r1->fun)((vdynamic*)r1->value,r10) : ((bool (*)(unsigned short))r1->fun)(r10);
-	if( !r11 ) goto label$039cf2f_22_18;
+	if( !r11 ) goto label$039cf2f_25_18;
 	if( r2 == NULL ) hl_null_access();
 	r7 = hl_types_ArrayBytes_hl_UI16_push(r2,r10);
-	label$039cf2f_22_18:
-	goto label$039cf2f_22_4;
-	label$039cf2f_22_19:
+	label$039cf2f_25_18:
+	goto label$039cf2f_25_4;
+	label$039cf2f_25_19:
 	return r2;
 }
 
@@ -834,14 +859,14 @@ void hl_types_ArrayBytes_hl_UI16_resize(hl__types__ArrayBytes_hl_UI16 r0,int r1)
 	vbyte *r5, *r6, *r7;
 	int r3, r4, r8, r9;
 	r3 = r0->length;
-	if( r3 >= r1 ) goto label$039cf2f_23_6;
+	if( r3 >= r1 ) goto label$039cf2f_26_6;
 	r4 = 1;
 	r3 = r1 - r4;
 	hl_types_ArrayBytes_hl_UI16___expand(r0,r3);
-	goto label$039cf2f_23_20;
-	label$039cf2f_23_6:
+	goto label$039cf2f_26_20;
+	label$039cf2f_26_6:
 	r3 = r0->length;
-	if( r1 >= r3 ) goto label$039cf2f_23_20;
+	if( r1 >= r3 ) goto label$039cf2f_26_20;
 	r5 = r0->bytes;
 	r6 = r0->bytes;
 	r4 = 1;
@@ -854,7 +879,7 @@ void hl_types_ArrayBytes_hl_UI16_resize(hl__types__ArrayBytes_hl_UI16 r0,int r1)
 	r9 = 0;
 	hl_bytes_fill(r5,r3,r8,r9);
 	r0->length = r1;
-	label$039cf2f_23_20:
+	label$039cf2f_26_20:
 	return;
 }
 
@@ -864,13 +889,13 @@ vdynamic* hl_types_ArrayBytes_hl_UI16_getDyn(hl__types__ArrayBytes_hl_UI16 r0,in
 	vbyte *r4;
 	int r2, r3;
 	r3 = r0->length;
-	if( r1 < r3 ) goto label$039cf2f_24_6;
+	if( r1 < r3 ) goto label$039cf2f_27_6;
 	r4 = r0->bytes;
 	r5 = 0;
 	r6 = hl_alloc_dynamic(&t$_ui16);
 	r6->v.i = r5;
 	return r6;
-	label$039cf2f_24_6:
+	label$039cf2f_27_6:
 	r4 = r0->bytes;
 	r3 = 1;
 	r3 = r1 << r3;
@@ -885,9 +910,9 @@ void hl_types_ArrayBytes_hl_UI16_setDyn(hl__types__ArrayBytes_hl_UI16 r0,int r1,
 	vbyte *r5;
 	int r4, r7;
 	r4 = r0->length;
-	if( r1 < r4 ) goto label$039cf2f_25_3;
+	if( r1 < r4 ) goto label$039cf2f_28_3;
 	hl_types_ArrayBytes_hl_UI16___expand(r0,r1);
-	label$039cf2f_25_3:
+	label$039cf2f_28_3:
 	r5 = r0->bytes;
 	r6 = (unsigned short)hl_dyn_casti(&r2,&t$_dyn,&t$_ui16);
 	r4 = (int)r6;
@@ -949,12 +974,12 @@ bool hl_types_ArrayBytes_hl_UI16_removeDyn(hl__types__ArrayBytes_hl_UI16 r0,vdyn
 
 void hl_types_ArrayBytes_hl_UI16_sortDyn(hl__types__ArrayBytes_hl_UI16 r0,vclosure* r1) {
 	vclosure *r3;
-	if( r1 ) goto label$039cf2f_33_3;
+	if( r1 ) goto label$039cf2f_36_3;
 	r3 = NULL;
-	goto label$039cf2f_33_4;
-	label$039cf2f_33_3:
+	goto label$039cf2f_36_4;
+	label$039cf2f_36_3:
 	r3 = hl_alloc_closure_ptr(&t$fun_63e5768,hl_types_ArrayBytes_hl_UI16_sortDyn__$1,r1);
-	label$039cf2f_33_4:
+	label$039cf2f_36_4:
 	hl_types_ArrayBytes_hl_UI16_sort(r0,r3);
 	return;
 }
@@ -966,7 +991,7 @@ void hl_types_ArrayBytes_hl_UI16___expand(hl__types__ArrayBytes_hl_UI16 r0,int r
 	vbyte *r8, *r12, *r13, *r14, *r15;
 	int r3, r4, r10, r11, r16, r17;
 	r4 = 0;
-	if( r1 >= r4 ) goto label$039cf2f_34_10;
+	if( r1 >= r4 ) goto label$039cf2f_37_10;
 	r6 = (String)s$Invalid_array_index_;
 	r3 = r1;
 	r7 = &r3;
@@ -975,19 +1000,19 @@ void hl_types_ArrayBytes_hl_UI16___expand(hl__types__ArrayBytes_hl_UI16 r0,int r
 	r6 = String___add__(r6,r9);
 	r5 = haxe_Exception_thrown(((vdynamic*)r6));
 	hl_throw((vdynamic*)r5);
-	label$039cf2f_34_10:
+	label$039cf2f_37_10:
 	r4 = 1;
 	r3 = r1 + r4;
 	r10 = r0->size;
-	if( r10 >= r3 ) goto label$039cf2f_34_41;
+	if( r10 >= r3 ) goto label$039cf2f_37_41;
 	r4 = r0->size;
 	r10 = 3;
 	r4 = r4 * r10;
 	r10 = 1;
 	r4 = r4 >> r10;
-	if( r4 >= r3 ) goto label$039cf2f_34_21;
+	if( r4 >= r3 ) goto label$039cf2f_37_21;
 	r4 = r3;
-	label$039cf2f_34_21:
+	label$039cf2f_37_21:
 	r8 = r0->bytes;
 	r11 = 1;
 	r10 = r4 << r11;
@@ -1008,36 +1033,8 @@ void hl_types_ArrayBytes_hl_UI16___expand(hl__types__ArrayBytes_hl_UI16 r0,int r
 	hl_bytes_fill(r12,r10,r16,r17);
 	r0->bytes = r12;
 	r0->size = r4;
-	label$039cf2f_34_41:
+	label$039cf2f_37_41:
 	r0->length = r3;
 	return;
-}
-
-int hl_types_ArrayBytes_hl_UI16_sort__$2(vclosure* r0,double r1,double r2) {
-	unsigned short r3, r4;
-	int r5;
-	r3 = (int)r1;
-	r4 = (int)r2;
-	r5 = r0->hasValue ? ((int (*)(vdynamic*,unsigned short,unsigned short))r0->fun)((vdynamic*)r0->value,r3,r4) : ((int (*)(unsigned short,unsigned short))r0->fun)(r3,r4);
-	return r5;
-}
-
-int hl_types_ArrayBytes_hl_UI16_sort__$1(vclosure* r0,int r1,int r2) {
-	unsigned short r3, r4;
-	r3 = (int)r1;
-	r4 = (int)r2;
-	r1 = r0->hasValue ? ((int (*)(vdynamic*,unsigned short,unsigned short))r0->fun)((vdynamic*)r0->value,r3,r4) : ((int (*)(unsigned short,unsigned short))r0->fun)(r3,r4);
-	return r1;
-}
-
-int hl_types_ArrayBytes_hl_UI16_sortDyn__$1(vclosure* r0,unsigned short r1,unsigned short r2) {
-	vdynamic *r3, *r4;
-	int r5;
-	r3 = hl_alloc_dynamic(&t$_ui16);
-	r3->v.i = r1;
-	r4 = hl_alloc_dynamic(&t$_ui16);
-	r4->v.i = r2;
-	r5 = r0->hasValue ? ((int (*)(vdynamic*,vdynamic*,vdynamic*))r0->fun)((vdynamic*)r0->value,r3,r4) : ((int (*)(vdynamic*,vdynamic*))r0->fun)(r3,r4);
-	return r5;
 }
 

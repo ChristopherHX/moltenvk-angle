@@ -7,12 +7,12 @@ void samplygame_Weapon_new(samplygame__Weapon,vdynamic*);
 #include <urho3d/_Context/Context_Impl_.h>
 #include <urho3d/StaticModel.h>
 #include <hl/types/ArrayObj.h>
-#include <actions/MoveBy.h>
-#include <actions/RotateBy.h>
-#include <actions/ActionID.h>
-#include <actions/ActionDef.h>
-#include <actions/Parallel.h>
-#include <actions/FiniteTimeActionState.h>
+#include <urho3d/actions/MoveBy.h>
+#include <urho3d/actions/RotateBy.h>
+#include <urho3d/actions/ActionID.h>
+#include <urho3d/actions/ActionDef.h>
+#include <urho3d/actions/Parallel.h>
+#include <urho3d/actions/FiniteTimeActionState.h>
 urho3d__Node samplygame_Weapon_CreateRigidBullet(samplygame__Weapon,bool,hl_urho3d_math_vector3*);
 extern urho3d___Context__$Context_Impl_ g$_urho3d__Context_Context_Impl_;
 extern String s$StaticModel;
@@ -22,21 +22,21 @@ extern String s$Models_Apple_mdl;
 hl_urho3d_graphics_model* urho3d_StaticModel_set_model(urho3d__StaticModel,hl_urho3d_graphics_model*);
 extern String s$Materials_Apple_xml;
 hl_urho3d_graphics_material* urho3d_StaticModel_set_material(urho3d__StaticModel,hl_urho3d_graphics_material*);
-extern hl_type t$actions_FiniteTimeAction;
+extern hl_type t$urho3d_actions_FiniteTimeAction;
 hl__types__ArrayObj hl_types_ArrayObj_alloc(varray*);
-extern hl_type t$actions_MoveBy;
-void actions_MoveBy_new(actions__MoveBy,double,hl_urho3d_math_vector3*);
+extern hl_type t$urho3d_actions_MoveBy;
+void urho3d_actions_MoveBy_new(urho3d__actions__MoveBy,double,hl_urho3d_math_vector3*);
 int hl_types_ArrayObj_push(hl__types__ArrayObj,vdynamic*);
-extern hl_type t$actions_RotateBy;
+extern hl_type t$urho3d_actions_RotateBy;
 extern hl_type t$_f64;
-void actions_RotateBy_new(actions__RotateBy,double,double,vdynamic*,vdynamic*);
-extern hl_type t$actions_Parallel;
-void actions_Parallel_new(actions__Parallel,hl__types__ArrayObj);
-void samplygame_Coin_bulletNodeRemove(samplygame__Coin,actions__ActionID);
-extern hl_type t$fun_2edc73d;
-#include <actions/FiniteTimeAction.h>
-actions__ActionID actions_ActionManager_AddAction(actions__ActionDef,actions__FiniteTimeAction,urho3d__Node,actions__FiniteTimeActionState,vclosure*);
-void actions_ActionID_DeleteTargets(actions__ActionID);
+void urho3d_actions_RotateBy_new(urho3d__actions__RotateBy,double,double,vdynamic*,vdynamic*);
+extern hl_type t$urho3d_actions_Parallel;
+void urho3d_actions_Parallel_new(urho3d__actions__Parallel,hl__types__ArrayObj);
+void samplygame_Coin_bulletNodeRemove(samplygame__Coin,urho3d__actions__ActionID);
+extern hl_type t$fun_995c298;
+#include <urho3d/actions/FiniteTimeAction.h>
+urho3d__actions__ActionID urho3d_actions_ActionManager_AddAction(urho3d__actions__ActionDef,urho3d__actions__FiniteTimeAction,urho3d__Node,urho3d__actions__FiniteTimeActionState,vclosure*);
+void urho3d_actions_ActionID_DeleteTargets(urho3d__actions__ActionID);
 #include <urho3d/SoundSource.h>
 #include <samplygame/SamplyGame.h>
 urho3d__Node urho3d_Component_get_node(urho3d__Component);
@@ -63,29 +63,29 @@ void samplygame_Coin_new(samplygame__Coin r0) {
 void samplygame_Coin_OnFire(samplygame__Coin r0,bool r1) {
 	String r9;
 	hl__types__ArrayObj r25;
+	urho3d__actions__ActionDef r35;
 	hl_type *r27;
 	hl_urho3d_scene_component *r6;
-	actions__FiniteTimeActionState r37;
+	urho3d__actions__FiniteTimeActionState r37;
 	urho3d__StaticModel r13;
+	urho3d__actions__MoveBy r28;
 	hl_urho3d_math_quaternion *r23;
 	hl_urho3d_math_vector3 *r3;
 	urho3d__Node r2;
-	actions__MoveBy r28;
 	hl_urho3d_math_tquaternion *r24;
 	hl_urho3d_graphics_material *r16, *r17;
 	urho3d___Context__$Context_Impl_ r8;
-	actions__ActionDef r35;
-	actions__ActionID r34;
+	urho3d__actions__Parallel r36;
 	float r20, r21, r22;
 	urho3d_context *r7;
 	hl_urho3d_scene_node *r5;
 	vclosure *r38;
-	actions__RotateBy r29;
 	double r19, r30, r31;
 	hl_urho3d_graphics_staticmodel *r12;
 	vdynamic *r32, *r33;
+	urho3d__actions__RotateBy r29;
 	hl_urho3d_math_tvector3 *r18;
-	actions__Parallel r36;
+	urho3d__actions__ActionID r34;
 	varray *r26;
 	hl_urho3d_graphics_model *r14, *r15;
 	int r10, r11;
@@ -163,7 +163,7 @@ void samplygame_Coin_OnFire(samplygame__Coin r0,bool r1) {
 	r5 = r2->abstractNode;
 	Urho3D__scene_node_set_rotation(r7,r5,r24);
 	label$c0c16d0_2_66:
-	r27 = &t$actions_FiniteTimeAction;
+	r27 = &t$urho3d_actions_FiniteTimeAction;
 	r10 = 0;
 	r26 = hl_alloc_array(r27,r10);
 	r25 = hl_types_ArrayObj_alloc(r26);
@@ -182,11 +182,11 @@ void samplygame_Coin_OnFire(samplygame__Coin r0,bool r1) {
 	r22 = (float)r10;
 	r3 = Urho3D__math_vector3_create(r20,r21,r22);
 	if( r25 == NULL ) hl_null_access();
-	r28 = (actions__MoveBy)hl_alloc_obj(&t$actions_MoveBy);
+	r28 = (urho3d__actions__MoveBy)hl_alloc_obj(&t$urho3d_actions_MoveBy);
 	r19 = 3.;
-	actions_MoveBy_new(r28,r19,r3);
+	urho3d_actions_MoveBy_new(r28,r19,r3);
 	r10 = hl_types_ArrayObj_push(r25,((vdynamic*)r28));
-	r29 = (actions__RotateBy)hl_alloc_obj(&t$actions_RotateBy);
+	r29 = (urho3d__actions__RotateBy)hl_alloc_obj(&t$urho3d_actions_RotateBy);
 	r19 = 3.;
 	r30 = 0.;
 	r10 = 1800;
@@ -197,20 +197,20 @@ void samplygame_Coin_OnFire(samplygame__Coin r0,bool r1) {
 	r31 = (double)r10;
 	r33 = hl_alloc_dynamic(&t$_f64);
 	r33->v.d = r31;
-	actions_RotateBy_new(r29,r19,r30,r32,r33);
+	urho3d_actions_RotateBy_new(r29,r19,r30,r32,r33);
 	r10 = hl_types_ArrayObj_push(r25,((vdynamic*)r29));
 	r35 = NULL;
-	r36 = (actions__Parallel)hl_alloc_obj(&t$actions_Parallel);
-	actions_Parallel_new(r36,r25);
+	r36 = (urho3d__actions__Parallel)hl_alloc_obj(&t$urho3d_actions_Parallel);
+	urho3d_actions_Parallel_new(r36,r25);
 	r37 = NULL;
-	r38 = hl_alloc_closure_ptr(&t$fun_2edc73d,samplygame_Coin_bulletNodeRemove,r0);
-	r34 = actions_ActionManager_AddAction(r35,((actions__FiniteTimeAction)r36),r2,r37,r38);
+	r38 = hl_alloc_closure_ptr(&t$fun_995c298,samplygame_Coin_bulletNodeRemove,r0);
+	r34 = urho3d_actions_ActionManager_AddAction(r35,((urho3d__actions__FiniteTimeAction)r36),r2,r37,r38);
 	return;
 }
 
-void samplygame_Coin_bulletNodeRemove(samplygame__Coin r0,actions__ActionID r1) {
+void samplygame_Coin_bulletNodeRemove(samplygame__Coin r0,urho3d__actions__ActionID r1) {
 	if( r1 == NULL ) hl_null_access();
-	actions_ActionID_DeleteTargets(r1);
+	urho3d_actions_ActionID_DeleteTargets(r1);
 	return;
 }
 
