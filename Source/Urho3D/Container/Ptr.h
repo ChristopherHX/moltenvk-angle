@@ -194,7 +194,11 @@ public:
     /// Perform a dynamic cast from a shared pointer of another type.
     template <class U> void DynamicCast(const SharedPtr<U>& rhs)
     {
+#if defined(URHO3D_CLING)
+        SharedPtr<T> copy(static_cast<T*>(rhs.Get()));
+#else
         SharedPtr<T> copy(dynamic_cast<T*>(rhs.Get()));
+#endif
         Swap(copy);
     }
 
@@ -255,7 +259,11 @@ template <class T, class U> SharedPtr<T> StaticCast(const SharedPtr<U>& ptr)
 template <class T, class U> SharedPtr<T> DynamicCast(const SharedPtr<U>& ptr)
 {
     SharedPtr<T> ret;
+#if defined(URHO3D_CLING)
+    ret.StaticCast(ptr);
+#else
     ret.DynamicCast(ptr);
+#endif
     return ret;
 }
 
@@ -465,7 +473,11 @@ public:
     template <class U> void DynamicCast(const WeakPtr<U>& rhs)
     {
         ReleaseRef();
+#if defined(URHO3D_CLING)
+        ptr_ = static_cast<T*>(rhs.Get());
+#else
         ptr_ = dynamic_cast<T*>(rhs.Get());
+#endif
 
         if (ptr_)
         {
@@ -550,7 +562,11 @@ template <class T, class U> WeakPtr<T> StaticCast(const WeakPtr<U>& ptr)
 template <class T, class U> WeakPtr<T> DynamicCast(const WeakPtr<U>& ptr)
 {
     WeakPtr<T> ret;
+#if defined(URHO3D_CLING)
+     ret.StaticCast(ptr);
+#else
     ret.DynamicCast(ptr);
+#endif
     return ret;
 }
 

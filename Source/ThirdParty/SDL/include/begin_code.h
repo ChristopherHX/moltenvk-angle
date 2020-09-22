@@ -113,7 +113,9 @@
 #pragma warning(disable: 4103)
 #endif
 #ifdef __clang__
+#if !defined(URHO3D_CLING)
 #pragma clang diagnostic ignored "-Wpragma-pack"
+#endif
 #endif
 #ifdef __BORLANDC__
 #pragma nopackwarning
