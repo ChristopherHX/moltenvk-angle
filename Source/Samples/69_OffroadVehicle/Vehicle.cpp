@@ -29,6 +29,7 @@
 #include <Urho3D/Physics/PhysicsEvents.h>
 #include <Urho3D/Physics/PhysicsWorld.h>
 #include <Urho3D/Physics/PhysicsUtils.h>
+#include <Urho3D/Physics/CustomRaycastVehicle.h>
 #include <Urho3D/Resource/ResourceCache.h>
 #include <Urho3D/Physics/RigidBody.h>
 #include <Urho3D/Scene/Scene.h>
@@ -40,7 +41,6 @@
 #include <Urho3D/Audio/Sound.h>
 
 #include "Vehicle.h"
-#include "RaycastVehicle.h"
 #include "WheelTrackModel.h"
 
 #include <SDL/SDL_log.h>
@@ -168,7 +168,7 @@ void Vehicle::Init()
 {
     ResourceCache* cache = GetSubsystem<ResourceCache>();
    
-    raycastVehicle_ = node_->CreateComponent<RaycastVehicle>();
+    raycastVehicle_ = node_->CreateComponent<CustomRaycastVehicle>();
     CollisionShape* hullColShape = node_->CreateComponent<CollisionShape>();
     StaticModel* hullObject = node_->CreateComponent<StaticModel>();
 

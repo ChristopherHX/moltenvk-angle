@@ -23,7 +23,7 @@
 
 #include <Urho3D/Input/Controls.h>
 #include <Urho3D/Scene/LogicComponent.h>
-#include "RaycastVehicle.h"
+#include <Urho3D/Physics/CustomRaycastVehicle.h>
 
 namespace Urho3D
 {
@@ -36,7 +36,7 @@ class SoundSource3D;
 using namespace Urho3D;
 
 class WheelTrackModel;
-class RaycastVehicle;
+class  RaycastVehicle;
 
 //=============================================================================
 //=============================================================================
@@ -71,15 +71,15 @@ public:
     static void RegisterObject(Context* context);
    
     /// Perform post-load after deserialization. Acquire the components from the scene nodes.
-    virtual void ApplyAttributes();
+    virtual void ApplyAttributes()override;
 
     /// Initialize the vehicle. Create rendering and physics components. Called by the application.
     void Init();
 
     /// Handle physics world update. Called by LogicComponent base class.
-    virtual void FixedUpdate(float timeStep);
-    virtual void FixedPostUpdate(float timeStep);
-    virtual void PostUpdate(float timeStep);
+    virtual void FixedUpdate(float timeStep)override;
+    virtual void FixedPostUpdate(float timeStep)override;
+    virtual void PostUpdate(float timeStep)override;
    
     void ResetForces()
     {
@@ -111,7 +111,7 @@ protected:
     void PostUpdateWheelEffects();
 
 protected:
-    WeakPtr<RaycastVehicle> raycastVehicle_;
+    WeakPtr<CustomRaycastVehicle> raycastVehicle_;
    
     /// Current left/right steering amount (-1 to 1.)
     float steering_;

@@ -35,6 +35,7 @@
 #include "../Physics/PhysicsUtils.h"
 #include "../Physics/PhysicsWorld.h"
 #include "../Physics/RaycastVehicle.h"
+#include "../Physics/CustomRaycastVehicle.h"
 #include "../Physics/RigidBody.h"
 #include "../Scene/Scene.h"
 #include "../Scene/SceneEvents.h"
@@ -1087,6 +1088,7 @@ void RegisterPhysicsLibrary(Context* context)
     Constraint::RegisterObject(context);
     PhysicsWorld::RegisterObject(context);
     RaycastVehicle::RegisterObject(context);
+    CustomRaycastVehicle::RegisterObject(context);
 }
 
 }
