@@ -388,7 +388,7 @@ Input::Input(Context* context) :
 
     SubscribeToEvent(E_SCREENMODE, URHO3D_HANDLER(Input, HandleScreenMode));
 
-#if defined(__ANDROID__)
+#if defined(__ANDROID__) || defined(IOS)
     // Prevent mouse events from being registered as synthetic touch events and vice versa
     SDL_SetHint(SDL_HINT_MOUSE_TOUCH_EVENTS, "0");
     SDL_SetHint(SDL_HINT_TOUCH_MOUSE_EVENTS, "0");
