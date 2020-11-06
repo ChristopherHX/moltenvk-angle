@@ -479,4 +479,11 @@ void Context::EndSendEvent()
 #endif
 }
 
+void Context::RemoveFactory(StringHash factory)
+{
+    factories_[factory].Reset();
+    factories_.Erase(factory);
+}
+
+
 }

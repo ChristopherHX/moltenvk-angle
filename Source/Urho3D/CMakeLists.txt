@@ -574,3 +574,6 @@ if (URHO3D_SCP_TO_TARGET)
     add_custom_command (TARGET ${TARGET_NAME} POST_BUILD COMMAND scp $<TARGET_FILE:${TARGET_NAME}> ${URHO3D_SCP_TO_TARGET} || exit 0
         COMMENT "Scp-ing Urho3D library to target system")
 endif ()
+
+set_target_properties(${TARGET_NAME}
+  PROPERTIES ENABLE_EXPORTS 1)

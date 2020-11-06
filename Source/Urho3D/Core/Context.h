@@ -203,6 +203,7 @@ public:
         return i != eventReceivers_.End() ? i->second_ : nullptr;
     }
 
+    void RemoveFactory(StringHash factory);
 private:
     /// Add event receiver.
     void AddEventReceiver(Object* receiver, StringHash eventType);
