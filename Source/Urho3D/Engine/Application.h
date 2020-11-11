@@ -53,7 +53,10 @@ public:
     int Run();
     /// Show an error message (last log message if empty), terminate the main loop, and set failure exit code.
     void ErrorExit(const String& message = String::EMPTY);
-
+#if defined(URHO3D_CLING)
+    static  Urho3D::Context * getGlobalContext();
+    static void setGlobalContext(Urho3D::Context * context);
+#endif
 protected:
     /// Handle log message.
     void HandleLogMessage(StringHash eventType, VariantMap& eventData);

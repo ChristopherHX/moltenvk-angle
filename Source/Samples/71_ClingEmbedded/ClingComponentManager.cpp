@@ -99,21 +99,37 @@ namespace Urho3D
 
 		ClingComponentEntry* clingComponentEntry = new ClingComponentEntry(context_);
 
-		clingComponentEntry->_interpreter = new cling::Interpreter(argc, argv, "D:/temp/cling/tools/packaging/cling-build/builddir/Release");
+
+		clingComponentEntry->_interpreter = new cling::Interpreter(argc, argv, CLING_BUILD_DIR);
 		clingComponentEntry->_interpreter->enableDynamicLookup(true);
 		clingComponentEntry->_interpreter->allowRedefinition(true);
 
 
-		clingComponentEntry->_interpreter->AddIncludePath("D:/Urho3D-Dev/master/Urho3D/build-vs2019/include");
-		clingComponentEntry->_interpreter->AddIncludePath("D:/Urho3D-Dev/master/Urho3D/build-vs2019/include/Urho3D");
-		clingComponentEntry->_interpreter->AddIncludePath("D:/Urho3D-Dev/master/Urho3D/build-vs2019/include/Urho3D/ThirdParty");
-		clingComponentEntry->_interpreter->AddIncludePath("D:/Urho3D-Dev/master/Urho3D/build-vs2019/include/Urho3D/ThirdParty/Bullet");
+		clingComponentEntry->_interpreter->AddIncludePath("../include");
+		clingComponentEntry->_interpreter->AddIncludePath("../include/Urho3D");
+		clingComponentEntry->_interpreter->AddIncludePath("../include/Urho3D/ThirdParty");
+		clingComponentEntry->_interpreter->AddIncludePath("../include/Urho3D/ThirdParty/Bullet");
 
 		clingComponentEntry->_interpreter->AddIncludePath(path.CString());
 
-		cling::Interpreter::CompilationResult compilationResult = clingComponentEntry->_interpreter->loadFile("D:/Urho3D-Dev/master/Urho3D/build_cling_lib/bin/Urho3D.dll");
+        //Urho3D.dll
+        String urho3d_dll_name = "";
+#if defined(__WIN32__)
+        urho3d_dll_name = "Urho3D.dll";
+#elif defined(__APPLE__)
+        urho3d_dll_name = "libUrho3D.dylib";
+#else
+        urho3d_dll_name = "libUrho3D.so";
+#endif
+        
+        String urho3d_dll = String(URHO3D_DLL_CLING_PATH) +"/"+ urho3d_dll_name;
+        cling::Interpreter::CompilationResult compilationResult = clingComponentEntry->_interpreter->loadFile(urho3d_dll.CString());
 
 		if (compilationResult != cling::Interpreter::CompilationResult::kSuccess)goto error;
+        
+        //
+        compilationResult = clingComponentEntry->_interpreter->process("#define URHO3D_CLING");
+        if (compilationResult != cling::Interpreter::CompilationResult::kSuccess)goto error;
 
 		compilationResult = clingComponentEntry->_interpreter->loadHeader("Urho3D/Core/Context.h");
 		if (compilationResult != cling::Interpreter::CompilationResult::kSuccess)goto error;
@@ -125,7 +141,10 @@ namespace Urho3D
 		if (compilationResult != cling::Interpreter::CompilationResult::kSuccess)goto error;
 
 
-		cmd = "getContext()->RegisterFactory<" + name + ">();";
+        compilationResult = clingComponentEntry->_interpreter->loadHeader("Urho3D/Engine/Application.h");
+        if (compilationResult != cling::Interpreter::CompilationResult::kSuccess)goto error;
+        
+		cmd = "Application::getGlobalContext()->RegisterFactory<" + name + ">();";
 		compilationResult = clingComponentEntry->_interpreter->process(cmd.CString());
 		if (compilationResult != cling::Interpreter::CompilationResult::kSuccess)goto error;
 

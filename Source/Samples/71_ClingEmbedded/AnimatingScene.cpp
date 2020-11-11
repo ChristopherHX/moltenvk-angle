@@ -70,15 +70,10 @@ void getCode(Context* context,std::string path,std::string & code)
    
 }
 
-Context* gContext = NULL;
-
-Urho3D::Context * getContext() { return gContext; }
-
 AnimatingScene::AnimatingScene(Context* context) :
     Sample(context)
 {
 
-    gContext = context;
     context_->RegisterSubsystem(new ClingComponentManager(context_));
     // Register an object factory for our custom Rotator component so that we can create them to scene nodes
 
@@ -91,13 +86,15 @@ void AnimatingScene::Start()
 
 
     FileSystem* fileSystem = GetSubsystem<FileSystem>();
-
+    auto* cache = GetSubsystem<ResourceCache>();
 
     String progDir =  fileSystem->GetProgramDir();
 
     ClingComponentManager* clingComponentManager = GetSubsystem<ClingComponentManager>();
 
-    clingComponentManager->processComponent("D:/Urho3D-Dev/master/Urho3D/build-vs2019/bin/Data/Scripts/ClingRotator.cpp");
+    String fileNameFullPath = cache->GetResourceFileName("Scripts/ClingRotator.cpp");
+    // String GetResourceFileName(const String& name) const;
+    clingComponentManager->processComponent(fileNameFullPath);
    
 
     // Create the scene content

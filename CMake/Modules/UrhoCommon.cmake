@@ -155,6 +155,8 @@ option (URHO3D_CLING "Urho3D used with Cling" FALSE)
 if(URHO3D_CLING)
     set (URHO3D_SSE FALSE)
     set (BT_USE_SSE FALSE)
+    set (CLING_HOME "" CACHE PATH "path to the cling home folder")
+    set (URHO3D_DLL_CLING_PATH "" CACHE PATH "path to the urho3d dll that will be loaded and used by cling")
 endif ()
 
 if ((ANDROID OR IOS OR URHO3D_ANGLE_METAL) AND NOT URHO3D_GLES3)
@@ -474,7 +476,8 @@ foreach (OPT
         URHO3D_WEBP
         URHO3D_WIN32_CONSOLE
         URHO3D_ANGLE_METAL
-        URHO3D_CLING)
+        URHO3D_CLING
+        CLING_HOME)
     if (${OPT})
         add_definitions (-D${OPT})
     endif ()

@@ -47,10 +47,27 @@ void RunFrame(void* data)
 }
 #endif
 
+#if defined(URHO3D_CLING)
+static Urho3D::Context * gGlobalContext;
+
+Urho3D::Context * Application::getGlobalContext()
+{
+    return gGlobalContext;
+}
+
+void Application::setGlobalContext(Urho3D::Context * context)
+{
+    gGlobalContext = context;
+}
+#endif
+
+
 Application::Application(Context* context) :
     Object(context),
     exitCode_(EXIT_SUCCESS)
 {
+    
+    gGlobalContext = context;
     engineParameters_ = Engine::ParseParameters(GetArguments());
 
     // Create the Engine, but do not initialize it yet. Subsystems except Graphics & Renderer are registered at this point

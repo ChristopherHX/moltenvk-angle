@@ -30,85 +30,99 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Define target name
 set (TARGET_NAME 71_ClingEmbedded)
 
-set (CLING_HOME D:/temp/cling/tools/packaging/cling-build)
+# CLING_HOME must be set on CLI
+#MAC
+#-DCLING_HOME="/Users/elialoni/Development/cling_2020-10-27/cling/tools/packaging/cling-build"
+#-DURHO3D_DLL_CLING_PATH="/Users/elialoni/Urho3D-Dev/cling-poc/Urho3D/build-cling-dylib/lib"
+#WIN
+#-DCLING_HOME="D:/temp/cling/tools/packaging/cling-build"
+#-DURHO3D_DLL_CLING_PATH="D:/Urho3D-Dev/master/Urho3D/build_cling_lib/bin"
+# i.e ./script/cmake_xcode_cling.sh  build-xcode-cling -DCLING_HOME="/Users/elialoni/Development/cling_2020-10-27/cling/tools/packaging/cling-build" -DURHO3D_DLL_CLING_PATH="/Users/elialoni/Urho3D-Dev/cling-poc/Urho3D/build-cling-dylib/lib"
+
+
+
 set (CLING_BUILD_DIR ${CLING_HOME}/builddir)
 
-
-#if (CMAKE_BUILD_TYPE STREQUAL Release)
-#    set (CLING_LIBPATH  ${CLING_BUILD_DIR}/Release/lib)
-#else()
-#set (CLING_LIBPATH  ${CLING_BUILD_DIR}/Debug/lib)
-#endif()
-
+if(WIN32)
 set (CLING_LIBPATH  ${CLING_BUILD_DIR}/Release/lib)  
+else()
+set (CLING_LIBPATH  ${CLING_BUILD_DIR}/lib)  
+endif()
+
+
 link_directories(${CLING_LIBPATH})
 
 set (INCLUDE_DIRS ${INCLUDE_DIRS} ${CLING_HOME}/builddir/tools/cling/include ${CLING_HOME}/cling-src/tools/cling/include ${CLING_HOME}/cling-src/tools/cling/../clang/include ${CLING_HOME}/builddir/tools/cling/../clang/include  ${CLING_HOME}/builddir/include ${CLING_HOME}/cling-src/include)
 
+
 set (LIBS 
 clingInterpreter 
-clingUtils.lib
-clangCodeGen.lib
-clangRewriteFrontend.lib
-clangFrontend.lib
-clangDriver.lib
-clangParse.lib
-clangRewrite.lib
-clangSerialization.lib
-clangSema.lib
-clangAnalysis.lib
-clangEdit.lib
-clangAST.lib
-clangLex.lib
-clangBasic.lib
-LLVMCoroutines.lib
-LLVMCoverage.lib
-LLVMLTO.lib
-LLVMObjCARCOpts.lib
-LLVMPasses.lib
-LLVMOption.lib
-LLVMOrcJIT.lib
-LLVMExecutionEngine.lib
-LLVMRuntimeDyld.lib
-LLVMNVPTXCodeGen.lib
-LLVMipo.lib
-LLVMIRReader.lib
-LLVMAsmParser.lib
-LLVMInstrumentation.lib
-LLVMLinker.lib
-LLVMVectorize.lib
-LLVMNVPTXDesc.lib
-LLVMNVPTXAsmPrinter.lib
-LLVMNVPTXInfo.lib
-LLVMX86CodeGen.lib
-LLVMAsmPrinter.lib
-LLVMDebugInfoCodeView.lib
-LLVMDebugInfoMSF.lib
-LLVMSelectionDAG.lib
-LLVMGlobalISel.lib
-LLVMCodeGen.lib
-LLVMScalarOpts.lib
-LLVMInstCombine.lib
-LLVMTarget.lib
-LLVMTransformUtils.lib
-LLVMBitWriter.lib
-LLVMAnalysis.lib
-LLVMProfileData.lib
-LLVMX86AsmParser.lib
-LLVMX86Desc.lib
-LLVMObject.lib
-LLVMBitReader.lib
-LLVMMCParser.lib
-LLVMX86AsmPrinter.lib
-LLVMX86Disassembler.lib
-LLVMX86Info.lib
-LLVMMCDisassembler.lib
-LLVMMC.lib
-LLVMX86Utils.lib
-LLVMCore.lib
-LLVMBinaryFormat.lib
-LLVMSupport.lib
-LLVMDemangle.lib)
+clingUtils
+clangCodeGen
+clangRewriteFrontend
+clangFrontend
+clangDriver
+clangParse
+clangRewrite
+clangSerialization
+clangSema
+clangAnalysis
+clangEdit
+clangAST
+clangLex
+clangBasic
+LLVMCoroutines
+LLVMCoverage
+LLVMLTO
+LLVMObjCARCOpts
+LLVMPasses
+LLVMOption
+LLVMOrcJIT
+LLVMExecutionEngine
+LLVMRuntimeDyld
+LLVMNVPTXCodeGen
+LLVMipo
+LLVMIRReader
+LLVMAsmParser
+LLVMInstrumentation
+LLVMLinker
+LLVMVectorize
+LLVMNVPTXDesc
+LLVMNVPTXAsmPrinter
+LLVMNVPTXInfo
+LLVMX86CodeGen
+LLVMAsmPrinter
+LLVMDebugInfoCodeView
+LLVMDebugInfoMSF
+LLVMSelectionDAG
+LLVMGlobalISel
+LLVMCodeGen
+LLVMScalarOpts
+LLVMInstCombine
+LLVMTarget
+LLVMTransformUtils
+LLVMBitWriter
+LLVMAnalysis
+LLVMProfileData
+LLVMX86AsmParser
+LLVMX86Desc
+LLVMObject
+LLVMBitReader
+LLVMMCParser
+LLVMX86AsmPrinter
+LLVMX86Disassembler
+LLVMX86Info
+LLVMMCDisassembler
+LLVMMC
+LLVMX86Utils
+LLVMCore
+LLVMBinaryFormat
+LLVMSupport
+LLVMDemangle)
+
+if(APPLE)
+set (LIBS  ${LIBS}  z ncurses)
+endif()
 
 # Define source files
 define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES})
@@ -121,6 +135,9 @@ setup_main_executable ()
 set_target_properties(${TARGET_NAME}
   PROPERTIES ENABLE_EXPORTS 1)
 
+add_definitions(-DCLING_HOME="${CLING_HOME}")
+add_definitions(-DCLING_BUILD_DIR="${CLING_BUILD_DIR}")
+add_definitions(-DURHO3D_DLL_CLING_PATH="${URHO3D_DLL_CLING_PATH}")
 
 
 if(MSVC)
