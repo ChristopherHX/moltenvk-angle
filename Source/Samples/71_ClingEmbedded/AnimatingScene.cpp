@@ -60,6 +60,11 @@
 URHO3D_DEFINE_APPLICATION_MAIN(AnimatingScene)
 
 
+Context* gContext = NULL;
+
+Urho3D::Context* getContext() { return gContext; }
+
+
 void getCode(Context* context,std::string path,std::string & code)
 {
     File file(context, path.c_str(), FILE_READ);
@@ -73,7 +78,7 @@ void getCode(Context* context,std::string path,std::string & code)
 AnimatingScene::AnimatingScene(Context* context) :
     Sample(context)
 {
-
+    gContext = context;
     context_->RegisterSubsystem(new ClingComponentManager(context_));
     // Register an object factory for our custom Rotator component so that we can create them to scene nodes
 

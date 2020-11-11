@@ -22,12 +22,6 @@
 namespace Urho3D
 {
 
-
-	static Context* gContext = NULL;
-
-	Urho3D::Context* getContext() { return gContext; }
-
-
 	/// Construct.
 	ClingComponentEntry::ClingComponentEntry(Context* context) :
 		Object(context)
@@ -44,7 +38,6 @@ namespace Urho3D
 	ClingComponentManager::ClingComponentManager(Context* context) :
 		Object(context)
 	{
-		gContext = context;
 		Urho3D::ResourceCache* cache = GetSubsystem<Urho3D::ResourceCache>();
 		cache->SetAutoReloadResources(true);
 
@@ -100,7 +93,12 @@ namespace Urho3D
 		ClingComponentEntry* clingComponentEntry = new ClingComponentEntry(context_);
 
 
-		clingComponentEntry->_interpreter = new cling::Interpreter(argc, argv, CLING_BUILD_DIR);
+#if defined(WIN32)
+		String clingLibPath = String(CLING_BUILD_DIR) + "/Release";
+#else
+		String clingLibPath = String(CLING_BUILD_DIR);
+#endif
+		clingComponentEntry->_interpreter = new cling::Interpreter(argc, argv, clingLibPath.CString());
 		clingComponentEntry->_interpreter->enableDynamicLookup(true);
 		clingComponentEntry->_interpreter->allowRedefinition(true);
 
@@ -114,7 +112,7 @@ namespace Urho3D
 
         //Urho3D.dll
         String urho3d_dll_name = "";
-#if defined(__WIN32__)
+#if defined(WIN32)
         urho3d_dll_name = "Urho3D.dll";
 #elif defined(__APPLE__)
         urho3d_dll_name = "libUrho3D.dylib";
@@ -127,27 +125,30 @@ namespace Urho3D
 
 		if (compilationResult != cling::Interpreter::CompilationResult::kSuccess)goto error;
         
-        //
         compilationResult = clingComponentEntry->_interpreter->process("#define URHO3D_CLING");
         if (compilationResult != cling::Interpreter::CompilationResult::kSuccess)goto error;
 
+		compilationResult = clingComponentEntry->_interpreter->loadFile(fileName.CString());
+		if (compilationResult != cling::Interpreter::CompilationResult::kSuccess)goto error;
+
+#if defined(WIN32)
 		compilationResult = clingComponentEntry->_interpreter->loadHeader("Urho3D/Core/Context.h");
 		if (compilationResult != cling::Interpreter::CompilationResult::kSuccess)goto error;
 
 		compilationResult = clingComponentEntry->_interpreter->declare("Urho3D::Context* getContext();");
 		if (compilationResult != cling::Interpreter::CompilationResult::kSuccess)goto error;
 
-		compilationResult = clingComponentEntry->_interpreter->loadFile(fileName.CString());
-		if (compilationResult != cling::Interpreter::CompilationResult::kSuccess)goto error;
-
-
-        compilationResult = clingComponentEntry->_interpreter->loadHeader("Urho3D/Engine/Application.h");
-        if (compilationResult != cling::Interpreter::CompilationResult::kSuccess)goto error;
-        
-		cmd = "Application::getGlobalContext()->RegisterFactory<" + name + ">();";
+		cmd = "Urho3D::Context* context = getContext(); if(context) context->RegisterFactory<" + name + ">();";
 		compilationResult = clingComponentEntry->_interpreter->process(cmd.CString());
 		if (compilationResult != cling::Interpreter::CompilationResult::kSuccess)goto error;
+#else
+		compilationResult = clingComponentEntry->_interpreter->loadHeader("Urho3D/Engine/Application.h");
+		if (compilationResult != cling::Interpreter::CompilationResult::kSuccess)goto error;
 
+		cmd = "Urho3D::Context* context = Application::getGlobalContext();  if(context) context->RegisterFactory<" + name + ">();";
+		compilationResult = clingComponentEntry->_interpreter->process(cmd.CString());
+		if (compilationResult != cling::Interpreter::CompilationResult::kSuccess)goto error;
+#endif
 
 		return clingComponentEntry;
 
