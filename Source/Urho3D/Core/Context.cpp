@@ -479,6 +479,7 @@ void Context::EndSendEvent()
 #endif
 }
 
+<<<<<<< HEAD
 #if defined(FLIMPER)
 void Context::RemoveFactory(StringHash factory)
 {
@@ -486,5 +487,13 @@ void Context::RemoveFactory(StringHash factory)
 	factories_.Erase(factory);
 }
 #endif
+=======
+void Context::RemoveFactory(StringHash factory)
+{
+    factories_[factory].Reset();
+    factories_.Erase(factory);
+}
+
+>>>>>>> d9b0f7b467145f3799245b80c43969e1463eba02
 
 }

@@ -367,7 +367,6 @@ void Ocean::MakeMesh(int size, Mesh &mesh)
     m_pModelOcean->SetBoundingBox( m_BoundingBox );
     m_pModelOcean->SetGeometryCenter( 0, m_BoundingBox.Center() );
 
-    SDL_Log( "ocean bounding box (%4.0f,%4.0f,%4.0f)\n",m_BoundingBox.Size().x_,m_BoundingBox.Size().y_,m_BoundingBox.Size().z_  );
 }
 
 void Ocean::DbgRender()

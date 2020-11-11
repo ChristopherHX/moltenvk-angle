@@ -47,9 +47,9 @@ public:
     /// Construct.
     VehicleDemo(Context* context);
     
-    virtual void Setup();
+    virtual void Setup()override;
     /// Setup after engine initialization and before running the main loop.
-    virtual void Start();
+    virtual void Start()override;
     
 private:
     /// Create static scene content.

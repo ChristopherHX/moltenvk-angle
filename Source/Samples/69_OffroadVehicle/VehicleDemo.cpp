@@ -49,7 +49,7 @@
 
 #include "VehicleDemo.h"
 #include "Vehicle.h"
-#include "RaycastVehicle.h"
+#include <Urho3D/Physics/CustomRaycastVehicle.h>
 #include "WheelTrackModel.h"
 #include "SmoothStep.h"
 
@@ -73,7 +73,7 @@ VehicleDemo::VehicleDemo(Context* context) :
 {
     // Register factory and attributes for the Vehicle component so it can be created via CreateComponent, and loaded / saved
     Vehicle::RegisterObject(context);
-    RaycastVehicle::RegisterObject(context);
+    CustomRaycastVehicle::RegisterObject(context);
     WheelTrackModel::RegisterObject(context);
 }
 

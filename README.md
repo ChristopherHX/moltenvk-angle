@@ -1,5 +1,7 @@
 ![Urho3D logo](https://raw.githubusercontent.com/urho3d/Urho3D/master/bin/Data/Textures/LogoLarge.png)
 
+If you would like enable the Metal Backend on iOS and Mac devices , please check the following link  https://github.com/elix22/Urho3D/wiki/Angle-using-Metal-backend
+
 # Urho3D
 
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/4954/badge.svg)](https://scan.coverity.com/projects/urho3d-urho3d)

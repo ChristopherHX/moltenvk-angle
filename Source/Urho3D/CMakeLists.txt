@@ -481,7 +481,7 @@ foreach (SUB ${OPTIONAL_SUBS})
     if (URHO_HEADERS MATCHES "(include/Urho3D/${SUB}[^;]+)")
         string (TOUPPER ${SUB} SUB)
         list (FIND URHO_HEADERS ${CMAKE_MATCH_1} FOUND_INDEX)
-        list (INSERT URHO_HEADERS ${FOUND_INDEX} "#if URHO3D_${SUB}")
+        list (INSERT URHO_HEADERS ${FOUND_INDEX} "#if defined(URHO3D_${SUB})")
     endif ()
 endforeach ()
 string (REGEX REPLACE "include/[^;]+(DebugNew|Direct3D|GraphicsImpl|IKConverters|ODBC|OpenGL|Precompiled|SQLite|ToluaUtils|Urho3D|librevision)[^;]+;" "" URHO_HEADERS "${URHO_HEADERS};")
@@ -574,3 +574,6 @@ if (URHO3D_SCP_TO_TARGET)
     add_custom_command (TARGET ${TARGET_NAME} POST_BUILD COMMAND scp $<TARGET_FILE:${TARGET_NAME}> ${URHO3D_SCP_TO_TARGET} || exit 0
         COMMENT "Scp-ing Urho3D library to target system")
 endif ()
+
+set_target_properties(${TARGET_NAME}
+  PROPERTIES ENABLE_EXPORTS 1)

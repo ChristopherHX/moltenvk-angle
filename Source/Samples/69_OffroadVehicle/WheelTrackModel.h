@@ -78,7 +78,7 @@ public:
     }
 
     // world pos methods
-    virtual void OnWorldBoundingBoxUpdate();
+    virtual void OnWorldBoundingBoxUpdate()override;
     void SetParentNode(Node *pParentNode);
     void UpdateWorldPos();
 

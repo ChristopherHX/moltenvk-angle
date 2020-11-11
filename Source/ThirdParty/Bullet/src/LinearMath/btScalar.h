@@ -77,9 +77,9 @@ inline int	btGetVersion()
 
 #if defined (_M_ARM)
             //Do not turn SSE on for ARM (may want to turn on BT_USE_NEON however)
-
+//
 // Urho3D: allow to disable SSE
-#elif ((!defined(_M_IX86_FP) || _M_IX86_FP) && defined (_WIN32) && (_MSC_VER) && _MSC_VER >= 1400) && (!defined (BT_USE_DOUBLE_PRECISION))
+#elif (!defined(URHO3D_CLING) && ((!defined(_M_IX86_FP) || _M_IX86_FP) && defined (_WIN32) && (_MSC_VER) && _MSC_VER >= 1400) && (!defined (BT_USE_DOUBLE_PRECISION)))
 			#if _MSC_VER>1400
 				#define BT_USE_SIMD_VECTOR3
 			#endif
@@ -109,7 +109,11 @@ inline int	btGetVersion()
 #ifdef BT_DEBUG
 	#ifdef _MSC_VER
 		#include <stdio.h>
+#if defined(URHO3D_CLING)
+		#define btAssert(x)
+#else
 		#define btAssert(x) { if(!(x)){printf("Assert "__FILE__ ":%u (%s)\n", __LINE__, #x);__debugbreak();	}}
+#endif
 	#else//_MSC_VER
 		#include <assert.h>
 		#define btAssert assert
@@ -180,7 +184,7 @@ inline int	btGetVersion()
 
 // Urho3D - allow to disable SSE/NEON and let Linux, MinGW, & Android platforms in besides Apple
 #if (!defined (BT_USE_DOUBLE_PRECISION))
-    #if defined(__SSE__)
+    #if defined(__SSE__) && !defined(URHO3D_CLING)
 		#define BT_USE_SIMD_VECTOR3
 		#define BT_USE_SSE
 		//BT_USE_SSE_IN_API is enabled on Mac OSX by default, because memory is automatically aligned on 16-byte boundaries
@@ -309,6 +313,7 @@ inline int btGetInfinityMask()//suppress stupid compiler warning
 #endif
 
 //use this, in case there are clashes (such as xnamath.h)
+#if ! defined(URHO3D_CLING)
 #ifndef BT_NO_SIMD_OPERATOR_OVERLOADS
 inline __m128 operator + (const __m128 A, const __m128 B)
 {
@@ -325,6 +330,7 @@ inline __m128 operator * (const __m128 A, const __m128 B)
     return _mm_mul_ps(A, B);
 }
 #endif //BT_NO_SIMD_OPERATOR_OVERLOADS
+#endif
 
 #define btCastfTo128i(a) (_mm_castps_si128(a))
 #define btCastfTo128d(a) (_mm_castps_pd(a))

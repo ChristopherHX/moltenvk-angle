@@ -80,7 +80,7 @@ CharacterDemo::CharacterDemo(Context* context)
     emissionState_ = EmissionState_R;
 
     // lightmap
-    lightmapPathName_ = "Data/MaterialEffects/Textures/checkers-lightmap";
+    lightmapPathName_ = "MaterialEffects/Textures/checkers-lightmap";
     lightmapIdx_ = 0;
 
     // vcol
@@ -183,14 +183,14 @@ void CharacterDemo::CreateScene()
     viewport->SetRenderPath(effectRenderPath);
 
     // load scene
-    XMLFile *xmlLevel = cache->GetResource<XMLFile>("Data/MaterialEffects/Level1.xml");
+    XMLFile *xmlLevel = cache->GetResource<XMLFile>("MaterialEffects/Level1.xml");
     scene_->LoadXML(xmlLevel->GetRoot());
 }
 
 void CharacterDemo::InitSplashHandler()
 {
     SplashHandler *splashHandler = scene_->CreateComponent<SplashHandler>();
-    splashHandler->LoadSplashList("Data/MaterialEffects/SplashData/splashDataList.xml");
+    splashHandler->LoadSplashList("MaterialEffects/SplashData/splashDataList.xml");
 }
 
 void CharacterDemo::CreateSequencers()
@@ -202,7 +202,7 @@ void CharacterDemo::CreateSequencers()
     if (explNode)
     {
         UVSequencer *uvSequencer = explNode->CreateComponent<UVSequencer>();
-        XMLFile *xmlLevel = cache->GetResource<XMLFile>("Data/MaterialEffects/UVSequencerData/explosionUVFrameSeqData.xml");
+        XMLFile *xmlLevel = cache->GetResource<XMLFile>("MaterialEffects/UVSequencerData/explosionUVFrameSeqData.xml");
         uvSequencer->LoadXML(xmlLevel->GetRoot());
     }
 
@@ -210,7 +210,7 @@ void CharacterDemo::CreateSequencers()
     if (fireNode)
     {
         UVSequencer *uvSequencer = fireNode->CreateComponent<UVSequencer>();
-        XMLFile *xmlLevel = cache->GetResource<XMLFile>("Data/MaterialEffects/UVSequencerData/bgfireUVFrameSeqData.xml");
+        XMLFile *xmlLevel = cache->GetResource<XMLFile>("MaterialEffects/UVSequencerData/bgfireUVFrameSeqData.xml");
         uvSequencer->LoadXML(xmlLevel->GetRoot());
     }
 
@@ -218,7 +218,7 @@ void CharacterDemo::CreateSequencers()
     if (torchNode)
     {
         UVSequencer *uvSequencer = torchNode->CreateComponent<UVSequencer>();
-        XMLFile *xmlLevel = cache->GetResource<XMLFile>("Data/MaterialEffects/UVSequencerData/torchUVFrameSeqData.xml");
+        XMLFile *xmlLevel = cache->GetResource<XMLFile>("MaterialEffects/UVSequencerData/torchUVFrameSeqData.xml");
         uvSequencer->LoadXML(xmlLevel->GetRoot());
     }
 
@@ -227,7 +227,7 @@ void CharacterDemo::CreateSequencers()
     if (plateUNode)
     {
         UVSequencer *uvSequencer = plateUNode->CreateComponent<UVSequencer>();
-        XMLFile *xmlLevel = cache->GetResource<XMLFile>("Data/MaterialEffects/UVSequencerData/plateUScrollSeqData.xml");
+        XMLFile *xmlLevel = cache->GetResource<XMLFile>("MaterialEffects/UVSequencerData/plateUScrollSeqData.xml");
         uvSequencer->LoadXML(xmlLevel->GetRoot());
     }
 
@@ -235,7 +235,7 @@ void CharacterDemo::CreateSequencers()
     if (plateVNode)
     {
         UVSequencer *uvSequencer = plateVNode->CreateComponent<UVSequencer>();
-        XMLFile *xmlLevel = cache->GetResource<XMLFile>("Data/MaterialEffects/UVSequencerData/plateVScrollSeqData.xml");
+        XMLFile *xmlLevel = cache->GetResource<XMLFile>("MaterialEffects/UVSequencerData/plateVScrollSeqData.xml");
         uvSequencer->LoadXML(xmlLevel->GetRoot());
     }
 
@@ -243,7 +243,7 @@ void CharacterDemo::CreateSequencers()
     if (lavaUNode)
     {
         UVSequencer *uvSequencer = lavaUNode->CreateComponent<UVSequencer>();
-        XMLFile *xmlLevel = cache->GetResource<XMLFile>("Data/MaterialEffects/UVSequencerData/lavaVScrollSeqData.xml");
+        XMLFile *xmlLevel = cache->GetResource<XMLFile>("MaterialEffects/UVSequencerData/lavaVScrollSeqData.xml");
         uvSequencer->LoadXML(xmlLevel->GetRoot());
     }
 
