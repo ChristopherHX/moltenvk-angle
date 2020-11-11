@@ -420,7 +420,7 @@ if (URHO3D_CLANG_TOOLS)
             URHO3D_PROFILING
             URHO3D_URHO2D
             URHO3D_ANGLE_METAL
-            FLIMPER)
+            FLIMPER
             URHO3D_CLING)
         set (${OPT} 1)
     endforeach ()
@@ -478,7 +478,7 @@ foreach (OPT
         URHO3D_WEBP
         URHO3D_WIN32_CONSOLE
         URHO3D_ANGLE_METAL
-        FLIMPER)
+        FLIMPER
         URHO3D_CLING
         CLING_HOME)
     if (${OPT})
