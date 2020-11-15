@@ -39,6 +39,8 @@ class SceneResolver;
 
 struct NodeReplicationState;
 
+typedef  Node GameObject;
+
 /// Component and child node creation mode for networking.
 enum CreateMode
 {

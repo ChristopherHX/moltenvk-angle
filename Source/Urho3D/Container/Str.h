@@ -161,11 +161,15 @@ public:
     }
 
     /// Destruct.
+#if defined(URHO3D_CLING)
+    ~String();
+#else
     ~String()
     {
         if (capacity_)
             delete[] buffer_;
     }
+#endif
 
     /// Assign a string.
     String& operator =(const String& rhs)

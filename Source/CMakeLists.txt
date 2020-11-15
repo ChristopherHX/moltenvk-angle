@@ -139,6 +139,10 @@ if(URHO3D_ANGLE_METAL)
     add_subdirectory (ThirdParty/angle)
 endif()
 
+if(URHO3D_RTTR)
+    add_subdirectory (ThirdParty/rttr)
+endif()
+
 # Urho3D game engine library
 add_subdirectory (Urho3D)
 

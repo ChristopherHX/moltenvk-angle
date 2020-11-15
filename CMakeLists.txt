@@ -199,7 +199,8 @@ add_subdirectory (Source)
 # Urho3D documentation
 add_subdirectory (Docs)
 
-if(FLIMPER)
+if(FLIMPER AND URHO3D_LIB_TYPE STREQUAL STATIC)
+
 if (NOT EXISTS ${CMAKE_BINARY_DIR}/bin/Templates)
 if (CMAKE_HOST_WIN32)
 if (NOT IOS AND NOT TVOS AND NOT ANDROID AND NOT WEB AND NOT CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
@@ -235,5 +236,6 @@ execute_process(COMMAND ln -s ${CMAKE_SOURCE_DIR}/FlimperAssets ${CMAKE_BINARY_D
 endif()
 endif()
 endif ()
+
 
 endif ()

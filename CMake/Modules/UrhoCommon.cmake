@@ -152,6 +152,7 @@ option (URHO3D_WEBP "Enable WebP support" TRUE)
 option (URHO3D_ANGLE_METAL "Enable Angle Metal graphics backend" FALSE)
 option (FLIMPER "Enable Flimper" FALSE)
 option (URHO3D_CLING "Urho3D used with Cling" FALSE)
+option (URHO3D_RTTR "Enable RTTR" FALSE)
 
 if(URHO3D_CLING)
     set (URHO3D_SSE FALSE)
@@ -159,6 +160,8 @@ if(URHO3D_CLING)
     set (CLING_HOME "" CACHE PATH "path to the cling home folder")
     set (URHO3D_DLL_CLING_PATH "" CACHE PATH "path to the urho3d dll that will be loaded and used by cling")
 endif ()
+    set (URHO3D_DLL_BUILD_PATH "" CACHE PATH "path to the urho3d dll that will be loaded and used by flimper")
+
 
 if ((ANDROID OR IOS OR URHO3D_ANGLE_METAL) AND NOT URHO3D_GLES3)
     set(URHO3D_GLES2 TRUE)
@@ -421,7 +424,8 @@ if (URHO3D_CLANG_TOOLS)
             URHO3D_URHO2D
             URHO3D_ANGLE_METAL
             FLIMPER
-            URHO3D_CLING)
+            URHO3D_CLING
+            URHO3D_RTTR)
         set (${OPT} 1)
     endforeach ()
     foreach (OPT URHO3D_TESTING URHO3D_LUAJIT URHO3D_DATABASE_ODBC)
@@ -480,7 +484,8 @@ foreach (OPT
         URHO3D_ANGLE_METAL
         FLIMPER
         URHO3D_CLING
-        CLING_HOME)
+        CLING_HOME
+        URHO3D_RTTR)
     if (${OPT})
         add_definitions (-D${OPT})
     endif ()

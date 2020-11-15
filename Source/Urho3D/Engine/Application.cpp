@@ -66,8 +66,9 @@ Application::Application(Context* context) :
     Object(context),
     exitCode_(EXIT_SUCCESS)
 {
-    
+#if defined(URHO3D_CLING)  
     gGlobalContext = context;
+#endif
     engineParameters_ = Engine::ParseParameters(GetArguments());
 
     // Create the Engine, but do not initialize it yet. Subsystems except Graphics & Renderer are registered at this point

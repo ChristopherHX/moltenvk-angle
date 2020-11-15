@@ -177,6 +177,14 @@ String::String(char value, unsigned length) :
         buffer_[i] = value;
 }
 
+#if defined(URHO3D_CLING)
+String::~String()
+{
+    if (capacity_)
+        delete[] buffer_;
+}
+#endif
+
 String& String::operator +=(int rhs)
 {
     return *this += String(rhs);
