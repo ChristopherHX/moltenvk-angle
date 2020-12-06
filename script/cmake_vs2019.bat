@@ -20,4 +20,4 @@
 :: THE SOFTWARE.
 ::
 
-@"%~dp0cmake_generic.bat" %* -VS=16
+@"%~dp0cmake_generic.bat" %* -DURHO3D_DATABASE_SQLITE=1  -DURHO3D_LUA=0  -DURHO3D_OPENGL=1 -VS=16

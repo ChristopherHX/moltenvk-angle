@@ -29,6 +29,18 @@ project (Urho3D-Launcher)
 # Set CMake modules search path
 set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../CMake/Modules)
 
+set (INCLUDE_DIRS ${INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/../../Mono/include)
+
+set(MONO_DIR  ${CMAKE_CURRENT_SOURCE_DIR}/../../Mono/libs/android/release)
+
+add_library(monosgen-2.0 SHARED IMPORTED)
+set_target_properties(monosgen-2.0 PROPERTIES IMPORTED_LOCATION
+        ${MONO_DIR}/lib/${ANDROID_ABI}/libmonosgen-2.0.so)
+
+add_library(MonoPosixHelper SHARED IMPORTED)
+set_target_properties(MonoPosixHelper PROPERTIES IMPORTED_LOCATION
+        ${MONO_DIR}/lib/${ANDROID_ABI}/libMonoPosixHelper.so)
+
 # Include UrhoCommon.cmake module after setting project name
 include (UrhoCommon)
 
