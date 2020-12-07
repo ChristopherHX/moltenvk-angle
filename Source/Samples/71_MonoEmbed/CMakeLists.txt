@@ -40,21 +40,9 @@ set (LIBS
     libMonoPosixHelper.so
 )
 
-#add_library(monosgen-2.0 SHARED IMPORTED)
-set_target_properties(monosgen-2.0 PROPERTIES IMPORTED_LOCATION
-        ${MONO_LIBPATH}/libmonosgen-2.0.so)
-
-#add_library(MonoPosixHelper SHARED IMPORTED)
-set_target_properties(MonoPosixHelper PROPERTIES IMPORTED_LOCATION
-        ${MONO_LIBPATH}/libMonoPosixHelper.so)
-
 endif()
 
 link_directories(${MONO_LIBPATH})
-
-
-
-
 
 set (INCLUDE_DIRS ${INCLUDE_DIRS} ../../../Mono/include)
 
