@@ -97,6 +97,10 @@ extern DECLSPEC int SDLCALL SDL_iPhoneSetAnimationCallback(SDL_Window * window, 
 #define SDL_iOSSetEventPump(enabled) SDL_iPhoneSetEventPump(enabled)
 extern DECLSPEC void SDLCALL SDL_iPhoneSetEventPump(SDL_bool enabled);
 
+#if defined(URHO3D_DOTNET)
+extern DECLSPEC void SDLCALL SDL_iPhoneRunFrameCallback(void (*callback)(void*), void *callbackParam);
+#endif
+
 #endif /* __IPHONEOS__ */
 
 

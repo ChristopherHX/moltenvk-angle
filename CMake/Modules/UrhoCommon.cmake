@@ -151,6 +151,12 @@ option (URHO3D_GLES3 "Enable GLES3" FALSE)
 option (URHO3D_WEBP "Enable WebP support" TRUE)
 option (URHO3D_ANGLE_METAL "Enable Angle Metal graphics backend" FALSE)
 option (URHO3D_CLING "Urho3D used with Cling" FALSE)
+option (URHO3D_DOTNET "Enable DotNet support" FALSE)
+
+
+if(URHO3D_DOTNET)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-address-of-temporary -Wno-return-type-c-linkage -Wno-clang++11-extensions")
+endif ()
 
 if(URHO3D_CLING)
     set (URHO3D_SSE FALSE)
@@ -417,7 +423,8 @@ if (URHO3D_CLANG_TOOLS)
             URHO3D_PROFILING
             URHO3D_URHO2D
             URHO3D_ANGLE_METAL
-            URHO3D_CLING)
+            URHO3D_CLING
+            URHO3D_DOTNET)
         set (${OPT} 1)
     endforeach ()
     foreach (OPT URHO3D_TESTING URHO3D_LUAJIT URHO3D_DATABASE_ODBC)
@@ -474,7 +481,8 @@ foreach (OPT
         URHO3D_WEBP
         URHO3D_WIN32_CONSOLE
         URHO3D_ANGLE_METAL
-        URHO3D_CLING)
+        URHO3D_CLING
+        URHO3D_DOTNET)
     if (${OPT})
         add_definitions (-D${OPT})
     endif ()

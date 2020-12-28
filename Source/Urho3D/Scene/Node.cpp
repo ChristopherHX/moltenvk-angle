@@ -36,6 +36,10 @@
 #include "../Scene/SmoothedTransform.h"
 #include "../Scene/UnknownComponent.h"
 
+#if defined(URHO3D_DOTNET)
+#include "../DotNet/Mono.h"
+#endif
+
 #include "../DebugNew.h"
 
 #ifdef _MSC_VER
@@ -211,6 +215,9 @@ bool Node::SaveXML(XMLElement& dest) const
         XMLElement compElem = dest.CreateChild("component");
         if (!component->SaveXML(compElem))
             return false;
+#if defined(URHO3D_DOTNET)
+         Mono::Callback(Component_SaveXml, component, &compElem);
+#endif
     }
 
     // Write child nodes
@@ -1611,6 +1618,9 @@ bool Node::LoadXML(const XMLElement& source, SceneResolver& resolver, bool loadC
             resolver.AddComponent(compID, newComponent);
             if (!newComponent->LoadXML(compElem))
                 return false;
+#if defined(URHO3D_DOTNET)
+            Mono::Callback(Component_LoadXml, newComponent, &compElem);
+#endif
         }
 
         compElem = compElem.GetNext("component");
@@ -1861,6 +1871,9 @@ void Node::AddComponent(Component* component, unsigned id, CreateMode mode)
 
         scene_->SendEvent(E_COMPONENTADDED, eventData);
     }
+#if defined(URHO3D_DOTNET)
+     Mono::Callback(Component_AttachedToNode, component);
+#endif
 }
 
 unsigned Node::GetNumPersistentChildren() const
@@ -2012,6 +2025,9 @@ void Node::SetEnabled(bool enable, bool recursive, bool storeSelf)
             if (*i)
             {
                 (*i)->OnNodeSetEnabled(this);
+#if defined(URHO3D_DOTNET)
+                Mono::Callback(Component_OnNodeSetEnabled, *i);
+#endif
                 ++i;
             }
             // If listener has expired, erase from list

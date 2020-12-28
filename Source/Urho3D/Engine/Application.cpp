@@ -90,7 +90,12 @@ int Application::Run()
         // support calling the Stop() function, as the application will never stop manually
 #else
 #if defined(IOS) || defined(TVOS)
+#if defined(URHO3D_DOTNET)
+        while (!engine_->IsExiting())
+            SDL_iPhoneRunFrameCallback(&RunFrame, engine_);
+#else
         SDL_iPhoneSetAnimationCallback(GetSubsystem<Graphics>()->GetWindow(), 1, &RunFrame, engine_);
+#endif
 #elif defined(__EMSCRIPTEN__)
         emscripten_set_main_loop_arg(RunFrame, engine_, 0, 1);
 #endif

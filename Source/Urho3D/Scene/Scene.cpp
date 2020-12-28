@@ -43,6 +43,10 @@
 #include "../Scene/UnknownComponent.h"
 #include "../Scene/ValueAnimation.h"
 
+#if defined(URHO3D_DOTNET)
+#include "../DotNet/Mono.h"
+#endif
+
 #include "../DebugNew.h"
 
 namespace Urho3D
@@ -1047,6 +1051,9 @@ void Scene::ComponentAdded(Component* component)
     }
 
     component->OnSceneSet(this);
+#if defined(URHO3D_DOTNET)
+    Mono::Callback(Component_OnSceneSet, component, this);
+#endif
 }
 
 void Scene::ComponentRemoved(Component* component)
@@ -1062,6 +1069,9 @@ void Scene::ComponentRemoved(Component* component)
 
     component->SetID(0);
     component->OnSceneSet(nullptr);
+#if defined(URHO3D_DOTNET)
+    Mono::Callback(Component_OnSceneSet, component);
+#endif
 }
 
 void Scene::SetVarNamesAttr(const String& value)

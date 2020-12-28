@@ -40,6 +40,10 @@
 extern "C" void SDL_IOS_LogMessage(const char* message);
 #endif
 
+#if defined(URHO3D_DOTNET)
+#include "../DotNet/Mono.h"
+#endif
+
 #include "../DebugNew.h"
 
 namespace Urho3D
@@ -143,7 +147,14 @@ void Log::Write(int level, const String& message)
         WriteRaw(message, false);
         return;
     }
-
+    
+#if defined(URHO3D_DOTNET)
+    if (level == LOG_ERROR)
+    {
+        Mono::Callback(Log_Write, 0, 0, level, stringdup(message.CString()));
+    }
+#endif
+    
     // No-op if illegal level
     if (level < LOG_TRACE || level >= LOG_NONE)
         return;

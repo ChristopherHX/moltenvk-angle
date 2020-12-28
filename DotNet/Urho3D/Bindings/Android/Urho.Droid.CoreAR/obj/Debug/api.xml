@@ -1,0 +1,1828 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<api>
+<package name="android.media">
+<class abstract="true" deprecated="not deprecated" extends="android.media.Image" extends-generic-aware="android.media.Image" final="false" name="VisibleImage" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="VisibleImage" static="false" type="android.media.VisibleImage" visibility="public">
+</constructor>
+</class>
+<class abstract="true" deprecated="not deprecated" extends="android.media.Image.Plane" extends-generic-aware="android.media.Image.Plane" final="false" name="VisibleImage.Plane" static="true" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="VisibleImage.Plane" static="false" type="android.media.VisibleImage.Plane" visibility="public">
+</constructor>
+</class>
+</package>
+<package name="com.google.android.aidl">
+<class abstract="true" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="BaseProxy" static="false" visibility="public">
+<implements name="android.os.IInterface" name-generic-aware="android.os.IInterface">
+</implements>
+<constructor deprecated="not deprecated" final="false" name="BaseProxy" static="false" type="com.google.android.aidl.BaseProxy" visibility="protected">
+<parameter name="p0" type="android.os.IBinder">
+</parameter>
+<parameter name="p1" type="java.lang.String">
+</parameter>
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="asBinder" native="false" return="android.os.IBinder" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="obtainAndWriteInterfaceToken" native="false" return="android.os.Parcel" static="false" synchronized="false" visibility="protected">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="transactAndReadException" native="false" return="android.os.Parcel" static="false" synchronized="false" visibility="protected">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="android.os.Parcel">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="transactAndReadExceptionReturnVoid" native="false" return="void" static="false" synchronized="false" visibility="protected">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="android.os.Parcel">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="transactOneway" native="false" return="void" static="false" synchronized="false" visibility="protected">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="android.os.Parcel">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+</class>
+<class abstract="true" deprecated="not deprecated" extends="android.os.Binder" extends-generic-aware="android.os.Binder" final="false" name="BaseStub" static="false" visibility="public">
+<implements name="android.os.IInterface" name-generic-aware="android.os.IInterface">
+</implements>
+<constructor deprecated="not deprecated" final="false" name="BaseStub" static="false" type="com.google.android.aidl.BaseStub" visibility="public">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="asBinder" native="false" return="android.os.IBinder" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="routeToSuperOrEnforceInterface" native="false" return="boolean" static="false" synchronized="false" visibility="protected">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="android.os.Parcel">
+</parameter>
+<parameter name="p2" type="android.os.Parcel">
+</parameter>
+<parameter name="p3" type="int">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="Codecs" static="false" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="createBoolean" native="false" return="boolean" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Parcel">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="createCharSequence" native="false" return="java.lang.CharSequence" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Parcel">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="createList" native="false" return="java.util.ArrayList" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Parcel">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="createMap" native="false" return="java.util.HashMap" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Parcel">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="createParcelable" native="false" return="T" static="true" synchronized="false" visibility="public">
+<typeParameters>
+<typeParameter name="T">
+<genericConstraints>
+<genericConstraint type="android.os.Parcelable"/>
+</genericConstraints>
+</typeParameter>
+</typeParameters>
+<parameter name="p0" type="android.os.Parcel">
+</parameter>
+<parameter name="p1" type="android.os.Parcelable.Creator&lt;T&gt;">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readList" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Parcel">
+</parameter>
+<parameter name="p1" type="java.util.List&lt;?&gt;">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="readMap" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Parcel">
+</parameter>
+<parameter name="p1" type="java.util.Map&lt;?, ?&gt;">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeBoolean" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Parcel">
+</parameter>
+<parameter name="p1" type="boolean">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeCharSequence" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Parcel">
+</parameter>
+<parameter name="p1" type="java.lang.CharSequence">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeCharSequenceAsReturnValue" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Parcel">
+</parameter>
+<parameter name="p1" type="java.lang.CharSequence">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeParcelable" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Parcel">
+</parameter>
+<parameter name="p1" type="android.os.Parcelable">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeParcelableAsReturnValue" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Parcel">
+</parameter>
+<parameter name="p1" type="android.os.Parcelable">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="writeStrongBinder" native="false" return="void" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Parcel">
+</parameter>
+<parameter name="p1" type="android.os.IInterface">
+</parameter>
+</method>
+</class>
+</package>
+<package name="com.google.android.play.core.install.model">
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="BroadcastConstants" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="BroadcastConstants" static="false" type="com.google.android.play.core.install.model.BroadcastConstants" visibility="public">
+</constructor>
+<field deprecated="not deprecated" final="true" name="ACTION_INSTALL_STATUS" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;com.google.android.play.core.install.ACTION_INSTALL_STATUS&quot;" visibility="public" volatile="false">
+</field>
+</class>
+<interface abstract="true" deprecated="not deprecated" final="false" name="BundleKeys" static="false" visibility="public">
+<implements name="java.lang.annotation.Annotation" name-generic-aware="java.lang.annotation.Annotation">
+</implements>
+<field deprecated="not deprecated" final="true" name="KEY_ERROR_CODE" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;error.code&quot;" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="KEY_INSTALL_STATUS" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;install.status&quot;" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="KEY_PACKAGE_NAME" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;package.name&quot;" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="KEY_RESOLUTION_INTENT" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;resolution.intent&quot;" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="KEY_UPDATE_AVAILABILITY" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;update.availability&quot;" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="KEY_VERSION_CODE" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;version.code&quot;" visibility="public" volatile="false">
+</field>
+</interface>
+<interface abstract="true" deprecated="not deprecated" final="false" name="InstallErrorCode" static="false" visibility="public">
+<implements name="java.lang.annotation.Annotation" name-generic-aware="java.lang.annotation.Annotation">
+</implements>
+<field deprecated="not deprecated" final="true" name="ERROR_API_NOT_AVAILABLE" static="true" transient="false" type="int" type-generic-aware="int" value="-3" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="ERROR_INSTALL_NOT_ALLOWED" static="true" transient="false" type="int" type-generic-aware="int" value="-6" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="ERROR_INSTALL_UNAVAILABLE" static="true" transient="false" type="int" type-generic-aware="int" value="-5" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="ERROR_INTERNAL_ERROR" static="true" transient="false" type="int" type-generic-aware="int" value="-100" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="ERROR_INVALID_REQUEST" static="true" transient="false" type="int" type-generic-aware="int" value="-4" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="ERROR_UNKNOWN" static="true" transient="false" type="int" type-generic-aware="int" value="-2" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="NO_ERROR" static="true" transient="false" type="int" type-generic-aware="int" value="0" visibility="public" volatile="false">
+</field>
+</interface>
+<interface abstract="true" deprecated="not deprecated" final="false" name="InstallStatus" static="false" visibility="public">
+<implements name="java.lang.annotation.Annotation" name-generic-aware="java.lang.annotation.Annotation">
+</implements>
+<field deprecated="not deprecated" final="true" name="CANCELED" static="true" transient="false" type="int" type-generic-aware="int" value="6" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="DOWNLOADING" static="true" transient="false" type="int" type-generic-aware="int" value="2" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="FAILED" static="true" transient="false" type="int" type-generic-aware="int" value="5" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="INSTALLED" static="true" transient="false" type="int" type-generic-aware="int" value="4" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="INSTALLING" static="true" transient="false" type="int" type-generic-aware="int" value="3" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="PENDING" static="true" transient="false" type="int" type-generic-aware="int" value="1" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="REQUIRES_UI_INTENT" static="true" transient="false" type="int" type-generic-aware="int" value="10" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="UNKNOWN" static="true" transient="false" type="int" type-generic-aware="int" value="0" visibility="public" volatile="false">
+</field>
+</interface>
+<interface abstract="true" deprecated="not deprecated" final="false" name="UpdateAvailability" static="false" visibility="public">
+<implements name="java.lang.annotation.Annotation" name-generic-aware="java.lang.annotation.Annotation">
+</implements>
+<field deprecated="not deprecated" final="true" name="UNKNOWN" static="true" transient="false" type="int" type-generic-aware="int" value="0" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="UPDATE_AVAILABLE" static="true" transient="false" type="int" type-generic-aware="int" value="2" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="UPDATE_NOT_AVAILABLE" static="true" transient="false" type="int" type-generic-aware="int" value="1" visibility="public" volatile="false">
+</field>
+</interface>
+</package>
+<package name="com.google.android.play.core.install.protocol">
+<interface abstract="true" deprecated="not deprecated" final="false" name="IInstallService" static="false" visibility="public">
+<implements name="android.os.IInterface" name-generic-aware="android.os.IInterface">
+</implements>
+<method abstract="true" deprecated="not deprecated" final="false" name="requestInfo" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+<parameter name="p1" type="android.os.Bundle">
+</parameter>
+<parameter name="p2" type="com.google.android.play.core.install.protocol.IInstallServiceCallback">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+<method abstract="true" deprecated="not deprecated" final="false" name="requestInstall" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+<parameter name="p1" type="java.util.List&lt;android.os.Bundle&gt;">
+</parameter>
+<parameter name="p2" type="android.os.Bundle">
+</parameter>
+<parameter name="p3" type="com.google.android.play.core.install.protocol.IInstallServiceCallback">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+</interface>
+<class abstract="true" deprecated="not deprecated" extends="com.google.android.aidl.BaseStub" extends-generic-aware="com.google.android.aidl.BaseStub" final="false" name="IInstallService.Stub" static="true" visibility="public">
+<implements name="com.google.android.play.core.install.protocol.IInstallService" name-generic-aware="com.google.android.play.core.install.protocol.IInstallService">
+</implements>
+<constructor deprecated="not deprecated" final="false" name="IInstallService.Stub" static="false" type="com.google.android.play.core.install.protocol.IInstallService.Stub" visibility="public">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="asInterface" native="false" return="com.google.android.play.core.install.protocol.IInstallService" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.IBinder">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="onTransact" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="android.os.Parcel">
+</parameter>
+<parameter name="p2" type="android.os.Parcel">
+</parameter>
+<parameter name="p3" type="int">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.android.aidl.BaseProxy" extends-generic-aware="com.google.android.aidl.BaseProxy" final="false" name="IInstallService.Stub.Proxy" static="true" visibility="public">
+<implements name="com.google.android.play.core.install.protocol.IInstallService" name-generic-aware="com.google.android.play.core.install.protocol.IInstallService">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="requestInfo" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+<parameter name="p1" type="android.os.Bundle">
+</parameter>
+<parameter name="p2" type="com.google.android.play.core.install.protocol.IInstallServiceCallback">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="requestInstall" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+<parameter name="p1" type="java.util.List&lt;android.os.Bundle&gt;">
+</parameter>
+<parameter name="p2" type="android.os.Bundle">
+</parameter>
+<parameter name="p3" type="com.google.android.play.core.install.protocol.IInstallServiceCallback">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+</class>
+<interface abstract="true" deprecated="not deprecated" final="false" name="IInstallServiceCallback" static="false" visibility="public">
+<implements name="android.os.IInterface" name-generic-aware="android.os.IInterface">
+</implements>
+<method abstract="true" deprecated="not deprecated" final="false" name="onRequestInfo" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Bundle">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+<method abstract="true" deprecated="not deprecated" final="false" name="onRequestInstall" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Bundle">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+</interface>
+<class abstract="true" deprecated="not deprecated" extends="com.google.android.aidl.BaseStub" extends-generic-aware="com.google.android.aidl.BaseStub" final="false" name="IInstallServiceCallback.Stub" static="true" visibility="public">
+<implements name="com.google.android.play.core.install.protocol.IInstallServiceCallback" name-generic-aware="com.google.android.play.core.install.protocol.IInstallServiceCallback">
+</implements>
+<constructor deprecated="not deprecated" final="false" name="IInstallServiceCallback.Stub" static="false" type="com.google.android.play.core.install.protocol.IInstallServiceCallback.Stub" visibility="public">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="asInterface" native="false" return="com.google.android.play.core.install.protocol.IInstallServiceCallback" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.IBinder">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="onTransact" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="android.os.Parcel">
+</parameter>
+<parameter name="p2" type="android.os.Parcel">
+</parameter>
+<parameter name="p3" type="int">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.android.aidl.BaseProxy" extends-generic-aware="com.google.android.aidl.BaseProxy" final="false" name="IInstallServiceCallback.Stub.Proxy" static="true" visibility="public">
+<implements name="com.google.android.play.core.install.protocol.IInstallServiceCallback" name-generic-aware="com.google.android.play.core.install.protocol.IInstallServiceCallback">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="onRequestInfo" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Bundle">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="onRequestInstall" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Bundle">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+</class>
+</package>
+<package name="com.google.ar.core">
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="Anchor" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="Anchor" static="false" type="com.google.ar.core.Anchor" visibility="protected">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="detach" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getPose" native="false" return="com.google.ar.core.Pose" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getTrackingState" native="false" return="com.google.ar.core.TrackingState" static="false" synchronized="false" visibility="public">
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="ArCoreApk" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="ArCoreApk" static="false" type="com.google.ar.core.ArCoreApk" visibility="protected">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="checkAvailability" native="false" return="com.google.ar.core.ArCoreApk.Availability" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.content.Context">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getInstance" native="false" return="com.google.ar.core.ArCoreApk" static="true" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="requestInstall" native="false" return="com.google.ar.core.ArCoreApk.InstallStatus" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.app.Activity">
+</parameter>
+<parameter name="p1" type="boolean">
+</parameter>
+<exception name="UnavailableDeviceNotCompatibleException" type="com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException">
+</exception>
+<exception name="UnavailableUserDeclinedInstallationException" type="com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="requestInstall" native="false" return="com.google.ar.core.ArCoreApk.InstallStatus" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.app.Activity">
+</parameter>
+<parameter name="p1" type="boolean">
+</parameter>
+<parameter name="p2" type="com.google.ar.core.ArCoreApk.InstallBehavior">
+</parameter>
+<parameter name="p3" type="com.google.ar.core.ArCoreApk.UserMessageType">
+</parameter>
+<exception name="UnavailableDeviceNotCompatibleException" type="com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException">
+</exception>
+<exception name="UnavailableUserDeclinedInstallationException" type="com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException">
+</exception>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="ArCoreApk.1" static="true" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Enum" extends-generic-aware="java.lang.Enum&lt;com.google.ar.core.ArCoreApk.Availability&gt;" final="false" name="ArCoreApk.Availability" static="true" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="isSupported" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="isTransient" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="isUnknown" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="isUnsupported" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="valueOf" native="false" return="com.google.ar.core.ArCoreApk.Availability" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="values" native="false" return="com.google.ar.core.ArCoreApk.Availability[]" static="true" synchronized="false" visibility="public">
+</method>
+<field deprecated="not deprecated" final="true" name="SUPPORTED_APK_TOO_OLD" static="true" transient="false" type="com.google.ar.core.ArCoreApk.Availability" type-generic-aware="com.google.ar.core.ArCoreApk.Availability" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="SUPPORTED_INSTALLED" static="true" transient="false" type="com.google.ar.core.ArCoreApk.Availability" type-generic-aware="com.google.ar.core.ArCoreApk.Availability" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="SUPPORTED_NOT_INSTALLED" static="true" transient="false" type="com.google.ar.core.ArCoreApk.Availability" type-generic-aware="com.google.ar.core.ArCoreApk.Availability" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="UNKNOWN_CHECKING" static="true" transient="false" type="com.google.ar.core.ArCoreApk.Availability" type-generic-aware="com.google.ar.core.ArCoreApk.Availability" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="UNKNOWN_ERROR" static="true" transient="false" type="com.google.ar.core.ArCoreApk.Availability" type-generic-aware="com.google.ar.core.ArCoreApk.Availability" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="UNKNOWN_TIMED_OUT" static="true" transient="false" type="com.google.ar.core.ArCoreApk.Availability" type-generic-aware="com.google.ar.core.ArCoreApk.Availability" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="UNSUPPORTED_DEVICE_NOT_CAPABLE" static="true" transient="false" type="com.google.ar.core.ArCoreApk.Availability" type-generic-aware="com.google.ar.core.ArCoreApk.Availability" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.ar.core.ArCoreApk.Availability" extends-generic-aware="com.google.ar.core.ArCoreApk.Availability" final="true" name="ArCoreApk.Availability.1" static="false" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="com.google.ar.core.ArCoreApk.Availability" extends-generic-aware="com.google.ar.core.ArCoreApk.Availability" final="true" name="ArCoreApk.Availability.2" static="false" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="com.google.ar.core.ArCoreApk.Availability" extends-generic-aware="com.google.ar.core.ArCoreApk.Availability" final="true" name="ArCoreApk.Availability.3" static="false" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="com.google.ar.core.ArCoreApk.Availability" extends-generic-aware="com.google.ar.core.ArCoreApk.Availability" final="true" name="ArCoreApk.Availability.4" static="false" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="com.google.ar.core.ArCoreApk.Availability" extends-generic-aware="com.google.ar.core.ArCoreApk.Availability" final="true" name="ArCoreApk.Availability.5" static="false" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="com.google.ar.core.ArCoreApk.Availability" extends-generic-aware="com.google.ar.core.ArCoreApk.Availability" final="true" name="ArCoreApk.Availability.6" static="false" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="com.google.ar.core.ArCoreApk.Availability" extends-generic-aware="com.google.ar.core.ArCoreApk.Availability" final="true" name="ArCoreApk.Availability.7" static="false" visibility=""/>
+<interface abstract="true" deprecated="not deprecated" final="false" name="ArCoreApk.ICheckAvailabilityCallback" static="true" visibility="">
+<method abstract="true" deprecated="not deprecated" final="false" name="onResult" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.ar.core.ArCoreApk.Availability">
+</parameter>
+</method>
+</interface>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Enum" extends-generic-aware="java.lang.Enum&lt;com.google.ar.core.ArCoreApk.InstallBehavior&gt;" final="true" name="ArCoreApk.InstallBehavior" static="true" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="valueOf" native="false" return="com.google.ar.core.ArCoreApk.InstallBehavior" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="values" native="false" return="com.google.ar.core.ArCoreApk.InstallBehavior[]" static="true" synchronized="false" visibility="public">
+</method>
+<field deprecated="not deprecated" final="true" name="OPTIONAL" static="true" transient="false" type="com.google.ar.core.ArCoreApk.InstallBehavior" type-generic-aware="com.google.ar.core.ArCoreApk.InstallBehavior" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="REQUIRED" static="true" transient="false" type="com.google.ar.core.ArCoreApk.InstallBehavior" type-generic-aware="com.google.ar.core.ArCoreApk.InstallBehavior" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Enum" extends-generic-aware="java.lang.Enum&lt;com.google.ar.core.ArCoreApk.InstallStatus&gt;" final="true" name="ArCoreApk.InstallStatus" static="true" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="valueOf" native="false" return="com.google.ar.core.ArCoreApk.InstallStatus" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="values" native="false" return="com.google.ar.core.ArCoreApk.InstallStatus[]" static="true" synchronized="false" visibility="public">
+</method>
+<field deprecated="not deprecated" final="true" name="INSTALLED" static="true" transient="false" type="com.google.ar.core.ArCoreApk.InstallStatus" type-generic-aware="com.google.ar.core.ArCoreApk.InstallStatus" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="INSTALL_REQUESTED" static="true" transient="false" type="com.google.ar.core.ArCoreApk.InstallStatus" type-generic-aware="com.google.ar.core.ArCoreApk.InstallStatus" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Enum" extends-generic-aware="java.lang.Enum&lt;com.google.ar.core.ArCoreApk.UserMessageType&gt;" final="true" name="ArCoreApk.UserMessageType" static="true" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="valueOf" native="false" return="com.google.ar.core.ArCoreApk.UserMessageType" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="values" native="false" return="com.google.ar.core.ArCoreApk.UserMessageType[]" static="true" synchronized="false" visibility="public">
+</method>
+<field deprecated="not deprecated" final="true" name="APPLICATION" static="true" transient="false" type="com.google.ar.core.ArCoreApk.UserMessageType" type-generic-aware="com.google.ar.core.ArCoreApk.UserMessageType" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="FEATURE" static="true" transient="false" type="com.google.ar.core.ArCoreApk.UserMessageType" type-generic-aware="com.google.ar.core.ArCoreApk.UserMessageType" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="USER_ALREADY_INFORMED" static="true" transient="false" type="com.google.ar.core.ArCoreApk.UserMessageType" type-generic-aware="com.google.ar.core.ArCoreApk.UserMessageType" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.ar.core.ArCoreApk" extends-generic-aware="com.google.ar.core.ArCoreApk" final="false" name="ArCoreApkImpl" static="false" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="ArCoreApkImpl.1" static="false" visibility="">
+<implements name="com.google.ar.core.ArCoreApk.ICheckAvailabilityCallback" name-generic-aware="com.google.ar.core.ArCoreApk.ICheckAvailabilityCallback">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="onResult" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.ar.core.ArCoreApk.Availability">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="ArCoreApkJniAdapter" static="false" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="android.media.VisibleImage" extends-generic-aware="android.media.VisibleImage" final="false" name="ArImage" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="ArImage" static="false" type="com.google.ar.core.ArImage" visibility="public">
+<parameter name="p0" type="long">
+</parameter>
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="close" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getFormat" native="false" return="int" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getHeight" native="false" return="int" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getPlanes" native="false" return="android.media.Image.Plane[]" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getTimestamp" native="false" return="long" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getWidth" native="false" return="int" static="false" synchronized="false" visibility="public">
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="android.media.VisibleImage.Plane" extends-generic-aware="android.media.VisibleImage.Plane" final="false" name="ArImage.Plane" static="false" visibility="">
+<constructor deprecated="not deprecated" final="false" name="ArImage.Plane" static="false" type="com.google.ar.core.ArImage.Plane" visibility="public">
+<parameter name="p1" type="long">
+</parameter>
+<parameter name="p2" type="int">
+</parameter>
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="getBuffer" native="false" return="java.nio.ByteBuffer" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getPixelStride" native="false" return="int" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getRowStride" native="false" return="int" static="false" synchronized="false" visibility="public">
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="Camera" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="Camera" static="false" type="com.google.ar.core.Camera" visibility="protected">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="getDisplayOrientedPose" native="false" return="com.google.ar.core.Pose" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getPose" native="false" return="com.google.ar.core.Pose" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getProjectionMatrix" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<parameter name="p2" type="float">
+</parameter>
+<parameter name="p3" type="float">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getTrackingState" native="false" return="com.google.ar.core.TrackingState" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getViewMatrix" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="Config" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="Config" static="false" type="com.google.ar.core.Config" visibility="public">
+<parameter name="p0" type="com.google.ar.core.Session">
+</parameter>
+</constructor>
+<constructor deprecated="not deprecated" final="false" name="Config" static="false" type="com.google.ar.core.Config" visibility="protected">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="getLightEstimationMode" native="false" return="com.google.ar.core.Config.LightEstimationMode" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getPlaneFindingMode" native="false" return="com.google.ar.core.Config.PlaneFindingMode" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getUpdateMode" native="false" return="com.google.ar.core.Config.UpdateMode" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setLightEstimationMode" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.ar.core.Config.LightEstimationMode">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setPlaneFindingMode" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.ar.core.Config.PlaneFindingMode">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setUpdateMode" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.ar.core.Config.UpdateMode">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Enum" extends-generic-aware="java.lang.Enum&lt;com.google.ar.core.Config.LightEstimationMode&gt;" final="true" name="Config.LightEstimationMode" static="true" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="valueOf" native="false" return="com.google.ar.core.Config.LightEstimationMode" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="values" native="false" return="com.google.ar.core.Config.LightEstimationMode[]" static="true" synchronized="false" visibility="public">
+</method>
+<field deprecated="not deprecated" final="true" name="AMBIENT_INTENSITY" static="true" transient="false" type="com.google.ar.core.Config.LightEstimationMode" type-generic-aware="com.google.ar.core.Config.LightEstimationMode" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="DISABLED" static="true" transient="false" type="com.google.ar.core.Config.LightEstimationMode" type-generic-aware="com.google.ar.core.Config.LightEstimationMode" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Enum" extends-generic-aware="java.lang.Enum&lt;com.google.ar.core.Config.PlaneFindingMode&gt;" final="true" name="Config.PlaneFindingMode" static="true" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="valueOf" native="false" return="com.google.ar.core.Config.PlaneFindingMode" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="values" native="false" return="com.google.ar.core.Config.PlaneFindingMode[]" static="true" synchronized="false" visibility="public">
+</method>
+<field deprecated="not deprecated" final="true" name="DISABLED" static="true" transient="false" type="com.google.ar.core.Config.PlaneFindingMode" type-generic-aware="com.google.ar.core.Config.PlaneFindingMode" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="HORIZONTAL" static="true" transient="false" type="com.google.ar.core.Config.PlaneFindingMode" type-generic-aware="com.google.ar.core.Config.PlaneFindingMode" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Enum" extends-generic-aware="java.lang.Enum&lt;com.google.ar.core.Config.UpdateMode&gt;" final="true" name="Config.UpdateMode" static="true" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="valueOf" native="false" return="com.google.ar.core.Config.UpdateMode" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="values" native="false" return="com.google.ar.core.Config.UpdateMode[]" static="true" synchronized="false" visibility="public">
+</method>
+<field deprecated="not deprecated" final="true" name="BLOCKING" static="true" transient="false" type="com.google.ar.core.Config.UpdateMode" type-generic-aware="com.google.ar.core.Config.UpdateMode" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="LATEST_CAMERA_IMAGE" static="true" transient="false" type="com.google.ar.core.Config.UpdateMode" type-generic-aware="com.google.ar.core.Config.UpdateMode" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="Frame" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="Frame" static="false" type="com.google.ar.core.Frame" visibility="protected">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="acquireCameraImage" native="false" return="android.media.Image" static="false" synchronized="false" visibility="public">
+<exception name="NotYetAvailableException" type="com.google.ar.core.exceptions.NotYetAvailableException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="acquirePointCloud" native="false" return="com.google.ar.core.PointCloud" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getCamera" native="false" return="com.google.ar.core.Camera" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getImageMetadata" native="false" return="com.google.ar.core.ImageMetadata" static="false" synchronized="false" visibility="public">
+<exception name="NotYetAvailableException" type="com.google.ar.core.exceptions.NotYetAvailableException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getLightEstimate" native="false" return="com.google.ar.core.LightEstimate" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getTimestamp" native="false" return="long" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getUpdatedAnchors" native="false" return="java.util.Collection&lt;com.google.ar.core.Anchor&gt;" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getUpdatedTrackables" native="false" return="java.util.Collection&lt;T&gt;" static="false" synchronized="false" visibility="public">
+<typeParameters>
+<typeParameter name="T">
+<genericConstraints>
+<genericConstraint type="com.google.ar.core.Trackable"/>
+</genericConstraints>
+</typeParameter>
+</typeParameters>
+<parameter name="p0" type="java.lang.Class&lt;T&gt;">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="hasDisplayGeometryChanged" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="hitTest" native="false" return="java.util.List&lt;com.google.ar.core.HitResult&gt;" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.view.MotionEvent">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="hitTest" native="false" return="java.util.List&lt;com.google.ar.core.HitResult&gt;" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="float">
+</parameter>
+<parameter name="p1" type="float">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="transformDisplayUvCoords" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="java.nio.FloatBuffer">
+</parameter>
+<parameter name="p1" type="java.nio.FloatBuffer">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="HitResult" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="HitResult" static="false" type="com.google.ar.core.HitResult" visibility="protected">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="createAnchor" native="false" return="com.google.ar.core.Anchor" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getDistance" native="false" return="float" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getHitPose" native="false" return="com.google.ar.core.Pose" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getTrackable" native="false" return="com.google.ar.core.Trackable" static="false" synchronized="false" visibility="public">
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="ImageMetadata" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="ImageMetadata" static="false" type="com.google.ar.core.ImageMetadata" visibility="protected">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="getByte" native="false" return="byte" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getByteArray" native="false" return="byte[]" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getDouble" native="false" return="double" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getDoubleArray" native="false" return="double[]" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getFloat" native="false" return="float" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getFloatArray" native="false" return="float[]" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getInt" native="false" return="int" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getIntArray" native="false" return="int[]" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getKeys" native="false" return="long[]" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getLong" native="false" return="long" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getLongArray" native="false" return="long[]" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getRational" native="false" return="android.util.Rational" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getRationalArray" native="false" return="android.util.Rational[]" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<field deprecated="not deprecated" final="true" name="BLACK_LEVEL_LOCK" static="true" transient="false" type="int" type-generic-aware="int" value="1441792" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="COLOR_CORRECTION_ABERRATION_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="3" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="COLOR_CORRECTION_GAINS" static="true" transient="false" type="int" type-generic-aware="int" value="2" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="COLOR_CORRECTION_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="0" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="COLOR_CORRECTION_TRANSFORM" static="true" transient="false" type="int" type-generic-aware="int" value="1" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_AE_ANTIBANDING_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="65536" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_AE_EXPOSURE_COMPENSATION" static="true" transient="false" type="int" type-generic-aware="int" value="65537" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_AE_LOCK" static="true" transient="false" type="int" type-generic-aware="int" value="65538" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_AE_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="65539" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_AE_PRECAPTURE_TRIGGER" static="true" transient="false" type="int" type-generic-aware="int" value="65542" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_AE_REGIONS" static="true" transient="false" type="int" type-generic-aware="int" value="65540" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_AE_STATE" static="true" transient="false" type="int" type-generic-aware="int" value="65567" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_AE_TARGET_FPS_RANGE" static="true" transient="false" type="int" type-generic-aware="int" value="65541" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_AF_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="65543" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_AF_REGIONS" static="true" transient="false" type="int" type-generic-aware="int" value="65544" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_AF_STATE" static="true" transient="false" type="int" type-generic-aware="int" value="65568" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_AF_TRIGGER" static="true" transient="false" type="int" type-generic-aware="int" value="65545" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_AWB_LOCK" static="true" transient="false" type="int" type-generic-aware="int" value="65546" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_AWB_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="65547" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_AWB_REGIONS" static="true" transient="false" type="int" type-generic-aware="int" value="65548" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_AWB_STATE" static="true" transient="false" type="int" type-generic-aware="int" value="65570" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_CAPTURE_INTENT" static="true" transient="false" type="int" type-generic-aware="int" value="65549" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_EFFECT_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="65550" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="65551" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_POST_RAW_SENSITIVITY_BOOST" static="true" transient="false" type="int" type-generic-aware="int" value="65576" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_SCENE_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="65552" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CONTROL_VIDEO_STABILIZATION_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="65553" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="EDGE_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="196608" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="FLASH_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="262146" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="FLASH_STATE" static="true" transient="false" type="int" type-generic-aware="int" value="262149" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="HOT_PIXEL_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="393216" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="JPEG_GPS_COORDINATES" static="true" transient="false" type="int" type-generic-aware="int" value="458752" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="JPEG_GPS_PROCESSING_METHOD" static="true" transient="false" type="int" type-generic-aware="int" value="458753" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="JPEG_GPS_TIMESTAMP" static="true" transient="false" type="int" type-generic-aware="int" value="458754" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="JPEG_ORIENTATION" static="true" transient="false" type="int" type-generic-aware="int" value="458755" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="JPEG_QUALITY" static="true" transient="false" type="int" type-generic-aware="int" value="458756" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="JPEG_THUMBNAIL_QUALITY" static="true" transient="false" type="int" type-generic-aware="int" value="458757" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="JPEG_THUMBNAIL_SIZE" static="true" transient="false" type="int" type-generic-aware="int" value="458758" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="LENS_APERTURE" static="true" transient="false" type="int" type-generic-aware="int" value="524288" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="LENS_FILTER_DENSITY" static="true" transient="false" type="int" type-generic-aware="int" value="524289" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="LENS_FOCAL_LENGTH" static="true" transient="false" type="int" type-generic-aware="int" value="524290" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="LENS_FOCUS_DISTANCE" static="true" transient="false" type="int" type-generic-aware="int" value="524291" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="LENS_FOCUS_RANGE" static="true" transient="false" type="int" type-generic-aware="int" value="524296" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="LENS_INTRINSIC_CALIBRATION" static="true" transient="false" type="int" type-generic-aware="int" value="524298" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="LENS_OPTICAL_STABILIZATION_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="524292" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="LENS_POSE_ROTATION" static="true" transient="false" type="int" type-generic-aware="int" value="524294" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="LENS_POSE_TRANSLATION" static="true" transient="false" type="int" type-generic-aware="int" value="524295" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="LENS_RADIAL_DISTORTION" static="true" transient="false" type="int" type-generic-aware="int" value="524299" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="LENS_STATE" static="true" transient="false" type="int" type-generic-aware="int" value="524297" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="NOISE_REDUCTION_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="655360" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="REQUEST_PIPELINE_DEPTH" static="true" transient="false" type="int" type-generic-aware="int" value="786441" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="SCALER_CROP_REGION" static="true" transient="false" type="int" type-generic-aware="int" value="851968" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="SENSOR_DYNAMIC_BLACK_LEVEL" static="true" transient="false" type="int" type-generic-aware="int" value="917532" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="SENSOR_DYNAMIC_WHITE_LEVEL" static="true" transient="false" type="int" type-generic-aware="int" value="917533" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="SENSOR_EXPOSURE_TIME" static="true" transient="false" type="int" type-generic-aware="int" value="917504" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="SENSOR_FRAME_DURATION" static="true" transient="false" type="int" type-generic-aware="int" value="917505" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="SENSOR_GREEN_SPLIT" static="true" transient="false" type="int" type-generic-aware="int" value="917526" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="SENSOR_NEUTRAL_COLOR_POINT" static="true" transient="false" type="int" type-generic-aware="int" value="917522" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="SENSOR_NOISE_PROFILE" static="true" transient="false" type="int" type-generic-aware="int" value="917523" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="SENSOR_ROLLING_SHUTTER_SKEW" static="true" transient="false" type="int" type-generic-aware="int" value="917530" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="SENSOR_SENSITIVITY" static="true" transient="false" type="int" type-generic-aware="int" value="917506" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="SENSOR_TEST_PATTERN_DATA" static="true" transient="false" type="int" type-generic-aware="int" value="917527" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="SENSOR_TEST_PATTERN_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="917528" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="SENSOR_TIMESTAMP" static="true" transient="false" type="int" type-generic-aware="int" value="917520" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="SHADING_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="1048576" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="STATISTICS_FACE_DETECT_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="1114112" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="STATISTICS_FACE_IDS" static="true" transient="false" type="int" type-generic-aware="int" value="1114116" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="STATISTICS_FACE_LANDMARKS" static="true" transient="false" type="int" type-generic-aware="int" value="1114117" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="STATISTICS_FACE_RECTANGLES" static="true" transient="false" type="int" type-generic-aware="int" value="1114118" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="STATISTICS_FACE_SCORES" static="true" transient="false" type="int" type-generic-aware="int" value="1114119" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="STATISTICS_HOT_PIXEL_MAP" static="true" transient="false" type="int" type-generic-aware="int" value="1114127" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="STATISTICS_HOT_PIXEL_MAP_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="1114115" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="STATISTICS_LENS_SHADING_MAP" static="true" transient="false" type="int" type-generic-aware="int" value="1114123" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="STATISTICS_LENS_SHADING_MAP_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="1114128" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="STATISTICS_SCENE_FLICKER" static="true" transient="false" type="int" type-generic-aware="int" value="1114126" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="SYNC_FRAME_NUMBER" static="true" transient="false" type="int" type-generic-aware="int" value="1507328" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TONEMAP_CURVE_BLUE" static="true" transient="false" type="int" type-generic-aware="int" value="1245184" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TONEMAP_CURVE_GREEN" static="true" transient="false" type="int" type-generic-aware="int" value="1245185" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TONEMAP_CURVE_RED" static="true" transient="false" type="int" type-generic-aware="int" value="1245186" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TONEMAP_GAMMA" static="true" transient="false" type="int" type-generic-aware="int" value="1245190" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TONEMAP_MODE" static="true" transient="false" type="int" type-generic-aware="int" value="1245187" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TONEMAP_PRESET_CURVE" static="true" transient="false" type="int" type-generic-aware="int" value="1245191" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="ImageMetadata.MetadataEntry" static="true" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="android.app.Activity" extends-generic-aware="android.app.Activity" final="false" name="InstallActivity" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="InstallActivity" static="false" type="com.google.ar.core.InstallActivity" visibility="public">
+</constructor>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="InstallActivity.1" static="false" visibility="">
+<implements name="com.google.ar.core.ArCoreApk.ICheckAvailabilityCallback" name-generic-aware="com.google.ar.core.ArCoreApk.ICheckAvailabilityCallback">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="onResult" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.ar.core.ArCoreApk.Availability">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="InstallActivity.2" static="false" visibility="">
+<implements name="android.view.View.OnClickListener" name-generic-aware="android.view.View.OnClickListener">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="onClick" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.view.View">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="InstallActivity.3" static="false" visibility="">
+<implements name="android.view.View.OnClickListener" name-generic-aware="android.view.View.OnClickListener">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="onClick" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.view.View">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="InstallActivity.4" static="false" visibility="">
+<implements name="android.animation.ValueAnimator.AnimatorUpdateListener" name-generic-aware="android.animation.ValueAnimator.AnimatorUpdateListener">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="onAnimationUpdate" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.animation.ValueAnimator">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="android.animation.AnimatorListenerAdapter" extends-generic-aware="android.animation.AnimatorListenerAdapter" final="false" name="InstallActivity.5" static="false" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="InstallActivity.6" static="false" visibility="">
+<implements name="com.google.ar.core.InstallService.InstallEventCallback" name-generic-aware="com.google.ar.core.InstallService.InstallEventCallback">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="onException" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.Exception">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="InstallActivity.7" static="true" visibility=""/>
+<class abstract="true" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="InstallService" static="false" visibility="">
+<method abstract="true" deprecated="not deprecated" final="false" name="bind" native="false" return="void" static="false" synchronized="false" visibility="protected">
+<parameter name="p0" type="android.content.Context">
+</parameter>
+</method>
+<method abstract="true" deprecated="not deprecated" final="false" name="unbind" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Enum" extends-generic-aware="java.lang.Enum&lt;com.google.ar.core.InstallService.InstallEvent&gt;" final="true" name="InstallService.InstallEvent" static="true" visibility="">
+<field deprecated="not deprecated" final="true" name="ACCEPTED" static="true" transient="false" type="com.google.ar.core.InstallService.InstallEvent" type-generic-aware="com.google.ar.core.InstallService.InstallEvent" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="CANCELLED" static="true" transient="false" type="com.google.ar.core.InstallService.InstallEvent" type-generic-aware="com.google.ar.core.InstallService.InstallEvent" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="COMPLETED" static="true" transient="false" type="com.google.ar.core.InstallService.InstallEvent" type-generic-aware="com.google.ar.core.InstallService.InstallEvent" visibility="public" volatile="false">
+</field>
+</class>
+<interface abstract="true" deprecated="not deprecated" final="false" name="InstallService.InstallEventCallback" static="true" visibility="">
+<method abstract="true" deprecated="not deprecated" final="false" name="onException" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.Exception">
+</parameter>
+</method>
+</interface>
+<class abstract="false" deprecated="not deprecated" extends="com.google.ar.core.InstallService" extends-generic-aware="com.google.ar.core.InstallService" final="false" name="InstallServiceImpl" static="false" visibility="">
+<method abstract="false" deprecated="not deprecated" final="false" name="bind" native="false" return="void" static="false" synchronized="true" visibility="public">
+<parameter name="p0" type="android.content.Context">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="unbind" native="false" return="void" static="false" synchronized="true" visibility="public">
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="InstallServiceImpl.1" static="false" visibility="">
+<implements name="android.content.ServiceConnection" name-generic-aware="android.content.ServiceConnection">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="onServiceConnected" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.content.ComponentName">
+</parameter>
+<parameter name="p1" type="android.os.IBinder">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="onServiceDisconnected" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.content.ComponentName">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="InstallServiceImpl.2" static="false" visibility="">
+<implements name="java.lang.Runnable" name-generic-aware="java.lang.Runnable">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="run" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.android.play.core.install.protocol.IInstallServiceCallback.Stub" extends-generic-aware="com.google.android.play.core.install.protocol.IInstallServiceCallback.Stub" final="false" name="InstallServiceImpl.2.1" static="false" visibility="">
+<method abstract="false" deprecated="not deprecated" final="false" name="onRequestInfo" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Bundle">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="onRequestInstall" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Bundle">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="android.content.BroadcastReceiver" extends-generic-aware="android.content.BroadcastReceiver" final="false" name="InstallServiceImpl.3" static="false" visibility="">
+<method abstract="false" deprecated="not deprecated" final="false" name="onReceive" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.content.Context">
+</parameter>
+<parameter name="p1" type="android.content.Intent">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="InstallServiceImpl.4" static="false" visibility="">
+<implements name="java.lang.Runnable" name-generic-aware="java.lang.Runnable">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="run" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.android.play.core.install.protocol.IInstallServiceCallback.Stub" extends-generic-aware="com.google.android.play.core.install.protocol.IInstallServiceCallback.Stub" final="false" name="InstallServiceImpl.4.1" static="false" visibility="">
+<method abstract="false" deprecated="not deprecated" final="false" name="onRequestInfo" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Bundle">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="onRequestInstall" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.Bundle">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="InstallServiceImpl.5" static="true" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Enum" extends-generic-aware="java.lang.Enum&lt;com.google.ar.core.InstallServiceImpl.BindingState&gt;" final="true" name="InstallServiceImpl.BindingState" static="true" visibility="">
+<field deprecated="not deprecated" final="true" name="BINDING" static="true" transient="false" type="com.google.ar.core.InstallServiceImpl.BindingState" type-generic-aware="com.google.ar.core.InstallServiceImpl.BindingState" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="BOUND" static="true" transient="false" type="com.google.ar.core.InstallServiceImpl.BindingState" type-generic-aware="com.google.ar.core.InstallServiceImpl.BindingState" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="UNBOUND" static="true" transient="false" type="com.google.ar.core.InstallServiceImpl.BindingState" type-generic-aware="com.google.ar.core.InstallServiceImpl.BindingState" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Thread" extends-generic-aware="java.lang.Thread" final="false" name="InstallServiceImpl.InstallPollingThread" static="true" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Exception" extends-generic-aware="java.lang.Exception" final="false" name="InstallServiceImpl.NotBoundException" static="true" visibility=""/>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="LightEstimate" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="LightEstimate" static="false" type="com.google.ar.core.LightEstimate" visibility="protected">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="getColorCorrection" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getPixelIntensity" native="false" return="float" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getState" native="false" return="com.google.ar.core.LightEstimate.State" static="false" synchronized="false" visibility="public">
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Enum" extends-generic-aware="java.lang.Enum&lt;com.google.ar.core.LightEstimate.State&gt;" final="true" name="LightEstimate.State" static="true" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="valueOf" native="false" return="com.google.ar.core.LightEstimate.State" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="values" native="false" return="com.google.ar.core.LightEstimate.State[]" static="true" synchronized="false" visibility="public">
+</method>
+<field deprecated="not deprecated" final="true" name="NOT_VALID" static="true" transient="false" type="com.google.ar.core.LightEstimate.State" type-generic-aware="com.google.ar.core.LightEstimate.State" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="VALID" static="true" transient="false" type="com.google.ar.core.LightEstimate.State" type-generic-aware="com.google.ar.core.LightEstimate.State" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.ar.core.TrackableBase" extends-generic-aware="com.google.ar.core.TrackableBase" final="false" name="Plane" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="Plane" static="false" type="com.google.ar.core.Plane" visibility="protected">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="createAnchor" native="false" return="com.google.ar.core.Anchor" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.ar.core.Pose">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="equals" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.Object">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getAnchors" native="false" return="java.util.Collection" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getCenterPose" native="false" return="com.google.ar.core.Pose" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getExtentX" native="false" return="float" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getExtentZ" native="false" return="float" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getPolygon" native="false" return="java.nio.FloatBuffer" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getSubsumedBy" native="false" return="com.google.ar.core.Plane" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getTrackingState" native="false" return="com.google.ar.core.TrackingState" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getType" native="false" return="com.google.ar.core.Plane.Type" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="hashCode" native="false" return="int" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="isPoseInExtents" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.ar.core.Pose">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="isPoseInPolygon" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.ar.core.Pose">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Enum" extends-generic-aware="java.lang.Enum&lt;com.google.ar.core.Plane.Type&gt;" final="true" name="Plane.Type" static="true" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="valueOf" native="false" return="com.google.ar.core.Plane.Type" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="values" native="false" return="com.google.ar.core.Plane.Type[]" static="true" synchronized="false" visibility="public">
+</method>
+<field deprecated="not deprecated" final="true" name="HORIZONTAL_DOWNWARD_FACING" static="true" transient="false" type="com.google.ar.core.Plane.Type" type-generic-aware="com.google.ar.core.Plane.Type" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="HORIZONTAL_UPWARD_FACING" static="true" transient="false" type="com.google.ar.core.Plane.Type" type-generic-aware="com.google.ar.core.Plane.Type" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.ar.core.TrackableBase" extends-generic-aware="com.google.ar.core.TrackableBase" final="false" name="Point" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="Point" static="false" type="com.google.ar.core.Point" visibility="protected">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="createAnchor" native="false" return="com.google.ar.core.Anchor" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.ar.core.Pose">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="equals" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.Object">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getAnchors" native="false" return="java.util.Collection" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getOrientationMode" native="false" return="com.google.ar.core.Point.OrientationMode" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getTrackingState" native="false" return="com.google.ar.core.TrackingState" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="hashCode" native="false" return="int" static="false" synchronized="false" visibility="public">
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Enum" extends-generic-aware="java.lang.Enum&lt;com.google.ar.core.Point.OrientationMode&gt;" final="true" name="Point.OrientationMode" static="true" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="valueOf" native="false" return="com.google.ar.core.Point.OrientationMode" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="values" native="false" return="com.google.ar.core.Point.OrientationMode[]" static="true" synchronized="false" visibility="public">
+</method>
+<field deprecated="not deprecated" final="true" name="ESTIMATED_SURFACE_NORMAL" static="true" transient="false" type="com.google.ar.core.Point.OrientationMode" type-generic-aware="com.google.ar.core.Point.OrientationMode" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="INITIALIZED_TO_IDENTITY" static="true" transient="false" type="com.google.ar.core.Point.OrientationMode" type-generic-aware="com.google.ar.core.Point.OrientationMode" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="PointCloud" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="PointCloud" static="false" type="com.google.ar.core.PointCloud" visibility="protected">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="getPoints" native="false" return="java.nio.FloatBuffer" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getTimestamp" native="false" return="long" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="release" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="Pose" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="Pose" static="false" type="com.google.ar.core.Pose" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+<parameter name="p1" type="float[]">
+</parameter>
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="compose" native="false" return="com.google.ar.core.Pose" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.ar.core.Pose">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="extractRotation" native="false" return="com.google.ar.core.Pose" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="extractTranslation" native="false" return="com.google.ar.core.Pose" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getRotationQuaternion" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getTransformedAxis" native="false" return="float[]" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="float">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getTransformedAxis" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="float">
+</parameter>
+<parameter name="p2" type="float[]">
+</parameter>
+<parameter name="p3" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getTranslation" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getXAxis" native="false" return="float[]" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getYAxis" native="false" return="float[]" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getZAxis" native="false" return="float[]" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="inverse" native="false" return="com.google.ar.core.Pose" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="makeInterpolated" native="false" return="com.google.ar.core.Pose" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.ar.core.Pose">
+</parameter>
+<parameter name="p1" type="com.google.ar.core.Pose">
+</parameter>
+<parameter name="p2" type="float">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="makeRotation" native="false" return="com.google.ar.core.Pose" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="float">
+</parameter>
+<parameter name="p1" type="float">
+</parameter>
+<parameter name="p2" type="float">
+</parameter>
+<parameter name="p3" type="float">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="makeRotation" native="false" return="com.google.ar.core.Pose" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="makeTranslation" native="false" return="com.google.ar.core.Pose" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="float">
+</parameter>
+<parameter name="p1" type="float">
+</parameter>
+<parameter name="p2" type="float">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="makeTranslation" native="false" return="com.google.ar.core.Pose" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="qw" native="false" return="float" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="qx" native="false" return="float" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="qy" native="false" return="float" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="qz" native="false" return="float" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="rotateVector" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<parameter name="p2" type="float[]">
+</parameter>
+<parameter name="p3" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="toMatrix" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="transformPoint" native="false" return="float[]" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="transformPoint" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<parameter name="p2" type="float[]">
+</parameter>
+<parameter name="p3" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="tx" native="false" return="float" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="ty" native="false" return="float" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="tz" native="false" return="float" static="false" synchronized="false" visibility="public">
+</method>
+<field deprecated="not deprecated" final="true" name="IDENTITY" static="true" transient="false" type="com.google.ar.core.Pose" type-generic-aware="com.google.ar.core.Pose" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="Quaternion" static="false" visibility="">
+<constructor deprecated="not deprecated" final="false" name="Quaternion" static="false" type="com.google.ar.core.Quaternion" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+</constructor>
+<constructor deprecated="not deprecated" final="false" name="Quaternion" static="false" type="com.google.ar.core.Quaternion" visibility="public">
+<parameter name="p0" type="float">
+</parameter>
+<parameter name="p1" type="float">
+</parameter>
+<parameter name="p2" type="float">
+</parameter>
+<parameter name="p3" type="float">
+</parameter>
+</constructor>
+<constructor deprecated="not deprecated" final="false" name="Quaternion" static="false" type="com.google.ar.core.Quaternion" visibility="public">
+<parameter name="p0" type="com.google.ar.core.Quaternion">
+</parameter>
+</constructor>
+<constructor deprecated="not deprecated" final="false" name="Quaternion" static="false" type="com.google.ar.core.Quaternion" visibility="public">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="getTransformedAxis" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="float">
+</parameter>
+<parameter name="p2" type="float[]">
+</parameter>
+<parameter name="p3" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getValues" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setValues" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="float">
+</parameter>
+<parameter name="p1" type="float">
+</parameter>
+<parameter name="p2" type="float">
+</parameter>
+<parameter name="p3" type="float">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setValues" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="toMatrix" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="float[]">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<parameter name="p2" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="transformedAxis" native="false" return="float[]" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="float">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="w" native="false" return="float" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="x" native="false" return="float" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="xAxis" native="false" return="float[]" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="y" native="false" return="float" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="yAxis" native="false" return="float[]" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="z" native="false" return="float" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="zAxis" native="false" return="float[]" static="false" synchronized="false" visibility="public">
+</method>
+<field deprecated="not deprecated" final="true" name="IDENTITY" static="true" transient="false" type="com.google.ar.core.Quaternion" type-generic-aware="com.google.ar.core.Quaternion" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="Session" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="Session" static="false" type="com.google.ar.core.Session" visibility="public">
+<parameter name="p0" type="android.content.Context">
+</parameter>
+</constructor>
+<constructor deprecated="not deprecated" final="false" name="Session" static="false" type="com.google.ar.core.Session" visibility="protected">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="configure" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.ar.core.Config">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="createAnchor" native="false" return="com.google.ar.core.Anchor" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.ar.core.Pose">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getAllAnchors" native="false" return="java.util.Collection&lt;com.google.ar.core.Anchor&gt;" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getAllTrackables" native="false" return="java.util.Collection&lt;T&gt;" static="false" synchronized="false" visibility="public">
+<typeParameters>
+<typeParameter name="T">
+<genericConstraints>
+<genericConstraint type="com.google.ar.core.Trackable"/>
+</genericConstraints>
+</typeParameter>
+</typeParameters>
+<parameter name="p0" type="java.lang.Class&lt;T&gt;">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="isSupported" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.ar.core.Config">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="nativeAcquireAllTrackables" native="true" return="long[]" static="false" synchronized="false" visibility="protected">
+<parameter name="p0" type="long">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="pause" native="false" return="void" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="resume" native="false" return="void" static="false" synchronized="false" visibility="public">
+<exception name="CameraNotAvailableException" type="com.google.ar.core.exceptions.CameraNotAvailableException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setCameraTextureName" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="setDisplayGeometry" native="false" return="void" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<parameter name="p2" type="int">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="update" native="false" return="com.google.ar.core.Frame" static="false" synchronized="false" visibility="public">
+<exception name="CameraNotAvailableException" type="com.google.ar.core.exceptions.CameraNotAvailableException">
+</exception>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="SessionCreateJniHelper" static="false" visibility=""/>
+<interface abstract="true" deprecated="not deprecated" final="false" name="Trackable" static="false" visibility="public">
+<method abstract="true" deprecated="not deprecated" final="false" name="createAnchor" native="false" return="com.google.ar.core.Anchor" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.ar.core.Pose">
+</parameter>
+</method>
+<method abstract="true" deprecated="not deprecated" final="false" name="getAnchors" native="false" return="java.util.Collection&lt;com.google.ar.core.Anchor&gt;" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="true" deprecated="not deprecated" final="false" name="getTrackingState" native="false" return="com.google.ar.core.TrackingState" static="false" synchronized="false" visibility="public">
+</method>
+</interface>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="TrackableBase" static="false" visibility="">
+<implements name="com.google.ar.core.Trackable" name-generic-aware="com.google.ar.core.Trackable">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="createAnchor" native="false" return="com.google.ar.core.Anchor" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.ar.core.Pose">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getAnchors" native="false" return="java.util.Collection&lt;com.google.ar.core.Anchor&gt;" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getTrackingState" native="false" return="com.google.ar.core.TrackingState" static="false" synchronized="false" visibility="public">
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Enum" extends-generic-aware="java.lang.Enum&lt;com.google.ar.core.TrackingState&gt;" final="true" name="TrackingState" static="false" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="valueOf" native="false" return="com.google.ar.core.TrackingState" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="values" native="false" return="com.google.ar.core.TrackingState[]" static="true" synchronized="false" visibility="public">
+</method>
+<field deprecated="not deprecated" final="true" name="PAUSED" static="true" transient="false" type="com.google.ar.core.TrackingState" type-generic-aware="com.google.ar.core.TrackingState" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="STOPPED" static="true" transient="false" type="com.google.ar.core.TrackingState" type-generic-aware="com.google.ar.core.TrackingState" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="TRACKING" static="true" transient="false" type="com.google.ar.core.TrackingState" type-generic-aware="com.google.ar.core.TrackingState" visibility="public" volatile="false">
+</field>
+</class>
+</package>
+<package name="com.google.ar.core.annotations">
+<interface abstract="true" deprecated="not deprecated" final="false" name="UsedByNative" static="false" visibility="public">
+<implements name="java.lang.annotation.Annotation" name-generic-aware="java.lang.annotation.Annotation">
+</implements>
+<method abstract="true" deprecated="not deprecated" final="false" name="value" native="false" return="java.lang.String" static="false" synchronized="false" visibility="public">
+</method>
+</interface>
+<interface abstract="true" deprecated="not deprecated" final="false" name="UsedByReflection" static="false" visibility="public">
+<implements name="java.lang.annotation.Annotation" name-generic-aware="java.lang.annotation.Annotation">
+</implements>
+<method abstract="true" deprecated="not deprecated" final="false" name="value" native="false" return="java.lang.String" static="false" synchronized="false" visibility="public">
+</method>
+</interface>
+</package>
+<package name="com.google.ar.core.exceptions">
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Exception" extends-generic-aware="java.lang.Exception" final="false" name="CameraNotAvailableException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="CameraNotAvailableException" static="false" type="com.google.ar.core.exceptions.CameraNotAvailableException" visibility="public">
+</constructor>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.IllegalStateException" extends-generic-aware="java.lang.IllegalStateException" final="false" name="DeadlineExceededException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="DeadlineExceededException" static="false" type="com.google.ar.core.exceptions.DeadlineExceededException" visibility="public">
+</constructor>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.RuntimeException" extends-generic-aware="java.lang.RuntimeException" final="false" name="FatalException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="FatalException" static="false" type="com.google.ar.core.exceptions.FatalException" visibility="public">
+</constructor>
+<constructor deprecated="not deprecated" final="false" name="FatalException" static="false" type="com.google.ar.core.exceptions.FatalException" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</constructor>
+<constructor deprecated="not deprecated" final="false" name="FatalException" static="false" type="com.google.ar.core.exceptions.FatalException" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+<parameter name="p1" type="java.lang.Throwable">
+</parameter>
+</constructor>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.IllegalStateException" extends-generic-aware="java.lang.IllegalStateException" final="false" name="MissingGlContextException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="MissingGlContextException" static="false" type="com.google.ar.core.exceptions.MissingGlContextException" visibility="public">
+</constructor>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.RuntimeException" extends-generic-aware="java.lang.RuntimeException" final="false" name="NotTrackingException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="NotTrackingException" static="false" type="com.google.ar.core.exceptions.NotTrackingException" visibility="public">
+</constructor>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Exception" extends-generic-aware="java.lang.Exception" final="false" name="NotYetAvailableException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="NotYetAvailableException" static="false" type="com.google.ar.core.exceptions.NotYetAvailableException" visibility="public">
+</constructor>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.RuntimeException" extends-generic-aware="java.lang.RuntimeException" final="false" name="ResourceExhaustedException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="ResourceExhaustedException" static="false" type="com.google.ar.core.exceptions.ResourceExhaustedException" visibility="public">
+</constructor>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.IllegalStateException" extends-generic-aware="java.lang.IllegalStateException" final="false" name="SessionNotPausedException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="SessionNotPausedException" static="false" type="com.google.ar.core.exceptions.SessionNotPausedException" visibility="public">
+</constructor>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.IllegalStateException" extends-generic-aware="java.lang.IllegalStateException" final="false" name="SessionPausedException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="SessionPausedException" static="false" type="com.google.ar.core.exceptions.SessionPausedException" visibility="public">
+</constructor>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.IllegalStateException" extends-generic-aware="java.lang.IllegalStateException" final="false" name="TextureNotSetException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="TextureNotSetException" static="false" type="com.google.ar.core.exceptions.TextureNotSetException" visibility="public">
+</constructor>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.ar.core.exceptions.UnavailableException" extends-generic-aware="com.google.ar.core.exceptions.UnavailableException" final="false" name="UnavailableApkTooOldException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="UnavailableApkTooOldException" static="false" type="com.google.ar.core.exceptions.UnavailableApkTooOldException" visibility="public">
+</constructor>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.ar.core.exceptions.UnavailableException" extends-generic-aware="com.google.ar.core.exceptions.UnavailableException" final="false" name="UnavailableArcoreNotInstalledException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="UnavailableArcoreNotInstalledException" static="false" type="com.google.ar.core.exceptions.UnavailableArcoreNotInstalledException" visibility="public">
+</constructor>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.ar.core.exceptions.UnavailableException" extends-generic-aware="com.google.ar.core.exceptions.UnavailableException" final="false" name="UnavailableDeviceNotCompatibleException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="UnavailableDeviceNotCompatibleException" static="false" type="com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException" visibility="public">
+</constructor>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Exception" extends-generic-aware="java.lang.Exception" final="false" name="UnavailableException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="UnavailableException" static="false" type="com.google.ar.core.exceptions.UnavailableException" visibility="public">
+</constructor>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.ar.core.exceptions.UnavailableException" extends-generic-aware="com.google.ar.core.exceptions.UnavailableException" final="false" name="UnavailableSdkTooOldException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="UnavailableSdkTooOldException" static="false" type="com.google.ar.core.exceptions.UnavailableSdkTooOldException" visibility="public">
+</constructor>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.ar.core.exceptions.UnavailableException" extends-generic-aware="com.google.ar.core.exceptions.UnavailableException" final="false" name="UnavailableUserDeclinedInstallationException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="UnavailableUserDeclinedInstallationException" static="false" type="com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException" visibility="public">
+</constructor>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.RuntimeException" extends-generic-aware="java.lang.RuntimeException" final="false" name="UnsupportedConfigurationException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="UnsupportedConfigurationException" static="false" type="com.google.ar.core.exceptions.UnsupportedConfigurationException" visibility="public">
+</constructor>
+</class>
+</package>
+<package name="com.google.vr.dynamite.client">
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="true" name="DynamiteClient" static="false" visibility="public">
+<method abstract="false" deprecated="not deprecated" final="false" name="checkVersion" native="false" return="int" static="true" synchronized="true" visibility="public">
+<parameter name="p0" type="android.content.Context">
+</parameter>
+<parameter name="p1" type="java.lang.String">
+</parameter>
+<parameter name="p2" type="java.lang.String">
+</parameter>
+<parameter name="p3" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getRemoteClassLoader" native="false" return="java.lang.ClassLoader" static="true" synchronized="true" visibility="public">
+<parameter name="p0" type="android.content.Context">
+</parameter>
+<parameter name="p1" type="java.lang.String">
+</parameter>
+<parameter name="p2" type="java.lang.String">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="loadNativeRemoteLibrary" native="false" return="long" static="true" synchronized="true" visibility="public">
+<parameter name="p0" type="android.content.Context">
+</parameter>
+<parameter name="p1" type="java.lang.String">
+</parameter>
+<parameter name="p2" type="java.lang.String">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="DynamiteConstants" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="DynamiteConstants" static="false" type="com.google.vr.dynamite.client.DynamiteConstants" visibility="public">
+</constructor>
+<field deprecated="not deprecated" final="true" name="DYNAMITE_LOAD_RESULT_ERROR" static="true" transient="false" type="int" type-generic-aware="int" value="-4" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="DYNAMITE_LOAD_RESULT_FAILED_APK_TOO_OLD" static="true" transient="false" type="int" type-generic-aware="int" value="-2" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="DYNAMITE_LOAD_RESULT_FAILED_NOT_INSTALLED" static="true" transient="false" type="int" type-generic-aware="int" value="-1" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="DYNAMITE_LOAD_RESULT_FAILED_SDK_TOO_OLD" static="true" transient="false" type="int" type-generic-aware="int" value="-3" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="DYNAMITE_LOAD_RESULT_OK" static="true" transient="false" type="int" type-generic-aware="int" value="0" visibility="public" volatile="false">
+</field>
+</class>
+<interface abstract="true" deprecated="not deprecated" final="false" name="ILoadedInstanceCreator" static="false" visibility="public">
+<implements name="android.os.IInterface" name-generic-aware="android.os.IInterface">
+</implements>
+<method abstract="true" deprecated="not deprecated" final="false" name="newNativeLibraryLoader" native="false" return="com.google.vr.dynamite.client.INativeLibraryLoader" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vr.dynamite.client.IObjectWrapper">
+</parameter>
+<parameter name="p1" type="com.google.vr.dynamite.client.IObjectWrapper">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+</interface>
+<class abstract="true" deprecated="not deprecated" extends="com.google.android.aidl.BaseStub" extends-generic-aware="com.google.android.aidl.BaseStub" final="false" name="ILoadedInstanceCreator.Stub" static="true" visibility="public">
+<implements name="com.google.vr.dynamite.client.ILoadedInstanceCreator" name-generic-aware="com.google.vr.dynamite.client.ILoadedInstanceCreator">
+</implements>
+<constructor deprecated="not deprecated" final="false" name="ILoadedInstanceCreator.Stub" static="false" type="com.google.vr.dynamite.client.ILoadedInstanceCreator.Stub" visibility="public">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="asInterface" native="false" return="com.google.vr.dynamite.client.ILoadedInstanceCreator" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.IBinder">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="onTransact" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="android.os.Parcel">
+</parameter>
+<parameter name="p2" type="android.os.Parcel">
+</parameter>
+<parameter name="p3" type="int">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.android.aidl.BaseProxy" extends-generic-aware="com.google.android.aidl.BaseProxy" final="false" name="ILoadedInstanceCreator.Stub.Proxy" static="true" visibility="public">
+<implements name="com.google.vr.dynamite.client.ILoadedInstanceCreator" name-generic-aware="com.google.vr.dynamite.client.ILoadedInstanceCreator">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="newNativeLibraryLoader" native="false" return="com.google.vr.dynamite.client.INativeLibraryLoader" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vr.dynamite.client.IObjectWrapper">
+</parameter>
+<parameter name="p1" type="com.google.vr.dynamite.client.IObjectWrapper">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+</class>
+<interface abstract="true" deprecated="not deprecated" final="false" name="INativeLibraryLoader" static="false" visibility="public">
+<implements name="android.os.IInterface" name-generic-aware="android.os.IInterface">
+</implements>
+<method abstract="true" deprecated="not deprecated" final="false" name="checkVersion" native="false" return="int" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+<method abstract="true" deprecated="not deprecated" final="false" name="initializeAndLoadNativeLibrary" native="false" return="long" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+</interface>
+<class abstract="true" deprecated="not deprecated" extends="com.google.android.aidl.BaseStub" extends-generic-aware="com.google.android.aidl.BaseStub" final="false" name="INativeLibraryLoader.Stub" static="true" visibility="public">
+<implements name="com.google.vr.dynamite.client.INativeLibraryLoader" name-generic-aware="com.google.vr.dynamite.client.INativeLibraryLoader">
+</implements>
+<constructor deprecated="not deprecated" final="false" name="INativeLibraryLoader.Stub" static="false" type="com.google.vr.dynamite.client.INativeLibraryLoader.Stub" visibility="public">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="asInterface" native="false" return="com.google.vr.dynamite.client.INativeLibraryLoader" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.IBinder">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="onTransact" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="android.os.Parcel">
+</parameter>
+<parameter name="p2" type="android.os.Parcel">
+</parameter>
+<parameter name="p3" type="int">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.android.aidl.BaseProxy" extends-generic-aware="com.google.android.aidl.BaseProxy" final="false" name="INativeLibraryLoader.Stub.Proxy" static="true" visibility="public">
+<implements name="com.google.vr.dynamite.client.INativeLibraryLoader" name-generic-aware="com.google.vr.dynamite.client.INativeLibraryLoader">
+</implements>
+<method abstract="false" deprecated="not deprecated" final="false" name="checkVersion" native="false" return="int" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="initializeAndLoadNativeLibrary" native="false" return="long" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+<exception name="RemoteException" type="android.os.RemoteException">
+</exception>
+</method>
+</class>
+<interface abstract="true" deprecated="not deprecated" final="false" name="IObjectWrapper" static="false" visibility="public">
+<implements name="android.os.IInterface" name-generic-aware="android.os.IInterface">
+</implements>
+</interface>
+<class abstract="true" deprecated="not deprecated" extends="com.google.android.aidl.BaseStub" extends-generic-aware="com.google.android.aidl.BaseStub" final="false" name="IObjectWrapper.Stub" static="true" visibility="public">
+<implements name="com.google.vr.dynamite.client.IObjectWrapper" name-generic-aware="com.google.vr.dynamite.client.IObjectWrapper">
+</implements>
+<constructor deprecated="not deprecated" final="false" name="IObjectWrapper.Stub" static="false" type="com.google.vr.dynamite.client.IObjectWrapper.Stub" visibility="public">
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="asInterface" native="false" return="com.google.vr.dynamite.client.IObjectWrapper" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="android.os.IBinder">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.android.aidl.BaseProxy" extends-generic-aware="com.google.android.aidl.BaseProxy" final="false" name="IObjectWrapper.Stub.Proxy" static="true" visibility="public">
+<implements name="com.google.vr.dynamite.client.IObjectWrapper" name-generic-aware="com.google.vr.dynamite.client.IObjectWrapper">
+</implements>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Exception" extends-generic-aware="java.lang.Exception" final="false" name="LoaderException" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="LoaderException" static="false" type="com.google.vr.dynamite.client.LoaderException" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+</constructor>
+<field deprecated="not deprecated" final="true" name="ERROR_PACKAGE_NOT_AVAILABLE" static="true" transient="false" type="int" type-generic-aware="int" value="1" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="ERROR_PACKAGE_OBSOLETE" static="true" transient="false" type="int" type-generic-aware="int" value="2" visibility="public" volatile="false">
+</field>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="com.google.vr.dynamite.client.IObjectWrapper.Stub" extends-generic-aware="com.google.vr.dynamite.client.IObjectWrapper.Stub" final="true" name="ObjectWrapper" static="false" visibility="public">
+<typeParameters>
+<typeParameter name="T"/>
+</typeParameters>
+<method abstract="false" deprecated="not deprecated" final="false" name="unwrap" native="false" return="T" static="true" synchronized="false" visibility="public">
+<typeParameters>
+<typeParameter name="T"/>
+</typeParameters>
+<parameter name="p0" type="com.google.vr.dynamite.client.IObjectWrapper">
+</parameter>
+<parameter name="p1" type="java.lang.Class&lt;T&gt;">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="wrap" native="false" return="com.google.vr.dynamite.client.IObjectWrapper" static="true" synchronized="false" visibility="public">
+<typeParameters>
+<typeParameter name="T"/>
+</typeParameters>
+<parameter name="p0" type="T">
+</parameter>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="RemoteLibraryLoader" static="false" visibility="">
+<constructor deprecated="not deprecated" final="false" name="RemoteLibraryLoader" static="false" type="com.google.vr.dynamite.client.RemoteLibraryLoader" visibility="public">
+<parameter name="p0" type="com.google.vr.dynamite.client.TargetLibraryInfo">
+</parameter>
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="getRemoteContext" native="false" return="android.content.Context" static="false" synchronized="true" visibility="public">
+<parameter name="p0" type="android.content.Context">
+</parameter>
+<exception name="LoaderException" type="com.google.vr.dynamite.client.LoaderException">
+</exception>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getRemoteCreator" native="false" return="com.google.vr.dynamite.client.ILoadedInstanceCreator" static="false" synchronized="true" visibility="public">
+<parameter name="p0" type="android.content.Context">
+</parameter>
+<exception name="LoaderException" type="com.google.vr.dynamite.client.LoaderException">
+</exception>
+</method>
+</class>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="false" name="TargetLibraryInfo" static="false" visibility="">
+<constructor deprecated="not deprecated" final="false" name="TargetLibraryInfo" static="false" type="com.google.vr.dynamite.client.TargetLibraryInfo" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+<parameter name="p1" type="java.lang.String">
+</parameter>
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="getLibraryName" native="false" return="java.lang.String" static="false" synchronized="false" visibility="public">
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="getRemotePackageName" native="false" return="java.lang.String" static="false" synchronized="false" visibility="public">
+</method>
+</class>
+<interface abstract="true" deprecated="not deprecated" final="false" name="UsedByNative" static="false" visibility="public">
+<implements name="java.lang.annotation.Annotation" name-generic-aware="java.lang.annotation.Annotation">
+</implements>
+<method abstract="true" deprecated="not deprecated" final="false" name="value" native="false" return="java.lang.String" static="false" synchronized="false" visibility="public">
+</method>
+</interface>
+<interface abstract="true" deprecated="not deprecated" final="false" name="UsedByReflection" static="false" visibility="public">
+<implements name="java.lang.annotation.Annotation" name-generic-aware="java.lang.annotation.Annotation">
+</implements>
+<method abstract="true" deprecated="not deprecated" final="false" name="value" native="false" return="java.lang.String" static="false" synchronized="false" visibility="public">
+</method>
+</interface>
+<class abstract="false" deprecated="not deprecated" extends="java.lang.Object" extends-generic-aware="java.lang.Object" final="true" name="Version" static="false" visibility="public">
+<constructor deprecated="not deprecated" final="false" name="Version" static="false" type="com.google.vr.dynamite.client.Version" visibility="public">
+<parameter name="p0" type="int">
+</parameter>
+<parameter name="p1" type="int">
+</parameter>
+<parameter name="p2" type="int">
+</parameter>
+</constructor>
+<method abstract="false" deprecated="not deprecated" final="false" name="isAtLeast" native="false" return="boolean" static="false" synchronized="false" visibility="public">
+<parameter name="p0" type="com.google.vr.dynamite.client.Version">
+</parameter>
+</method>
+<method abstract="false" deprecated="not deprecated" final="false" name="parse" native="false" return="com.google.vr.dynamite.client.Version" static="true" synchronized="false" visibility="public">
+<parameter name="p0" type="java.lang.String">
+</parameter>
+</method>
+<field deprecated="not deprecated" final="true" name="TAG" static="true" transient="false" type="java.lang.String" type-generic-aware="java.lang.String" value="&quot;Version&quot;" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="majorVersion" static="false" transient="false" type="int" type-generic-aware="int" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="minorVersion" static="false" transient="false" type="int" type-generic-aware="int" visibility="public" volatile="false">
+</field>
+<field deprecated="not deprecated" final="true" name="patchVersion" static="false" transient="false" type="int" type-generic-aware="int" visibility="public" volatile="false">
+</field>
+</class>
+</package>
+</api>

@@ -24,6 +24,10 @@
 
 #include "../Container/RefCounted.h"
 
+#if defined(URHO3D_DOTNET)
+#include "../DotNet/Mono.h"
+#endif
+
 #include "../DebugNew.h"
 
 namespace Urho3D
@@ -41,7 +45,9 @@ RefCounted::~RefCounted()
     assert(refCount_);
     assert(refCount_->refs_ == 0);
     assert(refCount_->weakRefs_ > 0);
-
+#if defined(URHO3D_DOTNET)
+    Mono::Callback(RefCounted_Delete, this);
+#endif
     // Mark object as expired, release the self weak ref and delete the refcount if no other weak refs exist
     refCount_->refs_ = -1;
     (refCount_->weakRefs_)--;
@@ -55,6 +61,9 @@ void RefCounted::AddRef()
 {
     assert(refCount_->refs_ >= 0);
     (refCount_->refs_)++;
+#if defined(URHO3D_DOTNET)
+    Mono::Callback(RefCounted_AddRef, this);
+#endif
 }
 
 void RefCounted::ReleaseRef()

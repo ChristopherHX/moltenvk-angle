@@ -125,6 +125,10 @@ public:
     void ClearInt(unsigned uintColor);
     /// Save in BMP format. Return true if successful.
     bool SaveBMP(const String& fileName) const;
+#if defined(URHO3D_DOTNET)
+    /// Save in PNG format. Return true if successful.
+    unsigned char* SavePNG(int* len) const;
+#endif
     /// Save in PNG format. Return true if successful.
     bool SavePNG(const String& fileName) const;
     /// Save in TGA format. Return true if successful.

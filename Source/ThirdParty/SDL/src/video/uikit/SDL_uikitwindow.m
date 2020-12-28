@@ -342,6 +342,7 @@ UIKit_SetWindowFullscreen(_THIS, SDL_Window * window, SDL_VideoDisplay * display
     }
 }
 
+
 void
 UIKit_DestroyWindow(_THIS, SDL_Window * window)
 {
@@ -491,6 +492,35 @@ SDL_iPhoneSetAnimationCallback(SDL_Window * window, int interval, void (*callbac
 
     return 0;
 }
+
+#if defined(URHO3D_DOTNET)
+
+void SDLCALL SDL_iPhoneRunFrameCallback(void (*callback)(void*), void *callbackParam)
+{
+    @autoreleasepool {
+    callback(callbackParam);
+    }
+}
+
+void
+UIKit_StopRenderLoop(SDL_Window * window)
+{
+    @autoreleasepool {
+        if (window->driverdata != NULL) {
+            SDL_WindowData *data = (SDL_WindowData *) CFBridgingRelease(window->driverdata);
+            [data.viewcontroller stopAnimation];
+        }
+    }
+}
+
+void SDL_SetExternalViewPlaceholder(UIView* view, UIWindow* window){
+    /* TBD ELI 
+    urhoPlaceholderView = view;
+    urhoPlaceholderWindow = window;
+     */
+    //TODO: cleanup?
+}
+#endif
 
 #endif /* SDL_VIDEO_DRIVER_UIKIT */
 
