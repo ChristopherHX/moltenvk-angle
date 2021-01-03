@@ -42,6 +42,7 @@
 
 #ifdef __ANDROID__
 #include <android/log.h>
+#include <jni.h>
 #endif
 
 using namespace Urho3D;
@@ -89,26 +90,34 @@ String fixPathString(String  path)
     return path;
 }
 
-bool CopyFileToDocumentsDir(Urho3D::SharedPtr<Urho3D::Context> context_,  String sourceFile)
+bool CopyFileToDocumentsDir(Urho3D::SharedPtr<Urho3D::Context> context_,  String sourceFile, bool overwrite_if_exist)
 {
     FileSystem* fileSystem = context_->GetSubsystem<FileSystem>();
     ResourceCache* cache = context_->GetSubsystem<ResourceCache>();
+
+    String DestFolder = fileSystem->GetUserDocumentsDir();
+#if !defined(ANDROID)
+    DestFolder += "/temp/DotNet";
+    fixPath(DestFolder);
+    if (!fileSystem->CreateDir(DestFolder))
+    {
+        return false;
+    }
+#endif
+
+    String sourceFileName = GetFileNameAndExtension(sourceFile);
+    String destFileName = fixPathString(DestFolder + "/" + sourceFileName);
+
+    if (overwrite_if_exist == false && fileSystem->FileExists(destFileName))
+    {
+        return true;
+    }
 
     SharedPtr<File>  srcFile = cache->GetFile(sourceFile);
     if (srcFile == NULL || !srcFile->IsOpen())
         return false;
 
-    String DestFolder = fileSystem->GetUserDocumentsDir()+ "/temp/DotNet";
-    fixPath(DestFolder);
-    
-    if(!fileSystem->CreateDir(DestFolder))
-    {
-        return false;
-    }
-    
-    String sourceFileName = GetFileNameAndExtension(sourceFile);
-    
-    String destFileName = fixPathString(DestFolder + "/" + sourceFileName);
+
 
     fileSystem->Delete(destFileName);
 
@@ -130,12 +139,12 @@ void CopyMonoFilesToDocumentDir(Urho3D::SharedPtr<Urho3D::Context> context,Platf
     FileSystem* fileSystem = context->GetSubsystem<FileSystem>();
     ResourceCache* cache = context->GetSubsystem<ResourceCache>();
 
-    CopyFileToDocumentsDir(context, String("DotNet/Game.exe"));
+    CopyFileToDocumentsDir(context, String("DotNet/Game.exe"),true);
     
     String prefix = "";
     switch (platform) {
             
-        case ANDROID:
+        case _ANDROID_:
             prefix = "DotNet/android/";
             break;
             
@@ -161,14 +170,46 @@ void CopyMonoFilesToDocumentDir(Urho3D::SharedPtr<Urho3D::Context> context,Platf
             break;
     }
     
-    CopyFileToDocumentsDir(context, String(prefix+"UrhoDotNet.dll"));
+    CopyFileToDocumentsDir(context, String(prefix+"UrhoDotNet.dll"),true);
     CopyFileToDocumentsDir(context, String(prefix+"mscorlib.dll"));
     CopyFileToDocumentsDir(context, String(prefix+"System.dll"));
     CopyFileToDocumentsDir(context, String(prefix+"System.Xml.dll"));
     CopyFileToDocumentsDir(context, String(prefix+"System.Core.dll"));
     CopyFileToDocumentsDir(context, String(prefix+"Mono.Security.dll"));
     CopyFileToDocumentsDir(context, String(prefix+"System.Numerics.dll"));
-    //
-     
-    
+
+    if (platform == _ANDROID_)
+    {
+        CopyFileToDocumentsDir(context, String(prefix + "Mono.Android.dll"));
+        CopyFileToDocumentsDir(context, String(prefix + "Java.Interop.dll"));
+        CopyFileToDocumentsDir(context, String(prefix + "System.Runtime.dll"));
+        CopyFileToDocumentsDir(context, String(prefix + "System.Threading.dll"));
+        CopyFileToDocumentsDir(context, String(prefix + "System.Collections.dll"));
+        CopyFileToDocumentsDir(context, String(prefix + "System.Collections.Concurrent.dll"));
+        CopyFileToDocumentsDir(context, String(prefix + "System.Diagnostics.Debug.dll"));
+        CopyFileToDocumentsDir(context, String(prefix + "System.Linq.dll"));
+        CopyFileToDocumentsDir(context, String(prefix + "System.Runtime.InteropServices.dll"));
+        CopyFileToDocumentsDir(context, String(prefix + "netstandard.dll"));
+        CopyFileToDocumentsDir(context, String(prefix + "System.Threading.Tasks.dll"));
+        //
+        /*
+        
+      
+        CopyFileToDocumentsDir(context, String(prefix + ""));
+        CopyFileToDocumentsDir(context, String(prefix + ""));
+        CopyFileToDocumentsDir(context, String(prefix + ""));
+        CopyFileToDocumentsDir(context, String(prefix + ""));
+        CopyFileToDocumentsDir(context, String(prefix + ""));
+        */
+    }
 }
+
+
+
+/* TBD ELI - debug only
+extern "C" __attribute__((visibility("default"))) int tkill(int tid, int sig)
+{
+
+    return 0;
+}
+*/

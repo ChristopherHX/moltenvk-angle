@@ -97,18 +97,38 @@ int start_urho_mono_main(Platform platform) {
     cache->AddResourceDir(fixPathString(programDir+"/Data"));
     CopyMonoFilesToDocumentDir(context,platform);
     String userDocumentsDir = fileSystem->GetUserDocumentsDir();
+#if !defined(ANDROID)
     userDocumentsDir += "/temp/DotNet";
     fixPath(userDocumentsDir);
+#endif
     context.Reset();
 
-
     // start Mono
+    if (platform == _ANDROID_)
+    {
+#if defined(__ANDROID__)
+    //    setenv("MONO_THREADS_SUSPEND", "preemptive", /* overwrite: */ true) == 0;
+#endif
+       // mono_jit_set_aot_mode(MONO_AOT_MODE_NONE);
+        mono_dllmap_insert(NULL, "java-interop", "java_interop_jvm_list", "Urho3D", NULL);
+
+        mono_dllmap_insert(NULL, "System.Native", NULL, "mono-native", NULL);
+        mono_dllmap_insert(NULL, "System.Net.Security.Native", NULL, "mono-native", NULL);
+        mono_dllmap_insert(NULL, "MonoPosixHelper", NULL, "MonoPosixHelper", NULL);
+        mono_dllmap_insert(NULL, "libmono-btls-shared", NULL, "mono-btls-shared", NULL);
+    }
+
+    if (platform == MACOS)
+    {
+        mono_dllmap_insert(NULL, "System.Native", NULL, "mono-native", NULL);
+        mono_dllmap_insert(NULL, "System.Security.Cryptography.Native.Apple", NULL, "mono-native", NULL);
+    }
     
   //  mono_debug_init (MONO_DEBUG_FORMAT_MONO);
   //  mono_trace_set_level_string("debug");
-  //  mono_trace_set_log_handler(mono_log_callback, NULL);
+   // mono_trace_set_log_handler(mono_log_callback, NULL);
 
-    MonoDomain* domain;
+   
    
     String asssemblyName =  "Game.exe";
     String assemblyFullPath = userDocumentsDir + "/" + asssemblyName;
@@ -130,7 +150,18 @@ int start_urho_mono_main(Platform platform) {
 
     mono_config_parse(NULL);
     
-    domain = mono_jit_init(file);
+    MonoDomain* domain;
+#if defined(IOS) || defined(TVOS) || defined(__ANDROID__)
+    // I don't know whether this actually matters or not
+    const char* runtime_version = "mobile";
+#else
+    const char* runtime_version = "v4.0.30319";
+#endif
+
+    domain = mono_jit_init_version("UrhoEngine.RootDomain", runtime_version);
+
+    //domain = mono_jit_init(file);
+
     if (domain)
     {
         main_function(domain, file, argc - 1, argv + 1);
@@ -166,7 +197,7 @@ extern "C" __attribute__((visibility("default"))) int SDL_main(int argc, char** 
 extern "C" {
     int SDL_main(int argc, char** argv)
     {
-        return start_urho_mono_main(ANDROID);
+        return start_urho_mono_main(_ANDROID_);
     }
 }
 #elif  defined(IOS) || defined(TVOS)

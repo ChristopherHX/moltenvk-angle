@@ -37,8 +37,9 @@ if(ANDROID)
 set (MONO_LIBPATH  ../../../DotNet/libs/android/release/lib/${ANDROID_ABI}) 
 set (LIBS 
     libmonosgen-2.0.so
-    libMonoPosixHelper.so
     libmono-native.so
+    libMonoPosixHelper.so
+    libmono-btls-shared.so
 )
 endif()
 

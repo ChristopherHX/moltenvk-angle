@@ -122,7 +122,11 @@ void check_bindings_offsets()
 	static_assert(offsetof(ColorFrame, time_) == 16, "ColorFrame.Time has wrong offset (16)");
 
 	// JoystickState:
+#if defined(WIN32)
+	static_assert(sizeof(JoystickState) == 128, "JoystickState has wrong size (112)");
+#else
 	static_assert(sizeof(JoystickState) == 112, "JoystickState has wrong size (112)");
+#endif
 	static_assert(offsetof(JoystickState, joystick_) == 0, "JoystickState.JoystickPtr has wrong offset (0)");
 	static_assert(offsetof(JoystickState, joystickID_) == 8, "JoystickState.JoystickIdPtr has wrong offset (8)");
 	static_assert(offsetof(JoystickState, controller_) == 16, "JoystickState.ControllerPtr has wrong offset (16)");

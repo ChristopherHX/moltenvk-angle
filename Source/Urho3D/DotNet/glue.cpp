@@ -7,6 +7,12 @@
 #include "AllUrho.h"
 #include "glue.h"
 #include "interop.h"
+
+#ifdef __ANDROID__
+#include <android/log.h>
+#include <jni.h>
+#endif
+
 using namespace Urho3D;
 
 //
@@ -480,4 +486,22 @@ extern "C" {
 		_target->SetViewOverrideFlags (ViewOverrideFlags(flags));
 	}
 
+#if defined(__ANDROID__)
+	JavaVM* SDL_Android_GetJVM();
+	DllExport int java_interop_jvm_list(JavaVM * *vmBuf, int bufLen, int* nVMs)
+	{
+		__android_log_print(2, "Urho3D", "java_interop_jvm_list vmBuf=%p bufLen=%d nVMs=%p", vmBuf, bufLen, nVMs);
+		if (vmBuf != 0)
+		{
+			vmBuf[0] = SDL_Android_GetJVM();
+		}
+
+		if (nVMs != NULL)
+		{
+			*nVMs = 1;
+		}
+
+		return 0;
+	}
+#endif
 }

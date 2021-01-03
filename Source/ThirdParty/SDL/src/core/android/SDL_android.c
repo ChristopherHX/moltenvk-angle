@@ -2786,6 +2786,11 @@ SDL_bool Android_JNI_SetRelativeMouseEnabled(SDL_bool enabled)
 }
 
 
+JavaVM * SDL_Android_GetJVM()
+{
+    return mJavaVM;
+}
+
 #endif /* __ANDROID__ */
 
 /* vi: set ts=4 sw=4 expandtab: */

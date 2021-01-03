@@ -65,7 +65,8 @@ android {
                             "URHO3D_FILEWATCHER",
                             "URHO3D_PROFILING",
                             "URHO3D_LOGGING",
-                            "URHO3D_THREADING"
+                            "URHO3D_THREADING",
+                            "URHO3D_DOTNET"
                         )
                             .filter { project.hasProperty(it) }
                             .map { "-D$it=${project.property(it)}" }
