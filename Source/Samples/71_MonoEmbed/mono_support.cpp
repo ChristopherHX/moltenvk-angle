@@ -180,8 +180,6 @@ void CopyMonoFilesToDocumentDir(Urho3D::SharedPtr<Urho3D::Context> context,Platf
 
     if (platform == _ANDROID_)
     {
-        CopyFileToDocumentsDir(context, String(prefix + "Mono.Android.dll"));
-        CopyFileToDocumentsDir(context, String(prefix + "Java.Interop.dll"));
         CopyFileToDocumentsDir(context, String(prefix + "System.Runtime.dll"));
         CopyFileToDocumentsDir(context, String(prefix + "System.Threading.dll"));
         CopyFileToDocumentsDir(context, String(prefix + "System.Collections.dll"));
@@ -189,27 +187,7 @@ void CopyMonoFilesToDocumentDir(Urho3D::SharedPtr<Urho3D::Context> context,Platf
         CopyFileToDocumentsDir(context, String(prefix + "System.Diagnostics.Debug.dll"));
         CopyFileToDocumentsDir(context, String(prefix + "System.Linq.dll"));
         CopyFileToDocumentsDir(context, String(prefix + "System.Runtime.InteropServices.dll"));
-        CopyFileToDocumentsDir(context, String(prefix + "netstandard.dll"));
         CopyFileToDocumentsDir(context, String(prefix + "System.Threading.Tasks.dll"));
-        //
-        /*
-        
-      
-        CopyFileToDocumentsDir(context, String(prefix + ""));
-        CopyFileToDocumentsDir(context, String(prefix + ""));
-        CopyFileToDocumentsDir(context, String(prefix + ""));
-        CopyFileToDocumentsDir(context, String(prefix + ""));
-        CopyFileToDocumentsDir(context, String(prefix + ""));
-        */
     }
 }
 
-
-
-/* TBD ELI - debug only
-extern "C" __attribute__((visibility("default"))) int tkill(int tid, int sig)
-{
-
-    return 0;
-}
-*/

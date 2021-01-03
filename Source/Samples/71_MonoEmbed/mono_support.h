@@ -26,5 +26,5 @@ void mono_log_callback(const char *log_domain, const char *log_level, const char
 void fixPath(String& path);
 String fixPathString(String  path);
 
-bool CopyFileToDocumentsDir(Urho3D::SharedPtr<Urho3D::Context> context_,  String sourceFile , bool overwrite_if_exist = false);
+bool CopyFileToDocumentsDir(Urho3D::SharedPtr<Urho3D::Context> context_,  String sourceFile , bool overwrite_if_exist = true);
 void CopyMonoFilesToDocumentDir(Urho3D::SharedPtr<Urho3D::Context> context,Platform platform);

@@ -85,6 +85,7 @@ static void main_function(MonoDomain* domain, const char* file, int argc, char**
 
 }
 
+
 int start_urho_mono_main(Platform platform) {
 
     // copy mono assemblies to the user documents folder , mono will be configured to this folder
@@ -116,6 +117,7 @@ int start_urho_mono_main(Platform platform) {
         mono_dllmap_insert(NULL, "System.Net.Security.Native", NULL, "mono-native", NULL);
         mono_dllmap_insert(NULL, "MonoPosixHelper", NULL, "MonoPosixHelper", NULL);
         mono_dllmap_insert(NULL, "libmono-btls-shared", NULL, "mono-btls-shared", NULL);
+
     }
 
     if (platform == MACOS)
@@ -126,7 +128,7 @@ int start_urho_mono_main(Platform platform) {
     
   //  mono_debug_init (MONO_DEBUG_FORMAT_MONO);
   //  mono_trace_set_level_string("debug");
-   // mono_trace_set_log_handler(mono_log_callback, NULL);
+  //  mono_trace_set_log_handler(mono_log_callback, NULL);
 
    
    
