@@ -21,7 +21,7 @@
 #
 
 # Define target name
-set (TARGET_NAME 71_MonoEmbed)
+set (TARGET_NAME MonoEmbedded)
 
 
 if(WIN32)

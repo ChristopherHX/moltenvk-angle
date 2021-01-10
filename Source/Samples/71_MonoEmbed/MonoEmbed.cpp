@@ -104,17 +104,21 @@ int start_urho_mono_main(Platform platform) {
 #endif
     context.Reset();
 
+  //  SetCurrentDirectory("D:\\Urho3D-Dev\\DotNet\\Urho3D\\build_vs2019\\bin");
+
+  //  mono_dllmap_insert(NULL, "System.Runtime.CompilerServices.IAsyncStateMachine", NULL, "__Internal", NULL);
     // start Mono
     if (platform == _ANDROID_)
     {
 #if defined(__ANDROID__)
     //    setenv("MONO_THREADS_SUSPEND", "preemptive", /* overwrite: */ true) == 0;
 #endif
-       // mono_jit_set_aot_mode(MONO_AOT_MODE_NONE);
+    //    mono_jit_set_aot_mode(MONO_AOT_MODE_NONE);
         mono_dllmap_insert(NULL, "java-interop", "java_interop_jvm_list", "Urho3D", NULL);
 
         mono_dllmap_insert(NULL, "System.Native", NULL, "mono-native", NULL);
         mono_dllmap_insert(NULL, "System.Net.Security.Native", NULL, "mono-native", NULL);
+        
         mono_dllmap_insert(NULL, "MonoPosixHelper", NULL, "MonoPosixHelper", NULL);
         mono_dllmap_insert(NULL, "libmono-btls-shared", NULL, "mono-btls-shared", NULL);
 
@@ -132,7 +136,7 @@ int start_urho_mono_main(Platform platform) {
 
    
    
-    String asssemblyName =  "Game.exe";
+    String asssemblyName =  "Game.dll";
     String assemblyFullPath = userDocumentsDir + "/" + asssemblyName;
 
     int argc = 2;
@@ -152,7 +156,7 @@ int start_urho_mono_main(Platform platform) {
 
     mono_config_parse(NULL);
     
-    MonoDomain* domain;
+    MonoDomain* domain = NULL;
 #if defined(IOS) || defined(TVOS) || defined(__ANDROID__)
     // I don't know whether this actually matters or not
     const char* runtime_version = "mobile";
@@ -162,7 +166,7 @@ int start_urho_mono_main(Platform platform) {
 
     domain = mono_jit_init_version("UrhoEngine.RootDomain", runtime_version);
 
-    //domain = mono_jit_init(file);
+   // domain = mono_jit_init(file);
 
     if (domain)
     {

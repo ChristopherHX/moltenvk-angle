@@ -8,6 +8,7 @@
 #include <shlobj.h>
 #include <sys/types.h>
 #include <sys/utime.h>
+#include <io.h>
 #else
 #include <dirent.h>
 #include <cerrno>
@@ -66,12 +67,25 @@ void mono_log_callback(const char *log_domain, const char *log_level, const char
     
     String text = make_text(log_domain, log_level, message);
     text += "\n";
+
+#ifdef _WIN32
+    // If the output stream has been redirected, use fprintf instead of WriteConsoleW,
+    // though it means that proper Unicode output will not work
+ 
+        HANDLE stream = GetStdHandle( STD_OUTPUT_HANDLE);
+        if (stream == INVALID_HANDLE_VALUE)
+            return;
+        WString strW(text);
+        DWORD charsWritten;
+        WriteConsoleW(stream, strW.CString(), strW.Length(), &charsWritten, nullptr);
+
+        OutputDebugStringW(strW.CString());
     
-    #if defined(__ANDROID__)
+#elif defined(__ANDROID__)
     __android_log_print(2, "Urho3D", "%s", text.CString());
-    #else
+#else
     printf("%s",text.CString());
-    #endif
+#endif
 }
 
 
@@ -139,7 +153,8 @@ void CopyMonoFilesToDocumentDir(Urho3D::SharedPtr<Urho3D::Context> context,Platf
     FileSystem* fileSystem = context->GetSubsystem<FileSystem>();
     ResourceCache* cache = context->GetSubsystem<ResourceCache>();
 
-    CopyFileToDocumentsDir(context, String("DotNet/Game.exe"),true);
+   // CopyFileToDocumentsDir(context, String("DotNet/Game.exe"),true);
+    CopyFileToDocumentsDir(context, String("DotNet/Game.dll"), true);
     
     String prefix = "";
     switch (platform) {
@@ -171,23 +186,25 @@ void CopyMonoFilesToDocumentDir(Urho3D::SharedPtr<Urho3D::Context> context,Platf
     }
     
     CopyFileToDocumentsDir(context, String(prefix+"UrhoDotNet.dll"),true);
+
     CopyFileToDocumentsDir(context, String(prefix+"mscorlib.dll"));
     CopyFileToDocumentsDir(context, String(prefix+"System.dll"));
     CopyFileToDocumentsDir(context, String(prefix+"System.Xml.dll"));
     CopyFileToDocumentsDir(context, String(prefix+"System.Core.dll"));
     CopyFileToDocumentsDir(context, String(prefix+"Mono.Security.dll"));
     CopyFileToDocumentsDir(context, String(prefix+"System.Numerics.dll"));
+    CopyFileToDocumentsDir(context, String(prefix + "System.Runtime.dll"));
+    CopyFileToDocumentsDir(context, String(prefix + "System.Threading.Tasks.dll"));
+    CopyFileToDocumentsDir(context, String(prefix + "System.Runtime.Extensions.dll"));
+    CopyFileToDocumentsDir(context, String(prefix + "System.Collections.dll"));
+    CopyFileToDocumentsDir(context, String(prefix + "System.Linq.dll"));
 
     if (platform == _ANDROID_)
     {
-        CopyFileToDocumentsDir(context, String(prefix + "System.Runtime.dll"));
         CopyFileToDocumentsDir(context, String(prefix + "System.Threading.dll"));
-        CopyFileToDocumentsDir(context, String(prefix + "System.Collections.dll"));
         CopyFileToDocumentsDir(context, String(prefix + "System.Collections.Concurrent.dll"));
         CopyFileToDocumentsDir(context, String(prefix + "System.Diagnostics.Debug.dll"));
-        CopyFileToDocumentsDir(context, String(prefix + "System.Linq.dll"));
         CopyFileToDocumentsDir(context, String(prefix + "System.Runtime.InteropServices.dll"));
-        CopyFileToDocumentsDir(context, String(prefix + "System.Threading.Tasks.dll"));
     }
 }
 
