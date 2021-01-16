@@ -16,7 +16,6 @@ export IOS_SDK_PATH=${XCODE}/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS
 
 
 for i in ./*.dll; do ./aarch64-apple-darwin-mono-sgen   --aot=asmonly,full,direct-icalls,direct-pinvoke,static,mtriple=arm64-ios,outfile=$i.s  -O=gsharedvt  $i; done
-for i in ./*.exe; do ./aarch64-apple-darwin-mono-sgen   --aot=asmonly,full,direct-icalls,direct-pinvoke,static,mtriple=arm64-ios,outfile=$i.s   -O=gsharedvt  $i; done
 
 for i in ./*.s; do ${CLANG} -isysroot ${IOS_SDK_PATH} -Qunused-arguments -miphoneos-version-min=10.0  -arch arm64 -c -o $i.o -x assembler $i ; done
 
