@@ -56,6 +56,7 @@ MonoAssembly* urho3d_mono_assembly_preload(MonoAssemblyName* aname, char** assem
 MonoAssembly* urho3d_mono_load_assembly(Urho3D::Context* context, const String& p_path, bool p_refonly, MonoAssemblyName* p_aname);
 MonoAssembly* urho3d_mono_assembly_preload_hook(MonoAssemblyName* aname, char** assemblies_path, void* user_data);
 MonoAssembly* urho3d_mono_assembly_refonly_preload_hook(MonoAssemblyName* aname, char** assemblies_path, void* user_data);
+void  urho3d_mono_assembly_load_hook(MonoAssembly* assembly, void* user_data);
 
 void urho3d_add_assembly(uint32_t p_domain_id,String name, MonoAssembly* p_assembly) {
 
@@ -201,7 +202,6 @@ MonoAssembly* urho3d_mono_load_assembly_from_cache(Urho3D::Context* context,cons
         }
     }
 
-
     return res;
 }
 
@@ -228,6 +228,7 @@ void urho3d_init_mono(Urho3D::Context* context)
     mono_install_assembly_search_hook(&urho3d_mono_assembly_search_hook, (void*)context);
     mono_install_assembly_refonly_search_hook(&urho3d_mono_assembly_search_hook, (void*)context);
     mono_install_assembly_load_hook(&urho3d_mono_assembly_load_hook, (void*)context);
+
 }
 
 
