@@ -114,12 +114,6 @@ int start_urho_mono_main(Platform platform) {
         mono_dllmap_insert(NULL, "libmono-btls-shared", NULL, "mono-btls-shared", NULL);
 
     }
-
-    if (platform == MACOS)
-    {
-        mono_dllmap_insert(NULL, "System.Native", NULL, "mono-native", NULL);
-        mono_dllmap_insert(NULL, "System.Security.Cryptography.Native.Apple", NULL, "mono-native", NULL);
-    }
     
   //  mono_debug_init (MONO_DEBUG_FORMAT_MONO);
   //  mono_trace_set_level_string("debug");

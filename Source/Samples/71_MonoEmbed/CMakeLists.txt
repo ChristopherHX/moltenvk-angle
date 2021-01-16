@@ -74,8 +74,7 @@ set (MONO_LIBPATH  ../../../DotNet/libs/macos)
 set (LIBS 
     libmonosgen-2.0.a
     libmono-native.a
-    libSystem.Native.a
-    libSystem.Security.Cryptography.Native.Apple.a
+
 )
 endif()
 endif()

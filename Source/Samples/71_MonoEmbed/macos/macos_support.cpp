@@ -104,7 +104,8 @@ namespace support {
 
 void initialize()
 {
-     mono_dllmap_insert(NULL, "System.Native", "SystemNative_Stat2", "__Internal", NULL);
+    mono_dllmap_insert(NULL, "System.Native", NULL, "libmono-native-unified", NULL);
+    mono_dllmap_insert(NULL, "System.Security.Cryptography.Native.Apple", NULL, "libmono-native-unified", NULL);
     
 }
 
