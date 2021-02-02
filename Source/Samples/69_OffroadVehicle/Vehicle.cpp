@@ -218,24 +218,25 @@ void Vehicle::Init()
 
     for ( int i = 0; i < numWheels_; i++ )
     {
-        btWheelInfo& wheel = raycastVehicle_->GetWheelInfo( i );
-        wheel.m_suspensionStiffness = m_fsuspensionStiffness;
-        wheel.m_wheelsDampingRelaxation = m_fsuspensionDamping;
-        wheel.m_wheelsDampingCompression = m_fsuspensionCompression;
-        wheel.m_frictionSlip = m_fwheelFriction;
-        wheel.m_rollInfluence = m_frollInfluence;
+
+        raycastVehicle_->SetWheelSuspensionStiffness(i, m_fsuspensionStiffness);
+        raycastVehicle_->SetWheelDampingRelaxation(i, m_fsuspensionDamping);
+        raycastVehicle_->SetWheelDampingCompression(i, m_fsuspensionCompression);
+        raycastVehicle_->SetWheelFrictionSlip(i, m_fwheelFriction);
+        raycastVehicle_->SetRollInfluence(i, m_frollInfluence);
 
         prevWheelInContact_[i] = false;
 
         // side friction stiffness is different for front and rear wheels
         if (i < 2)
         {
-            wheel.m_sideFrictionStiffness = 0.9f;
+            raycastVehicle_->SetSideFrictionStiffness(i, 0.9f);
         }
         else
         {
             m_fRearSlip = MAX_REAR_SLIP;
-            wheel.m_sideFrictionStiffness = MAX_REAR_SLIP;
+            raycastVehicle_->SetSideFrictionStiffness(i, MAX_REAR_SLIP);
+
         }
     }
 
@@ -265,8 +266,7 @@ void Vehicle::Init()
             m_vpNodeWheel.Push( wheelNode );
 
             wheelNode->SetPosition( v3Origin );
-            btWheelInfo &whInfo = raycastVehicle_->GetWheelInfo( i );
-            Vector3 v3PosLS = ToVector3( whInfo.m_chassisConnectionPointCS );
+            Vector3 v3PosLS = raycastVehicle_->GetChassisConnectionPointCS(i);
 
             wheelNode->SetRotation( v3PosLS.x_ >= 0.0 ? Quaternion(0.0f, 0.0f, -90.0f) : Quaternion(0.0f, 0.0f, 90.0f) );
             wheelNode->SetScale(Vector3(tireScaleXZ, wheelThickness, tireScaleXZ));
@@ -394,59 +394,67 @@ void Vehicle::FixedPostUpdate(float timeStep)
 
     for ( int i = 0; i < raycastVehicle_->GetNumWheels(); i++ )
     {
-        btWheelInfo &whInfo = raycastVehicle_->GetWheelInfo( i );
-
+   
+        float m_skidInfoCumulative = raycastVehicle_->GetSkidInfoCumulative(i);
+        float m_wheelsRadius = raycastVehicle_->GetWheelsRadius(i);
+        float m_deltaRotation = raycastVehicle_->GetDeltaRotation(i);
+        float m_rotation = raycastVehicle_->GetRotation(i);
+       
         // adjust wheel rotation based on acceleration
-        if ( (curGearIdx_ == 0 || !whInfo.m_raycastInfo.m_isInContact ) && currentAcceleration_ > 0.0f )
+        if ( (curGearIdx_ == 0 || ! raycastVehicle_->IsWheelInContact(i) ) && currentAcceleration_ > 0.0f )
         {
             // peel out on 1st gear
-            if ( curGearIdx_ == 0 && whInfo.m_skidInfoCumulative > MIN_PEELOUT_VAL_AT_ZER0)
+            if ( curGearIdx_ == 0 && m_skidInfoCumulative > MIN_PEELOUT_VAL_AT_ZER0)
             {
-                whInfo.m_skidInfoCumulative = MIN_PEELOUT_VAL_AT_ZER0;
+                m_skidInfoCumulative = MIN_PEELOUT_VAL_AT_ZER0;
             }
 
-            if (whInfo.m_skidInfoCumulative > 0.05f)
+            if (m_skidInfoCumulative > 0.05f)
             {
-                whInfo.m_skidInfoCumulative -= 0.002f;
+                m_skidInfoCumulative -= 0.002f;
             }
 
-            float deltaRotation = (gearShiftSpeed_[curGearIdx_] * (1.0f - whInfo.m_skidInfoCumulative) * timeStep) / (whInfo.m_wheelsRadius);
+            float deltaRotation = (gearShiftSpeed_[curGearIdx_] * (1.0f - m_skidInfoCumulative) * timeStep) / (m_wheelsRadius);
 
-            if ( deltaRotation > whInfo.m_deltaRotation )
+            if ( deltaRotation > m_deltaRotation )
             {
-                whInfo.m_rotation += deltaRotation - whInfo.m_deltaRotation;
-                whInfo.m_deltaRotation = deltaRotation;
+                m_rotation += deltaRotation - m_deltaRotation;
+                m_deltaRotation = deltaRotation;
             }
         }
         else
         {
-            whInfo.m_skidInfoCumulative = whInfo.m_skidInfo;
+            m_skidInfoCumulative = raycastVehicle_->GetSkidInfo(i);
 
-            if (!whInfo.m_raycastInfo.m_isInContact && currentAcceleration_ < M_EPSILON)
+            if (! raycastVehicle_->IsWheelInContact(i) && currentAcceleration_ < M_EPSILON)
             {
-                whInfo.m_rotation *= 0.95f;
-                whInfo.m_deltaRotation *= 0.95f;
+                m_rotation *= 0.95f;
+                m_deltaRotation *= 0.95f;
             }
         }
 
         // ground contact
         float whSlipVel = 0.0f;
-        if ( whInfo.m_raycastInfo.m_isInContact )
+        if (  raycastVehicle_->IsWheelInContact(i) )
         {
             numWheelContacts_++;
 
             // check side velocity slip
-            whSlipVel = Abs(ToVector3(whInfo.m_raycastInfo.m_wheelAxleWS).DotProduct(linVel));
+            whSlipVel = Abs(raycastVehicle_->GetWheelAxleWS(i).DotProduct(linVel));
 
             if ( whSlipVel > MIN_SIDE_SLIP_VEL )
             {
-                whInfo.m_skidInfoCumulative = (whInfo.m_skidInfoCumulative > 0.9f)?0.89f:whInfo.m_skidInfoCumulative;
+                m_skidInfoCumulative = (m_skidInfoCumulative > 0.9f)?0.89f:m_skidInfoCumulative;
             }
         }
 
         // wheel velocity from rotation
-        // note (correct eqn): raycastVehicle_->GetLinearVelocity().Length() ~= whInfo.m_deltaRotation * whInfo.m_wheelsRadius)/timeStep
-        wheelVelocity += (whInfo.m_deltaRotation * whInfo.m_wheelsRadius)/timeStep;
+        // note (correct eqn): raycastVehicle_->GetLinearVelocity().Length() ~= m_deltaRotation * whInfo.m_wheelsRadius)/timeStep
+        wheelVelocity += (m_deltaRotation * m_wheelsRadius)/timeStep;
+
+        raycastVehicle_->SetSkidInfoCumulative(i,  m_skidInfoCumulative );
+        raycastVehicle_->SetDeltaRotation(i, m_deltaRotation);
+        raycastVehicle_->SetRotation(i, m_rotation);
     }
 
     // set cur rpm based on wheel rpm
@@ -501,8 +509,6 @@ void Vehicle::PostUpdate(float timeStep)
 
     for ( int i = 0; i < raycastVehicle_->GetNumWheels(); i++ )
     {
-        btWheelInfo &whInfo = raycastVehicle_->GetWheelInfo( i );
-
         // update wheel transform - performed after whInfo.m_rotation is adjusted from above
         raycastVehicle_->UpdateWheelTransform( i, true );
 
@@ -512,7 +518,7 @@ void Vehicle::PostUpdate(float timeStep)
         Node *pWheel = m_vpNodeWheel[ i ];
         pWheel->SetPosition( v3Origin );
        
-        Vector3 v3PosLS = ToVector3( whInfo.m_chassisConnectionPointCS );
+        Vector3 v3PosLS = raycastVehicle_->GetChassisConnectionPointCS(i);
         Quaternion qRotator = ( v3PosLS.x_ >= 0.0 ? Quaternion(0.0f, 0.0f, -90.0f) : Quaternion(0.0f, 0.0f, 90.0f) );
         pWheel->SetRotation( qRot * qRotator );
     }
@@ -597,7 +603,6 @@ bool Vehicle::ApplyStiction(float steering, float acceleration, bool braking)
     // slow down and change rolling friction on stiction
     for ( int i = 0; i < numWheels_; ++i )
     {
-        btWheelInfo &wheel = raycastVehicle_->GetWheelInfo( i );
 
         if ( absAccel < M_EPSILON && !braking && vel < MIN_SLOW_DOWN_VEL )
         {
@@ -606,11 +611,12 @@ bool Vehicle::ApplyStiction(float steering, float acceleration, bool braking)
 
         if ( setStiction )
         {
-            wheel.m_rollInfluence = Lerp(m_frollInfluence, 1.0f, 1.0f - vel/MIN_STICTION_VEL);
+            float rollInfluence = Lerp(m_frollInfluence, 1.0f, 1.0f - vel/MIN_STICTION_VEL);
+            raycastVehicle_->SetRollInfluence(i, rollInfluence);
         }
         else
         {
-            wheel.m_rollInfluence = m_frollInfluence;
+            raycastVehicle_->SetRollInfluence(i, m_frollInfluence);
         }
     }
 
@@ -750,7 +756,7 @@ void Vehicle::UpdateDrift()
         }
 
         // set value
-        raycastVehicle_->GetWheelInfo(i).m_sideFrictionStiffness = m_fRearSlip;
+        raycastVehicle_->SetSideFrictionStiffness(i, m_fRearSlip);
     }
 }
 
@@ -761,12 +767,10 @@ void Vehicle::PostUpdateSound(float timeStep)
 
     for ( int i = 0; i < numWheels_; ++i )
     {
-        const btWheelInfo &whInfo = raycastVehicle_->GetWheelInfo(i);
-
         // skid sound
-        if ( whInfo.m_raycastInfo.m_isInContact )
+        if (  raycastVehicle_->IsWheelInContact(i) )
         {
-            if (whInfo.m_skidInfoCumulative < 0.9f)
+            if (raycastVehicle_->GetSkidInfoCumulative(i) < 0.9f)
             {
                 playSkidSound++;
             }
@@ -785,7 +789,7 @@ void Vehicle::PostUpdateSound(float timeStep)
         }
 
         // update prev wheel in contact
-        prevWheelInContact_[i] = whInfo.m_raycastInfo.m_isInContact;
+        prevWheelInContact_[i] =  raycastVehicle_->IsWheelInContact(i);
     }
 
     // -ideally, you want the engine sound to sound like it's at 10k rpm w/o any pitch adjustment, and 
@@ -825,20 +829,19 @@ void Vehicle::PostUpdateWheelEffects()
 
     for ( int i = 0; i < raycastVehicle_->GetNumWheels(); ++i )
     {
-        const btWheelInfo &whInfo = raycastVehicle_->GetWheelInfo( i );
-
+   
         // wheel skid track and particles
         wheelTrackList_[i]->UpdateWorldPos();
         ParticleEmitter *particleEmitter = particleEmitterNodeList_[i]->GetComponent<ParticleEmitter>();
 
-        if ( whInfo.m_raycastInfo.m_isInContact && whInfo.m_skidInfoCumulative < 0.9f )
+        if (  raycastVehicle_->IsWheelInContact(i) && raycastVehicle_->GetSkidInfoCumulative(i) < 0.9f )
         {
-            Vector3 pos2 = ToVector3(whInfo.m_raycastInfo.m_contactPointWS);
+            Vector3 pos2 = raycastVehicle_->GetContactPointWS(i);
             particleEmitterNodeList_[i]->SetPosition(pos2);
 
             if ( curSpdMph < MAX_SKID_TRACK_SPEED )
             {
-                wheelTrackList_[i]->AddStrip( pos2, ToVector3(whInfo.m_raycastInfo.m_contactNormalWS) );
+                wheelTrackList_[i]->AddStrip( pos2, raycastVehicle_->GetContactNormalWS(i));
             }
             else
             {

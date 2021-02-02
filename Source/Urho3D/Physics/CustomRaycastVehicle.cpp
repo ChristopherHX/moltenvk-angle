@@ -125,7 +125,7 @@ namespace Urho3D
         UpdateMass();
     }
 
-    const Vector3& CustomRaycastVehicle::GetVehicleCenterOfMass() const
+    const Vector3 CustomRaycastVehicle::GetVehicleCenterOfMass() const
     {
         return vehicleCenterOfMass_;
     }
@@ -183,26 +183,16 @@ namespace Urho3D
         raycastVehicle_->updateWheelTransform(wheel, interpolatedTransform);
     }
 
-    btWheelInfo& CustomRaycastVehicle::AddWheel(const Vector3& connectionPointCS0, const Vector3& wheelDirectionCS0, const Vector3& wheelAxleCS,
+   void CustomRaycastVehicle::AddWheel(const Vector3& connectionPointCS0, const Vector3& wheelDirectionCS0, const Vector3& wheelAxleCS,
         float suspensionRestLength, float wheelRadius, bool isFrontWheel)
     {
-        return raycastVehicle_->addWheel(ToBtVector3(connectionPointCS0), ToBtVector3(wheelDirectionCS0), ToBtVector3(wheelAxleCS),
+         raycastVehicle_->addWheel(ToBtVector3(connectionPointCS0), ToBtVector3(wheelDirectionCS0), ToBtVector3(wheelAxleCS),
             suspensionRestLength, wheelRadius, vehicleTuning_, isFrontWheel);
     }
 
     int CustomRaycastVehicle::GetNumWheels() const
     {
         return raycastVehicle_->getNumWheels();
-    }
-
-    const btWheelInfo& CustomRaycastVehicle::GetWheelInfo(int wheel) const
-    {
-        return raycastVehicle_->getWheelInfo(wheel);
-    }
-
-    btWheelInfo& CustomRaycastVehicle::GetWheelInfo(int wheel)
-    {
-        return raycastVehicle_->getWheelInfo(wheel);
     }
 
     Vector3 CustomRaycastVehicle::GetForwardVector() const
@@ -256,6 +246,182 @@ namespace Urho3D
         aabb.y_ *= scale.y_;
         aabb.z_ *= scale.z_;
         maxAabb = ToBtVector3(aabb);
+    }
+
+    /*****************/
+    /****ELI*NEW*********/
+    /*****************/
+    void CustomRaycastVehicle::SetWheelSuspensionStiffness(int wheel, float stiffness)
+    {
+        btWheelInfo& whInfo = raycastVehicle_->getWheelInfo(wheel);
+        whInfo.m_suspensionStiffness = stiffness;
+    }
+
+    float CustomRaycastVehicle::GetWheelSuspensionStiffness(int wheel) const
+    {
+        btWheelInfo whInfo = raycastVehicle_->getWheelInfo(wheel);
+        return whInfo.m_suspensionStiffness;
+    }
+
+    void CustomRaycastVehicle::SetWheelDampingRelaxation(int wheel, float damping)
+    {
+        btWheelInfo& whInfo = raycastVehicle_->getWheelInfo(wheel);
+        whInfo.m_wheelsDampingRelaxation = damping;
+    }
+
+    float CustomRaycastVehicle::GetWheelDampingRelaxation(int wheel) const
+    {
+        btWheelInfo whInfo = raycastVehicle_->getWheelInfo(wheel);
+        return whInfo.m_wheelsDampingRelaxation;
+    }
+
+    void CustomRaycastVehicle::SetWheelDampingCompression(int wheel, float compression)
+    {
+        btWheelInfo& whInfo = raycastVehicle_->getWheelInfo(wheel);
+        whInfo.m_wheelsDampingCompression = compression;
+    }
+
+    float CustomRaycastVehicle::GetWheelDampingCompression(int wheel) const
+    {
+        btWheelInfo whInfo = raycastVehicle_->getWheelInfo(wheel);
+        return whInfo.m_wheelsDampingCompression;
+    }
+
+    void CustomRaycastVehicle::SetWheelFrictionSlip(int wheel, float slip)
+    {
+        btWheelInfo& whInfo = raycastVehicle_->getWheelInfo(wheel);
+        whInfo.m_frictionSlip = slip;
+    }
+
+    float CustomRaycastVehicle::GetWheelFrictionSlip(int wheel) const
+    {
+        btWheelInfo whInfo = raycastVehicle_->getWheelInfo(wheel);
+        return whInfo.m_frictionSlip;
+    }
+
+
+    void CustomRaycastVehicle::SetWheelRollInfluence(int wheel, float rollInfluence)
+    {
+        btWheelInfo& whInfo = raycastVehicle_->getWheelInfo(wheel);
+        whInfo.m_rollInfluence = rollInfluence;
+    }
+
+    float CustomRaycastVehicle::GetWheelRollInfluence(int wheel) const
+    {
+        btWheelInfo whInfo = raycastVehicle_->getWheelInfo(wheel);
+        return whInfo.m_rollInfluence;
+    }
+
+    void CustomRaycastVehicle::SetSideFrictionStiffness(int wheel, float Stiffness)
+    {
+        btWheelInfo& whInfo = raycastVehicle_->getWheelInfo(wheel);
+        whInfo.m_sideFrictionStiffness = Stiffness;
+    }
+
+    float CustomRaycastVehicle::GetSideFrictionStiffness(int wheel) const
+    {
+        btWheelInfo whInfo = raycastVehicle_->getWheelInfo(wheel);
+        return whInfo.m_sideFrictionStiffness;
+    }
+
+    Vector3 CustomRaycastVehicle::GetChassisConnectionPointCS(int wheel) const
+    {
+        btWheelInfo whInfo = raycastVehicle_->getWheelInfo(wheel);
+        return ToVector3(whInfo.m_chassisConnectionPointCS);
+    }
+
+    bool  CustomRaycastVehicle::IsWheelInContact(int wheel) const
+    {
+        btWheelInfo whInfo = raycastVehicle_->getWheelInfo(wheel);
+        return whInfo.m_raycastInfo.m_isInContact;
+    }
+
+    Vector3 CustomRaycastVehicle::GetContactPointWS(int wheel) const
+    {
+        btWheelInfo whInfo = raycastVehicle_->getWheelInfo(wheel);
+        return ToVector3(whInfo.m_raycastInfo.m_contactPointWS);
+    }
+    
+    Vector3 CustomRaycastVehicle::GetContactNormalWS(int wheel) const
+    {
+        btWheelInfo whInfo = raycastVehicle_->getWheelInfo(wheel);
+        return ToVector3(whInfo.m_raycastInfo.m_contactNormalWS);
+    }
+
+
+    void CustomRaycastVehicle::SetSkidInfoCumulative(int wheel, float skid)
+    {
+        btWheelInfo& whInfo = raycastVehicle_->getWheelInfo(wheel);
+        whInfo.m_skidInfoCumulative = skid;
+    }
+
+    float CustomRaycastVehicle::GetSkidInfoCumulative(int wheel) const
+    {
+        btWheelInfo whInfo = raycastVehicle_->getWheelInfo(wheel);
+        return whInfo.m_skidInfoCumulative;
+    }
+
+
+    float CustomRaycastVehicle::GetWheelsRadius(int wheel) const
+    {
+        btWheelInfo whInfo = raycastVehicle_->getWheelInfo(wheel);
+        return whInfo.m_wheelsRadius;
+    }
+
+   
+    void CustomRaycastVehicle::SetDeltaRotation(int wheel, float deltaRotation)
+    {
+        btWheelInfo& whInfo = raycastVehicle_->getWheelInfo(wheel);
+        whInfo.m_deltaRotation = deltaRotation;
+    }
+
+    float CustomRaycastVehicle::GetDeltaRotation(int wheel) const
+    {
+        btWheelInfo whInfo = raycastVehicle_->getWheelInfo(wheel);
+        return whInfo.m_deltaRotation;
+    }
+
+    //m_rotation
+    void CustomRaycastVehicle::SetRotation(int wheel, float rotation)
+    {
+        btWheelInfo& whInfo = raycastVehicle_->getWheelInfo(wheel);
+        whInfo.m_rotation = rotation;
+    }
+
+    float CustomRaycastVehicle::GetRotation(int wheel) const
+    {
+        btWheelInfo whInfo = raycastVehicle_->getWheelInfo(wheel);
+        return whInfo.m_rotation;
+    }
+
+    void CustomRaycastVehicle::SetSkidInfo(int wheel, float skid)
+    {
+        btWheelInfo& whInfo = raycastVehicle_->getWheelInfo(wheel);
+        whInfo.m_skidInfo = skid;
+    }
+
+    float CustomRaycastVehicle::GetSkidInfo(int wheel) const
+    {
+        btWheelInfo whInfo = raycastVehicle_->getWheelInfo(wheel);
+        return whInfo.m_skidInfo;
+    }
+
+    Vector3 CustomRaycastVehicle::GetWheelAxleWS(int wheel) const
+    {
+        btWheelInfo whInfo = raycastVehicle_->getWheelInfo(wheel);
+        return ToVector3(whInfo.m_raycastInfo.m_wheelAxleWS);
+    }
+
+    void CustomRaycastVehicle::SetRollInfluence(int wheel, float rollInfluence)
+    {
+        btWheelInfo& whInfo = raycastVehicle_->getWheelInfo(wheel);
+        whInfo.m_rollInfluence = rollInfluence;
+    }
+
+    float CustomRaycastVehicle::GetRollInfluence(int wheel) const
+    {
+        btWheelInfo whInfo = raycastVehicle_->getWheelInfo(wheel);
+        return whInfo.m_rollInfluence;
     }
 
 }
