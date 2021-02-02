@@ -1,0 +1,2 @@
+mkdir ../Bin/Desktop
+mcs /target:library /out:../Bin/Desktop/UrhoDotNet.dll /platform:x64 /unsafe -define:NET45 Desktop/*.cs Portable/*.cs Portable/Actions/*.cs Portable/Actions/Base/*.cs Portable/Actions/Ease/*.cs Portable/Actions/Instants/*.cs Portable/Actions/Instants/Callfunc/*.cs  Portable/Actions/Intervals/*.cs  Portable/External/*.cs Portable/Math/*.cs Portable/Runtime/*.cs Portable/Shapes/*.cs   Portable/Generated/*.cs

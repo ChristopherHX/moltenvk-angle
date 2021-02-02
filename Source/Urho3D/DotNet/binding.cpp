@@ -27039,6 +27039,720 @@ RigidBody_ReleaseBody (Urho3D::RigidBody *_target)
 
 
 DllExport int
+LogicComponent_GetType (Urho3D::LogicComponent *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+LogicComponent_GetTypeName (Urho3D::LogicComponent *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+LogicComponent_GetTypeStatic ()
+{
+	return (LogicComponent::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+LogicComponent_GetTypeNameStatic ()
+{
+	return stringdup((LogicComponent::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void *
+LogicComponent_LogicComponent (Urho3D::Context * context)
+{
+	return WeakPtr<LogicComponent>(new LogicComponent(context));
+}
+
+
+DllExport void
+LogicComponent_OnSetEnabled (Urho3D::LogicComponent *_target)
+{
+	_target->OnSetEnabled ();
+}
+
+
+DllExport void
+LogicComponent_Start (Urho3D::LogicComponent *_target)
+{
+	_target->Start ();
+}
+
+
+DllExport void
+LogicComponent_DelayedStart (Urho3D::LogicComponent *_target)
+{
+	_target->DelayedStart ();
+}
+
+
+DllExport void
+LogicComponent_Stop (Urho3D::LogicComponent *_target)
+{
+	_target->Stop ();
+}
+
+
+DllExport void
+LogicComponent_Update (Urho3D::LogicComponent *_target, float timeStep)
+{
+	_target->Update (timeStep);
+}
+
+
+DllExport void
+LogicComponent_PostUpdate (Urho3D::LogicComponent *_target, float timeStep)
+{
+	_target->PostUpdate (timeStep);
+}
+
+
+DllExport void
+LogicComponent_FixedUpdate (Urho3D::LogicComponent *_target, float timeStep)
+{
+	_target->FixedUpdate (timeStep);
+}
+
+
+DllExport void
+LogicComponent_FixedPostUpdate (Urho3D::LogicComponent *_target, float timeStep)
+{
+	_target->FixedPostUpdate (timeStep);
+}
+
+
+DllExport int
+LogicComponent_IsDelayedStartCalled (Urho3D::LogicComponent *_target)
+{
+	return _target->IsDelayedStartCalled ();
+}
+
+
+DllExport int
+RaycastVehicle_GetType (Urho3D::RaycastVehicle *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+RaycastVehicle_GetTypeName (Urho3D::RaycastVehicle *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+RaycastVehicle_GetTypeStatic ()
+{
+	return (RaycastVehicle::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+RaycastVehicle_GetTypeNameStatic ()
+{
+	return stringdup((RaycastVehicle::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void
+RaycastVehicle_RegisterObject (Urho3D::Context * context)
+{
+	RaycastVehicle::RegisterObject (context);
+}
+
+
+DllExport void
+RaycastVehicle_OnSetEnabled (Urho3D::RaycastVehicle *_target)
+{
+	_target->OnSetEnabled ();
+}
+
+
+DllExport void
+RaycastVehicle_ApplyAttributes (Urho3D::RaycastVehicle *_target)
+{
+	_target->ApplyAttributes ();
+}
+
+
+DllExport void
+RaycastVehicle_AddWheel (Urho3D::RaycastVehicle *_target, Urho3D::Node * wheelNode, Urho3D::Vector3 wheelDirection, Urho3D::Vector3 wheelAxle, float restLength, float wheelRadius, bool frontWheel)
+{
+	_target->AddWheel (wheelNode, wheelDirection, wheelAxle, restLength, wheelRadius, frontWheel);
+}
+
+
+DllExport void
+RaycastVehicle_ResetSuspension (Urho3D::RaycastVehicle *_target)
+{
+	_target->ResetSuspension ();
+}
+
+
+DllExport void
+RaycastVehicle_UpdateWheelTransform (Urho3D::RaycastVehicle *_target, int wheel, bool interpolated)
+{
+	_target->UpdateWheelTransform (wheel, interpolated);
+}
+
+
+DllExport void
+RaycastVehicle_SetSteeringValue (Urho3D::RaycastVehicle *_target, int wheel, float steeringValue)
+{
+	_target->SetSteeringValue (wheel, steeringValue);
+}
+
+
+DllExport void
+RaycastVehicle_SetWheelSuspensionStiffness (Urho3D::RaycastVehicle *_target, int wheel, float stiffness)
+{
+	_target->SetWheelSuspensionStiffness (wheel, stiffness);
+}
+
+
+DllExport void
+RaycastVehicle_SetWheelMaxSuspensionForce (Urho3D::RaycastVehicle *_target, int wheel, float force)
+{
+	_target->SetWheelMaxSuspensionForce (wheel, force);
+}
+
+
+DllExport void
+RaycastVehicle_SetWheelDampingRelaxation (Urho3D::RaycastVehicle *_target, int wheel, float damping)
+{
+	_target->SetWheelDampingRelaxation (wheel, damping);
+}
+
+
+DllExport void
+RaycastVehicle_SetWheelDampingCompression (Urho3D::RaycastVehicle *_target, int wheel, float compression)
+{
+	_target->SetWheelDampingCompression (wheel, compression);
+}
+
+
+DllExport void
+RaycastVehicle_SetWheelFrictionSlip (Urho3D::RaycastVehicle *_target, int wheel, float slip)
+{
+	_target->SetWheelFrictionSlip (wheel, slip);
+}
+
+
+DllExport void
+RaycastVehicle_SetWheelRollInfluence (Urho3D::RaycastVehicle *_target, int wheel, float rollInfluence)
+{
+	_target->SetWheelRollInfluence (wheel, rollInfluence);
+}
+
+
+DllExport void
+RaycastVehicle_SetEngineForce (Urho3D::RaycastVehicle *_target, int wheel, float force)
+{
+	_target->SetEngineForce (wheel, force);
+}
+
+
+DllExport void
+RaycastVehicle_SetBrake (Urho3D::RaycastVehicle *_target, int wheel, float force)
+{
+	_target->SetBrake (wheel, force);
+}
+
+
+DllExport void
+RaycastVehicle_SetWheelRadius (Urho3D::RaycastVehicle *_target, int wheel, float wheelRadius)
+{
+	_target->SetWheelRadius (wheel, wheelRadius);
+}
+
+
+DllExport void
+RaycastVehicle_ResetWheels (Urho3D::RaycastVehicle *_target)
+{
+	_target->ResetWheels ();
+}
+
+
+DllExport void
+RaycastVehicle_SetWheelSkidInfo (Urho3D::RaycastVehicle *_target, int wheel, float factor)
+{
+	_target->SetWheelSkidInfo (wheel, factor);
+}
+
+
+DllExport int
+RaycastVehicle_WheelIsGrounded (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->WheelIsGrounded (wheel);
+}
+
+
+DllExport void
+RaycastVehicle_SetMaxSuspensionTravel (Urho3D::RaycastVehicle *_target, int wheel, float maxSuspensionTravel)
+{
+	_target->SetMaxSuspensionTravel (wheel, maxSuspensionTravel);
+}
+
+
+DllExport void
+RaycastVehicle_SetWheelDirection (Urho3D::RaycastVehicle *_target, int wheel, Urho3D::Vector3 direction)
+{
+	_target->SetWheelDirection (wheel, direction);
+}
+
+
+DllExport void
+RaycastVehicle_SetWheelAxle (Urho3D::RaycastVehicle *_target, int wheel, Urho3D::Vector3 axle)
+{
+	_target->SetWheelAxle (wheel, axle);
+}
+
+
+DllExport void
+RaycastVehicle_SetMaxSideSlipSpeed (Urho3D::RaycastVehicle *_target, float speed)
+{
+	_target->SetMaxSideSlipSpeed (speed);
+}
+
+
+DllExport void
+RaycastVehicle_SetWheelSkidInfoCumulative (Urho3D::RaycastVehicle *_target, int wheel, float skid)
+{
+	_target->SetWheelSkidInfoCumulative (wheel, skid);
+}
+
+
+DllExport void
+RaycastVehicle_SetInAirRPM (Urho3D::RaycastVehicle *_target, float rpm)
+{
+	_target->SetInAirRPM (rpm);
+}
+
+
+DllExport void
+RaycastVehicle_Init (Urho3D::RaycastVehicle *_target)
+{
+	_target->Init ();
+}
+
+
+DllExport void
+RaycastVehicle_FixedUpdate (Urho3D::RaycastVehicle *_target, float timeStep)
+{
+	_target->FixedUpdate (timeStep);
+}
+
+
+DllExport void
+RaycastVehicle_FixedPostUpdate (Urho3D::RaycastVehicle *_target, float timeStep)
+{
+	_target->FixedPostUpdate (timeStep);
+}
+
+
+DllExport void
+RaycastVehicle_PostUpdate (Urho3D::RaycastVehicle *_target, float timeStep)
+{
+	_target->PostUpdate (timeStep);
+}
+
+
+DllExport Interop::Vector3 
+RaycastVehicle_GetWheelPosition (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return *((Interop::Vector3  *) &(_target->GetWheelPosition (wheel)));
+}
+
+
+DllExport Interop::Quaternion 
+RaycastVehicle_GetWheelRotation (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return *((Interop::Quaternion  *) &(_target->GetWheelRotation (wheel)));
+}
+
+
+DllExport Interop::Vector3 
+RaycastVehicle_GetWheelConnectionPoint (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return *((Interop::Vector3  *) &(_target->GetWheelConnectionPoint (wheel)));
+}
+
+
+DllExport int
+RaycastVehicle_GetNumWheels (Urho3D::RaycastVehicle *_target)
+{
+	return _target->GetNumWheels ();
+}
+
+
+DllExport Urho3D::Node *
+RaycastVehicle_GetWheelNode (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->GetWheelNode (wheel);
+}
+
+
+DllExport float
+RaycastVehicle_GetSteeringValue (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->GetSteeringValue (wheel);
+}
+
+
+DllExport float
+RaycastVehicle_GetWheelSuspensionStiffness (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->GetWheelSuspensionStiffness (wheel);
+}
+
+
+DllExport float
+RaycastVehicle_GetWheelMaxSuspensionForce (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->GetWheelMaxSuspensionForce (wheel);
+}
+
+
+DllExport float
+RaycastVehicle_GetWheelDampingRelaxation (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->GetWheelDampingRelaxation (wheel);
+}
+
+
+DllExport float
+RaycastVehicle_GetWheelDampingCompression (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->GetWheelDampingCompression (wheel);
+}
+
+
+DllExport float
+RaycastVehicle_GetWheelFrictionSlip (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->GetWheelFrictionSlip (wheel);
+}
+
+
+DllExport float
+RaycastVehicle_GetWheelRollInfluence (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->GetWheelRollInfluence (wheel);
+}
+
+
+DllExport float
+RaycastVehicle_GetEngineForce (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->GetEngineForce (wheel);
+}
+
+
+DllExport float
+RaycastVehicle_GetBrake (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->GetBrake (wheel);
+}
+
+
+DllExport float
+RaycastVehicle_GetWheelRadius (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->GetWheelRadius (wheel);
+}
+
+
+DllExport void
+RaycastVehicle_SetWheelRestLength (Urho3D::RaycastVehicle *_target, int wheel, float length)
+{
+	_target->SetWheelRestLength (wheel, length);
+}
+
+
+DllExport float
+RaycastVehicle_GetWheelRestLength (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->GetWheelRestLength (wheel);
+}
+
+
+DllExport float
+RaycastVehicle_GetMaxSuspensionTravel (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->GetMaxSuspensionTravel (wheel);
+}
+
+
+DllExport Interop::Vector3 
+RaycastVehicle_GetWheelAxle (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return *((Interop::Vector3  *) &(_target->GetWheelAxle (wheel)));
+}
+
+
+DllExport float
+RaycastVehicle_GetWheelSideSlipSpeed (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->GetWheelSideSlipSpeed (wheel);
+}
+
+
+DllExport float
+RaycastVehicle_GetMaxSideSlipSpeed (Urho3D::RaycastVehicle *_target)
+{
+	return _target->GetMaxSideSlipSpeed ();
+}
+
+
+DllExport float
+RaycastVehicle_GetWheelSkidInfo (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->GetWheelSkidInfo (wheel);
+}
+
+
+DllExport Interop::Vector3 
+RaycastVehicle_GetWheelDirection (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return *((Interop::Vector3  *) &(_target->GetWheelDirection (wheel)));
+}
+
+
+DllExport float
+RaycastVehicle_GetWheelSkidInfoCumulative (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->GetWheelSkidInfoCumulative (wheel);
+}
+
+
+DllExport int
+RaycastVehicle_IsFrontWheel (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return _target->IsFrontWheel (wheel);
+}
+
+
+DllExport Interop::Vector3 
+RaycastVehicle_GetContactPosition (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return *((Interop::Vector3  *) &(_target->GetContactPosition (wheel)));
+}
+
+
+DllExport Interop::Vector3 
+RaycastVehicle_GetContactNormal (Urho3D::RaycastVehicle *_target, int wheel)
+{
+	return *((Interop::Vector3  *) &(_target->GetContactNormal (wheel)));
+}
+
+
+DllExport float
+RaycastVehicle_GetInAirRPM (Urho3D::RaycastVehicle *_target)
+{
+	return _target->GetInAirRPM ();
+}
+
+
+DllExport Urho3D::IntVector3
+RaycastVehicle_GetCoordinateSystem (Urho3D::RaycastVehicle *_target)
+{
+	return _target->GetCoordinateSystem ();
+}
+
+
+DllExport int
+CustomRaycastVehicle_GetType (Urho3D::CustomRaycastVehicle *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+CustomRaycastVehicle_GetTypeName (Urho3D::CustomRaycastVehicle *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+CustomRaycastVehicle_GetTypeStatic ()
+{
+	return (CustomRaycastVehicle::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+CustomRaycastVehicle_GetTypeNameStatic ()
+{
+	return stringdup((CustomRaycastVehicle::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void *
+CustomRaycastVehicle_CustomRaycastVehicle (Urho3D::Context * context)
+{
+	return WeakPtr<CustomRaycastVehicle>(new CustomRaycastVehicle(context));
+}
+
+
+DllExport void
+CustomRaycastVehicle_RegisterObject (Urho3D::Context * context)
+{
+	CustomRaycastVehicle::RegisterObject (context);
+}
+
+
+DllExport void
+CustomRaycastVehicle_ResetSuspension (Urho3D::CustomRaycastVehicle *_target)
+{
+	_target->ResetSuspension ();
+}
+
+
+DllExport void
+CustomRaycastVehicle_SetVehicleCenterOfMass (Urho3D::CustomRaycastVehicle *_target, const class Urho3D::Vector3 & centerOfMass)
+{
+	_target->SetVehicleCenterOfMass (centerOfMass);
+}
+
+
+DllExport Interop::Vector3 
+CustomRaycastVehicle_GetVehicleCenterOfMass (Urho3D::CustomRaycastVehicle *_target)
+{
+	return *((Interop::Vector3  *) &(_target->GetVehicleCenterOfMass ()));
+}
+
+
+DllExport float
+CustomRaycastVehicle_GetSteeringValue (Urho3D::CustomRaycastVehicle *_target, int wheel)
+{
+	return _target->GetSteeringValue (wheel);
+}
+
+
+DllExport void
+CustomRaycastVehicle_SetSteeringValue (Urho3D::CustomRaycastVehicle *_target, float steering, int wheel)
+{
+	_target->SetSteeringValue (steering, wheel);
+}
+
+
+DllExport void
+CustomRaycastVehicle_ApplyEngineForce (Urho3D::CustomRaycastVehicle *_target, float force, int wheel)
+{
+	_target->ApplyEngineForce (force, wheel);
+}
+
+
+DllExport void
+CustomRaycastVehicle_SetBrake (Urho3D::CustomRaycastVehicle *_target, float brake, int wheel)
+{
+	_target->SetBrake (brake, wheel);
+}
+
+
+DllExport Interop::Vector3 
+CustomRaycastVehicle_GetWheelPositionWS (Urho3D::CustomRaycastVehicle *_target, int wheel)
+{
+	return *((Interop::Vector3  *) &(_target->GetWheelPositionWS (wheel)));
+}
+
+
+DllExport Interop::Vector3 
+CustomRaycastVehicle_GetWheelPositionLS (Urho3D::CustomRaycastVehicle *_target, int wheel)
+{
+	return *((Interop::Vector3  *) &(_target->GetWheelPositionLS (wheel)));
+}
+
+
+DllExport Interop::Quaternion 
+CustomRaycastVehicle_GetWheelRotation (Urho3D::CustomRaycastVehicle *_target, int wheel)
+{
+	return *((Interop::Quaternion  *) &(_target->GetWheelRotation (wheel)));
+}
+
+
+DllExport void
+CustomRaycastVehicle_UpdateWheelTransform (Urho3D::CustomRaycastVehicle *_target, int wheel, bool interpolatedTransform)
+{
+	_target->UpdateWheelTransform (wheel, interpolatedTransform);
+}
+
+
+DllExport int
+CustomRaycastVehicle_GetNumWheels (Urho3D::CustomRaycastVehicle *_target)
+{
+	return _target->GetNumWheels ();
+}
+
+
+DllExport Interop::Vector3 
+CustomRaycastVehicle_GetForwardVector (Urho3D::CustomRaycastVehicle *_target)
+{
+	return *((Interop::Vector3  *) &(_target->GetForwardVector ()));
+}
+
+
+DllExport float
+CustomRaycastVehicle_GetCurrentSpeedKmHour (Urho3D::CustomRaycastVehicle *_target)
+{
+	return _target->GetCurrentSpeedKmHour ();
+}
+
+
+DllExport Interop::Vector3 
+CustomRaycastVehicle_GetCompoundLocalExtents (Urho3D::CustomRaycastVehicle *_target)
+{
+	return *((Interop::Vector3  *) &(_target->GetCompoundLocalExtents ()));
+}
+
+
+DllExport Interop::Vector3 
+CustomRaycastVehicle_GetCompooundLocalExtentsCenter (Urho3D::CustomRaycastVehicle *_target)
+{
+	return *((Interop::Vector3  *) &(_target->GetCompooundLocalExtentsCenter ()));
+}
+
+
+DllExport Interop::Vector3 
+CustomRaycastVehicle_GetCompoundLocalAabbMin (Urho3D::CustomRaycastVehicle *_target)
+{
+	return *((Interop::Vector3  *) &(_target->GetCompoundLocalAabbMin ()));
+}
+
+
+DllExport Interop::Vector3 
+CustomRaycastVehicle_GetCompoundLocalAabbMax (Urho3D::CustomRaycastVehicle *_target)
+{
+	return *((Interop::Vector3  *) &(_target->GetCompoundLocalAabbMax ()));
+}
+
+
+DllExport void
+CustomRaycastVehicle_CompoundScaleLocalAabbMin (Urho3D::CustomRaycastVehicle *_target, const class Urho3D::Vector3 & scale)
+{
+	_target->CompoundScaleLocalAabbMin (scale);
+}
+
+
+DllExport void
+CustomRaycastVehicle_CompoundScaleLocalAabbMax (Urho3D::CustomRaycastVehicle *_target, const class Urho3D::Vector3 & scale)
+{
+	_target->CompoundScaleLocalAabbMax (scale);
+}
+
+
+DllExport int
 JsonFile_GetType (Urho3D::JSONFile *_target)
 {
 	return (_target->GetType ()).Value ();
@@ -27645,104 +28359,6 @@ DllExport const char *
 ResourceCache_PrintMemoryUsage (Urho3D::ResourceCache *_target)
 {
 	return stringdup((_target->PrintMemoryUsage ()).CString ());
-}
-
-
-DllExport int
-LogicComponent_GetType (Urho3D::LogicComponent *_target)
-{
-	return (_target->GetType ()).Value ();
-}
-
-
-DllExport const char *
-LogicComponent_GetTypeName (Urho3D::LogicComponent *_target)
-{
-	return stringdup((_target->GetTypeName ()).CString ());
-}
-
-
-DllExport int
-LogicComponent_GetTypeStatic ()
-{
-	return (LogicComponent::GetTypeStatic ()).Value ();
-}
-
-
-DllExport const char *
-LogicComponent_GetTypeNameStatic ()
-{
-	return stringdup((LogicComponent::GetTypeNameStatic ()).CString ());
-}
-
-
-DllExport void *
-LogicComponent_LogicComponent (Urho3D::Context * context)
-{
-	return WeakPtr<LogicComponent>(new LogicComponent(context));
-}
-
-
-DllExport void
-LogicComponent_OnSetEnabled (Urho3D::LogicComponent *_target)
-{
-	_target->OnSetEnabled ();
-}
-
-
-DllExport void
-LogicComponent_Start (Urho3D::LogicComponent *_target)
-{
-	_target->Start ();
-}
-
-
-DllExport void
-LogicComponent_DelayedStart (Urho3D::LogicComponent *_target)
-{
-	_target->DelayedStart ();
-}
-
-
-DllExport void
-LogicComponent_Stop (Urho3D::LogicComponent *_target)
-{
-	_target->Stop ();
-}
-
-
-DllExport void
-LogicComponent_Update (Urho3D::LogicComponent *_target, float timeStep)
-{
-	_target->Update (timeStep);
-}
-
-
-DllExport void
-LogicComponent_PostUpdate (Urho3D::LogicComponent *_target, float timeStep)
-{
-	_target->PostUpdate (timeStep);
-}
-
-
-DllExport void
-LogicComponent_FixedUpdate (Urho3D::LogicComponent *_target, float timeStep)
-{
-	_target->FixedUpdate (timeStep);
-}
-
-
-DllExport void
-LogicComponent_FixedPostUpdate (Urho3D::LogicComponent *_target, float timeStep)
-{
-	_target->FixedPostUpdate (timeStep);
-}
-
-
-DllExport int
-LogicComponent_IsDelayedStartCalled (Urho3D::LogicComponent *_target)
-{
-	return _target->IsDelayedStartCalled ();
 }
 
 
