@@ -480,4 +480,29 @@ extern "C" {
 		_target->SetViewOverrideFlags (ViewOverrideFlags(flags));
 	}
 
+	#if defined(__ANDROID__)
+	JavaVM* SDL_Android_GetJVM();
+	DllExport int java_interop_jvm_list(JavaVM * *vmBuf, int bufLen, int* nVMs)
+	{
+		__android_log_print(2, "Urho3D", "java_interop_jvm_list vmBuf=%p bufLen=%d nVMs=%p", vmBuf, bufLen, nVMs);
+		if (vmBuf != 0)
+		{
+			vmBuf[0] = SDL_Android_GetJVM();
+		}
+
+		if (nVMs != NULL)
+		{
+			*nVMs = 1;
+		}
+
+		return 0;
+	}
+#endif
+
+    DllExport unsigned int VertexBuffer_GetElementMask(Urho3D::VertexBuffer *_target)
+    {
+        unsigned int mask = _target->GetElementMask();
+        return mask;
+    }
+
 }

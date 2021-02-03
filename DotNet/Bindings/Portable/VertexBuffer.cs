@@ -100,5 +100,14 @@ namespace Urho
 			public Vector2 TexCoord;
 			public Vector4 Tangent;
 		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern uint VertexBuffer_GetElementMask (IntPtr handle);
+
+		public uint GetElementMask ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return VertexBuffer_GetElementMask (handle);
+		}
 	}
 }

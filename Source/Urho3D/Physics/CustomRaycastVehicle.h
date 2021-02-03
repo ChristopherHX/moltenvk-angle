@@ -51,7 +51,7 @@ namespace Urho3D
         void ResetSuspension();
 
         void SetVehicleCenterOfMass(const Vector3& centerOfMass);
-        const Vector3& GetVehicleCenterOfMass() const;
+        const Vector3 GetVehicleCenterOfMass() const;
 
         float GetSteeringValue(int wheel) const;
 
@@ -68,13 +68,10 @@ namespace Urho3D
 
         void UpdateWheelTransform(int wheel, bool interpolatedTransform = true);
 
-        btWheelInfo& AddWheel(const Vector3& connectionPointCS0, const Vector3& wheelDirectionCS0, const Vector3& wheelAxleCS,
+        void AddWheel(const Vector3& connectionPointCS0, const Vector3& wheelDirectionCS0, const Vector3& wheelAxleCS,
             float suspensionRestLength, float wheelRadius, bool isFrontWheel);
 
         int GetNumWheels() const;
-
-        const btWheelInfo& GetWheelInfo(int wheel) const;
-        btWheelInfo& GetWheelInfo(int wheel);
 
         Vector3 GetForwardVector() const;
 
@@ -90,6 +87,35 @@ namespace Urho3D
 
         void CompoundScaleLocalAabbMin(const Vector3& scale);
         void CompoundScaleLocalAabbMax(const Vector3& scale);
+
+        void  SetWheelSuspensionStiffness(int wheel, float stiffness);
+        float GetWheelSuspensionStiffness(int wheel) const;
+        void  SetWheelDampingRelaxation(int wheel, float damping);
+        float GetWheelDampingRelaxation(int wheel) const;
+        void  SetWheelDampingCompression(int wheel, float compression);
+        float GetWheelDampingCompression(int wheel) const;
+        void  SetWheelFrictionSlip(int wheel, float slip);
+        float GetWheelFrictionSlip(int wheel) const;
+        void  SetWheelRollInfluence(int wheel, float rollInfluence);
+        float GetWheelRollInfluence(int wheel) const;
+        void  SetSideFrictionStiffness(int wheel, float Stiffness);
+        float GetSideFrictionStiffness(int wheel) const;
+        Vector3 GetChassisConnectionPointCS(int wheel) const;
+        bool  IsWheelInContact(int wheel) const;
+        Vector3 GetContactPointWS(int wheel) const;
+        Vector3 GetContactNormalWS(int wheel) const;
+        void  SetSkidInfoCumulative(int wheel, float skid);
+        float GetSkidInfoCumulative(int wheel) const;
+        float GetWheelsRadius(int wheel) const;
+        void  SetSkidInfo(int wheel, float skid);
+        float GetSkidInfo(int wheel) const;
+        void  SetDeltaRotation(int wheel, float rotation);
+        float GetDeltaRotation(int wheel) const;
+        void  SetRotation(int wheel, float rotation);
+        float GetRotation(int wheel) const;
+        Vector3 GetWheelAxleWS(int wheel) const;
+        void SetRollInfluence(int wheel, float rollInfluence);
+        float GetRollInfluence(int wheel) const;
 
     protected:
         /// Create the rigid body, or re-add to the physics world with changed flags. Calls UpdateMass().

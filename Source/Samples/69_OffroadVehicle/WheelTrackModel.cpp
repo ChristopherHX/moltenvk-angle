@@ -73,7 +73,7 @@ void WheelTrackModel::SetParentNode(Node *pParentNode)
 
 void WheelTrackModel::UpdateWorldPos()
 {
-    OnMarkedDirty(node_);
+   // OnMarkedDirty(node_);
 }
 
 // **not used. instead, just use a model with (MASK_POSITION | MASK_NORMAL | MASK_COLOR | MASK_TEXCOORD1) elements

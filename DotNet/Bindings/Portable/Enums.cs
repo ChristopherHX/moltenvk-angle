@@ -110,4 +110,5 @@ namespace Urho {
 
 		Log_Write,
 	};
+
 }

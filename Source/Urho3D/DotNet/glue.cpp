@@ -504,4 +504,10 @@ extern "C" {
 		return 0;
 	}
 #endif
+
+    DllExport unsigned int VertexBuffer_GetElementMask(Urho3D::VertexBuffer *_target)
+    {
+        unsigned int mask = _target->GetElementMask();
+        return mask;
+    }
 }
