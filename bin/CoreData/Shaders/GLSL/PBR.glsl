@@ -10,7 +10,7 @@
 
     vec3 SphereLight(vec3 worldPos, vec3 lightVec, vec3 normal, vec3 toCamera, float roughness, vec3 specColor, vec3 diffColor, out float ndl)
     {
-        float specEnergy = 1.0f;
+        float specEnergy = 1.0;
 
         float radius = cLightRad / 100.0;
         float rough2 = max(roughness, 0.08);
@@ -64,7 +64,9 @@
     vec3 TubeLight(vec3 worldPos, vec3 lightVec, vec3 normal, vec3 toCamera, float roughness, vec3 specColor, vec3 diffColor, out float ndl)
     {
         float radius      = cLightRad / 100.0;
-        float len         = cLightLength / 10.0;
+
+        float len         = cLightLength / 10.0; 
+
         vec3 pos         = (cLightPosPS.xyz - worldPos);
         vec3 reflectVec  = reflect(-toCamera, normal);
         
