@@ -47,10 +47,10 @@ static Technique* Technique_Technique_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Technique_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Technique* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Technique_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Technique* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit Terrain::Terrain(Context* context) | File: ../Graphics/Terrain.h
@@ -60,10 +60,10 @@ static Terrain* Terrain_Terrain_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Terrain_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Terrain* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Terrain_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Terrain* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // const PODVector<Light*>& Drawable::GetLights() const | File: ../Graphics/Drawable.h
@@ -87,10 +87,17 @@ static TerrainPatch* TerrainPatch_TerrainPatch_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void TerrainPatch_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(TerrainPatch* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void TerrainPatch_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(TerrainPatch* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
+}
+
+// void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void Text_AddTags_StringVector(Text* ptr, CScriptArray* tags_conv)
+{
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->AddTags(tags);
 }
 
 // const Vector<SharedPtr<UIElement>>& UIElement::GetChildren() const | File: ../UI/UIElement.h
@@ -121,6 +128,13 @@ static CScriptArray* Text_GetTags_void(Text* ptr)
     return VectorToArray<String>(result, "Array<String>");
 }
 
+// void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void Text_SetTags_StringVector(Text* ptr, CScriptArray* tags_conv)
+{
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->SetTags(tags);
+}
+
 // explicit Text::Text(Context* context) | File: ../UI/Text.h
 static Text* Text_Text_Context()
 {
@@ -128,10 +142,10 @@ static Text* Text_Text_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Text_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Text* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Text_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Text* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // const PODVector<Light*>& Drawable::GetLights() const | File: ../Graphics/Drawable.h
@@ -155,10 +169,10 @@ static Text3D* Text3D_Text3D_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Text3D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Text3D* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Text3D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Text3D* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit Texture::Texture(Context* context) | File: ../Graphics/Texture.h
@@ -168,10 +182,10 @@ static Texture* Texture_Texture_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Texture_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Texture* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Texture_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Texture* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // SharedPtr<Image> Texture2D::GetImage() const | File: ../Graphics/Texture2D.h
@@ -188,10 +202,10 @@ static Texture2D* Texture2D_Texture2D_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Texture2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Texture2D* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Texture2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Texture2D* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit Texture2DArray::Texture2DArray(Context* context) | File: ../Graphics/Texture2DArray.h
@@ -201,10 +215,10 @@ static Texture2DArray* Texture2DArray_Texture2DArray_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Texture2DArray_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Texture2DArray* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Texture2DArray_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Texture2DArray* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit Texture3D::Texture3D(Context* context) | File: ../Graphics/Texture3D.h
@@ -214,10 +228,10 @@ static Texture3D* Texture3D_Texture3D_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Texture3D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Texture3D* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Texture3D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Texture3D* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // SharedPtr<Image> TextureCube::GetImage(CubeMapFace face) const | File: ../Graphics/TextureCube.h
@@ -234,10 +248,10 @@ static TextureCube* TextureCube_TextureCube_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void TextureCube_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(TextureCube* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void TextureCube_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(TextureCube* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 #ifdef URHO3D_URHO2D
@@ -267,10 +281,10 @@ static TileMap2D* TileMap2D_TileMap2D_Context()
 
 #ifdef URHO3D_URHO2D
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void TileMap2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(TileMap2D* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void TileMap2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(TileMap2D* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -284,10 +298,10 @@ static TileMapLayer2D* TileMapLayer2D_TileMapLayer2D_Context()
 
 #ifdef URHO3D_URHO2D
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void TileMapLayer2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(TileMapLayer2D* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void TileMapLayer2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(TileMapLayer2D* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -306,10 +320,10 @@ static Time* Time_Time_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Time_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Time* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Time_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Time* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 #ifdef URHO3D_URHO2D
@@ -331,10 +345,10 @@ static TmxFile2D* TmxFile2D_TmxFile2D_Context()
 
 #ifdef URHO3D_URHO2D
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void TmxFile2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(TmxFile2D* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void TmxFile2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(TmxFile2D* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -374,12 +388,6 @@ static TmxTileLayer2D* TmxTileLayer2D_TmxTileLayer2D_TmxFile2D(TmxFile2D *tmxFil
 static void TechniqueEntry_TechniqueEntry_Technique_MaterialQuality_float(TechniqueEntry* ptr, Technique *tech, MaterialQuality qualityLevel, float lodDistance)
 {
     new(ptr) TechniqueEntry(tech, qualityLevel, lodDistance);
-}
-
-// TechniqueEntry::~TechniqueEntry() noexcept=default | File: ../Graphics/Material.h
-static void TechniqueEntry_Destructor_TechniqueEntry_void(TechniqueEntry* ptr)
-{
-    ptr->~TechniqueEntry();
 }
 
 // TextureFrame::TextureFrame() | File: ../Graphics/ParticleEffect.h
@@ -446,7 +454,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Technique", "const String& GetCategory() const", asMETHODPR(Technique, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("Technique", "const String& get_category() const", asMETHODPR(Technique, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("Technique", "VariantMap& GetEventDataMap() const", asMETHODPR(Technique, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -540,7 +548,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Technique", "int Refs() const", asMETHODPR(Technique, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Technique", "int get_refs() const", asMETHODPR(Technique, Refs, () const, int), asCALL_THISCALL);
     // static void Technique::RegisterObject(Context* context) | File: ../Graphics/Technique.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Technique", asBEHAVE_RELEASE, "void f()", asMETHODPR(Technique, ReleaseRef, (), void), asCALL_THISCALL);
     // void Technique::ReleaseShaders() | File: ../Graphics/Technique.h
@@ -674,7 +682,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // float Terrain::GetDrawDistance() const | File: ../Graphics/Terrain.h
@@ -869,7 +877,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Terrain", "int Refs() const", asMETHODPR(Terrain, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Terrain", "int get_refs() const", asMETHODPR(Terrain, Refs, () const, int), asCALL_THISCALL);
     // static void Terrain::RegisterObject(Context* context) | File: ../Graphics/Terrain.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Terrain", asBEHAVE_RELEASE, "void f()", asMETHODPR(Terrain, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -1136,7 +1144,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // const IntVector2& TerrainPatch::GetCoordinates() const | File: ../Graphics/TerrainPatch.h
     engine->RegisterObjectMethod("TerrainPatch", "const IntVector2& GetCoordinates() const", asMETHODPR(TerrainPatch, GetCoordinates, () const, const IntVector2&), asCALL_THISCALL);
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
@@ -1350,7 +1358,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("TerrainPatch", "int Refs() const", asMETHODPR(TerrainPatch, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("TerrainPatch", "int get_refs() const", asMETHODPR(TerrainPatch, Refs, () const, int), asCALL_THISCALL);
     // static void TerrainPatch::RegisterObject(Context* context) | File: ../Graphics/TerrainPatch.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("TerrainPatch", asBEHAVE_RELEASE, "void f()", asMETHODPR(TerrainPatch, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -1540,7 +1548,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     // void UIElement::AddTags(const String& tags, char separator=';') | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("Text", "void AddTags(const String&in, int8 = ';')", asMETHODPR(Text, AddTags, (const String&, char), void), asCALL_THISCALL);
     // void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("Text", "void AddTags(Array<String>@+)", asFUNCTION(Text_AddTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void UIElement::AdjustScissor(IntRect& currentScissor) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("Text", "void AdjustScissor(IntRect&)", asMETHODPR(Text, AdjustScissor, (IntRect&), void), asCALL_THISCALL);
     // void Serializable::AllocateNetworkState() | File: ../Scene/Serializable.h
@@ -1666,7 +1674,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Text", "IntRect GetCombinedScreenRect()", asMETHODPR(Text, GetCombinedScreenRect, (), IntRect), asCALL_THISCALL);
     engine->RegisterObjectMethod("Text", "IntRect get_combinedScreenRect()", asMETHODPR(Text, GetCombinedScreenRect, (), IntRect), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void UIElement::GetDebugDrawBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) | File: ../UI/UIElement.h
     // Error: type "PODVector<UIBatch>&" can not automatically bind
     // XMLFile* UIElement::GetDefaultStyle(bool recursiveUp=true) const | File: ../UI/UIElement.h
@@ -2046,7 +2054,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Text", "int Refs() const", asMETHODPR(Text, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Text", "int get_refs() const", asMETHODPR(Text, Refs, () const, int), asCALL_THISCALL);
     // static void Text::RegisterObject(Context* context) | File: ../UI/Text.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Text", asBEHAVE_RELEASE, "void f()", asMETHODPR(Text, ReleaseRef, (), void), asCALL_THISCALL);
     // void UIElement::Remove() | File: ../UI/UIElement.h
@@ -2326,7 +2334,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     // bool UIElement::SetStyleAuto(XMLFile* file=nullptr) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("Text", "bool SetStyleAuto(XMLFile@+ = null)", asMETHODPR(Text, SetStyleAuto, (XMLFile*), bool), asCALL_THISCALL);
     // void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("Text", "void SetTags(Array<String>@+)", asFUNCTION(Text_SetTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void Serializable::SetTemporary(bool enable) | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("Text", "void SetTemporary(bool)", asMETHODPR(Text, SetTemporary, (bool), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("Text", "void set_temporary(bool)", asMETHODPR(Text, SetTemporary, (bool), void), asCALL_THISCALL);
@@ -2502,7 +2510,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // float Drawable::GetDistance() const | File: ../Graphics/Drawable.h
@@ -2770,7 +2778,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Text3D", "int Refs() const", asMETHODPR(Text3D, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Text3D", "int get_refs() const", asMETHODPR(Text3D, Refs, () const, int), asCALL_THISCALL);
     // static void Text3D::RegisterObject(Context* context) | File: ../UI/Text3D.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Text3D", asBEHAVE_RELEASE, "void f()", asMETHODPR(Text3D, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -3060,7 +3068,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Texture", "uint GetComponents() const", asMETHODPR(Texture, GetComponents, () const, unsigned), asCALL_THISCALL);
     engine->RegisterObjectMethod("Texture", "uint get_components() const", asMETHODPR(Texture, GetComponents, () const, unsigned), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // unsigned Texture::GetDataSize(int width, int height) const | File: ../Graphics/Texture.h
     engine->RegisterObjectMethod("Texture", "uint GetDataSize(int, int) const", asMETHODPR(Texture, GetDataSize, (int, int) const, unsigned), asCALL_THISCALL);
     // unsigned Texture::GetDataSize(int width, int height, int depth) const | File: ../Graphics/Texture.h
@@ -3384,7 +3392,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Texture2D", "uint GetComponents() const", asMETHODPR(Texture2D, GetComponents, () const, unsigned), asCALL_THISCALL);
     engine->RegisterObjectMethod("Texture2D", "uint get_components() const", asMETHODPR(Texture2D, GetComponents, () const, unsigned), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // bool Texture2D::GetData(unsigned level, void* dest) const | File: ../Graphics/Texture2D.h
     // Error: type "void*" can not automatically bind
     // unsigned Texture::GetDataSize(int width, int height) const | File: ../Graphics/Texture.h
@@ -3553,7 +3561,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     // void Texture::RegenerateLevels() | File: ../Graphics/Texture.h
     engine->RegisterObjectMethod("Texture2D", "void RegenerateLevels()", asMETHODPR(Texture2D, RegenerateLevels, (), void), asCALL_THISCALL);
     // static void Texture2D::RegisterObject(Context* context) | File: ../Graphics/Texture2D.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void Texture2D::Release() override | File: ../Graphics/Texture2D.h
     engine->RegisterObjectMethod("Texture2D", "void Release()", asMETHODPR(Texture2D, Release, (), void), asCALL_THISCALL);
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
@@ -3592,7 +3600,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Texture2D", "void SetBorderColor(const Color&in)", asMETHODPR(Texture2D, SetBorderColor, (const Color&), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("Texture2D", "void set_borderColor(const Color&in)", asMETHODPR(Texture2D, SetBorderColor, (const Color&), void), asCALL_THISCALL);
     // bool Texture2D::SetData(unsigned level, int x, int y, int width, int height, const void* data) | File: ../Graphics/Texture2D.h
-    // Error: type "void*" can not automatically bind
+    // Error: type "const void*" can not automatically bind
     // bool Texture2D::SetData(Image* image, bool useAlpha=false) | File: ../Graphics/Texture2D.h
     engine->RegisterObjectMethod("Texture2D", "bool SetData(Image@+, bool = false)", asMETHODPR(Texture2D, SetData, (Image*, bool), bool), asCALL_THISCALL);
     // void Texture::SetFilterMode(TextureFilterMode mode) | File: ../Graphics/Texture.h
@@ -3729,7 +3737,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Texture2DArray", "uint GetComponents() const", asMETHODPR(Texture2DArray, GetComponents, () const, unsigned), asCALL_THISCALL);
     engine->RegisterObjectMethod("Texture2DArray", "uint get_components() const", asMETHODPR(Texture2DArray, GetComponents, () const, unsigned), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // bool Texture2DArray::GetData(unsigned layer, unsigned level, void* dest) const | File: ../Graphics/Texture2DArray.h
     // Error: type "void*" can not automatically bind
     // unsigned Texture::GetDataSize(int width, int height) const | File: ../Graphics/Texture.h
@@ -3897,7 +3905,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     // void Texture::RegenerateLevels() | File: ../Graphics/Texture.h
     engine->RegisterObjectMethod("Texture2DArray", "void RegenerateLevels()", asMETHODPR(Texture2DArray, RegenerateLevels, (), void), asCALL_THISCALL);
     // static void Texture2DArray::RegisterObject(Context* context) | File: ../Graphics/Texture2DArray.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void Texture2DArray::Release() override | File: ../Graphics/Texture2DArray.h
     engine->RegisterObjectMethod("Texture2DArray", "void Release()", asMETHODPR(Texture2DArray, Release, (), void), asCALL_THISCALL);
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
@@ -3936,7 +3944,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Texture2DArray", "void SetBorderColor(const Color&in)", asMETHODPR(Texture2DArray, SetBorderColor, (const Color&), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("Texture2DArray", "void set_borderColor(const Color&in)", asMETHODPR(Texture2DArray, SetBorderColor, (const Color&), void), asCALL_THISCALL);
     // bool Texture2DArray::SetData(unsigned layer, unsigned level, int x, int y, int width, int height, const void* data) | File: ../Graphics/Texture2DArray.h
-    // Error: type "void*" can not automatically bind
+    // Error: type "const void*" can not automatically bind
     // bool Texture2DArray::SetData(unsigned layer, Deserializer& source) | File: ../Graphics/Texture2DArray.h
     engine->RegisterObjectMethod("Texture2DArray", "bool SetData(uint, Deserializer&)", asMETHODPR(Texture2DArray, SetData, (unsigned, Deserializer&), bool), asCALL_THISCALL);
     // bool Texture2DArray::SetData(unsigned layer, Image* image, bool useAlpha=false) | File: ../Graphics/Texture2DArray.h
@@ -4078,7 +4086,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Texture3D", "uint GetComponents() const", asMETHODPR(Texture3D, GetComponents, () const, unsigned), asCALL_THISCALL);
     engine->RegisterObjectMethod("Texture3D", "uint get_components() const", asMETHODPR(Texture3D, GetComponents, () const, unsigned), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // bool Texture3D::GetData(unsigned level, void* dest) const | File: ../Graphics/Texture3D.h
     // Error: type "void*" can not automatically bind
     // unsigned Texture::GetDataSize(int width, int height) const | File: ../Graphics/Texture.h
@@ -4240,7 +4248,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     // void Texture::RegenerateLevels() | File: ../Graphics/Texture.h
     engine->RegisterObjectMethod("Texture3D", "void RegenerateLevels()", asMETHODPR(Texture3D, RegenerateLevels, (), void), asCALL_THISCALL);
     // static void Texture3D::RegisterObject(Context* context) | File: ../Graphics/Texture3D.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void Texture3D::Release() override | File: ../Graphics/Texture3D.h
     engine->RegisterObjectMethod("Texture3D", "void Release()", asMETHODPR(Texture3D, Release, (), void), asCALL_THISCALL);
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
@@ -4279,7 +4287,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Texture3D", "void SetBorderColor(const Color&in)", asMETHODPR(Texture3D, SetBorderColor, (const Color&), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("Texture3D", "void set_borderColor(const Color&in)", asMETHODPR(Texture3D, SetBorderColor, (const Color&), void), asCALL_THISCALL);
     // bool Texture3D::SetData(unsigned level, int x, int y, int z, int width, int height, int depth, const void* data) | File: ../Graphics/Texture3D.h
-    // Error: type "void*" can not automatically bind
+    // Error: type "const void*" can not automatically bind
     // bool Texture3D::SetData(Image* image, bool useAlpha=false) | File: ../Graphics/Texture3D.h
     engine->RegisterObjectMethod("Texture3D", "bool SetData(Image@+, bool = false)", asMETHODPR(Texture3D, SetData, (Image*, bool), bool), asCALL_THISCALL);
     // void Texture::SetFilterMode(TextureFilterMode mode) | File: ../Graphics/Texture.h
@@ -4416,7 +4424,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("TextureCube", "uint GetComponents() const", asMETHODPR(TextureCube, GetComponents, () const, unsigned), asCALL_THISCALL);
     engine->RegisterObjectMethod("TextureCube", "uint get_components() const", asMETHODPR(TextureCube, GetComponents, () const, unsigned), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // bool TextureCube::GetData(CubeMapFace face, unsigned level, void* dest) const | File: ../Graphics/TextureCube.h
     // Error: type "void*" can not automatically bind
     // unsigned Texture::GetDataSize(int width, int height) const | File: ../Graphics/Texture.h
@@ -4583,7 +4591,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     // void Texture::RegenerateLevels() | File: ../Graphics/Texture.h
     engine->RegisterObjectMethod("TextureCube", "void RegenerateLevels()", asMETHODPR(TextureCube, RegenerateLevels, (), void), asCALL_THISCALL);
     // static void TextureCube::RegisterObject(Context* context) | File: ../Graphics/TextureCube.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void TextureCube::Release() override | File: ../Graphics/TextureCube.h
     engine->RegisterObjectMethod("TextureCube", "void Release()", asMETHODPR(TextureCube, Release, (), void), asCALL_THISCALL);
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
@@ -4622,7 +4630,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("TextureCube", "void SetBorderColor(const Color&in)", asMETHODPR(TextureCube, SetBorderColor, (const Color&), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("TextureCube", "void set_borderColor(const Color&in)", asMETHODPR(TextureCube, SetBorderColor, (const Color&), void), asCALL_THISCALL);
     // bool TextureCube::SetData(CubeMapFace face, unsigned level, int x, int y, int width, int height, const void* data) | File: ../Graphics/TextureCube.h
-    // Error: type "void*" can not automatically bind
+    // Error: type "const void*" can not automatically bind
     // bool TextureCube::SetData(CubeMapFace face, Deserializer& source) | File: ../Graphics/TextureCube.h
     engine->RegisterObjectMethod("TextureCube", "bool SetData(CubeMapFace, Deserializer&)", asMETHODPR(TextureCube, SetData, (CubeMapFace, Deserializer&), bool), asCALL_THISCALL);
     // bool TextureCube::SetData(CubeMapFace face, Image* image, bool useAlpha=false) | File: ../Graphics/TextureCube.h
@@ -4811,7 +4819,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
@@ -4933,7 +4941,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("TileMap2D", "int Refs() const", asMETHODPR(TileMap2D, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("TileMap2D", "int get_refs() const", asMETHODPR(TileMap2D, Refs, () const, int), asCALL_THISCALL);
     // static void TileMap2D::RegisterObject(Context* context) | File: ../Urho2D/TileMap2D.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("TileMap2D", asBEHAVE_RELEASE, "void f()", asMETHODPR(TileMap2D, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -5113,7 +5121,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // int TileMapLayer2D::GetDrawOrder() const | File: ../Urho2D/TileMapLayer2D.h
@@ -5257,7 +5265,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("TileMapLayer2D", "int Refs() const", asMETHODPR(TileMapLayer2D, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("TileMapLayer2D", "int get_refs() const", asMETHODPR(TileMapLayer2D, Refs, () const, int), asCALL_THISCALL);
     // static void TileMapLayer2D::RegisterObject(Context* context) | File: ../Urho2D/TileMapLayer2D.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("TileMapLayer2D", asBEHAVE_RELEASE, "void f()", asMETHODPR(TileMapLayer2D, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -5461,7 +5469,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Time", "const String& GetCategory() const", asMETHODPR(Time, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("Time", "const String& get_category() const", asMETHODPR(Time, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // float Time::GetElapsedTime() | File: ../Core/Timer.h
     engine->RegisterObjectMethod("Time", "float GetElapsedTime()", asMETHODPR(Time, GetElapsedTime, (), float), asCALL_THISCALL);
     engine->RegisterObjectMethod("Time", "float get_elapsedTime()", asMETHODPR(Time, GetElapsedTime, (), float), asCALL_THISCALL);
@@ -5620,7 +5628,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("TmxFile2D", "const String& GetCategory() const", asMETHODPR(TmxFile2D, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("TmxFile2D", "const String& get_category() const", asMETHODPR(TmxFile2D, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("TmxFile2D", "VariantMap& GetEventDataMap() const", asMETHODPR(TmxFile2D, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -5698,7 +5706,7 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("TmxFile2D", "int Refs() const", asMETHODPR(TmxFile2D, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("TmxFile2D", "int get_refs() const", asMETHODPR(TmxFile2D, Refs, () const, int), asCALL_THISCALL);
     // static void TmxFile2D::RegisterObject(Context* context) | File: ../Urho2D/TmxFile2D.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("TmxFile2D", asBEHAVE_RELEASE, "void f()", asMETHODPR(TmxFile2D, ReleaseRef, (), void), asCALL_THISCALL);
     // void Resource::ResetUseTimer() | File: ../Resource/Resource.h
@@ -5973,8 +5981,6 @@ void ASRegisterGenerated_Members_Ta_Tm(asIScriptEngine* engine)
     // Error: type "SharedPtr<Technique>" can not automatically bind
     // TechniqueEntry::TechniqueEntry(Technique* tech, MaterialQuality qualityLevel, float lodDistance) noexcept | File: ../Graphics/Material.h
     engine->RegisterObjectBehaviour("TechniqueEntry", asBEHAVE_CONSTRUCT, "void f(Technique@+, MaterialQuality, float)", asFUNCTION(TechniqueEntry_TechniqueEntry_Technique_MaterialQuality_float), asCALL_CDECL_OBJFIRST);
-    // TechniqueEntry::~TechniqueEntry() noexcept=default | File: ../Graphics/Material.h
-    engine->RegisterObjectBehaviour("TechniqueEntry", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(TechniqueEntry_Destructor_TechniqueEntry_void), asCALL_CDECL_OBJFIRST);
     // TechniqueEntry& TechniqueEntry::operator=(const TechniqueEntry&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<TechniqueEntry>(engine, "TechniqueEntry");
 #ifdef REGISTER_MANUAL_PART_TechniqueEntry

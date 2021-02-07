@@ -19,10 +19,17 @@ static Camera* Camera_Camera_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Camera_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Camera* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Camera_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Camera* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
+}
+
+// void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void CheckBox_AddTags_StringVector(CheckBox* ptr, CScriptArray* tags_conv)
+{
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->AddTags(tags);
 }
 
 // explicit CheckBox::CheckBox(Context* context) | File: ../UI/CheckBox.h
@@ -59,23 +66,24 @@ static CScriptArray* CheckBox_GetTags_void(CheckBox* ptr)
     return VectorToArray<String>(result, "Array<String>");
 }
 
-// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void CheckBox_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CheckBox* ptr, CScriptArray* exceptions, bool onlyUserData)
+// void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void CheckBox_SetTags_StringVector(CheckBox* ptr, CScriptArray* tags_conv)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->SetTags(tags);
+}
+
+// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
+static void CheckBox_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CheckBox* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
+{
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // CascadeParameters::CascadeParameters(float split1, float split2, float split3, float split4, float fadeStart, float biasAutoAdjust=1.0f) | File: ../Graphics/Light.h
 static void CascadeParameters_CascadeParameters_float_float_float_float_float_float(CascadeParameters* ptr, float split1, float split2, float split3, float split4, float fadeStart, float biasAutoAdjust=1.0f)
 {
     new(ptr) CascadeParameters(split1, split2, split3, split4, fadeStart, biasAutoAdjust);
-}
-
-// CharLocation::~CharLocation() | Implicitly-declared 
-static void CharLocation_Destructor(CharLocation* ptr)
-{
-    ptr->~CharLocation();
 }
 
 void ASRegisterGenerated_Members_Ca_Cm(asIScriptEngine* engine)
@@ -146,7 +154,7 @@ void ASRegisterGenerated_Members_Ca_Cm(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // float Camera::GetDistance(const Vector3& worldPos) const | File: ../Graphics/Camera.h
@@ -338,7 +346,7 @@ void ASRegisterGenerated_Members_Ca_Cm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Camera", "int Refs() const", asMETHODPR(Camera, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Camera", "int get_refs() const", asMETHODPR(Camera, Refs, () const, int), asCALL_THISCALL);
     // static void Camera::RegisterObject(Context* context) | File: ../Graphics/Camera.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Camera", asBEHAVE_RELEASE, "void f()", asMETHODPR(Camera, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -533,7 +541,7 @@ void ASRegisterGenerated_Members_Ca_Cm(asIScriptEngine* engine)
     // void UIElement::AddTags(const String& tags, char separator=';') | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("CheckBox", "void AddTags(const String&in, int8 = ';')", asMETHODPR(CheckBox, AddTags, (const String&, char), void), asCALL_THISCALL);
     // void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("CheckBox", "void AddTags(Array<String>@+)", asFUNCTION(CheckBox_AddTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void UIElement::AdjustScissor(IntRect& currentScissor) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("CheckBox", "void AdjustScissor(IntRect&)", asMETHODPR(CheckBox, AdjustScissor, (IntRect&), void), asCALL_THISCALL);
     // void Serializable::AllocateNetworkState() | File: ../Scene/Serializable.h
@@ -659,7 +667,7 @@ void ASRegisterGenerated_Members_Ca_Cm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("CheckBox", "IntRect GetCombinedScreenRect()", asMETHODPR(CheckBox, GetCombinedScreenRect, (), IntRect), asCALL_THISCALL);
     engine->RegisterObjectMethod("CheckBox", "IntRect get_combinedScreenRect()", asMETHODPR(CheckBox, GetCombinedScreenRect, (), IntRect), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void UIElement::GetDebugDrawBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) | File: ../UI/UIElement.h
     // Error: type "PODVector<UIBatch>&" can not automatically bind
     // XMLFile* UIElement::GetDefaultStyle(bool recursiveUp=true) const | File: ../UI/UIElement.h
@@ -1004,7 +1012,7 @@ void ASRegisterGenerated_Members_Ca_Cm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("CheckBox", "int Refs() const", asMETHODPR(CheckBox, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("CheckBox", "int get_refs() const", asMETHODPR(CheckBox, Refs, () const, int), asCALL_THISCALL);
     // static void CheckBox::RegisterObject(Context* context) | File: ../UI/CheckBox.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("CheckBox", asBEHAVE_RELEASE, "void f()", asMETHODPR(CheckBox, ReleaseRef, (), void), asCALL_THISCALL);
     // void UIElement::Remove() | File: ../UI/UIElement.h
@@ -1284,7 +1292,7 @@ void ASRegisterGenerated_Members_Ca_Cm(asIScriptEngine* engine)
     // bool UIElement::SetStyleAuto(XMLFile* file=nullptr) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("CheckBox", "bool SetStyleAuto(XMLFile@+ = null)", asMETHODPR(CheckBox, SetStyleAuto, (XMLFile*), bool), asCALL_THISCALL);
     // void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("CheckBox", "void SetTags(Array<String>@+)", asFUNCTION(CheckBox_SetTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void Serializable::SetTemporary(bool enable) | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("CheckBox", "void SetTemporary(bool)", asMETHODPR(CheckBox, SetTemporary, (bool), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("CheckBox", "void set_temporary(bool)", asMETHODPR(CheckBox, SetTemporary, (bool), void), asCALL_THISCALL);
@@ -1396,8 +1404,6 @@ void ASRegisterGenerated_Members_Ca_Cm(asIScriptEngine* engine)
     engine->RegisterObjectProperty("CharLocation", "Vector2 position", offsetof(CharLocation, position_));
     // Vector2 CharLocation::size_ | File: ../UI/Text.h
     engine->RegisterObjectProperty("CharLocation", "Vector2 size", offsetof(CharLocation, size_));
-    // CharLocation::~CharLocation() | Implicitly-declared
-    engine->RegisterObjectBehaviour("CharLocation", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(CharLocation_Destructor), asCALL_CDECL_OBJFIRST);
     // CharLocation& CharLocation::operator=(const CharLocation&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<CharLocation>(engine, "CharLocation");
 #ifdef REGISTER_MANUAL_PART_CharLocation

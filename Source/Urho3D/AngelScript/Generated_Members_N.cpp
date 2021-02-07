@@ -32,18 +32,34 @@ static CScriptArray* NamedPipe_ReadStringVector_void(NamedPipe* ptr)
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void NamedPipe_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(NamedPipe* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void NamedPipe_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(NamedPipe* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
+}
+
+// bool Serializer::WriteStringVector(const StringVector& value) | File: ../IO/Serializer.h
+static bool NamedPipe_WriteStringVector_StringVector(NamedPipe* ptr, CScriptArray* value_conv)
+{
+    StringVector value = ArrayToVector<String>(value_conv);
+    bool result = ptr->WriteStringVector(value);
+    return result;
 }
 
 #ifdef URHO3D_NAVIGATION
-// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void NavArea_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(NavArea* ptr, CScriptArray* exceptions, bool onlyUserData)
+// explicit NavArea::NavArea(Context* context) | File: ../Navigation/NavArea.h
+static NavArea* NavArea_NavArea_Context()
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    return new NavArea(GetScriptContext());
+}
+#endif
+
+#ifdef URHO3D_NAVIGATION
+// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
+static void NavArea_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(NavArea* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
+{
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -57,10 +73,10 @@ static Navigable* Navigable_Navigable_Context()
 
 #ifdef URHO3D_NAVIGATION
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Navigable_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Navigable* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Navigable_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Navigable* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -74,10 +90,10 @@ static NavigationMesh* NavigationMesh_NavigationMesh_Context()
 
 #ifdef URHO3D_NAVIGATION
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void NavigationMesh_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(NavigationMesh* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void NavigationMesh_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(NavigationMesh* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -92,10 +108,10 @@ static CScriptArray* Network_GetClientConnections_void(Network* ptr)
 
 #ifdef URHO3D_NETWORK
 // SharedPtr<HttpRequest> Network::MakeHttpRequest(const String& url, const String& verb=String::EMPTY, const Vector<String>& headers=Vector<String>(), const String& postData=String::EMPTY) | File: ../Network/Network.h
-static HttpRequest* Network_MakeHttpRequest_String_String_VectorString_String(Network* ptr, const String& url, const String& verb, CScriptArray* headers, const String& postData)
+static HttpRequest* Network_MakeHttpRequest_String_String_VectorString_String(Network* ptr, const String& url, const String& verb, CScriptArray* headers_conv, const String& postData)
 {
-    Vector<String> param2 = ArrayToVector<String>(headers);
-    SharedPtr<HttpRequest> result = ptr->MakeHttpRequest(url, verb, param2, postData);
+    Vector<String> headers = ArrayToVector<String>(headers_conv);
+    SharedPtr<HttpRequest> result = ptr->MakeHttpRequest(url, verb, headers, postData);
     return result.Detach();
 }
 #endif
@@ -110,10 +126,10 @@ static Network* Network_Network_Context()
 
 #ifdef URHO3D_NETWORK
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Network_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Network* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Network_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Network* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -127,12 +143,19 @@ static NetworkPriority* NetworkPriority_NetworkPriority_Context()
 
 #ifdef URHO3D_NETWORK
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void NetworkPriority_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(NetworkPriority* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void NetworkPriority_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(NetworkPriority* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
+
+// void Node::AddTags(const StringVector& tags) | File: ../Scene/Node.h
+static void Node_AddTags_StringVector(Node* ptr, CScriptArray* tags_conv)
+{
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->AddTags(tags);
+}
 
 // const Vector<SharedPtr<Node>>& Node::GetChildren() const | File: ../Scene/Node.h
 static CScriptArray* Node_GetChildren_void(Node* ptr)
@@ -189,59 +212,18 @@ static Node* Node_Node_Context()
     return new Node(GetScriptContext());
 }
 
+// void Node::SetTags(const StringVector& tags) | File: ../Scene/Node.h
+static void Node_SetTags_StringVector(Node* ptr, CScriptArray* tags_conv)
+{
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->SetTags(tags);
+}
+
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Node_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Node* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Node_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Node* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
-}
-
-#ifdef URHO3D_NAVIGATION
-// NavAreaStub::~NavAreaStub() | Implicitly-declared 
-static void NavAreaStub_Destructor(NavAreaStub* ptr)
-{
-    ptr->~NavAreaStub();
-}
-#endif
-
-// virtual NavBuildData::~NavBuildData() | File: ../Navigation/NavBuildData.h
-static void NavBuildData_Destructor_NavBuildData_void(NavBuildData* ptr)
-{
-    ptr->~NavBuildData();
-}
-
-#ifdef URHO3D_NAVIGATION
-// NavigationGeometryInfo::~NavigationGeometryInfo() | Implicitly-declared 
-static void NavigationGeometryInfo_Destructor(NavigationGeometryInfo* ptr)
-{
-    ptr->~NavigationGeometryInfo();
-}
-#endif
-
-#ifdef URHO3D_NAVIGATION
-// NavigationPathPoint::~NavigationPathPoint() | Implicitly-declared 
-static void NavigationPathPoint_Destructor(NavigationPathPoint* ptr)
-{
-    ptr->~NavigationPathPoint();
-}
-#endif
-
-// NetworkState::~NetworkState() | Implicitly-declared 
-static void NetworkState_Destructor(NetworkState* ptr)
-{
-    ptr->~NetworkState();
-}
-
-// NodeImpl::~NodeImpl() | Implicitly-declared 
-static void NodeImpl_Destructor(NodeImpl* ptr)
-{
-    ptr->~NodeImpl();
-}
-
-// NodeReplicationState::~NodeReplicationState() | Implicitly-declared 
-static void NodeReplicationState_Destructor(NodeReplicationState* ptr)
-{
-    ptr->~NodeReplicationState();
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
@@ -263,7 +245,7 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     engine->RegisterObjectMethod("NamedPipe", "uint GetChecksum()", asMETHODPR(NamedPipe, GetChecksum, (), unsigned), asCALL_THISCALL);
     engine->RegisterObjectMethod("NamedPipe", "uint get_checksum()", asMETHODPR(NamedPipe, GetChecksum, (), unsigned), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("NamedPipe", "VariantMap& GetEventDataMap() const", asMETHODPR(NamedPipe, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -459,7 +441,7 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     engine->RegisterObjectMethod("NamedPipe", "int WeakRefs() const", asMETHODPR(NamedPipe, WeakRefs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("NamedPipe", "int get_weakRefs() const", asMETHODPR(NamedPipe, WeakRefs, () const, int), asCALL_THISCALL);
     // unsigned NamedPipe::Write(const void* data, unsigned size) override | File: ../IO/NamedPipe.h
-    // Error: type "void*" can not automatically bind
+    // Error: type "const void*" can not automatically bind
     // bool Serializer::WriteBool(bool value) | File: ../IO/Serializer.h
     engine->RegisterObjectMethod("NamedPipe", "bool WriteBool(bool)", asMETHODPR(NamedPipe, WriteBool, (bool), bool), asCALL_THISCALL);
     // bool Serializer::WriteBoundingBox(const BoundingBox& value) | File: ../IO/Serializer.h
@@ -515,7 +497,7 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     // bool Serializer::WriteStringHash(const StringHash& value) | File: ../IO/Serializer.h
     engine->RegisterObjectMethod("NamedPipe", "bool WriteStringHash(const StringHash&in)", asMETHODPR(NamedPipe, WriteStringHash, (const StringHash&), bool), asCALL_THISCALL);
     // bool Serializer::WriteStringVector(const StringVector& value) | File: ../IO/Serializer.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("NamedPipe", "bool WriteStringVector(Array<String>@+)", asFUNCTION(NamedPipe_WriteStringVector_StringVector), asCALL_CDECL_OBJFIRST);
     // bool Serializer::WriteUByte(unsigned char value) | File: ../IO/Serializer.h
     engine->RegisterObjectMethod("NamedPipe", "bool WriteUByte(uint8)", asMETHODPR(NamedPipe, WriteUByte, (unsigned char), bool), asCALL_THISCALL);
     // bool Serializer::WriteUInt(unsigned value) | File: ../IO/Serializer.h
@@ -624,7 +606,7 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
@@ -712,8 +694,8 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     engine->RegisterObjectMethod("NavArea", "bool LoadXML(const XMLElement&in)", asMETHODPR(NavArea, LoadXML, (const XMLElement&), bool), asCALL_THISCALL);
     // void Component::MarkNetworkUpdate() override | File: ../Scene/Component.h
     engine->RegisterObjectMethod("NavArea", "void MarkNetworkUpdate()", asMETHODPR(NavArea, MarkNetworkUpdate, (), void), asCALL_THISCALL);
-    // explicit NavArea::NavArea(Context*) | File: ../Navigation/NavArea.h
-    // Error: context can be only first
+    // explicit NavArea::NavArea(Context* context) | File: ../Navigation/NavArea.h
+    engine->RegisterObjectBehaviour("NavArea", asBEHAVE_FACTORY, "NavArea@+ f()", asFUNCTION(NavArea_NavArea_Context), asCALL_CDECL);
     // virtual void Object::OnEvent(Object* sender, StringHash eventType, VariantMap& eventData) | File: ../Core/Object.h
     engine->RegisterObjectMethod("NavArea", "void OnEvent(Object@+, StringHash, VariantMap&)", asMETHODPR(NavArea, OnEvent, (Object*, StringHash, VariantMap&), void), asCALL_THISCALL);
     // virtual void Serializable::OnGetAttribute(const AttributeInfo& attr, Variant& dest) const | File: ../Scene/Serializable.h
@@ -733,8 +715,8 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     // int RefCounted::Refs() const | File: ../Container/RefCounted.h
     engine->RegisterObjectMethod("NavArea", "int Refs() const", asMETHODPR(NavArea, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("NavArea", "int get_refs() const", asMETHODPR(NavArea, Refs, () const, int), asCALL_THISCALL);
-    // static void NavArea::RegisterObject(Context*) | File: ../Navigation/NavArea.h
-    // Context can be used as firs parameter of constructors only
+    // static void NavArea::RegisterObject(Context* context) | File: ../Navigation/NavArea.h
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("NavArea", asBEHAVE_RELEASE, "void f()", asMETHODPR(NavArea, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -911,7 +893,7 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
@@ -1021,7 +1003,7 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Navigable", "int Refs() const", asMETHODPR(Navigable, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Navigable", "int get_refs() const", asMETHODPR(Navigable, Refs, () const, int), asCALL_THISCALL);
     // static void Navigable::RegisterObject(Context* context) | File: ../Navigation/Navigable.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Navigable", asBEHAVE_RELEASE, "void f()", asMETHODPR(Navigable, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -1236,7 +1218,7 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // float NavigationMesh::GetDetailSampleDistance() const | File: ../Navigation/NavigationMesh.h
@@ -1407,7 +1389,7 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     engine->RegisterObjectMethod("NavigationMesh", "int Refs() const", asMETHODPR(NavigationMesh, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("NavigationMesh", "int get_refs() const", asMETHODPR(NavigationMesh, Refs, () const, int), asCALL_THISCALL);
     // static void NavigationMesh::RegisterObject(Context* context) | File: ../Navigation/NavigationMesh.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("NavigationMesh", asBEHAVE_RELEASE, "void f()", asMETHODPR(NavigationMesh, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -1627,7 +1609,7 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     // Connection* Network::GetConnection(const SLNet::AddressOrGUID& connection) const | File: ../Network/Network.h
     // Error: type "const SLNet::AddressOrGUID&" can not automatically bind
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("Network", "VariantMap& GetEventDataMap() const", asMETHODPR(Network, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -1847,7 +1829,7 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // float NetworkPriority::GetDistanceFactor() const | File: ../Network/NetworkPriority.h
@@ -1960,7 +1942,7 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     engine->RegisterObjectMethod("NetworkPriority", "int Refs() const", asMETHODPR(NetworkPriority, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("NetworkPriority", "int get_refs() const", asMETHODPR(NetworkPriority, Refs, () const, int), asCALL_THISCALL);
     // static void NetworkPriority::RegisterObject(Context* context) | File: ../Network/NetworkPriority.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("NetworkPriority", asBEHAVE_RELEASE, "void f()", asMETHODPR(NetworkPriority, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -2104,7 +2086,7 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     // void Node::AddTags(const String& tags, char separator=';') | File: ../Scene/Node.h
     engine->RegisterObjectMethod("Node", "void AddTags(const String&in, int8 = ';')", asMETHODPR(Node, AddTags, (const String&, char), void), asCALL_THISCALL);
     // void Node::AddTags(const StringVector& tags) | File: ../Scene/Node.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("Node", "void AddTags(Array<String>@+)", asFUNCTION(Node_AddTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void Serializable::AllocateNetworkState() | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("Node", "void AllocateNetworkState()", asMETHODPR(Node, AllocateNetworkState, (), void), asCALL_THISCALL);
     // void Node::ApplyAttributes() override | File: ../Scene/Node.h
@@ -2194,7 +2176,7 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     // template<class T> void Node::GetComponents(PODVector<T*>& dest, bool recursive=false) const | File: ../Scene/Node.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // const PODVector<Node*>& Node::GetDependencyNodes() const | File: ../Scene/Node.h
     engine->RegisterObjectMethod("Node", "Array<Node@>@ GetDependencyNodes() const", asFUNCTION(Node_GetDependencyNodes_void), asCALL_CDECL_OBJFIRST);
     // template<class T> T*  Node::GetDerivedComponent(bool recursive=false) const | File: ../Scene/Node.h
@@ -2440,7 +2422,7 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Node", "int Refs() const", asMETHODPR(Node, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Node", "int get_refs() const", asMETHODPR(Node, Refs, () const, int), asCALL_THISCALL);
     // static void Node::RegisterObject(Context* context) | File: ../Scene/Node.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Node", asBEHAVE_RELEASE, "void f()", asMETHODPR(Node, ReleaseRef, (), void), asCALL_THISCALL);
     // void Node::Remove() | File: ../Scene/Node.h
@@ -2611,7 +2593,7 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     // void Node::SetScene(Scene* scene) | File: ../Scene/Node.h
     engine->RegisterObjectMethod("Node", "void SetScene(Scene@+)", asMETHODPR(Node, SetScene, (Scene*), void), asCALL_THISCALL);
     // void Node::SetTags(const StringVector& tags) | File: ../Scene/Node.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("Node", "void SetTags(Array<String>@+)", asFUNCTION(Node_SetTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void Serializable::SetTemporary(bool enable) | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("Node", "void SetTemporary(bool)", asMETHODPR(Node, SetTemporary, (bool), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("Node", "void set_temporary(bool)", asMETHODPR(Node, SetTemporary, (bool), void), asCALL_THISCALL);
@@ -2738,8 +2720,6 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     engine->RegisterObjectProperty("NavAreaStub", "uint8 areaID", offsetof(NavAreaStub, areaID_));
     // BoundingBox NavAreaStub::bounds_ | File: ../Navigation/NavBuildData.h
     engine->RegisterObjectProperty("NavAreaStub", "BoundingBox bounds", offsetof(NavAreaStub, bounds_));
-    // NavAreaStub::~NavAreaStub() | Implicitly-declared
-    engine->RegisterObjectBehaviour("NavAreaStub", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(NavAreaStub_Destructor), asCALL_CDECL_OBJFIRST);
     // NavAreaStub& NavAreaStub::operator=(const NavAreaStub&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<NavAreaStub>(engine, "NavAreaStub");
 #ifdef REGISTER_MANUAL_PART_NavAreaStub
@@ -2772,8 +2752,6 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     // Error: type "PODVector<Vector3>" can not automatically bind
     // BoundingBox NavBuildData::worldBoundingBox_ | File: ../Navigation/NavBuildData.h
     engine->RegisterObjectProperty("NavBuildData", "BoundingBox worldBoundingBox", offsetof(NavBuildData, worldBoundingBox_));
-    // virtual NavBuildData::~NavBuildData() | File: ../Navigation/NavBuildData.h
-    engine->RegisterObjectBehaviour("NavBuildData", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(NavBuildData_Destructor_NavBuildData_void), asCALL_CDECL_OBJFIRST);
     // NavBuildData& NavBuildData::operator=(const NavBuildData&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<NavBuildData>(engine, "NavBuildData");
 #ifdef REGISTER_MANUAL_PART_NavBuildData
@@ -2790,8 +2768,6 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     engine->RegisterObjectProperty("NavigationGeometryInfo", "uint lodLevel", offsetof(NavigationGeometryInfo, lodLevel_));
     // Matrix3x4 NavigationGeometryInfo::transform_ | File: ../Navigation/NavigationMesh.h
     engine->RegisterObjectProperty("NavigationGeometryInfo", "Matrix3x4 transform", offsetof(NavigationGeometryInfo, transform_));
-    // NavigationGeometryInfo::~NavigationGeometryInfo() | Implicitly-declared
-    engine->RegisterObjectBehaviour("NavigationGeometryInfo", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(NavigationGeometryInfo_Destructor), asCALL_CDECL_OBJFIRST);
     // NavigationGeometryInfo& NavigationGeometryInfo::operator=(const NavigationGeometryInfo&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<NavigationGeometryInfo>(engine, "NavigationGeometryInfo");
 #ifdef REGISTER_MANUAL_PART_NavigationGeometryInfo
@@ -2806,8 +2782,6 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     engine->RegisterObjectProperty("NavigationPathPoint", "NavigationPathPointFlag flag", offsetof(NavigationPathPoint, flag_));
     // Vector3 NavigationPathPoint::position_ | File: ../Navigation/NavigationMesh.h
     engine->RegisterObjectProperty("NavigationPathPoint", "Vector3 position", offsetof(NavigationPathPoint, position_));
-    // NavigationPathPoint::~NavigationPathPoint() | Implicitly-declared
-    engine->RegisterObjectBehaviour("NavigationPathPoint", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(NavigationPathPoint_Destructor), asCALL_CDECL_OBJFIRST);
     // NavigationPathPoint& NavigationPathPoint::operator=(const NavigationPathPoint&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<NavigationPathPoint>(engine, "NavigationPathPoint");
 #ifdef REGISTER_MANUAL_PART_NavigationPathPoint
@@ -2827,8 +2801,6 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     engine->RegisterObjectProperty("NetworkState", "VariantMap previousVars", offsetof(NetworkState, previousVars_));
     // PODVector<ReplicationState*> NetworkState::replicationStates_ | File: ../Scene/ReplicationState.h
     // Error: type "PODVector<ReplicationState*>" can not automatically bind
-    // NetworkState::~NetworkState() | Implicitly-declared
-    engine->RegisterObjectBehaviour("NetworkState", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(NetworkState_Destructor), asCALL_CDECL_OBJFIRST);
     // NetworkState& NetworkState::operator=(const NetworkState&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<NetworkState>(engine, "NetworkState");
 #ifdef REGISTER_MANUAL_PART_NetworkState
@@ -2847,8 +2819,6 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     // Connection* can not be registered
     // StringVector NodeImpl::tags_ | File: ../Scene/Node.h
     // Error: type "StringVector" can not automatically bind
-    // NodeImpl::~NodeImpl() | Implicitly-declared
-    engine->RegisterObjectBehaviour("NodeImpl", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(NodeImpl_Destructor), asCALL_CDECL_OBJFIRST);
     // NodeImpl& NodeImpl::operator=(const NodeImpl&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<NodeImpl>(engine, "NodeImpl");
 #ifdef REGISTER_MANUAL_PART_NodeImpl
@@ -2871,8 +2841,6 @@ void ASRegisterGenerated_Members_N(asIScriptEngine* engine)
     engine->RegisterObjectProperty("NodeReplicationState", "float priorityAcc", offsetof(NodeReplicationState, priorityAcc_));
     // SceneReplicationState* NodeReplicationState::sceneState_ | File: ../Scene/ReplicationState.h
     // SceneReplicationState* can not be registered
-    // NodeReplicationState::~NodeReplicationState() | Implicitly-declared
-    engine->RegisterObjectBehaviour("NodeReplicationState", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(NodeReplicationState_Destructor), asCALL_CDECL_OBJFIRST);
     // NodeReplicationState& NodeReplicationState::operator=(const NodeReplicationState&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<NodeReplicationState>(engine, "NodeReplicationState");
 #ifdef REGISTER_MANUAL_PART_ReplicationState

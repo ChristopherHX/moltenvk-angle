@@ -22,10 +22,10 @@ static Database* Database_Database_Context()
 
 #ifdef URHO3D_DATABASE
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Database_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Database* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Database_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Database* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -36,10 +36,10 @@ static DebugHud* DebugHud_DebugHud_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void DebugHud_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(DebugHud* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void DebugHud_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(DebugHud* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit DebugRenderer::DebugRenderer(Context* context) | File: ../Graphics/DebugRenderer.h
@@ -49,10 +49,10 @@ static DebugRenderer* DebugRenderer_DebugRenderer_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void DebugRenderer_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(DebugRenderer* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void DebugRenderer_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(DebugRenderer* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit DecalSet::DecalSet(Context* context) | File: ../Graphics/DecalSet.h
@@ -76,10 +76,10 @@ static CScriptArray* DecalSet_GetVertexLights_void(DecalSet* ptr)
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void DecalSet_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(DecalSet* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void DecalSet_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(DecalSet* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // StringVector Deserializer::ReadStringVector() | File: ../IO/Deserializer.h
@@ -104,10 +104,10 @@ static CScriptArray* Drawable_GetVertexLights_void(Drawable* ptr)
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Drawable_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Drawable* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Drawable_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Drawable* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 #ifdef URHO3D_URHO2D
@@ -130,12 +130,19 @@ static CScriptArray* Drawable2D_GetVertexLights_void(Drawable2D* ptr)
 
 #ifdef URHO3D_URHO2D
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Drawable2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Drawable2D* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Drawable2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Drawable2D* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
+
+// void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void DropDownList_AddTags_StringVector(DropDownList* ptr, CScriptArray* tags_conv)
+{
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->AddTags(tags);
+}
 
 // explicit DropDownList::DropDownList(Context* context) | File: ../UI/DropDownList.h
 static DropDownList* DropDownList_DropDownList_Context()
@@ -178,19 +185,34 @@ static CScriptArray* DropDownList_GetTags_void(DropDownList* ptr)
     return VectorToArray<String>(result, "Array<String>");
 }
 
-// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void DropDownList_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(DropDownList* ptr, CScriptArray* exceptions, bool onlyUserData)
+// void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void DropDownList_SetTags_StringVector(DropDownList* ptr, CScriptArray* tags_conv)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->SetTags(tags);
+}
+
+// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
+static void DropDownList_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(DropDownList* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
+{
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 #ifdef URHO3D_NAVIGATION
-// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void DynamicNavigationMesh_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(DynamicNavigationMesh* ptr, CScriptArray* exceptions, bool onlyUserData)
+// explicit DynamicNavigationMesh::DynamicNavigationMesh(Context* context) | File: ../Navigation/DynamicNavigationMesh.h
+static DynamicNavigationMesh* DynamicNavigationMesh_DynamicNavigationMesh_Context()
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    return new DynamicNavigationMesh(GetScriptContext());
+}
+#endif
+
+#ifdef URHO3D_NAVIGATION
+// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
+static void DynamicNavigationMesh_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(DynamicNavigationMesh* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
+{
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -200,28 +222,10 @@ static void DebugLine_DebugLine_Vector3_Vector3_unsigned(DebugLine* ptr, const V
     new(ptr) DebugLine(start, end, color);
 }
 
-// DebugLine::~DebugLine() | Implicitly-declared 
-static void DebugLine_Destructor(DebugLine* ptr)
-{
-    ptr->~DebugLine();
-}
-
 // DebugTriangle::DebugTriangle(const Vector3& v1, const Vector3& v2, const Vector3& v3, unsigned color) | File: ../Graphics/DebugRenderer.h
 static void DebugTriangle_DebugTriangle_Vector3_Vector3_Vector3_unsigned(DebugTriangle* ptr, const Vector3 &v1, const Vector3 &v2, const Vector3 &v3, unsigned color)
 {
     new(ptr) DebugTriangle(v1, v2, v3, color);
-}
-
-// DebugTriangle::~DebugTriangle() | Implicitly-declared 
-static void DebugTriangle_Destructor(DebugTriangle* ptr)
-{
-    ptr->~DebugTriangle();
-}
-
-// Decal::~Decal() | Implicitly-declared 
-static void Decal_Destructor(Decal* ptr)
-{
-    ptr->~Decal();
 }
 
 // DecalVertex::DecalVertex(const Vector3& position, const Vector3& normal) | File: ../Graphics/DecalSet.h
@@ -230,38 +234,10 @@ static void DecalVertex_DecalVertex_Vector3_Vector3(DecalVertex* ptr, const Vect
     new(ptr) DecalVertex(position, normal);
 }
 
-// DecalVertex::~DecalVertex() | Implicitly-declared 
-static void DecalVertex_Destructor(DecalVertex* ptr)
-{
-    ptr->~DecalVertex();
-}
-
-#ifdef URHO3D_PHYSICS
-// DelayedWorldTransform::~DelayedWorldTransform() | Implicitly-declared 
-static void DelayedWorldTransform_Destructor(DelayedWorldTransform* ptr)
-{
-    ptr->~DelayedWorldTransform();
-}
-#endif
-
-#ifdef URHO3D_URHO2D
-// DelayedWorldTransform2D::~DelayedWorldTransform2D() | Implicitly-declared 
-static void DelayedWorldTransform2D_Destructor(DelayedWorldTransform2D* ptr)
-{
-    ptr->~DelayedWorldTransform2D();
-}
-#endif
-
 // DirtyBits::DirtyBits(const DirtyBits& bits) | File: ../Scene/ReplicationState.h
 static void DirtyBits_DirtyBits_DirtyBits(DirtyBits* ptr, const DirtyBits &bits)
 {
     new(ptr) DirtyBits(bits);
-}
-
-// DirtyBits::~DirtyBits() | Implicitly-declared 
-static void DirtyBits_Destructor(DirtyBits* ptr)
-{
-    ptr->~DirtyBits();
 }
 
 void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
@@ -289,7 +265,7 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Database", "const String& GetCategory() const", asMETHODPR(Database, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("Database", "const String& get_category() const", asMETHODPR(Database, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("Database", "VariantMap& GetEventDataMap() const", asMETHODPR(Database, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -407,7 +383,7 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     engine->RegisterObjectMethod("DebugHud", "const String& GetCategory() const", asMETHODPR(DebugHud, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugHud", "const String& get_category() const", asMETHODPR(DebugHud, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // XMLFile* DebugHud::GetDefaultStyle() const | File: ../Engine/DebugHud.h
     engine->RegisterObjectMethod("DebugHud", "XMLFile@+ GetDefaultStyle() const", asMETHODPR(DebugHud, GetDefaultStyle, () const, XMLFile*), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugHud", "XMLFile@+ get_defaultStyle() const", asMETHODPR(DebugHud, GetDefaultStyle, () const, XMLFile*), asCALL_THISCALL);
@@ -594,9 +570,9 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     // void DebugRenderer::AddTriangle(const Vector3& v1, const Vector3& v2, const Vector3& v3, unsigned color, bool depthTest=true) | File: ../Graphics/DebugRenderer.h
     engine->RegisterObjectMethod("DebugRenderer", "void AddTriangle(const Vector3&in, const Vector3&in, const Vector3&in, uint, bool = true)", asMETHODPR(DebugRenderer, AddTriangle, (const Vector3&, const Vector3&, const Vector3&, unsigned, bool), void), asCALL_THISCALL);
     // void DebugRenderer::AddTriangleMesh(const void* vertexData, unsigned vertexSize, const void* indexData, unsigned indexSize, unsigned indexStart, unsigned indexCount, const Matrix3x4& transform, const Color& color, bool depthTest=true) | File: ../Graphics/DebugRenderer.h
-    // Error: type "void*" can not automatically bind
+    // Error: type "const void*" can not automatically bind
     // void DebugRenderer::AddTriangleMesh(const void* vertexData, unsigned vertexSize, unsigned vertexStart, const void* indexData, unsigned indexSize, unsigned indexStart, unsigned indexCount, const Matrix3x4& transform, const Color& color, bool depthTest=true) | File: ../Graphics/DebugRenderer.h
-    // Error: type "void*" can not automatically bind
+    // Error: type "const void*" can not automatically bind
     // void Serializable::AllocateNetworkState() | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("DebugRenderer", "void AllocateNetworkState()", asMETHODPR(DebugRenderer, AllocateNetworkState, (), void), asCALL_THISCALL);
     // virtual void Serializable::ApplyAttributes() | File: ../Scene/Serializable.h
@@ -648,7 +624,7 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
@@ -766,7 +742,7 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     engine->RegisterObjectMethod("DebugRenderer", "int Refs() const", asMETHODPR(DebugRenderer, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugRenderer", "int get_refs() const", asMETHODPR(DebugRenderer, Refs, () const, int), asCALL_THISCALL);
     // static void DebugRenderer::RegisterObject(Context* context) | File: ../Graphics/DebugRenderer.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("DebugRenderer", asBEHAVE_RELEASE, "void f()", asMETHODPR(DebugRenderer, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -960,7 +936,7 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // PODVector<unsigned char> DecalSet::GetDecalsAttr() const | File: ../Graphics/DecalSet.h
     // Error: type "PODVector<unsigned char>" can not automatically bind
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
@@ -1175,7 +1151,7 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     engine->RegisterObjectMethod("DecalSet", "int Refs() const", asMETHODPR(DecalSet, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("DecalSet", "int get_refs() const", asMETHODPR(DecalSet, Refs, () const, int), asCALL_THISCALL);
     // static void DecalSet::RegisterObject(Context* context) | File: ../Graphics/DecalSet.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("DecalSet", asBEHAVE_RELEASE, "void f()", asMETHODPR(DecalSet, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -1540,7 +1516,7 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // float Drawable::GetDistance() const | File: ../Graphics/Drawable.h
@@ -1730,7 +1706,7 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Drawable", "int Refs() const", asMETHODPR(Drawable, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Drawable", "int get_refs() const", asMETHODPR(Drawable, Refs, () const, int), asCALL_THISCALL);
     // static void Drawable::RegisterObject(Context* context) | File: ../Graphics/Drawable.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Drawable", asBEHAVE_RELEASE, "void f()", asMETHODPR(Drawable, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -1961,7 +1937,7 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // float Drawable::GetDistance() const | File: ../Graphics/Drawable.h
@@ -2159,7 +2135,7 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Drawable2D", "int Refs() const", asMETHODPR(Drawable2D, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Drawable2D", "int get_refs() const", asMETHODPR(Drawable2D, Refs, () const, int), asCALL_THISCALL);
     // static void Drawable2D::RegisterObject(Context* context) | File: ../Urho2D/Drawable2D.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Drawable2D", asBEHAVE_RELEASE, "void f()", asMETHODPR(Drawable2D, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -2344,7 +2320,7 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     // void UIElement::AddTags(const String& tags, char separator=';') | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("DropDownList", "void AddTags(const String&in, int8 = ';')", asMETHODPR(DropDownList, AddTags, (const String&, char), void), asCALL_THISCALL);
     // void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("DropDownList", "void AddTags(Array<String>@+)", asFUNCTION(DropDownList_AddTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void UIElement::AdjustScissor(IntRect& currentScissor) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("DropDownList", "void AdjustScissor(IntRect&)", asMETHODPR(DropDownList, AdjustScissor, (IntRect&), void), asCALL_THISCALL);
     // void Serializable::AllocateNetworkState() | File: ../Scene/Serializable.h
@@ -2473,7 +2449,7 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     engine->RegisterObjectMethod("DropDownList", "IntRect GetCombinedScreenRect()", asMETHODPR(DropDownList, GetCombinedScreenRect, (), IntRect), asCALL_THISCALL);
     engine->RegisterObjectMethod("DropDownList", "IntRect get_combinedScreenRect()", asMETHODPR(DropDownList, GetCombinedScreenRect, (), IntRect), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void UIElement::GetDebugDrawBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) | File: ../UI/UIElement.h
     // Error: type "PODVector<UIBatch>&" can not automatically bind
     // XMLFile* UIElement::GetDefaultStyle(bool recursiveUp=true) const | File: ../UI/UIElement.h
@@ -2867,7 +2843,7 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     engine->RegisterObjectMethod("DropDownList", "int Refs() const", asMETHODPR(DropDownList, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("DropDownList", "int get_refs() const", asMETHODPR(DropDownList, Refs, () const, int), asCALL_THISCALL);
     // static void DropDownList::RegisterObject(Context* context) | File: ../UI/DropDownList.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("DropDownList", asBEHAVE_RELEASE, "void f()", asMETHODPR(DropDownList, ReleaseRef, (), void), asCALL_THISCALL);
     // void UIElement::Remove() | File: ../UI/UIElement.h
@@ -3182,7 +3158,7 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     // bool UIElement::SetStyleAuto(XMLFile* file=nullptr) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("DropDownList", "bool SetStyleAuto(XMLFile@+ = null)", asMETHODPR(DropDownList, SetStyleAuto, (XMLFile*), bool), asCALL_THISCALL);
     // void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("DropDownList", "void SetTags(Array<String>@+)", asFUNCTION(DropDownList_SetTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void Serializable::SetTemporary(bool enable) | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("DropDownList", "void SetTemporary(bool)", asMETHODPR(DropDownList, SetTemporary, (bool), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("DropDownList", "void set_temporary(bool)", asMETHODPR(DropDownList, SetTemporary, (bool), void), asCALL_THISCALL);
@@ -3312,8 +3288,8 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     engine->RegisterObjectMethod("DynamicNavigationMesh", "void DrawDebugGeometry(DebugRenderer@+, bool)", asMETHODPR(DynamicNavigationMesh, DrawDebugGeometry, (DebugRenderer*, bool), void), asCALL_THISCALL);
     // void DynamicNavigationMesh::DrawDebugGeometry(bool depthTest) | File: ../Navigation/DynamicNavigationMesh.h
     engine->RegisterObjectMethod("DynamicNavigationMesh", "void DrawDebugGeometry(bool)", asMETHODPR(DynamicNavigationMesh, DrawDebugGeometry, (bool), void), asCALL_THISCALL);
-    // explicit DynamicNavigationMesh::DynamicNavigationMesh(Context*) | File: ../Navigation/DynamicNavigationMesh.h
-    // Error: context can be only first
+    // explicit DynamicNavigationMesh::DynamicNavigationMesh(Context* context) | File: ../Navigation/DynamicNavigationMesh.h
+    engine->RegisterObjectBehaviour("DynamicNavigationMesh", asBEHAVE_FACTORY, "DynamicNavigationMesh@+ f()", asFUNCTION(DynamicNavigationMesh_DynamicNavigationMesh_Context), asCALL_CDECL);
     // Vector3 NavigationMesh::FindNearestPoint(const Vector3& point, const Vector3& extents=Vector3::ONE, const dtQueryFilter* filter=nullptr, dtPolyRef* nearestRef=nullptr) | File: ../Navigation/NavigationMesh.h
     // Error: type "const dtQueryFilter*" can not automatically bind
     // void NavigationMesh::FindPath(PODVector<Vector3>& dest, const Vector3& start, const Vector3& end, const Vector3& extents=Vector3::ONE, const dtQueryFilter* filter=nullptr) | File: ../Navigation/NavigationMesh.h
@@ -3380,7 +3356,7 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // float NavigationMesh::GetDetailSampleDistance() const | File: ../Navigation/NavigationMesh.h
@@ -3559,8 +3535,8 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     // int RefCounted::Refs() const | File: ../Container/RefCounted.h
     engine->RegisterObjectMethod("DynamicNavigationMesh", "int Refs() const", asMETHODPR(DynamicNavigationMesh, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("DynamicNavigationMesh", "int get_refs() const", asMETHODPR(DynamicNavigationMesh, Refs, () const, int), asCALL_THISCALL);
-    // static void DynamicNavigationMesh::RegisterObject(Context*) | File: ../Navigation/DynamicNavigationMesh.h
-    // Context can be used as firs parameter of constructors only
+    // static void DynamicNavigationMesh::RegisterObject(Context* context) | File: ../Navigation/DynamicNavigationMesh.h
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("DynamicNavigationMesh", asBEHAVE_RELEASE, "void f()", asMETHODPR(DynamicNavigationMesh, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -3759,8 +3735,6 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     engine->RegisterObjectProperty("DebugLine", "Vector3 start", offsetof(DebugLine, start_));
     // DebugLine::DebugLine(const Vector3& start, const Vector3& end, unsigned color) | File: ../Graphics/DebugRenderer.h
     engine->RegisterObjectBehaviour("DebugLine", asBEHAVE_CONSTRUCT, "void f(const Vector3&in, const Vector3&in, uint)", asFUNCTION(DebugLine_DebugLine_Vector3_Vector3_unsigned), asCALL_CDECL_OBJFIRST);
-    // DebugLine::~DebugLine() | Implicitly-declared
-    engine->RegisterObjectBehaviour("DebugLine", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(DebugLine_Destructor), asCALL_CDECL_OBJFIRST);
     // DebugLine& DebugLine::operator=(const DebugLine&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<DebugLine>(engine, "DebugLine");
 #ifdef REGISTER_MANUAL_PART_DebugLine
@@ -3777,8 +3751,6 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     engine->RegisterObjectProperty("DebugTriangle", "Vector3 v3", offsetof(DebugTriangle, v3_));
     // DebugTriangle::DebugTriangle(const Vector3& v1, const Vector3& v2, const Vector3& v3, unsigned color) | File: ../Graphics/DebugRenderer.h
     engine->RegisterObjectBehaviour("DebugTriangle", asBEHAVE_CONSTRUCT, "void f(const Vector3&in, const Vector3&in, const Vector3&in, uint)", asFUNCTION(DebugTriangle_DebugTriangle_Vector3_Vector3_Vector3_unsigned), asCALL_CDECL_OBJFIRST);
-    // DebugTriangle::~DebugTriangle() | Implicitly-declared
-    engine->RegisterObjectBehaviour("DebugTriangle", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(DebugTriangle_Destructor), asCALL_CDECL_OBJFIRST);
     // DebugTriangle& DebugTriangle::operator=(const DebugTriangle&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<DebugTriangle>(engine, "DebugTriangle");
 #ifdef REGISTER_MANUAL_PART_DebugTriangle
@@ -3799,8 +3771,6 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Decal", "void AddVertex(const DecalVertex&in)", asMETHODPR(Decal, AddVertex, (const DecalVertex&), void), asCALL_THISCALL);
     // void Decal::CalculateBoundingBox() | File: ../Graphics/DecalSet.h
     engine->RegisterObjectMethod("Decal", "void CalculateBoundingBox()", asMETHODPR(Decal, CalculateBoundingBox, (), void), asCALL_THISCALL);
-    // Decal::~Decal() | Implicitly-declared
-    engine->RegisterObjectBehaviour("Decal", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Decal_Destructor), asCALL_CDECL_OBJFIRST);
     // Decal& Decal::operator=(const Decal&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<Decal>(engine, "Decal");
 #ifdef REGISTER_MANUAL_PART_Decal
@@ -3823,8 +3793,6 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     engine->RegisterObjectBehaviour("DecalVertex", asBEHAVE_CONSTRUCT, "void f(const Vector3&in, const Vector3&in)", asFUNCTION(DecalVertex_DecalVertex_Vector3_Vector3), asCALL_CDECL_OBJFIRST);
     // DecalVertex::DecalVertex(const Vector3& position, const Vector3& normal, const float* blendWeights, const unsigned char* blendIndices) | File: ../Graphics/DecalSet.h
     // Error: type "const float*" can not automatically bind
-    // DecalVertex::~DecalVertex() | Implicitly-declared
-    engine->RegisterObjectBehaviour("DecalVertex", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(DecalVertex_Destructor), asCALL_CDECL_OBJFIRST);
     // DecalVertex& DecalVertex::operator=(const DecalVertex&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<DecalVertex>(engine, "DecalVertex");
 #ifdef REGISTER_MANUAL_PART_DecalVertex
@@ -3840,8 +3808,6 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     engine->RegisterObjectProperty("DelayedWorldTransform", "Vector3 worldPosition", offsetof(DelayedWorldTransform, worldPosition_));
     // Quaternion DelayedWorldTransform::worldRotation_ | File: ../Physics/PhysicsWorld.h
     engine->RegisterObjectProperty("DelayedWorldTransform", "Quaternion worldRotation", offsetof(DelayedWorldTransform, worldRotation_));
-    // DelayedWorldTransform::~DelayedWorldTransform() | Implicitly-declared
-    engine->RegisterObjectBehaviour("DelayedWorldTransform", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(DelayedWorldTransform_Destructor), asCALL_CDECL_OBJFIRST);
     // DelayedWorldTransform& DelayedWorldTransform::operator=(const DelayedWorldTransform&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<DelayedWorldTransform>(engine, "DelayedWorldTransform");
 #ifdef REGISTER_MANUAL_PART_DelayedWorldTransform
@@ -3858,8 +3824,6 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     engine->RegisterObjectProperty("DelayedWorldTransform2D", "Vector3 worldPosition", offsetof(DelayedWorldTransform2D, worldPosition_));
     // Quaternion DelayedWorldTransform2D::worldRotation_ | File: ../Urho2D/PhysicsWorld2D.h
     engine->RegisterObjectProperty("DelayedWorldTransform2D", "Quaternion worldRotation", offsetof(DelayedWorldTransform2D, worldRotation_));
-    // DelayedWorldTransform2D::~DelayedWorldTransform2D() | Implicitly-declared
-    engine->RegisterObjectBehaviour("DelayedWorldTransform2D", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(DelayedWorldTransform2D_Destructor), asCALL_CDECL_OBJFIRST);
     // DelayedWorldTransform2D& DelayedWorldTransform2D::operator=(const DelayedWorldTransform2D&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<DelayedWorldTransform2D>(engine, "DelayedWorldTransform2D");
 #ifdef REGISTER_MANUAL_PART_DelayedWorldTransform2D
@@ -3893,8 +3857,6 @@ void ASRegisterGenerated_Members_D(asIScriptEngine* engine)
     engine->RegisterObjectMethod("DirtyBits", "bool IsSet(uint) const", asMETHODPR(DirtyBits, IsSet, (unsigned) const, bool), asCALL_THISCALL);
     // void DirtyBits::Set(unsigned index) | File: ../Scene/ReplicationState.h
     engine->RegisterObjectMethod("DirtyBits", "void Set(uint)", asMETHODPR(DirtyBits, Set, (unsigned), void), asCALL_THISCALL);
-    // DirtyBits::~DirtyBits() | Implicitly-declared
-    engine->RegisterObjectBehaviour("DirtyBits", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(DirtyBits_Destructor), asCALL_CDECL_OBJFIRST);
     // DirtyBits& DirtyBits::operator=(const DirtyBits&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<DirtyBits>(engine, "DirtyBits");
 #ifdef REGISTER_MANUAL_PART_DirtyBits

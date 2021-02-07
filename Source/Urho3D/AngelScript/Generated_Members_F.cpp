@@ -38,10 +38,18 @@ static CScriptArray* File_ReadStringVector_void(File* ptr)
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void File_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(File* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void File_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(File* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
+}
+
+// bool Serializer::WriteStringVector(const StringVector& value) | File: ../IO/Serializer.h
+static bool File_WriteStringVector_StringVector(File* ptr, CScriptArray* value_conv)
+{
+    StringVector value = ArrayToVector<String>(value_conv);
+    bool result = ptr->WriteStringVector(value);
+    return result;
 }
 
 // explicit FileSelector::FileSelector(Context* context) | File: ../UI/FileSelector.h
@@ -51,17 +59,17 @@ static FileSelector* FileSelector_FileSelector_Context()
 }
 
 // void FileSelector::SetFilters(const Vector<String>& filters, unsigned defaultIndex) | File: ../UI/FileSelector.h
-static void FileSelector_SetFilters_VectorString_unsigned(FileSelector* ptr, CScriptArray* filters, unsigned defaultIndex)
+static void FileSelector_SetFilters_VectorString_unsigned(FileSelector* ptr, CScriptArray* filters_conv, unsigned defaultIndex)
 {
-    Vector<String> param0 = ArrayToVector<String>(filters);
-    ptr->SetFilters(param0, defaultIndex);
+    Vector<String> filters = ArrayToVector<String>(filters_conv);
+    ptr->SetFilters(filters, defaultIndex);
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void FileSelector_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(FileSelector* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void FileSelector_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(FileSelector* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit FileSystem::FileSystem(Context* context) | File: ../IO/FileSystem.h
@@ -71,26 +79,26 @@ static FileSystem* FileSystem_FileSystem_Context()
 }
 
 // int FileSystem::SystemRun(const String& fileName, const Vector<String>& arguments) | File: ../IO/FileSystem.h
-static int FileSystem_SystemRun_String_VectorString(FileSystem* ptr, const String& fileName, CScriptArray* arguments)
+static int FileSystem_SystemRun_String_VectorString(FileSystem* ptr, const String& fileName, CScriptArray* arguments_conv)
 {
-    Vector<String> param1 = ArrayToVector<String>(arguments);
-    int result = ptr->SystemRun(fileName, param1);
+    Vector<String> arguments = ArrayToVector<String>(arguments_conv);
+    int result = ptr->SystemRun(fileName, arguments);
     return result;
 }
 
 // unsigned FileSystem::SystemRunAsync(const String& fileName, const Vector<String>& arguments) | File: ../IO/FileSystem.h
-static unsigned FileSystem_SystemRunAsync_String_VectorString(FileSystem* ptr, const String& fileName, CScriptArray* arguments)
+static unsigned FileSystem_SystemRunAsync_String_VectorString(FileSystem* ptr, const String& fileName, CScriptArray* arguments_conv)
 {
-    Vector<String> param1 = ArrayToVector<String>(arguments);
-    unsigned result = ptr->SystemRunAsync(fileName, param1);
+    Vector<String> arguments = ArrayToVector<String>(arguments_conv);
+    unsigned result = ptr->SystemRunAsync(fileName, arguments);
     return result;
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void FileSystem_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(FileSystem* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void FileSystem_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(FileSystem* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit FileWatcher::FileWatcher(Context* context) | File: ../IO/FileWatcher.h
@@ -100,10 +108,10 @@ static FileWatcher* FileWatcher_FileWatcher_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void FileWatcher_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(FileWatcher* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void FileWatcher_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(FileWatcher* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit Font::Font(Context* context) | File: ../UI/Font.h
@@ -113,10 +121,10 @@ static Font* Font_Font_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Font_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Font* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Font_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Font* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // const Vector<SharedPtr<Texture2D>>& FontFace::GetTextures() const | File: ../UI/FontFace.h
@@ -158,34 +166,10 @@ static void Frustum_Frustum_Frustum(Frustum* ptr, const Frustum &frustum)
     new(ptr) Frustum(frustum);
 }
 
-// Frustum::~Frustum() | Implicitly-declared 
-static void Frustum_Destructor(Frustum* ptr)
-{
-    ptr->~Frustum();
-}
-
-// FileSelectorEntry::~FileSelectorEntry() | Implicitly-declared 
-static void FileSelectorEntry_Destructor(FileSelectorEntry* ptr)
-{
-    ptr->~FileSelectorEntry();
-}
-
 // FocusParameters::FocusParameters(bool focus, bool nonUniform, bool autoSize, float quantize, float minView) | File: ../Graphics/Light.h
 static void FocusParameters_FocusParameters_bool_bool_bool_float_float(FocusParameters* ptr, bool focus, bool nonUniform, bool autoSize, float quantize, float minView)
 {
     new(ptr) FocusParameters(focus, nonUniform, autoSize, quantize, minView);
-}
-
-// FontGlyph::~FontGlyph() | Implicitly-declared 
-static void FontGlyph_Destructor(FontGlyph* ptr)
-{
-    ptr->~FontGlyph();
-}
-
-// FrameInfo::~FrameInfo() | Implicitly-declared 
-static void FrameInfo_Destructor(FrameInfo* ptr)
-{
-    ptr->~FrameInfo();
 }
 
 void ASRegisterGenerated_Members_F(asIScriptEngine* engine)
@@ -215,7 +199,7 @@ void ASRegisterGenerated_Members_F(asIScriptEngine* engine)
     engine->RegisterObjectMethod("File", "uint GetChecksum()", asMETHODPR(File, GetChecksum, (), unsigned), asCALL_THISCALL);
     engine->RegisterObjectMethod("File", "uint get_checksum()", asMETHODPR(File, GetChecksum, (), unsigned), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("File", "VariantMap& GetEventDataMap() const", asMETHODPR(File, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -414,7 +398,7 @@ void ASRegisterGenerated_Members_F(asIScriptEngine* engine)
     engine->RegisterObjectMethod("File", "int WeakRefs() const", asMETHODPR(File, WeakRefs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("File", "int get_weakRefs() const", asMETHODPR(File, WeakRefs, () const, int), asCALL_THISCALL);
     // unsigned File::Write(const void* data, unsigned size) override | File: ../IO/File.h
-    // Error: type "void*" can not automatically bind
+    // Error: type "const void*" can not automatically bind
     // bool Serializer::WriteBool(bool value) | File: ../IO/Serializer.h
     engine->RegisterObjectMethod("File", "bool WriteBool(bool)", asMETHODPR(File, WriteBool, (bool), bool), asCALL_THISCALL);
     // bool Serializer::WriteBoundingBox(const BoundingBox& value) | File: ../IO/Serializer.h
@@ -470,7 +454,7 @@ void ASRegisterGenerated_Members_F(asIScriptEngine* engine)
     // bool Serializer::WriteStringHash(const StringHash& value) | File: ../IO/Serializer.h
     engine->RegisterObjectMethod("File", "bool WriteStringHash(const StringHash&in)", asMETHODPR(File, WriteStringHash, (const StringHash&), bool), asCALL_THISCALL);
     // bool Serializer::WriteStringVector(const StringVector& value) | File: ../IO/Serializer.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("File", "bool WriteStringVector(Array<String>@+)", asFUNCTION(File_WriteStringVector_StringVector), asCALL_CDECL_OBJFIRST);
     // bool Serializer::WriteUByte(unsigned char value) | File: ../IO/Serializer.h
     engine->RegisterObjectMethod("File", "bool WriteUByte(uint8)", asMETHODPR(File, WriteUByte, (unsigned char), bool), asCALL_THISCALL);
     // bool Serializer::WriteUInt(unsigned value) | File: ../IO/Serializer.h
@@ -538,7 +522,7 @@ void ASRegisterGenerated_Members_F(asIScriptEngine* engine)
     // Button* FileSelector::GetCloseButton() const | File: ../UI/FileSelector.h
     engine->RegisterObjectMethod("FileSelector", "Button@+ GetCloseButton() const", asMETHODPR(FileSelector, GetCloseButton, () const, Button*), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // XMLFile* FileSelector::GetDefaultStyle() const | File: ../UI/FileSelector.h
     engine->RegisterObjectMethod("FileSelector", "XMLFile@+ GetDefaultStyle() const", asMETHODPR(FileSelector, GetDefaultStyle, () const, XMLFile*), asCALL_THISCALL);
     engine->RegisterObjectMethod("FileSelector", "XMLFile@+ get_defaultStyle() const", asMETHODPR(FileSelector, GetDefaultStyle, () const, XMLFile*), asCALL_THISCALL);
@@ -627,7 +611,7 @@ void ASRegisterGenerated_Members_F(asIScriptEngine* engine)
     engine->RegisterObjectMethod("FileSelector", "int Refs() const", asMETHODPR(FileSelector, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("FileSelector", "int get_refs() const", asMETHODPR(FileSelector, Refs, () const, int), asCALL_THISCALL);
     // static void FileSelector::RegisterObject(Context* context) | File: ../UI/FileSelector.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("FileSelector", asBEHAVE_RELEASE, "void f()", asMETHODPR(FileSelector, ReleaseRef, (), void), asCALL_THISCALL);
     // void Object::SendEvent(StringHash eventType) | File: ../Core/Object.h
@@ -723,7 +707,7 @@ void ASRegisterGenerated_Members_F(asIScriptEngine* engine)
     engine->RegisterObjectMethod("FileSystem", "const String& GetCategory() const", asMETHODPR(FileSystem, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("FileSystem", "const String& get_category() const", asMETHODPR(FileSystem, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // String FileSystem::GetCurrentDir() const | File: ../IO/FileSystem.h
     engine->RegisterObjectMethod("FileSystem", "String GetCurrentDir() const", asMETHODPR(FileSystem, GetCurrentDir, () const, String), asCALL_THISCALL);
     engine->RegisterObjectMethod("FileSystem", "String get_currentDir() const", asMETHODPR(FileSystem, GetCurrentDir, () const, String), asCALL_THISCALL);
@@ -874,7 +858,7 @@ void ASRegisterGenerated_Members_F(asIScriptEngine* engine)
     engine->RegisterObjectMethod("FileWatcher", "const String& GetCategory() const", asMETHODPR(FileWatcher, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("FileWatcher", "const String& get_category() const", asMETHODPR(FileWatcher, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // static ThreadID Thread::GetCurrentThreadID() | File: ../Core/Thread.h
     // Not registered because have @nobind mark
     // float FileWatcher::GetDelay() const | File: ../IO/FileWatcher.h
@@ -1024,7 +1008,7 @@ void ASRegisterGenerated_Members_F(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Font", "const String& GetCategory() const", asMETHODPR(Font, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("Font", "const String& get_category() const", asMETHODPR(Font, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("Font", "VariantMap& GetEventDataMap() const", asMETHODPR(Font, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -1099,7 +1083,7 @@ void ASRegisterGenerated_Members_F(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Font", "int Refs() const", asMETHODPR(Font, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Font", "int get_refs() const", asMETHODPR(Font, Refs, () const, int), asCALL_THISCALL);
     // static void Font::RegisterObject(Context* context) | File: ../UI/Font.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void Font::ReleaseFaces() | File: ../UI/Font.h
     engine->RegisterObjectMethod("Font", "void ReleaseFaces()", asMETHODPR(Font, ReleaseFaces, (), void), asCALL_THISCALL);
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
@@ -1342,8 +1326,6 @@ void ASRegisterGenerated_Members_F(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Frustum", "Frustum Transformed(const Matrix3x4&in) const", asMETHODPR(Frustum, Transformed, (const Matrix3x4&) const, Frustum), asCALL_THISCALL);
     // void Frustum::UpdatePlanes() | File: ../Math/Frustum.h
     engine->RegisterObjectMethod("Frustum", "void UpdatePlanes()", asMETHODPR(Frustum, UpdatePlanes, (), void), asCALL_THISCALL);
-    // Frustum::~Frustum() | Implicitly-declared
-    engine->RegisterObjectBehaviour("Frustum", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Frustum_Destructor), asCALL_CDECL_OBJFIRST);
 #ifdef REGISTER_MANUAL_PART_Frustum
     REGISTER_MANUAL_PART_Frustum(Frustum, "Frustum")
 #endif
@@ -1352,8 +1334,6 @@ void ASRegisterGenerated_Members_F(asIScriptEngine* engine)
     engine->RegisterObjectProperty("FileSelectorEntry", "bool directory", offsetof(FileSelectorEntry, directory_));
     // String FileSelectorEntry::name_ | File: ../UI/FileSelector.h
     engine->RegisterObjectProperty("FileSelectorEntry", "String name", offsetof(FileSelectorEntry, name_));
-    // FileSelectorEntry::~FileSelectorEntry() | Implicitly-declared
-    engine->RegisterObjectBehaviour("FileSelectorEntry", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(FileSelectorEntry_Destructor), asCALL_CDECL_OBJFIRST);
     // FileSelectorEntry& FileSelectorEntry::operator=(const FileSelectorEntry&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<FileSelectorEntry>(engine, "FileSelectorEntry");
 #ifdef REGISTER_MANUAL_PART_FileSelectorEntry
@@ -1402,8 +1382,6 @@ void ASRegisterGenerated_Members_F(asIScriptEngine* engine)
     engine->RegisterObjectProperty("FontGlyph", "int16 x", offsetof(FontGlyph, x_));
     // short FontGlyph::y_ | File: ../UI/FontFace.h
     engine->RegisterObjectProperty("FontGlyph", "int16 y", offsetof(FontGlyph, y_));
-    // FontGlyph::~FontGlyph() | Implicitly-declared
-    engine->RegisterObjectBehaviour("FontGlyph", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(FontGlyph_Destructor), asCALL_CDECL_OBJFIRST);
     // FontGlyph& FontGlyph::operator=(const FontGlyph&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<FontGlyph>(engine, "FontGlyph");
 #ifdef REGISTER_MANUAL_PART_FontGlyph
@@ -1418,8 +1396,6 @@ void ASRegisterGenerated_Members_F(asIScriptEngine* engine)
     engine->RegisterObjectProperty("FrameInfo", "float timeStep", offsetof(FrameInfo, timeStep_));
     // IntVector2 FrameInfo::viewSize_ | File: ../Graphics/Drawable.h
     engine->RegisterObjectProperty("FrameInfo", "IntVector2 viewSize", offsetof(FrameInfo, viewSize_));
-    // FrameInfo::~FrameInfo() | Implicitly-declared
-    engine->RegisterObjectBehaviour("FrameInfo", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(FrameInfo_Destructor), asCALL_CDECL_OBJFIRST);
     // FrameInfo& FrameInfo::operator=(const FrameInfo&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<FrameInfo>(engine, "FrameInfo");
 #ifdef REGISTER_MANUAL_PART_FrameInfo

@@ -26,23 +26,25 @@ static CScriptArray* XMLElement_GetStringVector_void(XMLElement* ptr)
     return VectorToArray<String>(result, "Array<String>");
 }
 
+// bool XMLElement::SetStringVector(const StringVector& value) | File: ../Resource/XMLElement.h
+static bool XMLElement_SetStringVector_StringVector(XMLElement* ptr, CScriptArray* value_conv)
+{
+    StringVector value = ArrayToVector<String>(value_conv);
+    bool result = ptr->SetStringVector(value);
+    return result;
+}
+
 // XMLElement::XMLElement(const XMLElement& rhs) | File: ../Resource/XMLElement.h
 static void XMLElement_XMLElement_XMLElement(XMLElement* ptr, const XMLElement &rhs)
 {
     new(ptr) XMLElement(rhs);
 }
 
-// XMLElement::~XMLElement() | File: ../Resource/XMLElement.h
-static void XMLElement_Destructor_XMLElement_void(XMLElement* ptr)
-{
-    ptr->~XMLElement();
-}
-
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void XMLFile_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(XMLFile* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void XMLFile_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(XMLFile* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit XMLFile::XMLFile(Context* context) | File: ../Resource/XMLFile.h
@@ -57,22 +59,10 @@ static void XPathQuery_XPathQuery_String_String(XPathQuery* ptr, const String &q
     new(ptr) XPathQuery(queryString, variableString);
 }
 
-// XPathQuery::~XPathQuery() | File: ../Resource/XMLElement.h
-static void XPathQuery_Destructor_XPathQuery_void(XPathQuery* ptr)
-{
-    ptr->~XPathQuery();
-}
-
 // XPathResultSet::XPathResultSet(const XPathResultSet& rhs) | File: ../Resource/XMLElement.h
 static void XPathResultSet_XPathResultSet_XPathResultSet(XPathResultSet* ptr, const XPathResultSet &rhs)
 {
     new(ptr) XPathResultSet(rhs);
-}
-
-// XPathResultSet::~XPathResultSet() | File: ../Resource/XMLElement.h
-static void XPathResultSet_Destructor_XPathResultSet_void(XPathResultSet* ptr)
-{
-    ptr->~XPathResultSet();
 }
 
 void ASRegisterGenerated_Members_X(asIScriptEngine* engine)
@@ -258,7 +248,7 @@ void ASRegisterGenerated_Members_X(asIScriptEngine* engine)
     // bool XMLElement::SetBoundingBox(const BoundingBox& value) | File: ../Resource/XMLElement.h
     engine->RegisterObjectMethod("XMLElement", "bool SetBoundingBox(const BoundingBox&in)", asMETHODPR(XMLElement, SetBoundingBox, (const BoundingBox&), bool), asCALL_THISCALL);
     // bool XMLElement::SetBuffer(const String& name, const void* data, unsigned size) | File: ../Resource/XMLElement.h
-    // Error: type "void*" can not automatically bind
+    // Error: type "const void*" can not automatically bind
     // bool XMLElement::SetBuffer(const String& name, const PODVector<unsigned char>& value) | File: ../Resource/XMLElement.h
     // Error: type "const PODVector<unsigned char>&" can not automatically bind
     // bool XMLElement::SetColor(const String& name, const Color& value) | File: ../Resource/XMLElement.h
@@ -294,7 +284,7 @@ void ASRegisterGenerated_Members_X(asIScriptEngine* engine)
     // bool XMLElement::SetString(const String& name, const String& value) | File: ../Resource/XMLElement.h
     engine->RegisterObjectMethod("XMLElement", "bool SetString(const String&in, const String&in)", asMETHODPR(XMLElement, SetString, (const String&, const String&), bool), asCALL_THISCALL);
     // bool XMLElement::SetStringVector(const StringVector& value) | File: ../Resource/XMLElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("XMLElement", "bool SetStringVector(Array<String>@+)", asFUNCTION(XMLElement_SetStringVector_StringVector), asCALL_CDECL_OBJFIRST);
     // bool XMLElement::SetUInt(const String& name, unsigned value) | File: ../Resource/XMLElement.h
     engine->RegisterObjectMethod("XMLElement", "bool SetUInt(const String&in, uint)", asMETHODPR(XMLElement, SetUInt, (const String&, unsigned), bool), asCALL_THISCALL);
     // bool XMLElement::SetUInt64(const String& name, unsigned long long value) | File: ../Resource/XMLElement.h
@@ -326,8 +316,6 @@ void ASRegisterGenerated_Members_X(asIScriptEngine* engine)
     // Error: type "const XPathResultSet*" can not automatically bind
     // XMLElement::XMLElement(const XMLElement& rhs) | File: ../Resource/XMLElement.h
     engine->RegisterObjectBehaviour("XMLElement", asBEHAVE_CONSTRUCT, "void f(const XMLElement&in)", asFUNCTION(XMLElement_XMLElement_XMLElement), asCALL_CDECL_OBJFIRST);
-    // XMLElement::~XMLElement() | File: ../Resource/XMLElement.h
-    engine->RegisterObjectBehaviour("XMLElement", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(XMLElement_Destructor_XMLElement_void), asCALL_CDECL_OBJFIRST);
 #ifdef REGISTER_MANUAL_PART_XMLElement
     REGISTER_MANUAL_PART_XMLElement(XMLElement, "XMLElement")
 #endif
@@ -354,7 +342,7 @@ void ASRegisterGenerated_Members_X(asIScriptEngine* engine)
     engine->RegisterObjectMethod("XMLFile", "const String& GetCategory() const", asMETHODPR(XMLFile, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("XMLFile", "const String& get_category() const", asMETHODPR(XMLFile, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // pugi::xml_document* XMLFile::GetDocument() const | File: ../Resource/XMLFile.h
     // Error: type "pugi::xml_document*" can not automatically bind
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
@@ -427,7 +415,7 @@ void ASRegisterGenerated_Members_X(asIScriptEngine* engine)
     engine->RegisterObjectMethod("XMLFile", "int Refs() const", asMETHODPR(XMLFile, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("XMLFile", "int get_refs() const", asMETHODPR(XMLFile, Refs, () const, int), asCALL_THISCALL);
     // static void XMLFile::RegisterObject(Context* context) | File: ../Resource/XMLFile.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("XMLFile", asBEHAVE_RELEASE, "void f()", asMETHODPR(XMLFile, ReleaseRef, (), void), asCALL_THISCALL);
     // void Resource::ResetUseTimer() | File: ../Resource/Resource.h
@@ -531,8 +519,6 @@ void ASRegisterGenerated_Members_X(asIScriptEngine* engine)
     engine->RegisterObjectMethod("XPathQuery", "bool SetVariable(const String&in, const XPathResultSet&in)", asMETHODPR(XPathQuery, SetVariable, (const String&, const XPathResultSet&), bool), asCALL_THISCALL);
     // explicit XPathQuery::XPathQuery(const String& queryString, const String& variableString=String::EMPTY) | File: ../Resource/XMLElement.h
     engine->RegisterObjectBehaviour("XPathQuery", asBEHAVE_CONSTRUCT, "void f(const String&in, const String&in = String::EMPTY)", asFUNCTION(XPathQuery_XPathQuery_String_String), asCALL_CDECL_OBJFIRST);
-    // XPathQuery::~XPathQuery() | File: ../Resource/XMLElement.h
-    engine->RegisterObjectBehaviour("XPathQuery", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(XPathQuery_Destructor_XPathQuery_void), asCALL_CDECL_OBJFIRST);
     // XPathQuery& XPathQuery::operator=(const XPathQuery&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<XPathQuery>(engine, "XPathQuery");
 #ifdef REGISTER_MANUAL_PART_XPathQuery
@@ -558,8 +544,6 @@ void ASRegisterGenerated_Members_X(asIScriptEngine* engine)
     // Error: type "pugi::xpath_node_set*" can not automatically bind
     // XPathResultSet::XPathResultSet(const XPathResultSet& rhs) | File: ../Resource/XMLElement.h
     engine->RegisterObjectBehaviour("XPathResultSet", asBEHAVE_CONSTRUCT, "void f(const XPathResultSet&in)", asFUNCTION(XPathResultSet_XPathResultSet_XPathResultSet), asCALL_CDECL_OBJFIRST);
-    // XPathResultSet::~XPathResultSet() | File: ../Resource/XMLElement.h
-    engine->RegisterObjectBehaviour("XPathResultSet", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(XPathResultSet_Destructor_XPathResultSet_void), asCALL_CDECL_OBJFIRST);
 #ifdef REGISTER_MANUAL_PART_XPathResultSet
     REGISTER_MANUAL_PART_XPathResultSet(XPathResultSet, "XPathResultSet")
 #endif

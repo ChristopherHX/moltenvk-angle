@@ -12,6 +12,13 @@ namespace Urho3D
 void FakeAddRef(void* ptr);
 void FakeReleaseRef(void* ptr);
 
+// void Node::AddTags(const StringVector& tags) | File: ../Scene/Node.h
+static void Scene_AddTags_StringVector(Scene* ptr, CScriptArray* tags_conv)
+{
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->AddTags(tags);
+}
+
 // const Vector<SharedPtr<Node>>& Node::GetChildren() const | File: ../Scene/Node.h
 static CScriptArray* Scene_GetChildren_void(Scene* ptr)
 {
@@ -74,17 +81,25 @@ static Scene* Scene_Scene_Context()
     return new Scene(GetScriptContext());
 }
 
-// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Scene_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Scene* ptr, CScriptArray* exceptions, bool onlyUserData)
+// void Node::SetTags(const StringVector& tags) | File: ../Scene/Node.h
+static void Scene_SetTags_StringVector(Scene* ptr, CScriptArray* tags_conv)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->SetTags(tags);
 }
 
-// SceneResolver::~SceneResolver() | File: ../Scene/SceneResolver.h
-static void SceneResolver_Destructor_SceneResolver_void(SceneResolver* ptr)
+// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
+static void Scene_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Scene* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    ptr->~SceneResolver();
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
+}
+
+// void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void ScrollBar_AddTags_StringVector(ScrollBar* ptr, CScriptArray* tags_conv)
+{
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->AddTags(tags);
 }
 
 // const Vector<SharedPtr<UIElement>>& UIElement::GetChildren() const | File: ../UI/UIElement.h
@@ -121,11 +136,25 @@ static ScrollBar* ScrollBar_ScrollBar_Context()
     return new ScrollBar(GetScriptContext());
 }
 
-// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void ScrollBar_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(ScrollBar* ptr, CScriptArray* exceptions, bool onlyUserData)
+// void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void ScrollBar_SetTags_StringVector(ScrollBar* ptr, CScriptArray* tags_conv)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->SetTags(tags);
+}
+
+// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
+static void ScrollBar_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(ScrollBar* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
+{
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
+}
+
+// void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void ScrollView_AddTags_StringVector(ScrollView* ptr, CScriptArray* tags_conv)
+{
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->AddTags(tags);
 }
 
 // const Vector<SharedPtr<UIElement>>& UIElement::GetChildren() const | File: ../UI/UIElement.h
@@ -162,11 +191,18 @@ static ScrollView* ScrollView_ScrollView_Context()
     return new ScrollView(GetScriptContext());
 }
 
-// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void ScrollView_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(ScrollView* ptr, CScriptArray* exceptions, bool onlyUserData)
+// void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void ScrollView_SetTags_StringVector(ScrollView* ptr, CScriptArray* tags_conv)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->SetTags(tags);
+}
+
+// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
+static void ScrollView_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(ScrollView* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
+{
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit Serializable::Serializable(Context* context) | File: ../Scene/Serializable.h
@@ -176,10 +212,18 @@ static Serializable* Serializable_Serializable_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Serializable_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Serializable* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Serializable_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Serializable* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
+}
+
+// bool Serializer::WriteStringVector(const StringVector& value) | File: ../IO/Serializer.h
+static bool Serializer_WriteStringVector_StringVector(Serializer* ptr, CScriptArray* value_conv)
+{
+    StringVector value = ArrayToVector<String>(value_conv);
+    bool result = ptr->WriteStringVector(value);
+    return result;
 }
 
 // explicit Shader::Shader(Context* context) | File: ../Graphics/Shader.h
@@ -189,10 +233,10 @@ static Shader* Shader_Shader_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Shader_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Shader* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Shader_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Shader* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // ShaderParameterAnimationInfo::ShaderParameterAnimationInfo(Material* material, const String& name, ValueAnimation* attributeAnimation, WrapMode wrapMode, float speed) | File: ../Graphics/Material.h
@@ -214,10 +258,10 @@ static ShaderPrecache* ShaderPrecache_ShaderPrecache_Context_String(const String
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void ShaderPrecache_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(ShaderPrecache* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void ShaderPrecache_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(ShaderPrecache* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // ShaderVariation::ShaderVariation(Shader* owner, ShaderType type) | File: ../Graphics/ShaderVariation.h
@@ -253,10 +297,17 @@ static Skybox* Skybox_Skybox_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Skybox_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Skybox* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Skybox_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Skybox* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
+}
+
+// void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void Slider_AddTags_StringVector(Slider* ptr, CScriptArray* tags_conv)
+{
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->AddTags(tags);
 }
 
 // const Vector<SharedPtr<UIElement>>& UIElement::GetChildren() const | File: ../UI/UIElement.h
@@ -287,6 +338,13 @@ static CScriptArray* Slider_GetTags_void(Slider* ptr)
     return VectorToArray<String>(result, "Array<String>");
 }
 
+// void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void Slider_SetTags_StringVector(Slider* ptr, CScriptArray* tags_conv)
+{
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->SetTags(tags);
+}
+
 // explicit Slider::Slider(Context* context) | File: ../UI/Slider.h
 static Slider* Slider_Slider_Context()
 {
@@ -294,10 +352,10 @@ static Slider* Slider_Slider_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Slider_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Slider* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Slider_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Slider* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit SmoothedTransform::SmoothedTransform(Context* context) | File: ../Scene/SmoothedTransform.h
@@ -307,34 +365,10 @@ static SmoothedTransform* SmoothedTransform_SmoothedTransform_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void SmoothedTransform_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(SmoothedTransform* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void SmoothedTransform_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(SmoothedTransform* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
-}
-
-// ScenePassInfo::~ScenePassInfo() | Implicitly-declared 
-static void ScenePassInfo_Destructor(ScenePassInfo* ptr)
-{
-    ptr->~ScenePassInfo();
-}
-
-// SceneReplicationState::~SceneReplicationState() | Implicitly-declared 
-static void SceneReplicationState_Destructor(SceneReplicationState* ptr)
-{
-    ptr->~SceneReplicationState();
-}
-
-// ScratchBuffer::~ScratchBuffer() | Implicitly-declared 
-static void ScratchBuffer_Destructor(ScratchBuffer* ptr)
-{
-    ptr->~ScratchBuffer();
-}
-
-// ScreenModeParams::~ScreenModeParams() | Implicitly-declared 
-static void ScreenModeParams_Destructor(ScreenModeParams* ptr)
-{
-    ptr->~ScreenModeParams();
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // ShaderParameter::ShaderParameter(const String& name, unsigned glType, int location) | File: ../Graphics/ShaderVariation.h
@@ -353,24 +387,6 @@ static void ShaderParameter_ShaderParameter_ShaderType_String_unsigned_unsigned_
 static void ShaderParameter_ShaderParameter_ShaderType_String_unsigned_unsigned(ShaderParameter* ptr, ShaderType type, const String &name, unsigned reg, unsigned regCount)
 {
     new(ptr) ShaderParameter(type, name, reg, regCount);
-}
-
-// ShaderParameter::~ShaderParameter() | Implicitly-declared 
-static void ShaderParameter_Destructor(ShaderParameter* ptr)
-{
-    ptr->~ShaderParameter();
-}
-
-// ShadowBatchQueue::~ShadowBatchQueue() | Implicitly-declared 
-static void ShadowBatchQueue_Destructor(ShadowBatchQueue* ptr)
-{
-    ptr->~ShadowBatchQueue();
-}
-
-// SimpleNavBuildData::~SimpleNavBuildData() override | File: ../Navigation/NavBuildData.h
-static void SimpleNavBuildData_Destructor_SimpleNavBuildData_void(SimpleNavBuildData* ptr)
-{
-    ptr->~SimpleNavBuildData();
 }
 
 void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
@@ -392,7 +408,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     // void Node::AddTags(const String& tags, char separator=';') | File: ../Scene/Node.h
     engine->RegisterObjectMethod("Scene", "void AddTags(const String&in, int8 = ';')", asMETHODPR(Scene, AddTags, (const String&, char), void), asCALL_THISCALL);
     // void Node::AddTags(const StringVector& tags) | File: ../Scene/Node.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("Scene", "void AddTags(Array<String>@+)", asFUNCTION(Scene_AddTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void Serializable::AllocateNetworkState() | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("Scene", "void AllocateNetworkState()", asMETHODPR(Scene, AllocateNetworkState, (), void), asCALL_THISCALL);
     // void Node::ApplyAttributes() override | File: ../Scene/Node.h
@@ -510,7 +526,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     // template<class T> void Node::GetComponents(PODVector<T*>& dest, bool recursive=false) const | File: ../Scene/Node.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // const PODVector<Node*>& Node::GetDependencyNodes() const | File: ../Scene/Node.h
     engine->RegisterObjectMethod("Scene", "Array<Node@>@ GetDependencyNodes() const", asFUNCTION(Scene_GetDependencyNodes_void), asCALL_CDECL_OBJFIRST);
     // template<class T> T*  Node::GetDerivedComponent(bool recursive=false) const | File: ../Scene/Node.h
@@ -822,7 +838,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Scene", "int Refs() const", asMETHODPR(Scene, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Scene", "int get_refs() const", asMETHODPR(Scene, Refs, () const, int), asCALL_THISCALL);
     // static void Scene::RegisterObject(Context* context) | File: ../Scene/Scene.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void Scene::RegisterVar(const String& name) | File: ../Scene/Scene.h
     engine->RegisterObjectMethod("Scene", "void RegisterVar(const String&in)", asMETHODPR(Scene, RegisterVar, (const String&), void), asCALL_THISCALL);
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
@@ -1013,7 +1029,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Scene", "void SetSnapThreshold(float)", asMETHODPR(Scene, SetSnapThreshold, (float), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("Scene", "void set_snapThreshold(float)", asMETHODPR(Scene, SetSnapThreshold, (float), void), asCALL_THISCALL);
     // void Node::SetTags(const StringVector& tags) | File: ../Scene/Node.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("Scene", "void SetTags(Array<String>@+)", asFUNCTION(Scene_SetTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void Serializable::SetTemporary(bool enable) | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("Scene", "void SetTemporary(bool)", asMETHODPR(Scene, SetTemporary, (bool), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("Scene", "void set_temporary(bool)", asMETHODPR(Scene, SetTemporary, (bool), void), asCALL_THISCALL);
@@ -1163,8 +1179,6 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("SceneResolver", "void Reset()", asMETHODPR(SceneResolver, Reset, (), void), asCALL_THISCALL);
     // void SceneResolver::Resolve() | File: ../Scene/SceneResolver.h
     engine->RegisterObjectMethod("SceneResolver", "void Resolve()", asMETHODPR(SceneResolver, Resolve, (), void), asCALL_THISCALL);
-    // SceneResolver::~SceneResolver() | File: ../Scene/SceneResolver.h
-    engine->RegisterObjectBehaviour("SceneResolver", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(SceneResolver_Destructor_SceneResolver_void), asCALL_CDECL_OBJFIRST);
     // SceneResolver& SceneResolver::operator=(const SceneResolver&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<SceneResolver>(engine, "SceneResolver");
 #ifdef REGISTER_MANUAL_PART_SceneResolver
@@ -1180,7 +1194,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     // void UIElement::AddTags(const String& tags, char separator=';') | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("ScrollBar", "void AddTags(const String&in, int8 = ';')", asMETHODPR(ScrollBar, AddTags, (const String&, char), void), asCALL_THISCALL);
     // void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("ScrollBar", "void AddTags(Array<String>@+)", asFUNCTION(ScrollBar_AddTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void UIElement::AdjustScissor(IntRect& currentScissor) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("ScrollBar", "void AdjustScissor(IntRect&)", asMETHODPR(ScrollBar, AdjustScissor, (IntRect&), void), asCALL_THISCALL);
     // void Serializable::AllocateNetworkState() | File: ../Scene/Serializable.h
@@ -1306,7 +1320,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("ScrollBar", "IntRect GetCombinedScreenRect()", asMETHODPR(ScrollBar, GetCombinedScreenRect, (), IntRect), asCALL_THISCALL);
     engine->RegisterObjectMethod("ScrollBar", "IntRect get_combinedScreenRect()", asMETHODPR(ScrollBar, GetCombinedScreenRect, (), IntRect), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void UIElement::GetDebugDrawBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) | File: ../UI/UIElement.h
     // Error: type "PODVector<UIBatch>&" can not automatically bind
     // XMLFile* UIElement::GetDefaultStyle(bool recursiveUp=true) const | File: ../UI/UIElement.h
@@ -1672,7 +1686,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("ScrollBar", "int Refs() const", asMETHODPR(ScrollBar, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("ScrollBar", "int get_refs() const", asMETHODPR(ScrollBar, Refs, () const, int), asCALL_THISCALL);
     // static void ScrollBar::RegisterObject(Context* context) | File: ../UI/ScrollBar.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("ScrollBar", asBEHAVE_RELEASE, "void f()", asMETHODPR(ScrollBar, ReleaseRef, (), void), asCALL_THISCALL);
     // void UIElement::Remove() | File: ../UI/UIElement.h
@@ -1958,7 +1972,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     // bool UIElement::SetStyleAuto(XMLFile* file=nullptr) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("ScrollBar", "bool SetStyleAuto(XMLFile@+ = null)", asMETHODPR(ScrollBar, SetStyleAuto, (XMLFile*), bool), asCALL_THISCALL);
     // void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("ScrollBar", "void SetTags(Array<String>@+)", asFUNCTION(ScrollBar_SetTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void Serializable::SetTemporary(bool enable) | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("ScrollBar", "void SetTemporary(bool)", asMETHODPR(ScrollBar, SetTemporary, (bool), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("ScrollBar", "void set_temporary(bool)", asMETHODPR(ScrollBar, SetTemporary, (bool), void), asCALL_THISCALL);
@@ -2064,7 +2078,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     // void UIElement::AddTags(const String& tags, char separator=';') | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("ScrollView", "void AddTags(const String&in, int8 = ';')", asMETHODPR(ScrollView, AddTags, (const String&, char), void), asCALL_THISCALL);
     // void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("ScrollView", "void AddTags(Array<String>@+)", asFUNCTION(ScrollView_AddTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void UIElement::AdjustScissor(IntRect& currentScissor) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("ScrollView", "void AdjustScissor(IntRect&)", asMETHODPR(ScrollView, AdjustScissor, (IntRect&), void), asCALL_THISCALL);
     // void Serializable::AllocateNetworkState() | File: ../Scene/Serializable.h
@@ -2188,7 +2202,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("ScrollView", "UIElement@+ GetContentElement() const", asMETHODPR(ScrollView, GetContentElement, () const, UIElement*), asCALL_THISCALL);
     engine->RegisterObjectMethod("ScrollView", "UIElement@+ get_contentElement() const", asMETHODPR(ScrollView, GetContentElement, () const, UIElement*), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void UIElement::GetDebugDrawBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) | File: ../UI/UIElement.h
     // Error: type "PODVector<UIBatch>&" can not automatically bind
     // XMLFile* UIElement::GetDefaultStyle(bool recursiveUp=true) const | File: ../UI/UIElement.h
@@ -2538,7 +2552,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("ScrollView", "int Refs() const", asMETHODPR(ScrollView, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("ScrollView", "int get_refs() const", asMETHODPR(ScrollView, Refs, () const, int), asCALL_THISCALL);
     // static void ScrollView::RegisterObject(Context* context) | File: ../UI/ScrollView.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("ScrollView", asBEHAVE_RELEASE, "void f()", asMETHODPR(ScrollView, ReleaseRef, (), void), asCALL_THISCALL);
     // void UIElement::Remove() | File: ../UI/UIElement.h
@@ -2812,7 +2826,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     // bool UIElement::SetStyleAuto(XMLFile* file=nullptr) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("ScrollView", "bool SetStyleAuto(XMLFile@+ = null)", asMETHODPR(ScrollView, SetStyleAuto, (XMLFile*), bool), asCALL_THISCALL);
     // void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("ScrollView", "void SetTags(Array<String>@+)", asFUNCTION(ScrollView_SetTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void Serializable::SetTemporary(bool enable) | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("ScrollView", "void SetTemporary(bool)", asMETHODPR(ScrollView, SetTemporary, (bool), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("ScrollView", "void set_temporary(bool)", asMETHODPR(ScrollView, SetTemporary, (bool), void), asCALL_THISCALL);
@@ -2928,7 +2942,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Serializable", "const String& GetCategory() const", asMETHODPR(Serializable, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("Serializable", "const String& get_category() const", asMETHODPR(Serializable, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("Serializable", "VariantMap& GetEventDataMap() const", asMETHODPR(Serializable, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -3083,7 +3097,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     RegisterSubclass<RefCounted, Serializable>(engine, "RefCounted", "Serializable");
 
     // virtual unsigned Serializer::Write(const void* data, unsigned size)=0 | File: ../IO/Serializer.h
-    // Error: type "void*" can not automatically bind
+    // Error: type "const void*" can not automatically bind
     // bool Serializer::WriteBool(bool value) | File: ../IO/Serializer.h
     engine->RegisterObjectMethod("Serializer", "bool WriteBool(bool)", asMETHODPR(Serializer, WriteBool, (bool), bool), asCALL_THISCALL);
     // bool Serializer::WriteBoundingBox(const BoundingBox& value) | File: ../IO/Serializer.h
@@ -3139,7 +3153,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     // bool Serializer::WriteStringHash(const StringHash& value) | File: ../IO/Serializer.h
     engine->RegisterObjectMethod("Serializer", "bool WriteStringHash(const StringHash&in)", asMETHODPR(Serializer, WriteStringHash, (const StringHash&), bool), asCALL_THISCALL);
     // bool Serializer::WriteStringVector(const StringVector& value) | File: ../IO/Serializer.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("Serializer", "bool WriteStringVector(Array<String>@+)", asFUNCTION(Serializer_WriteStringVector_StringVector), asCALL_CDECL_OBJFIRST);
     // bool Serializer::WriteUByte(unsigned char value) | File: ../IO/Serializer.h
     engine->RegisterObjectMethod("Serializer", "bool WriteUByte(uint8)", asMETHODPR(Serializer, WriteUByte, (unsigned char), bool), asCALL_THISCALL);
     // bool Serializer::WriteUInt(unsigned value) | File: ../IO/Serializer.h
@@ -3190,7 +3204,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Shader", "const String& GetCategory() const", asMETHODPR(Shader, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("Shader", "const String& get_category() const", asMETHODPR(Shader, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("Shader", "VariantMap& GetEventDataMap() const", asMETHODPR(Shader, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -3261,7 +3275,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Shader", "int Refs() const", asMETHODPR(Shader, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Shader", "int get_refs() const", asMETHODPR(Shader, Refs, () const, int), asCALL_THISCALL);
     // static void Shader::RegisterObject(Context* context) | File: ../Graphics/Shader.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Shader", asBEHAVE_RELEASE, "void f()", asMETHODPR(Shader, ReleaseRef, (), void), asCALL_THISCALL);
     // void Resource::ResetUseTimer() | File: ../Resource/Resource.h
@@ -3388,7 +3402,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("ShaderPrecache", "const String& GetCategory() const", asMETHODPR(ShaderPrecache, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("ShaderPrecache", "const String& get_category() const", asMETHODPR(ShaderPrecache, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("ShaderPrecache", "VariantMap& GetEventDataMap() const", asMETHODPR(ShaderPrecache, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -3686,7 +3700,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // float Drawable::GetDistance() const | File: ../Graphics/Drawable.h
@@ -3899,7 +3913,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Skybox", "int Refs() const", asMETHODPR(Skybox, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Skybox", "int get_refs() const", asMETHODPR(Skybox, Refs, () const, int), asCALL_THISCALL);
     // static void Skybox::RegisterObject(Context* context) | File: ../Graphics/Skybox.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Skybox", asBEHAVE_RELEASE, "void f()", asMETHODPR(Skybox, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -4096,7 +4110,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     // void UIElement::AddTags(const String& tags, char separator=';') | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("Slider", "void AddTags(const String&in, int8 = ';')", asMETHODPR(Slider, AddTags, (const String&, char), void), asCALL_THISCALL);
     // void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("Slider", "void AddTags(Array<String>@+)", asFUNCTION(Slider_AddTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void UIElement::AdjustScissor(IntRect& currentScissor) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("Slider", "void AdjustScissor(IntRect&)", asMETHODPR(Slider, AdjustScissor, (IntRect&), void), asCALL_THISCALL);
     // void Serializable::AllocateNetworkState() | File: ../Scene/Serializable.h
@@ -4219,7 +4233,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Slider", "IntRect GetCombinedScreenRect()", asMETHODPR(Slider, GetCombinedScreenRect, (), IntRect), asCALL_THISCALL);
     engine->RegisterObjectMethod("Slider", "IntRect get_combinedScreenRect()", asMETHODPR(Slider, GetCombinedScreenRect, (), IntRect), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void UIElement::GetDebugDrawBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) | File: ../UI/UIElement.h
     // Error: type "PODVector<UIBatch>&" can not automatically bind
     // XMLFile* UIElement::GetDefaultStyle(bool recursiveUp=true) const | File: ../UI/UIElement.h
@@ -4576,7 +4590,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Slider", "int Refs() const", asMETHODPR(Slider, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Slider", "int get_refs() const", asMETHODPR(Slider, Refs, () const, int), asCALL_THISCALL);
     // static void Slider::RegisterObject(Context* context) | File: ../UI/Slider.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Slider", asBEHAVE_RELEASE, "void f()", asMETHODPR(Slider, ReleaseRef, (), void), asCALL_THISCALL);
     // void UIElement::Remove() | File: ../UI/UIElement.h
@@ -4857,7 +4871,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     // bool UIElement::SetStyleAuto(XMLFile* file=nullptr) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("Slider", "bool SetStyleAuto(XMLFile@+ = null)", asMETHODPR(Slider, SetStyleAuto, (XMLFile*), bool), asCALL_THISCALL);
     // void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("Slider", "void SetTags(Array<String>@+)", asFUNCTION(Slider_SetTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void Serializable::SetTemporary(bool enable) | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("Slider", "void SetTemporary(bool)", asMETHODPR(Slider, SetTemporary, (bool), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("Slider", "void set_temporary(bool)", asMETHODPR(Slider, SetTemporary, (bool), void), asCALL_THISCALL);
@@ -5005,7 +5019,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
@@ -5125,7 +5139,7 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("SmoothedTransform", "int Refs() const", asMETHODPR(SmoothedTransform, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("SmoothedTransform", "int get_refs() const", asMETHODPR(SmoothedTransform, Refs, () const, int), asCALL_THISCALL);
     // static void SmoothedTransform::RegisterObject(Context* context) | File: ../Scene/SmoothedTransform.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("SmoothedTransform", asBEHAVE_RELEASE, "void f()", asMETHODPR(SmoothedTransform, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -5267,8 +5281,6 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectProperty("ScenePassInfo", "uint passIndex", offsetof(ScenePassInfo, passIndex_));
     // bool ScenePassInfo::vertexLights_ | File: ../Graphics/View.h
     engine->RegisterObjectProperty("ScenePassInfo", "bool vertexLights", offsetof(ScenePassInfo, vertexLights_));
-    // ScenePassInfo::~ScenePassInfo() | Implicitly-declared
-    engine->RegisterObjectBehaviour("ScenePassInfo", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(ScenePassInfo_Destructor), asCALL_CDECL_OBJFIRST);
     // ScenePassInfo& ScenePassInfo::operator=(const ScenePassInfo&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<ScenePassInfo>(engine, "ScenePassInfo");
 #ifdef REGISTER_MANUAL_PART_ScenePassInfo
@@ -5283,8 +5295,6 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     // Error: type "HashMap<unsigned, NodeReplicationState>" can not automatically bind
     // void SceneReplicationState::Clear() | File: ../Scene/ReplicationState.h
     engine->RegisterObjectMethod("SceneReplicationState", "void Clear()", asMETHODPR(SceneReplicationState, Clear, (), void), asCALL_THISCALL);
-    // SceneReplicationState::~SceneReplicationState() | Implicitly-declared
-    engine->RegisterObjectBehaviour("SceneReplicationState", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(SceneReplicationState_Destructor), asCALL_CDECL_OBJFIRST);
     // SceneReplicationState& SceneReplicationState::operator=(const SceneReplicationState&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<SceneReplicationState>(engine, "SceneReplicationState");
 #ifdef REGISTER_MANUAL_PART_ReplicationState
@@ -5300,8 +5310,6 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectProperty("ScratchBuffer", "bool reserved", offsetof(ScratchBuffer, reserved_));
     // unsigned ScratchBuffer::size_ | File: ../Graphics/Graphics.h
     engine->RegisterObjectProperty("ScratchBuffer", "uint size", offsetof(ScratchBuffer, size_));
-    // ScratchBuffer::~ScratchBuffer() | Implicitly-declared
-    engine->RegisterObjectBehaviour("ScratchBuffer", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(ScratchBuffer_Destructor), asCALL_CDECL_OBJFIRST);
     // ScratchBuffer& ScratchBuffer::operator=(const ScratchBuffer&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<ScratchBuffer>(engine, "ScratchBuffer");
 #ifdef REGISTER_MANUAL_PART_ScratchBuffer
@@ -5330,8 +5338,6 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectMethod("ScreenModeParams", "bool EqualsExceptVSync(const ScreenModeParams&in) const", asMETHODPR(ScreenModeParams, EqualsExceptVSync, (const ScreenModeParams&) const, bool), asCALL_THISCALL);
     // bool ScreenModeParams::operator==(const ScreenModeParams& rhs) const | File: ../Graphics/Graphics.h
     engine->RegisterObjectMethod("ScreenModeParams", "bool opEquals(const ScreenModeParams&in) const", asMETHODPR(ScreenModeParams, operator==, (const ScreenModeParams&) const, bool), asCALL_THISCALL);
-    // ScreenModeParams::~ScreenModeParams() | Implicitly-declared
-    engine->RegisterObjectBehaviour("ScreenModeParams", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(ScreenModeParams_Destructor), asCALL_CDECL_OBJFIRST);
     // ScreenModeParams& ScreenModeParams::operator=(const ScreenModeParams&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<ScreenModeParams>(engine, "ScreenModeParams");
 #ifdef REGISTER_MANUAL_PART_ScreenModeParams
@@ -5364,8 +5370,6 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     engine->RegisterObjectBehaviour("ShaderParameter", asBEHAVE_CONSTRUCT, "void f(ShaderType, const String&in, uint, uint, uint)", asFUNCTION(ShaderParameter_ShaderParameter_ShaderType_String_unsigned_unsigned_unsigned), asCALL_CDECL_OBJFIRST);
     // ShaderParameter::ShaderParameter(ShaderType type, const String& name, unsigned reg, unsigned regCount) | File: ../Graphics/ShaderVariation.h
     engine->RegisterObjectBehaviour("ShaderParameter", asBEHAVE_CONSTRUCT, "void f(ShaderType, const String&in, uint, uint)", asFUNCTION(ShaderParameter_ShaderParameter_ShaderType_String_unsigned_unsigned), asCALL_CDECL_OBJFIRST);
-    // ShaderParameter::~ShaderParameter() | Implicitly-declared
-    engine->RegisterObjectBehaviour("ShaderParameter", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(ShaderParameter_Destructor), asCALL_CDECL_OBJFIRST);
     // ShaderParameter& ShaderParameter::operator=(const ShaderParameter&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<ShaderParameter>(engine, "ShaderParameter");
 #ifdef REGISTER_MANUAL_PART_ShaderParameter
@@ -5382,8 +5386,6 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     // Camera* can not be registered
     // IntRect ShadowBatchQueue::shadowViewport_ | File: ../Graphics/Batch.h
     engine->RegisterObjectProperty("ShadowBatchQueue", "IntRect shadowViewport", offsetof(ShadowBatchQueue, shadowViewport_));
-    // ShadowBatchQueue::~ShadowBatchQueue() | Implicitly-declared
-    engine->RegisterObjectBehaviour("ShadowBatchQueue", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(ShadowBatchQueue_Destructor), asCALL_CDECL_OBJFIRST);
     // ShadowBatchQueue& ShadowBatchQueue::operator=(const ShadowBatchQueue&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<ShadowBatchQueue>(engine, "ShadowBatchQueue");
 #ifdef REGISTER_MANUAL_PART_ShadowBatchQueue
@@ -5421,8 +5423,6 @@ void ASRegisterGenerated_Members_Sa_Sm(asIScriptEngine* engine)
     // Error: type "PODVector<Vector3>" can not automatically bind
     // BoundingBox NavBuildData::worldBoundingBox_ | File: ../Navigation/NavBuildData.h
     engine->RegisterObjectProperty("SimpleNavBuildData", "BoundingBox worldBoundingBox", offsetof(SimpleNavBuildData, worldBoundingBox_));
-    // SimpleNavBuildData::~SimpleNavBuildData() override | File: ../Navigation/NavBuildData.h
-    engine->RegisterObjectBehaviour("SimpleNavBuildData", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(SimpleNavBuildData_Destructor_SimpleNavBuildData_void), asCALL_CDECL_OBJFIRST);
     // SimpleNavBuildData& SimpleNavBuildData::operator=(const SimpleNavBuildData&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<SimpleNavBuildData>(engine, "SimpleNavBuildData");
 #ifdef REGISTER_MANUAL_PART_NavBuildData

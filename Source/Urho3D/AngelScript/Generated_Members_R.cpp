@@ -26,10 +26,10 @@ static void Ray_Ray_Ray(Ray* ptr, const Ray &ray)
 
 #ifdef URHO3D_PHYSICS
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void RaycastVehicle_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(RaycastVehicle* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void RaycastVehicle_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(RaycastVehicle* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -89,10 +89,10 @@ static Renderer* Renderer_Renderer_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Renderer_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Renderer* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Renderer_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Renderer* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 #ifdef URHO3D_URHO2D
@@ -123,10 +123,10 @@ static Renderer2D* Renderer2D_Renderer2D_Context()
 
 #ifdef URHO3D_URHO2D
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Renderer2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Renderer2D* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Renderer2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Renderer2D* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -137,10 +137,10 @@ static Resource* Resource_Resource_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Resource_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Resource* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Resource_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Resource* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // SharedPtr<File> ResourceCache::GetFile(const String& name, bool sendEventOnFailure=true) | File: ../Resource/ResourceCache.h
@@ -178,10 +178,10 @@ static ResourceCache* ResourceCache_ResourceCache_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void ResourceCache_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(ResourceCache* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void ResourceCache_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(ResourceCache* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit ResourceWithMetadata::ResourceWithMetadata(Context* context) | File: ../Resource/Resource.h
@@ -191,10 +191,10 @@ static ResourceWithMetadata* ResourceWithMetadata_ResourceWithMetadata_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void ResourceWithMetadata_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(ResourceWithMetadata* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void ResourceWithMetadata_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(ResourceWithMetadata* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // const PODVector<Light*>& Drawable::GetLights() const | File: ../Graphics/Drawable.h
@@ -218,10 +218,10 @@ static RibbonTrail* RibbonTrail_RibbonTrail_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void RibbonTrail_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(RibbonTrail* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void RibbonTrail_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(RibbonTrail* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 #ifdef URHO3D_PHYSICS
@@ -234,10 +234,10 @@ static RigidBody* RigidBody_RigidBody_Context()
 
 #ifdef URHO3D_PHYSICS
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void RigidBody_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(RigidBody* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void RigidBody_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(RigidBody* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -251,56 +251,12 @@ static RigidBody2D* RigidBody2D_RigidBody2D_Context()
 
 #ifdef URHO3D_URHO2D
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void RigidBody2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(RigidBody2D* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void RigidBody2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(RigidBody2D* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
-
-// RayQueryResult::~RayQueryResult() | Implicitly-declared 
-static void RayQueryResult_Destructor(RayQueryResult* ptr)
-{
-    ptr->~RayQueryResult();
-}
-
-// RefCount::~RefCount() | File: ../Container/RefCounted.h
-static void RefCount_Destructor_RefCount_void(RefCount* ptr)
-{
-    ptr->~RefCount();
-}
-
-#ifdef URHO3D_NETWORK
-// RemoteEvent::~RemoteEvent() | Implicitly-declared 
-static void RemoteEvent_Destructor(RemoteEvent* ptr)
-{
-    ptr->~RemoteEvent();
-}
-#endif
-
-// RenderPathCommand::~RenderPathCommand() | Implicitly-declared 
-static void RenderPathCommand_Destructor(RenderPathCommand* ptr)
-{
-    ptr->~RenderPathCommand();
-}
-
-// RenderTargetInfo::~RenderTargetInfo() | Implicitly-declared 
-static void RenderTargetInfo_Destructor(RenderTargetInfo* ptr)
-{
-    ptr->~RenderTargetInfo();
-}
-
-// ReplicationState::~ReplicationState() | Implicitly-declared 
-static void ReplicationState_Destructor(ReplicationState* ptr)
-{
-    ptr->~ReplicationState();
-}
-
-// ResourceGroup::~ResourceGroup() | Implicitly-declared 
-static void ResourceGroup_Destructor(ResourceGroup* ptr)
-{
-    ptr->~ResourceGroup();
-}
 
 // explicit ResourceRef::ResourceRef(StringHash type) | File: ../Core/Variant.h
 static void ResourceRef_ResourceRef_StringHash(ResourceRef* ptr, StringHash type)
@@ -326,22 +282,10 @@ static void ResourceRef_ResourceRef_ResourceRef(ResourceRef* ptr, const Resource
     new(ptr) ResourceRef(rhs);
 }
 
-// ResourceRef::~ResourceRef() | Implicitly-declared 
-static void ResourceRef_Destructor(ResourceRef* ptr)
-{
-    ptr->~ResourceRef();
-}
-
 // explicit ResourceRefList::ResourceRefList(StringHash type) | File: ../Core/Variant.h
 static void ResourceRefList_ResourceRefList_StringHash(ResourceRefList* ptr, StringHash type)
 {
     new(ptr) ResourceRefList(type);
-}
-
-// ResourceRefList::~ResourceRefList() | Implicitly-declared 
-static void ResourceRefList_Destructor(ResourceRefList* ptr)
-{
-    ptr->~ResourceRefList();
 }
 
 void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
@@ -367,13 +311,13 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     // float Ray::HitDistance(const Vector3& v0, const Vector3& v1, const Vector3& v2, Vector3* outNormal=nullptr, Vector3* outBary=nullptr) const | File: ../Math/Ray.h
     // Error: type "Vector3*" can not automatically bind
     // float Ray::HitDistance(const void* vertexData, unsigned vertexStride, unsigned vertexStart, unsigned vertexCount, Vector3* outNormal=nullptr, Vector2* outUV=nullptr, unsigned uvOffset=0) const | File: ../Math/Ray.h
-    // Error: type "void*" can not automatically bind
+    // Error: type "const void*" can not automatically bind
     // float Ray::HitDistance(const void* vertexData, unsigned vertexStride, const void* indexData, unsigned indexSize, unsigned indexStart, unsigned indexCount, Vector3* outNormal=nullptr, Vector2* outUV=nullptr, unsigned uvOffset=0) const | File: ../Math/Ray.h
-    // Error: type "void*" can not automatically bind
+    // Error: type "const void*" can not automatically bind
     // bool Ray::InsideGeometry(const void* vertexData, unsigned vertexSize, unsigned vertexStart, unsigned vertexCount) const | File: ../Math/Ray.h
-    // Error: type "void*" can not automatically bind
+    // Error: type "const void*" can not automatically bind
     // bool Ray::InsideGeometry(const void* vertexData, unsigned vertexSize, const void* indexData, unsigned indexSize, unsigned indexStart, unsigned indexCount) const | File: ../Math/Ray.h
-    // Error: type "void*" can not automatically bind
+    // Error: type "const void*" can not automatically bind
     // Ray& Ray::operator=(const Ray& rhs) noexcept=default | File: ../Math/Ray.h
     engine->RegisterObjectMethod("Ray", "Ray& opAssign(const Ray&in)", asMETHODPR(Ray, operator=, (const Ray&), Ray&), asCALL_THISCALL);
     // bool Ray::operator==(const Ray& rhs) const | File: ../Math/Ray.h
@@ -480,7 +424,7 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     // Vector3 RaycastVehicle::GetContactPosition(int wheel) const | File: ../Physics/RaycastVehicle.h
     engine->RegisterObjectMethod("RaycastVehicle", "Vector3 GetContactPosition(int) const", asMETHODPR(RaycastVehicle, GetContactPosition, (int) const, Vector3), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // IntVector3 RaycastVehicle::GetCoordinateSystem() const | File: ../Physics/RaycastVehicle.h
     engine->RegisterObjectMethod("RaycastVehicle", "IntVector3 GetCoordinateSystem() const", asMETHODPR(RaycastVehicle, GetCoordinateSystem, () const, IntVector3), asCALL_THISCALL);
     engine->RegisterObjectMethod("RaycastVehicle", "IntVector3 get_coordinateSystem() const", asMETHODPR(RaycastVehicle, GetCoordinateSystem, () const, IntVector3), asCALL_THISCALL);
@@ -647,7 +591,7 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     engine->RegisterObjectMethod("RaycastVehicle", "int Refs() const", asMETHODPR(RaycastVehicle, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("RaycastVehicle", "int get_refs() const", asMETHODPR(RaycastVehicle, Refs, () const, int), asCALL_THISCALL);
     // static void RaycastVehicle::RegisterObject(Context* context) | File: ../Physics/RaycastVehicle.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("RaycastVehicle", asBEHAVE_RELEASE, "void f()", asMETHODPR(RaycastVehicle, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -1143,7 +1087,7 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Renderer", "const String& GetCategory() const", asMETHODPR(Renderer, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("Renderer", "const String& get_category() const", asMETHODPR(Renderer, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // Texture2D* Renderer::GetDefaultLightRamp() const | File: ../Graphics/Renderer.h
     engine->RegisterObjectMethod("Renderer", "Texture2D@+ GetDefaultLightRamp() const", asMETHODPR(Renderer, GetDefaultLightRamp, () const, Texture2D*), asCALL_THISCALL);
     engine->RegisterObjectMethod("Renderer", "Texture2D@+ get_defaultLightRamp() const", asMETHODPR(Renderer, GetDefaultLightRamp, () const, Texture2D*), asCALL_THISCALL);
@@ -1571,7 +1515,7 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // float Drawable::GetDistance() const | File: ../Graphics/Drawable.h
@@ -1763,7 +1707,7 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Renderer2D", "int Refs() const", asMETHODPR(Renderer2D, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Renderer2D", "int get_refs() const", asMETHODPR(Renderer2D, Refs, () const, int), asCALL_THISCALL);
     // static void Renderer2D::RegisterObject(Context* context) | File: ../Urho2D/Renderer2D.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Renderer2D", asBEHAVE_RELEASE, "void f()", asMETHODPR(Renderer2D, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -1953,7 +1897,7 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Resource", "const String& GetCategory() const", asMETHODPR(Resource, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("Resource", "const String& get_category() const", asMETHODPR(Resource, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("Resource", "VariantMap& GetEventDataMap() const", asMETHODPR(Resource, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -2110,7 +2054,7 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     engine->RegisterObjectMethod("ResourceCache", "const String& GetCategory() const", asMETHODPR(ResourceCache, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("ResourceCache", "const String& get_category() const", asMETHODPR(ResourceCache, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("ResourceCache", "VariantMap& GetEventDataMap() const", asMETHODPR(ResourceCache, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -2325,7 +2269,7 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     engine->RegisterObjectMethod("ResourceWithMetadata", "const String& GetCategory() const", asMETHODPR(ResourceWithMetadata, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("ResourceWithMetadata", "const String& get_category() const", asMETHODPR(ResourceWithMetadata, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("ResourceWithMetadata", "VariantMap& GetEventDataMap() const", asMETHODPR(ResourceWithMetadata, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -2538,7 +2482,7 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // float Drawable::GetDistance() const | File: ../Graphics/Drawable.h
@@ -2769,7 +2713,7 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     engine->RegisterObjectMethod("RibbonTrail", "int Refs() const", asMETHODPR(RibbonTrail, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("RibbonTrail", "int get_refs() const", asMETHODPR(RibbonTrail, Refs, () const, int), asCALL_THISCALL);
     // static void RibbonTrail::RegisterObject(Context* context) | File: ../Graphics/RibbonTrail.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("RibbonTrail", asBEHAVE_RELEASE, "void f()", asMETHODPR(RibbonTrail, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -3103,7 +3047,7 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     engine->RegisterObjectMethod("RigidBody", "float GetContactProcessingThreshold() const", asMETHODPR(RigidBody, GetContactProcessingThreshold, () const, float), asCALL_THISCALL);
     engine->RegisterObjectMethod("RigidBody", "float get_contactProcessingThreshold() const", asMETHODPR(RigidBody, GetContactProcessingThreshold, () const, float), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
@@ -3263,7 +3207,7 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     engine->RegisterObjectMethod("RigidBody", "int Refs() const", asMETHODPR(RigidBody, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("RigidBody", "int get_refs() const", asMETHODPR(RigidBody, Refs, () const, int), asCALL_THISCALL);
     // static void RigidBody::RegisterObject(Context* context) | File: ../Physics/RigidBody.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RigidBody::ReleaseBody() | File: ../Physics/RigidBody.h
     engine->RegisterObjectMethod("RigidBody", "void ReleaseBody()", asMETHODPR(RigidBody, ReleaseBody, (), void), asCALL_THISCALL);
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
@@ -3561,7 +3505,7 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
@@ -3699,7 +3643,7 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     engine->RegisterObjectMethod("RigidBody2D", "int Refs() const", asMETHODPR(RigidBody2D, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("RigidBody2D", "int get_refs() const", asMETHODPR(RigidBody2D, Refs, () const, int), asCALL_THISCALL);
     // static void RigidBody2D::RegisterObject(Context* context) | File: ../Urho2D/RigidBody2D.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RigidBody2D::ReleaseBody() | File: ../Urho2D/RigidBody2D.h
     engine->RegisterObjectMethod("RigidBody2D", "void ReleaseBody()", asMETHODPR(RigidBody2D, ReleaseBody, (), void), asCALL_THISCALL);
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
@@ -3879,8 +3823,6 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     engine->RegisterObjectProperty("RayQueryResult", "uint subObject", offsetof(RayQueryResult, subObject_));
     // Vector2 RayQueryResult::textureUV_ | File: ../Graphics/OctreeQuery.h
     engine->RegisterObjectProperty("RayQueryResult", "Vector2 textureUV", offsetof(RayQueryResult, textureUV_));
-    // RayQueryResult::~RayQueryResult() | Implicitly-declared
-    engine->RegisterObjectBehaviour("RayQueryResult", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(RayQueryResult_Destructor), asCALL_CDECL_OBJFIRST);
     // RayQueryResult& RayQueryResult::operator=(const RayQueryResult&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<RayQueryResult>(engine, "RayQueryResult");
 #ifdef REGISTER_MANUAL_PART_RayQueryResult
@@ -3891,8 +3833,6 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     engine->RegisterObjectProperty("RefCount", "int refs", offsetof(RefCount, refs_));
     // int RefCount::weakRefs_ | File: ../Container/RefCounted.h
     engine->RegisterObjectProperty("RefCount", "int weakRefs", offsetof(RefCount, weakRefs_));
-    // RefCount::~RefCount() | File: ../Container/RefCounted.h
-    engine->RegisterObjectBehaviour("RefCount", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(RefCount_Destructor_RefCount_void), asCALL_CDECL_OBJFIRST);
     // RefCount& RefCount::operator=(const RefCount&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<RefCount>(engine, "RefCount");
 #ifdef REGISTER_MANUAL_PART_RefCount
@@ -3908,8 +3848,6 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     engine->RegisterObjectProperty("RemoteEvent", "bool inOrder", offsetof(RemoteEvent, inOrder_));
     // unsigned RemoteEvent::senderID_ | File: ../Network/Connection.h
     engine->RegisterObjectProperty("RemoteEvent", "uint senderID", offsetof(RemoteEvent, senderID_));
-    // RemoteEvent::~RemoteEvent() | Implicitly-declared
-    engine->RegisterObjectBehaviour("RemoteEvent", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(RemoteEvent_Destructor), asCALL_CDECL_OBJFIRST);
     // RemoteEvent& RemoteEvent::operator=(const RemoteEvent&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<RemoteEvent>(engine, "RemoteEvent");
 #ifdef REGISTER_MANUAL_PART_RemoteEvent
@@ -4009,8 +3947,6 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     // void RenderPathCommand::SetTextureName(TextureUnit unit, const String& name) | File: ../Graphics/RenderPath.h
     engine->RegisterObjectMethod("RenderPathCommand", "void SetTextureName(TextureUnit, const String&in)", asMETHODPR(RenderPathCommand, SetTextureName, (TextureUnit, const String&), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("RenderPathCommand", "void set_textureNames(TextureUnit, const String&in)", asMETHODPR(RenderPathCommand, SetTextureName, (TextureUnit, const String&), void), asCALL_THISCALL);
-    // RenderPathCommand::~RenderPathCommand() | Implicitly-declared
-    engine->RegisterObjectBehaviour("RenderPathCommand", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(RenderPathCommand_Destructor), asCALL_CDECL_OBJFIRST);
     // RenderPathCommand& RenderPathCommand::operator=(const RenderPathCommand&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<RenderPathCommand>(engine, "RenderPathCommand");
 #ifdef REGISTER_MANUAL_PART_RenderPathCommand
@@ -4043,8 +3979,6 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     engine->RegisterObjectProperty("RenderTargetInfo", "String tag", offsetof(RenderTargetInfo, tag_));
     // void RenderTargetInfo::Load(const XMLElement& element) | File: ../Graphics/RenderPath.h
     engine->RegisterObjectMethod("RenderTargetInfo", "void Load(const XMLElement&in)", asMETHODPR(RenderTargetInfo, Load, (const XMLElement&), void), asCALL_THISCALL);
-    // RenderTargetInfo::~RenderTargetInfo() | Implicitly-declared
-    engine->RegisterObjectBehaviour("RenderTargetInfo", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(RenderTargetInfo_Destructor), asCALL_CDECL_OBJFIRST);
     // RenderTargetInfo& RenderTargetInfo::operator=(const RenderTargetInfo&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<RenderTargetInfo>(engine, "RenderTargetInfo");
 #ifdef REGISTER_MANUAL_PART_RenderTargetInfo
@@ -4053,8 +3987,6 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
 
     // Connection* ReplicationState::connection_ | File: ../Scene/ReplicationState.h
     // Connection* can not be registered
-    // ReplicationState::~ReplicationState() | Implicitly-declared
-    engine->RegisterObjectBehaviour("ReplicationState", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(ReplicationState_Destructor), asCALL_CDECL_OBJFIRST);
     // ReplicationState& ReplicationState::operator=(const ReplicationState&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<ReplicationState>(engine, "ReplicationState");
 #ifdef REGISTER_MANUAL_PART_ReplicationState
@@ -4067,8 +3999,6 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     engine->RegisterObjectProperty("ResourceGroup", "uint64 memoryUse", offsetof(ResourceGroup, memoryUse_));
     // HashMap<StringHash, SharedPtr<Resource> > ResourceGroup::resources_ | File: ../Resource/ResourceCache.h
     // Error: type "HashMap<StringHash, SharedPtr<Resource>>" can not automatically bind
-    // ResourceGroup::~ResourceGroup() | Implicitly-declared
-    engine->RegisterObjectBehaviour("ResourceGroup", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(ResourceGroup_Destructor), asCALL_CDECL_OBJFIRST);
     // ResourceGroup& ResourceGroup::operator=(const ResourceGroup&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<ResourceGroup>(engine, "ResourceGroup");
 #ifdef REGISTER_MANUAL_PART_ResourceGroup
@@ -4091,8 +4021,6 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     // Error: type "const char*" can not automatically bind
     // ResourceRef::ResourceRef(const ResourceRef& rhs)=default | File: ../Core/Variant.h
     engine->RegisterObjectBehaviour("ResourceRef", asBEHAVE_CONSTRUCT, "void f(const ResourceRef&in)", asFUNCTION(ResourceRef_ResourceRef_ResourceRef), asCALL_CDECL_OBJFIRST);
-    // ResourceRef::~ResourceRef() | Implicitly-declared
-    engine->RegisterObjectBehaviour("ResourceRef", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(ResourceRef_Destructor), asCALL_CDECL_OBJFIRST);
     // ResourceRef& ResourceRef::operator=(const ResourceRef&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<ResourceRef>(engine, "ResourceRef");
 #ifdef REGISTER_MANUAL_PART_ResourceRef
@@ -4109,8 +4037,6 @@ void ASRegisterGenerated_Members_R(asIScriptEngine* engine)
     engine->RegisterObjectBehaviour("ResourceRefList", asBEHAVE_CONSTRUCT, "void f(StringHash)", asFUNCTION(ResourceRefList_ResourceRefList_StringHash), asCALL_CDECL_OBJFIRST);
     // ResourceRefList::ResourceRefList(StringHash type, const StringVector& names) | File: ../Core/Variant.h
     // Error: type "const StringVector&" can not automatically bind
-    // ResourceRefList::~ResourceRefList() | Implicitly-declared
-    engine->RegisterObjectBehaviour("ResourceRefList", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(ResourceRefList_Destructor), asCALL_CDECL_OBJFIRST);
     // ResourceRefList& ResourceRefList::operator=(const ResourceRefList&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<ResourceRefList>(engine, "ResourceRefList");
 #ifdef REGISTER_MANUAL_PART_ResourceRefList

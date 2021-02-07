@@ -19,11 +19,19 @@ static CScriptArray* AbstractFile_ReadStringVector_void(AbstractFile* ptr)
     return VectorToArray<String>(result, "Array<String>");
 }
 
-// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Animatable_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Animatable* ptr, CScriptArray* exceptions, bool onlyUserData)
+// bool Serializer::WriteStringVector(const StringVector& value) | File: ../IO/Serializer.h
+static bool AbstractFile_WriteStringVector_StringVector(AbstractFile* ptr, CScriptArray* value_conv)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    StringVector value = ArrayToVector<String>(value_conv);
+    bool result = ptr->WriteStringVector(value);
+    return result;
+}
+
+// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
+static void Animatable_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Animatable* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
+{
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit AnimatedModel::AnimatedModel(Context* context) | File: ../Graphics/AnimatedModel.h
@@ -61,10 +69,10 @@ static CScriptArray* AnimatedModel_GetVertexLights_void(AnimatedModel* ptr)
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void AnimatedModel_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(AnimatedModel* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void AnimatedModel_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(AnimatedModel* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 #ifdef URHO3D_URHO2D
@@ -95,10 +103,10 @@ static CScriptArray* AnimatedSprite2D_GetVertexLights_void(AnimatedSprite2D* ptr
 
 #ifdef URHO3D_URHO2D
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void AnimatedSprite2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(AnimatedSprite2D* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void AnimatedSprite2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(AnimatedSprite2D* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -116,10 +124,10 @@ static Animation* Animation_Clone_String(Animation* ptr, const String& cloneName
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Animation_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Animation* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Animation_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Animation* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit AnimationController::AnimationController(Context* context) | File: ../Graphics/AnimationController.h
@@ -129,10 +137,10 @@ static AnimationController* AnimationController_AnimationController_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void AnimationController_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(AnimationController* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void AnimationController_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(AnimationController* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 #ifdef URHO3D_URHO2D
@@ -145,10 +153,10 @@ static AnimationSet2D* AnimationSet2D_AnimationSet2D_Context()
 
 #ifdef URHO3D_URHO2D
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void AnimationSet2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(AnimationSet2D* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void AnimationSet2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(AnimationSet2D* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -174,12 +182,6 @@ static void AreaAllocator_AreaAllocator_int_int_bool(AreaAllocator* ptr, int wid
 static void AreaAllocator_AreaAllocator_int_int_int_int_bool(AreaAllocator* ptr, int width, int height, int maxWidth, int maxHeight, bool fastMode=true)
 {
     new(ptr) AreaAllocator(width, height, maxWidth, maxHeight, fastMode);
-}
-
-// AreaAllocator::~AreaAllocator() | Implicitly-declared 
-static void AreaAllocator_Destructor(AreaAllocator* ptr)
-{
-    ptr->~AreaAllocator();
 }
 
 // AttributeAnimationInfo::AttributeAnimationInfo(Animatable* animatable, const AttributeInfo& attributeInfo, ValueAnimation* attributeAnimation, WrapMode wrapMode, float speed) | File: ../Scene/Animatable.h
@@ -208,22 +210,10 @@ static CScriptArray* Audio_GetSoundSources_void(Audio* ptr)
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Audio_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Audio* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Audio_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Audio* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
-}
-
-// AllocatorBlock::~AllocatorBlock() | Implicitly-declared 
-static void AllocatorBlock_Destructor(AllocatorBlock* ptr)
-{
-    ptr->~AllocatorBlock();
-}
-
-// AllocatorNode::~AllocatorNode() | Implicitly-declared 
-static void AllocatorNode_Destructor(AllocatorNode* ptr)
-{
-    ptr->~AllocatorNode();
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // AnimationControl::AnimationControl() | File: ../Graphics/AnimationController.h
@@ -232,40 +222,10 @@ static AnimationControl* AnimationControl_AnimationControl_void()
     return new AnimationControl();
 }
 
-// AnimationKeyFrame::~AnimationKeyFrame() | Implicitly-declared 
-static void AnimationKeyFrame_Destructor(AnimationKeyFrame* ptr)
-{
-    ptr->~AnimationKeyFrame();
-}
-
-// AnimationStateTrack::~AnimationStateTrack() | File: ../Graphics/AnimationState.h
-static void AnimationStateTrack_Destructor_AnimationStateTrack_void(AnimationStateTrack* ptr)
-{
-    ptr->~AnimationStateTrack();
-}
-
 // AnimationTrack::AnimationTrack() | File: ../Graphics/Animation.h
 static AnimationTrack* AnimationTrack_AnimationTrack_void()
 {
     return new AnimationTrack();
-}
-
-// AnimationTriggerPoint::~AnimationTriggerPoint() | Implicitly-declared 
-static void AnimationTriggerPoint_Destructor(AnimationTriggerPoint* ptr)
-{
-    ptr->~AnimationTriggerPoint();
-}
-
-// AsyncProgress::~AsyncProgress() | Implicitly-declared 
-static void AsyncProgress_Destructor(AsyncProgress* ptr)
-{
-    ptr->~AsyncProgress();
-}
-
-// AttributeInfo::~AttributeInfo() | Implicitly-declared 
-static void AttributeInfo_Destructor(AttributeInfo* ptr)
-{
-    ptr->~AttributeInfo();
 }
 
 void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
@@ -377,7 +337,7 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     // unsigned Deserializer::Tell() const | File: ../IO/Deserializer.h
     engine->RegisterObjectMethod("AbstractFile", "uint Tell() const", asMETHODPR(AbstractFile, Tell, () const, unsigned), asCALL_THISCALL);
     // virtual unsigned Serializer::Write(const void* data, unsigned size)=0 | File: ../IO/Serializer.h
-    // Error: type "void*" can not automatically bind
+    // Error: type "const void*" can not automatically bind
     // bool Serializer::WriteBool(bool value) | File: ../IO/Serializer.h
     engine->RegisterObjectMethod("AbstractFile", "bool WriteBool(bool)", asMETHODPR(AbstractFile, WriteBool, (bool), bool), asCALL_THISCALL);
     // bool Serializer::WriteBoundingBox(const BoundingBox& value) | File: ../IO/Serializer.h
@@ -433,7 +393,7 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     // bool Serializer::WriteStringHash(const StringHash& value) | File: ../IO/Serializer.h
     engine->RegisterObjectMethod("AbstractFile", "bool WriteStringHash(const StringHash&in)", asMETHODPR(AbstractFile, WriteStringHash, (const StringHash&), bool), asCALL_THISCALL);
     // bool Serializer::WriteStringVector(const StringVector& value) | File: ../IO/Serializer.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("AbstractFile", "bool WriteStringVector(Array<String>@+)", asFUNCTION(AbstractFile_WriteStringVector_StringVector), asCALL_CDECL_OBJFIRST);
     // bool Serializer::WriteUByte(unsigned char value) | File: ../IO/Serializer.h
     engine->RegisterObjectMethod("AbstractFile", "bool WriteUByte(uint8)", asMETHODPR(AbstractFile, WriteUByte, (unsigned char), bool), asCALL_THISCALL);
     // bool Serializer::WriteUInt(unsigned value) | File: ../IO/Serializer.h
@@ -513,7 +473,7 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Animatable", "const String& GetCategory() const", asMETHODPR(Animatable, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("Animatable", "const String& get_category() const", asMETHODPR(Animatable, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("Animatable", "VariantMap& GetEventDataMap() const", asMETHODPR(Animatable, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -595,7 +555,7 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Animatable", "int Refs() const", asMETHODPR(Animatable, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Animatable", "int get_refs() const", asMETHODPR(Animatable, Refs, () const, int), asCALL_THISCALL);
     // static void Animatable::RegisterObject(Context* context) | File: ../Scene/Animatable.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Animatable", asBEHAVE_RELEASE, "void f()", asMETHODPR(Animatable, ReleaseRef, (), void), asCALL_THISCALL);
     // void Animatable::RemoveAttributeAnimation(const String& name) | File: ../Scene/Animatable.h
@@ -791,7 +751,7 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // float Drawable::GetDistance() const | File: ../Graphics/Drawable.h
@@ -1035,7 +995,7 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     engine->RegisterObjectMethod("AnimatedModel", "int Refs() const", asMETHODPR(AnimatedModel, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("AnimatedModel", "int get_refs() const", asMETHODPR(AnimatedModel, Refs, () const, int), asCALL_THISCALL);
     // static void AnimatedModel::RegisterObject(Context* context) | File: ../Graphics/AnimatedModel.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("AnimatedModel", asBEHAVE_RELEASE, "void f()", asMETHODPR(AnimatedModel, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -1343,7 +1303,7 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // Material* StaticSprite2D::GetCustomMaterial() const | File: ../Urho2D/StaticSprite2D.h
     engine->RegisterObjectMethod("AnimatedSprite2D", "Material@+ GetCustomMaterial() const", asMETHODPR(AnimatedSprite2D, GetCustomMaterial, () const, Material*), asCALL_THISCALL);
     engine->RegisterObjectMethod("AnimatedSprite2D", "Material@+ get_customMaterial() const", asMETHODPR(AnimatedSprite2D, GetCustomMaterial, () const, Material*), asCALL_THISCALL);
@@ -1587,7 +1547,7 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     engine->RegisterObjectMethod("AnimatedSprite2D", "int Refs() const", asMETHODPR(AnimatedSprite2D, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("AnimatedSprite2D", "int get_refs() const", asMETHODPR(AnimatedSprite2D, Refs, () const, int), asCALL_THISCALL);
     // static void AnimatedSprite2D::RegisterObject(Context* context) | File: ../Urho2D/AnimatedSprite2D.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("AnimatedSprite2D", asBEHAVE_RELEASE, "void f()", asMETHODPR(AnimatedSprite2D, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -1872,7 +1832,7 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Animation", "const String& GetCategory() const", asMETHODPR(Animation, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("Animation", "const String& get_category() const", asMETHODPR(Animation, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("Animation", "VariantMap& GetEventDataMap() const", asMETHODPR(Animation, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -1963,7 +1923,7 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Animation", "int Refs() const", asMETHODPR(Animation, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Animation", "int get_refs() const", asMETHODPR(Animation, Refs, () const, int), asCALL_THISCALL);
     // static void Animation::RegisterObject(Context* context) | File: ../Graphics/Animation.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Animation", asBEHAVE_RELEASE, "void f()", asMETHODPR(Animation, ReleaseRef, (), void), asCALL_THISCALL);
     // void ResourceWithMetadata::RemoveAllMetadata() | File: ../Resource/Resource.h
@@ -2127,7 +2087,7 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
@@ -2272,7 +2232,7 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     engine->RegisterObjectMethod("AnimationController", "int Refs() const", asMETHODPR(AnimationController, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("AnimationController", "int get_refs() const", asMETHODPR(AnimationController, Refs, () const, int), asCALL_THISCALL);
     // static void AnimationController::RegisterObject(Context* context) | File: ../Graphics/AnimationController.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("AnimationController", asBEHAVE_RELEASE, "void f()", asMETHODPR(AnimationController, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -2443,7 +2403,7 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     engine->RegisterObjectMethod("AnimationSet2D", "const String& GetCategory() const", asMETHODPR(AnimationSet2D, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("AnimationSet2D", "const String& get_category() const", asMETHODPR(AnimationSet2D, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("AnimationSet2D", "VariantMap& GetEventDataMap() const", asMETHODPR(AnimationSet2D, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -2517,7 +2477,7 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     engine->RegisterObjectMethod("AnimationSet2D", "int Refs() const", asMETHODPR(AnimationSet2D, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("AnimationSet2D", "int get_refs() const", asMETHODPR(AnimationSet2D, Refs, () const, int), asCALL_THISCALL);
     // static void AnimationSet2D::RegisterObject(Context* context) | File: ../Urho2D/AnimationSet2D.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("AnimationSet2D", asBEHAVE_RELEASE, "void f()", asMETHODPR(AnimationSet2D, ReleaseRef, (), void), asCALL_THISCALL);
     // void Resource::ResetUseTimer() | File: ../Resource/Resource.h
@@ -2697,8 +2657,6 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     engine->RegisterObjectMethod("AreaAllocator", "int GetWidth() const", asMETHODPR(AreaAllocator, GetWidth, () const, int), asCALL_THISCALL);
     // void AreaAllocator::Reset(int width, int height, int maxWidth=0, int maxHeight=0, bool fastMode=true) | File: ../Math/AreaAllocator.h
     engine->RegisterObjectMethod("AreaAllocator", "void Reset(int, int, int = 0, int = 0, bool = true)", asMETHODPR(AreaAllocator, Reset, (int, int, int, int, bool), void), asCALL_THISCALL);
-    // AreaAllocator::~AreaAllocator() | Implicitly-declared
-    engine->RegisterObjectBehaviour("AreaAllocator", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(AreaAllocator_Destructor), asCALL_CDECL_OBJFIRST);
     // AreaAllocator& AreaAllocator::operator=(const AreaAllocator&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<AreaAllocator>(engine, "AreaAllocator");
 #ifdef REGISTER_MANUAL_PART_AreaAllocator
@@ -2793,7 +2751,7 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Audio", "const String& GetCategory() const", asMETHODPR(Audio, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("Audio", "const String& get_category() const", asMETHODPR(Audio, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("Audio", "VariantMap& GetEventDataMap() const", asMETHODPR(Audio, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -2953,8 +2911,6 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     // AllocatorBlock* can not be registered
     // unsigned AllocatorBlock::nodeSize_ | File: ../Container/Allocator.h
     engine->RegisterObjectProperty("AllocatorBlock", "uint nodeSize", offsetof(AllocatorBlock, nodeSize_));
-    // AllocatorBlock::~AllocatorBlock() | Implicitly-declared
-    engine->RegisterObjectBehaviour("AllocatorBlock", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(AllocatorBlock_Destructor), asCALL_CDECL_OBJFIRST);
     // AllocatorBlock& AllocatorBlock::operator=(const AllocatorBlock&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<AllocatorBlock>(engine, "AllocatorBlock");
 #ifdef REGISTER_MANUAL_PART_AllocatorBlock
@@ -2963,8 +2919,6 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
 
     // AllocatorNode* AllocatorNode::next_ | File: ../Container/Allocator.h
     // AllocatorNode* can not be registered
-    // AllocatorNode::~AllocatorNode() | Implicitly-declared
-    engine->RegisterObjectBehaviour("AllocatorNode", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(AllocatorNode_Destructor), asCALL_CDECL_OBJFIRST);
     // AllocatorNode& AllocatorNode::operator=(const AllocatorNode&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<AllocatorNode>(engine, "AllocatorNode");
 #ifdef REGISTER_MANUAL_PART_AllocatorNode
@@ -3015,8 +2969,6 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     engine->RegisterObjectProperty("AnimationKeyFrame", "Vector3 scale", offsetof(AnimationKeyFrame, scale_));
     // float AnimationKeyFrame::time_ | File: ../Graphics/Animation.h
     engine->RegisterObjectProperty("AnimationKeyFrame", "float time", offsetof(AnimationKeyFrame, time_));
-    // AnimationKeyFrame::~AnimationKeyFrame() | Implicitly-declared
-    engine->RegisterObjectBehaviour("AnimationKeyFrame", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(AnimationKeyFrame_Destructor), asCALL_CDECL_OBJFIRST);
     // AnimationKeyFrame& AnimationKeyFrame::operator=(const AnimationKeyFrame&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<AnimationKeyFrame>(engine, "AnimationKeyFrame");
 #ifdef REGISTER_MANUAL_PART_AnimationKeyFrame
@@ -3033,8 +2985,6 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     // const AnimationTrack* can not be registered
     // float AnimationStateTrack::weight_ | File: ../Graphics/AnimationState.h
     engine->RegisterObjectProperty("AnimationStateTrack", "float weight", offsetof(AnimationStateTrack, weight_));
-    // AnimationStateTrack::~AnimationStateTrack() | File: ../Graphics/AnimationState.h
-    engine->RegisterObjectBehaviour("AnimationStateTrack", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(AnimationStateTrack_Destructor_AnimationStateTrack_void), asCALL_CDECL_OBJFIRST);
     // AnimationStateTrack& AnimationStateTrack::operator=(const AnimationStateTrack&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<AnimationStateTrack>(engine, "AnimationStateTrack");
 #ifdef REGISTER_MANUAL_PART_AnimationStateTrack
@@ -3081,8 +3031,6 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     engine->RegisterObjectProperty("AnimationTriggerPoint", "Variant data", offsetof(AnimationTriggerPoint, data_));
     // float AnimationTriggerPoint::time_ | File: ../Graphics/Animation.h
     engine->RegisterObjectProperty("AnimationTriggerPoint", "float time", offsetof(AnimationTriggerPoint, time_));
-    // AnimationTriggerPoint::~AnimationTriggerPoint() | Implicitly-declared
-    engine->RegisterObjectBehaviour("AnimationTriggerPoint", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(AnimationTriggerPoint_Destructor), asCALL_CDECL_OBJFIRST);
     // AnimationTriggerPoint& AnimationTriggerPoint::operator=(const AnimationTriggerPoint&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<AnimationTriggerPoint>(engine, "AnimationTriggerPoint");
 #ifdef REGISTER_MANUAL_PART_AnimationTriggerPoint
@@ -3111,8 +3059,6 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     engine->RegisterObjectProperty("AsyncProgress", "XMLElement xmlElement", offsetof(AsyncProgress, xmlElement_));
     // SharedPtr<XMLFile> AsyncProgress::xmlFile_ | File: ../Scene/Scene.h
     // Error: type "SharedPtr<XMLFile>" can not automatically bind
-    // AsyncProgress::~AsyncProgress() | Implicitly-declared
-    engine->RegisterObjectBehaviour("AsyncProgress", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(AsyncProgress_Destructor), asCALL_CDECL_OBJFIRST);
     // AsyncProgress& AsyncProgress::operator=(const AsyncProgress&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<AsyncProgress>(engine, "AsyncProgress");
 #ifdef REGISTER_MANUAL_PART_AsyncProgress
@@ -3141,8 +3087,6 @@ void ASRegisterGenerated_Members_A(asIScriptEngine* engine)
     engine->RegisterObjectMethod("AttributeInfo", "const Variant& GetMetadata(const StringHash&in) const", asMETHODPR(AttributeInfo, GetMetadata, (const StringHash&) const, const Variant&), asCALL_THISCALL);
     // template<class T> T AttributeInfo::GetMetadata(const StringHash& key) const | File: ../Core/Attribute.h
     // Not registered because template
-    // AttributeInfo::~AttributeInfo() | Implicitly-declared
-    engine->RegisterObjectBehaviour("AttributeInfo", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(AttributeInfo_Destructor), asCALL_CDECL_OBJFIRST);
     // AttributeInfo& AttributeInfo::operator=(const AttributeInfo&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<AttributeInfo>(engine, "AttributeInfo");
 #ifdef REGISTER_MANUAL_PART_AttributeInfo

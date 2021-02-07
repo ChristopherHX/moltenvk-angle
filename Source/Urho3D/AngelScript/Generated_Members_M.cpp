@@ -26,10 +26,10 @@ static Material* Material_Material_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Material_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Material* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Material_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Material* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // Matrix2::Matrix2(const Matrix2& matrix) noexcept=default | File: ../Math/Matrix2.h
@@ -110,6 +110,13 @@ static void Matrix4_Matrix4_float_float_float_float_float_float_float_float_floa
     new(ptr) Matrix4(v00, v01, v02, v03, v10, v11, v12, v13, v20, v21, v22, v23, v30, v31, v32, v33);
 }
 
+// void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void Menu_AddTags_StringVector(Menu* ptr, CScriptArray* tags_conv)
+{
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->AddTags(tags);
+}
+
 // const Vector<SharedPtr<UIElement>>& UIElement::GetChildren() const | File: ../UI/UIElement.h
 static CScriptArray* Menu_GetChildren_void(Menu* ptr)
 {
@@ -144,11 +151,18 @@ static Menu* Menu_Menu_Context()
     return new Menu(GetScriptContext());
 }
 
-// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Menu_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Menu* ptr, CScriptArray* exceptions, bool onlyUserData)
+// void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void Menu_SetTags_StringVector(Menu* ptr, CScriptArray* tags_conv)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->SetTags(tags);
+}
+
+// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
+static void Menu_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Menu* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
+{
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit MessageBox::MessageBox(Context* context, const String& messageString=String::EMPTY, const String& titleString=String::EMPTY, XMLFile* layoutFile=nullptr, XMLFile* styleFile=nullptr) | File: ../UI/MessageBox.h
@@ -158,10 +172,10 @@ static MessageBox* MessageBox_MessageBox_Context_String_String_XMLFile_XMLFile(c
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void MessageBox_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(MessageBox* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void MessageBox_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(MessageBox* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // SharedPtr<Model> Model::Clone(const String& cloneName=String::EMPTY) const | File: ../Graphics/Model.h
@@ -199,66 +213,34 @@ static Model* Model_Model_Context()
 }
 
 // bool Model::SetIndexBuffers(const Vector<SharedPtr<IndexBuffer>>& buffers) | File: ../Graphics/Model.h
-static bool Model_SetIndexBuffers_VectorSharedPtrIndexBuffer(Model* ptr, CScriptArray* buffers)
+static bool Model_SetIndexBuffers_VectorSharedPtrIndexBuffer(Model* ptr, CScriptArray* buffers_conv)
 {
-    Vector<SharedPtr<IndexBuffer> > param0 = HandleArrayToVector<IndexBuffer>(buffers);
-    bool result = ptr->SetIndexBuffers(param0);
+    Vector<SharedPtr<IndexBuffer>> buffers = HandleArrayToVector<IndexBuffer>(buffers_conv);
+    bool result = ptr->SetIndexBuffers(buffers);
     return result;
 }
 
 // bool Model::SetVertexBuffers(const Vector<SharedPtr<VertexBuffer>>& buffers, const PODVector<unsigned>& morphRangeStarts, const PODVector<unsigned>& morphRangeCounts) | File: ../Graphics/Model.h
-static bool Model_SetVertexBuffers_VectorSharedPtrVertexBuffer_PODVectorunsigned_PODVectorunsigned(Model* ptr, CScriptArray* buffers, CScriptArray* morphRangeStarts, CScriptArray* morphRangeCounts)
+static bool Model_SetVertexBuffers_VectorSharedPtrVertexBuffer_PODVectorunsigned_PODVectorunsigned(Model* ptr, CScriptArray* buffers_conv, CScriptArray* morphRangeStarts_conv, CScriptArray* morphRangeCounts_conv)
 {
-    Vector<SharedPtr<VertexBuffer> > param0 = HandleArrayToVector<VertexBuffer>(buffers);
-    PODVector<unsigned> param1 = ArrayToPODVector<unsigned>(morphRangeStarts);
-    PODVector<unsigned> param2 = ArrayToPODVector<unsigned>(morphRangeCounts);
-    bool result = ptr->SetVertexBuffers(param0, param1, param2);
+    Vector<SharedPtr<VertexBuffer>> buffers = HandleArrayToVector<VertexBuffer>(buffers_conv);
+    PODVector<unsigned> morphRangeStarts = ArrayToPODVector<unsigned>(morphRangeStarts_conv);
+    PODVector<unsigned> morphRangeCounts = ArrayToPODVector<unsigned>(morphRangeCounts_conv);
+    bool result = ptr->SetVertexBuffers(buffers, morphRangeStarts, morphRangeCounts);
     return result;
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Model_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Model* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Model_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Model* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
-}
-
-// Mutex::~Mutex() | File: ../Core/Mutex.h
-static void Mutex_Destructor_Mutex_void(Mutex* ptr)
-{
-    ptr->~Mutex();
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit MutexLock::MutexLock(Mutex& mutex) | File: ../Core/Mutex.h
 static void MutexLock_MutexLock_Mutex(MutexLock* ptr, Mutex &mutex)
 {
     new(ptr) MutexLock(mutex);
-}
-
-// MutexLock::~MutexLock() | File: ../Core/Mutex.h
-static void MutexLock_Destructor_MutexLock_void(MutexLock* ptr)
-{
-    ptr->~MutexLock();
-}
-
-#ifdef URHO3D_PHYSICS
-// ManifoldPair::~ManifoldPair() | Implicitly-declared 
-static void ManifoldPair_Destructor(ManifoldPair* ptr)
-{
-    ptr->~ManifoldPair();
-}
-#endif
-
-// MaterialShaderParameter::~MaterialShaderParameter() | Implicitly-declared 
-static void MaterialShaderParameter_Destructor(MaterialShaderParameter* ptr)
-{
-    ptr->~MaterialShaderParameter();
-}
-
-// ModelMorph::~ModelMorph() | Implicitly-declared 
-static void ModelMorph_Destructor(ModelMorph* ptr)
-{
-    ptr->~ModelMorph();
 }
 
 void ASRegisterGenerated_Members_M(asIScriptEngine* engine)
@@ -288,7 +270,7 @@ void ASRegisterGenerated_Members_M(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Material", "const String& GetCategory() const", asMETHODPR(Material, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("Material", "const String& get_category() const", asMETHODPR(Material, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // CullMode Material::GetCullMode() const | File: ../Graphics/Material.h
     engine->RegisterObjectMethod("Material", "CullMode GetCullMode() const", asMETHODPR(Material, GetCullMode, () const, CullMode), asCALL_THISCALL);
     engine->RegisterObjectMethod("Material", "CullMode get_cullMode() const", asMETHODPR(Material, GetCullMode, () const, CullMode), asCALL_THISCALL);
@@ -427,7 +409,7 @@ void ASRegisterGenerated_Members_M(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Material", "int Refs() const", asMETHODPR(Material, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Material", "int get_refs() const", asMETHODPR(Material, Refs, () const, int), asCALL_THISCALL);
     // static void Material::RegisterObject(Context* context) | File: ../Graphics/Material.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Material", asBEHAVE_RELEASE, "void f()", asMETHODPR(Material, ReleaseRef, (), void), asCALL_THISCALL);
     // void Material::ReleaseShaders() | File: ../Graphics/Material.h
@@ -941,7 +923,7 @@ void ASRegisterGenerated_Members_M(asIScriptEngine* engine)
     // void UIElement::AddTags(const String& tags, char separator=';') | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("Menu", "void AddTags(const String&in, int8 = ';')", asMETHODPR(Menu, AddTags, (const String&, char), void), asCALL_THISCALL);
     // void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("Menu", "void AddTags(Array<String>@+)", asFUNCTION(Menu_AddTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void UIElement::AdjustScissor(IntRect& currentScissor) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("Menu", "void AdjustScissor(IntRect&)", asMETHODPR(Menu, AdjustScissor, (IntRect&), void), asCALL_THISCALL);
     // void Serializable::AllocateNetworkState() | File: ../Scene/Serializable.h
@@ -1068,7 +1050,7 @@ void ASRegisterGenerated_Members_M(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Menu", "IntRect GetCombinedScreenRect()", asMETHODPR(Menu, GetCombinedScreenRect, (), IntRect), asCALL_THISCALL);
     engine->RegisterObjectMethod("Menu", "IntRect get_combinedScreenRect()", asMETHODPR(Menu, GetCombinedScreenRect, (), IntRect), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void UIElement::GetDebugDrawBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) | File: ../UI/UIElement.h
     // Error: type "PODVector<UIBatch>&" can not automatically bind
     // XMLFile* UIElement::GetDefaultStyle(bool recursiveUp=true) const | File: ../UI/UIElement.h
@@ -1436,7 +1418,7 @@ void ASRegisterGenerated_Members_M(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Menu", "int Refs() const", asMETHODPR(Menu, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Menu", "int get_refs() const", asMETHODPR(Menu, Refs, () const, int), asCALL_THISCALL);
     // static void Menu::RegisterObject(Context* context) | File: ../UI/Menu.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Menu", asBEHAVE_RELEASE, "void f()", asMETHODPR(Menu, ReleaseRef, (), void), asCALL_THISCALL);
     // void UIElement::Remove() | File: ../UI/UIElement.h
@@ -1734,7 +1716,7 @@ void ASRegisterGenerated_Members_M(asIScriptEngine* engine)
     // bool UIElement::SetStyleAuto(XMLFile* file=nullptr) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("Menu", "bool SetStyleAuto(XMLFile@+ = null)", asMETHODPR(Menu, SetStyleAuto, (XMLFile*), bool), asCALL_THISCALL);
     // void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("Menu", "void SetTags(Array<String>@+)", asFUNCTION(Menu_SetTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void Serializable::SetTemporary(bool enable) | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("Menu", "void SetTemporary(bool)", asMETHODPR(Menu, SetTemporary, (bool), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("Menu", "void set_temporary(bool)", asMETHODPR(Menu, SetTemporary, (bool), void), asCALL_THISCALL);
@@ -1843,7 +1825,7 @@ void ASRegisterGenerated_Members_M(asIScriptEngine* engine)
     engine->RegisterObjectMethod("MessageBox", "const String& GetCategory() const", asMETHODPR(MessageBox, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("MessageBox", "const String& get_category() const", asMETHODPR(MessageBox, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("MessageBox", "VariantMap& GetEventDataMap() const", asMETHODPR(MessageBox, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -1901,7 +1883,7 @@ void ASRegisterGenerated_Members_M(asIScriptEngine* engine)
     engine->RegisterObjectMethod("MessageBox", "int Refs() const", asMETHODPR(MessageBox, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("MessageBox", "int get_refs() const", asMETHODPR(MessageBox, Refs, () const, int), asCALL_THISCALL);
     // static void MessageBox::RegisterObject(Context* context) | File: ../UI/MessageBox.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("MessageBox", asBEHAVE_RELEASE, "void f()", asMETHODPR(MessageBox, ReleaseRef, (), void), asCALL_THISCALL);
     // void Object::SendEvent(StringHash eventType) | File: ../Core/Object.h
@@ -1980,7 +1962,7 @@ void ASRegisterGenerated_Members_M(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Model", "const String& GetCategory() const", asMETHODPR(Model, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("Model", "const String& get_category() const", asMETHODPR(Model, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("Model", "VariantMap& GetEventDataMap() const", asMETHODPR(Model, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -2090,7 +2072,7 @@ void ASRegisterGenerated_Members_M(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Model", "int Refs() const", asMETHODPR(Model, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Model", "int get_refs() const", asMETHODPR(Model, Refs, () const, int), asCALL_THISCALL);
     // static void Model::RegisterObject(Context* context) | File: ../Graphics/Model.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Model", asBEHAVE_RELEASE, "void f()", asMETHODPR(Model, ReleaseRef, (), void), asCALL_THISCALL);
     // void ResourceWithMetadata::RemoveAllMetadata() | File: ../Resource/Resource.h
@@ -2193,8 +2175,6 @@ void ASRegisterGenerated_Members_M(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Mutex", "void Release()", asMETHODPR(Mutex, Release, (), void), asCALL_THISCALL);
     // bool Mutex::TryAcquire() | File: ../Core/Mutex.h
     engine->RegisterObjectMethod("Mutex", "bool TryAcquire()", asMETHODPR(Mutex, TryAcquire, (), bool), asCALL_THISCALL);
-    // Mutex::~Mutex() | File: ../Core/Mutex.h
-    engine->RegisterObjectBehaviour("Mutex", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Mutex_Destructor_Mutex_void), asCALL_CDECL_OBJFIRST);
     // Mutex& Mutex::operator=(const Mutex&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<Mutex>(engine, "Mutex");
 #ifdef REGISTER_MANUAL_PART_Mutex
@@ -2203,8 +2183,6 @@ void ASRegisterGenerated_Members_M(asIScriptEngine* engine)
 
     // explicit MutexLock::MutexLock(Mutex& mutex) | File: ../Core/Mutex.h
     engine->RegisterObjectBehaviour("MutexLock", asBEHAVE_CONSTRUCT, "void f(Mutex&)", asFUNCTION(MutexLock_MutexLock_Mutex), asCALL_CDECL_OBJFIRST);
-    // MutexLock::~MutexLock() | File: ../Core/Mutex.h
-    engine->RegisterObjectBehaviour("MutexLock", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(MutexLock_Destructor_MutexLock_void), asCALL_CDECL_OBJFIRST);
 #ifdef REGISTER_MANUAL_PART_MutexLock
     REGISTER_MANUAL_PART_MutexLock(MutexLock, "MutexLock")
 #endif
@@ -2214,8 +2192,6 @@ void ASRegisterGenerated_Members_M(asIScriptEngine* engine)
     // btPersistentManifold* can not be registered
     // btPersistentManifold* ManifoldPair::manifold_ | File: ../Physics/PhysicsWorld.h
     // btPersistentManifold* can not be registered
-    // ManifoldPair::~ManifoldPair() | Implicitly-declared
-    engine->RegisterObjectBehaviour("ManifoldPair", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(ManifoldPair_Destructor), asCALL_CDECL_OBJFIRST);
     // ManifoldPair& ManifoldPair::operator=(const ManifoldPair&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<ManifoldPair>(engine, "ManifoldPair");
 #ifdef REGISTER_MANUAL_PART_ManifoldPair
@@ -2227,8 +2203,6 @@ void ASRegisterGenerated_Members_M(asIScriptEngine* engine)
     engine->RegisterObjectProperty("MaterialShaderParameter", "String name", offsetof(MaterialShaderParameter, name_));
     // Variant MaterialShaderParameter::value_ | File: ../Graphics/Material.h
     engine->RegisterObjectProperty("MaterialShaderParameter", "Variant value", offsetof(MaterialShaderParameter, value_));
-    // MaterialShaderParameter::~MaterialShaderParameter() | Implicitly-declared
-    engine->RegisterObjectBehaviour("MaterialShaderParameter", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(MaterialShaderParameter_Destructor), asCALL_CDECL_OBJFIRST);
     // MaterialShaderParameter& MaterialShaderParameter::operator=(const MaterialShaderParameter&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<MaterialShaderParameter>(engine, "MaterialShaderParameter");
 #ifdef REGISTER_MANUAL_PART_MaterialShaderParameter
@@ -2243,8 +2217,6 @@ void ASRegisterGenerated_Members_M(asIScriptEngine* engine)
     engine->RegisterObjectProperty("ModelMorph", "StringHash nameHash", offsetof(ModelMorph, nameHash_));
     // float ModelMorph::weight_ | File: ../Graphics/Model.h
     engine->RegisterObjectProperty("ModelMorph", "float weight", offsetof(ModelMorph, weight_));
-    // ModelMorph::~ModelMorph() | Implicitly-declared
-    engine->RegisterObjectBehaviour("ModelMorph", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(ModelMorph_Destructor), asCALL_CDECL_OBJFIRST);
     // ModelMorph& ModelMorph::operator=(const ModelMorph&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<ModelMorph>(engine, "ModelMorph");
 #ifdef REGISTER_MANUAL_PART_ModelMorph

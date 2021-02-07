@@ -22,6 +22,7 @@
 
 #pragma once
 
+#include <memory>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -58,39 +59,7 @@ public:
     ASGeneratedFile_WithRegistrationFunction(const string& outputFilePath, const string& functionName);
 };
 
-class ASGeneratedFile_Classes : public ASGeneratedFile_WithRegistrationFunction
-{
-public:
-    using ASGeneratedFile_WithRegistrationFunction::ASGeneratedFile_WithRegistrationFunction;
-
-    void Save() override;
-};
-
-class ASGeneratedFile_Members_HighPriority : public ASGeneratedFile_WithRegistrationFunction
-{
-public:
-    using ASGeneratedFile_WithRegistrationFunction::ASGeneratedFile_WithRegistrationFunction;
-
-    void Save() override;
-};
-
 class ASGeneratedFile_Members : public ASGeneratedFile_WithRegistrationFunction
-{
-public:
-    using ASGeneratedFile_WithRegistrationFunction::ASGeneratedFile_WithRegistrationFunction;
-
-    void Save() override;
-};
-
-class ASGeneratedFile_GlobalVariables : public ASGeneratedFile_WithRegistrationFunction
-{
-public:
-    using ASGeneratedFile_WithRegistrationFunction::ASGeneratedFile_WithRegistrationFunction;
-
-    void Save() override;
-};
-
-class ASGeneratedFile_GlobalFunctions : public ASGeneratedFile_WithRegistrationFunction
 {
 public:
     using ASGeneratedFile_WithRegistrationFunction::ASGeneratedFile_WithRegistrationFunction;
@@ -110,21 +79,72 @@ public:
 
 struct ProcessedEnum
 {
-    // Used for alphabetical sorting
-    string name_;
-
-    string comment_;
+    string name_; // Used for sorting
+    string comment_; // Location
     vector<string> glue_; // Can be empty
     string insideDefine_; // Can be empty
-    vector<string> registration_;
+    vector<string> registration_; // Or warning message
 
-    // Used for alphabetical sorting
+    // Used for sorting
     bool operator <(const ProcessedEnum& rhs) const;
+};
+
+struct ProcessedGlobalFunction
+{
+    string name_; // Used for sorting
+    string comment_; // Location
+    string glue_; // Can be empty
+    string insideDefine_; // Can be empty
+    string registration_; // Or warning message
+
+    // Used for sorting
+    bool operator <(const ProcessedGlobalFunction& rhs) const;
+};
+
+struct ProcessedGlobalVariable
+{
+    string name_; // Used for sorting
+    string comment_; // Location
+    string insideDefine_; // Can be empty
+    string registration_; // Or warning message
+
+    // Used for sorting
+    bool operator <(const ProcessedGlobalVariable& rhs) const;
+};
+
+struct ClassMemberRegistration
+{
+    string name_; // Used for sorting
+    string comment_; // Location
+    string glue_; // Can be empty
+    string registration_; // Or warning message
+};
+
+struct ProcessedClass
+{
+    string name_;
+    string insideDefine_; // Can be empty
+    string comment_; // Class location
+    string objectTypeRegistration_; // engine->RegisterObjectType(...); or warning message
+
+    // Used for sorting
+    bool operator <(const ProcessedClass& rhs) const;
+
+    shared_ptr<ClassMemberRegistration> defaultConstructor_;
+    shared_ptr<ClassMemberRegistration> destructor_;
+
+    // Tests
+    vector<string> nonDefaultConstructors_;
+    vector<string> commonMembers_;
+    vector<string> personalMembers_;
 };
 
 namespace Result
 {
     extern vector<ProcessedEnum> enums_;
+    extern vector<ProcessedGlobalFunction> globalFunctions_;
+    extern vector<ProcessedGlobalVariable> globalVariables_;
+    extern vector<ProcessedClass> classes_;
 
     // Add header to lists if not added yet
     void AddHeader(const string& headerFile);

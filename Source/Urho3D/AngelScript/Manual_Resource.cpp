@@ -89,6 +89,14 @@ bool ResourceSaveVectorBuffer(VectorBuffer& buffer, Resource* ptr)
 
 // ========================================================================================
 
+// bool XPathQuery::SetQuery(const String &queryString, const String &variableString=String::EMPTY, bool bind=true) | File: ../Resource/XMLElement.h
+bool XPathQuery_SetQuery(const String& queryString, XPathQuery* ptr)
+{
+    return ptr->SetQuery(queryString);
+}
+
+// ========================================================================================
+
 // XMLElement XMLFile::GetRoot(const String &name=String::EMPTY) | File: ../Resource/XMLFile.h
 XMLElement XMLFileGetRootDefault(XMLFile* ptr)
 {
@@ -98,6 +106,18 @@ XMLElement XMLFileGetRootDefault(XMLFile* ptr)
 // ========================================================================================
 
 void ArrayToVariantVector(CScriptArray* arr, VariantVector& dest);
+
+// XMLElement XMLElement::SelectSingle(const String &query, pugi::xpath_variable_set *variables=nullptr) const | File: ../Resource/XMLElement.h
+XMLElement XMLElement_SelectSingle(const String& query, XMLElement* ptr)
+{
+    return ptr->SelectSingle(query);
+}
+
+// XPathResultSet XMLElement::Select(const String &query, pugi::xpath_variable_set *variables=nullptr) const | File: ../Resource/XMLElement.h
+XPathResultSet XMLElement_Select(const String& query, XMLElement* ptr)
+{
+    return ptr->Select(query);
+}
 
 // bool XMLElement::SetVariantVector(const VariantVector &value) | File: ../Resource/XMLElement.h
 bool XMLElementSetVariantVector(CScriptArray* value, XMLElement* ptr)
@@ -124,18 +144,6 @@ CScriptArray* ResourceCacheGetResources(StringHash type, ResourceCache* ptr)
 }
 
 // ========================================================================================
-
-// void JSONValue::SetVariant(const Variant &variant, Context *context=nullptr) | File: ../Resource/JSONValue.h
-void JSONValueSetVariant(const Variant& variant, JSONValue& jsonValue)
-{
-    jsonValue.SetVariant(variant, GetScriptContext());
-}
-
-// void JSONValue::SetVariantMap(const VariantMap &variantMap, Context *context=nullptr) | File: ../Resource/JSONValue.h
-void JSONValueSetVariantMap(const VariantMap& variantMap, JSONValue& jsonValue)
-{
-    jsonValue.SetVariantMap(variantMap, GetScriptContext());
-}
 
 CScriptArray* JSONValueGetKeys(const JSONValue& jsonValue)
 {

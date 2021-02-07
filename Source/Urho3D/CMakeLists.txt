@@ -169,8 +169,9 @@ if (URHO3D_GENERATEBINDINGS)
     set (BINDING_GENERATOR_PATH "${CMAKE_BINARY_DIR}/bin/tool/BindingGenerator")
 
     set (AS_GENERATED_FILES "AngelScript/GeneratedEnums.cpp"
-                            "AngelScript/Generated_Classes.cpp"
-                            "AngelScript/Generated_Members_HighPriority.cpp"
+                            "AngelScript/GeneratedObjectTypes.cpp"
+                            "AngelScript/GeneratedDefaultConstructors.cpp"
+                            "AngelScript/GeneratedClasses.cpp"
                             "AngelScript/Generated_Members_A.cpp"
                             "AngelScript/Generated_Members_B.cpp"
                             "AngelScript/Generated_Members_Constraint.cpp"
@@ -202,8 +203,8 @@ if (URHO3D_GENERATEBINDINGS)
                             "AngelScript/Generated_Members_Y.cpp"
                             "AngelScript/Generated_Members_Z.cpp"
                             "AngelScript/Generated_Members_Other.cpp"
-                            "AngelScript/Generated_GlobalVariables.cpp"
-                            "AngelScript/Generated_GlobalFunctions.cpp"
+                            "AngelScript/GeneratedGlobalVariables.cpp"
+                            "AngelScript/GeneratedGlobalFunctions.cpp"
                             "AngelScript/GeneratedIncludes.h"
                             "AngelScript/Generated_Templates.h")
 
@@ -211,10 +212,11 @@ if (URHO3D_GENERATEBINDINGS)
     # Add "${CMAKE_SOURCE_DIR}/Source/Urho3D/" to every item in list
     list(TRANSFORM AS_GENERATED_FILES_FULL_PATHS PREPEND "${CMAKE_SOURCE_DIR}/Source/Urho3D/")
 
-    # If generated files already exists they will be in list SOURCE_FILES already.
-    # We need list without generated files to solve circular dependency
-    set (SOURCE_FILES_WITHOUT_GENERATED "${SOURCE_FILES}")
-    list (REMOVE_ITEM SOURCE_FILES_WITHOUT_GENERATED ${AS_GENERATED_FILES})
+    set (BINDED_HEADER_FILES "${SOURCE_FILES}")
+    # Header files only are used when generating bindings
+    list (FILTER BINDED_HEADER_FILES INCLUDE REGEX ".*\.h$")
+    # Exclude files from AngelScript directory to solve circular dependency
+    list (FILTER BINDED_HEADER_FILES EXCLUDE REGEX "^AngelScript/")
 
     # Generate xmls and run BindingGenerator
     add_custom_command (OUTPUT ${AS_GENERATED_FILES_FULL_PATHS}
@@ -226,13 +228,16 @@ if (URHO3D_GENERATEBINDINGS)
                         COMMAND ${DOXYGEN_EXECUTABLE} "${DOXYFILE_PATH}"
                         COMMAND ${CMAKE_COMMAND} -E echo "Running ${BINDING_GENERATOR_PATH} ${XML_AST_DIR} ${CMAKE_SOURCE_DIR}"
                         COMMAND "${BINDING_GENERATOR_PATH}" "${XML_AST_DIR}" "${CMAKE_SOURCE_DIR}"
-                        DEPENDS BindingGenerator "${DOXYFILE_PATH}" "${SOURCE_FILES_WITHOUT_GENERATED}"
+                        DEPENDS BindingGenerator "${DOXYFILE_PATH}" "${BINDED_HEADER_FILES}"
                         COMMENT "Generating bindings to script languages")
 
     if (URHO3D_ANGELSCRIPT)
-        # Make sure we have generated files in SOURCE_FILES
-        set (SOURCE_FILES "${SOURCE_FILES_WITHOUT_GENERATED}")
+        # If generated files already exists they will be in list SOURCE_FILES already.
+        # But they can also be removed.
+        # Make sure we have generated files in SOURCE_FILES in a single copy
+        list (REMOVE_ITEM SOURCE_FILES ${AS_GENERATED_FILES})
         list (APPEND SOURCE_FILES ${AS_GENERATED_FILES})
+
         source_group ("Source Files\\AngelScript" FILES ${AS_GENERATED_FILES})
     endif()
 
@@ -459,10 +464,17 @@ endif ()
 if (APPLE)
     set_property (TARGET ${TARGET_NAME} APPEND PROPERTY LINK_LIBRARIES -force_load)
 elseif (MSVC)
-    set_property (TARGET ${TARGET_NAME} APPEND PROPERTY LINK_OPTIONS /FORCE /WHOLEARCHIVE)  # Require VS 2015 Update 2 onward
+    foreach (THIRD_PARTY_LIB ${STATIC_LIBRARY_TARGETS})
+        if (NOT ${THIRD_PARTY_LIB} MATCHES boost|rapidjson|STB)  # Exclude header-only "fake" static libs
+            # Must be specified for each library https://github.com/urho3d/Urho3D/issues/2760
+            set_property (TARGET ${TARGET_NAME} APPEND PROPERTY LINK_OPTIONS /WHOLEARCHIVE:${THIRD_PARTY_LIB})  # Require VS 2015 Update 2 onward
+        endif ()
+    endforeach ()
+    set_property (TARGET ${TARGET_NAME} APPEND PROPERTY LINK_OPTIONS /FORCE)
 else ()
     set_property (TARGET ${TARGET_NAME} APPEND PROPERTY LINK_LIBRARIES -Wl,--whole-archive)
 endif ()
+
 foreach (TARGET ${STATIC_LIBRARY_TARGETS})
     set (ARCHIVE $<TARGET_FILE:${TARGET}>)
     if (NOT ${TARGET} MATCHES boost|rapidjson|STB)  # Exclude header-only "fake" static lib targets

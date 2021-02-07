@@ -38,8 +38,6 @@ namespace ASBindingGenerator
 
 static string _outputBasePath;
 
-static shared_ptr<ASGeneratedFile_Classes> _result_Classes;
-static shared_ptr<ASGeneratedFile_Members_HighPriority> _result_Members_HighPriority;
 static shared_ptr<ASGeneratedFile_Members> _result_Members_A;
 static shared_ptr<ASGeneratedFile_Members> _result_Members_B;
 static shared_ptr<ASGeneratedFile_Members> _result_Members_Constraint;
@@ -199,45 +197,43 @@ static void RegisterStaticFunction(const ClassStaticFunctionAnalyzer& functionAn
     result->reg_ << "    // " << functionAnalyzer.GetLocation() << "\n";
 
     vector<ParamAnalyzer> params = functionAnalyzer.GetParams();
-    vector<shared_ptr<FuncParamConv> > convertedParams;
+    vector<ConvertedVariable> convertedParams;
     string outGlue;
     bool needWrapper = false;
 
-    for (size_t i = 0; i < params.size(); i++)
+    for (const ParamAnalyzer& param : params)
     {
-        ParamAnalyzer param = params[i];
-        shared_ptr<FuncParamConv> conv = CppFunctionParamToAS(i, param);
-        if (!conv->success_)
+        ConvertedVariable conv;
+        try
         {
-            result->reg_ << "    // " << conv->errorMessage_ << "\n";
+            conv = CppVariableToAS(param.GetType(), VariableUsage::FunctionParameter, param.GetDeclname(), param.GetDefval());
+        }
+        catch (const Exception& e)
+        {
+            result->reg_ << "    // " << e.what() << "\n";
             return;
         }
 
-        if (conv->NeedWrapper())
+        if (conv.NeedWrapper())
             needWrapper = true;
 
         convertedParams.push_back(conv);
     }
 
-    shared_ptr<FuncReturnTypeConv> convertedReturn = CppFunctionReturnTypeToAS(functionAnalyzer.GetReturnType());
-    if (!convertedReturn->success_)
+    ConvertedVariable convertedReturn;
+    
+    try
     {
-        result->reg_ << "    // " << GetLastErrorMessage() << "\n";
+        convertedReturn = CppVariableToAS(functionAnalyzer.GetReturnType(), VariableUsage::FunctionReturn);
+    }
+    catch (const Exception& e)
+    {
+        result->reg_ << "    // " << e.what() << "\n";
         return;
     }
 
-    if (convertedReturn->needWrapper_)
+    if (convertedReturn.NeedWrapper())
         needWrapper = true;
-
-    string declParams;
-
-    for (shared_ptr<FuncParamConv> conv : convertedParams)
-    {
-        if (declParams.length() > 0)
-            declParams += ", ";
-
-        declParams += conv->asDecl_;
-    }
 
     string asFunctionName = functionAnalyzer.GetName();
     string className = functionAnalyzer.GetClassName();
@@ -245,7 +241,7 @@ static void RegisterStaticFunction(const ClassStaticFunctionAnalyzer& functionAn
     if (needWrapper)
         result->glue_ << GenerateWrapper(functionAnalyzer, convertedParams, convertedReturn);
 
-    string decl = convertedReturn->asReturnType_ + " " + asFunctionName + "(" + declParams + ")";
+    string decl = convertedReturn.asDeclaration_ + " " + asFunctionName + "(" + JoinASDeclarations(convertedParams) + ")";
 
     result->reg_ << "    engine->SetDefaultNamespace(\"" << className << "\");\n";
 
@@ -266,12 +262,7 @@ static void RegisterRefCountedConstructor(const ClassFunctionAnalyzer& functionA
     string header = functionAnalyzer.GetClass().GetHeaderFile();
     string insideDefine = InsideDefine(header);
 
-    string args = ExtractArgsstring(functionAnalyzer.GetMemberdef());
-    assert(!args.empty());
-    assert(StartsWith(args, "("));
-    size_t endPos = args.find_last_of(')'); // After ')' can be " override"
-    assert(endPos != string::npos);
-    args = args.substr(1, endPos - 1);
+    string args = ExtractCleanedFunctionArgsstring(functionAnalyzer.GetMemberdef());
 
     //shared_ptr<ASGeneratedFile_Members> result = GetGeneratedFile(functionAnalyzer.GetClass().GetClassName());
     ASGeneratedFile_Base* result = templateVersion ? (ASGeneratedFile_Base*)_result_Templates.get() : (ASGeneratedFile_Base*)GetGeneratedFile(functionAnalyzer.GetClass().GetClassName()).get();
@@ -282,7 +273,7 @@ static void RegisterRefCountedConstructor(const ClassFunctionAnalyzer& functionA
         args = CutStart(args, "Context *context");
         args = CutStart(args, ", ");
     }
-    else if (args.find("Context") != string::npos)
+    else if (Contains(args, "Context"))
     {
         result->reg_ <<
             "    // " << functionAnalyzer.GetLocation() << "\n"
@@ -314,8 +305,17 @@ static void RegisterRefCountedConstructor(const ClassFunctionAnalyzer& functionA
         if (decl.length() > 0)
             decl += ", ";
 
-        bool outSuccess;
-        decl += CppTypeToAS(param.GetType(), false, outSuccess);
+        try
+        {
+            decl += CppTypeToAS(param.GetType(), TypeUsage::FunctionParameter);
+        }
+        catch (const Exception& e)
+        {
+            result->reg_ <<
+                "    // " << functionAnalyzer.GetLocation() << "\n"
+                "    // " << e.what() << "\n";
+            return;
+        }
 
         string defval = param.GetDefval();
         if (!defval.empty())
@@ -323,14 +323,6 @@ static void RegisterRefCountedConstructor(const ClassFunctionAnalyzer& functionA
             defval = CppValueToAS(defval);
             defval = ReplaceAll(defval, "\"", "\\\"");
             decl += /*" " + param.GetDeclname() +*/ " = " + defval;
-        }
-
-        if (!outSuccess)
-        {
-            result->reg_ <<
-                "    // " << functionAnalyzer.GetLocation() << "\n"
-                "    // " << GetLastErrorMessage() << "\n";
-            return;
         }
     }
 
@@ -384,18 +376,17 @@ static void RegisterValueConstructor(const ClassFunctionAnalyzer& functionAnalyz
     string className = functionAnalyzer.GetClassName();
     string wrapperName = GenerateWrapperName(functionAnalyzer, templateVersion);
     
-    string args = ExtractArgsstring(functionAnalyzer.GetMemberdef());
-    assert(!args.empty());
-    assert(StartsWith(args, "("));
-    size_t endPos = args.find_last_of(')'); // After ')' can be " override"
-    assert(endPos != string::npos);
-    args = args.substr(1, endPos - 1);
+    string args = ExtractCleanedFunctionArgsstring(functionAnalyzer.GetMemberdef());
 
     shared_ptr<ASGeneratedFile_Members> result = GetGeneratedFile(className);
 
     bool isDefaultConstructor = args.empty();
-    stringstream& reg = isDefaultConstructor ? _result_Members_HighPriority->reg_ : result->reg_;
-    stringstream& glue = isDefaultConstructor ? _result_Members_HighPriority->glue_ : result->glue_;
+
+    if (isDefaultConstructor)
+        return;
+
+    stringstream& reg = result->reg_;
+    stringstream& glue = result->glue_;
 
     string decl = "";
     vector<ParamAnalyzer> params = functionAnalyzer.GetParams();
@@ -404,8 +395,24 @@ static void RegisterValueConstructor(const ClassFunctionAnalyzer& functionAnalyz
         if (decl.length() > 0)
             decl += ", ";
 
-        bool outSuccess;
-        decl += CppTypeToAS(param.GetType(), false, outSuccess);
+        try
+        {
+            decl += CppTypeToAS(param.GetType(), TypeUsage::FunctionParameter);
+        }
+        catch (const Exception& e)
+        {
+            if (isDefaultConstructor && !insideDefine.empty())
+                reg << "#ifdef " << insideDefine << "\n";
+
+            reg <<
+                "    // " << functionAnalyzer.GetLocation() << "\n"
+                "    // " << e.what() << "\n";
+
+            if (isDefaultConstructor && !insideDefine.empty())
+                reg << "#endif\n";
+
+            return;
+        }
 
         string defval = param.GetDefval();
         if (!defval.empty())
@@ -413,21 +420,6 @@ static void RegisterValueConstructor(const ClassFunctionAnalyzer& functionAnalyz
             defval = CppValueToAS(defval);
             defval = ReplaceAll(defval, "\"", "\\\"");
             decl += /*" " + param.GetDeclname() +*/ " = " + defval;
-        }
-
-        if (!outSuccess)
-        {
-            if (isDefaultConstructor && !insideDefine.empty())
-                reg << "#ifdef " << insideDefine << "\n";
-            
-            reg <<
-                "    // " << functionAnalyzer.GetLocation() << "\n"
-                "    // " << GetLastErrorMessage() << "\n";
-            
-            if (isDefaultConstructor && !insideDefine.empty())
-                reg << "#endif\n";
-            
-            return;
         }
     }
     decl = "void f(" + decl + ")";
@@ -471,84 +463,6 @@ static void RegisterValueConstructor(const ClassFunctionAnalyzer& functionAnalyz
         Result::AddHeader(header);
 }
 
-static void RegisterValueDestructor(const ClassFunctionAnalyzer& functionAnalyzer, bool templateVersion)
-{
-    string className = functionAnalyzer.GetClassName();
-    string wrapperName = GenerateWrapperName(functionAnalyzer, templateVersion);
-    shared_ptr<ASGeneratedFile_Members> result = GetGeneratedFile(className);
-
-    result->glue_ <<
-        "// " << functionAnalyzer.GetLocation() << "\n"
-        "static void " << wrapperName << "(" << className << "* ptr)\n"
-        "{\n"
-        "    ptr->~" << className << "();\n"
-        "}\n\n";
-
-    result->reg_ << "    engine->RegisterObjectBehaviour(\"" << className << "\", asBEHAVE_DESTRUCT, \"void f()\", asFUNCTION(" << wrapperName << "), asCALL_CDECL_OBJFIRST);\n";
-}
-
-static void RegisterImplicitlyDeclaredDestructor(const ClassAnalyzer& classAnalyzer)
-{
-    string className = classAnalyzer.GetClassName();
-    string wrapperName = className + "_Destructor";
-    shared_ptr<ASGeneratedFile_Members> result = GetGeneratedFile(className);
-    string header = classAnalyzer.GetHeaderFile();
-    string insideDefine = InsideDefine(header);
-
-    if (!insideDefine.empty())
-        result->glue_ << "#ifdef " << insideDefine << "\n";
-
-    result->glue_ <<
-        "// " << className << "::~" << className << "() | Implicitly-declared \n"
-        "static void " << wrapperName << "(" << className << "* ptr)\n"
-        "{\n"
-        "    ptr->~" << className << "();\n"
-        "}\n";
-
-    if (!insideDefine.empty())
-        result->glue_ << "#endif\n";
-
-    result->glue_ << "\n";
-
-    result->reg_ <<
-        "    // " << className << "::~" << className << "() | Implicitly-declared\n"
-        "    engine->RegisterObjectBehaviour(\"" << className << "\", asBEHAVE_DESTRUCT, \"void f()\", asFUNCTION(" << wrapperName << "), asCALL_CDECL_OBJFIRST);\n";
-}
-
-static void RegisterImplicitlyDeclaredConstructor(const ClassAnalyzer& classAnalyzer)
-{
-    string header = classAnalyzer.GetHeaderFile();
-    string insideDefine = InsideDefine(header);
-    string className = classAnalyzer.GetClassName();
-    string wrapperName = className + "_Constructor";
-    Result::AddHeader(header);
-
-    if (!insideDefine.empty())
-    {
-        _result_Members_HighPriority->glue_ << "#ifdef " << insideDefine << "\n";
-        _result_Members_HighPriority->reg_ << "#ifdef " << insideDefine << "\n";
-    }
-
-    _result_Members_HighPriority->glue_ <<
-        "// " << className << "::" << className << "() | Implicitly-declared\n"
-        "static void " << wrapperName << "(" << className << "* ptr)\n"
-        "{\n"
-        "    new(ptr) " << className << "();\n"
-        "}\n";
-
-    _result_Members_HighPriority->reg_ <<
-        "    // " << className << "::" << className << "() | Implicitly-declared\n"
-        "    engine->RegisterObjectBehaviour(\"" << className << "\", asBEHAVE_CONSTRUCT, \"void f()\", asFUNCTION(" << wrapperName << "), asCALL_CDECL_OBJFIRST);\n";
-
-    if (!insideDefine.empty())
-    {
-        _result_Members_HighPriority->glue_ << "#endif\n";
-        _result_Members_HighPriority->reg_ << "#endif\n";
-    }
-
-    _result_Members_HighPriority->glue_ << "\n";
-}
-
 static void TryRegisterImplicitlyDeclaredAssignOperator(const ClassAnalyzer& classAnalyzer)
 {
     string className = classAnalyzer.GetClassName();
@@ -559,43 +473,9 @@ static void TryRegisterImplicitlyDeclaredAssignOperator(const ClassAnalyzer& cla
         "    RegisterImplicitlyDeclaredAssignOperatorIfPossible<" << className << ">(engine, \"" << className << "\");\n";
 }
 
-static bool IsDestructorRequired(const ClassAnalyzer& classAnalyzer)
-{
-    if (classAnalyzer.IsRefCounted())
-        return false;
-
-    if (Contains(classAnalyzer.GetComment(), "FAKE_REF"))
-        return false;
-
-    if (classAnalyzer.IsPod())
-        return false;
-
-    return true;
-}
-
-static bool IsConstructorRequired(const ClassAnalyzer& classAnalyzer)
-{
-    if (classAnalyzer.IsRefCounted())
-        return false;
-
-    if (Contains(classAnalyzer.GetComment(), "FAKE_REF"))
-        return false;
-
-    if (classAnalyzer.IsPod())
-        return false;
-
-    return true;
-}
-
 // Some required methods can not be bound automatically when processing class because implicitly-declared
 static void RegisterImplicitlyDeclaredMethods(const ClassAnalyzer& classAnalyzer)
 {
-    if (!classAnalyzer.HasThisConstructor() && IsConstructorRequired(classAnalyzer))
-        RegisterImplicitlyDeclaredConstructor(classAnalyzer);
-
-    if (!classAnalyzer.HasDestructor() && IsDestructorRequired(classAnalyzer))
-        RegisterImplicitlyDeclaredDestructor(classAnalyzer);
-
     if (!classAnalyzer.ContainsFunction("operator="))
         TryRegisterImplicitlyDeclaredAssignOperator(classAnalyzer);
 
@@ -606,8 +486,8 @@ static void RegisterComparisonOperator(const ClassAnalyzer& classAnalyzer)
 {
     string className = classAnalyzer.GetClassName();
     string wrapperName = className + "_Comparison";
-    string operatorLessLocation = classAnalyzer.GetFunction("operator<").GetLocation();
-    string operatorGreaterLocation = classAnalyzer.GetFunction("operator>").GetLocation();
+    string operatorLessLocation = classAnalyzer.GetFunction("operator<")->GetLocation();
+    string operatorGreaterLocation = classAnalyzer.GetFunction("operator>")->GetLocation();
     shared_ptr<ASGeneratedFile_Members> result = GetGeneratedFile(className);
 
     result->glue_ <<
@@ -656,26 +536,18 @@ static void RegisterFakeAddReleaseRef(const ClassAnalyzer& classAnalyzer)
 }
 
 // https://www.angelcode.com/angelscript/sdk/docs/manual/doc_script_class_ops.html
-string CppMethodNameToAS(const ClassFunctionAnalyzer& functionAnalyzer, bool& outSuccess)
+static string CppMethodNameToAS(const ClassFunctionAnalyzer& functionAnalyzer)
 {
     string name = functionAnalyzer.GetName();
 
     if (name == "operator=")
-    {
-        outSuccess = true;
         return "opAssign";
-    }
 
     if (name == "operator+")
-    {
-        outSuccess = true;
         return "opAdd";
-    }
 
     if (name == "operator-")
     {
-        outSuccess = true;
-
         if (!functionAnalyzer.GetParams().size()) // If no params
             return "opNeg";               // then unary minus
         else
@@ -683,58 +555,32 @@ string CppMethodNameToAS(const ClassFunctionAnalyzer& functionAnalyzer, bool& ou
     }
 
     if (name == "operator*")
-    {
-        outSuccess = true;
         return "opMul";
-    }
     
     if (name == "operator/")
-    {
-        outSuccess = true;
         return "opDiv";
-    }
     
     if (name == "operator+=")
-    {
-        outSuccess = true;
         return "opAddAssign";
-    }
     
     if (name == "operator-=")
-    {
-        outSuccess = true;
         return "opSubAssign";
-    }
     
     if (name == "operator*=")
-    {
-        outSuccess = true;
         return "opMulAssign";
-    }
     
     if (name == "operator/=")
-    {
-        outSuccess = true;
         return "opDivAssign";
-    }
     
     if (name == "operator==")
-    {
-        outSuccess = true;
         return "opEquals";
-    }
 
     if (name == "operator[]")
-    {
-        outSuccess = true;
         return "opIndex";
-    }
 
     // Conversion to another type operator
     if (StartsWith(name, "operator "))
     {
-        outSuccess = true;
-
         if (functionAnalyzer.IsExplicit())
             return "opConv";
         else
@@ -742,27 +588,14 @@ string CppMethodNameToAS(const ClassFunctionAnalyzer& functionAnalyzer, bool& ou
     }
 
     if (name == "operator!=")
-    {
-        outSuccess = false;
-        SetLastErrorMessage("Only operator== is needed");
-        return "IGNORED";
-    }
+        throw Exception("Only operator== is needed");
 
     if (name == "operator<")
-    {
-        outSuccess = false;
-        SetLastErrorMessage("Registerd as opCmp separately");
-        return "IGNORED";
-    }
+        throw Exception("Registerd as opCmp separately");
 
     if (name == "operator>")
-    {
-        outSuccess = false;
-        SetLastErrorMessage("Registerd as opCmp separately");
-        return "IGNORED";
-    }
+        throw Exception("Registerd as opCmp separately");
 
-    outSuccess = true;
     return name;
 }
 
@@ -804,13 +637,12 @@ static string GetPropertyMark(ClassFunctionAnalyzer function)
 }
 
 // https://www.angelcode.com/angelscript/sdk/docs/manual/doc_reg_objprop.html
-static string CppMethodNameToASProperty(const ClassFunctionAnalyzer& functionAnalyzer, bool& outSuccess)
+static string CppMethodNameToASProperty(const ClassFunctionAnalyzer& functionAnalyzer)
 {
     string name = functionAnalyzer.GetName();
 
     if (StartsWith(name, "Is") || StartsWith(name, "Get"))
     {
-        outSuccess = true;
         string result = CutStart(name, "Is");
         result = CutStart(result, "Get");
         result = "get_" + FirstCharToLower(result);
@@ -819,7 +651,6 @@ static string CppMethodNameToASProperty(const ClassFunctionAnalyzer& functionAna
 
     if (StartsWith(name, "Set"))
     {
-        outSuccess = true;
         string result = CutStart(name, "Set");
         result = "set_" + FirstCharToLower(result);
         return result;
@@ -827,7 +658,6 @@ static string CppMethodNameToASProperty(const ClassFunctionAnalyzer& functionAna
 
     if (functionAnalyzer.CanBeGetProperty())
     {
-        outSuccess = true;
         string result = name;
         result = "get_" + FirstCharToLower(result);
         return result;
@@ -835,15 +665,12 @@ static string CppMethodNameToASProperty(const ClassFunctionAnalyzer& functionAna
 
     if (functionAnalyzer.CanBeSetProperty())
     {
-        outSuccess = true;
         string result = name;
         result = "set_" + FirstCharToLower(result);
         return result;
     }
 
-    outSuccess = false;
-    SetLastErrorMessage("ERROR: Can not be property");
-    return "ERROR";
+    throw Exception("Can not be property");
 }
 
 static void RegisterMethod(const ClassFunctionAnalyzer& functionAnalyzer, bool templateVersion)
@@ -937,76 +764,70 @@ static void RegisterMethod(const ClassFunctionAnalyzer& functionAnalyzer, bool t
         return;
     }
 
-    result->reg_ << "    // " << functionAnalyzer.GetLocation() << "\n";
-    
     if (functionAnalyzer.IsThisDestructor())
-    {
-        // Do not register destructor for reference type
-        if (!functionAnalyzer.GetClass().IsRefCounted())
-            RegisterValueDestructor(functionAnalyzer, templateVersion);
-
         return;
-    }
+
+    result->reg_ << "    // " << functionAnalyzer.GetLocation() << "\n";
 
     vector<ParamAnalyzer> params = functionAnalyzer.GetParams();
-    vector<shared_ptr<FuncParamConv> > convertedParams;
+    vector<ConvertedVariable> convertedParams;
     bool needWrapper = false;
 
-    for (size_t i = 0; i < params.size(); i++)
+    for (const ParamAnalyzer& param : params)
     {
-        ParamAnalyzer param = params[i];
-        shared_ptr<FuncParamConv> conv = CppFunctionParamToAS(i, param);
-        if (!conv->success_)
+        ConvertedVariable conv;
+        
+        try
         {
-            result->reg_ << "    // " << conv->errorMessage_ << "\n";
+            conv = CppVariableToAS(param.GetType(), VariableUsage::FunctionParameter, param.GetDeclname(), param.GetDefval());
+        }
+        catch (const Exception& e)
+        {
+            result->reg_ << "    // " << e.what() << "\n";
             return;
         }
 
-        if (conv->NeedWrapper())
+        if (conv.NeedWrapper())
             needWrapper = true;
 
         convertedParams.push_back(conv);
     }
 
-    shared_ptr<FuncReturnTypeConv> retConv = CppFunctionReturnTypeToAS(functionAnalyzer.GetReturnType());
-    if (!retConv->success_)
+    ConvertedVariable retConv;
+    
+    try
     {
-        result->reg_ << "    // " << retConv->errorMessage_ << "\n";
+        retConv = CppVariableToAS(functionAnalyzer.GetReturnType(), VariableUsage::FunctionReturn);
+    }
+    catch (const Exception& e)
+    {
+        result->reg_ << "    // " << e.what() << "\n";
         return;
     }
 
-    if (retConv->needWrapper_)
+    if (retConv.NeedWrapper())
         needWrapper = true;
 
-    string declParams = "";
-
-    for (shared_ptr<FuncParamConv> conv : convertedParams)
-    {
-        if (declParams.length() > 0)
-            declParams += ", ";
-
-        declParams += conv->asDecl_;
-    }
-
-    string asReturnType = retConv->asReturnType_;
+    string asReturnType = retConv.asDeclaration_;
 
     string asFunctionName = functionAnalyzer.GetName();
     if (functionAnalyzer.IsConsversionOperator())
         asReturnType = CutStart(asFunctionName, "operator ");
-
-    bool outSuccess;
-    asFunctionName = CppMethodNameToAS(functionAnalyzer, outSuccess);
-
-    if (!outSuccess)
+    
+    try
     {
-        result->reg_ << "    // " << GetLastErrorMessage() << "\n";
+        asFunctionName = CppMethodNameToAS(functionAnalyzer);
+    }
+    catch (const Exception& e)
+    {
+        result->reg_ << "    // " << e.what() << "\n";
         return;
     }
 
     if (needWrapper)
         result->glue_ << GenerateWrapper(functionAnalyzer, templateVersion, convertedParams, retConv);
 
-    string decl = asReturnType + " " + asFunctionName + "(" + declParams + ")";
+    string decl = asReturnType + " " + asFunctionName + "(" + JoinASDeclarations(convertedParams) + ")";
 
     if (functionAnalyzer.IsConst())
         decl += " const";
@@ -1031,15 +852,18 @@ static void RegisterMethod(const ClassFunctionAnalyzer& functionAnalyzer, bool t
         }
         else
         {
-            asFunctionName = CppMethodNameToASProperty(functionAnalyzer, outSuccess);
-            if (!outSuccess)
+            try
             {
-                result->reg_ << "    // " << GetLastErrorMessage() << "\n";
+                asFunctionName = CppMethodNameToASProperty(functionAnalyzer);
+            }
+            catch (const Exception& e)
+            {
+                result->reg_ << "    // " << e.what() << "\n";
                 return;
             }
         }
         
-        decl = asReturnType + " " + asFunctionName + "(" + declParams + ")";
+        decl = asReturnType + " " + asFunctionName + "(" + JoinASDeclarations(convertedParams) + ")";
 
         if (functionAnalyzer.IsConst())
             decl += " const";
@@ -1081,18 +905,22 @@ static void RegisterClassVarAsProperty(ClassVariableAnalyzer& variable)
     {
         result->reg_ << "    // " << variable.GetLocation() << "\n";
 
-        bool outSuccess;
-        string asType = CppTypeToAS(variable.GetType(), false, outSuccess);
+        string asType;
+
+        try
+        {
+            asType = CppTypeToAS(variable.GetType(), TypeUsage::ClassStaticVariable);
+        }
+        catch (const Exception& e)
+        {
+            result->reg_ << "    // " << e.what() << "\n";
+            return;
+        }
+
         if (variable.GetType().IsConst())
             asType = "const " + asType;
 
         asType = ReplaceAll(asType, "struct ", "");
-
-        if (!outSuccess)
-        {
-            result->reg_ << "    // " << GetLastErrorMessage() << "\n";
-            return;
-        }
 
         string className = variable.GetClassName();
 
@@ -1123,12 +951,15 @@ static void RegisterClassVarAsProperty(ClassVariableAnalyzer& variable)
             return;
         }
 
-        bool outSuccess;
-        string propType = CppTypeToAS(variable.GetType(), false, outSuccess);
-
-        if (!outSuccess)
+        string propType;
+        
+        try
         {
-            result->reg_ << "    // " << GetLastErrorMessage() << "\n";
+            propType = CppTypeToAS(variable.GetType(), TypeUsage::ClassVariable);
+        }
+        catch (const Exception& e)
+        {
+            result->reg_ << "    // " << e.what() << "\n";
             return;
         }
 
@@ -1239,11 +1070,12 @@ static void RegisterObjectMembers(const ClassAnalyzer& classAnalyzer, bool templ
         result->reg_ << "\n";
 }
 
-static void RegisterObjectType(const ClassAnalyzer& classAnalyzer, bool templateVersion)
+// Only template version
+static void RegisterObjectType(const ClassAnalyzer& classAnalyzer/*, bool templateVersion*/)
 {
     string header = classAnalyzer.GetHeaderFile();
 
-    ASGeneratedFile_Base* result = templateVersion ? (ASGeneratedFile_Base*)_result_Templates.get() : (ASGeneratedFile_Base*)_result_Classes.get();
+    ASGeneratedFile_Base* result = (ASGeneratedFile_Base*)_result_Templates.get();
 
     Result::AddHeader(header);
 
@@ -1257,16 +1089,16 @@ static void RegisterObjectType(const ClassAnalyzer& classAnalyzer, bool template
 
     if (classAnalyzer.IsRefCounted() || Contains(classAnalyzer.GetComment(), "FAKE_REF"))
     {
-        if (templateVersion)
+        //if (templateVersion)
             result->reg_ << "    engine->RegisterObjectType(className, 0, asOBJ_REF);\n";
-        else
-            result->reg_ << "    engine->RegisterObjectType(\"" << className << "\", 0, asOBJ_REF);\n";
+        //else
+          //  result->reg_ << "    engine->RegisterObjectType(\"" << className << "\", 0, asOBJ_REF);\n";
     }
     else // Value type
     {
         // TODO templateversion
 
-        string flags = "asOBJ_VALUE | asGetTypeTraits<" + className + ">()";
+       /* string flags = "asOBJ_VALUE | asGetTypeTraits<" + className + ">()";
 
         if (classAnalyzer.IsPod())
         {
@@ -1278,7 +1110,7 @@ static void RegisterObjectType(const ClassAnalyzer& classAnalyzer, bool template
                 flags += " | asOBJ_APP_CLASS_ALLINTS";
         }
 
-        result->reg_ << "    engine->RegisterObjectType(\"" << className << "\", sizeof(" << className << "), " << flags << ");\n";
+        result->reg_ << "    engine->RegisterObjectType(\"" << className << "\", sizeof(" << className << "), " << flags << ");\n";*/
     }
 
     if (!insideDefine.empty())
@@ -1295,15 +1127,15 @@ static void ProcessClass(const ClassAnalyzer& classAnalyzer, bool templateVersio
     
     if (Contains(classAnalyzer.GetComment(), "NO_BIND"))
     {
-        _result_Classes->reg_ << "    // " << classAnalyzer.GetLocation() << "\n";
-        _result_Classes->reg_ << "    // Not registered because have @nobind mark\n";
+        //_result_Classes->reg_ << "    // " << classAnalyzer.GetLocation() << "\n";
+        //_result_Classes->reg_ << "    // Not registered because have @nobind mark\n";
         return;
     }
 
     if (Contains(classAnalyzer.GetComment(), "MANUAL_BIND"))
     {
-        _result_Classes->reg_ << "    // " << classAnalyzer.GetLocation() << "\n";
-        _result_Classes->reg_ << "    // Not registered because have @manualbind mark\n";
+        //_result_Classes->reg_ << "    // " << classAnalyzer.GetLocation() << "\n";
+        //_result_Classes->reg_ << "    // Not registered because have @manualbind mark\n";
         return;
     }
 
@@ -1320,7 +1152,9 @@ static void ProcessClass(const ClassAnalyzer& classAnalyzer, bool templateVersio
     if (templateVersion)
         _result_Templates->reg_ << "template <class T> void Register" << classAnalyzer.GetClassName() << "(asIScriptEngine* engine, const char* className)\n{\n";
 
-    RegisterObjectType(classAnalyzer, templateVersion);
+    if (templateVersion)
+        RegisterObjectType(classAnalyzer);
+
     RegisterObjectMembers(classAnalyzer, templateVersion);
 
     if (templateVersion)
@@ -1361,8 +1195,6 @@ void ProcessAllClasses(const string& outputBasePath)
     _result_Members_X = make_shared<ASGeneratedFile_Members>(_outputBasePath + "/Source/Urho3D/AngelScript/Generated_Members_X.cpp", "ASRegisterGenerated_Members_X");
     _result_Members_Y = make_shared<ASGeneratedFile_Members>(_outputBasePath + "/Source/Urho3D/AngelScript/Generated_Members_Y.cpp", "ASRegisterGenerated_Members_Y");
     _result_Members_Z = make_shared<ASGeneratedFile_Members>(_outputBasePath + "/Source/Urho3D/AngelScript/Generated_Members_Z.cpp", "ASRegisterGenerated_Members_Z");
-    _result_Classes = make_shared<ASGeneratedFile_Classes>(outputBasePath + "/Source/Urho3D/AngelScript/Generated_Classes.cpp", "ASRegisterGenerated_Classes");
-    _result_Members_HighPriority = make_shared<ASGeneratedFile_Members_HighPriority>(outputBasePath + "/Source/Urho3D/AngelScript/Generated_Members_HighPriority.cpp", "ASRegisterGenerated_Members_HighPriority");
     _result_Members_Other = make_shared<ASGeneratedFile_Members>(_outputBasePath + "/Source/Urho3D/AngelScript/Generated_Members_Other.cpp", "ASRegisterGenerated_Members_Other");
     _result_Templates = make_shared<ASGeneratedFile_Templates>(_outputBasePath + "/Source/Urho3D/AngelScript/Generated_Templates.h");
 
@@ -1384,8 +1216,6 @@ void ProcessAllClasses(const string& outputBasePath)
             ProcessClass(analyzer, true);
     }
 
-    _result_Classes->Save();
-    _result_Members_HighPriority->Save();
     _result_Members_A->Save();
     _result_Members_B->Save();
     _result_Members_Constraint->Save();

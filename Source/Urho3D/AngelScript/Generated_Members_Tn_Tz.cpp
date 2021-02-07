@@ -12,6 +12,13 @@ namespace Urho3D
 void FakeAddRef(void* ptr);
 void FakeReleaseRef(void* ptr);
 
+// void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void ToolTip_AddTags_StringVector(ToolTip* ptr, CScriptArray* tags_conv)
+{
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->AddTags(tags);
+}
+
 // const Vector<SharedPtr<UIElement>>& UIElement::GetChildren() const | File: ../UI/UIElement.h
 static CScriptArray* ToolTip_GetChildren_void(ToolTip* ptr)
 {
@@ -40,6 +47,13 @@ static CScriptArray* ToolTip_GetTags_void(ToolTip* ptr)
     return VectorToArray<String>(result, "Array<String>");
 }
 
+// void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void ToolTip_SetTags_StringVector(ToolTip* ptr, CScriptArray* tags_conv)
+{
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->SetTags(tags);
+}
+
 // explicit ToolTip::ToolTip(Context* context) | File: ../UI/ToolTip.h
 static ToolTip* ToolTip_ToolTip_Context()
 {
@@ -47,22 +61,16 @@ static ToolTip* ToolTip_ToolTip_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void ToolTip_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(ToolTip* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void ToolTip_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(ToolTip* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // TrailPoint::TrailPoint(const Vector3& position, const Vector3& forward) | File: ../Graphics/RibbonTrail.h
 static void TrailPoint_TrailPoint_Vector3_Vector3(TrailPoint* ptr, const Vector3 &position, const Vector3 &forward)
 {
     new(ptr) TrailPoint(position, forward);
-}
-
-// TrailPoint::~TrailPoint() | Implicitly-declared 
-static void TrailPoint_Destructor(TrailPoint* ptr)
-{
-    ptr->~TrailPoint();
 }
 
 #ifdef URHO3D_PHYSICS
@@ -94,7 +102,7 @@ void ASRegisterGenerated_Members_Tn_Tz(asIScriptEngine* engine)
     // void UIElement::AddTags(const String& tags, char separator=';') | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("ToolTip", "void AddTags(const String&in, int8 = ';')", asMETHODPR(ToolTip, AddTags, (const String&, char), void), asCALL_THISCALL);
     // void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("ToolTip", "void AddTags(Array<String>@+)", asFUNCTION(ToolTip_AddTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void UIElement::AdjustScissor(IntRect& currentScissor) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("ToolTip", "void AdjustScissor(IntRect&)", asMETHODPR(ToolTip, AdjustScissor, (IntRect&), void), asCALL_THISCALL);
     // void Serializable::AllocateNetworkState() | File: ../Scene/Serializable.h
@@ -209,7 +217,7 @@ void ASRegisterGenerated_Members_Tn_Tz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("ToolTip", "IntRect GetCombinedScreenRect()", asMETHODPR(ToolTip, GetCombinedScreenRect, (), IntRect), asCALL_THISCALL);
     engine->RegisterObjectMethod("ToolTip", "IntRect get_combinedScreenRect()", asMETHODPR(ToolTip, GetCombinedScreenRect, (), IntRect), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void UIElement::GetDebugDrawBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) | File: ../UI/UIElement.h
     // Error: type "PODVector<UIBatch>&" can not automatically bind
     // XMLFile* UIElement::GetDefaultStyle(bool recursiveUp=true) const | File: ../UI/UIElement.h
@@ -529,7 +537,7 @@ void ASRegisterGenerated_Members_Tn_Tz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("ToolTip", "int Refs() const", asMETHODPR(ToolTip, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("ToolTip", "int get_refs() const", asMETHODPR(ToolTip, Refs, () const, int), asCALL_THISCALL);
     // static void ToolTip::RegisterObject(Context* context) | File: ../UI/ToolTip.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("ToolTip", asBEHAVE_RELEASE, "void f()", asMETHODPR(ToolTip, ReleaseRef, (), void), asCALL_THISCALL);
     // void UIElement::Remove() | File: ../UI/UIElement.h
@@ -777,7 +785,7 @@ void ASRegisterGenerated_Members_Tn_Tz(asIScriptEngine* engine)
     // bool UIElement::SetStyleAuto(XMLFile* file=nullptr) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("ToolTip", "bool SetStyleAuto(XMLFile@+ = null)", asMETHODPR(ToolTip, SetStyleAuto, (XMLFile*), bool), asCALL_THISCALL);
     // void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("ToolTip", "void SetTags(Array<String>@+)", asFUNCTION(ToolTip_SetTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void Serializable::SetTemporary(bool enable) | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("ToolTip", "void SetTemporary(bool)", asMETHODPR(ToolTip, SetTemporary, (bool), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("ToolTip", "void set_temporary(bool)", asMETHODPR(ToolTip, SetTemporary, (bool), void), asCALL_THISCALL);
@@ -896,8 +904,6 @@ void ASRegisterGenerated_Members_Tn_Tz(asIScriptEngine* engine)
     engine->RegisterObjectProperty("TrailPoint", "float sortDistance", offsetof(TrailPoint, sortDistance_));
     // TrailPoint::TrailPoint(const Vector3& position, const Vector3& forward) | File: ../Graphics/RibbonTrail.h
     engine->RegisterObjectBehaviour("TrailPoint", asBEHAVE_CONSTRUCT, "void f(const Vector3&in, const Vector3&in)", asFUNCTION(TrailPoint_TrailPoint_Vector3_Vector3), asCALL_CDECL_OBJFIRST);
-    // TrailPoint::~TrailPoint() | Implicitly-declared
-    engine->RegisterObjectBehaviour("TrailPoint", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(TrailPoint_Destructor), asCALL_CDECL_OBJFIRST);
     // TrailPoint& TrailPoint::operator=(const TrailPoint&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<TrailPoint>(engine, "TrailPoint");
 #ifdef REGISTER_MANUAL_PART_TrailPoint

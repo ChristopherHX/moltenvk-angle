@@ -22,10 +22,10 @@ static CollisionBox2D* CollisionBox2D_CollisionBox2D_Context()
 
 #ifdef URHO3D_URHO2D
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void CollisionBox2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CollisionBox2D* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void CollisionBox2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CollisionBox2D* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -48,19 +48,19 @@ static CScriptArray* CollisionChain2D_GetVertices_void(CollisionChain2D* ptr)
 
 #ifdef URHO3D_URHO2D
 // void CollisionChain2D::SetVertices(const PODVector<Vector2>& vertices) | File: ../Urho2D/CollisionChain2D.h
-static void CollisionChain2D_SetVertices_PODVectorVector2(CollisionChain2D* ptr, CScriptArray* vertices)
+static void CollisionChain2D_SetVertices_PODVectorVector2(CollisionChain2D* ptr, CScriptArray* vertices_conv)
 {
-    PODVector<Vector2> param0 = ArrayToPODVector<Vector2>(vertices);
-    ptr->SetVertices(param0);
+    PODVector<Vector2> vertices = ArrayToPODVector<Vector2>(vertices_conv);
+    ptr->SetVertices(vertices);
 }
 #endif
 
 #ifdef URHO3D_URHO2D
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void CollisionChain2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CollisionChain2D* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void CollisionChain2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CollisionChain2D* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -74,10 +74,10 @@ static CollisionCircle2D* CollisionCircle2D_CollisionCircle2D_Context()
 
 #ifdef URHO3D_URHO2D
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void CollisionCircle2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CollisionCircle2D* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void CollisionCircle2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CollisionCircle2D* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -91,10 +91,10 @@ static CollisionEdge2D* CollisionEdge2D_CollisionEdge2D_Context()
 
 #ifdef URHO3D_URHO2D
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void CollisionEdge2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CollisionEdge2D* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void CollisionEdge2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CollisionEdge2D* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -117,19 +117,19 @@ static CScriptArray* CollisionPolygon2D_GetVertices_void(CollisionPolygon2D* ptr
 
 #ifdef URHO3D_URHO2D
 // void CollisionPolygon2D::SetVertices(const PODVector<Vector2>& vertices) | File: ../Urho2D/CollisionPolygon2D.h
-static void CollisionPolygon2D_SetVertices_PODVectorVector2(CollisionPolygon2D* ptr, CScriptArray* vertices)
+static void CollisionPolygon2D_SetVertices_PODVectorVector2(CollisionPolygon2D* ptr, CScriptArray* vertices_conv)
 {
-    PODVector<Vector2> param0 = ArrayToPODVector<Vector2>(vertices);
-    ptr->SetVertices(param0);
+    PODVector<Vector2> vertices = ArrayToPODVector<Vector2>(vertices_conv);
+    ptr->SetVertices(vertices);
 }
 #endif
 
 #ifdef URHO3D_URHO2D
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void CollisionPolygon2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CollisionPolygon2D* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void CollisionPolygon2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CollisionPolygon2D* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -143,19 +143,19 @@ static CollisionShape* CollisionShape_CollisionShape_Context()
 
 #ifdef URHO3D_PHYSICS
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void CollisionShape_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CollisionShape* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void CollisionShape_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CollisionShape* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
 #ifdef URHO3D_URHO2D
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void CollisionShape2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CollisionShape2D* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void CollisionShape2D_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CollisionShape2D* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -202,24 +202,18 @@ static Component* Component_Component_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Component_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Component* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Component_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Component* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
-}
-
-// Condition::~Condition() | File: ../Core/Condition.h
-static void Condition_Destructor_Condition_void(Condition* ptr)
-{
-    ptr->~Condition();
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 #ifdef URHO3D_NETWORK
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Connection_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Connection* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Connection_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Connection* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -230,10 +224,10 @@ static Console* Console_Console_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Console_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Console* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void Console_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Console* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit ConstantBuffer::ConstantBuffer(Context* context) | File: ../Graphics/ConstantBuffer.h
@@ -243,10 +237,10 @@ static ConstantBuffer* ConstantBuffer_ConstantBuffer_Context()
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void ConstantBuffer_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(ConstantBuffer* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void ConstantBuffer_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(ConstantBuffer* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // Context::Context() | File: ../Core/Context.h
@@ -262,12 +256,6 @@ static Object* Context_CreateObject_StringHash(Context* ptr, StringHash objectTy
     return result.Detach();
 }
 
-// Controls::~Controls() | File: ../Input/Controls.h
-static void Controls_Destructor_Controls_void(Controls* ptr)
-{
-    ptr->~Controls();
-}
-
 #ifdef URHO3D_NAVIGATION
 // explicit CrowdAgent::CrowdAgent(Context* context) | File: ../Navigation/CrowdAgent.h
 static CrowdAgent* CrowdAgent_CrowdAgent_Context()
@@ -278,10 +266,10 @@ static CrowdAgent* CrowdAgent_CrowdAgent_Context()
 
 #ifdef URHO3D_NAVIGATION
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void CrowdAgent_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CrowdAgent* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void CrowdAgent_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CrowdAgent* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
 
@@ -304,12 +292,19 @@ static CScriptArray* CrowdManager_GetAgents_Node_bool(CrowdManager* ptr, Node* n
 
 #ifdef URHO3D_NAVIGATION
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void CrowdManager_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CrowdManager* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void CrowdManager_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CrowdManager* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 #endif
+
+// void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void Cursor_AddTags_StringVector(Cursor* ptr, CScriptArray* tags_conv)
+{
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->AddTags(tags);
+}
 
 // explicit Cursor::Cursor(Context* context) | File: ../UI/Cursor.h
 static Cursor* Cursor_Cursor_Context()
@@ -345,11 +340,18 @@ static CScriptArray* Cursor_GetTags_void(Cursor* ptr)
     return VectorToArray<String>(result, "Array<String>");
 }
 
-// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void Cursor_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Cursor* ptr, CScriptArray* exceptions, bool onlyUserData)
+// void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
+static void Cursor_SetTags_StringVector(Cursor* ptr, CScriptArray* tags_conv)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    StringVector tags = ArrayToVector<String>(tags_conv);
+    ptr->SetTags(tags);
+}
+
+// void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
+static void Cursor_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(Cursor* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
+{
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // explicit CustomGeometry::CustomGeometry(Context* context) | File: ../Graphics/CustomGeometry.h
@@ -373,10 +375,10 @@ static CScriptArray* CustomGeometry_GetVertexLights_void(CustomGeometry* ptr)
 }
 
 // void Object::UnsubscribeFromAllEventsExcept(const PODVector<StringHash>& exceptions, bool onlyUserData) | File: ../Core/Object.h
-static void CustomGeometry_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CustomGeometry* ptr, CScriptArray* exceptions, bool onlyUserData)
+static void CustomGeometry_UnsubscribeFromAllEventsExcept_PODVectorStringHash_bool(CustomGeometry* ptr, CScriptArray* exceptions_conv, bool onlyUserData)
 {
-    PODVector<StringHash> param0 = ArrayToPODVector<StringHash>(exceptions);
-    ptr->UnsubscribeFromAllEventsExcept(param0, onlyUserData);
+    PODVector<StringHash> exceptions = ArrayToPODVector<StringHash>(exceptions_conv);
+    ptr->UnsubscribeFromAllEventsExcept(exceptions, onlyUserData);
 }
 
 // ColorFrame::ColorFrame() | File: ../Graphics/ParticleEffect.h
@@ -397,24 +399,12 @@ static ColorFrame* ColorFrame_ColorFrame_Color_float(const Color &color, float t
     return new ColorFrame(color, time);
 }
 
-// ComponentReplicationState::~ComponentReplicationState() | Implicitly-declared 
-static void ComponentReplicationState_Destructor(ComponentReplicationState* ptr)
-{
-    ptr->~ComponentReplicationState();
-}
-
-// CompressedLevel::~CompressedLevel() | Implicitly-declared 
-static void CompressedLevel_Destructor(CompressedLevel* ptr)
-{
-    ptr->~CompressedLevel();
-}
-
 #ifdef URHO3D_PHYSICS
 // void ConvexData::BuildHull(const PODVector<Vector3>& vertices) | File: ../Physics/CollisionShape.h
-static void ConvexData_BuildHull_PODVectorVector3(ConvexData* ptr, CScriptArray* vertices)
+static void ConvexData_BuildHull_PODVectorVector3(ConvexData* ptr, CScriptArray* vertices_conv)
 {
-    PODVector<Vector3> param0 = ArrayToPODVector<Vector3>(vertices);
-    ptr->BuildHull(param0);
+    PODVector<Vector3> vertices = ArrayToPODVector<Vector3>(vertices_conv);
+    ptr->BuildHull(vertices);
 }
 #endif
 
@@ -438,12 +428,6 @@ static ConvexData* ConvexData_ConvexData_CustomGeometry(CustomGeometry *custom)
 static void CursorShapeInfo_CursorShapeInfo_int(CursorShapeInfo* ptr, int systemCursor)
 {
     new(ptr) CursorShapeInfo(systemCursor);
-}
-
-// CursorShapeInfo::~CursorShapeInfo() | Implicitly-declared 
-static void CursorShapeInfo_Destructor(CursorShapeInfo* ptr)
-{
-    ptr->~CursorShapeInfo();
 }
 
 void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
@@ -515,7 +499,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // float CollisionShape2D::GetDensity() const | File: ../Urho2D/CollisionShape2D.h
     engine->RegisterObjectMethod("CollisionBox2D", "float GetDensity() const", asMETHODPR(CollisionBox2D, GetDensity, () const, float), asCALL_THISCALL);
     engine->RegisterObjectMethod("CollisionBox2D", "float get_density() const", asMETHODPR(CollisionBox2D, GetDensity, () const, float), asCALL_THISCALL);
@@ -652,7 +636,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("CollisionBox2D", "int Refs() const", asMETHODPR(CollisionBox2D, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("CollisionBox2D", "int get_refs() const", asMETHODPR(CollisionBox2D, Refs, () const, int), asCALL_THISCALL);
     // static void CollisionBox2D::RegisterObject(Context* context) | File: ../Urho2D/CollisionBox2D.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void CollisionShape2D::ReleaseFixture() | File: ../Urho2D/CollisionShape2D.h
     engine->RegisterObjectMethod("CollisionBox2D", "void ReleaseFixture()", asMETHODPR(CollisionBox2D, ReleaseFixture, (), void), asCALL_THISCALL);
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
@@ -870,7 +854,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // float CollisionShape2D::GetDensity() const | File: ../Urho2D/CollisionShape2D.h
     engine->RegisterObjectMethod("CollisionChain2D", "float GetDensity() const", asMETHODPR(CollisionChain2D, GetDensity, () const, float), asCALL_THISCALL);
     engine->RegisterObjectMethod("CollisionChain2D", "float get_density() const", asMETHODPR(CollisionChain2D, GetDensity, () const, float), asCALL_THISCALL);
@@ -1016,7 +1000,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("CollisionChain2D", "int Refs() const", asMETHODPR(CollisionChain2D, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("CollisionChain2D", "int get_refs() const", asMETHODPR(CollisionChain2D, Refs, () const, int), asCALL_THISCALL);
     // static void CollisionChain2D::RegisterObject(Context* context) | File: ../Urho2D/CollisionChain2D.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void CollisionShape2D::ReleaseFixture() | File: ../Urho2D/CollisionShape2D.h
     engine->RegisterObjectMethod("CollisionChain2D", "void ReleaseFixture()", asMETHODPR(CollisionChain2D, ReleaseFixture, (), void), asCALL_THISCALL);
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
@@ -1236,7 +1220,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // float CollisionShape2D::GetDensity() const | File: ../Urho2D/CollisionShape2D.h
     engine->RegisterObjectMethod("CollisionCircle2D", "float GetDensity() const", asMETHODPR(CollisionCircle2D, GetDensity, () const, float), asCALL_THISCALL);
     engine->RegisterObjectMethod("CollisionCircle2D", "float get_density() const", asMETHODPR(CollisionCircle2D, GetDensity, () const, float), asCALL_THISCALL);
@@ -1373,7 +1357,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("CollisionCircle2D", "int Refs() const", asMETHODPR(CollisionCircle2D, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("CollisionCircle2D", "int get_refs() const", asMETHODPR(CollisionCircle2D, Refs, () const, int), asCALL_THISCALL);
     // static void CollisionCircle2D::RegisterObject(Context* context) | File: ../Urho2D/CollisionCircle2D.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void CollisionShape2D::ReleaseFixture() | File: ../Urho2D/CollisionShape2D.h
     engine->RegisterObjectMethod("CollisionCircle2D", "void ReleaseFixture()", asMETHODPR(CollisionCircle2D, ReleaseFixture, (), void), asCALL_THISCALL);
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
@@ -1586,7 +1570,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // float CollisionShape2D::GetDensity() const | File: ../Urho2D/CollisionShape2D.h
     engine->RegisterObjectMethod("CollisionEdge2D", "float GetDensity() const", asMETHODPR(CollisionEdge2D, GetDensity, () const, float), asCALL_THISCALL);
     engine->RegisterObjectMethod("CollisionEdge2D", "float get_density() const", asMETHODPR(CollisionEdge2D, GetDensity, () const, float), asCALL_THISCALL);
@@ -1726,7 +1710,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("CollisionEdge2D", "int Refs() const", asMETHODPR(CollisionEdge2D, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("CollisionEdge2D", "int get_refs() const", asMETHODPR(CollisionEdge2D, Refs, () const, int), asCALL_THISCALL);
     // static void CollisionEdge2D::RegisterObject(Context* context) | File: ../Urho2D/CollisionEdge2D.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void CollisionShape2D::ReleaseFixture() | File: ../Urho2D/CollisionShape2D.h
     engine->RegisterObjectMethod("CollisionEdge2D", "void ReleaseFixture()", asMETHODPR(CollisionEdge2D, ReleaseFixture, (), void), asCALL_THISCALL);
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
@@ -1939,7 +1923,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // float CollisionShape2D::GetDensity() const | File: ../Urho2D/CollisionShape2D.h
     engine->RegisterObjectMethod("CollisionPolygon2D", "float GetDensity() const", asMETHODPR(CollisionPolygon2D, GetDensity, () const, float), asCALL_THISCALL);
     engine->RegisterObjectMethod("CollisionPolygon2D", "float get_density() const", asMETHODPR(CollisionPolygon2D, GetDensity, () const, float), asCALL_THISCALL);
@@ -2082,7 +2066,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("CollisionPolygon2D", "int Refs() const", asMETHODPR(CollisionPolygon2D, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("CollisionPolygon2D", "int get_refs() const", asMETHODPR(CollisionPolygon2D, Refs, () const, int), asCALL_THISCALL);
     // static void CollisionPolygon2D::RegisterObject(Context* context) | File: ../Urho2D/CollisionPolygon2D.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void CollisionShape2D::ReleaseFixture() | File: ../Urho2D/CollisionShape2D.h
     engine->RegisterObjectMethod("CollisionPolygon2D", "void ReleaseFixture()", asMETHODPR(CollisionPolygon2D, ReleaseFixture, (), void), asCALL_THISCALL);
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
@@ -2293,7 +2277,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
@@ -2430,7 +2414,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("CollisionShape", "int Refs() const", asMETHODPR(CollisionShape, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("CollisionShape", "int get_refs() const", asMETHODPR(CollisionShape, Refs, () const, int), asCALL_THISCALL);
     // static void CollisionShape::RegisterObject(Context* context) | File: ../Physics/CollisionShape.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("CollisionShape", asBEHAVE_RELEASE, "void f()", asMETHODPR(CollisionShape, ReleaseRef, (), void), asCALL_THISCALL);
     // void CollisionShape::ReleaseShape() | File: ../Physics/CollisionShape.h
@@ -2659,7 +2643,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // float CollisionShape2D::GetDensity() const | File: ../Urho2D/CollisionShape2D.h
     engine->RegisterObjectMethod("CollisionShape2D", "float GetDensity() const", asMETHODPR(CollisionShape2D, GetDensity, () const, float), asCALL_THISCALL);
     engine->RegisterObjectMethod("CollisionShape2D", "float get_density() const", asMETHODPR(CollisionShape2D, GetDensity, () const, float), asCALL_THISCALL);
@@ -2793,7 +2777,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("CollisionShape2D", "int Refs() const", asMETHODPR(CollisionShape2D, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("CollisionShape2D", "int get_refs() const", asMETHODPR(CollisionShape2D, Refs, () const, int), asCALL_THISCALL);
     // static void CollisionShape2D::RegisterObject(Context* context) | File: ../Urho2D/CollisionShape2D.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void CollisionShape2D::ReleaseFixture() | File: ../Urho2D/CollisionShape2D.h
     engine->RegisterObjectMethod("CollisionShape2D", "void ReleaseFixture()", asMETHODPR(CollisionShape2D, ReleaseFixture, (), void), asCALL_THISCALL);
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
@@ -3152,7 +3136,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
@@ -3257,7 +3241,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Component", "int Refs() const", asMETHODPR(Component, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Component", "int get_refs() const", asMETHODPR(Component, Refs, () const, int), asCALL_THISCALL);
     // static void Animatable::RegisterObject(Context* context) | File: ../Scene/Animatable.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Component", asBEHAVE_RELEASE, "void f()", asMETHODPR(Component, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -3373,8 +3357,6 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Condition", "void Set()", asMETHODPR(Condition, Set, (), void), asCALL_THISCALL);
     // void Condition::Wait() | File: ../Core/Condition.h
     engine->RegisterObjectMethod("Condition", "void Wait()", asMETHODPR(Condition, Wait, (), void), asCALL_THISCALL);
-    // Condition::~Condition() | File: ../Core/Condition.h
-    engine->RegisterObjectBehaviour("Condition", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Condition_Destructor_Condition_void), asCALL_CDECL_OBJFIRST);
     // Condition& Condition::operator=(const Condition&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<Condition>(engine, "Condition");
 #ifdef REGISTER_MANUAL_PART_Condition
@@ -3419,7 +3401,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Connection", "const String& GetCategory() const", asMETHODPR(Connection, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("Connection", "const String& get_category() const", asMETHODPR(Connection, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // const Controls& Connection::GetControls() const | File: ../Network/Connection.h
     engine->RegisterObjectMethod("Connection", "const Controls& GetControls() const", asMETHODPR(Connection, GetControls, () const, const Controls&), asCALL_THISCALL);
     // const String& Connection::GetDownloadName() const | File: ../Network/Connection.h
@@ -3645,7 +3627,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Console", "const String& GetCommandInterpreter() const", asMETHODPR(Console, GetCommandInterpreter, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("Console", "const String& get_commandInterpreter() const", asMETHODPR(Console, GetCommandInterpreter, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // XMLFile* Console::GetDefaultStyle() const | File: ../Engine/Console.h
     engine->RegisterObjectMethod("Console", "XMLFile@+ GetDefaultStyle() const", asMETHODPR(Console, GetDefaultStyle, () const, XMLFile*), asCALL_THISCALL);
     engine->RegisterObjectMethod("Console", "XMLFile@+ get_defaultStyle() const", asMETHODPR(Console, GetDefaultStyle, () const, XMLFile*), asCALL_THISCALL);
@@ -3815,7 +3797,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("ConstantBuffer", "const String& GetCategory() const", asMETHODPR(ConstantBuffer, GetCategory, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("ConstantBuffer", "const String& get_category() const", asMETHODPR(ConstantBuffer, GetCategory, () const, const String&), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // VariantMap& Object::GetEventDataMap() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("ConstantBuffer", "VariantMap& GetEventDataMap() const", asMETHODPR(ConstantBuffer, GetEventDataMap, () const, VariantMap&), asCALL_THISCALL);
     // EventHandler* Object::GetEventHandler() const | File: ../Core/Object.h
@@ -3896,11 +3878,11 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("ConstantBuffer", "void SetGlobalVar(StringHash, const Variant&in)", asMETHODPR(ConstantBuffer, SetGlobalVar, (StringHash, const Variant&), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("ConstantBuffer", "void set_globalVar(StringHash, const Variant&in)", asMETHODPR(ConstantBuffer, SetGlobalVar, (StringHash, const Variant&), void), asCALL_THISCALL);
     // void ConstantBuffer::SetParameter(unsigned offset, unsigned size, const void* data) | File: ../Graphics/ConstantBuffer.h
-    // Error: type "void*" can not automatically bind
+    // Error: type "const void*" can not automatically bind
     // bool ConstantBuffer::SetSize(unsigned size) | File: ../Graphics/ConstantBuffer.h
     engine->RegisterObjectMethod("ConstantBuffer", "bool SetSize(uint)", asMETHODPR(ConstantBuffer, SetSize, (unsigned), bool), asCALL_THISCALL);
     // void ConstantBuffer::SetVector3ArrayParameter(unsigned offset, unsigned rows, const void* data) | File: ../Graphics/ConstantBuffer.h
-    // Error: type "void*" can not automatically bind
+    // Error: type "const void*" can not automatically bind
     // void Object::SubscribeToEvent(StringHash eventType, EventHandler* handler) | File: ../Core/Object.h
     // Error: type "EventHandler*" can not automatically bind
     // void Object::SubscribeToEvent(Object* sender, StringHash eventType, EventHandler* handler) | File: ../Core/Object.h
@@ -4057,8 +4039,6 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Controls", "void Reset()", asMETHODPR(Controls, Reset, (), void), asCALL_THISCALL);
     // void Controls::Set(unsigned buttons, bool down=true) | File: ../Input/Controls.h
     engine->RegisterObjectMethod("Controls", "void Set(uint, bool = true)", asMETHODPR(Controls, Set, (unsigned, bool), void), asCALL_THISCALL);
-    // Controls::~Controls() | File: ../Input/Controls.h
-    engine->RegisterObjectBehaviour("Controls", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Controls_Destructor_Controls_void), asCALL_CDECL_OBJFIRST);
     // Controls& Controls::operator=(const Controls&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<Controls>(engine, "Controls");
 #ifdef REGISTER_MANUAL_PART_Controls
@@ -4131,7 +4111,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // Vector3 CrowdAgent::GetDesiredVelocity() const | File: ../Navigation/CrowdAgent.h
@@ -4290,7 +4270,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("CrowdAgent", "int Refs() const", asMETHODPR(CrowdAgent, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("CrowdAgent", "int get_refs() const", asMETHODPR(CrowdAgent, Refs, () const, int), asCALL_THISCALL);
     // static void CrowdAgent::RegisterObject(Context* context) | File: ../Navigation/CrowdAgent.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("CrowdAgent", asBEHAVE_RELEASE, "void f()", asMETHODPR(CrowdAgent, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -4508,7 +4488,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // float CrowdManager::GetDistanceToWall(const Vector3& point, float radius, int queryFilterType, Vector3* hitPos=nullptr, Vector3* hitNormal=nullptr) | File: ../Navigation/CrowdManager.h
@@ -4651,7 +4631,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("CrowdManager", "int Refs() const", asMETHODPR(CrowdManager, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("CrowdManager", "int get_refs() const", asMETHODPR(CrowdManager, Refs, () const, int), asCALL_THISCALL);
     // static void CrowdManager::RegisterObject(Context* context) | File: ../Navigation/CrowdManager.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("CrowdManager", asBEHAVE_RELEASE, "void f()", asMETHODPR(CrowdManager, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -4804,7 +4784,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     // void UIElement::AddTags(const String& tags, char separator=';') | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("Cursor", "void AddTags(const String&in, int8 = ';')", asMETHODPR(Cursor, AddTags, (const String&, char), void), asCALL_THISCALL);
     // void UIElement::AddTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("Cursor", "void AddTags(Array<String>@+)", asFUNCTION(Cursor_AddTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void UIElement::AdjustScissor(IntRect& currentScissor) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("Cursor", "void AdjustScissor(IntRect&)", asMETHODPR(Cursor, AdjustScissor, (IntRect&), void), asCALL_THISCALL);
     // void Serializable::AllocateNetworkState() | File: ../Scene/Serializable.h
@@ -4933,7 +4913,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Cursor", "IntRect GetCombinedScreenRect()", asMETHODPR(Cursor, GetCombinedScreenRect, (), IntRect), asCALL_THISCALL);
     engine->RegisterObjectMethod("Cursor", "IntRect get_combinedScreenRect()", asMETHODPR(Cursor, GetCombinedScreenRect, (), IntRect), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void UIElement::GetDebugDrawBatches(PODVector<UIBatch>& batches, PODVector<float>& vertexData, const IntRect& currentScissor) | File: ../UI/UIElement.h
     // Error: type "PODVector<UIBatch>&" can not automatically bind
     // XMLFile* UIElement::GetDefaultStyle(bool recursiveUp=true) const | File: ../UI/UIElement.h
@@ -5283,7 +5263,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("Cursor", "int Refs() const", asMETHODPR(Cursor, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("Cursor", "int get_refs() const", asMETHODPR(Cursor, Refs, () const, int), asCALL_THISCALL);
     // static void Cursor::RegisterObject(Context* context) | File: ../UI/Cursor.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("Cursor", asBEHAVE_RELEASE, "void f()", asMETHODPR(Cursor, ReleaseRef, (), void), asCALL_THISCALL);
     // void UIElement::Remove() | File: ../UI/UIElement.h
@@ -5562,7 +5542,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     // bool UIElement::SetStyleAuto(XMLFile* file=nullptr) | File: ../UI/UIElement.h
     engine->RegisterObjectMethod("Cursor", "bool SetStyleAuto(XMLFile@+ = null)", asMETHODPR(Cursor, SetStyleAuto, (XMLFile*), bool), asCALL_THISCALL);
     // void UIElement::SetTags(const StringVector& tags) | File: ../UI/UIElement.h
-    // Error: type "const StringVector&" can not automatically bind
+    engine->RegisterObjectMethod("Cursor", "void SetTags(Array<String>@+)", asFUNCTION(Cursor_SetTags_StringVector), asCALL_CDECL_OBJFIRST);
     // void Serializable::SetTemporary(bool enable) | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("Cursor", "void SetTemporary(bool)", asMETHODPR(Cursor, SetTemporary, (bool), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("Cursor", "void set_temporary(bool)", asMETHODPR(Cursor, SetTemporary, (bool), void), asCALL_THISCALL);
@@ -5742,7 +5722,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
     // Context* Object::GetContext() const | File: ../Core/Object.h
-    // Error: type "Context*" can not be returned
+    // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
     // Error: type "PODVector<Node*>&" can not automatically bind
     // float Drawable::GetDistance() const | File: ../Graphics/Drawable.h
@@ -5952,7 +5932,7 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectMethod("CustomGeometry", "int Refs() const", asMETHODPR(CustomGeometry, Refs, () const, int), asCALL_THISCALL);
     engine->RegisterObjectMethod("CustomGeometry", "int get_refs() const", asMETHODPR(CustomGeometry, Refs, () const, int), asCALL_THISCALL);
     // static void CustomGeometry::RegisterObject(Context* context) | File: ../Graphics/CustomGeometry.h
-    // Context can be used as firs parameter of constructors only
+    // Not registered because have @nobind mark
     // void RefCounted::ReleaseRef() | File: ../Container/RefCounted.h
     engine->RegisterObjectBehaviour("CustomGeometry", asBEHAVE_RELEASE, "void f()", asMETHODPR(CustomGeometry, ReleaseRef, (), void), asCALL_THISCALL);
     // void Component::Remove() | File: ../Scene/Component.h
@@ -6185,8 +6165,6 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectProperty("ComponentReplicationState", "DirtyBits dirtyAttributes", offsetof(ComponentReplicationState, dirtyAttributes_));
     // NodeReplicationState* ComponentReplicationState::nodeState_ | File: ../Scene/ReplicationState.h
     // NodeReplicationState* can not be registered
-    // ComponentReplicationState::~ComponentReplicationState() | Implicitly-declared
-    engine->RegisterObjectBehaviour("ComponentReplicationState", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(ComponentReplicationState_Destructor), asCALL_CDECL_OBJFIRST);
     // ComponentReplicationState& ComponentReplicationState::operator=(const ComponentReplicationState&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<ComponentReplicationState>(engine, "ComponentReplicationState");
 #ifdef REGISTER_MANUAL_PART_ReplicationState
@@ -6216,8 +6194,6 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     engine->RegisterObjectProperty("CompressedLevel", "int width", offsetof(CompressedLevel, width_));
     // bool CompressedLevel::Decompress(unsigned char* dest) const | File: ../Resource/Image.h
     // Error: type "unsigned char*" can not automatically bind
-    // CompressedLevel::~CompressedLevel() | Implicitly-declared
-    engine->RegisterObjectBehaviour("CompressedLevel", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(CompressedLevel_Destructor), asCALL_CDECL_OBJFIRST);
     // CompressedLevel& CompressedLevel::operator=(const CompressedLevel&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<CompressedLevel>(engine, "CompressedLevel");
 #ifdef REGISTER_MANUAL_PART_CompressedLevel
@@ -6308,8 +6284,6 @@ void ASRegisterGenerated_Members_Cn_Cz(asIScriptEngine* engine)
     // Error: type "SharedPtr<Texture>" can not automatically bind
     // explicit CursorShapeInfo::CursorShapeInfo(int systemCursor) | File: ../UI/Cursor.h
     engine->RegisterObjectBehaviour("CursorShapeInfo", asBEHAVE_CONSTRUCT, "void f(int)", asFUNCTION(CursorShapeInfo_CursorShapeInfo_int), asCALL_CDECL_OBJFIRST);
-    // CursorShapeInfo::~CursorShapeInfo() | Implicitly-declared
-    engine->RegisterObjectBehaviour("CursorShapeInfo", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(CursorShapeInfo_Destructor), asCALL_CDECL_OBJFIRST);
     // CursorShapeInfo& CursorShapeInfo::operator=(const CursorShapeInfo&) | Possible implicitly-declared
     RegisterImplicitlyDeclaredAssignOperatorIfPossible<CursorShapeInfo>(engine, "CursorShapeInfo");
 #ifdef REGISTER_MANUAL_PART_CursorShapeInfo
