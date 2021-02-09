@@ -190,7 +190,11 @@ if (URHO3D_MACOSX_BUNDLE OR (APPLE AND ARM))
 endif ()
 
 # Setup SDK-like include dir in the build tree for building the Urho3D library
-set (THIRD_PARTY_INCLUDE_DIR ${CMAKE_BINARY_DIR}/${DEST_INCLUDE_DIR}/ThirdParty)
+if (ANDROID AND GRADLE_BUILD_DIR)
+    set (THIRD_PARTY_INCLUDE_DIR ${GRADLE_BUILD_DIR}/tree/${CMAKE_BUILD_TYPE}/${ANDROID_ABI}/${DEST_INCLUDE_DIR}/ThirdParty)
+else ()
+    set (THIRD_PARTY_INCLUDE_DIR ${CMAKE_BINARY_DIR}/${DEST_INCLUDE_DIR}/ThirdParty)
+endif ()
 file (MAKE_DIRECTORY ${THIRD_PARTY_INCLUDE_DIR})
 
 # Urho3D source
@@ -198,3 +202,44 @@ add_subdirectory (Source)
 
 # Urho3D documentation
 add_subdirectory (Docs)
+
+if(FLIMPER AND URHO3D_LIB_TYPE STREQUAL STATIC)
+
+if (NOT EXISTS ${CMAKE_BINARY_DIR}/bin/Templates)
+if (CMAKE_HOST_WIN32)
+if (NOT IOS AND NOT TVOS AND NOT ANDROID AND NOT WEB AND NOT CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
+    # Ensure the output directory exist before creating the symlinks
+    file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+    file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin/Templates)
+    file (GLOB_RECURSE FILES RELATIVE ${CMAKE_SOURCE_DIR}/Templates ${CMAKE_SOURCE_DIR}/Templates/*)
+    foreach (FILE ${FILES})
+        create_symlink (${CMAKE_SOURCE_DIR}/Templates/${FILE} ${CMAKE_BINARY_DIR}/bin/Templates/${FILE} FALLBACK_TO_COPY)
+    endforeach ()
+endif ()
+else()
+if (NOT IOS AND NOT TVOS AND NOT ANDROID AND NOT WEB AND NOT CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
+execute_process(COMMAND ln -s ${CMAKE_SOURCE_DIR}/Templates ${CMAKE_BINARY_DIR}/bin/Templates)
+endif()
+endif()
+endif ()
+
+if (NOT EXISTS ${CMAKE_BINARY_DIR}/bin/Flimper)
+if (CMAKE_HOST_WIN32)
+if (NOT IOS AND NOT TVOS AND NOT ANDROID AND NOT WEB AND NOT CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
+    # Ensure the output directory exist before creating the symlinks
+    file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+    file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin/FlimperAssets)
+    file (GLOB_RECURSE FILES RELATIVE ${CMAKE_SOURCE_DIR}/FlimperAssets ${CMAKE_SOURCE_DIR}/FlimperAssets/*)
+    foreach (FILE ${FILES})
+        create_symlink (${CMAKE_SOURCE_DIR}/FlimperAssets/${FILE} ${CMAKE_BINARY_DIR}/bin/FlimperAssets/${FILE} FALLBACK_TO_COPY)
+    endforeach ()
+endif ()
+else()
+if (NOT IOS AND NOT TVOS AND NOT ANDROID AND NOT WEB AND NOT CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
+execute_process(COMMAND ln -s ${CMAKE_SOURCE_DIR}/FlimperAssets ${CMAKE_BINARY_DIR}/bin/FlimperAssets)
+endif()
+endif()
+endif ()
+
+
+endif ()

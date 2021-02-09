@@ -84,8 +84,11 @@ else ()
         elseif (JNI_DIR)
             # Using Urho3D AAR from Maven repository
             set (URHO3D_HOME ${JNI_DIR}/urho3d/${config}/${ANDROID_ABI})
+        elseif (GRADLE_BUILD_DIR)
+            # Urho3D AAR is a universal library
+            set (URHO3D_HOME ${GRADLE_BUILD_DIR}/tree/${CMAKE_BUILD_TYPE}/${ANDROID_ABI})
         else ()
-            message (FATAL_ERROR "Neither 'BUILD_STAGING_DIR' nor 'JNI_DIR' is set")
+            message (FATAL_ERROR "Neither 'BUILD_STAGING_DIR' nor 'JNI_DIR' nor 'GRADLE_BUILD_DIR' is set")
         endif ()
         if (URHO3D_LIB_TYPE STREQUAL STATIC)
             set (URHO3D_LIBRARIES ${URHO3D_HOME}/lib/libUrho3D.a)

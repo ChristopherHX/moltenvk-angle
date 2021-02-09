@@ -20,7 +20,7 @@
 // THE SOFTWARE.
 //
 
-package io.urho3d.launcher
+package com.github.urho3d.launcher
 
 import android.app.ExpandableListActivity
 import android.content.Intent
@@ -30,7 +30,6 @@ import android.widget.ExpandableListView
 import android.widget.SimpleExpandableListAdapter
 import com.github.urho3d.UrhoActivity
 import android.os.Build
-
 
 class LauncherActivity : ExpandableListActivity() {
 
@@ -45,19 +44,15 @@ class LauncherActivity : ExpandableListActivity() {
         val libraryNames = UrhoActivity.getLibraryNames(this)
         val items = mutableMapOf("C++" to libraryNames.filterNot { regex.matches(it) }.sorted())
         if (libraryNames.find { it == "Urho3DPlayer" } != null) {
-            items.putAll(
-                mapOf(
+            items.putAll(mapOf(
                     // FIXME: Should not assume both scripting subsystems are enabled in the build
                     "AngelScript" to getScriptNames("Data/Scripts"),
                     "Lua" to getScriptNames("Data/LuaScripts")
-                )
-            )
+            ))
         }
         items.filterValues { it.isEmpty() }.forEach { items.remove(it.key) }
 
-        setListAdapter(
-            SimpleExpandableListAdapter(
-                this,
+        setListAdapter(SimpleExpandableListAdapter(this,
                 items.map {
                     mapOf("api" to it.key, "info" to "Click to expand/collapse")
                 },
@@ -72,8 +67,7 @@ class LauncherActivity : ExpandableListActivity() {
                 R.layout.launcher_list_item,
                 arrayOf("item"),
                 intArrayOf(android.R.id.text1)
-            )
-        )
+        ))
         setContentView(R.layout.activity_launcher)
 
  
@@ -95,9 +89,8 @@ class LauncherActivity : ExpandableListActivity() {
         launch(intent.getStringExtra(MainActivity.argument))
     }
 
-    override fun onChildClick(
-        parent: ExpandableListView?, v: View?, groupPos: Int, childPos: Int, id: Long
-    ): Boolean {
+    override fun onChildClick(parent: ExpandableListView?, v: View?, groupPos: Int, childPos: Int,
+                              id: Long): Boolean {
         @Suppress("UNCHECKED_CAST")
         launch((expandableListAdapter.getChild(groupPos, childPos) as Map<String, String>)["item"])
         return true
@@ -105,14 +98,12 @@ class LauncherActivity : ExpandableListActivity() {
 
     private fun launch(argument: String?) {
         if (argument != null) {
-            startActivity(
-                Intent(this, MainActivity::class.java)
-                    .putExtra(
-                        MainActivity.argument,
-                        if (argument.contains('.')) {
-                            if (argument.endsWith(".as")) "Urho3DPlayer:Scripts/$argument"
-                            else "Urho3DPlayer:LuaScripts/$argument"
-                        } else argument
+            startActivity(Intent(this, MainActivity::class.java)
+                    .putExtra(MainActivity.argument,
+                            if (argument.contains('.')) {
+                                if (argument.endsWith(".as")) "Urho3DPlayer:Scripts/$argument"
+                                else "Urho3DPlayer:LuaScripts/$argument"
+                            } else argument
                     )
             )
         }

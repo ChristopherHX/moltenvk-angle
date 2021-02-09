@@ -122,6 +122,11 @@ elseif (XCODE)
     set (DEPLOYMENT_TARGET_SAVED ${CMAKE_OSX_DEPLOYMENT_TARGET} CACHE INTERNAL "Last known deployment target")
 endif ()
 
+# To support Android Gradle build system on Windows host system
+if (ANDROID AND GRADLE_BUILD_DIR)
+    file (TO_CMAKE_PATH "${GRADLE_BUILD_DIR}" GRADLE_BUILD_DIR)
+endif ()
+
 include (CheckHost)
 include (CheckCompilerToolchain)
 
@@ -157,12 +162,15 @@ option (URHO3D_GLES2 "Enable GLES2" FALSE)
 option (URHO3D_GLES3 "Enable GLES3" FALSE)
 option (URHO3D_WEBP "Enable WebP support" TRUE)
 option (URHO3D_ANGLE_METAL "Enable Angle Metal graphics backend" FALSE)
-option (URHO3D_CLING "Urho3D used with Cling" FALSE)
 
 if(URHO3D_CLING)
     set (URHO3D_SSE FALSE)
     set (BT_USE_SSE FALSE)
+    set (CLING_HOME "" CACHE PATH "path to the cling home folder")
+    set (URHO3D_DLL_CLING_PATH "" CACHE PATH "path to the urho3d dll that will be loaded and used by cling")
 endif ()
+    set (URHO3D_DLL_BUILD_PATH "" CACHE PATH "path to the urho3d dll that will be loaded and used by flimper")
+
 
 if ((ANDROID OR IOS OR URHO3D_ANGLE_METAL) AND NOT URHO3D_GLES3)
     set(URHO3D_GLES2 TRUE)
@@ -216,7 +224,7 @@ if (CMAKE_PROJECT_NAME STREQUAL Urho3D)
     cmake_dependent_option (URHO3D_MMX "Enable MMX instruction set (32-bit Linux platform only); the MMX is effectively enabled when 3DNow! or SSE is enabled; should only be used for older CPU with MMX support" "${HAVE_MMX}" "X86 OR E2K AND CMAKE_SYSTEM_NAME STREQUAL Linux AND NOT URHO3D_64BIT AND NOT URHO3D_SSE AND NOT URHO3D_3DNOW" FALSE)
     # For completeness sake - this option is intentionally not documented as we do not officially support PowerPC (yet)
     cmake_dependent_option (URHO3D_ALTIVEC "Enable AltiVec instruction set (PowerPC only)" "${HAVE_ALTIVEC}" POWERPC FALSE)
-    cmake_dependent_option (URHO3D_LUAJIT "Enable Lua scripting support using LuaJIT (check LuaJIT's CMakeLists.txt for more options)" TRUE "NOT WEB AND NOT APPLE" FALSE)
+    cmake_dependent_option (URHO3D_LUAJIT "Enable Lua scripting support using LuaJIT (check LuaJIT's CMakeLists.txt for more options)" FALSE "NOT WEB AND NOT APPLE" FALSE)
     cmake_dependent_option (URHO3D_LUAJIT_AMALG "Enable LuaJIT amalgamated build (LuaJIT only); default to true when LuaJIT is enabled" TRUE URHO3D_LUAJIT FALSE)
     cmake_dependent_option (URHO3D_SAFE_LUA "Enable Lua C++ wrapper safety checks (Lua/LuaJIT only)" FALSE URHO3D_LUA FALSE)
     if (NOT CMAKE_BUILD_TYPE STREQUAL Release AND NOT CMAKE_CONFIGURATION_TYPES)
@@ -437,8 +445,7 @@ if (URHO3D_CLANG_TOOLS)
             URHO3D_PHYSICS
             URHO3D_PROFILING
             URHO3D_URHO2D
-            URHO3D_ANGLE_METAL
-            URHO3D_CLING)
+            URHO3D_ANGLE_METAL)
         set (${OPT} 1)
     endforeach ()
     foreach (OPT URHO3D_TESTING URHO3D_LUAJIT URHO3D_DATABASE_ODBC)
@@ -500,8 +507,7 @@ foreach (OPT
         URHO3D_GLES2
         URHO3D_WEBP
         URHO3D_WIN32_CONSOLE
-        URHO3D_ANGLE_METAL
-        URHO3D_CLING)
+        URHO3D_ANGLE_METAL)
     if (${OPT})
         add_definitions (-D${OPT})
     endif ()
@@ -1448,7 +1454,11 @@ macro (install_header_files)
         # Reparse the arguments for the create_symlink macro to "install" the header files in the build tree
         if (NOT ARG_BASE)
             # Use build tree as base path
-            set (ARG_BASE ${CMAKE_BINARY_DIR})
+            if (ANDROID AND GRADLE_BUILD_DIR)
+                set (ARG_BASE ${GRADLE_BUILD_DIR}/tree/${CMAKE_BUILD_TYPE}/${ANDROID_ABI})
+            else ()
+                set (ARG_BASE ${CMAKE_BINARY_DIR})
+            endif ()
         endif ()
         foreach (INSTALL_SOURCE ${INSTALL_SOURCES})
             if (NOT IS_ABSOLUTE ${INSTALL_SOURCE})

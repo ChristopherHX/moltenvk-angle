@@ -33,7 +33,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ApplicationInfo;
 
-import io.urho3d.UrhoActivity;
+import com.github.urho3d.UrhoActivity;
 
 /**
     SDL Activity
@@ -238,7 +238,6 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
 
         setContentView(mLayout);
 
-        // TBD elix22 enable fullscreen
         setWindowStyle(true);
 
         getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(this);
