@@ -19,6 +19,7 @@
 #include "libANGLE/renderer/metal/ContextMtl.h"
 #include "libANGLE/renderer/metal/DisplayMtl.h"
 #include "libANGLE/renderer/metal/FrameBufferMtl.h"
+#include "libANGLE/renderer/metal/ImageMtl.h"
 #include "libANGLE/renderer/metal/SamplerMtl.h"
 #include "libANGLE/renderer/metal/mtl_common.h"
 #include "libANGLE/renderer/metal/mtl_format_utils.h"
@@ -545,10 +546,9 @@ angle::Result TextureMtl::createNativeTexture(const gl::Context *context,
             UNREACHABLE();
     }
 
-    ANGLE_TRY(checkForEmulatedChannels(context, mFormat, mNativeTexture));
+    bool hasEmulatedChannels = mtl::IsFormatEmulated(mFormat);
 
     // Transfer data from images to actual texture object
-    mtl::BlitCommandEncoder *encoder = nullptr;
     for (int face = 0; face < numCubeFaces; ++face)
     {
         for (GLuint mip = 0; mip < mips; ++mip)
@@ -562,17 +562,35 @@ angle::Result TextureMtl::createNativeTexture(const gl::Context *context,
             if (imageToTransfer && imageToTransfer->size() == actualMipSize &&
                 imageToTransfer->pixelFormat() == mNativeTexture->pixelFormat())
             {
-                if (!encoder)
-                {
-                    encoder = contextMtl->getBlitCommandEncoder();
-                }
+                mtl::BlitCommandEncoder *encoder = contextMtl->getBlitCommandEncoder();
                 encoder->copyTexture(imageToTransfer, 0, 0, mNativeTexture, face, mip,
                                      imageToTransfer->arrayLength(), 1);
+            }
+            else
+            {
+                if (hasEmulatedChannels)
+                {
+                    GLint layerIndex = numCubeFaces > 1 ? face : gl::ImageIndex::kEntireLevel;
+                    gl::ImageIndex mipIndex = gl::ImageIndex::MakeFromType(type, mip, layerIndex);
+                    if (mFormat.getCaps().isRenderable())
+                    {
+                        ANGLE_TRY(mtl::InitializeTextureContentsGPU(
+                            context, mNativeTexture, mFormat, mipIndex, MTLColorWriteMaskAll));
+                    }
+                    else
+                    {
+                        ANGLE_TRY(mtl::InitializeTextureContents(context, mNativeTexture, mFormat,
+                                                                 mipIndex));
+                    }
+                }
             }
 
             imageToTransfer = nullptr;
         }
     }
+
+    // Flush texture's GPU updates
+    contextMtl->flushCommandBufer();
 
     // Create sampler state
     ANGLE_TRY(ensureSamplerStateCreated(context));
@@ -641,7 +659,7 @@ angle::Result TextureMtl::ensureImageCreated(const gl::Context *context,
     {
         // Image at this level hasn't been defined yet. We need to define it:
         const gl::ImageDesc &desc = mState.getImageDesc(index);
-        ANGLE_TRY(redefineImage(context, index, mFormat, desc.size));
+        ANGLE_TRY(redefineImage(context, index, mFormat, desc.size, true));
     }
     return angle::Result::Continue;
 }
@@ -878,7 +896,7 @@ angle::Result TextureMtl::copyImage(const gl::Context *context,
         angle::Format::InternalFormatToID(internalFormatInfo.sizedInternalFormat);
     const mtl::Format &mtlFormat = contextMtl->getPixelFormat(angleFormatId);
 
-    ANGLE_TRY(redefineImage(context, index, mtlFormat, newImageSize));
+    ANGLE_TRY(redefineImage(context, index, mtlFormat, newImageSize, true));
 
     if (context->isWebGL())
     {
@@ -981,9 +999,32 @@ angle::Result TextureMtl::setEGLImageTarget(const gl::Context *context,
                                             gl::TextureType type,
                                             egl::Image *image)
 {
-    UNIMPLEMENTED();
+    releaseTexture(true);
 
-    return angle::Result::Stop;
+    ContextMtl *contextMtl = mtl::GetImpl(context);
+
+    ImageMtl *imageMtl = mtl::GetImpl(image);
+    if (type != imageMtl->getImageTextureType())
+    {
+        return angle::Result::Stop;
+    }
+
+    mNativeTexture = imageMtl->getTexture();
+
+    const angle::FormatID angleFormatId =
+        angle::Format::InternalFormatToID(image->getFormat().info->sizedInternalFormat);
+    mFormat = contextMtl->getPixelFormat(angleFormatId);
+
+    mSlices = mNativeTexture->cubeFacesOrArrayLength();
+
+    gl::Extents size = mNativeTexture->size();
+    mIsPow2          = gl::isPow2(size.width) && gl::isPow2(size.height) && gl::isPow2(size.depth);
+    ANGLE_TRY(ensureSamplerStateCreated(context));
+
+    // Tell context to rebind textures
+    contextMtl->invalidateCurrentTextures();
+
+    return angle::Result::Continue;
 }
 
 angle::Result TextureMtl::setImageExternal(const gl::Context *context,
@@ -1291,7 +1332,8 @@ angle::Result TextureMtl::bindToShader(const gl::Context *context,
 angle::Result TextureMtl::redefineImage(const gl::Context *context,
                                         const gl::ImageIndex &index,
                                         const mtl::Format &mtlFormat,
-                                        const gl::Extents &size)
+                                        const gl::Extents &size,
+                                        bool initEmulatedChannels)
 {
     bool imageWithinLevelRange = false;
 
@@ -1357,10 +1399,13 @@ angle::Result TextureMtl::redefineImage(const gl::Context *context,
             default:
                 UNREACHABLE();
         }
-    }
 
-    // Make sure emulated channels are properly initialized
-    ANGLE_TRY(checkForEmulatedChannels(context, mtlFormat, imageDef.image));
+        if (initEmulatedChannels)
+        {
+            // Make sure emulated channels are properly initialized
+            ANGLE_TRY(checkForEmulatedChannels(context, mtlFormat, imageDef.image));
+        }
+    }
 
     // Tell context to rebind textures
     contextMtl->invalidateCurrentTextures();
@@ -1403,7 +1448,7 @@ angle::Result TextureMtl::setImageImpl(const gl::Context *context,
         angle::Format::InternalFormatToID(formatInfo.sizedInternalFormat);
     const mtl::Format &mtlFormat = contextMtl->getPixelFormat(angleFormatId);
 
-    ANGLE_TRY(redefineImage(context, index, mtlFormat, size));
+    ANGLE_TRY(redefineImage(context, index, mtlFormat, size, /** initEmulatedChannels */ !pixels));
 
     // Early-out on empty textures, don't create a zero-sized storage.
     if (size.empty())
@@ -1618,7 +1663,12 @@ angle::Result TextureMtl::convertAndSetPerSliceSubImage(const gl::Context *conte
 
             // If texture is not array, slice must be zero, if texture is array, mtlArea.origin.z
             // must be zero.
+            // This is because this function uses Metal convention: where slice is only used for
+            // array textures, and z layer of mtlArea.origin is only used for 3D textures.
             ASSERT(slice == 0 || params.textureArea.z == 0);
+
+            // For mtl::RenderUtils we convert to OpenGL convention: z layer is used as either array
+            // texture's slice or 3D texture's layer index.
             params.textureArea.z += slice;
 
             ANGLE_TRY(contextMtl->getDisplay()->getUtils().unpackPixelsFromBufferToTexture(
@@ -1632,6 +1682,7 @@ angle::Result TextureMtl::convertAndSetPerSliceSubImage(const gl::Context *conte
                                                      : LoadImageFunctionInfo();
         const angle::Format &dstFormat = angle::Format::Get(mFormat.actualFormatId);
         const size_t dstRowPitch       = dstFormat.pixelBytes * mtlArea.size.width;
+        const size_t dstDepthPitch     = dstRowPitch * mtlArea.size.height;
 
         // Check if original image data is compressed:
         if (mFormat.intendedAngleFormat().isBlock)
@@ -1639,7 +1690,6 @@ angle::Result TextureMtl::convertAndSetPerSliceSubImage(const gl::Context *conte
             ASSERT(loadFunctionInfo.loadFunction);
 
             // Need to create a buffer to hold entire decompressed image.
-            const size_t dstDepthPitch = dstRowPitch * mtlArea.size.height;
             angle::MemoryBuffer decompressBuf;
             ANGLE_CHECK_GL_ALLOC(contextMtl,
                                  decompressBuf.resize(dstDepthPitch * mtlArea.size.depth));
@@ -1656,41 +1706,39 @@ angle::Result TextureMtl::convertAndSetPerSliceSubImage(const gl::Context *conte
         }  // if (mFormat.intendedAngleFormat().isBlock)
         else
         {
-            // Create scratch row buffer
-            angle::MemoryBuffer conversionRow;
-            ANGLE_CHECK_GL_ALLOC(contextMtl, conversionRow.resize(dstRowPitch));
+            // Create scratch 2d buffer
+            angle::MemoryBuffer conversionBuffer;
+            ANGLE_CHECK_GL_ALLOC(contextMtl, conversionBuffer.resize(dstDepthPitch));
 
-            // Convert row by row:
-            MTLRegion mtlRow   = mtlArea;
-            mtlRow.size.height = mtlRow.size.depth = 1;
+            // Convert layer by layer:
+            MTLRegion mtlRect  = mtlArea;
+            mtlRect.size.depth = 1;
             for (NSUInteger d = 0; d < mtlArea.size.depth; ++d)
             {
-                mtlRow.origin.z = mtlArea.origin.z + d;
-                for (NSUInteger r = 0; r < mtlArea.size.height; ++r)
+                mtlRect.origin.z = mtlArea.origin.z + d;
+
+                const uint8_t *psrc = pixels + d * pixelsDepthPitch;
+
+                // Convert pixels
+                if (loadFunctionInfo.loadFunction)
                 {
-                    const uint8_t *psrc = pixels + d * pixelsDepthPitch + r * pixelsRowPitch;
-                    mtlRow.origin.y     = mtlArea.origin.y + r;
-
-                    // Convert pixels
-                    if (loadFunctionInfo.loadFunction)
-                    {
-                        loadFunctionInfo.loadFunction(mtlRow.size.width, 1, 1, psrc, pixelsRowPitch,
-                                                      0, conversionRow.data(), dstRowPitch, 0);
-                    }
-                    else
-                    {
-                        CopyImageCHROMIUM(psrc, pixelsRowPitch, pixelsAngleFormat.pixelBytes, 0,
-                                          pixelsAngleFormat.pixelReadFunction, conversionRow.data(),
-                                          dstRowPitch, dstFormat.pixelBytes, 0,
-                                          dstFormat.pixelWriteFunction, internalFormat.format,
-                                          dstFormat.componentType, mtlRow.size.width, 1, 1, false,
-                                          false, false);
-                    }
-
-                    // Upload to texture
-                    ANGLE_TRY(UploadTextureContents(context, dstFormat, mtlRow, 0, slice,
-                                                    conversionRow.data(), dstRowPitch, 0, image));
+                    loadFunctionInfo.loadFunction(mtlRect.size.width, mtlRect.size.height, 1, psrc,
+                                                  pixelsRowPitch, 0, conversionBuffer.data(),
+                                                  dstRowPitch, 0);
                 }
+                else
+                {
+                    CopyImageCHROMIUM(psrc, pixelsRowPitch, pixelsAngleFormat.pixelBytes, 0,
+                                      pixelsAngleFormat.pixelReadFunction, conversionBuffer.data(),
+                                      dstRowPitch, dstFormat.pixelBytes, 0,
+                                      dstFormat.pixelWriteFunction, internalFormat.format,
+                                      dstFormat.componentType, mtlRect.size.width,
+                                      mtlRect.size.height, 1, false, false, false);
+                }
+
+                // Upload to texture
+                ANGLE_TRY(UploadTextureContents(context, dstFormat, mtlRect, 0, slice,
+                                                conversionBuffer.data(), dstRowPitch, 0, image));
             }
         }  // if (mFormat.intendedAngleFormat().isBlock)
     }      // if (unpackBuffer)

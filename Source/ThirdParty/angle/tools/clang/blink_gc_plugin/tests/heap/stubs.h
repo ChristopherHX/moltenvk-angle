@@ -206,11 +206,8 @@ using namespace WTF;
 
 template<typename T> class GarbageCollected { };
 
-template<typename T>
-class GarbageCollectedFinalized : public GarbageCollected<T> { };
-
-template<typename T>
-class RefCountedGarbageCollected : public GarbageCollectedFinalized<T> { };
+template <typename T>
+class RefCountedGarbageCollected : public GarbageCollected<T> {};
 
 template<typename T> class Member {
 public:
@@ -308,7 +305,7 @@ public:
 
 template<typename T>
 struct TraceIfNeeded {
-    static void Trace(Visitor*, T*);
+  static void Trace(Visitor*, T&);
 };
 
 }

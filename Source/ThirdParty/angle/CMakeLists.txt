@@ -384,6 +384,8 @@ set(libangle_metal_sources
   src/libANGLE/renderer/metal/DisplayMtl.h
   src/libANGLE/renderer/metal/DisplayMtl_api.h
   src/libANGLE/renderer/metal/DisplayMtl.mm
+  src/libANGLE/renderer/metal/ImageMtl.h
+  src/libANGLE/renderer/metal/ImageMtl.mm
   src/libANGLE/renderer/metal/FrameBufferMtl.h
   src/libANGLE/renderer/metal/FrameBufferMtl.mm
   src/libANGLE/renderer/metal/ProgramMtl.h
@@ -755,7 +757,7 @@ set (angle_translator_sources
   src/compiler/translator/OutputVulkanGLSL.h
   src/compiler/translator/TranslatorVulkan.cpp
   src/compiler/translator/TranslatorVulkan.h
-  src/compiler/translator/TranslatorMetal.cpp
+  src/compiler/translator/TranslatorMetal.mm
   src/compiler/translator/ValidateAST.cpp
   src/compiler/translator/ValidateAST.h
   src/compiler/fuzz/translator_fuzzer.cpp

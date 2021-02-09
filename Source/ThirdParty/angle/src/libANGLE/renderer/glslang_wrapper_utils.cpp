@@ -56,10 +56,9 @@ constexpr char kSSBOQualifier[]             = "buffer";
 constexpr char kUnusedBlockSubstitution[]   = "struct";
 constexpr char kUnusedUniformSubstitution[] = "// ";
 constexpr char kVersionDefine[]             = "#version 450 core\n";
-constexpr char kLineRasterDefine[]          = R"(#version 450 core
-
-#define ANGLE_ENABLE_LINE_SEGMENT_RASTERIZATION
-)";
+constexpr char kLineRasterDefine[]          = "#define ANGLE_ENABLE_LINE_SEGMENT_RASTERIZATION\n";
+constexpr char kXfbEmuMacro[]               = "ANGLE_ENABLE_XFB_EMULATION";
+constexpr char kXfbEmuDefine[]              = "#define ANGLE_ENABLE_XFB_EMULATION\n";
 
 template <size_t N>
 constexpr size_t ConstStrLen(const char (&)[N])
@@ -436,8 +435,11 @@ std::string GenerateTransformFeedbackVaryingOutput(const gl::TransformFeedbackVa
             for (int row = 0; row < info.rowCount; ++row)
             {
                 result << "xfbOut" << bufferIndex << "[ANGLEUniforms.xfbBufferOffsets["
-                       << bufferIndex << "] + gl_VertexIndex * " << stride << " + " << offset
-                       << "] = " << info.glslAsFloat << "(" << varying.mappedName;
+                       << bufferIndex
+                       << "] + (gl_VertexIndex + gl_InstanceIndex * "
+                          "ANGLEUniforms.xfbVerticesPerDraw) * "
+                       << stride << " + " << offset << "] = " << info.glslAsFloat << "("
+                       << varying.mappedName;
 
                 if (varying.isArray())
                 {
@@ -477,7 +479,10 @@ void GenerateTransformFeedbackOutputs(const GlslangSourceOptions &options,
     const std::string xfbSet = Str(options.uniformsAndXfbDescriptorSetIndex);
     std::vector<std::string> xfbIndices(bufferCount);
 
-    std::string xfbDecl;
+    const std::string ifdef = "#ifdef " + std::string(kXfbEmuMacro) + "\n";
+
+    // Wrap XFB emulation in #ifdef guard.
+    std::string xfbDecl = ifdef;
 
     for (uint32_t bufferIndex = 0; bufferIndex < bufferCount; ++bufferIndex)
     {
@@ -488,8 +493,10 @@ void GenerateTransformFeedbackOutputs(const GlslangSourceOptions &options,
                    xfbIndices[bufferIndex] + " { float xfbOut" + xfbIndices[bufferIndex] +
                    "[]; };\n";
     }
+    xfbDecl += "#endif\n";
 
-    std::string xfbOut  = "if (ANGLEUniforms.xfbActiveUnpaused != 0)\n{\n";
+    std::string xfbOut = ifdef;
+    xfbOut += "if (ANGLEUniforms.xfbActiveUnpaused != 0)\n{\n";
     size_t outputOffset = 0;
     for (size_t varyingIndex = 0; varyingIndex < varyings.size(); ++varyingIndex)
     {
@@ -508,6 +515,7 @@ void GenerateTransformFeedbackOutputs(const GlslangSourceOptions &options,
         }
     }
     xfbOut += "}\n";
+    xfbOut += "#endif\n";
 
     vertexShader->insertTransformFeedbackDeclaration(std::move(xfbDecl));
     vertexShader->insertTransformFeedbackOutput(std::move(xfbOut));
@@ -1118,30 +1126,35 @@ void GlslangGetShaderSource(const GlslangSourceOptions &options,
 angle::Result GlslangGetShaderSpirvCode(GlslangErrorCallback callback,
                                         const gl::Caps &glCaps,
                                         bool enableLineRasterEmulation,
+                                        bool enableXfbEmulation,
                                         const gl::ShaderMap<std::string> &shaderSources,
                                         gl::ShaderMap<std::vector<uint32_t>> *shaderCodeOut)
 {
-    if (enableLineRasterEmulation)
+    if (enableLineRasterEmulation || enableXfbEmulation)
     {
         ASSERT(shaderSources[gl::ShaderType::Compute].empty());
 
         gl::ShaderMap<std::string> patchedSources = shaderSources;
 
-        // #defines must come after the #version directive.
-        ANGLE_GLSLANG_CHECK(callback,
-                            angle::ReplaceSubstring(&patchedSources[gl::ShaderType::Vertex],
-                                                    kVersionDefine, kLineRasterDefine),
-                            GlslangError::InvalidShader);
-        ANGLE_GLSLANG_CHECK(callback,
-                            angle::ReplaceSubstring(&patchedSources[gl::ShaderType::Fragment],
-                                                    kVersionDefine, kLineRasterDefine),
-                            GlslangError::InvalidShader);
-
-        if (!shaderSources[gl::ShaderType::Geometry].empty())
+        std::string defines = kVersionDefine;
+        if (enableLineRasterEmulation)
         {
-            ANGLE_GLSLANG_CHECK(callback,
-                                angle::ReplaceSubstring(&patchedSources[gl::ShaderType::Geometry],
-                                                        kVersionDefine, kLineRasterDefine),
+            defines += kLineRasterDefine;
+        }
+        if (enableXfbEmulation)
+        {
+            defines += kXfbEmuDefine;
+        }
+
+        for (const gl::ShaderType shaderType : gl::AllShaderTypes())
+        {
+            std::string &src = patchedSources[shaderType];
+            if (src.empty())
+            {
+                continue;
+            }
+
+            ANGLE_GLSLANG_CHECK(callback, angle::ReplaceSubstring(&src, kVersionDefine, defines),
                                 GlslangError::InvalidShader);
         }
 

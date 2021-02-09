@@ -269,6 +269,13 @@ angle::Result FramebufferMtl::readPixels(const gl::Context *context,
 
     PackPixelsParams params(flippedArea, angleFormat, outputPitch, packState.reverseRowOrder,
                             glState.getTargetBuffer(gl::BufferBinding::PixelPack), 0);
+
+    if (params.packBuffer)
+    {
+        // If PBO is active, pixels is treated as offset.
+        params.offset = reinterpret_cast<ptrdiff_t>(pixels);
+    }
+
     if (mFlipY)
     {
         params.reverseRowOrder = !params.reverseRowOrder;
@@ -518,16 +525,47 @@ bool FramebufferMtl::checkStatus(const gl::Context *context) const
         return false;
     }
 
-    if (mState.getStencilAttachment() &&
-        mState.getStencilAttachment()->getFormat().info->depthBits &&
-        mState.getStencilAttachment()->getFormat().info->stencilBits &&
-        mState.hasSeparateDepthAndStencilAttachments())
+    if (mState.getDepthAttachment() && mState.getDepthAttachment()->getFormat().info->depthBits &&
+        mState.getDepthAttachment()->getFormat().info->stencilBits)
     {
-        // If stencil attachment has depth & stencil bits, it must refer to the same texture
-        // as depth attachment.
-        return false;
+        return checkPackedDepthStencilAttachment();
     }
 
+    if (mState.getStencilAttachment() &&
+        mState.getStencilAttachment()->getFormat().info->depthBits &&
+        mState.getStencilAttachment()->getFormat().info->stencilBits)
+    {
+        return checkPackedDepthStencilAttachment();
+    }
+
+    return true;
+}
+
+bool FramebufferMtl::checkPackedDepthStencilAttachment() const
+{
+    if (ANGLE_APPLE_AVAILABLE_XCI(10.14, 13.0, 12.0))
+    {
+        // If depth/stencil attachment has depth & stencil bits, then depth & stencil must not have
+        // separate attachment. i.e. They must be the same texture or one of them has no
+        // attachment.
+        if (mState.hasSeparateDepthAndStencilAttachments())
+        {
+            WARN() << "Packed depth stencil texture/buffer must not be mixed with other "
+                      "texture/buffer.";
+            return false;
+        }
+    }
+    else
+    {
+        // Metal 2.0 and below doesn't allow packed depth stencil texture to be attached only as
+        // depth or stencil buffer. i.e. None of the depth & stencil attachment can be null.
+        if (!mState.getDepthStencilAttachment())
+        {
+            WARN() << "Packed depth stencil texture/buffer must be bound to both depth & stencil "
+                      "attachment point.";
+            return false;
+        }
+    }
     return true;
 }
 
@@ -537,6 +575,8 @@ angle::Result FramebufferMtl::syncState(const gl::Context *context,
     ContextMtl *contextMtl = mtl::GetImpl(context);
     ASSERT(dirtyBits.any());
     bool mustNotifyContext = false;
+    // Cache old mRenderPassDesc before update*RenderTarget() invalidate it.
+    mtl::RenderPassDesc oldRenderPassDesc = mRenderPassDesc;
     for (size_t dirtyBit : dirtyBits)
     {
         switch (dirtyBit)
@@ -579,8 +619,6 @@ angle::Result FramebufferMtl::syncState(const gl::Context *context,
             }
         }
     }
-
-    auto oldRenderPassDesc = mRenderPassDesc;
 
     ANGLE_TRY(prepareRenderPass(context, &mRenderPassDesc));
     bool renderPassChanged = !oldRenderPassDesc.equalIgnoreLoadStoreOptions(mRenderPassDesc);
@@ -651,11 +689,6 @@ mtl::RenderCommandEncoder *FramebufferMtl::ensureRenderPassStarted(const gl::Con
                                                                    const mtl::RenderPassDesc &desc)
 {
     ContextMtl *contextMtl = mtl::GetImpl(context);
-
-    if (renderPassHasStarted(contextMtl))
-    {
-        return contextMtl->getRenderCommandEncoder();
-    }
 
     if (mBackbuffer)
     {
@@ -976,7 +1009,7 @@ angle::Result FramebufferMtl::clearWithLoadOp(const gl::Context *context,
     if (startedRenderPass)
     {
         encoder = ensureRenderPassStarted(context);
-        if (encoder->hasDrawCalls())
+        if (!encoder->canChangeLoadAction())
         {
             // Render pass already has draw calls recorded, it is better to use clear with draw
             // operation.
@@ -1039,7 +1072,7 @@ angle::Result FramebufferMtl::clearWithLoadOpRenderPassStarted(
     const mtl::ClearRectParams &clearOpts,
     mtl::RenderCommandEncoder *encoder)
 {
-    ASSERT(!encoder->hasDrawCalls());
+    ASSERT(encoder->canChangeLoadAction());
 
     for (uint32_t colorIndexGL = 0; colorIndexGL < mRenderPassDesc.numColorAttachments;
          ++colorIndexGL)
@@ -1079,8 +1112,7 @@ angle::Result FramebufferMtl::clearWithDraw(const gl::Context *context,
     ContextMtl *contextMtl = mtl::GetImpl(context);
     DisplayMtl *display    = contextMtl->getDisplay();
 
-    if (mRenderPassAttachmentsSameColorType || !clearColorBuffers.any() ||
-        !clearOpts.clearColor.valid())
+    if (mRenderPassAttachmentsSameColorType)
     {
         // Start new render encoder if not already.
         mtl::RenderCommandEncoder *encoder = ensureRenderPassStarted(context, mRenderPassDesc);
@@ -1090,9 +1122,20 @@ angle::Result FramebufferMtl::clearWithDraw(const gl::Context *context,
     else
     {
         // Not all attachments have the same color type.
-        // Clear the attachment one by one.
         mtl::ClearRectParams overrideClearOps = clearOpts;
         overrideClearOps.enabledBuffers.reset();
+
+        // First clear depth/stencil without color attachment
+        if (clearOpts.clearDepth.valid() || clearOpts.clearStencil.valid())
+        {
+            mtl::RenderPassDesc dsOnlyDesc     = mRenderPassDesc;
+            dsOnlyDesc.numColorAttachments     = 0;
+            mtl::RenderCommandEncoder *encoder = contextMtl->getRenderCommandEncoder(dsOnlyDesc);
+
+            ANGLE_TRY(display->getUtils().clearWithDraw(context, encoder, overrideClearOps));
+        }
+
+        // Clear the color attachment one by one.
         overrideClearOps.enabledBuffers.set(0);
         for (size_t drawbuffer : clearColorBuffers)
         {
@@ -1150,8 +1193,8 @@ angle::Result FramebufferMtl::clearImpl(const gl::Context *context,
         return angle::Result::Continue;
     }
 
-    MTLColorWriteMask colorMask = contextMtl->getColorMask();
-    uint32_t stencilMask        = contextMtl->getStencilMask();
+    clearOpts.clearColorMask = contextMtl->getColorMask();
+    uint32_t stencilMask     = contextMtl->getStencilMask();
     if (!contextMtl->getDepthMask())
     {
         // Disable depth clearing, since depth write is disable
@@ -1162,7 +1205,7 @@ angle::Result FramebufferMtl::clearImpl(const gl::Context *context,
     clearOpts.enabledBuffers = clearColorBuffers;
 
     if (clearOpts.clearArea == renderArea &&
-        (!clearOpts.clearColor.valid() || colorMask == MTLColorWriteMaskAll) &&
+        (!clearOpts.clearColor.valid() || clearOpts.clearColorMask == MTLColorWriteMaskAll) &&
         (!clearOpts.clearStencil.valid() ||
          (stencilMask & mtl::kStencilMaskAll) == mtl::kStencilMaskAll))
     {

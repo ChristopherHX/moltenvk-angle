@@ -150,8 +150,6 @@ MTLRenderPipelineDescriptor *ToObjC(id<MTLFunction> vertexShader,
 {
     MTLRenderPipelineDescriptor *objCDesc = [[MTLRenderPipelineDescriptor alloc] init];
     [objCDesc reset];
-    objCDesc.vertexFunction   = vertexShader;
-    objCDesc.fragmentFunction = fragmentShader;
 
     ANGLE_OBJC_CP_PROPERTY(objCDesc, desc, vertexDescriptor);
 
@@ -167,7 +165,13 @@ MTLRenderPipelineDescriptor *ToObjC(id<MTLFunction> vertexShader,
 #if ANGLE_MTL_PRIMITIVE_TOPOLOGY_CLASS_AVAILABLE
     ANGLE_OBJC_CP_PROPERTY(objCDesc, desc, inputPrimitiveTopology);
 #endif
-    ANGLE_OBJC_CP_PROPERTY(objCDesc, desc, rasterizationEnabled);
+    ANGLE_OBJC_CP_PROPERTY(objCDesc, desc, alphaToCoverageEnabled);
+
+    // rasterizationEnabled will be true for both EmulatedDiscard & Enabled.
+    objCDesc.rasterizationEnabled = desc.rasterizationEnabled();
+
+    objCDesc.vertexFunction   = vertexShader;
+    objCDesc.fragmentFunction = objCDesc.rasterizationEnabled ? fragmentShader : nil;
 
     return [objCDesc ANGLE_MTL_AUTORELEASE];
 }
@@ -178,8 +182,8 @@ id<MTLTexture> ToObjC(const TextureRef &texture)
     return textureRef ? textureRef->get() : nil;
 }
 
-void BaseRenderPassAttachmentDescToObjC(MTLRenderPassAttachmentDescriptor *dst,
-                                        const RenderPassAttachmentDesc &src)
+void BaseRenderPassAttachmentDescToObjC(const RenderPassAttachmentDesc &src,
+                                        MTLRenderPassAttachmentDescriptor *dst)
 {
     auto implicitMsTexture = src.implicitMSTexture();
 
@@ -188,6 +192,7 @@ void BaseRenderPassAttachmentDescToObjC(MTLRenderPassAttachmentDescriptor *dst,
         dst.texture        = ToObjC(implicitMsTexture);
         dst.level          = 0;
         dst.slice          = 0;
+        dst.depthPlane     = 0;
         dst.resolveTexture = ToObjC(src.texture());
         dst.resolveLevel   = src.level();
         if (dst.resolveTexture.textureType == MTLTextureType3D)
@@ -215,36 +220,46 @@ void BaseRenderPassAttachmentDescToObjC(MTLRenderPassAttachmentDescriptor *dst,
             dst.slice      = src.sliceOrDepth();
             dst.depthPlane = 0;
         }
-        dst.resolveTexture = nil;
-        dst.resolveLevel   = 0;
-        dst.resolveSlice   = 0;
+        dst.resolveTexture    = nil;
+        dst.resolveLevel      = 0;
+        dst.resolveSlice      = 0;
+        dst.resolveDepthPlane = 0;
     }
 
-    ANGLE_OBJC_CP_PROPERTY(dst, src, loadAction);
-    ANGLE_OBJC_CP_PROPERTY(dst, src, storeAction);
-    ANGLE_OBJC_CP_PROPERTY(dst, src, storeActionOptions);
+    if (!dst.texture)
+    {
+        dst.resolveTexture = nil;
+        dst.loadAction     = MTLLoadActionDontCare;
+        dst.storeAction    = MTLStoreActionDontCare;
+    }
+    else
+    {
+        ANGLE_OBJC_CP_PROPERTY(dst, src, loadAction);
+        ANGLE_OBJC_CP_PROPERTY(dst, src, storeAction);
+        ANGLE_OBJC_CP_PROPERTY(dst, src, storeActionOptions);
+    }
 }
 
-void ToObjC(MTLRenderPassColorAttachmentDescriptor *objCDesc,
-            const RenderPassColorAttachmentDesc &desc)
+void ToObjC(const RenderPassColorAttachmentDesc &desc,
+            MTLRenderPassColorAttachmentDescriptor *objCDesc)
 {
-    BaseRenderPassAttachmentDescToObjC(objCDesc, desc);
+    BaseRenderPassAttachmentDescToObjC(desc, objCDesc);
 
     ANGLE_OBJC_CP_PROPERTY(objCDesc, desc, clearColor);
 }
 
-void ToObjC(MTLRenderPassDepthAttachmentDescriptor *objCDesc,
-            const RenderPassDepthAttachmentDesc &desc)
+void ToObjC(const RenderPassDepthAttachmentDesc &desc,
+            MTLRenderPassDepthAttachmentDescriptor *objCDesc)
 {
-    BaseRenderPassAttachmentDescToObjC(objCDesc, desc);
+    BaseRenderPassAttachmentDescToObjC(desc, objCDesc);
 
     ANGLE_OBJC_CP_PROPERTY(objCDesc, desc, clearDepth);
 }
 
-void ToObjC(MTLRenderPassStencilAttachmentDescriptor *objCDesc,
-            const RenderPassStencilAttachmentDesc &desc)
+void ToObjC(const RenderPassStencilAttachmentDesc &desc,
+            MTLRenderPassStencilAttachmentDescriptor *objCDesc)
 {
-    BaseRenderPassAttachmentDescToObjC(objCDesc, desc);
+    BaseRenderPassAttachmentDescToObjC(desc, objCDesc);
 
     ANGLE_OBJC_CP_PROPERTY(objCDesc, desc, clearStencil);
 }
@@ -646,7 +661,7 @@ RenderPipelineDesc::RenderPipelineDesc()
 {
     memset(this, 0, sizeof(*this));
     outputDescriptor.sampleCount = 1;
-    rasterizationEnabled         = true;
+    rasterizationType            = RenderPipelineRasterization::Enabled;
 }
 
 RenderPipelineDesc::RenderPipelineDesc(const RenderPipelineDesc &src)
@@ -678,6 +693,20 @@ size_t RenderPipelineDesc::hash() const
     return angle::ComputeGenericHash(*this);
 }
 
+bool RenderPipelineDesc::rasterizationEnabled() const
+{
+    return rasterizationType != RenderPipelineRasterization::Disabled;
+}
+
+// RenderPassAttachmentTextureTargetDesc implementation
+void RenderPassAttachmentTextureTargetDesc::reset()
+{
+    targetTexture.reset();
+    targetImplicitMSTexture.reset();
+    targetLevel        = 0;
+    targetSliceOrDepth = 0;
+}
+
 // RenderPassDesc implementation
 RenderPassAttachmentDesc::RenderPassAttachmentDesc()
 {
@@ -686,7 +715,8 @@ RenderPassAttachmentDesc::RenderPassAttachmentDesc()
 
 void RenderPassAttachmentDesc::reset()
 {
-    renderTarget       = nullptr;
+    RenderPassAttachmentTextureTargetDesc::reset();
+
     loadAction         = MTLLoadActionLoad;
     storeAction        = MTLStoreActionStore;
     storeActionOptions = MTLStoreActionOptionNone;
@@ -695,9 +725,8 @@ void RenderPassAttachmentDesc::reset()
 bool RenderPassAttachmentDesc::equalIgnoreLoadStoreOptions(
     const RenderPassAttachmentDesc &other) const
 {
-    return renderTarget == other.renderTarget ||
-           (texture() == other.texture() && level() == other.level() &&
-            sliceOrDepth() == other.sliceOrDepth());
+    return texture() == other.texture() && implicitMSTexture() == other.implicitMSTexture() &&
+           level() == other.level() && sliceOrDepth() == other.sliceOrDepth();
 }
 
 bool RenderPassAttachmentDesc::operator==(const RenderPassAttachmentDesc &other) const
@@ -709,30 +738,6 @@ bool RenderPassAttachmentDesc::operator==(const RenderPassAttachmentDesc &other)
 
     return loadAction == other.loadAction && storeAction == other.storeAction &&
            storeActionOptions == other.storeActionOptions;
-}
-// Convert to Metal object
-void RenderPassDesc::convertToMetalDesc(MTLRenderPassDescriptor *objCDesc) const
-{
-    ANGLE_MTL_OBJC_SCOPE
-    {
-        for (uint32_t i = 0; i < numColorAttachments; ++i)
-        {
-            ToObjC(objCDesc.colorAttachments[i], colorAttachments[i]);
-        }
-        for (uint32_t i = numColorAttachments; i < kMaxRenderTargets; ++i)
-        {
-            // Inactive render target
-            objCDesc.colorAttachments[i].texture     = nil;
-            objCDesc.colorAttachments[i].level       = 0;
-            objCDesc.colorAttachments[i].slice       = 0;
-            objCDesc.colorAttachments[i].depthPlane  = 0;
-            objCDesc.colorAttachments[i].loadAction  = MTLLoadActionDontCare;
-            objCDesc.colorAttachments[i].storeAction = MTLStoreActionDontCare;
-        }
-
-        ToObjC(objCDesc.depthAttachment, depthAttachment);
-        ToObjC(objCDesc.stencilAttachment, stencilAttachment);
-    }
 }
 
 void RenderPassDesc::populateRenderPipelineOutputDesc(RenderPipelineOutputDesc *outDesc) const
@@ -836,16 +841,44 @@ bool RenderPassDesc::operator==(const RenderPassDesc &other) const
     return depthAttachment == other.depthAttachment && stencilAttachment == other.stencilAttachment;
 }
 
+// Convert to Metal object
+void RenderPassDesc::convertToMetalDesc(MTLRenderPassDescriptor *objCDesc) const
+{
+    ANGLE_MTL_OBJC_SCOPE
+    {
+        for (uint32_t i = 0; i < numColorAttachments; ++i)
+        {
+            ToObjC(colorAttachments[i], objCDesc.colorAttachments[i]);
+        }
+        for (uint32_t i = numColorAttachments; i < kMaxRenderTargets; ++i)
+        {
+            // Inactive render target
+            objCDesc.colorAttachments[i].texture     = nil;
+            objCDesc.colorAttachments[i].level       = 0;
+            objCDesc.colorAttachments[i].slice       = 0;
+            objCDesc.colorAttachments[i].depthPlane  = 0;
+            objCDesc.colorAttachments[i].loadAction  = MTLLoadActionDontCare;
+            objCDesc.colorAttachments[i].storeAction = MTLStoreActionDontCare;
+        }
+
+        ToObjC(depthAttachment, objCDesc.depthAttachment);
+        ToObjC(stencilAttachment, objCDesc.stencilAttachment);
+    }
+}
+
 // RenderPipelineCache implementation
-RenderPipelineCache::RenderPipelineCache() {}
+RenderPipelineCache::RenderPipelineCache() : RenderPipelineCache(nullptr) {}
+
+RenderPipelineCache::RenderPipelineCache(
+    RenderPipelineCacheSpecializeShaderFactory *specializedShaderFactory)
+    : mSpecializedShaderFactory(specializedShaderFactory)
+{}
 
 RenderPipelineCache::~RenderPipelineCache() {}
 
-void RenderPipelineCache::setVertexShader(Context *context,
-                                          id<MTLFunction> shader,
-                                          bool emulatedRasterDiscard)
+void RenderPipelineCache::setVertexShader(Context *context, id<MTLFunction> shader)
 {
-    mVertexShaders[emulatedRasterDiscard ? 1 : 0].retainAssign(shader);
+    mVertexShader.retainAssign(shader);
 
     if (!shader)
     {
@@ -856,11 +889,9 @@ void RenderPipelineCache::setVertexShader(Context *context,
     recreatePipelineStates(context);
 }
 
-void RenderPipelineCache::setFragmentShader(Context *context,
-                                            id<MTLFunction> shader,
-                                            bool withCoverageMaskWrite)
+void RenderPipelineCache::setFragmentShader(Context *context, id<MTLFunction> shader)
 {
-    mFragmentShaders[withCoverageMaskWrite ? 1 : 0].retainAssign(shader);
+    mFragmentShader.retainAssign(shader);
 
     if (!shader)
     {
@@ -908,6 +939,10 @@ AutoObjCPtr<id<MTLRenderPipelineState>> RenderPipelineCache::insertRenderPipelin
 {
     AutoObjCPtr<id<MTLRenderPipelineState>> newState =
         createRenderPipelineState(context, desc, insertDefaultAttribLayout);
+    if (!newState)
+    {
+        return nil;
+    }
 
     int tableIdx = insertDefaultAttribLayout ? 1 : 0;
     auto re      = mRenderPipelineStates[tableIdx].insert(std::make_pair(desc, newState));
@@ -921,29 +956,64 @@ AutoObjCPtr<id<MTLRenderPipelineState>> RenderPipelineCache::insertRenderPipelin
 
 AutoObjCPtr<id<MTLRenderPipelineState>> RenderPipelineCache::createRenderPipelineState(
     Context *context,
-    const RenderPipelineDesc &desc,
+    const RenderPipelineDesc &originalDesc,
     bool insertDefaultAttribLayout)
 {
     ANGLE_MTL_OBJC_SCOPE
     {
         // Disable coverage if the render pipeline's sample count is only 1.
-        int coverageMaskEnabled     = desc.coverageMaskEnabled;
-        bool alphaToCoverageEnabled = desc.alphaToCoverageEnabled;
-        bool emulatedRasterDiscard  = desc.emulatedRasterizatonDiscard;
+        RenderPipelineDesc desc = originalDesc;
         if (desc.outputDescriptor.sampleCount == 1)
         {
-            coverageMaskEnabled    = 0;
-            alphaToCoverageEnabled = false;
+            // Disable sample coverage if the output is not multisample
+            desc.emulateCoverageMask    = false;
+            desc.alphaToCoverageEnabled = false;
         }
 
-        auto metalDevice = context->getMetalDevice();
+        // Choose shader variant
+        id<MTLFunction> vertShader = nil;
+        id<MTLFunction> fragShader = nil;
+        if (mSpecializedShaderFactory &&
+            mSpecializedShaderFactory->hasSpecializedShader(gl::ShaderType::Vertex, desc))
+        {
+            if (IsError(mSpecializedShaderFactory->getSpecializedShader(
+                    context, gl::ShaderType::Vertex, desc, &vertShader)))
+            {
+                return nil;
+            }
+        }
+        else
+        {
+            // Non-specialized version
+            vertShader = mVertexShader;
+        }
+
+        if (mSpecializedShaderFactory &&
+            mSpecializedShaderFactory->hasSpecializedShader(gl::ShaderType::Fragment, desc))
+        {
+            if (IsError(mSpecializedShaderFactory->getSpecializedShader(
+                    context, gl::ShaderType::Fragment, desc, &fragShader)))
+            {
+                return nil;
+            }
+        }
+        else
+        {
+            // Non-specialized version
+            fragShader = mFragmentShader;
+        }
+
+        if (!vertShader)
+        {
+            // Render pipeline without vertex shader is invalid.
+            context->handleError(GL_INVALID_OPERATION, __FILE__, ANGLE_FUNCTION, __LINE__);
+            return nil;
+        }
+
+        id<MTLDevice> metalDevice = context->getMetalDevice();
 
         // Convert to Objective-C desc:
-        AutoObjCObj<MTLRenderPipelineDescriptor> objCDesc = ToObjC(
-            mVertexShaders[emulatedRasterDiscard], mFragmentShaders[coverageMaskEnabled], desc);
-
-        // MSAA settings
-        objCDesc.get().alphaToCoverageEnabled = alphaToCoverageEnabled;
+        AutoObjCObj<MTLRenderPipelineDescriptor> objCDesc = ToObjC(vertShader, fragShader, desc);
 
         // Special attribute slot for default attribute
         if (insertDefaultAttribLayout)
@@ -959,8 +1029,9 @@ AutoObjCPtr<id<MTLRenderPipelineState>> RenderPipelineCache::createRenderPipelin
                 atIndexedSubscript:kDefaultAttribsBindingIndex];
         }
         // Create pipeline state
-        NSError *err  = nil;
-        auto newState = [metalDevice newRenderPipelineStateWithDescriptor:objCDesc error:&err];
+        NSError *err = nil;
+        id<MTLRenderPipelineState> newState =
+            [metalDevice newRenderPipelineStateWithDescriptor:objCDesc error:&err];
         if (err)
         {
             context->handleError(err, __FILE__, ANGLE_FUNCTION, __LINE__);
@@ -989,10 +1060,8 @@ void RenderPipelineCache::recreatePipelineStates(Context *context)
 
 void RenderPipelineCache::clear()
 {
-    mVertexShaders[0]   = nil;
-    mVertexShaders[1]   = nil;
-    mFragmentShaders[0] = nil;
-    mFragmentShaders[1] = nil;
+    mVertexShader   = nil;
+    mFragmentShader = nil;
     clearPipelineStates();
 }
 
@@ -1000,6 +1069,134 @@ void RenderPipelineCache::clearPipelineStates()
 {
     mRenderPipelineStates[0].clear();
     mRenderPipelineStates[1].clear();
+}
+
+// ClientIndexArrayKey implementation
+ClientIndexArrayKey::ClientIndexArrayKey() = default;
+
+ClientIndexArrayKey::ClientIndexArrayKey(ClientIndexArrayKey &&rhs)
+{
+    (*this) = std::move(rhs);
+}
+
+ClientIndexArrayKey::ClientIndexArrayKey(const ClientIndexArrayKey &rhs)
+{
+    (*this) = rhs;
+}
+
+void ClientIndexArrayKey::assign(const void *data, gl::DrawElementsType type, size_t count)
+{
+    mtl::SmallVector tmp(static_cast<const uint8_t *>(data),
+                         count * gl::GetDrawElementsTypeSize(type));
+
+    mBytes = std::move(tmp);
+
+    mWrappedBytes = nullptr;
+    mWrappedSize  = 0;
+
+    mType = type;
+
+    mIsHashCached = false;
+}
+
+void ClientIndexArrayKey::wrap(const void *data, gl::DrawElementsType type, size_t count)
+{
+    mBytes.clear();
+
+    mWrappedBytes = data;
+    mWrappedSize  = count * gl::GetDrawElementsTypeSize(type);
+
+    mType = type;
+
+    mIsHashCached = false;
+}
+
+ClientIndexArrayKey &ClientIndexArrayKey::operator=(ClientIndexArrayKey &&rhs)
+{
+    if (rhs.isWrapping())
+    {
+        // Make a copy. We want to store it in the cache.
+        assign(rhs.data(), rhs.type(), rhs.elementsCount());
+    }
+    else
+    {
+        mWrappedBytes = nullptr;
+        mWrappedSize  = 0;
+
+        mBytes = std::move(rhs.mBytes);
+    }
+
+    mType         = rhs.mType;
+    mIsHashCached = false;
+
+    return *this;
+}
+ClientIndexArrayKey &ClientIndexArrayKey::operator=(const ClientIndexArrayKey &rhs)
+{
+    assign(rhs.data(), rhs.type(), rhs.elementsCount());
+    return *this;
+}
+
+const void *ClientIndexArrayKey::data() const
+{
+    return mWrappedBytes ? mWrappedBytes : mBytes.data();
+}
+
+size_t ClientIndexArrayKey::size() const
+{
+    return mWrappedBytes ? mWrappedSize : mBytes.size();
+}
+
+size_t ClientIndexArrayKey::elementsCount() const
+{
+    return size() / gl::GetDrawElementsTypeSize(mType);
+}
+
+bool ClientIndexArrayKey::isWrapping() const
+{
+    return mWrappedBytes;
+}
+
+void ClientIndexArrayKey::clear()
+{
+    mBytes.clear();
+    mWrappedBytes = nullptr;
+    mWrappedSize  = 0;
+    mIsHashCached = false;
+}
+
+size_t ClientIndexArrayKey::hash() const
+{
+    if (mIsHashCached)
+    {
+        return mCachedHash;
+    }
+
+    auto bytePtr       = static_cast<const uint8_t *>(data());
+    size_t totalBytes  = size();
+    size_t multipleOf4 = (totalBytes >> 2) << 2;
+    mCachedHash        = angle::ComputeGenericHash(bytePtr, multipleOf4);
+
+    // Combine hash with the remaining bytes
+    for (size_t i = multipleOf4, shift = 0; i < totalBytes; ++i, shift += 8)
+    {
+        mCachedHash ^= (*(bytePtr + i)) << shift;
+    }
+
+    mCachedHash ^= static_cast<uint8_t>(mType);
+
+    mIsHashCached = true;
+
+    return mCachedHash;
+}
+
+bool ClientIndexArrayKey::operator==(const ClientIndexArrayKey &rhs) const
+{
+    if (mType != rhs.mType || size() != rhs.size())
+    {
+        return false;
+    }
+    return memcmp(data(), rhs.data(), size()) == 0;
 }
 
 // StateCache implementation

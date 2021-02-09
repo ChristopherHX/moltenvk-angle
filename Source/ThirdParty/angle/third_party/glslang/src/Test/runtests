@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 
-TARGETDIR=localResults
+# Arguments:
+#  1- TargetDirectory, where to write test results and intermediary files
+#  2- Path to glslangValidator
+#  3- Path to spirv-remap
+
+TARGETDIR=${1:-localResults}
 BASEDIR=baseResults
-EXE=../build/install/bin/glslangValidator
-REMAPEXE=../build/install/bin/spirv-remap
+EXE=${2:-../build/install/bin/glslangValidator}
+REMAPEXE=${3:-../build/install/bin/spirv-remap}
 HASERROR=0
-mkdir -p localResults
+mkdir -p $TARGETDIR
 
 if [ -a localtestlist ]
   then
@@ -55,13 +60,13 @@ diff -b $BASEDIR/hlsl.automap.frag.out $TARGETDIR/hlsl.automap.frag.out || HASER
 # multi-threaded test
 #
 echo Comparing single thread to multithread for all tests in current directory...
-$EXE -i -C *.vert *.geom *.frag *.tesc *.tese *.comp > singleThread.out
-$EXE -i -C *.vert *.geom *.frag *.tesc *.tese *.comp -t > multiThread.out
-diff singleThread.out multiThread.out || HASERROR=1
+$EXE -i -C *.vert *.geom *.frag *.tesc *.tese *.comp > $TARGETDIR/singleThread.out
+$EXE -i -C *.vert *.geom *.frag *.tesc *.tese *.comp -t > $TARGETDIR/multiThread.out
+diff $TARGETDIR/singleThread.out $TARGETDIR/multiThread.out || HASERROR=1
 if [ $HASERROR -eq 0 ]
 then
-    rm singleThread.out
-    rm multiThread.out
+    rm $TARGETDIR/singleThread.out
+    rm $TARGETDIR/multiThread.out
 fi
 
 #
@@ -171,9 +176,9 @@ diff -b $BASEDIR/hlsl.pp.line3.frag.out $TARGETDIR/hlsl.pp.line3.frag.out || HAS
 # Testing -D and -U
 #
 echo "Testing -D and -U"
-$EXE -DUNDEFED -UIN_SHADER -DFOO=200 -i -l -UUNDEFED -DMUL=FOO*2 glsl.-D-U.frag > $TARGETDIR/glsl.-D-U.frag.out
+$EXE -DUNDEFED -UIN_SHADER -DFOO=200 -i -l --U UNDEFED --define-macro MUL=FOO*2 glsl.-D-U.frag > $TARGETDIR/glsl.-D-U.frag.out
 diff -b $BASEDIR/glsl.-D-U.frag.out $TARGETDIR/glsl.-D-U.frag.out || HASERROR=1
-$EXE -D -Od -e main -V -i -DUNDEFED -UIN_SHADER -DFOO=200 -UUNDEFED -Od hlsl.-D-U.frag > $TARGETDIR/hlsl.-D-U.frag.out
+$EXE -D -Od -e main -V -i -DUNDEFED -UIN_SHADER --D FOO=200 --undef-macro UNDEFED -Od hlsl.-D-U.frag > $TARGETDIR/hlsl.-D-U.frag.out
 diff -b $BASEDIR/hlsl.-D-U.frag.out $TARGETDIR/hlsl.-D-U.frag.out || HASERROR=1
 
 #
@@ -184,6 +189,7 @@ $EXE --client vulkan100       spv.targetVulkan.vert || HASERROR=1
 $EXE --client opengl100       spv.targetOpenGL.vert || HASERROR=1
 $EXE --target-env vulkan1.0   spv.targetVulkan.vert || HASERROR=1
 $EXE --target-env vulkan1.1   spv.targetVulkan.vert || HASERROR=1
+$EXE --target-env vulkan1.2   spv.targetVulkan.vert || HASERROR=1
 $EXE --target-env opengl      spv.targetOpenGL.vert || HASERROR=1
 $EXE -V100                    spv.targetVulkan.vert || HASERROR=1
 $EXE -G100                    spv.targetOpenGL.vert || HASERROR=1
