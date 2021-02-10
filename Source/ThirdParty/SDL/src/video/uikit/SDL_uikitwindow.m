@@ -166,6 +166,9 @@ UIKit_CreateWindow(_THIS, SDL_Window *window)
     @autoreleasepool {
         SDL_VideoDisplay *display = SDL_GetDisplayForWindow(window);
         SDL_DisplayData *data = (__bridge SDL_DisplayData *) display->driverdata;
+#ifdef URHO3D_ANGLE_METAL
+        CGFloat scale = 1.0;
+#endif
 
         /* SDL currently puts this window at the start of display's linked list. We rely on this. */
         SDL_assert(_this->windows == window);
@@ -218,11 +221,16 @@ UIKit_CreateWindow(_THIS, SDL_Window *window)
         /* !!! FIXME: can we have a smaller view? */
         UIWindow *uiwindow = [[SDL_uikitwindow alloc] initWithFrame:data.uiscreen.bounds];
 
-#ifdef URHO3D_ANGLE_METAL
-        if(!(window->flags & SDL_WINDOW_ALLOW_HIGHDPI))
+#ifdef URHO3D_ANGLE_METAL        
+        if((window->flags & SDL_WINDOW_ALLOW_HIGHDPI))
         {
-            uiwindow.layer.contentsScale = 1;
+            if ([uiwindow.screen respondsToSelector:@selector(nativeScale)]) {
+                scale = uiwindow.screen.nativeScale;
+            } else {
+                scale = uiwindow.screen.scale;
+            }
         }
+        uiwindow.layer.contentsScale = scale;
 #endif
         /* put the window on an external display if appropriate. */
         if (data.uiscreen != [UIScreen mainScreen]) {
