@@ -26,7 +26,7 @@
 #include <Urho3D/Resource/ResourceCache.h>
 #include <Urho3D/Scene/Scene.h>
 #include <Urho3D/Core/Context.h>
-#include <Urho3D/IO/Filesystem.h>
+#include <Urho3D/IO/FileSystem.h>
 #include <Urho3D/Container/Str.h>
 #include <Urho3D/Graphics/StaticModel.h>
 #include <Urho3D/Graphics/Geometry.h>
