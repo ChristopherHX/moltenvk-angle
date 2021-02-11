@@ -404,11 +404,15 @@ foreach (DEFINE URHO3D_STATIC_DEFINE URHO3D_OPENGL URHO3D_D3D11 URHO3D_SSE URHO3
         set (APPENDIX "${APPENDIX}#define ${DEFINE}\n")
     endif ()
 endforeach()
+
+if (APPLE)
+    set (APPENDIX "${APPENDIX}\n#ifdef __APPLE__\n#include \"TargetConditionals.h\"\n#if defined(TARGET_OS_OSX) && defined(TARGET_CPU_ARM64)\n#define APPLE_SILICON\n#endif\n#if defined(APPLE_SILICON) && defined(URHO3D_SSE)\n#undef URHO3D_SSE\n#endif\n#endif\n")
+endif()
+
 generate_export_header (${TARGET_NAME} EXPORT_MACRO_NAME URHO3D_API EXPORT_FILE_NAME Urho3D.h.new CUSTOM_CONTENT_FROM_VARIABLE APPENDIX)
 file (READ Precompiled.h COPYRIGHT LIMIT 1128)
 file (READ ${CMAKE_CURRENT_BINARY_DIR}/Urho3D.h.new EXPORT_HEADER)
 file (WRITE ${CMAKE_CURRENT_BINARY_DIR}/Urho3D.h.new ${COPYRIGHT}${EXPORT_HEADER})
-file (WRITE ${CMAKE_CURRENT_BINARY_DIR}/Urho3D.h.new ${EXPORT_HEADER}"#ifdef __APPLE__\n#include \"TargetConditionals.h\"\n#if defined(__APPLE__) && defined(TARGET_OS_OSX) && defined(TARGET_CPU_ARM64)\n#define APPLE_SILICON\n#endif\n#if defined(APPLE_SILICON) && defined(URHO3D_SSE)\n#undef URHO3D_SSE\n#endif\n#endif")
 execute_process (COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_BINARY_DIR}/Urho3D.h.new ${CMAKE_CURRENT_BINARY_DIR}/Urho3D.h)
 file (REMOVE ${CMAKE_CURRENT_BINARY_DIR}/Urho3D.h.new)
 source_group ("Source Files\\Generated" FILES ${CMAKE_CURRENT_BINARY_DIR}/Urho3D.h)
