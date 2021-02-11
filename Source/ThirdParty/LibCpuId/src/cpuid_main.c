@@ -23,6 +23,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+#ifdef __APPLE__
+    #include "TargetConditionals.h"
+    #if defined(__APPLE__) && defined(TARGET_OS_OSX) && defined(TARGET_CPU_ARM64)
+        #define APPLE_SILICON
+    #endif
+#endif
+
+// TBD ELI - disable for Apple silicon
+#if !defined(APPLE_SILICON)
+
 #include "libcpuid.h"
 #include "libcpuid_internal.h"
 #include "recog_intel.h"
@@ -769,3 +780,5 @@ void cpuid_free_cpu_list(struct cpu_list_t* list)
 		free(list->names[i]);
 	free(list->names);
 }
+
+#endif

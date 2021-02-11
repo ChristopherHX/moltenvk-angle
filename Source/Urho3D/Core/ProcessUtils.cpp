@@ -162,11 +162,16 @@ static void GetCPUData(struct CpuCoreCount* data)
 #elif !defined(__EMSCRIPTEN__) && !defined(TVOS)
 static void GetCPUData(struct cpu_id_t* data)
 {
+#if defined(APPLE_SILICON)
+    data->num_logical_cpus = 1;
+    data->num_cores = 8;
+#else
     if (cpu_identify(nullptr, data) < 0)
     {
         data->num_logical_cpus = 1;
         data->num_cores = 1;
     }
+#endif
 }
 #endif
 
