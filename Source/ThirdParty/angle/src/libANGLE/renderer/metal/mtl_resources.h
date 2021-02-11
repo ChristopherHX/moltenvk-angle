@@ -203,6 +203,7 @@ class Texture final : public Resource,
     uint32_t mipmapLevels() const;
     uint32_t arrayLength() const;
     uint32_t cubeFacesOrArrayLength() const;
+    uint32_t cubeFacesOrArrayLengthOrDepth() const;
 
     uint32_t width(uint32_t level = 0) const;
     uint32_t height(uint32_t level = 0) const;
@@ -212,6 +213,8 @@ class Texture final : public Resource,
     gl::Extents size(const gl::ImageIndex &index) const;
 
     uint32_t samples() const;
+
+    angle::Result resize(ContextMtl *context, uint32_t width, uint32_t height);
 
     // For render target
     MTLColorWriteMask getColorWritableMask() const { return *mColorWritableMask; }
@@ -279,6 +282,8 @@ class Texture final : public Resource,
     Texture(Texture *original, const TextureSwizzleChannels &swizzle);
 
     void syncContent(ContextMtl *context);
+
+    AutoObjCObj<MTLTextureDescriptor> mCreationDesc;
 
     // This property is shared between this object and its views:
     std::shared_ptr<MTLColorWriteMask> mColorWritableMask;

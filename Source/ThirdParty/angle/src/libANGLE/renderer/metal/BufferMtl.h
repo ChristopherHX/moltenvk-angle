@@ -130,6 +130,8 @@ class BufferMtl : public BufferImpl, public BufferHolderMtl
                                 bool primitiveRestartEnabled,
                                 gl::IndexRange *outRange) override;
 
+    void onDataChanged() override;
+
     angle::Result getFirstLastIndices(ContextMtl *contextMtl,
                                       gl::DrawElementsType type,
                                       size_t offset,
@@ -175,6 +177,7 @@ class BufferMtl : public BufferImpl, public BufferHolderMtl
     {
         return getClientShadowCopyData(mtl::GetImpl(context));
     }
+    bool clientShadowCopyDataNeedSync(ContextMtl *contextMtl);
     void ensureShadowCopySyncedFromGPU(ContextMtl *contextMtl);
     uint8_t *syncAndObtainShadowCopy(ContextMtl *contextMtl);
 

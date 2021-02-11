@@ -132,10 +132,21 @@ angle::Result BufferMtl::copySubData(const gl::Context *context,
         return angle::Result::Continue;
     }
 
-    auto srcMtl = GetAs<BufferMtl>(source);
+    ContextMtl *contextMtl = mtl::GetImpl(context);
+    auto srcMtl            = GetAs<BufferMtl>(source);
 
-    // NOTE(hqle): use blit command.
-    return setSubDataImpl(context, srcMtl->getClientShadowCopyData(context) + sourceOffset, size,
+    if (srcMtl->clientShadowCopyDataNeedSync(contextMtl) || mBuffer->isBeingUsedByGPU(contextMtl))
+    {
+        // If shadow copy requires a synchronization then use blit command instead.
+        // It might break a pending render pass, but still faster than synchronization with
+        // GPU.
+        mtl::BlitCommandEncoder *blitEncoder = contextMtl->getBlitCommandEncoder();
+        blitEncoder->copyBuffer(srcMtl->getCurrentBuffer(), sourceOffset, mBuffer, destOffset,
+                                size);
+
+        return angle::Result::Continue;
+    }
+    return setSubDataImpl(context, srcMtl->getClientShadowCopyData(contextMtl) + sourceOffset, size,
                           destOffset);
 }
 
@@ -205,8 +216,8 @@ angle::Result BufferMtl::unmap(const gl::Context *context, GLboolean *result)
         if (mState.getAccessFlags() & GL_MAP_UNSYNCHRONIZED_BIT)
         {
             // Copy the mapped region without synchronization with GPU
-            auto ptr = mBuffer->map(contextMtl);
-            std::copy(mShadowCopy.data() + offset, mShadowCopy.data() + len, ptr);
+            auto ptr = mBuffer->map(contextMtl, /* readonly*/ false, /* noSync */ true) + offset;
+            std::copy(mShadowCopy.data() + offset, mShadowCopy.data() + offset + len, ptr);
             mBuffer->unmap(contextMtl, offset, len);
         }
         else
@@ -259,6 +270,11 @@ angle::Result BufferMtl::getFirstLastIndices(ContextMtl *contextMtl,
     return angle::Result::Continue;
 }
 
+void BufferMtl::onDataChanged()
+{
+    markConversionBuffersDirty();
+}
+
 /* public */
 const uint8_t *BufferMtl::getClientShadowCopyData(ContextMtl *contextMtl)
 {
@@ -268,6 +284,11 @@ const uint8_t *BufferMtl::getClientShadowCopyData(ContextMtl *contextMtl)
         return mBuffer->mapReadOnly(contextMtl);
     }
     return syncAndObtainShadowCopy(contextMtl);
+}
+
+bool BufferMtl::clientShadowCopyDataNeedSync(ContextMtl *contextMtl)
+{
+    return mBuffer->isCPUReadMemDirty();
 }
 
 void BufferMtl::ensureShadowCopySyncedFromGPU(ContextMtl *contextMtl)
@@ -422,7 +443,7 @@ angle::Result BufferMtl::setDataImpl(const gl::Context *context,
 
     // Re-create the buffer
     mBuffer = nullptr;
-    mBufferPool.initialize(contextMtl, adjustedSize, 1, maxBuffers);
+    mBufferPool.reset(contextMtl, adjustedSize, 1, maxBuffers);
 
     if (maxBuffers > 1)
     {

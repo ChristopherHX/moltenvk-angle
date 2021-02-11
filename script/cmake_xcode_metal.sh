@@ -21,6 +21,6 @@
 # THE SOFTWARE.
 #
 
-$(dirname $0)/cmake_generic.sh "$@"  -G Xcode -DURHO3D_ANGLE_METAL=1
+$(dirname $0)/cmake_generic.sh "$@"  -G Xcode -DURHO3D_ANGLE_METAL=1  -T buildsystem=1
 
 # vi: set ts=4 sw=4 expandtab:

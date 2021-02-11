@@ -39,7 +39,7 @@ endif ()
 project (Urho3D)
 
 # Set CMake modules search path
-set (CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake/Modules)
+set (CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/Modules)
 
 # Include UrhoCommon.cmake module after setting project name
 include (UrhoCommon)
@@ -50,6 +50,9 @@ if (WIN32)
     set (SCRIPT_EXT .bat)
     if (CMAKE_HOST_WIN32)
         set (PATH_SUFFIX .)
+        if (URHO3D_64BIT AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+            string (REPLACE " (x86)" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+        endif ()
     endif ()
 else ()
     set (SCRIPT_EXT .sh)
@@ -70,10 +73,11 @@ set (DEST_PKGCONFIG_DIR lib${LIB_SUFFIX}/pkgconfig)
 file (GLOB APP_SCRIPTS ${CMAKE_SOURCE_DIR}/bin/*${SCRIPT_EXT})
 install (PROGRAMS ${APP_SCRIPTS} DESTINATION ${DEST_RUNTIME_DIR})   # DEST_RUNTIME_DIR variable is set by the set_output_directories() macro call in the UrhoCommon module
 # Install CMake modules and toolchains provided by and for Urho3D
-install (DIRECTORY ${CMAKE_SOURCE_DIR}/CMake/ DESTINATION ${DEST_SHARE_DIR}/CMake)    # Note: the trailing slash is significant
-# Install CMake build scripts
+install (DIRECTORY ${CMAKE_SOURCE_DIR}/cmake/ DESTINATION ${DEST_SHARE_DIR}/cmake)    # Note: the trailing slash is significant
+# Install CMake build scripts and rakefile
 file (GLOB CMAKE_SCRIPTS ${CMAKE_SOURCE_DIR}/script/*${SCRIPT_EXT})
-install (PROGRAMS ${CMAKE_SCRIPTS} DESTINATION ${DEST_SHARE_DIR}/Scripts)
+install (PROGRAMS ${CMAKE_SCRIPTS} DESTINATION ${DEST_SHARE_DIR}/scripts)
+install (FILES rakefile DESTINATION ${DEST_SHARE_DIR})
 
 # Setup package variables
 set (URHO3D_DESCRIPTION "Urho3D is a free lightweight, cross-platform 2D and 3D game engine implemented in C++ and released under the MIT license. Greatly inspired by OGRE (http://www.ogre3d.org) and Horde3D (http://www.horde3d.org).")
@@ -81,7 +85,7 @@ set (CPACK_PACKAGE_DESCRIPTION_SUMMARY ${URHO3D_DESCRIPTION})
 set (URHO3D_URL "https://github.com/urho3d/Urho3D")
 set (CPACK_PACKAGE_VENDOR ${URHO3D_URL})
 set (CPACK_PACKAGE_CONTACT ${URHO3D_URL})
-execute_process (COMMAND ${CMAKE_COMMAND} -P ${CMAKE_SOURCE_DIR}/CMake/Modules/GetUrhoRevision.cmake WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} OUTPUT_VARIABLE URHO3D_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
+execute_process (COMMAND ${CMAKE_COMMAND} -P ${CMAKE_SOURCE_DIR}/cmake/Modules/GetUrhoRevision.cmake WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} OUTPUT_VARIABLE URHO3D_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
 set (CPACK_PACKAGE_VERSION ${URHO3D_VERSION})
 string (REGEX MATCH "([^.]+)\\.([^.]+)\\.(.+)" MATCHED ${URHO3D_VERSION})
 if (MATCHED)
@@ -198,3 +202,44 @@ add_subdirectory (Source)
 
 # Urho3D documentation
 add_subdirectory (Docs)
+
+if(FLIMPER AND URHO3D_LIB_TYPE STREQUAL STATIC)
+
+if (NOT EXISTS ${CMAKE_BINARY_DIR}/bin/Templates)
+if (CMAKE_HOST_WIN32)
+if (NOT IOS AND NOT TVOS AND NOT ANDROID AND NOT WEB AND NOT CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
+    # Ensure the output directory exist before creating the symlinks
+    file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+    file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin/Templates)
+    file (GLOB_RECURSE FILES RELATIVE ${CMAKE_SOURCE_DIR}/Templates ${CMAKE_SOURCE_DIR}/Templates/*)
+    foreach (FILE ${FILES})
+        create_symlink (${CMAKE_SOURCE_DIR}/Templates/${FILE} ${CMAKE_BINARY_DIR}/bin/Templates/${FILE} FALLBACK_TO_COPY)
+    endforeach ()
+endif ()
+else()
+if (NOT IOS AND NOT TVOS AND NOT ANDROID AND NOT WEB AND NOT CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
+execute_process(COMMAND ln -s ${CMAKE_SOURCE_DIR}/Templates ${CMAKE_BINARY_DIR}/bin/Templates)
+endif()
+endif()
+endif ()
+
+if (NOT EXISTS ${CMAKE_BINARY_DIR}/bin/Flimper)
+if (CMAKE_HOST_WIN32)
+if (NOT IOS AND NOT TVOS AND NOT ANDROID AND NOT WEB AND NOT CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
+    # Ensure the output directory exist before creating the symlinks
+    file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+    file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin/FlimperAssets)
+    file (GLOB_RECURSE FILES RELATIVE ${CMAKE_SOURCE_DIR}/FlimperAssets ${CMAKE_SOURCE_DIR}/FlimperAssets/*)
+    foreach (FILE ${FILES})
+        create_symlink (${CMAKE_SOURCE_DIR}/FlimperAssets/${FILE} ${CMAKE_BINARY_DIR}/bin/FlimperAssets/${FILE} FALLBACK_TO_COPY)
+    endforeach ()
+endif ()
+else()
+if (NOT IOS AND NOT TVOS AND NOT ANDROID AND NOT WEB AND NOT CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
+execute_process(COMMAND ln -s ${CMAKE_SOURCE_DIR}/FlimperAssets ${CMAKE_BINARY_DIR}/bin/FlimperAssets)
+endif()
+endif()
+endif ()
+
+
+endif ()

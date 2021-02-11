@@ -40,6 +40,7 @@ TEST_COPTS = COMMON_COPTS + select({
 })
 
 DEBUGINFO_GRAMMAR_JSON_FILE = "source/extinst.debuginfo.grammar.json"
+CLDEBUGINFO100_GRAMMAR_JSON_FILE = "source/extinst.opencl.debuginfo.100.grammar.json"
 
 def generate_core_tables(version = None):
     if not version:
@@ -47,6 +48,7 @@ def generate_core_tables(version = None):
     grammars = [
         "@spirv_headers//:spirv_core_grammar_" + version,
         DEBUGINFO_GRAMMAR_JSON_FILE,
+        CLDEBUGINFO100_GRAMMAR_JSON_FILE,
     ]
     outs = [
         "core.insts-{}.inc".format(version),
@@ -61,8 +63,9 @@ def generate_core_tables(version = None):
             "$(location :generate_grammar_tables) " +
             "--spirv-core-grammar=$(location {0}) " +
             "--extinst-debuginfo-grammar=$(location {1}) " +
-            "--core-insts-output=$(location {2}) " +
-            "--operand-kinds-output=$(location {3})"
+            "--extinst-cldebuginfo100-grammar=$(location {2}) " +
+            "--core-insts-output=$(location {3}) " +
+            "--operand-kinds-output=$(location {4})"
         ).format(*fmtargs),
         tools = [":generate_grammar_tables"],
         visibility = ["//visibility:private"],
@@ -74,6 +77,7 @@ def generate_enum_string_mapping(version = None):
     grammars = [
         "@spirv_headers//:spirv_core_grammar_" + version,
         DEBUGINFO_GRAMMAR_JSON_FILE,
+        CLDEBUGINFO100_GRAMMAR_JSON_FILE,
     ]
     outs = [
         "extension_enum.inc",
@@ -88,8 +92,9 @@ def generate_enum_string_mapping(version = None):
             "$(location :generate_grammar_tables) " +
             "--spirv-core-grammar=$(location {0}) " +
             "--extinst-debuginfo-grammar=$(location {1}) " +
-            "--extension-enum-output=$(location {2}) " +
-            "--enum-string-mapping-output=$(location {3})"
+            "--extinst-cldebuginfo100-grammar=$(location {2}) " +
+            "--extension-enum-output=$(location {3}) " +
+            "--enum-string-mapping-output=$(location {4})"
         ).format(*fmtargs),
         tools = [":generate_grammar_tables"],
         visibility = ["//visibility:private"],
@@ -137,13 +142,14 @@ def generate_glsl_tables(version = None):
         visibility = ["//visibility:private"],
     )
 
-def generate_vendor_tables(extension = None):
+def generate_vendor_tables(extension, operand_kind_prefix = ""):
     if not extension:
         fail("Must specify extension", "extension")
-    extension_rule = extension.replace("-", "_")
+    extension_rule = extension.replace("-", "_").replace(".", "_")
     grammars = ["source/extinst.{}.grammar.json".format(extension)]
     outs = ["{}.insts.inc".format(extension)]
-    fmtargs = grammars + outs
+    prefices = [operand_kind_prefix]
+    fmtargs = grammars + outs + prefices
     native.genrule(
         name = "gen_vendor_tables_" + extension_rule,
         srcs = grammars,
@@ -151,7 +157,8 @@ def generate_vendor_tables(extension = None):
         cmd = (
             "$(location :generate_grammar_tables) " +
             "--extinst-vendor-grammar=$(location {0}) " +
-            "--vendor-insts-output=$(location {1})"
+            "--vendor-insts-output=$(location {1}) " +
+            "--vendor-operand-kind-prefix={2}"
         ).format(*fmtargs),
         tools = [":generate_grammar_tables"],
         visibility = ["//visibility:private"],
@@ -160,16 +167,16 @@ def generate_vendor_tables(extension = None):
 def generate_extinst_lang_headers(name, grammar = None):
     if not grammar:
         fail("Must specify grammar", "grammar")
-    fmtargs = [name]
+    outs = [name + ".h"]
+    fmtargs = outs
     native.genrule(
         name = "gen_extinst_lang_headers_" + name,
         srcs = [grammar],
-        outs = [name + ".h"],
+        outs = outs,
         cmd = (
             "$(location :generate_language_headers) " +
-            "--extinst-name={0} " +
             "--extinst-grammar=$< " +
-            "--extinst-output-base=$(@D)/{0}"
+            "--extinst-output-path=$(location {0})"
         ).format(*fmtargs),
         tools = [":generate_language_headers"],
         visibility = ["//visibility:private"],
@@ -185,7 +192,7 @@ def base_test(name, srcs, deps = []):
         srcs = srcs,
         compatible_with = [],
         copts = TEST_COPTS,
-        size = "small",
+        size = "large",
         deps = [
             ":test_common",
             "@com_google_googletest//:gtest_main",
@@ -202,7 +209,7 @@ def link_test(name, srcs, deps = []):
         srcs = srcs,
         compatible_with = [],
         copts = TEST_COPTS,
-        size = "small",
+        size = "large",
         deps = [
             ":link_test_common",
             "@com_google_googletest//:gtest_main",
@@ -219,7 +226,7 @@ def opt_test(name, srcs, deps = []):
         srcs = srcs,
         compatible_with = [],
         copts = TEST_COPTS,
-        size = "small",
+        size = "large",
         deps = [
             ":opt_test_common",
             "@com_google_googletest//:gtest_main",
@@ -236,7 +243,7 @@ def reduce_test(name, srcs, deps = []):
         srcs = srcs,
         compatible_with = [],
         copts = TEST_COPTS,
-        size = "small",
+        size = "large",
         deps = [
             ":reduce_test_common",
             ":spirv_tools_reduce",
@@ -254,7 +261,7 @@ def util_test(name, srcs, deps = []):
         srcs = srcs,
         compatible_with = [],
         copts = TEST_COPTS,
-        size = "small",
+        size = "large",
         deps = [
             ":opt_test_common",
             "@com_google_googletest//:gtest_main",
@@ -263,7 +270,7 @@ def util_test(name, srcs, deps = []):
         ] + deps,
     )
 
-def val_test(name, srcs = [], size = "small", copts = [], deps = [], **kwargs):
+def val_test(name, srcs = [], copts = [], deps = [], **kwargs):
     if name[-5:] != "_test":
         name = name + "_test"
     if name[:4] != "val_":
@@ -273,7 +280,7 @@ def val_test(name, srcs = [], size = "small", copts = [], deps = [], **kwargs):
         srcs = srcs,
         compatible_with = [],
         copts = TEST_COPTS + copts,
-        size = size,
+        size = "large",
         deps = [
             ":val_test_common",
             "@com_google_googletest//:gtest_main",

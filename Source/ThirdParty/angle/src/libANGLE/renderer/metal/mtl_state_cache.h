@@ -15,6 +15,7 @@
 
 #include <unordered_map>
 
+#include "common/third_party/base/anglebase/containers/mru_cache.h"
 #include "libANGLE/State.h"
 #include "libANGLE/angletypes.h"
 #include "libANGLE/renderer/metal/mtl_common.h"
@@ -242,6 +243,28 @@ constexpr PrimitiveTopologyClass kPrimitiveTopologyClassTriangle =
 constexpr PrimitiveTopologyClass kPrimitiveTopologyClassPoint = MTLPrimitiveTopologyClassPoint;
 #endif
 
+enum class RenderPipelineRasterization : uint32_t
+{
+    // This flag is used for vertex shader not writing any stage output (e.g gl_Position).
+    // This will disable fragment shader stage. This is useful for transform feedback ouput vertex
+    // shader.
+    Disabled,
+
+    // Fragment shader is enabled.
+    Enabled,
+
+    // This flag is for rasterization discard emulation when vertex shader still writes to stage
+    // output. Disabled flag cannot be used in this case since Metal doesn't allow that. The
+    // emulation would insert a code snippet to move gl_Position out of clip space's visible area to
+    // simulate the discard.
+    EmulatedDiscard,
+
+    EnumCount,
+};
+
+template <typename T>
+using RenderPipelineRasterStateMap = angle::PackedEnumMap<RenderPipelineRasterization, T>;
+
 struct alignas(4) RenderPipelineDesc
 {
     RenderPipelineDesc();
@@ -254,6 +277,8 @@ struct alignas(4) RenderPipelineDesc
 
     size_t hash() const;
 
+    bool rasterizationEnabled() const;
+
     VertexDesc vertexDescriptor;
 
     RenderPipelineOutputDesc outputDescriptor;
@@ -261,33 +286,41 @@ struct alignas(4) RenderPipelineDesc
     // Use uint8_t instead of PrimitiveTopologyClass to compact space.
     uint8_t inputPrimitiveTopology : 2;
 
-    bool rasterizationEnabled : 1;
-    bool emulatedRasterizatonDiscard : 1;
     bool alphaToCoverageEnabled : 1;
-    bool coverageMaskEnabled : 1;
+
+    // These flags are for emulation and do not correspond to any flags in
+    // MTLRenderPipelineDescriptor descriptor. These flags should be used by
+    // RenderPipelineCacheSpecializeShaderFactory.
+    RenderPipelineRasterization rasterizationType : 2;
+    bool emulateCoverageMask : 1;
 };
 
 struct RenderPassAttachmentTextureTargetDesc
 {
-    TextureRef getTextureRef() const { return texture.lock(); }
-    TextureRef getImplicitMSTextureRef() const { return implicitMSTexture.lock(); }
-    bool hasImplicitMSTexture() const { return !implicitMSTexture.expired(); }
-    uint32_t getRenderSamples() const
+    // Set default values
+    void reset();
+
+    TextureRef texture() const { return targetTexture.lock(); }
+    TextureRef implicitMSTexture() const { return targetImplicitMSTexture.lock(); }
+    bool hasImplicitMSTexture() const { return !targetImplicitMSTexture.expired(); }
+    uint32_t renderSamples() const
     {
-        TextureRef tex   = getTextureRef();
-        TextureRef msTex = getImplicitMSTextureRef();
+        TextureRef tex   = texture();
+        TextureRef msTex = implicitMSTexture();
         return msTex ? msTex->samples() : (tex ? tex->samples() : 1);
     }
+    ANGLE_INLINE uint32_t level() const { return targetLevel; }
+    ANGLE_INLINE uint32_t sliceOrDepth() const { return targetSliceOrDepth; }
 
-    TextureWeakRef texture;
+    TextureWeakRef targetTexture;
     // Implicit multisample texture that will be rendered into and discarded at the end of
     // a render pass. Its result will be resolved into normal texture above.
-    TextureWeakRef implicitMSTexture;
-    uint32_t level        = 0;
-    uint32_t sliceOrDepth = 0;
+    TextureWeakRef targetImplicitMSTexture;
+    uint32_t targetLevel        = 0;
+    uint32_t targetSliceOrDepth = 0;
 };
 
-struct RenderPassAttachmentDesc
+struct RenderPassAttachmentDesc : public RenderPassAttachmentTextureTargetDesc
 {
     RenderPassAttachmentDesc();
     // Set default values
@@ -296,30 +329,6 @@ struct RenderPassAttachmentDesc
     bool equalIgnoreLoadStoreOptions(const RenderPassAttachmentDesc &other) const;
     bool operator==(const RenderPassAttachmentDesc &other) const;
 
-    ANGLE_INLINE TextureRef texture() const
-    {
-        return renderTarget ? renderTarget->getTextureRef() : nullptr;
-    }
-    ANGLE_INLINE TextureRef implicitMSTexture() const
-    {
-        return renderTarget ? renderTarget->getImplicitMSTextureRef() : nullptr;
-    }
-    ANGLE_INLINE bool hasImplicitMSTexture() const
-    {
-        return renderTarget ? renderTarget->hasImplicitMSTexture() : false;
-    }
-    ANGLE_INLINE uint32_t renderSamples() const
-    {
-        return renderTarget ? renderTarget->getRenderSamples() : 1;
-    }
-    ANGLE_INLINE uint32_t level() const { return renderTarget ? renderTarget->level : 0; }
-    ANGLE_INLINE uint32_t sliceOrDepth() const
-    {
-        return renderTarget ? renderTarget->sliceOrDepth : 0;
-    }
-
-    // This is shared pointer to avoid crashing when texture deleted after bound to a frame buffer.
-    std::shared_ptr<RenderPassAttachmentTextureTargetDesc> renderTarget;
     MTLLoadAction loadAction;
     MTLStoreAction storeAction;
     MTLStoreActionOptions storeActionOptions;
@@ -397,6 +406,44 @@ struct RenderPassDesc
     uint32_t sampleCount         = 1;
 };
 
+struct ClientIndexArrayKey
+{
+  public:
+    ClientIndexArrayKey();
+    ClientIndexArrayKey(ClientIndexArrayKey &&rhs);
+    ClientIndexArrayKey(const ClientIndexArrayKey &rhs);
+
+    void assign(const void *data, gl::DrawElementsType type, size_t count);
+    void wrap(const void *data, gl::DrawElementsType type, size_t count);
+    size_t hash() const;
+
+    bool operator==(const ClientIndexArrayKey &rhs) const;
+
+    ClientIndexArrayKey &operator=(ClientIndexArrayKey &&rhs);
+    ClientIndexArrayKey &operator=(const ClientIndexArrayKey &rhs);
+
+    bool valid() const { return !mBytes.empty() || mWrappedBytes; }
+
+    const void *data() const;
+    size_t size() const;
+    size_t elementsCount() const;
+    gl::DrawElementsType type() const { return mType; }
+    bool isWrapping() const;
+
+    void clear();
+
+  private:
+    gl::DrawElementsType mType = gl::DrawElementsType::InvalidEnum;
+
+    SmallVector mBytes;
+
+    const void *mWrappedBytes = nullptr;
+    size_t mWrappedSize       = 0;
+
+    mutable size_t mCachedHash;
+    mutable bool mIsHashCached = false;
+};
+
 }  // namespace mtl
 }  // namespace rx
 
@@ -421,34 +468,55 @@ struct hash<rx::mtl::RenderPipelineDesc>
     size_t operator()(const rx::mtl::RenderPipelineDesc &key) const { return key.hash(); }
 };
 
+template <>
+struct hash<rx::mtl::ClientIndexArrayKey>
+{
+    size_t operator()(const rx::mtl::ClientIndexArrayKey &key) const { return key.hash(); }
+};
+
 }  // namespace std
 
 namespace rx
 {
 namespace mtl
 {
-// render pipeline state cache per shader program
+
+// Abstract factory to create specialized vertex & fragment shaders based on RenderPipelineDesc.
+class RenderPipelineCacheSpecializeShaderFactory
+{
+  public:
+    virtual ~RenderPipelineCacheSpecializeShaderFactory() = default;
+
+    // Get specialized shader for the render pipeline cache.
+    virtual angle::Result getSpecializedShader(Context *context,
+                                               gl::ShaderType shaderType,
+                                               const RenderPipelineDesc &renderPipelineDesc,
+                                               id<MTLFunction> *shaderOut) = 0;
+    // Check whether specialized shaders is required for the specified RenderPipelineDesc.
+    // If not, the render pipeline cache will use the supplied non-specialized shaders.
+    virtual bool hasSpecializedShader(gl::ShaderType shaderType,
+                                      const RenderPipelineDesc &renderPipelineDesc) = 0;
+};
+
+// Render pipeline state cache per shader program.
 class RenderPipelineCache final : angle::NonCopyable
 {
   public:
     RenderPipelineCache();
+    RenderPipelineCache(RenderPipelineCacheSpecializeShaderFactory *specializedShaderFactory);
     ~RenderPipelineCache();
 
-    void setVertexShader(Context *context, id<MTLFunction> shader)
-    {
-        setVertexShader(context, shader, false);
-    }
-    void setFragmentShader(Context *context, id<MTLFunction> shader)
-    {
-        setFragmentShader(context, shader, false);
-    }
-    void setVertexShader(Context *context, id<MTLFunction> shader, bool emulatedRasterDiscard);
-    void setFragmentShader(Context *context, id<MTLFunction> shader, bool withCoverageMaskWrite);
+    // Set non-specialized vertex/fragment shader to be used by render pipeline cache to create
+    // render pipeline state. If the internal
+    // RenderPipelineCacheSpecializeShaderFactory.hasSpecializedShader() returns false for a
+    // particular RenderPipelineDesc, the render pipeline cache will use the non-specialized
+    // shaders.
+    void setVertexShader(Context *context, id<MTLFunction> shader);
+    void setFragmentShader(Context *context, id<MTLFunction> shader);
 
-    id<MTLFunction> getVertexShader() { return mVertexShaders[0].get(); }
-    id<MTLFunction> getVertexShaderWithEmulatedRasterDiscard() { return mVertexShaders[1].get(); }
-    id<MTLFunction> getFragmentShader() { return mFragmentShaders[0].get(); }
-    id<MTLFunction> getFragmentShaderWithCoverageMaskWrite() { return mFragmentShaders[1].get(); }
+    // Get non-specialized shaders supplied via set*Shader().
+    id<MTLFunction> getVertexShader() { return mVertexShader; }
+    id<MTLFunction> getFragmentShader() { return mFragmentShader; }
 
     AutoObjCPtr<id<MTLRenderPipelineState>> getRenderPipelineState(ContextMtl *context,
                                                                    const RenderPipelineDesc &desc);
@@ -456,10 +524,10 @@ class RenderPipelineCache final : angle::NonCopyable
     void clear();
 
   protected:
-    // On shader with emulated rasterization discard, one without
-    AutoObjCPtr<id<MTLFunction>> mVertexShaders[2] = {};
-    // On shader with coverage mask disabled, one with coverage mask enabled
-    AutoObjCPtr<id<MTLFunction>> mFragmentShaders[2] = {};
+    // Non-specialized vertex shader
+    AutoObjCPtr<id<MTLFunction>> mVertexShader;
+    // Non-specialized fragment shader
+    AutoObjCPtr<id<MTLFunction>> mFragmentShader;
 
   private:
     void clearPipelineStates();
@@ -478,6 +546,8 @@ class RenderPipelineCache final : angle::NonCopyable
     // One table with default attrib and one table without.
     std::unordered_map<RenderPipelineDesc, AutoObjCPtr<id<MTLRenderPipelineState>>>
         mRenderPipelineStates[2];
+
+    RenderPipelineCacheSpecializeShaderFactory *mSpecializedShaderFactory;
 };
 
 class StateCache final : angle::NonCopyable
@@ -507,6 +577,15 @@ class StateCache final : angle::NonCopyable
     std::unordered_map<DepthStencilDesc, AutoObjCPtr<id<MTLDepthStencilState>>> mDepthStencilStates;
     std::unordered_map<SamplerDesc, AutoObjCPtr<id<MTLSamplerState>>> mSamplerStates;
 };
+
+// A LRU Cache to store generated index buffer from client array data
+struct ClientArrayBufferCachePayload
+{
+    BufferRef buffer;
+    size_t offset;
+};
+using ClientIndexBufferCache =
+    angle::base::HashingMRUCache<ClientIndexArrayKey, ClientArrayBufferCachePayload>;
 
 }  // namespace mtl
 }  // namespace rx

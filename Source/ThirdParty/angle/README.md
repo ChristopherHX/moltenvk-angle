@@ -23,13 +23,13 @@ Preliminary Metal based WebGL benchmarks (based on [gles3-dev branch](https://gi
   - [x] MSAA.
   - [x] Multiple render targets.
   - [x] 3D, array, shadow textures.
-  - [x] Texture swizzles.
+  - [x] Texture swizzles (__supported on iOS 13.0+, macOS 10.15+ only__).
   - [x] Uniform buffers.
-  - [x] Fence sync.
+  - [x] Fence sync (__supported on iOS 12.0+, macOS 10.14+ only__).
   - [x] Pixel buffer objects.
   - [ ] Primitive Restart. Metal's primitive restart doesn't work reliably.
   - [ ] Flat shading with last provoking vertex. Metal's default is first provoking vertex.
-  - [ ] Transform feedbacks.
+  - [x] Transform feedbacks.
 - __OpenGL ES 1.0__ is not recommended to be used. Its implementation is not actively maintained by
   original `ANGLE` project and currently buggy/not fully compliant.
 - All basic samples are working.
