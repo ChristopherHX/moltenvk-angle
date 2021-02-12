@@ -16,322 +16,339 @@ using Urho.Resources;
 
 namespace Urho
 {
-	internal class Runtime
-	{
-		static Dictionary<Type, int> hashDict;
+    internal class Runtime
+    {
+        static Dictionary<Type, int> hashDict;
 
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void NativeCallback(CallbackType type, IntPtr target, IntPtr param1, int param2, string param3);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void NativeCallback(CallbackType type, IntPtr target, IntPtr param1, int param2, string param3);
 
-		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		static extern void RegisterMonoNativeCallbacks(NativeCallback callback);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern void RegisterMonoNativeCallbacks(NativeCallback callback);
 
-		// ReSharper disable once NotAccessedField.Local
-		static NativeCallback nativeCallback; //keep references to native callbacks (protect from GC)
-		static bool isStarted;
+        // ReSharper disable once NotAccessedField.Local
+        static NativeCallback nativeCallback; //keep references to native callbacks (protect from GC)
+        static bool isStarted;
 
-		internal static RefCountedCache RefCountedCache { get; private set; } = new RefCountedCache();
-		internal static bool IsClosing { get; private set; }
+        internal static RefCountedCache RefCountedCache { get; private set; } = new RefCountedCache();
+        internal static bool IsClosing { get; private set; }
 
-		internal static Action<RefCounted, IntPtr> KnownObjectDeleted;
+        internal static Action<RefCounted, IntPtr> KnownObjectDeleted;
 
-		internal static void Start()
-		{
-			IsClosing = false;
-			isStarted = true;
-		}
+        internal static void Start()
+        {
+            IsClosing = false;
+            isStarted = true;
+        }
 
-		internal static void Setup()
-		{
-			isStarted = false;
-			RegisterMonoNativeCallbacks(nativeCallback = OnNativeCallback);
-		}
+        internal static void Setup()
+        {
+            isStarted = false;
+            RegisterMonoNativeCallbacks(nativeCallback = OnNativeCallback);
+        }
 
-		/// <summary>
-		/// This method is called by RefCounted::~RefCounted or RefCounted::AddRef
-		/// </summary>
-		[MonoPInvokeCallback(typeof(NativeCallback))]
-		static void OnNativeCallback(CallbackType type, IntPtr target, IntPtr param1, int param2, string param3)
-		{
-			const string typeNameKey = "SharpTypeName";
+        /// <summary>
+        /// This method is called by RefCounted::~RefCounted or RefCounted::AddRef
+        /// </summary>
+        [MonoPInvokeCallback(typeof(NativeCallback))]
+        static void OnNativeCallback(CallbackType type, IntPtr target, IntPtr param1, int param2, string param3)
+        {
+            const string typeNameKey = "SharpTypeName";
 
-			// while app is not started - accept only Log callbacks
-			if (!isStarted && type != CallbackType.Log_Write)
-				return;
+            // while app is not started - accept only Log callbacks
+            if (!isStarted && type != CallbackType.Log_Write)
+                return;
 
-			switch (type)
-			{
-				//Component:
-				case CallbackType.Component_OnSceneSet:
-					{
-						var component = LookupObject<Component>(target, false);
-						component?.OnSceneSet(LookupObject<Scene>(param1, false));
-					}
-					break;
-				case CallbackType.Component_SaveXml:
-					{
-						var component = LookupObject<Component>(target, false);
-						if (component != null && component.TypeName != component.GetType().Name)
-						{
-							var xmlElement = new XmlElement(param1);
-							xmlElement.SetString(typeNameKey, component.GetType().AssemblyQualifiedName);
-							component.OnSerialize(new XmlComponentSerializer(xmlElement));
-						}
-					}
-					break;
-				case CallbackType.Component_LoadXml:
-					{
-						var xmlElement = new XmlElement(param1);
-						var name = xmlElement.GetAttribute(typeNameKey);
-						if (!string.IsNullOrEmpty(name))
-						{
-							Component component;
-							try
-							{
-								var typeObj = Type.GetType(name);
-								if (typeObj == null)
-								{
-									Log.Write(LogLevel.Warning, $"{name} doesn't exist. Probably was removed by Linker. Add it to a some LinkerPleaseInclude.cs in case if you need it.");
-									return;
-								}
-								component = (Component)Activator.CreateInstance(typeObj, target);
-							}
-							catch (Exception exc)
-							{
-								throw new InvalidOperationException($"{name} doesn't override constructor Component(IntPtr handle).", exc);
-							}
-							component.OnDeserialize(new XmlComponentSerializer(xmlElement));
-							if (component.Node != null)
-							{
-								component.AttachedToNode(component.Node);
-							}
-						}
-					}
-					break;
-				case CallbackType.Component_AttachedToNode:
-					{
-						var component = LookupObject<Component>(target, false);
-						component?.AttachedToNode(component.Node);
-					}
-					break;
-				case CallbackType.Component_OnNodeSetEnabled:
-					{
-						var component = LookupObject<Component>(target, false);
-						component?.OnNodeSetEnabled();
-					}
-					break;
+            switch (type)
+            {
+                //Component:
+                case CallbackType.Component_OnSceneSet:
+                    {
+                        var component = LookupObject<Component>(target, false);
+                        component?.OnSceneSet(LookupObject<Scene>(param1, false));
+                    }
+                    break;
+                case CallbackType.Component_SaveXml:
+                    {
+                        var component = LookupObject<Component>(target, false);
+                        if (component != null && component.TypeName != component.GetType().Name)
+                        {
+                            var xmlElement = new XmlElement(param1);
+                            xmlElement.SetString(typeNameKey, component.GetType().AssemblyQualifiedName);
+                            component.OnSerialize(new XmlComponentSerializer(xmlElement));
+                        }
+                    }
+                    break;
+                case CallbackType.Component_LoadXml:
+                    {
+                        var xmlElement = new XmlElement(param1);
+                        var name = xmlElement.GetAttribute(typeNameKey);
+
+						string fqn_name_in_game_assembly  = "";
+                        if (Application.Current != null)
+                        {
+                            string app_fqn = Application.Current.GetType().AssemblyQualifiedName;
+                            String[] app_fqn_split = app_fqn.Split(",");
+							String[] name_split = name.Split(",");
+
+							app_fqn_split[0] = name_split[0];
+                            fqn_name_in_game_assembly = String.Join(",", app_fqn_split);
+                        }
+
+                        if (!string.IsNullOrEmpty(name))
+                        {
+                            Component component;
+                            try
+                            {
+                                var typeObj = Type.GetType(name);
+                                if (typeObj == null)
+                                {
+									// might be that the component was saved from another assmebly , check if it exist in the main Game.dll assembly
+                                    typeObj = Type.GetType(fqn_name_in_game_assembly);
+                                    if (typeObj == null)
+                                    {
+                                        Log.Write(LogLevel.Warning, $"{fqn_name_in_game_assembly} doesn't exist. Probably was removed by Linker. Add it to a some LinkerPleaseInclude.cs in case if you need it.");
+                                        return;
+                                    }
+                                }
+                                component = (Component)Activator.CreateInstance(typeObj, target);
+                            }
+                            catch (Exception exc)
+                            {
+                                throw new InvalidOperationException($"{name} doesn't override constructor Component(IntPtr handle).", exc);
+                            }
+                            component.OnDeserialize(new XmlComponentSerializer(xmlElement));
+                            if (component.Node != null)
+                            {
+                                component.AttachedToNode(component.Node);
+                            }
+                        }
+                    }
+                    break;
+                case CallbackType.Component_AttachedToNode:
+                    {
+                        var component = LookupObject<Component>(target, false);
+                        component?.AttachedToNode(component.Node);
+                    }
+                    break;
+                case CallbackType.Component_OnNodeSetEnabled:
+                    {
+                        var component = LookupObject<Component>(target, false);
+                        component?.OnNodeSetEnabled();
+                    }
+                    break;
 
 
-				//RefCounted:
+                //RefCounted:
 
-				case CallbackType.RefCounted_AddRef:
-					{
-						//if we have an object with this handle and it's reference is weak - then change it to strong.
-						var referenceHolder = RefCountedCache.Get(target);
-						referenceHolder?.MakeStrong();
-					}
-					break;
+                case CallbackType.RefCounted_AddRef:
+                    {
+                        //if we have an object with this handle and it's reference is weak - then change it to strong.
+                        var referenceHolder = RefCountedCache.Get(target);
+                        referenceHolder?.MakeStrong();
+                    }
+                    break;
 
-				case CallbackType.RefCounted_Delete:
-					{
-						var referenceHolder = RefCountedCache.Get(target);
-						if (referenceHolder == null)
-							return; //we don't have this object in the cache so let's just skip it
+                case CallbackType.RefCounted_Delete:
+                    {
+                        var referenceHolder = RefCountedCache.Get(target);
+                        if (referenceHolder == null)
+                            return; //we don't have this object in the cache so let's just skip it
 
-						var reference = referenceHolder.Reference;
-						if (reference == null)
-							// seems like the reference was Weak and GC has removed it - remove item from the dictionary
-							RefCountedCache.Remove(target);
-						else
-						{
-							reference.HandleNativeDelete();
-							KnownObjectDeleted(reference, target);
-						}
-					}
-					break;
+                        var reference = referenceHolder.Reference;
+                        if (reference == null)
+                            // seems like the reference was Weak and GC has removed it - remove item from the dictionary
+                            RefCountedCache.Remove(target);
+                        else
+                        {
+                            reference.HandleNativeDelete();
+                            KnownObjectDeleted(reference, target);
+                        }
+                    }
+                    break;
 
-				case CallbackType.Log_Write:
-					Urho.Application.ThrowUnhandledException(
-						new Exception(param3 + ". You can omit this exception by subscribing to Urho.Application.UnhandledException event and set Handled property to True.\nApplicationOptions: " + Application.CurrentOptions));
-					break;
-			}
-		}
+                case CallbackType.Log_Write:
+                    Urho.Application.ThrowUnhandledException(
+                        new Exception(param3 + ". You can omit this exception by subscribing to Urho.Application.UnhandledException event and set Handled property to True.\nApplicationOptions: " + Application.CurrentOptions));
+                    break;
+            }
+        }
 
-		public static T LookupRefCounted<T> (IntPtr ptr, bool createIfNotFound = true) where T:RefCounted
-		{
-			if (ptr == IntPtr.Zero)
-				return null;
+        public static T LookupRefCounted<T>(IntPtr ptr, bool createIfNotFound = true) where T : RefCounted
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
 
-			var reference = RefCountedCache.Get(ptr)?.Reference;
-			if (reference is T)
-				return (T) reference;
+            var reference = RefCountedCache.Get(ptr)?.Reference;
+            if (reference is T)
+                return (T)reference;
 
-			if (!createIfNotFound)
-				return null;
+            if (!createIfNotFound)
+                return null;
 
-			var refCounted = (T)Activator.CreateInstance(typeof(T), ptr);
-			return refCounted;
-		}
+            var refCounted = (T)Activator.CreateInstance(typeof(T), ptr);
+            return refCounted;
+        }
 
-		public static T LookupObject<T>(IntPtr ptr, bool createIfNotFound = true) where T : UrhoObject
-		{
-			if (ptr == IntPtr.Zero)
-				return null;
+        public static T LookupObject<T>(IntPtr ptr, bool createIfNotFound = true) where T : UrhoObject
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
 
-			var referenceHolder = RefCountedCache.Get(ptr);
-			var reference = referenceHolder?.Reference;
-			if (reference is T) //possible collisions
-				return (T)reference;
+            var referenceHolder = RefCountedCache.Get(ptr);
+            var reference = referenceHolder?.Reference;
+            if (reference is T) //possible collisions
+                return (T)reference;
 
-			if (!createIfNotFound)
-				return null;
+            if (!createIfNotFound)
+                return null;
 
-			var name = Marshal.PtrToStringAnsi(UrhoObject.UrhoObject_GetTypeName(ptr));
-			var type = FindTypeByName(name);
-			var typeInfo = type.GetTypeInfo();
-			if (typeInfo.IsSubclassOf(typeof(Component)) || type == typeof(Component))
-			{
-				//TODO: special case, handle managed subclasses
-			}
+            var name = Marshal.PtrToStringAnsi(UrhoObject.UrhoObject_GetTypeName(ptr));
+            var type = FindTypeByName(name);
+            var typeInfo = type.GetTypeInfo();
+            if (typeInfo.IsSubclassOf(typeof(Component)) || type == typeof(Component))
+            {
+                //TODO: special case, handle managed subclasses
+            }
 
-			var urhoObject = (T)Activator.CreateInstance(type, ptr);
-			return urhoObject;
-		}
+            var urhoObject = (T)Activator.CreateInstance(type, ptr);
+            return urhoObject;
+        }
 
-		public static void UnregisterObject (IntPtr handle)
-		{
-			RefCountedCache.Remove(handle);
-		}
+        public static void UnregisterObject(IntPtr handle)
+        {
+            RefCountedCache.Remove(handle);
+        }
 
-		public static void RegisterObject (RefCounted refCounted)
-		{
-			RefCountedCache.Add(refCounted);
-		}
-		
-		public static StringHash LookupStringHash (Type t)
-		{
-			if (hashDict == null)
-				hashDict = new Dictionary<Type, int> ();
+        public static void RegisterObject(RefCounted refCounted)
+        {
+            RefCountedCache.Add(refCounted);
+        }
 
-			int c;
-			if (hashDict.TryGetValue (t, out c))
-				return new StringHash (c);
-			var hash = GetTypeStatic(t);
-			hashDict [t] = hash.Code;
-			return hash;
-		}
+        public static StringHash LookupStringHash(Type t)
+        {
+            if (hashDict == null)
+                hashDict = new Dictionary<Type, int>();
 
-		static StringHash GetTypeStatic(Type type)
-		{
-			var typeStatic = type.GetRuntimeProperty("TypeStatic");
-			while (typeStatic == null)
-			{
-				type = type.GetTypeInfo().BaseType;
-				if (type == typeof(object))
-					throw new InvalidOperationException("The type doesn't have static TypeStatic property");
-				typeStatic = type.GetRuntimeProperty("TypeStatic");
-			}
-			return (StringHash)typeStatic.GetValue(null);
-		}
+            int c;
+            if (hashDict.TryGetValue(t, out c))
+                return new StringHash(c);
+            var hash = GetTypeStatic(t);
+            hashDict[t] = hash.Code;
+            return hash;
+        }
 
-		// for RefCounted, UrhoObjects
-		internal static void ValidateRefCounted<T>(T obj, [CallerMemberName] string name = "") where T : RefCounted
-		{
-			//TODO: remove ValidateRefCounted from IsExiting in the Binder
-			if (name == "IsExisting")
-				return;
+        static StringHash GetTypeStatic(Type type)
+        {
+            var typeStatic = type.GetRuntimeProperty("TypeStatic");
+            while (typeStatic == null)
+            {
+                type = type.GetTypeInfo().BaseType;
+                if (type == typeof(object))
+                    throw new InvalidOperationException("The type doesn't have static TypeStatic property");
+                typeStatic = type.GetRuntimeProperty("TypeStatic");
+            }
+            return (StringHash)typeStatic.GetValue(null);
+        }
 
-			if (IsClosing)
-			{
-				var errorText = $"{typeof(T).Name}.{name} (Handle={obj.Handle}) was invoked after Application.Stop";
-				LogSharp.Error(errorText);
-				throw new InvalidOperationException(errorText);
-			}
-			if (obj.IsDeleted) //IsDeleted is set to True when we receive a native callback from RefCounted::~RefCounted
-			{
-				var errorText = $"Underlying native object was deleted for Handle={obj.Handle}. {typeof(T).Name}.{name}";
-				LogSharp.Error(errorText);
-				throw new InvalidOperationException(errorText);
-			}
-			//if (obj.Handle == IntPtr.Zero)
-			//{
-			//}
-			//TODO: check current thread?
-		}
+        // for RefCounted, UrhoObjects
+        internal static void ValidateRefCounted<T>(T obj, [CallerMemberName] string name = "") where T : RefCounted
+        {
+            //TODO: remove ValidateRefCounted from IsExiting in the Binder
+            if (name == "IsExisting")
+                return;
 
-		// non-RefCounted classes
-		internal static void ValidateObject<T>(T obj, [CallerMemberName] string name = "") where T : class
-		{
-			if (IsClosing)
-			{
-				var errorText = $"{typeof(T).Name}.{name} was invoked after Application.Stop";
-				LogSharp.Error(errorText);
-				throw new InvalidOperationException(errorText);
-			}
-		}
+            if (IsClosing)
+            {
+                var errorText = $"{typeof(T).Name}.{name} (Handle={obj.Handle}) was invoked after Application.Stop";
+                LogSharp.Error(errorText);
+                throw new InvalidOperationException(errorText);
+            }
+            if (obj.IsDeleted) //IsDeleted is set to True when we receive a native callback from RefCounted::~RefCounted
+            {
+                var errorText = $"Underlying native object was deleted for Handle={obj.Handle}. {typeof(T).Name}.{name}";
+                LogSharp.Error(errorText);
+                throw new InvalidOperationException(errorText);
+            }
+            //if (obj.Handle == IntPtr.Zero)
+            //{
+            //}
+            //TODO: check current thread?
+        }
 
-		// constructors, static methods, value types
-		internal static void Validate(Type type, [CallerMemberName] string name = "")
-		{
-			if (IsClosing)
-			{
-				var errorText = $"{type.Name}.{name} was invoked after Application.Stop";
-				LogSharp.Error(errorText);
-				throw new InvalidOperationException(errorText);
-			}
-		}
+        // non-RefCounted classes
+        internal static void ValidateObject<T>(T obj, [CallerMemberName] string name = "") where T : class
+        {
+            if (IsClosing)
+            {
+                var errorText = $"{typeof(T).Name}.{name} was invoked after Application.Stop";
+                LogSharp.Error(errorText);
+                throw new InvalidOperationException(errorText);
+            }
+        }
 
-		internal static IReadOnlyList<T> CreateVectorSharedPtrProxy<T> (IntPtr handle) where T : UrhoObject
-		{
-			return new Vectors.ProxyUrhoObject<T> (handle);
-		}
+        // constructors, static methods, value types
+        internal static void Validate(Type type, [CallerMemberName] string name = "")
+        {
+            if (IsClosing)
+            {
+                var errorText = $"{type.Name}.{name} was invoked after Application.Stop";
+                LogSharp.Error(errorText);
+                throw new InvalidOperationException(errorText);
+            }
+        }
 
-		internal static IReadOnlyList<T> CreateVectorSharedPtrRefcountedProxy<T>(IntPtr handle) where T : RefCounted
-		{
-			return new Vectors.ProxyRefCounted<T>(handle);
-		}
+        internal static IReadOnlyList<T> CreateVectorSharedPtrProxy<T>(IntPtr handle) where T : UrhoObject
+        {
+            return new Vectors.ProxyUrhoObject<T>(handle);
+        }
 
-		internal static void Cleanup(bool disposeContext = true)
-		{
-			IsClosing = true;
-			RefCountedCache.Clean(disposeContext);
-			GC.Collect();
-			GC.WaitForPendingFinalizers();
-			GC.Collect();
-		}
+        internal static IReadOnlyList<T> CreateVectorSharedPtrRefcountedProxy<T>(IntPtr handle) where T : RefCounted
+        {
+            return new Vectors.ProxyRefCounted<T>(handle);
+        }
 
-		static Dictionary<string, Type> typesByNativeNames;
-		// special cases: (TODO: share this code with SharpieBinder somehow)
-		static Dictionary<string, string> typeNamesMap = new Dictionary<string, string>
-			{
-				{nameof(UrhoObject),  "Object"},
-				{nameof(UrhoConsole), "Console"},
-				{nameof(XmlFile),     "XMLFile"},
-				{nameof(JsonFile),    "JSONFile"},
-			};
+        internal static void Cleanup(bool disposeContext = true)
+        {
+            IsClosing = true;
+            RefCountedCache.Clean(disposeContext);
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+        }
 
-		static Type FindTypeByName(string name)
-		{
-			if (typesByNativeNames == null)
-			{
-				typesByNativeNames = new Dictionary<string, Type>(200);
-				foreach (var type in typeof(Runtime).GetTypeInfo().Assembly.ExportedTypes)
-				{
-					if (!type.GetTypeInfo().IsSubclassOf(typeof(RefCounted)))
-						continue;
+        static Dictionary<string, Type> typesByNativeNames;
+        // special cases: (TODO: share this code with SharpieBinder somehow)
+        static Dictionary<string, string> typeNamesMap = new Dictionary<string, string>
+            {
+                {nameof(UrhoObject),  "Object"},
+                {nameof(UrhoConsole), "Console"},
+                {nameof(XmlFile),     "XMLFile"},
+                {nameof(JsonFile),    "JSONFile"},
+            };
 
-					string remappedName;
-					if (!typeNamesMap.TryGetValue(type.Name, out remappedName))
-						remappedName = type.Name;
+        static Type FindTypeByName(string name)
+        {
+            if (typesByNativeNames == null)
+            {
+                typesByNativeNames = new Dictionary<string, Type>(200);
+                foreach (var type in typeof(Runtime).GetTypeInfo().Assembly.ExportedTypes)
+                {
+                    if (!type.GetTypeInfo().IsSubclassOf(typeof(RefCounted)))
+                        continue;
 
-					typesByNativeNames[remappedName] = type;
-				}
-			}
-			Type result;
-			if (!typesByNativeNames.TryGetValue(name, out result))
-				throw new Exception($"Type {name} not found.");
+                    string remappedName;
+                    if (!typeNamesMap.TryGetValue(type.Name, out remappedName))
+                        remappedName = type.Name;
 
-			return result;
-		}
-	}
+                    typesByNativeNames[remappedName] = type;
+                }
+            }
+            Type result;
+            if (!typesByNativeNames.TryGetValue(name, out result))
+                throw new Exception($"Type {name} not found.");
+
+            return result;
+        }
+    }
 }
