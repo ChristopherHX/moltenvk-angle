@@ -1,0 +1,14 @@
+/Users/elialoni/Urho3D-Dev/dotnet/Urho3D/tools/SharpieBinder/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/elialoni/Urho3D-Dev/dotnet/Urho3D/tools/SharpieBinder/bin/SharpieBinder.pdb
+/Users/elialoni/Urho3D-Dev/dotnet/Urho3D/tools/SharpieBinder/bin/SharpieBinder.exe
+/Users/elialoni/Urho3D-Dev/dotnet/Urho3D/tools/SharpieBinder/obj/x86/Debug/SharpieBinder.exe
+/Users/elialoni/Urho3D-Dev/dotnet/Urho3D/tools/SharpieBinder/obj/x86/Debug/SharpieBinder.pdb
+/Users/elialoni/Urho3D-Dev/dotnet/Urho3D/tools/SharpieBinder/bin/Clang.dll
+/Users/elialoni/Urho3D-Dev/dotnet/Urho3D/tools/SharpieBinder/bin/ICSharpCode.NRefactory.dll
+/Users/elialoni/Urho3D-Dev/dotnet/Urho3D/tools/SharpieBinder/bin/ICSharpCode.NRefactory.Cecil.dll
+/Users/elialoni/Urho3D-Dev/dotnet/Urho3D/tools/SharpieBinder/bin/ICSharpCode.NRefactory.CSharp.dll
+/Users/elialoni/Urho3D-Dev/dotnet/Urho3D/tools/SharpieBinder/bin/Sharpie.Bind.dll
+/Users/elialoni/Urho3D-Dev/dotnet/Urho3D/tools/SharpieBinder/bin/Mono.Cecil.dll
+/Users/elialoni/Urho3D-Dev/dotnet/Urho3D/tools/SharpieBinder/bin/Mono.Cecil.Mdb.dll
+/Users/elialoni/Urho3D-Dev/dotnet/Urho3D/tools/SharpieBinder/bin/Mono.Cecil.Pdb.dll
+/Users/elialoni/Urho3D-Dev/dotnet/Urho3D/tools/SharpieBinder/bin/Mono.Cecil.Rocks.dll
