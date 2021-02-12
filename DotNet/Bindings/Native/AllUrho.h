@@ -1,7 +1,7 @@
 #ifdef _MSC_VER
 #define DllExport __declspec( dllexport )
 #else
-#define DllExport
+#define DllExport extern "C" __attribute__((visibility("default")))
 #endif
 
 #if defined(UWP)
@@ -272,8 +272,9 @@
 #include <Urho3D/Urho2D/TileMapLayer2D.h>
 #include <Urho3D/Urho2D/TmxFile2D.h>
 #include <Urho3D/Urho2D/Urho2D.h>
+#if defined(URHO3D_DOTNET)
 #include <Urho3D/Mono.h>
-
+#endif
 // Workaround Windows defining these
 #undef GetObject
 #undef MessageBox

@@ -272,7 +272,9 @@
 #include "../Urho2D/TileMapLayer2D.h"
 #include "../Urho2D/TmxFile2D.h"
 #include "../Urho2D/Urho2D.h"
+#if defined(URHO3D_DOTNET)
 #include "Mono.h"
+#endif
 
 // Workaround Windows defining these
 #undef GetObject
