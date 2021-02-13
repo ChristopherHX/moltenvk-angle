@@ -26,8 +26,15 @@ if (NOT CMAKE_CROSSCOMPILING)
     set (SAVED_CXX $ENV{CXX} CACHE INTERNAL "Initial value for CXX")
 endif ()
 
+option (URHO3D_DOTNET_LIB "build dotnet dynamic library" FALSE)
+
 # Limit the supported build configurations
-set (URHO3D_BUILD_CONFIGURATIONS Release RelWithDebInfo Debug)
+if(URHO3D_DOTNET_LIB)
+    set (URHO3D_BUILD_CONFIGURATIONS Release)
+else()
+    set (URHO3D_BUILD_CONFIGURATIONS Release RelWithDebInfo Debug)
+endif() 
+
 set (DOC_STRING "Specify CMake build configuration (single-configuration generator only), possible values are Release (default), RelWithDebInfo, and Debug")
 if (CMAKE_CONFIGURATION_TYPES)
     # For multi-configurations generator, such as VS and Xcode
@@ -39,7 +46,7 @@ else ()
         # If not specified then default to Release
         set (CMAKE_BUILD_TYPE Release)
     endif ()
-    set (CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING ${DOC_STRING} FORCE)
+    set ( ${CMAKE_BUILD_TYPE} CACHE STRING ${DOC_STRING} FORCE)
 endif ()
 
 # Define other useful variables not defined by CMake
