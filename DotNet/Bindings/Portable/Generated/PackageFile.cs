@@ -143,6 +143,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return the package file name.
+		/// 
 		/// </summary>
 		private string GetName ()
 		{
@@ -167,6 +168,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return number of files.
+		/// 
 		/// </summary>
 		private uint GetNumFiles ()
 		{
@@ -179,6 +181,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return total size of the package file.
+		/// 
 		/// </summary>
 		private uint GetTotalSize ()
 		{
@@ -191,6 +194,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return total data size from all the file entries in the package file.
+		/// 
 		/// </summary>
 		private uint GetTotalDataSize ()
 		{
@@ -203,6 +207,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return checksum of the package file contents.
+		/// 
 		/// </summary>
 		private uint GetChecksum ()
 		{
@@ -215,6 +220,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return whether the files are compressed.
+		/// 
 		/// </summary>
 		private bool IsCompressed ()
 		{
@@ -249,6 +255,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return the package file name.
+		/// 
 		/// </summary>
 		public string Name {
 			get {
@@ -267,6 +274,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return number of files.
+		/// 
 		/// </summary>
 		public uint NumFiles {
 			get {
@@ -276,6 +284,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return total size of the package file.
+		/// 
 		/// </summary>
 		public uint TotalSize {
 			get {
@@ -285,6 +294,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return total data size from all the file entries in the package file.
+		/// 
 		/// </summary>
 		public uint TotalDataSize {
 			get {
@@ -294,6 +304,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return checksum of the package file contents.
+		/// 
 		/// </summary>
 		public uint Checksum {
 			get {
@@ -303,6 +314,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return whether the files are compressed.
+		/// 
 		/// </summary>
 		public bool Compressed {
 			get {

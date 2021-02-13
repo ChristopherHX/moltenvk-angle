@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -143,6 +144,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set texture.
+		/// 
 		/// </summary>
 		private void SetTexture (Texture2D texture)
 		{
@@ -167,6 +169,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return texture.
+		/// 
 		/// </summary>
 		private Texture2D GetTexture ()
 		{
@@ -213,8 +216,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return texture.
+		/// 
 		/// Or
 		/// Set texture.
+		/// 
 		/// </summary>
 		public Texture2D Texture {
 			get {

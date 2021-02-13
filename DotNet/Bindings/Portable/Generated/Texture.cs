@@ -118,6 +118,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set filtering mode.
+		/// 
 		/// </summary>
 		private void SetFilterMode (TextureFilterMode mode)
 		{
@@ -130,6 +131,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set addressing mode by texture coordinate.
+		/// 
 		/// </summary>
 		public void SetAddressMode (TextureCoordinate coord, TextureAddressMode mode)
 		{
@@ -142,6 +144,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set texture max. anisotropy level. No effect if not using anisotropic filtering. Value 0 (default) uses the default setting from Renderer.
+		/// 
 		/// </summary>
 		private void SetAnisotropy (uint level)
 		{
@@ -166,6 +169,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set border color for border addressing mode.
+		/// 
 		/// </summary>
 		private void SetBorderColor (Urho.Color color)
 		{
@@ -178,6 +182,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set sRGB sampling and writing mode.
+		/// 
 		/// </summary>
 		private void SetSRGB (bool enable)
 		{
@@ -190,6 +195,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set backup texture to use when rendering to this texture.
+		/// 
 		/// </summary>
 		private void SetBackupTexture (Texture texture)
 		{
@@ -202,6 +208,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set mip levels to skip on a quality setting when loading. Ensures higher quality levels do not skip more.
+		/// 
 		/// </summary>
 		public void SetMipsToSkip (MaterialQuality quality, int toSkip)
 		{
@@ -214,6 +221,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return API-specific texture format.
+		/// 
 		/// </summary>
 		private uint GetFormat ()
 		{
@@ -226,6 +234,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether the texture format is compressed.
+		/// 
 		/// </summary>
 		private bool IsCompressed ()
 		{
@@ -238,6 +247,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of mip levels.
+		/// 
 		/// </summary>
 		private uint GetLevels ()
 		{
@@ -250,6 +260,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return width.
+		/// 
 		/// </summary>
 		private int GetWidth ()
 		{
@@ -262,6 +273,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return height.
+		/// 
 		/// </summary>
 		private int GetHeight ()
 		{
@@ -286,6 +298,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return filtering mode.
+		/// 
 		/// </summary>
 		private TextureFilterMode GetFilterMode ()
 		{
@@ -298,6 +311,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return addressing mode by texture coordinate.
+		/// 
 		/// </summary>
 		public TextureAddressMode GetAddressMode (TextureCoordinate coord)
 		{
@@ -310,6 +324,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return texture max. anisotropy level. Value 0 means to use the default value from Renderer.
+		/// 
 		/// </summary>
 		private uint GetAnisotropy ()
 		{
@@ -334,6 +349,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return border color.
+		/// 
 		/// </summary>
 		private Urho.Color GetBorderColor ()
 		{
@@ -346,6 +362,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is using sRGB sampling and writing.
+		/// 
 		/// </summary>
 		private bool GetSRGB ()
 		{
@@ -358,6 +375,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return texture multisampling level (1 = no multisampling).
+		/// 
 		/// </summary>
 		private int GetMultiSample ()
 		{
@@ -370,6 +388,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return texture multisampling autoresolve mode. When true, the texture is resolved before being sampled on SetTexture(). When false, the texture will not be resolved and must be read as individual samples in the shader.
+		/// 
 		/// </summary>
 		private bool GetAutoResolve ()
 		{
@@ -382,6 +401,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether multisampled texture needs resolve.
+		/// 
 		/// </summary>
 		private bool IsResolveDirty ()
 		{
@@ -394,6 +414,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether rendertarget mipmap levels need regenration.
+		/// 
 		/// </summary>
 		private bool GetLevelsDirty ()
 		{
@@ -406,6 +427,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return backup texture.
+		/// 
 		/// </summary>
 		private Texture GetBackupTexture ()
 		{
@@ -418,6 +440,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return mip levels to skip on a quality setting when loading.
+		/// 
 		/// </summary>
 		public int GetMipsToSkip (MaterialQuality quality)
 		{
@@ -430,6 +453,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return mip level width, or 0 if level does not exist.
+		/// 
 		/// </summary>
 		public int GetLevelWidth (uint level)
 		{
@@ -442,6 +466,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return mip level width, or 0 if level does not exist.
+		/// 
 		/// </summary>
 		public int GetLevelHeight (uint level)
 		{
@@ -466,6 +491,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return texture usage type.
+		/// 
 		/// </summary>
 		private TextureUsage GetUsage ()
 		{
@@ -514,6 +540,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of image components required to receive pixel data from GetData(), or 0 for compressed images.
+		/// 
 		/// </summary>
 		private uint GetComponents ()
 		{
@@ -622,6 +649,7 @@ namespace Urho
 
 		/// <summary>
 		/// Convert format to sRGB. Not used on Direct3D9.
+		/// 
 		/// </summary>
 		public uint GetSRGBFormat (uint format)
 		{
@@ -716,8 +744,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return filtering mode.
+		/// 
 		/// Or
 		/// Set filtering mode.
+		/// 
 		/// </summary>
 		public TextureFilterMode FilterMode {
 			get {
@@ -730,8 +760,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return texture max. anisotropy level. Value 0 means to use the default value from Renderer.
+		/// 
 		/// Or
 		/// Set texture max. anisotropy level. No effect if not using anisotropic filtering. Value 0 (default) uses the default setting from Renderer.
+		/// 
 		/// </summary>
 		public uint Anisotropy {
 			get {
@@ -758,8 +790,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return border color.
+		/// 
 		/// Or
 		/// Set border color for border addressing mode.
+		/// 
 		/// </summary>
 		public Urho.Color BorderColor {
 			get {
@@ -772,8 +806,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is using sRGB sampling and writing.
+		/// 
 		/// Or
 		/// Set sRGB sampling and writing mode.
+		/// 
 		/// </summary>
 		public bool SRGB {
 			get {
@@ -786,8 +822,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return backup texture.
+		/// 
 		/// Or
 		/// Set backup texture to use when rendering to this texture.
+		/// 
 		/// </summary>
 		public Texture BackupTexture {
 			get {
@@ -800,6 +838,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return API-specific texture format.
+		/// 
 		/// </summary>
 		public uint Format {
 			get {
@@ -809,6 +848,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether the texture format is compressed.
+		/// 
 		/// </summary>
 		public bool Compressed {
 			get {
@@ -818,6 +858,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of mip levels.
+		/// 
 		/// </summary>
 		public uint Levels {
 			get {
@@ -827,6 +868,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return width.
+		/// 
 		/// </summary>
 		public int Width {
 			get {
@@ -836,6 +878,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return height.
+		/// 
 		/// </summary>
 		public int Height {
 			get {
@@ -854,6 +897,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return texture multisampling level (1 = no multisampling).
+		/// 
 		/// </summary>
 		public int MultiSample {
 			get {
@@ -863,6 +907,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return texture multisampling autoresolve mode. When true, the texture is resolved before being sampled on SetTexture(). When false, the texture will not be resolved and must be read as individual samples in the shader.
+		/// 
 		/// </summary>
 		public bool AutoResolve {
 			get {
@@ -872,6 +917,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether multisampled texture needs resolve.
+		/// 
 		/// Or
 		/// Set or clear the need resolve flag. Called internally by Graphics.
 		/// </summary>
@@ -886,6 +932,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether rendertarget mipmap levels need regenration.
+		/// 
 		/// </summary>
 		public bool LevelsDirty {
 			get {
@@ -895,6 +942,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return texture usage type.
+		/// 
 		/// </summary>
 		public TextureUsage Usage {
 			get {
@@ -904,6 +952,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of image components required to receive pixel data from GetData(), or 0 for compressed images.
+		/// 
 		/// </summary>
 		public uint Components {
 			get {

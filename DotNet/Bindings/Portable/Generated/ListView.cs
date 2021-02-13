@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -219,6 +220,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set selection.
+		/// 
 		/// </summary>
 		private void SetSelection (uint index)
 		{
@@ -291,6 +293,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set selected items' highlight mode.
+		/// 
 		/// </summary>
 		private void SetHighlightMode (HighlightMode mode)
 		{
@@ -303,6 +306,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Enable multiselect.
+		/// 
 		/// </summary>
 		private void SetMultiselect (bool enable)
 		{
@@ -317,6 +321,7 @@ namespace Urho.Gui
 		/// 
 		/// Enable hierarchy mode. Allows items to have parent-child relationship at different indent level and the ability to expand/collapse child items.
 		/// All items in the list will be lost during mode change.
+		/// 
 		/// </summary>
 		private void SetHierarchyMode (bool enable)
 		{
@@ -329,6 +334,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set base indent, i.e. the indent level of the ultimate parent item.
+		/// 
 		/// </summary>
 		private void SetBaseIndent (int baseIndent)
 		{
@@ -341,6 +347,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Enable clearing of selection on defocus.
+		/// 
 		/// </summary>
 		private void SetClearSelectionOnDefocus (bool enable)
 		{
@@ -353,6 +360,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Enable reacting to click end instead of click start for item selection. Default false.
+		/// 
 		/// </summary>
 		private void SetSelectOnClickEnd (bool enable)
 		{
@@ -389,6 +397,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return number of items.
+		/// 
 		/// </summary>
 		private uint GetNumItems ()
 		{
@@ -401,6 +410,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return item at index.
+		/// 
 		/// </summary>
 		public UIElement GetItem (uint index)
 		{
@@ -425,6 +435,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return first selected index, or M_MAX_UNSIGNED if none selected.
+		/// 
 		/// </summary>
 		private uint GetSelection ()
 		{
@@ -449,6 +460,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return first selected item, or null if none selected.
+		/// 
 		/// </summary>
 		private UIElement GetSelectedItem ()
 		{
@@ -485,6 +497,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return highlight mode.
+		/// 
 		/// </summary>
 		private HighlightMode GetHighlightMode ()
 		{
@@ -497,6 +510,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether multiselect enabled.
+		/// 
 		/// </summary>
 		private bool GetMultiselect ()
 		{
@@ -509,6 +523,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether selection is cleared on defocus.
+		/// 
 		/// </summary>
 		private bool GetClearSelectionOnDefocus ()
 		{
@@ -521,6 +536,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether reacts to click end instead of click start for item selection.
+		/// 
 		/// </summary>
 		private bool GetSelectOnClickEnd ()
 		{
@@ -533,6 +549,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether hierarchy mode enabled.
+		/// 
 		/// </summary>
 		private bool GetHierarchyMode ()
 		{
@@ -545,6 +562,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return base indent.
+		/// 
 		/// </summary>
 		private int GetBaseIndent ()
 		{
@@ -603,8 +621,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return first selected index, or M_MAX_UNSIGNED if none selected.
+		/// 
 		/// Or
 		/// Set selection.
+		/// 
 		/// </summary>
 		public uint Selection {
 			get {
@@ -617,8 +637,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return highlight mode.
+		/// 
 		/// Or
 		/// Set selected items' highlight mode.
+		/// 
 		/// </summary>
 		public HighlightMode HighlightMode {
 			get {
@@ -631,8 +653,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether multiselect enabled.
+		/// 
 		/// Or
 		/// Enable multiselect.
+		/// 
 		/// </summary>
 		public bool Multiselect {
 			get {
@@ -645,10 +669,12 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether hierarchy mode enabled.
+		/// 
 		/// Or
 		/// 
 		/// Enable hierarchy mode. Allows items to have parent-child relationship at different indent level and the ability to expand/collapse child items.
 		/// All items in the list will be lost during mode change.
+		/// 
 		/// </summary>
 		public bool HierarchyMode {
 			get {
@@ -661,8 +687,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return base indent.
+		/// 
 		/// Or
 		/// Set base indent, i.e. the indent level of the ultimate parent item.
+		/// 
 		/// </summary>
 		public int BaseIndent {
 			get {
@@ -675,8 +703,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether selection is cleared on defocus.
+		/// 
 		/// Or
 		/// Enable clearing of selection on defocus.
+		/// 
 		/// </summary>
 		public bool ClearSelectionOnDefocus {
 			get {
@@ -689,8 +719,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether reacts to click end instead of click start for item selection.
+		/// 
 		/// Or
 		/// Enable reacting to click end instead of click start for item selection. Default false.
+		/// 
 		/// </summary>
 		public bool SelectOnClickEnd {
 			get {
@@ -703,6 +735,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return number of items.
+		/// 
 		/// </summary>
 		public uint NumItems {
 			get {
@@ -712,6 +745,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return first selected item, or null if none selected.
+		/// 
 		/// </summary>
 		public UIElement SelectedItem {
 			get {

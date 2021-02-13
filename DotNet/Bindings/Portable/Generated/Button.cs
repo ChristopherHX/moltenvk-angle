@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -119,6 +120,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set offset to image rectangle used when pressed.
+		/// 
 		/// </summary>
 		private void SetPressedOffset (Urho.IntVector2 offset)
 		{
@@ -143,6 +145,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set offset of child elements when pressed.
+		/// 
 		/// </summary>
 		private void SetPressedChildOffset (Urho.IntVector2 offset)
 		{
@@ -179,6 +182,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set repeat delay.
+		/// 
 		/// </summary>
 		private void SetRepeatDelay (float delay)
 		{
@@ -191,6 +195,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set repeat rate.
+		/// 
 		/// </summary>
 		private void SetRepeatRate (float rate)
 		{
@@ -203,6 +208,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return pressed image offset.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetPressedOffset ()
 		{
@@ -215,6 +221,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return offset of child elements when pressed.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetPressedChildOffset ()
 		{
@@ -227,6 +234,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return repeat delay.
+		/// 
 		/// </summary>
 		private float GetRepeatDelay ()
 		{
@@ -239,6 +247,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return repeat rate.
+		/// 
 		/// </summary>
 		private float GetRepeatRate ()
 		{
@@ -251,6 +260,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is currently pressed.
+		/// 
 		/// </summary>
 		public bool IsPressed ()
 		{
@@ -285,8 +295,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return pressed image offset.
+		/// 
 		/// Or
 		/// Set offset to image rectangle used when pressed.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 PressedOffset {
 			get {
@@ -299,8 +311,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return offset of child elements when pressed.
+		/// 
 		/// Or
 		/// Set offset of child elements when pressed.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 PressedChildOffset {
 			get {
@@ -313,8 +327,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return repeat delay.
+		/// 
 		/// Or
 		/// Set repeat delay.
+		/// 
 		/// </summary>
 		public float RepeatDelay {
 			get {
@@ -327,8 +343,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return repeat rate.
+		/// 
 		/// Or
 		/// Set repeat rate.
+		/// 
 		/// </summary>
 		public float RepeatRate {
 			get {

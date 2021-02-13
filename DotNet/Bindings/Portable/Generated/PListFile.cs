@@ -95,6 +95,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{

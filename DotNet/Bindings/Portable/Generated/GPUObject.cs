@@ -125,6 +125,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether data is lost due to context loss.
+		/// 
 		/// </summary>
 		private bool IsDataLost ()
 		{
@@ -164,6 +165,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether data is lost due to context loss.
+		/// 
 		/// </summary>
 		public bool DataLost {
 			get {

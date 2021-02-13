@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory. StaticModel must be registered first.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -179,6 +180,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of instance nodes.
+		/// 
 		/// </summary>
 		private uint GetNumInstanceNodes ()
 		{
@@ -191,6 +193,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return instance node by index.
+		/// 
 		/// </summary>
 		public Node GetInstanceNode (uint index)
 		{
@@ -234,6 +237,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of instance nodes.
+		/// 
 		/// </summary>
 		public uint NumInstanceNodes {
 			get {

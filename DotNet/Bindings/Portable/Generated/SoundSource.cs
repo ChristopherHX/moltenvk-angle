@@ -95,6 +95,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -191,6 +192,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Set sound type, determines the master gain group.
+		/// 
 		/// </summary>
 		public void SetSoundType (string type)
 		{
@@ -203,6 +205,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Set frequency.
+		/// 
 		/// </summary>
 		private void SetFrequency (float frequency)
 		{
@@ -215,6 +218,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Set gain. 0.0 is silence, 1.0 is full volume.
+		/// 
 		/// </summary>
 		private void SetGain (float gain)
 		{
@@ -239,6 +243,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Set stereo panning. -1.0 is full left and 1.0 is full right.
+		/// 
 		/// </summary>
 		private void SetPanning (float panning)
 		{
@@ -251,6 +256,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Set to remove either the sound source component or its owner node from the scene automatically on sound playback completion. Disabled by default.
+		/// 
 		/// </summary>
 		private void SetAutoRemoveMode (AutoRemoveMode mode)
 		{
@@ -275,6 +281,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return sound.
+		/// 
 		/// </summary>
 		private Sound GetSound ()
 		{
@@ -299,6 +306,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return sound type, determines the master gain group.
+		/// 
 		/// </summary>
 		private string GetSoundType ()
 		{
@@ -311,6 +319,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return playback time position.
+		/// 
 		/// </summary>
 		private float GetTimePosition ()
 		{
@@ -323,6 +332,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return frequency.
+		/// 
 		/// </summary>
 		private float GetFrequency ()
 		{
@@ -335,6 +345,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return gain.
+		/// 
 		/// </summary>
 		private float GetGain ()
 		{
@@ -347,6 +358,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return attenuation.
+		/// 
 		/// </summary>
 		private float GetAttenuation ()
 		{
@@ -359,6 +371,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return stereo panning.
+		/// 
 		/// </summary>
 		private float GetPanning ()
 		{
@@ -371,6 +384,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return automatic removal mode on sound playback completion.
+		/// 
 		/// </summary>
 		private AutoRemoveMode GetAutoRemoveMode ()
 		{
@@ -383,6 +397,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether is playing.
+		/// 
 		/// </summary>
 		private bool IsPlaying ()
 		{
@@ -501,6 +516,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return sound type, determines the master gain group.
+		/// 
 		/// </summary>
 		public string SoundType {
 			get {
@@ -510,8 +526,10 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return frequency.
+		/// 
 		/// Or
 		/// Set frequency.
+		/// 
 		/// </summary>
 		public float Frequency {
 			get {
@@ -524,8 +542,10 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return gain.
+		/// 
 		/// Or
 		/// Set gain. 0.0 is silence, 1.0 is full volume.
+		/// 
 		/// </summary>
 		public float Gain {
 			get {
@@ -538,6 +558,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return attenuation.
+		/// 
 		/// Or
 		/// Set attenuation. 1.0 is unaltered. Used for distance attenuated playback.
 		/// </summary>
@@ -552,8 +573,10 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return stereo panning.
+		/// 
 		/// Or
 		/// Set stereo panning. -1.0 is full left and 1.0 is full right.
+		/// 
 		/// </summary>
 		public float Panning {
 			get {
@@ -566,8 +589,10 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return automatic removal mode on sound playback completion.
+		/// 
 		/// Or
 		/// Set to remove either the sound source component or its owner node from the scene automatically on sound playback completion. Disabled by default.
+		/// 
 		/// </summary>
 		public AutoRemoveMode AutoRemoveMode {
 			get {
@@ -589,6 +614,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return sound.
+		/// 
 		/// </summary>
 		public Sound Sound {
 			get {
@@ -598,6 +624,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return playback time position.
+		/// 
 		/// </summary>
 		public float TimePosition {
 			get {
@@ -607,6 +634,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether is playing.
+		/// 
 		/// </summary>
 		public bool Playing {
 			get {

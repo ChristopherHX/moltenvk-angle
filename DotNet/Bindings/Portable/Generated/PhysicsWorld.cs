@@ -95,6 +95,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -167,6 +168,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set simulation substeps per second.
+		/// 
 		/// </summary>
 		private void SetFps (int fps)
 		{
@@ -179,6 +181,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set gravity.
+		/// 
 		/// </summary>
 		public void SetGravity (Urho.Vector3 gravity)
 		{
@@ -191,6 +194,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set maximum number of physics substeps per frame. 0 (default) is unlimited. Positive values cap the amount. Use a negative value to enable an adaptive timestep. This may cause inconsistent physics behavior.
+		/// 
 		/// </summary>
 		private void SetMaxSubSteps (int num)
 		{
@@ -203,6 +207,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set number of constraint solver iterations.
+		/// 
 		/// </summary>
 		private void SetNumIterations (int num)
 		{
@@ -215,6 +220,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Enable or disable automatic physics simulation during scene update. Enabled by default.
+		/// 
 		/// </summary>
 		private void SetUpdateEnabled (bool enable)
 		{
@@ -227,6 +233,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set whether to interpolate between simulation steps.
+		/// 
 		/// </summary>
 		private void SetInterpolation (bool enable)
 		{
@@ -239,6 +246,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set whether to use Bullet's internal edge utility for trimesh collisions. Disabled by default.
+		/// 
 		/// </summary>
 		private void SetInternalEdge (bool enable)
 		{
@@ -251,6 +259,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set split impulse collision mode. This is more accurate, but slower. Disabled by default.
+		/// 
 		/// </summary>
 		private void SetSplitImpulse (bool enable)
 		{
@@ -336,6 +345,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return gravity.
+		/// 
 		/// </summary>
 		private Vector3 GetGravity ()
 		{
@@ -348,6 +358,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return maximum number of physics substeps per frame.
+		/// 
 		/// </summary>
 		private int GetMaxSubSteps ()
 		{
@@ -360,6 +371,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return number of constraint solver iterations.
+		/// 
 		/// </summary>
 		private int GetNumIterations ()
 		{
@@ -372,6 +384,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return whether physics world will automatically simulate during scene update.
+		/// 
 		/// </summary>
 		private bool IsUpdateEnabled ()
 		{
@@ -384,6 +397,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return whether interpolation between simulation steps is enabled.
+		/// 
 		/// </summary>
 		private bool GetInterpolation ()
 		{
@@ -396,6 +410,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return whether Bullet's internal edge utility for trimesh collisions is enabled.
+		/// 
 		/// </summary>
 		private bool GetInternalEdge ()
 		{
@@ -408,6 +423,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return whether split impulse collision mode is enabled.
+		/// 
 		/// </summary>
 		private bool GetSplitImpulse ()
 		{
@@ -420,6 +436,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return simulation steps per second.
+		/// 
 		/// </summary>
 		private int GetFps ()
 		{
@@ -622,8 +639,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return simulation steps per second.
+		/// 
 		/// Or
 		/// Set simulation substeps per second.
+		/// 
 		/// </summary>
 		public int Fps {
 			get {
@@ -636,6 +655,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return gravity.
+		/// 
 		/// </summary>
 		public Vector3 Gravity {
 			get {
@@ -645,8 +665,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return maximum number of physics substeps per frame.
+		/// 
 		/// Or
 		/// Set maximum number of physics substeps per frame. 0 (default) is unlimited. Positive values cap the amount. Use a negative value to enable an adaptive timestep. This may cause inconsistent physics behavior.
+		/// 
 		/// </summary>
 		public int MaxSubSteps {
 			get {
@@ -659,8 +681,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return number of constraint solver iterations.
+		/// 
 		/// Or
 		/// Set number of constraint solver iterations.
+		/// 
 		/// </summary>
 		public int NumIterations {
 			get {
@@ -673,8 +697,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return whether physics world will automatically simulate during scene update.
+		/// 
 		/// Or
 		/// Enable or disable automatic physics simulation during scene update. Enabled by default.
+		/// 
 		/// </summary>
 		public bool UpdateEnabled {
 			get {
@@ -687,8 +713,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return whether interpolation between simulation steps is enabled.
+		/// 
 		/// Or
 		/// Set whether to interpolate between simulation steps.
+		/// 
 		/// </summary>
 		public bool Interpolation {
 			get {
@@ -701,8 +729,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return whether Bullet's internal edge utility for trimesh collisions is enabled.
+		/// 
 		/// Or
 		/// Set whether to use Bullet's internal edge utility for trimesh collisions. Disabled by default.
+		/// 
 		/// </summary>
 		public bool InternalEdge {
 			get {
@@ -715,8 +745,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return whether split impulse collision mode is enabled.
+		/// 
 		/// Or
 		/// Set split impulse collision mode. This is more accurate, but slower. Disabled by default.
+		/// 
 		/// </summary>
 		public bool SplitImpulse {
 			get {

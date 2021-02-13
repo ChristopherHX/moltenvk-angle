@@ -95,6 +95,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Set the current working directory.
+		/// 
 		/// </summary>
 		public bool SetCurrentDir (string pathName)
 		{
@@ -119,6 +120,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Set whether to execute engine console commands as OS-specific system command.
+		/// 
 		/// </summary>
 		private void SetExecuteConsoleCommands (bool enable)
 		{
@@ -227,6 +229,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return the absolute current working directory.
+		/// 
 		/// </summary>
 		private string GetCurrentDir ()
 		{
@@ -239,6 +242,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return whether is executing engine console commands as OS-specific system command.
+		/// 
 		/// </summary>
 		private bool GetExecuteConsoleCommands ()
 		{
@@ -311,6 +315,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return the program's directory.
+		/// 
 		/// </summary>
 		private string GetProgramDir ()
 		{
@@ -323,6 +328,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return the user documents directory.
+		/// 
 		/// </summary>
 		private string GetUserDocumentsDir ()
 		{
@@ -347,6 +353,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return path of temporary directory. Path always ends with a forward slash.
+		/// 
 		/// </summary>
 		private string GetTemporaryDir ()
 		{
@@ -381,6 +388,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return the absolute current working directory.
+		/// 
 		/// </summary>
 		public string CurrentDir {
 			get {
@@ -390,8 +398,10 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return whether is executing engine console commands as OS-specific system command.
+		/// 
 		/// Or
 		/// Set whether to execute engine console commands as OS-specific system command.
+		/// 
 		/// </summary>
 		public bool ExecuteConsoleCommands {
 			get {
@@ -404,6 +414,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return the program's directory.
+		/// 
 		/// </summary>
 		public string ProgramDir {
 			get {
@@ -413,6 +424,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return the user documents directory.
+		/// 
 		/// </summary>
 		public string UserDocumentsDir {
 			get {
@@ -422,6 +434,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return path of temporary directory. Path always ends with a forward slash.
+		/// 
 		/// </summary>
 		public string TemporaryDir {
 			get {

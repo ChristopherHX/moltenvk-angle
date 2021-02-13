@@ -3,6 +3,15 @@ LOCAL_CLANG=tools/clang+llvm-3.7.0-x86_64-apple-darwin/bin/clang
 CUSTOM_CLANG=$(pwd)/${LOCAL_CLANG}
 MONO64=mono64
 XBUILD=xbuild
+ 
+unamestr=$(uname)
+shopt -s expand_aliases
+if [[ "$unamestr" == "Darwin" ]]; then
+	alias aliassedinplace='sed -i ""'
+else
+	alias aliassedinplace='sed -i""'
+fi
+
 
 ./script/cmake_xcode.sh build-xcode -DURHO3D_PCH=0  -DURHO3D_WEBP=0 -DURHO3D_LUA=0 -DURHO3D_ANGELSCRIPT=0 -DURHO3D_TOOLS=1  -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15
 
@@ -13,3 +22,34 @@ $(echo "${MONO64} ${URHO3D_HOME}/tools/Nuget.exe restore SharpieBinder.sln")
 ${XBUILD} SharpieBinder.csproj 
 cd bin 
 ${MONO64} SharpieBinder.exe
+
+# Minor corrections on Generated files
+aliassedinplace "s*public void Remove ()*public void Remove2 ()*g" "${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/Node.cs"
+aliassedinplace "s*private void SetMaterial (Material material)*public void SetMaterial (Material material)*g" "${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/StaticModel.cs"
+
+# Hack , the files below are generated with errors , for now I am using customized/modified files , so deleting the generated files .
+rm -f ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/Key.cs
+rm -f ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/Scancode.cs
+rm -f ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/RefCount.cs
+rm -f ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/UrhoString.cs
+rm -f ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/Input.cs
+rm -f ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/WorkItem.cs
+
+# build UrhoDotNet.dll  assembly for all supported platforms
+cd ${URHO3D_HOME}/DotNet/Bindings
+./build-desktop-bindings.sh 
+./build-ios-bindings.sh
+./build-android-bindings.sh
+
+cd ${URHO3D_HOME}
+
+# copy UrhoDotNet.dll to the Resource folder
+cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.dll ${URHO3D_HOME}/bin/Data/DotNet/macos
+cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.dll ${URHO3D_HOME}/bin/Data/DotNet/linux
+cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.dll ${URHO3D_HOME}/bin/Data/DotNet/windows
+cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/ios/UrhoDotNet.dll ${URHO3D_HOME}/bin/Data/DotNet/ios
+cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/android/UrhoDotNet.dll ${URHO3D_HOME}/bin/Data/DotNet/android
+
+# copy the native binding file to the right Source folder
+cp -f ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/binding.cpp ${URHO3D_HOME}/Source/Urho3D/DotNet
+

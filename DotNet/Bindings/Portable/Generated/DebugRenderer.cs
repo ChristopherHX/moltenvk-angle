@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set line antialiasing on/off. Default false.
+		/// 
 		/// </summary>
 		private void SetLineAntiAlias (bool enable)
 		{
@@ -371,6 +373,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether line antialiasing is enabled.
+		/// 
 		/// </summary>
 		private bool GetLineAntiAlias ()
 		{
@@ -465,8 +468,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether line antialiasing is enabled.
+		/// 
 		/// Or
 		/// Set line antialiasing on/off. Default false.
+		/// 
 		/// </summary>
 		public bool LineAntiAlias {
 			get {

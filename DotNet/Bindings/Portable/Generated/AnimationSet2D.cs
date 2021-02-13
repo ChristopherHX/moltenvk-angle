@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -143,6 +144,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Get number of animations.
+		/// 
 		/// </summary>
 		private uint GetNumAnimations ()
 		{
@@ -225,6 +227,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Get number of animations.
+		/// 
 		/// </summary>
 		public uint NumAnimations {
 			get {

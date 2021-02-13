@@ -95,6 +95,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Set base priority. Default 100 (send updates at full frequency).
+		/// 
 		/// </summary>
 		private void SetBasePriority (float priority)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Set priority reduction distance factor. Default 0 (no effect).
+		/// 
 		/// </summary>
 		private void SetDistanceFactor (float factor)
 		{
@@ -131,6 +134,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Set minimum priority. Default 0 (no updates when far away enough).
+		/// 
 		/// </summary>
 		private void SetMinPriority (float priority)
 		{
@@ -143,6 +147,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Set whether updates to owner should be sent always at full rate. Default true.
+		/// 
 		/// </summary>
 		private void SetAlwaysUpdateOwner (bool enable)
 		{
@@ -155,6 +160,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return base priority.
+		/// 
 		/// </summary>
 		private float GetBasePriority ()
 		{
@@ -167,6 +173,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return priority reduction distance factor.
+		/// 
 		/// </summary>
 		private float GetDistanceFactor ()
 		{
@@ -179,6 +186,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return minimum priority.
+		/// 
 		/// </summary>
 		private float GetMinPriority ()
 		{
@@ -191,6 +199,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return whether updates to owner should be sent always at full rate.
+		/// 
 		/// </summary>
 		private bool GetAlwaysUpdateOwner ()
 		{
@@ -237,8 +246,10 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return base priority.
+		/// 
 		/// Or
 		/// Set base priority. Default 100 (send updates at full frequency).
+		/// 
 		/// </summary>
 		public float BasePriority {
 			get {
@@ -251,8 +262,10 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return priority reduction distance factor.
+		/// 
 		/// Or
 		/// Set priority reduction distance factor. Default 0 (no effect).
+		/// 
 		/// </summary>
 		public float DistanceFactor {
 			get {
@@ -265,8 +278,10 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return minimum priority.
+		/// 
 		/// Or
 		/// Set minimum priority. Default 0 (no updates when far away enough).
+		/// 
 		/// </summary>
 		public float MinPriority {
 			get {
@@ -279,8 +294,10 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return whether updates to owner should be sent always at full rate.
+		/// 
 		/// Or
 		/// Set whether updates to owner should be sent always at full rate. Default true.
+		/// 
 		/// </summary>
 		public bool AlwaysUpdateOwner {
 			get {

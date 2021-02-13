@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -191,6 +192,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set number of techniques.
+		/// 
 		/// </summary>
 		private void SetNumTechniques (uint num)
 		{
@@ -215,6 +217,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set additional vertex shader defines. Separate multiple defines with spaces. Setting defines at the material level causes technique(s) to be cloned as necessary.
+		/// 
 		/// </summary>
 		private void SetVertexShaderDefines (string defines)
 		{
@@ -227,6 +230,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set additional pixel shader defines. Separate multiple defines with spaces. Setting defines at the material level causes technique(s) to be cloned as necessary.
+		/// 
 		/// </summary>
 		private void SetPixelShaderDefines (string defines)
 		{
@@ -239,6 +243,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shader parameter.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, Vector3 value)
 		{
@@ -251,6 +256,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shader parameter.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, IntRect value)
 		{
@@ -263,6 +269,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shader parameter.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, Color value)
 		{
@@ -275,6 +282,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shader parameter.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, Vector2 value)
 		{
@@ -287,6 +295,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shader parameter.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, Vector4 value)
 		{
@@ -299,6 +308,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shader parameter.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, IntVector2 value)
 		{
@@ -311,6 +321,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shader parameter.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, Quaternion value)
 		{
@@ -323,6 +334,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shader parameter.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, Matrix4 value)
 		{
@@ -335,6 +347,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shader parameter.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, Matrix3x4 value)
 		{
@@ -347,6 +360,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shader parameter.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, int value)
 		{
@@ -359,6 +373,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shader parameter.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, float value)
 		{
@@ -371,6 +386,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shader parameter.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, string value)
 		{
@@ -383,6 +399,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shader parameter.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, bool value)
 		{
@@ -431,6 +448,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set texture.
+		/// 
 		/// </summary>
 		public void SetTexture (TextureUnit unit, Texture texture)
 		{
@@ -467,6 +485,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set culling mode.
+		/// 
 		/// </summary>
 		private void SetCullMode (CullMode mode)
 		{
@@ -479,6 +498,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set culling mode for shadows.
+		/// 
 		/// </summary>
 		private void SetShadowCullMode (CullMode mode)
 		{
@@ -491,6 +511,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set polygon fill mode. Interacts with the camera's fill mode setting so that the "least filled" mode will be used.
+		/// 
 		/// </summary>
 		private void SetFillMode (FillMode mode)
 		{
@@ -503,6 +524,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set depth bias parameters for depth write and compare. Note that the normal offset parameter is not used and will not be saved, as it affects only shadow map sampling during light rendering.
+		/// 
 		/// </summary>
 		private void SetDepthBias (BiasParameters parameters)
 		{
@@ -515,6 +537,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set alpha-to-coverage mode on all passes.
+		/// 
 		/// </summary>
 		private void SetAlphaToCoverage (bool enable)
 		{
@@ -527,6 +550,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set line antialiasing on/off. Has effect only on models that consist of line lists.
+		/// 
 		/// </summary>
 		private void SetLineAntiAlias (bool enable)
 		{
@@ -539,6 +563,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set 8-bit render order within pass. Default 128. Lower values will render earlier and higher values later, taking precedence over e.g. state and distance sorting.
+		/// 
 		/// </summary>
 		private void SetRenderOrder (byte order)
 		{
@@ -551,6 +576,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether to use in occlusion rendering. Default true.
+		/// 
 		/// </summary>
 		private void SetOcclusion (bool enable)
 		{
@@ -563,6 +589,7 @@ namespace Urho
 
 		/// <summary>
 		/// Associate the material with a scene to ensure that shader parameter animation happens in sync with scene update, respecting the scene time scale. If no scene is set, the global update events will be used.
+		/// 
 		/// </summary>
 		private void SetScene (Scene scene)
 		{
@@ -635,6 +662,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of techniques.
+		/// 
 		/// </summary>
 		private uint GetNumTechniques ()
 		{
@@ -647,6 +675,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return technique by index.
+		/// 
 		/// </summary>
 		public Technique GetTechnique (uint index)
 		{
@@ -671,6 +700,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return texture by unit.
+		/// 
 		/// </summary>
 		public Texture GetTexture (TextureUnit unit)
 		{
@@ -683,6 +713,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return additional vertex shader defines.
+		/// 
 		/// </summary>
 		private string GetVertexShaderDefines ()
 		{
@@ -695,6 +726,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return additional pixel shader defines.
+		/// 
 		/// </summary>
 		private string GetPixelShaderDefines ()
 		{
@@ -743,6 +775,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return normal culling mode.
+		/// 
 		/// </summary>
 		private CullMode GetCullMode ()
 		{
@@ -755,6 +788,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return culling mode for shadows.
+		/// 
 		/// </summary>
 		private CullMode GetShadowCullMode ()
 		{
@@ -767,6 +801,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return polygon fill mode.
+		/// 
 		/// </summary>
 		private FillMode GetFillMode ()
 		{
@@ -779,6 +814,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return depth bias.
+		/// 
 		/// </summary>
 		private BiasParameters GetDepthBias ()
 		{
@@ -791,6 +827,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return alpha-to-coverage mode.
+		/// 
 		/// </summary>
 		private bool GetAlphaToCoverage ()
 		{
@@ -803,6 +840,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether line antialiasing is enabled.
+		/// 
 		/// </summary>
 		private bool GetLineAntiAlias ()
 		{
@@ -815,6 +853,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return render order.
+		/// 
 		/// </summary>
 		private byte GetRenderOrder ()
 		{
@@ -839,6 +878,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether should render occlusion.
+		/// 
 		/// </summary>
 		private bool GetOcclusion ()
 		{
@@ -863,6 +903,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the scene associated with the material for shader parameter animation updates.
+		/// 
 		/// </summary>
 		private Scene GetScene ()
 		{
@@ -933,8 +974,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of techniques.
+		/// 
 		/// Or
 		/// Set number of techniques.
+		/// 
 		/// </summary>
 		public uint NumTechniques {
 			get {
@@ -947,8 +990,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return additional vertex shader defines.
+		/// 
 		/// Or
 		/// Set additional vertex shader defines. Separate multiple defines with spaces. Setting defines at the material level causes technique(s) to be cloned as necessary.
+		/// 
 		/// </summary>
 		public string VertexShaderDefines {
 			get {
@@ -961,8 +1006,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return additional pixel shader defines.
+		/// 
 		/// Or
 		/// Set additional pixel shader defines. Separate multiple defines with spaces. Setting defines at the material level causes technique(s) to be cloned as necessary.
+		/// 
 		/// </summary>
 		public string PixelShaderDefines {
 			get {
@@ -975,8 +1022,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return normal culling mode.
+		/// 
 		/// Or
 		/// Set culling mode.
+		/// 
 		/// </summary>
 		public CullMode CullMode {
 			get {
@@ -989,8 +1038,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return culling mode for shadows.
+		/// 
 		/// Or
 		/// Set culling mode for shadows.
+		/// 
 		/// </summary>
 		public CullMode ShadowCullMode {
 			get {
@@ -1003,8 +1054,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return polygon fill mode.
+		/// 
 		/// Or
 		/// Set polygon fill mode. Interacts with the camera's fill mode setting so that the "least filled" mode will be used.
+		/// 
 		/// </summary>
 		public FillMode FillMode {
 			get {
@@ -1017,8 +1070,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return depth bias.
+		/// 
 		/// Or
 		/// Set depth bias parameters for depth write and compare. Note that the normal offset parameter is not used and will not be saved, as it affects only shadow map sampling during light rendering.
+		/// 
 		/// </summary>
 		public BiasParameters DepthBias {
 			get {
@@ -1031,8 +1086,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return alpha-to-coverage mode.
+		/// 
 		/// Or
 		/// Set alpha-to-coverage mode on all passes.
+		/// 
 		/// </summary>
 		public bool AlphaToCoverage {
 			get {
@@ -1045,8 +1102,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether line antialiasing is enabled.
+		/// 
 		/// Or
 		/// Set line antialiasing on/off. Has effect only on models that consist of line lists.
+		/// 
 		/// </summary>
 		public bool LineAntiAlias {
 			get {
@@ -1059,8 +1118,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return render order.
+		/// 
 		/// Or
 		/// Set 8-bit render order within pass. Default 128. Lower values will render earlier and higher values later, taking precedence over e.g. state and distance sorting.
+		/// 
 		/// </summary>
 		public byte RenderOrder {
 			get {
@@ -1073,8 +1134,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether should render occlusion.
+		/// 
 		/// Or
 		/// Set whether to use in occlusion rendering. Default true.
+		/// 
 		/// </summary>
 		public bool Occlusion {
 			get {
@@ -1087,8 +1150,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return the scene associated with the material for shader parameter animation updates.
+		/// 
 		/// Or
 		/// Associate the material with a scene to ensure that shader parameter animation happens in sync with scene update, respecting the scene time scale. If no scene is set, the global update events will be used.
+		/// 
 		/// </summary>
 		public Scene Scene {
 			get {

@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set checked state.
+		/// 
 		/// </summary>
 		private void SetChecked (bool enable)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set checked image offset.
+		/// 
 		/// </summary>
 		private void SetCheckedOffset (Urho.IntVector2 offset)
 		{
@@ -143,6 +146,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is checked.
+		/// 
 		/// </summary>
 		private bool IsChecked ()
 		{
@@ -155,6 +159,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return checked image offset.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetCheckedOffset ()
 		{
@@ -189,8 +194,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is checked.
+		/// 
 		/// Or
 		/// Set checked state.
+		/// 
 		/// </summary>
 		public bool Checked {
 			get {
@@ -203,8 +210,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return checked image offset.
+		/// 
 		/// Or
 		/// Set checked image offset.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 CheckedOffset {
 			get {

@@ -95,6 +95,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -155,6 +156,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Submit a new target position request for this agent.
+		/// 
 		/// </summary>
 		private void SetTargetPosition (Urho.Vector3 position)
 		{
@@ -167,6 +169,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Submit a new target velocity request for this agent.
+		/// 
 		/// </summary>
 		private void SetTargetVelocity (Urho.Vector3 velocity)
 		{
@@ -191,6 +194,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Update the node position. When set to false, the node position should be updated by other means (e.g. using Physics) in response to the E_CROWD_AGENT_REPOSITION event.
+		/// 
 		/// </summary>
 		private void SetUpdateNodePosition (bool unodepos)
 		{
@@ -203,6 +207,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set the agent's max acceleration.
+		/// 
 		/// </summary>
 		private void SetMaxAccel (float maxAccel)
 		{
@@ -215,6 +220,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set the agent's max velocity.
+		/// 
 		/// </summary>
 		private void SetMaxSpeed (float maxSpeed)
 		{
@@ -227,6 +233,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set the agent's radius.
+		/// 
 		/// </summary>
 		private void SetRadius (float radius)
 		{
@@ -239,6 +246,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set the agent's height.
+		/// 
 		/// </summary>
 		private void SetHeight (float height)
 		{
@@ -251,6 +259,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set the agent's query filter type.
+		/// 
 		/// </summary>
 		private void SetQueryFilterType (uint queryFilterType)
 		{
@@ -263,6 +272,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set the agent's obstacle avoidance type.
+		/// 
 		/// </summary>
 		private void SetObstacleAvoidanceType (uint obstacleAvoidanceType)
 		{
@@ -275,6 +285,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set the agent's navigation quality.
+		/// 
 		/// </summary>
 		private void SetNavigationQuality (NavigationQuality val)
 		{
@@ -287,6 +298,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set the agent's navigation pushiness.
+		/// 
 		/// </summary>
 		private void SetNavigationPushiness (NavigationPushiness val)
 		{
@@ -299,6 +311,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the agent's position.
+		/// 
 		/// </summary>
 		private Vector3 GetPosition ()
 		{
@@ -311,6 +324,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the agent's desired velocity.
+		/// 
 		/// </summary>
 		private Vector3 GetDesiredVelocity ()
 		{
@@ -323,6 +337,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the agent's actual velocity.
+		/// 
 		/// </summary>
 		private Vector3 GetActualVelocity ()
 		{
@@ -335,6 +350,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the agent's requested target position.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetTargetPosition ()
 		{
@@ -347,6 +363,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the agent's requested target velocity.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetTargetVelocity ()
 		{
@@ -359,6 +376,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the agent's requested target type, if any.
+		/// 
 		/// </summary>
 		private CrowdAgentRequestedTarget GetRequestedTargetType ()
 		{
@@ -371,6 +389,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the agent's  state.
+		/// 
 		/// </summary>
 		private CrowdAgentState GetAgentState ()
 		{
@@ -383,6 +402,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the agent's target state.
+		/// 
 		/// </summary>
 		private CrowdAgentTargetState GetTargetState ()
 		{
@@ -395,6 +415,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return true when the node's position should be updated by the CrowdManager.
+		/// 
 		/// </summary>
 		private bool GetUpdateNodePosition ()
 		{
@@ -419,6 +440,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the agent's max acceleration.
+		/// 
 		/// </summary>
 		private float GetMaxAccel ()
 		{
@@ -431,6 +453,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the agent's max velocity.
+		/// 
 		/// </summary>
 		private float GetMaxSpeed ()
 		{
@@ -443,6 +466,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the agent's radius.
+		/// 
 		/// </summary>
 		private float GetRadius ()
 		{
@@ -455,6 +479,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the agent's height.
+		/// 
 		/// </summary>
 		private float GetHeight ()
 		{
@@ -467,6 +492,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the agent's query filter type.
+		/// 
 		/// </summary>
 		private uint GetQueryFilterType ()
 		{
@@ -479,6 +505,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the agent's obstacle avoidance type.
+		/// 
 		/// </summary>
 		private uint GetObstacleAvoidanceType ()
 		{
@@ -491,6 +518,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the agent's navigation quality.
+		/// 
 		/// </summary>
 		private NavigationQuality GetNavigationQuality ()
 		{
@@ -503,6 +531,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the agent's navigation pushiness.
+		/// 
 		/// </summary>
 		private NavigationPushiness GetNavigationPushiness ()
 		{
@@ -515,6 +544,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return true when the agent has a target.
+		/// 
 		/// </summary>
 		public bool HasRequestedTarget ()
 		{
@@ -527,6 +557,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return true when the agent has arrived at its target.
+		/// 
 		/// </summary>
 		public bool HasArrived ()
 		{
@@ -539,6 +570,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return true when the agent is in crowd (being managed by a crowd manager).
+		/// 
 		/// </summary>
 		private bool IsInCrowd ()
 		{
@@ -573,8 +605,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the agent's requested target position.
+		/// 
 		/// Or
 		/// Submit a new target position request for this agent.
+		/// 
 		/// </summary>
 		public Urho.Vector3 TargetPosition {
 			get {
@@ -587,8 +621,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the agent's requested target velocity.
+		/// 
 		/// Or
 		/// Submit a new target velocity request for this agent.
+		/// 
 		/// </summary>
 		public Urho.Vector3 TargetVelocity {
 			get {
@@ -601,8 +637,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return true when the node's position should be updated by the CrowdManager.
+		/// 
 		/// Or
 		/// Update the node position. When set to false, the node position should be updated by other means (e.g. using Physics) in response to the E_CROWD_AGENT_REPOSITION event.
+		/// 
 		/// </summary>
 		public bool UpdateNodePosition {
 			get {
@@ -615,8 +653,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the agent's max acceleration.
+		/// 
 		/// Or
 		/// Set the agent's max acceleration.
+		/// 
 		/// </summary>
 		public float MaxAccel {
 			get {
@@ -629,8 +669,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the agent's max velocity.
+		/// 
 		/// Or
 		/// Set the agent's max velocity.
+		/// 
 		/// </summary>
 		public float MaxSpeed {
 			get {
@@ -643,8 +685,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the agent's radius.
+		/// 
 		/// Or
 		/// Set the agent's radius.
+		/// 
 		/// </summary>
 		public float Radius {
 			get {
@@ -657,8 +701,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the agent's height.
+		/// 
 		/// Or
 		/// Set the agent's height.
+		/// 
 		/// </summary>
 		public float Height {
 			get {
@@ -671,8 +717,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the agent's query filter type.
+		/// 
 		/// Or
 		/// Set the agent's query filter type.
+		/// 
 		/// </summary>
 		public uint QueryFilterType {
 			get {
@@ -685,8 +733,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the agent's obstacle avoidance type.
+		/// 
 		/// Or
 		/// Set the agent's obstacle avoidance type.
+		/// 
 		/// </summary>
 		public uint ObstacleAvoidanceType {
 			get {
@@ -699,8 +749,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the agent's navigation quality.
+		/// 
 		/// Or
 		/// Set the agent's navigation quality.
+		/// 
 		/// </summary>
 		public NavigationQuality NavigationQuality {
 			get {
@@ -713,8 +765,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the agent's navigation pushiness.
+		/// 
 		/// Or
 		/// Set the agent's navigation pushiness.
+		/// 
 		/// </summary>
 		public NavigationPushiness NavigationPushiness {
 			get {
@@ -727,6 +781,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the agent's position.
+		/// 
 		/// </summary>
 		public Vector3 Position {
 			get {
@@ -736,6 +791,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the agent's desired velocity.
+		/// 
 		/// </summary>
 		public Vector3 DesiredVelocity {
 			get {
@@ -745,6 +801,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the agent's actual velocity.
+		/// 
 		/// </summary>
 		public Vector3 ActualVelocity {
 			get {
@@ -754,6 +811,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the agent's requested target type, if any.
+		/// 
 		/// </summary>
 		public CrowdAgentRequestedTarget RequestedTargetType {
 			get {
@@ -763,6 +821,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the agent's  state.
+		/// 
 		/// </summary>
 		public CrowdAgentState AgentState {
 			get {
@@ -772,6 +831,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the agent's target state.
+		/// 
 		/// </summary>
 		public CrowdAgentTargetState TargetState {
 			get {
@@ -790,6 +850,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return true when the agent is in crowd (being managed by a crowd manager).
+		/// 
 		/// </summary>
 		public bool InCrowd {
 			get {

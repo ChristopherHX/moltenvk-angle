@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -131,6 +132,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set draw order.
+		/// 
 		/// </summary>
 		private void SetDrawOrder (int drawOrder)
 		{
@@ -143,6 +145,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set visible.
+		/// 
 		/// </summary>
 		private void SetVisible (bool visible)
 		{
@@ -179,6 +182,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return draw order.
+		/// 
 		/// </summary>
 		private int GetDrawOrder ()
 		{
@@ -191,6 +195,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return visible.
+		/// 
 		/// </summary>
 		private bool IsVisible ()
 		{
@@ -227,6 +232,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return layer type.
+		/// 
 		/// </summary>
 		private TileMapLayerType2D GetLayerType ()
 		{
@@ -239,6 +245,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return width (for tile layer only).
+		/// 
 		/// </summary>
 		private int GetWidth ()
 		{
@@ -251,6 +258,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return height (for tile layer only).
+		/// 
 		/// </summary>
 		private int GetHeight ()
 		{
@@ -287,6 +295,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return number of tile map objects (for object group only).
+		/// 
 		/// </summary>
 		private uint GetNumObjects ()
 		{
@@ -323,6 +332,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return image node (for image layer only).
+		/// 
 		/// </summary>
 		private Node GetImageNode ()
 		{
@@ -357,8 +367,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return draw order.
+		/// 
 		/// Or
 		/// Set draw order.
+		/// 
 		/// </summary>
 		public int DrawOrder {
 			get {
@@ -371,8 +383,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return visible.
+		/// 
 		/// Or
 		/// Set visible.
+		/// 
 		/// </summary>
 		public bool Visible {
 			get {
@@ -403,6 +417,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return layer type.
+		/// 
 		/// </summary>
 		public TileMapLayerType2D LayerType {
 			get {
@@ -412,6 +427,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return width (for tile layer only).
+		/// 
 		/// </summary>
 		public int Width {
 			get {
@@ -421,6 +437,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return height (for tile layer only).
+		/// 
 		/// </summary>
 		public int Height {
 			get {
@@ -430,6 +447,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return number of tile map objects (for object group only).
+		/// 
 		/// </summary>
 		public uint NumObjects {
 			get {
@@ -439,6 +457,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return image node (for image layer only).
+		/// 
 		/// </summary>
 		public Node ImageNode {
 			get {

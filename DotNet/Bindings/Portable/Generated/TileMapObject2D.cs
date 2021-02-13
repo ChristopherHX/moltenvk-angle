@@ -54,6 +54,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return type.
+		/// 
 		/// </summary>
 		private TileMapObjectType2D GetObjectType ()
 		{
@@ -66,6 +67,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return name.
+		/// 
 		/// </summary>
 		private string GetName ()
 		{
@@ -78,6 +80,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return type.
+		/// 
 		/// </summary>
 		private string UrhoGetType ()
 		{
@@ -90,6 +93,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return position.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetPosition ()
 		{
@@ -102,6 +106,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return size (for rectangle and ellipse).
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetSize ()
 		{
@@ -114,6 +119,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return number of points (use for script).
+		/// 
 		/// </summary>
 		private uint GetNumPoints ()
 		{
@@ -138,6 +144,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return tile Gid.
+		/// 
 		/// </summary>
 		private uint GetTileGid ()
 		{
@@ -150,6 +157,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return tile flip X.
+		/// 
 		/// </summary>
 		private bool GetTileFlipX ()
 		{
@@ -162,6 +170,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return tile flip Y.
+		/// 
 		/// </summary>
 		private bool GetTileFlipY ()
 		{
@@ -174,6 +183,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return tile swap X and Y.
+		/// 
 		/// </summary>
 		private bool GetTileSwapXY ()
 		{
@@ -186,6 +196,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return tile sprite.
+		/// 
 		/// </summary>
 		private Sprite2D GetTileSprite ()
 		{
@@ -219,6 +230,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return type.
+		/// 
 		/// </summary>
 		public TileMapObjectType2D ObjectType {
 			get {
@@ -228,6 +240,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return name.
+		/// 
 		/// </summary>
 		public string Name {
 			get {
@@ -237,6 +250,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return type.
+		/// 
 		/// </summary>
 		public string Type {
 			get {
@@ -246,6 +260,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return position.
+		/// 
 		/// </summary>
 		public Urho.Vector2 Position {
 			get {
@@ -255,6 +270,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return size (for rectangle and ellipse).
+		/// 
 		/// </summary>
 		public Urho.Vector2 Size {
 			get {
@@ -264,6 +280,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return number of points (use for script).
+		/// 
 		/// </summary>
 		public uint NumPoints {
 			get {
@@ -273,6 +290,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return tile Gid.
+		/// 
 		/// </summary>
 		public uint TileGid {
 			get {
@@ -282,6 +300,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return tile flip X.
+		/// 
 		/// </summary>
 		public bool TileFlipX {
 			get {
@@ -291,6 +310,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return tile flip Y.
+		/// 
 		/// </summary>
 		public bool TileFlipY {
 			get {
@@ -300,6 +320,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return tile swap X and Y.
+		/// 
 		/// </summary>
 		public bool TileSwapXY {
 			get {
@@ -309,6 +330,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return tile sprite.
+		/// 
 		/// </summary>
 		public Sprite2D TileSprite {
 			get {

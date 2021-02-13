@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -155,6 +156,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set content element.
+		/// 
 		/// </summary>
 		private void SetContentElement (UIElement element)
 		{
@@ -167,6 +169,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set view offset from the top-left corner.
+		/// 
 		/// </summary>
 		private void SetViewPosition (Urho.IntVector2 position)
 		{
@@ -203,6 +206,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set horizontal scrollbar visibility manually. Disables scrollbar autoshow/hide.
+		/// 
 		/// </summary>
 		private void SetHorizontalScrollBarVisible (bool visible)
 		{
@@ -215,6 +219,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set vertical scrollbar visibility manually. Disables scrollbar autoshow/hide.
+		/// 
 		/// </summary>
 		private void SetVerticalScrollBarVisible (bool visible)
 		{
@@ -227,6 +232,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether to automatically show/hide scrollbars. Default true.
+		/// 
 		/// </summary>
 		private void SetScrollBarsAutoVisible (bool enable)
 		{
@@ -239,6 +245,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set arrow key scroll step. Also sets it on the scrollbars.
+		/// 
 		/// </summary>
 		private void SetScrollStep (float step)
 		{
@@ -251,6 +258,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set arrow key page step.
+		/// 
 		/// </summary>
 		private void SetPageStep (float step)
 		{
@@ -263,6 +271,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set scroll deceleration.
+		/// 
 		/// </summary>
 		private void SetScrollDeceleration (float deceleration)
 		{
@@ -275,6 +284,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set scroll snap epsilon.
+		/// 
 		/// </summary>
 		private void SetScrollSnapEpsilon (float snap)
 		{
@@ -287,6 +297,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether child elements should be disabled while touch scrolling.
+		/// 
 		/// </summary>
 		private void SetAutoDisableChildren (bool disable)
 		{
@@ -299,6 +310,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set how much touch movement is needed to trigger child element disabling.
+		/// 
 		/// </summary>
 		private void SetAutoDisableThreshold (float amount)
 		{
@@ -311,6 +323,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return view offset from the top-left corner.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetViewPosition ()
 		{
@@ -323,6 +336,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return content element.
+		/// 
 		/// </summary>
 		private UIElement GetContentElement ()
 		{
@@ -335,6 +349,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return horizontal scroll bar.
+		/// 
 		/// </summary>
 		private ScrollBar GetHorizontalScrollBar ()
 		{
@@ -347,6 +362,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return vertical scroll bar.
+		/// 
 		/// </summary>
 		private ScrollBar GetVerticalScrollBar ()
 		{
@@ -359,6 +375,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return scroll panel.
+		/// 
 		/// </summary>
 		private BorderImage GetScrollPanel ()
 		{
@@ -371,6 +388,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether scrollbars are automatically shown/hidden.
+		/// 
 		/// </summary>
 		private bool GetScrollBarsAutoVisible ()
 		{
@@ -383,6 +401,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether the horizontal scrollbar is visible.
+		/// 
 		/// </summary>
 		private bool GetHorizontalScrollBarVisible ()
 		{
@@ -395,6 +414,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether the vertical scrollbar is visible.
+		/// 
 		/// </summary>
 		private bool GetVerticalScrollBarVisible ()
 		{
@@ -407,6 +427,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return arrow key scroll step.
+		/// 
 		/// </summary>
 		private float GetScrollStep ()
 		{
@@ -419,6 +440,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return arrow key page step.
+		/// 
 		/// </summary>
 		private float GetPageStep ()
 		{
@@ -431,6 +453,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return scroll deceleration.
+		/// 
 		/// </summary>
 		private float GetScrollDeceleration ()
 		{
@@ -443,6 +466,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return scroll snap epsilon.
+		/// 
 		/// </summary>
 		private float GetScrollSnapEpsilon ()
 		{
@@ -455,6 +479,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether child element will be disabled while touch scrolling.
+		/// 
 		/// </summary>
 		private bool GetAutoDisableChildren ()
 		{
@@ -467,6 +492,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return how much touch movement is needed to trigger child element disabling.
+		/// 
 		/// </summary>
 		private float GetAutoDisableThreshold ()
 		{
@@ -522,8 +548,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return content element.
+		/// 
 		/// Or
 		/// Set content element.
+		/// 
 		/// </summary>
 		public UIElement ContentElement {
 			get {
@@ -536,8 +564,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return view offset from the top-left corner.
+		/// 
 		/// Or
 		/// Set view offset from the top-left corner.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 ViewPosition {
 			get {
@@ -550,8 +580,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether the horizontal scrollbar is visible.
+		/// 
 		/// Or
 		/// Set horizontal scrollbar visibility manually. Disables scrollbar autoshow/hide.
+		/// 
 		/// </summary>
 		public bool HorizontalScrollBarVisible {
 			get {
@@ -564,8 +596,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether the vertical scrollbar is visible.
+		/// 
 		/// Or
 		/// Set vertical scrollbar visibility manually. Disables scrollbar autoshow/hide.
+		/// 
 		/// </summary>
 		public bool VerticalScrollBarVisible {
 			get {
@@ -578,8 +612,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether scrollbars are automatically shown/hidden.
+		/// 
 		/// Or
 		/// Set whether to automatically show/hide scrollbars. Default true.
+		/// 
 		/// </summary>
 		public bool ScrollBarsAutoVisible {
 			get {
@@ -592,8 +628,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return arrow key scroll step.
+		/// 
 		/// Or
 		/// Set arrow key scroll step. Also sets it on the scrollbars.
+		/// 
 		/// </summary>
 		public float ScrollStep {
 			get {
@@ -606,8 +644,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return arrow key page step.
+		/// 
 		/// Or
 		/// Set arrow key page step.
+		/// 
 		/// </summary>
 		public float PageStep {
 			get {
@@ -620,8 +660,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return scroll deceleration.
+		/// 
 		/// Or
 		/// Set scroll deceleration.
+		/// 
 		/// </summary>
 		public float ScrollDeceleration {
 			get {
@@ -634,8 +676,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return scroll snap epsilon.
+		/// 
 		/// Or
 		/// Set scroll snap epsilon.
+		/// 
 		/// </summary>
 		public float ScrollSnapEpsilon {
 			get {
@@ -648,8 +692,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether child element will be disabled while touch scrolling.
+		/// 
 		/// Or
 		/// Set whether child elements should be disabled while touch scrolling.
+		/// 
 		/// </summary>
 		public bool AutoDisableChildren {
 			get {
@@ -662,8 +708,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return how much touch movement is needed to trigger child element disabling.
+		/// 
 		/// Or
 		/// Set how much touch movement is needed to trigger child element disabling.
+		/// 
 		/// </summary>
 		public float AutoDisableThreshold {
 			get {
@@ -676,6 +724,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return horizontal scroll bar.
+		/// 
 		/// </summary>
 		public ScrollBar HorizontalScrollBar {
 			get {
@@ -685,6 +734,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return vertical scroll bar.
+		/// 
 		/// </summary>
 		public ScrollBar VerticalScrollBar {
 			get {
@@ -694,6 +744,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return scroll panel.
+		/// 
 		/// </summary>
 		public BorderImage ScrollPanel {
 			get {

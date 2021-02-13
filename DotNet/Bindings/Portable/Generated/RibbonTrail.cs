@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -131,6 +132,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set material.
+		/// 
 		/// </summary>
 		private void SetMaterial (Material material)
 		{
@@ -143,6 +145,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set distance between points.
+		/// 
 		/// </summary>
 		private void SetVertexDistance (float length)
 		{
@@ -155,6 +158,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set width of the tail. Only works for face camera trail type.
+		/// 
 		/// </summary>
 		private void SetWidth (float width)
 		{
@@ -167,6 +171,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set vertex blended color for start of trail.
+		/// 
 		/// </summary>
 		private void SetStartColor (Urho.Color color)
 		{
@@ -179,6 +184,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set vertex blended scale for end of trail.
+		/// 
 		/// </summary>
 		private void SetEndColor (Urho.Color color)
 		{
@@ -191,6 +197,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set vertex blended color for start of trail.
+		/// 
 		/// </summary>
 		private void SetStartScale (float startScale)
 		{
@@ -203,6 +210,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set vertex blended scale for end of trail.
+		/// 
 		/// </summary>
 		private void SetEndScale (float endScale)
 		{
@@ -215,6 +223,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set how the trail behave.
+		/// 
 		/// </summary>
 		private void SetTrailType (TrailType type)
 		{
@@ -227,6 +236,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set base velocity applied to the trail.
+		/// 
 		/// </summary>
 		private void SetBaseVelocity (Urho.Vector3 baseVelocity)
 		{
@@ -239,6 +249,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether tails are sorted by distance. Default false.
+		/// 
 		/// </summary>
 		private void SetSorted (bool enable)
 		{
@@ -251,6 +262,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set tail time to live.
+		/// 
 		/// </summary>
 		private void SetLifetime (float time)
 		{
@@ -263,6 +275,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether trail should be emitting.
+		/// 
 		/// </summary>
 		private void SetEmitting (bool emitting)
 		{
@@ -275,6 +288,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether to update when trail emitter are not visible.
+		/// 
 		/// </summary>
 		private void SetUpdateInvisible (bool enable)
 		{
@@ -287,6 +301,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set number of column for every tails. Can be useful for fixing distortion at high angle.
+		/// 
 		/// </summary>
 		private void SetTailColumn (uint tailColumn)
 		{
@@ -299,6 +314,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set animation LOD bias.
+		/// 
 		/// </summary>
 		private void SetAnimationLodBias (float bias)
 		{
@@ -323,6 +339,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return material.
+		/// 
 		/// </summary>
 		private Material GetMaterial ()
 		{
@@ -347,6 +364,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get distance between points.
+		/// 
 		/// </summary>
 		private float GetVertexDistance ()
 		{
@@ -359,6 +377,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get width of the trail.
+		/// 
 		/// </summary>
 		private float GetWidth ()
 		{
@@ -371,6 +390,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get vertex blended color for start of trail.
+		/// 
 		/// </summary>
 		private Urho.Color GetStartColor ()
 		{
@@ -383,6 +403,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get vertex blended color for end of trail.
+		/// 
 		/// </summary>
 		private Urho.Color GetEndColor ()
 		{
@@ -395,6 +416,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get vertex blended scale for start of trail.
+		/// 
 		/// </summary>
 		private float GetStartScale ()
 		{
@@ -407,6 +429,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get vertex blended scale for end of trail.
+		/// 
 		/// </summary>
 		private float GetEndScale ()
 		{
@@ -419,6 +442,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether tails are sorted.
+		/// 
 		/// </summary>
 		private bool IsSorted ()
 		{
@@ -431,6 +455,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return tail time to live.
+		/// 
 		/// </summary>
 		private float GetLifetime ()
 		{
@@ -443,6 +468,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation LOD bias.
+		/// 
 		/// </summary>
 		private float GetAnimationLodBias ()
 		{
@@ -455,6 +481,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return how the trail behave.
+		/// 
 		/// </summary>
 		private TrailType GetTrailType ()
 		{
@@ -467,6 +494,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return base trail velocity.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetBaseVelocity ()
 		{
@@ -479,6 +507,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of column for tails.
+		/// 
 		/// </summary>
 		private uint GetTailColumn ()
 		{
@@ -491,6 +520,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is currently emitting.
+		/// 
 		/// </summary>
 		private bool IsEmitting ()
 		{
@@ -503,6 +533,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether to update when trail emitter are not visible.
+		/// 
 		/// </summary>
 		private bool GetUpdateInvisible ()
 		{
@@ -546,8 +577,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return material.
+		/// 
 		/// Or
 		/// Set material.
+		/// 
 		/// </summary>
 		public Material Material {
 			get {
@@ -569,8 +602,10 @@ namespace Urho
 
 		/// <summary>
 		/// Get distance between points.
+		/// 
 		/// Or
 		/// Set distance between points.
+		/// 
 		/// </summary>
 		public float VertexDistance {
 			get {
@@ -583,8 +618,10 @@ namespace Urho
 
 		/// <summary>
 		/// Get width of the trail.
+		/// 
 		/// Or
 		/// Set width of the tail. Only works for face camera trail type.
+		/// 
 		/// </summary>
 		public float Width {
 			get {
@@ -597,8 +634,10 @@ namespace Urho
 
 		/// <summary>
 		/// Get vertex blended color for start of trail.
+		/// 
 		/// Or
 		/// Set vertex blended color for start of trail.
+		/// 
 		/// </summary>
 		public Urho.Color StartColor {
 			get {
@@ -611,8 +650,10 @@ namespace Urho
 
 		/// <summary>
 		/// Get vertex blended color for end of trail.
+		/// 
 		/// Or
 		/// Set vertex blended scale for end of trail.
+		/// 
 		/// </summary>
 		public Urho.Color EndColor {
 			get {
@@ -625,8 +666,10 @@ namespace Urho
 
 		/// <summary>
 		/// Get vertex blended scale for start of trail.
+		/// 
 		/// Or
 		/// Set vertex blended color for start of trail.
+		/// 
 		/// </summary>
 		public float StartScale {
 			get {
@@ -639,8 +682,10 @@ namespace Urho
 
 		/// <summary>
 		/// Get vertex blended scale for end of trail.
+		/// 
 		/// Or
 		/// Set vertex blended scale for end of trail.
+		/// 
 		/// </summary>
 		public float EndScale {
 			get {
@@ -653,8 +698,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return how the trail behave.
+		/// 
 		/// Or
 		/// Set how the trail behave.
+		/// 
 		/// </summary>
 		public TrailType TrailType {
 			get {
@@ -667,8 +714,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return base trail velocity.
+		/// 
 		/// Or
 		/// Set base velocity applied to the trail.
+		/// 
 		/// </summary>
 		public Urho.Vector3 BaseVelocity {
 			get {
@@ -681,8 +730,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether tails are sorted.
+		/// 
 		/// Or
 		/// Set whether tails are sorted by distance. Default false.
+		/// 
 		/// </summary>
 		public bool Sorted {
 			get {
@@ -695,8 +746,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return tail time to live.
+		/// 
 		/// Or
 		/// Set tail time to live.
+		/// 
 		/// </summary>
 		public float Lifetime {
 			get {
@@ -709,8 +762,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is currently emitting.
+		/// 
 		/// Or
 		/// Set whether trail should be emitting.
+		/// 
 		/// </summary>
 		public bool Emitting {
 			get {
@@ -723,8 +778,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether to update when trail emitter are not visible.
+		/// 
 		/// Or
 		/// Set whether to update when trail emitter are not visible.
+		/// 
 		/// </summary>
 		public bool UpdateInvisible {
 			get {
@@ -737,8 +794,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of column for tails.
+		/// 
 		/// Or
 		/// Set number of column for every tails. Can be useful for fixing distortion at high angle.
+		/// 
 		/// </summary>
 		public uint TailColumn {
 			get {
@@ -751,8 +810,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation LOD bias.
+		/// 
 		/// Or
 		/// Set animation LOD bias.
+		/// 
 		/// </summary>
 		public float AnimationLodBias {
 			get {

@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set number of backbuffer viewports to render.
+		/// 
 		/// </summary>
 		private void SetNumViewports (uint num)
 		{
@@ -107,6 +108,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set a backbuffer viewport.
+		/// 
 		/// </summary>
 		public void SetViewport (uint index, Viewport viewport)
 		{
@@ -119,6 +121,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set default renderpath.
+		/// 
 		/// </summary>
 		private void SetDefaultRenderPath (RenderPath renderPath)
 		{
@@ -143,6 +146,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set default non-textured material technique.
+		/// 
 		/// </summary>
 		private void SetDefaultTechnique (Technique technique)
 		{
@@ -155,6 +159,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set HDR rendering on/off.
+		/// 
 		/// </summary>
 		private void SetHDRRendering (bool enable)
 		{
@@ -167,6 +172,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set specular lighting on/off.
+		/// 
 		/// </summary>
 		private void SetSpecularLighting (bool enable)
 		{
@@ -179,6 +185,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set default texture max anisotropy level.
+		/// 
 		/// </summary>
 		private void SetTextureAnisotropy (int level)
 		{
@@ -191,6 +198,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set default texture filtering.
+		/// 
 		/// </summary>
 		private void SetTextureFilterMode (TextureFilterMode mode)
 		{
@@ -203,6 +211,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set texture quality level. See the QUALITY constants in GraphicsDefs.h.
+		/// 
 		/// </summary>
 		private void SetTextureQuality (MaterialQuality quality)
 		{
@@ -215,6 +224,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set material quality level. See the QUALITY constants in GraphicsDefs.h.
+		/// 
 		/// </summary>
 		private void SetMaterialQuality (MaterialQuality quality)
 		{
@@ -227,6 +237,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadows on/off.
+		/// 
 		/// </summary>
 		private void SetDrawShadows (bool enable)
 		{
@@ -239,6 +250,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadow map resolution.
+		/// 
 		/// </summary>
 		private void SetShadowMapSize (int size)
 		{
@@ -251,6 +263,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadow quality mode. See the SHADOWQUALITY enum in GraphicsDefs.h.
+		/// 
 		/// </summary>
 		private void SetShadowQuality (ShadowQuality quality)
 		{
@@ -263,6 +276,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadow softness, only works when SHADOWQUALITY_BLUR_VSM is used.
+		/// 
 		/// </summary>
 		private void SetShadowSoftness (float shadowSoftness)
 		{
@@ -287,6 +301,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set VSM shadow map multisampling level. Default 1 (no multisampling).
+		/// 
 		/// </summary>
 		private void SetVSMMultiSample (int multiSample)
 		{
@@ -299,6 +314,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set reuse of shadow maps. Default is true. If disabled, also transparent geometry can be shadowed.
+		/// 
 		/// </summary>
 		private void SetReuseShadowMaps (bool enable)
 		{
@@ -311,6 +327,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set maximum number of shadow maps created for one resolution. Only has effect if reuse of shadow maps is disabled.
+		/// 
 		/// </summary>
 		private void SetMaxShadowMaps (int shadowMaps)
 		{
@@ -323,6 +340,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set dynamic instancing on/off. When on (default), drawables using the same static-type geometry and material will be automatically combined to an instanced draw call.
+		/// 
 		/// </summary>
 		private void SetDynamicInstancing (bool enable)
 		{
@@ -335,6 +353,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set number of extra instancing buffer elements. Default is 0. Extra 4-vectors are available through TEXCOORD7 and further.
+		/// 
 		/// </summary>
 		private void SetNumExtraInstancingBufferElements (int elements)
 		{
@@ -347,6 +366,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set minimum number of instances required in a batch group to render as instanced.
+		/// 
 		/// </summary>
 		private void SetMinInstances (int instances)
 		{
@@ -359,6 +379,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set maximum number of sorted instances per batch group. If exceeded, instances are rendered unsorted.
+		/// 
 		/// </summary>
 		private void SetMaxSortedInstances (int instances)
 		{
@@ -371,6 +392,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set maximum number of occluder triangles.
+		/// 
 		/// </summary>
 		private void SetMaxOccluderTriangles (int triangles)
 		{
@@ -383,6 +405,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set occluder buffer width.
+		/// 
 		/// </summary>
 		private void SetOcclusionBufferSize (int size)
 		{
@@ -395,6 +418,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set required screen size (1.0 = full screen) for occluders.
+		/// 
 		/// </summary>
 		private void SetOccluderSizeThreshold (float screenSize)
 		{
@@ -407,6 +431,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether to thread occluder rendering. Default false.
+		/// 
 		/// </summary>
 		private void SetThreadedOcclusion (bool enable)
 		{
@@ -419,6 +444,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadow depth bias multiplier for mobile platforms to counteract possible worse shadow map precision. Default 1.0 (no effect).
+		/// 
 		/// </summary>
 		private void SetMobileShadowBiasMul (float mul)
 		{
@@ -431,6 +457,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadow depth bias addition for mobile platforms to counteract possible worse shadow map precision. Default 0.0 (no effect).
+		/// 
 		/// </summary>
 		private void SetMobileShadowBiasAdd (float add)
 		{
@@ -443,6 +470,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadow normal offset multiplier for mobile platforms to counteract possible worse shadow map precision. Default 1.0 (no effect).
+		/// 
 		/// </summary>
 		private void SetMobileNormalOffsetMul (float mul)
 		{
@@ -479,6 +507,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of backbuffer viewports.
+		/// 
 		/// </summary>
 		private uint GetNumViewports ()
 		{
@@ -491,6 +520,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return backbuffer viewport by index.
+		/// 
 		/// </summary>
 		public Viewport GetViewport (uint index)
 		{
@@ -515,6 +545,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return default renderpath.
+		/// 
 		/// </summary>
 		private RenderPath GetDefaultRenderPath ()
 		{
@@ -527,6 +558,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return default non-textured material technique.
+		/// 
 		/// </summary>
 		private Technique GetDefaultTechnique ()
 		{
@@ -539,6 +571,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether HDR rendering is enabled.
+		/// 
 		/// </summary>
 		private bool GetHDRRendering ()
 		{
@@ -551,6 +584,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether specular lighting is enabled.
+		/// 
 		/// </summary>
 		private bool GetSpecularLighting ()
 		{
@@ -563,6 +597,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether drawing shadows is enabled.
+		/// 
 		/// </summary>
 		private bool GetDrawShadows ()
 		{
@@ -575,6 +610,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return default texture max. anisotropy level.
+		/// 
 		/// </summary>
 		private int GetTextureAnisotropy ()
 		{
@@ -587,6 +623,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return default texture filtering mode.
+		/// 
 		/// </summary>
 		private TextureFilterMode GetTextureFilterMode ()
 		{
@@ -599,6 +636,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return texture quality level.
+		/// 
 		/// </summary>
 		private MaterialQuality GetTextureQuality ()
 		{
@@ -611,6 +649,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return material quality level.
+		/// 
 		/// </summary>
 		private MaterialQuality GetMaterialQuality ()
 		{
@@ -623,6 +662,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow map resolution.
+		/// 
 		/// </summary>
 		private int GetShadowMapSize ()
 		{
@@ -635,6 +675,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow quality.
+		/// 
 		/// </summary>
 		private ShadowQuality GetShadowQuality ()
 		{
@@ -647,6 +688,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow softness.
+		/// 
 		/// </summary>
 		private float GetShadowSoftness ()
 		{
@@ -659,6 +701,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return VSM shadow parameters.
+		/// 
 		/// </summary>
 		private Vector2 GetVSMShadowParameters ()
 		{
@@ -671,6 +714,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return VSM shadow multisample level.
+		/// 
 		/// </summary>
 		private int GetVSMMultiSample ()
 		{
@@ -683,6 +727,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether shadow maps are reused.
+		/// 
 		/// </summary>
 		private bool GetReuseShadowMaps ()
 		{
@@ -695,6 +740,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of shadow maps per resolution.
+		/// 
 		/// </summary>
 		private int GetMaxShadowMaps ()
 		{
@@ -707,6 +753,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether dynamic instancing is in use.
+		/// 
 		/// </summary>
 		private bool GetDynamicInstancing ()
 		{
@@ -719,6 +766,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of extra instancing buffer elements.
+		/// 
 		/// </summary>
 		private int GetNumExtraInstancingBufferElements ()
 		{
@@ -731,6 +779,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return minimum number of instances required in a batch group to render as instanced.
+		/// 
 		/// </summary>
 		private int GetMinInstances ()
 		{
@@ -743,6 +792,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of sorted instances per batch group.
+		/// 
 		/// </summary>
 		private int GetMaxSortedInstances ()
 		{
@@ -755,6 +805,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of occluder triangles.
+		/// 
 		/// </summary>
 		private int GetMaxOccluderTriangles ()
 		{
@@ -767,6 +818,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return occlusion buffer width.
+		/// 
 		/// </summary>
 		private int GetOcclusionBufferSize ()
 		{
@@ -779,6 +831,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return occluder screen size threshold.
+		/// 
 		/// </summary>
 		private float GetOccluderSizeThreshold ()
 		{
@@ -791,6 +844,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether occlusion rendering is threaded.
+		/// 
 		/// </summary>
 		private bool GetThreadedOcclusion ()
 		{
@@ -803,6 +857,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow depth bias multiplier for mobile platforms.
+		/// 
 		/// </summary>
 		private float GetMobileShadowBiasMul ()
 		{
@@ -815,6 +870,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow depth bias addition for mobile platforms.
+		/// 
 		/// </summary>
 		private float GetMobileShadowBiasAdd ()
 		{
@@ -827,6 +883,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow normal offset multiplier for mobile platforms.
+		/// 
 		/// </summary>
 		private float GetMobileNormalOffsetMul ()
 		{
@@ -839,6 +896,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of views rendered.
+		/// 
 		/// </summary>
 		private uint GetNumViews ()
 		{
@@ -851,6 +909,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of primitives rendered.
+		/// 
 		/// </summary>
 		private uint GetNumPrimitives ()
 		{
@@ -863,6 +922,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of batches rendered.
+		/// 
 		/// </summary>
 		private uint GetNumBatches ()
 		{
@@ -875,6 +935,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of geometries rendered.
+		/// 
 		/// </summary>
 		public uint GetNumGeometries (bool allViews = false)
 		{
@@ -887,6 +948,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of lights rendered.
+		/// 
 		/// </summary>
 		public uint GetNumLights (bool allViews = false)
 		{
@@ -899,6 +961,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of shadow maps rendered.
+		/// 
 		/// </summary>
 		public uint GetNumShadowMaps (bool allViews = false)
 		{
@@ -911,6 +974,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of occluders rendered.
+		/// 
 		/// </summary>
 		public uint GetNumOccluders (bool allViews = false)
 		{
@@ -923,6 +987,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the default zone.
+		/// 
 		/// </summary>
 		private Zone GetDefaultZone ()
 		{
@@ -935,6 +1000,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the default material.
+		/// 
 		/// </summary>
 		private Material GetDefaultMaterial ()
 		{
@@ -947,6 +1013,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the default range attenuation texture.
+		/// 
 		/// </summary>
 		private Texture2D GetDefaultLightRamp ()
 		{
@@ -959,6 +1026,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the default spotlight attenuation texture.
+		/// 
 		/// </summary>
 		private Texture2D GetDefaultLightSpot ()
 		{
@@ -1257,8 +1325,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of backbuffer viewports.
+		/// 
 		/// Or
 		/// Set number of backbuffer viewports to render.
+		/// 
 		/// </summary>
 		public uint NumViewports {
 			get {
@@ -1271,8 +1341,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return default renderpath.
+		/// 
 		/// Or
 		/// Set default renderpath.
+		/// 
 		/// </summary>
 		public RenderPath DefaultRenderPath {
 			get {
@@ -1285,8 +1357,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return default non-textured material technique.
+		/// 
 		/// Or
 		/// Set default non-textured material technique.
+		/// 
 		/// </summary>
 		public Technique DefaultTechnique {
 			get {
@@ -1299,8 +1373,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether HDR rendering is enabled.
+		/// 
 		/// Or
 		/// Set HDR rendering on/off.
+		/// 
 		/// </summary>
 		public bool HDRRendering {
 			get {
@@ -1313,8 +1389,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether specular lighting is enabled.
+		/// 
 		/// Or
 		/// Set specular lighting on/off.
+		/// 
 		/// </summary>
 		public bool SpecularLighting {
 			get {
@@ -1327,8 +1405,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return default texture max. anisotropy level.
+		/// 
 		/// Or
 		/// Set default texture max anisotropy level.
+		/// 
 		/// </summary>
 		public int TextureAnisotropy {
 			get {
@@ -1341,8 +1421,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return default texture filtering mode.
+		/// 
 		/// Or
 		/// Set default texture filtering.
+		/// 
 		/// </summary>
 		public TextureFilterMode TextureFilterMode {
 			get {
@@ -1355,8 +1437,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return texture quality level.
+		/// 
 		/// Or
 		/// Set texture quality level. See the QUALITY constants in GraphicsDefs.h.
+		/// 
 		/// </summary>
 		public MaterialQuality TextureQuality {
 			get {
@@ -1369,8 +1453,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return material quality level.
+		/// 
 		/// Or
 		/// Set material quality level. See the QUALITY constants in GraphicsDefs.h.
+		/// 
 		/// </summary>
 		public MaterialQuality MaterialQuality {
 			get {
@@ -1383,8 +1469,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether drawing shadows is enabled.
+		/// 
 		/// Or
 		/// Set shadows on/off.
+		/// 
 		/// </summary>
 		public bool DrawShadows {
 			get {
@@ -1397,8 +1485,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow map resolution.
+		/// 
 		/// Or
 		/// Set shadow map resolution.
+		/// 
 		/// </summary>
 		public int ShadowMapSize {
 			get {
@@ -1411,8 +1501,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow quality.
+		/// 
 		/// Or
 		/// Set shadow quality mode. See the SHADOWQUALITY enum in GraphicsDefs.h.
+		/// 
 		/// </summary>
 		public ShadowQuality ShadowQuality {
 			get {
@@ -1425,8 +1517,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow softness.
+		/// 
 		/// Or
 		/// Set shadow softness, only works when SHADOWQUALITY_BLUR_VSM is used.
+		/// 
 		/// </summary>
 		public float ShadowSoftness {
 			get {
@@ -1439,8 +1533,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return VSM shadow multisample level.
+		/// 
 		/// Or
 		/// Set VSM shadow map multisampling level. Default 1 (no multisampling).
+		/// 
 		/// </summary>
 		public int VSMMultiSample {
 			get {
@@ -1453,8 +1549,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether shadow maps are reused.
+		/// 
 		/// Or
 		/// Set reuse of shadow maps. Default is true. If disabled, also transparent geometry can be shadowed.
+		/// 
 		/// </summary>
 		public bool ReuseShadowMaps {
 			get {
@@ -1467,8 +1565,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of shadow maps per resolution.
+		/// 
 		/// Or
 		/// Set maximum number of shadow maps created for one resolution. Only has effect if reuse of shadow maps is disabled.
+		/// 
 		/// </summary>
 		public int MaxShadowMaps {
 			get {
@@ -1481,8 +1581,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether dynamic instancing is in use.
+		/// 
 		/// Or
 		/// Set dynamic instancing on/off. When on (default), drawables using the same static-type geometry and material will be automatically combined to an instanced draw call.
+		/// 
 		/// </summary>
 		public bool DynamicInstancing {
 			get {
@@ -1495,8 +1597,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of extra instancing buffer elements.
+		/// 
 		/// Or
 		/// Set number of extra instancing buffer elements. Default is 0. Extra 4-vectors are available through TEXCOORD7 and further.
+		/// 
 		/// </summary>
 		public int NumExtraInstancingBufferElements {
 			get {
@@ -1509,8 +1613,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return minimum number of instances required in a batch group to render as instanced.
+		/// 
 		/// Or
 		/// Set minimum number of instances required in a batch group to render as instanced.
+		/// 
 		/// </summary>
 		public int MinInstances {
 			get {
@@ -1523,8 +1629,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of sorted instances per batch group.
+		/// 
 		/// Or
 		/// Set maximum number of sorted instances per batch group. If exceeded, instances are rendered unsorted.
+		/// 
 		/// </summary>
 		public int MaxSortedInstances {
 			get {
@@ -1537,8 +1645,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of occluder triangles.
+		/// 
 		/// Or
 		/// Set maximum number of occluder triangles.
+		/// 
 		/// </summary>
 		public int MaxOccluderTriangles {
 			get {
@@ -1551,8 +1661,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return occlusion buffer width.
+		/// 
 		/// Or
 		/// Set occluder buffer width.
+		/// 
 		/// </summary>
 		public int OcclusionBufferSize {
 			get {
@@ -1565,8 +1677,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return occluder screen size threshold.
+		/// 
 		/// Or
 		/// Set required screen size (1.0 = full screen) for occluders.
+		/// 
 		/// </summary>
 		public float OccluderSizeThreshold {
 			get {
@@ -1579,8 +1693,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether occlusion rendering is threaded.
+		/// 
 		/// Or
 		/// Set whether to thread occluder rendering. Default false.
+		/// 
 		/// </summary>
 		public bool ThreadedOcclusion {
 			get {
@@ -1593,8 +1709,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow depth bias multiplier for mobile platforms.
+		/// 
 		/// Or
 		/// Set shadow depth bias multiplier for mobile platforms to counteract possible worse shadow map precision. Default 1.0 (no effect).
+		/// 
 		/// </summary>
 		public float MobileShadowBiasMul {
 			get {
@@ -1607,8 +1725,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow depth bias addition for mobile platforms.
+		/// 
 		/// Or
 		/// Set shadow depth bias addition for mobile platforms to counteract possible worse shadow map precision. Default 0.0 (no effect).
+		/// 
 		/// </summary>
 		public float MobileShadowBiasAdd {
 			get {
@@ -1621,8 +1741,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow normal offset multiplier for mobile platforms.
+		/// 
 		/// Or
 		/// Set shadow normal offset multiplier for mobile platforms to counteract possible worse shadow map precision. Default 1.0 (no effect).
+		/// 
 		/// </summary>
 		public float MobileNormalOffsetMul {
 			get {
@@ -1635,6 +1757,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return VSM shadow parameters.
+		/// 
 		/// </summary>
 		public Vector2 VSMShadowParameters {
 			get {
@@ -1644,6 +1767,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of views rendered.
+		/// 
 		/// </summary>
 		public uint NumViews {
 			get {
@@ -1653,6 +1777,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of primitives rendered.
+		/// 
 		/// </summary>
 		public uint NumPrimitives {
 			get {
@@ -1662,6 +1787,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of batches rendered.
+		/// 
 		/// </summary>
 		public uint NumBatches {
 			get {
@@ -1671,6 +1797,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the default zone.
+		/// 
 		/// </summary>
 		public Zone DefaultZone {
 			get {
@@ -1680,6 +1807,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the default material.
+		/// 
 		/// </summary>
 		public Material DefaultMaterial {
 			get {
@@ -1689,6 +1817,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the default range attenuation texture.
+		/// 
 		/// </summary>
 		public Texture2D DefaultLightRamp {
 			get {
@@ -1698,6 +1827,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the default spotlight attenuation texture.
+		/// 
 		/// </summary>
 		public Texture2D DefaultLightSpot {
 			get {

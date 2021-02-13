@@ -107,6 +107,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set UI elements' style from an XML file.
+		/// 
 		/// </summary>
 		private void SetDefaultStyle (Urho.Resources.XmlFile style)
 		{
@@ -119,6 +120,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set elements to show.
+		/// 
 		/// </summary>
 		private void SetMode (uint mode)
 		{
@@ -131,6 +133,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set maximum profiler block depth, default unlimited.
+		/// 
 		/// </summary>
 		private void SetProfilerMaxDepth (uint depth)
 		{
@@ -143,6 +146,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set profiler accumulation interval in seconds.
+		/// 
 		/// </summary>
 		private void SetProfilerInterval (float interval)
 		{
@@ -155,6 +159,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether to show 3D geometry primitive/batch count only. Default false.
+		/// 
 		/// </summary>
 		private void SetUseRendererStats (bool enable)
 		{
@@ -191,6 +196,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the UI style file.
+		/// 
 		/// </summary>
 		private Urho.Resources.XmlFile GetDefaultStyle ()
 		{
@@ -203,6 +209,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return rendering stats text.
+		/// 
 		/// </summary>
 		private Text GetStatsText ()
 		{
@@ -215,6 +222,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return rendering mode text.
+		/// 
 		/// </summary>
 		private Text GetModeText ()
 		{
@@ -227,6 +235,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return profiler text.
+		/// 
 		/// </summary>
 		private Text GetProfilerText ()
 		{
@@ -239,6 +248,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return memory text.
+		/// 
 		/// </summary>
 		private Text GetMemoryText ()
 		{
@@ -251,6 +261,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return currently shown elements.
+		/// 
 		/// </summary>
 		private uint GetMode ()
 		{
@@ -263,6 +274,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum profiler block depth.
+		/// 
 		/// </summary>
 		private uint GetProfilerMaxDepth ()
 		{
@@ -275,6 +287,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return profiler accumulation interval in seconds.
+		/// 
 		/// </summary>
 		private float GetProfilerInterval ()
 		{
@@ -287,6 +300,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether showing 3D geometry primitive/batch count only.
+		/// 
 		/// </summary>
 		private bool GetUseRendererStats ()
 		{
@@ -357,8 +371,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return the UI style file.
+		/// 
 		/// Or
 		/// Set UI elements' style from an XML file.
+		/// 
 		/// </summary>
 		public Urho.Resources.XmlFile DefaultStyle {
 			get {
@@ -371,8 +387,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return currently shown elements.
+		/// 
 		/// Or
 		/// Set elements to show.
+		/// 
 		/// </summary>
 		public uint Mode {
 			get {
@@ -385,8 +403,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum profiler block depth.
+		/// 
 		/// Or
 		/// Set maximum profiler block depth, default unlimited.
+		/// 
 		/// </summary>
 		public uint ProfilerMaxDepth {
 			get {
@@ -399,8 +419,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return profiler accumulation interval in seconds.
+		/// 
 		/// Or
 		/// Set profiler accumulation interval in seconds.
+		/// 
 		/// </summary>
 		public float ProfilerInterval {
 			get {
@@ -413,8 +435,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether showing 3D geometry primitive/batch count only.
+		/// 
 		/// Or
 		/// Set whether to show 3D geometry primitive/batch count only. Default false.
+		/// 
 		/// </summary>
 		public bool UseRendererStats {
 			get {
@@ -427,6 +451,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return rendering stats text.
+		/// 
 		/// </summary>
 		public Text StatsText {
 			get {
@@ -436,6 +461,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return rendering mode text.
+		/// 
 		/// </summary>
 		public Text ModeText {
 			get {
@@ -445,6 +471,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return profiler text.
+		/// 
 		/// </summary>
 		public Text ProfilerText {
 			get {
@@ -454,6 +481,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return memory text.
+		/// 
 		/// </summary>
 		public Text MemoryText {
 			get {

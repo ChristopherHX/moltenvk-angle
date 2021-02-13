@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -143,6 +144,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set material. The material should use a small negative depth bias to avoid Z-fighting.
+		/// 
 		/// </summary>
 		private void SetMaterial (Material material)
 		{
@@ -155,6 +157,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set maximum number of decal vertices.
+		/// 
 		/// </summary>
 		private void SetMaxVertices (uint num)
 		{
@@ -167,6 +170,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set maximum number of decal vertex indices.
+		/// 
 		/// </summary>
 		private void SetMaxIndices (uint num)
 		{
@@ -179,6 +183,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether to optimize GPU buffer sizes according to current amount of decals. Default false, which will size the buffers according to the maximum vertices/indices. When true, buffers will be reallocated whenever decals are added/removed, which can be worse for performance.
+		/// 
 		/// </summary>
 		private void SetOptimizeBufferSize (bool enable)
 		{
@@ -227,6 +232,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return material.
+		/// 
 		/// </summary>
 		private Material GetMaterial ()
 		{
@@ -239,6 +245,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of decals.
+		/// 
 		/// </summary>
 		private uint GetNumDecals ()
 		{
@@ -251,6 +258,7 @@ namespace Urho
 
 		/// <summary>
 		/// Retur number of vertices in the decals.
+		/// 
 		/// </summary>
 		private uint GetNumVertices ()
 		{
@@ -263,6 +271,7 @@ namespace Urho
 
 		/// <summary>
 		/// Retur number of vertex indices in the decals.
+		/// 
 		/// </summary>
 		private uint GetNumIndices ()
 		{
@@ -275,6 +284,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of decal vertices.
+		/// 
 		/// </summary>
 		private uint GetMaxVertices ()
 		{
@@ -287,6 +297,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of decal vertex indices.
+		/// 
 		/// </summary>
 		private uint GetMaxIndices ()
 		{
@@ -299,6 +310,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is optimizing GPU buffer sizes according to current amount of decals.
+		/// 
 		/// </summary>
 		private bool GetOptimizeBufferSize ()
 		{
@@ -354,8 +366,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return material.
+		/// 
 		/// Or
 		/// Set material. The material should use a small negative depth bias to avoid Z-fighting.
+		/// 
 		/// </summary>
 		public Material Material {
 			get {
@@ -368,8 +382,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of decal vertices.
+		/// 
 		/// Or
 		/// Set maximum number of decal vertices.
+		/// 
 		/// </summary>
 		public uint MaxVertices {
 			get {
@@ -382,8 +398,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of decal vertex indices.
+		/// 
 		/// Or
 		/// Set maximum number of decal vertex indices.
+		/// 
 		/// </summary>
 		public uint MaxIndices {
 			get {
@@ -396,8 +414,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is optimizing GPU buffer sizes according to current amount of decals.
+		/// 
 		/// Or
 		/// Set whether to optimize GPU buffer sizes according to current amount of decals. Default false, which will size the buffers according to the maximum vertices/indices. When true, buffers will be reallocated whenever decals are added/removed, which can be worse for performance.
+		/// 
 		/// </summary>
 		public bool OptimizeBufferSize {
 			get {
@@ -410,6 +430,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of decals.
+		/// 
 		/// </summary>
 		public uint NumDecals {
 			get {
@@ -419,6 +440,7 @@ namespace Urho
 
 		/// <summary>
 		/// Retur number of vertices in the decals.
+		/// 
 		/// </summary>
 		public uint NumVertices {
 			get {
@@ -428,6 +450,7 @@ namespace Urho
 
 		/// <summary>
 		/// Retur number of vertex indices in the decals.
+		/// 
 		/// </summary>
 		public uint NumIndices {
 			get {

@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -143,6 +144,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set text.
+		/// 
 		/// </summary>
 		private void SetText (string text)
 		{
@@ -155,6 +157,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set cursor position.
+		/// 
 		/// </summary>
 		private void SetCursorPosition (uint position)
 		{
@@ -167,6 +170,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set cursor blink rate. 0 disables blinking.
+		/// 
 		/// </summary>
 		private void SetCursorBlinkRate (float rate)
 		{
@@ -179,6 +183,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set maximum text length. 0 for unlimited.
+		/// 
 		/// </summary>
 		private void SetMaxLength (uint length)
 		{
@@ -191,6 +196,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set echo character for password entry and such. 0 (default) shows the actual text.
+		/// 
 		/// </summary>
 		private void SetEchoCharacter (uint c)
 		{
@@ -203,6 +209,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether can move cursor with arrows or mouse, default true.
+		/// 
 		/// </summary>
 		private void SetCursorMovable (bool enable)
 		{
@@ -215,6 +222,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether selections are allowed, default true.
+		/// 
 		/// </summary>
 		private void SetTextSelectable (bool enable)
 		{
@@ -227,6 +235,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether copy-paste operations are allowed, default true.
+		/// 
 		/// </summary>
 		private void SetTextCopyable (bool enable)
 		{
@@ -239,6 +248,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return text.
+		/// 
 		/// </summary>
 		private string GetText ()
 		{
@@ -251,6 +261,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return cursor position.
+		/// 
 		/// </summary>
 		private uint GetCursorPosition ()
 		{
@@ -263,6 +274,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return cursor blink rate.
+		/// 
 		/// </summary>
 		private float GetCursorBlinkRate ()
 		{
@@ -275,6 +287,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return maximum text length.
+		/// 
 		/// </summary>
 		private uint GetMaxLength ()
 		{
@@ -287,6 +300,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return echo character.
+		/// 
 		/// </summary>
 		private uint GetEchoCharacter ()
 		{
@@ -299,6 +313,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether can move cursor with arrows or mouse.
+		/// 
 		/// </summary>
 		private bool IsCursorMovable ()
 		{
@@ -311,6 +326,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether selections are allowed.
+		/// 
 		/// </summary>
 		private bool IsTextSelectable ()
 		{
@@ -323,6 +339,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether copy-paste operations are allowed.
+		/// 
 		/// </summary>
 		private bool IsTextCopyable ()
 		{
@@ -335,6 +352,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return text element.
+		/// 
 		/// </summary>
 		private Text GetTextElement ()
 		{
@@ -347,6 +365,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return cursor element.
+		/// 
 		/// </summary>
 		private BorderImage GetCursor ()
 		{
@@ -381,8 +400,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return text.
+		/// 
 		/// Or
 		/// Set text.
+		/// 
 		/// </summary>
 		public string Text {
 			get {
@@ -395,8 +416,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return cursor position.
+		/// 
 		/// Or
 		/// Set cursor position.
+		/// 
 		/// </summary>
 		public uint CursorPosition {
 			get {
@@ -409,8 +432,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return cursor blink rate.
+		/// 
 		/// Or
 		/// Set cursor blink rate. 0 disables blinking.
+		/// 
 		/// </summary>
 		public float CursorBlinkRate {
 			get {
@@ -423,8 +448,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return maximum text length.
+		/// 
 		/// Or
 		/// Set maximum text length. 0 for unlimited.
+		/// 
 		/// </summary>
 		public uint MaxLength {
 			get {
@@ -437,8 +464,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return echo character.
+		/// 
 		/// Or
 		/// Set echo character for password entry and such. 0 (default) shows the actual text.
+		/// 
 		/// </summary>
 		public uint EchoCharacter {
 			get {
@@ -451,8 +480,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether can move cursor with arrows or mouse.
+		/// 
 		/// Or
 		/// Set whether can move cursor with arrows or mouse, default true.
+		/// 
 		/// </summary>
 		public bool CursorMovable {
 			get {
@@ -465,8 +496,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether selections are allowed.
+		/// 
 		/// Or
 		/// Set whether selections are allowed, default true.
+		/// 
 		/// </summary>
 		public bool TextSelectable {
 			get {
@@ -479,8 +512,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether copy-paste operations are allowed.
+		/// 
 		/// Or
 		/// Set whether copy-paste operations are allowed, default true.
+		/// 
 		/// </summary>
 		public bool TextCopyable {
 			get {
@@ -493,6 +528,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return text element.
+		/// 
 		/// </summary>
 		public Text TextElement {
 			get {
@@ -502,6 +538,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return cursor element.
+		/// 
 		/// </summary>
 		public BorderImage Cursor {
 			get {

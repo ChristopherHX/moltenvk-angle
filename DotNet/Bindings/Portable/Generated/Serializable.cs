@@ -203,6 +203,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set attribute by index. Return true if successfully set.
+		/// 
 		/// </summary>
 		public bool SetAttribute (uint index, Vector3 value)
 		{
@@ -215,6 +216,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set attribute by index. Return true if successfully set.
+		/// 
 		/// </summary>
 		public bool SetAttribute (uint index, IntRect value)
 		{
@@ -227,6 +229,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set attribute by index. Return true if successfully set.
+		/// 
 		/// </summary>
 		public bool SetAttribute (uint index, Color value)
 		{
@@ -239,6 +242,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set attribute by index. Return true if successfully set.
+		/// 
 		/// </summary>
 		public bool SetAttribute (uint index, Vector2 value)
 		{
@@ -251,6 +255,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set attribute by index. Return true if successfully set.
+		/// 
 		/// </summary>
 		public bool SetAttribute (uint index, Vector4 value)
 		{
@@ -263,6 +268,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set attribute by index. Return true if successfully set.
+		/// 
 		/// </summary>
 		public bool SetAttribute (uint index, IntVector2 value)
 		{
@@ -275,6 +281,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set attribute by index. Return true if successfully set.
+		/// 
 		/// </summary>
 		public bool SetAttribute (uint index, Quaternion value)
 		{
@@ -287,6 +294,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set attribute by index. Return true if successfully set.
+		/// 
 		/// </summary>
 		public bool SetAttribute (uint index, Matrix4 value)
 		{
@@ -299,6 +307,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set attribute by index. Return true if successfully set.
+		/// 
 		/// </summary>
 		public bool SetAttribute (uint index, Matrix3x4 value)
 		{
@@ -311,6 +320,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set attribute by index. Return true if successfully set.
+		/// 
 		/// </summary>
 		public bool SetAttribute (uint index, int value)
 		{
@@ -323,6 +333,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set attribute by index. Return true if successfully set.
+		/// 
 		/// </summary>
 		public bool SetAttribute (uint index, float value)
 		{
@@ -335,6 +346,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set attribute by index. Return true if successfully set.
+		/// 
 		/// </summary>
 		public bool SetAttribute (uint index, string value)
 		{
@@ -347,6 +359,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set attribute by index. Return true if successfully set.
+		/// 
 		/// </summary>
 		public bool SetAttribute (uint index, bool value)
 		{
@@ -551,6 +564,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set temporary flag. Temporary objects will not be saved.
+		/// 
 		/// </summary>
 		private void SetTemporary (bool enable)
 		{
@@ -683,6 +697,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return attribute value by index. Return empty if illegal index.
+		/// 
 		/// </summary>
 		public Variant GetAttribute (uint index)
 		{
@@ -707,6 +722,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return attribute default value by index. Return empty if illegal index.
+		/// 
 		/// </summary>
 		public Variant GetAttributeDefault (uint index)
 		{
@@ -731,6 +747,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of attributes.
+		/// 
 		/// </summary>
 		private uint GetNumAttributes ()
 		{
@@ -755,6 +772,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is temporary.
+		/// 
 		/// </summary>
 		private bool IsTemporary ()
 		{
@@ -813,8 +831,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is temporary.
+		/// 
 		/// Or
 		/// Set temporary flag. Temporary objects will not be saved.
+		/// 
 		/// </summary>
 		public bool Temporary {
 			get {
@@ -827,6 +847,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of attributes.
+		/// 
 		/// </summary>
 		public uint NumAttributes {
 			get {

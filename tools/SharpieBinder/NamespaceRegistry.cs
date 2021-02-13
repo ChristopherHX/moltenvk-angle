@@ -63,6 +63,8 @@ namespace SharpieBinder
 			{ "Constraint", "Urho.Physics" },
 			{ "PhysicsWorld", "Urho.Physics" },
 			{ "RigidBody", "Urho.Physics" }, 
+			{ "CustomRaycastVehicle", "Urho.Physics" }, 
+			{ "RaycastVehicle", "Urho.Physics" }, 
 			// enums
 			{ "ShapeType", "Urho.Physics" },
 			{ "ConstraintType", "Urho.Physics" },

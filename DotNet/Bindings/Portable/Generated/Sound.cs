@@ -95,6 +95,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -239,6 +240,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Set loop on/off. If loop is enabled, sets the full sound as loop range.
+		/// 
 		/// </summary>
 		private void SetLooped (bool enable)
 		{
@@ -311,6 +313,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return length in seconds.
+		/// 
 		/// </summary>
 		private float GetLength ()
 		{
@@ -335,6 +338,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return sample size.
+		/// 
 		/// </summary>
 		private uint GetSampleSize ()
 		{
@@ -347,6 +351,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return default frequency as a float.
+		/// 
 		/// </summary>
 		private float GetFrequency ()
 		{
@@ -371,6 +376,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether is looped.
+		/// 
 		/// </summary>
 		private bool IsLooped ()
 		{
@@ -383,6 +389,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether data is sixteen bit.
+		/// 
 		/// </summary>
 		private bool IsSixteenBit ()
 		{
@@ -395,6 +402,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether data is stereo.
+		/// 
 		/// </summary>
 		private bool IsStereo ()
 		{
@@ -407,6 +415,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether is compressed.
+		/// 
 		/// </summary>
 		private bool IsCompressed ()
 		{
@@ -453,8 +462,10 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether is looped.
+		/// 
 		/// Or
 		/// Set loop on/off. If loop is enabled, sets the full sound as loop range.
+		/// 
 		/// </summary>
 		public bool Looped {
 			get {
@@ -503,6 +514,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return length in seconds.
+		/// 
 		/// </summary>
 		public float Length {
 			get {
@@ -521,6 +533,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return sample size.
+		/// 
 		/// </summary>
 		public uint SampleSize {
 			get {
@@ -530,6 +543,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return default frequency as a float.
+		/// 
 		/// </summary>
 		public float Frequency {
 			get {
@@ -548,6 +562,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether data is sixteen bit.
+		/// 
 		/// </summary>
 		public bool SixteenBit {
 			get {
@@ -557,6 +572,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether data is stereo.
+		/// 
 		/// </summary>
 		public bool Stereo {
 			get {
@@ -566,6 +582,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether is compressed.
+		/// 
 		/// </summary>
 		public bool Compressed {
 			get {

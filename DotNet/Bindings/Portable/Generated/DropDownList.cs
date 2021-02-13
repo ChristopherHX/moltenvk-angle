@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -215,6 +216,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set selection.
+		/// 
 		/// </summary>
 		private void SetSelection (uint index)
 		{
@@ -227,6 +229,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set place holder text. This is the text shown when there is no selection (-1) in drop down list. Note that if the list has items, the default is to show the first item, so the "no selection" state has to be set explicitly.
+		/// 
 		/// </summary>
 		private void SetPlaceholderText (string text)
 		{
@@ -239,6 +242,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether popup should be automatically resized to match the dropdown button width.
+		/// 
 		/// </summary>
 		private void SetResizePopup (bool enable)
 		{
@@ -251,6 +255,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return number of items.
+		/// 
 		/// </summary>
 		private uint GetNumItems ()
 		{
@@ -263,6 +268,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return item at index.
+		/// 
 		/// </summary>
 		public UIElement GetItem (uint index)
 		{
@@ -275,6 +281,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return selection index, or M_MAX_UNSIGNED if none selected.
+		/// 
 		/// </summary>
 		private uint GetSelection ()
 		{
@@ -287,6 +294,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return selected item, or null if none selected.
+		/// 
 		/// </summary>
 		private UIElement GetSelectedItem ()
 		{
@@ -299,6 +307,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return listview element.
+		/// 
 		/// </summary>
 		private ListView GetListView ()
 		{
@@ -311,6 +320,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return selected item placeholder element.
+		/// 
 		/// </summary>
 		private UIElement GetPlaceholder ()
 		{
@@ -323,6 +333,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return place holder text.
+		/// 
 		/// </summary>
 		private string GetPlaceholderText ()
 		{
@@ -335,6 +346,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether popup should be automatically resized.
+		/// 
 		/// </summary>
 		private bool GetResizePopup ()
 		{
@@ -381,8 +393,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return selection index, or M_MAX_UNSIGNED if none selected.
+		/// 
 		/// Or
 		/// Set selection.
+		/// 
 		/// </summary>
 		public uint Selection {
 			get {
@@ -395,8 +409,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return place holder text.
+		/// 
 		/// Or
 		/// Set place holder text. This is the text shown when there is no selection (-1) in drop down list. Note that if the list has items, the default is to show the first item, so the "no selection" state has to be set explicitly.
+		/// 
 		/// </summary>
 		public string PlaceholderText {
 			get {
@@ -409,8 +425,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether popup should be automatically resized.
+		/// 
 		/// Or
 		/// Set whether popup should be automatically resized to match the dropdown button width.
+		/// 
 		/// </summary>
 		public bool ResizePopup {
 			get {
@@ -423,6 +441,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return number of items.
+		/// 
 		/// </summary>
 		public uint NumItems {
 			get {
@@ -432,6 +451,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return selected item, or null if none selected.
+		/// 
 		/// </summary>
 		public UIElement SelectedItem {
 			get {
@@ -441,6 +461,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return listview element.
+		/// 
 		/// </summary>
 		public ListView ListView {
 			get {
@@ -450,6 +471,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return selected item placeholder element.
+		/// 
 		/// </summary>
 		public UIElement Placeholder {
 			get {

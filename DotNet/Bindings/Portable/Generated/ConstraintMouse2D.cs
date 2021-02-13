@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set target.
+		/// 
 		/// </summary>
 		private void SetTarget (Urho.Vector2 target)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set max force.
+		/// 
 		/// </summary>
 		private void SetMaxForce (float maxForce)
 		{
@@ -131,6 +134,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set frequency Hz.
+		/// 
 		/// </summary>
 		private void SetFrequencyHz (float frequencyHz)
 		{
@@ -143,6 +147,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set damping ratio.
+		/// 
 		/// </summary>
 		private void SetDampingRatio (float dampingRatio)
 		{
@@ -155,6 +160,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return target.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetTarget ()
 		{
@@ -167,6 +173,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return max force.
+		/// 
 		/// </summary>
 		private float GetMaxForce ()
 		{
@@ -179,6 +186,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return frequency Hz.
+		/// 
 		/// </summary>
 		private float GetFrequencyHz ()
 		{
@@ -191,6 +199,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return damping ratio.
+		/// 
 		/// </summary>
 		private float GetDampingRatio ()
 		{
@@ -225,8 +234,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return target.
+		/// 
 		/// Or
 		/// Set target.
+		/// 
 		/// </summary>
 		public Urho.Vector2 Target {
 			get {
@@ -239,8 +250,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return max force.
+		/// 
 		/// Or
 		/// Set max force.
+		/// 
 		/// </summary>
 		public float MaxForce {
 			get {
@@ -253,8 +266,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return frequency Hz.
+		/// 
 		/// Or
 		/// Set frequency Hz.
+		/// 
 		/// </summary>
 		public float FrequencyHz {
 			get {
@@ -267,8 +282,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return damping ratio.
+		/// 
 		/// Or
 		/// Set damping ratio.
+		/// 
 		/// </summary>
 		public float DampingRatio {
 			get {

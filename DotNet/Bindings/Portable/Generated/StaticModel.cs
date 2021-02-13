@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory. Drawable must be registered first.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -143,6 +144,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set model.
+		/// 
 		/// </summary>
 		private void SetModel (Model model)
 		{
@@ -155,6 +157,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set material on all geometries.
+		/// 
 		/// </summary>
 		public void SetMaterial (Material material)
 		{
@@ -167,6 +170,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set material on one geometry. Return true if successful.
+		/// 
 		/// </summary>
 		public bool SetMaterial (uint index, Material material)
 		{
@@ -179,6 +183,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set occlusion LOD level. By default (M_MAX_UNSIGNED) same as visible.
+		/// 
 		/// </summary>
 		private void SetOcclusionLodLevel (uint level)
 		{
@@ -203,6 +208,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return model.
+		/// 
 		/// </summary>
 		private Model GetModel ()
 		{
@@ -215,6 +221,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of geometries.
+		/// 
 		/// </summary>
 		private uint GetNumGeometries ()
 		{
@@ -227,6 +234,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return material from the first geometry, assuming all the geometries use the same material.
+		/// 
 		/// </summary>
 		private Material GetMaterial ()
 		{
@@ -239,6 +247,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return material by geometry index.
+		/// 
 		/// </summary>
 		public Material GetMaterial (uint index)
 		{
@@ -251,6 +260,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return occlusion LOD level.
+		/// 
 		/// </summary>
 		private uint GetOcclusionLodLevel ()
 		{
@@ -330,8 +340,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return model.
+		/// 
 		/// Or
 		/// Set model.
+		/// 
 		/// </summary>
 		public Model Model {
 			get {
@@ -344,8 +356,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return material from the first geometry, assuming all the geometries use the same material.
+		/// 
 		/// Or
 		/// Set material on all geometries.
+		/// 
 		/// </summary>
 		public Material Material {
 			get {
@@ -358,8 +372,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return occlusion LOD level.
+		/// 
 		/// Or
 		/// Set occlusion LOD level. By default (M_MAX_UNSIGNED) same as visible.
+		/// 
 		/// </summary>
 		public uint OcclusionLodLevel {
 			get {
@@ -372,6 +388,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of geometries.
+		/// 
 		/// </summary>
 		public uint NumGeometries {
 			get {

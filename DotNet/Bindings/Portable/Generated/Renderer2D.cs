@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{

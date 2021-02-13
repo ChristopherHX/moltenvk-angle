@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set fileselector UI style.
+		/// 
 		/// </summary>
 		private void SetDefaultStyle (Urho.Resources.XmlFile style)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set title text.
+		/// 
 		/// </summary>
 		private void SetTitle (string text)
 		{
@@ -143,6 +146,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set current path.
+		/// 
 		/// </summary>
 		private void SetPath (string path)
 		{
@@ -155,6 +159,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set current filename.
+		/// 
 		/// </summary>
 		private void SetFileName (string fileName)
 		{
@@ -167,6 +172,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set directory selection mode. Default false.
+		/// 
 		/// </summary>
 		private void SetDirectoryMode (bool enable)
 		{
@@ -191,6 +197,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return the UI style file.
+		/// 
 		/// </summary>
 		private Urho.Resources.XmlFile GetDefaultStyle ()
 		{
@@ -203,6 +210,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return fileselector window.
+		/// 
 		/// </summary>
 		private Window GetWindow ()
 		{
@@ -215,6 +223,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return window title text element.
+		/// 
 		/// </summary>
 		private Text GetTitleText ()
 		{
@@ -227,6 +236,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return file list.
+		/// 
 		/// </summary>
 		private ListView GetFileList ()
 		{
@@ -239,6 +249,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return path editor.
+		/// 
 		/// </summary>
 		private LineEdit GetPathEdit ()
 		{
@@ -251,6 +262,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return filename editor.
+		/// 
 		/// </summary>
 		private LineEdit GetFileNameEdit ()
 		{
@@ -263,6 +275,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return filter dropdown.
+		/// 
 		/// </summary>
 		private DropDownList GetFilterList ()
 		{
@@ -275,6 +288,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return OK button.
+		/// 
 		/// </summary>
 		private Button GetOKButton ()
 		{
@@ -287,6 +301,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return cancel button.
+		/// 
 		/// </summary>
 		private Button GetCancelButton ()
 		{
@@ -311,6 +326,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return window title.
+		/// 
 		/// </summary>
 		private string GetTitle ()
 		{
@@ -323,6 +339,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return current path.
+		/// 
 		/// </summary>
 		private string GetPath ()
 		{
@@ -335,6 +352,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return current filename.
+		/// 
 		/// </summary>
 		private string GetFileName ()
 		{
@@ -347,6 +365,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return current filter.
+		/// 
 		/// </summary>
 		private string GetFilter ()
 		{
@@ -359,6 +378,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return current filter index.
+		/// 
 		/// </summary>
 		private uint GetFilterIndex ()
 		{
@@ -371,6 +391,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return directory mode flag.
+		/// 
 		/// </summary>
 		private bool GetDirectoryMode ()
 		{
@@ -405,8 +426,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return the UI style file.
+		/// 
 		/// Or
 		/// Set fileselector UI style.
+		/// 
 		/// </summary>
 		public Urho.Resources.XmlFile DefaultStyle {
 			get {
@@ -419,8 +442,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return window title.
+		/// 
 		/// Or
 		/// Set title text.
+		/// 
 		/// </summary>
 		public string Title {
 			get {
@@ -433,8 +458,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return current path.
+		/// 
 		/// Or
 		/// Set current path.
+		/// 
 		/// </summary>
 		public string Path {
 			get {
@@ -447,8 +474,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return current filename.
+		/// 
 		/// Or
 		/// Set current filename.
+		/// 
 		/// </summary>
 		public string FileName {
 			get {
@@ -461,8 +490,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return directory mode flag.
+		/// 
 		/// Or
 		/// Set directory selection mode. Default false.
+		/// 
 		/// </summary>
 		public bool DirectoryMode {
 			get {
@@ -475,6 +506,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return fileselector window.
+		/// 
 		/// </summary>
 		public Window Window {
 			get {
@@ -484,6 +516,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return window title text element.
+		/// 
 		/// </summary>
 		public Text TitleText {
 			get {
@@ -493,6 +526,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return file list.
+		/// 
 		/// </summary>
 		public ListView FileList {
 			get {
@@ -502,6 +536,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return path editor.
+		/// 
 		/// </summary>
 		public LineEdit PathEdit {
 			get {
@@ -511,6 +546,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return filename editor.
+		/// 
 		/// </summary>
 		public LineEdit FileNameEdit {
 			get {
@@ -520,6 +556,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return filter dropdown.
+		/// 
 		/// </summary>
 		public DropDownList FilterList {
 			get {
@@ -529,6 +566,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return OK button.
+		/// 
 		/// </summary>
 		public Button OKButton {
 			get {
@@ -538,6 +576,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return cancel button.
+		/// 
 		/// </summary>
 		public Button CancelButton {
 			get {
@@ -556,6 +595,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return current filter.
+		/// 
 		/// </summary>
 		public string Filter {
 			get {
@@ -565,6 +605,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return current filter index.
+		/// 
 		/// </summary>
 		public uint FilterIndex {
 			get {

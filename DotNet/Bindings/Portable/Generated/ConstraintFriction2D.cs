@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set anchor.
+		/// 
 		/// </summary>
 		private void SetAnchor (Urho.Vector2 anchor)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set max force.
+		/// 
 		/// </summary>
 		private void SetMaxForce (float maxForce)
 		{
@@ -131,6 +134,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set max torque.
+		/// 
 		/// </summary>
 		private void SetMaxTorque (float maxTorque)
 		{
@@ -143,6 +147,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return anchor.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetAnchor ()
 		{
@@ -155,6 +160,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set max force.
+		/// 
 		/// </summary>
 		private float GetMaxForce ()
 		{
@@ -167,6 +173,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set max torque.
+		/// 
 		/// </summary>
 		private float GetMaxTorque ()
 		{
@@ -201,8 +208,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return anchor.
+		/// 
 		/// Or
 		/// Set anchor.
+		/// 
 		/// </summary>
 		public Urho.Vector2 Anchor {
 			get {
@@ -215,8 +224,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set max force.
+		/// 
 		/// Or
 		/// Set max force.
+		/// 
 		/// </summary>
 		public float MaxForce {
 			get {
@@ -229,8 +240,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set max torque.
+		/// 
 		/// Or
 		/// Set max torque.
+		/// 
 		/// </summary>
 		public float MaxTorque {
 			get {

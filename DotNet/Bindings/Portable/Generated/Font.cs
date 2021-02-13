@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -155,6 +156,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set absolute (in pixels) position adjustment for glyphs.
+		/// 
 		/// </summary>
 		private void SetAbsoluteGlyphOffset (Urho.IntVector2 offset)
 		{
@@ -167,6 +169,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set point size scaled position adjustment for glyphs.
+		/// 
 		/// </summary>
 		private void SetScaledGlyphOffset (Urho.Vector2 offset)
 		{
@@ -191,6 +194,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return font type.
+		/// 
 		/// </summary>
 		private FontType GetFontType ()
 		{
@@ -215,6 +219,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return absolute position adjustment for glyphs.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetAbsoluteGlyphOffset ()
 		{
@@ -227,6 +232,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return point size scaled position adjustment for glyphs.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetScaledGlyphOffset ()
 		{
@@ -285,8 +291,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return absolute position adjustment for glyphs.
+		/// 
 		/// Or
 		/// Set absolute (in pixels) position adjustment for glyphs.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 AbsoluteGlyphOffset {
 			get {
@@ -299,8 +307,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return point size scaled position adjustment for glyphs.
+		/// 
 		/// Or
 		/// Set point size scaled position adjustment for glyphs.
+		/// 
 		/// </summary>
 		public Urho.Vector2 ScaledGlyphOffset {
 			get {
@@ -313,6 +323,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return font type.
+		/// 
 		/// </summary>
 		public FontType FontType {
 			get {

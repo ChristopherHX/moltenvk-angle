@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -191,6 +192,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Update and return screen position.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetScreenPosition ()
 		{
@@ -359,6 +361,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set name.
+		/// 
 		/// </summary>
 		private void SetName (string name)
 		{
@@ -371,6 +374,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set position.
+		/// 
 		/// </summary>
 		private void SetPosition (Urho.IntVector2 position)
 		{
@@ -395,6 +399,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set size.
+		/// 
 		/// </summary>
 		private void SetSize (Urho.IntVector2 size)
 		{
@@ -419,6 +424,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set width only.
+		/// 
 		/// </summary>
 		private void SetWidth (int width)
 		{
@@ -431,6 +437,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set height only.
+		/// 
 		/// </summary>
 		private void SetHeight (int height)
 		{
@@ -443,6 +450,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set minimum size.
+		/// 
 		/// </summary>
 		private void SetMinSize (Urho.IntVector2 minSize)
 		{
@@ -467,6 +475,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set minimum width.
+		/// 
 		/// </summary>
 		private void SetMinWidth (int width)
 		{
@@ -479,6 +488,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set minimum height.
+		/// 
 		/// </summary>
 		private void SetMinHeight (int height)
 		{
@@ -491,6 +501,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set maximum size.
+		/// 
 		/// </summary>
 		private void SetMaxSize (Urho.IntVector2 maxSize)
 		{
@@ -515,6 +526,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set maximum width.
+		/// 
 		/// </summary>
 		private void SetMaxWidth (int width)
 		{
@@ -527,6 +539,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set maximum height.
+		/// 
 		/// </summary>
 		private void SetMaxHeight (int height)
 		{
@@ -599,6 +612,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set horizontal alignment.
+		/// 
 		/// </summary>
 		private void SetHorizontalAlignment (HorizontalAlignment align)
 		{
@@ -611,6 +625,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set vertical alignment.
+		/// 
 		/// </summary>
 		private void SetVerticalAlignment (VerticalAlignment align)
 		{
@@ -625,6 +640,7 @@ namespace Urho.Gui
 		/// Enable automatic positioning
 		/// &
 		/// sizing of the element relative to its parent using min/max anchor and min/max offset. Default false.
+		/// 
 		/// </summary>
 		private void SetEnableAnchor (bool enable)
 		{
@@ -637,6 +653,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set minimum (top left) anchor in relation to the parent element (from 0 to 1). No effect when anchor is not enabled.
+		/// 
 		/// </summary>
 		private void SetMinAnchor (Urho.Vector2 anchor)
 		{
@@ -661,6 +678,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set maximum (bottom right) anchor in relation to the parent element (from 0 to 1). No effect when anchor is not enabled.
+		/// 
 		/// </summary>
 		private void SetMaxAnchor (Urho.Vector2 anchor)
 		{
@@ -685,6 +703,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set offset of element's top left from the minimum anchor in pixels. No effect when anchor is not enabled.
+		/// 
 		/// </summary>
 		private void SetMinOffset (Urho.IntVector2 offset)
 		{
@@ -697,6 +716,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set offset of element's bottom right from the maximum anchor in pixels. No effect when anchor is not enabled.
+		/// 
 		/// </summary>
 		private void SetMaxOffset (Urho.IntVector2 offset)
 		{
@@ -711,6 +731,7 @@ namespace Urho.Gui
 		/// Set pivot relative to element's size (from 0 to 1, where 0.5 is center). Overrides horizontal
 		/// &
 		/// vertical alignment.
+		/// 
 		/// </summary>
 		private void SetPivot (Urho.Vector2 pivot)
 		{
@@ -737,6 +758,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set child element clipping border.
+		/// 
 		/// </summary>
 		private void SetClipBorder (Urho.IntRect rect)
 		{
@@ -749,6 +771,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set color on all corners.
+		/// 
 		/// </summary>
 		public void SetColor (Urho.Color color)
 		{
@@ -761,6 +784,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set color on one corner.
+		/// 
 		/// </summary>
 		public void SetColor (Corner corner, Urho.Color color)
 		{
@@ -773,6 +797,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set priority.
+		/// 
 		/// </summary>
 		private void SetPriority (int priority)
 		{
@@ -785,6 +810,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set opacity.
+		/// 
 		/// </summary>
 		private void SetOpacity (float opacity)
 		{
@@ -797,6 +823,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether should be brought to front when focused.
+		/// 
 		/// </summary>
 		private void SetBringToFront (bool enable)
 		{
@@ -809,6 +836,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether should be put to background when another element is focused.
+		/// 
 		/// </summary>
 		private void SetBringToBack (bool enable)
 		{
@@ -821,6 +849,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether should clip child elements. Default false.
+		/// 
 		/// </summary>
 		private void SetClipChildren (bool enable)
 		{
@@ -833,6 +862,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether should sort child elements according to priority. Default true.
+		/// 
 		/// </summary>
 		private void SetSortChildren (bool enable)
 		{
@@ -845,6 +875,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether parent elements' opacity affects opacity. Default true.
+		/// 
 		/// </summary>
 		private void SetUseDerivedOpacity (bool enable)
 		{
@@ -857,6 +888,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether reacts to input. Default false, but is enabled by subclasses if applicable.
+		/// 
 		/// </summary>
 		private void SetEnabled (bool enable)
 		{
@@ -905,6 +937,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether value is editable through input. Not applicable to all elements. Default true.
+		/// 
 		/// </summary>
 		private void SetEditable (bool enable)
 		{
@@ -917,6 +950,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether is focused. Only one element can be focused at a time.
+		/// 
 		/// </summary>
 		public void SetFocus (bool enable)
 		{
@@ -929,6 +963,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set selected mode. Actual meaning is element dependent, for example constant hover or pressed effect.
+		/// 
 		/// </summary>
 		private void SetSelected (bool enable)
 		{
@@ -941,6 +976,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether is visible. Visibility propagates to child elements.
+		/// 
 		/// </summary>
 		private void SetVisible (bool enable)
 		{
@@ -953,6 +989,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set focus mode.
+		/// 
 		/// </summary>
 		private void SetFocusMode (FocusMode mode)
 		{
@@ -1001,6 +1038,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set default style file for later use by children elements.
+		/// 
 		/// </summary>
 		public void SetDefaultStyle (Urho.Resources.XmlFile style)
 		{
@@ -1025,6 +1063,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set layout mode only.
+		/// 
 		/// </summary>
 		private void SetLayoutMode (LayoutMode mode)
 		{
@@ -1037,6 +1076,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set layout spacing.
+		/// 
 		/// </summary>
 		private void SetLayoutSpacing (int spacing)
 		{
@@ -1049,6 +1089,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set layout border.
+		/// 
 		/// </summary>
 		private void SetLayoutBorder (Urho.IntRect border)
 		{
@@ -1061,6 +1102,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set layout flex scale.
+		/// 
 		/// </summary>
 		private void SetLayoutFlexScale (Urho.Vector2 scale)
 		{
@@ -1073,6 +1115,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set horizontal indentation.
+		/// 
 		/// </summary>
 		private void SetIndent (int indent)
 		{
@@ -1085,6 +1128,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set indent spacing (number of pixels per indentation level).
+		/// 
 		/// </summary>
 		private void SetIndentSpacing (int indentSpacing)
 		{
@@ -1409,6 +1453,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Mark as internally (programmatically) created. Used when an element composes itself out of child elements.
+		/// 
 		/// </summary>
 		private void SetInternal (bool enable)
 		{
@@ -1421,6 +1466,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set traversal mode for rendering. The default traversal mode is TM_BREADTH_FIRST for non-root element. Root element should be set to TM_DEPTH_FIRST to avoid artifacts during rendering.
+		/// 
 		/// </summary>
 		private void SetTraversalMode (TraversalMode traversalMode)
 		{
@@ -1433,6 +1479,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set element event sender flag. When child element is added or deleted, the event would be sent using UIElement found in the parental chain having this flag set. If not set, the event is sent using UI's root as per normal.
+		/// 
 		/// </summary>
 		public void SetElementEventSender (bool flag)
 		{
@@ -1481,6 +1528,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return name.
+		/// 
 		/// </summary>
 		private string GetName ()
 		{
@@ -1493,6 +1541,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return position.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetPosition ()
 		{
@@ -1505,6 +1554,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return size.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetSize ()
 		{
@@ -1517,6 +1567,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return width.
+		/// 
 		/// </summary>
 		private int GetWidth ()
 		{
@@ -1529,6 +1580,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return height.
+		/// 
 		/// </summary>
 		private int GetHeight ()
 		{
@@ -1541,6 +1593,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return minimum size.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetMinSize ()
 		{
@@ -1553,6 +1606,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return minimum width.
+		/// 
 		/// </summary>
 		private int GetMinWidth ()
 		{
@@ -1565,6 +1619,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return minimum height.
+		/// 
 		/// </summary>
 		private int GetMinHeight ()
 		{
@@ -1577,6 +1632,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return maximum size.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetMaxSize ()
 		{
@@ -1589,6 +1645,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return minimum width.
+		/// 
 		/// </summary>
 		private int GetMaxWidth ()
 		{
@@ -1601,6 +1658,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return minimum height.
+		/// 
 		/// </summary>
 		private int GetMaxHeight ()
 		{
@@ -1613,6 +1671,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return true if size is fixed.
+		/// 
 		/// </summary>
 		private bool IsFixedSize ()
 		{
@@ -1625,6 +1684,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return true if width is fixed.
+		/// 
 		/// </summary>
 		private bool IsFixedWidth ()
 		{
@@ -1637,6 +1697,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return true if height is fixed.
+		/// 
 		/// </summary>
 		private bool IsFixedHeight ()
 		{
@@ -1649,6 +1710,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return child element offset.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetChildOffset ()
 		{
@@ -1661,6 +1723,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return horizontal alignment. If pivot has been adjusted to a custom horizontal setting, returns HA_CUSTOM.
+		/// 
 		/// </summary>
 		private HorizontalAlignment GetHorizontalAlignment ()
 		{
@@ -1673,6 +1736,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return vertical alignment. If pivot has been adjusted to a custom vertical setting, returns VA_CUSTOM.
+		/// 
 		/// </summary>
 		private VerticalAlignment GetVerticalAlignment ()
 		{
@@ -1687,6 +1751,7 @@ namespace Urho.Gui
 		/// Return whether anchor positioning
 		/// &
 		/// sizing is enabled.
+		/// 
 		/// </summary>
 		private bool GetEnableAnchor ()
 		{
@@ -1699,6 +1764,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return minimum anchor.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetMinAnchor ()
 		{
@@ -1711,6 +1777,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return maximum anchor.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetMaxAnchor ()
 		{
@@ -1721,6 +1788,9 @@ namespace Urho.Gui
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern Urho.IntVector2 UIElement_GetMinOffset (IntPtr handle);
 
+		/// <summary>
+		/// 
+		/// </summary>
 		private Urho.IntVector2 GetMinOffset ()
 		{
 			Runtime.ValidateRefCounted (this);
@@ -1730,6 +1800,9 @@ namespace Urho.Gui
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern Urho.IntVector2 UIElement_GetMaxOffset (IntPtr handle);
 
+		/// <summary>
+		/// 
+		/// </summary>
 		private Urho.IntVector2 GetMaxOffset ()
 		{
 			Runtime.ValidateRefCounted (this);
@@ -1741,6 +1814,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return pivot.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetPivot ()
 		{
@@ -1753,6 +1827,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return child element clipping border.
+		/// 
 		/// </summary>
 		private Urho.IntRect GetClipBorder ()
 		{
@@ -1765,6 +1840,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return corner color.
+		/// 
 		/// </summary>
 		public Urho.Color GetColor (Corner corner)
 		{
@@ -1777,6 +1853,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return priority.
+		/// 
 		/// </summary>
 		private int GetPriority ()
 		{
@@ -1789,6 +1866,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return opacity.
+		/// 
 		/// </summary>
 		private float GetOpacity ()
 		{
@@ -1801,6 +1879,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return derived opacity (affected by parent elements). If UseDerivedOpacity is false, returns same as element's own opacity.
+		/// 
 		/// </summary>
 		private float GetDerivedOpacity ()
 		{
@@ -1813,6 +1892,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether should be brought to front when focused.
+		/// 
 		/// </summary>
 		private bool GetBringToFront ()
 		{
@@ -1825,6 +1905,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether should be put to background when another element is focused.
+		/// 
 		/// </summary>
 		private bool GetBringToBack ()
 		{
@@ -1837,6 +1918,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether should clip child elements.
+		/// 
 		/// </summary>
 		private bool GetClipChildren ()
 		{
@@ -1849,6 +1931,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether should sort child elements according to priority.
+		/// 
 		/// </summary>
 		private bool GetSortChildren ()
 		{
@@ -1861,6 +1944,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether parent elements' opacity affects opacity.
+		/// 
 		/// </summary>
 		private bool GetUseDerivedOpacity ()
 		{
@@ -1873,6 +1957,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether has focus.
+		/// 
 		/// </summary>
 		public bool HasFocus ()
 		{
@@ -1897,6 +1982,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether reacts to input.
+		/// 
 		/// </summary>
 		private bool IsEnabled ()
 		{
@@ -1909,6 +1995,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Returns the element's last own enabled state. May be different than the value returned by IsEnabled when SetDeepEnabled has been used.
+		/// 
 		/// </summary>
 		private bool IsEnabledSelf ()
 		{
@@ -1921,6 +2008,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether value is editable through input.
+		/// 
 		/// </summary>
 		private bool IsEditable ()
 		{
@@ -1933,6 +2021,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is selected. Actual meaning is element dependent.
+		/// 
 		/// </summary>
 		private bool IsSelected ()
 		{
@@ -1945,6 +2034,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether element itself should be visible. Elements can be also hidden due to the parent being not visible, use IsVisibleEffective() to check.
+		/// 
 		/// </summary>
 		private bool IsVisible ()
 		{
@@ -1957,6 +2047,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether element is effectively visible (parent element chain is visible).
+		/// 
 		/// </summary>
 		private bool IsVisibleEffective ()
 		{
@@ -1969,6 +2060,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether the cursor is hovering on this element.
+		/// 
 		/// </summary>
 		private bool IsHovering ()
 		{
@@ -1981,6 +2073,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is internally created.
+		/// 
 		/// </summary>
 		private bool IsInternal ()
 		{
@@ -1993,6 +2086,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether has different color in at least one corner.
+		/// 
 		/// </summary>
 		public bool HasColorGradient ()
 		{
@@ -2005,6 +2099,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return focus mode.
+		/// 
 		/// </summary>
 		private FocusMode GetFocusMode ()
 		{
@@ -2017,6 +2112,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return applied style name. Return an empty string when the applied style is an 'auto' style (i.e. style derived from instance's type).
+		/// 
 		/// </summary>
 		private string GetAppliedStyle ()
 		{
@@ -2041,6 +2137,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return layout mode.
+		/// 
 		/// </summary>
 		private LayoutMode GetLayoutMode ()
 		{
@@ -2053,6 +2150,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return layout spacing.
+		/// 
 		/// </summary>
 		private int GetLayoutSpacing ()
 		{
@@ -2065,6 +2163,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return layout border.
+		/// 
 		/// </summary>
 		private Urho.IntRect GetLayoutBorder ()
 		{
@@ -2077,6 +2176,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return layout flex scale.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetLayoutFlexScale ()
 		{
@@ -2089,6 +2189,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return number of child elements.
+		/// 
 		/// </summary>
 		public uint GetNumChildren (bool recursive = false)
 		{
@@ -2101,6 +2202,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return child element by index.
+		/// 
 		/// </summary>
 		public UIElement GetChild (uint index)
 		{
@@ -2139,6 +2241,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return parent element.
+		/// 
 		/// </summary>
 		private UIElement GetParent ()
 		{
@@ -2151,6 +2254,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return root element.
+		/// 
 		/// </summary>
 		private UIElement GetRoot ()
 		{
@@ -2187,6 +2291,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return the number of buttons dragging this element.
+		/// 
 		/// </summary>
 		private uint GetDragButtonCount ()
 		{
@@ -2223,6 +2328,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return combined screen coordinate rect of element and its children.
+		/// 
 		/// </summary>
 		private IntRect GetCombinedScreenRect ()
 		{
@@ -2259,6 +2365,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return horizontal indentation.
+		/// 
 		/// </summary>
 		private int GetIndent ()
 		{
@@ -2271,6 +2378,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return indent spacing (number of pixels per indentation level).
+		/// 
 		/// </summary>
 		private int GetIndentSpacing ()
 		{
@@ -2283,6 +2391,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return indent width in pixels.
+		/// 
 		/// </summary>
 		private int GetIndentWidth ()
 		{
@@ -2331,6 +2440,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return traversal mode for rendering.
+		/// 
 		/// </summary>
 		private TraversalMode GetTraversalMode ()
 		{
@@ -2343,6 +2453,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether element should send child added / removed events by itself. If false, defers to parent element.
+		/// 
 		/// </summary>
 		public bool IsElementEventSender ()
 		{
@@ -2413,6 +2524,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Update and return screen position.
+		/// 
 		/// </summary>
 		public virtual Urho.IntVector2 ScreenPosition {
 			get {
@@ -2431,8 +2543,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return name.
+		/// 
 		/// Or
 		/// Set name.
+		/// 
 		/// </summary>
 		public string Name {
 			get {
@@ -2445,8 +2559,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return position.
+		/// 
 		/// Or
 		/// Set position.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 Position {
 			get {
@@ -2459,8 +2575,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return size.
+		/// 
 		/// Or
 		/// Set size.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 Size {
 			get {
@@ -2473,8 +2591,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return width.
+		/// 
 		/// Or
 		/// Set width only.
+		/// 
 		/// </summary>
 		public int Width {
 			get {
@@ -2487,8 +2607,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return height.
+		/// 
 		/// Or
 		/// Set height only.
+		/// 
 		/// </summary>
 		public int Height {
 			get {
@@ -2501,8 +2623,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return minimum size.
+		/// 
 		/// Or
 		/// Set minimum size.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 MinSize {
 			get {
@@ -2515,8 +2639,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return minimum width.
+		/// 
 		/// Or
 		/// Set minimum width.
+		/// 
 		/// </summary>
 		public int MinWidth {
 			get {
@@ -2529,8 +2655,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return minimum height.
+		/// 
 		/// Or
 		/// Set minimum height.
+		/// 
 		/// </summary>
 		public int MinHeight {
 			get {
@@ -2543,8 +2671,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return maximum size.
+		/// 
 		/// Or
 		/// Set maximum size.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 MaxSize {
 			get {
@@ -2557,8 +2687,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return minimum width.
+		/// 
 		/// Or
 		/// Set maximum width.
+		/// 
 		/// </summary>
 		public int MaxWidth {
 			get {
@@ -2571,8 +2703,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return minimum height.
+		/// 
 		/// Or
 		/// Set maximum height.
+		/// 
 		/// </summary>
 		public int MaxHeight {
 			get {
@@ -2585,6 +2719,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return true if size is fixed.
+		/// 
 		/// </summary>
 		public bool FixedSize {
 			get {
@@ -2594,6 +2729,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return true if width is fixed.
+		/// 
 		/// </summary>
 		public bool FixedWidth {
 			get {
@@ -2603,6 +2739,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return true if height is fixed.
+		/// 
 		/// </summary>
 		public bool FixedHeight {
 			get {
@@ -2612,8 +2749,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return horizontal alignment. If pivot has been adjusted to a custom horizontal setting, returns HA_CUSTOM.
+		/// 
 		/// Or
 		/// Set horizontal alignment.
+		/// 
 		/// </summary>
 		public HorizontalAlignment HorizontalAlignment {
 			get {
@@ -2626,8 +2765,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return vertical alignment. If pivot has been adjusted to a custom vertical setting, returns VA_CUSTOM.
+		/// 
 		/// Or
 		/// Set vertical alignment.
+		/// 
 		/// </summary>
 		public VerticalAlignment VerticalAlignment {
 			get {
@@ -2642,10 +2783,12 @@ namespace Urho.Gui
 		/// Return whether anchor positioning
 		/// &
 		/// sizing is enabled.
+		/// 
 		/// Or
 		/// Enable automatic positioning
 		/// &
 		/// sizing of the element relative to its parent using min/max anchor and min/max offset. Default false.
+		/// 
 		/// </summary>
 		public bool EnableAnchor {
 			get {
@@ -2658,8 +2801,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return minimum anchor.
+		/// 
 		/// Or
 		/// Set minimum (top left) anchor in relation to the parent element (from 0 to 1). No effect when anchor is not enabled.
+		/// 
 		/// </summary>
 		public Urho.Vector2 MinAnchor {
 			get {
@@ -2672,8 +2817,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return maximum anchor.
+		/// 
 		/// Or
 		/// Set maximum (bottom right) anchor in relation to the parent element (from 0 to 1). No effect when anchor is not enabled.
+		/// 
 		/// </summary>
 		public Urho.Vector2 MaxAnchor {
 			get {
@@ -2685,8 +2832,10 @@ namespace Urho.Gui
 		}
 
 		/// <summary>
+		/// 
 		/// Or
 		/// Set offset of element's top left from the minimum anchor in pixels. No effect when anchor is not enabled.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 MinOffset {
 			get {
@@ -2698,8 +2847,10 @@ namespace Urho.Gui
 		}
 
 		/// <summary>
+		/// 
 		/// Or
 		/// Set offset of element's bottom right from the maximum anchor in pixels. No effect when anchor is not enabled.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 MaxOffset {
 			get {
@@ -2712,10 +2863,12 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return pivot.
+		/// 
 		/// Or
 		/// Set pivot relative to element's size (from 0 to 1, where 0.5 is center). Overrides horizontal
 		/// &
 		/// vertical alignment.
+		/// 
 		/// </summary>
 		public Urho.Vector2 Pivot {
 			get {
@@ -2728,8 +2881,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return child element clipping border.
+		/// 
 		/// Or
 		/// Set child element clipping border.
+		/// 
 		/// </summary>
 		public Urho.IntRect ClipBorder {
 			get {
@@ -2742,8 +2897,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return priority.
+		/// 
 		/// Or
 		/// Set priority.
+		/// 
 		/// </summary>
 		public int Priority {
 			get {
@@ -2756,8 +2913,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return opacity.
+		/// 
 		/// Or
 		/// Set opacity.
+		/// 
 		/// </summary>
 		public float Opacity {
 			get {
@@ -2770,8 +2929,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether should be brought to front when focused.
+		/// 
 		/// Or
 		/// Set whether should be brought to front when focused.
+		/// 
 		/// </summary>
 		public bool BringToFrontOnFocus {
 			get {
@@ -2784,8 +2945,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether should be put to background when another element is focused.
+		/// 
 		/// Or
 		/// Set whether should be put to background when another element is focused.
+		/// 
 		/// </summary>
 		public bool BringToBackOnFocus {
 			get {
@@ -2798,8 +2961,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether should clip child elements.
+		/// 
 		/// Or
 		/// Set whether should clip child elements. Default false.
+		/// 
 		/// </summary>
 		public bool ClipChildren {
 			get {
@@ -2812,8 +2977,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether should sort child elements according to priority.
+		/// 
 		/// Or
 		/// Set whether should sort child elements according to priority. Default true.
+		/// 
 		/// </summary>
 		public bool ShouldSortChildren {
 			get {
@@ -2826,8 +2993,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether parent elements' opacity affects opacity.
+		/// 
 		/// Or
 		/// Set whether parent elements' opacity affects opacity. Default true.
+		/// 
 		/// </summary>
 		public bool UseDerivedOpacity {
 			get {
@@ -2840,8 +3009,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether reacts to input.
+		/// 
 		/// Or
 		/// Set whether reacts to input. Default false, but is enabled by subclasses if applicable.
+		/// 
 		/// </summary>
 		public bool Enabled {
 			get {
@@ -2854,8 +3025,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether value is editable through input.
+		/// 
 		/// Or
 		/// Set whether value is editable through input. Not applicable to all elements. Default true.
+		/// 
 		/// </summary>
 		public bool Editable {
 			get {
@@ -2868,8 +3041,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is selected. Actual meaning is element dependent.
+		/// 
 		/// Or
 		/// Set selected mode. Actual meaning is element dependent, for example constant hover or pressed effect.
+		/// 
 		/// </summary>
 		public bool Selected {
 			get {
@@ -2882,8 +3057,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether element itself should be visible. Elements can be also hidden due to the parent being not visible, use IsVisibleEffective() to check.
+		/// 
 		/// Or
 		/// Set whether is visible. Visibility propagates to child elements.
+		/// 
 		/// </summary>
 		public bool Visible {
 			get {
@@ -2896,8 +3073,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return focus mode.
+		/// 
 		/// Or
 		/// Set focus mode.
+		/// 
 		/// </summary>
 		public FocusMode FocusMode {
 			get {
@@ -2910,8 +3089,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return layout mode.
+		/// 
 		/// Or
 		/// Set layout mode only.
+		/// 
 		/// </summary>
 		public LayoutMode LayoutMode {
 			get {
@@ -2924,8 +3105,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return layout spacing.
+		/// 
 		/// Or
 		/// Set layout spacing.
+		/// 
 		/// </summary>
 		public int LayoutSpacing {
 			get {
@@ -2938,8 +3121,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return layout border.
+		/// 
 		/// Or
 		/// Set layout border.
+		/// 
 		/// </summary>
 		public Urho.IntRect LayoutBorder {
 			get {
@@ -2952,8 +3137,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return layout flex scale.
+		/// 
 		/// Or
 		/// Set layout flex scale.
+		/// 
 		/// </summary>
 		public Urho.Vector2 LayoutFlexScale {
 			get {
@@ -2966,8 +3153,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return horizontal indentation.
+		/// 
 		/// Or
 		/// Set horizontal indentation.
+		/// 
 		/// </summary>
 		public int Indent {
 			get {
@@ -2980,8 +3169,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return indent spacing (number of pixels per indentation level).
+		/// 
 		/// Or
 		/// Set indent spacing (number of pixels per indentation level).
+		/// 
 		/// </summary>
 		public int IndentSpacing {
 			get {
@@ -2994,8 +3185,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is internally created.
+		/// 
 		/// Or
 		/// Mark as internally (programmatically) created. Used when an element composes itself out of child elements.
+		/// 
 		/// </summary>
 		public bool Internal {
 			get {
@@ -3008,8 +3201,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return traversal mode for rendering.
+		/// 
 		/// Or
 		/// Set traversal mode for rendering. The default traversal mode is TM_BREADTH_FIRST for non-root element. Root element should be set to TM_DEPTH_FIRST to avoid artifacts during rendering.
+		/// 
 		/// </summary>
 		public TraversalMode TraversalMode {
 			get {
@@ -3031,6 +3226,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return child element offset.
+		/// 
 		/// Or
 		/// Set child offset.
 		/// </summary>
@@ -3045,6 +3241,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return derived opacity (affected by parent elements). If UseDerivedOpacity is false, returns same as element's own opacity.
+		/// 
 		/// </summary>
 		public float DerivedOpacity {
 			get {
@@ -3054,6 +3251,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Returns the element's last own enabled state. May be different than the value returned by IsEnabled when SetDeepEnabled has been used.
+		/// 
 		/// </summary>
 		public bool EnabledSelf {
 			get {
@@ -3063,6 +3261,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether element is effectively visible (parent element chain is visible).
+		/// 
 		/// </summary>
 		public bool VisibleEffective {
 			get {
@@ -3072,6 +3271,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether the cursor is hovering on this element.
+		/// 
 		/// Or
 		/// Set hovering state.
 		/// </summary>
@@ -3086,6 +3286,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return applied style name. Return an empty string when the applied style is an 'auto' style (i.e. style derived from instance's type).
+		/// 
 		/// </summary>
 		public string AppliedStyle {
 			get {
@@ -3104,6 +3305,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return parent element.
+		/// 
 		/// </summary>
 		public UIElement Parent {
 			get {
@@ -3113,6 +3315,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return root element.
+		/// 
 		/// </summary>
 		public UIElement Root {
 			get {
@@ -3131,6 +3334,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return the number of buttons dragging this element.
+		/// 
 		/// </summary>
 		public uint DragButtonCount {
 			get {
@@ -3140,6 +3344,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return combined screen coordinate rect of element and its children.
+		/// 
 		/// </summary>
 		public IntRect CombinedScreenRect {
 			get {
@@ -3158,6 +3363,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return indent width in pixels.
+		/// 
 		/// </summary>
 		public int IndentWidth {
 			get {

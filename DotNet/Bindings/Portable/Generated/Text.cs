@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -167,6 +168,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set font size only while retaining the existing font. Return true if successful.
+		/// 
 		/// </summary>
 		public bool SetFontSize (float size)
 		{
@@ -179,6 +181,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set text. Text is assumed to be either ASCII or UTF8-encoded.
+		/// 
 		/// </summary>
 		private void SetText (string text)
 		{
@@ -191,6 +194,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set row alignment.
+		/// 
 		/// </summary>
 		private void SetTextAlignment (HorizontalAlignment align)
 		{
@@ -203,6 +207,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set row spacing, 1.0 for original font spacing.
+		/// 
 		/// </summary>
 		private void SetRowSpacing (float spacing)
 		{
@@ -215,6 +220,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set wordwrap. In wordwrap mode the text element will respect its current width. Otherwise it resizes itself freely.
+		/// 
 		/// </summary>
 		private void SetWordwrap (bool enable)
 		{
@@ -227,6 +233,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// The text will be automatically translated. The text value used as string identifier.
+		/// 
 		/// </summary>
 		private void SetAutoLocalizable (bool enable)
 		{
@@ -263,6 +270,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set text effect.
+		/// 
 		/// </summary>
 		private void SetTextEffect (TextEffect textEffect)
 		{
@@ -275,6 +283,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set shadow offset.
+		/// 
 		/// </summary>
 		private void SetEffectShadowOffset (Urho.IntVector2 offset)
 		{
@@ -287,6 +296,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set stroke thickness.
+		/// 
 		/// </summary>
 		private void SetEffectStrokeThickness (int thickness)
 		{
@@ -299,6 +309,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set stroke rounding. Corners of the font will be rounded off in the stroke so the stroke won't have corners.
+		/// 
 		/// </summary>
 		private void SetEffectRoundStroke (bool roundStroke)
 		{
@@ -311,6 +322,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set effect color.
+		/// 
 		/// </summary>
 		private void SetEffectColor (Urho.Color effectColor)
 		{
@@ -323,6 +335,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return font.
+		/// 
 		/// </summary>
 		private Font GetFont ()
 		{
@@ -335,6 +348,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return font size.
+		/// 
 		/// </summary>
 		private float GetFontSize ()
 		{
@@ -347,6 +361,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return text.
+		/// 
 		/// </summary>
 		private string GetText ()
 		{
@@ -359,6 +374,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return row alignment.
+		/// 
 		/// </summary>
 		private HorizontalAlignment GetTextAlignment ()
 		{
@@ -371,6 +387,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return row spacing.
+		/// 
 		/// </summary>
 		private float GetRowSpacing ()
 		{
@@ -383,6 +400,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return wordwrap mode.
+		/// 
 		/// </summary>
 		private bool GetWordwrap ()
 		{
@@ -395,6 +413,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return auto localizable mode.
+		/// 
 		/// </summary>
 		private bool GetAutoLocalizable ()
 		{
@@ -407,6 +426,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return selection start.
+		/// 
 		/// </summary>
 		private uint GetSelectionStart ()
 		{
@@ -419,6 +439,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return selection length.
+		/// 
 		/// </summary>
 		private uint GetSelectionLength ()
 		{
@@ -431,6 +452,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return text effect.
+		/// 
 		/// </summary>
 		private TextEffect GetTextEffect ()
 		{
@@ -443,6 +465,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect shadow offset.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetEffectShadowOffset ()
 		{
@@ -455,6 +478,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect stroke thickness.
+		/// 
 		/// </summary>
 		private int GetEffectStrokeThickness ()
 		{
@@ -467,6 +491,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect round stroke.
+		/// 
 		/// </summary>
 		private bool GetEffectRoundStroke ()
 		{
@@ -479,6 +504,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect color.
+		/// 
 		/// </summary>
 		private Urho.Color GetEffectColor ()
 		{
@@ -491,6 +517,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return row height.
+		/// 
 		/// </summary>
 		private float GetRowHeight ()
 		{
@@ -503,6 +530,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return number of rows.
+		/// 
 		/// </summary>
 		private uint GetNumRows ()
 		{
@@ -515,6 +543,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return number of characters.
+		/// 
 		/// </summary>
 		private uint GetNumChars ()
 		{
@@ -527,6 +556,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return width of row by index.
+		/// 
 		/// </summary>
 		public float GetRowWidth (uint index)
 		{
@@ -539,6 +569,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return position of character by index relative to the text element origin.
+		/// 
 		/// </summary>
 		public Vector2 GetCharPosition (uint index)
 		{
@@ -551,6 +582,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return size of character by index.
+		/// 
 		/// </summary>
 		public Vector2 GetCharSize (uint index)
 		{
@@ -645,8 +677,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return font size.
+		/// 
 		/// Or
 		/// Set font size only while retaining the existing font. Return true if successful.
+		/// 
 		/// </summary>
 		public float FontSize {
 			get {
@@ -659,8 +693,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return text.
+		/// 
 		/// Or
 		/// Set text. Text is assumed to be either ASCII or UTF8-encoded.
+		/// 
 		/// </summary>
 		public string Value {
 			get {
@@ -673,8 +709,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return row alignment.
+		/// 
 		/// Or
 		/// Set row alignment.
+		/// 
 		/// </summary>
 		public HorizontalAlignment TextAlignment {
 			get {
@@ -687,8 +725,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return row spacing.
+		/// 
 		/// Or
 		/// Set row spacing, 1.0 for original font spacing.
+		/// 
 		/// </summary>
 		public float RowSpacing {
 			get {
@@ -701,8 +741,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return wordwrap mode.
+		/// 
 		/// Or
 		/// Set wordwrap. In wordwrap mode the text element will respect its current width. Otherwise it resizes itself freely.
+		/// 
 		/// </summary>
 		public bool Wordwrap {
 			get {
@@ -715,8 +757,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return auto localizable mode.
+		/// 
 		/// Or
 		/// The text will be automatically translated. The text value used as string identifier.
+		/// 
 		/// </summary>
 		public bool AutoLocalizable {
 			get {
@@ -729,8 +773,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return text effect.
+		/// 
 		/// Or
 		/// Set text effect.
+		/// 
 		/// </summary>
 		public TextEffect TextEffect {
 			get {
@@ -743,8 +789,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect shadow offset.
+		/// 
 		/// Or
 		/// Set shadow offset.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 EffectShadowOffset {
 			get {
@@ -757,8 +805,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect stroke thickness.
+		/// 
 		/// Or
 		/// Set stroke thickness.
+		/// 
 		/// </summary>
 		public int EffectStrokeThickness {
 			get {
@@ -771,8 +821,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect round stroke.
+		/// 
 		/// Or
 		/// Set stroke rounding. Corners of the font will be rounded off in the stroke so the stroke won't have corners.
+		/// 
 		/// </summary>
 		public bool EffectRoundStroke {
 			get {
@@ -785,8 +837,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect color.
+		/// 
 		/// Or
 		/// Set effect color.
+		/// 
 		/// </summary>
 		public Urho.Color EffectColor {
 			get {
@@ -799,6 +853,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return font.
+		/// 
 		/// </summary>
 		public Font Font {
 			get {
@@ -808,6 +863,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return selection start.
+		/// 
 		/// </summary>
 		public uint SelectionStart {
 			get {
@@ -817,6 +873,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return selection length.
+		/// 
 		/// </summary>
 		public uint SelectionLength {
 			get {
@@ -826,6 +883,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return row height.
+		/// 
 		/// </summary>
 		public float RowHeight {
 			get {
@@ -835,6 +893,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return number of rows.
+		/// 
 		/// </summary>
 		public uint NumRows {
 			get {
@@ -844,6 +903,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return number of characters.
+		/// 
 		/// </summary>
 		public uint NumChars {
 			get {

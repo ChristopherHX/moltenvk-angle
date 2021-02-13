@@ -78,6 +78,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory. Drawable must be registered first.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -102,6 +103,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set layer.
+		/// 
 		/// </summary>
 		private void SetLayer (int layer)
 		{
@@ -114,6 +116,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set order in layer.
+		/// 
 		/// </summary>
 		private void SetOrderInLayer (int orderInLayer)
 		{
@@ -126,6 +129,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return layer.
+		/// 
 		/// </summary>
 		private int GetLayer ()
 		{
@@ -138,6 +142,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return order in layer.
+		/// 
 		/// </summary>
 		private int GetOrderInLayer ()
 		{
@@ -172,8 +177,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return layer.
+		/// 
 		/// Or
 		/// Set layer.
+		/// 
 		/// </summary>
 		public int Layer {
 			get {
@@ -186,8 +193,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return order in layer.
+		/// 
 		/// Or
 		/// Set order in layer.
+		/// 
 		/// </summary>
 		public int OrderInLayer {
 			get {

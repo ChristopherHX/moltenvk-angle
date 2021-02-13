@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -131,6 +132,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set render texture pixel format. Default is RGB.
+		/// 
 		/// </summary>
 		private void SetFormat (uint format)
 		{
@@ -143,6 +145,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set render target auto update mode. Default is true.
+		/// 
 		/// </summary>
 		private void SetAutoUpdate (bool enable)
 		{
@@ -167,6 +170,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return render texture pixel format.
+		/// 
 		/// </summary>
 		private uint GetFormat ()
 		{
@@ -179,6 +183,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether render target updates automatically.
+		/// 
 		/// </summary>
 		private bool GetAutoUpdate ()
 		{
@@ -191,6 +196,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return scene.
+		/// 
 		/// </summary>
 		private Scene GetScene ()
 		{
@@ -203,6 +209,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return camera scene node.
+		/// 
 		/// </summary>
 		private Node GetCameraNode ()
 		{
@@ -215,6 +222,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return render texture.
+		/// 
 		/// </summary>
 		private Texture2D GetRenderTexture ()
 		{
@@ -227,6 +235,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return depth stencil texture.
+		/// 
 		/// </summary>
 		private Texture2D GetDepthTexture ()
 		{
@@ -239,6 +248,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return viewport.
+		/// 
 		/// </summary>
 		private Viewport GetViewport ()
 		{
@@ -273,8 +283,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return render texture pixel format.
+		/// 
 		/// Or
 		/// Set render texture pixel format. Default is RGB.
+		/// 
 		/// </summary>
 		public uint Format {
 			get {
@@ -287,8 +299,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether render target updates automatically.
+		/// 
 		/// Or
 		/// Set render target auto update mode. Default is true.
+		/// 
 		/// </summary>
 		public bool AutoUpdate {
 			get {
@@ -301,6 +315,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return scene.
+		/// 
 		/// </summary>
 		public Scene Scene {
 			get {
@@ -310,6 +325,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return camera scene node.
+		/// 
 		/// </summary>
 		public Node CameraNode {
 			get {
@@ -319,6 +335,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return render texture.
+		/// 
 		/// </summary>
 		public Texture2D RenderTexture {
 			get {
@@ -328,6 +345,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return depth stencil texture.
+		/// 
 		/// </summary>
 		public Texture2D DepthTexture {
 			get {
@@ -337,6 +355,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return viewport.
+		/// 
 		/// </summary>
 		public Viewport Viewport {
 			get {

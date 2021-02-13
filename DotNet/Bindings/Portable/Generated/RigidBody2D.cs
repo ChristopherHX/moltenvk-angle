@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -119,6 +120,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set body type.
+		/// 
 		/// </summary>
 		private void SetBodyType (BodyType2D type)
 		{
@@ -131,6 +133,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set mass.
+		/// 
 		/// </summary>
 		private void SetMass (float mass)
 		{
@@ -143,6 +146,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set inertia.
+		/// 
 		/// </summary>
 		private void SetInertia (float inertia)
 		{
@@ -155,6 +159,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set mass center.
+		/// 
 		/// </summary>
 		public void SetMassCenter (Urho.Vector2 center)
 		{
@@ -167,6 +172,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set whether to automatically calculate mass and inertia from collision shapes. Default true.
+		/// 
 		/// </summary>
 		private void SetUseFixtureMass (bool useFixtureMass)
 		{
@@ -179,6 +185,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set linear damping.
+		/// 
 		/// </summary>
 		private void SetLinearDamping (float linearDamping)
 		{
@@ -191,6 +198,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set angular damping.
+		/// 
 		/// </summary>
 		private void SetAngularDamping (float angularDamping)
 		{
@@ -203,6 +211,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set allow sleep.
+		/// 
 		/// </summary>
 		private void SetAllowSleep (bool allowSleep)
 		{
@@ -215,6 +224,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set fixed rotation.
+		/// 
 		/// </summary>
 		private void SetFixedRotation (bool fixedRotation)
 		{
@@ -227,6 +237,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set bullet mode.
+		/// 
 		/// </summary>
 		private void SetBullet (bool bullet)
 		{
@@ -239,6 +250,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set gravity scale.
+		/// 
 		/// </summary>
 		private void SetGravityScale (float gravityScale)
 		{
@@ -251,6 +263,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set awake.
+		/// 
 		/// </summary>
 		private void SetAwake (bool awake)
 		{
@@ -263,6 +276,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set linear velocity.
+		/// 
 		/// </summary>
 		public void SetLinearVelocity (Urho.Vector2 linearVelocity)
 		{
@@ -457,6 +471,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return body type.
+		/// 
 		/// </summary>
 		private BodyType2D GetBodyType ()
 		{
@@ -469,6 +484,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return mass.
+		/// 
 		/// </summary>
 		private float GetMass ()
 		{
@@ -481,6 +497,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return inertia.
+		/// 
 		/// </summary>
 		private float GetInertia ()
 		{
@@ -493,6 +510,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return mass center.
+		/// 
 		/// </summary>
 		private Vector2 GetMassCenter ()
 		{
@@ -505,6 +523,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return whether to calculate mass and inertia from collision shapes automatically.
+		/// 
 		/// </summary>
 		private bool GetUseFixtureMass ()
 		{
@@ -517,6 +536,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return linear damping.
+		/// 
 		/// </summary>
 		private float GetLinearDamping ()
 		{
@@ -529,6 +549,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return angular damping.
+		/// 
 		/// </summary>
 		private float GetAngularDamping ()
 		{
@@ -541,6 +562,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return allow sleep.
+		/// 
 		/// </summary>
 		private bool IsAllowSleep ()
 		{
@@ -553,6 +575,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return fixed rotation.
+		/// 
 		/// </summary>
 		private bool IsFixedRotation ()
 		{
@@ -565,6 +588,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return bullet mode.
+		/// 
 		/// </summary>
 		private bool IsBullet ()
 		{
@@ -577,6 +601,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return gravity scale.
+		/// 
 		/// </summary>
 		private float GetGravityScale ()
 		{
@@ -589,6 +614,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return awake.
+		/// 
 		/// </summary>
 		private bool IsAwake ()
 		{
@@ -601,6 +627,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return linear velocity.
+		/// 
 		/// </summary>
 		private Vector2 GetLinearVelocity ()
 		{
@@ -647,8 +674,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return body type.
+		/// 
 		/// Or
 		/// Set body type.
+		/// 
 		/// </summary>
 		public BodyType2D BodyType {
 			get {
@@ -661,8 +690,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return mass.
+		/// 
 		/// Or
 		/// Set mass.
+		/// 
 		/// </summary>
 		public float Mass {
 			get {
@@ -675,8 +706,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return inertia.
+		/// 
 		/// Or
 		/// Set inertia.
+		/// 
 		/// </summary>
 		public float Inertia {
 			get {
@@ -689,6 +722,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return mass center.
+		/// 
 		/// </summary>
 		public Vector2 MassCenter {
 			get {
@@ -698,8 +732,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return whether to calculate mass and inertia from collision shapes automatically.
+		/// 
 		/// Or
 		/// Set whether to automatically calculate mass and inertia from collision shapes. Default true.
+		/// 
 		/// </summary>
 		public bool UseFixtureMass {
 			get {
@@ -712,8 +748,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return linear damping.
+		/// 
 		/// Or
 		/// Set linear damping.
+		/// 
 		/// </summary>
 		public float LinearDamping {
 			get {
@@ -726,8 +764,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return angular damping.
+		/// 
 		/// Or
 		/// Set angular damping.
+		/// 
 		/// </summary>
 		public float AngularDamping {
 			get {
@@ -740,8 +780,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return allow sleep.
+		/// 
 		/// Or
 		/// Set allow sleep.
+		/// 
 		/// </summary>
 		public bool AllowSleep {
 			get {
@@ -754,8 +796,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return fixed rotation.
+		/// 
 		/// Or
 		/// Set fixed rotation.
+		/// 
 		/// </summary>
 		public bool FixedRotation {
 			get {
@@ -768,8 +812,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return bullet mode.
+		/// 
 		/// Or
 		/// Set bullet mode.
+		/// 
 		/// </summary>
 		public bool Bullet {
 			get {
@@ -782,8 +828,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return gravity scale.
+		/// 
 		/// Or
 		/// Set gravity scale.
+		/// 
 		/// </summary>
 		public float GravityScale {
 			get {
@@ -796,8 +844,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return awake.
+		/// 
 		/// Or
 		/// Set awake.
+		/// 
 		/// </summary>
 		public bool Awake {
 			get {
@@ -810,6 +860,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return linear velocity.
+		/// 
 		/// </summary>
 		public Vector2 LinearVelocity {
 			get {

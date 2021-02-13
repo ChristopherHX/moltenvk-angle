@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set texture.
+		/// 
 		/// </summary>
 		private void SetTexture (Texture texture)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set part of texture to use as the image.
+		/// 
 		/// </summary>
 		private void SetImageRect (Urho.IntRect rect)
 		{
@@ -143,6 +146,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set border dimensions on the screen.
+		/// 
 		/// </summary>
 		private void SetBorder (Urho.IntRect rect)
 		{
@@ -155,6 +159,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set border dimensions on the image. If zero (default) uses the screen dimensions, resulting in pixel-perfect borders.
+		/// 
 		/// </summary>
 		private void SetImageBorder (Urho.IntRect rect)
 		{
@@ -167,6 +172,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set offset to image rectangle used on hover.
+		/// 
 		/// </summary>
 		private void SetHoverOffset (Urho.IntVector2 offset)
 		{
@@ -191,6 +197,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set offset to image rectangle used when disabled.
+		/// 
 		/// </summary>
 		private void SetDisabledOffset (Urho.IntVector2 offset)
 		{
@@ -215,6 +222,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set blend mode.
+		/// 
 		/// </summary>
 		private void SetBlendMode (BlendMode mode)
 		{
@@ -227,6 +235,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set tiled mode.
+		/// 
 		/// </summary>
 		private void SetTiled (bool enable)
 		{
@@ -239,6 +248,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set material for custom rendering.
+		/// 
 		/// </summary>
 		private void SetMaterial (Material material)
 		{
@@ -251,6 +261,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return texture.
+		/// 
 		/// </summary>
 		private Texture GetTexture ()
 		{
@@ -263,6 +274,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return image rectangle.
+		/// 
 		/// </summary>
 		private Urho.IntRect GetImageRect ()
 		{
@@ -275,6 +287,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return border screen dimensions.
+		/// 
 		/// </summary>
 		private Urho.IntRect GetBorder ()
 		{
@@ -287,6 +300,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return border image dimensions. Zero rect uses border screen dimensions.
+		/// 
 		/// </summary>
 		private Urho.IntRect GetImageBorder ()
 		{
@@ -299,6 +313,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return offset to image rectangle used on hover.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetHoverOffset ()
 		{
@@ -311,6 +326,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return offset to image rectangle used when disabled.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetDisabledOffset ()
 		{
@@ -323,6 +339,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return blend mode.
+		/// 
 		/// </summary>
 		private BlendMode GetBlendMode ()
 		{
@@ -335,6 +352,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is tiled.
+		/// 
 		/// </summary>
 		private bool IsTiled ()
 		{
@@ -347,6 +365,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Get material used for custom rendering.
+		/// 
 		/// </summary>
 		private Material GetMaterial ()
 		{
@@ -405,8 +424,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return texture.
+		/// 
 		/// Or
 		/// Set texture.
+		/// 
 		/// </summary>
 		public Texture Texture {
 			get {
@@ -419,8 +440,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return image rectangle.
+		/// 
 		/// Or
 		/// Set part of texture to use as the image.
+		/// 
 		/// </summary>
 		public Urho.IntRect ImageRect {
 			get {
@@ -433,8 +456,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return border screen dimensions.
+		/// 
 		/// Or
 		/// Set border dimensions on the screen.
+		/// 
 		/// </summary>
 		public Urho.IntRect Border {
 			get {
@@ -447,8 +472,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return border image dimensions. Zero rect uses border screen dimensions.
+		/// 
 		/// Or
 		/// Set border dimensions on the image. If zero (default) uses the screen dimensions, resulting in pixel-perfect borders.
+		/// 
 		/// </summary>
 		public Urho.IntRect ImageBorder {
 			get {
@@ -461,8 +488,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return offset to image rectangle used on hover.
+		/// 
 		/// Or
 		/// Set offset to image rectangle used on hover.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 HoverOffset {
 			get {
@@ -475,8 +504,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return offset to image rectangle used when disabled.
+		/// 
 		/// Or
 		/// Set offset to image rectangle used when disabled.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 DisabledOffset {
 			get {
@@ -489,8 +520,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return blend mode.
+		/// 
 		/// Or
 		/// Set blend mode.
+		/// 
 		/// </summary>
 		public BlendMode BlendMode {
 			get {
@@ -503,8 +536,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is tiled.
+		/// 
 		/// Or
 		/// Set tiled mode.
+		/// 
 		/// </summary>
 		public bool Tiled {
 			get {
@@ -517,8 +552,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Get material used for custom rendering.
+		/// 
 		/// Or
 		/// Set material for custom rendering.
+		/// 
 		/// </summary>
 		public Material Material {
 			get {

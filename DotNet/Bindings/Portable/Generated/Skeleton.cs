@@ -114,6 +114,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of bones.
+		/// 
 		/// </summary>
 		private uint GetNumBones ()
 		{
@@ -126,6 +127,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return root bone.
+		/// 
 		/// </summary>
 		private Bone* GetRootBone ()
 		{
@@ -174,6 +176,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return bone by index.
+		/// 
 		/// </summary>
 		public Bone* GetBone (uint index)
 		{
@@ -195,6 +198,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of bones.
+		/// 
 		/// </summary>
 		public uint NumBones {
 			get {
@@ -204,6 +208,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return root bone.
+		/// 
 		/// </summary>
 		public Bone* RootBone {
 			get {

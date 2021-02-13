@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set number of vertex buffers.
+		/// 
 		/// </summary>
 		public bool SetNumVertexBuffers (uint num)
 		{
@@ -119,6 +120,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set the index buffer.
+		/// 
 		/// </summary>
 		private void SetIndexBuffer (IndexBuffer buffer)
 		{
@@ -155,6 +157,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set the LOD distance.
+		/// 
 		/// </summary>
 		private void SetLodDistance (float distance)
 		{
@@ -193,6 +196,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of vertex buffers.
+		/// 
 		/// </summary>
 		private uint GetNumVertexBuffers ()
 		{
@@ -205,6 +209,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return vertex buffer by index.
+		/// 
 		/// </summary>
 		public VertexBuffer GetVertexBuffer (uint index)
 		{
@@ -217,6 +222,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the index buffer.
+		/// 
 		/// </summary>
 		private IndexBuffer GetIndexBuffer ()
 		{
@@ -229,6 +235,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return primitive type.
+		/// 
 		/// </summary>
 		private PrimitiveType GetPrimitiveType ()
 		{
@@ -241,6 +248,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return start index.
+		/// 
 		/// </summary>
 		private uint GetIndexStart ()
 		{
@@ -253,6 +261,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of indices.
+		/// 
 		/// </summary>
 		private uint GetIndexCount ()
 		{
@@ -265,6 +274,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return first used vertex.
+		/// 
 		/// </summary>
 		private uint GetVertexStart ()
 		{
@@ -277,6 +287,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of used vertices.
+		/// 
 		/// </summary>
 		private uint GetVertexCount ()
 		{
@@ -289,6 +300,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return LOD distance.
+		/// 
 		/// </summary>
 		private float GetLodDistance ()
 		{
@@ -337,6 +349,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether has empty draw range.
+		/// 
 		/// </summary>
 		private bool IsEmpty ()
 		{
@@ -371,8 +384,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of vertex buffers.
+		/// 
 		/// Or
 		/// Set number of vertex buffers.
+		/// 
 		/// </summary>
 		public uint NumVertexBuffers {
 			get {
@@ -385,8 +400,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return the index buffer.
+		/// 
 		/// Or
 		/// Set the index buffer.
+		/// 
 		/// </summary>
 		public IndexBuffer IndexBuffer {
 			get {
@@ -399,8 +416,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return LOD distance.
+		/// 
 		/// Or
 		/// Set the LOD distance.
+		/// 
 		/// </summary>
 		public float LodDistance {
 			get {
@@ -422,6 +441,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return primitive type.
+		/// 
 		/// </summary>
 		public PrimitiveType PrimitiveType {
 			get {
@@ -431,6 +451,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return start index.
+		/// 
 		/// </summary>
 		public uint IndexStart {
 			get {
@@ -440,6 +461,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of indices.
+		/// 
 		/// </summary>
 		public uint IndexCount {
 			get {
@@ -449,6 +471,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return first used vertex.
+		/// 
 		/// </summary>
 		public uint VertexStart {
 			get {
@@ -458,6 +481,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of used vertices.
+		/// 
 		/// </summary>
 		public uint VertexCount {
 			get {
@@ -476,6 +500,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether has empty draw range.
+		/// 
 		/// </summary>
 		public bool Empty {
 			get {

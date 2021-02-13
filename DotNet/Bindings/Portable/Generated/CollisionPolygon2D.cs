@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set vertex count.
+		/// 
 		/// </summary>
 		private void SetVertexCount (uint count)
 		{
@@ -131,6 +133,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return vertex count.
+		/// 
 		/// </summary>
 		private uint GetVertexCount ()
 		{
@@ -177,8 +180,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return vertex count.
+		/// 
 		/// Or
 		/// Set vertex count.
+		/// 
 		/// </summary>
 		public uint VertexCount {
 			get {

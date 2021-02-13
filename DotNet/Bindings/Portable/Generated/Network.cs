@@ -179,6 +179,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Get local server GUID.
+		/// 
 		/// </summary>
 		private string GetGUID ()
 		{
@@ -203,6 +204,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Set network update FPS.
+		/// 
 		/// </summary>
 		private void SetUpdateFps (int fps)
 		{
@@ -215,6 +217,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Set simulated latency in milliseconds. This adds a fixed delay before sending each packet.
+		/// 
 		/// </summary>
 		private void SetSimulatedLatency (int ms)
 		{
@@ -227,6 +230,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Set simulated packet loss probability between 0.0 - 1.0.
+		/// 
 		/// </summary>
 		private void SetSimulatedPacketLoss (float probability)
 		{
@@ -275,6 +279,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Set the package download cache directory.
+		/// 
 		/// </summary>
 		private void SetPackageCacheDir (string path)
 		{
@@ -311,6 +316,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return network update FPS.
+		/// 
 		/// </summary>
 		private int GetUpdateFps ()
 		{
@@ -323,6 +329,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return simulated latency in milliseconds.
+		/// 
 		/// </summary>
 		private int GetSimulatedLatency ()
 		{
@@ -335,6 +342,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return simulated packet loss probability.
+		/// 
 		/// </summary>
 		private float GetSimulatedPacketLoss ()
 		{
@@ -347,6 +355,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return the connection to the server. Null if not connected.
+		/// 
 		/// </summary>
 		private Connection GetServerConnection ()
 		{
@@ -359,6 +368,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return whether the server is running.
+		/// 
 		/// </summary>
 		private bool IsServerRunning ()
 		{
@@ -383,6 +393,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return the package download cache directory.
+		/// 
 		/// </summary>
 		private string GetPackageCacheDir ()
 		{
@@ -441,6 +452,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Get local server GUID.
+		/// 
 		/// </summary>
 		public string GUID {
 			get {
@@ -450,8 +462,10 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return network update FPS.
+		/// 
 		/// Or
 		/// Set network update FPS.
+		/// 
 		/// </summary>
 		public int UpdateFps {
 			get {
@@ -464,8 +478,10 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return simulated latency in milliseconds.
+		/// 
 		/// Or
 		/// Set simulated latency in milliseconds. This adds a fixed delay before sending each packet.
+		/// 
 		/// </summary>
 		public int SimulatedLatency {
 			get {
@@ -478,8 +494,10 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return simulated packet loss probability.
+		/// 
 		/// Or
 		/// Set simulated packet loss probability between 0.0 - 1.0.
+		/// 
 		/// </summary>
 		public float SimulatedPacketLoss {
 			get {
@@ -492,8 +510,10 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return the package download cache directory.
+		/// 
 		/// Or
 		/// Set the package download cache directory.
+		/// 
 		/// </summary>
 		public string PackageCacheDir {
 			get {
@@ -506,6 +526,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return the connection to the server. Null if not connected.
+		/// 
 		/// </summary>
 		public Connection ServerConnection {
 			get {
@@ -515,6 +536,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return whether the server is running.
+		/// 
 		/// </summary>
 		public bool ServerRunning {
 			get {

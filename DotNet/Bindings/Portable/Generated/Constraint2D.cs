@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -155,6 +156,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set other rigid body.
+		/// 
 		/// </summary>
 		private void SetOtherBody (RigidBody2D body)
 		{
@@ -167,6 +169,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set collide connected.
+		/// 
 		/// </summary>
 		private void SetCollideConnected (bool collideConnected)
 		{
@@ -191,6 +194,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return owner body.
+		/// 
 		/// </summary>
 		private RigidBody2D GetOwnerBody ()
 		{
@@ -203,6 +207,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return other body.
+		/// 
 		/// </summary>
 		private RigidBody2D GetOtherBody ()
 		{
@@ -215,6 +220,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return collide connected.
+		/// 
 		/// </summary>
 		private bool GetCollideConnected ()
 		{
@@ -261,8 +267,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return other body.
+		/// 
 		/// Or
 		/// Set other rigid body.
+		/// 
 		/// </summary>
 		public RigidBody2D OtherBody {
 			get {
@@ -275,8 +283,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return collide connected.
+		/// 
 		/// Or
 		/// Set collide connected.
+		/// 
 		/// </summary>
 		public bool CollideConnected {
 			get {
@@ -303,6 +313,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return owner body.
+		/// 
 		/// </summary>
 		public RigidBody2D OwnerBody {
 			get {

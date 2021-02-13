@@ -95,6 +95,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return the number of languages.
+		/// 
 		/// </summary>
 		private int GetNumLanguages ()
 		{
@@ -107,6 +108,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return the index number of current language. The index is determined by the order of loading.
+		/// 
 		/// </summary>
 		private int GetLanguageIndex ()
 		{
@@ -131,6 +133,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return the name of current language.
+		/// 
 		/// </summary>
 		private string GetLanguage ()
 		{
@@ -237,6 +240,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return the number of languages.
+		/// 
 		/// </summary>
 		public int NumLanguages {
 			get {
@@ -246,6 +250,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return the index number of current language. The index is determined by the order of loading.
+		/// 
 		/// </summary>
 		public int LanguageIndex {
 			get {
@@ -255,6 +260,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return the name of current language.
+		/// 
 		/// </summary>
 		public string Language {
 			get {

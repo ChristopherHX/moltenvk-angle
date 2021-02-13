@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set other body ground anchor point.
+		/// 
 		/// </summary>
 		private void SetOwnerBodyGroundAnchor (Urho.Vector2 groundAnchor)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set other body ground anchor point.
+		/// 
 		/// </summary>
 		private void SetOtherBodyGroundAnchor (Urho.Vector2 groundAnchor)
 		{
@@ -131,6 +134,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set owner body anchor point.
+		/// 
 		/// </summary>
 		private void SetOwnerBodyAnchor (Urho.Vector2 anchor)
 		{
@@ -143,6 +147,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set other body anchor point.
+		/// 
 		/// </summary>
 		private void SetOtherBodyAnchor (Urho.Vector2 anchor)
 		{
@@ -155,6 +160,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set ratio.
+		/// 
 		/// </summary>
 		private void SetRatio (float ratio)
 		{
@@ -167,6 +173,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return owner body ground anchor.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetOwnerBodyGroundAnchor ()
 		{
@@ -179,6 +186,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// return other body ground anchor.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetOtherBodyGroundAnchor ()
 		{
@@ -191,6 +199,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return owner body anchor.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetOwnerBodyAnchor ()
 		{
@@ -203,6 +212,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return other body anchor.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetOtherBodyAnchor ()
 		{
@@ -215,6 +225,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return ratio.
+		/// 
 		/// </summary>
 		private float GetRatio ()
 		{
@@ -249,8 +260,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return owner body ground anchor.
+		/// 
 		/// Or
 		/// Set other body ground anchor point.
+		/// 
 		/// </summary>
 		public Urho.Vector2 OwnerBodyGroundAnchor {
 			get {
@@ -263,8 +276,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// return other body ground anchor.
+		/// 
 		/// Or
 		/// Set other body ground anchor point.
+		/// 
 		/// </summary>
 		public Urho.Vector2 OtherBodyGroundAnchor {
 			get {
@@ -277,8 +292,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return owner body anchor.
+		/// 
 		/// Or
 		/// Set owner body anchor point.
+		/// 
 		/// </summary>
 		public Urho.Vector2 OwnerBodyAnchor {
 			get {
@@ -291,8 +308,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return other body anchor.
+		/// 
 		/// Or
 		/// Set other body anchor point.
+		/// 
 		/// </summary>
 		public Urho.Vector2 OtherBodyAnchor {
 			get {
@@ -305,8 +324,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return ratio.
+		/// 
 		/// Or
 		/// Set ratio.
+		/// 
 		/// </summary>
 		public float Ratio {
 			get {

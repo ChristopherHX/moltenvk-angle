@@ -42,6 +42,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return type hash.
+		/// 
 		/// </summary>
 		private StringHash UrhoGetType ()
 		{
@@ -54,6 +55,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return type name.
+		/// 
 		/// </summary>
 		private string GetTypeName ()
 		{
@@ -209,6 +211,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set global variable with the respective key and value.
+		/// 
 		/// </summary>
 		public void SetGlobalVar (StringHash key, Vector3 value)
 		{
@@ -221,6 +224,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set global variable with the respective key and value.
+		/// 
 		/// </summary>
 		public void SetGlobalVar (StringHash key, IntRect value)
 		{
@@ -233,6 +237,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set global variable with the respective key and value.
+		/// 
 		/// </summary>
 		public void SetGlobalVar (StringHash key, Color value)
 		{
@@ -245,6 +250,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set global variable with the respective key and value.
+		/// 
 		/// </summary>
 		public void SetGlobalVar (StringHash key, Vector2 value)
 		{
@@ -257,6 +263,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set global variable with the respective key and value.
+		/// 
 		/// </summary>
 		public void SetGlobalVar (StringHash key, Vector4 value)
 		{
@@ -269,6 +276,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set global variable with the respective key and value.
+		/// 
 		/// </summary>
 		public void SetGlobalVar (StringHash key, IntVector2 value)
 		{
@@ -281,6 +289,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set global variable with the respective key and value.
+		/// 
 		/// </summary>
 		public void SetGlobalVar (StringHash key, Quaternion value)
 		{
@@ -293,6 +302,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set global variable with the respective key and value.
+		/// 
 		/// </summary>
 		public void SetGlobalVar (StringHash key, Matrix4 value)
 		{
@@ -305,6 +315,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set global variable with the respective key and value.
+		/// 
 		/// </summary>
 		public void SetGlobalVar (StringHash key, Matrix3x4 value)
 		{
@@ -317,6 +328,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set global variable with the respective key and value.
+		/// 
 		/// </summary>
 		public void SetGlobalVar (StringHash key, int value)
 		{
@@ -329,6 +341,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set global variable with the respective key and value.
+		/// 
 		/// </summary>
 		public void SetGlobalVar (StringHash key, float value)
 		{
@@ -341,6 +354,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set global variable with the respective key and value.
+		/// 
 		/// </summary>
 		public void SetGlobalVar (StringHash key, string value)
 		{
@@ -353,6 +367,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set global variable with the respective key and value.
+		/// 
 		/// </summary>
 		public void SetGlobalVar (StringHash key, bool value)
 		{
@@ -437,6 +452,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return object category. Categories are (optionally) registered along with the object factory. Return an empty string if the object category is not registered.
+		/// 
 		/// </summary>
 		private string GetCategory ()
 		{
@@ -470,6 +486,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return type hash.
+		/// 
 		/// </summary>
 		public virtual StringHash Type {
 			get {
@@ -479,6 +496,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return type name.
+		/// 
 		/// </summary>
 		public virtual string TypeName {
 			get {
@@ -533,6 +551,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return object category. Categories are (optionally) registered along with the object factory. Return an empty string if the object category is not registered.
+		/// 
 		/// </summary>
 		public string Category {
 			get {

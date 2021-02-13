@@ -95,6 +95,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Register Obstacle with engine context.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -119,6 +120,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the height of this obstacle.
+		/// 
 		/// </summary>
 		private float GetHeight ()
 		{
@@ -131,6 +133,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set the height of this obstacle.
+		/// 
 		/// </summary>
 		private void SetHeight (float newHeight)
 		{
@@ -143,6 +146,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the blocking radius of this obstacle.
+		/// 
 		/// </summary>
 		private float GetRadius ()
 		{
@@ -155,6 +159,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set the blocking radius of this obstacle.
+		/// 
 		/// </summary>
 		private void SetRadius (float newRadius)
 		{
@@ -167,6 +172,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the internal obstacle ID.
+		/// 
 		/// </summary>
 		private uint GetObstacleID ()
 		{
@@ -225,8 +231,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the height of this obstacle.
+		/// 
 		/// Or
 		/// Set the height of this obstacle.
+		/// 
 		/// </summary>
 		public float Height {
 			get {
@@ -239,8 +247,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the blocking radius of this obstacle.
+		/// 
 		/// Or
 		/// Set the blocking radius of this obstacle.
+		/// 
 		/// </summary>
 		public float Radius {
 			get {
@@ -253,6 +263,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the internal obstacle ID.
+		/// 
 		/// </summary>
 		public uint ObstacleID {
 			get {

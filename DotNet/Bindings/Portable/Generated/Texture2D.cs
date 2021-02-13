@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -229,6 +230,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return render surface.
+		/// 
 		/// </summary>
 		private RenderSurface GetRenderSurface ()
 		{
@@ -272,6 +274,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return render surface.
+		/// 
 		/// </summary>
 		public RenderSurface RenderSurface {
 			get {

@@ -79,27 +79,28 @@ namespace Urho.Navigation
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr DynamicNavigationMesh_DynamicNavigationMesh (IntPtr param1);
+		internal static extern IntPtr DynamicNavigationMesh_DynamicNavigationMesh (IntPtr context);
 
 		[Preserve]
-		public DynamicNavigationMesh (Context param1) : base (UrhoObjectFlag.Empty)
+		public DynamicNavigationMesh (Context context) : base (UrhoObjectFlag.Empty)
 		{
 			Runtime.Validate (typeof(DynamicNavigationMesh));
-			handle = DynamicNavigationMesh_DynamicNavigationMesh ((object)param1 == null ? IntPtr.Zero : param1.Handle);
+			handle = DynamicNavigationMesh_DynamicNavigationMesh ((object)context == null ? IntPtr.Zero : context.Handle);
 			Runtime.RegisterObject (this);
 			OnDynamicNavigationMeshCreated ();
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void DynamicNavigationMesh_RegisterObject (IntPtr param1);
+		internal static extern void DynamicNavigationMesh_RegisterObject (IntPtr context);
 
 		/// <summary>
 		/// Register with engine context.
+		/// 
 		/// </summary>
-		public new static void RegisterObject (Context param1)
+		public new static void RegisterObject (Context context)
 		{
 			Runtime.Validate (typeof(DynamicNavigationMesh));
-			DynamicNavigationMesh_RegisterObject ((object)param1 == null ? IntPtr.Zero : param1.Handle);
+			DynamicNavigationMesh_RegisterObject ((object)context == null ? IntPtr.Zero : context.Handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -215,6 +216,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set the maximum number of obstacles allowed.
+		/// 
 		/// </summary>
 		private void SetMaxObstacles (uint maxObstacles)
 		{
@@ -227,6 +229,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set the maximum number of layers that navigation construction can create.
+		/// 
 		/// </summary>
 		private void SetMaxLayers (uint maxLayers)
 		{
@@ -239,6 +242,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the maximum number of obstacles allowed.
+		/// 
 		/// </summary>
 		private uint GetMaxObstacles ()
 		{
@@ -251,6 +255,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the maximum number of layers permitted to build.
+		/// 
 		/// </summary>
 		private uint GetMaxLayers ()
 		{
@@ -263,6 +268,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Draw debug geometry for Obstacles.
+		/// 
 		/// </summary>
 		private void SetDrawObstacles (bool enable)
 		{
@@ -275,6 +281,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return whether to draw Obstacles.
+		/// 
 		/// </summary>
 		private bool GetDrawObstacles ()
 		{
@@ -309,8 +316,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the maximum number of obstacles allowed.
+		/// 
 		/// Or
 		/// Set the maximum number of obstacles allowed.
+		/// 
 		/// </summary>
 		public uint MaxObstacles {
 			get {
@@ -323,8 +332,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the maximum number of layers permitted to build.
+		/// 
 		/// Or
 		/// Set the maximum number of layers that navigation construction can create.
+		/// 
 		/// </summary>
 		public uint MaxLayers {
 			get {
@@ -337,8 +348,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return whether to draw Obstacles.
+		/// 
 		/// Or
 		/// Draw debug geometry for Obstacles.
+		/// 
 		/// </summary>
 		public bool DrawObstacles {
 			get {

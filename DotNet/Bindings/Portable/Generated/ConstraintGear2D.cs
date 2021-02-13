@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set owner constraint.
+		/// 
 		/// </summary>
 		private void SetOwnerConstraint (Constraint2D constraint)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set other constraint.
+		/// 
 		/// </summary>
 		private void SetOtherConstraint (Constraint2D constraint)
 		{
@@ -131,6 +134,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set ratio.
+		/// 
 		/// </summary>
 		private void SetRatio (float ratio)
 		{
@@ -143,6 +147,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return owner constraint.
+		/// 
 		/// </summary>
 		private Constraint2D GetOwnerConstraint ()
 		{
@@ -155,6 +160,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return other constraint.
+		/// 
 		/// </summary>
 		private Constraint2D GetOtherConstraint ()
 		{
@@ -167,6 +173,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return ratio.
+		/// 
 		/// </summary>
 		private float GetRatio ()
 		{
@@ -201,8 +208,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return owner constraint.
+		/// 
 		/// Or
 		/// Set owner constraint.
+		/// 
 		/// </summary>
 		public Constraint2D OwnerConstraint {
 			get {
@@ -215,8 +224,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return other constraint.
+		/// 
 		/// Or
 		/// Set other constraint.
+		/// 
 		/// </summary>
 		public Constraint2D OtherConstraint {
 			get {
@@ -229,8 +240,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return ratio.
+		/// 
 		/// Or
 		/// Set ratio.
+		/// 
 		/// </summary>
 		public float Ratio {
 			get {

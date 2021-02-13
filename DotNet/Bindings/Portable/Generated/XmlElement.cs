@@ -152,6 +152,7 @@ namespace Urho.Resources
 		/// >value
 		/// </node
 		/// >.
+		/// 
 		/// </summary>
 		public bool SetValue (string value)
 		{
@@ -884,6 +885,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return whether does not refer to an element or an XPath node.
+		/// 
 		/// </summary>
 		private bool IsNull ()
 		{
@@ -896,6 +898,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return whether refers to an element or an XPath node.
+		/// 
 		/// </summary>
 		public bool NotNull ()
 		{
@@ -908,6 +911,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return element name (or attribute name if it is an attribute only XPath query result).
+		/// 
 		/// </summary>
 		private string GetName ()
 		{
@@ -956,6 +960,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return parent element.
+		/// 
 		/// </summary>
 		private XmlElement GetParent ()
 		{
@@ -968,6 +973,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return number of attributes.
+		/// 
 		/// </summary>
 		private uint GetNumAttributes ()
 		{
@@ -996,6 +1002,7 @@ namespace Urho.Resources
 		/// >value
 		/// </node
 		/// >.
+		/// 
 		/// </summary>
 		private string GetValue ()
 		{
@@ -1368,6 +1375,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return XML file.
+		/// 
 		/// </summary>
 		private Urho.Resources.XmlFile GetFile ()
 		{
@@ -1404,6 +1412,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return next XPath query result. Only valid when this instance of XMLElement is itself one of the query result in the result set.
+		/// 
 		/// </summary>
 		public XmlElement NextResult ()
 		{
@@ -1417,6 +1426,7 @@ namespace Urho.Resources
 		/// >value
 		/// </node
 		/// >.
+		/// 
 		/// </summary>
 		public string Value {
 			get {
@@ -1462,6 +1472,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return whether does not refer to an element or an XPath node.
+		/// 
 		/// </summary>
 		public bool Null {
 			get {
@@ -1471,6 +1482,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return element name (or attribute name if it is an attribute only XPath query result).
+		/// 
 		/// </summary>
 		public string Name {
 			get {
@@ -1480,6 +1492,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return parent element.
+		/// 
 		/// </summary>
 		public XmlElement Parent {
 			get {
@@ -1489,6 +1502,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return number of attributes.
+		/// 
 		/// </summary>
 		public uint NumAttributes {
 			get {
@@ -1498,6 +1512,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return XML file.
+		/// 
 		/// </summary>
 		public Urho.Resources.XmlFile File {
 			get {

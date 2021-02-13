@@ -66,6 +66,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set start bone. Not supported in node animation mode. Resets any assigned per-bone weights.
+		/// 
 		/// </summary>
 		private void SetStartBone (Bone* startBone)
 		{
@@ -78,6 +79,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set looping enabled/disabled.
+		/// 
 		/// </summary>
 		private void SetLooped (bool looped)
 		{
@@ -90,6 +92,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set blending weight.
+		/// 
 		/// </summary>
 		private void SetWeight (float weight)
 		{
@@ -102,6 +105,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set blending mode.
+		/// 
 		/// </summary>
 		private void SetBlendMode (AnimationBlendMode mode)
 		{
@@ -114,6 +118,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set time position. Does not fire animation triggers.
+		/// 
 		/// </summary>
 		private void SetTime (float time)
 		{
@@ -186,6 +191,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set blending layer.
+		/// 
 		/// </summary>
 		private void SetLayer (byte layer)
 		{
@@ -198,6 +204,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation.
+		/// 
 		/// </summary>
 		private Animation GetAnimation ()
 		{
@@ -210,6 +217,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return animated model this state belongs to (model mode).
+		/// 
 		/// </summary>
 		private AnimatedModel GetModel ()
 		{
@@ -222,6 +230,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return root scene node this state controls (node hierarchy mode).
+		/// 
 		/// </summary>
 		private Node GetNode ()
 		{
@@ -234,6 +243,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return start bone.
+		/// 
 		/// </summary>
 		private Bone* GetStartBone ()
 		{
@@ -258,6 +268,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return per-bone blending weight by name.
+		/// 
 		/// </summary>
 		public float GetBoneWeight (string name)
 		{
@@ -318,6 +329,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether weight is nonzero.
+		/// 
 		/// </summary>
 		private bool IsEnabled ()
 		{
@@ -330,6 +342,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether looped.
+		/// 
 		/// </summary>
 		private bool IsLooped ()
 		{
@@ -342,6 +355,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return blending weight.
+		/// 
 		/// </summary>
 		private float GetWeight ()
 		{
@@ -354,6 +368,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return blending mode.
+		/// 
 		/// </summary>
 		private AnimationBlendMode GetBlendMode ()
 		{
@@ -366,6 +381,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return time position.
+		/// 
 		/// </summary>
 		private float GetTime ()
 		{
@@ -378,6 +394,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation length.
+		/// 
 		/// </summary>
 		private float GetLength ()
 		{
@@ -390,6 +407,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return blending layer.
+		/// 
 		/// </summary>
 		private byte GetLayer ()
 		{
@@ -411,8 +429,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return start bone.
+		/// 
 		/// Or
 		/// Set start bone. Not supported in node animation mode. Resets any assigned per-bone weights.
+		/// 
 		/// </summary>
 		public Bone* StartBone {
 			get {
@@ -425,8 +445,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether looped.
+		/// 
 		/// Or
 		/// Set looping enabled/disabled.
+		/// 
 		/// </summary>
 		public bool Looped {
 			get {
@@ -439,8 +461,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return blending weight.
+		/// 
 		/// Or
 		/// Set blending weight.
+		/// 
 		/// </summary>
 		public float Weight {
 			get {
@@ -453,8 +477,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return blending mode.
+		/// 
 		/// Or
 		/// Set blending mode.
+		/// 
 		/// </summary>
 		public AnimationBlendMode BlendMode {
 			get {
@@ -467,8 +493,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return time position.
+		/// 
 		/// Or
 		/// Set time position. Does not fire animation triggers.
+		/// 
 		/// </summary>
 		public float Time {
 			get {
@@ -481,8 +509,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return blending layer.
+		/// 
 		/// Or
 		/// Set blending layer.
+		/// 
 		/// </summary>
 		public byte Layer {
 			get {
@@ -495,6 +525,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation.
+		/// 
 		/// </summary>
 		public Animation Animation {
 			get {
@@ -504,6 +535,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return animated model this state belongs to (model mode).
+		/// 
 		/// </summary>
 		public AnimatedModel Model {
 			get {
@@ -513,6 +545,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return root scene node this state controls (node hierarchy mode).
+		/// 
 		/// </summary>
 		public Node Node {
 			get {
@@ -522,6 +555,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether weight is nonzero.
+		/// 
 		/// </summary>
 		public bool Enabled {
 			get {
@@ -531,6 +565,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation length.
+		/// 
 		/// </summary>
 		public float Length {
 			get {

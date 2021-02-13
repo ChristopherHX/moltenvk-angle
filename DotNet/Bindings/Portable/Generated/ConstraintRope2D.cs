@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set owner body anchor.
+		/// 
 		/// </summary>
 		private void SetOwnerBodyAnchor (Urho.Vector2 anchor)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set other body anchor.
+		/// 
 		/// </summary>
 		private void SetOtherBodyAnchor (Urho.Vector2 anchor)
 		{
@@ -131,6 +134,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set max length.
+		/// 
 		/// </summary>
 		private void SetMaxLength (float maxLength)
 		{
@@ -143,6 +147,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return owner body anchor.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetOwnerBodyAnchor ()
 		{
@@ -155,6 +160,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return other body anchor.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetOtherBodyAnchor ()
 		{
@@ -167,6 +173,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return max length.
+		/// 
 		/// </summary>
 		private float GetMaxLength ()
 		{
@@ -201,8 +208,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return owner body anchor.
+		/// 
 		/// Or
 		/// Set owner body anchor.
+		/// 
 		/// </summary>
 		public Urho.Vector2 OwnerBodyAnchor {
 			get {
@@ -215,8 +224,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return other body anchor.
+		/// 
 		/// Or
 		/// Set other body anchor.
+		/// 
 		/// </summary>
 		public Urho.Vector2 OtherBodyAnchor {
 			get {
@@ -229,8 +240,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return max length.
+		/// 
 		/// Or
 		/// Set max length.
+		/// 
 		/// </summary>
 		public float MaxLength {
 			get {

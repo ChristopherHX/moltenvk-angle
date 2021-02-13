@@ -95,6 +95,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -299,6 +300,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set shape type.
+		/// 
 		/// </summary>
 		private void SetShapeType (ShapeType type)
 		{
@@ -311,6 +313,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set shape size.
+		/// 
 		/// </summary>
 		private void SetSize (Urho.Vector3 size)
 		{
@@ -323,6 +326,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set offset position.
+		/// 
 		/// </summary>
 		private void SetPosition (Urho.Vector3 position)
 		{
@@ -335,6 +339,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set offset rotation.
+		/// 
 		/// </summary>
 		private void SetRotation (Urho.Quaternion rotation)
 		{
@@ -359,6 +364,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set collision margin.
+		/// 
 		/// </summary>
 		private void SetMargin (float margin)
 		{
@@ -371,6 +377,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set triangle mesh / convex hull model.
+		/// 
 		/// </summary>
 		private void SetModel (Model model)
 		{
@@ -383,6 +390,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set model LOD level.
+		/// 
 		/// </summary>
 		private void SetLodLevel (uint lodLevel)
 		{
@@ -407,6 +415,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return shape type.
+		/// 
 		/// </summary>
 		private ShapeType GetShapeType ()
 		{
@@ -419,6 +428,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return shape size.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetSize ()
 		{
@@ -431,6 +441,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return offset position.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetPosition ()
 		{
@@ -443,6 +454,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return offset rotation.
+		/// 
 		/// </summary>
 		private Urho.Quaternion GetRotation ()
 		{
@@ -455,6 +467,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return collision margin.
+		/// 
 		/// </summary>
 		private float GetMargin ()
 		{
@@ -467,6 +480,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return triangle mesh / convex hull model.
+		/// 
 		/// </summary>
 		private Model GetModel ()
 		{
@@ -479,6 +493,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return model LOD level.
+		/// 
 		/// </summary>
 		private uint GetLodLevel ()
 		{
@@ -491,6 +506,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return world-space bounding box.
+		/// 
 		/// </summary>
 		private BoundingBox GetWorldBoundingBox ()
 		{
@@ -561,8 +577,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return shape type.
+		/// 
 		/// Or
 		/// Set shape type.
+		/// 
 		/// </summary>
 		public ShapeType ShapeType {
 			get {
@@ -575,8 +593,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return shape size.
+		/// 
 		/// Or
 		/// Set shape size.
+		/// 
 		/// </summary>
 		public Urho.Vector3 Size {
 			get {
@@ -589,8 +609,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return offset position.
+		/// 
 		/// Or
 		/// Set offset position.
+		/// 
 		/// </summary>
 		public Urho.Vector3 Position {
 			get {
@@ -603,8 +625,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return offset rotation.
+		/// 
 		/// Or
 		/// Set offset rotation.
+		/// 
 		/// </summary>
 		public Urho.Quaternion Rotation {
 			get {
@@ -617,8 +641,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return collision margin.
+		/// 
 		/// Or
 		/// Set collision margin.
+		/// 
 		/// </summary>
 		public float Margin {
 			get {
@@ -631,8 +657,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return triangle mesh / convex hull model.
+		/// 
 		/// Or
 		/// Set triangle mesh / convex hull model.
+		/// 
 		/// </summary>
 		public Model Model {
 			get {
@@ -645,8 +673,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return model LOD level.
+		/// 
 		/// Or
 		/// Set model LOD level.
+		/// 
 		/// </summary>
 		public uint LodLevel {
 			get {
@@ -668,6 +698,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return world-space bounding box.
+		/// 
 		/// </summary>
 		public BoundingBox WorldBoundingBox {
 			get {

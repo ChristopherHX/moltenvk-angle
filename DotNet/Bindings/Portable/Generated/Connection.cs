@@ -74,6 +74,18 @@ namespace Urho.Network
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern PacketType Connection_GetPacketType (IntPtr handle, bool reliable, bool inOrder);
+
+		/// <summary>
+		/// Get packet type based on the message parameters
+		/// </summary>
+		public PacketType GetPacketType (bool reliable, bool inOrder)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Connection_GetPacketType (handle, reliable, inOrder);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void Connection_SendMessage (IntPtr handle, int msgID, bool reliable, bool inOrder, byte* data, uint numBytes, uint contentID);
 
 		/// <summary>
@@ -90,6 +102,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Assign scene. On the server, this will cause the client to load it.
+		/// 
 		/// </summary>
 		private void SetScene (Scene newScene)
 		{
@@ -102,6 +115,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Set the observer position for interest management, to be sent to the server.
+		/// 
 		/// </summary>
 		private void SetPosition (Urho.Vector3 position)
 		{
@@ -114,6 +128,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Set the observer rotation for interest management, to be sent to the server. Note: not used by the NetworkPriority component.
+		/// 
 		/// </summary>
 		private void SetRotation (Urho.Quaternion rotation)
 		{
@@ -138,6 +153,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Set whether to log data in/out statistics.
+		/// 
 		/// </summary>
 		private void SetLogStatistics (bool enable)
 		{
@@ -206,6 +222,30 @@ namespace Urho.Network
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Connection_SendBuffer (IntPtr handle, PacketType type);
+
+		/// <summary>
+		/// Send out buffered messages by their type
+		/// </summary>
+		public void SendBuffer (PacketType type)
+		{
+			Runtime.ValidateRefCounted (this);
+			Connection_SendBuffer (handle, type);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Connection_SendAllBuffers (IntPtr handle);
+
+		/// <summary>
+		/// Send out all buffered messages
+		/// </summary>
+		public void SendAllBuffers ()
+		{
+			Runtime.ValidateRefCounted (this);
+			Connection_SendAllBuffers (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void Connection_ProcessPendingLatestData (IntPtr handle);
 
 		/// <summary>
@@ -234,6 +274,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return the scene used by this connection.
+		/// 
 		/// </summary>
 		private Scene GetScene ()
 		{
@@ -258,6 +299,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return the observer position sent by the client for interest management.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetPosition ()
 		{
@@ -270,6 +312,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return the observer rotation sent by the client for interest management.
+		/// 
 		/// </summary>
 		private Urho.Quaternion GetRotation ()
 		{
@@ -282,6 +325,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return whether is a client connection.
+		/// 
 		/// </summary>
 		private bool IsClient ()
 		{
@@ -294,6 +338,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return whether is fully connected.
+		/// 
 		/// </summary>
 		private bool IsConnected ()
 		{
@@ -306,6 +351,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return whether connection is pending.
+		/// 
 		/// </summary>
 		private bool IsConnectPending ()
 		{
@@ -318,6 +364,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return whether the scene is loaded and ready to receive server updates.
+		/// 
 		/// </summary>
 		private bool IsSceneLoaded ()
 		{
@@ -330,6 +377,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return whether to log data in/out statistics.
+		/// 
 		/// </summary>
 		private bool GetLogStatistics ()
 		{
@@ -342,6 +390,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return remote address.
+		/// 
 		/// </summary>
 		private string GetAddress ()
 		{
@@ -354,6 +403,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return remote port.
+		/// 
 		/// </summary>
 		private ushort GetPort ()
 		{
@@ -366,6 +416,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return the connection's round trip time in milliseconds.
+		/// 
 		/// </summary>
 		private float GetRoundTripTime ()
 		{
@@ -378,6 +429,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return the time since last received data from the remote host in milliseconds.
+		/// 
 		/// </summary>
 		private uint GetLastHeardTime ()
 		{
@@ -390,6 +442,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return bytes received per second.
+		/// 
 		/// </summary>
 		private float GetBytesInPerSec ()
 		{
@@ -402,6 +455,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return bytes sent per second.
+		/// 
 		/// </summary>
 		private float GetBytesOutPerSec ()
 		{
@@ -414,6 +468,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return packets received per second.
+		/// 
 		/// </summary>
 		private int GetPacketsInPerSec ()
 		{
@@ -426,6 +481,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return packets sent per second.
+		/// 
 		/// </summary>
 		private int GetPacketsOutPerSec ()
 		{
@@ -450,6 +506,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return number of package downloads remaining.
+		/// 
 		/// </summary>
 		private uint GetNumDownloads ()
 		{
@@ -462,6 +519,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return name of current package download, or empty if no downloads.
+		/// 
 		/// </summary>
 		private string GetDownloadName ()
 		{
@@ -474,6 +532,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return progress of current package download, or 1.0 if no downloads.
+		/// 
 		/// </summary>
 		private float GetDownloadProgress ()
 		{
@@ -505,6 +564,18 @@ namespace Urho.Network
 			Connection_ConfigureNetworkSimulator (handle, latencyMs, packetLoss);
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Connection_SetPacketSizeLimit (IntPtr handle, int limit);
+
+		/// <summary>
+		/// Buffered packet size limit, when reached, packet is sent out immediately
+		/// </summary>
+		public void SetPacketSizeLimit (int limit)
+		{
+			Runtime.ValidateRefCounted (this);
+			Connection_SetPacketSizeLimit (handle, limit);
+		}
+
 		public override StringHash Type {
 			get {
 				return UrhoGetType ();
@@ -532,8 +603,10 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return the scene used by this connection.
+		/// 
 		/// Or
 		/// Assign scene. On the server, this will cause the client to load it.
+		/// 
 		/// </summary>
 		public Scene Scene {
 			get {
@@ -546,8 +619,10 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return the observer position sent by the client for interest management.
+		/// 
 		/// Or
 		/// Set the observer position for interest management, to be sent to the server.
+		/// 
 		/// </summary>
 		public Urho.Vector3 Position {
 			get {
@@ -560,8 +635,10 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return the observer rotation sent by the client for interest management.
+		/// 
 		/// Or
 		/// Set the observer rotation for interest management, to be sent to the server. Note: not used by the NetworkPriority component.
+		/// 
 		/// </summary>
 		public Urho.Quaternion Rotation {
 			get {
@@ -574,6 +651,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return whether connection is pending.
+		/// 
 		/// Or
 		/// Set the connection pending status. Called by Network.
 		/// </summary>
@@ -588,8 +666,10 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return whether to log data in/out statistics.
+		/// 
 		/// Or
 		/// Set whether to log data in/out statistics.
+		/// 
 		/// </summary>
 		public bool LogStatistics {
 			get {
@@ -611,6 +691,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return whether is a client connection.
+		/// 
 		/// </summary>
 		public bool Client {
 			get {
@@ -620,6 +701,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return whether is fully connected.
+		/// 
 		/// </summary>
 		public bool Connected {
 			get {
@@ -629,6 +711,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return whether the scene is loaded and ready to receive server updates.
+		/// 
 		/// </summary>
 		public bool SceneLoaded {
 			get {
@@ -638,6 +721,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return remote address.
+		/// 
 		/// </summary>
 		public string Address {
 			get {
@@ -647,6 +731,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return remote port.
+		/// 
 		/// </summary>
 		public ushort Port {
 			get {
@@ -656,6 +741,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return the connection's round trip time in milliseconds.
+		/// 
 		/// </summary>
 		public float RoundTripTime {
 			get {
@@ -665,6 +751,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return the time since last received data from the remote host in milliseconds.
+		/// 
 		/// </summary>
 		public uint LastHeardTime {
 			get {
@@ -674,6 +761,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return bytes received per second.
+		/// 
 		/// </summary>
 		public float BytesInPerSec {
 			get {
@@ -683,6 +771,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return bytes sent per second.
+		/// 
 		/// </summary>
 		public float BytesOutPerSec {
 			get {
@@ -692,6 +781,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return packets received per second.
+		/// 
 		/// </summary>
 		public int PacketsInPerSec {
 			get {
@@ -701,6 +791,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return packets sent per second.
+		/// 
 		/// </summary>
 		public int PacketsOutPerSec {
 			get {
@@ -710,6 +801,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return number of package downloads remaining.
+		/// 
 		/// </summary>
 		public uint NumDownloads {
 			get {
@@ -719,6 +811,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return name of current package download, or empty if no downloads.
+		/// 
 		/// </summary>
 		public string DownloadName {
 			get {
@@ -728,6 +821,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return progress of current package download, or 1.0 if no downloads.
+		/// 
 		/// </summary>
 		public float DownloadProgress {
 			get {

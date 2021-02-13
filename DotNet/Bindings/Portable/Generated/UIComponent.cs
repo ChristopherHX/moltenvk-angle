@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return UIElement.
+		/// 
 		/// </summary>
 		private UIElement GetRoot ()
 		{
@@ -119,6 +121,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return material which will be used for rendering UI texture.
+		/// 
 		/// </summary>
 		private Material GetMaterial ()
 		{
@@ -131,6 +134,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return texture which will be used for rendering UI to.
+		/// 
 		/// </summary>
 		private Texture2D GetTexture ()
 		{
@@ -177,6 +181,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return UIElement.
+		/// 
 		/// </summary>
 		public UIElement Root {
 			get {
@@ -186,6 +191,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return material which will be used for rendering UI texture.
+		/// 
 		/// </summary>
 		public Material Material {
 			get {
@@ -195,6 +201,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return texture which will be used for rendering UI to.
+		/// 
 		/// </summary>
 		public Texture2D Texture {
 			get {

@@ -29,10 +29,4 @@ namespace Urho {
 		}
 	}
 
-	[StructLayout(LayoutKind.Sequential)]
-	public unsafe partial struct RefCount
-	{
-		[DllImport(Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		internal static extern IntPtr RefCount_RefCount();
-	}
 }

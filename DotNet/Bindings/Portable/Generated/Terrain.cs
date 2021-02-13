@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -131,6 +132,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set patch quads per side. Must be a power of two.
+		/// 
 		/// </summary>
 		private void SetPatchSize (int size)
 		{
@@ -143,6 +145,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set vertex (XZ) and height (Y) spacing.
+		/// 
 		/// </summary>
 		private void SetSpacing (Urho.Vector3 spacing)
 		{
@@ -155,6 +158,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set maximum number of LOD levels for terrain patches. This can be between 1-4.
+		/// 
 		/// </summary>
 		private void SetMaxLodLevels (uint levels)
 		{
@@ -167,6 +171,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set LOD level used for terrain patch occlusion. By default (M_MAX_UNSIGNED) the coarsest. Since the LOD level used needs to be fixed, using finer LOD levels may result in false positive occlusion in cases where the actual rendered geometry is coarser, so use with caution.
+		/// 
 		/// </summary>
 		private void SetOcclusionLodLevel (uint level)
 		{
@@ -179,6 +184,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set smoothing of heightmap.
+		/// 
 		/// </summary>
 		private void SetSmoothing (bool enable)
 		{
@@ -191,6 +197,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set heightmap image. Dimensions should be a power of two + 1. Uses 8-bit grayscale, or optionally red as MSB and green as LSB for 16-bit accuracy. Return true if successful.
+		/// 
 		/// </summary>
 		public bool SetHeightMap (Image image)
 		{
@@ -203,6 +210,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set material.
+		/// 
 		/// </summary>
 		private void SetMaterial (Material material)
 		{
@@ -215,6 +223,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set north (positive Z) neighbor terrain for seamless LOD changes across terrains.
+		/// 
 		/// </summary>
 		private void SetNorthNeighbor (Terrain north)
 		{
@@ -227,6 +236,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set south (negative Z) neighbor terrain for seamless LOD changes across terrains.
+		/// 
 		/// </summary>
 		private void SetSouthNeighbor (Terrain south)
 		{
@@ -239,6 +249,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set west (negative X) neighbor terrain for seamless LOD changes across terrains.
+		/// 
 		/// </summary>
 		private void SetWestNeighbor (Terrain west)
 		{
@@ -251,6 +262,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set east (positive X) neighbor terrain for seamless LOD changes across terrains.
+		/// 
 		/// </summary>
 		private void SetEastNeighbor (Terrain east)
 		{
@@ -275,6 +287,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set draw distance for patches.
+		/// 
 		/// </summary>
 		private void SetDrawDistance (float distance)
 		{
@@ -287,6 +300,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadow draw distance for patches.
+		/// 
 		/// </summary>
 		private void SetShadowDistance (float distance)
 		{
@@ -299,6 +313,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set LOD bias for patches. Affects which terrain LOD to display.
+		/// 
 		/// </summary>
 		private void SetLodBias (float bias)
 		{
@@ -311,6 +326,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set view mask for patches. Is and'ed with camera's view mask to see if the object should be rendered.
+		/// 
 		/// </summary>
 		private void SetViewMask (uint mask)
 		{
@@ -323,6 +339,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set light mask for patches. Is and'ed with light's and zone's light mask to see if the object should be lit.
+		/// 
 		/// </summary>
 		private void SetLightMask (uint mask)
 		{
@@ -335,6 +352,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadow mask for patches. Is and'ed with light's light mask and zone's shadow mask to see if the object should be rendered to a shadow map.
+		/// 
 		/// </summary>
 		private void SetShadowMask (uint mask)
 		{
@@ -347,6 +365,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set zone mask for patches. Is and'ed with zone's zone mask to see if the object should belong to the zone.
+		/// 
 		/// </summary>
 		private void SetZoneMask (uint mask)
 		{
@@ -359,6 +378,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set maximum number of per-pixel lights for patches. Default 0 is unlimited.
+		/// 
 		/// </summary>
 		private void SetMaxLights (uint num)
 		{
@@ -371,6 +391,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadowcaster flag for patches.
+		/// 
 		/// </summary>
 		private void SetCastShadows (bool enable)
 		{
@@ -383,6 +404,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set occlusion flag for patches. Occlusion uses the coarsest LOD by default.
+		/// 
 		/// </summary>
 		private void SetOccluder (bool enable)
 		{
@@ -395,6 +417,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set occludee flag for patches.
+		/// 
 		/// </summary>
 		private void SetOccludee (bool enable)
 		{
@@ -419,6 +442,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return patch quads per side.
+		/// 
 		/// </summary>
 		private int GetPatchSize ()
 		{
@@ -431,6 +455,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return vertex and height spacing.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetSpacing ()
 		{
@@ -443,6 +468,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return heightmap size in vertices.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetNumVertices ()
 		{
@@ -455,6 +481,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return heightmap size in patches.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetNumPatches ()
 		{
@@ -467,6 +494,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of LOD levels for terrain patches. This can be between 1-4.
+		/// 
 		/// </summary>
 		private uint GetMaxLodLevels ()
 		{
@@ -479,6 +507,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return LOD level used for occlusion.
+		/// 
 		/// </summary>
 		private uint GetOcclusionLodLevel ()
 		{
@@ -491,6 +520,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether smoothing is in use.
+		/// 
 		/// </summary>
 		private bool GetSmoothing ()
 		{
@@ -503,6 +533,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return heightmap image.
+		/// 
 		/// </summary>
 		private Image GetHeightMap ()
 		{
@@ -515,6 +546,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return material.
+		/// 
 		/// </summary>
 		private Material GetMaterial ()
 		{
@@ -527,6 +559,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return patch by index.
+		/// 
 		/// </summary>
 		public TerrainPatch GetPatch (uint index)
 		{
@@ -611,6 +644,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return north neighbor terrain.
+		/// 
 		/// </summary>
 		private Terrain GetNorthNeighbor ()
 		{
@@ -623,6 +657,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return south neighbor terrain.
+		/// 
 		/// </summary>
 		private Terrain GetSouthNeighbor ()
 		{
@@ -635,6 +670,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return west neighbor terrain.
+		/// 
 		/// </summary>
 		private Terrain GetWestNeighbor ()
 		{
@@ -647,6 +683,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return east neighbor terrain.
+		/// 
 		/// </summary>
 		private Terrain GetEastNeighbor ()
 		{
@@ -659,6 +696,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return draw distance.
+		/// 
 		/// </summary>
 		private float GetDrawDistance ()
 		{
@@ -671,6 +709,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow draw distance.
+		/// 
 		/// </summary>
 		private float GetShadowDistance ()
 		{
@@ -683,6 +722,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return LOD bias.
+		/// 
 		/// </summary>
 		private float GetLodBias ()
 		{
@@ -695,6 +735,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return view mask.
+		/// 
 		/// </summary>
 		private uint GetViewMask ()
 		{
@@ -707,6 +748,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return light mask.
+		/// 
 		/// </summary>
 		private uint GetLightMask ()
 		{
@@ -719,6 +761,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow mask.
+		/// 
 		/// </summary>
 		private uint GetShadowMask ()
 		{
@@ -731,6 +774,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return zone mask.
+		/// 
 		/// </summary>
 		private uint GetZoneMask ()
 		{
@@ -743,6 +787,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of per-pixel lights.
+		/// 
 		/// </summary>
 		private uint GetMaxLights ()
 		{
@@ -767,6 +812,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadowcaster flag.
+		/// 
 		/// </summary>
 		private bool GetCastShadows ()
 		{
@@ -779,6 +825,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return occluder flag.
+		/// 
 		/// </summary>
 		private bool IsOccluder ()
 		{
@@ -791,6 +838,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return occludee flag.
+		/// 
 		/// </summary>
 		private bool IsOccludee ()
 		{
@@ -909,8 +957,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return patch quads per side.
+		/// 
 		/// Or
 		/// Set patch quads per side. Must be a power of two.
+		/// 
 		/// </summary>
 		public int PatchSize {
 			get {
@@ -923,8 +973,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return vertex and height spacing.
+		/// 
 		/// Or
 		/// Set vertex (XZ) and height (Y) spacing.
+		/// 
 		/// </summary>
 		public Urho.Vector3 Spacing {
 			get {
@@ -937,8 +989,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of LOD levels for terrain patches. This can be between 1-4.
+		/// 
 		/// Or
 		/// Set maximum number of LOD levels for terrain patches. This can be between 1-4.
+		/// 
 		/// </summary>
 		public uint MaxLodLevels {
 			get {
@@ -951,8 +1005,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return LOD level used for occlusion.
+		/// 
 		/// Or
 		/// Set LOD level used for terrain patch occlusion. By default (M_MAX_UNSIGNED) the coarsest. Since the LOD level used needs to be fixed, using finer LOD levels may result in false positive occlusion in cases where the actual rendered geometry is coarser, so use with caution.
+		/// 
 		/// </summary>
 		public uint OcclusionLodLevel {
 			get {
@@ -965,8 +1021,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether smoothing is in use.
+		/// 
 		/// Or
 		/// Set smoothing of heightmap.
+		/// 
 		/// </summary>
 		public bool Smoothing {
 			get {
@@ -979,8 +1037,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return heightmap image.
+		/// 
 		/// Or
 		/// Set heightmap image. Dimensions should be a power of two + 1. Uses 8-bit grayscale, or optionally red as MSB and green as LSB for 16-bit accuracy. Return true if successful.
+		/// 
 		/// </summary>
 		public Image HeightMap {
 			get {
@@ -993,8 +1053,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return material.
+		/// 
 		/// Or
 		/// Set material.
+		/// 
 		/// </summary>
 		public Material Material {
 			get {
@@ -1007,8 +1069,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return north neighbor terrain.
+		/// 
 		/// Or
 		/// Set north (positive Z) neighbor terrain for seamless LOD changes across terrains.
+		/// 
 		/// </summary>
 		public Terrain NorthNeighbor {
 			get {
@@ -1021,8 +1085,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return south neighbor terrain.
+		/// 
 		/// Or
 		/// Set south (negative Z) neighbor terrain for seamless LOD changes across terrains.
+		/// 
 		/// </summary>
 		public Terrain SouthNeighbor {
 			get {
@@ -1035,8 +1101,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return west neighbor terrain.
+		/// 
 		/// Or
 		/// Set west (negative X) neighbor terrain for seamless LOD changes across terrains.
+		/// 
 		/// </summary>
 		public Terrain WestNeighbor {
 			get {
@@ -1049,8 +1117,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return east neighbor terrain.
+		/// 
 		/// Or
 		/// Set east (positive X) neighbor terrain for seamless LOD changes across terrains.
+		/// 
 		/// </summary>
 		public Terrain EastNeighbor {
 			get {
@@ -1063,8 +1133,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return draw distance.
+		/// 
 		/// Or
 		/// Set draw distance for patches.
+		/// 
 		/// </summary>
 		public float DrawDistance {
 			get {
@@ -1077,8 +1149,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow draw distance.
+		/// 
 		/// Or
 		/// Set shadow draw distance for patches.
+		/// 
 		/// </summary>
 		public float ShadowDistance {
 			get {
@@ -1091,8 +1165,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return LOD bias.
+		/// 
 		/// Or
 		/// Set LOD bias for patches. Affects which terrain LOD to display.
+		/// 
 		/// </summary>
 		public float LodBias {
 			get {
@@ -1105,8 +1181,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return view mask.
+		/// 
 		/// Or
 		/// Set view mask for patches. Is and'ed with camera's view mask to see if the object should be rendered.
+		/// 
 		/// </summary>
 		public uint ViewMask {
 			get {
@@ -1119,8 +1197,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return light mask.
+		/// 
 		/// Or
 		/// Set light mask for patches. Is and'ed with light's and zone's light mask to see if the object should be lit.
+		/// 
 		/// </summary>
 		public uint LightMask {
 			get {
@@ -1133,8 +1213,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow mask.
+		/// 
 		/// Or
 		/// Set shadow mask for patches. Is and'ed with light's light mask and zone's shadow mask to see if the object should be rendered to a shadow map.
+		/// 
 		/// </summary>
 		public uint ShadowMask {
 			get {
@@ -1147,8 +1229,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return zone mask.
+		/// 
 		/// Or
 		/// Set zone mask for patches. Is and'ed with zone's zone mask to see if the object should belong to the zone.
+		/// 
 		/// </summary>
 		public uint ZoneMask {
 			get {
@@ -1161,8 +1245,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of per-pixel lights.
+		/// 
 		/// Or
 		/// Set maximum number of per-pixel lights for patches. Default 0 is unlimited.
+		/// 
 		/// </summary>
 		public uint MaxLights {
 			get {
@@ -1175,8 +1261,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadowcaster flag.
+		/// 
 		/// Or
 		/// Set shadowcaster flag for patches.
+		/// 
 		/// </summary>
 		public bool CastShadows {
 			get {
@@ -1189,8 +1277,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return occluder flag.
+		/// 
 		/// Or
 		/// Set occlusion flag for patches. Occlusion uses the coarsest LOD by default.
+		/// 
 		/// </summary>
 		public bool Occluder {
 			get {
@@ -1203,8 +1293,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return occludee flag.
+		/// 
 		/// Or
 		/// Set occludee flag for patches.
+		/// 
 		/// </summary>
 		public bool Occludee {
 			get {
@@ -1217,6 +1309,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return heightmap size in vertices.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 NumVertices {
 			get {
@@ -1226,6 +1319,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return heightmap size in patches.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 NumPatches {
 			get {

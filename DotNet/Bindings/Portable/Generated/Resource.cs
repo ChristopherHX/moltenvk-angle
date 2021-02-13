@@ -183,6 +183,8 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Load resource from file.
+		/// 
+		/// {Load}
 		/// </summary>
 		public bool LoadFile (string fileName)
 		{
@@ -195,6 +197,8 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Save resource to file.
+		/// 
+		/// {Save}
 		/// </summary>
 		public virtual bool SaveFile (string fileName)
 		{
@@ -207,6 +211,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Set name.
+		/// 
 		/// </summary>
 		private void SetName (string name)
 		{
@@ -255,6 +260,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return name.
+		/// 
 		/// </summary>
 		private string GetName ()
 		{
@@ -279,6 +285,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return memory use in bytes, possibly approximate.
+		/// 
 		/// </summary>
 		private uint GetMemoryUse ()
 		{
@@ -291,6 +298,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return time since last use in milliseconds. If referred to elsewhere than in the resource cache, returns always zero.
+		/// 
 		/// </summary>
 		private uint GetUseTimer ()
 		{
@@ -337,8 +345,10 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return name.
+		/// 
 		/// Or
 		/// Set name.
+		/// 
 		/// </summary>
 		public string Name {
 			get {
@@ -351,6 +361,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return memory use in bytes, possibly approximate.
+		/// 
 		/// Or
 		/// Set memory use in bytes, possibly approximate.
 		/// </summary>
@@ -388,6 +399,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return time since last use in milliseconds. If referred to elsewhere than in the resource cache, returns always zero.
+		/// 
 		/// </summary>
 		public uint UseTimer {
 			get {

@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -119,6 +120,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set animation set.
+		/// 
 		/// </summary>
 		private void SetAnimationSet (AnimationSet2D animationSet)
 		{
@@ -131,6 +133,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set entity name (skin name for spine, entity name for spriter).
+		/// 
 		/// </summary>
 		private void SetEntity (string entity)
 		{
@@ -155,6 +158,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set loop mode.
+		/// 
 		/// </summary>
 		private void SetLoopMode (LoopMode2D loopMode)
 		{
@@ -167,6 +171,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set speed.
+		/// 
 		/// </summary>
 		private void SetSpeed (float speed)
 		{
@@ -179,6 +184,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return animation.
+		/// 
 		/// </summary>
 		private AnimationSet2D GetAnimationSet ()
 		{
@@ -191,6 +197,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return entity name.
+		/// 
 		/// </summary>
 		private string GetEntity ()
 		{
@@ -203,6 +210,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return animation name.
+		/// 
 		/// </summary>
 		private string GetAnimation ()
 		{
@@ -215,6 +223,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return loop mode.
+		/// 
 		/// </summary>
 		private LoopMode2D GetLoopMode ()
 		{
@@ -227,6 +236,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return speed.
+		/// 
 		/// </summary>
 		private float GetSpeed ()
 		{
@@ -251,6 +261,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set animation by name.
+		/// 
 		/// </summary>
 		public void SetAnimationAttr (string name)
 		{
@@ -285,8 +296,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return animation.
+		/// 
 		/// Or
 		/// Set animation set.
+		/// 
 		/// </summary>
 		public AnimationSet2D AnimationSet {
 			get {
@@ -299,8 +312,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return entity name.
+		/// 
 		/// Or
 		/// Set entity name (skin name for spine, entity name for spriter).
+		/// 
 		/// </summary>
 		public string Entity {
 			get {
@@ -313,8 +328,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return loop mode.
+		/// 
 		/// Or
 		/// Set loop mode.
+		/// 
 		/// </summary>
 		public LoopMode2D LoopMode {
 			get {
@@ -327,8 +344,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return speed.
+		/// 
 		/// Or
 		/// Set speed.
+		/// 
 		/// </summary>
 		public float Speed {
 			get {
@@ -341,6 +360,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return animation name.
+		/// 
 		/// </summary>
 		public string Animation {
 			get {

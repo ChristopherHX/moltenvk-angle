@@ -95,6 +95,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{

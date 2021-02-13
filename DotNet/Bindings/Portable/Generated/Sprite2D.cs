@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -143,6 +144,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set texture.
+		/// 
 		/// </summary>
 		private void SetTexture (Texture2D texture)
 		{
@@ -155,6 +157,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set rectangle.
+		/// 
 		/// </summary>
 		private void SetRectangle (Urho.IntRect rectangle)
 		{
@@ -167,6 +170,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set hot spot.
+		/// 
 		/// </summary>
 		private void SetHotSpot (Urho.Vector2 hotSpot)
 		{
@@ -179,6 +183,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set offset.
+		/// 
 		/// </summary>
 		private void SetOffset (Urho.IntVector2 offset)
 		{
@@ -191,6 +196,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set texture edge offset in pixels. This affects the left/right and top/bottom edges equally to prevent edge sampling artifacts. Default 0.
+		/// 
 		/// </summary>
 		private void SetTextureEdgeOffset (float offset)
 		{
@@ -215,6 +221,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return texture.
+		/// 
 		/// </summary>
 		private Texture2D GetTexture ()
 		{
@@ -227,6 +234,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return rectangle.
+		/// 
 		/// </summary>
 		private Urho.IntRect GetRectangle ()
 		{
@@ -239,6 +247,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return hot spot.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetHotSpot ()
 		{
@@ -251,6 +260,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return offset.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetOffset ()
 		{
@@ -263,6 +273,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return texture edge offset.
+		/// 
 		/// </summary>
 		private float GetTextureEdgeOffset ()
 		{
@@ -321,8 +332,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return texture.
+		/// 
 		/// Or
 		/// Set texture.
+		/// 
 		/// </summary>
 		public Texture2D Texture {
 			get {
@@ -335,8 +348,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return rectangle.
+		/// 
 		/// Or
 		/// Set rectangle.
+		/// 
 		/// </summary>
 		public Urho.IntRect Rectangle {
 			get {
@@ -349,8 +364,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return hot spot.
+		/// 
 		/// Or
 		/// Set hot spot.
+		/// 
 		/// </summary>
 		public Urho.Vector2 HotSpot {
 			get {
@@ -363,8 +380,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return offset.
+		/// 
 		/// Or
 		/// Set offset.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 Offset {
 			get {
@@ -377,8 +396,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return texture edge offset.
+		/// 
 		/// Or
 		/// Set texture edge offset in pixels. This affects the left/right and top/bottom edges equally to prevent edge sampling artifacts. Default 0.
+		/// 
 		/// </summary>
 		public float TextureEdgeOffset {
 			get {

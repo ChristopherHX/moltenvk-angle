@@ -94,7 +94,8 @@ namespace Urho.Urho2D
 		internal static extern void ParticleEmitter2D_RegisterObject (IntPtr context);
 
 		/// <summary>
-		/// Register object factory. drawable2d must be registered first.
+		/// Register object factory. Drawable2D must be registered first.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -119,6 +120,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set particle effect.
+		/// 
 		/// </summary>
 		private void SetEffect (ParticleEffect2D effect)
 		{
@@ -131,6 +133,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set sprite.
+		/// 
 		/// </summary>
 		private void SetSprite (Sprite2D sprite)
 		{
@@ -143,6 +146,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set blend mode.
+		/// 
 		/// </summary>
 		private void SetBlendMode (BlendMode blendMode)
 		{
@@ -167,6 +171,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set whether should be emitting. If the state was changed, also resets the emission period timer.
+		/// 
 		/// </summary>
 		private void SetEmitting (bool enable)
 		{
@@ -179,6 +184,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return particle effect.
+		/// 
 		/// </summary>
 		private ParticleEffect2D GetEffect ()
 		{
@@ -191,6 +197,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return sprite.
+		/// 
 		/// </summary>
 		private Sprite2D GetSprite ()
 		{
@@ -203,6 +210,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return blend mode.
+		/// 
 		/// </summary>
 		private BlendMode GetBlendMode ()
 		{
@@ -251,6 +259,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return whether is currently emitting.
+		/// 
 		/// </summary>
 		private bool IsEmitting ()
 		{
@@ -285,8 +294,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return particle effect.
+		/// 
 		/// Or
 		/// Set particle effect.
+		/// 
 		/// </summary>
 		public ParticleEffect2D Effect {
 			get {
@@ -299,8 +310,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return sprite.
+		/// 
 		/// Or
 		/// Set sprite.
+		/// 
 		/// </summary>
 		public Sprite2D Sprite {
 			get {
@@ -313,8 +326,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return blend mode.
+		/// 
 		/// Or
 		/// Set blend mode.
+		/// 
 		/// </summary>
 		public BlendMode BlendMode {
 			get {
@@ -341,8 +356,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return whether is currently emitting.
+		/// 
 		/// Or
 		/// Set whether should be emitting. If the state was changed, also resets the emission period timer.
+		/// 
 		/// </summary>
 		public bool Emitting {
 			get {

@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory. Drawable must be registered first.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -139,40 +140,6 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void CustomGeometry_MakeCircle (IntPtr handle, float radius, uint iterations, float startTheta, float endTheta, bool clear, int geomNum);
-
-		/// <summary>
-		/// Make the custom geometry into a circle, change start and stop to make a segment instead
-		/// Set clear=false and geomNum for making multiple circle segments
-		/// </summary>
-		public void MakeCircle (float radius = 1, uint iterations = 300, float startTheta = 0, float endTheta = 6.283185f, bool clear = true, int geomNum = 0)
-		{
-			Runtime.ValidateRefCounted (this);
-			CustomGeometry_MakeCircle (handle, radius, iterations, startTheta, endTheta, clear, geomNum);
-		}
-
-		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void CustomGeometry_MakeSquare (IntPtr handle, float size);
-
-		/// <summary>
-		/// Makes this custom geometry into a square shape
-		/// </summary>
-		public void MakeSquare (float size)
-		{
-			Runtime.ValidateRefCounted (this);
-			CustomGeometry_MakeSquare (handle, size);
-		}
-
-		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void CustomGeometry_MakeSphere (IntPtr handle, float radius, uint iterations);
-
-		public void MakeSphere (float radius = 1, uint iterations = 200)
-		{
-			Runtime.ValidateRefCounted (this);
-			CustomGeometry_MakeSphere (handle, radius, iterations);
-		}
-
-		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void CustomGeometry_Clear (IntPtr handle);
 
 		/// <summary>
@@ -189,6 +156,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set number of geometries.
+		/// 
 		/// </summary>
 		private void SetNumGeometries (uint num)
 		{
@@ -201,6 +169,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set vertex buffer dynamic mode. A dynamic buffer should be faster to update frequently. Effective at the next Commit() call.
+		/// 
 		/// </summary>
 		private void SetDynamic (bool enable)
 		{
@@ -309,6 +278,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set material on all geometries.
+		/// 
 		/// </summary>
 		public void SetMaterial (Material material)
 		{
@@ -321,6 +291,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set material on one geometry. Return true if successful.
+		/// 
 		/// </summary>
 		public bool SetMaterial (uint index, Material material)
 		{
@@ -333,6 +304,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of geometries.
+		/// 
 		/// </summary>
 		private uint GetNumGeometries ()
 		{
@@ -345,6 +317,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of vertices in a geometry.
+		/// 
 		/// </summary>
 		public uint GetNumVertices (uint index)
 		{
@@ -357,6 +330,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether vertex buffer dynamic mode is enabled.
+		/// 
 		/// </summary>
 		private bool IsDynamic ()
 		{
@@ -369,6 +343,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return material by geometry index.
+		/// 
 		/// </summary>
 		public Material GetMaterial (uint index = 0)
 		{
@@ -424,8 +399,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of geometries.
+		/// 
 		/// Or
 		/// Set number of geometries.
+		/// 
 		/// </summary>
 		public uint NumGeometries {
 			get {
@@ -438,8 +415,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether vertex buffer dynamic mode is enabled.
+		/// 
 		/// Or
 		/// Set vertex buffer dynamic mode. A dynamic buffer should be faster to update frequently. Effective at the next Commit() call.
+		/// 
 		/// </summary>
 		public bool Dynamic {
 			get {

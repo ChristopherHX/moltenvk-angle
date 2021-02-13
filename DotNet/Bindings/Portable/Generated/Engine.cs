@@ -131,6 +131,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set minimum frames per second. If FPS goes lower than this, time will appear to slow down.
+		/// 
 		/// </summary>
 		private void SetMinFps (int fps)
 		{
@@ -143,6 +144,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set maximum frames per second. The engine will sleep if FPS is higher than this.
+		/// 
 		/// </summary>
 		private void SetMaxFps (int fps)
 		{
@@ -155,6 +157,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set maximum frames per second when the application does not have input focus.
+		/// 
 		/// </summary>
 		private void SetMaxInactiveFps (int fps)
 		{
@@ -167,6 +170,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set how many frames to average for timestep smoothing. Default is 2. 1 disables smoothing.
+		/// 
 		/// </summary>
 		private void SetTimeStepSmoothing (int frames)
 		{
@@ -179,6 +183,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether to pause update events and audio when minimized.
+		/// 
 		/// </summary>
 		private void SetPauseMinimized (bool enable)
 		{
@@ -191,6 +196,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether to exit automatically on exit request (window close button).
+		/// 
 		/// </summary>
 		private void SetAutoExit (bool enable)
 		{
@@ -275,6 +281,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the minimum frames per second.
+		/// 
 		/// </summary>
 		private int GetMinFps ()
 		{
@@ -287,6 +294,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the maximum frames per second.
+		/// 
 		/// </summary>
 		private int GetMaxFps ()
 		{
@@ -299,6 +307,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the maximum frames per second when the application does not have input focus.
+		/// 
 		/// </summary>
 		private int GetMaxInactiveFps ()
 		{
@@ -311,6 +320,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return how many frames to average for timestep smoothing.
+		/// 
 		/// </summary>
 		private int GetTimeStepSmoothing ()
 		{
@@ -323,6 +333,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether to pause update events and audio when minimized.
+		/// 
 		/// </summary>
 		private bool GetPauseMinimized ()
 		{
@@ -335,6 +346,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether to exit automatically on exit request.
+		/// 
 		/// </summary>
 		private bool GetAutoExit ()
 		{
@@ -347,6 +359,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether engine has been initialized.
+		/// 
 		/// </summary>
 		private bool IsInitialized ()
 		{
@@ -359,6 +372,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether exit has been requested.
+		/// 
 		/// </summary>
 		private bool IsExiting ()
 		{
@@ -371,6 +385,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether the engine has been created in headless mode.
+		/// 
 		/// </summary>
 		private bool IsHeadless ()
 		{
@@ -441,8 +456,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return the minimum frames per second.
+		/// 
 		/// Or
 		/// Set minimum frames per second. If FPS goes lower than this, time will appear to slow down.
+		/// 
 		/// </summary>
 		public int MinFps {
 			get {
@@ -455,8 +472,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return the maximum frames per second.
+		/// 
 		/// Or
 		/// Set maximum frames per second. The engine will sleep if FPS is higher than this.
+		/// 
 		/// </summary>
 		public int MaxFps {
 			get {
@@ -469,8 +488,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return the maximum frames per second when the application does not have input focus.
+		/// 
 		/// Or
 		/// Set maximum frames per second when the application does not have input focus.
+		/// 
 		/// </summary>
 		public int MaxInactiveFps {
 			get {
@@ -483,8 +504,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return how many frames to average for timestep smoothing.
+		/// 
 		/// Or
 		/// Set how many frames to average for timestep smoothing. Default is 2. 1 disables smoothing.
+		/// 
 		/// </summary>
 		public int TimeStepSmoothing {
 			get {
@@ -497,8 +520,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether to pause update events and audio when minimized.
+		/// 
 		/// Or
 		/// Set whether to pause update events and audio when minimized.
+		/// 
 		/// </summary>
 		public bool PauseMinimized {
 			get {
@@ -511,8 +536,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether to exit automatically on exit request.
+		/// 
 		/// Or
 		/// Set whether to exit automatically on exit request (window close button).
+		/// 
 		/// </summary>
 		public bool AutoExit {
 			get {
@@ -539,6 +566,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether engine has been initialized.
+		/// 
 		/// </summary>
 		public bool Initialized {
 			get {
@@ -548,6 +576,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether exit has been requested.
+		/// 
 		/// </summary>
 		public bool Exiting {
 			get {
@@ -557,6 +586,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether the engine has been created in headless mode.
+		/// 
 		/// </summary>
 		public bool Headless {
 			get {

@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -179,6 +180,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set the number of layers in the texture. To be used before SetData.
+		/// 
 		/// </summary>
 		private void SetLayers (uint layers)
 		{
@@ -251,6 +253,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of layers in the texture.
+		/// 
 		/// </summary>
 		private uint GetLayers ()
 		{
@@ -275,6 +278,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return render surface.
+		/// 
 		/// </summary>
 		private RenderSurface GetRenderSurface ()
 		{
@@ -309,8 +313,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of layers in the texture.
+		/// 
 		/// Or
 		/// Set the number of layers in the texture. To be used before SetData.
+		/// 
 		/// </summary>
 		public uint Layers {
 			get {
@@ -323,6 +329,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return render surface.
+		/// 
 		/// </summary>
 		public RenderSurface RenderSurface {
 			get {

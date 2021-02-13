@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -131,6 +132,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set orientation type.
+		/// 
 		/// </summary>
 		private void SetOrientation (Orientation orientation)
 		{
@@ -143,6 +145,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set slider range maximum value (minimum value is always 0).
+		/// 
 		/// </summary>
 		private void SetRange (float range)
 		{
@@ -155,6 +158,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set slider current value.
+		/// 
 		/// </summary>
 		private void SetValue (float value)
 		{
@@ -179,6 +183,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set paging minimum repeat rate (number of events per second).
+		/// 
 		/// </summary>
 		private void SetRepeatRate (float rate)
 		{
@@ -191,6 +196,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return orientation type.
+		/// 
 		/// </summary>
 		private Orientation GetOrientation ()
 		{
@@ -203,6 +209,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return slider range.
+		/// 
 		/// </summary>
 		private float GetRange ()
 		{
@@ -215,6 +222,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return slider current value.
+		/// 
 		/// </summary>
 		private float GetValue ()
 		{
@@ -227,6 +235,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return knob element.
+		/// 
 		/// </summary>
 		private BorderImage GetKnob ()
 		{
@@ -239,6 +248,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return paging minimum repeat rate (number of events per second).
+		/// 
 		/// </summary>
 		private float GetRepeatRate ()
 		{
@@ -273,8 +283,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return orientation type.
+		/// 
 		/// Or
 		/// Set orientation type.
+		/// 
 		/// </summary>
 		public Orientation Orientation {
 			get {
@@ -287,8 +299,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return slider range.
+		/// 
 		/// Or
 		/// Set slider range maximum value (minimum value is always 0).
+		/// 
 		/// </summary>
 		public float Range {
 			get {
@@ -301,8 +315,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return slider current value.
+		/// 
 		/// Or
 		/// Set slider current value.
+		/// 
 		/// </summary>
 		public float Value {
 			get {
@@ -315,8 +331,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return paging minimum repeat rate (number of events per second).
+		/// 
 		/// Or
 		/// Set paging minimum repeat rate (number of events per second).
+		/// 
 		/// </summary>
 		public float RepeatRate {
 			get {
@@ -329,6 +347,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return knob element.
+		/// 
 		/// </summary>
 		public BorderImage Knob {
 			get {

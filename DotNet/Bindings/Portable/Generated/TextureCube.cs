@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -239,6 +240,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return render surface for one face.
+		/// 
 		/// </summary>
 		public RenderSurface GetRenderSurface (CubeMapFace face)
 		{

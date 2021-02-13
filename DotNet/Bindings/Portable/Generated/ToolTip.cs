@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -143,6 +144,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set the delay in seconds until the tooltip shows once hovering. Set zero to use the default from the UI subsystem.
+		/// 
 		/// </summary>
 		private void SetDelay (float delay)
 		{
@@ -155,6 +157,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return the delay in seconds until the tooltip shows once hovering.
+		/// 
 		/// </summary>
 		private float GetDelay ()
 		{
@@ -189,8 +192,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return the delay in seconds until the tooltip shows once hovering.
+		/// 
 		/// Or
 		/// Set the delay in seconds until the tooltip shows once hovering. Set zero to use the default from the UI subsystem.
+		/// 
 		/// </summary>
 		public float Delay {
 			get {

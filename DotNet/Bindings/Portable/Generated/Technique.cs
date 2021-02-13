@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -131,6 +132,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether requires desktop level hardware.
+		/// 
 		/// </summary>
 		public void SetIsDesktop (bool enable)
 		{
@@ -191,6 +193,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether requires desktop level hardware.
+		/// 
 		/// </summary>
 		private bool IsDesktop ()
 		{
@@ -203,6 +206,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether technique is supported by the current hardware.
+		/// 
 		/// </summary>
 		private bool IsSupported ()
 		{
@@ -287,6 +291,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of passes.
+		/// 
 		/// </summary>
 		private uint GetNumPasses ()
 		{
@@ -345,6 +350,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether requires desktop level hardware.
+		/// 
 		/// </summary>
 		public bool Desktop {
 			get {
@@ -354,6 +360,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether technique is supported by the current hardware.
+		/// 
 		/// </summary>
 		public bool Supported {
 			get {
@@ -363,6 +370,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of passes.
+		/// 
 		/// </summary>
 		public uint NumPasses {
 			get {

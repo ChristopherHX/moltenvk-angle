@@ -119,6 +119,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Set logging level.
+		/// 
 		/// </summary>
 		private void SetLevel (int level)
 		{
@@ -131,6 +132,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Set whether to timestamp log messages.
+		/// 
 		/// </summary>
 		private void SetTimeStamp (bool enable)
 		{
@@ -143,6 +145,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Set quiet mode ie. only print error entries to standard error stream (which is normally redirected to console also). Output to log file is not affected by this mode.
+		/// 
 		/// </summary>
 		private void SetQuiet (bool quiet)
 		{
@@ -155,6 +158,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return logging level.
+		/// 
 		/// </summary>
 		private int GetLevel ()
 		{
@@ -167,6 +171,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return whether log messages are timestamped.
+		/// 
 		/// </summary>
 		private bool GetTimeStamp ()
 		{
@@ -179,6 +184,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return last log message.
+		/// 
 		/// </summary>
 		private string GetLastMessage ()
 		{
@@ -191,6 +197,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return whether log is in quiet mode (only errors printed to standard error stream).
+		/// 
 		/// </summary>
 		private bool IsQuiet ()
 		{
@@ -203,6 +210,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Write to the log. If logging level is higher than the level of the message, the message is ignored.
+		/// 
 		/// </summary>
 		public static void Write (LogLevel level, string message)
 		{
@@ -249,8 +257,10 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return logging level.
+		/// 
 		/// Or
 		/// Set logging level.
+		/// 
 		/// </summary>
 		public int Level {
 			get {
@@ -263,8 +273,10 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return whether log messages are timestamped.
+		/// 
 		/// Or
 		/// Set whether to timestamp log messages.
+		/// 
 		/// </summary>
 		public bool TimeStamp {
 			get {
@@ -277,8 +289,10 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return whether log is in quiet mode (only errors printed to standard error stream).
+		/// 
 		/// Or
 		/// Set quiet mode ie. only print error entries to standard error stream (which is normally redirected to console also). Output to log file is not affected by this mode.
+		/// 
 		/// </summary>
 		public bool Quiet {
 			get {
@@ -291,6 +305,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return last log message.
+		/// 
 		/// </summary>
 		public string LastMessage {
 			get {

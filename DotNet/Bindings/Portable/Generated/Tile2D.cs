@@ -54,6 +54,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return gid.
+		/// 
 		/// </summary>
 		private uint GetGid ()
 		{
@@ -66,6 +67,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return flip X.
+		/// 
 		/// </summary>
 		private bool GetFlipX ()
 		{
@@ -78,6 +80,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return flip Y.
+		/// 
 		/// </summary>
 		private bool GetFlipY ()
 		{
@@ -90,6 +93,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return swap X and Y.
+		/// 
 		/// </summary>
 		private bool GetSwapXY ()
 		{
@@ -102,6 +106,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return sprite.
+		/// 
 		/// </summary>
 		private Sprite2D GetSprite ()
 		{
@@ -135,6 +140,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return gid.
+		/// 
 		/// </summary>
 		public uint Gid {
 			get {
@@ -144,6 +150,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return flip X.
+		/// 
 		/// </summary>
 		public bool FlipX {
 			get {
@@ -153,6 +160,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return flip Y.
+		/// 
 		/// </summary>
 		public bool FlipY {
 			get {
@@ -162,6 +170,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return swap X and Y.
+		/// 
 		/// </summary>
 		public bool SwapXY {
 			get {
@@ -171,6 +180,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return sprite.
+		/// 
 		/// </summary>
 		public Sprite2D Sprite {
 			get {

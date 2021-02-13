@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory. Drawable must be registered first.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -155,6 +156,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set font size only while retaining the existing font. Return true if successful.
+		/// 
 		/// </summary>
 		public bool SetFontSize (float size)
 		{
@@ -167,6 +169,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set material.
+		/// 
 		/// </summary>
 		private void SetMaterial (Material material)
 		{
@@ -179,6 +182,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set text. Text is assumed to be either ASCII or UTF8-encoded.
+		/// 
 		/// </summary>
 		private void SetText (string text)
 		{
@@ -203,6 +207,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set horizontal alignment.
+		/// 
 		/// </summary>
 		private void SetHorizontalAlignment (HorizontalAlignment align)
 		{
@@ -215,6 +220,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set vertical alignment.
+		/// 
 		/// </summary>
 		private void SetVerticalAlignment (VerticalAlignment align)
 		{
@@ -227,6 +233,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set row alignment.
+		/// 
 		/// </summary>
 		private void SetTextAlignment (HorizontalAlignment align)
 		{
@@ -239,6 +246,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set row spacing, 1.0 for original font spacing.
+		/// 
 		/// </summary>
 		private void SetRowSpacing (float spacing)
 		{
@@ -251,6 +259,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set wordwrap. In wordwrap mode the text element will respect its current width. Otherwise it resizes itself freely.
+		/// 
 		/// </summary>
 		private void SetWordwrap (bool enable)
 		{
@@ -263,6 +272,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set text effect.
+		/// 
 		/// </summary>
 		private void SetTextEffect (TextEffect textEffect)
 		{
@@ -275,6 +285,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set shadow offset.
+		/// 
 		/// </summary>
 		private void SetEffectShadowOffset (Urho.IntVector2 offset)
 		{
@@ -287,6 +298,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set stroke thickness.
+		/// 
 		/// </summary>
 		private void SetEffectStrokeThickness (int thickness)
 		{
@@ -299,6 +311,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set stroke rounding. Corners of the font will be rounded off in the stroke so the stroke won't have corners.
+		/// 
 		/// </summary>
 		private void SetEffectRoundStroke (bool roundStroke)
 		{
@@ -311,6 +324,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set effect color.
+		/// 
 		/// </summary>
 		private void SetEffectColor (Urho.Color effectColor)
 		{
@@ -323,6 +337,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set effect Z bias.
+		/// 
 		/// </summary>
 		private void SetEffectDepthBias (float bias)
 		{
@@ -335,6 +350,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set text width. Only has effect in word wrap mode.
+		/// 
 		/// </summary>
 		private void SetWidth (int width)
 		{
@@ -347,6 +363,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set color on all corners.
+		/// 
 		/// </summary>
 		public void SetColor (Urho.Color color)
 		{
@@ -359,6 +376,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set color on one corner.
+		/// 
 		/// </summary>
 		public void SetColor (Corner corner, Urho.Color color)
 		{
@@ -371,6 +389,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set opacity.
+		/// 
 		/// </summary>
 		private void SetOpacity (float opacity)
 		{
@@ -383,6 +402,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether text has fixed size on screen (pixel-perfect) regardless of distance to camera. Works best when combined with face camera rotation. Default false.
+		/// 
 		/// </summary>
 		private void SetFixedScreenSize (bool enable)
 		{
@@ -395,6 +415,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set how the text should rotate in relation to the camera. Default is to not rotate (FC_NONE).
+		/// 
 		/// </summary>
 		private void SetFaceCameraMode (FaceCameraMode mode)
 		{
@@ -407,6 +428,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return font.
+		/// 
 		/// </summary>
 		private Font GetFont ()
 		{
@@ -419,6 +441,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return font size.
+		/// 
 		/// </summary>
 		private float GetFontSize ()
 		{
@@ -431,6 +454,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return material.
+		/// 
 		/// </summary>
 		private Material GetMaterial ()
 		{
@@ -443,6 +467,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return text.
+		/// 
 		/// </summary>
 		private string GetText ()
 		{
@@ -455,6 +480,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return row alignment.
+		/// 
 		/// </summary>
 		private HorizontalAlignment GetTextAlignment ()
 		{
@@ -467,6 +493,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return horizontal alignment.
+		/// 
 		/// </summary>
 		private HorizontalAlignment GetHorizontalAlignment ()
 		{
@@ -479,6 +506,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return vertical alignment.
+		/// 
 		/// </summary>
 		private VerticalAlignment GetVerticalAlignment ()
 		{
@@ -491,6 +519,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return row spacing.
+		/// 
 		/// </summary>
 		private float GetRowSpacing ()
 		{
@@ -503,6 +532,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return wordwrap mode.
+		/// 
 		/// </summary>
 		private bool GetWordwrap ()
 		{
@@ -515,6 +545,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return text effect.
+		/// 
 		/// </summary>
 		private TextEffect GetTextEffect ()
 		{
@@ -527,6 +558,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect shadow offset.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetEffectShadowOffset ()
 		{
@@ -539,6 +571,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect stroke thickness.
+		/// 
 		/// </summary>
 		private int GetEffectStrokeThickness ()
 		{
@@ -551,6 +584,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect round stroke.
+		/// 
 		/// </summary>
 		private bool GetEffectRoundStroke ()
 		{
@@ -563,6 +597,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect color.
+		/// 
 		/// </summary>
 		private Urho.Color GetEffectColor ()
 		{
@@ -575,6 +610,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect depth bias.
+		/// 
 		/// </summary>
 		private float GetEffectDepthBias ()
 		{
@@ -587,6 +623,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return text width.
+		/// 
 		/// </summary>
 		private int GetWidth ()
 		{
@@ -599,6 +636,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return text height.
+		/// 
 		/// </summary>
 		private int GetHeight ()
 		{
@@ -611,6 +649,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return row height.
+		/// 
 		/// </summary>
 		private int GetRowHeight ()
 		{
@@ -623,6 +662,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return number of rows.
+		/// 
 		/// </summary>
 		private uint GetNumRows ()
 		{
@@ -635,6 +675,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return number of characters.
+		/// 
 		/// </summary>
 		private uint GetNumChars ()
 		{
@@ -647,6 +688,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return width of row by index.
+		/// 
 		/// </summary>
 		public int GetRowWidth (uint index)
 		{
@@ -659,6 +701,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return position of character by index relative to the text element origin.
+		/// 
 		/// </summary>
 		public Vector2 GetCharPosition (uint index)
 		{
@@ -671,6 +714,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return size of character by index.
+		/// 
 		/// </summary>
 		public Vector2 GetCharSize (uint index)
 		{
@@ -683,6 +727,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return corner color.
+		/// 
 		/// </summary>
 		public Urho.Color GetColor (Corner corner)
 		{
@@ -695,6 +740,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return opacity.
+		/// 
 		/// </summary>
 		private float GetOpacity ()
 		{
@@ -707,6 +753,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether text has fixed screen size.
+		/// 
 		/// </summary>
 		private bool IsFixedScreenSize ()
 		{
@@ -719,6 +766,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return how the text rotates in relation to the camera.
+		/// 
 		/// </summary>
 		private FaceCameraMode GetFaceCameraMode ()
 		{
@@ -822,8 +870,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return font size.
+		/// 
 		/// Or
 		/// Set font size only while retaining the existing font. Return true if successful.
+		/// 
 		/// </summary>
 		public float FontSize {
 			get {
@@ -836,8 +886,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return material.
+		/// 
 		/// Or
 		/// Set material.
+		/// 
 		/// </summary>
 		public Material Material {
 			get {
@@ -850,8 +902,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return text.
+		/// 
 		/// Or
 		/// Set text. Text is assumed to be either ASCII or UTF8-encoded.
+		/// 
 		/// </summary>
 		public string Text {
 			get {
@@ -864,8 +918,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return horizontal alignment.
+		/// 
 		/// Or
 		/// Set horizontal alignment.
+		/// 
 		/// </summary>
 		public HorizontalAlignment HorizontalAlignment {
 			get {
@@ -878,8 +934,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return vertical alignment.
+		/// 
 		/// Or
 		/// Set vertical alignment.
+		/// 
 		/// </summary>
 		public VerticalAlignment VerticalAlignment {
 			get {
@@ -892,8 +950,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return row alignment.
+		/// 
 		/// Or
 		/// Set row alignment.
+		/// 
 		/// </summary>
 		public HorizontalAlignment TextAlignment {
 			get {
@@ -906,8 +966,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return row spacing.
+		/// 
 		/// Or
 		/// Set row spacing, 1.0 for original font spacing.
+		/// 
 		/// </summary>
 		public float RowSpacing {
 			get {
@@ -920,8 +982,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return wordwrap mode.
+		/// 
 		/// Or
 		/// Set wordwrap. In wordwrap mode the text element will respect its current width. Otherwise it resizes itself freely.
+		/// 
 		/// </summary>
 		public bool Wordwrap {
 			get {
@@ -934,8 +998,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return text effect.
+		/// 
 		/// Or
 		/// Set text effect.
+		/// 
 		/// </summary>
 		public TextEffect TextEffect {
 			get {
@@ -948,8 +1014,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect shadow offset.
+		/// 
 		/// Or
 		/// Set shadow offset.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 EffectShadowOffset {
 			get {
@@ -962,8 +1030,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect stroke thickness.
+		/// 
 		/// Or
 		/// Set stroke thickness.
+		/// 
 		/// </summary>
 		public int EffectStrokeThickness {
 			get {
@@ -976,8 +1046,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect round stroke.
+		/// 
 		/// Or
 		/// Set stroke rounding. Corners of the font will be rounded off in the stroke so the stroke won't have corners.
+		/// 
 		/// </summary>
 		public bool EffectRoundStroke {
 			get {
@@ -990,8 +1062,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect color.
+		/// 
 		/// Or
 		/// Set effect color.
+		/// 
 		/// </summary>
 		public Urho.Color EffectColor {
 			get {
@@ -1004,8 +1078,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return effect depth bias.
+		/// 
 		/// Or
 		/// Set effect Z bias.
+		/// 
 		/// </summary>
 		public float EffectDepthBias {
 			get {
@@ -1018,8 +1094,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return text width.
+		/// 
 		/// Or
 		/// Set text width. Only has effect in word wrap mode.
+		/// 
 		/// </summary>
 		public int Width {
 			get {
@@ -1032,8 +1110,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return opacity.
+		/// 
 		/// Or
 		/// Set opacity.
+		/// 
 		/// </summary>
 		public float Opacity {
 			get {
@@ -1046,8 +1126,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether text has fixed screen size.
+		/// 
 		/// Or
 		/// Set whether text has fixed size on screen (pixel-perfect) regardless of distance to camera. Works best when combined with face camera rotation. Default false.
+		/// 
 		/// </summary>
 		public bool FixedScreenSize {
 			get {
@@ -1060,8 +1142,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return how the text rotates in relation to the camera.
+		/// 
 		/// Or
 		/// Set how the text should rotate in relation to the camera. Default is to not rotate (FC_NONE).
+		/// 
 		/// </summary>
 		public FaceCameraMode FaceCameraMode {
 			get {
@@ -1074,6 +1158,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return font.
+		/// 
 		/// </summary>
 		public Font Font {
 			get {
@@ -1083,6 +1168,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return text height.
+		/// 
 		/// </summary>
 		public int Height {
 			get {
@@ -1092,6 +1178,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return row height.
+		/// 
 		/// </summary>
 		public int RowHeight {
 			get {
@@ -1101,6 +1188,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return number of rows.
+		/// 
 		/// </summary>
 		public uint NumRows {
 			get {
@@ -1110,6 +1198,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return number of characters.
+		/// 
 		/// </summary>
 		public uint NumChars {
 			get {

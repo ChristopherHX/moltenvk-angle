@@ -131,6 +131,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return frame number, starting from 1 once BeginFrame() is called for the first time.
+		/// 
 		/// </summary>
 		private uint GetFrameNumber ()
 		{
@@ -143,6 +144,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return current frame timestep as seconds.
+		/// 
 		/// </summary>
 		private float GetTimeStep ()
 		{
@@ -167,6 +169,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return elapsed time from program start as seconds.
+		/// 
 		/// </summary>
 		private float GetElapsedTime ()
 		{
@@ -179,6 +182,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return current frames per second.
+		/// 
 		/// </summary>
 		private float GetFramesPerSecond ()
 		{
@@ -275,6 +279,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return frame number, starting from 1 once BeginFrame() is called for the first time.
+		/// 
 		/// </summary>
 		public uint FrameNumber {
 			get {
@@ -284,6 +289,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return current frame timestep as seconds.
+		/// 
 		/// </summary>
 		public float TimeStep {
 			get {
@@ -293,6 +299,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return elapsed time from program start as seconds.
+		/// 
 		/// </summary>
 		public float ElapsedTime {
 			get {
@@ -302,6 +309,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return current frames per second.
+		/// 
 		/// </summary>
 		public float FramesPerSecond {
 			get {

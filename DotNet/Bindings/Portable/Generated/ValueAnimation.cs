@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -191,6 +192,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set interpolation method.
+		/// 
 		/// </summary>
 		private void SetInterpolationMethod (InterpMethod method)
 		{
@@ -203,6 +205,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set spline tension, should be between 0.0f and 1.0f, but this is not a must.
+		/// 
 		/// </summary>
 		private void SetSplineTension (float tension)
 		{
@@ -215,6 +218,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set value type.
+		/// 
 		/// </summary>
 		private void SetValueType (VariantType valueType)
 		{
@@ -407,6 +411,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return interpolation method.
+		/// 
 		/// </summary>
 		private InterpMethod GetInterpolationMethod ()
 		{
@@ -419,6 +424,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return spline tension.
+		/// 
 		/// </summary>
 		private float GetSplineTension ()
 		{
@@ -431,6 +437,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return value type.
+		/// 
 		/// </summary>
 		private VariantType GetValueType ()
 		{
@@ -527,8 +534,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return interpolation method.
+		/// 
 		/// Or
 		/// Set interpolation method.
+		/// 
 		/// </summary>
 		public InterpMethod InterpolationMethod {
 			get {
@@ -541,8 +550,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return spline tension.
+		/// 
 		/// Or
 		/// Set spline tension, should be between 0.0f and 1.0f, but this is not a must.
+		/// 
 		/// </summary>
 		public float SplineTension {
 			get {
@@ -555,8 +566,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return value type.
+		/// 
 		/// Or
 		/// Set value type.
+		/// 
 		/// </summary>
 		public VariantType ValueType {
 			get {

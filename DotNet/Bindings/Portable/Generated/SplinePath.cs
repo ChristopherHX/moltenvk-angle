@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -167,6 +168,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set the Interpolation Mode.
+		/// 
 		/// </summary>
 		private void SetInterpolationMode (InterpolationMode interpolationMode)
 		{
@@ -179,6 +181,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set the movement Speed.
+		/// 
 		/// </summary>
 		private void SetSpeed (float speed)
 		{
@@ -203,6 +206,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set the Node to be moved along the SplinePath.
+		/// 
 		/// </summary>
 		private void SetControlledNode (Node controlled)
 		{
@@ -215,6 +219,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get the Interpolation Mode.
+		/// 
 		/// </summary>
 		private InterpolationMode GetInterpolationMode ()
 		{
@@ -227,6 +232,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get the movement Speed.
+		/// 
 		/// </summary>
 		private float GetSpeed ()
 		{
@@ -239,6 +245,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get the length of SplinePath.
+		/// 
 		/// </summary>
 		private float GetLength ()
 		{
@@ -263,6 +270,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get the controlled Node.
+		/// 
 		/// </summary>
 		private Node GetControlledNode ()
 		{
@@ -311,6 +319,7 @@ namespace Urho
 
 		/// <summary>
 		/// Returns whether the movement along the SplinePath is complete.
+		/// 
 		/// </summary>
 		private bool IsFinished ()
 		{
@@ -369,8 +378,10 @@ namespace Urho
 
 		/// <summary>
 		/// Get the Interpolation Mode.
+		/// 
 		/// Or
 		/// Set the Interpolation Mode.
+		/// 
 		/// </summary>
 		public InterpolationMode InterpolationMode {
 			get {
@@ -383,8 +394,10 @@ namespace Urho
 
 		/// <summary>
 		/// Get the movement Speed.
+		/// 
 		/// Or
 		/// Set the movement Speed.
+		/// 
 		/// </summary>
 		public float Speed {
 			get {
@@ -406,8 +419,10 @@ namespace Urho
 
 		/// <summary>
 		/// Get the controlled Node.
+		/// 
 		/// Or
 		/// Set the Node to be moved along the SplinePath.
+		/// 
 		/// </summary>
 		public Node ControlledNode {
 			get {
@@ -420,6 +435,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get the length of SplinePath.
+		/// 
 		/// </summary>
 		public float Length {
 			get {
@@ -429,6 +445,7 @@ namespace Urho
 
 		/// <summary>
 		/// Returns whether the movement along the SplinePath is complete.
+		/// 
 		/// </summary>
 		public bool Finished {
 			get {

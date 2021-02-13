@@ -95,6 +95,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -119,6 +120,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set tile size.
+		/// 
 		/// </summary>
 		private void SetTileSize (int size)
 		{
@@ -131,6 +133,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set cell size.
+		/// 
 		/// </summary>
 		private void SetCellSize (float size)
 		{
@@ -143,6 +146,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set cell height.
+		/// 
 		/// </summary>
 		private void SetCellHeight (float height)
 		{
@@ -155,6 +159,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set navigation agent height.
+		/// 
 		/// </summary>
 		private void SetAgentHeight (float height)
 		{
@@ -167,6 +172,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set navigation agent radius.
+		/// 
 		/// </summary>
 		private void SetAgentRadius (float radius)
 		{
@@ -179,6 +185,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set navigation agent max vertical climb.
+		/// 
 		/// </summary>
 		private void SetAgentMaxClimb (float maxClimb)
 		{
@@ -191,6 +198,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set navigation agent max slope.
+		/// 
 		/// </summary>
 		private void SetAgentMaxSlope (float maxSlope)
 		{
@@ -203,6 +211,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set region minimum size.
+		/// 
 		/// </summary>
 		private void SetRegionMinSize (float size)
 		{
@@ -215,6 +224,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set region merge size.
+		/// 
 		/// </summary>
 		private void SetRegionMergeSize (float size)
 		{
@@ -227,6 +237,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set edge max length.
+		/// 
 		/// </summary>
 		private void SetEdgeMaxLength (float length)
 		{
@@ -239,6 +250,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set edge max error.
+		/// 
 		/// </summary>
 		private void SetEdgeMaxError (float error)
 		{
@@ -251,6 +263,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set detail sampling distance.
+		/// 
 		/// </summary>
 		private void SetDetailSampleDistance (float distance)
 		{
@@ -263,6 +276,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set detail sampling maximum error.
+		/// 
 		/// </summary>
 		private void SetDetailSampleMaxError (float error)
 		{
@@ -275,6 +289,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set padding of the navigation mesh bounding box. Having enough padding allows to add geometry on the extremities of the navigation mesh when doing partial rebuilds.
+		/// 
 		/// </summary>
 		private void SetPadding (Urho.Vector3 padding)
 		{
@@ -515,6 +530,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return tile size.
+		/// 
 		/// </summary>
 		private int GetTileSize ()
 		{
@@ -527,6 +543,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return cell size.
+		/// 
 		/// </summary>
 		private float GetCellSize ()
 		{
@@ -539,6 +556,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return cell height.
+		/// 
 		/// </summary>
 		private float GetCellHeight ()
 		{
@@ -551,6 +569,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return navigation agent height.
+		/// 
 		/// </summary>
 		private float GetAgentHeight ()
 		{
@@ -563,6 +582,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return navigation agent radius.
+		/// 
 		/// </summary>
 		private float GetAgentRadius ()
 		{
@@ -575,6 +595,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return navigation agent max vertical climb.
+		/// 
 		/// </summary>
 		private float GetAgentMaxClimb ()
 		{
@@ -587,6 +608,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return navigation agent max slope.
+		/// 
 		/// </summary>
 		private float GetAgentMaxSlope ()
 		{
@@ -599,6 +621,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return region minimum size.
+		/// 
 		/// </summary>
 		private float GetRegionMinSize ()
 		{
@@ -611,6 +634,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return region merge size.
+		/// 
 		/// </summary>
 		private float GetRegionMergeSize ()
 		{
@@ -623,6 +647,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return edge max length.
+		/// 
 		/// </summary>
 		private float GetEdgeMaxLength ()
 		{
@@ -635,6 +660,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return edge max error.
+		/// 
 		/// </summary>
 		private float GetEdgeMaxError ()
 		{
@@ -647,6 +673,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return detail sampling distance.
+		/// 
 		/// </summary>
 		private float GetDetailSampleDistance ()
 		{
@@ -659,6 +686,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return detail sampling maximum error.
+		/// 
 		/// </summary>
 		private float GetDetailSampleMaxError ()
 		{
@@ -671,6 +699,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return navigation mesh bounding box padding.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetPadding ()
 		{
@@ -695,6 +724,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return whether has been initialized with valid navigation data.
+		/// 
 		/// </summary>
 		private bool IsInitialized ()
 		{
@@ -707,6 +737,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return local space bounding box of the navigation mesh.
+		/// 
 		/// </summary>
 		private Urho.BoundingBox GetBoundingBox ()
 		{
@@ -719,6 +750,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return world space bounding box of the navigation mesh.
+		/// 
 		/// </summary>
 		private BoundingBox GetWorldBoundingBox ()
 		{
@@ -731,6 +763,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return number of tiles.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetNumTiles ()
 		{
@@ -743,6 +776,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set the partition type used for polygon generation.
+		/// 
 		/// </summary>
 		private void SetPartitionType (NavmeshPartitionType partitionType)
 		{
@@ -755,6 +789,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return Partition Type.
+		/// 
 		/// </summary>
 		private NavmeshPartitionType GetPartitionType ()
 		{
@@ -767,6 +802,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Draw debug geometry for OffMeshConnection components.
+		/// 
 		/// </summary>
 		private void SetDrawOffMeshConnections (bool enable)
 		{
@@ -779,6 +815,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return whether to draw OffMeshConnection components.
+		/// 
 		/// </summary>
 		private bool GetDrawOffMeshConnections ()
 		{
@@ -791,6 +828,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Draw debug geometry for NavArea components.
+		/// 
 		/// </summary>
 		private void SetDrawNavAreas (bool enable)
 		{
@@ -803,6 +841,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return whether to draw NavArea components.
+		/// 
 		/// </summary>
 		private bool GetDrawNavAreas ()
 		{
@@ -837,8 +876,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return tile size.
+		/// 
 		/// Or
 		/// Set tile size.
+		/// 
 		/// </summary>
 		public int TileSize {
 			get {
@@ -851,8 +892,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return cell size.
+		/// 
 		/// Or
 		/// Set cell size.
+		/// 
 		/// </summary>
 		public float CellSize {
 			get {
@@ -865,8 +908,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return cell height.
+		/// 
 		/// Or
 		/// Set cell height.
+		/// 
 		/// </summary>
 		public float CellHeight {
 			get {
@@ -879,8 +924,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return navigation agent height.
+		/// 
 		/// Or
 		/// Set navigation agent height.
+		/// 
 		/// </summary>
 		public float AgentHeight {
 			get {
@@ -893,8 +940,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return navigation agent radius.
+		/// 
 		/// Or
 		/// Set navigation agent radius.
+		/// 
 		/// </summary>
 		public float AgentRadius {
 			get {
@@ -907,8 +956,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return navigation agent max vertical climb.
+		/// 
 		/// Or
 		/// Set navigation agent max vertical climb.
+		/// 
 		/// </summary>
 		public float AgentMaxClimb {
 			get {
@@ -921,8 +972,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return navigation agent max slope.
+		/// 
 		/// Or
 		/// Set navigation agent max slope.
+		/// 
 		/// </summary>
 		public float AgentMaxSlope {
 			get {
@@ -935,8 +988,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return region minimum size.
+		/// 
 		/// Or
 		/// Set region minimum size.
+		/// 
 		/// </summary>
 		public float RegionMinSize {
 			get {
@@ -949,8 +1004,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return region merge size.
+		/// 
 		/// Or
 		/// Set region merge size.
+		/// 
 		/// </summary>
 		public float RegionMergeSize {
 			get {
@@ -963,8 +1020,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return edge max length.
+		/// 
 		/// Or
 		/// Set edge max length.
+		/// 
 		/// </summary>
 		public float EdgeMaxLength {
 			get {
@@ -977,8 +1036,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return edge max error.
+		/// 
 		/// Or
 		/// Set edge max error.
+		/// 
 		/// </summary>
 		public float EdgeMaxError {
 			get {
@@ -991,8 +1052,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return detail sampling distance.
+		/// 
 		/// Or
 		/// Set detail sampling distance.
+		/// 
 		/// </summary>
 		public float DetailSampleDistance {
 			get {
@@ -1005,8 +1068,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return detail sampling maximum error.
+		/// 
 		/// Or
 		/// Set detail sampling maximum error.
+		/// 
 		/// </summary>
 		public float DetailSampleMaxError {
 			get {
@@ -1019,8 +1084,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return navigation mesh bounding box padding.
+		/// 
 		/// Or
 		/// Set padding of the navigation mesh bounding box. Having enough padding allows to add geometry on the extremities of the navigation mesh when doing partial rebuilds.
+		/// 
 		/// </summary>
 		public Urho.Vector3 Padding {
 			get {
@@ -1042,6 +1109,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return whether has been initialized with valid navigation data.
+		/// 
 		/// </summary>
 		public bool Initialized {
 			get {
@@ -1051,6 +1119,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return local space bounding box of the navigation mesh.
+		/// 
 		/// </summary>
 		public Urho.BoundingBox BoundingBox {
 			get {
@@ -1060,6 +1129,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return world space bounding box of the navigation mesh.
+		/// 
 		/// </summary>
 		public BoundingBox WorldBoundingBox {
 			get {
@@ -1069,6 +1139,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return number of tiles.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 NumTiles {
 			get {
@@ -1078,8 +1149,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return Partition Type.
+		/// 
 		/// Or
 		/// Set the partition type used for polygon generation.
+		/// 
 		/// </summary>
 		public NavmeshPartitionType PartitionType {
 			get {
@@ -1092,8 +1165,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return whether to draw OffMeshConnection components.
+		/// 
 		/// Or
 		/// Draw debug geometry for OffMeshConnection components.
+		/// 
 		/// </summary>
 		public bool DrawOffMeshConnections {
 			get {
@@ -1106,8 +1181,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return whether to draw NavArea components.
+		/// 
 		/// Or
 		/// Draw debug geometry for NavArea components.
+		/// 
 		/// </summary>
 		public bool DrawNavAreas {
 			get {

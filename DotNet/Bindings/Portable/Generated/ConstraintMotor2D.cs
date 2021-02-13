@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set linear offset.
+		/// 
 		/// </summary>
 		private void SetLinearOffset (Urho.Vector2 linearOffset)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set angular offset.
+		/// 
 		/// </summary>
 		private void SetAngularOffset (float angularOffset)
 		{
@@ -131,6 +134,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set max force.
+		/// 
 		/// </summary>
 		private void SetMaxForce (float maxForce)
 		{
@@ -143,6 +147,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set max torque.
+		/// 
 		/// </summary>
 		private void SetMaxTorque (float maxTorque)
 		{
@@ -155,6 +160,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set correction factor.
+		/// 
 		/// </summary>
 		private void SetCorrectionFactor (float correctionFactor)
 		{
@@ -167,6 +173,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return linear offset.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetLinearOffset ()
 		{
@@ -179,6 +186,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return angular offset.
+		/// 
 		/// </summary>
 		private float GetAngularOffset ()
 		{
@@ -191,6 +199,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return max force.
+		/// 
 		/// </summary>
 		private float GetMaxForce ()
 		{
@@ -203,6 +212,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return max torque.
+		/// 
 		/// </summary>
 		private float GetMaxTorque ()
 		{
@@ -215,6 +225,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return correction factor.
+		/// 
 		/// </summary>
 		private float GetCorrectionFactor ()
 		{
@@ -249,8 +260,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return linear offset.
+		/// 
 		/// Or
 		/// Set linear offset.
+		/// 
 		/// </summary>
 		public Urho.Vector2 LinearOffset {
 			get {
@@ -263,8 +276,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return angular offset.
+		/// 
 		/// Or
 		/// Set angular offset.
+		/// 
 		/// </summary>
 		public float AngularOffset {
 			get {
@@ -277,8 +292,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return max force.
+		/// 
 		/// Or
 		/// Set max force.
+		/// 
 		/// </summary>
 		public float MaxForce {
 			get {
@@ -291,8 +308,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return max torque.
+		/// 
 		/// Or
 		/// Set max torque.
+		/// 
 		/// </summary>
 		public float MaxTorque {
 			get {
@@ -305,8 +324,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return correction factor.
+		/// 
 		/// Or
 		/// Set correction factor.
+		/// 
 		/// </summary>
 		public float CorrectionFactor {
 			get {

@@ -95,6 +95,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -131,6 +132,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set endpoint node.
+		/// 
 		/// </summary>
 		private void SetEndPoint (Node node)
 		{
@@ -143,6 +145,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set radius.
+		/// 
 		/// </summary>
 		private void SetRadius (float radius)
 		{
@@ -155,6 +158,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set bidirectional flag. Default true.
+		/// 
 		/// </summary>
 		private void SetBidirectional (bool enabled)
 		{
@@ -167,6 +171,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set a user assigned mask.
+		/// 
 		/// </summary>
 		private void SetMask (uint newMask)
 		{
@@ -179,6 +184,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Sets the assigned area Id for the connection.
+		/// 
 		/// </summary>
 		private void SetAreaID (uint newAreaID)
 		{
@@ -191,6 +197,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return endpoint node.
+		/// 
 		/// </summary>
 		private Node GetEndPoint ()
 		{
@@ -203,6 +210,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return radius.
+		/// 
 		/// </summary>
 		private float GetRadius ()
 		{
@@ -215,6 +223,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return whether is bidirectional.
+		/// 
 		/// </summary>
 		private bool IsBidirectional ()
 		{
@@ -227,6 +236,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the user assigned mask.
+		/// 
 		/// </summary>
 		private uint GetMask ()
 		{
@@ -239,6 +249,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the user assigned area ID.
+		/// 
 		/// </summary>
 		private uint GetAreaID ()
 		{
@@ -273,8 +284,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return endpoint node.
+		/// 
 		/// Or
 		/// Set endpoint node.
+		/// 
 		/// </summary>
 		public Node EndPoint {
 			get {
@@ -287,8 +300,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return radius.
+		/// 
 		/// Or
 		/// Set radius.
+		/// 
 		/// </summary>
 		public float Radius {
 			get {
@@ -301,8 +316,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return whether is bidirectional.
+		/// 
 		/// Or
 		/// Set bidirectional flag. Default true.
+		/// 
 		/// </summary>
 		public bool Bidirectional {
 			get {
@@ -315,8 +332,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the user assigned mask.
+		/// 
 		/// Or
 		/// Set a user assigned mask.
+		/// 
 		/// </summary>
 		public uint Mask {
 			get {
@@ -329,8 +348,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return the user assigned area ID.
+		/// 
 		/// Or
 		/// Sets the assigned area Id for the connection.
+		/// 
 		/// </summary>
 		public uint AreaID {
 			get {

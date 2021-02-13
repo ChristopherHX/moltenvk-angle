@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -155,6 +156,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return subdivision levels.
+		/// 
 		/// </summary>
 		private uint GetNumLevels ()
 		{
@@ -225,6 +227,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return subdivision levels.
+		/// 
 		/// </summary>
 		public uint NumLevels {
 			get {

@@ -54,6 +54,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set number of viewports.
+		/// 
 		/// </summary>
 		private void SetNumViewports (uint num)
 		{
@@ -66,6 +67,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set viewport.
+		/// 
 		/// </summary>
 		public void SetViewport (uint index, Viewport viewport)
 		{
@@ -78,6 +80,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set viewport update mode. Default is to update when visible.
+		/// 
 		/// </summary>
 		private void SetUpdateMode (RenderSurfaceUpdateMode mode)
 		{
@@ -90,6 +93,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set linked color rendertarget.
+		/// 
 		/// </summary>
 		private void SetLinkedRenderTarget (RenderSurface renderTarget)
 		{
@@ -102,6 +106,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set linked depth-stencil surface.
+		/// 
 		/// </summary>
 		private void SetLinkedDepthStencil (RenderSurface depthStencil)
 		{
@@ -150,6 +155,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return width.
+		/// 
 		/// </summary>
 		private int GetWidth ()
 		{
@@ -162,6 +168,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return height.
+		/// 
 		/// </summary>
 		private int GetHeight ()
 		{
@@ -174,6 +181,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return usage.
+		/// 
 		/// </summary>
 		private TextureUsage GetUsage ()
 		{
@@ -210,6 +218,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of viewports.
+		/// 
 		/// </summary>
 		private uint GetNumViewports ()
 		{
@@ -222,6 +231,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return viewport by index.
+		/// 
 		/// </summary>
 		public Viewport GetViewport (uint index)
 		{
@@ -234,6 +244,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return viewport update mode.
+		/// 
 		/// </summary>
 		private RenderSurfaceUpdateMode GetUpdateMode ()
 		{
@@ -246,6 +257,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return linked color rendertarget.
+		/// 
 		/// </summary>
 		private RenderSurface GetLinkedRenderTarget ()
 		{
@@ -258,6 +270,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return linked depth-stencil surface.
+		/// 
 		/// </summary>
 		private RenderSurface GetLinkedDepthStencil ()
 		{
@@ -294,6 +307,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return parent texture.
+		/// 
 		/// </summary>
 		private Texture GetParentTexture ()
 		{
@@ -366,6 +380,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether multisampled rendertarget needs resolve.
+		/// 
 		/// </summary>
 		private bool IsResolveDirty ()
 		{
@@ -387,8 +402,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of viewports.
+		/// 
 		/// Or
 		/// Set number of viewports.
+		/// 
 		/// </summary>
 		public uint NumViewports {
 			get {
@@ -401,8 +418,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return viewport update mode.
+		/// 
 		/// Or
 		/// Set viewport update mode. Default is to update when visible.
+		/// 
 		/// </summary>
 		public RenderSurfaceUpdateMode UpdateMode {
 			get {
@@ -415,8 +434,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return linked color rendertarget.
+		/// 
 		/// Or
 		/// Set linked color rendertarget.
+		/// 
 		/// </summary>
 		public RenderSurface LinkedRenderTarget {
 			get {
@@ -429,8 +450,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return linked depth-stencil surface.
+		/// 
 		/// Or
 		/// Set linked depth-stencil surface.
+		/// 
 		/// </summary>
 		public RenderSurface LinkedDepthStencil {
 			get {
@@ -443,6 +466,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return width.
+		/// 
 		/// </summary>
 		public int Width {
 			get {
@@ -452,6 +476,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return height.
+		/// 
 		/// </summary>
 		public int Height {
 			get {
@@ -461,6 +486,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return usage.
+		/// 
 		/// </summary>
 		public TextureUsage Usage {
 			get {
@@ -497,6 +523,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return parent texture.
+		/// 
 		/// </summary>
 		public Texture ParentTexture {
 			get {
@@ -551,6 +578,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether multisampled rendertarget needs resolve.
+		/// 
 		/// Or
 		/// Set or clear the need resolve flag. Called internally by Graphics.
 		/// </summary>

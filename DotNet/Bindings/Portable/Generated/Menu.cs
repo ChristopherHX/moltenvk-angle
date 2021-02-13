@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -167,6 +168,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set popup element to show on selection.
+		/// 
 		/// </summary>
 		private void SetPopup (UIElement popup)
 		{
@@ -179,6 +181,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set popup element offset.
+		/// 
 		/// </summary>
 		private void SetPopupOffset (Urho.IntVector2 offset)
 		{
@@ -203,6 +206,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Force the popup to show or hide.
+		/// 
 		/// </summary>
 		public void ShowPopup (bool enable)
 		{
@@ -227,6 +231,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return popup element.
+		/// 
 		/// </summary>
 		private UIElement GetPopup ()
 		{
@@ -239,6 +244,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return popup element offset.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetPopupOffset ()
 		{
@@ -251,6 +257,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether popup is open.
+		/// 
 		/// </summary>
 		private bool GetShowPopup ()
 		{
@@ -263,6 +270,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return accelerator key code, 0 if disabled.
+		/// 
 		/// </summary>
 		private int GetAcceleratorKey ()
 		{
@@ -275,6 +283,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return accelerator qualifiers.
+		/// 
 		/// </summary>
 		private int GetAcceleratorQualifiers ()
 		{
@@ -309,8 +318,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return popup element.
+		/// 
 		/// Or
 		/// Set popup element to show on selection.
+		/// 
 		/// </summary>
 		public UIElement Popup {
 			get {
@@ -323,8 +334,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return popup element offset.
+		/// 
 		/// Or
 		/// Set popup element offset.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 PopupOffset {
 			get {
@@ -337,6 +350,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether popup is open.
+		/// 
 		/// </summary>
 		public bool IsPopupShown {
 			get {
@@ -346,6 +360,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return accelerator key code, 0 if disabled.
+		/// 
 		/// </summary>
 		public int AcceleratorKey {
 			get {
@@ -355,6 +370,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return accelerator qualifiers.
+		/// 
 		/// </summary>
 		public int AcceleratorQualifiers {
 			get {

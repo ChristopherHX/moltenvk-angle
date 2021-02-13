@@ -151,18 +151,6 @@ namespace Urho.IO
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr File_GetName (IntPtr handle);
-
-		/// <summary>
-		/// Return the file name.
-		/// </summary>
-		private string GetName ()
-		{
-			Runtime.ValidateRefCounted (this);
-			return Marshal.PtrToStringAnsi (File_GetName (handle));
-		}
-
-		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern uint File_GetChecksum (IntPtr handle);
 
 		/// <summary>
@@ -223,22 +211,11 @@ namespace Urho.IO
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void File_SetName (IntPtr handle, string name);
-
-		/// <summary>
-		/// Change the file name. Used by the resource system.
-		/// </summary>
-		private void SetName (string name)
-		{
-			Runtime.ValidateRefCounted (this);
-			File_SetName (handle, name);
-		}
-
-		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern FileMode File_GetMode (IntPtr handle);
 
 		/// <summary>
 		/// Return the open mode.
+		/// 
 		/// </summary>
 		private FileMode GetMode ()
 		{
@@ -251,6 +228,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return whether is open.
+		/// 
 		/// </summary>
 		public bool IsOpen ()
 		{
@@ -275,6 +253,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return whether the file originates from a package.
+		/// 
 		/// </summary>
 		private bool IsPackaged ()
 		{
@@ -308,20 +287,6 @@ namespace Urho.IO
 		}
 
 		/// <summary>
-		/// Return the file name.
-		/// Or
-		/// Change the file name. Used by the resource system.
-		/// </summary>
-		public string Name {
-			get {
-				return GetName ();
-			}
-			set {
-				SetName (value);
-			}
-		}
-
-		/// <summary>
 		/// Return a checksum of the file contents using the SDBM hash algorithm.
 		/// </summary>
 		public uint Checksum {
@@ -332,6 +297,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return the open mode.
+		/// 
 		/// </summary>
 		public FileMode Mode {
 			get {
@@ -350,6 +316,7 @@ namespace Urho.IO
 
 		/// <summary>
 		/// Return whether the file originates from a package.
+		/// 
 		/// </summary>
 		public bool Packaged {
 			get {

@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -191,6 +192,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set material.
+		/// 
 		/// </summary>
 		private void SetMaterial (Material material)
 		{
@@ -203,6 +205,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set maximum number of particles.
+		/// 
 		/// </summary>
 		private void SetNumParticles (uint num)
 		{
@@ -215,6 +218,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether to update when particles are not visible.
+		/// 
 		/// </summary>
 		private void SetUpdateInvisible (bool enable)
 		{
@@ -227,6 +231,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether billboards are relative to the scene node.
+		/// 
 		/// </summary>
 		private void SetRelative (bool enable)
 		{
@@ -239,6 +244,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether scene node scale affects billboards' size.
+		/// 
 		/// </summary>
 		private void SetScaled (bool enable)
 		{
@@ -251,6 +257,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether billboards are sorted by distance.
+		/// 
 		/// </summary>
 		private void SetSorted (bool enable)
 		{
@@ -263,6 +270,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether billboards have fixed size on screen (measured in pixels) regardless of distance to camera.
+		/// 
 		/// </summary>
 		private void SetFixedScreenSize (bool enable)
 		{
@@ -275,6 +283,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set animation LOD bias.
+		/// 
 		/// </summary>
 		private void SetAnimationLodBias (float lodBias)
 		{
@@ -287,6 +296,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set emitter type.
+		/// 
 		/// </summary>
 		private void SetEmitterType (EmitterType type)
 		{
@@ -299,6 +309,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set emitter size.
+		/// 
 		/// </summary>
 		private void SetEmitterSize (Urho.Vector3 size)
 		{
@@ -311,6 +322,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set negative direction limit.
+		/// 
 		/// </summary>
 		private void SetMinDirection (Urho.Vector3 direction)
 		{
@@ -323,6 +335,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set positive direction limit.
+		/// 
 		/// </summary>
 		private void SetMaxDirection (Urho.Vector3 direction)
 		{
@@ -335,6 +348,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set constant force acting on particles.
+		/// 
 		/// </summary>
 		private void SetConstantForce (Urho.Vector3 force)
 		{
@@ -347,6 +361,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set particle velocity damping force.
+		/// 
 		/// </summary>
 		private void SetDampingForce (float force)
 		{
@@ -359,6 +374,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set emission active period length (0 = infinite).
+		/// 
 		/// </summary>
 		private void SetActiveTime (float time)
 		{
@@ -371,6 +387,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set emission inactive period length (0 = infinite).
+		/// 
 		/// </summary>
 		private void SetInactiveTime (float time)
 		{
@@ -383,6 +400,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set minimum emission rate.
+		/// 
 		/// </summary>
 		private void SetMinEmissionRate (float rate)
 		{
@@ -395,6 +413,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set maximum emission rate.
+		/// 
 		/// </summary>
 		private void SetMaxEmissionRate (float rate)
 		{
@@ -407,6 +426,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set particle minimum size.
+		/// 
 		/// </summary>
 		private void SetMinParticleSize (Urho.Vector2 size)
 		{
@@ -419,6 +439,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set particle maximum size.
+		/// 
 		/// </summary>
 		private void SetMaxParticleSize (Urho.Vector2 size)
 		{
@@ -431,6 +452,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set particle minimum time to live.
+		/// 
 		/// </summary>
 		private void SetMinTimeToLive (float time)
 		{
@@ -443,6 +465,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set particle maximum time to live.
+		/// 
 		/// </summary>
 		private void SetMaxTimeToLive (float time)
 		{
@@ -455,6 +478,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set particle minimum velocity.
+		/// 
 		/// </summary>
 		private void SetMinVelocity (float velocity)
 		{
@@ -467,6 +491,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set particle maximum velocity.
+		/// 
 		/// </summary>
 		private void SetMaxVelocity (float velocity)
 		{
@@ -479,6 +504,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set particle minimum rotation.
+		/// 
 		/// </summary>
 		private void SetMinRotation (float rotation)
 		{
@@ -491,6 +517,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set particle maximum rotation.
+		/// 
 		/// </summary>
 		private void SetMaxRotation (float rotation)
 		{
@@ -503,6 +530,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set particle minimum rotation speed.
+		/// 
 		/// </summary>
 		private void SetMinRotationSpeed (float speed)
 		{
@@ -515,6 +543,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set particle maximum rotation speed.
+		/// 
 		/// </summary>
 		private void SetMaxRotationSpeed (float speed)
 		{
@@ -527,6 +556,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set particle size additive modifier.
+		/// 
 		/// </summary>
 		private void SetSizeAdd (float sizeAdd)
 		{
@@ -539,6 +569,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set particle size multiplicative modifier.
+		/// 
 		/// </summary>
 		private void SetSizeMul (float sizeMul)
 		{
@@ -551,6 +582,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set how the particles should rotate in relation to the camera. Default is to follow camera rotation on all axes (FC_ROTATE_XYZ).
+		/// 
 		/// </summary>
 		private void SetFaceCameraMode (FaceCameraMode mode)
 		{
@@ -587,6 +619,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set number of color frames.
+		/// 
 		/// </summary>
 		private void SetNumColorFrames (uint number)
 		{
@@ -623,6 +656,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set number of texture frames.
+		/// 
 		/// </summary>
 		private void SetNumTextureFrames (uint number)
 		{
@@ -659,6 +693,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return material.
+		/// 
 		/// </summary>
 		private Material GetMaterial ()
 		{
@@ -671,6 +706,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of particles.
+		/// 
 		/// </summary>
 		private uint GetNumParticles ()
 		{
@@ -683,6 +719,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether to update when particles are not visible.
+		/// 
 		/// </summary>
 		private bool GetUpdateInvisible ()
 		{
@@ -695,6 +732,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether billboards are relative to the scene node.
+		/// 
 		/// </summary>
 		private bool IsRelative ()
 		{
@@ -707,6 +745,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether scene node scale affects billboards' size.
+		/// 
 		/// </summary>
 		private bool IsScaled ()
 		{
@@ -719,6 +758,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether billboards are sorted.
+		/// 
 		/// </summary>
 		private bool IsSorted ()
 		{
@@ -731,6 +771,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether billboards are fixed screen size.
+		/// 
 		/// </summary>
 		private bool IsFixedScreenSize ()
 		{
@@ -743,6 +784,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation Lod bias.
+		/// 
 		/// </summary>
 		private float GetAnimationLodBias ()
 		{
@@ -755,6 +797,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return emitter type.
+		/// 
 		/// </summary>
 		private EmitterType GetEmitterType ()
 		{
@@ -767,6 +810,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return emitter size.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetEmitterSize ()
 		{
@@ -779,6 +823,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return negative direction limit.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetMinDirection ()
 		{
@@ -791,6 +836,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return positive direction limit.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetMaxDirection ()
 		{
@@ -803,6 +849,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return constant force acting on particles.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetConstantForce ()
 		{
@@ -815,6 +862,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle velocity damping force.
+		/// 
 		/// </summary>
 		private float GetDampingForce ()
 		{
@@ -827,6 +875,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return emission active period length (0 = infinite).
+		/// 
 		/// </summary>
 		private float GetActiveTime ()
 		{
@@ -839,6 +888,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return emission inactive period length (0 = infinite).
+		/// 
 		/// </summary>
 		private float GetInactiveTime ()
 		{
@@ -851,6 +901,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return minimum emission rate.
+		/// 
 		/// </summary>
 		private float GetMinEmissionRate ()
 		{
@@ -863,6 +914,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum emission rate.
+		/// 
 		/// </summary>
 		private float GetMaxEmissionRate ()
 		{
@@ -875,6 +927,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle minimum size.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetMinParticleSize ()
 		{
@@ -887,6 +940,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle maximum size.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetMaxParticleSize ()
 		{
@@ -899,6 +953,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle minimum time to live.
+		/// 
 		/// </summary>
 		private float GetMinTimeToLive ()
 		{
@@ -911,6 +966,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle maximum time to live.
+		/// 
 		/// </summary>
 		private float GetMaxTimeToLive ()
 		{
@@ -923,6 +979,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle minimum velocity.
+		/// 
 		/// </summary>
 		private float GetMinVelocity ()
 		{
@@ -935,6 +992,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle maximum velocity.
+		/// 
 		/// </summary>
 		private float GetMaxVelocity ()
 		{
@@ -947,6 +1005,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle minimum rotation.
+		/// 
 		/// </summary>
 		private float GetMinRotation ()
 		{
@@ -959,6 +1018,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle maximum rotation.
+		/// 
 		/// </summary>
 		private float GetMaxRotation ()
 		{
@@ -971,6 +1031,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle minimum rotation speed.
+		/// 
 		/// </summary>
 		private float GetMinRotationSpeed ()
 		{
@@ -983,6 +1044,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle maximum rotation speed.
+		/// 
 		/// </summary>
 		private float GetMaxRotationSpeed ()
 		{
@@ -995,6 +1057,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle size additive modifier.
+		/// 
 		/// </summary>
 		private float GetSizeAdd ()
 		{
@@ -1007,6 +1070,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle size multiplicative modifier.
+		/// 
 		/// </summary>
 		private float GetSizeMul ()
 		{
@@ -1019,6 +1083,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of color animation frames.
+		/// 
 		/// </summary>
 		private uint GetNumColorFrames ()
 		{
@@ -1043,6 +1108,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of texture animation frames.
+		/// 
 		/// </summary>
 		private uint GetNumTextureFrames ()
 		{
@@ -1067,6 +1133,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return how the particles rotate in relation to the camera.
+		/// 
 		/// </summary>
 		private FaceCameraMode GetFaceCameraMode ()
 		{
@@ -1173,8 +1240,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return material.
+		/// 
 		/// Or
 		/// Set material.
+		/// 
 		/// </summary>
 		public Material Material {
 			get {
@@ -1187,8 +1256,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of particles.
+		/// 
 		/// Or
 		/// Set maximum number of particles.
+		/// 
 		/// </summary>
 		public uint NumParticles {
 			get {
@@ -1201,8 +1272,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether to update when particles are not visible.
+		/// 
 		/// Or
 		/// Set whether to update when particles are not visible.
+		/// 
 		/// </summary>
 		public bool UpdateInvisible {
 			get {
@@ -1215,8 +1288,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether billboards are relative to the scene node.
+		/// 
 		/// Or
 		/// Set whether billboards are relative to the scene node.
+		/// 
 		/// </summary>
 		public bool Relative {
 			get {
@@ -1229,8 +1304,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether scene node scale affects billboards' size.
+		/// 
 		/// Or
 		/// Set whether scene node scale affects billboards' size.
+		/// 
 		/// </summary>
 		public bool Scaled {
 			get {
@@ -1243,8 +1320,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether billboards are sorted.
+		/// 
 		/// Or
 		/// Set whether billboards are sorted by distance.
+		/// 
 		/// </summary>
 		public bool Sorted {
 			get {
@@ -1257,8 +1336,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether billboards are fixed screen size.
+		/// 
 		/// Or
 		/// Set whether billboards have fixed size on screen (measured in pixels) regardless of distance to camera.
+		/// 
 		/// </summary>
 		public bool FixedScreenSize {
 			get {
@@ -1271,8 +1352,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation Lod bias.
+		/// 
 		/// Or
 		/// Set animation LOD bias.
+		/// 
 		/// </summary>
 		public float AnimationLodBias {
 			get {
@@ -1285,8 +1368,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return emitter type.
+		/// 
 		/// Or
 		/// Set emitter type.
+		/// 
 		/// </summary>
 		public EmitterType EmitterType {
 			get {
@@ -1299,8 +1384,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return emitter size.
+		/// 
 		/// Or
 		/// Set emitter size.
+		/// 
 		/// </summary>
 		public Urho.Vector3 EmitterSize {
 			get {
@@ -1313,8 +1400,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return negative direction limit.
+		/// 
 		/// Or
 		/// Set negative direction limit.
+		/// 
 		/// </summary>
 		public Urho.Vector3 MinDirection {
 			get {
@@ -1327,8 +1416,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return positive direction limit.
+		/// 
 		/// Or
 		/// Set positive direction limit.
+		/// 
 		/// </summary>
 		public Urho.Vector3 MaxDirection {
 			get {
@@ -1341,8 +1432,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return constant force acting on particles.
+		/// 
 		/// Or
 		/// Set constant force acting on particles.
+		/// 
 		/// </summary>
 		public Urho.Vector3 ConstantForce {
 			get {
@@ -1355,8 +1448,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle velocity damping force.
+		/// 
 		/// Or
 		/// Set particle velocity damping force.
+		/// 
 		/// </summary>
 		public float DampingForce {
 			get {
@@ -1369,8 +1464,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return emission active period length (0 = infinite).
+		/// 
 		/// Or
 		/// Set emission active period length (0 = infinite).
+		/// 
 		/// </summary>
 		public float ActiveTime {
 			get {
@@ -1383,8 +1480,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return emission inactive period length (0 = infinite).
+		/// 
 		/// Or
 		/// Set emission inactive period length (0 = infinite).
+		/// 
 		/// </summary>
 		public float InactiveTime {
 			get {
@@ -1397,8 +1496,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return minimum emission rate.
+		/// 
 		/// Or
 		/// Set minimum emission rate.
+		/// 
 		/// </summary>
 		public float MinEmissionRate {
 			get {
@@ -1411,8 +1512,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum emission rate.
+		/// 
 		/// Or
 		/// Set maximum emission rate.
+		/// 
 		/// </summary>
 		public float MaxEmissionRate {
 			get {
@@ -1425,8 +1528,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle minimum size.
+		/// 
 		/// Or
 		/// Set particle minimum size.
+		/// 
 		/// </summary>
 		public Urho.Vector2 MinParticleSize {
 			get {
@@ -1439,8 +1544,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle maximum size.
+		/// 
 		/// Or
 		/// Set particle maximum size.
+		/// 
 		/// </summary>
 		public Urho.Vector2 MaxParticleSize {
 			get {
@@ -1453,8 +1560,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle minimum time to live.
+		/// 
 		/// Or
 		/// Set particle minimum time to live.
+		/// 
 		/// </summary>
 		public float MinTimeToLive {
 			get {
@@ -1467,8 +1576,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle maximum time to live.
+		/// 
 		/// Or
 		/// Set particle maximum time to live.
+		/// 
 		/// </summary>
 		public float MaxTimeToLive {
 			get {
@@ -1481,8 +1592,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle minimum velocity.
+		/// 
 		/// Or
 		/// Set particle minimum velocity.
+		/// 
 		/// </summary>
 		public float MinVelocity {
 			get {
@@ -1495,8 +1608,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle maximum velocity.
+		/// 
 		/// Or
 		/// Set particle maximum velocity.
+		/// 
 		/// </summary>
 		public float MaxVelocity {
 			get {
@@ -1509,8 +1624,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle minimum rotation.
+		/// 
 		/// Or
 		/// Set particle minimum rotation.
+		/// 
 		/// </summary>
 		public float MinRotation {
 			get {
@@ -1523,8 +1640,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle maximum rotation.
+		/// 
 		/// Or
 		/// Set particle maximum rotation.
+		/// 
 		/// </summary>
 		public float MaxRotation {
 			get {
@@ -1537,8 +1656,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle minimum rotation speed.
+		/// 
 		/// Or
 		/// Set particle minimum rotation speed.
+		/// 
 		/// </summary>
 		public float MinRotationSpeed {
 			get {
@@ -1551,8 +1672,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle maximum rotation speed.
+		/// 
 		/// Or
 		/// Set particle maximum rotation speed.
+		/// 
 		/// </summary>
 		public float MaxRotationSpeed {
 			get {
@@ -1565,8 +1688,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle size additive modifier.
+		/// 
 		/// Or
 		/// Set particle size additive modifier.
+		/// 
 		/// </summary>
 		public float SizeAdd {
 			get {
@@ -1579,8 +1704,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle size multiplicative modifier.
+		/// 
 		/// Or
 		/// Set particle size multiplicative modifier.
+		/// 
 		/// </summary>
 		public float SizeMul {
 			get {
@@ -1593,8 +1720,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return how the particles rotate in relation to the camera.
+		/// 
 		/// Or
 		/// Set how the particles should rotate in relation to the camera. Default is to follow camera rotation on all axes (FC_ROTATE_XYZ).
+		/// 
 		/// </summary>
 		public FaceCameraMode FaceCameraMode {
 			get {
@@ -1607,8 +1736,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of color animation frames.
+		/// 
 		/// Or
 		/// Set number of color frames.
+		/// 
 		/// </summary>
 		public uint NumColorFrames {
 			get {
@@ -1621,8 +1752,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of texture animation frames.
+		/// 
 		/// Or
 		/// Set number of texture frames.
+		/// 
 		/// </summary>
 		public uint NumTextureFrames {
 			get {

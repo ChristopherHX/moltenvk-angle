@@ -145,6 +145,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Set master gain on a specific sound type such as sound effects, music or voice.
+		/// 
 		/// </summary>
 		public void SetMasterGain (string type, float gain)
 		{
@@ -193,6 +194,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Set active sound listener for 3D sounds.
+		/// 
 		/// </summary>
 		private void SetListener (SoundListener listener)
 		{
@@ -217,6 +219,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return byte size of one sample.
+		/// 
 		/// </summary>
 		private uint GetSampleSize ()
 		{
@@ -229,6 +232,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return mixing rate.
+		/// 
 		/// </summary>
 		private int GetMixRate ()
 		{
@@ -241,6 +245,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether output is interpolated.
+		/// 
 		/// </summary>
 		private bool GetInterpolation ()
 		{
@@ -253,6 +258,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether output is stereo.
+		/// 
 		/// </summary>
 		private bool IsStereo ()
 		{
@@ -265,6 +271,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether audio is being output.
+		/// 
 		/// </summary>
 		private bool IsPlaying ()
 		{
@@ -277,6 +284,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether an audio stream has been reserved.
+		/// 
 		/// </summary>
 		private bool IsInitialized ()
 		{
@@ -289,6 +297,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return master gain for a specific sound source type. Unknown sound types will return full gain (1).
+		/// 
 		/// </summary>
 		public float GetMasterGain (string type)
 		{
@@ -313,6 +322,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return active sound listener.
+		/// 
 		/// </summary>
 		private SoundListener GetListener ()
 		{
@@ -407,8 +417,10 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return active sound listener.
+		/// 
 		/// Or
 		/// Set active sound listener for 3D sounds.
+		/// 
 		/// </summary>
 		public SoundListener Listener {
 			get {
@@ -421,6 +433,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return byte size of one sample.
+		/// 
 		/// </summary>
 		public uint SampleSize {
 			get {
@@ -430,6 +443,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return mixing rate.
+		/// 
 		/// </summary>
 		public int MixRate {
 			get {
@@ -439,6 +453,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether output is interpolated.
+		/// 
 		/// </summary>
 		public bool Interpolation {
 			get {
@@ -448,6 +463,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether output is stereo.
+		/// 
 		/// </summary>
 		public bool Stereo {
 			get {
@@ -457,6 +473,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether audio is being output.
+		/// 
 		/// </summary>
 		public bool Playing {
 			get {
@@ -466,6 +483,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return whether an audio stream has been reserved.
+		/// 
 		/// </summary>
 		public bool Initialized {
 			get {

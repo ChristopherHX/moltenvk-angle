@@ -78,6 +78,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object attributes. Drawable must be registered first.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -162,6 +163,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set draw distance.
+		/// 
 		/// </summary>
 		private void SetDrawDistance (float distance)
 		{
@@ -174,6 +176,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadow draw distance.
+		/// 
 		/// </summary>
 		private void SetShadowDistance (float distance)
 		{
@@ -186,6 +189,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set LOD bias.
+		/// 
 		/// </summary>
 		private void SetLodBias (float bias)
 		{
@@ -198,6 +202,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set view mask. Is and'ed with camera's view mask to see if the object should be rendered.
+		/// 
 		/// </summary>
 		private void SetViewMask (uint mask)
 		{
@@ -210,6 +215,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set light mask. Is and'ed with light's and zone's light mask to see if the object should be lit.
+		/// 
 		/// </summary>
 		private void SetLightMask (uint mask)
 		{
@@ -222,6 +228,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadow mask. Is and'ed with light's light mask and zone's shadow mask to see if the object should be rendered to a shadow map.
+		/// 
 		/// </summary>
 		private void SetShadowMask (uint mask)
 		{
@@ -234,6 +241,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set zone mask. Is and'ed with zone's zone mask to see if the object should belong to the zone.
+		/// 
 		/// </summary>
 		private void SetZoneMask (uint mask)
 		{
@@ -246,6 +254,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set maximum number of per-pixel lights. Default 0 is unlimited.
+		/// 
 		/// </summary>
 		private void SetMaxLights (uint num)
 		{
@@ -258,6 +267,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadowcaster flag.
+		/// 
 		/// </summary>
 		private void SetCastShadows (bool enable)
 		{
@@ -270,6 +280,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set occlusion flag.
+		/// 
 		/// </summary>
 		private void SetOccluder (bool enable)
 		{
@@ -282,6 +293,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set occludee flag.
+		/// 
 		/// </summary>
 		private void SetOccludee (bool enable)
 		{
@@ -306,6 +318,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return local space bounding box. May not be applicable or properly updated on all drawables.
+		/// 
 		/// </summary>
 		private Urho.BoundingBox GetBoundingBox ()
 		{
@@ -318,6 +331,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return world-space bounding box.
+		/// 
 		/// </summary>
 		private Urho.BoundingBox GetWorldBoundingBox ()
 		{
@@ -342,6 +356,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return draw distance.
+		/// 
 		/// </summary>
 		private float GetDrawDistance ()
 		{
@@ -354,6 +369,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow draw distance.
+		/// 
 		/// </summary>
 		private float GetShadowDistance ()
 		{
@@ -366,6 +382,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return LOD bias.
+		/// 
 		/// </summary>
 		private float GetLodBias ()
 		{
@@ -378,6 +395,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return view mask.
+		/// 
 		/// </summary>
 		private uint GetViewMask ()
 		{
@@ -390,6 +408,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return light mask.
+		/// 
 		/// </summary>
 		private uint GetLightMask ()
 		{
@@ -402,6 +421,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow mask.
+		/// 
 		/// </summary>
 		private uint GetShadowMask ()
 		{
@@ -414,6 +434,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return zone mask.
+		/// 
 		/// </summary>
 		private uint GetZoneMask ()
 		{
@@ -426,6 +447,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of per-pixel lights.
+		/// 
 		/// </summary>
 		private uint GetMaxLights ()
 		{
@@ -438,6 +460,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadowcaster flag.
+		/// 
 		/// </summary>
 		private bool GetCastShadows ()
 		{
@@ -450,6 +473,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return occluder flag.
+		/// 
 		/// </summary>
 		private bool IsOccluder ()
 		{
@@ -462,6 +486,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return occludee flag.
+		/// 
 		/// </summary>
 		private bool IsOccludee ()
 		{
@@ -474,6 +499,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is in view this frame from any viewport camera. Excludes shadow map cameras.
+		/// 
 		/// </summary>
 		private bool IsInView ()
 		{
@@ -594,6 +620,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return current zone.
+		/// 
 		/// </summary>
 		private Zone GetZone ()
 		{
@@ -766,8 +793,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return draw distance.
+		/// 
 		/// Or
 		/// Set draw distance.
+		/// 
 		/// </summary>
 		public float DrawDistance {
 			get {
@@ -780,8 +809,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow draw distance.
+		/// 
 		/// Or
 		/// Set shadow draw distance.
+		/// 
 		/// </summary>
 		public float ShadowDistance {
 			get {
@@ -794,8 +825,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return LOD bias.
+		/// 
 		/// Or
 		/// Set LOD bias.
+		/// 
 		/// </summary>
 		public float LodBias {
 			get {
@@ -808,8 +841,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return view mask.
+		/// 
 		/// Or
 		/// Set view mask. Is and'ed with camera's view mask to see if the object should be rendered.
+		/// 
 		/// </summary>
 		public uint ViewMask {
 			get {
@@ -822,8 +857,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return light mask.
+		/// 
 		/// Or
 		/// Set light mask. Is and'ed with light's and zone's light mask to see if the object should be lit.
+		/// 
 		/// </summary>
 		public uint LightMask {
 			get {
@@ -836,8 +873,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow mask.
+		/// 
 		/// Or
 		/// Set shadow mask. Is and'ed with light's light mask and zone's shadow mask to see if the object should be rendered to a shadow map.
+		/// 
 		/// </summary>
 		public uint ShadowMask {
 			get {
@@ -850,8 +889,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return zone mask.
+		/// 
 		/// Or
 		/// Set zone mask. Is and'ed with zone's zone mask to see if the object should belong to the zone.
+		/// 
 		/// </summary>
 		public uint ZoneMask {
 			get {
@@ -864,8 +905,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of per-pixel lights.
+		/// 
 		/// Or
 		/// Set maximum number of per-pixel lights. Default 0 is unlimited.
+		/// 
 		/// </summary>
 		public uint MaxLights {
 			get {
@@ -878,8 +921,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadowcaster flag.
+		/// 
 		/// Or
 		/// Set shadowcaster flag.
+		/// 
 		/// </summary>
 		public bool CastShadows {
 			get {
@@ -892,8 +937,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return occluder flag.
+		/// 
 		/// Or
 		/// Set occlusion flag.
+		/// 
 		/// </summary>
 		public bool Occluder {
 			get {
@@ -906,8 +953,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return occludee flag.
+		/// 
 		/// Or
 		/// Set occludee flag.
+		/// 
 		/// </summary>
 		public bool Occludee {
 			get {
@@ -920,6 +969,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return local space bounding box. May not be applicable or properly updated on all drawables.
+		/// 
 		/// </summary>
 		public Urho.BoundingBox BoundingBox {
 			get {
@@ -929,6 +979,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return world-space bounding box.
+		/// 
 		/// </summary>
 		public Urho.BoundingBox WorldBoundingBox {
 			get {
@@ -947,6 +998,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is in view this frame from any viewport camera. Excludes shadow map cameras.
+		/// 
 		/// </summary>
 		public bool InView {
 			get {
@@ -979,6 +1031,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return current zone.
+		/// 
 		/// </summary>
 		public Zone Zone {
 			get {

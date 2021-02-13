@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set anchor.
+		/// 
 		/// </summary>
 		private void SetAnchor (Urho.Vector2 anchor)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set axis.
+		/// 
 		/// </summary>
 		private void SetAxis (Urho.Vector2 axis)
 		{
@@ -131,6 +134,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set enable motor.
+		/// 
 		/// </summary>
 		private void SetEnableMotor (bool enableMotor)
 		{
@@ -143,6 +147,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set max motor torque.
+		/// 
 		/// </summary>
 		private void SetMaxMotorTorque (float maxMotorTorque)
 		{
@@ -155,6 +160,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set motor speed.
+		/// 
 		/// </summary>
 		private void SetMotorSpeed (float motorSpeed)
 		{
@@ -167,6 +173,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set frequency Hz.
+		/// 
 		/// </summary>
 		private void SetFrequencyHz (float frequencyHz)
 		{
@@ -179,6 +186,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set damping ratio.
+		/// 
 		/// </summary>
 		private void SetDampingRatio (float dampingRatio)
 		{
@@ -191,6 +199,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return anchor.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetAnchor ()
 		{
@@ -203,6 +212,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return axis.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetAxis ()
 		{
@@ -215,6 +225,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return enable motor.
+		/// 
 		/// </summary>
 		private bool GetEnableMotor ()
 		{
@@ -227,6 +238,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return maxMotor torque.
+		/// 
 		/// </summary>
 		private float GetMaxMotorTorque ()
 		{
@@ -239,6 +251,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return motor speed.
+		/// 
 		/// </summary>
 		private float GetMotorSpeed ()
 		{
@@ -251,6 +264,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return frequency Hz.
+		/// 
 		/// </summary>
 		private float GetFrequencyHz ()
 		{
@@ -263,6 +277,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return damping ratio.
+		/// 
 		/// </summary>
 		private float GetDampingRatio ()
 		{
@@ -297,8 +312,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return anchor.
+		/// 
 		/// Or
 		/// Set anchor.
+		/// 
 		/// </summary>
 		public Urho.Vector2 Anchor {
 			get {
@@ -311,8 +328,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return axis.
+		/// 
 		/// Or
 		/// Set axis.
+		/// 
 		/// </summary>
 		public Urho.Vector2 Axis {
 			get {
@@ -325,8 +344,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return enable motor.
+		/// 
 		/// Or
 		/// Set enable motor.
+		/// 
 		/// </summary>
 		public bool EnableMotor {
 			get {
@@ -339,8 +360,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return maxMotor torque.
+		/// 
 		/// Or
 		/// Set max motor torque.
+		/// 
 		/// </summary>
 		public float MaxMotorTorque {
 			get {
@@ -353,8 +376,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return motor speed.
+		/// 
 		/// Or
 		/// Set motor speed.
+		/// 
 		/// </summary>
 		public float MotorSpeed {
 			get {
@@ -367,8 +392,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return frequency Hz.
+		/// 
 		/// Or
 		/// Set frequency Hz.
+		/// 
 		/// </summary>
 		public float FrequencyHz {
 			get {
@@ -381,8 +408,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return damping ratio.
+		/// 
 		/// Or
 		/// Set damping ratio.
+		/// 
 		/// </summary>
 		public float DampingRatio {
 			get {

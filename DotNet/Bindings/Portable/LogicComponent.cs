@@ -13,26 +13,6 @@ namespace Urho
 		Subscription physicsPostStepSubscription;
 		Subscription scenePostUpdateSubscription;
 
-		[Preserve]
-		public LogicComponent (IntPtr handle) : base (handle)
-		{
-		}
-
-		[Preserve]
-		public LogicComponent () : this (Application.CurrentContext)
-		{
-		}
-
-		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr LogicComponent_LogicComponent (IntPtr context);
-
-		public LogicComponent (Context context) : base (UrhoObjectFlag.Empty)
-		{
-			Runtime.Validate (typeof(LogicComponent));
-			handle = LogicComponent_LogicComponent ((object)context == null ? IntPtr.Zero : context.Handle);
-			Runtime.RegisterObject (this);
-		}
-
 		public override void OnSceneSet(Scene scene)
 		{
 			if (scene != null)
@@ -74,17 +54,6 @@ namespace Urho
 		protected virtual void OnFixedPostUpdate(PhysicsPostStepEventArgs e) { }
 		protected virtual void OnPostUpdate(ScenePostUpdateEventArgs e) { }
 
-		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern int LogicComponent_GetType(IntPtr handle);
-
-		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr LogicComponent_GetTypeName(IntPtr handle);
-
-		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern int LogicComponent_GetTypeStatic();
-
-		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr LogicComponent_GetTypeNameStatic();
 
 /* TBD ELI , generated automatically
 		public override StringHash Type => new StringHash(LogicComponent_GetType(handle));

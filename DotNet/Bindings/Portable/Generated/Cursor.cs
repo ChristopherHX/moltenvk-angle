@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -131,6 +132,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set current shape.
+		/// 
 		/// </summary>
 		private void SetShape (string shape)
 		{
@@ -155,6 +157,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether to use system default shapes. Is only possible when the OS mouse cursor has been set visible from the Input subsystem.
+		/// 
 		/// </summary>
 		private void SetUseSystemShapes (bool enable)
 		{
@@ -167,6 +170,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Get current shape.
+		/// 
 		/// </summary>
 		private string GetShape ()
 		{
@@ -179,6 +183,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is using system default shapes.
+		/// 
 		/// </summary>
 		private bool GetUseSystemShapes ()
 		{
@@ -225,8 +230,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Get current shape.
+		/// 
 		/// Or
 		/// Set current shape.
+		/// 
 		/// </summary>
 		public string Shape {
 			get {
@@ -239,8 +246,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is using system default shapes.
+		/// 
 		/// Or
 		/// Set whether to use system default shapes. Is only possible when the OS mouse cursor has been set visible from the Input subsystem.
+		/// 
 		/// </summary>
 		public bool UseSystemShapes {
 			get {

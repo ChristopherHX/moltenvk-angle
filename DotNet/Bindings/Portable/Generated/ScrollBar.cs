@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -143,6 +144,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set orientation type.
+		/// 
 		/// </summary>
 		private void SetOrientation (Orientation orientation)
 		{
@@ -155,6 +157,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set slider range maximum value (minimum value is always 0).
+		/// 
 		/// </summary>
 		private void SetRange (float range)
 		{
@@ -167,6 +170,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set slider current value.
+		/// 
 		/// </summary>
 		private void SetValue (float value)
 		{
@@ -191,6 +195,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set button scroll step.
+		/// 
 		/// </summary>
 		private void SetScrollStep (float step)
 		{
@@ -203,6 +208,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set button step factor, can be used to adjust the step for constant pixel size.
+		/// 
 		/// </summary>
 		private void SetStepFactor (float factor)
 		{
@@ -239,6 +245,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return scrollbar orientation.
+		/// 
 		/// </summary>
 		private Orientation GetOrientation ()
 		{
@@ -251,6 +258,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return slider range.
+		/// 
 		/// </summary>
 		private float GetRange ()
 		{
@@ -263,6 +271,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return slider current value.
+		/// 
 		/// </summary>
 		private float GetValue ()
 		{
@@ -275,6 +284,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return button scroll step.
+		/// 
 		/// </summary>
 		private float GetScrollStep ()
 		{
@@ -287,6 +297,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return button step factor.
+		/// 
 		/// </summary>
 		private float GetStepFactor ()
 		{
@@ -299,6 +310,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return scroll step multiplied by factor.
+		/// 
 		/// </summary>
 		private float GetEffectiveScrollStep ()
 		{
@@ -311,6 +323,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return back button element.
+		/// 
 		/// </summary>
 		private Button GetBackButton ()
 		{
@@ -323,6 +336,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return forward button element.
+		/// 
 		/// </summary>
 		private Button GetForwardButton ()
 		{
@@ -335,6 +349,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return slider element.
+		/// 
 		/// </summary>
 		private Slider GetSlider ()
 		{
@@ -369,8 +384,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return scrollbar orientation.
+		/// 
 		/// Or
 		/// Set orientation type.
+		/// 
 		/// </summary>
 		public Orientation Orientation {
 			get {
@@ -383,8 +400,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return slider range.
+		/// 
 		/// Or
 		/// Set slider range maximum value (minimum value is always 0).
+		/// 
 		/// </summary>
 		public float Range {
 			get {
@@ -397,8 +416,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return slider current value.
+		/// 
 		/// Or
 		/// Set slider current value.
+		/// 
 		/// </summary>
 		public float Value {
 			get {
@@ -411,8 +432,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return button scroll step.
+		/// 
 		/// Or
 		/// Set button scroll step.
+		/// 
 		/// </summary>
 		public float ScrollStep {
 			get {
@@ -425,8 +448,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return button step factor.
+		/// 
 		/// Or
 		/// Set button step factor, can be used to adjust the step for constant pixel size.
+		/// 
 		/// </summary>
 		public float StepFactor {
 			get {
@@ -439,6 +464,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return scroll step multiplied by factor.
+		/// 
 		/// </summary>
 		public float EffectiveScrollStep {
 			get {
@@ -448,6 +474,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return back button element.
+		/// 
 		/// </summary>
 		public Button BackButton {
 			get {
@@ -457,6 +484,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return forward button element.
+		/// 
 		/// </summary>
 		public Button ForwardButton {
 			get {
@@ -466,6 +494,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return slider element.
+		/// 
 		/// </summary>
 		public Slider Slider {
 			get {

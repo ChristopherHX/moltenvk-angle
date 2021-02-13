@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -227,6 +228,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set texture edge offset for all sprites, in pixels.
+		/// 
 		/// </summary>
 		private void SetSpriteTextureEdgeOffset (float offset)
 		{
@@ -239,6 +241,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return texture edge offset, in pixels.
+		/// 
 		/// </summary>
 		private float GetSpriteTextureEdgeOffset ()
 		{
@@ -291,8 +294,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return texture edge offset, in pixels.
+		/// 
 		/// Or
 		/// Set texture edge offset for all sprites, in pixels.
+		/// 
 		/// </summary>
 		public float SpriteTextureEdgeOffset {
 			get {

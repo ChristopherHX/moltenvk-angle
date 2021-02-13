@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set anchor.
+		/// 
 		/// </summary>
 		private void SetAnchor (Urho.Vector2 anchor)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set axis.
+		/// 
 		/// </summary>
 		private void SetAxis (Urho.Vector2 axis)
 		{
@@ -131,6 +134,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set enable limit.
+		/// 
 		/// </summary>
 		private void SetEnableLimit (bool enableLimit)
 		{
@@ -143,6 +147,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set lower translation.
+		/// 
 		/// </summary>
 		private void SetLowerTranslation (float lowerTranslation)
 		{
@@ -155,6 +160,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set upper translation.
+		/// 
 		/// </summary>
 		private void SetUpperTranslation (float upperTranslation)
 		{
@@ -167,6 +173,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set enable motor.
+		/// 
 		/// </summary>
 		private void SetEnableMotor (bool enableMotor)
 		{
@@ -179,6 +186,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set maxmotor force.
+		/// 
 		/// </summary>
 		private void SetMaxMotorForce (float maxMotorForce)
 		{
@@ -191,6 +199,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set motor speed.
+		/// 
 		/// </summary>
 		private void SetMotorSpeed (float motorSpeed)
 		{
@@ -203,6 +212,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return anchor.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetAnchor ()
 		{
@@ -215,6 +225,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return axis.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetAxis ()
 		{
@@ -227,6 +238,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return enable limit.
+		/// 
 		/// </summary>
 		private bool GetEnableLimit ()
 		{
@@ -239,6 +251,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return lower translation.
+		/// 
 		/// </summary>
 		private float GetLowerTranslation ()
 		{
@@ -251,6 +264,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return upper translation.
+		/// 
 		/// </summary>
 		private float GetUpperTranslation ()
 		{
@@ -263,6 +277,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return enable motor.
+		/// 
 		/// </summary>
 		private bool GetEnableMotor ()
 		{
@@ -275,6 +290,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return maxmotor force.
+		/// 
 		/// </summary>
 		private float GetMaxMotorForce ()
 		{
@@ -287,6 +303,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return motor speed.
+		/// 
 		/// </summary>
 		private float GetMotorSpeed ()
 		{
@@ -321,8 +338,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return anchor.
+		/// 
 		/// Or
 		/// Set anchor.
+		/// 
 		/// </summary>
 		public Urho.Vector2 Anchor {
 			get {
@@ -335,8 +354,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return axis.
+		/// 
 		/// Or
 		/// Set axis.
+		/// 
 		/// </summary>
 		public Urho.Vector2 Axis {
 			get {
@@ -349,8 +370,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return enable limit.
+		/// 
 		/// Or
 		/// Set enable limit.
+		/// 
 		/// </summary>
 		public bool EnableLimit {
 			get {
@@ -363,8 +386,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return lower translation.
+		/// 
 		/// Or
 		/// Set lower translation.
+		/// 
 		/// </summary>
 		public float LowerTranslation {
 			get {
@@ -377,8 +402,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return upper translation.
+		/// 
 		/// Or
 		/// Set upper translation.
+		/// 
 		/// </summary>
 		public float UpperTranslation {
 			get {
@@ -391,8 +418,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return enable motor.
+		/// 
 		/// Or
 		/// Set enable motor.
+		/// 
 		/// </summary>
 		public bool EnableMotor {
 			get {
@@ -405,8 +434,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return maxmotor force.
+		/// 
 		/// Or
 		/// Set maxmotor force.
+		/// 
 		/// </summary>
 		public float MaxMotorForce {
 			get {
@@ -419,8 +450,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return motor speed.
+		/// 
 		/// Or
 		/// Set motor speed.
+		/// 
 		/// </summary>
 		public float MotorSpeed {
 			get {

@@ -90,6 +90,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return URL used in the request.
+		/// 
 		/// </summary>
 		private string GetURL ()
 		{
@@ -102,6 +103,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return verb used in the request. Default GET if empty verb specified on construction.
+		/// 
 		/// </summary>
 		private string GetVerb ()
 		{
@@ -114,6 +116,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return error. Only non-empty in the error state.
+		/// 
 		/// </summary>
 		private string GetError ()
 		{
@@ -126,6 +129,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return connection state.
+		/// 
 		/// </summary>
 		private HttpRequestState GetState ()
 		{
@@ -138,6 +142,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return amount of bytes in the read buffer.
+		/// 
 		/// </summary>
 		private uint GetAvailableSize ()
 		{
@@ -150,6 +155,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return whether connection is in the open state.
+		/// 
 		/// </summary>
 		public bool IsOpen ()
 		{
@@ -168,6 +174,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return URL used in the request.
+		/// 
 		/// </summary>
 		public string URL {
 			get {
@@ -177,6 +184,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return verb used in the request. Default GET if empty verb specified on construction.
+		/// 
 		/// </summary>
 		public string Verb {
 			get {
@@ -186,6 +194,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return error. Only non-empty in the error state.
+		/// 
 		/// </summary>
 		public string Error {
 			get {
@@ -195,6 +204,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return connection state.
+		/// 
 		/// </summary>
 		public HttpRequestState State {
 			get {
@@ -204,6 +214,7 @@ namespace Urho.Network
 
 		/// <summary>
 		/// Return amount of bytes in the read buffer.
+		/// 
 		/// </summary>
 		public uint AvailableSize {
 			get {

@@ -62,6 +62,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return reference count.
+		/// 
 		/// </summary>
 		public int Refs ()
 		{
@@ -73,6 +74,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return weak reference count.
+		/// 
 		/// </summary>
 		public int WeakRefs ()
 		{

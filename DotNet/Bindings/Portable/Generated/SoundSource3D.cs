@@ -95,6 +95,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -155,6 +156,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Set near distance. Inside this range sound will not be attenuated.
+		/// 
 		/// </summary>
 		private void SetNearDistance (float distance)
 		{
@@ -167,6 +169,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Set far distance. Outside this range sound will be completely attenuated.
+		/// 
 		/// </summary>
 		private void SetFarDistance (float distance)
 		{
@@ -179,6 +182,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Set inner angle in degrees. Inside this angle sound will not be attenuated.By default 360, meaning direction never has an effect.
+		/// 
 		/// </summary>
 		private void SetInnerAngle (float angle)
 		{
@@ -191,6 +195,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Set outer angle in degrees. Outside this angle sound will be completely attenuated. By default 360, meaning direction never has an effect.
+		/// 
 		/// </summary>
 		private void SetOuterAngle (float angle)
 		{
@@ -203,6 +208,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Set rolloff power factor, defines attenuation function shape.
+		/// 
 		/// </summary>
 		public void SetRolloffFactor (float factor)
 		{
@@ -227,6 +233,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return near distance.
+		/// 
 		/// </summary>
 		private float GetNearDistance ()
 		{
@@ -239,6 +246,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return far distance.
+		/// 
 		/// </summary>
 		private float GetFarDistance ()
 		{
@@ -251,6 +259,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return inner angle in degrees.
+		/// 
 		/// </summary>
 		private float GetInnerAngle ()
 		{
@@ -263,6 +272,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return outer angle in degrees.
+		/// 
 		/// </summary>
 		private float GetOuterAngle ()
 		{
@@ -275,6 +285,7 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return rolloff power factor.
+		/// 
 		/// </summary>
 		public float RollAngleoffFactor ()
 		{
@@ -309,8 +320,10 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return near distance.
+		/// 
 		/// Or
 		/// Set near distance. Inside this range sound will not be attenuated.
+		/// 
 		/// </summary>
 		public float NearDistance {
 			get {
@@ -323,8 +336,10 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return far distance.
+		/// 
 		/// Or
 		/// Set far distance. Outside this range sound will be completely attenuated.
+		/// 
 		/// </summary>
 		public float FarDistance {
 			get {
@@ -337,8 +352,10 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return inner angle in degrees.
+		/// 
 		/// Or
 		/// Set inner angle in degrees. Inside this angle sound will not be attenuated.By default 360, meaning direction never has an effect.
+		/// 
 		/// </summary>
 		public float InnerAngle {
 			get {
@@ -351,8 +368,10 @@ namespace Urho.Audio
 
 		/// <summary>
 		/// Return outer angle in degrees.
+		/// 
 		/// Or
 		/// Set outer angle in degrees. Outside this angle sound will be completely attenuated. By default 360, meaning direction never has an effect.
+		/// 
 		/// </summary>
 		public float OuterAngle {
 			get {

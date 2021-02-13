@@ -16,12 +16,12 @@ using Urho.IO;
 using Urho.Navigation;
 using Urho.Network;
 
-namespace Urho
+namespace Urho.Physics
 {
 	/// <summary>
 	/// Construct.
 	/// </summary>
-	public unsafe partial class RaycastVehicle : Component
+	public unsafe partial class RaycastVehicle : LogicComponent
 	{
 		unsafe partial void OnRaycastVehicleCreated ();
 
@@ -78,6 +78,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory and attributes.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -346,6 +347,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set side speed which is considered sliding.
+		/// 
 		/// </summary>
 		private void SetMaxSideSlipSpeed (float speed)
 		{
@@ -370,6 +372,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set revolution per minute value for when wheel doesn't touch ground. If set to 0 (or not set), calculated from engine force (probably not what you want).
+		/// 
 		/// </summary>
 		private void SetInAirRPM (float rpm)
 		{
@@ -387,6 +390,42 @@ namespace Urho
 		{
 			Runtime.ValidateRefCounted (this);
 			RaycastVehicle_Init (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void RaycastVehicle_FixedUpdate (IntPtr handle, float timeStep);
+
+		/// <summary>
+		/// Perform fixed step pre-update.
+		/// </summary>
+		public override void FixedUpdate (float timeStep)
+		{
+			Runtime.ValidateRefCounted (this);
+			RaycastVehicle_FixedUpdate (handle, timeStep);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void RaycastVehicle_FixedPostUpdate (IntPtr handle, float timeStep);
+
+		/// <summary>
+		/// Perform fixed step post-update.
+		/// </summary>
+		public override void FixedPostUpdate (float timeStep)
+		{
+			Runtime.ValidateRefCounted (this);
+			RaycastVehicle_FixedPostUpdate (handle, timeStep);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void RaycastVehicle_PostUpdate (IntPtr handle, float timeStep);
+
+		/// <summary>
+		/// Perform variable step post-update.
+		/// </summary>
+		public override void PostUpdate (float timeStep)
+		{
+			Runtime.ValidateRefCounted (this);
+			RaycastVehicle_PostUpdate (handle, timeStep);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -430,6 +469,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get number of attached wheels.
+		/// 
 		/// </summary>
 		private int GetNumWheels ()
 		{
@@ -634,6 +674,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get side speed which is considered sliding.
+		/// 
 		/// </summary>
 		private float GetMaxSideSlipSpeed ()
 		{
@@ -722,6 +763,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get revolution per minute value for when wheel doesn't touch ground.
+		/// 
 		/// </summary>
 		private float GetInAirRPM ()
 		{
@@ -734,6 +776,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get the coordinate system.
+		/// 
 		/// </summary>
 		private IntVector3 GetCoordinateSystem ()
 		{
@@ -768,8 +811,10 @@ namespace Urho
 
 		/// <summary>
 		/// Get side speed which is considered sliding.
+		/// 
 		/// Or
 		/// Set side speed which is considered sliding.
+		/// 
 		/// </summary>
 		public float MaxSideSlipSpeed {
 			get {
@@ -782,8 +827,10 @@ namespace Urho
 
 		/// <summary>
 		/// Get revolution per minute value for when wheel doesn't touch ground.
+		/// 
 		/// Or
 		/// Set revolution per minute value for when wheel doesn't touch ground. If set to 0 (or not set), calculated from engine force (probably not what you want).
+		/// 
 		/// </summary>
 		public float InAirRPM {
 			get {
@@ -796,6 +843,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get the coordinate system.
+		/// 
 		/// </summary>
 		public IntVector3 CoordinateSystem {
 			get {
@@ -805,6 +853,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get number of attached wheels.
+		/// 
 		/// </summary>
 		public int NumWheels {
 			get {

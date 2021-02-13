@@ -95,6 +95,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -143,6 +144,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set constraint type and recreate the constraint.
+		/// 
 		/// </summary>
 		private void SetConstraintType (ConstraintType type)
 		{
@@ -155,6 +157,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set other body to connect to. Set to null to connect to the static world.
+		/// 
 		/// </summary>
 		private void SetOtherBody (RigidBody body)
 		{
@@ -167,6 +170,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set constraint position relative to own body.
+		/// 
 		/// </summary>
 		private void SetPosition (Urho.Vector3 position)
 		{
@@ -179,6 +183,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set constraint rotation relative to own body.
+		/// 
 		/// </summary>
 		private void SetRotation (Urho.Quaternion rotation)
 		{
@@ -191,6 +196,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set constraint rotation relative to own body by specifying the axis.
+		/// 
 		/// </summary>
 		public void SetAxis (Urho.Vector3 axis)
 		{
@@ -203,6 +209,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set constraint position relative to the other body. If connected to the static world, is a world space position.
+		/// 
 		/// </summary>
 		private void SetOtherPosition (Urho.Vector3 position)
 		{
@@ -215,6 +222,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set constraint rotation relative to the other body. If connected to the static world, is a world space rotation.
+		/// 
 		/// </summary>
 		private void SetOtherRotation (Urho.Quaternion rotation)
 		{
@@ -227,6 +235,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set constraint rotation relative to the other body by specifying the axis.
+		/// 
 		/// </summary>
 		public void SetOtherAxis (Urho.Vector3 axis)
 		{
@@ -239,6 +248,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set constraint world space position. Resets both own and other body relative position, ie. zeroes the constraint error.
+		/// 
 		/// </summary>
 		public void SetWorldPosition (Urho.Vector3 position)
 		{
@@ -251,6 +261,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set high limit. Interpretation is constraint type specific.
+		/// 
 		/// </summary>
 		private void SetHighLimit (Urho.Vector2 limit)
 		{
@@ -263,6 +274,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set low limit. Interpretation is constraint type specific.
+		/// 
 		/// </summary>
 		private void SetLowLimit (Urho.Vector2 limit)
 		{
@@ -275,6 +287,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set constraint error reduction parameter. Zero = leave to default.
+		/// 
 		/// </summary>
 		private void SetERP (float erp)
 		{
@@ -287,6 +300,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set constraint force mixing parameter. Zero = leave to default.
+		/// 
 		/// </summary>
 		private void SetCFM (float cfm)
 		{
@@ -299,6 +313,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set whether to disable collisions between connected bodies.
+		/// 
 		/// </summary>
 		private void SetDisableCollision (bool disable)
 		{
@@ -323,6 +338,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return constraint type.
+		/// 
 		/// </summary>
 		private ConstraintType GetConstraintType ()
 		{
@@ -335,6 +351,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return rigid body in own scene node.
+		/// 
 		/// </summary>
 		private RigidBody GetOwnBody ()
 		{
@@ -347,6 +364,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return the other rigid body. May be null if connected to the static world.
+		/// 
 		/// </summary>
 		private RigidBody GetOtherBody ()
 		{
@@ -359,6 +377,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return constraint position relative to own body.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetPosition ()
 		{
@@ -371,6 +390,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return constraint rotation relative to own body.
+		/// 
 		/// </summary>
 		private Urho.Quaternion GetRotation ()
 		{
@@ -383,6 +403,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return constraint position relative to other body.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetOtherPosition ()
 		{
@@ -395,6 +416,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return constraint rotation relative to other body.
+		/// 
 		/// </summary>
 		private Urho.Quaternion GetOtherRotation ()
 		{
@@ -407,6 +429,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return constraint world position, calculated from own body.
+		/// 
 		/// </summary>
 		private Vector3 GetWorldPosition ()
 		{
@@ -419,6 +442,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return high limit.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetHighLimit ()
 		{
@@ -431,6 +455,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return low limit.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetLowLimit ()
 		{
@@ -443,6 +468,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return constraint error reduction parameter.
+		/// 
 		/// </summary>
 		private float GetERP ()
 		{
@@ -455,6 +481,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return constraint force mixing parameter.
+		/// 
 		/// </summary>
 		private float GetCFM ()
 		{
@@ -467,6 +494,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return whether collisions between connected bodies are disabled.
+		/// 
 		/// </summary>
 		private bool GetDisableCollision ()
 		{
@@ -525,8 +553,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return constraint type.
+		/// 
 		/// Or
 		/// Set constraint type and recreate the constraint.
+		/// 
 		/// </summary>
 		public ConstraintType ConstraintType {
 			get {
@@ -539,8 +569,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return the other rigid body. May be null if connected to the static world.
+		/// 
 		/// Or
 		/// Set other body to connect to. Set to null to connect to the static world.
+		/// 
 		/// </summary>
 		public RigidBody OtherBody {
 			get {
@@ -553,8 +585,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return constraint position relative to own body.
+		/// 
 		/// Or
 		/// Set constraint position relative to own body.
+		/// 
 		/// </summary>
 		public Urho.Vector3 Position {
 			get {
@@ -567,8 +601,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return constraint rotation relative to own body.
+		/// 
 		/// Or
 		/// Set constraint rotation relative to own body.
+		/// 
 		/// </summary>
 		public Urho.Quaternion Rotation {
 			get {
@@ -581,8 +617,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return constraint position relative to other body.
+		/// 
 		/// Or
 		/// Set constraint position relative to the other body. If connected to the static world, is a world space position.
+		/// 
 		/// </summary>
 		public Urho.Vector3 OtherPosition {
 			get {
@@ -595,8 +633,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return constraint rotation relative to other body.
+		/// 
 		/// Or
 		/// Set constraint rotation relative to the other body. If connected to the static world, is a world space rotation.
+		/// 
 		/// </summary>
 		public Urho.Quaternion OtherRotation {
 			get {
@@ -609,6 +649,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return constraint world position, calculated from own body.
+		/// 
 		/// </summary>
 		public Vector3 WorldPosition {
 			get {
@@ -618,8 +659,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return high limit.
+		/// 
 		/// Or
 		/// Set high limit. Interpretation is constraint type specific.
+		/// 
 		/// </summary>
 		public Urho.Vector2 HighLimit {
 			get {
@@ -632,8 +675,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return low limit.
+		/// 
 		/// Or
 		/// Set low limit. Interpretation is constraint type specific.
+		/// 
 		/// </summary>
 		public Urho.Vector2 LowLimit {
 			get {
@@ -646,8 +691,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return constraint error reduction parameter.
+		/// 
 		/// Or
 		/// Set constraint error reduction parameter. Zero = leave to default.
+		/// 
 		/// </summary>
 		public float ERP {
 			get {
@@ -660,8 +707,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return constraint force mixing parameter.
+		/// 
 		/// Or
 		/// Set constraint force mixing parameter. Zero = leave to default.
+		/// 
 		/// </summary>
 		public float CFM {
 			get {
@@ -674,8 +723,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return whether collisions between connected bodies are disabled.
+		/// 
 		/// Or
 		/// Set whether to disable collisions between connected bodies.
+		/// 
 		/// </summary>
 		public bool DisableCollision {
 			get {
@@ -697,6 +748,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return rigid body in own scene node.
+		/// 
 		/// </summary>
 		public RigidBody OwnBody {
 			get {

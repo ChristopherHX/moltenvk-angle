@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -167,6 +168,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set local-space bounding box.
+		/// 
 		/// </summary>
 		private void SetBoundingBox (Urho.BoundingBox box)
 		{
@@ -179,6 +181,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set number of geometries.
+		/// 
 		/// </summary>
 		private void SetNumGeometries (uint num)
 		{
@@ -191,6 +194,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set number of LOD levels in a geometry.
+		/// 
 		/// </summary>
 		public bool SetNumGeometryLodLevels (uint index, uint num)
 		{
@@ -215,6 +219,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set geometry center.
+		/// 
 		/// </summary>
 		public bool SetGeometryCenter (uint index, Urho.Vector3 center)
 		{
@@ -239,6 +244,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return bounding box.
+		/// 
 		/// </summary>
 		private Urho.BoundingBox GetBoundingBox ()
 		{
@@ -279,6 +285,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of geometries.
+		/// 
 		/// </summary>
 		private uint GetNumGeometries ()
 		{
@@ -291,6 +298,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of LOD levels in geometry.
+		/// 
 		/// </summary>
 		public uint GetNumGeometryLodLevels (uint index)
 		{
@@ -315,6 +323,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return geometry center by index.
+		/// 
 		/// </summary>
 		public Urho.Vector3 GetGeometryCenter (uint index)
 		{
@@ -327,6 +336,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of vertex morphs.
+		/// 
 		/// </summary>
 		private uint GetNumMorphs ()
 		{
@@ -421,8 +431,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return bounding box.
+		/// 
 		/// Or
 		/// Set local-space bounding box.
+		/// 
 		/// </summary>
 		public Urho.BoundingBox BoundingBox {
 			get {
@@ -444,8 +456,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of geometries.
+		/// 
 		/// Or
 		/// Set number of geometries.
+		/// 
 		/// </summary>
 		public uint NumGeometries {
 			get {
@@ -467,6 +481,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of vertex morphs.
+		/// 
 		/// </summary>
 		public uint NumMorphs {
 			get {

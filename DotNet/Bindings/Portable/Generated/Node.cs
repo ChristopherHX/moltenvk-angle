@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -275,6 +276,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set name of the scene node. Names are not required to be unique.
+		/// 
 		/// </summary>
 		private void SetName (string name)
 		{
@@ -323,6 +325,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set position in parent space. If the scene node is on the root level (is child of the scene itself), this is same as world space.
+		/// 
 		/// </summary>
 		private void SetPosition (Urho.Vector3 position)
 		{
@@ -335,6 +338,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set position in parent space (for Urho2D).
+		/// 
 		/// </summary>
 		public void SetPosition2D (Urho.Vector2 position)
 		{
@@ -359,6 +363,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set rotation in parent space.
+		/// 
 		/// </summary>
 		private void SetRotation (Urho.Quaternion rotation)
 		{
@@ -371,6 +376,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set rotation in parent space (for Urho2D).
+		/// 
 		/// </summary>
 		private void SetRotation2D (float rotation)
 		{
@@ -383,6 +389,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set forward direction in parent space. Positive Z axis equals identity rotation.
+		/// 
 		/// </summary>
 		public void SetDirection (Urho.Vector3 direction)
 		{
@@ -407,6 +414,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set scale in parent space.
+		/// 
 		/// </summary>
 		private void SetScale (Urho.Vector3 scale)
 		{
@@ -419,6 +427,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set scale in parent space (for Urho2D).
+		/// 
 		/// </summary>
 		public void SetScale2D (Urho.Vector2 scale)
 		{
@@ -527,6 +536,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set position in world space.
+		/// 
 		/// </summary>
 		public void SetWorldPosition (Urho.Vector3 position)
 		{
@@ -539,6 +549,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set position in world space (for Urho2D).
+		/// 
 		/// </summary>
 		public void SetWorldPosition2D (Urho.Vector2 position)
 		{
@@ -563,6 +574,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set rotation in world space.
+		/// 
 		/// </summary>
 		public void SetWorldRotation (Urho.Quaternion rotation)
 		{
@@ -575,6 +587,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set rotation in world space (for Urho2D).
+		/// 
 		/// </summary>
 		private void SetWorldRotation2D (float rotation)
 		{
@@ -587,6 +600,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set forward direction in world space.
+		/// 
 		/// </summary>
 		public void SetWorldDirection (Urho.Vector3 direction)
 		{
@@ -611,6 +625,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set scale in world space.
+		/// 
 		/// </summary>
 		public void SetWorldScale (Urho.Vector3 scale)
 		{
@@ -623,6 +638,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set scale in world space (for Urho2D).
+		/// 
 		/// </summary>
 		public void SetWorldScale2D (Urho.Vector2 scale)
 		{
@@ -887,6 +903,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set enabled/disabled state without recursion. Components in a disabled node become effectively disabled regardless of their own enable/disable state.
+		/// 
 		/// </summary>
 		private void SetEnabled (bool enable)
 		{
@@ -935,6 +952,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set owner connection for networking.
+		/// 
 		/// </summary>
 		private void SetOwner (Connection owner)
 		{
@@ -1161,12 +1179,21 @@ namespace Urho
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void Node_Remove (IntPtr handle);
 
+		/// <summary>
+		/// Remove from the parent node. If no other shared pointer references exist, causes immediate deletion.
+		/// </summary>
+		public void Remove2 ()
+		{
+			Runtime.ValidateRefCounted (this);
+			Node_Remove (handle);
+		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void Node_SetParent (IntPtr handle, IntPtr parent);
 
 		/// <summary>
 		/// Assign to a new parent scene node. Retains the world transform.
+		/// 
 		/// </summary>
 		private void SetParent (Node parent)
 		{
@@ -1359,6 +1386,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return ID.
+		/// 
 		/// </summary>
 		private uint GetID ()
 		{
@@ -1371,6 +1399,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether the node is replicated or local to a scene.
+		/// 
 		/// </summary>
 		private bool IsReplicated ()
 		{
@@ -1383,6 +1412,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return name.
+		/// 
 		/// </summary>
 		private string GetName ()
 		{
@@ -1419,6 +1449,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return parent scene node.
+		/// 
 		/// </summary>
 		private Node GetParent ()
 		{
@@ -1431,6 +1462,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return scene.
+		/// 
 		/// </summary>
 		private Scene GetScene ()
 		{
@@ -1455,6 +1487,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is enabled. Disables nodes effectively disable all their components.
+		/// 
 		/// </summary>
 		private bool IsEnabled ()
 		{
@@ -1467,6 +1500,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the node's last own enabled state. May be different than the value returned by IsEnabled when SetDeepEnabled has been used.
+		/// 
 		/// </summary>
 		private bool IsEnabledSelf ()
 		{
@@ -1479,6 +1513,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return owner connection in networking.
+		/// 
 		/// </summary>
 		private Connection GetOwner ()
 		{
@@ -1491,6 +1526,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return position in parent space.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetPosition ()
 		{
@@ -1503,6 +1539,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return position in parent space (for Urho2D).
+		/// 
 		/// </summary>
 		private Vector2 GetPosition2D ()
 		{
@@ -1515,6 +1552,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return rotation in parent space.
+		/// 
 		/// </summary>
 		private Urho.Quaternion GetRotation ()
 		{
@@ -1527,6 +1565,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return rotation in parent space (for Urho2D).
+		/// 
 		/// </summary>
 		private float GetRotation2D ()
 		{
@@ -1539,6 +1578,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return forward direction in parent space. Positive Z axis equals identity rotation.
+		/// 
 		/// </summary>
 		private Vector3 GetDirection ()
 		{
@@ -1551,6 +1591,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return up direction in parent space. Positive Y axis equals identity rotation.
+		/// 
 		/// </summary>
 		private Vector3 GetUp ()
 		{
@@ -1563,6 +1604,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return right direction in parent space. Positive X axis equals identity rotation.
+		/// 
 		/// </summary>
 		private Vector3 GetRight ()
 		{
@@ -1575,6 +1617,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return scale in parent space.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetScale ()
 		{
@@ -1587,6 +1630,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return scale in parent space (for Urho2D).
+		/// 
 		/// </summary>
 		private Vector2 GetScale2D ()
 		{
@@ -1599,6 +1643,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return parent space transform matrix.
+		/// 
 		/// </summary>
 		private Matrix3x4 GetTransform ()
 		{
@@ -1611,6 +1656,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return position in world space.
+		/// 
 		/// </summary>
 		private Vector3 GetWorldPosition ()
 		{
@@ -1623,6 +1669,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return position in world space (for Urho2D).
+		/// 
 		/// </summary>
 		private Vector2 GetWorldPosition2D ()
 		{
@@ -1635,6 +1682,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return rotation in world space.
+		/// 
 		/// </summary>
 		private Quaternion GetWorldRotation ()
 		{
@@ -1647,6 +1695,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return rotation in world space (for Urho2D).
+		/// 
 		/// </summary>
 		private float GetWorldRotation2D ()
 		{
@@ -1659,6 +1708,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return direction in world space.
+		/// 
 		/// </summary>
 		private Vector3 GetWorldDirection ()
 		{
@@ -1671,6 +1721,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return node's up vector in world space.
+		/// 
 		/// </summary>
 		private Vector3 GetWorldUp ()
 		{
@@ -1683,6 +1734,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return node's right vector in world space.
+		/// 
 		/// </summary>
 		private Vector3 GetWorldRight ()
 		{
@@ -1695,6 +1747,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return scale in world space.
+		/// 
 		/// </summary>
 		private Vector3 GetWorldScale ()
 		{
@@ -1707,6 +1760,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return signed scale in world space. Utilized for Urho2D physics.
+		/// 
 		/// </summary>
 		private Vector3 GetSignedWorldScale ()
 		{
@@ -1719,6 +1773,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return scale in world space (for Urho2D).
+		/// 
 		/// </summary>
 		private Vector2 GetWorldScale2D ()
 		{
@@ -1731,6 +1786,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return world space transform matrix.
+		/// 
 		/// </summary>
 		private Urho.Matrix3x4 GetWorldTransform ()
 		{
@@ -1889,6 +1945,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of components.
+		/// 
 		/// </summary>
 		private uint GetNumComponents ()
 		{
@@ -1963,6 +2020,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set ID. Called by Scene.
+		/// 
 		/// </summary>
 		private void SetID (uint id)
 		{
@@ -2035,6 +2093,7 @@ namespace Urho
 
 		/// <summary>
 		/// Clean up all references to a network connection that is about to be removed.
+		/// 
 		/// </summary>
 		public virtual void CleanupConnection (Connection connection)
 		{
@@ -2185,8 +2244,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return name.
+		/// 
 		/// Or
 		/// Set name of the scene node. Names are not required to be unique.
+		/// 
 		/// </summary>
 		public string Name {
 			get {
@@ -2199,8 +2260,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return position in parent space.
+		/// 
 		/// Or
 		/// Set position in parent space. If the scene node is on the root level (is child of the scene itself), this is same as world space.
+		/// 
 		/// </summary>
 		public Urho.Vector3 Position {
 			get {
@@ -2213,6 +2276,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return position in parent space (for Urho2D).
+		/// 
 		/// </summary>
 		public Vector2 Position2D {
 			get {
@@ -2222,8 +2286,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return rotation in parent space.
+		/// 
 		/// Or
 		/// Set rotation in parent space.
+		/// 
 		/// </summary>
 		public Urho.Quaternion Rotation {
 			get {
@@ -2236,8 +2302,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return rotation in parent space (for Urho2D).
+		/// 
 		/// Or
 		/// Set rotation in parent space (for Urho2D).
+		/// 
 		/// </summary>
 		public float Rotation2D {
 			get {
@@ -2250,6 +2318,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return forward direction in parent space. Positive Z axis equals identity rotation.
+		/// 
 		/// </summary>
 		public Vector3 Direction {
 			get {
@@ -2259,8 +2328,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return scale in parent space.
+		/// 
 		/// Or
 		/// Set scale in parent space.
+		/// 
 		/// </summary>
 		public Urho.Vector3 Scale {
 			get {
@@ -2273,6 +2344,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return scale in parent space (for Urho2D).
+		/// 
 		/// </summary>
 		public Vector2 Scale2D {
 			get {
@@ -2282,6 +2354,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return parent space transform matrix.
+		/// 
 		/// </summary>
 		public Matrix3x4 Transform {
 			get {
@@ -2291,6 +2364,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return position in world space.
+		/// 
 		/// </summary>
 		public Vector3 WorldPosition {
 			get {
@@ -2300,6 +2374,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return position in world space (for Urho2D).
+		/// 
 		/// </summary>
 		public Vector2 WorldPosition2D {
 			get {
@@ -2309,6 +2384,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return rotation in world space.
+		/// 
 		/// </summary>
 		public Quaternion WorldRotation {
 			get {
@@ -2318,8 +2394,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return rotation in world space (for Urho2D).
+		/// 
 		/// Or
 		/// Set rotation in world space (for Urho2D).
+		/// 
 		/// </summary>
 		public float WorldRotation2D {
 			get {
@@ -2332,6 +2410,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return direction in world space.
+		/// 
 		/// </summary>
 		public Vector3 WorldDirection {
 			get {
@@ -2341,6 +2420,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return scale in world space.
+		/// 
 		/// </summary>
 		public Vector3 WorldScale {
 			get {
@@ -2350,6 +2430,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return scale in world space (for Urho2D).
+		/// 
 		/// </summary>
 		public Vector2 WorldScale2D {
 			get {
@@ -2359,6 +2440,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return world space transform matrix.
+		/// 
 		/// Or
 		/// Set position, rotation, and scale in world space as an atomic operation from a transformation matrix.
 		/// </summary>
@@ -2373,8 +2455,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is enabled. Disables nodes effectively disable all their components.
+		/// 
 		/// Or
 		/// Set enabled/disabled state without recursion. Components in a disabled node become effectively disabled regardless of their own enable/disable state.
+		/// 
 		/// </summary>
 		public bool Enabled {
 			get {
@@ -2387,8 +2471,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return owner connection in networking.
+		/// 
 		/// Or
 		/// Set owner connection for networking.
+		/// 
 		/// </summary>
 		public Connection Owner {
 			get {
@@ -2401,8 +2487,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return parent scene node.
+		/// 
 		/// Or
 		/// Assign to a new parent scene node. Retains the world transform.
+		/// 
 		/// </summary>
 		public Node Parent {
 			get {
@@ -2415,8 +2503,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return ID.
+		/// 
 		/// Or
 		/// Set ID. Called by Scene.
+		/// 
 		/// </summary>
 		public uint ID {
 			get {
@@ -2429,6 +2519,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether the node is replicated or local to a scene.
+		/// 
 		/// </summary>
 		public bool Replicated {
 			get {
@@ -2447,6 +2538,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return scene.
+		/// 
 		/// Or
 		/// Set scene. Called by Scene.
 		/// </summary>
@@ -2461,6 +2553,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the node's last own enabled state. May be different than the value returned by IsEnabled when SetDeepEnabled has been used.
+		/// 
 		/// </summary>
 		public bool EnabledSelf {
 			get {
@@ -2470,6 +2563,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return up direction in parent space. Positive Y axis equals identity rotation.
+		/// 
 		/// </summary>
 		public Vector3 Up {
 			get {
@@ -2479,6 +2573,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return right direction in parent space. Positive X axis equals identity rotation.
+		/// 
 		/// </summary>
 		public Vector3 Right {
 			get {
@@ -2488,6 +2583,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return node's up vector in world space.
+		/// 
 		/// </summary>
 		public Vector3 WorldUp {
 			get {
@@ -2497,6 +2593,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return node's right vector in world space.
+		/// 
 		/// </summary>
 		public Vector3 WorldRight {
 			get {
@@ -2506,6 +2603,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return signed scale in world space. Utilized for Urho2D physics.
+		/// 
 		/// </summary>
 		public Vector3 SignedWorldScale {
 			get {
@@ -2533,6 +2631,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of components.
+		/// 
 		/// </summary>
 		public uint NumComponents {
 			get {

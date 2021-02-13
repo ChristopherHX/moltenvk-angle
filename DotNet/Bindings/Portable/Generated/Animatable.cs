@@ -78,6 +78,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -114,6 +115,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set automatic update of animation, default true.
+		/// 
 		/// </summary>
 		private void SetAnimationEnabled (bool enable)
 		{
@@ -138,6 +140,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set object animation.
+		/// 
 		/// </summary>
 		private void SetObjectAnimation (ObjectAnimation objectAnimation)
 		{
@@ -222,6 +225,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation enabled.
+		/// 
 		/// </summary>
 		private bool GetAnimationEnabled ()
 		{
@@ -234,6 +238,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return object animation.
+		/// 
 		/// </summary>
 		private ObjectAnimation GetObjectAnimation ()
 		{
@@ -328,8 +333,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation enabled.
+		/// 
 		/// Or
 		/// Set automatic update of animation, default true.
+		/// 
 		/// </summary>
 		public bool AnimationEnabled {
 			get {
@@ -342,8 +349,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return object animation.
+		/// 
 		/// Or
 		/// Set object animation.
+		/// 
 		/// </summary>
 		public ObjectAnimation ObjectAnimation {
 			get {

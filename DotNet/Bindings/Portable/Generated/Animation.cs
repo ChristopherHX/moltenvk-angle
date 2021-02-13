@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -155,6 +156,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set animation name.
+		/// 
 		/// </summary>
 		private void SetAnimationName (string name)
 		{
@@ -167,6 +169,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set animation length.
+		/// 
 		/// </summary>
 		private void SetLength (float length)
 		{
@@ -395,6 +398,7 @@ namespace Urho
 
 		/// <summary>
 		/// Resize trigger point vector.
+		/// 
 		/// </summary>
 		private void SetNumTriggers (uint num)
 		{
@@ -419,6 +423,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation name.
+		/// 
 		/// </summary>
 		private string GetAnimationName ()
 		{
@@ -443,6 +448,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation length.
+		/// 
 		/// </summary>
 		private float GetLength ()
 		{
@@ -455,6 +461,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of animation tracks.
+		/// 
 		/// </summary>
 		private uint GetNumTracks ()
 		{
@@ -479,6 +486,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation track by name.
+		/// 
 		/// </summary>
 		public AnimationTrack* GetTrack (string name)
 		{
@@ -503,6 +511,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of animation trigger points.
+		/// 
 		/// </summary>
 		private uint GetNumTriggers ()
 		{
@@ -549,8 +558,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation name.
+		/// 
 		/// Or
 		/// Set animation name.
+		/// 
 		/// </summary>
 		public string AnimationName {
 			get {
@@ -563,8 +574,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation length.
+		/// 
 		/// Or
 		/// Set animation length.
+		/// 
 		/// </summary>
 		public float Length {
 			get {
@@ -577,8 +590,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of animation trigger points.
+		/// 
 		/// Or
 		/// Resize trigger point vector.
+		/// 
 		/// </summary>
 		public uint NumTriggers {
 			get {
@@ -600,6 +615,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of animation tracks.
+		/// 
 		/// </summary>
 		public uint NumTracks {
 			get {

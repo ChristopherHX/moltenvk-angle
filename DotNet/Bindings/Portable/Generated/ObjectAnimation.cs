@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -217,6 +218,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return attribute animation by name.
+		/// 
 		/// </summary>
 		public ValueAnimation GetAttributeAnimation (string name)
 		{
@@ -229,6 +231,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return attribute animation wrap mode by name.
+		/// 
 		/// </summary>
 		public WrapMode GetAttributeAnimationWrapMode (string name)
 		{
@@ -241,6 +244,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return attribute animation speed by name.
+		/// 
 		/// </summary>
 		public float GetAttributeAnimationSpeed (string name)
 		{

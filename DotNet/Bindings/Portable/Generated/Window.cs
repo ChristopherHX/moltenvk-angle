@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether can be moved.
+		/// 
 		/// </summary>
 		private void SetMovable (bool enable)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether can be resized.
+		/// 
 		/// </summary>
 		private void SetResizable (bool enable)
 		{
@@ -131,6 +134,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether resizing width is fixed.
+		/// 
 		/// </summary>
 		private void SetFixedWidthResizing (bool enable)
 		{
@@ -143,6 +147,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether resizing height is fixed.
+		/// 
 		/// </summary>
 		private void SetFixedHeightResizing (bool enable)
 		{
@@ -155,6 +160,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set resize area width at edges.
+		/// 
 		/// </summary>
 		private void SetResizeBorder (Urho.IntRect rect)
 		{
@@ -167,6 +173,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set modal flag. When the modal flag is set, the focused window needs to be dismissed first to allow other UI elements to gain focus.
+		/// 
 		/// </summary>
 		private void SetModal (bool modal)
 		{
@@ -179,6 +186,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set modal shade color.
+		/// 
 		/// </summary>
 		private void SetModalShadeColor (Urho.Color color)
 		{
@@ -191,6 +199,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set modal frame color.
+		/// 
 		/// </summary>
 		private void SetModalFrameColor (Urho.Color color)
 		{
@@ -203,6 +212,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set modal frame size.
+		/// 
 		/// </summary>
 		private void SetModalFrameSize (Urho.IntVector2 size)
 		{
@@ -215,6 +225,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether model window can be dismissed with the escape key. Default true.
+		/// 
 		/// </summary>
 		private void SetModalAutoDismiss (bool enable)
 		{
@@ -227,6 +238,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is movable.
+		/// 
 		/// </summary>
 		private bool IsMovable ()
 		{
@@ -239,6 +251,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is resizable.
+		/// 
 		/// </summary>
 		private bool IsResizable ()
 		{
@@ -251,6 +264,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is resizing width is fixed.
+		/// 
 		/// </summary>
 		private bool GetFixedWidthResizing ()
 		{
@@ -263,6 +277,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is resizing height is fixed.
+		/// 
 		/// </summary>
 		private bool GetFixedHeightResizing ()
 		{
@@ -275,6 +290,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return resize area width at edges.
+		/// 
 		/// </summary>
 		private Urho.IntRect GetResizeBorder ()
 		{
@@ -287,6 +303,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return modal flag.
+		/// 
 		/// </summary>
 		private bool IsModal ()
 		{
@@ -299,6 +316,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Get modal shade color.
+		/// 
 		/// </summary>
 		private Urho.Color GetModalShadeColor ()
 		{
@@ -311,6 +329,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Get modal frame color.
+		/// 
 		/// </summary>
 		private Urho.Color GetModalFrameColor ()
 		{
@@ -323,6 +342,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Get modal frame size.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetModalFrameSize ()
 		{
@@ -335,6 +355,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether can be dismissed with escape key.
+		/// 
 		/// </summary>
 		private bool GetModalAutoDismiss ()
 		{
@@ -369,8 +390,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is movable.
+		/// 
 		/// Or
 		/// Set whether can be moved.
+		/// 
 		/// </summary>
 		public bool Movable {
 			get {
@@ -383,8 +406,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is resizable.
+		/// 
 		/// Or
 		/// Set whether can be resized.
+		/// 
 		/// </summary>
 		public bool Resizable {
 			get {
@@ -397,8 +422,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is resizing width is fixed.
+		/// 
 		/// Or
 		/// Set whether resizing width is fixed.
+		/// 
 		/// </summary>
 		public bool FixedWidthResizing {
 			get {
@@ -411,8 +438,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is resizing height is fixed.
+		/// 
 		/// Or
 		/// Set whether resizing height is fixed.
+		/// 
 		/// </summary>
 		public bool FixedHeightResizing {
 			get {
@@ -425,8 +454,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return resize area width at edges.
+		/// 
 		/// Or
 		/// Set resize area width at edges.
+		/// 
 		/// </summary>
 		public Urho.IntRect ResizeBorder {
 			get {
@@ -439,8 +470,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return modal flag.
+		/// 
 		/// Or
 		/// Set modal flag. When the modal flag is set, the focused window needs to be dismissed first to allow other UI elements to gain focus.
+		/// 
 		/// </summary>
 		public bool Modal {
 			get {
@@ -453,8 +486,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Get modal shade color.
+		/// 
 		/// Or
 		/// Set modal shade color.
+		/// 
 		/// </summary>
 		public Urho.Color ModalShadeColor {
 			get {
@@ -467,8 +502,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Get modal frame color.
+		/// 
 		/// Or
 		/// Set modal frame color.
+		/// 
 		/// </summary>
 		public Urho.Color ModalFrameColor {
 			get {
@@ -481,8 +518,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Get modal frame size.
+		/// 
 		/// Or
 		/// Set modal frame size.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 ModalFrameSize {
 			get {
@@ -495,8 +534,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether can be dismissed with escape key.
+		/// 
 		/// Or
 		/// Set whether model window can be dismissed with the escape key. Default true.
+		/// 
 		/// </summary>
 		public bool ModalAutoDismiss {
 			get {

@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set size.
+		/// 
 		/// </summary>
 		private void SetSize (Urho.Vector2 size)
 		{
@@ -131,6 +133,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set center.
+		/// 
 		/// </summary>
 		private void SetCenter (Urho.Vector2 center)
 		{
@@ -155,6 +158,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set angle.
+		/// 
 		/// </summary>
 		private void SetAngle (float angle)
 		{
@@ -167,6 +171,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return size.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetSize ()
 		{
@@ -179,6 +184,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return center.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetCenter ()
 		{
@@ -191,6 +197,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return angle.
+		/// 
 		/// </summary>
 		private float GetAngle ()
 		{
@@ -225,8 +232,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return size.
+		/// 
 		/// Or
 		/// Set size.
+		/// 
 		/// </summary>
 		public Urho.Vector2 Size {
 			get {
@@ -239,8 +248,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return center.
+		/// 
 		/// Or
 		/// Set center.
+		/// 
 		/// </summary>
 		public Urho.Vector2 Center {
 			get {
@@ -253,8 +264,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return angle.
+		/// 
 		/// Or
 		/// Set angle.
+		/// 
 		/// </summary>
 		public float Angle {
 			get {

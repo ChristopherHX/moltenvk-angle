@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set owner body anchor.
+		/// 
 		/// </summary>
 		private void SetOwnerBodyAnchor (Urho.Vector2 anchor)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set other body anchor.
+		/// 
 		/// </summary>
 		private void SetOtherBodyAnchor (Urho.Vector2 anchor)
 		{
@@ -131,6 +134,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set frequency Hz.
+		/// 
 		/// </summary>
 		private void SetFrequencyHz (float frequencyHz)
 		{
@@ -143,6 +147,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set damping ratio.
+		/// 
 		/// </summary>
 		private void SetDampingRatio (float dampingRatio)
 		{
@@ -155,6 +160,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set length.
+		/// 
 		/// </summary>
 		private void SetLength (float length)
 		{
@@ -167,6 +173,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return owner body anchor.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetOwnerBodyAnchor ()
 		{
@@ -179,6 +186,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return other body anchor.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetOtherBodyAnchor ()
 		{
@@ -191,6 +199,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return frequency Hz.
+		/// 
 		/// </summary>
 		private float GetFrequencyHz ()
 		{
@@ -203,6 +212,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return damping ratio.
+		/// 
 		/// </summary>
 		private float GetDampingRatio ()
 		{
@@ -215,6 +225,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return length.
+		/// 
 		/// </summary>
 		private float GetLength ()
 		{
@@ -249,8 +260,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return owner body anchor.
+		/// 
 		/// Or
 		/// Set owner body anchor.
+		/// 
 		/// </summary>
 		public Urho.Vector2 OwnerBodyAnchor {
 			get {
@@ -263,8 +276,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return other body anchor.
+		/// 
 		/// Or
 		/// Set other body anchor.
+		/// 
 		/// </summary>
 		public Urho.Vector2 OtherBodyAnchor {
 			get {
@@ -277,8 +292,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return frequency Hz.
+		/// 
 		/// Or
 		/// Set frequency Hz.
+		/// 
 		/// </summary>
 		public float FrequencyHz {
 			get {
@@ -291,8 +308,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return damping ratio.
+		/// 
 		/// Or
 		/// Set damping ratio.
+		/// 
 		/// </summary>
 		public float DampingRatio {
 			get {
@@ -305,8 +324,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return length.
+		/// 
 		/// Or
 		/// Set length.
+		/// 
 		/// </summary>
 		public float Length {
 			get {

@@ -95,6 +95,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -407,6 +408,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Whether this texture is detected as a cubemap, only relevant for DDS.
+		/// 
 		/// </summary>
 		private bool IsCubemap ()
 		{
@@ -419,6 +421,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Whether this texture has been detected as a volume, only relevant for DDS.
+		/// 
 		/// </summary>
 		private bool IsArray ()
 		{
@@ -431,6 +434,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Whether this texture is in sRGB, only relevant for DDS.
+		/// 
 		/// </summary>
 		private bool IsSRGB ()
 		{
@@ -515,6 +519,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return width.
+		/// 
 		/// </summary>
 		private int GetWidth ()
 		{
@@ -527,6 +532,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return height.
+		/// 
 		/// </summary>
 		private int GetHeight ()
 		{
@@ -539,6 +545,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return depth.
+		/// 
 		/// </summary>
 		private int GetDepth ()
 		{
@@ -551,6 +558,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return number of color components.
+		/// 
 		/// </summary>
 		private uint GetComponents ()
 		{
@@ -575,6 +583,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return whether is compressed.
+		/// 
 		/// </summary>
 		private bool IsCompressed ()
 		{
@@ -587,6 +596,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return compressed format.
+		/// 
 		/// </summary>
 		private CompressedFormat GetCompressedFormat ()
 		{
@@ -599,6 +609,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return number of compressed mip levels. Returns 0 if the image is has not been loaded from a source file containing multiple mip levels.
+		/// 
 		/// </summary>
 		private uint GetNumCompressedLevels ()
 		{
@@ -695,6 +706,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Whether this texture has an alpha channel.
+		/// 
 		/// </summary>
 		public bool HasAlphaChannel ()
 		{
@@ -762,6 +774,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Whether this texture is detected as a cubemap, only relevant for DDS.
+		/// 
 		/// </summary>
 		public bool Cubemap {
 			get {
@@ -771,6 +784,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Whether this texture has been detected as a volume, only relevant for DDS.
+		/// 
 		/// </summary>
 		public bool Array {
 			get {
@@ -780,6 +794,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Whether this texture is in sRGB, only relevant for DDS.
+		/// 
 		/// </summary>
 		public bool SRGB {
 			get {
@@ -789,6 +804,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return width.
+		/// 
 		/// </summary>
 		public int Width {
 			get {
@@ -798,6 +814,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return height.
+		/// 
 		/// </summary>
 		public int Height {
 			get {
@@ -807,6 +824,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return depth.
+		/// 
 		/// </summary>
 		public int Depth {
 			get {
@@ -816,6 +834,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return number of color components.
+		/// 
 		/// </summary>
 		public uint Components {
 			get {
@@ -825,6 +844,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return whether is compressed.
+		/// 
 		/// </summary>
 		public bool Compressed {
 			get {
@@ -834,6 +854,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return compressed format.
+		/// 
 		/// </summary>
 		public CompressedFormat CompressedFormat {
 			get {
@@ -843,6 +864,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return number of compressed mip levels. Returns 0 if the image is has not been loaded from a source file containing multiple mip levels.
+		/// 
 		/// </summary>
 		public uint NumCompressedLevels {
 			get {

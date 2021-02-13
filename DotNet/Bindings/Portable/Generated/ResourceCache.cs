@@ -263,6 +263,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Set memory budget for a specific resource type, default 0 is unlimited.
+		/// 
 		/// </summary>
 		public void SetMemoryBudget (StringHash type, ulong budget)
 		{
@@ -275,6 +276,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Enable or disable automatic reloading of resources as files are modified. Default false.
+		/// 
 		/// </summary>
 		private void SetAutoReloadResources (bool enable)
 		{
@@ -287,6 +289,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Enable or disable returning resources that failed to load. Default false. This may be useful in editing to not lose resource ref attributes.
+		/// 
 		/// </summary>
 		private void SetReturnFailedResources (bool enable)
 		{
@@ -299,6 +302,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Define whether when getting resources should check package files or directories first. True for packages, false for directories.
+		/// 
 		/// </summary>
 		private void SetSearchPackagesFirst (bool value)
 		{
@@ -311,6 +315,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Set how many milliseconds maximum per frame to spend on finishing background loaded resources.
+		/// 
 		/// </summary>
 		private void SetFinishBackgroundResourcesMs (int ms)
 		{
@@ -395,6 +400,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return number of pending background-loaded resources.
+		/// 
 		/// </summary>
 		private uint GetNumBackgroundLoadResources ()
 		{
@@ -423,6 +429,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return added package files.
+		/// 
 		/// </summary>
 		private IReadOnlyList<PackageFile> GetPackageFiles ()
 		{
@@ -447,6 +454,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return memory budget for a resource type.
+		/// 
 		/// </summary>
 		public ulong GetMemoryBudget (StringHash type)
 		{
@@ -459,6 +467,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return total memory use for a resource type.
+		/// 
 		/// </summary>
 		public ulong GetMemoryUse (StringHash type)
 		{
@@ -471,6 +480,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return total memory use for all resources.
+		/// 
 		/// </summary>
 		private ulong GetTotalMemoryUse ()
 		{
@@ -495,6 +505,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return whether automatic resource reloading is enabled.
+		/// 
 		/// </summary>
 		private bool GetAutoReloadResources ()
 		{
@@ -507,6 +518,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return whether resources that failed to load are returned.
+		/// 
 		/// </summary>
 		private bool GetReturnFailedResources ()
 		{
@@ -519,6 +531,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return whether when getting resources should check package files or directories first.
+		/// 
 		/// </summary>
 		private bool GetSearchPackagesFirst ()
 		{
@@ -531,6 +544,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return how many milliseconds maximum to spend on finishing background loaded resources.
+		/// 
 		/// </summary>
 		private int GetFinishBackgroundResourcesMs ()
 		{
@@ -649,8 +663,10 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return whether automatic resource reloading is enabled.
+		/// 
 		/// Or
 		/// Enable or disable automatic reloading of resources as files are modified. Default false.
+		/// 
 		/// </summary>
 		public bool AutoReloadResources {
 			get {
@@ -663,8 +679,10 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return whether resources that failed to load are returned.
+		/// 
 		/// Or
 		/// Enable or disable returning resources that failed to load. Default false. This may be useful in editing to not lose resource ref attributes.
+		/// 
 		/// </summary>
 		public bool ReturnFailedResources {
 			get {
@@ -677,8 +695,10 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return whether when getting resources should check package files or directories first.
+		/// 
 		/// Or
 		/// Define whether when getting resources should check package files or directories first. True for packages, false for directories.
+		/// 
 		/// </summary>
 		public bool SearchPackagesFirst {
 			get {
@@ -691,8 +711,10 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return how many milliseconds maximum to spend on finishing background loaded resources.
+		/// 
 		/// Or
 		/// Set how many milliseconds maximum per frame to spend on finishing background loaded resources.
+		/// 
 		/// </summary>
 		public int FinishBackgroundResourcesMs {
 			get {
@@ -705,6 +727,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return number of pending background-loaded resources.
+		/// 
 		/// </summary>
 		public uint NumBackgroundLoadResources {
 			get {
@@ -714,6 +737,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return added package files.
+		/// 
 		/// </summary>
 		public IReadOnlyList<PackageFile> PackageFiles {
 			get {
@@ -723,6 +747,7 @@ namespace Urho.Resources
 
 		/// <summary>
 		/// Return total memory use for all resources.
+		/// 
 		/// </summary>
 		public ulong TotalMemoryUse {
 			get {

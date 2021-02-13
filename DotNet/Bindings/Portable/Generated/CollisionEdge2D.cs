@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set vertex 1.
+		/// 
 		/// </summary>
 		private void SetVertex1 (Urho.Vector2 vertex)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set vertex 2.
+		/// 
 		/// </summary>
 		private void SetVertex2 (Urho.Vector2 vertex)
 		{
@@ -143,6 +146,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return vertex 1.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetVertex1 ()
 		{
@@ -155,6 +159,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return vertex 2.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetVertex2 ()
 		{
@@ -189,8 +194,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return vertex 1.
+		/// 
 		/// Or
 		/// Set vertex 1.
+		/// 
 		/// </summary>
 		public Urho.Vector2 Vertex1 {
 			get {
@@ -203,8 +210,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return vertex 2.
+		/// 
 		/// Or
 		/// Set vertex 2.
+		/// 
 		/// </summary>
 		public Urho.Vector2 Vertex2 {
 			get {

@@ -78,6 +78,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -102,6 +103,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set trigger.
+		/// 
 		/// </summary>
 		private void SetTrigger (bool trigger)
 		{
@@ -114,6 +116,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set filter category bits.
+		/// 
 		/// </summary>
 		private void SetCategoryBits (int categoryBits)
 		{
@@ -126,6 +129,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set filter mask bits.
+		/// 
 		/// </summary>
 		private void SetMaskBits (int maskBits)
 		{
@@ -138,6 +142,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set filter group index.
+		/// 
 		/// </summary>
 		private void SetGroupIndex (int groupIndex)
 		{
@@ -150,6 +155,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set density.
+		/// 
 		/// </summary>
 		private void SetDensity (float density)
 		{
@@ -162,6 +168,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set friction.
+		/// 
 		/// </summary>
 		private void SetFriction (float friction)
 		{
@@ -173,7 +180,8 @@ namespace Urho.Urho2D
 		internal static extern void CollisionShape2D_SetRestitution (IntPtr handle, float restitution);
 
 		/// <summary>
-		/// Set restitution .
+		/// Set restitution.
+		/// 
 		/// </summary>
 		private void SetRestitution (float restitution)
 		{
@@ -210,6 +218,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return trigger.
+		/// 
 		/// </summary>
 		private bool IsTrigger ()
 		{
@@ -222,6 +231,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return filter category bits.
+		/// 
 		/// </summary>
 		private int GetCategoryBits ()
 		{
@@ -234,6 +244,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return filter mask bits.
+		/// 
 		/// </summary>
 		private int GetMaskBits ()
 		{
@@ -246,6 +257,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return filter group index.
+		/// 
 		/// </summary>
 		private int GetGroupIndex ()
 		{
@@ -258,6 +270,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return density.
+		/// 
 		/// </summary>
 		private float GetDensity ()
 		{
@@ -270,6 +283,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return friction.
+		/// 
 		/// </summary>
 		private float GetFriction ()
 		{
@@ -282,6 +296,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return restitution.
+		/// 
 		/// </summary>
 		private float GetRestitution ()
 		{
@@ -294,6 +309,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return mass.
+		/// 
 		/// </summary>
 		private float GetMass ()
 		{
@@ -306,6 +322,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return inertia.
+		/// 
 		/// </summary>
 		private float GetInertia ()
 		{
@@ -318,6 +335,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return mass center.
+		/// 
 		/// </summary>
 		private Vector2 GetMassCenter ()
 		{
@@ -352,8 +370,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return trigger.
+		/// 
 		/// Or
 		/// Set trigger.
+		/// 
 		/// </summary>
 		public bool Trigger {
 			get {
@@ -366,8 +386,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return filter category bits.
+		/// 
 		/// Or
 		/// Set filter category bits.
+		/// 
 		/// </summary>
 		public int CategoryBits {
 			get {
@@ -380,8 +402,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return filter mask bits.
+		/// 
 		/// Or
 		/// Set filter mask bits.
+		/// 
 		/// </summary>
 		public int MaskBits {
 			get {
@@ -394,8 +418,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return filter group index.
+		/// 
 		/// Or
 		/// Set filter group index.
+		/// 
 		/// </summary>
 		public int GroupIndex {
 			get {
@@ -408,8 +434,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return density.
+		/// 
 		/// Or
 		/// Set density.
+		/// 
 		/// </summary>
 		public float Density {
 			get {
@@ -422,8 +450,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return friction.
+		/// 
 		/// Or
 		/// Set friction.
+		/// 
 		/// </summary>
 		public float Friction {
 			get {
@@ -436,8 +466,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return restitution.
+		/// 
 		/// Or
-		/// Set restitution .
+		/// Set restitution.
+		/// 
 		/// </summary>
 		public float Restitution {
 			get {
@@ -450,6 +482,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return mass.
+		/// 
 		/// </summary>
 		public float Mass {
 			get {
@@ -459,6 +492,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return inertia.
+		/// 
 		/// </summary>
 		public float Inertia {
 			get {
@@ -468,6 +502,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return mass center.
+		/// 
 		/// </summary>
 		public Vector2 MassCenter {
 			get {

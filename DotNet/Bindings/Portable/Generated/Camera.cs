@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -119,6 +120,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set near clip distance.
+		/// 
 		/// </summary>
 		private void SetNearClip (float nearClip)
 		{
@@ -131,6 +133,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set far clip distance.
+		/// 
 		/// </summary>
 		private void SetFarClip (float farClip)
 		{
@@ -143,6 +146,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set vertical field of view in degrees.
+		/// 
 		/// </summary>
 		private void SetFov (float fov)
 		{
@@ -155,6 +159,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set orthographic mode view uniform size.
+		/// 
 		/// </summary>
 		private void SetOrthoSize (float orthoSize)
 		{
@@ -179,6 +184,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set aspect ratio manually. Disables the auto aspect ratio -mode.
+		/// 
 		/// </summary>
 		private void SetAspectRatio (float aspectRatio)
 		{
@@ -191,6 +197,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set polygon fill mode to use when rendering a scene.
+		/// 
 		/// </summary>
 		private void SetFillMode (FillMode mode)
 		{
@@ -203,6 +210,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set zoom.
+		/// 
 		/// </summary>
 		private void SetZoom (float zoom)
 		{
@@ -215,6 +223,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set LOD bias.
+		/// 
 		/// </summary>
 		private void SetLodBias (float bias)
 		{
@@ -227,6 +236,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set view mask. Will be and'ed with object's view mask to see if the object should be rendered.
+		/// 
 		/// </summary>
 		private void SetViewMask (uint mask)
 		{
@@ -239,6 +249,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set orthographic mode enabled/disabled.
+		/// 
 		/// </summary>
 		private void SetOrthographic (bool enable)
 		{
@@ -251,6 +262,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set automatic aspect ratio based on viewport dimensions. Enabled by default.
+		/// 
 		/// </summary>
 		private void SetAutoAspectRatio (bool enable)
 		{
@@ -263,6 +275,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set projection offset. It needs to be calculated as (offset in pixels) / (viewport dimensions).
+		/// 
 		/// </summary>
 		private void SetProjectionOffset (Urho.Vector2 offset)
 		{
@@ -275,6 +288,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set reflection mode.
+		/// 
 		/// </summary>
 		private void SetUseReflection (bool enable)
 		{
@@ -287,6 +301,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set reflection plane in world space for reflection mode.
+		/// 
 		/// </summary>
 		private void SetReflectionPlane (Urho.Plane plane)
 		{
@@ -299,6 +314,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether to use a custom clip plane.
+		/// 
 		/// </summary>
 		private void SetUseClipping (bool enable)
 		{
@@ -311,6 +327,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set custom clipping plane in world space.
+		/// 
 		/// </summary>
 		private void SetClipPlane (Urho.Plane plane)
 		{
@@ -335,6 +352,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set custom projection matrix, which should be specified in D3D convention with depth range 0 - 1. Disables auto aspect ratio.
+		/// 
 		/// Change any of the standard view parameters (FOV, far clip, zoom, etc.) to revert to the standard projection.
 		/// Note that the custom projection is not serialized or replicated through the network.
 		/// </summary>
@@ -349,6 +367,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return far clip distance. If a custom projection matrix is in use, is calculated from it instead of the value assigned with SetFarClip().
+		/// 
 		/// </summary>
 		private float GetFarClip ()
 		{
@@ -361,6 +380,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return near clip distance. If a custom projection matrix is in use, is calculated from it instead of the value assigned with SetNearClip().
+		/// 
 		/// </summary>
 		private float GetNearClip ()
 		{
@@ -373,6 +393,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return vertical field of view in degrees.
+		/// 
 		/// </summary>
 		private float GetFov ()
 		{
@@ -385,6 +406,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return orthographic mode size.
+		/// 
 		/// </summary>
 		private float GetOrthoSize ()
 		{
@@ -397,6 +419,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return aspect ratio.
+		/// 
 		/// </summary>
 		private float GetAspectRatio ()
 		{
@@ -409,6 +432,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return zoom.
+		/// 
 		/// </summary>
 		private float GetZoom ()
 		{
@@ -421,6 +445,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return LOD bias.
+		/// 
 		/// </summary>
 		private float GetLodBias ()
 		{
@@ -433,6 +458,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return view mask.
+		/// 
 		/// </summary>
 		private uint GetViewMask ()
 		{
@@ -445,6 +471,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return fill mode.
+		/// 
 		/// </summary>
 		private FillMode GetFillMode ()
 		{
@@ -457,6 +484,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return orthographic flag.
+		/// 
 		/// </summary>
 		private bool IsOrthographic ()
 		{
@@ -469,6 +497,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return auto aspect ratio flag.
+		/// 
 		/// </summary>
 		private bool GetAutoAspectRatio ()
 		{
@@ -481,6 +510,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return frustum in world space.
+		/// 
 		/// </summary>
 		private Frustum GetFrustum ()
 		{
@@ -493,6 +523,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return projection matrix. It's in D3D convention with depth range 0 - 1.
+		/// 
 		/// </summary>
 		private Matrix4 GetProjection ()
 		{
@@ -505,6 +536,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return projection matrix converted to API-specific format for use as a shader parameter.
+		/// 
 		/// </summary>
 		private Matrix4 GetGPUProjection ()
 		{
@@ -517,6 +549,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return view matrix.
+		/// 
 		/// </summary>
 		private Urho.Matrix3x4 GetView ()
 		{
@@ -529,6 +562,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return half view size.
+		/// 
 		/// </summary>
 		private float GetHalfViewSize ()
 		{
@@ -553,6 +587,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return frustum in view space.
+		/// 
 		/// </summary>
 		private Frustum GetViewSpaceFrustum ()
 		{
@@ -614,6 +649,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return projection offset.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetProjectionOffset ()
 		{
@@ -626,6 +662,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is using reflection.
+		/// 
 		/// </summary>
 		private bool GetUseReflection ()
 		{
@@ -638,6 +675,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the reflection plane.
+		/// 
 		/// </summary>
 		private Urho.Plane GetReflectionPlane ()
 		{
@@ -650,6 +688,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is using a custom clipping plane.
+		/// 
 		/// </summary>
 		private bool GetUseClipping ()
 		{
@@ -662,6 +701,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the custom clipping plane.
+		/// 
 		/// </summary>
 		private Urho.Plane GetClipPlane ()
 		{
@@ -746,6 +786,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get effective world transform for matrix and frustum calculations including reflection but excluding node scaling.
+		/// 
 		/// </summary>
 		private Matrix3x4 GetEffectiveWorldTransform ()
 		{
@@ -864,8 +905,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return near clip distance. If a custom projection matrix is in use, is calculated from it instead of the value assigned with SetNearClip().
+		/// 
 		/// Or
 		/// Set near clip distance.
+		/// 
 		/// </summary>
 		public float NearClip {
 			get {
@@ -878,8 +921,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return far clip distance. If a custom projection matrix is in use, is calculated from it instead of the value assigned with SetFarClip().
+		/// 
 		/// Or
 		/// Set far clip distance.
+		/// 
 		/// </summary>
 		public float FarClip {
 			get {
@@ -892,8 +937,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return vertical field of view in degrees.
+		/// 
 		/// Or
 		/// Set vertical field of view in degrees.
+		/// 
 		/// </summary>
 		public float Fov {
 			get {
@@ -906,8 +953,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return orthographic mode size.
+		/// 
 		/// Or
 		/// Set orthographic mode view uniform size.
+		/// 
 		/// </summary>
 		public float OrthoSize {
 			get {
@@ -920,8 +969,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return aspect ratio.
+		/// 
 		/// Or
 		/// Set aspect ratio manually. Disables the auto aspect ratio -mode.
+		/// 
 		/// </summary>
 		public float AspectRatio {
 			get {
@@ -934,8 +985,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return fill mode.
+		/// 
 		/// Or
 		/// Set polygon fill mode to use when rendering a scene.
+		/// 
 		/// </summary>
 		public FillMode FillMode {
 			get {
@@ -948,8 +1001,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return zoom.
+		/// 
 		/// Or
 		/// Set zoom.
+		/// 
 		/// </summary>
 		public float Zoom {
 			get {
@@ -962,8 +1017,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return LOD bias.
+		/// 
 		/// Or
 		/// Set LOD bias.
+		/// 
 		/// </summary>
 		public float LodBias {
 			get {
@@ -976,8 +1033,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return view mask.
+		/// 
 		/// Or
 		/// Set view mask. Will be and'ed with object's view mask to see if the object should be rendered.
+		/// 
 		/// </summary>
 		public uint ViewMask {
 			get {
@@ -990,8 +1049,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return orthographic flag.
+		/// 
 		/// Or
 		/// Set orthographic mode enabled/disabled.
+		/// 
 		/// </summary>
 		public bool Orthographic {
 			get {
@@ -1004,8 +1065,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return auto aspect ratio flag.
+		/// 
 		/// Or
 		/// Set automatic aspect ratio based on viewport dimensions. Enabled by default.
+		/// 
 		/// </summary>
 		public bool AutoAspectRatio {
 			get {
@@ -1018,8 +1081,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return projection offset.
+		/// 
 		/// Or
 		/// Set projection offset. It needs to be calculated as (offset in pixels) / (viewport dimensions).
+		/// 
 		/// </summary>
 		public Urho.Vector2 ProjectionOffset {
 			get {
@@ -1032,8 +1097,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is using reflection.
+		/// 
 		/// Or
 		/// Set reflection mode.
+		/// 
 		/// </summary>
 		public bool UseReflection {
 			get {
@@ -1046,8 +1113,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return the reflection plane.
+		/// 
 		/// Or
 		/// Set reflection plane in world space for reflection mode.
+		/// 
 		/// </summary>
 		public Urho.Plane ReflectionPlane {
 			get {
@@ -1060,8 +1129,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is using a custom clipping plane.
+		/// 
 		/// Or
 		/// Set whether to use a custom clip plane.
+		/// 
 		/// </summary>
 		public bool UseClipping {
 			get {
@@ -1074,8 +1145,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return the custom clipping plane.
+		/// 
 		/// Or
 		/// Set custom clipping plane in world space.
+		/// 
 		/// </summary>
 		public Urho.Plane ClipPlane {
 			get {
@@ -1102,6 +1175,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return projection matrix. It's in D3D convention with depth range 0 - 1.
+		/// 
 		/// </summary>
 		public Matrix4 Projection {
 			get {
@@ -1111,6 +1185,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return frustum in world space.
+		/// 
 		/// </summary>
 		public Frustum Frustum {
 			get {
@@ -1120,6 +1195,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return projection matrix converted to API-specific format for use as a shader parameter.
+		/// 
 		/// </summary>
 		public Matrix4 GPUProjection {
 			get {
@@ -1129,6 +1205,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return view matrix.
+		/// 
 		/// </summary>
 		public Urho.Matrix3x4 View {
 			get {
@@ -1138,6 +1215,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return half view size.
+		/// 
 		/// </summary>
 		public float HalfViewSize {
 			get {
@@ -1147,6 +1225,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return frustum in view space.
+		/// 
 		/// </summary>
 		public Frustum ViewSpaceFrustum {
 			get {
@@ -1165,6 +1244,7 @@ namespace Urho
 
 		/// <summary>
 		/// Get effective world transform for matrix and frustum calculations including reflection but excluding node scaling.
+		/// 
 		/// </summary>
 		public Matrix3x4 EffectiveWorldTransform {
 			get {

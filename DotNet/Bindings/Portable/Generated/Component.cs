@@ -167,6 +167,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set enabled/disabled state.
+		/// 
 		/// </summary>
 		private void SetEnabled (bool enable)
 		{
@@ -191,6 +192,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return ID.
+		/// 
 		/// </summary>
 		private uint GetID ()
 		{
@@ -203,6 +205,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether the component is replicated or local to a scene.
+		/// 
 		/// </summary>
 		private bool IsReplicated ()
 		{
@@ -215,6 +218,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return scene node.
+		/// 
 		/// </summary>
 		private Node GetNode ()
 		{
@@ -239,6 +243,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is enabled.
+		/// 
 		/// </summary>
 		private bool IsEnabled ()
 		{
@@ -251,6 +256,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is effectively enabled (node is also enabled).
+		/// 
 		/// </summary>
 		private bool IsEnabledEffective ()
 		{
@@ -299,6 +305,7 @@ namespace Urho
 
 		/// <summary>
 		/// Clean up all references to a network connection that is about to be removed.
+		/// 
 		/// </summary>
 		public void CleanupConnection (Connection connection)
 		{
@@ -333,8 +340,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is enabled.
+		/// 
 		/// Or
 		/// Set enabled/disabled state.
+		/// 
 		/// </summary>
 		public bool Enabled {
 			get {
@@ -347,6 +356,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return ID.
+		/// 
 		/// </summary>
 		public uint ID {
 			get {
@@ -356,6 +366,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether the component is replicated or local to a scene.
+		/// 
 		/// </summary>
 		public bool Replicated {
 			get {
@@ -365,6 +376,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return scene node.
+		/// 
 		/// </summary>
 		public Node Node {
 			get {
@@ -383,6 +395,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is effectively enabled (node is also enabled).
+		/// 
 		/// </summary>
 		public bool EnabledEffective {
 			get {

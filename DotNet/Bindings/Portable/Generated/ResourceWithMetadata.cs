@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Add new metadata variable or overwrite old value.
+		/// 
 		/// </summary>
 		public void AddMetadata (string name, Vector3 value)
 		{
@@ -107,6 +108,7 @@ namespace Urho
 
 		/// <summary>
 		/// Add new metadata variable or overwrite old value.
+		/// 
 		/// </summary>
 		public void AddMetadata (string name, IntRect value)
 		{
@@ -119,6 +121,7 @@ namespace Urho
 
 		/// <summary>
 		/// Add new metadata variable or overwrite old value.
+		/// 
 		/// </summary>
 		public void AddMetadata (string name, Color value)
 		{
@@ -131,6 +134,7 @@ namespace Urho
 
 		/// <summary>
 		/// Add new metadata variable or overwrite old value.
+		/// 
 		/// </summary>
 		public void AddMetadata (string name, Vector2 value)
 		{
@@ -143,6 +147,7 @@ namespace Urho
 
 		/// <summary>
 		/// Add new metadata variable or overwrite old value.
+		/// 
 		/// </summary>
 		public void AddMetadata (string name, Vector4 value)
 		{
@@ -155,6 +160,7 @@ namespace Urho
 
 		/// <summary>
 		/// Add new metadata variable or overwrite old value.
+		/// 
 		/// </summary>
 		public void AddMetadata (string name, IntVector2 value)
 		{
@@ -167,6 +173,7 @@ namespace Urho
 
 		/// <summary>
 		/// Add new metadata variable or overwrite old value.
+		/// 
 		/// </summary>
 		public void AddMetadata (string name, Quaternion value)
 		{
@@ -179,6 +186,7 @@ namespace Urho
 
 		/// <summary>
 		/// Add new metadata variable or overwrite old value.
+		/// 
 		/// </summary>
 		public void AddMetadata (string name, Matrix4 value)
 		{
@@ -191,6 +199,7 @@ namespace Urho
 
 		/// <summary>
 		/// Add new metadata variable or overwrite old value.
+		/// 
 		/// </summary>
 		public void AddMetadata (string name, Matrix3x4 value)
 		{
@@ -203,6 +212,7 @@ namespace Urho
 
 		/// <summary>
 		/// Add new metadata variable or overwrite old value.
+		/// 
 		/// </summary>
 		public void AddMetadata (string name, int value)
 		{
@@ -215,6 +225,7 @@ namespace Urho
 
 		/// <summary>
 		/// Add new metadata variable or overwrite old value.
+		/// 
 		/// </summary>
 		public void AddMetadata (string name, float value)
 		{
@@ -227,6 +238,7 @@ namespace Urho
 
 		/// <summary>
 		/// Add new metadata variable or overwrite old value.
+		/// 
 		/// </summary>
 		public void AddMetadata (string name, string value)
 		{
@@ -239,6 +251,7 @@ namespace Urho
 
 		/// <summary>
 		/// Add new metadata variable or overwrite old value.
+		/// 
 		/// </summary>
 		public void AddMetadata (string name, bool value)
 		{
@@ -275,6 +288,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether the resource has metadata.
+		/// 
 		/// </summary>
 		public bool HasMetadata ()
 		{

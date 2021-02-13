@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -119,6 +120,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set tmx file.
+		/// 
 		/// </summary>
 		private void SetTmxFile (TmxFile2D tmxFile)
 		{
@@ -143,6 +145,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return tmx file.
+		/// 
 		/// </summary>
 		private TmxFile2D GetTmxFile ()
 		{
@@ -155,6 +158,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return information.
+		/// 
 		/// </summary>
 		private Urho.Urho2D.TileMapInfo2D GetInfo ()
 		{
@@ -167,6 +171,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return number of layers.
+		/// 
 		/// </summary>
 		private uint GetNumLayers ()
 		{
@@ -249,8 +254,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return tmx file.
+		/// 
 		/// Or
 		/// Set tmx file.
+		/// 
 		/// </summary>
 		public TmxFile2D TmxFile {
 			get {
@@ -263,6 +270,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return information.
+		/// 
 		/// </summary>
 		public Urho.Urho2D.TileMapInfo2D Info {
 			get {
@@ -272,6 +280,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return number of layers.
+		/// 
 		/// </summary>
 		public uint NumLayers {
 			get {

@@ -95,6 +95,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -179,6 +180,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set the maximum number of agents.
+		/// 
 		/// </summary>
 		private void SetMaxAgents (uint maxAgents)
 		{
@@ -191,6 +193,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set the maximum radius of any agent.
+		/// 
 		/// </summary>
 		private void SetMaxAgentRadius (float maxAgentRadius)
 		{
@@ -203,6 +206,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Assigns the navigation mesh for the crowd.
+		/// 
 		/// </summary>
 		private void SetNavigationMesh (NavigationMesh navMesh)
 		{
@@ -335,6 +339,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the maximum number of agents.
+		/// 
 		/// </summary>
 		private uint GetMaxAgents ()
 		{
@@ -347,6 +352,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the maximum radius of any agent.
+		/// 
 		/// </summary>
 		private float GetMaxAgentRadius ()
 		{
@@ -359,6 +365,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the Navigation mesh assigned to the crowd.
+		/// 
 		/// </summary>
 		private NavigationMesh GetNavigationMesh ()
 		{
@@ -371,6 +378,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the number of configured query filter types.
+		/// 
 		/// </summary>
 		private uint GetNumQueryFilterTypes ()
 		{
@@ -383,6 +391,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the number of configured area in the specified query filter type.
+		/// 
 		/// </summary>
 		public uint GetNumAreas (uint queryFilterType)
 		{
@@ -431,6 +440,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the number of configured obstacle avoidance types.
+		/// 
 		/// </summary>
 		private uint GetNumObstacleAvoidanceTypes ()
 		{
@@ -477,8 +487,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the maximum number of agents.
+		/// 
 		/// Or
 		/// Set the maximum number of agents.
+		/// 
 		/// </summary>
 		public uint MaxAgents {
 			get {
@@ -491,8 +503,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the maximum radius of any agent.
+		/// 
 		/// Or
 		/// Set the maximum radius of any agent.
+		/// 
 		/// </summary>
 		public float MaxAgentRadius {
 			get {
@@ -505,8 +519,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the Navigation mesh assigned to the crowd.
+		/// 
 		/// Or
 		/// Assigns the navigation mesh for the crowd.
+		/// 
 		/// </summary>
 		public NavigationMesh NavigationMesh {
 			get {
@@ -519,6 +535,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the number of configured query filter types.
+		/// 
 		/// </summary>
 		public uint NumQueryFilterTypes {
 			get {
@@ -528,6 +545,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the number of configured obstacle avoidance types.
+		/// 
 		/// </summary>
 		public uint NumObstacleAvoidanceTypes {
 			get {

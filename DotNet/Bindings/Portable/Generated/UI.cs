@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set cursor UI element.
+		/// 
 		/// </summary>
 		private void SetCursor (Cursor cursor)
 		{
@@ -252,6 +253,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set clipboard text.
+		/// 
 		/// </summary>
 		private void SetClipboardText (string text)
 		{
@@ -264,6 +266,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set UI element double click interval in seconds.
+		/// 
 		/// </summary>
 		private void SetDoubleClickInterval (float interval)
 		{
@@ -276,6 +279,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set max screen distance in pixels between double click clicks.
+		/// 
 		/// </summary>
 		private void SetMaxDoubleClickDistance (float distPixels)
 		{
@@ -288,6 +292,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set UI drag event start interval in seconds.
+		/// 
 		/// </summary>
 		private void SetDragBeginInterval (float interval)
 		{
@@ -300,6 +305,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set UI drag event start distance threshold in pixels.
+		/// 
 		/// </summary>
 		private void SetDragBeginDistance (int pixels)
 		{
@@ -312,6 +318,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set tooltip default display delay in seconds.
+		/// 
 		/// </summary>
 		private void SetDefaultToolTipDelay (float delay)
 		{
@@ -324,6 +331,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set maximum font face texture size. Must be a power of two. Default is 2048.
+		/// 
 		/// </summary>
 		private void SetMaxFontTextureSize (int size)
 		{
@@ -336,6 +344,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether mouse wheel can control also a non-focused element.
+		/// 
 		/// </summary>
 		private void SetNonFocusedMouseWheel (bool nonFocusedMouseWheel)
 		{
@@ -348,6 +357,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether to use system clipboard. Default false.
+		/// 
 		/// </summary>
 		private void SetUseSystemClipboard (bool enable)
 		{
@@ -360,6 +370,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether to show the on-screen keyboard (if supported) when a %LineEdit is focused. Default true on mobile devices.
+		/// 
 		/// </summary>
 		private void SetUseScreenKeyboard (bool enable)
 		{
@@ -372,6 +383,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether to use mutable (eraseable) glyphs to ensure a font face never expands to more than one texture. Default false.
+		/// 
 		/// </summary>
 		private void SetUseMutableGlyphs (bool enable)
 		{
@@ -384,6 +396,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set whether to force font autohinting instead of using FreeType's TTF bytecode interpreter.
+		/// 
 		/// </summary>
 		private void SetForceAutoHint (bool enable)
 		{
@@ -396,6 +409,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set the hinting level used by FreeType fonts.
+		/// 
 		/// </summary>
 		private void SetFontHintLevel (FontHintLevel level)
 		{
@@ -408,6 +422,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set the font subpixel threshold. Below this size, if the hint level is LIGHT or NONE, fonts will use subpixel positioning plus oversampling for higher-quality rendering. Has no effect at hint level NORMAL.
+		/// 
 		/// </summary>
 		private void SetFontSubpixelThreshold (float threshold)
 		{
@@ -420,6 +435,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set the oversampling (horizonal stretching) used to improve subpixel font rendering. Only affects fonts smaller than the subpixel limit.
+		/// 
 		/// </summary>
 		private void SetFontOversampling (int oversampling)
 		{
@@ -432,6 +448,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set %UI scale. 1.0 is default (pixel perfect). Resize the root element to match.
+		/// 
 		/// </summary>
 		private void SetScale (float scale)
 		{
@@ -468,6 +485,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set custom size of the root element. This disables automatic resizing of the root element according to window size. Set custom size 0,0 to return to automatic resizing.
+		/// 
 		/// </summary>
 		private void SetCustomSize (Urho.IntVector2 size)
 		{
@@ -492,6 +510,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return root UI element.
+		/// 
 		/// </summary>
 		private UIElement GetRoot ()
 		{
@@ -504,6 +523,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return root modal element.
+		/// 
 		/// </summary>
 		private UIElement GetRootModalElement ()
 		{
@@ -516,6 +536,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return cursor.
+		/// 
 		/// </summary>
 		private Cursor GetCursor ()
 		{
@@ -528,6 +549,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return cursor position.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetCursorPosition ()
 		{
@@ -600,6 +622,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return focused element.
+		/// 
 		/// </summary>
 		private UIElement GetFocusElement ()
 		{
@@ -612,6 +635,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return topmost enabled root-level non-modal element.
+		/// 
 		/// </summary>
 		private UIElement GetFrontElement ()
 		{
@@ -648,6 +672,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return clipboard text.
+		/// 
 		/// </summary>
 		private string GetClipboardText ()
 		{
@@ -660,6 +685,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return UI element double click interval in seconds.
+		/// 
 		/// </summary>
 		private float GetDoubleClickInterval ()
 		{
@@ -672,6 +698,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return max screen distance in pixels for double clicks to register.
+		/// 
 		/// </summary>
 		private float GetMaxDoubleClickDistance ()
 		{
@@ -684,6 +711,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return UI drag start event interval in seconds.
+		/// 
 		/// </summary>
 		private float GetDragBeginInterval ()
 		{
@@ -696,6 +724,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return UI drag start event distance threshold in pixels.
+		/// 
 		/// </summary>
 		private int GetDragBeginDistance ()
 		{
@@ -708,6 +737,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return tooltip default display delay in seconds.
+		/// 
 		/// </summary>
 		private float GetDefaultToolTipDelay ()
 		{
@@ -720,6 +750,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return font texture maximum size.
+		/// 
 		/// </summary>
 		private int GetMaxFontTextureSize ()
 		{
@@ -732,6 +763,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether mouse wheel can control also a non-focused element.
+		/// 
 		/// </summary>
 		private bool IsNonFocusedMouseWheel ()
 		{
@@ -744,6 +776,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is using the system clipboard.
+		/// 
 		/// </summary>
 		private bool GetUseSystemClipboard ()
 		{
@@ -756,6 +789,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether focusing a %LineEdit will show the on-screen keyboard.
+		/// 
 		/// </summary>
 		private bool GetUseScreenKeyboard ()
 		{
@@ -768,6 +802,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is using mutable (eraseable) glyphs for fonts.
+		/// 
 		/// </summary>
 		private bool GetUseMutableGlyphs ()
 		{
@@ -780,6 +815,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is using forced autohinting.
+		/// 
 		/// </summary>
 		private bool GetForceAutoHint ()
 		{
@@ -792,6 +828,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return the current FreeType font hinting level.
+		/// 
 		/// </summary>
 		private FontHintLevel GetFontHintLevel ()
 		{
@@ -804,6 +841,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Get the font subpixel threshold. Below this size, if the hint level is LIGHT or NONE, fonts will use subpixel positioning plus oversampling for higher-quality rendering. Has no effect at hint level NORMAL.
+		/// 
 		/// </summary>
 		private float GetFontSubpixelThreshold ()
 		{
@@ -816,6 +854,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Get the oversampling (horizonal stretching) used to improve subpixel font rendering. Only affects fonts smaller than the subpixel limit.
+		/// 
 		/// </summary>
 		private int GetFontOversampling ()
 		{
@@ -852,6 +891,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return current UI scale.
+		/// 
 		/// </summary>
 		private float GetScale ()
 		{
@@ -864,6 +904,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return root element custom size. Returns 0,0 when custom size is not being used and automatic resizing according to window size is in use instead (default).
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetCustomSize ()
 		{
@@ -910,8 +951,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return cursor.
+		/// 
 		/// Or
 		/// Set cursor UI element.
+		/// 
 		/// </summary>
 		public Cursor Cursor {
 			get {
@@ -924,8 +967,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return clipboard text.
+		/// 
 		/// Or
 		/// Set clipboard text.
+		/// 
 		/// </summary>
 		public string ClipboardText {
 			get {
@@ -938,8 +983,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return UI element double click interval in seconds.
+		/// 
 		/// Or
 		/// Set UI element double click interval in seconds.
+		/// 
 		/// </summary>
 		public float DoubleClickInterval {
 			get {
@@ -952,8 +999,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return max screen distance in pixels for double clicks to register.
+		/// 
 		/// Or
 		/// Set max screen distance in pixels between double click clicks.
+		/// 
 		/// </summary>
 		public float MaxDoubleClickDistance {
 			get {
@@ -966,8 +1015,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return UI drag start event interval in seconds.
+		/// 
 		/// Or
 		/// Set UI drag event start interval in seconds.
+		/// 
 		/// </summary>
 		public float DragBeginInterval {
 			get {
@@ -980,8 +1031,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return UI drag start event distance threshold in pixels.
+		/// 
 		/// Or
 		/// Set UI drag event start distance threshold in pixels.
+		/// 
 		/// </summary>
 		public int DragBeginDistance {
 			get {
@@ -994,8 +1047,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return tooltip default display delay in seconds.
+		/// 
 		/// Or
 		/// Set tooltip default display delay in seconds.
+		/// 
 		/// </summary>
 		public float DefaultToolTipDelay {
 			get {
@@ -1008,8 +1063,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return font texture maximum size.
+		/// 
 		/// Or
 		/// Set maximum font face texture size. Must be a power of two. Default is 2048.
+		/// 
 		/// </summary>
 		public int MaxFontTextureSize {
 			get {
@@ -1022,8 +1079,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether mouse wheel can control also a non-focused element.
+		/// 
 		/// Or
 		/// Set whether mouse wheel can control also a non-focused element.
+		/// 
 		/// </summary>
 		public bool NonFocusedMouseWheel {
 			get {
@@ -1036,8 +1095,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is using the system clipboard.
+		/// 
 		/// Or
 		/// Set whether to use system clipboard. Default false.
+		/// 
 		/// </summary>
 		public bool UseSystemClipboard {
 			get {
@@ -1050,8 +1111,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether focusing a %LineEdit will show the on-screen keyboard.
+		/// 
 		/// Or
 		/// Set whether to show the on-screen keyboard (if supported) when a %LineEdit is focused. Default true on mobile devices.
+		/// 
 		/// </summary>
 		public bool UseScreenKeyboard {
 			get {
@@ -1064,8 +1127,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is using mutable (eraseable) glyphs for fonts.
+		/// 
 		/// Or
 		/// Set whether to use mutable (eraseable) glyphs to ensure a font face never expands to more than one texture. Default false.
+		/// 
 		/// </summary>
 		public bool UseMutableGlyphs {
 			get {
@@ -1078,8 +1143,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return whether is using forced autohinting.
+		/// 
 		/// Or
 		/// Set whether to force font autohinting instead of using FreeType's TTF bytecode interpreter.
+		/// 
 		/// </summary>
 		public bool ForceAutoHint {
 			get {
@@ -1092,8 +1159,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return the current FreeType font hinting level.
+		/// 
 		/// Or
 		/// Set the hinting level used by FreeType fonts.
+		/// 
 		/// </summary>
 		public FontHintLevel FontHintLevel {
 			get {
@@ -1106,8 +1175,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Get the font subpixel threshold. Below this size, if the hint level is LIGHT or NONE, fonts will use subpixel positioning plus oversampling for higher-quality rendering. Has no effect at hint level NORMAL.
+		/// 
 		/// Or
 		/// Set the font subpixel threshold. Below this size, if the hint level is LIGHT or NONE, fonts will use subpixel positioning plus oversampling for higher-quality rendering. Has no effect at hint level NORMAL.
+		/// 
 		/// </summary>
 		public float FontSubpixelThreshold {
 			get {
@@ -1120,8 +1191,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Get the oversampling (horizonal stretching) used to improve subpixel font rendering. Only affects fonts smaller than the subpixel limit.
+		/// 
 		/// Or
 		/// Set the oversampling (horizonal stretching) used to improve subpixel font rendering. Only affects fonts smaller than the subpixel limit.
+		/// 
 		/// </summary>
 		public int FontOversampling {
 			get {
@@ -1134,8 +1207,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return current UI scale.
+		/// 
 		/// Or
 		/// Set %UI scale. 1.0 is default (pixel perfect). Resize the root element to match.
+		/// 
 		/// </summary>
 		public float Scale {
 			get {
@@ -1148,8 +1223,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return root element custom size. Returns 0,0 when custom size is not being used and automatic resizing according to window size is in use instead (default).
+		/// 
 		/// Or
 		/// Set custom size of the root element. This disables automatic resizing of the root element according to window size. Set custom size 0,0 to return to automatic resizing.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 CustomSize {
 			get {
@@ -1162,6 +1239,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return root UI element.
+		/// 
 		/// </summary>
 		public UIElement Root {
 			get {
@@ -1171,6 +1249,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return root modal element.
+		/// 
 		/// </summary>
 		public UIElement RootModalElement {
 			get {
@@ -1180,6 +1259,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return cursor position.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 CursorPosition {
 			get {
@@ -1189,6 +1269,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return focused element.
+		/// 
 		/// </summary>
 		public UIElement FocusElement {
 			get {
@@ -1198,6 +1279,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return topmost enabled root-level non-modal element.
+		/// 
 		/// </summary>
 		public UIElement FrontElement {
 			get {

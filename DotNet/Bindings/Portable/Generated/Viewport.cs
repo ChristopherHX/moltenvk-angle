@@ -119,6 +119,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set scene.
+		/// 
 		/// </summary>
 		private void SetScene (Scene scene)
 		{
@@ -131,6 +132,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set viewport camera.
+		/// 
 		/// </summary>
 		private void SetCamera (Camera camera)
 		{
@@ -143,6 +145,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set view rectangle. A zero rectangle (0 0 0 0) means to use the rendertarget's full dimensions.
+		/// 
 		/// </summary>
 		private void SetRect (Urho.IntRect rect)
 		{
@@ -155,6 +158,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set rendering path.
+		/// 
 		/// </summary>
 		private void SetRenderPath (RenderPath renderPath)
 		{
@@ -179,6 +183,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether to render debug geometry. Default true.
+		/// 
 		/// </summary>
 		private void SetDrawDebug (bool enable)
 		{
@@ -191,6 +196,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set separate camera to use for culling. Sharing a culling camera between several viewports allows to prepare the view only once, saving in CPU use. The culling camera's frustum should cover all the viewport cameras' frusta or else objects may be missing from the rendered view.
+		/// 
 		/// </summary>
 		private void SetCullCamera (Camera camera)
 		{
@@ -203,6 +209,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return scene.
+		/// 
 		/// </summary>
 		private Scene GetScene ()
 		{
@@ -215,6 +222,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return viewport camera.
+		/// 
 		/// </summary>
 		private Camera GetCamera ()
 		{
@@ -239,6 +247,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return view rectangle. A zero rectangle (0 0 0 0) means to use the rendertarget's full dimensions. In this case you could fetch the actual view rectangle from View object, though it will be valid only after the first frame.
+		/// 
 		/// </summary>
 		private Urho.IntRect GetRect ()
 		{
@@ -251,6 +260,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return rendering path.
+		/// 
 		/// </summary>
 		private RenderPath GetRenderPath ()
 		{
@@ -263,6 +273,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether to draw debug geometry.
+		/// 
 		/// </summary>
 		private bool GetDrawDebug ()
 		{
@@ -275,6 +286,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the culling camera. If null, the viewport camera will be used for culling (normal case).
+		/// 
 		/// </summary>
 		private Camera GetCullCamera ()
 		{
@@ -357,8 +369,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return scene.
+		/// 
 		/// Or
 		/// Set scene.
+		/// 
 		/// </summary>
 		public Scene Scene {
 			get {
@@ -371,8 +385,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return viewport camera.
+		/// 
 		/// Or
 		/// Set viewport camera.
+		/// 
 		/// </summary>
 		public Camera Camera {
 			get {
@@ -385,8 +401,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return view rectangle. A zero rectangle (0 0 0 0) means to use the rendertarget's full dimensions. In this case you could fetch the actual view rectangle from View object, though it will be valid only after the first frame.
+		/// 
 		/// Or
 		/// Set view rectangle. A zero rectangle (0 0 0 0) means to use the rendertarget's full dimensions.
+		/// 
 		/// </summary>
 		public Urho.IntRect Rect {
 			get {
@@ -399,8 +417,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return rendering path.
+		/// 
 		/// Or
 		/// Set rendering path.
+		/// 
 		/// </summary>
 		public RenderPath RenderPath {
 			get {
@@ -413,8 +433,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether to draw debug geometry.
+		/// 
 		/// Or
 		/// Set whether to render debug geometry. Default true.
+		/// 
 		/// </summary>
 		public bool DrawDebug {
 			get {
@@ -427,8 +449,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return the culling camera. If null, the viewport camera will be used for culling (normal case).
+		/// 
 		/// Or
 		/// Set separate camera to use for culling. Sharing a culling camera between several viewports allows to prepare the view only once, saving in CPU use. The culling camera's frustum should cover all the viewport cameras' frusta or else objects may be missing from the rendered view.
+		/// 
 		/// </summary>
 		public Camera CullCamera {
 			get {

@@ -79,27 +79,28 @@ namespace Urho.Navigation
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr NavArea_NavArea (IntPtr param1);
+		internal static extern IntPtr NavArea_NavArea (IntPtr context);
 
 		[Preserve]
-		public NavArea (Context param1) : base (UrhoObjectFlag.Empty)
+		public NavArea (Context context) : base (UrhoObjectFlag.Empty)
 		{
 			Runtime.Validate (typeof(NavArea));
-			handle = NavArea_NavArea ((object)param1 == null ? IntPtr.Zero : param1.Handle);
+			handle = NavArea_NavArea ((object)context == null ? IntPtr.Zero : context.Handle);
 			Runtime.RegisterObject (this);
 			OnNavAreaCreated ();
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void NavArea_RegisterObject (IntPtr param1);
+		internal static extern void NavArea_RegisterObject (IntPtr context);
 
 		/// <summary>
 		/// Register object factory and attributes.
+		/// 
 		/// </summary>
-		public new static void RegisterObject (Context param1)
+		public new static void RegisterObject (Context context)
 		{
 			Runtime.Validate (typeof(NavArea));
-			NavArea_RegisterObject ((object)param1 == null ? IntPtr.Zero : param1.Handle);
+			NavArea_RegisterObject ((object)context == null ? IntPtr.Zero : context.Handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -119,6 +120,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the area id for this volume.
+		/// 
 		/// </summary>
 		private uint GetAreaID ()
 		{
@@ -131,6 +133,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set the area id for this volume.
+		/// 
 		/// </summary>
 		private void SetAreaID (uint newID)
 		{
@@ -143,6 +146,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the bounding box of this navigation area, in local space.
+		/// 
 		/// </summary>
 		private BoundingBox GetBoundingBox ()
 		{
@@ -155,6 +159,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set the bounding box of this area, in local space.
+		/// 
 		/// </summary>
 		public void SetBoundingBox (Urho.BoundingBox bnds)
 		{
@@ -167,6 +172,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the bounds of this navigation area in world space.
+		/// 
 		/// </summary>
 		private BoundingBox GetWorldBoundingBox ()
 		{
@@ -201,8 +207,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the area id for this volume.
+		/// 
 		/// Or
 		/// Set the area id for this volume.
+		/// 
 		/// </summary>
 		public uint AreaID {
 			get {
@@ -215,6 +223,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the bounding box of this navigation area, in local space.
+		/// 
 		/// </summary>
 		public BoundingBox BoundingBox {
 			get {
@@ -224,6 +233,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Get the bounds of this navigation area in world space.
+		/// 
 		/// </summary>
 		public BoundingBox WorldBoundingBox {
 			get {

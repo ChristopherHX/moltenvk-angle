@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory. Drawable must be registered first.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -119,6 +120,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set local-space bounding box. Will be used as an oriented bounding box to test whether objects or the camera are inside.
+		/// 
 		/// </summary>
 		public void SetBoundingBox (Urho.BoundingBox box)
 		{
@@ -131,6 +133,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set ambient color.
+		/// 
 		/// </summary>
 		private void SetAmbientColor (Urho.Color color)
 		{
@@ -143,6 +146,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set fog color.
+		/// 
 		/// </summary>
 		private void SetFogColor (Urho.Color color)
 		{
@@ -155,6 +159,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set fog start distance.
+		/// 
 		/// </summary>
 		private void SetFogStart (float start)
 		{
@@ -167,6 +172,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set fog end distance.
+		/// 
 		/// </summary>
 		private void SetFogEnd (float end)
 		{
@@ -179,6 +185,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set fog height distance relative to the scene node's world position. Effective only in height fog mode.
+		/// 
 		/// </summary>
 		private void SetFogHeight (float height)
 		{
@@ -191,6 +198,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set fog height scale. Effective only in height fog mode.
+		/// 
 		/// </summary>
 		private void SetFogHeightScale (float scale)
 		{
@@ -203,6 +211,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set zone priority. If an object or camera is inside several zones, the one with highest priority is used.
+		/// 
 		/// </summary>
 		private void SetPriority (int priority)
 		{
@@ -215,6 +224,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set height fog mode.
+		/// 
 		/// </summary>
 		private void SetHeightFog (bool enable)
 		{
@@ -227,6 +237,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set override mode. If camera is inside an override zone, that zone will be used for all rendered objects instead of their own zone.
+		/// 
 		/// </summary>
 		private void SetOverride (bool enable)
 		{
@@ -239,6 +250,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set ambient gradient mode. In gradient mode ambient color is interpolated from neighbor zones.
+		/// 
 		/// </summary>
 		private void SetAmbientGradient (bool enable)
 		{
@@ -251,6 +263,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set zone texture. This will be bound to the zone texture unit when rendering objects inside the zone. Note that the default shaders do not use it.
+		/// 
 		/// </summary>
 		private void SetZoneTexture (Texture texture)
 		{
@@ -263,6 +276,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return inverse world transform.
+		/// 
 		/// </summary>
 		private Urho.Matrix3x4 GetInverseWorldTransform ()
 		{
@@ -275,6 +289,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return zone's own ambient color, disregarding gradient mode.
+		/// 
 		/// </summary>
 		private Urho.Color GetAmbientColor ()
 		{
@@ -287,6 +302,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return ambient start color. Not safe to call from worker threads due to possible octree query.
+		/// 
 		/// </summary>
 		private Urho.Color GetAmbientStartColor ()
 		{
@@ -299,6 +315,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return ambient end color. Not safe to call from worker threads due to possible octree query.
+		/// 
 		/// </summary>
 		private Urho.Color GetAmbientEndColor ()
 		{
@@ -311,6 +328,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return fog color.
+		/// 
 		/// </summary>
 		private Urho.Color GetFogColor ()
 		{
@@ -323,6 +341,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return fog start distance.
+		/// 
 		/// </summary>
 		private float GetFogStart ()
 		{
@@ -335,6 +354,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return fog end distance.
+		/// 
 		/// </summary>
 		private float GetFogEnd ()
 		{
@@ -347,6 +367,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return fog height distance relative to the scene node's world position.
+		/// 
 		/// </summary>
 		private float GetFogHeight ()
 		{
@@ -359,6 +380,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return fog height scale.
+		/// 
 		/// </summary>
 		private float GetFogHeightScale ()
 		{
@@ -371,6 +393,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return zone priority.
+		/// 
 		/// </summary>
 		private int GetPriority ()
 		{
@@ -383,6 +406,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether height fog mode is enabled.
+		/// 
 		/// </summary>
 		private bool GetHeightFog ()
 		{
@@ -395,6 +419,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether override mode is enabled.
+		/// 
 		/// </summary>
 		private bool GetOverride ()
 		{
@@ -407,6 +432,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether ambient gradient mode is enabled.
+		/// 
 		/// </summary>
 		private bool GetAmbientGradient ()
 		{
@@ -419,6 +445,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return zone texture.
+		/// 
 		/// </summary>
 		private Texture GetZoneTexture ()
 		{
@@ -477,8 +504,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return zone's own ambient color, disregarding gradient mode.
+		/// 
 		/// Or
 		/// Set ambient color.
+		/// 
 		/// </summary>
 		public Urho.Color AmbientColor {
 			get {
@@ -491,8 +520,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return fog color.
+		/// 
 		/// Or
 		/// Set fog color.
+		/// 
 		/// </summary>
 		public Urho.Color FogColor {
 			get {
@@ -505,8 +536,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return fog start distance.
+		/// 
 		/// Or
 		/// Set fog start distance.
+		/// 
 		/// </summary>
 		public float FogStart {
 			get {
@@ -519,8 +552,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return fog end distance.
+		/// 
 		/// Or
 		/// Set fog end distance.
+		/// 
 		/// </summary>
 		public float FogEnd {
 			get {
@@ -533,8 +568,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return fog height distance relative to the scene node's world position.
+		/// 
 		/// Or
 		/// Set fog height distance relative to the scene node's world position. Effective only in height fog mode.
+		/// 
 		/// </summary>
 		public float FogHeight {
 			get {
@@ -547,8 +584,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return fog height scale.
+		/// 
 		/// Or
 		/// Set fog height scale. Effective only in height fog mode.
+		/// 
 		/// </summary>
 		public float FogHeightScale {
 			get {
@@ -561,8 +600,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return zone priority.
+		/// 
 		/// Or
 		/// Set zone priority. If an object or camera is inside several zones, the one with highest priority is used.
+		/// 
 		/// </summary>
 		public int Priority {
 			get {
@@ -575,8 +616,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether height fog mode is enabled.
+		/// 
 		/// Or
 		/// Set height fog mode.
+		/// 
 		/// </summary>
 		public bool HeightFog {
 			get {
@@ -589,8 +632,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether override mode is enabled.
+		/// 
 		/// Or
 		/// Set override mode. If camera is inside an override zone, that zone will be used for all rendered objects instead of their own zone.
+		/// 
 		/// </summary>
 		public bool Override {
 			get {
@@ -603,8 +648,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether ambient gradient mode is enabled.
+		/// 
 		/// Or
 		/// Set ambient gradient mode. In gradient mode ambient color is interpolated from neighbor zones.
+		/// 
 		/// </summary>
 		public bool AmbientGradient {
 			get {
@@ -617,8 +664,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return zone texture.
+		/// 
 		/// Or
 		/// Set zone texture. This will be bound to the zone texture unit when rendering objects inside the zone. Note that the default shaders do not use it.
+		/// 
 		/// </summary>
 		public Texture ZoneTexture {
 			get {
@@ -631,6 +680,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return inverse world transform.
+		/// 
 		/// </summary>
 		public Urho.Matrix3x4 InverseWorldTransform {
 			get {
@@ -640,6 +690,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return ambient start color. Not safe to call from worker threads due to possible octree query.
+		/// 
 		/// </summary>
 		public Urho.Color AmbientStartColor {
 			get {
@@ -649,6 +700,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return ambient end color. Not safe to call from worker threads due to possible octree query.
+		/// 
 		/// </summary>
 		public Urho.Color AmbientEndColor {
 			get {

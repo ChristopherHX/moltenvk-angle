@@ -78,6 +78,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -90,6 +91,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set selection background color. Color with 0 alpha (default) disables.
+		/// 
 		/// </summary>
 		private void SetSelectionColor (Urho.Color color)
 		{
@@ -102,6 +104,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set hover background color. Color with 0 alpha (default) disables.
+		/// 
 		/// </summary>
 		private void SetHoverColor (Urho.Color color)
 		{
@@ -114,6 +117,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return selection background color.
+		/// 
 		/// </summary>
 		private Urho.Color GetSelectionColor ()
 		{
@@ -126,6 +130,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return hover background color.
+		/// 
 		/// </summary>
 		private Urho.Color GetHoverColor ()
 		{
@@ -177,8 +182,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return selection background color.
+		/// 
 		/// Or
 		/// Set selection background color. Color with 0 alpha (default) disables.
+		/// 
 		/// </summary>
 		public Urho.Color SelectionColor {
 			get {
@@ -191,8 +198,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return hover background color.
+		/// 
 		/// Or
 		/// Set hover background color. Color with 0 alpha (default) disables.
+		/// 
 		/// </summary>
 		public Urho.Color HoverColor {
 			get {

@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory. StaticModel must be registered first.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{

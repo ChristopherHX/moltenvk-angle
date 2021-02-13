@@ -95,6 +95,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -167,6 +168,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set floating point position.
+		/// 
 		/// </summary>
 		private void SetPosition (Urho.Vector2 position)
 		{
@@ -191,6 +193,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set hotspot for positioning and rotation.
+		/// 
 		/// </summary>
 		private void SetHotSpot (Urho.IntVector2 hotSpot)
 		{
@@ -215,6 +218,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set scale. Scale also affects child sprites.
+		/// 
 		/// </summary>
 		private void SetScale (Urho.Vector2 scale)
 		{
@@ -251,6 +255,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set rotation angle.
+		/// 
 		/// </summary>
 		private void SetRotation (float angle)
 		{
@@ -263,6 +268,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set texture.
+		/// 
 		/// </summary>
 		private void SetTexture (Texture texture)
 		{
@@ -275,6 +281,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set part of texture to use as the image.
+		/// 
 		/// </summary>
 		private void SetImageRect (Urho.IntRect rect)
 		{
@@ -299,6 +306,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set blend mode.
+		/// 
 		/// </summary>
 		private void SetBlendMode (BlendMode mode)
 		{
@@ -311,6 +319,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return floating point position.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetPosition ()
 		{
@@ -323,6 +332,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return hotspot.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetHotSpot ()
 		{
@@ -335,6 +345,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return scale.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetScale ()
 		{
@@ -347,6 +358,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return rotation angle.
+		/// 
 		/// </summary>
 		private float GetRotation ()
 		{
@@ -359,6 +371,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return texture.
+		/// 
 		/// </summary>
 		private Texture GetTexture ()
 		{
@@ -371,6 +384,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return image rectangle.
+		/// 
 		/// </summary>
 		private Urho.IntRect GetImageRect ()
 		{
@@ -383,6 +397,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return blend mode.
+		/// 
 		/// </summary>
 		private BlendMode GetBlendMode ()
 		{
@@ -450,8 +465,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return floating point position.
+		/// 
 		/// Or
 		/// Set floating point position.
+		/// 
 		/// </summary>
 		public Urho.Vector2 PositionFloat {
 			get {
@@ -464,8 +481,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return hotspot.
+		/// 
 		/// Or
 		/// Set hotspot for positioning and rotation.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 HotSpot {
 			get {
@@ -478,8 +497,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return scale.
+		/// 
 		/// Or
 		/// Set scale. Scale also affects child sprites.
+		/// 
 		/// </summary>
 		public Urho.Vector2 Scale {
 			get {
@@ -492,8 +513,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return rotation angle.
+		/// 
 		/// Or
 		/// Set rotation angle.
+		/// 
 		/// </summary>
 		public float Rotation {
 			get {
@@ -506,8 +529,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return texture.
+		/// 
 		/// Or
 		/// Set texture.
+		/// 
 		/// </summary>
 		public Texture Texture {
 			get {
@@ -520,8 +545,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return image rectangle.
+		/// 
 		/// Or
 		/// Set part of texture to use as the image.
+		/// 
 		/// </summary>
 		public Urho.IntRect ImageRect {
 			get {
@@ -534,8 +561,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return blend mode.
+		/// 
 		/// Or
 		/// Set blend mode.
+		/// 
 		/// </summary>
 		public BlendMode BlendMode {
 			get {

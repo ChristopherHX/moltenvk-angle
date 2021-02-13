@@ -15,9 +15,8 @@ using Urho.Resources;
 using Urho.IO;
 using Urho.Navigation;
 using Urho.Network;
-using Urho.Physics;
 
-namespace Urho
+namespace Urho.Physics
 {
 	/// <summary>
 	/// Create the rigid body, or re-add to the physics world with changed flags. Calls UpdateMass().

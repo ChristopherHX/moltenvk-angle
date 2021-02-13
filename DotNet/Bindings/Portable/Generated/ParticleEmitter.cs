@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -119,6 +120,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set particle effect.
+		/// 
 		/// </summary>
 		private void SetEffect (ParticleEffect effect)
 		{
@@ -131,6 +133,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set maximum number of particles.
+		/// 
 		/// </summary>
 		private void SetNumParticles (uint num)
 		{
@@ -143,6 +146,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether should be emitting. If the state was changed, also resets the emission period timer.
+		/// 
 		/// </summary>
 		private void SetEmitting (bool enable)
 		{
@@ -155,6 +159,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether particles should be serialized. Default true, set false to reduce scene file size.
+		/// 
 		/// </summary>
 		private void SetSerializeParticles (bool enable)
 		{
@@ -166,7 +171,8 @@ namespace Urho
 		internal static extern void ParticleEmitter_SetAutoRemoveMode (IntPtr handle, AutoRemoveMode mode);
 
 		/// <summary>
-		/// / Set to remove either the emitter component or its owner node from the scene automatically on particle effect completion. Disabled by default.
+		/// Set to remove either the emitter component or its owner node from the scene automatically on particle effect completion. Disabled by default.
+		/// 
 		/// </summary>
 		private void SetAutoRemoveMode (AutoRemoveMode mode)
 		{
@@ -227,6 +233,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle effect.
+		/// 
 		/// </summary>
 		private ParticleEffect GetEffect ()
 		{
@@ -239,6 +246,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of particles.
+		/// 
 		/// </summary>
 		private uint GetNumParticles ()
 		{
@@ -251,6 +259,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is currently emitting.
+		/// 
 		/// </summary>
 		private bool IsEmitting ()
 		{
@@ -263,6 +272,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether particles are to be serialized.
+		/// 
 		/// </summary>
 		private bool GetSerializeParticles ()
 		{
@@ -275,6 +285,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return automatic removal mode on particle effect completion.
+		/// 
 		/// </summary>
 		private AutoRemoveMode GetAutoRemoveMode ()
 		{
@@ -321,8 +332,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return particle effect.
+		/// 
 		/// Or
 		/// Set particle effect.
+		/// 
 		/// </summary>
 		public ParticleEffect Effect {
 			get {
@@ -335,8 +348,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum number of particles.
+		/// 
 		/// Or
 		/// Set maximum number of particles.
+		/// 
 		/// </summary>
 		public uint NumParticles {
 			get {
@@ -349,8 +364,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is currently emitting.
+		/// 
 		/// Or
 		/// Set whether should be emitting. If the state was changed, also resets the emission period timer.
+		/// 
 		/// </summary>
 		public bool Emitting {
 			get {
@@ -363,8 +380,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether particles are to be serialized.
+		/// 
 		/// Or
 		/// Set whether particles should be serialized. Default true, set false to reduce scene file size.
+		/// 
 		/// </summary>
 		public bool SerializeParticles {
 			get {
@@ -377,8 +396,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return automatic removal mode on particle effect completion.
+		/// 
 		/// Or
-		/// / Set to remove either the emitter component or its owner node from the scene automatically on particle effect completion. Disabled by default.
+		/// Set to remove either the emitter component or its owner node from the scene automatically on particle effect completion. Disabled by default.
+		/// 
 		/// </summary>
 		public AutoRemoveMode AutoRemoveMode {
 			get {

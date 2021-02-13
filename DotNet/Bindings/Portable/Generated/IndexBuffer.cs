@@ -122,6 +122,7 @@ namespace Urho
 
 		/// <summary>
 		/// Enable shadowing in CPU memory. Shadowing is forced on if the graphics subsystem does not exist.
+		/// 
 		/// </summary>
 		private void SetShadowed (bool enable)
 		{
@@ -194,6 +195,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether CPU memory shadowing is enabled.
+		/// 
 		/// </summary>
 		private bool IsShadowed ()
 		{
@@ -206,6 +208,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is dynamic.
+		/// 
 		/// </summary>
 		private bool IsDynamic ()
 		{
@@ -230,6 +233,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of indices.
+		/// 
 		/// </summary>
 		private uint GetIndexCount ()
 		{
@@ -242,6 +246,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return index size in bytes.
+		/// 
 		/// </summary>
 		private uint GetIndexSize ()
 		{
@@ -288,8 +293,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether CPU memory shadowing is enabled.
+		/// 
 		/// Or
 		/// Enable shadowing in CPU memory. Shadowing is forced on if the graphics subsystem does not exist.
+		/// 
 		/// </summary>
 		public bool Shadowed {
 			get {
@@ -302,6 +309,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is dynamic.
+		/// 
 		/// </summary>
 		public bool Dynamic {
 			get {
@@ -320,6 +328,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of indices.
+		/// 
 		/// </summary>
 		public uint IndexCount {
 			get {
@@ -329,6 +338,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return index size in bytes.
+		/// 
 		/// </summary>
 		public uint IndexSize {
 			get {

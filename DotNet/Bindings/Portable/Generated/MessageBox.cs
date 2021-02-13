@@ -90,6 +90,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{
@@ -102,6 +103,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set title text. No-ops if there is no title text element.
+		/// 
 		/// </summary>
 		private void SetTitle (string text)
 		{
@@ -114,6 +116,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Set message text. No-ops if there is no message text element.
+		/// 
 		/// </summary>
 		private void SetMessage (string text)
 		{
@@ -126,6 +129,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return title text. Return empty string if there is no title text element.
+		/// 
 		/// </summary>
 		private string GetTitle ()
 		{
@@ -138,6 +142,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return message text. Return empty string if there is no message text element.
+		/// 
 		/// </summary>
 		private string GetMessage ()
 		{
@@ -150,6 +155,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return dialog window.
+		/// 
 		/// </summary>
 		private UIElement GetWindow ()
 		{
@@ -184,8 +190,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return title text. Return empty string if there is no title text element.
+		/// 
 		/// Or
 		/// Set title text. No-ops if there is no title text element.
+		/// 
 		/// </summary>
 		public string Title {
 			get {
@@ -198,8 +206,10 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return message text. Return empty string if there is no message text element.
+		/// 
 		/// Or
 		/// Set message text. No-ops if there is no message text element.
+		/// 
 		/// </summary>
 		public string Message {
 			get {
@@ -212,6 +222,7 @@ namespace Urho.Gui
 
 		/// <summary>
 		/// Return dialog window.
+		/// 
 		/// </summary>
 		public UIElement Window {
 			get {

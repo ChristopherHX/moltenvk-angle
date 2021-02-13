@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory. Node must be registered first.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -431,6 +432,7 @@ namespace Urho
 
 		/// <summary>
 		/// Enable or disable scene update.
+		/// 
 		/// </summary>
 		private void SetUpdateEnabled (bool enable)
 		{
@@ -443,6 +445,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set update time scale. 1.0 = real time (default).
+		/// 
 		/// </summary>
 		private void SetTimeScale (float scale)
 		{
@@ -455,6 +458,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set elapsed time in seconds. This can be used to prevent inaccuracy in the timer if the scene runs for a long time.
+		/// 
 		/// </summary>
 		private void SetElapsedTime (float time)
 		{
@@ -467,6 +471,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set network client motion smoothing constant.
+		/// 
 		/// </summary>
 		private void SetSmoothingConstant (float constant)
 		{
@@ -479,6 +484,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set network client motion smoothing snap threshold.
+		/// 
 		/// </summary>
 		private void SetSnapThreshold (float threshold)
 		{
@@ -491,6 +497,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set maximum milliseconds per frame to spend on async scene loading.
+		/// 
 		/// </summary>
 		private void SetAsyncLoadingMs (int ms)
 		{
@@ -587,6 +594,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether updates are enabled.
+		/// 
 		/// </summary>
 		private bool IsUpdateEnabled ()
 		{
@@ -599,6 +607,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether an asynchronous loading operation is in progress.
+		/// 
 		/// </summary>
 		private bool IsAsyncLoading ()
 		{
@@ -611,6 +620,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return asynchronous loading progress between 0.0 and 1.0, or 1.0 if not in progress.
+		/// 
 		/// </summary>
 		private float GetAsyncProgress ()
 		{
@@ -623,6 +633,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the load mode of the current asynchronous loading operation.
+		/// 
 		/// </summary>
 		private LoadMode GetAsyncLoadMode ()
 		{
@@ -635,6 +646,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return source file name.
+		/// 
 		/// </summary>
 		private string GetFileName ()
 		{
@@ -647,6 +659,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return source file checksum.
+		/// 
 		/// </summary>
 		private uint GetChecksum ()
 		{
@@ -659,6 +672,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return update time scale.
+		/// 
 		/// </summary>
 		private float GetTimeScale ()
 		{
@@ -671,6 +685,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return elapsed time in seconds.
+		/// 
 		/// </summary>
 		private float GetElapsedTime ()
 		{
@@ -683,6 +698,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return motion smoothing constant.
+		/// 
 		/// </summary>
 		private float GetSmoothingConstant ()
 		{
@@ -695,6 +711,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return motion smoothing snap threshold.
+		/// 
 		/// </summary>
 		private float GetSnapThreshold ()
 		{
@@ -707,6 +724,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum milliseconds per frame to spend on async loading.
+		/// 
 		/// </summary>
 		private int GetAsyncLoadingMs ()
 		{
@@ -721,6 +739,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return required package files.
+		/// 
 		/// </summary>
 		private IReadOnlyList<PackageFile> GetRequiredPackageFiles ()
 		{
@@ -901,6 +920,7 @@ namespace Urho
 
 		/// <summary>
 		/// Clean up all references to a network connection that is about to be removed.
+		/// 
 		/// </summary>
 		public override void CleanupConnection (Connection connection)
 		{
@@ -971,8 +991,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether updates are enabled.
+		/// 
 		/// Or
 		/// Enable or disable scene update.
+		/// 
 		/// </summary>
 		public bool UpdateEnabled {
 			get {
@@ -985,8 +1007,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return update time scale.
+		/// 
 		/// Or
 		/// Set update time scale. 1.0 = real time (default).
+		/// 
 		/// </summary>
 		public float TimeScale {
 			get {
@@ -999,8 +1023,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return elapsed time in seconds.
+		/// 
 		/// Or
 		/// Set elapsed time in seconds. This can be used to prevent inaccuracy in the timer if the scene runs for a long time.
+		/// 
 		/// </summary>
 		public float ElapsedTime {
 			get {
@@ -1013,8 +1039,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return motion smoothing constant.
+		/// 
 		/// Or
 		/// Set network client motion smoothing constant.
+		/// 
 		/// </summary>
 		public float SmoothingConstant {
 			get {
@@ -1027,8 +1055,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return motion smoothing snap threshold.
+		/// 
 		/// Or
 		/// Set network client motion smoothing snap threshold.
+		/// 
 		/// </summary>
 		public float SnapThreshold {
 			get {
@@ -1041,8 +1071,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum milliseconds per frame to spend on async loading.
+		/// 
 		/// Or
 		/// Set maximum milliseconds per frame to spend on async scene loading.
+		/// 
 		/// </summary>
 		public int AsyncLoadingMs {
 			get {
@@ -1055,6 +1087,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether an asynchronous loading operation is in progress.
+		/// 
 		/// </summary>
 		public bool AsyncLoading {
 			get {
@@ -1064,6 +1097,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return asynchronous loading progress between 0.0 and 1.0, or 1.0 if not in progress.
+		/// 
 		/// </summary>
 		public float AsyncProgress {
 			get {
@@ -1073,6 +1107,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the load mode of the current asynchronous loading operation.
+		/// 
 		/// </summary>
 		public LoadMode AsyncLoadMode {
 			get {
@@ -1082,6 +1117,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return source file name.
+		/// 
 		/// </summary>
 		public string FileName {
 			get {
@@ -1091,6 +1127,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return source file checksum.
+		/// 
 		/// </summary>
 		public uint Checksum {
 			get {
@@ -1100,6 +1137,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return required package files.
+		/// 
 		/// </summary>
 		public IReadOnlyList<PackageFile> RequiredPackageFiles {
 			get {

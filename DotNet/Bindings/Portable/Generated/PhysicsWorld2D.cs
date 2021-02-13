@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -143,6 +144,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Enable or disable automatic physics simulation during scene update. Enabled by default.
+		/// 
 		/// </summary>
 		private void SetUpdateEnabled (bool enable)
 		{
@@ -155,6 +157,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set draw shape.
+		/// 
 		/// </summary>
 		private void SetDrawShape (bool drawShape)
 		{
@@ -167,6 +170,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set draw joint.
+		/// 
 		/// </summary>
 		private void SetDrawJoint (bool drawJoint)
 		{
@@ -179,6 +183,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set draw aabb.
+		/// 
 		/// </summary>
 		private void SetDrawAabb (bool drawAabb)
 		{
@@ -191,6 +196,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set draw pair.
+		/// 
 		/// </summary>
 		private void SetDrawPair (bool drawPair)
 		{
@@ -203,6 +209,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set draw center of mass.
+		/// 
 		/// </summary>
 		private void SetDrawCenterOfMass (bool drawCenterOfMass)
 		{
@@ -215,6 +222,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set allow sleeping.
+		/// 
 		/// </summary>
 		private void SetAllowSleeping (bool enable)
 		{
@@ -227,6 +235,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set warm starting.
+		/// 
 		/// </summary>
 		private void SetWarmStarting (bool enable)
 		{
@@ -239,6 +248,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set continuous physics.
+		/// 
 		/// </summary>
 		private void SetContinuousPhysics (bool enable)
 		{
@@ -251,6 +261,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set sub stepping.
+		/// 
 		/// </summary>
 		private void SetSubStepping (bool enable)
 		{
@@ -263,6 +274,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set gravity.
+		/// 
 		/// </summary>
 		private void SetGravity (Urho.Vector2 gravity)
 		{
@@ -275,6 +287,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set auto clear forces.
+		/// 
 		/// </summary>
 		private void SetAutoClearForces (bool enable)
 		{
@@ -287,6 +300,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set velocity iterations.
+		/// 
 		/// </summary>
 		private void SetVelocityIterations (int velocityIterations)
 		{
@@ -299,6 +313,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set position iterations.
+		/// 
 		/// </summary>
 		private void SetPositionIterations (int positionIterations)
 		{
@@ -359,6 +374,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return whether physics world will automatically simulate during scene update.
+		/// 
 		/// </summary>
 		private bool IsUpdateEnabled ()
 		{
@@ -371,6 +387,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return draw shape.
+		/// 
 		/// </summary>
 		private bool GetDrawShape ()
 		{
@@ -383,6 +400,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return draw joint.
+		/// 
 		/// </summary>
 		private bool GetDrawJoint ()
 		{
@@ -395,6 +413,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return draw aabb.
+		/// 
 		/// </summary>
 		private bool GetDrawAabb ()
 		{
@@ -407,6 +426,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return draw pair.
+		/// 
 		/// </summary>
 		private bool GetDrawPair ()
 		{
@@ -419,6 +439,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return draw center of mass.
+		/// 
 		/// </summary>
 		private bool GetDrawCenterOfMass ()
 		{
@@ -431,6 +452,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return allow sleeping.
+		/// 
 		/// </summary>
 		private bool GetAllowSleeping ()
 		{
@@ -443,6 +465,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return warm starting.
+		/// 
 		/// </summary>
 		private bool GetWarmStarting ()
 		{
@@ -455,6 +478,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return continuous physics.
+		/// 
 		/// </summary>
 		private bool GetContinuousPhysics ()
 		{
@@ -467,6 +491,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return sub stepping.
+		/// 
 		/// </summary>
 		private bool GetSubStepping ()
 		{
@@ -479,6 +504,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return auto clear forces.
+		/// 
 		/// </summary>
 		private bool GetAutoClearForces ()
 		{
@@ -491,6 +517,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return gravity.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetGravity ()
 		{
@@ -503,6 +530,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return velocity iterations.
+		/// 
 		/// </summary>
 		private int GetVelocityIterations ()
 		{
@@ -515,6 +543,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return position iterations.
+		/// 
 		/// </summary>
 		private int GetPositionIterations ()
 		{
@@ -573,8 +602,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return whether physics world will automatically simulate during scene update.
+		/// 
 		/// Or
 		/// Enable or disable automatic physics simulation during scene update. Enabled by default.
+		/// 
 		/// </summary>
 		public bool UpdateEnabled {
 			get {
@@ -587,8 +618,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return draw shape.
+		/// 
 		/// Or
 		/// Set draw shape.
+		/// 
 		/// </summary>
 		public bool DrawShape {
 			get {
@@ -601,8 +634,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return draw joint.
+		/// 
 		/// Or
 		/// Set draw joint.
+		/// 
 		/// </summary>
 		public bool DrawJoint {
 			get {
@@ -615,8 +650,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return draw aabb.
+		/// 
 		/// Or
 		/// Set draw aabb.
+		/// 
 		/// </summary>
 		public bool DrawAabb {
 			get {
@@ -629,8 +666,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return draw pair.
+		/// 
 		/// Or
 		/// Set draw pair.
+		/// 
 		/// </summary>
 		public bool DrawPair {
 			get {
@@ -643,8 +682,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return draw center of mass.
+		/// 
 		/// Or
 		/// Set draw center of mass.
+		/// 
 		/// </summary>
 		public bool DrawCenterOfMass {
 			get {
@@ -657,8 +698,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return allow sleeping.
+		/// 
 		/// Or
 		/// Set allow sleeping.
+		/// 
 		/// </summary>
 		public bool AllowSleeping {
 			get {
@@ -671,8 +714,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return warm starting.
+		/// 
 		/// Or
 		/// Set warm starting.
+		/// 
 		/// </summary>
 		public bool WarmStarting {
 			get {
@@ -685,8 +730,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return continuous physics.
+		/// 
 		/// Or
 		/// Set continuous physics.
+		/// 
 		/// </summary>
 		public bool ContinuousPhysics {
 			get {
@@ -699,8 +746,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return sub stepping.
+		/// 
 		/// Or
 		/// Set sub stepping.
+		/// 
 		/// </summary>
 		public bool SubStepping {
 			get {
@@ -713,8 +762,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return gravity.
+		/// 
 		/// Or
 		/// Set gravity.
+		/// 
 		/// </summary>
 		public Urho.Vector2 Gravity {
 			get {
@@ -727,8 +778,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return auto clear forces.
+		/// 
 		/// Or
 		/// Set auto clear forces.
+		/// 
 		/// </summary>
 		public bool AutoClearForces {
 			get {
@@ -741,8 +794,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return velocity iterations.
+		/// 
 		/// Or
 		/// Set velocity iterations.
+		/// 
 		/// </summary>
 		public int VelocityIterations {
 			get {
@@ -755,8 +810,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return position iterations.
+		/// 
 		/// Or
 		/// Set position iterations.
+		/// 
 		/// </summary>
 		public int PositionIterations {
 			get {

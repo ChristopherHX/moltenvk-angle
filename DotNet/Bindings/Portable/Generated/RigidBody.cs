@@ -95,6 +95,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -143,6 +144,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set mass. Zero mass makes the body static.
+		/// 
 		/// </summary>
 		private void SetMass (float mass)
 		{
@@ -155,6 +157,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set rigid body position in world space.
+		/// 
 		/// </summary>
 		public void SetPosition (Urho.Vector3 position)
 		{
@@ -167,6 +170,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set rigid body rotation in world space.
+		/// 
 		/// </summary>
 		public void SetRotation (Urho.Quaternion rotation)
 		{
@@ -191,6 +195,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set linear velocity.
+		/// 
 		/// </summary>
 		public void SetLinearVelocity (Urho.Vector3 velocity)
 		{
@@ -203,6 +208,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set linear degrees of freedom. Use 1 to enable an axis or 0 to disable. Default is all axes enabled (1, 1, 1).
+		/// 
 		/// </summary>
 		public void SetLinearFactor (Urho.Vector3 factor)
 		{
@@ -215,6 +221,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set linear velocity deactivation threshold.
+		/// 
 		/// </summary>
 		private void SetLinearRestThreshold (float threshold)
 		{
@@ -227,6 +234,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set linear velocity damping factor.
+		/// 
 		/// </summary>
 		private void SetLinearDamping (float damping)
 		{
@@ -239,6 +247,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set angular velocity.
+		/// 
 		/// </summary>
 		public void SetAngularVelocity (Urho.Vector3 velocity)
 		{
@@ -251,6 +260,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set angular degrees of freedom. Use 1 to enable an axis or 0 to disable. Default is all axes enabled (1, 1, 1).
+		/// 
 		/// </summary>
 		public void SetAngularFactor (Urho.Vector3 factor)
 		{
@@ -263,6 +273,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set angular velocity deactivation threshold.
+		/// 
 		/// </summary>
 		private void SetAngularRestThreshold (float threshold)
 		{
@@ -275,6 +286,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set angular velocity damping factor.
+		/// 
 		/// </summary>
 		private void SetAngularDamping (float damping)
 		{
@@ -287,6 +299,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set friction coefficient.
+		/// 
 		/// </summary>
 		private void SetFriction (float friction)
 		{
@@ -299,6 +312,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set anisotropic friction.
+		/// 
 		/// </summary>
 		public void SetAnisotropicFriction (Urho.Vector3 friction)
 		{
@@ -311,6 +325,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set rolling friction coefficient.
+		/// 
 		/// </summary>
 		private void SetRollingFriction (float friction)
 		{
@@ -323,6 +338,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set restitution coefficient.
+		/// 
 		/// </summary>
 		private void SetRestitution (float restitution)
 		{
@@ -335,6 +351,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set contact processing threshold.
+		/// 
 		/// </summary>
 		private void SetContactProcessingThreshold (float threshold)
 		{
@@ -347,6 +364,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set continuous collision detection swept sphere radius.
+		/// 
 		/// </summary>
 		private void SetCcdRadius (float radius)
 		{
@@ -359,6 +377,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set continuous collision detection motion-per-simulation-step threshold. 0 disables, which is the default.
+		/// 
 		/// </summary>
 		private void SetCcdMotionThreshold (float threshold)
 		{
@@ -371,6 +390,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set whether gravity is applied to rigid body.
+		/// 
 		/// </summary>
 		private void SetUseGravity (bool enable)
 		{
@@ -383,6 +403,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set gravity override. If zero, uses physics world's gravity.
+		/// 
 		/// </summary>
 		private void SetGravityOverride (Urho.Vector3 gravity)
 		{
@@ -395,6 +416,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set rigid body kinematic mode. In kinematic mode forces are not applied to the rigid body.
+		/// 
 		/// </summary>
 		private void SetKinematic (bool enable)
 		{
@@ -407,6 +429,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set rigid body trigger mode. In trigger mode collisions are reported but do not apply forces.
+		/// 
 		/// </summary>
 		private void SetTrigger (bool enable)
 		{
@@ -419,6 +442,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set collision layer.
+		/// 
 		/// </summary>
 		private void SetCollisionLayer (uint layer)
 		{
@@ -431,6 +455,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set collision mask.
+		/// 
 		/// </summary>
 		private void SetCollisionMask (uint mask)
 		{
@@ -455,6 +480,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Set collision event signaling mode. Default is to signal when rigid bodies are active.
+		/// 
 		/// </summary>
 		private void SetCollisionEventMode (CollisionEventMode mode)
 		{
@@ -611,6 +637,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return mass.
+		/// 
 		/// </summary>
 		private float GetMass ()
 		{
@@ -623,6 +650,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return rigid body position in world space.
+		/// 
 		/// </summary>
 		private Vector3 GetPosition ()
 		{
@@ -635,6 +663,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return rigid body rotation in world space.
+		/// 
 		/// </summary>
 		private Quaternion GetRotation ()
 		{
@@ -647,6 +676,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return linear velocity.
+		/// 
 		/// </summary>
 		private Vector3 GetLinearVelocity ()
 		{
@@ -659,6 +689,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return linear degrees of freedom.
+		/// 
 		/// </summary>
 		private Vector3 GetLinearFactor ()
 		{
@@ -683,6 +714,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return linear velocity deactivation threshold.
+		/// 
 		/// </summary>
 		private float GetLinearRestThreshold ()
 		{
@@ -695,6 +727,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return linear velocity damping factor.
+		/// 
 		/// </summary>
 		private float GetLinearDamping ()
 		{
@@ -707,6 +740,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return angular velocity.
+		/// 
 		/// </summary>
 		private Vector3 GetAngularVelocity ()
 		{
@@ -719,6 +753,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return angular degrees of freedom.
+		/// 
 		/// </summary>
 		private Vector3 GetAngularFactor ()
 		{
@@ -731,6 +766,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return angular velocity deactivation threshold.
+		/// 
 		/// </summary>
 		private float GetAngularRestThreshold ()
 		{
@@ -743,6 +779,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return angular velocity damping factor.
+		/// 
 		/// </summary>
 		private float GetAngularDamping ()
 		{
@@ -755,6 +792,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return friction coefficient.
+		/// 
 		/// </summary>
 		private float GetFriction ()
 		{
@@ -767,6 +805,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return anisotropic friction.
+		/// 
 		/// </summary>
 		private Vector3 GetAnisotropicFriction ()
 		{
@@ -779,6 +818,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return rolling friction coefficient.
+		/// 
 		/// </summary>
 		private float GetRollingFriction ()
 		{
@@ -791,6 +831,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return restitution coefficient.
+		/// 
 		/// </summary>
 		private float GetRestitution ()
 		{
@@ -803,6 +844,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return contact processing threshold.
+		/// 
 		/// </summary>
 		private float GetContactProcessingThreshold ()
 		{
@@ -815,6 +857,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return continuous collision detection swept sphere radius.
+		/// 
 		/// </summary>
 		private float GetCcdRadius ()
 		{
@@ -827,6 +870,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return continuous collision detection motion-per-simulation-step threshold.
+		/// 
 		/// </summary>
 		private float GetCcdMotionThreshold ()
 		{
@@ -839,6 +883,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return whether rigid body uses gravity.
+		/// 
 		/// </summary>
 		private bool GetUseGravity ()
 		{
@@ -851,6 +896,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return gravity override. If zero (default), uses the physics world's gravity.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetGravityOverride ()
 		{
@@ -863,6 +909,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return center of mass offset.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetCenterOfMass ()
 		{
@@ -875,6 +922,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return kinematic mode flag.
+		/// 
 		/// </summary>
 		private bool IsKinematic ()
 		{
@@ -887,6 +935,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return whether this RigidBody is acting as a trigger.
+		/// 
 		/// </summary>
 		private bool IsTrigger ()
 		{
@@ -899,6 +948,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return whether rigid body is active (not sleeping).
+		/// 
 		/// </summary>
 		private bool IsActive ()
 		{
@@ -911,6 +961,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return collision layer.
+		/// 
 		/// </summary>
 		private uint GetCollisionLayer ()
 		{
@@ -923,6 +974,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return collision mask.
+		/// 
 		/// </summary>
 		private uint GetCollisionMask ()
 		{
@@ -935,6 +987,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return collision event signaling mode.
+		/// 
 		/// </summary>
 		private CollisionEventMode GetCollisionEventMode ()
 		{
@@ -1041,8 +1094,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return mass.
+		/// 
 		/// Or
 		/// Set mass. Zero mass makes the body static.
+		/// 
 		/// </summary>
 		public float Mass {
 			get {
@@ -1055,6 +1110,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return rigid body position in world space.
+		/// 
 		/// </summary>
 		public Vector3 Position {
 			get {
@@ -1064,6 +1120,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return rigid body rotation in world space.
+		/// 
 		/// </summary>
 		public Quaternion Rotation {
 			get {
@@ -1073,6 +1130,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return linear velocity.
+		/// 
 		/// </summary>
 		public Vector3 LinearVelocity {
 			get {
@@ -1082,6 +1140,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return linear degrees of freedom.
+		/// 
 		/// </summary>
 		public Vector3 LinearFactor {
 			get {
@@ -1091,8 +1150,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return linear velocity deactivation threshold.
+		/// 
 		/// Or
 		/// Set linear velocity deactivation threshold.
+		/// 
 		/// </summary>
 		public float LinearRestThreshold {
 			get {
@@ -1105,8 +1166,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return linear velocity damping factor.
+		/// 
 		/// Or
 		/// Set linear velocity damping factor.
+		/// 
 		/// </summary>
 		public float LinearDamping {
 			get {
@@ -1119,6 +1182,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return angular velocity.
+		/// 
 		/// </summary>
 		public Vector3 AngularVelocity {
 			get {
@@ -1128,6 +1192,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return angular degrees of freedom.
+		/// 
 		/// </summary>
 		public Vector3 AngularFactor {
 			get {
@@ -1137,8 +1202,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return angular velocity deactivation threshold.
+		/// 
 		/// Or
 		/// Set angular velocity deactivation threshold.
+		/// 
 		/// </summary>
 		public float AngularRestThreshold {
 			get {
@@ -1151,8 +1218,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return angular velocity damping factor.
+		/// 
 		/// Or
 		/// Set angular velocity damping factor.
+		/// 
 		/// </summary>
 		public float AngularDamping {
 			get {
@@ -1165,8 +1234,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return friction coefficient.
+		/// 
 		/// Or
 		/// Set friction coefficient.
+		/// 
 		/// </summary>
 		public float Friction {
 			get {
@@ -1179,6 +1250,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return anisotropic friction.
+		/// 
 		/// </summary>
 		public Vector3 AnisotropicFriction {
 			get {
@@ -1188,8 +1260,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return rolling friction coefficient.
+		/// 
 		/// Or
 		/// Set rolling friction coefficient.
+		/// 
 		/// </summary>
 		public float RollingFriction {
 			get {
@@ -1202,8 +1276,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return restitution coefficient.
+		/// 
 		/// Or
 		/// Set restitution coefficient.
+		/// 
 		/// </summary>
 		public float Restitution {
 			get {
@@ -1216,8 +1292,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return contact processing threshold.
+		/// 
 		/// Or
 		/// Set contact processing threshold.
+		/// 
 		/// </summary>
 		public float ContactProcessingThreshold {
 			get {
@@ -1230,8 +1308,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return continuous collision detection swept sphere radius.
+		/// 
 		/// Or
 		/// Set continuous collision detection swept sphere radius.
+		/// 
 		/// </summary>
 		public float CcdRadius {
 			get {
@@ -1244,8 +1324,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return continuous collision detection motion-per-simulation-step threshold.
+		/// 
 		/// Or
 		/// Set continuous collision detection motion-per-simulation-step threshold. 0 disables, which is the default.
+		/// 
 		/// </summary>
 		public float CcdMotionThreshold {
 			get {
@@ -1258,8 +1340,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return whether rigid body uses gravity.
+		/// 
 		/// Or
 		/// Set whether gravity is applied to rigid body.
+		/// 
 		/// </summary>
 		public bool UseGravity {
 			get {
@@ -1272,8 +1356,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return gravity override. If zero (default), uses the physics world's gravity.
+		/// 
 		/// Or
 		/// Set gravity override. If zero, uses physics world's gravity.
+		/// 
 		/// </summary>
 		public Urho.Vector3 GravityOverride {
 			get {
@@ -1286,8 +1372,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return kinematic mode flag.
+		/// 
 		/// Or
 		/// Set rigid body kinematic mode. In kinematic mode forces are not applied to the rigid body.
+		/// 
 		/// </summary>
 		public bool Kinematic {
 			get {
@@ -1300,8 +1388,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return whether this RigidBody is acting as a trigger.
+		/// 
 		/// Or
 		/// Set rigid body trigger mode. In trigger mode collisions are reported but do not apply forces.
+		/// 
 		/// </summary>
 		public bool Trigger {
 			get {
@@ -1314,8 +1404,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return collision layer.
+		/// 
 		/// Or
 		/// Set collision layer.
+		/// 
 		/// </summary>
 		public uint CollisionLayer {
 			get {
@@ -1328,8 +1420,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return collision mask.
+		/// 
 		/// Or
 		/// Set collision mask.
+		/// 
 		/// </summary>
 		public uint CollisionMask {
 			get {
@@ -1342,8 +1436,10 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return collision event signaling mode.
+		/// 
 		/// Or
 		/// Set collision event signaling mode. Default is to signal when rigid bodies are active.
+		/// 
 		/// </summary>
 		public CollisionEventMode CollisionEventMode {
 			get {
@@ -1365,6 +1461,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return center of mass offset.
+		/// 
 		/// </summary>
 		public Urho.Vector3 CenterOfMass {
 			get {
@@ -1374,6 +1471,7 @@ namespace Urho.Physics
 
 		/// <summary>
 		/// Return whether rigid body is active (not sleeping).
+		/// 
 		/// </summary>
 		public bool Active {
 			get {

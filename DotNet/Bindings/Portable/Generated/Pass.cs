@@ -54,6 +54,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set blend mode.
+		/// 
 		/// </summary>
 		private void SetBlendMode (BlendMode mode)
 		{
@@ -66,6 +67,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set culling mode override. By default culling mode is read from the material instead. Set the illegal culling mode MAX_CULLMODES to disable override again.
+		/// 
 		/// </summary>
 		private void SetCullMode (CullMode mode)
 		{
@@ -78,6 +80,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set depth compare mode.
+		/// 
 		/// </summary>
 		private void SetDepthTestMode (CompareMode mode)
 		{
@@ -90,6 +93,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set pass lighting mode, affects what shader variations will be attempted to be loaded.
+		/// 
 		/// </summary>
 		private void SetLightingMode (PassLightingMode mode)
 		{
@@ -102,6 +106,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set depth write on/off.
+		/// 
 		/// </summary>
 		private void SetDepthWrite (bool enable)
 		{
@@ -114,6 +119,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set alpha-to-coverage on/off.
+		/// 
 		/// </summary>
 		private void SetAlphaToCoverage (bool enable)
 		{
@@ -126,6 +132,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether requires desktop level hardware.
+		/// 
 		/// </summary>
 		public void SetIsDesktop (bool enable)
 		{
@@ -138,6 +145,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set vertex shader name.
+		/// 
 		/// </summary>
 		private void SetVertexShader (string name)
 		{
@@ -150,6 +158,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set pixel shader name.
+		/// 
 		/// </summary>
 		private void SetPixelShader (string name)
 		{
@@ -162,6 +171,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set vertex shader defines. Separate multiple defines with spaces.
+		/// 
 		/// </summary>
 		private void SetVertexShaderDefines (string defines)
 		{
@@ -174,6 +184,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set pixel shader defines. Separate multiple defines with spaces.
+		/// 
 		/// </summary>
 		private void SetPixelShaderDefines (string defines)
 		{
@@ -186,6 +197,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set vertex shader define excludes. Use to mark defines that the shader code will not recognize, to prevent compiling redundant shader variations.
+		/// 
 		/// </summary>
 		private void SetVertexShaderDefineExcludes (string excludes)
 		{
@@ -198,6 +210,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set pixel shader define excludes. Use to mark defines that the shader code will not recognize, to prevent compiling redundant shader variations.
+		/// 
 		/// </summary>
 		private void SetPixelShaderDefineExcludes (string excludes)
 		{
@@ -258,6 +271,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return blend mode.
+		/// 
 		/// </summary>
 		private BlendMode GetBlendMode ()
 		{
@@ -270,6 +284,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return culling mode override. If pass is not overriding culling mode (default), the illegal mode MAX_CULLMODES is returned.
+		/// 
 		/// </summary>
 		private CullMode GetCullMode ()
 		{
@@ -282,6 +297,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return depth compare mode.
+		/// 
 		/// </summary>
 		private CompareMode GetDepthTestMode ()
 		{
@@ -294,6 +310,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return pass lighting mode.
+		/// 
 		/// </summary>
 		private PassLightingMode GetLightingMode ()
 		{
@@ -318,6 +335,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return depth write mode.
+		/// 
 		/// </summary>
 		private bool GetDepthWrite ()
 		{
@@ -330,6 +348,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return alpha-to-coverage mode.
+		/// 
 		/// </summary>
 		private bool GetAlphaToCoverage ()
 		{
@@ -342,6 +361,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether requires desktop level hardware.
+		/// 
 		/// </summary>
 		private bool IsDesktop ()
 		{
@@ -354,6 +374,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return vertex shader name.
+		/// 
 		/// </summary>
 		private string GetVertexShader ()
 		{
@@ -366,6 +387,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return pixel shader name.
+		/// 
 		/// </summary>
 		private string GetPixelShader ()
 		{
@@ -378,6 +400,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return vertex shader defines.
+		/// 
 		/// </summary>
 		private string GetVertexShaderDefines ()
 		{
@@ -390,6 +413,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return pixel shader defines.
+		/// 
 		/// </summary>
 		private string GetPixelShaderDefines ()
 		{
@@ -402,6 +426,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return vertex shader define excludes.
+		/// 
 		/// </summary>
 		private string GetVertexShaderDefineExcludes ()
 		{
@@ -414,6 +439,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return pixel shader define excludes.
+		/// 
 		/// </summary>
 		private string GetPixelShaderDefineExcludes ()
 		{
@@ -447,8 +473,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return blend mode.
+		/// 
 		/// Or
 		/// Set blend mode.
+		/// 
 		/// </summary>
 		public BlendMode BlendMode {
 			get {
@@ -461,8 +489,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return culling mode override. If pass is not overriding culling mode (default), the illegal mode MAX_CULLMODES is returned.
+		/// 
 		/// Or
 		/// Set culling mode override. By default culling mode is read from the material instead. Set the illegal culling mode MAX_CULLMODES to disable override again.
+		/// 
 		/// </summary>
 		public CullMode CullMode {
 			get {
@@ -475,8 +505,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return depth compare mode.
+		/// 
 		/// Or
 		/// Set depth compare mode.
+		/// 
 		/// </summary>
 		public CompareMode DepthTestMode {
 			get {
@@ -489,8 +521,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return pass lighting mode.
+		/// 
 		/// Or
 		/// Set pass lighting mode, affects what shader variations will be attempted to be loaded.
+		/// 
 		/// </summary>
 		public PassLightingMode LightingMode {
 			get {
@@ -503,8 +537,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return depth write mode.
+		/// 
 		/// Or
 		/// Set depth write on/off.
+		/// 
 		/// </summary>
 		public bool DepthWrite {
 			get {
@@ -517,8 +553,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return alpha-to-coverage mode.
+		/// 
 		/// Or
 		/// Set alpha-to-coverage on/off.
+		/// 
 		/// </summary>
 		public bool AlphaToCoverage {
 			get {
@@ -531,8 +569,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return vertex shader name.
+		/// 
 		/// Or
 		/// Set vertex shader name.
+		/// 
 		/// </summary>
 		public string VertexShader {
 			get {
@@ -545,8 +585,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return pixel shader name.
+		/// 
 		/// Or
 		/// Set pixel shader name.
+		/// 
 		/// </summary>
 		public string PixelShader {
 			get {
@@ -559,8 +601,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return vertex shader defines.
+		/// 
 		/// Or
 		/// Set vertex shader defines. Separate multiple defines with spaces.
+		/// 
 		/// </summary>
 		public string VertexShaderDefines {
 			get {
@@ -573,8 +617,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return pixel shader defines.
+		/// 
 		/// Or
 		/// Set pixel shader defines. Separate multiple defines with spaces.
+		/// 
 		/// </summary>
 		public string PixelShaderDefines {
 			get {
@@ -587,8 +633,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return vertex shader define excludes.
+		/// 
 		/// Or
 		/// Set vertex shader define excludes. Use to mark defines that the shader code will not recognize, to prevent compiling redundant shader variations.
+		/// 
 		/// </summary>
 		public string VertexShaderDefineExcludes {
 			get {
@@ -601,8 +649,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return pixel shader define excludes.
+		/// 
 		/// Or
 		/// Set pixel shader define excludes. Use to mark defines that the shader code will not recognize, to prevent compiling redundant shader variations.
+		/// 
 		/// </summary>
 		public string PixelShaderDefineExcludes {
 			get {
@@ -642,6 +692,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether requires desktop level hardware.
+		/// 
 		/// </summary>
 		public bool Desktop {
 			get {

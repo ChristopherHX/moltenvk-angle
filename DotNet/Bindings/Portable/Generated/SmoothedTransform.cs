@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -119,6 +120,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set target position in parent space.
+		/// 
 		/// </summary>
 		private void SetTargetPosition (Urho.Vector3 position)
 		{
@@ -131,6 +133,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set target rotation in parent space.
+		/// 
 		/// </summary>
 		private void SetTargetRotation (Urho.Quaternion rotation)
 		{
@@ -143,6 +146,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set target position in world space.
+		/// 
 		/// </summary>
 		public void SetTargetWorldPosition (Urho.Vector3 position)
 		{
@@ -155,6 +159,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set target rotation in world space.
+		/// 
 		/// </summary>
 		public void SetTargetWorldRotation (Urho.Quaternion rotation)
 		{
@@ -167,6 +172,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return target position in parent space.
+		/// 
 		/// </summary>
 		private Urho.Vector3 GetTargetPosition ()
 		{
@@ -179,6 +185,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return target rotation in parent space.
+		/// 
 		/// </summary>
 		private Urho.Quaternion GetTargetRotation ()
 		{
@@ -191,6 +198,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return target position in world space.
+		/// 
 		/// </summary>
 		private Vector3 GetTargetWorldPosition ()
 		{
@@ -203,6 +211,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return target rotation in world space.
+		/// 
 		/// </summary>
 		private Quaternion GetTargetWorldRotation ()
 		{
@@ -215,6 +224,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether smoothing is in progress.
+		/// 
 		/// </summary>
 		private bool IsInProgress ()
 		{
@@ -249,8 +259,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return target position in parent space.
+		/// 
 		/// Or
 		/// Set target position in parent space.
+		/// 
 		/// </summary>
 		public Urho.Vector3 TargetPosition {
 			get {
@@ -263,8 +275,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return target rotation in parent space.
+		/// 
 		/// Or
 		/// Set target rotation in parent space.
+		/// 
 		/// </summary>
 		public Urho.Quaternion TargetRotation {
 			get {
@@ -277,6 +291,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return target position in world space.
+		/// 
 		/// </summary>
 		public Vector3 TargetWorldPosition {
 			get {
@@ -286,6 +301,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return target rotation in world space.
+		/// 
 		/// </summary>
 		public Quaternion TargetWorldRotation {
 			get {
@@ -295,6 +311,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether smoothing is in progress.
+		/// 
 		/// </summary>
 		public bool InProgress {
 			get {

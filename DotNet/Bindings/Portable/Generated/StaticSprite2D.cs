@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory. Drawable2D must be registered first.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set sprite.
+		/// 
 		/// </summary>
 		private void SetSprite (Sprite2D sprite)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set blend mode.
+		/// 
 		/// </summary>
 		private void SetBlendMode (BlendMode blendMode)
 		{
@@ -143,6 +146,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set flip X.
+		/// 
 		/// </summary>
 		private void SetFlipX (bool flipX)
 		{
@@ -155,6 +159,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set flip Y.
+		/// 
 		/// </summary>
 		private void SetFlipY (bool flipY)
 		{
@@ -167,6 +172,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set swap X and Y.
+		/// 
 		/// </summary>
 		private void SetSwapXY (bool swapXY)
 		{
@@ -179,6 +185,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set color.
+		/// 
 		/// </summary>
 		private void SetColor (Urho.Color color)
 		{
@@ -191,6 +198,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set alpha.
+		/// 
 		/// </summary>
 		private void SetAlpha (float alpha)
 		{
@@ -203,6 +211,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set whether to use custom-defined hot spot.
+		/// 
 		/// </summary>
 		private void SetUseHotSpot (bool useHotSpot)
 		{
@@ -215,6 +224,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set whether to use custom-defined draw rectangle.
+		/// 
 		/// </summary>
 		private void SetUseDrawRect (bool useDrawRect)
 		{
@@ -227,6 +237,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set whether to use custom-defined texture rectangle.
+		/// 
 		/// </summary>
 		private void SetUseTextureRect (bool useTextureRect)
 		{
@@ -239,6 +250,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set hot spot.
+		/// 
 		/// </summary>
 		private void SetHotSpot (Urho.Vector2 hotspot)
 		{
@@ -251,6 +263,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set custom material.
+		/// 
 		/// </summary>
 		private void SetCustomMaterial (Material customMaterial)
 		{
@@ -263,6 +276,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return sprite.
+		/// 
 		/// </summary>
 		private Sprite2D GetSprite ()
 		{
@@ -275,6 +289,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return blend mode.
+		/// 
 		/// </summary>
 		private BlendMode GetBlendMode ()
 		{
@@ -287,6 +302,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return flip X.
+		/// 
 		/// </summary>
 		private bool GetFlipX ()
 		{
@@ -299,6 +315,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return flip Y.
+		/// 
 		/// </summary>
 		private bool GetFlipY ()
 		{
@@ -311,6 +328,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return swap X and Y.
+		/// 
 		/// </summary>
 		private bool GetSwapXY ()
 		{
@@ -323,6 +341,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return color.
+		/// 
 		/// </summary>
 		private Urho.Color GetColor ()
 		{
@@ -335,6 +354,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return alpha.
+		/// 
 		/// </summary>
 		private float GetAlpha ()
 		{
@@ -347,6 +367,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return whether to use custom-defined hot spot.
+		/// 
 		/// </summary>
 		private bool GetUseHotSpot ()
 		{
@@ -359,6 +380,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return whether to use custom-defined draw rectangle.
+		/// 
 		/// </summary>
 		private bool GetUseDrawRect ()
 		{
@@ -371,6 +393,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return whether to use custom-defined texture rectangle.
+		/// 
 		/// </summary>
 		private bool GetUseTextureRect ()
 		{
@@ -383,6 +406,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return hot spot.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetHotSpot ()
 		{
@@ -395,6 +419,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return custom material.
+		/// 
 		/// </summary>
 		private Material GetCustomMaterial ()
 		{
@@ -453,8 +478,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return sprite.
+		/// 
 		/// Or
 		/// Set sprite.
+		/// 
 		/// </summary>
 		public Sprite2D Sprite {
 			get {
@@ -467,8 +494,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return blend mode.
+		/// 
 		/// Or
 		/// Set blend mode.
+		/// 
 		/// </summary>
 		public BlendMode BlendMode {
 			get {
@@ -481,8 +510,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return flip X.
+		/// 
 		/// Or
 		/// Set flip X.
+		/// 
 		/// </summary>
 		public bool FlipX {
 			get {
@@ -495,8 +526,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return flip Y.
+		/// 
 		/// Or
 		/// Set flip Y.
+		/// 
 		/// </summary>
 		public bool FlipY {
 			get {
@@ -509,8 +542,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return swap X and Y.
+		/// 
 		/// Or
 		/// Set swap X and Y.
+		/// 
 		/// </summary>
 		public bool SwapXY {
 			get {
@@ -523,8 +558,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return color.
+		/// 
 		/// Or
 		/// Set color.
+		/// 
 		/// </summary>
 		public Urho.Color Color {
 			get {
@@ -537,8 +574,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return alpha.
+		/// 
 		/// Or
 		/// Set alpha.
+		/// 
 		/// </summary>
 		public float Alpha {
 			get {
@@ -551,8 +590,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return whether to use custom-defined hot spot.
+		/// 
 		/// Or
 		/// Set whether to use custom-defined hot spot.
+		/// 
 		/// </summary>
 		public bool UseHotSpot {
 			get {
@@ -565,8 +606,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return whether to use custom-defined draw rectangle.
+		/// 
 		/// Or
 		/// Set whether to use custom-defined draw rectangle.
+		/// 
 		/// </summary>
 		public bool UseDrawRect {
 			get {
@@ -579,8 +622,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return whether to use custom-defined texture rectangle.
+		/// 
 		/// Or
 		/// Set whether to use custom-defined texture rectangle.
+		/// 
 		/// </summary>
 		public bool UseTextureRect {
 			get {
@@ -593,8 +638,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return hot spot.
+		/// 
 		/// Or
 		/// Set hot spot.
+		/// 
 		/// </summary>
 		public Urho.Vector2 HotSpot {
 			get {
@@ -607,8 +654,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return custom material.
+		/// 
 		/// Or
 		/// Set custom material.
+		/// 
 		/// </summary>
 		public Material CustomMaterial {
 			get {

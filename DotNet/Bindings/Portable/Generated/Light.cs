@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory. Drawable must be registered first.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -119,6 +120,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set light type.
+		/// 
 		/// </summary>
 		private void SetLightType (LightType type)
 		{
@@ -131,6 +133,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set vertex lighting mode.
+		/// 
 		/// </summary>
 		private void SetPerVertex (bool enable)
 		{
@@ -143,6 +146,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set color.
+		/// 
 		/// </summary>
 		private void SetColor (Urho.Color color)
 		{
@@ -155,6 +159,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set temperature of the light in Kelvin. Modulates the light color when "use physical values" is enabled.
+		/// 
 		/// </summary>
 		private void SetTemperature (float temperature)
 		{
@@ -167,6 +172,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set area light radius. Greater than zero activates area light mode. Works only with PBR shaders.
+		/// 
 		/// </summary>
 		private void SetRadius (float radius)
 		{
@@ -179,6 +185,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set tube area light length. Works only with PBR shaders.
+		/// 
 		/// </summary>
 		private void SetLength (float length)
 		{
@@ -191,6 +198,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set use physical light values.
+		/// 
 		/// </summary>
 		private void SetUsePhysicalValues (bool enable)
 		{
@@ -203,6 +211,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set specular intensity. Zero disables specular calculations.
+		/// 
 		/// </summary>
 		private void SetSpecularIntensity (float intensity)
 		{
@@ -215,6 +224,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set light brightness multiplier. Both the color and specular intensity are multiplied with this. When "use physical values" is enabled, the value is specified in lumens.
+		/// 
 		/// </summary>
 		private void SetBrightness (float brightness)
 		{
@@ -227,6 +237,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set range.
+		/// 
 		/// </summary>
 		private void SetRange (float range)
 		{
@@ -239,6 +250,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set spotlight field of view.
+		/// 
 		/// </summary>
 		private void SetFov (float fov)
 		{
@@ -251,6 +263,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set spotlight aspect ratio.
+		/// 
 		/// </summary>
 		private void SetAspectRatio (float aspectRatio)
 		{
@@ -263,6 +276,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set fade out start distance.
+		/// 
 		/// </summary>
 		private void SetFadeDistance (float distance)
 		{
@@ -275,6 +289,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadow fade out start distance. Only has effect if shadow distance is also non-zero.
+		/// 
 		/// </summary>
 		private void SetShadowFadeDistance (float distance)
 		{
@@ -287,6 +302,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadow depth bias parameters.
+		/// 
 		/// </summary>
 		private void SetShadowBias (BiasParameters parameters)
 		{
@@ -299,6 +315,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set directional light cascaded shadow parameters.
+		/// 
 		/// </summary>
 		private void SetShadowCascade (CascadeParameters parameters)
 		{
@@ -311,6 +328,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadow map focusing parameters.
+		/// 
 		/// </summary>
 		private void SetShadowFocus (FocusParameters parameters)
 		{
@@ -323,6 +341,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set light intensity in shadow between 0.0 - 1.0. 0.0 (the default) gives fully dark shadows.
+		/// 
 		/// </summary>
 		private void SetShadowIntensity (float intensity)
 		{
@@ -335,6 +354,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadow resolution between 0.25 - 1.0. Determines the shadow map to use.
+		/// 
 		/// </summary>
 		private void SetShadowResolution (float resolution)
 		{
@@ -347,6 +367,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shadow camera near/far clip distance ratio for spot and point lights. Does not affect directional lights, since they are orthographic and have near clip 0.
+		/// 
 		/// </summary>
 		private void SetShadowNearFarRatio (float nearFarRatio)
 		{
@@ -359,6 +380,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set maximum shadow extrusion for directional lights. The actual extrusion will be the smaller of this and camera far clip. Default 1000.
+		/// 
 		/// </summary>
 		private void SetShadowMaxExtrusion (float extrusion)
 		{
@@ -371,6 +393,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set range attenuation texture.
+		/// 
 		/// </summary>
 		private void SetRampTexture (Texture texture)
 		{
@@ -383,6 +406,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set spotlight attenuation texture.
+		/// 
 		/// </summary>
 		private void SetShapeTexture (Texture texture)
 		{
@@ -395,6 +419,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return light type.
+		/// 
 		/// </summary>
 		private LightType GetLightType ()
 		{
@@ -407,6 +432,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return vertex lighting mode.
+		/// 
 		/// </summary>
 		private bool GetPerVertex ()
 		{
@@ -419,6 +445,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return color.
+		/// 
 		/// </summary>
 		private Urho.Color GetColor ()
 		{
@@ -431,6 +458,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the temperature of the light in Kelvin.
+		/// 
 		/// </summary>
 		private float GetTemperature ()
 		{
@@ -443,6 +471,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return area light mode radius. Works only with PBR shaders.
+		/// 
 		/// </summary>
 		private float GetRadius ()
 		{
@@ -455,6 +484,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return area tube light length. Works only with PBR shaders.
+		/// 
 		/// </summary>
 		private float GetLength ()
 		{
@@ -467,6 +497,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return if light uses temperature and brightness in lumens.
+		/// 
 		/// </summary>
 		private bool GetUsePhysicalValues ()
 		{
@@ -479,6 +510,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the color value of the temperature in Kelvin.
+		/// 
 		/// </summary>
 		private Color GetColorFromTemperature ()
 		{
@@ -491,6 +523,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return specular intensity.
+		/// 
 		/// </summary>
 		private float GetSpecularIntensity ()
 		{
@@ -503,6 +536,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return brightness multiplier. Specified in lumens when "use physical values" is enabled.
+		/// 
 		/// </summary>
 		private float GetBrightness ()
 		{
@@ -515,6 +549,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return effective color, multiplied by brightness and affected by temperature when "use physical values" is enabled. Alpha is always 1 so that can compare against the default black color to detect a light with no effect.
+		/// 
 		/// </summary>
 		private Color GetEffectiveColor ()
 		{
@@ -527,6 +562,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return effective specular intensity, multiplied by absolute value of brightness.
+		/// 
 		/// </summary>
 		private float GetEffectiveSpecularIntensity ()
 		{
@@ -539,6 +575,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return range.
+		/// 
 		/// </summary>
 		private float GetRange ()
 		{
@@ -551,6 +588,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return spotlight field of view.
+		/// 
 		/// </summary>
 		private float GetFov ()
 		{
@@ -563,6 +601,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return spotlight aspect ratio.
+		/// 
 		/// </summary>
 		private float GetAspectRatio ()
 		{
@@ -575,6 +614,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return fade start distance.
+		/// 
 		/// </summary>
 		private float GetFadeDistance ()
 		{
@@ -587,6 +627,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow fade start distance.
+		/// 
 		/// </summary>
 		private float GetShadowFadeDistance ()
 		{
@@ -599,6 +640,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow depth bias parameters.
+		/// 
 		/// </summary>
 		private BiasParameters GetShadowBias ()
 		{
@@ -611,6 +653,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return directional light cascaded shadow parameters.
+		/// 
 		/// </summary>
 		private CascadeParameters GetShadowCascade ()
 		{
@@ -623,6 +666,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow map focus parameters.
+		/// 
 		/// </summary>
 		private FocusParameters GetShadowFocus ()
 		{
@@ -635,6 +679,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return light intensity in shadow.
+		/// 
 		/// </summary>
 		private float GetShadowIntensity ()
 		{
@@ -647,6 +692,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow resolution.
+		/// 
 		/// </summary>
 		private float GetShadowResolution ()
 		{
@@ -659,6 +705,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow camera near/far clip distance ratio.
+		/// 
 		/// </summary>
 		private float GetShadowNearFarRatio ()
 		{
@@ -671,6 +718,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum shadow extrusion distance for directional lights.
+		/// 
 		/// </summary>
 		private float GetShadowMaxExtrusion ()
 		{
@@ -683,6 +731,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return range attenuation texture.
+		/// 
 		/// </summary>
 		private Texture GetRampTexture ()
 		{
@@ -695,6 +744,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return spotlight attenuation texture.
+		/// 
 		/// </summary>
 		private Texture GetShapeTexture ()
 		{
@@ -707,6 +757,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return spotlight frustum.
+		/// 
 		/// </summary>
 		private Frustum GetFrustum ()
 		{
@@ -731,6 +782,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of shadow map cascade splits for a directional light, considering also graphics API limitations.
+		/// 
 		/// </summary>
 		private int GetNumShadowSplits ()
 		{
@@ -743,6 +795,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether light has negative (darkening) color.
+		/// 
 		/// </summary>
 		private bool IsNegative ()
 		{
@@ -885,8 +938,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return light type.
+		/// 
 		/// Or
 		/// Set light type.
+		/// 
 		/// </summary>
 		public LightType LightType {
 			get {
@@ -899,8 +954,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return vertex lighting mode.
+		/// 
 		/// Or
 		/// Set vertex lighting mode.
+		/// 
 		/// </summary>
 		public bool PerVertex {
 			get {
@@ -913,8 +970,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return color.
+		/// 
 		/// Or
 		/// Set color.
+		/// 
 		/// </summary>
 		public Urho.Color Color {
 			get {
@@ -927,8 +986,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return the temperature of the light in Kelvin.
+		/// 
 		/// Or
 		/// Set temperature of the light in Kelvin. Modulates the light color when "use physical values" is enabled.
+		/// 
 		/// </summary>
 		public float Temperature {
 			get {
@@ -941,8 +1002,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return area light mode radius. Works only with PBR shaders.
+		/// 
 		/// Or
 		/// Set area light radius. Greater than zero activates area light mode. Works only with PBR shaders.
+		/// 
 		/// </summary>
 		public float Radius {
 			get {
@@ -955,8 +1018,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return area tube light length. Works only with PBR shaders.
+		/// 
 		/// Or
 		/// Set tube area light length. Works only with PBR shaders.
+		/// 
 		/// </summary>
 		public float Length {
 			get {
@@ -969,8 +1034,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return if light uses temperature and brightness in lumens.
+		/// 
 		/// Or
 		/// Set use physical light values.
+		/// 
 		/// </summary>
 		public bool UsePhysicalValues {
 			get {
@@ -983,8 +1050,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return specular intensity.
+		/// 
 		/// Or
 		/// Set specular intensity. Zero disables specular calculations.
+		/// 
 		/// </summary>
 		public float SpecularIntensity {
 			get {
@@ -997,8 +1066,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return brightness multiplier. Specified in lumens when "use physical values" is enabled.
+		/// 
 		/// Or
 		/// Set light brightness multiplier. Both the color and specular intensity are multiplied with this. When "use physical values" is enabled, the value is specified in lumens.
+		/// 
 		/// </summary>
 		public float Brightness {
 			get {
@@ -1011,8 +1082,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return range.
+		/// 
 		/// Or
 		/// Set range.
+		/// 
 		/// </summary>
 		public float Range {
 			get {
@@ -1025,8 +1098,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return spotlight field of view.
+		/// 
 		/// Or
 		/// Set spotlight field of view.
+		/// 
 		/// </summary>
 		public float Fov {
 			get {
@@ -1039,8 +1114,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return spotlight aspect ratio.
+		/// 
 		/// Or
 		/// Set spotlight aspect ratio.
+		/// 
 		/// </summary>
 		public float AspectRatio {
 			get {
@@ -1053,8 +1130,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return fade start distance.
+		/// 
 		/// Or
 		/// Set fade out start distance.
+		/// 
 		/// </summary>
 		public float FadeDistance {
 			get {
@@ -1067,8 +1146,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow fade start distance.
+		/// 
 		/// Or
 		/// Set shadow fade out start distance. Only has effect if shadow distance is also non-zero.
+		/// 
 		/// </summary>
 		public float ShadowFadeDistance {
 			get {
@@ -1081,8 +1162,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow depth bias parameters.
+		/// 
 		/// Or
 		/// Set shadow depth bias parameters.
+		/// 
 		/// </summary>
 		public BiasParameters ShadowBias {
 			get {
@@ -1095,8 +1178,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return directional light cascaded shadow parameters.
+		/// 
 		/// Or
 		/// Set directional light cascaded shadow parameters.
+		/// 
 		/// </summary>
 		public CascadeParameters ShadowCascade {
 			get {
@@ -1109,8 +1194,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow map focus parameters.
+		/// 
 		/// Or
 		/// Set shadow map focusing parameters.
+		/// 
 		/// </summary>
 		public FocusParameters ShadowFocus {
 			get {
@@ -1123,8 +1210,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return light intensity in shadow.
+		/// 
 		/// Or
 		/// Set light intensity in shadow between 0.0 - 1.0. 0.0 (the default) gives fully dark shadows.
+		/// 
 		/// </summary>
 		public float ShadowIntensity {
 			get {
@@ -1137,8 +1226,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow resolution.
+		/// 
 		/// Or
 		/// Set shadow resolution between 0.25 - 1.0. Determines the shadow map to use.
+		/// 
 		/// </summary>
 		public float ShadowResolution {
 			get {
@@ -1151,8 +1242,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shadow camera near/far clip distance ratio.
+		/// 
 		/// Or
 		/// Set shadow camera near/far clip distance ratio for spot and point lights. Does not affect directional lights, since they are orthographic and have near clip 0.
+		/// 
 		/// </summary>
 		public float ShadowNearFarRatio {
 			get {
@@ -1165,8 +1258,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return maximum shadow extrusion distance for directional lights.
+		/// 
 		/// Or
 		/// Set maximum shadow extrusion for directional lights. The actual extrusion will be the smaller of this and camera far clip. Default 1000.
+		/// 
 		/// </summary>
 		public float ShadowMaxExtrusion {
 			get {
@@ -1179,8 +1274,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return range attenuation texture.
+		/// 
 		/// Or
 		/// Set range attenuation texture.
+		/// 
 		/// </summary>
 		public Texture RampTexture {
 			get {
@@ -1193,8 +1290,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return spotlight attenuation texture.
+		/// 
 		/// Or
 		/// Set spotlight attenuation texture.
+		/// 
 		/// </summary>
 		public Texture ShapeTexture {
 			get {
@@ -1207,6 +1306,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the color value of the temperature in Kelvin.
+		/// 
 		/// </summary>
 		public Color ColorFromTemperature {
 			get {
@@ -1216,6 +1316,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return effective color, multiplied by brightness and affected by temperature when "use physical values" is enabled. Alpha is always 1 so that can compare against the default black color to detect a light with no effect.
+		/// 
 		/// </summary>
 		public Color EffectiveColor {
 			get {
@@ -1225,6 +1326,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return effective specular intensity, multiplied by absolute value of brightness.
+		/// 
 		/// </summary>
 		public float EffectiveSpecularIntensity {
 			get {
@@ -1234,6 +1336,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return spotlight frustum.
+		/// 
 		/// </summary>
 		public Frustum Frustum {
 			get {
@@ -1243,6 +1346,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of shadow map cascade splits for a directional light, considering also graphics API limitations.
+		/// 
 		/// </summary>
 		public int NumShadowSplits {
 			get {
@@ -1252,6 +1356,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether light has negative (darkening) color.
+		/// 
 		/// </summary>
 		public bool Negative {
 			get {

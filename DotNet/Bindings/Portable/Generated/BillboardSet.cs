@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -119,6 +120,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set material.
+		/// 
 		/// </summary>
 		private void SetMaterial (Material material)
 		{
@@ -131,6 +133,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set number of billboards.
+		/// 
 		/// </summary>
 		private void SetNumBillboards (uint num)
 		{
@@ -143,6 +146,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether billboards are relative to the scene node. Default true.
+		/// 
 		/// </summary>
 		private void SetRelative (bool enable)
 		{
@@ -155,6 +159,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether scene node scale affects billboards' size. Default true.
+		/// 
 		/// </summary>
 		private void SetScaled (bool enable)
 		{
@@ -167,6 +172,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether billboards are sorted by distance. Default false.
+		/// 
 		/// </summary>
 		private void SetSorted (bool enable)
 		{
@@ -179,6 +185,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether billboards have fixed size on screen (measured in pixels) regardless of distance to camera. Default false.
+		/// 
 		/// </summary>
 		private void SetFixedScreenSize (bool enable)
 		{
@@ -191,6 +198,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set how the billboards should rotate in relation to the camera. Default is to follow camera rotation on all axes (FC_ROTATE_XYZ).
+		/// 
 		/// </summary>
 		private void SetFaceCameraMode (FaceCameraMode mode)
 		{
@@ -203,6 +211,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set minimal angle between billboard normal and look-at direction.
+		/// 
 		/// </summary>
 		private void SetMinAngle (float angle)
 		{
@@ -215,6 +224,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set animation LOD bias.
+		/// 
 		/// </summary>
 		private void SetAnimationLodBias (float bias)
 		{
@@ -239,6 +249,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return material.
+		/// 
 		/// </summary>
 		private Material GetMaterial ()
 		{
@@ -251,6 +262,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of billboards.
+		/// 
 		/// </summary>
 		private uint GetNumBillboards ()
 		{
@@ -263,6 +275,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return billboard by index.
+		/// 
 		/// </summary>
 		public Billboard* GetBillboard (uint index)
 		{
@@ -275,6 +288,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether billboards are relative to the scene node.
+		/// 
 		/// </summary>
 		private bool IsRelative ()
 		{
@@ -287,6 +301,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether scene node scale affects billboards' size.
+		/// 
 		/// </summary>
 		private bool IsScaled ()
 		{
@@ -299,6 +314,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether billboards are sorted.
+		/// 
 		/// </summary>
 		private bool IsSorted ()
 		{
@@ -311,6 +327,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether billboards are fixed screen size.
+		/// 
 		/// </summary>
 		private bool IsFixedScreenSize ()
 		{
@@ -323,6 +340,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return how the billboards rotate in relation to the camera.
+		/// 
 		/// </summary>
 		private FaceCameraMode GetFaceCameraMode ()
 		{
@@ -335,6 +353,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return minimal angle between billboard normal and look-at direction.
+		/// 
 		/// </summary>
 		private float GetMinAngle ()
 		{
@@ -347,6 +366,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation LOD bias.
+		/// 
 		/// </summary>
 		private float GetAnimationLodBias ()
 		{
@@ -402,8 +422,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return material.
+		/// 
 		/// Or
 		/// Set material.
+		/// 
 		/// </summary>
 		public Material Material {
 			get {
@@ -416,8 +438,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of billboards.
+		/// 
 		/// Or
 		/// Set number of billboards.
+		/// 
 		/// </summary>
 		public uint NumBillboards {
 			get {
@@ -430,8 +454,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether billboards are relative to the scene node.
+		/// 
 		/// Or
 		/// Set whether billboards are relative to the scene node. Default true.
+		/// 
 		/// </summary>
 		public bool Relative {
 			get {
@@ -444,8 +470,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether scene node scale affects billboards' size.
+		/// 
 		/// Or
 		/// Set whether scene node scale affects billboards' size. Default true.
+		/// 
 		/// </summary>
 		public bool Scaled {
 			get {
@@ -458,8 +486,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether billboards are sorted.
+		/// 
 		/// Or
 		/// Set whether billboards are sorted by distance. Default false.
+		/// 
 		/// </summary>
 		public bool Sorted {
 			get {
@@ -472,8 +502,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether billboards are fixed screen size.
+		/// 
 		/// Or
 		/// Set whether billboards have fixed size on screen (measured in pixels) regardless of distance to camera. Default false.
+		/// 
 		/// </summary>
 		public bool FixedScreenSize {
 			get {
@@ -486,8 +518,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return how the billboards rotate in relation to the camera.
+		/// 
 		/// Or
 		/// Set how the billboards should rotate in relation to the camera. Default is to follow camera rotation on all axes (FC_ROTATE_XYZ).
+		/// 
 		/// </summary>
 		public FaceCameraMode FaceCameraMode {
 			get {
@@ -500,8 +534,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return minimal angle between billboard normal and look-at direction.
+		/// 
 		/// Or
 		/// Set minimal angle between billboard normal and look-at direction.
+		/// 
 		/// </summary>
 		public float MinAngle {
 			get {
@@ -514,8 +550,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation LOD bias.
+		/// 
 		/// Or
 		/// Set animation LOD bias.
+		/// 
 		/// </summary>
 		public float AnimationLodBias {
 			get {

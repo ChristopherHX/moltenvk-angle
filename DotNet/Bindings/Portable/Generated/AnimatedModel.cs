@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Register object factory. Drawable must be registered first.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -275,6 +276,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set animation LOD bias.
+		/// 
 		/// </summary>
 		private void SetAnimationLodBias (float bias)
 		{
@@ -287,6 +289,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether to update animation and the bounding box when not visible. Recommended to enable for physically controlled models like ragdolls.
+		/// 
 		/// </summary>
 		private void SetUpdateInvisible (bool enable)
 		{
@@ -311,6 +314,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set vertex morph weight by name.
+		/// 
 		/// </summary>
 		public void SetMorphWeight (string name, float weight)
 		{
@@ -373,6 +377,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of animation states.
+		/// 
 		/// </summary>
 		private uint GetNumAnimationStates ()
 		{
@@ -397,6 +402,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation state by animation name.
+		/// 
 		/// </summary>
 		public AnimationState GetAnimationState (string animationName)
 		{
@@ -433,6 +439,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation LOD bias.
+		/// 
 		/// </summary>
 		private float GetAnimationLodBias ()
 		{
@@ -445,6 +452,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether to update animation when not visible.
+		/// 
 		/// </summary>
 		private bool GetUpdateInvisible ()
 		{
@@ -471,6 +479,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of vertex morphs.
+		/// 
 		/// </summary>
 		private uint GetNumMorphs ()
 		{
@@ -495,6 +504,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return vertex morph weight by name.
+		/// 
 		/// </summary>
 		public float GetMorphWeight (string name)
 		{
@@ -586,8 +596,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return animation LOD bias.
+		/// 
 		/// Or
 		/// Set animation LOD bias.
+		/// 
 		/// </summary>
 		public float AnimationLodBias {
 			get {
@@ -600,8 +612,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether to update animation when not visible.
+		/// 
 		/// Or
 		/// Set whether to update animation and the bounding box when not visible. Recommended to enable for physically controlled models like ragdolls.
+		/// 
 		/// </summary>
 		public bool UpdateInvisible {
 			get {
@@ -623,6 +637,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of animation states.
+		/// 
 		/// </summary>
 		public uint NumAnimationStates {
 			get {
@@ -641,6 +656,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of vertex morphs.
+		/// 
 		/// </summary>
 		public uint NumMorphs {
 			get {

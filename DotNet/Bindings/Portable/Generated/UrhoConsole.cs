@@ -95,6 +95,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set UI elements' style from an XML file.
+		/// 
 		/// </summary>
 		private void SetDefaultStyle (Urho.Resources.XmlFile style)
 		{
@@ -107,6 +108,7 @@ namespace Urho
 
 		/// <summary>
 		/// Show or hide.
+		/// 
 		/// </summary>
 		private void SetVisible (bool enable)
 		{
@@ -131,6 +133,7 @@ namespace Urho
 
 		/// <summary>
 		/// Automatically set console to visible when receiving an error log message.
+		/// 
 		/// </summary>
 		private void SetAutoVisibleOnError (bool enable)
 		{
@@ -143,6 +146,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set the command interpreter.
+		/// 
 		/// </summary>
 		private void SetCommandInterpreter (string interpreter)
 		{
@@ -155,6 +159,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set number of buffered rows.
+		/// 
 		/// </summary>
 		private void SetNumBufferedRows (uint rows)
 		{
@@ -167,6 +172,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set number of displayed rows.
+		/// 
 		/// </summary>
 		private void SetNumRows (uint rows)
 		{
@@ -179,6 +185,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set command history maximum size, 0 disables history.
+		/// 
 		/// </summary>
 		private void SetNumHistoryRows (uint rows)
 		{
@@ -191,6 +198,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether to automatically focus the line edit when showing. Default true on desktops and false on mobile devices, as on mobiles it would pop up the screen keyboard.
+		/// 
 		/// </summary>
 		private void SetFocusOnShow (bool enable)
 		{
@@ -239,6 +247,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the UI style file.
+		/// 
 		/// </summary>
 		private Urho.Resources.XmlFile GetDefaultStyle ()
 		{
@@ -251,6 +260,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the background element.
+		/// 
 		/// </summary>
 		private BorderImage GetBackground ()
 		{
@@ -263,6 +273,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the line edit element.
+		/// 
 		/// </summary>
 		private LineEdit GetLineEdit ()
 		{
@@ -275,6 +286,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the close butoon element.
+		/// 
 		/// </summary>
 		private Button GetCloseButton ()
 		{
@@ -287,6 +299,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is visible.
+		/// 
 		/// </summary>
 		private bool IsVisible ()
 		{
@@ -299,6 +312,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return true when console is set to automatically visible when receiving an error log message.
+		/// 
 		/// </summary>
 		private bool IsAutoVisibleOnError ()
 		{
@@ -311,6 +325,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the last used command interpreter.
+		/// 
 		/// </summary>
 		private string GetCommandInterpreter ()
 		{
@@ -323,6 +338,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of buffered rows.
+		/// 
 		/// </summary>
 		private uint GetNumBufferedRows ()
 		{
@@ -335,6 +351,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of displayed rows.
+		/// 
 		/// </summary>
 		private uint GetNumRows ()
 		{
@@ -359,6 +376,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return history maximum size.
+		/// 
 		/// </summary>
 		private uint GetNumHistoryRows ()
 		{
@@ -371,6 +389,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return current history position.
+		/// 
 		/// </summary>
 		private uint GetHistoryPosition ()
 		{
@@ -383,6 +402,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return history row at index.
+		/// 
 		/// </summary>
 		public string GetHistoryRow (uint index)
 		{
@@ -395,6 +415,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether automatically focuses the line edit when showing.
+		/// 
 		/// </summary>
 		private bool GetFocusOnShow ()
 		{
@@ -429,8 +450,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return the UI style file.
+		/// 
 		/// Or
 		/// Set UI elements' style from an XML file.
+		/// 
 		/// </summary>
 		public Urho.Resources.XmlFile DefaultStyle {
 			get {
@@ -443,8 +466,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether is visible.
+		/// 
 		/// Or
 		/// Show or hide.
+		/// 
 		/// </summary>
 		public bool Visible {
 			get {
@@ -457,8 +482,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return true when console is set to automatically visible when receiving an error log message.
+		/// 
 		/// Or
 		/// Automatically set console to visible when receiving an error log message.
+		/// 
 		/// </summary>
 		public bool AutoVisibleOnError {
 			get {
@@ -471,8 +498,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return the last used command interpreter.
+		/// 
 		/// Or
 		/// Set the command interpreter.
+		/// 
 		/// </summary>
 		public string CommandInterpreter {
 			get {
@@ -485,8 +514,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of buffered rows.
+		/// 
 		/// Or
 		/// Set number of buffered rows.
+		/// 
 		/// </summary>
 		public uint NumBufferedRows {
 			get {
@@ -499,8 +530,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of displayed rows.
+		/// 
 		/// Or
 		/// Set number of displayed rows.
+		/// 
 		/// </summary>
 		public uint NumRows {
 			get {
@@ -513,8 +546,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return history maximum size.
+		/// 
 		/// Or
 		/// Set command history maximum size, 0 disables history.
+		/// 
 		/// </summary>
 		public uint NumHistoryRows {
 			get {
@@ -527,8 +562,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether automatically focuses the line edit when showing.
+		/// 
 		/// Or
 		/// Set whether to automatically focus the line edit when showing. Default true on desktops and false on mobile devices, as on mobiles it would pop up the screen keyboard.
+		/// 
 		/// </summary>
 		public bool FocusOnShow {
 			get {
@@ -541,6 +578,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the background element.
+		/// 
 		/// </summary>
 		public BorderImage Background {
 			get {
@@ -550,6 +588,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the line edit element.
+		/// 
 		/// </summary>
 		public LineEdit LineEdit {
 			get {
@@ -559,6 +598,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the close butoon element.
+		/// 
 		/// </summary>
 		public Button CloseButton {
 			get {
@@ -568,6 +608,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return current history position.
+		/// 
 		/// </summary>
 		public uint HistoryPosition {
 			get {

@@ -102,6 +102,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return true of any of render targets or commands with specified tag are enabled.
+		/// 
 		/// </summary>
 		public bool IsEnabled (string tag)
 		{
@@ -114,6 +115,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return true if renderpath or command with given tag exists.
+		/// 
 		/// </summary>
 		public bool IsAdded (string tag)
 		{
@@ -174,6 +176,7 @@ namespace Urho
 
 		/// <summary>
 		/// Assign command at index.
+		/// 
 		/// </summary>
 		public void SetCommand (uint index, Urho.RenderPathCommand command)
 		{
@@ -234,6 +237,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set a shader parameter in all commands that define it.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, Vector3 value)
 		{
@@ -246,6 +250,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set a shader parameter in all commands that define it.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, IntRect value)
 		{
@@ -258,6 +263,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set a shader parameter in all commands that define it.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, Color value)
 		{
@@ -270,6 +276,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set a shader parameter in all commands that define it.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, Vector2 value)
 		{
@@ -282,6 +289,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set a shader parameter in all commands that define it.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, Vector4 value)
 		{
@@ -294,6 +302,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set a shader parameter in all commands that define it.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, IntVector2 value)
 		{
@@ -306,6 +315,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set a shader parameter in all commands that define it.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, Quaternion value)
 		{
@@ -318,6 +328,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set a shader parameter in all commands that define it.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, Matrix4 value)
 		{
@@ -330,6 +341,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set a shader parameter in all commands that define it.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, Matrix3x4 value)
 		{
@@ -342,6 +354,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set a shader parameter in all commands that define it.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, int value)
 		{
@@ -354,6 +367,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set a shader parameter in all commands that define it.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, float value)
 		{
@@ -366,6 +380,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set a shader parameter in all commands that define it.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, string value)
 		{
@@ -378,6 +393,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set a shader parameter in all commands that define it.
+		/// 
 		/// </summary>
 		public void SetShaderParameter (string name, bool value)
 		{
@@ -390,6 +406,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of rendertargets.
+		/// 
 		/// </summary>
 		private uint GetNumRenderTargets ()
 		{
@@ -402,6 +419,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of commands.
+		/// 
 		/// </summary>
 		private uint GetNumCommands ()
 		{
@@ -423,6 +441,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of rendertargets.
+		/// 
 		/// </summary>
 		public uint NumRenderTargets {
 			get {
@@ -432,6 +451,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of commands.
+		/// 
 		/// </summary>
 		public uint NumCommands {
 			get {

@@ -95,6 +95,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Set whether geometry is automatically collected from child nodes. Default true.
+		/// 
 		/// </summary>
 		private void SetRecursive (bool enable)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return whether geometry is automatically collected from child nodes.
+		/// 
 		/// </summary>
 		private bool IsRecursive ()
 		{
@@ -153,8 +156,10 @@ namespace Urho.Navigation
 
 		/// <summary>
 		/// Return whether geometry is automatically collected from child nodes.
+		/// 
 		/// Or
 		/// Set whether geometry is automatically collected from child nodes. Default true.
+		/// 
 		/// </summary>
 		public bool Recursive {
 			get {

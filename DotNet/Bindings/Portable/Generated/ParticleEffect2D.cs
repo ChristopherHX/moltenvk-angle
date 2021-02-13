@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory. Drawable2D must be registered first.
+		/// 
 		/// </summary>
 		public static void RegisterObject (Context context)
 		{

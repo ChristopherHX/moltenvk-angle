@@ -107,6 +107,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set window title.
+		/// 
 		/// </summary>
 		private void SetWindowTitle (string windowTitle)
 		{
@@ -119,6 +120,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set window icon.
+		/// 
 		/// </summary>
 		public void SetWindowIcon (Image windowIcon)
 		{
@@ -131,6 +133,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set window position. Sets initial position if window is not created yet.
+		/// 
 		/// </summary>
 		public void SetWindowPosition (Urho.IntVector2 position)
 		{
@@ -192,6 +195,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether the main window uses sRGB conversion on write.
+		/// 
 		/// </summary>
 		private void SetSRGB (bool enable)
 		{
@@ -204,6 +208,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether rendering output is dithered. Default true on OpenGL. No effect on Direct3D.
+		/// 
 		/// </summary>
 		private void SetDither (bool enable)
 		{
@@ -216,6 +221,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set whether to flush the GPU command buffer to prevent multiple frames being queued and uneven frame timesteps. Default off, may decrease performance if enabled. Not currently implemented on OpenGL.
+		/// 
 		/// </summary>
 		private void SetFlushGPU (bool enable)
 		{
@@ -228,6 +234,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set allowed screen orientations as a space-separated list of "LandscapeLeft", "LandscapeRight", "Portrait" and "PortraitUpsideDown". Affects currently only iOS platform.
+		/// 
 		/// </summary>
 		private void SetOrientations (string orientations)
 		{
@@ -636,6 +643,7 @@ namespace Urho
 
 		/// <summary>
 		/// Dirty texture parameters of all textures (when global settings change.)
+		/// 
 		/// </summary>
 		public void SetTextureParametersDirty ()
 		{
@@ -948,6 +956,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set shader cache directory, Direct3D only. This can either be an absolute path or a path within the resource system.
+		/// 
 		/// </summary>
 		private void SetShaderCacheDir (string path)
 		{
@@ -960,6 +969,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether rendering initialized.
+		/// 
 		/// </summary>
 		private bool IsInitialized ()
 		{
@@ -996,6 +1006,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return window title.
+		/// 
 		/// </summary>
 		private string GetWindowTitle ()
 		{
@@ -1008,6 +1019,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return graphics API name.
+		/// 
 		/// </summary>
 		private string GetApiName ()
 		{
@@ -1020,6 +1032,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return window position.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetWindowPosition ()
 		{
@@ -1032,6 +1045,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return window width in pixels.
+		/// 
 		/// </summary>
 		private int GetWidth ()
 		{
@@ -1044,6 +1058,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return window height in pixels.
+		/// 
 		/// </summary>
 		private int GetHeight ()
 		{
@@ -1056,6 +1071,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return multisample mode (1 = no multisampling).
+		/// 
 		/// </summary>
 		private int GetMultiSample ()
 		{
@@ -1068,6 +1084,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return window size in pixels.
+		/// 
 		/// </summary>
 		private Urho.IntVector2 GetSize ()
 		{
@@ -1080,6 +1097,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether window is fullscreen.
+		/// 
 		/// </summary>
 		private bool GetFullscreen ()
 		{
@@ -1092,6 +1110,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether window is borderless.
+		/// 
 		/// </summary>
 		private bool GetBorderless ()
 		{
@@ -1104,6 +1123,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether window is resizable.
+		/// 
 		/// </summary>
 		private bool GetResizable ()
 		{
@@ -1128,6 +1148,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether vertical sync is on.
+		/// 
 		/// </summary>
 		private bool GetVSync ()
 		{
@@ -1164,6 +1185,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether triple buffering is enabled.
+		/// 
 		/// </summary>
 		private bool GetTripleBuffer ()
 		{
@@ -1176,6 +1198,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether the main window is using sRGB conversion on write.
+		/// 
 		/// </summary>
 		private bool GetSRGB ()
 		{
@@ -1188,6 +1211,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether rendering output is dithered.
+		/// 
 		/// </summary>
 		private bool GetDither ()
 		{
@@ -1200,6 +1224,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether the GPU command buffer is flushed each frame.
+		/// 
 		/// </summary>
 		private bool GetFlushGPU ()
 		{
@@ -1212,6 +1237,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return allowed screen orientations.
+		/// 
 		/// </summary>
 		private string GetOrientations ()
 		{
@@ -1224,6 +1250,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether graphics context is lost and can not render or load GPU resources.
+		/// 
 		/// </summary>
 		private bool IsDeviceLost ()
 		{
@@ -1236,6 +1263,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of primitives drawn this frame.
+		/// 
 		/// </summary>
 		private uint GetNumPrimitives ()
 		{
@@ -1248,6 +1276,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of batches drawn this frame.
+		/// 
 		/// </summary>
 		private uint GetNumBatches ()
 		{
@@ -1296,6 +1325,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether hardware instancing is supported.
+		/// 
 		/// </summary>
 		private bool GetInstancingSupport ()
 		{
@@ -1320,6 +1350,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether light pre-pass rendering is supported.
+		/// 
 		/// </summary>
 		private bool GetLightPrepassSupport ()
 		{
@@ -1332,6 +1363,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether deferred rendering is supported.
+		/// 
 		/// </summary>
 		private bool GetDeferredSupport ()
 		{
@@ -1344,6 +1376,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether shadow map depth compare is done in hardware.
+		/// 
 		/// </summary>
 		private bool GetHardwareShadowSupport ()
 		{
@@ -1356,6 +1389,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether a readable hardware depth format is available.
+		/// 
 		/// </summary>
 		private bool GetReadableDepthSupport ()
 		{
@@ -1368,6 +1402,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether sRGB conversion on texture sampling is supported.
+		/// 
 		/// </summary>
 		private bool GetSRGBSupport ()
 		{
@@ -1380,6 +1415,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether sRGB conversion on rendertarget writing is supported.
+		/// 
 		/// </summary>
 		private bool GetSRGBWriteSupport ()
 		{
@@ -1404,6 +1440,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the desktop resolution.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 GetDesktopResolution (int monitor)
 		{
@@ -1416,6 +1453,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the number of currently connected monitors.
+		/// 
 		/// </summary>
 		private int GetMonitorCount ()
 		{
@@ -1428,6 +1466,7 @@ namespace Urho
 
 		/// <summary>
 		/// Returns the index of the display containing the center of the window on success or a negative error code on failure.
+		/// 
 		/// </summary>
 		private int GetCurrentMonitor ()
 		{
@@ -1440,6 +1479,7 @@ namespace Urho
 
 		/// <summary>
 		/// Returns true if window is maximized or runs in full screen mode.
+		/// 
 		/// </summary>
 		private bool GetMaximized ()
 		{
@@ -1452,6 +1492,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return display dpi information: (hdpi, vdpi, ddpi). On failure returns zero vector.
+		/// 
 		/// </summary>
 		public Vector3 GetDisplayDPI (int monitor = 0)
 		{
@@ -1884,6 +1925,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return shader cache directory, Direct3D only.
+		/// 
 		/// </summary>
 		private string GetShaderCacheDir ()
 		{
@@ -2352,8 +2394,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return window title.
+		/// 
 		/// Or
 		/// Set window title.
+		/// 
 		/// </summary>
 		public string WindowTitle {
 			get {
@@ -2366,6 +2410,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return window position.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 WindowPosition {
 			get {
@@ -2375,8 +2420,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether the main window is using sRGB conversion on write.
+		/// 
 		/// Or
 		/// Set whether the main window uses sRGB conversion on write.
+		/// 
 		/// </summary>
 		public bool SRGB {
 			get {
@@ -2389,8 +2436,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether rendering output is dithered.
+		/// 
 		/// Or
 		/// Set whether rendering output is dithered. Default true on OpenGL. No effect on Direct3D.
+		/// 
 		/// </summary>
 		public bool Dither {
 			get {
@@ -2403,8 +2452,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether the GPU command buffer is flushed each frame.
+		/// 
 		/// Or
 		/// Set whether to flush the GPU command buffer to prevent multiple frames being queued and uneven frame timesteps. Default off, may decrease performance if enabled. Not currently implemented on OpenGL.
+		/// 
 		/// </summary>
 		public bool FlushGPU {
 			get {
@@ -2417,8 +2468,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return allowed screen orientations.
+		/// 
 		/// Or
 		/// Set allowed screen orientations as a space-separated list of "LandscapeLeft", "LandscapeRight", "Portrait" and "PortraitUpsideDown". Affects currently only iOS platform.
+		/// 
 		/// </summary>
 		public string Orientations {
 			get {
@@ -2580,8 +2633,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return shader cache directory, Direct3D only.
+		/// 
 		/// Or
 		/// Set shader cache directory, Direct3D only. This can either be an absolute path or a path within the resource system.
+		/// 
 		/// </summary>
 		public string ShaderCacheDir {
 			get {
@@ -2594,6 +2649,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether rendering initialized.
+		/// 
 		/// </summary>
 		public bool Initialized {
 			get {
@@ -2612,6 +2668,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return graphics API name.
+		/// 
 		/// </summary>
 		public string ApiName {
 			get {
@@ -2621,6 +2678,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return window width in pixels.
+		/// 
 		/// </summary>
 		public int Width {
 			get {
@@ -2630,6 +2688,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return window height in pixels.
+		/// 
 		/// </summary>
 		public int Height {
 			get {
@@ -2639,6 +2698,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return multisample mode (1 = no multisampling).
+		/// 
 		/// </summary>
 		public int MultiSample {
 			get {
@@ -2648,6 +2708,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return window size in pixels.
+		/// 
 		/// </summary>
 		public Urho.IntVector2 Size {
 			get {
@@ -2657,6 +2718,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether window is fullscreen.
+		/// 
 		/// </summary>
 		public bool Fullscreen {
 			get {
@@ -2666,6 +2728,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether window is borderless.
+		/// 
 		/// </summary>
 		public bool Borderless {
 			get {
@@ -2675,6 +2738,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether window is resizable.
+		/// 
 		/// </summary>
 		public bool Resizable {
 			get {
@@ -2693,6 +2757,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether vertical sync is on.
+		/// 
 		/// </summary>
 		public bool VSync {
 			get {
@@ -2720,6 +2785,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether triple buffering is enabled.
+		/// 
 		/// </summary>
 		public bool TripleBuffer {
 			get {
@@ -2729,6 +2795,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether graphics context is lost and can not render or load GPU resources.
+		/// 
 		/// </summary>
 		public bool DeviceLost {
 			get {
@@ -2738,6 +2805,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of primitives drawn this frame.
+		/// 
 		/// </summary>
 		public uint NumPrimitives {
 			get {
@@ -2747,6 +2815,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return number of batches drawn this frame.
+		/// 
 		/// </summary>
 		public uint NumBatches {
 			get {
@@ -2783,6 +2852,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether hardware instancing is supported.
+		/// 
 		/// </summary>
 		public bool InstancingSupport {
 			get {
@@ -2801,6 +2871,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether light pre-pass rendering is supported.
+		/// 
 		/// </summary>
 		public bool LightPrepassSupport {
 			get {
@@ -2810,6 +2881,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether deferred rendering is supported.
+		/// 
 		/// </summary>
 		public bool DeferredSupport {
 			get {
@@ -2819,6 +2891,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether shadow map depth compare is done in hardware.
+		/// 
 		/// </summary>
 		public bool HardwareShadowSupport {
 			get {
@@ -2828,6 +2901,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether a readable hardware depth format is available.
+		/// 
 		/// </summary>
 		public bool ReadableDepthSupport {
 			get {
@@ -2837,6 +2911,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether sRGB conversion on texture sampling is supported.
+		/// 
 		/// </summary>
 		public bool SRGBSupport {
 			get {
@@ -2846,6 +2921,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return whether sRGB conversion on rendertarget writing is supported.
+		/// 
 		/// </summary>
 		public bool SRGBWriteSupport {
 			get {
@@ -2855,6 +2931,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the number of currently connected monitors.
+		/// 
 		/// </summary>
 		public int MonitorCount {
 			get {
@@ -2864,6 +2941,7 @@ namespace Urho
 
 		/// <summary>
 		/// Returns the index of the display containing the center of the window on success or a negative error code on failure.
+		/// 
 		/// </summary>
 		public int CurrentMonitor {
 			get {
@@ -2873,6 +2951,7 @@ namespace Urho
 
 		/// <summary>
 		/// Returns true if window is maximized or runs in full screen mode.
+		/// 
 		/// </summary>
 		public bool Maximized {
 			get {

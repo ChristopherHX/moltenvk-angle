@@ -95,6 +95,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Register object factory.
+		/// 
 		/// </summary>
 		public new static void RegisterObject (Context context)
 		{
@@ -107,6 +108,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set radius.
+		/// 
 		/// </summary>
 		private void SetRadius (float radius)
 		{
@@ -119,6 +121,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Set center.
+		/// 
 		/// </summary>
 		private void SetCenter (Urho.Vector2 center)
 		{
@@ -143,6 +146,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return radius.
+		/// 
 		/// </summary>
 		private float GetRadius ()
 		{
@@ -155,6 +159,7 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return center.
+		/// 
 		/// </summary>
 		private Urho.Vector2 GetCenter ()
 		{
@@ -189,8 +194,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return radius.
+		/// 
 		/// Or
 		/// Set radius.
+		/// 
 		/// </summary>
 		public float Radius {
 			get {
@@ -203,8 +210,10 @@ namespace Urho.Urho2D
 
 		/// <summary>
 		/// Return center.
+		/// 
 		/// Or
 		/// Set center.
+		/// 
 		/// </summary>
 		public Urho.Vector2 Center {
 			get {
