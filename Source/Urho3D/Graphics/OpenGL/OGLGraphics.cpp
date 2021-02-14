@@ -418,23 +418,39 @@ bool Graphics::SetScreenMode(int width, int height, const ScreenModeParams& para
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+#if  defined(URHO3D_ANGLE_METAL)
+            apiName_ = "Metal-GL3";
+#else
             apiName_ = "GL3";
+#endif
         }
         else
         {
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
             SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, 0);
+#if  defined(URHO3D_ANGLE_METAL)
+            apiName_ = "Metal-GL2";
+#else
             apiName_ = "GL2";
+#endif
         }
 #else
 #if defined(GL_ES_VERSION_3_0)
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-        apiName_ = "GLES3";
+#if  defined(URHO3D_ANGLE_METAL)
+            apiName_ = "Metal-GLES3";
+#else
+            apiName_ = "GLES3";
+#endif
         gl3Support = true;
 #else
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
-        apiName_ = "GLES2";
+#if  defined(URHO3D_ANGLE_METAL)
+            apiName_ = "Metal-GLES2";
+#else
+            apiName_ = "GLES2";
+#endif
 #endif
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 #endif
