@@ -60,6 +60,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the interpolation mode.
+		/// 
 		/// </summary>
 		private InterpolationMode GetInterpolationMode ()
 		{
@@ -72,6 +73,7 @@ namespace Urho
 
 		/// <summary>
 		/// Return the knot at the specific index.
+		/// 
 		/// </summary>
 		public Variant GetKnot (uint index)
 		{
@@ -96,6 +98,7 @@ namespace Urho
 
 		/// <summary>
 		/// Set the interpolation mode.
+		/// 
 		/// </summary>
 		private void SetInterpolationMode (InterpolationMode interpolationMode)
 		{
@@ -609,8 +612,10 @@ namespace Urho
 
 		/// <summary>
 		/// Return the interpolation mode.
+		/// 
 		/// Or
 		/// Set the interpolation mode.
+		/// 
 		/// </summary>
 		public InterpolationMode InterpolationMode {
 			get {

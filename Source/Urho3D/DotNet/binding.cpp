@@ -4382,6 +4382,309 @@ Profiler_GetRootBlock (Urho3D::Profiler *_target)
 }
 
 
+DllExport void *
+Spline_Spline ()
+{
+	return new Spline();
+}
+
+
+DllExport void *
+Spline_Spline0 (enum Urho3D::InterpolationMode mode)
+{
+	return new Spline(mode);
+}
+
+
+DllExport enum Urho3D::InterpolationMode
+Spline_GetInterpolationMode (Urho3D::Spline *_target)
+{
+	return _target->GetInterpolationMode ();
+}
+
+
+DllExport Urho3D::Variant
+Spline_GetKnot (Urho3D::Spline *_target, unsigned int index)
+{
+	return _target->GetKnot (index);
+}
+
+
+DllExport Urho3D::Variant
+Spline_GetPoint (Urho3D::Spline *_target, float f)
+{
+	return _target->GetPoint (f);
+}
+
+
+DllExport void
+Spline_SetInterpolationMode (Urho3D::Spline *_target, enum Urho3D::InterpolationMode interpolationMode)
+{
+	_target->SetInterpolationMode (interpolationMode);
+}
+
+
+// Urho3D::Variant overloads begin:
+DllExport void
+Spline_SetKnot_0 (Urho3D::Spline *_target, const class Urho3D::Vector3 & knot, unsigned int index)
+{
+	_target->SetKnot ((knot), index);
+}
+
+DllExport void
+Spline_SetKnot_1 (Urho3D::Spline *_target, const class Urho3D::IntRect & knot, unsigned int index)
+{
+	_target->SetKnot ((knot), index);
+}
+
+DllExport void
+Spline_SetKnot_2 (Urho3D::Spline *_target, const class Urho3D::Color & knot, unsigned int index)
+{
+	_target->SetKnot ((knot), index);
+}
+
+DllExport void
+Spline_SetKnot_3 (Urho3D::Spline *_target, const class Urho3D::Vector2 & knot, unsigned int index)
+{
+	_target->SetKnot ((knot), index);
+}
+
+DllExport void
+Spline_SetKnot_4 (Urho3D::Spline *_target, const class Urho3D::Vector4 & knot, unsigned int index)
+{
+	_target->SetKnot ((knot), index);
+}
+
+DllExport void
+Spline_SetKnot_5 (Urho3D::Spline *_target, const class Urho3D::IntVector2 & knot, unsigned int index)
+{
+	_target->SetKnot ((knot), index);
+}
+
+DllExport void
+Spline_SetKnot_6 (Urho3D::Spline *_target, const class Urho3D::Quaternion & knot, unsigned int index)
+{
+	_target->SetKnot ((knot), index);
+}
+
+DllExport void
+Spline_SetKnot_7 (Urho3D::Spline *_target, const class Urho3D::Matrix4 & knot, unsigned int index)
+{
+	_target->SetKnot ((knot), index);
+}
+
+DllExport void
+Spline_SetKnot_8 (Urho3D::Spline *_target, const class Urho3D::Matrix3x4 & knot, unsigned int index)
+{
+	_target->SetKnot ((knot), index);
+}
+
+DllExport void
+Spline_SetKnot_9 (Urho3D::Spline *_target, int knot, unsigned int index)
+{
+	_target->SetKnot ((knot), index);
+}
+
+DllExport void
+Spline_SetKnot_10 (Urho3D::Spline *_target, float knot, unsigned int index)
+{
+	_target->SetKnot ((knot), index);
+}
+
+DllExport void
+Spline_SetKnot_11 (Urho3D::Spline *_target, const char * knot, unsigned int index)
+{
+	_target->SetKnot (Urho3D::String(knot), index);
+}
+
+DllExport void
+Spline_SetKnot_12 (Urho3D::Spline *_target, bool knot, unsigned int index)
+{
+	_target->SetKnot ((knot), index);
+}
+
+// Urho3D::Variant overloads end.
+// Urho3D::Variant overloads begin:
+DllExport void
+Spline_AddKnot_0 (Urho3D::Spline *_target, const class Urho3D::Vector3 & knot)
+{
+	_target->AddKnot ((knot));
+}
+
+DllExport void
+Spline_AddKnot_1 (Urho3D::Spline *_target, const class Urho3D::IntRect & knot)
+{
+	_target->AddKnot ((knot));
+}
+
+DllExport void
+Spline_AddKnot_2 (Urho3D::Spline *_target, const class Urho3D::Color & knot)
+{
+	_target->AddKnot ((knot));
+}
+
+DllExport void
+Spline_AddKnot_3 (Urho3D::Spline *_target, const class Urho3D::Vector2 & knot)
+{
+	_target->AddKnot ((knot));
+}
+
+DllExport void
+Spline_AddKnot_4 (Urho3D::Spline *_target, const class Urho3D::Vector4 & knot)
+{
+	_target->AddKnot ((knot));
+}
+
+DllExport void
+Spline_AddKnot_5 (Urho3D::Spline *_target, const class Urho3D::IntVector2 & knot)
+{
+	_target->AddKnot ((knot));
+}
+
+DllExport void
+Spline_AddKnot_6 (Urho3D::Spline *_target, const class Urho3D::Quaternion & knot)
+{
+	_target->AddKnot ((knot));
+}
+
+DllExport void
+Spline_AddKnot_7 (Urho3D::Spline *_target, const class Urho3D::Matrix4 & knot)
+{
+	_target->AddKnot ((knot));
+}
+
+DllExport void
+Spline_AddKnot_8 (Urho3D::Spline *_target, const class Urho3D::Matrix3x4 & knot)
+{
+	_target->AddKnot ((knot));
+}
+
+DllExport void
+Spline_AddKnot_9 (Urho3D::Spline *_target, int knot)
+{
+	_target->AddKnot ((knot));
+}
+
+DllExport void
+Spline_AddKnot_10 (Urho3D::Spline *_target, float knot)
+{
+	_target->AddKnot ((knot));
+}
+
+DllExport void
+Spline_AddKnot_11 (Urho3D::Spline *_target, const char * knot)
+{
+	_target->AddKnot (Urho3D::String(knot));
+}
+
+DllExport void
+Spline_AddKnot_12 (Urho3D::Spline *_target, bool knot)
+{
+	_target->AddKnot ((knot));
+}
+
+// Urho3D::Variant overloads end.
+// Urho3D::Variant overloads begin:
+DllExport void
+Spline_AddKnot1_0 (Urho3D::Spline *_target, const class Urho3D::Vector3 & knot, unsigned int index)
+{
+	_target->AddKnot ((knot), index);
+}
+
+DllExport void
+Spline_AddKnot1_1 (Urho3D::Spline *_target, const class Urho3D::IntRect & knot, unsigned int index)
+{
+	_target->AddKnot ((knot), index);
+}
+
+DllExport void
+Spline_AddKnot1_2 (Urho3D::Spline *_target, const class Urho3D::Color & knot, unsigned int index)
+{
+	_target->AddKnot ((knot), index);
+}
+
+DllExport void
+Spline_AddKnot1_3 (Urho3D::Spline *_target, const class Urho3D::Vector2 & knot, unsigned int index)
+{
+	_target->AddKnot ((knot), index);
+}
+
+DllExport void
+Spline_AddKnot1_4 (Urho3D::Spline *_target, const class Urho3D::Vector4 & knot, unsigned int index)
+{
+	_target->AddKnot ((knot), index);
+}
+
+DllExport void
+Spline_AddKnot1_5 (Urho3D::Spline *_target, const class Urho3D::IntVector2 & knot, unsigned int index)
+{
+	_target->AddKnot ((knot), index);
+}
+
+DllExport void
+Spline_AddKnot1_6 (Urho3D::Spline *_target, const class Urho3D::Quaternion & knot, unsigned int index)
+{
+	_target->AddKnot ((knot), index);
+}
+
+DllExport void
+Spline_AddKnot1_7 (Urho3D::Spline *_target, const class Urho3D::Matrix4 & knot, unsigned int index)
+{
+	_target->AddKnot ((knot), index);
+}
+
+DllExport void
+Spline_AddKnot1_8 (Urho3D::Spline *_target, const class Urho3D::Matrix3x4 & knot, unsigned int index)
+{
+	_target->AddKnot ((knot), index);
+}
+
+DllExport void
+Spline_AddKnot1_9 (Urho3D::Spline *_target, int knot, unsigned int index)
+{
+	_target->AddKnot ((knot), index);
+}
+
+DllExport void
+Spline_AddKnot1_10 (Urho3D::Spline *_target, float knot, unsigned int index)
+{
+	_target->AddKnot ((knot), index);
+}
+
+DllExport void
+Spline_AddKnot1_11 (Urho3D::Spline *_target, const char * knot, unsigned int index)
+{
+	_target->AddKnot (Urho3D::String(knot), index);
+}
+
+DllExport void
+Spline_AddKnot1_12 (Urho3D::Spline *_target, bool knot, unsigned int index)
+{
+	_target->AddKnot ((knot), index);
+}
+
+// Urho3D::Variant overloads end.
+DllExport void
+Spline_RemoveKnot (Urho3D::Spline *_target)
+{
+	_target->RemoveKnot ();
+}
+
+
+DllExport void
+Spline_RemoveKnot2 (Urho3D::Spline *_target, unsigned int index)
+{
+	_target->RemoveKnot (index);
+}
+
+
+DllExport void
+Spline_Clear (Urho3D::Spline *_target)
+{
+	_target->Clear ();
+}
+
+
 DllExport int
 WorkQueue_GetType (Urho3D::WorkQueue *_target)
 {
@@ -8446,6 +8749,209 @@ DllExport Urho3D::AnimationState *
 AnimationController_GetAnimationState1 (Urho3D::AnimationController *_target, int nameHash)
 {
 	return _target->GetAnimationState (Urho3D::StringHash(nameHash));
+}
+
+
+DllExport void *
+Sphere_Sphere ()
+{
+	return new Sphere();
+}
+
+
+DllExport void *
+Sphere_Sphere0 (const class Urho3D::Sphere & sphere)
+{
+	return new Sphere(sphere);
+}
+
+
+DllExport void *
+Sphere_Sphere1 (const class Urho3D::Vector3 & center, float radius)
+{
+	return new Sphere(center, radius);
+}
+
+
+DllExport void *
+Sphere_Sphere2 (const class Urho3D::Vector3 * vertices, unsigned int count)
+{
+	return new Sphere(vertices, count);
+}
+
+
+DllExport void *
+Sphere_Sphere3 (const class Urho3D::BoundingBox & box)
+{
+	return new Sphere(box);
+}
+
+
+DllExport void *
+Sphere_Sphere4 (const class Urho3D::Frustum & frustum)
+{
+	return new Sphere(frustum);
+}
+
+
+DllExport void *
+Sphere_Sphere5 (const class Urho3D::Polyhedron & poly)
+{
+	return new Sphere(poly);
+}
+
+
+DllExport void
+Sphere_Define (Urho3D::Sphere *_target, const class Urho3D::Sphere & sphere)
+{
+	_target->Define (sphere);
+}
+
+
+DllExport void
+Sphere_Define6 (Urho3D::Sphere *_target, const class Urho3D::Vector3 & center, float radius)
+{
+	_target->Define (center, radius);
+}
+
+
+DllExport void
+Sphere_Define7 (Urho3D::Sphere *_target, const class Urho3D::Vector3 * vertices, unsigned int count)
+{
+	_target->Define (vertices, count);
+}
+
+
+DllExport void
+Sphere_Define8 (Urho3D::Sphere *_target, const class Urho3D::BoundingBox & box)
+{
+	_target->Define (box);
+}
+
+
+DllExport void
+Sphere_Define9 (Urho3D::Sphere *_target, const class Urho3D::Frustum & frustum)
+{
+	_target->Define (frustum);
+}
+
+
+DllExport void
+Sphere_Define10 (Urho3D::Sphere *_target, const class Urho3D::Polyhedron & poly)
+{
+	_target->Define (poly);
+}
+
+
+DllExport void
+Sphere_Merge (Urho3D::Sphere *_target, const class Urho3D::Vector3 & point)
+{
+	_target->Merge (point);
+}
+
+
+DllExport void
+Sphere_Merge11 (Urho3D::Sphere *_target, const class Urho3D::Vector3 * vertices, unsigned int count)
+{
+	_target->Merge (vertices, count);
+}
+
+
+DllExport void
+Sphere_Merge12 (Urho3D::Sphere *_target, const class Urho3D::BoundingBox & box)
+{
+	_target->Merge (box);
+}
+
+
+DllExport void
+Sphere_Merge13 (Urho3D::Sphere *_target, const class Urho3D::Frustum & frustum)
+{
+	_target->Merge (frustum);
+}
+
+
+DllExport void
+Sphere_Merge14 (Urho3D::Sphere *_target, const class Urho3D::Polyhedron & poly)
+{
+	_target->Merge (poly);
+}
+
+
+DllExport void
+Sphere_Merge15 (Urho3D::Sphere *_target, const class Urho3D::Sphere & sphere)
+{
+	_target->Merge (sphere);
+}
+
+
+DllExport void
+Sphere_Clear (Urho3D::Sphere *_target)
+{
+	_target->Clear ();
+}
+
+
+DllExport int
+Sphere_Defined (Urho3D::Sphere *_target)
+{
+	return _target->Defined ();
+}
+
+
+DllExport enum Urho3D::Intersection
+Sphere_IsInside (Urho3D::Sphere *_target, const class Urho3D::Vector3 & point)
+{
+	return _target->IsInside (point);
+}
+
+
+DllExport enum Urho3D::Intersection
+Sphere_IsInside16 (Urho3D::Sphere *_target, const class Urho3D::Sphere & sphere)
+{
+	return _target->IsInside (sphere);
+}
+
+
+DllExport enum Urho3D::Intersection
+Sphere_IsInsideFast (Urho3D::Sphere *_target, const class Urho3D::Sphere & sphere)
+{
+	return _target->IsInsideFast (sphere);
+}
+
+
+DllExport enum Urho3D::Intersection
+Sphere_IsInside17 (Urho3D::Sphere *_target, const class Urho3D::BoundingBox & box)
+{
+	return _target->IsInside (box);
+}
+
+
+DllExport enum Urho3D::Intersection
+Sphere_IsInsideFast18 (Urho3D::Sphere *_target, const class Urho3D::BoundingBox & box)
+{
+	return _target->IsInsideFast (box);
+}
+
+
+DllExport float
+Sphere_Distance (Urho3D::Sphere *_target, const class Urho3D::Vector3 & point)
+{
+	return _target->Distance (point);
+}
+
+
+DllExport Interop::Vector3 
+Sphere_GetLocalPoint (Urho3D::Sphere *_target, float theta, float phi)
+{
+	return *((Interop::Vector3  *) &(_target->GetLocalPoint (theta, phi)));
+}
+
+
+DllExport Interop::Vector3 
+Sphere_GetPoint (Urho3D::Sphere *_target, float theta, float phi)
+{
+	return *((Interop::Vector3  *) &(_target->GetPoint (theta, phi)));
 }
 
 
@@ -20558,6 +21064,69 @@ PackageFile_IsCompressed (Urho3D::PackageFile *_target)
 }
 
 
+DllExport void *
+UIBatch_UIBatch ()
+{
+	return new UIBatch();
+}
+
+
+DllExport void
+UIBatch_SetColor (Urho3D::UIBatch *_target, const class Urho3D::Color & color, bool overrideAlpha)
+{
+	_target->SetColor (color, overrideAlpha);
+}
+
+
+DllExport void
+UIBatch_SetDefaultColor (Urho3D::UIBatch *_target)
+{
+	_target->SetDefaultColor ();
+}
+
+
+DllExport void
+UIBatch_AddQuad (Urho3D::UIBatch *_target, float x, float y, float width, float height, int texOffsetX, int texOffsetY, int texWidth, int texHeight)
+{
+	_target->AddQuad (x, y, width, height, texOffsetX, texOffsetY, texWidth, texHeight);
+}
+
+
+DllExport void
+UIBatch_AddQuad0 (Urho3D::UIBatch *_target, const class Urho3D::Matrix3x4 & transform, int x, int y, int width, int height, int texOffsetX, int texOffsetY, int texWidth, int texHeight)
+{
+	_target->AddQuad (transform, x, y, width, height, texOffsetX, texOffsetY, texWidth, texHeight);
+}
+
+
+DllExport void
+UIBatch_AddQuad1 (Urho3D::UIBatch *_target, int x, int y, int width, int height, int texOffsetX, int texOffsetY, int texWidth, int texHeight, bool tiled)
+{
+	_target->AddQuad (x, y, width, height, texOffsetX, texOffsetY, texWidth, texHeight, tiled);
+}
+
+
+DllExport void
+UIBatch_AddQuad2 (Urho3D::UIBatch *_target, const class Urho3D::Matrix3x4 & transform, const class Urho3D::IntVector2 & a, const class Urho3D::IntVector2 & b, const class Urho3D::IntVector2 & c, const class Urho3D::IntVector2 & d, const class Urho3D::IntVector2 & texA, const class Urho3D::IntVector2 & texB, const class Urho3D::IntVector2 & texC, const class Urho3D::IntVector2 & texD)
+{
+	_target->AddQuad (transform, a, b, c, d, texA, texB, texC, texD);
+}
+
+
+DllExport void
+UIBatch_AddQuad3 (Urho3D::UIBatch *_target, const class Urho3D::Matrix3x4 & transform, const class Urho3D::IntVector2 & a, const class Urho3D::IntVector2 & b, const class Urho3D::IntVector2 & c, const class Urho3D::IntVector2 & d, const class Urho3D::IntVector2 & texA, const class Urho3D::IntVector2 & texB, const class Urho3D::IntVector2 & texC, const class Urho3D::IntVector2 & texD, const class Urho3D::Color & colA, const class Urho3D::Color & colB, const class Urho3D::Color & colC, const class Urho3D::Color & colD)
+{
+	_target->AddQuad (transform, a, b, c, d, texA, texB, texC, texD, colA, colB, colC, colD);
+}
+
+
+DllExport unsigned int
+UIBatch_GetInterpolatedColor (Urho3D::UIBatch *_target, float x, float y)
+{
+	return _target->GetInterpolatedColor (x, y);
+}
+
+
 DllExport int
 UIElement_GetType (Urho3D::UIElement *_target)
 {
@@ -22665,6 +23234,62 @@ DllExport int
 Input_IsMinimized (Urho3D::Input *_target)
 {
 	return _target->IsMinimized ();
+}
+
+
+DllExport void *
+AreaAllocator_AreaAllocator ()
+{
+	return new AreaAllocator();
+}
+
+
+DllExport void *
+AreaAllocator_AreaAllocator0 (int width, int height, bool fastMode)
+{
+	return new AreaAllocator(width, height, fastMode);
+}
+
+
+DllExport void *
+AreaAllocator_AreaAllocator1 (int width, int height, int maxWidth, int maxHeight, bool fastMode)
+{
+	return new AreaAllocator(width, height, maxWidth, maxHeight, fastMode);
+}
+
+
+DllExport void
+AreaAllocator_Reset (Urho3D::AreaAllocator *_target, int width, int height, int maxWidth, int maxHeight, bool fastMode)
+{
+	_target->Reset (width, height, maxWidth, maxHeight, fastMode);
+}
+
+
+DllExport int
+AreaAllocator_Allocate (Urho3D::AreaAllocator *_target, int width, int height, int & x, int & y)
+{
+	return _target->Allocate (width, height, x, y);
+}
+
+
+DllExport int
+AreaAllocator_GetWidth (Urho3D::AreaAllocator *_target)
+{
+	return _target->GetWidth ();
+}
+
+
+DllExport int
+AreaAllocator_GetHeight (Urho3D::AreaAllocator *_target)
+{
+	return _target->GetHeight ();
+}
+
+
+DllExport int
+AreaAllocator_GetFastMode (Urho3D::AreaAllocator *_target)
+{
+	return _target->GetFastMode ();
 }
 
 
@@ -28063,6 +28688,41 @@ DllExport Urho3D::ValueAnimationInfo *
 ObjectAnimation_GetAttributeAnimationInfo (Urho3D::ObjectAnimation *_target, const char * name)
 {
 	return _target->GetAttributeAnimationInfo (Urho3D::String(name));
+}
+
+
+DllExport void *
+SceneResolver_SceneResolver ()
+{
+	return new SceneResolver();
+}
+
+
+DllExport void
+SceneResolver_Reset (Urho3D::SceneResolver *_target)
+{
+	_target->Reset ();
+}
+
+
+DllExport void
+SceneResolver_AddNode (Urho3D::SceneResolver *_target, unsigned int oldID, Urho3D::Node * node)
+{
+	_target->AddNode (oldID, node);
+}
+
+
+DllExport void
+SceneResolver_AddComponent (Urho3D::SceneResolver *_target, unsigned int oldID, Urho3D::Component * component)
+{
+	_target->AddComponent (oldID, component);
+}
+
+
+DllExport void
+SceneResolver_Resolve (Urho3D::SceneResolver *_target)
+{
+	_target->Resolve ();
 }
 
 
