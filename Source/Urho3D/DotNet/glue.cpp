@@ -395,6 +395,19 @@ extern "C" {
 		return target->GetSize();
 	}
 
+    DllExport char* MemoryBuffer_GetString(MemoryBuffer* target)
+    {
+        return strdup(target->ReadString().CString());
+    }
+
+    DllExport void MemoryBuffer_FreeString(MemoryBuffer* target , char * str)
+    {
+        if(str)
+        {
+            free(str);
+        }
+    }
+
 	DllExport unsigned File_GetSize(File* target)
 	{
 		return target->GetSize();

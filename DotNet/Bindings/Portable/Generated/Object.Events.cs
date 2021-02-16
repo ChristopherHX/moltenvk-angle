@@ -659,6 +659,29 @@ namespace Urho {
             public Node TargetNode => EventData.get_Node (unchecked((int)3776818803) /* TargetNode (P_TARGETNODE) */);
         } /* struct IKEffectorTargetChangedEventArgs */
 
+        public partial class IKEffector {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.IKEffectorTargetChanged += ...' instead.")]
+             public Subscription SubscribeToIKEffectorTargetChanged (Action<IKEffectorTargetChangedEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new IKEffectorTargetChangedEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)3530308141) /* IKEffectorTargetChanged (E_IKEFFECTORTARGETCHANGED) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<IKEffectorTargetChangedEventArgs> eventAdapterForIKEffectorTargetChanged;
+             public event Action<IKEffectorTargetChangedEventArgs> IKEffectorTargetChanged
+             {
+                 add
+                 {
+                      if (eventAdapterForIKEffectorTargetChanged == null)
+                          eventAdapterForIKEffectorTargetChanged = new UrhoEventAdapter<IKEffectorTargetChangedEventArgs>(typeof(IKEffector));
+                      eventAdapterForIKEffectorTargetChanged.AddManagedSubscriber(handle, value, SubscribeToIKEffectorTargetChanged);
+                 }
+                 remove { eventAdapterForIKEffectorTargetChanged.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class IKEffector */ 
+
 } /* namespace */
 
 namespace Urho.IO {
@@ -2112,7 +2135,7 @@ namespace Urho.Network {
             public byte [] Data => EventData.get_Buffer (unchecked((int)2349297546) /* Data (P_DATA) */);
         } /* struct NetworkMessageEventArgs */
 
-        public partial class Network {
+        public partial class Connection {
              [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.NetworkMessage += ...' instead.")]
              public Subscription SubscribeToNetworkMessage (Action<NetworkMessageEventArgs> handler)
              {
@@ -2128,12 +2151,12 @@ namespace Urho.Network {
                  add
                  {
                       if (eventAdapterForNetworkMessage == null)
-                          eventAdapterForNetworkMessage = new UrhoEventAdapter<NetworkMessageEventArgs>(typeof(Network));
+                          eventAdapterForNetworkMessage = new UrhoEventAdapter<NetworkMessageEventArgs>(typeof(Connection));
                       eventAdapterForNetworkMessage.AddManagedSubscriber(handle, value, SubscribeToNetworkMessage);
                  }
                  remove { eventAdapterForNetworkMessage.RemoveManagedSubscriber(handle, value); }
              }
-        } /* class Network */ 
+        } /* class Connection */ 
 
 } /* namespace */
 
@@ -2250,6 +2273,15 @@ namespace Urho {
 
 } /* namespace */
 
+namespace Urho {
+        public partial struct NetworkHostDiscoveredEventArgs {
+            public EventDataContainer EventData;
+            public String Address => EventData.get_String (unchecked((int)2093602676) /* Address (P_ADDRESS) */);
+            public int Port => EventData.get_int (unchecked((int)3241939233) /* Port (P_PORT) */);
+            public VariantMap Beacon => EventData.get_VariantMap (unchecked((int)1442234532) /* Beacon (P_BEACON) */);
+        } /* struct NetworkHostDiscoveredEventArgs */
+
+} /* namespace */
 
 namespace Urho {
         public partial struct NetworkNatPunchtroughSucceededEventArgs {

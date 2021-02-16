@@ -272,6 +272,12 @@
 #include "../Urho2D/TileMapLayer2D.h"
 #include "../Urho2D/TmxFile2D.h"
 #include "../Urho2D/Urho2D.h"
+#include "../IK/IK.h"
+#include "../IK/IKConstraint.h"
+#include "../IK/IKConverters.h"
+#include "../IK/IKEffector.h"
+#include "../IK/IKEvents.h"
+#include "../IK/IKSolver.h"
 #if defined(URHO3D_DOTNET)
 #include "Mono.h"
 #endif

@@ -267,5 +267,11 @@ namespace Urho {
 		{
 			return urho_map_get_uint (Handle, paramNameHash);
 		}
+
+		public VariantMap get_VariantMap (int paramNameHash)
+		{
+			// TBD ELI this is a stub right now
+			return new VariantMap();
+		}
 	}
 }

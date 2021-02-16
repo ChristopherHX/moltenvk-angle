@@ -318,6 +318,10 @@ void Network::NewConnectionEstablished(const SLNet::AddressOrGUID& connection)
     VariantMap& eventData = GetEventDataMap();
     eventData[P_CONNECTION] = newConnection;
     newConnection->SendEvent(E_CLIENTCONNECTED, eventData);
+    
+#if defined(URHO3D_DOTNET)
+    this->SendEvent(E_CLIENTCONNECTED ,eventData);
+#endif
 }
 
 void Network::ClientDisconnected(const SLNet::AddressOrGUID& connection)
@@ -335,6 +339,10 @@ void Network::ClientDisconnected(const SLNet::AddressOrGUID& connection)
         eventData[P_CONNECTION] = connection;
         connection->SendEvent(E_CLIENTDISCONNECTED, eventData);
 
+#if defined(URHO3D_DOTNET)
+        this->SendEvent(E_CLIENTDISCONNECTED ,eventData);
+#endif
+        
         clientConnections_.Erase(i);
     }
 }
