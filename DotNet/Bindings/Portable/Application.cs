@@ -330,6 +330,15 @@ namespace Urho
 
 		static Platforms platform;
 
+		public static string PlatformString
+		{
+			get{
+				IntPtr native_string = GetPlatform();
+				string managed_string = Marshal.PtrToStringAnsi(native_string);
+				NativeString.Free(native_string);
+				return managed_string;
+			}
+		}
 		public static Platforms Platform
 		{
 			get
@@ -345,7 +354,11 @@ namespace Urho
 #endif
 				Runtime.Validate(typeof(Application));
 				if (platform == Platforms.Unknown)
-					platform = PlatformsMap.FromString(Marshal.PtrToStringAnsi(GetPlatform()));
+				{
+					IntPtr native_string = GetPlatform();
+					platform = PlatformsMap.FromString(Marshal.PtrToStringAnsi(native_string));
+					NativeString.Free(native_string);
+				}
 				return platform;
 			}
 		}

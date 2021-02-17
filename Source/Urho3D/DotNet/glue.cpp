@@ -397,16 +397,9 @@ extern "C" {
 
     DllExport char* MemoryBuffer_GetString(MemoryBuffer* target)
     {
-        return strdup(target->ReadString().CString());
+        return stringdup(target->ReadString().CString());
     }
 
-    DllExport void MemoryBuffer_FreeString(MemoryBuffer* target , char * str)
-    {
-        if(str)
-        {
-            free(str);
-        }
-    }
 
 	DllExport unsigned File_GetSize(File* target)
 	{
@@ -537,5 +530,13 @@ extern "C" {
     {
         unsigned int mask = _target->GetElementMask();
         return mask;
+    }
+
+	DllExport void String_FreeNativeString(char * str)
+    {
+        if(str)
+        {
+            free(str);
+        }
     }
 }
