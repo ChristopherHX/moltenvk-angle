@@ -13,15 +13,52 @@ namespace Urho {
 	/// <summary>
 	/// Helper functions to return elements from a VariantMap
 	/// </summary>
-	public class EventDataContainer
+	public class EventDataContainer : IDisposable
 	{
 		public IntPtr Handle { get; }
-
+		private bool isManaged = false;
+		private bool disposed = false;
+		public EventDataContainer()
+		{
+			Handle = VariantMap_VariantMap();
+			isManaged = true;
+			disposed = false;
+		}
 		public EventDataContainer(IntPtr handle)
 		{
 			Handle = handle;
+			isManaged = false;
+			disposed = false;
 		}
+
+		public void Dispose()
+		{
+			if(isManaged == true)
+			{
+				if(disposed == false)
+				{
+					disposed = true;
+					VariantMap_Dispose(Handle);
+					GC.SuppressFinalize(this);
+				}
+			}
+		}
+
+		~EventDataContainer()
+		{
+			Dispose();
+		}
+
 		
+		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
+		static extern IntPtr  VariantMap_VariantMap();
+
+		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
+		static extern void VariantMap_Dispose(IntPtr variantMap);
+
+		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
+		static extern IntPtr urho_map_get_variantmap (IntPtr handle, int paramNameHash);
+
 		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
 		static extern IntPtr urho_map_get_ptr (IntPtr handle, int paramNameHash);
 
@@ -273,10 +310,17 @@ namespace Urho {
 			return urho_map_get_uint (Handle, paramNameHash);
 		}
 
-		public VariantMap get_VariantMap (int paramNameHash)
+		public EventDataContainer get_EventDataContainer (int paramNameHash)
 		{
-			// TBD ELI this is a stub right now
-			return new VariantMap();
+			IntPtr ptr = urho_map_get_variantmap(Handle, paramNameHash);
+			return new EventDataContainer(ptr);
 		}
+
+		public Variant this[string paramNameHash]
+		{
+			get => urho_map_get_Variant (Handle, new StringHash(paramNameHash).Code);
+	
+		}
+
 	}
 }

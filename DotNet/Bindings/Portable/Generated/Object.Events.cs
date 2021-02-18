@@ -2278,7 +2278,7 @@ namespace Urho {
             public EventDataContainer EventData;
             public String Address => EventData.get_String (unchecked((int)2093602676) /* Address (P_ADDRESS) */);
             public int Port => EventData.get_int (unchecked((int)3241939233) /* Port (P_PORT) */);
-            public VariantMap Beacon => EventData.get_VariantMap (unchecked((int)1442234532) /* Beacon (P_BEACON) */);
+            public EventDataContainer Beacon => EventData.get_EventDataContainer (unchecked((int)1442234532) /* Beacon (P_BEACON) */);
         } /* struct NetworkHostDiscoveredEventArgs */
 
 } /* namespace */
