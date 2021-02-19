@@ -722,5 +722,15 @@ extern "C" {
         return pod.Buffer();
     }
 
+    DllExport void urho_map_get_value(VariantMap& nativeInstance, int key, Variant& value)
+    {
+        value = nativeInstance[StringHash(key)];
+    }
+
+    DllExport void urho_map_set_value(VariantMap& nativeInstance, int key, Variant& value)
+    {
+        nativeInstance[StringHash(key)] = value;
+    }
+
 
 }

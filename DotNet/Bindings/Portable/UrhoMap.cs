@@ -91,6 +91,12 @@ namespace Urho {
 
 		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		static extern Variant urho_map_get_Variant(IntPtr handle, int paramNameHash);
+    
+		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)] 
+		static extern void urho_map_get_value(IntPtr handle, int paramNameHash, out Variant value);
+		
+		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)] 
+		static extern void urho_map_set_value(IntPtr handle, int paramNameHash, ref Variant value);
 
 		public T get_Object<T>(int paramNameHash) where T : UrhoObject
 		{
@@ -316,11 +322,22 @@ namespace Urho {
 			return new EventDataContainer(ptr);
 		}
 
-		public Variant this[string paramNameHash]
-		{
-			get => urho_map_get_Variant (Handle, new StringHash(paramNameHash).Code);
-	
-		}
+		public Variant this[String key]
+    	{
+			get
+			{
+				Variant value;
+				int hash = StringHash.urho_stringhash_from_string (key);
+				urho_map_get_value(Handle, hash, out value);
+				return value;
+			}
+			
+			set
+			{
+				int hash = StringHash.urho_stringhash_from_string (key);
+				urho_map_set_value(Handle, hash ,ref value);
+			}
+    	}
 
 	}
 }
