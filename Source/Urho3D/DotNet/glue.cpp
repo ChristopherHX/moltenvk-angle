@@ -30,6 +30,29 @@ extern "C" {
 		receiver->SubscribeToEvent(receiver, h, proxy);
 		return proxy;
 	}
+    
+    DllExport
+    void * VariantMap_VariantMap()
+    {
+        return (void*)(new VariantMap());
+    }
+    
+    DllExport
+    void VariantMap_Dispose(VariantMap * variantMap)
+    {
+        if(variantMap)
+        {
+            delete variantMap;
+        }
+    }
+
+    DllExport
+    void * urho_map_get_variantmap (VariantMap &map, int hash)
+    {
+        StringHash h (hash);
+        return (void*)(&map [h].GetVariantMap());
+    }
+
 
 	DllExport
 	void * urho_map_get_ptr (VariantMap &map, int hash)
@@ -395,6 +418,12 @@ extern "C" {
 		return target->GetSize();
 	}
 
+    DllExport char* MemoryBuffer_GetString(MemoryBuffer* target)
+    {
+        return stringdup(target->ReadString().CString());
+    }
+
+
 	DllExport unsigned File_GetSize(File* target)
 	{
 		return target->GetSize();
@@ -525,4 +554,173 @@ extern "C" {
         unsigned int mask = _target->GetElementMask();
         return mask;
     }
+
+	DllExport void String_FreeNativeString(char * str)
+    {
+        if(str)
+        {
+            free(str);
+        }
+    }
+
+    DllExport
+    Variant  Variant_CreateInt(int i)
+    {
+        Variant v = i ;
+        return v;
+    }
+
+    DllExport
+    int Variant_GetInt(Variant & v)
+    {
+        return v.GetInt();
+    }
+
+
+    DllExport
+    Variant  Variant_CreateBool(bool val)
+    {
+        Variant v = val ;
+        return v;
+    }
+
+    DllExport
+    bool Variant_GetBool(Variant & v)
+    {
+        return v.GetBool();
+    }
+
+
+    DllExport
+    Variant  Variant_CreateFloat(float f)
+    {
+        Variant v = f;
+        return v;
+    }
+
+    DllExport
+    float Variant_GetFloat(Variant & v)
+    {
+        return v.GetFloat();
+    }
+
+
+    DllExport
+    Variant  Variant_CreateVector2(Interop::Vector2 vec)
+    {
+        Variant v = Vector2(vec.x,vec.y);
+        return v;
+    }
+
+    DllExport
+    Interop::Vector2 Variant_GetVector2(Variant & v)
+    {
+        return *((Interop::Vector2  *) &(v.GetVector2 ()));
+    }
+
+    DllExport
+    Variant  Variant_CreateVector3(Interop::Vector3 vec)
+    {
+        Variant v = Vector3(vec.x,vec.y,vec.z);
+        return v;
+    }
+
+    DllExport
+    Interop::Vector3 Variant_GetVector3(Variant & v)
+    {
+        return *((Interop::Vector3  *) &(v.GetVector3 ()));
+    }
+
+    DllExport
+    Variant  Variant_CreateVector4(Interop::Vector4 vec)
+    {
+        Variant v =  Vector4(vec.x,vec.y,vec.z,vec.w);
+        return v;
+    }
+
+    DllExport
+    Interop::Vector4  Variant_GetVector4(Variant & v)
+    {
+     
+        return *((Interop::Vector4  *) &(v.GetVector4 ()));
+    }
+
+
+
+
+    DllExport
+    Variant  Variant_CreateQuaternion(Interop::Quaternion q)
+    {
+        Variant v = Quaternion(q.w,q.x,q.y,q.z);
+        return v;
+    }
+
+    DllExport
+    Interop::Quaternion Variant_GetQuaternion(Variant & v)
+    {
+        return *((Interop::Quaternion *) &(v.GetQuaternion()));
+    }
+
+
+
+    DllExport
+    Variant  Variant_CreateColor(Interop::Color c)
+    {
+        Variant v = Color(c.r,c.g,c.b,c.a);
+        return v;
+    }
+
+    DllExport
+    Interop::Color Variant_GetColor(Variant & v)
+    {
+       return  *((Interop::Color *) &(v.GetColor()));
+    }
+
+
+    DllExport
+    Variant Variant_CreateDouble(double f)
+    {
+        Variant v = f;
+        return v;
+    }
+
+    DllExport
+    double Variant_GetDouble(Variant & v)
+    {
+        return v.GetDouble();
+    }
+
+
+    DllExport Variant Variant_CreateString(const char* value)
+    {
+        Variant v = value;
+        return v;
+    }
+
+
+    DllExport char* Variant_GetString(Variant& variant)
+    {
+        String urhoString = variant.GetString();
+        return stringdup(urhoString.CString());
+    }
+
+
+
+
+    DllExport Variant Variant_CreateBuffer(void* data, int size)
+    {
+        Variant v =  VectorBuffer(data,size);
+        return v;
+        
+   
+    }
+
+    DllExport unsigned char* Variant_GetBuffer(Variant& v, int *count)
+    {
+        const PODVector<unsigned char>& pod = v.GetBuffer();
+        *count = pod.Size();
+        return pod.Buffer();
+    }
+
+
 }

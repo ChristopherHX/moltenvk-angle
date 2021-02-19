@@ -38104,4 +38104,144 @@ TileMap2D_GetTmxFileAttr (Urho3D::TileMap2D *_target)
 }
 
 
+DllExport int
+IKConstraint_GetType (Urho3D::IKConstraint *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+IKConstraint_GetTypeName (Urho3D::IKConstraint *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+IKConstraint_GetTypeStatic ()
+{
+	return (IKConstraint::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+IKConstraint_GetTypeNameStatic ()
+{
+	return stringdup((IKConstraint::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void *
+IKConstraint_IKConstraint (Urho3D::Context * context)
+{
+	return WeakPtr<IKConstraint>(new IKConstraint(context));
+}
+
+
+DllExport void
+IKConstraint_RegisterObject (Urho3D::Context * context)
+{
+	IKConstraint::RegisterObject (context);
+}
+
+
+DllExport float
+IKConstraint_GetStiffness (Urho3D::IKConstraint *_target)
+{
+	return _target->GetStiffness ();
+}
+
+
+DllExport void
+IKConstraint_SetStiffness (Urho3D::IKConstraint *_target, float stiffness)
+{
+	_target->SetStiffness (stiffness);
+}
+
+
+DllExport float
+IKConstraint_GetStretchiness (Urho3D::IKConstraint *_target)
+{
+	return _target->GetStretchiness ();
+}
+
+
+DllExport void
+IKConstraint_SetStretchiness (Urho3D::IKConstraint *_target, float stretchiness)
+{
+	_target->SetStretchiness (stretchiness);
+}
+
+
+DllExport Interop::Vector2 
+IKConstraint_GetLengthConstraints (Urho3D::IKConstraint *_target)
+{
+	return *((Interop::Vector2  *) &(_target->GetLengthConstraints ()));
+}
+
+
+DllExport void
+IKConstraint_SetLengthConstraints (Urho3D::IKConstraint *_target, const class Urho3D::Vector2 & lengthConstraints)
+{
+	_target->SetLengthConstraints (lengthConstraints);
+}
+
+
+DllExport int
+IKEffector_GetType (Urho3D::IKEffector *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+IKEffector_GetTypeName (Urho3D::IKEffector *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+IKEffector_GetTypeStatic ()
+{
+	return (IKEffector::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+IKEffector_GetTypeNameStatic ()
+{
+	return stringdup((IKEffector::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport int
+IKSolver_GetType (Urho3D::IKSolver *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+IKSolver_GetTypeName (Urho3D::IKSolver *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+IKSolver_GetTypeStatic ()
+{
+	return (IKSolver::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+IKSolver_GetTypeNameStatic ()
+{
+	return stringdup((IKSolver::GetTypeNameStatic ()).CString ());
+}
+
+
 }

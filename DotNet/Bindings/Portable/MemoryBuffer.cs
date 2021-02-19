@@ -18,6 +18,9 @@ namespace Urho
 		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		static extern IntPtr MemoryBuffer_Dispose(IntPtr handle);
 
+		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+ 		static extern IntPtr MemoryBuffer_GetString(IntPtr handle);
+
 		public MemoryBuffer(byte[] data)
 		{
 			fixed (byte* bptr = data)
@@ -43,6 +46,18 @@ namespace Urho
 			byte[] result = new byte[size];
 			Marshal.Copy(bytesPtr, result, 0, size);
 			return result;
+		}
+
+		/// <summary>
+		/// Return Read a null-terminated string..
+		/// </summary>
+		public string GetString ()
+		{
+			Runtime.ValidateObject (this);
+			IntPtr native_string = MemoryBuffer_GetString(Handle);
+			string managed_string = Marshal.PtrToStringAnsi (native_string);
+			NativeString.Free(native_string);
+			return managed_string;
 		}
 
 		public void Dispose()

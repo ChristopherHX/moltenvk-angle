@@ -35,6 +35,15 @@ rm -f ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/UrhoString.cs
 rm -f ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/Input.cs
 rm -f ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/WorkItem.cs
 
+# TBD ELI , not sure about these ones
+rm -f ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/Algorithm.cs
+rm -f ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/Feature.cs
+
+# generate Object.Events.cs
+cd ${URHO3D_HOME}/DotNet/Bindings && perl ParseEvents.pl ${URHO3D_HOME}/build-xcode/include/Urho3d/*/*h
+# corrections on generated Object.Events.cs
+aliassedinplace "s*VariantMap*EventDataContainer*g" "${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/Object.Events.cs"
+
 # build UrhoDotNet.dll  assembly for all supported platforms
 cd ${URHO3D_HOME}/DotNet/Bindings
 ./build-desktop-bindings.sh 

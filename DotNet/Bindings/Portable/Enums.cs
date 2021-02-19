@@ -57,11 +57,14 @@ namespace Urho {
 		Unknown,
 		Android,
 		iOS,
+		tvOS,
 		Windows,
 		MacOSX,
 		Linux, 
 		UWP,
-		SharpReality
+		SharpReality,
+		Web,
+		RPI
 	}
 
 	public static class PlatformsExtensions
@@ -84,9 +87,12 @@ namespace Urho {
 				// ProcessUtils.cpp:L349
 				case "Android": return Platforms.Android;
 				case "iOS": return Platforms.iOS;
+				case "tvOS": return Platforms.tvOS;
 				case "Windows": return Platforms.Windows;
-				case "Mac OS X": return Platforms.MacOSX;
+				case "macOS": return Platforms.MacOSX;
 				case "Linux": return Platforms.Linux;
+				case "Raspberry Pi": return Platforms.RPI;
+				case "Web": return Platforms.Web;
 			}
 #if UWP_HOLO
 			return Platforms.SharpReality;

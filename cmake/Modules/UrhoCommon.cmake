@@ -174,7 +174,7 @@ option (URHO3D_DOTNET "Enable DotNet support" FALSE)
 
 
 if(URHO3D_DOTNET AND APPLE)
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-address-of-temporary -Wno-return-type-c-linkage -Wno-clang++11-extensions")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-address-of-temporary -Wno-return-type-c-linkage")
 endif ()
 
 if(URHO3D_DOTNET AND (CMAKE_SYSTEM_NAME MATCHES "Linux"))

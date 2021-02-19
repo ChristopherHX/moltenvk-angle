@@ -20,4 +20,16 @@ namespace Urho {
 		}
 	}
 	*/
+
+	static class NativeString
+	{
+		// free native char*
+		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		static extern void  String_FreeNativeString(IntPtr str);
+
+		public static void Free(IntPtr str)
+		{
+			String_FreeNativeString(str);
+		}
+	}
 }
