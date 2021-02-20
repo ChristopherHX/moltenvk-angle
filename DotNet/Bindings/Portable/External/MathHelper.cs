@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Runtime.InteropServices;
 
 namespace Urho
 {
@@ -330,5 +331,23 @@ namespace Urho
 			else
 				return new string(' ', cellSize - value.Length) + value;
 		}
+
+		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+ 		static extern IntPtr float_convert_to_string(float f);
+
+		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+ 		static extern IntPtr double_convert_to_string(double f);
+
+		 public static string ToString(float f)
+		 {
+			return  Marshal.PtrToStringAnsi (float_convert_to_string(f));
+		 }
+
+		 public static string ToString(double d)
+		 {
+			return  Marshal.PtrToStringAnsi (double_convert_to_string(d));
+		 }
+
+
 	}
 }

@@ -1291,7 +1291,7 @@ namespace Urho
 		/// <returns></returns>
 		public override string ToString()
 		{
-			return String.Format("({0}, {1}, {2})", X, Y, Z);
+			return String.Format("({0}, {1}, {2})", MathHelper.ToString(X), MathHelper.ToString(Y), MathHelper.ToString(Z));
 		}
 
 		public string ToString(int cellSize, int precision = 2, string separator = " | ")

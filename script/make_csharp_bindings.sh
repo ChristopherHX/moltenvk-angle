@@ -26,6 +26,7 @@ ${MONO64} SharpieBinder.exe
 # Minor corrections on Generated files
 aliassedinplace "s*public void Remove ()*public void Remove2 ()*g" "${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/Node.cs"
 aliassedinplace "s*private void SetMaterial (Material material)*public void SetMaterial (Material material)*g" "${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/StaticModel.cs"
+aliassedinplace "s*public void BroadcastMessage*private void BroadcastMessage*g" "${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/Network.cs"
 
 # Hack , the files below are generated with errors , for now I am using customized/modified files , so deleting the generated files .
 rm -f ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/Key.cs
@@ -43,6 +44,8 @@ rm -f ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/Feature.cs
 cd ${URHO3D_HOME}/DotNet/Bindings && perl ParseEvents.pl ${URHO3D_HOME}/build-xcode/include/Urho3d/*/*h
 # corrections on generated Object.Events.cs
 aliassedinplace "s*VariantMap*EventDataContainer*g" "${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/Object.Events.cs"
+
+
 
 # build UrhoDotNet.dll  assembly for all supported platforms
 cd ${URHO3D_HOME}/DotNet/Bindings

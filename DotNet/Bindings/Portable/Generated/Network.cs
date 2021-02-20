@@ -189,7 +189,7 @@ namespace Urho.Network
 		/// <summary>
 		/// Broadcast a message with content ID to all client connections.
 		/// </summary>
-		public void BroadcastMessage (int msgID, bool reliable, bool inOrder, byte* data, uint numBytes, uint contentID = 0)
+		private void BroadcastMessage (int msgID, bool reliable, bool inOrder, byte* data, uint numBytes, uint contentID = 0)
 		{
 			Runtime.ValidateRefCounted (this);
 			Network_BroadcastMessage (handle, msgID, reliable, inOrder, data, numBytes, contentID);

@@ -785,9 +785,9 @@ namespace Urho
 				"|{00}, {01}, {02}|\n" +
 				"|{03}, {04}, {05}|\n" +
 				"|{06}, {07}, {08}|\n",
-				R0C0, R0C1, R0C2,
-				R1C0, R1C1, R1C2,
-				R2C0, R2C1, R2C2);
+				MathHelper.ToString(R0C0), MathHelper.ToString(R0C1), MathHelper.ToString(R0C2),
+				MathHelper.ToString(R1C0), MathHelper.ToString(R1C1), MathHelper.ToString(R1C2),
+				MathHelper.ToString(R2C0), MathHelper.ToString(R2C1), MathHelper.ToString(R2C2));
 		}
 
 		#endregion

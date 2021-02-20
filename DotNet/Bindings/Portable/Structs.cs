@@ -862,7 +862,7 @@ namespace Urho {
 
 		public override string ToString()
 		{
-			return $"r:{R}, g:{G}, b:{B}, a:{A}";
+			return $"r:{MathHelper.ToString(R)}, g:{MathHelper.ToString(G)}, b:{MathHelper.ToString(B)}, a:{MathHelper.ToString(A)}";
 		}
 
 		public static explicit operator Color(Vector3 vector) => new Color(vector.X, vector.Y, vector.Z);

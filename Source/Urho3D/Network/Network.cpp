@@ -385,7 +385,8 @@ bool Network::Connect(const String& address, unsigned short port, Scene* scene, 
         // Startup local connection with max 2 incoming connections(first param) and 1 socket description (third param)
         rakPeerClient_->Startup(2, &socket, 1);
     }
-
+    bool iss = isServer_;
+    
     //isServer_ = false;
     SLNet::ConnectionAttemptResult connectResult = rakPeerClient_->Connect(address.CString(), port, password_.CString(), password_.Length());
     if (connectResult == SLNet::CONNECTION_ATTEMPT_STARTED)

@@ -2,7 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 
 namespace Urho.Network {
-	public partial class Network {
+	public unsafe partial class Network {
 		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
 		extern static int Network_Connect (IntPtr handle, string address, short port, IntPtr scene);
 
@@ -12,6 +12,14 @@ namespace Urho.Network {
 			if (address == null)
 				throw new ArgumentNullException ("address");
 			return Network_Connect (handle, address, port, scene?.Handle ?? IntPtr.Zero) != 0;
+		}
+
+		public void Broadcast (int msgID, bool reliable, bool inOrder, byte[] data, uint contentID = 0)
+		{
+			fixed (byte* bptr = data)
+			{
+				 BroadcastMessage(msgID,reliable,inOrder,bptr,(uint)(data.Length),contentID);
+			}
 		}
 	}
 	

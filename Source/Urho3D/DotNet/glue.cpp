@@ -704,9 +704,6 @@ extern "C" {
         return stringdup(urhoString.CString());
     }
 
-
-
-
     DllExport Variant Variant_CreateBuffer(void* data, int size)
     {
         Variant v =  VectorBuffer(data,size);
@@ -730,6 +727,21 @@ extern "C" {
     DllExport void urho_map_set_value(VariantMap& nativeInstance, int key, Variant& value)
     {
         nativeInstance[StringHash(key)] = value;
+    }
+
+    static   char conversionNumbersBuffer[CONVERSION_BUFFER_LENGTH];
+
+    DllExport  char* float_convert_to_string(float value)
+    {
+        sprintf(conversionNumbersBuffer, "%g", value);
+        return conversionNumbersBuffer;
+    }
+
+    DllExport  char* double_convert_to_string(double value)
+    {
+      
+        sprintf(conversionNumbersBuffer, "%g", value);
+        return conversionNumbersBuffer;
     }
 
 
