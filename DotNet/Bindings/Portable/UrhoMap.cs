@@ -13,7 +13,7 @@ namespace Urho {
 	/// <summary>
 	/// Helper functions to return elements from a VariantMap
 	/// </summary>
-	public class EventDataContainer : IDisposable
+	public class EventDataContainer 
 	{
 		public IntPtr Handle { get; }
 		private bool isManaged = false;
@@ -39,7 +39,7 @@ namespace Urho {
 				{
 					disposed = true;
 					VariantMap_Dispose(Handle);
-					GC.SuppressFinalize(this);
+				//	GC.SuppressFinalize(this);
 				}
 			}
 		}
@@ -97,6 +97,10 @@ namespace Urho {
 		
 		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)] 
 		public static extern void urho_map_set_value(IntPtr handle, int paramNameHash, ref Variant value);
+
+
+		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)] 
+		public static extern void urho_map_set_value_ptr(IntPtr handle, int paramNameHash, IntPtr value);
 
 		public T get_Object<T>(int paramNameHash) where T : UrhoObject
 		{

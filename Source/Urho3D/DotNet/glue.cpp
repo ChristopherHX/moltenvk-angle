@@ -42,6 +42,7 @@ extern "C" {
     {
         if(variantMap)
         {
+            variantMap->Clear();
             delete variantMap;
         }
     }
@@ -728,6 +729,12 @@ extern "C" {
     {
         nativeInstance[StringHash(key)] = value;
     }
+
+    DllExport void urho_map_set_value_ptr(VariantMap& nativeInstance, int key, Variant* value)
+    {
+        nativeInstance[StringHash(key)] = *value;
+    }
+
 
     static   char conversionNumbersBuffer[CONVERSION_BUFFER_LENGTH];
 

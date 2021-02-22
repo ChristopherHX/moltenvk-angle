@@ -29,7 +29,7 @@ namespace Urho
             variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));
         }
 
-        public Dynamic(ref Variant v)
+        public Dynamic(Variant v)
         {
             Handle = Dynamic_CreateVariant(ref v);
             variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));

@@ -14,26 +14,47 @@ namespace Urho
 {
     public class DynamicMap : EventDataContainer
     {
-        public DynamicMap():base(){}
+        Dictionary<string, Dynamic> dynamicMap ;
+
+        public DynamicMap():base()
+        {
+            dynamicMap = new Dictionary<string, Dynamic>();
+        }
 
         public Dynamic this[String key]
     	{
 			get
 			{
-				Variant value;
-				int hash = StringHash.urho_stringhash_from_string (key);
-				urho_map_get_value(Handle, hash, out value);
-
-				return new Dynamic(ref value);
+                Dynamic dyn;
+                if (dynamicMap.TryGetValue(key, out dyn))
+                {
+                    return dyn;
+                }
+                else
+                {
+                    Variant value;
+                    int hash = StringHash.urho_stringhash_from_string (key);
+                    urho_map_get_value(Handle, hash, out value);
+                    dyn =  new Dynamic(value);
+                    dynamicMap[key] = dyn;
+                    return dyn;
+                }
 			}
 			
 			set
 			{
 				int hash = StringHash.urho_stringhash_from_string (key);
-				urho_map_set_value(Handle, hash ,ref value.variant);
+				urho_map_set_value_ptr(Handle, hash ,value.Handle);
+
+                dynamicMap[key] = value;
 			}
             
     	}
+
+        ~DynamicMap()
+		{
+			Dispose();
+		}
 
     }
 
