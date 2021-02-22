@@ -136,6 +136,15 @@ namespace Urho {
 			hash = hash * 43 + Right;
 			return hash;
 		}
+
+		/// Returns a System.String that represents the current IntRect.
+		/// </summary>
+		/// <returns></returns>
+		public override string ToString()
+		{
+			return String.Format("({0}, {1}, {2}, {3})", MathHelper.ToString(Left), MathHelper.ToString(Top), MathHelper.ToString(Right), MathHelper.ToString(Bottom));
+		}
+
 	}
 
 	[StructLayout (LayoutKind.Sequential)]
@@ -149,7 +158,7 @@ namespace Urho {
 	public struct Rect : IEquatable<Rect> {
 		public Vector2 Min, Max;
 
-		public Rect (int left, int top, int right, int bottom)
+		public Rect (float left, float top, float right, float bottom)
 		{
 			Min = new Vector2 (left, top);
 			Max = new Vector2 (right, bottom);
@@ -188,6 +197,14 @@ namespace Urho {
 			hash = hash * 43 + Min.GetHashCode();
 			hash = hash * 43 + Max.GetHashCode();
 			return hash;
+		}
+
+		/// Returns a System.String that represents the current Rect.
+		/// </summary>
+		/// <returns></returns>
+		public override string ToString()
+		{
+			return String.Format("({0}, {1})", Min.ToString(), Max.ToString());
 		}
 	}
 
@@ -411,12 +428,12 @@ namespace Urho {
 			m20 = v20; m21 = v21; m22 = v22; m23 = v23;
 		}
 
-		public Matrix3x4(Vector3 row0, Vector3 row1, Vector3 row2, Vector3 row3)
+		public Matrix3x4(Vector3 col0, Vector3 col1, Vector3 col2, Vector3 col3)
 		{
-			m00 = row0.X; m10 = row0.Y; m20 = row0.Z;
-			m01 = row1.X; m11 = row1.Y; m21 = row1.Z;
-			m02 = row2.X; m12 = row2.Y; m22 = row2.Z;
-			m03 = row3.X; m13 = row3.Y; m23 = row3.Z;
+			m00 = col0.X; m10 = col0.Y; m20 = col0.Z;
+			m01 = col1.X; m11 = col1.Y; m21 = col1.Z;
+			m02 = col2.X; m12 = col2.Y; m22 = col2.Z;
+			m03 = col3.X; m13 = col3.Y; m23 = col3.Z;
 		}
 
 		public Matrix3x4 Inverse()

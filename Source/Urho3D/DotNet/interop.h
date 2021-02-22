@@ -9,7 +9,7 @@
 
 namespace Interop {
 	struct IntVector2 {
-		int a, b;
+		int x, y;
 	};
 
 	struct Vector2 {
@@ -19,6 +19,10 @@ namespace Interop {
 	struct Vector3 {
 		float x, y, z;
 	};
+
+    struct IntVector3 {
+        int x, y, z;
+    };
 
 	struct Vector4 {
 		float x, y, z, w;
@@ -32,6 +36,12 @@ namespace Interop {
 		float r, g, b, a;
 	};
 	
+    struct Rect
+    {
+        Vector2 min;
+        Vector2 max;
+    };
+
 	struct IntRect {
 		int left, top, right, bottom;
 	};
@@ -45,6 +55,19 @@ namespace Interop {
 		Vector3 normal, absNormal;
 		float d;
 	};
+
+    struct Matrix3{
+        float m00;
+        float m01;
+        float m02;
+        float m10;
+        float m11;
+        float m12;
+        float m20;
+        float m21;
+        float m22;
+
+    };
 
 	struct Matrix3x4 {
 		float m00;

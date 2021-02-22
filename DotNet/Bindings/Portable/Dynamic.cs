@@ -1,3 +1,26 @@
+//
+// The MIT License (MIT)
+//
+// Copyright (c) 2021 Eli Aloni (A.K.A elix22)
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -49,6 +72,19 @@ namespace Urho
             variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));
         }
 
+        public Dynamic(System.Int64 v)
+        {
+            Handle = Dynamic_CreateInt64(v);
+            variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));
+        }
+
+        public Dynamic(System.UInt64 v)
+        {
+            Handle = Dynamic_CreateUInt64(v);
+            variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));
+        }
+
+
         public Dynamic(float v)
         {
             Handle = Dynamic_CreateFloat(v);
@@ -68,11 +104,38 @@ namespace Urho
             variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));
         }
 
+        public Dynamic(IntVector2 v)
+        {
+            Handle = Dynamic_CreateIntVector2(v);
+            variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));
+        }
+
+
         public Dynamic(Vector3 v)
         {
             Handle = Dynamic_CreateVector3(v);
             variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));
         }
+
+        public Dynamic(IntVector3 v)
+        {
+            Handle = Dynamic_CreateIntVector3(v);
+            variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));
+        }
+
+
+        public Dynamic(Rect v)
+        {
+            Handle = Dynamic_CreateRect(v);
+            variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));
+        }
+
+        public Dynamic(IntRect v)
+        {
+            Handle = Dynamic_CreateIntRect(v);
+            variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));
+        }
+
 
         public Dynamic(Vector4 v)
         {
@@ -97,6 +160,23 @@ namespace Urho
             variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));
         }
 
+        public Dynamic(Matrix3 v)
+        {
+            Handle = Dynamic_CreateMatrix3(v);
+            variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));
+        }
+
+        public Dynamic(Matrix4 v)
+        {
+            Handle = Dynamic_CreateMatrix4(v);
+            variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));
+        }
+
+        public Dynamic(Matrix3x4 v)
+        {
+            Handle = Dynamic_CreateMatrix3x4(v);
+            variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));
+        }
 
         public static implicit operator Dynamic(bool b)
         {
@@ -116,6 +196,28 @@ namespace Urho
         public static implicit operator int(Dynamic v)
         {
             return v.variant.Value._int;
+        }
+
+
+        public static implicit operator Dynamic(System.Int64 i)
+        {
+            return new Dynamic(i);
+        }
+
+        public static implicit operator System.Int64(Dynamic v)
+        {
+            return v.variant.Value.int64;
+        }
+
+
+        public static implicit operator Dynamic(System.UInt64 i)
+        {
+            return new Dynamic(i);
+        }
+
+        public static implicit operator System.UInt64(Dynamic v)
+        {
+            return v.variant.Value.uint64;
         }
 
         public static implicit operator Dynamic(float val)
@@ -148,6 +250,16 @@ namespace Urho
             return v.variant.Value.vector2;
         }
 
+        public static implicit operator Dynamic(IntVector2 val)
+        {
+            return new Dynamic(val);
+        }
+
+        public static implicit operator IntVector2(Dynamic v)
+        {
+            return v.variant.Value.intVector2;
+        }
+
         public static implicit operator Dynamic(Vector3 val)
         {
             return new Dynamic(val);
@@ -156,6 +268,37 @@ namespace Urho
         public static implicit operator Vector3(Dynamic v)
         {
             return v.variant.Value.vector3;
+        }
+
+        public static implicit operator Dynamic(IntVector3 val)
+        {
+            return new Dynamic(val);
+        }
+
+        public static implicit operator IntVector3(Dynamic v)
+        {
+            return v.variant.Value.intVector3;
+        }
+
+        public static implicit operator Dynamic(IntRect val)
+        {
+            return new Dynamic(val);
+        }
+
+        public static implicit operator IntRect(Dynamic v)
+        {
+            return v.variant.Value.intRect;
+        }
+
+
+        public static implicit operator Dynamic(Rect val)
+        {
+            return new Dynamic(val);
+        }
+
+        public static implicit operator Rect(Dynamic v)
+        {
+            return v.variant.Value.rect;
         }
 
         public static implicit operator Dynamic(Vector4 val)
@@ -201,6 +344,36 @@ namespace Urho
             return result;
         }
 
+        public static implicit operator Dynamic(Matrix3 val)
+        {
+            return new Dynamic(val);
+        }
+
+        public static implicit operator Matrix3(Dynamic v)
+        {
+            return Dynamic_GetMatrix3(v.Handle);
+        }
+
+        public static implicit operator Dynamic(Matrix4 val)
+        {
+            return new Dynamic(val);
+        }
+
+        public static implicit operator Matrix4(Dynamic v)
+        {
+            return Dynamic_GetMatrix4(v.Handle);
+        }
+
+
+        public static implicit operator Dynamic(Matrix3x4 val)
+        {
+            return new Dynamic(val);
+        }
+
+        public static implicit operator Matrix3x4(Dynamic v)
+        {
+            return Dynamic_GetMatrix3x4(v.Handle);
+        }
 
         ~Dynamic()
         {
@@ -241,6 +414,13 @@ namespace Urho
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Dynamic_CreateInt(int i);
 
+        ////
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Dynamic_CreateInt64(System.Int64 i);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Dynamic_CreateUInt64(System.UInt64 i);
+
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Dynamic_CreateFloat(float f);
 
@@ -268,6 +448,39 @@ namespace Urho
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Dynamic_GetString(IntPtr h);
 
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Dynamic_CreateIntVector2(IntVector2 v);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Dynamic_CreateIntVector3(IntVector3 v);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Dynamic_CreateIntRect(IntRect v);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Dynamic_CreateRect(Rect v);
+
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Dynamic_CreateMatrix3(Matrix3 v);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern Matrix3 Dynamic_GetMatrix3(IntPtr v);
+
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Dynamic_CreateMatrix4(Matrix4 v);
+
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern Matrix4 Dynamic_GetMatrix4(IntPtr v);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Dynamic_CreateMatrix3x4(Matrix3x4 v);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern Matrix3x4 Dynamic_GetMatrix3x4(IntPtr v);
+
         ////////////////////////////////////////////////////////////////////
 
 
@@ -277,6 +490,12 @@ namespace Urho
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Dynamic_GetBuffer(IntPtr v, out int count);
+
+
+
+
+
+
     }
 
 }

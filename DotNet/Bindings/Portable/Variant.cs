@@ -28,6 +28,8 @@ namespace Urho
         [FieldOffset(0)] public bool _bool;
         [FieldOffset(0)] public int _int;
         [FieldOffset(0)] public uint _uint;
+        [FieldOffset(0)] public System.Int64 int64;
+        [FieldOffset(0)] public System.UInt64 uint64;
         [FieldOffset(0)] public float _float;
         [FieldOffset(0)] public double _double;
         [FieldOffset(0)] public Vector2 vector2;
@@ -40,6 +42,7 @@ namespace Urho
         [FieldOffset(0)] public IntRect intRect;
         [FieldOffset(0)] public Matrix3 matrix3;
         [FieldOffset(0)] public Matrix4 matrix4;
+        [FieldOffset(0)] public Matrix3x4 matrix3x4;
         [FieldOffset(0)] public Quaternion quaternion;
         [FieldOffset(0)] public IntPtr intPtr;
         [FieldOffset(0)] public VariantStorage variantStorage;

@@ -773,6 +773,20 @@ extern "C" {
         return v;
     }
 
+    DllExport Variant* Dynamic_CreateInt64(long long val)
+    {
+        Variant * v = new Variant(val);
+        return v;
+    }
+
+    DllExport Variant* Dynamic_CreateUInt64(unsigned long long val)
+    {
+        Variant * v = new Variant(val);
+        return v;
+    }
+
+
+
     DllExport Variant* Dynamic_CreateFloat(float val)
     {
         Variant * v = new Variant(val);
@@ -816,6 +830,73 @@ extern "C" {
     {
         Variant * v = new Variant(Color(c.r,c.g,c.b,c.a));
         return v;
+    }
+
+    DllExport Variant*  Dynamic_CreateIntVector2(Interop::IntVector2 val)
+    {
+        Variant * v = new Variant(IntVector2(val.x,val.y ));
+        return v;
+    }
+
+    DllExport Variant*  Dynamic_CreateIntVector3(Interop::IntVector3 val)
+    {
+        Variant * v = new Variant(IntVector3(val.x,val.y,val.z));
+        return v;
+    }
+
+    DllExport Variant*  Dynamic_CreateIntRect(Interop::IntRect val)
+    {
+        //int left, int top, int right, int bottom
+        Variant * v = new Variant(IntRect(val.left,val.top,val.right,val.bottom));
+        return v;
+    }
+
+    DllExport Variant*  Dynamic_CreateRect(Interop::Rect val)
+    {
+        Variant * v = new Variant(Rect(val.min.x,val.min.y,val.max.x,val.max.y));
+        return v;
+    }
+
+    DllExport Variant*  Dynamic_CreateMatrix3(Interop::Matrix3 val)
+    {
+        Variant * v = new Variant(Matrix3(val.m00,val.m01,val.m02,val.m10,val.m11,val.m12,val.m20,val.m21,val.m22));
+        
+        Matrix3 mat = v->GetMatrix3();
+        
+      //  printf("Dynamic_CreateMatrix3 : %g:%g:%g %g:%g:%g %g:%g:%g \n",mat.m00_,mat.m01_,mat.m02_, mat.m10_,mat.m11_,mat.m12_ , mat.m20_,mat.m21_,mat.m22_);
+        
+        return v;
+    }
+
+    DllExport
+    Interop::Matrix3 Dynamic_GetMatrix3 ( Variant * v)
+    {
+        return *((Interop::Matrix3  *) &(v->GetMatrix3()));
+    }
+
+    DllExport Variant*  Dynamic_CreateMatrix4(Interop::Matrix4 val)
+    {
+        Variant * v = new Variant(Matrix4(val.m00,val.m01,val.m02,val.m03,val.m10,val.m11,val.m12,val.m13,val.m20,val.m21,val.m22,val.m23,val.m30,val.m31,val.m32,val.m33));
+        return v;
+    }
+
+    DllExport
+    Interop::Matrix4 Dynamic_GetMatrix4 ( Variant * v)
+    {
+        return *((Interop::Matrix4  *) &(v->GetMatrix4()));
+    }
+
+
+    DllExport Variant*  Dynamic_CreateMatrix3x4(Interop::Matrix3x4 val)
+    {
+        Variant * v = new Variant(Matrix3x4(val.m00,val.m01,val.m02,val.m03,val.m10,val.m11,val.m12,val.m13,val.m20,val.m21,val.m22,val.m23));
+        return v;
+    }
+
+    DllExport
+    Interop::Matrix3x4 Dynamic_GetMatrix3x4 ( Variant * v)
+    {
+        return *((Interop::Matrix3x4  *) &(v->GetMatrix3x4()));
     }
 
 
