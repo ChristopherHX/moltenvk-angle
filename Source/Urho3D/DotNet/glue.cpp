@@ -704,12 +704,9 @@ extern "C" {
         return stringdup(urhoString.CString());
     }
 
-    DllExport Variant Variant_CreateBuffer(void* data, int size)
+    DllExport void Variant_CreateBuffer(void* data, int size , Variant & v)
     {
-        Variant v =  VectorBuffer(data,size);
-        return v;
-        
-   
+        v =  VectorBuffer(data,size);
     }
 
     DllExport unsigned char* Variant_GetBuffer(Variant& v, int *count)
@@ -718,6 +715,9 @@ extern "C" {
         *count = pod.Size();
         return pod.Buffer();
     }
+
+
+
 
     DllExport void urho_map_get_value(VariantMap& nativeInstance, int key, Variant& value)
     {
@@ -742,6 +742,107 @@ extern "C" {
       
         sprintf(conversionNumbersBuffer, "%g", value);
         return conversionNumbersBuffer;
+    }
+
+
+/*DYNAMIC*/
+
+//
+    DllExport Variant* Dynamic_CreateVariant(Variant& value)
+    {
+        Variant * v = new Variant(value);
+        return v;
+    }
+
+    DllExport Variant* Dynamic_CreateBool(bool val)
+    {
+        Variant * v = new Variant(val);
+        return v;
+    }
+
+    DllExport Variant* Dynamic_CreateInt(int val)
+    {
+        Variant * v = new Variant(val);
+        return v;
+    }
+
+    DllExport Variant* Dynamic_CreateFloat(float val)
+    {
+        Variant * v = new Variant(val);
+        return v;
+    }
+
+    DllExport Variant* Dynamic_CreateDouble(double val)
+    {
+        Variant * v = new Variant(val);
+        return v;
+    }
+
+    
+    DllExport Variant* Dynamic_CreateVector2(Interop::Vector2 val)
+    {
+        Variant * v = new Variant(Vector2(val.x,val.y));
+        return v;
+    }
+
+    DllExport Variant* Dynamic_CreateVector3(Interop::Vector3 val)
+    {
+        Variant * v = new Variant(Vector3(val.x,val.y,val.z));
+        return v;
+    }
+
+    DllExport Variant* Dynamic_CreateVector4(Interop::Vector4 val)
+    {
+        Variant * v = new Variant(Vector4(val.x,val.y,val.z,val.w));
+        return v;
+    }
+
+    DllExport Variant*  Dynamic_CreateQuaternion(Interop::Quaternion q)
+    {
+        Variant * v = new Variant(Quaternion(q.w,q.x,q.y,q.z));
+        return v;
+    }
+
+
+    DllExport
+    Variant *  Dynamic_CreateColor(Interop::Color c)
+    {
+        Variant * v = new Variant(Color(c.r,c.g,c.b,c.a));
+        return v;
+    }
+
+
+    DllExport Variant * Dynamic_CreateString(const char* value)
+    {
+        Variant *v = new Variant(value);
+        return v;
+    }
+
+
+    DllExport char* Dynamic_GetString(Variant* variant)
+    {
+        String urhoString = variant->GetString();
+        return stringdup(urhoString.CString());
+    }
+
+
+    DllExport Variant* Dynamic_CreateBuffer(void* data, int size)
+    {
+        Variant * v = new Variant(VectorBuffer(data,size));
+        return v;
+    }
+
+    DllExport unsigned char* Dynamic_GetBuffer(Variant* v, int *count)
+    {
+        const PODVector<unsigned char>& pod = v->GetBuffer();
+        *count = pod.Size();
+        return pod.Buffer();
+    }
+
+
+    DllExport void Dynamic_Dispose(Variant* target)
+    {
+        delete target;
     }
 
 
