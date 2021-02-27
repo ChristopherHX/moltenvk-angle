@@ -112,7 +112,6 @@ namespace Urho
         {
             IntPtr nativeCString = Variant_GetString(ref v);
             string result = Marshal.PtrToStringAnsi(nativeCString);
-            NativeString.Free(nativeCString);
             return result;
         }
 

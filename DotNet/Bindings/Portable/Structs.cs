@@ -1269,3 +1269,11 @@ namespace Urho.Network {
 	public struct NodeReplicationState {
 	}
 }
+
+
+namespace Urho {
+	public  struct UrhoEventArgs {
+        public int EventType;
+        public DynamicMap EventData;
+    } /* struct UrhoEventArgs */
+}

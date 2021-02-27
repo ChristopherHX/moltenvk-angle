@@ -23,10 +23,6 @@ public:
     static void Callback(CallbackType type, void* target = 0, void* param1 = 0, int param2 = 0, const char* param3 = 0);
 };
 
-#if UWP
-#define stringdup _strdup
-#else
-#define stringdup strdup
-#endif
-
 }
+
+const char *stringdup(const char *s);;

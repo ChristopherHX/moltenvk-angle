@@ -32,7 +32,7 @@ namespace Urho
 		static TaskCompletionSource<bool> exitTask;
 		static TaskCompletionSource<bool> waitFrameEndTaskSource;
 		AutoResetEvent frameEndResetEvent;
-		static bool isExiting = false;
+		public static bool isExiting = false;
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 		public delegate void ActionIntPtr(IntPtr value);
@@ -333,10 +333,7 @@ namespace Urho
 		public static string PlatformString
 		{
 			get{
-				IntPtr native_string = GetPlatform();
-				string managed_string = Marshal.PtrToStringAnsi(native_string);
-				NativeString.Free(native_string);
-				return managed_string;
+				return Marshal.PtrToStringAnsi(GetPlatform());
 			}
 		}
 		public static Platforms Platform
@@ -355,9 +352,7 @@ namespace Urho
 				Runtime.Validate(typeof(Application));
 				if (platform == Platforms.Unknown)
 				{
-					IntPtr native_string = GetPlatform();
-					platform = PlatformsMap.FromString(Marshal.PtrToStringAnsi(native_string));
-					NativeString.Free(native_string);
+					platform = PlatformsMap.FromString(Marshal.PtrToStringAnsi(GetPlatform()));
 				}
 				return platform;
 			}

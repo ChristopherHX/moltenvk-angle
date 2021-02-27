@@ -253,7 +253,6 @@ namespace Urho {
 		{
 			IntPtr native_string = urho_map_get_String (Handle, paramNameHash);
 			string managed_string = Marshal.PtrToStringAnsi (native_string);
-			NativeString.Free(native_string);
 			return managed_string;
 
 		// Memory leak	return Marshal.PtrToStringAnsi(urho_map_get_String (Handle, paramNameHash));

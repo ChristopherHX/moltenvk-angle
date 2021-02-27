@@ -21,6 +21,12 @@ namespace Urho
             dynamicMap = new Dictionary<string, Dynamic>();
         }
 
+        public DynamicMap(IntPtr handle):base(handle)
+        {
+            dynamicMap = new Dictionary<string, Dynamic>();
+        }
+
+
         public Dynamic this[String key]
     	{
 			get

@@ -54,10 +54,7 @@ namespace Urho
 		public string GetString ()
 		{
 			Runtime.ValidateObject (this);
-			IntPtr native_string = MemoryBuffer_GetString(Handle);
-			string managed_string = Marshal.PtrToStringAnsi (native_string);
-			NativeString.Free(native_string);
-			return managed_string;
+			return Marshal.PtrToStringAnsi(MemoryBuffer_GetString(Handle));
 		}
 
 		public void Dispose()

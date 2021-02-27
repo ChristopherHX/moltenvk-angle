@@ -87,6 +87,21 @@ namespace Urho {
 			RemoveComponent (stringHash);
 		}
 
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Node_RemoveComponent22 (IntPtr handle, IntPtr component);
+
+		/// <summary>
+		/// Remove a component from this node.
+		/// </summary>
+		public void RemoveComponent (Component component)
+		{
+			Runtime.ValidateRefCounted (this);
+			component.UnSubscribeFromAllEvents();
+			component.Remove();
+		}
+
+
 		public T CreateComponent<T> (CreateMode mode = CreateMode.Replicated, uint id = 0) where T:Component
 		{
 			Runtime.ValidateRefCounted(this);

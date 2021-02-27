@@ -6076,14 +6076,7 @@ Node_CloneComponent18 (Urho3D::Node *_target, Urho3D::Component * component, enu
 
 
 DllExport void
-Node_RemoveComponent (Urho3D::Node *_target, Urho3D::Component * component)
-{
-	_target->RemoveComponent (component);
-}
-
-
-DllExport void
-Node_RemoveComponent19 (Urho3D::Node *_target, int type)
+Node_RemoveComponent (Urho3D::Node *_target, int type)
 {
 	_target->RemoveComponent (Urho3D::StringHash(type));
 }
@@ -6097,7 +6090,7 @@ Node_RemoveComponents (Urho3D::Node *_target, bool removeReplicated, bool remove
 
 
 DllExport void
-Node_RemoveComponents20 (Urho3D::Node *_target, int type)
+Node_RemoveComponents19 (Urho3D::Node *_target, int type)
 {
 	_target->RemoveComponents (Urho3D::StringHash(type));
 }
@@ -6464,7 +6457,7 @@ Node_LocalToWorld (Urho3D::Node *_target, const class Urho3D::Vector3 & position
 
 
 DllExport Interop::Vector3 
-Node_LocalToWorld21 (Urho3D::Node *_target, const class Urho3D::Vector4 & vector)
+Node_LocalToWorld20 (Urho3D::Node *_target, const class Urho3D::Vector4 & vector)
 {
 	return *((Interop::Vector3  *) &(_target->LocalToWorld (vector)));
 }
@@ -6485,7 +6478,7 @@ Node_WorldToLocal (Urho3D::Node *_target, const class Urho3D::Vector3 & position
 
 
 DllExport Interop::Vector3 
-Node_WorldToLocal22 (Urho3D::Node *_target, const class Urho3D::Vector4 & vector)
+Node_WorldToLocal21 (Urho3D::Node *_target, const class Urho3D::Vector4 & vector)
 {
 	return *((Interop::Vector3  *) &(_target->WorldToLocal (vector)));
 }
@@ -6527,14 +6520,14 @@ Node_GetChild (Urho3D::Node *_target, unsigned int index)
 
 
 DllExport Urho3D::Node *
-Node_GetChild23 (Urho3D::Node *_target, const char * name, bool recursive)
+Node_GetChild22 (Urho3D::Node *_target, const char * name, bool recursive)
 {
 	return _target->GetChild (Urho3D::String(name), recursive);
 }
 
 
 DllExport Urho3D::Node *
-Node_GetChild24 (Urho3D::Node *_target, int nameHash, bool recursive)
+Node_GetChild23 (Urho3D::Node *_target, int nameHash, bool recursive)
 {
 	return _target->GetChild (Urho3D::StringHash(nameHash), recursive);
 }
@@ -6719,7 +6712,7 @@ Node_MarkReplicationDirty (Urho3D::Node *_target)
 
 
 DllExport Urho3D::Node *
-Node_CreateChild25 (Urho3D::Node *_target, unsigned int id, enum Urho3D::CreateMode mode, bool temporary)
+Node_CreateChild24 (Urho3D::Node *_target, unsigned int id, enum Urho3D::CreateMode mode, bool temporary)
 {
 	return _target->CreateChild (id, mode, temporary);
 }

@@ -2,7 +2,7 @@
 
 namespace Urho
 {
-	static class LogSharp // TODO: remove
+	public static class LogSharp // TODO: remove
 	{
 		public static LogSharpLevel LogLevel { get; set; } = LogSharpLevel.Debug;
 
@@ -16,27 +16,9 @@ namespace Urho
 			if (level < LogLevel)
 				return;
 #if __ANDROID__
-/* TBD ELI
-			Android.Util.LogPriority logPriority = Android.Util.LogPriority.Verbose;
-			switch (level)
-			{
-				case LogSharpLevel.Trace:
-					logPriority = Android.Util.LogPriority.Verbose;
-					break;
-				case LogSharpLevel.Debug:
-					logPriority = Android.Util.LogPriority.Debug;
-					break;
-				case LogSharpLevel.Warn:
-					logPriority = Android.Util.LogPriority.Warn;
-					break;
-				case LogSharpLevel.Error:
-					logPriority = Android.Util.LogPriority.Error;
-					break;
-			}
-			Android.Util.Log.WriteLine(logPriority, "UrhoSharp", str);
-*/
+			Urho.IO.Log.Write(Urho.LogLevel.Warning,str);
 #else
-			System.Diagnostics.Debug.WriteLine($"{level}: {str}");
+			System.Console.WriteLine($"{level}: {str}");
 #endif
 		}
 

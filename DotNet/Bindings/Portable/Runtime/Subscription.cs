@@ -13,6 +13,13 @@ namespace Urho
 			gch = GCHandle.Alloc (proxy);
 		}
 
+		public Subscription (Action<UrhoEventArgs> proxy)
+		{
+			Runtime.Validate(typeof(Subscription));
+			gch = GCHandle.Alloc (proxy);
+		}
+		
+
 		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
 		extern static void urho_unsubscribe (IntPtr notificationProxy);
 		

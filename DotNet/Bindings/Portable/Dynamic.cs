@@ -338,10 +338,7 @@ namespace Urho
 
         public static implicit operator string(Dynamic v)
         {
-            IntPtr nativeCString = Dynamic_GetString(v.Handle);
-            string result = Marshal.PtrToStringAnsi(nativeCString);
-            NativeString.Free(nativeCString);
-            return result;
+            return Marshal.PtrToStringAnsi(Dynamic_GetString(v.Handle));
         }
 
         public static implicit operator Dynamic(Matrix3 val)

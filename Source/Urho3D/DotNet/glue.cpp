@@ -20,8 +20,18 @@ using namespace Urho3D;
 // pointers, so we can register delegates from C#
 //
 
+
+static String StringDup;
+const char *stringdup(const char *s)
+{
+    StringDup = String(s);
+    return StringDup.CString();
+}
+
+
 extern "C" {
 
+    // reciever and sender are the same
 	DllExport void *urho_subscribe_event(void *_receiver, HandlerFunctionPtr callback, void *data, int eventNameHash)
 	{
 		StringHash h(eventNameHash);
@@ -30,6 +40,18 @@ extern "C" {
 		receiver->SubscribeToEvent(receiver, h, proxy);
 		return proxy;
 	}
+    
+    // sender is unknown here , can be anyone
+    DllExport void *urho_subscribe_global_event(void *_receiver, HandlerFunctionPtr callback, void *data, int eventNameHash)
+    {
+        StringHash h(eventNameHash);
+        Urho3D::Object *receiver = (Urho3D::Object *) _receiver;
+        WeakPtr<Urho3D::Object> weak_receiver(receiver);
+        NotificationProxy *proxy = new NotificationProxy(weak_receiver, callback, data, h);
+        receiver->SubscribeToEvent(h, proxy);
+        return proxy;
+    }
+
     
     DllExport
     void * VariantMap_VariantMap()
@@ -369,6 +391,14 @@ extern "C" {
         return t;
     }
 
+    DllExport void
+    Node_RemoveComponent22 (Urho3D::Node *_target, Urho3D::Component * component)
+    {
+        _target->RemoveComponent (component);
+    }
+
+
+
 	DllExport Interop::Vector3 *
 	urho_navigationmesh_findpath(NavigationMesh * navMesh, const class Urho3D::Vector3 & start, const class Urho3D::Vector3 & end, int *count)
 	{
@@ -419,7 +449,7 @@ extern "C" {
 		return target->GetSize();
 	}
 
-    DllExport char* MemoryBuffer_GetString(MemoryBuffer* target)
+    DllExport const char * MemoryBuffer_GetString(MemoryBuffer* target)
     {
         return stringdup(target->ReadString().CString());
     }
@@ -558,10 +588,12 @@ extern "C" {
 
 	DllExport void String_FreeNativeString(char * str)
     {
+        /*
         if(str)
         {
             free(str);
         }
+         */
     }
 
     DllExport
@@ -699,7 +731,7 @@ extern "C" {
     }
 
 
-    DllExport char* Variant_GetString(Variant& variant)
+    DllExport const char * Variant_GetString(Variant& variant)
     {
         String urhoString = variant.GetString();
         return stringdup(urhoString.CString());
@@ -907,7 +939,7 @@ extern "C" {
     }
 
 
-    DllExport char* Dynamic_GetString(Variant* variant)
+    DllExport const char * Dynamic_GetString(Variant* variant)
     {
         String urhoString = variant->GetString();
         return stringdup(urhoString.CString());
@@ -933,5 +965,16 @@ extern "C" {
         delete target;
     }
 
+/*
+ 
+ #if UWP
+ #define stringdup _strdup
+ #else
+ #define stringdup strdup
+ #endif
+ */
+
 
 }
+
+
