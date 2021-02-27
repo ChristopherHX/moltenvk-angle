@@ -71,6 +71,13 @@ namespace Urho
             Handle = Dynamic_CreateInt(v);
             variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));
         }
+        
+        public Dynamic(uint v)
+        {
+            Handle = Dynamic_CreateUInt(v);
+            variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));
+        }
+
 
         public Dynamic(System.Int64 v)
         {
@@ -196,6 +203,16 @@ namespace Urho
         public static implicit operator int(Dynamic v)
         {
             return v.variant.Value._int;
+        }
+
+        public static implicit operator Dynamic(uint i)
+        {
+            return new Dynamic(i);
+        }
+
+        public static implicit operator uint(Dynamic v)
+        {
+            return v.variant.Value._uint;
         }
 
 
@@ -410,6 +427,9 @@ namespace Urho
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Dynamic_CreateInt(int i);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Dynamic_CreateUInt(uint i);
 
         ////
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

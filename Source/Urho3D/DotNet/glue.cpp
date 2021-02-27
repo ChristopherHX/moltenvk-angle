@@ -203,7 +203,7 @@ extern "C" {
 	}
 
 	DllExport
-	unsigned urho_stringhash_from_string (const char *p)
+	unsigned int urho_stringhash_from_string (const char *p)
 	{
 		StringHash foo (p);
 		return foo.Value ();
@@ -805,6 +805,12 @@ extern "C" {
         return v;
     }
 
+    DllExport Variant* Dynamic_CreateUInt(unsigned int val)
+    {
+        Variant * v = new Variant(val);
+        return v;
+    }
+
     DllExport Variant* Dynamic_CreateInt64(long long val)
     {
         Variant * v = new Variant(val);
@@ -964,6 +970,44 @@ extern "C" {
     {
         delete target;
     }
+
+    DllExport void
+    Connection_SendRemoteEvent(Connection *conn,int eventType, bool inOrder, VariantMap& eventData)
+    {
+        conn->SendRemoteEvent(StringHash(eventType),inOrder,eventData);
+    }
+
+    DllExport void
+    Connection_SendRemoteEvent2(Connection *conn,Node *node,int eventType, bool inOrder, VariantMap& eventData)
+    {
+        conn->SendRemoteEvent(node,StringHash(eventType),inOrder,eventData);
+    }
+
+
+DllExport void *
+Network_GetClientConnections(Network *network, int *count)
+{
+    const Vector<SharedPtr<Connection> >& dest = network->GetClientConnections();
+    *count = 0;
+    
+    if (dest.Size () == 0)
+        return NULL;
+    
+    *count = dest.Size ();
+    
+    void **t = (void **) malloc (sizeof(Connection*)*dest.Size());
+    for (int i = 0; i < dest.Size (); i++){
+        t [i] = dest [i];
+    }
+    return t;
+}
+
+DllExport void VoidPtr_Free(void * ptr)
+{
+    free(ptr);
+}
+
+
 
 /*
  

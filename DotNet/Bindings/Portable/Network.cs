@@ -3,8 +3,36 @@ using System.Runtime.InteropServices;
 
 namespace Urho.Network {
 	public unsafe partial class Network {
+
+		static Connection[] ZeroArray = new Connection[0];
+
 		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
 		extern static int Network_Connect (IntPtr handle, string address, short port, IntPtr scene);
+
+
+		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
+		internal extern static IntPtr Network_GetClientConnections(IntPtr network, out int count);
+
+
+		public Connection[] GetClientConnections () 
+		{
+
+			int count;
+			IntPtr ptr = Network_GetClientConnections (handle, out count);
+			if (ptr == IntPtr.Zero)
+				return ZeroArray;
+			
+			var res = new Connection[count];
+			for (int i = 0; i < count; i++){
+				var connection = Marshal.ReadIntPtr(ptr, i * IntPtr.Size);
+				res [i] = Runtime.LookupObject<Connection> (connection);
+			}
+
+			Utils.VoidPtr_Free(ptr);
+
+			return res;
+		}
+
 
 		public bool Connect (string address, short port, Scene scene)
 		{

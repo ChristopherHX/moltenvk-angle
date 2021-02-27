@@ -5,7 +5,7 @@ using Urho.Resources;
 
 namespace Urho
 {
-	partial class Scene
+	partial class Scene : Node
 	{
 		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern bool Scene_LoadXMLFromCache(IntPtr handle, IntPtr cache, string file);
