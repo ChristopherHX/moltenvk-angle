@@ -133,7 +133,7 @@ namespace Urho {
 
 		~RefCounted ()
 		{
-			if (!Runtime.IsClosing && !IsDeleted)
+			if (!Runtime.IsClosing && !IsDeleted && !Application.isExiting)
 			{
 				var ptr = Handle;
 				Application.InvokeOnMain(() => TryDeleteRefCounted(ptr));

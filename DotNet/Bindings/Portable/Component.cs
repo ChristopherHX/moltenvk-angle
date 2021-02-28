@@ -13,7 +13,7 @@ using Urho.Resources;
 
 namespace Urho
 {
-	public partial class Component
+	public partial class Component : Animatable
 	{
 		bool subscribedToSceneUpdate;
 

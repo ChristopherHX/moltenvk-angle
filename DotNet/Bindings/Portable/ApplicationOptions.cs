@@ -178,11 +178,6 @@ namespace Urho
 				possibleCoreDataDirectories = ResourcePrefixPaths.Concat(possibleCoreDataDirectories).Distinct().ToArray();
 			resourcePrefixPaths = possibleCoreDataDirectories;
 
-			if (System.Diagnostics.Debugger.IsAttached && Environment.OSVersion.Platform == PlatformID.Win32NT)
-			{
-				NoSound = true;
-				System.Diagnostics.Debug.WriteLine("WARNING! Sound is disabled on Windows when debugger is attached (temporarily).");
-			}
 #endif
 
 			if (resourcePrefixPaths?.Length > 0)

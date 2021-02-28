@@ -935,7 +935,9 @@ namespace SharpieBinder
 			case "Node":
 				if (decl.Name == "GetChild")
 					return decl.Parameters.First ().QualType.ToString () == "const char *";
-				break;
+				if (decl.Name == "RemoveComponent") //elix22 - will create it manually
+						return decl.Parameters.Any(p => p.QualType.ToString().Contains("Component"));
+					break;
 			case "Image":
 				if (decl.Name == "SavePNG")
 					return decl.Parameters.FirstOrDefault()?.QualType.ToString() == "int *";

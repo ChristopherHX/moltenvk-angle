@@ -151,7 +151,7 @@ extern "C" {
 	}
 
 	DllExport
-	unsigned urho_stringhash_from_string (const char *p)
+	int urho_stringhash_from_string (const char *p)
 	{
 		StringHash foo (p);
 		return foo.Value ();

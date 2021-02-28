@@ -136,6 +136,15 @@ namespace Urho {
 			hash = hash * 43 + Right;
 			return hash;
 		}
+
+		/// Returns a System.String that represents the current IntRect.
+		/// </summary>
+		/// <returns></returns>
+		public override string ToString()
+		{
+			return String.Format("({0}, {1}, {2}, {3})", MathHelper.ToString(Left), MathHelper.ToString(Top), MathHelper.ToString(Right), MathHelper.ToString(Bottom));
+		}
+
 	}
 
 	[StructLayout (LayoutKind.Sequential)]
@@ -149,7 +158,7 @@ namespace Urho {
 	public struct Rect : IEquatable<Rect> {
 		public Vector2 Min, Max;
 
-		public Rect (int left, int top, int right, int bottom)
+		public Rect (float left, float top, float right, float bottom)
 		{
 			Min = new Vector2 (left, top);
 			Max = new Vector2 (right, bottom);
@@ -188,6 +197,14 @@ namespace Urho {
 			hash = hash * 43 + Min.GetHashCode();
 			hash = hash * 43 + Max.GetHashCode();
 			return hash;
+		}
+
+		/// Returns a System.String that represents the current Rect.
+		/// </summary>
+		/// <returns></returns>
+		public override string ToString()
+		{
+			return String.Format("({0}, {1})", Min.ToString(), Max.ToString());
 		}
 	}
 
@@ -381,264 +398,7 @@ namespace Urho {
 		public Variant Variant;
 	}
 
-[StructLayout(LayoutKind.Sequential)]
-	public struct VariantStorage
-	{
-		public UIntPtr Storage0;
-		public UIntPtr Storage1;
-		public UIntPtr Storage2;
-		public UIntPtr Storage3;
-	}
 
-	[StructLayout(LayoutKind.Explicit)]
-	public unsafe struct VariantValue
-	{
-		[FieldOffset(0)] public bool _bool;
-		[FieldOffset(0)] public  int _int;
-		[FieldOffset(0)] public  uint _uint;
-		[FieldOffset(0)] public  float _float;
-		[FieldOffset(0)] public  double _double;
-		[FieldOffset(0)] public  Vector2 vector2;
-		[FieldOffset(0)] public  Vector3 vector3;
-		[FieldOffset(0)] public  Vector4 vector4;
-		[FieldOffset(0)] public  Color color;
-		[FieldOffset(0)] public  Rect rect;
-		[FieldOffset(0)] public  IntVector2 intVector2;
-		[FieldOffset(0)] public  IntVector3 intVector3;
-		[FieldOffset(0)] public  IntRect intRect;
-		[FieldOffset(0)] public  Matrix3  matrix3;
-		[FieldOffset(0)] public  Matrix4  matrix4;
-		[FieldOffset(0)]  public Quaternion quaternion;
-		[FieldOffset(0)] public  IntPtr intPtr;
-		[FieldOffset(0)] public  VariantStorage variantStorage;
-	}
-
-	[StructLayout(LayoutKind.Explicit)]
-	public unsafe struct Variant {
-		[FieldOffset(0)]
-		public VariantType Type;
-		[FieldOffset(8)]
-		public VariantValue Value;
-
-
-
-		public static implicit operator Variant(int i)
-		{
-			Variant v = Variant_CreateInt(i);
-			return v;
-		}
-
-		public static implicit operator int( Variant v) 
-		{
-			return v.Value._int;
-			//return  Variant_GetInt(ref v);
-		}
-
-
-		public static implicit operator Variant(bool b)
-		{
-			return Variant_CreateBool(b);
-		}
-
-		public static implicit operator bool( Variant v) 
-		{
-			return v.Value._bool;
-			//return  Variant_GetBool(ref v);
-		}
-
-
-		public static implicit operator Variant(float i)
-		{
-			return Variant_CreateFloat(i);
-		}
-		
-		public static implicit operator float( Variant v) 
-		{
-			return v.Value._float;
-			//return Variant_GetFloat(ref v);
-		}
-
-		public static implicit operator Variant(Vector2 v2)
-		{
-			return Variant_CreateVector2(v2);
-		}
-		
-		public static implicit operator Vector2( Variant v) 
-		{
-			return v.Value.vector2;
-			//return Variant_GetVector2(ref v);
-		}
-
-
-		public static implicit operator Variant(Vector3 v)
-		{
-			
-			return Variant_CreateVector3(v);
-		}
-		
-		public static implicit operator Vector3( Variant v) 
-		{
-			return v.Value.vector3;
-		//	return Variant_GetVector3(ref v);
-		}
-
-		public static implicit operator Variant(Vector4 v)
-		{
-			return Variant_CreateVector4(v);
-		}
-		
-		public static implicit operator Vector4( Variant v) 
-		{
-			return v.Value.vector4;
-			//return Variant_GetVector4(ref v);
-		}
-
-		public static implicit operator Variant(Quaternion q)
-		{
-			return Variant_CreateQuaternion(q);
-		}
-		
-		public static implicit operator Quaternion( Variant v) 
-		{
-			return v.Value.quaternion;
-			//return Variant_GetQuaternion(ref v);
-		}
-
-
-
-		public static implicit operator Variant(Color v)
-		{
-			return Variant_CreateColor(v);
-		}
-		
-		public static implicit operator Color( Variant v) 
-		{
-			return v.Value.color;
-			//return Variant_GetColor(ref v);
-		}
-
-		public static implicit operator Variant(double d)
-		{
-			return Variant_CreateDouble(d);
-		}
-		
-		public static implicit operator double( Variant v) 
-		{
-			return v.Value._double;
-		//	return Variant_GetDouble(ref v);
-		}
-
-
-		public static implicit operator Variant(string s)
-		{
-			return Variant_CreateString(s);
-		}
-
-		public static implicit operator string( Variant v) 
-		{
-			IntPtr nativeCString = Variant_GetString(ref v);
-			string result = Marshal.PtrToStringAnsi(nativeCString);
-			NativeString.Free(nativeCString);
-			return result;
-		}
-
-		
-
-
-		public static implicit operator Variant(byte[] data)
-		{
-			fixed (byte* bptr = data)
-			{
-				Variant v =  Variant_CreateBuffer(bptr, data.Length);
-				return v;
-			}
-		}
-
-		
-		public static implicit operator byte[]( Variant v) 
-		{
-			int size;
-			var bytesPtr = Variant_GetBuffer(ref v, out size);
-			if (bytesPtr == IntPtr.Zero)
-				return new byte[0];
-			byte[] result = new byte[size];
-			Marshal.Copy(bytesPtr, result, 0, size);
-			return result;
-		}
-
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern Variant  Variant_CreateInt(int i);
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern int  Variant_GetInt(ref Variant v);
-
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern Variant  Variant_CreateBool(bool v);
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern bool  Variant_GetBool(ref Variant v);
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern Variant  Variant_CreateFloat(float f);
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern float  Variant_GetFloat(ref Variant v);
-
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern Variant  Variant_CreateVector2(Vector2 v);
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern Vector2  Variant_GetVector2(ref Variant v);
-
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern Variant  Variant_CreateVector3(Vector3 v);
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern Vector3  Variant_GetVector3(ref Variant v);
-
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern Variant  Variant_CreateVector4(Vector4 v);
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern Vector4  Variant_GetVector4(ref Variant v);
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern Variant  Variant_CreateQuaternion(Quaternion v);
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern Quaternion  Variant_GetQuaternion(ref Variant v);
-
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern Variant  Variant_CreateColor(Color v);
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern Color  Variant_GetColor(ref Variant v);
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern Variant  Variant_CreateDouble(double f);
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern double  Variant_GetDouble(ref Variant v);
-
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern Variant  Variant_CreateString(string s);
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern IntPtr  Variant_GetString(ref Variant v);
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern Variant  Variant_CreateBuffer(byte* data, int size);
-
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern IntPtr Variant_GetBuffer(ref Variant v, out int count);
-	}
 
 	[StructLayout (LayoutKind.Sequential)]
 	public struct Matrix3x4 {
@@ -668,12 +428,12 @@ namespace Urho {
 			m20 = v20; m21 = v21; m22 = v22; m23 = v23;
 		}
 
-		public Matrix3x4(Vector3 row0, Vector3 row1, Vector3 row2, Vector3 row3)
+		public Matrix3x4(Vector3 col0, Vector3 col1, Vector3 col2, Vector3 col3)
 		{
-			m00 = row0.X; m10 = row0.Y; m20 = row0.Z;
-			m01 = row1.X; m11 = row1.Y; m21 = row1.Z;
-			m02 = row2.X; m12 = row2.Y; m22 = row2.Z;
-			m03 = row3.X; m13 = row3.Y; m23 = row3.Z;
+			m00 = col0.X; m10 = col0.Y; m20 = col0.Z;
+			m01 = col1.X; m11 = col1.Y; m21 = col1.Z;
+			m02 = col2.X; m12 = col2.Y; m22 = col2.Z;
+			m03 = col3.X; m13 = col3.Y; m23 = col3.Z;
 		}
 
 		public Matrix3x4 Inverse()
@@ -862,7 +622,7 @@ namespace Urho {
 
 		public override string ToString()
 		{
-			return $"r:{R}, g:{G}, b:{B}, a:{A}";
+			return $"r:{MathHelper.ToString(R)}, g:{MathHelper.ToString(G)}, b:{MathHelper.ToString(B)}, a:{MathHelper.ToString(A)}";
 		}
 
 		public static explicit operator Color(Vector3 vector) => new Color(vector.X, vector.Y, vector.Z);
@@ -1508,4 +1268,12 @@ namespace Urho.Network {
 	[StructLayout (LayoutKind.Sequential)]
 	public struct NodeReplicationState {
 	}
+}
+
+
+namespace Urho {
+	public  struct UrhoEventArgs {
+        public int EventType;
+        public DynamicMap EventData;
+    } /* struct UrhoEventArgs */
 }

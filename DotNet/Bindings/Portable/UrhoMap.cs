@@ -13,7 +13,7 @@ namespace Urho {
 	/// <summary>
 	/// Helper functions to return elements from a VariantMap
 	/// </summary>
-	public class EventDataContainer : IDisposable
+	public class EventDataContainer 
 	{
 		public IntPtr Handle { get; }
 		private bool isManaged = false;
@@ -39,7 +39,7 @@ namespace Urho {
 				{
 					disposed = true;
 					VariantMap_Dispose(Handle);
-					GC.SuppressFinalize(this);
+				//	GC.SuppressFinalize(this);
 				}
 			}
 		}
@@ -91,6 +91,16 @@ namespace Urho {
 
 		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		static extern Variant urho_map_get_Variant(IntPtr handle, int paramNameHash);
+    
+		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)] 
+		public static extern void urho_map_get_value(IntPtr handle, int paramNameHash, out Variant value);
+		
+		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)] 
+		public static extern void urho_map_set_value(IntPtr handle, int paramNameHash, ref Variant value);
+
+
+		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)] 
+		public static extern void urho_map_set_value_ptr(IntPtr handle, int paramNameHash, IntPtr value);
 
 		public T get_Object<T>(int paramNameHash) where T : UrhoObject
 		{
@@ -243,7 +253,6 @@ namespace Urho {
 		{
 			IntPtr native_string = urho_map_get_String (Handle, paramNameHash);
 			string managed_string = Marshal.PtrToStringAnsi (native_string);
-			NativeString.Free(native_string);
 			return managed_string;
 
 		// Memory leak	return Marshal.PtrToStringAnsi(urho_map_get_String (Handle, paramNameHash));
@@ -314,12 +323,6 @@ namespace Urho {
 		{
 			IntPtr ptr = urho_map_get_variantmap(Handle, paramNameHash);
 			return new EventDataContainer(ptr);
-		}
-
-		public Variant this[string paramNameHash]
-		{
-			get => urho_map_get_Variant (Handle, new StringHash(paramNameHash).Code);
-	
 		}
 
 	}

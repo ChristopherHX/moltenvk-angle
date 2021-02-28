@@ -20,12 +20,7 @@ namespace Urho
 		public static string GetConsoleInput()
 		{
 			Runtime.Validate(typeof(UrhoConsole));
-			IntPtr native_string = Console_GetConsoleInput();
-			string managed_string = Marshal.PtrToStringAnsi (native_string);
-			NativeString.Free(native_string);
-			return managed_string;
-
-			// Memory leak return Marshal.PtrToStringAnsi(Console_GetConsoleInput());
+			return Marshal.PtrToStringAnsi(Console_GetConsoleInput());
 		}
 	}
 }

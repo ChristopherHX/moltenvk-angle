@@ -20,8 +20,18 @@ using namespace Urho3D;
 // pointers, so we can register delegates from C#
 //
 
+
+static String StringDup;
+const char *stringdup(const char *s)
+{
+    StringDup = String(s);
+    return StringDup.CString();
+}
+
+
 extern "C" {
 
+    // reciever and sender are the same
 	DllExport void *urho_subscribe_event(void *_receiver, HandlerFunctionPtr callback, void *data, int eventNameHash)
 	{
 		StringHash h(eventNameHash);
@@ -30,6 +40,18 @@ extern "C" {
 		receiver->SubscribeToEvent(receiver, h, proxy);
 		return proxy;
 	}
+    
+    // sender is unknown here , can be anyone
+    DllExport void *urho_subscribe_global_event(void *_receiver, HandlerFunctionPtr callback, void *data, int eventNameHash)
+    {
+        StringHash h(eventNameHash);
+        Urho3D::Object *receiver = (Urho3D::Object *) _receiver;
+        WeakPtr<Urho3D::Object> weak_receiver(receiver);
+        NotificationProxy *proxy = new NotificationProxy(weak_receiver, callback, data, h);
+        receiver->SubscribeToEvent(h, proxy);
+        return proxy;
+    }
+
     
     DllExport
     void * VariantMap_VariantMap()
@@ -42,6 +64,7 @@ extern "C" {
     {
         if(variantMap)
         {
+            variantMap->Clear();
             delete variantMap;
         }
     }
@@ -180,7 +203,7 @@ extern "C" {
 	}
 
 	DllExport
-	unsigned urho_stringhash_from_string (const char *p)
+	unsigned int urho_stringhash_from_string (const char *p)
 	{
 		StringHash foo (p);
 		return foo.Value ();
@@ -368,6 +391,14 @@ extern "C" {
         return t;
     }
 
+    DllExport void
+    Node_RemoveComponent22 (Urho3D::Node *_target, Urho3D::Component * component)
+    {
+        _target->RemoveComponent (component);
+    }
+
+
+
 	DllExport Interop::Vector3 *
 	urho_navigationmesh_findpath(NavigationMesh * navMesh, const class Urho3D::Vector3 & start, const class Urho3D::Vector3 & end, int *count)
 	{
@@ -418,7 +449,7 @@ extern "C" {
 		return target->GetSize();
 	}
 
-    DllExport char* MemoryBuffer_GetString(MemoryBuffer* target)
+    DllExport const char * MemoryBuffer_GetString(MemoryBuffer* target)
     {
         return stringdup(target->ReadString().CString());
     }
@@ -557,10 +588,12 @@ extern "C" {
 
 	DllExport void String_FreeNativeString(char * str)
     {
+        /*
         if(str)
         {
             free(str);
         }
+         */
     }
 
     DllExport
@@ -698,21 +731,15 @@ extern "C" {
     }
 
 
-    DllExport char* Variant_GetString(Variant& variant)
+    DllExport const char * Variant_GetString(Variant& variant)
     {
         String urhoString = variant.GetString();
         return stringdup(urhoString.CString());
     }
 
-
-
-
-    DllExport Variant Variant_CreateBuffer(void* data, int size)
+    DllExport void Variant_CreateBuffer(void* data, int size , Variant & v)
     {
-        Variant v =  VectorBuffer(data,size);
-        return v;
-        
-   
+        v =  VectorBuffer(data,size);
     }
 
     DllExport unsigned char* Variant_GetBuffer(Variant& v, int *count)
@@ -723,4 +750,275 @@ extern "C" {
     }
 
 
+
+
+    DllExport void urho_map_get_value(VariantMap& nativeInstance, int key, Variant& value)
+    {
+        value = nativeInstance[StringHash(key)];
+    }
+
+    DllExport void urho_map_set_value(VariantMap& nativeInstance, int key, Variant& value)
+    {
+        nativeInstance[StringHash(key)] = value;
+    }
+
+    DllExport void urho_map_set_value_ptr(VariantMap& nativeInstance, int key, Variant* value)
+    {
+        nativeInstance[StringHash(key)] = *value;
+    }
+
+
+    static   char conversionNumbersBuffer[CONVERSION_BUFFER_LENGTH];
+
+    DllExport  char* float_convert_to_string(float value)
+    {
+        sprintf(conversionNumbersBuffer, "%g", value);
+        return conversionNumbersBuffer;
+    }
+
+    DllExport  char* double_convert_to_string(double value)
+    {
+      
+        sprintf(conversionNumbersBuffer, "%g", value);
+        return conversionNumbersBuffer;
+    }
+
+
+/*DYNAMIC*/
+
+//
+    DllExport Variant* Dynamic_CreateVariant(Variant& value)
+    {
+        Variant * v = new Variant(value);
+        return v;
+    }
+
+    DllExport Variant* Dynamic_CreateBool(bool val)
+    {
+        Variant * v = new Variant(val);
+        return v;
+    }
+
+    DllExport Variant* Dynamic_CreateInt(int val)
+    {
+        Variant * v = new Variant(val);
+        return v;
+    }
+
+    DllExport Variant* Dynamic_CreateUInt(unsigned int val)
+    {
+        Variant * v = new Variant(val);
+        return v;
+    }
+
+    DllExport Variant* Dynamic_CreateInt64(long long val)
+    {
+        Variant * v = new Variant(val);
+        return v;
+    }
+
+    DllExport Variant* Dynamic_CreateUInt64(unsigned long long val)
+    {
+        Variant * v = new Variant(val);
+        return v;
+    }
+
+
+
+    DllExport Variant* Dynamic_CreateFloat(float val)
+    {
+        Variant * v = new Variant(val);
+        return v;
+    }
+
+    DllExport Variant* Dynamic_CreateDouble(double val)
+    {
+        Variant * v = new Variant(val);
+        return v;
+    }
+
+    
+    DllExport Variant* Dynamic_CreateVector2(Interop::Vector2 val)
+    {
+        Variant * v = new Variant(Vector2(val.x,val.y));
+        return v;
+    }
+
+    DllExport Variant* Dynamic_CreateVector3(Interop::Vector3 val)
+    {
+        Variant * v = new Variant(Vector3(val.x,val.y,val.z));
+        return v;
+    }
+
+    DllExport Variant* Dynamic_CreateVector4(Interop::Vector4 val)
+    {
+        Variant * v = new Variant(Vector4(val.x,val.y,val.z,val.w));
+        return v;
+    }
+
+    DllExport Variant*  Dynamic_CreateQuaternion(Interop::Quaternion q)
+    {
+        Variant * v = new Variant(Quaternion(q.w,q.x,q.y,q.z));
+        return v;
+    }
+
+
+    DllExport
+    Variant *  Dynamic_CreateColor(Interop::Color c)
+    {
+        Variant * v = new Variant(Color(c.r,c.g,c.b,c.a));
+        return v;
+    }
+
+    DllExport Variant*  Dynamic_CreateIntVector2(Interop::IntVector2 val)
+    {
+        Variant * v = new Variant(IntVector2(val.x,val.y ));
+        return v;
+    }
+
+    DllExport Variant*  Dynamic_CreateIntVector3(Interop::IntVector3 val)
+    {
+        Variant * v = new Variant(IntVector3(val.x,val.y,val.z));
+        return v;
+    }
+
+    DllExport Variant*  Dynamic_CreateIntRect(Interop::IntRect val)
+    {
+        //int left, int top, int right, int bottom
+        Variant * v = new Variant(IntRect(val.left,val.top,val.right,val.bottom));
+        return v;
+    }
+
+    DllExport Variant*  Dynamic_CreateRect(Interop::Rect val)
+    {
+        Variant * v = new Variant(Rect(val.min.x,val.min.y,val.max.x,val.max.y));
+        return v;
+    }
+
+    DllExport Variant*  Dynamic_CreateMatrix3(Interop::Matrix3 val)
+    {
+        Variant * v = new Variant(Matrix3(val.m00,val.m01,val.m02,val.m10,val.m11,val.m12,val.m20,val.m21,val.m22));
+        
+        Matrix3 mat = v->GetMatrix3();
+        
+      //  printf("Dynamic_CreateMatrix3 : %g:%g:%g %g:%g:%g %g:%g:%g \n",mat.m00_,mat.m01_,mat.m02_, mat.m10_,mat.m11_,mat.m12_ , mat.m20_,mat.m21_,mat.m22_);
+        
+        return v;
+    }
+
+    DllExport
+    Interop::Matrix3 Dynamic_GetMatrix3 ( Variant * v)
+    {
+        return *((Interop::Matrix3  *) &(v->GetMatrix3()));
+    }
+
+    DllExport Variant*  Dynamic_CreateMatrix4(Interop::Matrix4 val)
+    {
+        Variant * v = new Variant(Matrix4(val.m00,val.m01,val.m02,val.m03,val.m10,val.m11,val.m12,val.m13,val.m20,val.m21,val.m22,val.m23,val.m30,val.m31,val.m32,val.m33));
+        return v;
+    }
+
+    DllExport
+    Interop::Matrix4 Dynamic_GetMatrix4 ( Variant * v)
+    {
+        return *((Interop::Matrix4  *) &(v->GetMatrix4()));
+    }
+
+
+    DllExport Variant*  Dynamic_CreateMatrix3x4(Interop::Matrix3x4 val)
+    {
+        Variant * v = new Variant(Matrix3x4(val.m00,val.m01,val.m02,val.m03,val.m10,val.m11,val.m12,val.m13,val.m20,val.m21,val.m22,val.m23));
+        return v;
+    }
+
+    DllExport
+    Interop::Matrix3x4 Dynamic_GetMatrix3x4 ( Variant * v)
+    {
+        return *((Interop::Matrix3x4  *) &(v->GetMatrix3x4()));
+    }
+
+
+    DllExport Variant * Dynamic_CreateString(const char* value)
+    {
+        Variant *v = new Variant(value);
+        return v;
+    }
+
+
+    DllExport const char * Dynamic_GetString(Variant* variant)
+    {
+        String urhoString = variant->GetString();
+        return stringdup(urhoString.CString());
+    }
+
+
+    DllExport Variant* Dynamic_CreateBuffer(void* data, int size)
+    {
+        Variant * v = new Variant(VectorBuffer(data,size));
+        return v;
+    }
+
+    DllExport unsigned char* Dynamic_GetBuffer(Variant* v, int *count)
+    {
+        const PODVector<unsigned char>& pod = v->GetBuffer();
+        *count = pod.Size();
+        return pod.Buffer();
+    }
+
+
+    DllExport void Dynamic_Dispose(Variant* target)
+    {
+        delete target;
+    }
+
+    DllExport void
+    Connection_SendRemoteEvent(Connection *conn,int eventType, bool inOrder, VariantMap& eventData)
+    {
+        conn->SendRemoteEvent(StringHash(eventType),inOrder,eventData);
+    }
+
+    DllExport void
+    Connection_SendRemoteEvent2(Connection *conn,Node *node,int eventType, bool inOrder, VariantMap& eventData)
+    {
+        conn->SendRemoteEvent(node,StringHash(eventType),inOrder,eventData);
+    }
+
+
+DllExport void *
+Network_GetClientConnections(Network *network, int *count)
+{
+    const Vector<SharedPtr<Connection> >& dest = network->GetClientConnections();
+    *count = 0;
+    
+    if (dest.Size () == 0)
+        return NULL;
+    
+    *count = dest.Size ();
+    
+    void **t = (void **) malloc (sizeof(Connection*)*dest.Size());
+    for (int i = 0; i < dest.Size (); i++){
+        t [i] = dest [i];
+    }
+    return t;
 }
+
+DllExport void VoidPtr_Free(void * ptr)
+{
+    free(ptr);
+}
+
+
+
+/*
+ 
+ #if UWP
+ #define stringdup _strdup
+ #else
+ #define stringdup strdup
+ #endif
+ */
+
+
+}
+
+

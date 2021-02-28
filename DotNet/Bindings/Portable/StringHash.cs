@@ -20,8 +20,13 @@ namespace Urho {
 			this.Code = urho_stringhash_from_string (str);
 		}
 
+		public static int code (string str)
+		{
+			return urho_stringhash_from_string (str);
+		}
+
 		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		static extern int urho_stringhash_from_string (string str);
+		public static extern int urho_stringhash_from_string (string str);
 		
 		public override string ToString ()
 		{

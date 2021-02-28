@@ -34,9 +34,4 @@ namespace Urho
         }
     }
 
-    public class VariantMap
-    {
-
-    }
-
 }
