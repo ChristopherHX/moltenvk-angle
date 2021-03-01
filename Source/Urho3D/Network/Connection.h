@@ -31,6 +31,11 @@
 #include "../IO/VectorBuffer.h"
 #include "../Scene/ReplicationState.h"
 
+#ifdef WIN32 
+#undef SendMessage 
+#endif
+
+
 namespace SLNet
 {
     class SystemAddress;
