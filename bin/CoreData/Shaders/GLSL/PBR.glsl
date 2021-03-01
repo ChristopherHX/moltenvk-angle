@@ -32,7 +32,7 @@
 
         float sphereAngle = clamp(radius * invDistToLight, 0.0, 1.0);
                             
-        specEnergy = rough2 / (rough2 + 0.5f * sphereAngle);
+        specEnergy = rough2 / (rough2 + 0.5 * sphereAngle);
         specEnergy *= specEnergy;                           
 
         vec3 R = 2.0 * dot(toCamera, normal) * normal - toCamera;
