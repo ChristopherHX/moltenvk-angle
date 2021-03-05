@@ -280,7 +280,7 @@ static const unsigned glElementComponents[] =
     4
 };
 
-#ifdef URHO3D_GLES2
+#ifdef GL_ES_VERSION_2_0
 static unsigned glesDepthStencilFormat = GL_DEPTH_COMPONENT16;
 static unsigned glesReadableDepthFormat = GL_DEPTH_COMPONENT;
 #endif

@@ -12,10 +12,27 @@ namespace Urho
 			return (float)random.NextDouble();
 		}
 
+		public static float Next(float range) 
+		{ 
+			return (float)random.NextDouble() * range; 
+		}
+
 		public static float Next(float min, float max)
 		{
 			return (float)((random.NextDouble() * (max - min)) + min);
 		}
+
+		public static int Next(int range) 
+		{ 
+			return random.Next(0, range); 
+		}
+
+
+		public static int NextRandom(int min, int max) 
+		{ 
+			return random.Next(min, max); 
+		}
+
 
 		public static bool NextBoolean()
 		{

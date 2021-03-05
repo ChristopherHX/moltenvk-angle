@@ -17,7 +17,32 @@ namespace Urho
 	{
 		bool subscribedToSceneUpdate;
 
-		protected bool ReceiveSceneUpdates { get; set; }
+		protected bool ReceiveSceneUpdates 
+		{ 	
+			get
+			{
+				return subscribedToSceneUpdate;
+			}
+			set
+			{
+				if(value == true)
+				{
+					if (!subscribedToSceneUpdate)
+					{
+						subscribedToSceneUpdate = true;
+						Application.Update += HandleUpdate;
+					}
+				}
+				else
+				{
+					if (subscribedToSceneUpdate)
+					{
+						subscribedToSceneUpdate = true;
+						Application.Update -= HandleUpdate;
+					}
+				}
+			}
+		} 
 
 		public T GetComponent<T> () where T : Component
 		{
@@ -43,17 +68,16 @@ namespace Urho
 		{
 			if (subscribedToSceneUpdate)
 			{
-				Application.Update -= HandleUpdate;
+				ReceiveSceneUpdates = false;
 			}
 			base.OnDeleted();
 		}
 
 		internal void AttachedToNode(Node node)
 		{
-			if (!subscribedToSceneUpdate && ReceiveSceneUpdates)
+			if (!subscribedToSceneUpdate)
 			{
-				subscribedToSceneUpdate = true;
-				Application.Update += HandleUpdate;
+				ReceiveSceneUpdates = true;
 			}
 			OnAttachedToNode(node);
 		}

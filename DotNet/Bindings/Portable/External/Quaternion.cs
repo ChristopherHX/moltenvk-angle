@@ -49,10 +49,28 @@ namespace Urho
 		/// </summary>
 		/// <param name="v">The vector part</param>
 		/// <param name="w">The w part</param>
-		public Quaternion(Vector3 v, float w)
+		private Quaternion(Vector3 v, float w)
 		{
 			this.xyz = v;
-			this.w = w;
+			this.w = w ;
+		}
+
+		/// <summary>
+		/// Construct a new Quaternion from axis and angle components
+		/// </summary>
+		/// <param name="axis">The axis part in degrees </param>
+		/// <param name="angle">The angle part , may be not normalized</param>
+		public Quaternion(float angle , Vector3 axis)
+		{
+			const float M_DEGTORAD_2 = (float)Math.PI / 360.0f;
+			Vector3 normAxis = Vector3.Normalize(axis);
+			angle *= M_DEGTORAD_2;
+
+			float sinAngle = (float)Math.Sin(angle);
+			float cosAngle = (float)Math.Cos(angle);
+
+			this.w = cosAngle;
+			this.xyz = normAxis * sinAngle ;
 		}
 
 		/// <summary>

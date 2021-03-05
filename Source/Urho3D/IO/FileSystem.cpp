@@ -689,6 +689,7 @@ void FileSystem::ScanDir(Vector<String>& result, const String& pathName, const S
     }
 }
 
+//
 String FileSystem::GetProgramDir() const
 {
 #if defined(__ANDROID__)
@@ -697,6 +698,8 @@ String FileSystem::GetProgramDir() const
     return APK;
 #elif defined(IOS) || defined(TVOS)
     return AddTrailingSlash(SDL_IOS_GetResourceDir());
+#elif defined(URHO3D_DOTNET)
+    return GetCurrentDir();
 #elif defined(_WIN32)
     wchar_t exeName[MAX_PATH];
     exeName[0] = 0;
