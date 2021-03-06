@@ -1,10 +1,11 @@
 #!/bin/bash
 
-while getopts a:e: option
+while getopts i:t:e: option
 do
 case "${option}"
 in
-a) INPUT=${OPTARG};;
+i) INPUT=${OPTARG};;
+t) TEXT=${OPTARG};;
 e) ECHO=${OPTARG};;
 esac
 done
@@ -16,9 +17,9 @@ if [[ "$INPUT" != "" ]]; then
     name="$(echo -e " ${arrIN[2]}" | tr -d '[:space:]')"
     start="$(echo -e " ${arrIN[0]}" | tr -d '[:space:]')"
     end="$(echo -e " ${arrIN[1]}" | tr -d '[:space:]')"
-    ./AssetImporter.exe anim drago-anim_DirectX.X ${name} -split ${start}  ${end}
+    ./AssetImporter.exe anim ${INPUT} ${name} -split ${start}  ${end}
     #echo \"${name}\",
-    done < "$INPUT"
+    done < "$TEXT"
 fi
 
 if [[ "$ECHO" != "" ]]; then
