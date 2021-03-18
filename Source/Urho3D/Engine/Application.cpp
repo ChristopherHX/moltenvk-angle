@@ -36,6 +36,8 @@
 namespace Urho3D
 {
 
+Urho3D::Context* Urho3D::Application::_context;
+
 #if defined(IOS) || defined(TVOS) || defined(__EMSCRIPTEN__)
 // Code for supporting SDL_iPhoneSetAnimationCallback() and emscripten_set_main_loop_arg()
 #if defined(__EMSCRIPTEN__)
@@ -51,6 +53,8 @@ Application::Application(Context* context) :
     Object(context),
     exitCode_(EXIT_SUCCESS)
 {
+    _context = context;
+
     engineParameters_ = Engine::ParseParameters(GetArguments());
 
     // Create the Engine, but do not initialize it yet. Subsystems except Graphics & Renderer are registered at this point

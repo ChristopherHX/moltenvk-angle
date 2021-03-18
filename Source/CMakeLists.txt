@@ -139,6 +139,8 @@ if(URHO3D_ANGLE_METAL)
     add_subdirectory (ThirdParty/angle)
 endif()
 
+add_subdirectory (ThirdParty/TurboBadger)
+
 # Urho3D game engine library
 add_subdirectory (Urho3D)
 
