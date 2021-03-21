@@ -20,4 +20,4 @@
 :: THE SOFTWARE.
 ::
 
-@"%~dp0cmake_generic.bat" %* -VS=14
+@"%~dp0cmake_generic.bat" %* -D URHO3D_D3D11=1 -VS=14
