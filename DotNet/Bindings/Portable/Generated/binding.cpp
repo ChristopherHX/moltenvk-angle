@@ -27179,6 +27179,300 @@ CustomRaycastVehicle_GetRollInfluence (Urho3D::CustomRaycastVehicle *_target, in
 
 
 DllExport int
+KinematicCharacterController_GetType (Urho3D::KinematicCharacterController *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+KinematicCharacterController_GetTypeName (Urho3D::KinematicCharacterController *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+KinematicCharacterController_GetTypeStatic ()
+{
+	return (KinematicCharacterController::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+KinematicCharacterController_GetTypeNameStatic ()
+{
+	return stringdup((KinematicCharacterController::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void *
+KinematicCharacterController_KinematicCharacterController (Urho3D::Context * context)
+{
+	return WeakPtr<KinematicCharacterController>(new KinematicCharacterController(context));
+}
+
+
+DllExport void
+KinematicCharacterController_RegisterObject (Urho3D::Context * context)
+{
+	KinematicCharacterController::RegisterObject (context);
+}
+
+
+DllExport void
+KinematicCharacterController_ApplyAttributes (Urho3D::KinematicCharacterController *_target)
+{
+	_target->ApplyAttributes ();
+}
+
+
+DllExport Interop::Vector3 
+KinematicCharacterController_GetPosition (Urho3D::KinematicCharacterController *_target)
+{
+	return *((Interop::Vector3  *) &(_target->GetPosition ()));
+}
+
+
+DllExport Interop::Quaternion 
+KinematicCharacterController_GetRotation (Urho3D::KinematicCharacterController *_target)
+{
+	return *((Interop::Quaternion  *) &(_target->GetRotation ()));
+}
+
+
+DllExport void
+KinematicCharacterController_SetTransform (Urho3D::KinematicCharacterController *_target, const class Urho3D::Vector3 & position, const class Urho3D::Quaternion & rotation)
+{
+	_target->SetTransform (position, rotation);
+}
+
+
+DllExport void
+KinematicCharacterController_SetCollisionLayer (Urho3D::KinematicCharacterController *_target, unsigned int layer)
+{
+	_target->SetCollisionLayer (layer);
+}
+
+
+DllExport unsigned int
+KinematicCharacterController_GetCollisionLayer (Urho3D::KinematicCharacterController *_target)
+{
+	return _target->GetCollisionLayer ();
+}
+
+
+DllExport void
+KinematicCharacterController_SetCollisionMask (Urho3D::KinematicCharacterController *_target, unsigned int mask)
+{
+	_target->SetCollisionMask (mask);
+}
+
+
+DllExport unsigned int
+KinematicCharacterController_GetCollisionMask (Urho3D::KinematicCharacterController *_target)
+{
+	return _target->GetCollisionMask ();
+}
+
+
+DllExport void
+KinematicCharacterController_SetCollisionLayerAndMask (Urho3D::KinematicCharacterController *_target, unsigned int layer, unsigned int mask)
+{
+	_target->SetCollisionLayerAndMask (layer, mask);
+}
+
+
+DllExport void
+KinematicCharacterController_SetGravity (Urho3D::KinematicCharacterController *_target, const class Urho3D::Vector3 & gravity)
+{
+	_target->SetGravity (gravity);
+}
+
+
+DllExport Interop::Vector3 
+KinematicCharacterController_GetGravity (Urho3D::KinematicCharacterController *_target)
+{
+	return *((Interop::Vector3  *) &(_target->GetGravity ()));
+}
+
+
+DllExport void
+KinematicCharacterController_SetLinearDamping (Urho3D::KinematicCharacterController *_target, float linearDamping)
+{
+	_target->SetLinearDamping (linearDamping);
+}
+
+
+DllExport float
+KinematicCharacterController_GetLinearDamping (Urho3D::KinematicCharacterController *_target)
+{
+	return _target->GetLinearDamping ();
+}
+
+
+DllExport void
+KinematicCharacterController_SetAngularDamping (Urho3D::KinematicCharacterController *_target, float angularDamping)
+{
+	_target->SetAngularDamping (angularDamping);
+}
+
+
+DllExport float
+KinematicCharacterController_GetAngularDamping (Urho3D::KinematicCharacterController *_target)
+{
+	return _target->GetAngularDamping ();
+}
+
+
+DllExport void
+KinematicCharacterController_SetStepHeight (Urho3D::KinematicCharacterController *_target, float stepHeight)
+{
+	_target->SetStepHeight (stepHeight);
+}
+
+
+DllExport float
+KinematicCharacterController_GetStepHeight (Urho3D::KinematicCharacterController *_target)
+{
+	return _target->GetStepHeight ();
+}
+
+
+DllExport void
+KinematicCharacterController_SetMaxJumpHeight (Urho3D::KinematicCharacterController *_target, float maxJumpHeight)
+{
+	_target->SetMaxJumpHeight (maxJumpHeight);
+}
+
+
+DllExport float
+KinematicCharacterController_GetMaxJumpHeight (Urho3D::KinematicCharacterController *_target)
+{
+	return _target->GetMaxJumpHeight ();
+}
+
+
+DllExport void
+KinematicCharacterController_SetFallSpeed (Urho3D::KinematicCharacterController *_target, float fallSpeed)
+{
+	_target->SetFallSpeed (fallSpeed);
+}
+
+
+DllExport float
+KinematicCharacterController_GetFallSpeed (Urho3D::KinematicCharacterController *_target)
+{
+	return _target->GetFallSpeed ();
+}
+
+
+DllExport void
+KinematicCharacterController_SetJumpSpeed (Urho3D::KinematicCharacterController *_target, float jumpSpeed)
+{
+	_target->SetJumpSpeed (jumpSpeed);
+}
+
+
+DllExport float
+KinematicCharacterController_GetJumpSpeed (Urho3D::KinematicCharacterController *_target)
+{
+	return _target->GetJumpSpeed ();
+}
+
+
+DllExport void
+KinematicCharacterController_SetMaxSlope (Urho3D::KinematicCharacterController *_target, float maxSlope)
+{
+	_target->SetMaxSlope (maxSlope);
+}
+
+
+DllExport float
+KinematicCharacterController_GetMaxSlope (Urho3D::KinematicCharacterController *_target)
+{
+	return _target->GetMaxSlope ();
+}
+
+
+DllExport void
+KinematicCharacterController_SetWalkDirection (Urho3D::KinematicCharacterController *_target, const class Urho3D::Vector3 & walkDir)
+{
+	_target->SetWalkDirection (walkDir);
+}
+
+
+DllExport int
+KinematicCharacterController_OnGround (Urho3D::KinematicCharacterController *_target)
+{
+	return _target->OnGround ();
+}
+
+
+DllExport void
+KinematicCharacterController_Jump (Urho3D::KinematicCharacterController *_target, const class Urho3D::Vector3 & jump)
+{
+	_target->Jump (jump);
+}
+
+
+DllExport void
+KinematicCharacterController_ApplyImpulse (Urho3D::KinematicCharacterController *_target, const class Urho3D::Vector3 & impulse)
+{
+	_target->ApplyImpulse (impulse);
+}
+
+
+DllExport int
+KinematicCharacterController_CanJump (Urho3D::KinematicCharacterController *_target)
+{
+	return _target->CanJump ();
+}
+
+
+DllExport void
+KinematicCharacterController_SetAngularVelocity (Urho3D::KinematicCharacterController *_target, const class Urho3D::Vector3 & velocity)
+{
+	_target->SetAngularVelocity (velocity);
+}
+
+
+DllExport Interop::Vector3 
+KinematicCharacterController_GetAngularVelocity (Urho3D::KinematicCharacterController *_target)
+{
+	return *((Interop::Vector3  *) &(_target->GetAngularVelocity ()));
+}
+
+
+DllExport void
+KinematicCharacterController_SetLinearVelocity (Urho3D::KinematicCharacterController *_target, const class Urho3D::Vector3 & velocity)
+{
+	_target->SetLinearVelocity (velocity);
+}
+
+
+DllExport Interop::Vector3 
+KinematicCharacterController_GetLinearVelocity (Urho3D::KinematicCharacterController *_target)
+{
+	return *((Interop::Vector3  *) &(_target->GetLinearVelocity ()));
+}
+
+
+DllExport void
+KinematicCharacterController_Warp (Urho3D::KinematicCharacterController *_target, const class Urho3D::Vector3 & position)
+{
+	_target->Warp (position);
+}
+
+
+DllExport void
+KinematicCharacterController_DrawDebugGeometry (Urho3D::KinematicCharacterController *_target)
+{
+	_target->DrawDebugGeometry ();
+}
+
+
+DllExport int
 PhysicsWorld_GetType (Urho3D::PhysicsWorld *_target)
 {
 	return (_target->GetType ()).Value ();

@@ -173,6 +173,7 @@
 #include "../Physics/CollisionShape.h"
 #include "../Physics/Constraint.h"
 #include "../Physics/CustomRaycastVehicle.h"
+#include "../Physics/KinematicCharacterController.h"
 #include "../Physics/PhysicsEvents.h"
 #include "../Physics/PhysicsUtils.h"
 #include "../Physics/PhysicsWorld.h"

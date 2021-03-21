@@ -173,6 +173,7 @@
 #include <Urho3D/Physics/CollisionShape.h>
 #include <Urho3D/Physics/Constraint.h>
 #include <Urho3D/Physics/CustomRaycastVehicle.h>
+#include <Urho3D/Physics/KinematicCharacterController.h>
 #include <Urho3D/Physics/PhysicsEvents.h>
 #include <Urho3D/Physics/PhysicsUtils.h>
 #include <Urho3D/Physics/PhysicsWorld.h>
