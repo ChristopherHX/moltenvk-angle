@@ -436,6 +436,33 @@ namespace Urho {
 			m03 = col3.X; m13 = col3.Y; m23 = col3.Z;
 		}
 
+		
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern Matrix3x4  Matrix3x4_Create( ref Urho.Vector3  translation,  ref Urho.Quaternion rotation,  ref Urho.Vector3  scale);
+
+		public Matrix3x4( Vector3 translation,  Quaternion Rotation,  Vector3 scale)
+		{
+			Matrix3x4 matrix3x4 = Matrix3x4_Create( ref translation,  ref Rotation,  ref  scale);
+			this = matrix3x4;
+			/* TBD ELI 
+			Matrix3 rotation = Rotation.RotationMatrix().Scaled(scale);
+			m00 = rotation.R0C0;
+			m01 = rotation.R0C1;
+			m02 = rotation.R0C2;
+			m10 = rotation.R1C0;
+			m11 = rotation.R1C1;
+			m12 = rotation.R1C2;
+			m20 = rotation.R2C0;
+			m21 = rotation.R2C1;
+			m22 = rotation.R2C2;
+
+			m03 = translation.X;
+			m13 = translation.Y;
+			m23 = translation.Z;
+			*/
+		}
+
 		public Matrix3x4 Inverse()
 		{
 			float det = m00 * m11 * m22 +
@@ -464,6 +491,30 @@ namespace Urho {
 			return ret;
 		}
 		
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern Matrix3x4  Matrix3x4_Multiply( ref Urho.Matrix3x4 left,  ref Urho.Matrix3x4 right);
+
+		public static Matrix3x4 operator *(Matrix3x4 left, Matrix3x4 rhs)
+		{
+			return Matrix3x4_Multiply( ref  left,  ref rhs);
+			/* TBD ELI
+			return new  Matrix3x4(
+				left.m00 * rhs.m00 + left.m01 * rhs.m10 + left.m02 * rhs.m20,
+				left.m00 * rhs.m01 + left.m01 * rhs.m11 + left.m02 * rhs.m21,
+				left.m00 * rhs.m02 + left.m01 * rhs.m12 + left.m02 * rhs.m22,
+				left.m00 * rhs.m03 + left.m01 * rhs.m13 + left.m02 * rhs.m23 + left.m03,
+				left.m10 * rhs.m00 + left.m11 * rhs.m10 + left.m12 * rhs.m20,
+				left.m10 * rhs.m01 + left.m11 * rhs.m11 + left.m12 * rhs.m21,
+				left.m10 * rhs.m02 + left.m11 * rhs.m12 + left.m12 * rhs.m22,
+				left.m10 * rhs.m03 + left.m11 * rhs.m13 + left.m12 * rhs.m23 + left.m13,
+				left.m20 * rhs.m00 + left.m21 * rhs.m10 + left.m22 * rhs.m20,
+				left.m20 * rhs.m01 + left.m21 * rhs.m11 + left.m22 * rhs.m21,
+				left.m20 * rhs.m02 + left.m21 * rhs.m12 + left.m22 * rhs.m22,
+				left.m20 * rhs.m03 + left.m21 * rhs.m13 + left.m22 * rhs.m23 + left.m23
+			);
+			*/
+		}
+
 		public static Matrix4 operator *(Matrix4 left, Matrix3x4 rhs)
 		{
 			return new Matrix4(
@@ -485,6 +536,73 @@ namespace Urho {
 				left.M41 * rhs.m03 + left.M42 * rhs.m13 + left.M43 * rhs.m23 + left.M44
 			);
 		}
+
+		public void SetTranslation( Vector3 translation)
+		{
+			m03 = translation.X;
+			m13 = translation.Y;
+			m23 = translation.Z;
+		}
+
+		public void SetRotation( Matrix3 rotation)
+    	{
+			m00 = rotation.R0C0;
+			m01 = rotation.R0C1;
+			m02 = rotation.R0C2;
+			m10 = rotation.R1C0;
+			m11 = rotation.R1C1;
+			m12 = rotation.R1C2;
+			m20 = rotation.R2C0;
+			m21 = rotation.R2C1;
+			m22 = rotation.R2C2;
+   		}
+
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern Vector3  Matrix3x4_Translation( ref Urho.Matrix3x4 matrix3x4);
+
+		public Vector3 Translation() 
+		{
+			return Matrix3x4_Translation( ref this);
+			// TBD ELI return new Vector3(m03,m13,m23);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern Quaternion  Matrix3x4_Rotation( ref Urho.Matrix3x4 matrix3x4);
+
+		public Quaternion Rotation()  
+		{ 
+			return Matrix3x4_Rotation( ref this);
+			//Matrix3 matrix3 = RotationMatrix();
+			// TBD ELI  return new  Quaternion(ref matrix3); 
+		}
+
+		public Matrix3 RotationMatrix() 
+		{
+			Vector3 invScale = new Vector3(
+				1.0f / (float)Math.Sqrt(m00 * m00 + m10 * m10 + m20 * m20),
+				1.0f / (float)Math.Sqrt(m01 * m01 + m11 * m11 + m21 * m21),
+				1.0f / (float)Math.Sqrt(m02 * m02 + m12 * m12 + m22 * m22)
+			);
+
+			return ToMatrix3().Scaled(invScale);
+		}
+
+		public Matrix3 ToMatrix3() 
+		{
+			return new Matrix3(
+				m00,
+				m01,
+				m02,
+				m10,
+				m11,
+				m12,
+				m20,
+				m21,
+				m22
+			);
+		}
+
 
 		public override string ToString()
 		{

@@ -101,6 +101,20 @@ namespace Urho {
 			component.Remove();
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern Variant Node_GetVar (IntPtr handle, int key);
+
+		public Variant GetVar (StringHash key)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Node_GetVar (handle, key.Code);
+		}
+
+		public Variant GetVar (int key)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Node_GetVar (handle, key);
+		}
 
 		public T CreateComponent<T> (CreateMode mode = CreateMode.Replicated, uint id = 0) where T:Component
 		{

@@ -9,46 +9,142 @@ namespace Urho
 	/// </summary>
 	public partial class LogicComponent : Component
 	{
-		Subscription physicsPreStepSubscription;
-		Subscription physicsPostStepSubscription;
-		Subscription scenePostUpdateSubscription;
+		private Scene scene_ = null;
 
 		public override void OnSceneSet(Scene scene)
 		{
+			scene_ = scene ; 
 			if (scene != null)
 			{
-				if (ReceiveFixedUpdates)
+				if (receiveFixedUpdates)
 				{
 					var physicsWorld = scene.GetComponent<PhysicsWorld>();
 					if (physicsWorld == null)
 						throw new InvalidOperationException("Scene must have PhysicsWorld component in order to receive FixedUpdates");
-					physicsPreStepSubscription = physicsWorld.SubscribeToPhysicsPreStep(OnFixedUpdate);
+					physicsWorld.PhysicsPreStep +=  OnFixedUpdate;
 				}
 
-				if (ReceiveFixedPostUpdates)
+				if (receiveFixedPostUpdates)
 				{
 					var physicsWorld = scene.GetComponent<PhysicsWorld>();
 					if (physicsWorld == null)
 						throw new InvalidOperationException("Scene must have PhysicsWorld component in order to receive FixedUpdates");
-					physicsPostStepSubscription = physicsWorld.SubscribeToPhysicsPostStep(OnFixedPostUpdate);
+				
+					physicsWorld.PhysicsPostStep +=  OnFixedPostUpdate;
 				}
 
-				if (ReceivePostUpdates)
+				if (receivePostUpdates)
 				{
-					scenePostUpdateSubscription = scene.SubscribeToScenePostUpdate(OnPostUpdate);
+					scene.ScenePostUpdate += OnPostUpdate;
 				}
 			}
-			else
+			
+		}
+
+		private bool receiveFixedUpdates = false;
+		protected bool ReceiveFixedUpdates 
+		{ 
+			get
+			{ 
+				return receiveFixedUpdates ;
+			} 
+
+			set
 			{
-				physicsPreStepSubscription?.Unsubscribe();
-				physicsPostStepSubscription?.Unsubscribe();
-				scenePostUpdateSubscription?.Unsubscribe();
+				if(receiveFixedUpdates == value) return;
+
+				receiveFixedUpdates = value;
+				if(receiveFixedUpdates == true)
+				{
+					if(scene_ != null)
+					{
+						var physicsWorld = scene_.GetComponent<PhysicsWorld>();
+						if (physicsWorld == null)
+							throw new InvalidOperationException("Scene must have PhysicsWorld component in order to receive FixedUpdates");
+						
+						physicsWorld.PhysicsPreStep +=  OnFixedUpdate;
+					}
+				}
+				else
+				{
+					if(scene_ != null)
+					{
+						var physicsWorld = scene_.GetComponent<PhysicsWorld>();
+						if (physicsWorld == null)
+							throw new InvalidOperationException("Scene must have PhysicsWorld component in order to receive FixedUpdates");
+						
+						physicsWorld.PhysicsPreStep -=  OnFixedUpdate;
+					}
+				}
+			} 
+		}
+
+		private bool receiveFixedPostUpdates = false;
+		protected bool ReceiveFixedPostUpdates 
+		{ 
+			get
+			{
+				return receiveFixedPostUpdates;
+			} 
+			
+			set
+			{
+				if(receiveFixedPostUpdates == value)return;
+				
+				receiveFixedPostUpdates = value;
+				if(receiveFixedPostUpdates == true)
+				{
+					if(scene_ != null)
+					{
+						var physicsWorld = scene_.GetComponent<PhysicsWorld>();
+						if (physicsWorld == null)
+							throw new InvalidOperationException("Scene must have PhysicsWorld component in order to receive FixedUpdates");
+						
+						physicsWorld.PhysicsPostStep +=  OnFixedPostUpdate;
+					}
+				}
+				else
+				{
+					if(scene_ != null)
+					{
+						var physicsWorld = scene_.GetComponent<PhysicsWorld>();
+						if (physicsWorld == null)
+							throw new InvalidOperationException("Scene must have PhysicsWorld component in order to receive FixedUpdates");
+						
+						physicsWorld.PhysicsPostStep -=  OnFixedPostUpdate;
+					}
+				}
 			}
 		}
 
-		protected bool ReceiveFixedUpdates { get; set; }
-		protected bool ReceiveFixedPostUpdates { get; set; }
-		protected bool ReceivePostUpdates { get; set; }
+		private bool receivePostUpdates = false;
+		protected bool ReceivePostUpdates 
+		{ 
+			get
+			{
+				return receivePostUpdates;
+			}
+
+			set
+			{
+				if(receivePostUpdates == value) return;
+
+				if(receivePostUpdates == true)
+				{
+					if(scene_ != null)
+					{
+						scene_.ScenePostUpdate += OnPostUpdate;
+					}
+				}
+				else
+				{
+						if(scene_ != null)
+					{
+						scene_.ScenePostUpdate -= OnPostUpdate;
+					}
+				}
+			}
+		}
 
 		protected virtual void OnFixedUpdate(PhysicsPreStepEventArgs e) { }
 		protected virtual void OnFixedPostUpdate(PhysicsPostStepEventArgs e) { }

@@ -125,6 +125,21 @@ namespace Urho
 
 		#region Public Members
 
+		public Matrix3 RotationMatrix() 
+		{
+			return new  Matrix3(
+				1.0f - 2.0f * Y * Y - 2.0f * Z * Z,
+				2.0f * X * Y - 2.0f * W * Z,
+				2.0f * X * Z + 2.0f * W * Y,
+				2.0f * X * Y + 2.0f * W * Z,
+				1.0f - 2.0f * X * X - 2.0f * Z * Z,
+				2.0f * Y * Z - 2.0f * W * X,
+				2.0f * X * Z - 2.0f * W * Y,
+				2.0f * Y * Z + 2.0f * W * X,
+				1.0f - 2.0f * X * X - 2.0f * Y * Y
+			);
+		}
+
 		#region Properties
 
 		/// <summary>

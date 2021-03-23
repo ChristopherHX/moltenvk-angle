@@ -590,6 +590,20 @@ namespace Urho
 			result.R2C2 = scalar * matrix.R2C2;
 		}
 
+    public  Matrix3 Scaled(Vector3 scale)
+    {
+        return new Matrix3(
+            R0C0 * scale.X,
+            R0C1 * scale.Y,
+            R0C2 * scale.Z,
+            R1C0 * scale.X,
+            R1C1 * scale.Y,
+            R1C2 * scale.Z,
+            R2C0 * scale.X,
+            R2C1 * scale.Y,
+            R2C2 * scale.Z
+        );
+    }
 
 		#endregion
 

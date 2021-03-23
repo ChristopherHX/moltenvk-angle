@@ -1008,6 +1008,48 @@ DllExport void VoidPtr_Free(void * ptr)
 }
 
 
+DllExport void
+KinematicCharacterController_GetTransform (Urho3D::KinematicCharacterController *_target,Interop::Vector3 * position, Interop::Quaternion * rotation)
+{
+    Vector3 _pos;
+    Quaternion _rot;
+    
+    _target->GetTransform(_pos, _rot);
+    
+    *position = *((Interop::Vector3  *) &(_pos));
+    *rotation = *((Interop::Quaternion  *) &(_rot));
+}
+
+
+DllExport Variant
+Node_GetVar (Urho3D::Node *_target, int key)
+{
+    return _target->GetVar (Urho3D::StringHash(key));
+}
+
+DllExport Interop::Matrix3x4  Matrix3x4_Create( Vector3& translation,  Quaternion& rotation,  Vector3& scale)
+{
+    Matrix3x4 matrix3x4(translation,rotation,scale);
+    return *((Interop::Matrix3x4  *) &(matrix3x4));
+}
+
+DllExport Interop::Matrix3x4  Matrix3x4_Multiply( Matrix3x4 & left , Matrix3x4 & right)
+{
+    Matrix3x4 matrix3x4 = left * right ;
+    return *((Interop::Matrix3x4  *) &(matrix3x4));
+}
+
+DllExport Interop::Vector3  Matrix3x4_Translation( Matrix3x4 & matrix3x4)
+{
+    Vector3 translation = matrix3x4.Translation();
+    return *((Interop::Vector3  *) &(translation));
+}
+
+DllExport Interop::Quaternion  Matrix3x4_Rotation( Matrix3x4 & matrix3x4)
+{
+    Quaternion rotation = matrix3x4.Rotation();
+    return *((Interop::Quaternion  *) &(rotation));
+}
 
 /*
  
