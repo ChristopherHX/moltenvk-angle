@@ -68,13 +68,9 @@ shared_ptr<EnumAnalyzer> FindEnum(const string& name);
 string CppPrimitiveTypeToAS(const string& cppType);
 string CppValueToAS(const string& cppValue);
 
-class Exception : public exception
+class Exception : public runtime_error
 {
-public:
-    Exception(string message)
-        : exception(message.c_str())
-    {
-    }
+    using runtime_error::runtime_error;
 };
 
 bool IsKnownCppType(const string& name);
@@ -84,14 +80,14 @@ shared_ptr<ClassAnalyzer> FindClassByID(const string& name);
 
 string GenerateWrapperName(const GlobalFunctionAnalyzer& functionAnalyzer);
 string GenerateWrapperName(const ClassStaticFunctionAnalyzer& functionAnalyzer);
-string GenerateWrapperName(const ClassFunctionAnalyzer& functionAnalyzer, bool templateVersion = false);
+string GenerateWrapperName(const MethodAnalyzer& methodAnalyzer, bool templateVersion = false);
 
 string GenerateWrapper(const GlobalFunctionAnalyzer& functionAnalyzer, const vector<ConvertedVariable>& convertedParams, const ConvertedVariable& convertedReturn);
 string GenerateWrapper(const ClassStaticFunctionAnalyzer& functionAnalyzer, const vector<ConvertedVariable>& convertedParams, const ConvertedVariable& convertedReturn);
-string GenerateWrapper(const ClassFunctionAnalyzer& functionAnalyzer, bool templateVersion, const vector<ConvertedVariable>& convertedParams, const ConvertedVariable& convertedReturn);
+string GenerateWrapper(const MethodAnalyzer& methodAnalyzer, bool templateVersion, const vector<ConvertedVariable>& convertedParams, const ConvertedVariable& convertedReturn);
 
 string Generate_asFUNCTIONPR(const GlobalFunctionAnalyzer& functionAnalyzer);
 string Generate_asFUNCTIONPR(const ClassStaticFunctionAnalyzer& functionAnalyzer);
-string Generate_asMETHODPR(const ClassFunctionAnalyzer& functionAnalyzer, bool templateVersion);
+string Generate_asMETHODPR(const MethodAnalyzer& methodAnalyzer, bool templateVersion);
 
 }
