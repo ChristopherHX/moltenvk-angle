@@ -67,6 +67,11 @@ if (URHO3D_LIB_TYPE STREQUAL SHARED AND NOT WIN32 AND NOT ANDROID AND NOT IOS AN
     endif ()
 endif ()
 
+if (UWP)
+	add_definitions (-DUWP=1)
+    add_definitions(-DWINDOWS_STORE=1)
+endif ()
+
 # Add targets
 foreach (TARGET ETCPACK FreeType LZ4 PugiXml rapidjson SDL StanHull STB)
     add_subdirectory (ThirdParty/${TARGET})
@@ -130,7 +135,7 @@ if (NOT ANDROID AND NOT ARM AND NOT WEB)
     elseif (NOT URHO3D_D3D11)
         add_subdirectory (ThirdParty/MojoShader)
     endif ()
-    if (NOT CMAKE_SYSTEM_NAME STREQUAL Linux)
+    if (NOT CMAKE_SYSTEM_NAME STREQUAL Linux  AND NOT UWP)
         add_subdirectory (ThirdParty/LibCpuId)
     endif ()
 endif ()

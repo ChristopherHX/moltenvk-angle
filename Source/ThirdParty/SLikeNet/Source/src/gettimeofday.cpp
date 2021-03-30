@@ -58,7 +58,9 @@ int gettimeofday(struct timeval *tv, struct timezone *tz)
   {
     if (!tzflag)
     {
+#if ! defined(UWP)
       _tzset();
+#endif
       tzflag++;
     }
 	long seconds;

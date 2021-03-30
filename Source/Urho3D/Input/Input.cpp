@@ -318,7 +318,9 @@ int Win32_ResizingEventWatcher(void* data, SDL_Event* event)
                     if (graphics->IsInitialized())
                     {
                         graphics->OnWindowResized();
+#if ! defined(UWP)
                         ctx->GetSubsystem<Engine>()->RunFrame();
+#endif
                     }
                 }
             }

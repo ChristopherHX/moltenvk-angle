@@ -43,6 +43,23 @@
 # THE SOFTWARE.
 #
 
+
+if(WINDOWS_STORE)
+  enable_language(CXX)
+  cmake_minimum_required(VERSION 3.11)
+  add_definitions(-DSDL_BUILDING_WINRT=1 -ZW)
+  link_libraries(
+    -nodefaultlib:vccorlib$<$<CONFIG:Debug>:d>
+    -nodefaultlib:msvcrt$<$<CONFIG:Debug>:d>
+    vccorlib$<$<CONFIG:Debug>:d>.lib
+    msvcrt$<$<CONFIG:Debug>:d>.lib
+  )
+endif()
+
+if (URHO3D_LIB_TYPE STREQUAL SHARED)
+  add_definitions(-DSDL_EXPORTS=1)
+endif ()
+
 # Urho3D - commented out in-source tree build prevention as Urho3D supports both out-of-source and in-source tree builds
 
 # Urho3D - commented out setting SDL2 as project name as we want SDL sub-library to remain within Urho3D "umbrella" project
@@ -1272,7 +1289,13 @@ elseif(WINDOWS)
   check_include_file (windows.h HAVE_WIN32_CC)
 
   file(GLOB CORE_SOURCES ${SDL2_SOURCE_DIR}/src/core/windows/*.c)
-  set(SOURCE_FILES ${SOURCE_FILES} ${CORE_SOURCES})
+
+  if(WINDOWS_STORE)
+    file(GLOB WINRT_SOURCE_FILES ${SDL2_SOURCE_DIR}/src/core/winrt/*.c ${SDL2_SOURCE_DIR}/src/core/winrt/*.cpp)
+    list(APPEND SOURCE_FILES ${WINRT_SOURCE_FILES})
+  endif()
+
+  set(SOURCE_FILES ${SOURCE_FILES} ${CORE_SOURCES} ${WINRT_CORE_SOURCES})
 
   # Urho3D - commented out MSVC-specific compiler flags setup as we have configured MSVC compiler flags globally in Urho3D common module
 
@@ -1280,6 +1303,9 @@ elseif(WINDOWS)
   if(DIRECTX)
     # Urho3D - bug fix - use our own FindDirectX.cmake module which does not rely on DXSDK_DIR environment variable directly when DirectX SDK is being used
     # Urho3D - TODO - move the find_package(DirectX) call from Urho3D common module to here later after we have refactored the library dependency handling
+    if(WINDOWS_STORE)
+      set(HAVE_DINPUT_H 0)
+    endif()
   endif()
 
   # headers needed elsewhere ...
@@ -1288,12 +1314,14 @@ elseif(WINDOWS)
   check_include_file(endpointvolume.h HAVE_ENDPOINTVOLUME_H)
 
   if(SDL_AUDIO)
-    set(SDL_AUDIO_DRIVER_WINMM 1)
-    file(GLOB WINMM_AUDIO_SOURCES ${SDL2_SOURCE_DIR}/src/audio/winmm/*.c)
-    set(SOURCE_FILES ${SOURCE_FILES} ${WINMM_AUDIO_SOURCES})
+    if(NOT WINDOWS_STORE)
+      set(SDL_AUDIO_DRIVER_WINMM 1)
+      file(GLOB WINMM_AUDIO_SOURCES ${SDL2_SOURCE_DIR}/src/audio/winmm/*.c)
+      set(SOURCE_FILES ${SOURCE_FILES} ${WINMM_AUDIO_SOURCES})
+    endif()
     set(HAVE_SDL_AUDIO TRUE)
 
-    if(HAVE_DSOUND_H)
+    if(HAVE_DSOUND_H AND NOT WINDOWS_STORE)
       set(SDL_AUDIO_DRIVER_DSOUND 1)
       file(GLOB DSOUND_AUDIO_SOURCES ${SDL2_SOURCE_DIR}/src/audio/directsound/*.c)
       set(SOURCE_FILES ${SOURCE_FILES} ${DSOUND_AUDIO_SOURCES})
@@ -1301,7 +1329,11 @@ elseif(WINDOWS)
 
     if(WASAPI AND HAVE_AUDIOCLIENT_H AND HAVE_MMDEVICEAPI_H)
       set(SDL_AUDIO_DRIVER_WASAPI 1)
-      file(GLOB WASAPI_AUDIO_SOURCES ${SDL2_SOURCE_DIR}/src/audio/wasapi/*.c)
+      if(WINDOWS_STORE)
+        file(GLOB WASAPI_AUDIO_SOURCES ${SDL2_SOURCE_DIR}/src/audio/wasapi/*.c ${SDL2_SOURCE_DIR}/src/audio/wasapi/SDL_wasapi_winrt.cpp)
+      else()
+       file(GLOB WASAPI_AUDIO_SOURCES ${SDL2_SOURCE_DIR}/src/audio/wasapi/*.c)
+      endif()
       set(SOURCE_FILES ${SOURCE_FILES} ${WASAPI_AUDIO_SOURCES})
     endif()
   endif()
@@ -1311,11 +1343,24 @@ elseif(WINDOWS)
     if(NOT SDL_LOADSO)
       message_error("SDL_VIDEO requires SDL_LOADSO, which is not enabled")
     endif()
-    set(SDL_VIDEO_DRIVER_WINDOWS 1)
-    file(GLOB WIN_VIDEO_SOURCES ${SDL2_SOURCE_DIR}/src/video/windows/*.c)
+    if(WINDOWS_STORE)
+      set(SDL_VIDEO_DRIVER_WINRT 1)
+      file(GLOB WIN_VIDEO_SOURCES
+        ${SDL2_SOURCE_DIR}/src/video/winrt/*.c 
+        ${SDL2_SOURCE_DIR}/src/video/winrt/*.cpp
+        ${SDL2_SOURCE_DIR}/src/render/direct3d11/*.cpp
+        ${SDL2_SOURCE_DIR}/src/render/direct3d11/SDL_shaders_d3d11.c
+        ${SDL2_SOURCE_DIR}/src/render/direct3d11/SDL_render_d3d11.c
+        ${SDL2_SOURCE_DIR}/src/render/*.c
+        ${SDL2_SOURCE_DIR}/src/render/software/*.c
+        )
+    else()
+      set(SDL_VIDEO_DRIVER_WINDOWS 1)
+      file(GLOB WIN_VIDEO_SOURCES ${SDL2_SOURCE_DIR}/src/video/windows/*.c)
+    endif()
     set(SOURCE_FILES ${SOURCE_FILES} ${WIN_VIDEO_SOURCES})
 
-    if(RENDER_D3D AND HAVE_D3D_H)
+    if(RENDER_D3D AND HAVE_D3D_H  AND NOT WINDOWS_STORE)
       set(SDL_VIDEO_RENDER_D3D 1)
       set(HAVE_RENDER_D3D TRUE)
     endif()
@@ -1340,20 +1385,31 @@ elseif(WINDOWS)
   endif()
 
   if(SDL_POWER)
-    set(SDL_POWER_WINDOWS 1)
-    set(SOURCE_FILES ${SOURCE_FILES} ${SDL2_SOURCE_DIR}/src/power/windows/SDL_syspower.c)
+    if(WINDOWS_STORE)
+      set(SDL_POWER_WINRT 1)
+      set(SOURCE_FILES ${SOURCE_FILES} ${SDL2_SOURCE_DIR}/src/power/winrt/SDL_syspower.cpp)
+    else()
+      set(SDL_POWER_WINDOWS 1)
+      set(SOURCE_FILES ${SOURCE_FILES} ${SDL2_SOURCE_DIR}/src/power/windows/SDL_syspower.cpp)
+    endif()
     set(HAVE_SDL_POWER TRUE)
   endif()
 
   if(SDL_FILESYSTEM)
     set(SDL_FILESYSTEM_WINDOWS 1)
-    file(GLOB FILESYSTEM_SOURCES ${SDL2_SOURCE_DIR}/src/filesystem/windows/*.c)
+    if(WINDOWS_STORE)
+      file(GLOB FILESYSTEM_SOURCES ${SDL2_SOURCE_DIR}/src/filesystem/winrt/*.cpp)
+    else()
+      file(GLOB FILESYSTEM_SOURCES ${SDL2_SOURCE_DIR}/src/filesystem/windows/*.c)
+    endif ()
     set(SOURCE_FILES ${SOURCE_FILES} ${FILESYSTEM_SOURCES})
     set(HAVE_SDL_FILESYSTEM TRUE)
   endif()
 
   # Libraries for Win32 native and MinGW
-  list(APPEND EXTRA_LIBS user32 gdi32 winmm imm32 ole32 oleaut32 version uuid advapi32 setupapi shell32)
+  if(NOT WINDOWS_STORE)
+    list(APPEND EXTRA_LIBS user32 gdi32 winmm imm32 ole32 oleaut32 version uuid advapi32 setupapi shell32)
+  endif()
 
   # TODO: in configure.ac the check for timers is set on
   # cygwin | mingw32* - does this include mingw32CE?
@@ -1375,7 +1431,7 @@ elseif(WINDOWS)
   set(SOURCE_FILES ${SOURCE_FILES} ${CORE_SOURCES})
 
   if(SDL_VIDEO)
-    if(VIDEO_OPENGL)
+    if(VIDEO_OPENGL AND NOT WINDOWS_STORE)
       set(SDL_VIDEO_OPENGL 1)
       set(SDL_VIDEO_OPENGL_WGL 1)
       set(SDL_VIDEO_RENDER_OGL 1)
@@ -1499,8 +1555,13 @@ endif()
 # endif()
 
 # Urho3D - use 'generated' path suffix for generated config header file (need the suffix as we support both out-of-source and non out-of-source build tree)
-configure_file("${SDL2_SOURCE_DIR}/include/SDL_config.h.cmake"
-  "${SDL2_BINARY_DIR}/include/generated/SDL_config.h")
+if (WINDOWS_STORE)
+  configure_file("${SDL2_SOURCE_DIR}/include/SDL_config_winrt.h"
+    "${SDL2_BINARY_DIR}/include/generated/SDL_config.h")
+else ()
+  configure_file("${SDL2_SOURCE_DIR}/include/SDL/SDL_config.h.cmake"
+    "${SDL2_BINARY_DIR}/include/SDL/generated/SDL_config.h")
+endif ()
 
 # Prepare the flags and remove duplicates
 if(EXTRA_LDFLAGS)

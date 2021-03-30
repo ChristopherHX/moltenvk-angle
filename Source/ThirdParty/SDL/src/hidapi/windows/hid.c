@@ -21,6 +21,8 @@
 ********************************************************/
 #include "../../SDL_internal.h"
 
+#undef SDL_JOYSTICK_HIDAPI
+
 #ifdef SDL_JOYSTICK_HIDAPI
 
 #include <windows.h>

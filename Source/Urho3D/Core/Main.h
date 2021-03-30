@@ -24,6 +24,10 @@
 
 #include "../Core/ProcessUtils.h"
 
+#if defined(UWP)
+#include <wrl.h>
+#endif
+
 #if defined(_WIN32) && !defined(URHO3D_WIN32_CONSOLE)
 #include "../Core/MiniDump.h"
 #include <windows.h>
@@ -33,9 +37,20 @@
 #endif
 
 // Define a platform-specific main function, which in turn executes the user-defined function
-
+#if defined(UWP)
+#define URHO3D_DEFINE_MAIN(function) \
+extern "C" int SDL_main(int argc, char** argv) \
+{ \
+    Urho3D::ParseArguments(argc, argv); \
+    return function; \
+} \
+extern "C" URHO3D_API int SDL_WinRTRunApp(int(*)(int, char**), void*); \
+int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, int) \
+{ \
+    return SDL_WinRTRunApp(&SDL_main, nullptr); \
+}
 // MSVC debug mode: use memory leak reporting
-#if defined(_MSC_VER) && defined(_DEBUG) && !defined(URHO3D_WIN32_CONSOLE)
+#elif defined(_MSC_VER) && defined(_DEBUG) && !defined(URHO3D_WIN32_CONSOLE)
 #define URHO3D_DEFINE_MAIN(function) \
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, int showCmd) \
 { \

@@ -63,6 +63,25 @@ if (URHO3D_64BIT)
         set (LIB_SUFFIX 64)
     endif ()
 endif ()
+
+if (WIN32)
+    if (NOT DEFINED URHO3D_WINVER)
+        if (UWP)
+            set (URHO3D_WINVER 0x0A00)
+            ucm_add_flags(/ZW)
+        else ()
+            set (URHO3D_WINVER 0x0601)
+        endif ()
+    endif ()
+    add_definitions(-DWINVER=${URHO3D_WINVER} -D_WIN32_WINNT=${URHO3D_WINVER} -D_WIN32_WINDOWS=${URHO3D_WINVER})
+endif ()
+
+if (UWP)
+    # archiving object file compiled with /ZW into a static library; note that when authoring Windows Runtime types it is not recommended to link with a static library that contains Windows Runtime metadata unless /WHOLEARCHIVE is specified to include everything from the static library
+    set(CMAKE_STATIC_LINKER_FLAGS /ignore:4264)
+endif ()
+
+
 set (DEST_INCLUDE_DIR include/Urho3D)    # The include directory path contains the 'Urho3D' suffix regardless of PATH_SUFFIX variable
 set (DEST_SHARE_DIR share/${PATH_SUFFIX})
 set (DEST_BUNDLE_DIR ${DEST_SHARE_DIR}/Applications)

@@ -163,6 +163,17 @@ option (URHO3D_GLES3 "Enable GLES3" FALSE)
 option (URHO3D_WEBP "Enable WebP support" TRUE)
 option (URHO3D_ANGLE_METAL "Enable Angle Metal graphics backend" FALSE)
 
+if ("${CMAKE_SYSTEM_NAME}" STREQUAL "WindowsStore")
+    set (UWP ON CACHE BOOL "" FORCE)
+endif ()
+
+if (UWP)
+	set (URHO3D_SSE FALSE)
+	set (URHO3D_GRAPHICS_API D3D11)
+else ()
+    set (URHO3D_SSE           SSE2 CACHE STRING "Enable SSE instructions")
+endif ()
+
 if(URHO3D_CLING)
     set (URHO3D_SSE FALSE)
     set (BT_USE_SSE FALSE)
@@ -1968,3 +1979,46 @@ endif ()
 if (POST_CMAKE_FIXES)
     add_custom_target (POST_CMAKE_FIXES ALL ${POST_CMAKE_FIXES} COMMENT "Applying post-cmake fixes")
 endif ()
+
+# ucm_add_flags
+# Adds compiler flags to CMAKE_<LANG>_FLAGS or to a specific config
+macro(ucm_add_flags)
+    cmake_parse_arguments(ARG "C;CXX;CLEAR_OLD" "" "CONFIG" ${ARGN})
+
+    if(NOT ARG_CONFIG)
+        set(ARG_CONFIG " ")
+    endif()
+
+    foreach(CONFIG ${ARG_CONFIG})
+        # determine to which flags to add
+        if(NOT ${CONFIG} STREQUAL " ")
+            string(TOUPPER ${CONFIG} CONFIG)
+            set(CXX_FLAGS CMAKE_CXX_FLAGS_${CONFIG})
+            set(C_FLAGS CMAKE_C_FLAGS_${CONFIG})
+        else()
+            set(CXX_FLAGS CMAKE_CXX_FLAGS)
+            set(C_FLAGS CMAKE_C_FLAGS)
+        endif()
+
+        # clear the old flags
+        if(${ARG_CLEAR_OLD})
+            if("${ARG_CXX}" OR NOT "${ARG_C}")
+                set(${CXX_FLAGS} "")
+            endif()
+            if("${ARG_C}" OR NOT "${ARG_CXX}")
+                set(${C_FLAGS} "")
+            endif()
+        endif()
+
+        # add all the passed flags
+        foreach(flag ${ARG_UNPARSED_ARGUMENTS})
+            if("${ARG_CXX}" OR NOT "${ARG_C}")
+                set(${CXX_FLAGS} "${${CXX_FLAGS}} ${flag}")
+            endif()
+            if("${ARG_C}" OR NOT "${ARG_CXX}")
+                set(${C_FLAGS} "${${C_FLAGS}} ${flag}")
+            endif()
+        endforeach()
+    endforeach()
+
+endmacro()

@@ -633,4 +633,6 @@ private:
     wchar_t* buffer_;
 };
 
+String WideToMultiByte(const wchar_t* string);
+
 }

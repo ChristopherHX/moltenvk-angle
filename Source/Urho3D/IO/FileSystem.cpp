@@ -85,7 +85,7 @@ namespace Urho3D
 
 int DoSystemCommand(const String& commandLine, bool redirectToLog, Context* context)
 {
-#if defined(TVOS) || defined(IOS)
+#if defined(TVOS) || defined(IOS) || defined(UWP)
     return -1;
 #else
 #if !defined(__EMSCRIPTEN__) && !defined(MINI_URHO)
@@ -143,7 +143,7 @@ int DoSystemCommand(const String& commandLine, bool redirectToLog, Context* cont
 
 int DoSystemRun(const String& fileName, const Vector<String>& arguments)
 {
-#ifdef TVOS
+#if defined(TVOS) || defined(IOS) || (defined(__ANDROID__) && __ANDROID_API__ < 28) || defined(UWP)
     return -1;
 #else
     String fixedFileName = GetNativePath(fileName);
@@ -444,7 +444,9 @@ bool FileSystem::SystemOpen(const String& fileName, const String& mode)
             return false;
         }
 
-#ifdef _WIN32
+#ifdef UWP
+        bool success = false;
+#elif defined(_WIN32)
         bool success = (size_t)ShellExecuteW(nullptr, !mode.Empty() ? WString(mode).CString() : nullptr,
             GetWideNativePath(fileName).CString(), nullptr, nullptr, SW_SHOW) > 32;
 #else
@@ -510,7 +512,9 @@ bool FileSystem::Rename(const String& srcFileName, const String& destFileName)
         return false;
     }
 
-#ifdef _WIN32
+#ifdef UWP
+    return false;
+#elif defined(_WIN32)
     return MoveFileW(GetWideNativePath(srcFileName).CString(), GetWideNativePath(destFileName).CString()) != 0;
 #else
     return rename(GetNativePath(srcFileName).CString(), GetNativePath(destFileName).CString()) == 0;
@@ -665,7 +669,7 @@ bool FileSystem::DirExists(const String& pathName) const
     }
 #endif
 
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(UWP)
     DWORD attributes = GetFileAttributesW(WString(fixedName).CString());
     if (attributes == INVALID_FILE_ATTRIBUTES || !(attributes & FILE_ATTRIBUTE_DIRECTORY))
         return false;
@@ -691,7 +695,10 @@ void FileSystem::ScanDir(Vector<String>& result, const String& pathName, const S
 
 String FileSystem::GetProgramDir() const
 {
-#if defined(__ANDROID__)
+
+#ifdef UWP
+    return AddTrailingSlash(WideToMultiByte(Windows::ApplicationModel::Package::Current->InstalledLocation->Path->Data()));
+#elif defined(__ANDROID__)
     // This is an internal directory specifier pointing to the assets in the .apk
     // Files from this directory will be opened using special handling
     return APK;
@@ -722,7 +729,9 @@ String FileSystem::GetProgramDir() const
 
 String FileSystem::GetUserDocumentsDir() const
 {
-#if defined(__ANDROID__)
+#if defined(UWP)
+    return AddTrailingSlash(WideToMultiByte(Windows::Storage::ApplicationData::Current->LocalFolder->Path->Data()));
+#elif defined(__ANDROID__)
     return AddTrailingSlash(SDL_Android_GetFilesDir());
 #elif defined(IOS) || defined(TVOS)
     return AddTrailingSlash(SDL_IOS_GetDocumentsDir());

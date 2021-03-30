@@ -57,6 +57,11 @@ void Billboards::Start()
     // Execute base class startup
     Sample::Start();
 
+    Input* input = context_->GetSubsystem<Input>();
+
+  //  input->SetMouseMode(MM_FREE);
+    input->SetMouseVisible(true);
+
     // Create the scene content
     CreateScene();
 

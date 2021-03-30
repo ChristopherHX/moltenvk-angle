@@ -1300,4 +1300,214 @@ void WString::Resize(unsigned newLength)
     }
 }
 
+
+
+unsigned CStringLength(const char* str) { return str ? (unsigned)strlen(str) : 0; }
+
+void EncodeUTF8(char*& dest, unsigned unicodeChar)
+{
+    if (unicodeChar < 0x80)
+        *dest++ = unicodeChar;
+    else if (unicodeChar < 0x800)
+    {
+        dest[0] = (char)(0xc0u | ((unicodeChar >> 6u) & 0x1fu));
+        dest[1] = (char)(0x80u | (unicodeChar & 0x3fu));
+        dest += 2;
+    }
+    else if (unicodeChar < 0x10000)
+    {
+        dest[0] = (char)(0xe0u | ((unicodeChar >> 12u) & 0xfu));
+        dest[1] = (char)(0x80u | ((unicodeChar >> 6u) & 0x3fu));
+        dest[2] = (char)(0x80u | (unicodeChar & 0x3fu));
+        dest += 3;
+    }
+    else if (unicodeChar < 0x200000)
+    {
+        dest[0] = (char)(0xf0u | ((unicodeChar >> 18u) & 0x7u));
+        dest[1] = (char)(0x80u | ((unicodeChar >> 12u) & 0x3fu));
+        dest[2] = (char)(0x80u | ((unicodeChar >> 6u) & 0x3fu));
+        dest[3] = (char)(0x80u | (unicodeChar & 0x3fu));
+        dest += 4;
+    }
+    else if (unicodeChar < 0x4000000)
+    {
+        dest[0] = (char)(0xf8u | ((unicodeChar >> 24u) & 0x3u));
+        dest[1] = (char)(0x80u | ((unicodeChar >> 18u) & 0x3fu));
+        dest[2] = (char)(0x80u | ((unicodeChar >> 12u) & 0x3fu));
+        dest[3] = (char)(0x80u | ((unicodeChar >> 6u) & 0x3fu));
+        dest[4] = (char)(0x80u | (unicodeChar & 0x3fu));
+        dest += 5;
+    }
+    else
+    {
+        dest[0] = (char)(0xfcu | ((unicodeChar >> 30u) & 0x1u));
+        dest[1] = (char)(0x80u | ((unicodeChar >> 24u) & 0x3fu));
+        dest[2] = (char)(0x80u | ((unicodeChar >> 18u) & 0x3fu));
+        dest[3] = (char)(0x80u | ((unicodeChar >> 12u) & 0x3fu));
+        dest[4] = (char)(0x80u | ((unicodeChar >> 6u) & 0x3fu));
+        dest[5] = (char)(0x80u | (unicodeChar & 0x3fu));
+        dest += 6;
+    }
+}
+
+void EncodeUTF16(wchar_t*& dest, unsigned unicodeChar)
+{
+    if (unicodeChar < 0x10000)
+        *dest++ = unicodeChar;
+    else
+    {
+        unicodeChar -= 0x10000;
+        *dest++ = 0xd800 | ((unicodeChar >> 10) & 0x3ff);
+        *dest++ = 0xdc00 | (unicodeChar & 0x3ff);
+    }
+}
+
+unsigned DecodeUTF16(const wchar_t*& src)
+{
+    if (src == nullptr)
+        return 0;
+
+    unsigned short word1 = *src++;
+
+    // Check if we are at a low surrogate
+    if (word1 >= 0xdc00 && word1 < 0xe000)
+    {
+        while (*src >= 0xdc00 && *src < 0xe000)
+            ++src;
+        return '?';
+    }
+
+    if (word1 < 0xd800 || word1 >= 0xe000)
+        return word1;
+    else
+    {
+        unsigned short word2 = *src++;
+        if (word2 < 0xdc00 || word2 >= 0xe000)
+        {
+            --src;
+            return '?';
+        }
+        else
+            return (((word1 & 0x3ff) << 10) | (word2 & 0x3ff)) + 0x10000;
+    }
+}
+
+String Ucs2ToUtf8(const wchar_t* string)
+{
+    String result{};
+    char temp[7];
+
+    if (!string)
+        return result;
+
+    while (*string)
+    {
+        unsigned unicodeChar = DecodeUTF16(string);
+        char* dest = temp;
+        EncodeUTF8(dest, unicodeChar);
+        *dest = 0;
+        result.Append(temp);
+    }
+    return result;
+}
+
+unsigned DecodeUTF8(const char*& src)
+{
+    if (src == nullptr)
+        return 0;
+
+    unsigned char char1 = *src++;
+
+    // Check if we are in the middle of a UTF8 character
+    if (char1 >= 0x80 && char1 < 0xc0)
+    {
+        while ((unsigned char)*src >= 0x80 && (unsigned char)*src < 0xc0)
+            ++src;
+        return '?';
+    }
+
+    if (char1 < 0x80)
+        return char1;
+    else if (char1 < 0xe0)
+    {
+        unsigned char char2 = GET_NEXT_CONTINUATION_BYTE(src);
+        return (unsigned)((char2 & 0x3fu) | ((char1 & 0x1fu) << 6u));
+    }
+    else if (char1 < 0xf0)
+    {
+        unsigned char char2 = GET_NEXT_CONTINUATION_BYTE(src);
+        unsigned char char3 = GET_NEXT_CONTINUATION_BYTE(src);
+        return (unsigned)((char3 & 0x3fu) | ((char2 & 0x3fu) << 6u) | ((char1 & 0xfu) << 12u));
+    }
+    else if (char1 < 0xf8)
+    {
+        unsigned char char2 = GET_NEXT_CONTINUATION_BYTE(src);
+        unsigned char char3 = GET_NEXT_CONTINUATION_BYTE(src);
+        unsigned char char4 = GET_NEXT_CONTINUATION_BYTE(src);
+        return (unsigned)((char4 & 0x3fu) | ((char3 & 0x3fu) << 6u) | ((char2 & 0x3fu) << 12u) |
+                          ((char1 & 0x7u) << 18u));
+    }
+    else if (char1 < 0xfc)
+    {
+        unsigned char char2 = GET_NEXT_CONTINUATION_BYTE(src);
+        unsigned char char3 = GET_NEXT_CONTINUATION_BYTE(src);
+        unsigned char char4 = GET_NEXT_CONTINUATION_BYTE(src);
+        unsigned char char5 = GET_NEXT_CONTINUATION_BYTE(src);
+        return (unsigned)((char5 & 0x3fu) | ((char4 & 0x3fu) << 6u) | ((char3 & 0x3fu) << 12u) |
+                          ((char2 & 0x3fu) << 18u) | ((char1 & 0x3u) << 24u));
+    }
+    else
+    {
+        unsigned char char2 = GET_NEXT_CONTINUATION_BYTE(src);
+        unsigned char char3 = GET_NEXT_CONTINUATION_BYTE(src);
+        unsigned char char4 = GET_NEXT_CONTINUATION_BYTE(src);
+        unsigned char char5 = GET_NEXT_CONTINUATION_BYTE(src);
+        unsigned char char6 = GET_NEXT_CONTINUATION_BYTE(src);
+        return (unsigned)((char6 & 0x3fu) | ((char5 & 0x3fu) << 6u) | ((char4 & 0x3fu) << 12u) |
+                          ((char3 & 0x3fu) << 18u) | ((char2 & 0x3fu) << 24u) | ((char1 & 0x1u) << 30u));
+    }
+}
+
+unsigned NextUTF8Char(const String& string, unsigned& byteOffset)
+{
+    if (string.Empty())
+        return String::NPOS;
+
+    const char* src = string.CString() + byteOffset;
+    unsigned ret = DecodeUTF8(src);
+    byteOffset = (unsigned)(src - string.CString());
+
+    return ret;
+}
+
+
+WString Utf8ToUcs2(const char* string)
+{
+    WString result{};
+    unsigned neededSize = 0;
+    wchar_t temp[3];
+
+    unsigned byteOffset = 0;
+    auto length = CStringLength(string);
+    while (byteOffset < length)
+    {
+        wchar_t* dest = temp;
+        EncodeUTF16(dest, NextUTF8Char(string, byteOffset));
+        neededSize += dest - temp;
+    }
+
+    result.Resize(neededSize);
+
+    byteOffset = 0;
+    wchar_t* dest = &result[0];
+    while (byteOffset < length)
+        EncodeUTF16(dest, NextUTF8Char(string, byteOffset));
+
+    return result;
+}
+
+String WideToMultiByte(const wchar_t* string)
+{
+    return Ucs2ToUtf8(string);
+}
 }
