@@ -1051,6 +1051,14 @@ DllExport Interop::Quaternion  Matrix3x4_Rotation( Matrix3x4 & matrix3x4)
     return *((Interop::Quaternion  *) &(rotation));
 }
 
+
+
+DllExport void
+Profiler_BeginBlock (Urho3D::Profiler *_target,const char* name)
+{
+    _target->BeginBlock(name);
+}
+
 /*
  
  #if UWP
