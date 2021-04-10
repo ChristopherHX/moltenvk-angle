@@ -319,7 +319,19 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool ValueAnimation_SetKeyFrame_8 (IntPtr handle, float time, ref Matrix3x4 value);
+		internal static extern bool ValueAnimation_SetKeyFrame_8 (IntPtr handle, float time, ref Matrix3 value);
+
+		/// <summary>
+		/// Set key frame.
+		/// </summary>
+		public bool SetKeyFrame (float time, Matrix3 value)
+		{
+			Runtime.ValidateRefCounted (this);
+			return ValueAnimation_SetKeyFrame_8 (handle, time, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool ValueAnimation_SetKeyFrame_9 (IntPtr handle, float time, ref Matrix3x4 value);
 
 		/// <summary>
 		/// Set key frame.
@@ -327,11 +339,11 @@ namespace Urho
 		public bool SetKeyFrame (float time, Matrix3x4 value)
 		{
 			Runtime.ValidateRefCounted (this);
-			return ValueAnimation_SetKeyFrame_8 (handle, time, ref value);
+			return ValueAnimation_SetKeyFrame_9 (handle, time, ref value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool ValueAnimation_SetKeyFrame_9 (IntPtr handle, float time, int value);
+		internal static extern bool ValueAnimation_SetKeyFrame_10 (IntPtr handle, float time, int value);
 
 		/// <summary>
 		/// Set key frame.
@@ -339,11 +351,11 @@ namespace Urho
 		public bool SetKeyFrame (float time, int value)
 		{
 			Runtime.ValidateRefCounted (this);
-			return ValueAnimation_SetKeyFrame_9 (handle, time, value);
+			return ValueAnimation_SetKeyFrame_10 (handle, time, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool ValueAnimation_SetKeyFrame_10 (IntPtr handle, float time, float value);
+		internal static extern bool ValueAnimation_SetKeyFrame_11 (IntPtr handle, float time, float value);
 
 		/// <summary>
 		/// Set key frame.
@@ -351,11 +363,11 @@ namespace Urho
 		public bool SetKeyFrame (float time, float value)
 		{
 			Runtime.ValidateRefCounted (this);
-			return ValueAnimation_SetKeyFrame_10 (handle, time, value);
+			return ValueAnimation_SetKeyFrame_11 (handle, time, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool ValueAnimation_SetKeyFrame_11 (IntPtr handle, float time, string value);
+		internal static extern bool ValueAnimation_SetKeyFrame_12 (IntPtr handle, float time, string value);
 
 		/// <summary>
 		/// Set key frame.
@@ -363,11 +375,11 @@ namespace Urho
 		public bool SetKeyFrame (float time, string value)
 		{
 			Runtime.ValidateRefCounted (this);
-			return ValueAnimation_SetKeyFrame_11 (handle, time, value);
+			return ValueAnimation_SetKeyFrame_12 (handle, time, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool ValueAnimation_SetKeyFrame_12 (IntPtr handle, float time, bool value);
+		internal static extern bool ValueAnimation_SetKeyFrame_13 (IntPtr handle, float time, bool value);
 
 		/// <summary>
 		/// Set key frame.
@@ -375,7 +387,7 @@ namespace Urho
 		public bool SetKeyFrame (float time, bool value)
 		{
 			Runtime.ValidateRefCounted (this);
-			return ValueAnimation_SetKeyFrame_12 (handle, time, value);
+			return ValueAnimation_SetKeyFrame_13 (handle, time, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

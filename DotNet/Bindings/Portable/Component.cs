@@ -7,6 +7,7 @@
 // Copyrigh 2015 Xamarin INc
 //
 
+using System;
 using System.Linq;
 using System.Reflection;
 using Urho.Resources;
@@ -55,6 +56,76 @@ namespace Urho
 		public virtual void OnSerialize(IComponentSerializer serializer) { }
 
 		public virtual void OnDeserialize(IComponentDeserializer deserializer) { }
+
+		public void SerializeFields(IComponentSerializer serializer) 
+		{ 
+  			Type type = GetType();
+
+            BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
+
+            foreach (FieldInfo mInfo in type.GetFields(bindingFlags))
+            {
+                FieldAttributes fieldAttributes = mInfo.Attributes;
+                bool isSerializable = false;
+
+                foreach (Attribute attr in
+                          Attribute.GetCustomAttributes(mInfo))
+                {
+                    if (attr.GetType() == typeof(SerializeFieldAttribute))
+                    {
+                        isSerializable = true;
+                    }
+                }
+
+                // save only public or serializable fields
+                if (!(mInfo.IsPublic || isSerializable)) continue;
+                 // don't save constants
+                if ((fieldAttributes & FieldAttributes.Literal) == FieldAttributes.Literal) continue;
+
+
+                Type field_type = mInfo.FieldType;
+                string key = mInfo.Name;
+                object value = mInfo.GetValue(this);
+
+                serializer.SetObjectValueToXmlElement(key, value);
+			}
+		}
+
+		public void DeserializeFields(IComponentDeserializer deserializer) 
+		{ 
+ 			Type CompnentType = this.GetType();
+
+            BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
+
+            foreach (FieldInfo mInfo in CompnentType.GetFields(bindingFlags))
+            {
+                FieldAttributes fieldAttributes = mInfo.Attributes;
+                bool isSerializable = false;
+
+                foreach (Attribute attr in Attribute.GetCustomAttributes(mInfo))
+                {
+                    if (attr.GetType() == typeof(SerializeFieldAttribute))
+                    {
+                        isSerializable = true;
+                    }
+                }
+
+                // load only public or serializable fields
+                if (!(mInfo.IsPublic || isSerializable)) continue;
+                // don't load constants
+                if ((fieldAttributes & FieldAttributes.Literal) == FieldAttributes.Literal) continue;
+
+                Type type = mInfo.FieldType;
+                string key = mInfo.Name;
+
+                object value = deserializer.GetObjectValueFromXmlElement(type, key);
+                if (value != null)
+                {
+                    mInfo.SetValue(this, value);
+                }
+
+			}
+		}
 
 		public virtual void OnAttachedToNode(Node node) {}
 

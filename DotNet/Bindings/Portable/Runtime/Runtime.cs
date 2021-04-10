@@ -75,7 +75,9 @@ namespace Urho
                         {
                             var xmlElement = new XmlElement(param1);
                             xmlElement.SetString(typeNameKey, component.GetType().AssemblyQualifiedName);
-                            component.OnSerialize(new XmlComponentSerializer(xmlElement));
+                            XmlComponentSerializer xmlComponentSerializer =  new XmlComponentSerializer(xmlElement);
+                            component.SerializeFields(xmlComponentSerializer); 
+                            component.OnSerialize(xmlComponentSerializer);
                         }
                     }
                     break;
@@ -117,7 +119,11 @@ namespace Urho
                             {
                                 throw new InvalidOperationException($"{name} doesn't override constructor Component(IntPtr handle).", exc);
                             }
-                            component.OnDeserialize(new XmlComponentSerializer(xmlElement));
+                            
+                            XmlComponentSerializer xmlComponentSerializer =  new XmlComponentSerializer(xmlElement);
+                            component.DeserializeFields(xmlComponentSerializer); 
+                            component.OnDeserialize(xmlComponentSerializer);
+
                             if (component.Node != null)
                             {
                                 component.AttachedToNode(component.Node);

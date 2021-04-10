@@ -24,6 +24,7 @@
 
 #include "../Core/StringUtils.h"
 
+
 #include <cstdio>
 
 #include "../DebugNew.h"
@@ -361,6 +362,19 @@ Vector2 ToVector2(const char* source)
     ret.x_ = (float)strtod(ptr, &ptr);
     ret.y_ = (float)strtod(ptr, &ptr);
 
+    return ret;
+}
+
+BoundingBox ToBoundingBox(const String& source)
+{
+    BoundingBox ret;
+    Vector<String>  vectors3 = source.Split('-');
+    
+    if(vectors3.Size() == 2)
+    {
+        ret.min_ = ToVector3(vectors3[0]);
+        ret.max_ = ToVector3(vectors3[1]);
+    }
     return ret;
 }
 

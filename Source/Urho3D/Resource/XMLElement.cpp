@@ -329,6 +329,11 @@ bool XMLElement::SetBoundingBox(const BoundingBox& value)
     return SetVector3("max", value.max_);
 }
 
+bool XMLElement::SetBoundingBox(const String& name,const BoundingBox& value)
+{
+    return SetAttribute(name, value.ToString());
+}
+
 bool XMLElement::SetBuffer(const String& name, const void* data, unsigned size)
 {
     String dataStr;
@@ -764,6 +769,12 @@ BoundingBox XMLElement::GetBoundingBox() const
     ret.max_ = GetVector3("max");
     return ret;
 }
+
+BoundingBox XMLElement::GetBoundingBox(const String& name) const
+{
+    return ToBoundingBox(GetAttribute(name));
+}
+
 
 PODVector<unsigned char> XMLElement::GetBuffer(const String& name) const
 {

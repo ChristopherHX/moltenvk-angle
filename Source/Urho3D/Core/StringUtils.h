@@ -23,7 +23,7 @@
 #pragma once
 
 #include "../Core/Variant.h"
-
+#include "../Math/BoundingBox.h"
 namespace Urho3D
 {
 
@@ -83,6 +83,8 @@ URHO3D_API Rect ToRect(const char* source);
 URHO3D_API Vector2 ToVector2(const String& source);
 /// Parse a Vector2 from a C string.
 URHO3D_API Vector2 ToVector2(const char* source);
+/// Parse a BoundingBox  from a C string.
+URHO3D_API BoundingBox ToBoundingBox(const String& source);
 /// Parse a Vector3 from a string.
 URHO3D_API Vector3 ToVector3(const String& source);
 /// Parse a Vector3 from a C string.

@@ -115,6 +115,8 @@ public:
     bool SetBool(const String& name, bool value);
     /// Set a BoundingBox attribute.
     bool SetBoundingBox(const BoundingBox& value);
+    /// Set a BoundingBox attribute.
+    bool SetBoundingBox(const String& name,const BoundingBox& value);
     /// Set a buffer attribute.
     bool SetBuffer(const String& name, const void* data, unsigned size);
     /// Set a buffer attribute.
@@ -234,6 +236,8 @@ public:
     bool GetBuffer(const String& name, void* dest, unsigned size) const;
     /// Return bounding box attribute, or empty if missing.
     BoundingBox GetBoundingBox() const;
+    /// Return bounding box attribute, or empty if missing.
+    BoundingBox GetBoundingBox(const String& name) const;
     /// Return a color attribute, or default if missing.
     Color GetColor(const String& name) const;
     /// Return a float attribute, or zero if missing.

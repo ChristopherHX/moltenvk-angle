@@ -162,7 +162,19 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Polyhedron_Transform (IntPtr handle, ref Urho.Matrix3x4 transform);
+		internal static extern void Polyhedron_Transform (IntPtr handle, ref Urho.Matrix3 transform);
+
+		/// <summary>
+		/// Transform with a 3x3 matrix.
+		/// </summary>
+		public void Transform (Urho.Matrix3 transform)
+		{
+			Runtime.ValidateObject (this);
+			Polyhedron_Transform (handle, ref transform);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Polyhedron_Transform7 (IntPtr handle, ref Urho.Matrix3x4 transform);
 
 		/// <summary>
 		/// Transform with a 3x4 matrix.
@@ -170,11 +182,23 @@ namespace Urho
 		public void Transform (Urho.Matrix3x4 transform)
 		{
 			Runtime.ValidateObject (this);
-			Polyhedron_Transform (handle, ref transform);
+			Polyhedron_Transform7 (handle, ref transform);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr Polyhedron_Transformed (IntPtr handle, ref Urho.Matrix3x4 transform);
+		internal static extern IntPtr Polyhedron_Transformed (IntPtr handle, ref Urho.Matrix3 transform);
+
+		/// <summary>
+		/// Return transformed with a 3x3 matrix.
+		/// </summary>
+		public Polyhedron Transformed (Urho.Matrix3 transform)
+		{
+			Runtime.ValidateObject (this);
+			return new Polyhedron (Polyhedron_Transformed (handle, ref transform));
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern IntPtr Polyhedron_Transformed8 (IntPtr handle, ref Urho.Matrix3x4 transform);
 
 		/// <summary>
 		/// Return transformed with a 3x4 matrix.
@@ -182,7 +206,7 @@ namespace Urho
 		public Polyhedron Transformed (Urho.Matrix3x4 transform)
 		{
 			Runtime.ValidateObject (this);
-			return new Polyhedron (Polyhedron_Transformed (handle, ref transform));
+			return new Polyhedron (Polyhedron_Transformed8 (handle, ref transform));
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

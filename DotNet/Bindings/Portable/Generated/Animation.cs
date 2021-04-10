@@ -306,7 +306,19 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Animation_AddTrigger_8 (IntPtr handle, float time, bool timeIsNormalized, ref Matrix3x4 data);
+		internal static extern void Animation_AddTrigger_8 (IntPtr handle, float time, bool timeIsNormalized, ref Matrix3 data);
+
+		/// <summary>
+		/// Add a trigger point.
+		/// </summary>
+		public void AddTrigger (float time, bool timeIsNormalized, Matrix3 data)
+		{
+			Runtime.ValidateRefCounted (this);
+			Animation_AddTrigger_8 (handle, time, timeIsNormalized, ref data);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Animation_AddTrigger_9 (IntPtr handle, float time, bool timeIsNormalized, ref Matrix3x4 data);
 
 		/// <summary>
 		/// Add a trigger point.
@@ -314,11 +326,11 @@ namespace Urho
 		public void AddTrigger (float time, bool timeIsNormalized, Matrix3x4 data)
 		{
 			Runtime.ValidateRefCounted (this);
-			Animation_AddTrigger_8 (handle, time, timeIsNormalized, ref data);
+			Animation_AddTrigger_9 (handle, time, timeIsNormalized, ref data);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Animation_AddTrigger_9 (IntPtr handle, float time, bool timeIsNormalized, int data);
+		internal static extern void Animation_AddTrigger_10 (IntPtr handle, float time, bool timeIsNormalized, int data);
 
 		/// <summary>
 		/// Add a trigger point.
@@ -326,11 +338,11 @@ namespace Urho
 		public void AddTrigger (float time, bool timeIsNormalized, int data)
 		{
 			Runtime.ValidateRefCounted (this);
-			Animation_AddTrigger_9 (handle, time, timeIsNormalized, data);
+			Animation_AddTrigger_10 (handle, time, timeIsNormalized, data);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Animation_AddTrigger_10 (IntPtr handle, float time, bool timeIsNormalized, float data);
+		internal static extern void Animation_AddTrigger_11 (IntPtr handle, float time, bool timeIsNormalized, float data);
 
 		/// <summary>
 		/// Add a trigger point.
@@ -338,11 +350,11 @@ namespace Urho
 		public void AddTrigger (float time, bool timeIsNormalized, float data)
 		{
 			Runtime.ValidateRefCounted (this);
-			Animation_AddTrigger_10 (handle, time, timeIsNormalized, data);
+			Animation_AddTrigger_11 (handle, time, timeIsNormalized, data);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Animation_AddTrigger_11 (IntPtr handle, float time, bool timeIsNormalized, string data);
+		internal static extern void Animation_AddTrigger_12 (IntPtr handle, float time, bool timeIsNormalized, string data);
 
 		/// <summary>
 		/// Add a trigger point.
@@ -350,11 +362,11 @@ namespace Urho
 		public void AddTrigger (float time, bool timeIsNormalized, string data)
 		{
 			Runtime.ValidateRefCounted (this);
-			Animation_AddTrigger_11 (handle, time, timeIsNormalized, data);
+			Animation_AddTrigger_12 (handle, time, timeIsNormalized, data);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Animation_AddTrigger_12 (IntPtr handle, float time, bool timeIsNormalized, bool data);
+		internal static extern void Animation_AddTrigger_13 (IntPtr handle, float time, bool timeIsNormalized, bool data);
 
 		/// <summary>
 		/// Add a trigger point.
@@ -362,7 +374,7 @@ namespace Urho
 		public void AddTrigger (float time, bool timeIsNormalized, bool data)
 		{
 			Runtime.ValidateRefCounted (this);
-			Animation_AddTrigger_12 (handle, time, timeIsNormalized, data);
+			Animation_AddTrigger_13 (handle, time, timeIsNormalized, data);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

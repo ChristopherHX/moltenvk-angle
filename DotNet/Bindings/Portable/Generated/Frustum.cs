@@ -118,7 +118,19 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Frustum_Transform (IntPtr handle, ref Urho.Matrix3x4 transform);
+		internal static extern void Frustum_Transform (IntPtr handle, ref Urho.Matrix3 transform);
+
+		/// <summary>
+		/// Transform by a 3x3 matrix.
+		/// </summary>
+		public void Transform (Urho.Matrix3 transform)
+		{
+			Runtime.ValidateObject (this);
+			Frustum_Transform (handle, ref transform);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Frustum_Transform4 (IntPtr handle, ref Urho.Matrix3x4 transform);
 
 		/// <summary>
 		/// Transform by a 3x4 matrix.
@@ -126,7 +138,7 @@ namespace Urho
 		public void Transform (Urho.Matrix3x4 transform)
 		{
 			Runtime.ValidateObject (this);
-			Frustum_Transform (handle, ref transform);
+			Frustum_Transform4 (handle, ref transform);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -142,7 +154,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Intersection Frustum_IsInside4 (IntPtr handle, IntPtr sphere);
+		internal static extern Intersection Frustum_IsInside5 (IntPtr handle, IntPtr sphere);
 
 		/// <summary>
 		/// Test if a sphere is inside, outside or intersects.
@@ -150,7 +162,7 @@ namespace Urho
 		public Intersection IsInside (Sphere sphere)
 		{
 			Runtime.ValidateObject (this);
-			return Frustum_IsInside4 (handle, (object)sphere == null ? IntPtr.Zero : sphere.Handle);
+			return Frustum_IsInside5 (handle, (object)sphere == null ? IntPtr.Zero : sphere.Handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -166,7 +178,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Intersection Frustum_IsInside5 (IntPtr handle, ref Urho.BoundingBox box);
+		internal static extern Intersection Frustum_IsInside6 (IntPtr handle, ref Urho.BoundingBox box);
 
 		/// <summary>
 		/// Test if a bounding box is inside, outside or intersects.
@@ -174,11 +186,11 @@ namespace Urho
 		public Intersection IsInside (Urho.BoundingBox box)
 		{
 			Runtime.ValidateObject (this);
-			return Frustum_IsInside5 (handle, ref box);
+			return Frustum_IsInside6 (handle, ref box);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Intersection Frustum_IsInsideFast6 (IntPtr handle, ref Urho.BoundingBox box);
+		internal static extern Intersection Frustum_IsInsideFast7 (IntPtr handle, ref Urho.BoundingBox box);
 
 		/// <summary>
 		/// Test if a bounding box is (partially) inside or outside.
@@ -186,7 +198,7 @@ namespace Urho
 		public Intersection IsInsideFast (Urho.BoundingBox box)
 		{
 			Runtime.ValidateObject (this);
-			return Frustum_IsInsideFast6 (handle, ref box);
+			return Frustum_IsInsideFast7 (handle, ref box);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -202,7 +214,19 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr Frustum_Transformed (IntPtr handle, ref Urho.Matrix3x4 transform);
+		internal static extern IntPtr Frustum_Transformed (IntPtr handle, ref Urho.Matrix3 transform);
+
+		/// <summary>
+		/// Return transformed by a 3x3 matrix.
+		/// </summary>
+		public Frustum Transformed (Urho.Matrix3 transform)
+		{
+			Runtime.ValidateObject (this);
+			return new Frustum (Frustum_Transformed (handle, ref transform));
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern IntPtr Frustum_Transformed8 (IntPtr handle, ref Urho.Matrix3x4 transform);
 
 		/// <summary>
 		/// Return transformed by a 3x4 matrix.
@@ -210,7 +234,7 @@ namespace Urho
 		public Frustum Transformed (Urho.Matrix3x4 transform)
 		{
 			Runtime.ValidateObject (this);
-			return new Frustum (Frustum_Transformed (handle, ref transform));
+			return new Frustum (Frustum_Transformed8 (handle, ref transform));
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

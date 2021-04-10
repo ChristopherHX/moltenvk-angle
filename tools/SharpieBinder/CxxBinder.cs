@@ -486,6 +486,7 @@ namespace SharpieBinder
 			case "const class Urho3D::Quaternion &":
 			case "const class Urho3D::Plane &":
 			case "const class Urho3D::Matrix4 &":
+			case "const class Urho3D::Matrix3 &":
 			case "const class Urho3D::Matrix3x4 &":
 			case "const class Urho3D::BoundingBox &":
 			case "const struct Urho3D::BiasParameters &":
@@ -648,6 +649,7 @@ namespace SharpieBinder
 			case "Vector3 &":
 			case "Vector4 &":
 			case "Matrix4 &":
+			case "Matrix3 &":
 			case "Matrix3x4 &":
 			case "Quaternion &":
 			case "Plane &":
@@ -1208,6 +1210,7 @@ namespace SharpieBinder
 				break;
 			case "const class Urho3D::Vector3 &":
 			case "const class Urho3D::Matrix4 &":
+			case "const class Urho3D::Matrix3 &":
 			case "const class Urho3D::Matrix3x4 &":
 			case "const class Urho3D::Vector2 &":
 			case "const class Urho3D::Vector4 &":
@@ -1220,6 +1223,7 @@ namespace SharpieBinder
 				
 			case "Urho3D::Vector3":
 			case "Urho3D::Matrix4":
+			case "Urho3D::Matrix3":
 			case "Urho3D::Matrix3x4":
 			case "Urho3D::Vector2":
 			case "Urho3D::Vector4":
@@ -1606,6 +1610,7 @@ namespace SharpieBinder
 						{"const class Urho3D::IntVector2 &", "IntVector2"},
 						{"const class Urho3D::Quaternion &", "Quaternion"},
 						{"const class Urho3D::Matrix4 &", "Matrix4"},
+						{"const class Urho3D::Matrix3 &", "Matrix3"},
 						{"const class Urho3D::Matrix3x4 &", "Matrix3x4"},
 						{"int", "int"},
 						{"float", "float"},
