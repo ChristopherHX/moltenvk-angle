@@ -775,52 +775,186 @@ namespace Urho {
 	}
 
 	[StructLayout (LayoutKind.Sequential)]
-	public struct JoystickState {
-		public IntPtr JoystickPtr;
-		public IntPtr JoystickIdPtr;
-		public IntPtr ControllerPtr;
-
-		IntPtr screenJoystickPtr;
-		public UIElement ScreenJoystick => Runtime.LookupObject<UIElement>(screenJoystickPtr);
-
-		public UrhoString Name;
-		public VectorBase Buttons;
-		public VectorBase ButtonPress;
-		public VectorBase Axes;
-		public VectorBase Hats;
-
-		public float GetAxisPosition(int position)
-		{
-			if (position >= Axes.Size) 
-				return 0;
-
-			return Axes.Buffer.ReadSingle(position * sizeof(float));
-		}
-
-		public byte GetButtonDown(int position)
-		{
-			if (position >= Buttons.Size)
-				return 0;
-
-			return Marshal.ReadByte(Buttons.Buffer, position * sizeof(byte));
-		}
-
-		public byte GetButtonPress(int position)
-		{
-			if (position >= ButtonPress.Size)
-				return 0;
-
-			return Marshal.ReadByte(ButtonPress.Buffer, position * sizeof(byte));
-		}
-
-		public int GetHatPosition(int position)
-		{
-			if (position >= Hats.Size)
-				return 0;
-			
-			return Marshal.ReadInt32(Hats.Buffer, position * sizeof(int));
-		}
+	struct ScreenJoystickAxis
+	{
+		IntVector2  buttonOffset;
+		uint    arrayIdx;
+		float       innerRadius;
 	}
+
+enum SDL_GameControllerButton
+{
+    SDL_CONTROLLER_BUTTON_INVALID = -1,
+    SDL_CONTROLLER_BUTTON_A = 0,
+    SDL_CONTROLLER_BUTTON_B = 0,
+    SDL_CONTROLLER_BUTTON_X,
+    SDL_CONTROLLER_BUTTON_Y,
+    SDL_CONTROLLER_BUTTON_BACK,
+    SDL_CONTROLLER_BUTTON_GUIDE,
+    SDL_CONTROLLER_BUTTON_START,
+    SDL_CONTROLLER_BUTTON_LEFTSTICK,
+    SDL_CONTROLLER_BUTTON_RIGHTSTICK,
+    SDL_CONTROLLER_BUTTON_LEFTSHOULDER,
+    SDL_CONTROLLER_BUTTON_RIGHTSHOULDER,
+    SDL_CONTROLLER_BUTTON_DPAD_UP,
+    SDL_CONTROLLER_BUTTON_DPAD_DOWN,
+    SDL_CONTROLLER_BUTTON_DPAD_LEFT,
+    SDL_CONTROLLER_BUTTON_DPAD_RIGHT,
+    SDL_CONTROLLER_BUTTON_MAX
+}
+
+ enum SDL_GameControllerAxis
+{
+    SDL_CONTROLLER_AXIS_INVALID = -1,
+    SDL_CONTROLLER_AXIS_LEFTX,
+    SDL_CONTROLLER_AXIS_LEFTY,
+    SDL_CONTROLLER_AXIS_RIGHTX,
+    SDL_CONTROLLER_AXIS_RIGHTY,
+    SDL_CONTROLLER_AXIS_TRIGGERLEFT,
+    SDL_CONTROLLER_AXIS_TRIGGERRIGHT,
+    SDL_CONTROLLER_AXIS_MAX
+} 
+
+
+	public struct JoystickState {
+
+			public const int Button_A = (int)SDL_GameControllerButton.SDL_CONTROLLER_BUTTON_A;
+			public const int Button_B = 1 << (int)SDL_GameControllerButton.SDL_CONTROLLER_BUTTON_B;
+			public const int Button_X = 1 << (int)SDL_GameControllerButton.SDL_CONTROLLER_BUTTON_X;
+			public const int Button_Y = 1 << (int)SDL_GameControllerButton.SDL_CONTROLLER_BUTTON_Y;
+			public const int Button_Back = 1 << (int)SDL_GameControllerButton.SDL_CONTROLLER_BUTTON_BACK;
+			public const int Button_Guide = 1 << (int)SDL_GameControllerButton.SDL_CONTROLLER_BUTTON_GUIDE;
+			public const int Button_Start = 1 << (int)SDL_GameControllerButton.SDL_CONTROLLER_BUTTON_START;
+			public const int Button_LeftStick = 1 << (int)SDL_GameControllerButton.SDL_CONTROLLER_BUTTON_LEFTSTICK;
+			public const int Button_RightStick = 1 << (int)SDL_GameControllerButton.SDL_CONTROLLER_BUTTON_RIGHTSTICK;
+			public const int Button_LeftShoulder = 1 << (int)SDL_GameControllerButton.SDL_CONTROLLER_BUTTON_LEFTSHOULDER;
+			public const int Button_RightShoulder = 1 << (int)SDL_GameControllerButton.SDL_CONTROLLER_BUTTON_RIGHTSHOULDER;
+			public const int Button_DpadUp = 1 << (int)SDL_GameControllerButton.SDL_CONTROLLER_BUTTON_DPAD_UP;
+			public const int Button_DpadDown = 1 << (int)SDL_GameControllerButton.SDL_CONTROLLER_BUTTON_DPAD_DOWN;
+			public const int Button_DpadLeft = 1 << (int)SDL_GameControllerButton.SDL_CONTROLLER_BUTTON_DPAD_LEFT;
+			public const int Button_DpadRight = 1 << (int)SDL_GameControllerButton.SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
+			public const uint AxisLeft_X = (uint)SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_LEFTX; 
+			public const uint AxisLeft_Y = (uint)SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_LEFTY; 
+			public const uint AxisRight_X = (uint)SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_RIGHTX; 
+			public const uint AxisRight_Y = (uint)SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_RIGHTY; 
+			public const uint AxisTriggerLeft = (uint)SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_TRIGGERLEFT;
+			public const uint AxisTriggerRight = (uint)SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_TRIGGERRIGHT;
+
+			public IntPtr handle;
+			public bool isValid;
+
+			[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+			internal static extern uint JoystickState_GetNumButtons (IntPtr handle);
+
+			public  uint GetNumButtons()
+			{
+				uint res = 0;
+				if(isValid)
+					res = JoystickState_GetNumButtons(handle);
+				return res;
+			}
+
+			[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+			internal static extern bool JoystickState_GetButtonDown (IntPtr handle , int position);
+
+			public bool GetButtonDown(int position)
+			{
+				bool res = false;
+				if(isValid)
+					res = JoystickState_GetButtonDown ( handle , position);
+				return res;
+			}
+
+			[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+			internal static extern uint JoystickState_GetNumHats (IntPtr handle);
+
+			public  uint GetNumHats()
+			{
+				uint res = 0;
+				if(isValid)
+					res = JoystickState_GetNumHats(handle);
+				return res;
+			}
+
+			[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+			internal static extern int JoystickState_GetHatPosition (IntPtr handle,uint index);
+			public int GetHatPosition(uint index)
+			{
+				int res = -1;
+				if(isValid)
+					res = JoystickState_GetHatPosition ( handle , index);
+				return res;
+			}
+
+			[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+			internal static extern uint JoystickState_GetNumAxes (IntPtr handle);
+			public  uint GetNumAxes()
+			{
+				uint res = 0;
+				if(isValid)
+					res = JoystickState_GetNumAxes(handle);
+				return res;
+			}
+
+			[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+			internal static extern float JoystickState_GetAxisPosition (IntPtr handle,uint index);
+			public float GetAxisPosition(uint index)
+			{
+				float res = 0.0f;
+				if(isValid)
+					res = JoystickState_GetAxisPosition ( handle , index);
+				return res;
+			}
+	}
+	// [StructLayout (LayoutKind.Sequential)]
+	// public struct JoystickState {
+	// 	public IntPtr JoystickPtr;
+	// 	public System.Int32 JoystickId;
+	// 	public IntPtr ControllerPtr;
+
+	// 	IntPtr screenJoystickPtr;
+
+	// 	public UrhoString Name;
+	// 	public VectorBase Buttons;
+	// 	public VectorBase ButtonPress;
+	// 	public VectorBase Axes;
+	// 	public VectorBase Hats;
+	// 	public VectorBase screenJoystickAxisList;
+
+	// 	public UIElement ScreenJoystick => Runtime.LookupObject<UIElement>(screenJoystickPtr);	
+
+	// 	public float GetAxisPosition(int position)
+	// 	{
+	// 		if (position >= Axes.Size) 
+	// 			return 0;
+
+	// 		return Axes.Buffer.ReadSingle(position * sizeof(float));
+	// 	}
+
+	// 	public byte GetButtonDown(int position)
+	// 	{
+	// 		if (position >= Buttons.Size)
+	// 			return 0;
+
+	// 		return Marshal.ReadByte(Buttons.Buffer, position * sizeof(byte));
+	// 	}
+
+	// 	public byte GetButtonPress(int position)
+	// 	{
+	// 		if (position >= ButtonPress.Size)
+	// 			return 0;
+
+	// 		return Marshal.ReadByte(ButtonPress.Buffer, position * sizeof(byte));
+	// 	}
+
+	// 	public int GetHatPosition(int position)
+	// 	{
+	// 		if (position >= Hats.Size)
+	// 			return 0;
+			
+	// 		return Marshal.ReadInt32(Hats.Buffer, position * sizeof(int));
+	// 	}
+	// }
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct VectorBase {

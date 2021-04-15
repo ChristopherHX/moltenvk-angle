@@ -725,7 +725,17 @@ namespace SharpieBinder
 					return;
 				}
 				break;
+			case "JoystickState *":
+				if (isReturn)
+				{
+					lowLevel = new PrimitiveType(nameof(IntPtr));
+					highLevel = new SimpleType("JoystickState");
+					wrapKind = WrapKind.MarshalPtrToStruct;
+					return;
+				}
+				break;
 
+//
 				// currently "Vector<X> &" are only supported for return values
 			case "Vector<SharedPtr<class Urho3D::AnimationState> > &":
 			case "Vector<SharedPtr<class Urho3D::Node> > &":

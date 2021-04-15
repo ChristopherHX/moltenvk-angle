@@ -650,36 +650,36 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern JoystickState* Input_GetJoystick (IntPtr handle, int id);
+		internal static extern IntPtr Input_GetJoystick (IntPtr handle, int id);
 
 		/// <summary>
 		/// Return joystick state by ID, or null if does not exist.
 		/// </summary>
-		public JoystickState* GetJoystick (int id)
-		{
-			Runtime.ValidateRefCounted (this);
-			return Input_GetJoystick (handle, id);
-		}
+		// private IntPtr GetJoystick (int id)
+		// {
+		// 	Runtime.ValidateRefCounted (this);
+		// 	return Input_GetJoystick (handle, id);
+		// }
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern JoystickState* Input_GetJoystickByIndex (IntPtr handle, uint index);
+		internal static extern IntPtr Input_GetJoystickByIndex (IntPtr handle, uint index);
 
 		/// <summary>
 		/// Return joystick state by index, or null if does not exist. 0 = first connected joystick.
 		/// </summary>
-		public JoystickState* GetJoystickByIndex (uint index)
+		private  IntPtr GetJoystickByIndex (uint index)
 		{
 			Runtime.ValidateRefCounted (this);
 			return Input_GetJoystickByIndex (handle, index);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern JoystickState* Input_GetJoystickByName (IntPtr handle, string name);
+		internal static extern IntPtr Input_GetJoystickByName (IntPtr handle, string name);
 
 		/// <summary>
 		/// Return joystick state by name, or null if does not exist.
 		/// </summary>
-		public JoystickState* GetJoystickByName (string name)
+		private IntPtr GetJoystickByName (string name)
 		{
 			Runtime.ValidateRefCounted (this);
 			return Input_GetJoystickByName (handle, name);
@@ -1010,17 +1010,51 @@ namespace Urho
 			}
 		}
 
-
-		public unsafe bool TryGetJoystickState(uint idx, out JoystickState state)
+		public bool GetJoystick(int id, out JoystickState state)
 		{
 			Runtime.ValidateRefCounted(this);
-			var x = GetJoystickByIndex(idx);
+			state = new JoystickState();
+			state.isValid = false;
+			IntPtr x = Input_GetJoystick (handle, id);
 			if (x != null)
 			{
-				state = *x;
+				state.isValid = true;
+				state.handle = x;
 				return true;
 			}
+			return false;
+		}
+		public  bool TryGetJoystickState(uint index, out JoystickState state)
+		{
+			return GetJoystickByIndex( index, out state);
+		}
+		public  bool GetJoystickByIndex(uint index, out JoystickState state)
+		{
+			Runtime.ValidateRefCounted(this);
 			state = new JoystickState();
+			state.isValid = false;
+			IntPtr x = Input_GetJoystickByIndex (handle, index);
+			if (x != null)
+			{
+				state.isValid = true;
+				state.handle = x;
+				return true;
+			}
+			return false;
+		}
+
+		public  bool  GetJoystickByName (string name, out JoystickState state)
+		{
+			Runtime.ValidateRefCounted(this);
+			state = new JoystickState();
+			state.isValid = false;
+			IntPtr x = Input_GetJoystickByName (handle, name);
+			if (x != null)
+			{
+				state.isValid = true;
+				state.handle = x;
+				return true;
+			}
 			return false;
 		}
 

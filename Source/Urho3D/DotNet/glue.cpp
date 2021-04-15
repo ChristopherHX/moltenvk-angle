@@ -1059,6 +1059,41 @@ Profiler_BeginBlock (Urho3D::Profiler *_target,const char* name)
     _target->BeginBlock(name);
 }
 
+DllExport 
+uint JoystickState_GetNumButtons (Urho3D::JoystickState *_target)
+{
+	return _target->GetNumButtons();
+}
+
+DllExport
+bool JoystickState_GetButtonDown (Urho3D::JoystickState *_target , int position)
+{
+    return _target->GetButtonDown(position);
+}
+
+DllExport
+uint JoystickState_GetNumHats (Urho3D::JoystickState *_target)
+{
+    return _target->GetNumHats();
+}
+
+DllExport
+int JoystickState_GetHatPosition (Urho3D::JoystickState *_target ,uint index)
+{
+    return _target->GetHatPosition(index);
+}
+
+DllExport
+uint JoystickState_GetNumAxes (Urho3D::JoystickState *_target)
+{
+    return _target->GetNumAxes();
+}
+
+DllExport
+float JoystickState_GetAxisPosition (Urho3D::JoystickState *_target,uint index)
+{
+    return _target->GetAxisPosition(index);
+}
 /*
  
  #if UWP

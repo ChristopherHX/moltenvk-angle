@@ -9,10 +9,13 @@ namespace Urho {
 		Connection connection;
 		internal IntPtr handle;
 
+		public DynamicMap ExtraData = null;
+
 		internal Controls (Connection connection, IntPtr handle)
 		{
 			this.connection = connection;
 			this.handle = handle;
+			ExtraData = new DynamicMap();
 		}
 
 		public Controls ()
@@ -20,6 +23,7 @@ namespace Urho {
 			Runtime.ValidateObject(this);
 			handle = Controls_Create ();
 			connection = null;
+			ExtraData = new DynamicMap();
 		}
 
 		static void ReleaseControl (IntPtr h)
