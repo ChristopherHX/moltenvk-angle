@@ -59,20 +59,6 @@ namespace Urho3D
 
 class Camera;
 
-struct RegisterObjectMethodArgs
-{
-    String declaration_;
-    asSFuncPtr funcPointer_;
-    asDWORD callConv_;
-
-    RegisterObjectMethodArgs(String declaration, asSFuncPtr funcPointer, asDWORD callConv)
-        : declaration_(declaration)
-        , funcPointer_(funcPointer)
-        , callConv_(callConv)
-    {
-    }
-};
-
 /// Template function for Vector to array conversion.
 template <class T> CScriptArray* VectorToArray(const Vector<T>& vector, const char* arrayName)
 {
@@ -232,17 +218,15 @@ template <class T> Vector<SharedPtr<T> > HandleArrayToVector(CScriptArray* arr)
 }
 
 /// Template function for dynamic cast between two script classes.
-template <class A, class B> B* RefCast(A* a)
+template <class From, class To> To* RefCast(From* from)
 {
-    if (!a)
+    if (!from)
         return nullptr;
 
-    B* b = dynamic_cast<B*>(a);
-
-    return b;
+    return dynamic_cast<To*>(from);
 }
 
-/// Template function for registering implicit casts between base and subclass.
+/// Template function for registering casts between base and subclass.
 // https://www.angelcode.com/angelscript/sdk/docs/manual/doc_adv_class_hierarchy.html
 template <class BaseType, class DerivedType> void RegisterSubclass(asIScriptEngine* engine, const char* baseClassName, const char* derivedClassName)
 {
@@ -254,8 +238,6 @@ template <class BaseType, class DerivedType> void RegisterSubclass(asIScriptEngi
 
     String declReturnBaseConst("const " + String(baseClassName) + "@+ opImplCast() const");
     engine->RegisterObjectMethod(derivedClassName, declReturnBaseConst.CString(), AS_FUNCTION_OBJLAST((RefCast<DerivedType, BaseType>)), AS_CALL_CDECL_OBJLAST);
-
-    // TODO fix all scripts to "cast(derivedClass)"
 
     //String declReturnDerived(String(derivedClassName) + "@+ opCast()");
     String declReturnDerived(String(derivedClassName) + "@+ opImplCast()");
@@ -306,66 +288,11 @@ void RegisterImplicitlyDeclaredAssignOperatorIfPossible(asIScriptEngine* engine,
 }
 
 // ================================================================================
-
-static const AttributeInfo noAttributeInfoOLD{};
-
 // To keep Xcode LLVM/Clang happy - it erroneously warns on unused functions defined below which are actually being referenced in the code
 #if __clang__
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-function"
 #endif
-
-static const AttributeInfo& SerializableGetAttributeInfoOLD(unsigned index, Serializable* ptr)
-{
-    const Vector<AttributeInfo>* attributes = ptr->GetAttributes();
-    if (!attributes || index >= attributes->Size())
-    {
-        GetActiveASContext()->SetException("Index out of bounds");
-        return noAttributeInfoOLD;
-    }
-    else
-        return attributes->At(index);
-}
-
-// ================================================================================
-
-// bool Resource::Load(Deserializer &source) | File: ../Resource/Resource.h
-static bool ResourceLoadOLD(File* file, Resource* ptr)
-{
-    return file && ptr->Load(*file);
-}
-
-// bool Resource::Load(Deserializer &source) | File: ../Resource/Resource.h
-static bool ResourceLoadVectorBufferOLD(VectorBuffer& buffer, Resource* ptr)
-{
-    return ptr->Load(buffer);
-}
-
-// bool Resource::LoadFile(const String &fileName) | File: ../Resource/Resource.h
-static bool ResourceLoadByNameOLD(const String& fileName, Resource* ptr)
-{
-    return ptr->LoadFile(fileName);
-}
-
-// virtual bool Resource::Save(Serializer &dest) const | File: ../Resource/Resource.h
-static bool ResourceSaveOLD(File* file, Resource* ptr)
-{
-    return file && ptr->Save(*file);
-}
-
-// virtual bool Resource::Save(Serializer &dest) const | File: ../Resource/Resource.h
-static bool ResourceSaveVectorBufferOLD(VectorBuffer& buffer, Resource* ptr)
-{
-    return ptr->Save(buffer);
-}
-
-// virtual bool Resource::SaveFile(const String &fileName) const | File: ../Resource/Resource.h
-static bool ResourceSaveByNameOLD(const String& fileName, Resource* ptr)
-{
-    return ptr->SaveFile(fileName);
-}
-
-// ================================================================================
 
 template <class T> T* ConstructObject()
 {
@@ -394,26 +321,6 @@ template <class T> void RegisterNamedObjectConstructor(asIScriptEngine* engine, 
 {
     String declFactoryWithName(String(className) + "@ f(const String&in)");
     engine->RegisterObjectBehaviour(className, asBEHAVE_FACTORY, declFactoryWithName.CString(), AS_FUNCTION(ConstructNamedObject<T>), AS_CALL_CDECL);
-}
-
-static bool SerializableLoad(File* file, Serializable* ptr)
-{
-    return file && ptr->Load(*file);
-}
-
-static bool SerializableLoadVectorBuffer(VectorBuffer& buffer, Serializable* ptr)
-{
-    return ptr->Load(buffer);
-}
-
-static bool SerializableSave(File* file, Serializable* ptr)
-{
-    return file && ptr->Save(*file);
-}
-
-static bool SerializableSaveVectorBuffer(VectorBuffer& buffer, Serializable* ptr)
-{
-    return ptr->Save(buffer);
 }
 
 #if __clang__
