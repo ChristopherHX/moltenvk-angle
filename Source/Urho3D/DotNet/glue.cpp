@@ -15,6 +15,10 @@
 
 using namespace Urho3D;
 
+#ifdef _WINDOWS
+typedef unsigned int uint;
+#endif
+
 //
 // This is just an implemention of EventHandler that can be used with function
 // pointers, so we can register delegates from C#
