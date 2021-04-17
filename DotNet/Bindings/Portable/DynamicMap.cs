@@ -50,7 +50,10 @@ namespace Urho
 			set
 			{
 				int hash = StringHash.urho_stringhash_from_string (key);
-				urho_map_set_value_ptr(Handle, hash ,value.Handle);
+                if(value.Handle != IntPtr.Zero)
+                {
+				    urho_map_set_value_ptr(Handle, hash ,value.Handle);
+                }
 
                 dynamicMap[hash] = value;
 			}
@@ -80,7 +83,10 @@ namespace Urho
 			set
 			{
 				int hash = key.Code;
-				urho_map_set_value_ptr(Handle, hash ,value.Handle);
+				if(value.Handle != IntPtr.Zero)
+                {
+				    urho_map_set_value_ptr(Handle, hash ,value.Handle);
+                }
 
                 dynamicMap[hash] = value;
 			}
