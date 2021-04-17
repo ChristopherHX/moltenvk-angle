@@ -212,7 +212,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (int)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return v.variant.Value._int;
             else return 0;
         }
@@ -226,7 +226,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (uint)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return v.variant.Value._uint;
             else return 0;
 
@@ -242,7 +242,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (System.Int64)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return v.variant.Value.int64;
             else return 0;
         }
@@ -257,7 +257,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (System.UInt64)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return v.variant.Value.uint64;
             else return 0;
 
@@ -272,7 +272,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (float)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return v.variant.Value._float;
             else return 0.0f;
 
@@ -287,7 +287,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (double)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return v.variant.Value._double;
             else return 0.0;
 
@@ -302,7 +302,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (Vector2)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return v.variant.Value.vector2;
             else return new Vector2();
         }
@@ -317,7 +317,7 @@ namespace Urho
 
             if (v != null && v.ReferenceObject != null)
                 return (IntVector2)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return v.variant.Value.intVector2;
             else return new IntVector2();
         }
@@ -331,7 +331,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (Vector3)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return v.variant.Value.vector3;
             else return new Vector3();
         }
@@ -345,7 +345,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (IntVector3)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return v.variant.Value.intVector3;
             else return new IntVector3();
         }
@@ -359,7 +359,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (IntRect)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return v.variant.Value.intRect;
             else return new IntRect();
         }
@@ -374,7 +374,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (Rect)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return v.variant.Value.rect;
             else return new Rect();
         }
@@ -388,7 +388,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (Vector4)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return v.variant.Value.vector4;
             else return new Vector4();
 
@@ -403,7 +403,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (Quaternion)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return v.variant.Value.quaternion;
             else return new Quaternion();
         }
@@ -417,7 +417,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (Color)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return v.variant.Value.color;
             else return new Color();
         }
@@ -431,7 +431,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (string)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return Marshal.PtrToStringAnsi(Dynamic_GetString(v.Handle));
             else return new string("");
 
@@ -447,7 +447,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (Matrix3)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return Dynamic_GetMatrix3(v.Handle);
             else return new Matrix3();
         }
@@ -461,7 +461,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (Matrix4)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return Dynamic_GetMatrix4(v.Handle);
             else return new Matrix4();
         }
@@ -477,7 +477,7 @@ namespace Urho
 
             if (v != null && v.ReferenceObject != null)
                 return (Matrix3x4)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return Dynamic_GetMatrix3x4(v.Handle);
             else return new Matrix3x4();
         }
