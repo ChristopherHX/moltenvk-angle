@@ -39,7 +39,7 @@ namespace Urho
     {
         public IntPtr Handle { get; private set; } = IntPtr.Zero;
 
-        public Variant variant = new Variant(){Type = VariantType.None};
+        public Variant variant = new Variant() { Type = VariantType.None };
 
         public object ReferenceObject { get; private set; } = null;
         public VariantType DynamicType { get; private set; } = VariantType.None;
@@ -67,6 +67,7 @@ namespace Urho
         {
             ReferenceObject = v;
             DynamicType = VariantType.Bool;
+            Handle = Dynamic_CreateBool(v);
         }
 
 
@@ -74,12 +75,14 @@ namespace Urho
         {
             ReferenceObject = v;
             DynamicType = VariantType.Int;
+            Handle = Dynamic_CreateInt(v);
         }
 
         public Dynamic(uint v)
         {
             ReferenceObject = v;
             DynamicType = VariantType.Int;
+            Handle = Dynamic_CreateUInt(v);
         }
 
 
@@ -87,12 +90,14 @@ namespace Urho
         {
             ReferenceObject = v;
             DynamicType = VariantType.Int64;
+            Handle = Dynamic_CreateInt64(v);
         }
 
         public Dynamic(System.UInt64 v)
         {
             ReferenceObject = v;
             DynamicType = VariantType.Int64;
+            Handle = Dynamic_CreateUInt64(v);
         }
 
 
@@ -100,11 +105,14 @@ namespace Urho
         {
             ReferenceObject = v;
             DynamicType = VariantType.Float;
+            Handle = Dynamic_CreateFloat(v);
         }
 
         public Dynamic(double v)
         {
             ReferenceObject = v;
+            DynamicType = VariantType.Double;
+            Handle = Dynamic_CreateDouble(v);
         }
 
 
@@ -112,12 +120,14 @@ namespace Urho
         {
             ReferenceObject = v;
             DynamicType = VariantType.Vector2;
+            Handle = Dynamic_CreateVector2(v);
         }
 
         public Dynamic(IntVector2 v)
         {
             ReferenceObject = v;
             DynamicType = VariantType.Intvector2;
+            Handle = Dynamic_CreateIntVector2(v);
         }
 
 
@@ -125,12 +135,14 @@ namespace Urho
         {
             ReferenceObject = v;
             DynamicType = VariantType.Vector3;
+            Handle = Dynamic_CreateVector3(v);
         }
 
         public Dynamic(IntVector3 v)
         {
             ReferenceObject = v;
             DynamicType = VariantType.Intvector3;
+            Handle = Dynamic_CreateIntVector3(v);
         }
 
 
@@ -138,12 +150,14 @@ namespace Urho
         {
             ReferenceObject = v;
             DynamicType = VariantType.Rect;
+            Handle = Dynamic_CreateRect(v);
         }
 
         public Dynamic(IntRect v)
         {
             ReferenceObject = v;
             DynamicType = VariantType.Intrect;
+            Handle = Dynamic_CreateIntRect(v);
         }
 
 
@@ -151,41 +165,48 @@ namespace Urho
         {
             ReferenceObject = v;
             DynamicType = VariantType.Vector4;
+            Handle = Dynamic_CreateVector4(v);
         }
 
         public Dynamic(Quaternion v)
         {
             ReferenceObject = v;
             DynamicType = VariantType.Quaternion;
+            Handle = Dynamic_CreateQuaternion(v);
         }
         public Dynamic(Color v)
         {
             ReferenceObject = v;
             DynamicType = VariantType.Color;
+            Handle = Dynamic_CreateColor(v);
         }
 
         public Dynamic(string v)
         {
             ReferenceObject = v;
             DynamicType = VariantType.String;
+            Handle = Dynamic_CreateString(v);
         }
 
         public Dynamic(Matrix3 v)
         {
             ReferenceObject = v;
             DynamicType = VariantType.Matrix3;
+            Handle = Dynamic_CreateMatrix3(v);
         }
 
         public Dynamic(Matrix4 v)
         {
             ReferenceObject = v;
             DynamicType = VariantType.Matrix4;
+            Handle = Dynamic_CreateMatrix4(v);
         }
 
         public Dynamic(Matrix3x4 v)
         {
             ReferenceObject = v;
             DynamicType = VariantType.Matrix3x4;
+            Handle = Dynamic_CreateMatrix3x4(v);
         }
 
         public static implicit operator Dynamic(bool b)
@@ -197,7 +218,7 @@ namespace Urho
         {
             if (v != null && v.ReferenceObject != null)
                 return (bool)v.ReferenceObject;
-            else if (v.Handle != IntPtr.Zero)
+            else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
                 return v.variant.Value._bool;
             else
                 return false;
@@ -484,7 +505,10 @@ namespace Urho
 
         ~Dynamic()
         {
-            Dynamic_Dispose(Handle);
+            if (Handle != IntPtr.Zero)
+            {
+                Dynamic_Dispose(Handle);
+            }
         }
 
         public static implicit operator Dynamic(byte[] data)
