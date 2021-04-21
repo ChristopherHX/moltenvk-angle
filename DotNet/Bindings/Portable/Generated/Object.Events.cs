@@ -457,6 +457,29 @@ namespace Urho {
             public EventDataContainer EventData;
         } /* struct EndRenderingEventArgs */
 
+        public partial class Graphics {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.EndRendering += ...' instead.")]
+             public Subscription SubscribeToEndRendering (Action<EndRenderingEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new EndRenderingEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)1080694801) /* EndRendering (E_ENDRENDERING) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<EndRenderingEventArgs> eventAdapterForEndRendering;
+             public event Action<EndRenderingEventArgs> EndRendering
+             {
+                 add
+                 {
+                      if (eventAdapterForEndRendering == null)
+                          eventAdapterForEndRendering = new UrhoEventAdapter<EndRenderingEventArgs>(typeof(Graphics));
+                      eventAdapterForEndRendering.AddManagedSubscriber(handle, value, SubscribeToEndRendering);
+                 }
+                 remove { eventAdapterForEndRendering.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class Graphics */ 
+
 } /* namespace */
 
 namespace Urho {
@@ -469,7 +492,7 @@ namespace Urho {
             public Camera Camera => EventData.get_Camera (unchecked((int)2344783493) /* Camera (P_CAMERA) */);
         } /* struct BeginViewUpdateEventArgs */
 
-        public partial class View {
+        public partial class Graphics {
              [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.BeginViewUpdate += ...' instead.")]
              public Subscription SubscribeToBeginViewUpdate (Action<BeginViewUpdateEventArgs> handler)
              {
@@ -485,12 +508,12 @@ namespace Urho {
                  add
                  {
                       if (eventAdapterForBeginViewUpdate == null)
-                          eventAdapterForBeginViewUpdate = new UrhoEventAdapter<BeginViewUpdateEventArgs>(typeof(View));
+                          eventAdapterForBeginViewUpdate = new UrhoEventAdapter<BeginViewUpdateEventArgs>(typeof(Graphics));
                       eventAdapterForBeginViewUpdate.AddManagedSubscriber(handle, value, SubscribeToBeginViewUpdate);
                  }
                  remove { eventAdapterForBeginViewUpdate.RemoveManagedSubscriber(handle, value); }
              }
-        } /* class View */ 
+        } /* class Graphics */ 
 
 } /* namespace */
 

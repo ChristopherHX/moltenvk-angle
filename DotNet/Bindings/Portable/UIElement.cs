@@ -23,7 +23,7 @@ namespace Urho.Gui {
 		}
 
 		//TODO: test
-		internal T CreateChild<T>(string name = "", uint index = UInt32.MaxValue) where T : UIElement
+		public T CreateChild<T>(string name = "", uint index = UInt32.MaxValue) where T : UIElement
 		{
 			Runtime.ValidateRefCounted(this);
 			var hash = Runtime.LookupStringHash(typeof (T));

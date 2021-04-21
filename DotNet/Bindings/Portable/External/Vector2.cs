@@ -330,6 +330,12 @@ namespace Urho
 
 		#region Fields
 
+		public static readonly Vector2 Left  = new Vector2(-1.0f, 0.0f);
+		public static readonly Vector2 Right  = new Vector2(1.0f, 0.0f);
+		public static readonly Vector2 Up  = new Vector2(0.0f, 1.0f);
+		public static readonly Vector2 Down  = new Vector2(0.0f, -1.0f);
+
+
 		/// <summary>
 		/// Defines a unit-length Vector2 that points towards the X-axis.
 		/// </summary>

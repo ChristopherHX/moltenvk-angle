@@ -1098,6 +1098,23 @@ float JoystickState_GetAxisPosition (Urho3D::JoystickState *_target,uint index)
 {
     return _target->GetAxisPosition(index);
 }
+
+
+DllExport
+void * PhysicsWorld2D_GetRigidBodies(Urho3D::PhysicsWorld2D *_target,const class Urho3D::Rect & aabb, unsigned collisionMask, int *count)
+{
+    PODVector<RigidBody2D*> results;
+    _target->GetRigidBodies(results, aabb, collisionMask);
+    if (results.Size() == 0)
+        return NULL;
+    *count = results.Size();
+    void **t = (void **)malloc(sizeof(RigidBody2D*)*results.Size());
+    for (int i = 0; i < results.Size(); i++) {
+        t[i] = results[i];
+    }
+    return t;
+}
+
 /*
  
  #if UWP
