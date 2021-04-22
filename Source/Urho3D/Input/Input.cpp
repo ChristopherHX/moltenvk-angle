@@ -364,8 +364,8 @@ Input::Input(Context* context) :
     lastMouseVisible_(false),
     mouseGrabbed_(false),
     lastMouseGrabbed_(false),
-    mouseMode_(MM_ABSOLUTE),
-    lastMouseMode_(MM_ABSOLUTE),
+    mouseMode_(MM_FREE),
+    lastMouseMode_(MM_FREE),
 #ifndef __EMSCRIPTEN__
     sdlMouseRelative_(false),
 #else
