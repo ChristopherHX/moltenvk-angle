@@ -75,8 +75,8 @@ namespace Urho
                         {
                             var xmlElement = new XmlElement(param1);
                             xmlElement.SetString(typeNameKey, component.GetType().AssemblyQualifiedName);
-                            XmlComponentSerializer xmlComponentSerializer =  new XmlComponentSerializer(xmlElement);
-                            component.SerializeFields(xmlComponentSerializer); 
+                            XmlComponentSerializer xmlComponentSerializer = new XmlComponentSerializer(xmlElement);
+                            component.SerializeFields(xmlComponentSerializer);
                             component.OnSerialize(xmlComponentSerializer);
                         }
                     }
@@ -86,14 +86,14 @@ namespace Urho
                         var xmlElement = new XmlElement(param1);
                         var name = xmlElement.GetAttribute(typeNameKey);
 
-						string fqn_name_in_game_assembly  = "";
+                        string fqn_name_in_game_assembly = "";
                         if (Application.Current != null)
                         {
                             string app_fqn = Application.Current.GetType().AssemblyQualifiedName;
                             String[] app_fqn_split = app_fqn.Split(",");
-							String[] name_split = name.Split(",");
+                            String[] name_split = name.Split(",");
 
-							app_fqn_split[0] = name_split[0];
+                            app_fqn_split[0] = name_split[0];
                             fqn_name_in_game_assembly = String.Join(",", app_fqn_split);
                         }
 
@@ -105,7 +105,7 @@ namespace Urho
                                 var typeObj = Type.GetType(name);
                                 if (typeObj == null)
                                 {
-									// might be that the component was saved from another assmebly , check if it exist in the main Game.dll assembly
+                                    // might be that the component was saved from another assmebly , check if it exist in the main Game.dll assembly
                                     typeObj = Type.GetType(fqn_name_in_game_assembly);
                                     if (typeObj == null)
                                     {
@@ -119,9 +119,9 @@ namespace Urho
                             {
                                 throw new InvalidOperationException($"{name} doesn't override constructor Component(IntPtr handle).", exc);
                             }
-                            
-                            XmlComponentSerializer xmlComponentSerializer =  new XmlComponentSerializer(xmlElement);
-                            component.DeserializeFields(xmlComponentSerializer); 
+
+                            XmlComponentSerializer xmlComponentSerializer = new XmlComponentSerializer(xmlElement);
+                            component.DeserializeFields(xmlComponentSerializer);
                             component.OnDeserialize(xmlComponentSerializer);
 
                             if (component.Node != null)
@@ -176,6 +176,12 @@ namespace Urho
                 case CallbackType.Log_Write:
                     Urho.Application.ThrowUnhandledException(
                         new Exception(param3 + ". You can omit this exception by subscribing to Urho.Application.UnhandledException event and set Handled property to True.\nApplicationOptions: " + Application.CurrentOptions));
+                    break;
+
+                case CallbackType.Serializable_LoadXml:
+                    var serializable = LookupObject<Serializable>(target, false);
+                    var xmlElement1 = new XmlElement(param1);
+                    serializable?.OnDeserialize(xmlElement1);
                     break;
             }
         }

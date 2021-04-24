@@ -32,6 +32,10 @@
 #include "../Scene/SceneEvents.h"
 #include "../Scene/Serializable.h"
 
+#if defined(URHO3D_DOTNET)
+#include "../DotNet/Mono.h"
+#endif
+
 #include "../DebugNew.h"
 
 namespace Urho3D
@@ -348,6 +352,10 @@ bool Serializable::LoadXML(const XMLElement& source)
         URHO3D_LOGERROR("Could not load " + GetTypeName() + ", null source element");
         return false;
     }
+    
+#if defined(URHO3D_DOTNET)
+    Mono::Callback(Serializable_LoadXml, this, (void*)(&source));
+#endif
 
     const Vector<AttributeInfo>* attributes = GetAttributes();
     if (!attributes)

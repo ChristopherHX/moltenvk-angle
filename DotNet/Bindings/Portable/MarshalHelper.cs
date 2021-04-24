@@ -10,6 +10,22 @@ namespace Urho
 			return *(float*)((byte*)ptr + offset);
 		}
 
+		public static unsafe void WriteSingle(this IntPtr ptr,float value, int offset = 0)
+		{
+			 *(float*)((byte*)ptr + offset) = value;
+		}
+
+		public static unsafe uint ReadUInt(this IntPtr ptr, int offset = 0)
+		{
+			return *(uint*)((byte*)ptr + offset);
+		}
+
+		public static unsafe void WriteUInt(this IntPtr ptr,uint value, int offset = 0)
+		{
+			 *(uint*)((byte*)ptr + offset) = value;
+		}
+
+
 		public static float[] ToFloatsArray(this IntPtr ptr, int size)
 		{
 			float[] result = new float[size];

@@ -14,7 +14,8 @@ enum CallbackType
     RefCounted_AddRef,
     RefCounted_Delete,
     
-    Log_Write
+    Log_Write,
+    Serializable_LoadXml,
 };
 
 class Mono

@@ -989,6 +989,18 @@ namespace Urho
 		}
 
 		/// <summary>
+		/// Multiplies the specified instance by a Vector2.
+		/// </summary>
+		/// <param name="vec_left">Left operand.</param>
+		/// <param name="vec_right">Right operand.</param>
+		/// <returns>Result of multiplication.</returns>
+		public static Vector2 operator * (Vector2 vec_left,Vector2 vec_right)
+		{
+			return new Vector2(vec_left.X * vec_right.X, vec_left.Y * vec_right.Y);
+		}
+
+
+		/// <summary>
 		/// Divides the specified instance by a scalar.
 		/// </summary>
 		/// <param name="vec">Left operand</param>

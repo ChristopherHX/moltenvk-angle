@@ -168,6 +168,8 @@ namespace Urho {
 		RefCounted_Delete,
 
 		Log_Write,
+
+		Serializable_LoadXml,
 	};
 
 }
