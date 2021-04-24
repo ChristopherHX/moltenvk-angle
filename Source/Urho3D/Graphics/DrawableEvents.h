@@ -40,7 +40,7 @@ URHO3D_EVENT(E_ANIMATIONTRIGGER, AnimationTrigger)
     URHO3D_PARAM(P_ANIMATION, Animation);          // Animation pointer
     URHO3D_PARAM(P_NAME, Name);                    // String
     URHO3D_PARAM(P_TIME, Time);                    // Float
-    URHO3D_PARAM(P_DATA, Data);                    // User-defined data type
+    URHO3D_PARAM(P_DATA, Data);                    // Variant
 }
 
 /// AnimatedModel animation finished or looped.

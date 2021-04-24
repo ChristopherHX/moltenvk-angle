@@ -312,7 +312,7 @@ namespace Urho {
             public Animation Animation => EventData.get_Animation (unchecked((int)4184794788) /* Animation (P_ANIMATION) */);
             public String Name => EventData.get_String (unchecked((int)1564775755) /* Name (P_NAME) */);
             public float Time => EventData.get_float (unchecked((int)2019423693) /* Time (P_TIME) */);
-            public IntPtr Data => EventData.get_IntPtr (unchecked((int)2349297546) /* Data (P_DATA) */);
+            public Variant Data => EventData.get_Variant (unchecked((int)2349297546) /* Data (P_DATA) */);
         } /* struct AnimationTriggerEventArgs */
 
         public partial class Node {
