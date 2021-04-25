@@ -101,11 +101,8 @@ namespace Urho
                 string name = xmlElement.GetAttribute("name");
                 if (name != string.Empty)
                     setAttributeValue(xmlElement, name);
-                xmlElement = xmlElement.GetNext();
+                xmlElement = xmlElement.GetNext("attribute");
             }
-
-            if (source.NotNull())
-                OnDeserialize(source.GetNext());
         }
     }
 

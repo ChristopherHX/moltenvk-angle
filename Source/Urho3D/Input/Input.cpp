@@ -364,8 +364,8 @@ Input::Input(Context* context) :
     lastMouseVisible_(false),
     mouseGrabbed_(false),
     lastMouseGrabbed_(false),
-    mouseMode_(MM_FREE),
-    lastMouseMode_(MM_FREE),
+    mouseMode_(MM_ABSOLUTE),
+    lastMouseMode_(MM_ABSOLUTE),
 #ifndef __EMSCRIPTEN__
     sdlMouseRelative_(false),
 #else
@@ -563,6 +563,17 @@ void Input::SetMouseVisible(bool enable, bool suppressEvent)
     if (touchEmulation_)
         enable = true;
 
+#if defined(URHO3D_DOTNET)
+    if (mouseMode_ != MM_ABSOLUTE && enable == true)
+    {
+        SetMouseMode(MM_ABSOLUTE);
+    }
+    else if (mouseMode_ == MM_ABSOLUTE && enable == false)
+    {
+        SetMouseMode(MM_RELATIVE);
+    }
+#endif
+    
     // In mouse mode relative, the mouse should be invisible
     if (mouseMode_ == MM_RELATIVE)
     {
@@ -571,6 +582,7 @@ void Input::SetMouseVisible(bool enable, bool suppressEvent)
 
         enable = false;
     }
+
 
     // SDL Raspberry Pi "video driver" does not have proper OS mouse support yet, so no-op for now
 #ifndef RPI
