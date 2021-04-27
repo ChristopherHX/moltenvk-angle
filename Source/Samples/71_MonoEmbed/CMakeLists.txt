@@ -41,6 +41,8 @@ set (LIBS
     libMonoPosixHelper.so
     libmono-btls-shared.so
 )
+
+file (GLOB ANDROID_FILES android/*.*)
 endif()
 
 
@@ -97,7 +99,7 @@ endif()
 
 
 # Define source files
-define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES} ${S_FILES} ${EXTRA_MM_FILES} ${MACOS_FILES})
+define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES} ${S_FILES} ${EXTRA_MM_FILES} ${MACOS_FILES} ${ANDROID_FILES})
 
 # Setup target with resource copying
 setup_main_executable ()

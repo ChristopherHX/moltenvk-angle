@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2020 the Urho3D project.
+// Copyright (c) 2008-2021 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -64,10 +64,13 @@
 #include "mono_support.h"
 
 
+
 #if  defined(IOS) || defined(TVOS)
 #include "ios_support.h"
 #elif defined(__APPLE__)
 #include "macos/macos_support.h"
+#elif defined(__ANDROID__)
+#include "android/android_support.h"
 #endif
 
 using namespace Urho3D;
@@ -99,25 +102,14 @@ int start_urho_mono_main(Platform platform) {
     urho3d_init_mono(context);
 
  
-#if defined(WIN32)
-    SetCurrentDirectory("D:\\Urho3D-Dev\\DotNet\\Urho3D\\build_vs2019\\bin");
-#endif
+// #if defined(WIN32)
+//     SetCurrentDirectory("D:\\Urho3D-Dev\\DotNet\\Urho3D\\build_vs2019\\bin");
+// #endif
 
-    if (platform == _ANDROID_)
-    {
-        mono_dllmap_insert(NULL, "java-interop", "java_interop_jvm_list", "Urho3D", NULL);
-
-        mono_dllmap_insert(NULL, "System.Native", NULL, "mono-native", NULL);
-        mono_dllmap_insert(NULL, "System.Net.Security.Native", NULL, "mono-native", NULL);
-        
-        mono_dllmap_insert(NULL, "MonoPosixHelper", NULL, "MonoPosixHelper", NULL);
-        mono_dllmap_insert(NULL, "libmono-btls-shared", NULL, "mono-btls-shared", NULL);
-
-    }
     
-  //  mono_debug_init (MONO_DEBUG_FORMAT_MONO);
-  //  mono_trace_set_level_string("debug");
-  //  mono_trace_set_log_handler(mono_log_callback, NULL);
+    // mono_debug_init (MONO_DEBUG_FORMAT_MONO);
+    // mono_trace_set_level_string("debug");
+    // mono_trace_set_log_handler(mono_log_callback, NULL);
 
     String asssemblyName =  "Game.dll";
   
@@ -180,6 +172,7 @@ extern "C" __attribute__((visibility("default"))) int SDL_main(int argc, char** 
 extern "C" {
     int SDL_main(int argc, char** argv)
     {
+        android::support::initialize();
         return start_urho_mono_main(_ANDROID_);
     }
 }
