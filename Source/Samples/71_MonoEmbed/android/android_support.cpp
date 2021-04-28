@@ -58,6 +58,9 @@ void initialize()
         mono_dllmap_insert(NULL, "__Internal", "_monodroid_timezone_get_default_id", "MonoEmbedded", "_monodroid_timezone_get_default_id");
         mono_dllmap_insert(NULL, "__Internal", "_monodroid_getifaddrs", "MonoEmbedded", "_monodroid_getifaddrs");
         mono_dllmap_insert(NULL, "__Internal", "_monodroid_freeifaddrs", "MonoEmbedded", "_monodroid_freeifaddrs");
+        mono_dllmap_insert(NULL, "__Internal", "_mono_android_init_cert_store", "MonoEmbedded", "_mono_android_init_cert_store");
+        mono_dllmap_insert(NULL, "__Internal", "_mono_android_cert_store_lookup", "MonoEmbedded", "_mono_android_cert_store_lookup");
+        
 
 
         mono_dllmap_insert(NULL, "System.Native", NULL, "mono-native", NULL);

@@ -77,11 +77,11 @@ namespace Android.Runtime
             throw new NotImplementedException();
         }
 
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        static extern bool _gd_mono_init_cert_store();
+         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+        static extern bool _mono_android_init_cert_store();
 
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        static extern byte[] _gd_mono_android_cert_store_lookup(string alias);
+         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
+        static extern byte[] _mono_android_cert_store_lookup(string alias);
 
         static bool certStoreInitOk = false;
 
@@ -92,7 +92,7 @@ namespace Android.Runtime
 
             lock (lock_)
             {
-                certStoreInitOk = _gd_mono_init_cert_store();
+                certStoreInitOk = _mono_android_init_cert_store();
             }
         }
 
@@ -105,7 +105,7 @@ namespace Android.Runtime
 
             string alias = string.Format("{0}:{1:x8}.0", userStore ? "user" : "system", hash);
 
-            return _gd_mono_android_cert_store_lookup(alias);
+            return _mono_android_cert_store_lookup(alias);
         }
     }
 }

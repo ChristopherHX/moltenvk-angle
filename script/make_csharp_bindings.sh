@@ -55,12 +55,19 @@ cd ${URHO3D_HOME}/DotNet/Bindings
 
 cd ${URHO3D_HOME}
 
+# build Mono.Android.dll  assembly for all supported platforms
+cd ${URHO3D_HOME}/DotNet/AndroidEnvironment
+./build-android-runtime-environment.sh
+
+cd ${URHO3D_HOME}
+
 # copy UrhoDotNet.dll to the Resource folder
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.dll ${URHO3D_HOME}/bin/Data/DotNet/macos
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.dll ${URHO3D_HOME}/bin/Data/DotNet/linux
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.dll ${URHO3D_HOME}/bin/Data/DotNet/windows
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/ios/UrhoDotNet.dll ${URHO3D_HOME}/bin/Data/DotNet/ios
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/android/UrhoDotNet.dll ${URHO3D_HOME}/bin/Data/DotNet/android
+cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/android/Mono.Android.dll ${URHO3D_HOME}/bin/Data/DotNet/android
 
 # copy the native binding file to the right Source folder
 cp -f ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated/binding.cpp ${URHO3D_HOME}/Source/Urho3D/DotNet

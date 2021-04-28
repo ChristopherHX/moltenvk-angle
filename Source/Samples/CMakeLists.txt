@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 
-if (NOT URHO3D_SAMPLES)
+if (NOT (URHO3D_SAMPLES OR URHO3D_DOTNET))
     return ()
 endif ()
 
@@ -49,11 +49,18 @@ macro (add_sample_subdirectory SOURCE_DIR)
 endmacro ()
 
 # Add samples
-file (GLOB_RECURSE DIRS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CMakeLists.txt)
-list (SORT DIRS)
-foreach (DIR ${DIRS})
-    get_filename_component (DIR ${DIR} PATH)
-    if (DIR)
-        add_sample_subdirectory (${DIR})
-    endif ()
-endforeach ()
+
+if (URHO3D_SAMPLES)
+    file (GLOB_RECURSE DIRS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CMakeLists.txt)
+    list (SORT DIRS)
+    foreach (DIR ${DIRS})
+        get_filename_component (DIR ${DIR} PATH)
+        if (DIR)
+            add_sample_subdirectory (${DIR})
+        endif ()
+    endforeach ()
+endif ()
+
+if (URHO3D_DOTNET)
+    add_sample_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/71_MonoEmbed)
+endif ()
