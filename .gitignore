@@ -10,7 +10,7 @@
 /bin/tool/
 /include/
 /lib*/
-generated/
+#  TBD ELI  generated/
 /Source/Urho3D/tolua++-prefix/
 build/
 /captures/
