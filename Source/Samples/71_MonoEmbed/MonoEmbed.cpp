@@ -111,6 +111,9 @@ int start_urho_mono_main(Platform platform) {
     // mono_trace_set_level_string("debug");
     // mono_trace_set_log_handler(mono_log_callback, NULL);
 
+    mono_trace_set_level_string("error");
+    mono_trace_set_log_handler(mono_log_callback, NULL);
+
     String asssemblyName =  "Game.dll";
   
     int argc = 2;
