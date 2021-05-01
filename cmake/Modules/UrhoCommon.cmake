@@ -173,11 +173,15 @@ option (URHO3D_CLING "Urho3D used with Cling" FALSE)
 option (URHO3D_DOTNET "Enable DotNet support" FALSE)
 
 
+if(URHO3D_DOTNET AND EMSCRIPTEN)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-address-of-temporary")
+endif ()
+
 if(URHO3D_DOTNET AND APPLE)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-address-of-temporary -Wno-return-type-c-linkage")
 endif ()
 
-if(URHO3D_DOTNET AND (CMAKE_SYSTEM_NAME MATCHES "Linux"))
+if(URHO3D_DOTNET AND (CMAKE_SYSTEM_NAME MATCHES "Linux") AND NOT EMSCRIPTEN)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -fpermissive -fsigned-char -funwind-tables -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fdata-sections -ffunction-sections -frtti -funswitch-loops -finline-limit=300 -fstack-protector -fomit-frame-pointer -fstrict-aliasing -fexceptions -std=gnu++11 -Wno-invalid-offsetof -O3 -DNDEBUG -fPIC -isystem -Wno-address-of-temporary -Wno-return-type-c-linkage -Wno-c++11-extensions -lgcc_s -lgcc")
 endif ()
 

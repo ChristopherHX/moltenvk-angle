@@ -159,7 +159,8 @@ static void GetCPUData(struct CpuCoreCount* data)
     }
 }
 
-#elif !defined(__EMSCRIPTEN__) && !defined(TVOS)
+#else
+#if  !defined(__EMSCRIPTEN__) && !defined(TVOS)
 static void GetCPUData(struct cpu_id_t* data)
 {
 #if defined(APPLE_SILICON)
@@ -173,6 +174,7 @@ static void GetCPUData(struct cpu_id_t* data)
     }
 #endif
 }
+#endif
 #endif
 
 void InitFPU()
