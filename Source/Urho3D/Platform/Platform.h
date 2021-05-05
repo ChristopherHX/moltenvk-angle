@@ -20,26 +20,38 @@
 // THE SOFTWARE.
 //
 
+/// \file
+
 #pragma once
 
+#include "../Container/FlagSet.h"
+#include "../Container/HashSet.h"
+#include "../Container/List.h"
+#include "../Core/Mutex.h"
 #include "../Core/Object.h"
+#include "../Input/InputEvents.h"
+#include "../UI/Cursor.h"
+
+#include "PlatformEvents.h"
 
 namespace Urho3D
 {
 
-/// Log message event.
-URHO3D_EVENT(E_LOGMESSAGE, LogMessage)
-{
-    URHO3D_PARAM(P_MESSAGE, Message);              // String
-    URHO3D_PARAM(P_LEVEL, Level);                  // int
+#ifdef __ANDROID__
+bool PostCommandToAndroidPlatform(const JSONFile& data);
+#endif
+
+extern int SDL_PLATFORM_EVENT;
+
+URHO3D_API bool PostCommandToPlatform(const JSONFile& data);
+
+URHO3D_API bool PostCommandToPlatform(const String& method, JSONFile& data);
+
+URHO3D_API bool PostCommandToPlatform(const String& clazz, const String& method, JSONFile& data);
+
+URHO3D_API void OnPlatformEvent(String strData);
+
+URHO3D_API void InitializePlatform(Context* context);
+
 }
 
-/// Async system command execution finished.
-URHO3D_EVENT(E_ASYNCEXECFINISHED, AsyncExecFinished)
-{
-    URHO3D_PARAM(P_REQUESTID, RequestID);          // unsigned
-    URHO3D_PARAM(P_EXITCODE, ExitCode);            // int
-}
-
-
-}

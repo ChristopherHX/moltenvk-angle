@@ -67,6 +67,8 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "../Platform/Platform.h"
+
 #include "../DebugNew.h"
 
 
@@ -166,6 +168,8 @@ bool Engine::Initialize(const VariantMap& parameters)
         return true;
 
     URHO3D_PROFILE(InitEngine);
+
+    InitializePlatform(context_);
 
     // Set headless mode
     headless_ = GetParameter(parameters, EP_HEADLESS, false).GetBool();

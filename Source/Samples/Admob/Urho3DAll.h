@@ -293,6 +293,8 @@
 #    include <Urho3D/Database/DbResult.h>
 #endif
 
+#    include <Urho3D/Platform/Platform.h>
+
 #include <Urho3D/DebugNew.h>
 
 using namespace Urho3D;

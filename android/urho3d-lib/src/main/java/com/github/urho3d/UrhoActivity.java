@@ -57,50 +57,57 @@ import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 
+import com.github.plugin.AdmobPlugin;
+
 
 public class UrhoActivity extends SDLActivity {
 
 
     private static final String TAG = "Urho3D";
 
-    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
+    AdmobPlugin admobPlugin = null;
 
-    private RewardedAd rewardedAd;
-    boolean isLoading;
+    public static UrhoActivity GetSingelton()
+    {
+        return (UrhoActivity)(SDLActivity.mSingleton);
+    }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////this;////////////////////////////////////////////////////////////////////
     protected  class UrhoActivityHandler extends Handler {
         public void handleMessage(Message msg) {
-            processData((String)msg.obj);
+            processCommand((String)msg.obj);
         }
     }
 
     Handler urhoActivityHandler = new UrhoActivityHandler();
 
-    public static native void nativeUserActivityCallback(String json);
-
-
-    static void postDataToUI(String data) {
+    static void postCommand(String data) {
         UrhoActivity urhoActivity = (UrhoActivity)(SDLActivity.mSingleton);
         Message msg = urhoActivity.urhoActivityHandler.obtainMessage();
         msg.obj = data;
         urhoActivity.urhoActivityHandler.sendMessage(msg);
     }
 
-    void notifyPlatform(String source , String event, JSONObject params) {
+  
+
+    public void notifyPlatform(String source , String event, JSONObject params) {
         try {
             params.put("source", source);
             params.put("event", event);
-            nativeUserActivityCallback(params.toString());
+            OnNativePlatformEvent(params.toString());
         } catch (JSONException e) 
         {
             Log.e(TAG, "JSONException " + e);
         }
     }
 
-    void notifyPlatform(String source, String event) {
+    public void notifyPlatform(String source, String event) {
         notifyPlatform(source, event, new JSONObject());
     }
+
+
+    public static native void OnNativePlatformEvent(String json);
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -110,12 +117,7 @@ public class UrhoActivity extends SDLActivity {
 
         super.onCreate(savedInstanceState);
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-          });
-
+        admobPlugin = new AdmobPlugin();
     }
 
     public static ArrayList<String> getLibraryNames(Context context )
@@ -145,123 +147,54 @@ public class UrhoActivity extends SDLActivity {
         return libraryNames;
     }
 
-    private void loadRewardedAd() {
-        if (rewardedAd == null) {
-          isLoading = true;
-          AdRequest adRequest = new AdRequest.Builder().build();
-          RewardedAd.load(
-              this,
-              AD_UNIT_ID,
-              adRequest,
-              new RewardedAdLoadCallback() {
-                @Override
-                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                  // Handle the error.
-                  Log.d(TAG, loadAdError.getMessage());
-                  rewardedAd = null;
-                  UrhoActivity.this.isLoading = false;
-                  Toast.makeText(UrhoActivity.this, "onAdFailedToLoad", Toast.LENGTH_SHORT).show();
-
-                  notifyPlatform("UrhoActivity", "onAdFailedToLoad");
-                }
-    
-                @Override
-                public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
-                  UrhoActivity.this.rewardedAd = rewardedAd;
-                  Log.d(TAG, "onAdLoaded");
-                  UrhoActivity.this.isLoading = false;
-                  Toast.makeText(UrhoActivity.this, "onAdLoaded", Toast.LENGTH_SHORT).show();
-
-                  notifyPlatform("UrhoActivity", "onAdLoaded");
-                }
-              });
-        }
-    }
-
-    private void showRewardedVideo() 
+    Class getClassFromClassName( String className)
     {
-
-        if (rewardedAd == null) {
-          Log.d(TAG, "The rewarded ad wasn't ready yet.");
-          return;
+        Class<?> cls = null;
+        try 
+        {
+            if(className.equals("Internal"))
+            {
+                cls =   Class.forName("com.github.urho3d.UrhoActivity");
+            }
+            else
+            {
+                cls = Class.forName("com.github.plugin."+className);
+            }
+        }
+        catch (Exception e) 
+        {
+            Log.e(TAG, "onUnhandledMessage Exception for " + className, e);
         }
 
-        rewardedAd.setFullScreenContentCallback(
-            new FullScreenContentCallback() {
-              @Override
-              public void onAdShowedFullScreenContent() {
-                // Called when ad is shown.
-                Log.d(TAG, "onAdShowedFullScreenContent");
-                Toast.makeText(UrhoActivity.this, "onAdShowedFullScreenContent", Toast.LENGTH_SHORT)
-                    .show();
-
-                notifyPlatform("UrhoActivity", "onAdShowedFullScreenContent");
-              }
-    
-              @Override
-              public void onAdFailedToShowFullScreenContent(AdError adError) {
-                // Called when ad fails to show.
-                Log.d(TAG, "onAdFailedToShowFullScreenContent");
-                // Don't forget to set the ad reference to null so you
-                // don't show the ad a second time.
-                rewardedAd = null;
-                Toast.makeText(
-                        UrhoActivity.this, "onAdFailedToShowFullScreenContent", Toast.LENGTH_SHORT)
-                    .show();
-
-                notifyPlatform("UrhoActivity", "onAdFailedToShowFullScreenContent");
-              }
-    
-              @Override
-              public void onAdDismissedFullScreenContent() {
-                // Called when ad is dismissed.
-                // Don't forget to set the ad reference to null so you
-                // don't show the ad a second time.
-                rewardedAd = null;
-                Log.d(TAG, "onAdDismissedFullScreenContent");
-                Toast.makeText(UrhoActivity.this, "onAdDismissedFullScreenContent", Toast.LENGTH_SHORT)
-                    .show();
-                
-                notifyPlatform("UrhoActivity", "onAdDismissedFullScreenContent");
-
-              }
-            });
-        Activity activityContext = UrhoActivity.this;
-        rewardedAd.show(
-            activityContext,
-            new OnUserEarnedRewardListener() {
-              @Override
-              public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
-                // Handle the reward.
-                Log.d(TAG, "The user earned the reward.");
-                int rewardAmount = rewardItem.getAmount();
-                String rewardType = rewardItem.getType();
-                
-                try {
-                JSONObject params = new JSONObject();
-                params.put("rewardType", rewardType);
-                params.put("rewardAmount", rewardAmount);
-                notifyPlatform("UrhoActivity" , "onUserEarnedReward", params);
-                }
-                catch (JSONException e) 
-                {
-                    Log.e(TAG, "JSONException " + e);
-                }
-
-              }
-            });
-      }
-
-      private void  processData(String data) {
+         return cls;
+    }
+   
+    private void processCommand(String data) {
         try {
             JSONObject js = new JSONObject(data);
+            String className = js.getString("class");
             String methodName = js.getString("method");
-            Method  method = UrhoActivity.class.getDeclaredMethod(methodName,  JSONObject.class) ;
-            if(method != null)
+
+            Class<?> cls = getClassFromClassName(className);
+            if(cls != null)
             {
-                method.setAccessible(true);
-                method.invoke(this, js);
+                Method  getSingelton = cls.getDeclaredMethod("GetSingelton",  null) ;
+                if(getSingelton != null)
+                {
+                    getSingelton.setAccessible(true);
+                    Object inst =  getSingelton.invoke(null);
+                    if(inst != null)
+                    {
+                        Method  method = cls.getDeclaredMethod(methodName,  JSONObject.class) ;
+                        if(method != null)
+                        {
+                            method.setAccessible(true);
+                            method.invoke(inst, js);
+                        }
+                    }
+                }
             }
+            
         } catch (ClassCastException e) {
             Log.e(TAG, "onUnhandledMessage ClassCastException", e);
         } catch (JSONException e) {
@@ -290,16 +223,5 @@ public class UrhoActivity extends SDLActivity {
         }
     }
 
-    void showRewardedVideo(JSONObject js)
-    {
-        showRewardedVideo();
-    }
-
-    void loadRewardedAd(JSONObject js)
-    {
-        loadRewardedAd();
-    }
-
-    
 
 }

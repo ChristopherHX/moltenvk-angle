@@ -50,6 +50,8 @@
 #include <emscripten/html5.h>
 #endif
 
+#include "../Platform/Platform.h"
+
 #include "../DebugNew.h"
 
 extern "C" int SDL_AddTouch(SDL_TouchID touchID, SDL_TouchDeviceType type, const char* name);
@@ -71,19 +73,9 @@ const StringHash VAR_SCREEN_JOYSTICK_ID("VAR_SCREEN_JOYSTICK_ID");
 const StringHash VAR_SCREEN_JOYSTICK_AXIS_ID("VAR_SCREEN_JOYSTICK_AXIS_ID");
 
 const unsigned TOUCHID_MAX = 32;
-int SDL_PLATFORM_EVENT = 0;
 
-#ifndef __ANDROID__
-// While there is an implementation only for Android, for other platforms while a noop
-URHO3D_API void PostCommandToPlatform(const JSONFile& data) {}
 
-URHO3D_API void PostCommandToPlatform(const String& method, JSONFile& data)
-{
-    data.GetRoot()["method"] = method;
-    PostCommandToPlatform(data);
-}
 
-#endif
 
 /// Convert SDL keycode if necessary.
 Key ConvertSDLKeyCode(int keySym, int scanCode)
@@ -417,8 +409,6 @@ Input::Input(Context* context)
 #elif defined(__EMSCRIPTEN__)
     emscriptenInput_ = new EmscriptenInput(this);
 #endif
-
-    SDL_PLATFORM_EVENT = SDL_RegisterEvents(1);
     // Try to initialize right now, but skip if screen mode is not yet set
     Initialize();
 }

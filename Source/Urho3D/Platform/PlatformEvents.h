@@ -27,19 +27,10 @@
 namespace Urho3D
 {
 
-/// Log message event.
-URHO3D_EVENT(E_LOGMESSAGE, LogMessage)
+// Notify posted from platform part
+URHO3D_EVENT(E_PLATFORM_NOTIFY, PlatformNotify)
 {
-    URHO3D_PARAM(P_MESSAGE, Message);              // String
-    URHO3D_PARAM(P_LEVEL, Level);                  // int
+    URHO3D_PARAM(P_DATA, Data); // String
 }
-
-/// Async system command execution finished.
-URHO3D_EVENT(E_ASYNCEXECFINISHED, AsyncExecFinished)
-{
-    URHO3D_PARAM(P_REQUESTID, RequestID);          // unsigned
-    URHO3D_PARAM(P_EXITCODE, ExitCode);            // int
-}
-
 
 }

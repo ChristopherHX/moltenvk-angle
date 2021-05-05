@@ -511,11 +511,7 @@ private:
 #endif
 };
 
-extern int SDL_PLATFORM_EVENT;
 
-URHO3D_API void PostCommandToPlatform(const JSONFile& data);
-
-URHO3D_API void PostCommandToPlatform(const String& method, JSONFile& data);
 
 
 } // namespace Urho3D

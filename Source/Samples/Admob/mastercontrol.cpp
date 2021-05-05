@@ -211,6 +211,7 @@ void MasterControl::HandleBeginFrame(StringHash eventType, VariantMap& eventData
         else
         {
             GLOBAL->neededGameState_ = GS_INTRO;
+            return;
         }
     }
     else if (GLOBAL->neededGameState_ == GS_INTRO) 
@@ -318,7 +319,7 @@ void MasterControl::LoadRewardedVideo()
     if (isVideoAdLoaded == false)
     {
         auto F = MakeShared<JSONFile>(context_);
-        PostCommandToPlatform("loadRewardedAd", *F);
+        PostCommandToPlatform("AdmobPlugin","loadRewardedAd", *F);
     }
 }
 
@@ -327,11 +328,14 @@ void MasterControl::ShowRewardedVideo() {
     {
         isVideoAdLoaded = false;
         auto F = MakeShared<JSONFile>(context_);
-        PostCommandToPlatform("showRewardedVideo", *F);
+        if (PostCommandToPlatform("AdmobPlugin","showRewardedVideo", *F) == false)
+        {
+            GLOBAL->neededGameState_ = GS_INTRO;
+        }
     }
     else
     {
-        GLOBAL->neededGameState_ = GS_PLAY;
+        GLOBAL->neededGameState_ = GS_INTRO;
     }
 }
 

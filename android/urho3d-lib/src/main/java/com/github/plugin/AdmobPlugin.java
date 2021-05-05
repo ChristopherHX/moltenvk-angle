@@ -1,0 +1,191 @@
+
+package com.github.plugin;
+
+import android.content.Context;
+import org.libsdl.app.SDLActivity;
+import java.io.File;
+import java.util.Arrays;
+import android.util.SparseArray;
+import java.util.ArrayList;
+import java.io.FilenameFilter;
+import java.util.Comparator;
+import android.os.Bundle;
+import android.util.Log;
+import android.app.Activity;
+import android.os.Handler;
+import android.os.Message;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.lang.reflect.*;
+import java.lang.reflect.Method;  
+import 	java.lang.Class;
+
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.OnUserEarnedRewardListener;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+
+import com.github.urho3d.UrhoActivity;
+import com.github.urho3d.UrhoPlugin;
+
+
+public class AdmobPlugin
+{
+    private static final String TAG = "AdmobPlugin";
+
+    private static AdmobPlugin singelton = null;
+
+    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
+
+    private RewardedAd rewardedAd;
+    boolean isLoading;
+
+    private  UrhoActivity urhoActivity;
+
+    public static AdmobPlugin GetSingelton()
+    {
+        return singelton;
+    }
+
+    public AdmobPlugin()
+    {
+        singelton = this;
+        urhoActivity = UrhoActivity.GetSingelton();
+
+        isLoading = false;
+
+        MobileAds.initialize(urhoActivity, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+          });
+    }
+
+    public void loadRewardedAd() {
+        if (rewardedAd == null) {
+          isLoading = true;
+          AdRequest adRequest = new AdRequest.Builder().build();
+          RewardedAd.load(
+              urhoActivity,
+              AD_UNIT_ID,
+              adRequest,
+              new RewardedAdLoadCallback() {
+                @Override
+                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                  // Handle the error.
+                  Log.d(TAG, loadAdError.getMessage());
+                  rewardedAd = null;
+                  AdmobPlugin.this.isLoading = false;
+                  Toast.makeText(urhoActivity, "onAdFailedToLoad", Toast.LENGTH_SHORT).show();
+
+                  urhoActivity.notifyPlatform("AdmobPlugin", "onAdFailedToLoad");
+                }
+    
+                @Override
+                public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
+                  AdmobPlugin.this.rewardedAd = rewardedAd;
+                  Log.d(TAG, "onAdLoaded");
+                  AdmobPlugin.this.isLoading = false;
+                  Toast.makeText(urhoActivity, "onAdLoaded", Toast.LENGTH_SHORT).show();
+
+                  urhoActivity.notifyPlatform("AdmobPlugin", "onAdLoaded");
+                }
+              });
+        }
+    }
+
+    public void showRewardedVideo() 
+    {
+
+        if (rewardedAd == null) {
+          Log.d(TAG, "The rewarded ad wasn't ready yet.");
+          return;
+        }
+
+        rewardedAd.setFullScreenContentCallback(
+            new FullScreenContentCallback() {
+              @Override
+              public void onAdShowedFullScreenContent() {
+                // Called when ad is shown.
+                Log.d(TAG, "onAdShowedFullScreenContent");
+                Toast.makeText(urhoActivity, "onAdShowedFullScreenContent", Toast.LENGTH_SHORT)
+                    .show();
+
+                    urhoActivity.notifyPlatform("AdmobPlugin", "onAdShowedFullScreenContent");
+              }
+    
+              @Override
+              public void onAdFailedToShowFullScreenContent(AdError adError) {
+                // Called when ad fails to show.
+                Log.d(TAG, "onAdFailedToShowFullScreenContent");
+                // Don't forget to set the ad reference to null so you
+                // don't show the ad a second time.
+                rewardedAd = null;
+                Toast.makeText(
+                        urhoActivity, "onAdFailedToShowFullScreenContent", Toast.LENGTH_SHORT)
+                    .show();
+
+                    urhoActivity.notifyPlatform("AdmobPlugin", "onAdFailedToShowFullScreenContent");
+              }
+    
+              @Override
+              public void onAdDismissedFullScreenContent() {
+                // Called when ad is dismissed.
+                // Don't forget to set the ad reference to null so you
+                // don't show the ad a second time.
+                rewardedAd = null;
+                Log.d(TAG, "onAdDismissedFullScreenContent");
+                Toast.makeText(urhoActivity, "onAdDismissedFullScreenContent", Toast.LENGTH_SHORT)
+                    .show();
+                
+                    urhoActivity.notifyPlatform("AdmobPlugin", "onAdDismissedFullScreenContent");
+
+              }
+            });
+        Activity activityContext = urhoActivity;
+        rewardedAd.show(
+            activityContext,
+            new OnUserEarnedRewardListener() {
+              @Override
+              public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+                // Handle the reward.
+                Log.d(TAG, "The user earned the reward.");
+                int rewardAmount = rewardItem.getAmount();
+                String rewardType = rewardItem.getType();
+                
+                try {
+                JSONObject params = new JSONObject();
+                params.put("rewardType", rewardType);
+                params.put("rewardAmount", rewardAmount);
+                urhoActivity.notifyPlatform("AdmobPlugin" , "onUserEarnedReward", params);
+                }
+                catch (JSONException e) 
+                {
+                    Log.e(TAG, "JSONException " + e);
+                }
+
+              }
+            });
+      }
+
+      void showRewardedVideo(JSONObject js)
+      {
+         showRewardedVideo();
+      }
+  
+      void loadRewardedAd(JSONObject js)
+      {
+          loadRewardedAd();
+      }
+}
