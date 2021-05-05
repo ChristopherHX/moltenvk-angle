@@ -40,7 +40,9 @@ enum GameState
 
     GS_PLAY,
 
-    GS_DEAD
+    GS_DEAD,
+    GS_VIDEO_AD,
+    GS_REWARDED_VIDEO,
 };
 
 class Global : public Object

@@ -26,9 +26,9 @@
 
 #include "../Container/FlagSet.h"
 #include "../Container/HashSet.h"
+#include "../Container/List.h"
 #include "../Core/Mutex.h"
 #include "../Core/Object.h"
-#include "../Container/List.h"
 #include "../Input/InputEvents.h"
 #include "../UI/Cursor.h"
 
@@ -75,13 +75,12 @@ struct TouchState
     WeakPtr<UIElement> touchedElement_;
 };
 
-
 /// Screen joystick axis button
 struct ScreenJoystickAxis
 {
-    IntVector2  buttonOffset_;
-    unsigned    arrayIdx_;
-    float       innerRadius_;
+    IntVector2 buttonOffset_;
+    unsigned arrayIdx_;
+    float innerRadius_;
 };
 
 /// %Input state for a joystick.
@@ -171,7 +170,9 @@ public:
     /// Set whether ALT-ENTER fullscreen toggle is enabled.
     /// @property
     void SetToggleFullscreen(bool enable);
-    /// Set whether the operating system mouse cursor is visible. When not visible (default), is kept centered to prevent leaving the window. Mouse visibility event can be suppressed-- this also recalls any unsuppressed SetMouseVisible which can be returned by ResetMouseVisible().
+    /// Set whether the operating system mouse cursor is visible. When not visible (default), is kept centered to
+    /// prevent leaving the window. Mouse visibility event can be suppressed-- this also recalls any unsuppressed
+    /// SetMouseVisible which can be returned by ResetMouseVisible().
     void SetMouseVisible(bool enable, bool suppressEvent = false);
     /// Reset last mouse visibility that was not suppressed in SetMouseVisible.
     void ResetMouseVisible();
@@ -181,22 +182,25 @@ public:
     void ResetMouseGrabbed();
     /// Set the mouse mode.
     /** Set the mouse mode behaviour.
-     *  MM_ABSOLUTE is the default behaviour, allowing the toggling of operating system cursor visibility and allowing the cursor to escape the window when visible.
-     *  When the operating system cursor is invisible in absolute mouse mode, the mouse is confined to the window.
-     *  If the operating system and UI cursors are both invisible, interaction with the Urho UI will be limited (eg: drag move / drag end events will not trigger).
-     *  SetMouseMode(MM_ABSOLUTE) will call SetMouseGrabbed(false).
+     *  MM_ABSOLUTE is the default behaviour, allowing the toggling of operating system cursor visibility and allowing
+     * the cursor to escape the window when visible. When the operating system cursor is invisible in absolute mouse
+     * mode, the mouse is confined to the window. If the operating system and UI cursors are both invisible, interaction
+     * with the Urho UI will be limited (eg: drag move / drag end events will not trigger). SetMouseMode(MM_ABSOLUTE)
+     * will call SetMouseGrabbed(false).
      *
      *  MM_RELATIVE sets the operating system cursor to invisible and confines the cursor to the window.
-     *  The operating system cursor cannot be set to be visible in this mode via SetMouseVisible(), however changes are tracked and will be restored when another mouse mode is set.
-     *  When the virtual cursor is also invisible, UI interaction will still function as normal (eg: drag events will trigger).
-     *  SetMouseMode(MM_RELATIVE) will call SetMouseGrabbed(true).
+     *  The operating system cursor cannot be set to be visible in this mode via SetMouseVisible(), however changes are
+     * tracked and will be restored when another mouse mode is set. When the virtual cursor is also invisible, UI
+     * interaction will still function as normal (eg: drag events will trigger). SetMouseMode(MM_RELATIVE) will call
+     * SetMouseGrabbed(true).
      *
-     *  MM_WRAP grabs the mouse from the operating system and confines the operating system cursor to the window, wrapping the cursor when it is near the edges.
-     *  SetMouseMode(MM_WRAP) will call SetMouseGrabbed(true).
+     *  MM_WRAP grabs the mouse from the operating system and confines the operating system cursor to the window,
+     * wrapping the cursor when it is near the edges. SetMouseMode(MM_WRAP) will call SetMouseGrabbed(true).
      *
-     *  MM_FREE does not grab/confine the mouse cursor even when it is hidden. This can be used for cases where the cursor should render using the operating system
-     *  outside the window, and perform custom rendering (with SetMouseVisible(false)) inside.
-    */
+     *  MM_FREE does not grab/confine the mouse cursor even when it is hidden. This can be used for cases where the
+     * cursor should render using the operating system outside the window, and perform custom rendering (with
+     * SetMouseVisible(false)) inside.
+     */
     void SetMouseMode(MouseMode mode, bool suppressEvent = false);
     /// Reset the last mouse mode that wasn't suppressed in SetMouseMode.
     void ResetMouseMode();
@@ -217,13 +221,16 @@ public:
     /// Set whether the virtual joystick is visible.
     /// @property
     void SetScreenJoystickVisible(SDL_JoystickID id, bool enable);
-    /// Show or hide on-screen keyboard on platforms that support it. When shown, keypresses from it are delivered as key events.
+    /// Show or hide on-screen keyboard on platforms that support it. When shown, keypresses from it are delivered as
+    /// key events.
     /// @property
     void SetScreenKeyboardVisible(bool enable);
-    /// Set touch emulation by mouse. Only available on desktop platforms. When enabled, actual mouse events are no longer sent and the mouse cursor is forced visible.
+    /// Set touch emulation by mouse. Only available on desktop platforms. When enabled, actual mouse events are no
+    /// longer sent and the mouse cursor is forced visible.
     /// @property
     void SetTouchEmulation(bool enable);
-    /// Begin recording a touch gesture. Return true if successful. The E_GESTURERECORDED event (which contains the ID for the new gesture) will be sent when recording finishes.
+    /// Begin recording a touch gesture. Return true if successful. The E_GESTURERECORDED event (which contains the ID
+    /// for the new gesture) will be sent when recording finishes.
     bool RecordGesture();
     /// Save all in-memory touch gestures. Return true if successful.
     bool SaveGestures(Serializer& dest);
@@ -280,7 +287,8 @@ public:
     /// Return the currently held down qualifiers.
     /// @property
     QualifierFlags GetQualifiers() const;
-    /// Return mouse position within window. Should only be used with a visible mouse cursor. Uses the backbuffer (Graphics width/height) coordinates.
+    /// Return mouse position within window. Should only be used with a visible mouse cursor. Uses the backbuffer
+    /// (Graphics width/height) coordinates.
     /// @property
     IntVector2 GetMousePosition() const;
     /// Return mouse movement since last frame.
@@ -463,7 +471,8 @@ private:
     bool mouseVisible_;
     /// The last operating system mouse cursor visible flag set by end use call to SetMouseVisible.
     bool lastMouseVisible_;
-    /// Flag to indicate the mouse is being grabbed by an operation. Subsystems like UI that uses mouse should temporarily ignore the mouse hover or click events.
+    /// Flag to indicate the mouse is being grabbed by an operation. Subsystems like UI that uses mouse should
+    /// temporarily ignore the mouse hover or click events.
     bool mouseGrabbed_;
     /// The last mouse grabbed set by SetMouseGrabbed.
     bool lastMouseGrabbed_;
@@ -502,4 +511,11 @@ private:
 #endif
 };
 
-}
+extern int SDL_PLATFORM_EVENT;
+
+URHO3D_API void PostCommandToPlatform(const JSONFile& data);
+
+URHO3D_API void PostCommandToPlatform(const String& method, JSONFile& data);
+
+
+} // namespace Urho3D

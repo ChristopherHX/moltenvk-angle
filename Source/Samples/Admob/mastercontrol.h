@@ -19,6 +19,9 @@ public:
     void UpdateUIVisibility();
     void HandleUpdate(StringHash eventType, VariantMap& eventData);
     void HandlePostRenderUpdate(StringHash eventType, VariantMap& eventData);
+    void HandlePlatformMessage(StringHash eventType, VariantMap& eventData);
+    void ShowRewardedVideo();
+    void LoadRewardedVideo();
 
     String GetResourceFolder() const { return resourceFolder_; }
     Scene* GetScene() { return scene_; }
@@ -37,6 +40,8 @@ private:
     void CreateWeeds();
     void CreateCrown();
     void CreateUI();
+
+    bool isVideoAdLoaded;
 };
 
 #endif // MASTERCONTROL_H

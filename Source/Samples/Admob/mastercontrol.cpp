@@ -13,6 +13,7 @@
 
 URHO3D_DEFINE_APPLICATION_MAIN(MasterControl);
 
+
 MasterControl* MasterControl::instance_ = NULL;
 MasterControl* MasterControl::GetInstance()
 {
@@ -55,12 +56,23 @@ void MasterControl::Setup()
 
 void MasterControl::Start()
 {
+    
+    auto jsonBuilder = (MakeShared<JsonBuilder>(context_));
+    (*jsonBuilder)("title", "Share info")("subject", "Urho3D")("text", "Hello from Urho3D!!!");
+
+    PostCommandToPlatform("shareText", jsonBuilder->F());
+
+    isVideoAdLoaded = false;
+    LoadRewardedVideo();
+
     SetRandomSeed(Time::GetSystemTime());
 
     CreateScene();
     CreateUI();
 
     SubscribeToEvent(E_UPDATE, URHO3D_HANDLER(MasterControl, HandleUpdate));
+    SubscribeToEvent(E_PLATFORM_NOTIFY, URHO3D_HANDLER(MasterControl, HandlePlatformMessage));
+
 //    SubscribeToEvent(E_POSTRENDERUPDATE, URHO3D_HANDLER(MasterControl, HandlePostRenderUpdate));
 
     SoundSource* musicSource{ scene_->GetOrCreateComponent<SoundSource>() };
@@ -184,7 +196,25 @@ void MasterControl::HandleBeginFrame(StringHash eventType, VariantMap& eventData
         SoundSource* soundSource{ urhoNode->GetOrCreateComponent<SoundSource>() };
         soundSource->Play(CACHE->GetResource<Sound>("Samples/Hit.ogg"));
 
-    } else if (GLOBAL->neededGameState_ == GS_INTRO) {
+        if (isVideoAdLoaded == false)
+        {
+            LoadRewardedVideo();
+        }
+
+    } 
+    else if (GLOBAL->neededGameState_ == GS_VIDEO_AD)
+    {
+        if (isVideoAdLoaded == true)
+        {
+            ShowRewardedVideo();
+        }
+        else
+        {
+            GLOBAL->neededGameState_ = GS_INTRO;
+        }
+    }
+    else if (GLOBAL->neededGameState_ == GS_INTRO) 
+    {
 
         Node* urhoNode{ scene_->GetChild("Urho") };
         Fish* fish{ urhoNode->GetComponent<Fish>() };
@@ -240,6 +270,71 @@ void MasterControl::UpdateUIVisibility()
     }
 }
 
+void MasterControl::HandlePlatformMessage(StringHash eventType, VariantMap& eventData)
+{
+   String data =  eventData[PlatformNotify::P_DATA].GetString();
+
+   auto jasonFile = MakeShared<JSONFile>(context_);
+   jasonFile->FromString(data);
+   auto root = jasonFile->GetRoot();
+   String source =  root["source"].GetCString();
+   String event = root["event"].GetCString();
+
+   URHO3D_LOGINFO("Eli HandlePlatformMessage source:" + source + " event:" + event);
+   if (event == "onAdLoaded")
+   {
+       isVideoAdLoaded = true;
+   }
+   else if (event == "onAdFailedToLoad")
+   {
+       isVideoAdLoaded = false;
+   }
+   else if (event == "onAdShowedFullScreenContent")
+   {
+       GLOBAL->neededGameState_ = GS_VIDEO_AD;
+       GetSubsystem<Audio>()->SetMasterGain(SOUND_MUSIC, 0.0f);
+   }
+   else if (event == "onAdDismissedFullScreenContent")
+   {
+       GLOBAL->neededGameState_ = GS_INTRO;
+
+       GetSubsystem<Audio>()->SetMasterGain(SOUND_MUSIC, 0.33f);
+       LoadRewardedVideo();
+   }
+   else if (event == "onAdFailedToShowFullScreenContent")
+   {
+       GLOBAL->neededGameState_ = GS_INTRO;
+
+       GetSubsystem<Audio>()->SetMasterGain(SOUND_MUSIC, 0.33f);
+       LoadRewardedVideo();
+   }
+
+   //
+
+}
+
+void MasterControl::LoadRewardedVideo() 
+{
+    if (isVideoAdLoaded == false)
+    {
+        auto F = MakeShared<JSONFile>(context_);
+        PostCommandToPlatform("loadRewardedAd", *F);
+    }
+}
+
+void MasterControl::ShowRewardedVideo() {
+    if (isVideoAdLoaded)
+    {
+        isVideoAdLoaded = false;
+        auto F = MakeShared<JSONFile>(context_);
+        PostCommandToPlatform("showRewardedVideo", *F);
+    }
+    else
+    {
+        GLOBAL->neededGameState_ = GS_PLAY;
+    }
+}
+
 void MasterControl::HandleUpdate(StringHash eventType, VariantMap& eventData)
 { (void)eventType;
 
@@ -256,7 +351,7 @@ void MasterControl::HandleUpdate(StringHash eventType, VariantMap& eventData)
         if (GLOBAL->gameState_ == GS_INTRO)
             GLOBAL->neededGameState_ = GS_PLAY;
         else if (GLOBAL->gameState_ == GS_DEAD)
-            GLOBAL->neededGameState_ = GS_INTRO;
+            GLOBAL->neededGameState_ = GS_VIDEO_AD;
     }
     if (INPUT->GetKeyPress(KEY_9)) {
 
