@@ -20,9 +20,6 @@ MasterControl* MasterControl::GetInstance()
     return instance_;
 }
 
-void IOS_LoadRewardedAd();
-void IOS_PlayRewardedAd();
-
 void RegisterAdmobPlugin(Context * context);
 
 MasterControl::MasterControl(Context* context) :
