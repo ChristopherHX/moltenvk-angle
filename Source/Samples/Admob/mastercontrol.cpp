@@ -20,13 +20,18 @@ MasterControl* MasterControl::GetInstance()
     return instance_;
 }
 
+void IOS_LoadRewardedAd();
+void IOS_PlayRewardedAd();
+
+void RegisterAdmobPlugin(Context * context);
+
 MasterControl::MasterControl(Context* context) :
     Application(context),
     scene_{nullptr},
     drawDebug_{false}
 {
     instance_ = this;
-
+    
     SubscribeToEvent(E_BEGINFRAME, URHO3D_HANDLER(MasterControl, HandleBeginFrame));
 
     Barrier::RegisterObject(context);
@@ -52,10 +57,13 @@ void MasterControl::Setup()
     engineParameters_[EP_WINDOW_ICON] = "icon.png";
 
     context_->RegisterSubsystem(new Global(context_));
+    
 }
 
 void MasterControl::Start()
 {
+    
+    RegisterAdmobPlugin(context_);
     
     auto jsonBuilder = (MakeShared<JsonBuilder>(context_));
     (*jsonBuilder)("title", "Share info")("subject", "Urho3D")("text", "Hello from Urho3D!!!");
@@ -316,19 +324,22 @@ void MasterControl::HandlePlatformMessage(StringHash eventType, VariantMap& even
 
 void MasterControl::LoadRewardedVideo() 
 {
+    
     if (isVideoAdLoaded == false)
     {
         auto F = MakeShared<JSONFile>(context_);
-        PostCommandToPlatform("AdmobPlugin","loadRewardedAd", *F);
+        context_->PostCommandToPlugin("AdmobPlugin","loadRewardedAd", *F);
     }
 }
 
 void MasterControl::ShowRewardedVideo() {
+    
+ 
     if (isVideoAdLoaded)
     {
         isVideoAdLoaded = false;
         auto F = MakeShared<JSONFile>(context_);
-        if (PostCommandToPlatform("AdmobPlugin","showRewardedVideo", *F) == false)
+        if (context_->PostCommandToPlugin("AdmobPlugin","showRewardedVideo", *F) == false)
         {
             GLOBAL->neededGameState_ = GS_INTRO;
         }

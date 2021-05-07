@@ -16,8 +16,22 @@
 # Define target name
 set (TARGET_NAME Admob)
 
+if(APPLE)
+if (IOS)
+set (ADMOB_LIBPATH  ../../Urho3D/ThirdParty/GoogleMobileAdsSdkiOS)
+set (ADMOB_LIBS
+    "-framework ../../Urho3D/ThirdParty/GoogleMobileAdsSdkiOS/GoogleMobileAds"
+    
+set (LIBS  ${LIBS}  ${ADMOB_LIBS})
+link_directories(. ${ADMOB_LIBPATH})
+)
+
+file (GLOB EXTRA_MM_FILES *.mm)
+endif()
+endif()
+
 # Define source files
-define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES})
+define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES} ${EXTRA_MM_FILES})
 
 # Setup target with resource copying
 setup_main_executable ()

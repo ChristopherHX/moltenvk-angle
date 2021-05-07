@@ -479,4 +479,44 @@ void Context::EndSendEvent()
 #endif
 }
 
+void Context::RegisterPlugin(Plugin* plugin)
+{
+    if (!plugin)
+        return;
+
+    plugins_[plugin->GetType()] = plugin;
+}
+    /// Remove a subsystem.
+void Context::RemovePlugin(StringHash pluginType)
+{
+    HashMap<StringHash, SharedPtr<Plugin> >::Iterator i = plugins_.Find(pluginType);
+    if (i != plugins_.End())
+        plugins_.Erase(i);
+}
+        
+/// Return subsystem by type.
+Plugin* Context::GetPlugin(StringHash type) const
+{
+    HashMap<StringHash, SharedPtr<Plugin> >::ConstIterator i = plugins_.Find(type);
+    if (i != plugins_.End())
+        return i->second_;
+    else
+        return nullptr;
+}
+
+bool Context::PostCommandToPlugin(const String& clazz, const String& method, JSONFile& data)
+{
+    Plugin* plugin = GetPlugin(clazz);
+    if(plugin != NULL)
+    {
+#ifdef __ANDROID__
+        return plugin->PostCommandToAndroid(clazz, method,data);
+#else
+        return plugin->PostCommand(method, data);
+#endif
+    }
+    return false;
+}
+
+
 }

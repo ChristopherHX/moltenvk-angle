@@ -88,6 +88,14 @@
 @end
 
 
+// TBD ELI
+UIViewController * SDL_GetUiViewController(SDL_Window *window)
+{
+    SDL_WindowData *data = (__bridge SDL_WindowData *) window->driverdata;
+    return data.viewcontroller ;
+}
+
+
 static int
 SetupWindowData(_THIS, SDL_Window *window, UIWindow *uiwindow, SDL_bool created)
 {
