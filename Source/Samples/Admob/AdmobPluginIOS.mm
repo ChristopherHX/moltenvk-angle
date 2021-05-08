@@ -89,7 +89,7 @@
 #if __cplusplus
 extern "C" {
 #endif
-UIViewController * SDL_GetUiViewController(SDL_Window *window);
+UIViewController * SDL_GetUIKitViewController(SDL_Window *window);
 #if __cplusplus
 }   // Extern C
 #endif
@@ -100,7 +100,7 @@ static AdmobPluginIOS * admobIOSPlugin;
 void * IOS_AdmobInit(Context * context,AdmobPlugin * plugin)
 {
     Graphics* graphics = context->GetSubsystem<Graphics>();
-    UIViewController * viewController = SDL_GetUiViewController(graphics->GetWindow());
+    UIViewController * viewController = SDL_GetUIKitViewController(graphics->GetWindow());
     
     admobIOSPlugin = [[AdmobPluginIOS alloc] initAdmobController:viewController];
    

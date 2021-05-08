@@ -89,7 +89,7 @@
 
 
 // TBD ELI
-UIViewController * SDL_GetUiViewController(SDL_Window *window)
+UIViewController * SDL_GetUIKitViewController(SDL_Window *window)
 {
     SDL_WindowData *data = (__bridge SDL_WindowData *) window->driverdata;
     return data.viewcontroller ;
