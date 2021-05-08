@@ -38,7 +38,7 @@ namespace Urho3D
 {
 
 #ifdef __ANDROID__
-bool PostCommandToAndroidPlatform(const JSONFile& data);
+URHO3D_API bool PostCommandToAndroidPlatform(const JSONFile& data);
 #endif
 
 extern int SDL_PLATFORM_EVENT;

@@ -37,7 +37,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.github.urho3d.UrhoActivity;
-import com.github.urho3d.UrhoPlugin;
 
 
 public class AdmobPlugin
