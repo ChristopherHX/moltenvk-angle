@@ -216,6 +216,7 @@ public:
         /// Return subsystem by type.
     Plugin* GetPlugin(StringHash type) const;
     
+    bool PostCommandToPlugin(const String& clazz, const String& method);
     bool PostCommandToPlugin(const String& clazz, const String& method, JSONFile& data);
 
 private:

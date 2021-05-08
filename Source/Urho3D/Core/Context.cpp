@@ -504,16 +504,18 @@ Plugin* Context::GetPlugin(StringHash type) const
         return nullptr;
 }
 
+bool Context::PostCommandToPlugin(const String& clazz, const String& method)
+{
+    auto data = MakeShared<JSONFile>(this);
+    return PostCommandToPlugin( clazz, method,*data);
+}
+
 bool Context::PostCommandToPlugin(const String& clazz, const String& method, JSONFile& data)
 {
     Plugin* plugin = GetPlugin(clazz);
     if(plugin != NULL)
     {
-#ifdef __ANDROID__
-        return plugin->PostCommandToAndroid(clazz, method,data);
-#else
         return plugin->PostCommand(method, data);
-#endif
     }
     return false;
 }

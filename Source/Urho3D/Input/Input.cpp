@@ -2390,7 +2390,7 @@ void Input::HandleSDLEvent(void* sdlEvent)
         break;
 
     default:
-        if (evt.type == SDL_PLATFORM_EVENT)
+        if (evt.type == SDL_PLATFORM_EVENT || evt.type == Plugin::SDL_PLUGIN_EVENT)
         {
             if (evt.user.code)
             {

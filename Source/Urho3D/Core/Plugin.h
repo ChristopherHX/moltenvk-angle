@@ -48,12 +48,23 @@ public:
     /// Destruct.
     ~Plugin() override;
     
-    bool PostCommandToAndroid(const String& clazz, const String& method,JSONFile& data);
+    bool PostCommand(const String& method, JSONFile& data);
     
-    virtual bool PostCommand(const String& method, JSONFile& data){return false;}
-
-    void OnEvent(JSONFile & jsonData);
-
+    virtual bool PostCommandToIOS(const String& method,JSONFile& data){return false;}
+    virtual bool PostCommandToAndroid(const String& method,JSONFile& data){return false;}
+    virtual bool HandleCommand(const String& method,JSONFile& data){return false;}
+    
+    void sendEvent(String evt);
+    
+    static int SDL_PLUGIN_EVENT;
+ 
+#if defined(IOS)
+    void * ios_plugin_handle;
+#endif
+private:
+   
+    void OnPluginEvent(JSONFile & jsonData);
+    
 };
 
 }

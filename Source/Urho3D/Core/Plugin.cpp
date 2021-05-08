@@ -26,14 +26,20 @@
 #include "../Core/Plugin.h"
 #include "../Platform/Platform.h"
 #include "../DebugNew.h"
+#include <SDL/SDL_events.h>
 
 namespace Urho3D
 {
 
+int Plugin::SDL_PLUGIN_EVENT = -1;
+
 Plugin::Plugin(Context* context) :
     Object(context)
 {
-   
+   if(SDL_PLUGIN_EVENT == -1)
+   {
+       SDL_PLUGIN_EVENT = SDL_RegisterEvents(1);
+   }
 }
 
 Plugin::~Plugin()
@@ -41,22 +47,36 @@ Plugin::~Plugin()
 
 }
 
-void Plugin::OnEvent(JSONFile & jsonData)
+void Plugin::sendEvent(String evt)
+{
+    auto jsonBuilder = (MakeShared<JsonBuilder>(context_));
+    (*jsonBuilder)("source", this->GetTypeName().CString())("event", evt);
+    
+    OnPluginEvent(jsonBuilder->F());
+}
+
+void Plugin::OnPluginEvent(JSONFile & jsonData)
 {
     String strData = jsonData.ToString();
-    OnPlatformEvent(strData);
+    VariantMap* pArgs = new VariantMap;
+    (*pArgs)[PluginNotify::P_DATA] = strData;
+    SDL_Event event;
+    SDL_zero(event);
+    event.type = SDL_PLUGIN_EVENT;
+    event.user.data2 = pArgs;
+    event.user.code = E_PLUGIN_NOTIFY.Value();
+    SDL_PushEvent(&event);
 }
 
-bool PostCommandToAndroid(const String& clazz, const String& method,JSONFile& data)
+bool Plugin::PostCommand(const String& method, JSONFile& data)
 {
-    bool res = false;
 #ifdef __ANDROID__
-    data.GetRoot()["class"] = clazz;
-    data.GetRoot()["method"] = method;
-    res = PostCommandToAndroidPlatform(data);
+        return PostCommandToAndroid(method,data);
+#elif defined(IOS)
+        return PostCommandToIOS(method,data);
+#else
+        return HandleCommand(method, data);
 #endif
-    return res;
 }
-
 
 }

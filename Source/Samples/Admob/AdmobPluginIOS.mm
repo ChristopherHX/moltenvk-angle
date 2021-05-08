@@ -111,9 +111,9 @@ void * IOS_AdmobInit(Context * context,AdmobPlugin * plugin)
     return (__bridge void *)admobIOSPlugin;
 }
 
-bool AdmobPlugin::PostIOSCommand(const String& method, JSONFile& data)
+bool AdmobPlugin::PostCommandToIOS(const String& method, JSONFile& data)
 {
-    AdmobPluginIOS * admobIOSPlugin = (__bridge AdmobPluginIOS *)ios_admob_plugin;
+    AdmobPluginIOS * admobIOSPlugin = (__bridge AdmobPluginIOS *)ios_plugin_handle;
     bool res = false;
     if(admobIOSPlugin != NULL)
     {

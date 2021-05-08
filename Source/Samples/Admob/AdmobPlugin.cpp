@@ -22,13 +22,15 @@
 
 #include "AdmobPlugin.h"
 
+#if defined(IOS)
 void * IOS_AdmobInit(Context * context,AdmobPlugin * plugin);
+#endif
 
 AdmobPlugin::AdmobPlugin(Context* context) :
     Plugin(context)
 {
 #if defined(IOS)
-    ios_admob_plugin = IOS_AdmobInit(context,this);
+    ios_plugin_handle = IOS_AdmobInit(context,this);
 #endif
 }
 
@@ -37,23 +39,18 @@ AdmobPlugin::~AdmobPlugin()
 
 }
 
-bool AdmobPlugin::PostCommand(const String& method, JSONFile& data)
+#ifdef __ANDROID__
+bool AdmobPlugin::PostCommandToAndroid(const String& method,JSONFile& data)
 {
-#if defined(IOS)
-    return PostIOSCommand( method,data);
-#endif
-    return false;
-}
+    bool res = false;
 
-void AdmobPlugin::sendEvent(String  evt)
-{
-    
-    auto jsonBuilder = (MakeShared<JsonBuilder>(context_));
-    (*jsonBuilder)("source", this->GetTypeName().CString())("event", evt);
-    
-    OnEvent(jsonBuilder->F());
-   
+    data.GetRoot()["class"] = this->GetTypeName();
+    data.GetRoot()["method"] = method;
+    res = PostCommandToAndroidPlatform(data);
+    return res;
 }
+#endif
+
 
 void RegisterAdmobPlugin(Context * context)
 {

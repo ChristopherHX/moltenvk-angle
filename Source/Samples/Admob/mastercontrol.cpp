@@ -77,6 +77,7 @@ void MasterControl::Start()
 
     SubscribeToEvent(E_UPDATE, URHO3D_HANDLER(MasterControl, HandleUpdate));
     SubscribeToEvent(E_PLATFORM_NOTIFY, URHO3D_HANDLER(MasterControl, HandlePlatformMessage));
+    SubscribeToEvent(E_PLUGIN_NOTIFY, URHO3D_HANDLER(MasterControl, HandlePluginMessage));
 
 //    SubscribeToEvent(E_POSTRENDERUPDATE, URHO3D_HANDLER(MasterControl, HandlePostRenderUpdate));
 
@@ -276,6 +277,46 @@ void MasterControl::UpdateUIVisibility()
     }
 }
 
+void MasterControl::HandlePluginMessage(StringHash eventType, VariantMap& eventData)
+{
+    String data =  eventData[PlatformNotify::P_DATA].GetString();
+
+    auto jasonFile = MakeShared<JSONFile>(context_);
+    jasonFile->FromString(data);
+    auto root = jasonFile->GetRoot();
+    String source =  root["source"].GetCString();
+    String event = root["event"].GetCString();
+
+    URHO3D_LOGINFO("Eli HandlePluginMessage source:" + source + " event:" + event);
+    if (event == "onAdLoaded")
+    {
+        isVideoAdLoaded = true;
+    }
+    else if (event == "onAdFailedToLoad")
+    {
+        isVideoAdLoaded = false;
+    }
+    else if (event == "onAdShowedFullScreenContent")
+    {
+        GLOBAL->neededGameState_ = GS_VIDEO_AD;
+        GetSubsystem<Audio>()->SetMasterGain(SOUND_MUSIC, 0.0f);
+    }
+    else if (event == "onAdDismissedFullScreenContent")
+    {
+        GLOBAL->neededGameState_ = GS_INTRO;
+
+        GetSubsystem<Audio>()->SetMasterGain(SOUND_MUSIC, 0.33f);
+        LoadRewardedVideo();
+    }
+    else if (event == "onAdFailedToShowFullScreenContent")
+    {
+        GLOBAL->neededGameState_ = GS_INTRO;
+
+        GetSubsystem<Audio>()->SetMasterGain(SOUND_MUSIC, 0.33f);
+        LoadRewardedVideo();
+    }
+}
+
 void MasterControl::HandlePlatformMessage(StringHash eventType, VariantMap& eventData)
 {
    String data =  eventData[PlatformNotify::P_DATA].GetString();
@@ -324,8 +365,7 @@ void MasterControl::LoadRewardedVideo()
     
     if (isVideoAdLoaded == false)
     {
-        auto F = MakeShared<JSONFile>(context_);
-        context_->PostCommandToPlugin("AdmobPlugin","loadRewardedAd", *F);
+        PostCommandToPlugin("AdmobPlugin","loadRewardedAd");
     }
 }
 
@@ -336,7 +376,7 @@ void MasterControl::ShowRewardedVideo() {
     {
         isVideoAdLoaded = false;
         auto F = MakeShared<JSONFile>(context_);
-        if (context_->PostCommandToPlugin("AdmobPlugin","showRewardedVideo", *F) == false)
+        if (PostCommandToPlugin("AdmobPlugin","showRewardedVideo") == false)
         {
             GLOBAL->neededGameState_ = GS_INTRO;
         }

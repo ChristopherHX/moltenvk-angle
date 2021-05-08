@@ -26,6 +26,7 @@
 #include "../Core/ProcessUtils.h"
 #include "../Core/Thread.h"
 #include "../IO/Log.h"
+#include "../Resource/JSONFile.h"
 
 #include "../DebugNew.h"
 
@@ -538,5 +539,16 @@ StringHashRegister& GetEventNameRegister()
     static StringHashRegister eventNameRegister(false /*non thread safe*/);
     return eventNameRegister;
 }
+
+bool Object::PostCommandToPlugin(const String& clazz, const String& method)
+{
+    return context_->PostCommandToPlugin( clazz, method);
+}
+
+bool Object::PostCommandToPlugin(const String& clazz, const String& method, JSONFile& data)
+{
+    return context_->PostCommandToPlugin( clazz, method,data);
+}
+
 
 }

@@ -40,14 +40,12 @@ public:
     /// Destruct.
     ~AdmobPlugin() override;
     
-    bool PostCommand(const String& method, JSONFile& data) override;
-    
-    void sendEvent(String event);
-
-private :
 #if defined(IOS)
-    bool PostIOSCommand(const String& method, JSONFile& data);
-    void * ios_admob_plugin;
+    bool PostCommandToIOS(const String& method,JSONFile& data)override ;
 #endif
+#ifdef __ANDROID__
+    bool PostCommandToAndroid(const String& method,JSONFile& data)override ;
+#endif
+    
 };
 

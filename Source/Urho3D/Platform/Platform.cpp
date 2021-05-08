@@ -49,6 +49,7 @@ namespace Urho3D
 
 int SDL_PLATFORM_EVENT = 0;
 
+
 static Context* _context = NULL;
 
     // While there is an implementation only for Android, for other platforms while a noop
@@ -92,8 +93,8 @@ URHO3D_API void OnPlatformEvent(String strData)
 
 URHO3D_API void InitializePlatform(Context* context) {
 
-     _context = context;
-     SDL_PLATFORM_EVENT = SDL_RegisterEvents(1);
+    _context = context;
+    SDL_PLATFORM_EVENT = SDL_RegisterEvents(1);
 }
 
 }
