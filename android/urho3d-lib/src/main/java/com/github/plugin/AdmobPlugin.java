@@ -20,6 +20,8 @@ import org.json.JSONObject;
 import java.lang.reflect.*;
 import java.lang.reflect.Method;  
 import 	java.lang.Class;
+import java.util.Arrays;
+import java.util.List;
 
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
@@ -32,6 +34,7 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+import com.google.android.gms.ads.RequestConfiguration;
 
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -45,7 +48,7 @@ public class AdmobPlugin
 
     private static AdmobPlugin singelton = null;
 
-    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
+    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/9793981313";
 
     private RewardedAd rewardedAd;
     boolean isLoading;
@@ -69,6 +72,7 @@ public class AdmobPlugin
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
           });
+
     }
 
     public void loadRewardedAd() {
