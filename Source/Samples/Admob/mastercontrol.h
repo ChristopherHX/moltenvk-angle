@@ -19,7 +19,7 @@ public:
     void UpdateUIVisibility();
     void HandleUpdate(StringHash eventType, VariantMap& eventData);
     void HandlePostRenderUpdate(StringHash eventType, VariantMap& eventData);
-    void HandlePlatformMessage(StringHash eventType, VariantMap& eventData);
+    // void HandlePlatformMessage(StringHash eventType, VariantMap& eventData);
     void HandlePluginMessage(StringHash eventType, VariantMap& eventData);
     void ShowRewardedVideo();
     void LoadRewardedVideo();

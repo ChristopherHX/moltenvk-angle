@@ -1,6 +1,5 @@
-
 //
-// Copyright (c) 2008-2021 the Urho3D project.
+// Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,52 +20,31 @@
 // THE SOFTWARE.
 //
 
-#pragma once
 
-#include "../Core/Object.h"
-#include "../Resource/JSONFile.h"
+#include <Urho3D/Urho3D.h>
+#include "../Urho3DAll.h"
 
-namespace Urho3D
+using namespace Urho3D;
+
+
+
+class AdmobPlugin : public Plugin
 {
-
-class Context;
-
-// Notify posted from plugin
-URHO3D_EVENT(E_PLUGIN_NOTIFY, PluginNotify)
-{
-    URHO3D_PARAM(P_DATA, Data); // String
-}
-
-class URHO3D_API Plugin : public Object
-{
-    URHO3D_OBJECT(Plugin, Object);
+    URHO3D_OBJECT(AdmobPlugin, Plugin);
 
 public:
 
        /// Construct.
-    explicit Plugin(Context* context);
+    explicit AdmobPlugin(Context* context);
     /// Destruct.
-    ~Plugin() override;
+    ~AdmobPlugin() override;
     
-    bool PostCommand(const String& method, JSONFile& data);
-    
-    virtual bool PostCommandToIOS(const String& method,JSONFile& data){return false;}
-    virtual bool PostCommandToAndroid(const String& method,JSONFile& data){return false;}
-    virtual bool HandleCommand(const String& method,JSONFile& data){return false;}
-    
-    void sendEvent(String evt);
-
-    static void OnPluginEvent(String strData);
-    
-    static int SDL_PLUGIN_EVENT;
- 
 #if defined(IOS)
-    void * ios_plugin_handle;
+    bool PostCommandToIOS(const String& method,JSONFile& data)override ;
 #endif
-private:
-   
-    void OnPluginEvent(JSONFile & jsonData);
+#ifdef __ANDROID__
+    bool PostCommandToAndroid(const String& method,JSONFile& data)override ;
+#endif
     
 };
 
-}

@@ -55,9 +55,26 @@ public class AdmobPlugin
 
     private  UrhoActivity urhoActivity;
 
+    public static native void OnNativePluginEvent(String json);
+
     public static AdmobPlugin GetSingelton()
     {
         return singelton;
+    }
+
+    private void OnPluginEvent(String source , String event, JSONObject params) {
+        try {
+            params.put("source", source);
+            params.put("event", event);
+            OnNativePluginEvent(params.toString());
+        } catch (JSONException e) 
+        {
+            Log.e(TAG, "JSONException " + e);
+        }
+    }
+
+    private void OnPluginEvent(String source, String event) {
+        OnPluginEvent(source, event, new JSONObject());
     }
 
     public AdmobPlugin()
@@ -92,7 +109,7 @@ public class AdmobPlugin
                   AdmobPlugin.this.isLoading = false;
                   Toast.makeText(urhoActivity, "onAdFailedToLoad", Toast.LENGTH_SHORT).show();
 
-                  urhoActivity.notifyPlatform("AdmobPlugin", "onAdFailedToLoad");
+                  OnPluginEvent("AdmobPlugin", "onAdFailedToLoad");
                 }
     
                 @Override
@@ -102,7 +119,7 @@ public class AdmobPlugin
                   AdmobPlugin.this.isLoading = false;
                   Toast.makeText(urhoActivity, "onAdLoaded", Toast.LENGTH_SHORT).show();
 
-                  urhoActivity.notifyPlatform("AdmobPlugin", "onAdLoaded");
+                  OnPluginEvent("AdmobPlugin", "onAdLoaded");
                 }
               });
         }
@@ -125,7 +142,7 @@ public class AdmobPlugin
                 Toast.makeText(urhoActivity, "onAdShowedFullScreenContent", Toast.LENGTH_SHORT)
                     .show();
 
-                    urhoActivity.notifyPlatform("AdmobPlugin", "onAdShowedFullScreenContent");
+                    OnPluginEvent("AdmobPlugin", "onAdShowedFullScreenContent");
               }
     
               @Override
@@ -139,7 +156,7 @@ public class AdmobPlugin
                         urhoActivity, "onAdFailedToShowFullScreenContent", Toast.LENGTH_SHORT)
                     .show();
 
-                    urhoActivity.notifyPlatform("AdmobPlugin", "onAdFailedToShowFullScreenContent");
+                    OnPluginEvent("AdmobPlugin", "onAdFailedToShowFullScreenContent");
               }
     
               @Override
@@ -152,7 +169,7 @@ public class AdmobPlugin
                 Toast.makeText(urhoActivity, "onAdDismissedFullScreenContent", Toast.LENGTH_SHORT)
                     .show();
                 
-                    urhoActivity.notifyPlatform("AdmobPlugin", "onAdDismissedFullScreenContent");
+                    OnPluginEvent("AdmobPlugin", "onAdDismissedFullScreenContent");
 
               }
             });
@@ -171,7 +188,7 @@ public class AdmobPlugin
                 JSONObject params = new JSONObject();
                 params.put("rewardType", rewardType);
                 params.put("rewardAmount", rewardAmount);
-                urhoActivity.notifyPlatform("AdmobPlugin" , "onUserEarnedReward", params);
+                OnPluginEvent("AdmobPlugin" , "onUserEarnedReward", params);
                 }
                 catch (JSONException e) 
                 {

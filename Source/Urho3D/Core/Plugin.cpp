@@ -68,6 +68,19 @@ void Plugin::OnPluginEvent(JSONFile & jsonData)
     SDL_PushEvent(&event);
 }
 
+void Plugin::OnPluginEvent(String strData)
+{
+    VariantMap* pArgs = new VariantMap;
+    (*pArgs)[PluginNotify::P_DATA] = strData;
+    SDL_Event event;
+    SDL_zero(event);
+    event.type = SDL_PLUGIN_EVENT;
+    event.user.data2 = pArgs;
+    event.user.code = E_PLUGIN_NOTIFY.Value();
+    SDL_PushEvent(&event);
+}
+
+
 bool Plugin::PostCommand(const String& method, JSONFile& data)
 {
 #ifdef __ANDROID__

@@ -25,13 +25,14 @@ set (ADMOB_LIBS
 set (LIBS  ${LIBS}  ${ADMOB_LIBS})
 link_directories(. ${ADMOB_LIBPATH})
 )
+file (GLOB EXTRA_ADMOB_PLUGIN_MM_FILES AdmobPlugin/*.mm)
+endif()
+endif()
 
-file (GLOB EXTRA_MM_FILES *.mm)
-endif()
-endif()
+file (GLOB ADMOB_PLUGIN_FILES AdmobPlugin/*.cpp)
 
 # Define source files
-define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES} ${EXTRA_MM_FILES})
+define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES} ${ADMOB_PLUGIN_FILES} ${EXTRA_ADMOB_PLUGIN_MM_FILES})
 
 # Setup target with resource copying
 setup_main_executable ()
