@@ -1,5 +1,5 @@
 #import <GoogleMobileAds/GoogleMobileAds.h>
-#include "Urho3DAll.h"
+#include "../Urho3DAll.h"
 #include <SDL/SDL.h>
 #include <SDL/SDL_events.h>
 #include <SDL/SDL_video.h>
