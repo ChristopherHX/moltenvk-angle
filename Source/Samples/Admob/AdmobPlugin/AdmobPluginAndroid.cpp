@@ -37,7 +37,7 @@ extern "C"
 {
     JNIEnv* Android_JNI_GetEnv(void);
 
-    JNIEXPORT void Java_com_github_plugin_AdmobPlugin_OnNativePluginEvent(JNIEnv* env, jclass cls, jstring json)
+    JNIEXPORT void Java_com_urho3d_plugin_AdmobPlugin_OnNativePluginEvent(JNIEnv* env, jclass cls, jstring json)
     {
         const char* str = env->GetStringUTFChars(json, 0);
         String strData(str);

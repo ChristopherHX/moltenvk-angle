@@ -23,7 +23,7 @@
 package com.github.urho3d.launcher
 
 import com.github.urho3d.UrhoActivity
-import com.github.plugin.AdmobPlugin;
+import com.urho3d.plugin.AdmobPlugin;
 
 class MainActivity : UrhoActivity() {
 

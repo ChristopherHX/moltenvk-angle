@@ -1,5 +1,5 @@
 
-package com.github.plugin;
+package com.urho3d.plugin;
 
 import android.content.Context;
 import org.libsdl.app.SDLActivity;

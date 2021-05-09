@@ -159,7 +159,7 @@ public class UrhoActivity extends SDLActivity {
             }
             else
             {
-                cls = Class.forName("com.github.plugin."+className);
+                cls = Class.forName("com.urho3d.plugin."+className);
             }
         }
         catch (Exception e) 
