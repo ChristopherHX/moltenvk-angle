@@ -41,6 +41,8 @@
 
 @property AdmobPlugin * admobPlugin;
 
+@property Context * context;
+
 @end
 
 @implementation AdmobPluginIOS
@@ -79,6 +81,13 @@
                                 stringWithFormat:@"Reward received with currency %@ , amount %lf",
                                                  reward.type, [reward.amount doubleValue]];
                             NSLog(@"%@", rewardMessage);
+        
+                            auto jsonBuilder = (MakeShared<JsonBuilder>(self.context));
+                            (*jsonBuilder)("source",self.admobPlugin->GetTypeName())
+                                          ("event","onUserEarnedReward")
+                                          ("rewardType", reward.type.UTF8String)
+                                          ("rewardAmount", (int)[reward.amount doubleValue]);
+                            self.admobPlugin->OnPluginEvent(jsonBuilder->F());
                           }];
   }
 }
@@ -100,7 +109,6 @@
 
 /// Tells the delegate that the rewarded ad was dismissed.
 - (void)adDidDismissFullScreenContent:(id)ad {
-  [self loadRewardedAd];
   NSLog(@"Rewarded ad dismissed.");
   self.admobPlugin->sendEvent("onAdDismissedFullScreenContent");
 }
@@ -129,6 +137,7 @@ void * IOS_AdmobInit(Context * context,AdmobPlugin * plugin)
     [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
     
     admobIOSPlugin.admobPlugin = plugin;
+    admobIOSPlugin.context = context;
     
     return (__bridge void *)admobIOSPlugin;
 }

@@ -345,7 +345,6 @@ void MasterControl::ShowRewardedVideo()
     if (isVideoAdLoaded)
     {
         isVideoAdLoaded = false;
-        auto F = MakeShared<JSONFile>(context_);
         if (PostCommandToPlugin("AdmobPlugin", "showRewardedVideo") == false)
         {
             GLOBAL->neededGameState_ = GS_INTRO;

@@ -58,15 +58,14 @@ public:
 
     static void OnPluginEvent(String strData);
     
+    void OnPluginEvent(JSONFile & jsonData);
+    
     static int SDL_PLUGIN_EVENT;
  
 #if defined(IOS)
     void * ios_plugin_handle;
 #endif
-private:
-   
-    void OnPluginEvent(JSONFile & jsonData);
-    
+
 };
 
 }
