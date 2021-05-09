@@ -315,6 +315,14 @@ void MasterControl::HandlePluginMessage(StringHash eventType, VariantMap& eventD
         GetSubsystem<Audio>()->SetMasterGain(SOUND_MUSIC, 0.33f);
         LoadRewardedVideo();
     }
+    else if (event == "onUserEarnedReward")
+    {
+        String rewardType = root["rewardType"].GetCString();
+        int rewardAmount = root["rewardAmount"].GetInt();
+
+        URHO3D_LOGINFO("Eli onUserEarnedReward rewardType:" + rewardType + " rewardAmount:" + String(rewardAmount));
+
+    }
 }
 
 // void MasterControl::HandlePlatformMessage(StringHash eventType, VariantMap& eventData)
