@@ -45,7 +45,7 @@ class MainActivity : UrhoActivity() {
         else throw IllegalArgumentException("The MainActivity requires an argument to start")
 
         // Must add the chosen sample library to the last of the list
-        libraryNames.add(arguments[0])
+       libraryNames.add("Admob")
 
         super.onLoadLibrary(libraryNames)
     }
