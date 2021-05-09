@@ -1,4 +1,4 @@
-//
+// Copyright (c) 2020-2021 Eli Aloni (A.K.A elix22).
 // Copyright (c) 2008-2021 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,9 +29,9 @@
 #include <SDL/SDL_events.h>
 #include <jni.h>
 #include "../Core/Plugin.h"
+#include "AdmobPlugin.h"
 
-namespace Urho3D
-{
+using namespace Urho3D;
 
 extern "C"
 {
@@ -49,7 +49,45 @@ extern "C"
     }
 }
 
+extern "C" __attribute__((visibility("default"))) 
+bool PostCommandToAndroidAdmobJava(const JSONFile& data)
+{
+    JNIEnv* mEnv = Android_JNI_GetEnv();
+    if (!mEnv)
+    {
+        URHO3D_LOGERROR("No mEnv in PostCommandToAndroidAdmob");
+        return false;
+    }
+    static jclass mainClass = mEnv->FindClass("com/urho3d/plugin/AdmobPlugin");
+    if (!mainClass)
+    {
+        URHO3D_LOGERROR("No mainClass in PostCommandToAndroidAdmob");
+        return false;
+    }
+    static jmethodID postCommand = mEnv->GetStaticMethodID(mainClass, "postCommand", "(Ljava/lang/String;)V");
+    if (!postCommand)
+    {
+        URHO3D_LOGERROR("No postCommand in PostCommandToAndroidAdmob");
+        return false;
+    }
+    jstring jparam = (jstring)mEnv->NewStringUTF(data.ToString(String()).CString());
+    if (!jparam)
+    {
+        URHO3D_LOGERROR("No jparam in PostCommandToAndroidAdmob");
+        return false;
+    }
+    mEnv->CallStaticVoidMethod(mainClass, postCommand, jparam);
+    mEnv->DeleteLocalRef(jparam);
 
-} // namespace Urho3D
+    return true;
+}
+
+bool AdmobPlugin::PostCommandToAndroid(const String& method,JSONFile& data)
+{
+    bool res = false;
+    data.GetRoot()["method"] = method;
+    res = PostCommandToAndroidAdmobJava(data);
+    return res;
+}
 
 #endif // __ANDROID__

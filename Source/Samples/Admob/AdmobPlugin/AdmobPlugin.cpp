@@ -1,4 +1,4 @@
-//
+// Copyright (c) 2020-2021 Eli Aloni (A.K.A elix22).
 // Copyright (c) 2008-2020 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -38,18 +38,6 @@ AdmobPlugin::~AdmobPlugin()
 {
 
 }
-
-#ifdef __ANDROID__
-bool AdmobPlugin::PostCommandToAndroid(const String& method,JSONFile& data)
-{
-    bool res = false;
-
-    data.GetRoot()["class"] = this->GetTypeName();
-    data.GetRoot()["method"] = method;
-    res = PostCommandToAndroidPlatform(data);
-    return res;
-}
-#endif
 
 
 void RegisterAdmobPlugin(Context * context)

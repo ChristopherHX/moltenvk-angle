@@ -1,3 +1,25 @@
+// Copyright (c) 2020-2021 Eli Aloni (A.K.A elix22).
+// Copyright (c) 2008-2021 the Urho3D project.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+//
+
 
 package com.urho3d.plugin;
 
@@ -61,6 +83,50 @@ public class AdmobPlugin
     {
         return singelton;
     }
+
+    protected  class AdmobPluginHandler extends Handler 
+    {
+      public void handleMessage(Message msg) {
+          processCommand((String)msg.obj);
+      }
+    }
+
+    Handler admobPluginHandler = new AdmobPluginHandler();
+
+    static void postCommand(String data) 
+    {
+      AdmobPlugin admobPlugin = (AdmobPlugin)(AdmobPlugin.GetSingelton());
+      Message msg = admobPlugin.admobPluginHandler.obtainMessage();
+      msg.obj = data;
+      admobPlugin.admobPluginHandler.sendMessage(msg);
+    }
+
+    private void processCommand(String data) 
+    {
+      try 
+      {
+          JSONObject js = new JSONObject(data);
+          String methodName = js.getString("method");
+
+          Method  method = AdmobPlugin.class.getDeclaredMethod(methodName,  JSONObject.class) ;
+          if(method != null)
+          {
+              method.setAccessible(true);
+              method.invoke(this, js);
+          }
+
+          
+      } catch (ClassCastException e) {
+          Log.e(TAG, "onUnhandledMessage ClassCastException", e);
+      } catch (JSONException e) {
+          Log.e(TAG, "onUnhandledMessage JSONException", e);
+      } catch (SecurityException e) {
+          Log.e(TAG, "onUnhandledMessage SecurityException", e);
+      } catch (Exception e) {
+          Log.e(TAG, "onUnhandledMessage Exception", e);
+      }
+    }
+
 
     private void OnPluginEvent(String source , String event, JSONObject params) {
         try {
