@@ -80,16 +80,21 @@ public class AdmobPlugin
     public AdmobPlugin()
     {
         singelton = this;
-        urhoActivity = UrhoActivity.GetSingelton();
 
-        isLoading = false;
 
-        MobileAds.initialize(urhoActivity, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-          });
+    }
 
+    public void Initialize()
+    {
+      urhoActivity = UrhoActivity.GetSingelton();
+
+      isLoading = false;
+
+      MobileAds.initialize(urhoActivity, new OnInitializationCompleteListener() {
+          @Override
+          public void onInitializationComplete(InitializationStatus initializationStatus) {
+          }
+        });
     }
 
     public void loadRewardedAd() {

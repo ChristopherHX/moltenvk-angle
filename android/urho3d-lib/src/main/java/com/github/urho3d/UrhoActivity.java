@@ -57,15 +57,11 @@ import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 
-import com.github.plugin.AdmobPlugin;
-
 
 public class UrhoActivity extends SDLActivity {
 
 
     private static final String TAG = "Urho3D";
-
-    AdmobPlugin admobPlugin = null;
 
     public static UrhoActivity GetSingelton()
     {
@@ -116,8 +112,13 @@ public class UrhoActivity extends SDLActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        LoadPlugins();
 
-        admobPlugin = new AdmobPlugin();
+    }
+
+    public void LoadPlugins()
+    {
+
     }
 
     public static ArrayList<String> getLibraryNames(Context context )

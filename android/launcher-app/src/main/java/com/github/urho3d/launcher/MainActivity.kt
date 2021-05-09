@@ -23,8 +23,11 @@
 package com.github.urho3d.launcher
 
 import com.github.urho3d.UrhoActivity
+import com.github.plugin.AdmobPlugin;
 
 class MainActivity : UrhoActivity() {
+
+    var  admobPlugin:AdmobPlugin? = null;
 
     companion object {
         const val argument = "argument"
@@ -35,6 +38,7 @@ class MainActivity : UrhoActivity() {
     override fun getArguments() = arguments.toTypedArray()
 
     override fun onLoadLibrary(libraryNames: MutableList<String>) {
+        
         // All runtime shared libraries must always be loaded if available
         val regex = Regex("^(?:Urho3D|.+_shared)\$")
         libraryNames.retainAll { regex.matches(it) }
@@ -48,6 +52,12 @@ class MainActivity : UrhoActivity() {
        libraryNames.add("Admob")
 
         super.onLoadLibrary(libraryNames)
+    }
+
+    override fun LoadPlugins()
+    {
+        admobPlugin = AdmobPlugin()
+        admobPlugin?.Initialize() 
     }
 
 }
