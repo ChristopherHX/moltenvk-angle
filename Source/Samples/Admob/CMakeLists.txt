@@ -17,15 +17,16 @@
 set (TARGET_NAME Admob)
 
 if(APPLE)
+
+# This little macro lets you set any XCode specific property
+macro (set_xcode_property TARGET XCODE_PROPERTY XCODE_VALUE)
+    set_property (TARGET ${TARGET} PROPERTY XCODE_ATTRIBUTE_${XCODE_PROPERTY} ${XCODE_VALUE})
+endmacro (set_xcode_property)
+
 if (IOS)
-set (ADMOB_LIBPATH  ../../Urho3D/ThirdParty/GoogleMobileAdsSdkiOS)
-set (ADMOB_LIBS
-    "-framework ../../Urho3D/ThirdParty/GoogleMobileAdsSdkiOS/GoogleMobileAds"
-    
-set (LIBS  ${LIBS}  ${ADMOB_LIBS})
-link_directories(. ${ADMOB_LIBPATH})
-)
 file (GLOB EXTRA_ADMOB_PLUGIN_MM_FILES AdmobPlugin/*.mm)
+set (INCLUDE_DIRS ${INCLUDE_DIRS} ../../ThirdParty/GoogleMobileAdsSdkiOS/GoogleMobileAds.xcframework/ios-arm64_armv7/GoogleMobileAds.framework/GMA)
+list (APPEND LIBS "-framework GoogleMobileAds")
 endif()
 endif()
 
@@ -36,6 +37,10 @@ define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES} ${ADMOB_PLUGIN_FILES
 
 # Setup target with resource copying
 setup_main_executable ()
+
+if (IOS)
+set_xcode_property(${TARGET_NAME} FRAMEWORK_SEARCH_PATHS "${CMAKE_CURRENT_SOURCE_DIR}/../../ThirdParty/GoogleMobileAdsSdkiOS/GoogleMobileAds.xcframework/ios-arm64_armv7")
+endif()
 
 # Setup test cases
 setup_test ()
