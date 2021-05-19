@@ -539,4 +539,14 @@ StringHashRegister& GetEventNameRegister()
     return eventNameRegister;
 }
 
+bool Object::PostCommandToPlugin(const String& clazz, const String& method)
+{
+    return context_->PostCommandToPlugin( clazz, method);
+}
+
+bool Object::PostCommandToPlugin(const String& clazz, const String& method, JSONFile& data)
+{
+    return context_->PostCommandToPlugin( clazz, method,data);
+}
+
 }
