@@ -479,4 +479,45 @@ void Context::EndSendEvent()
 #endif
 }
 
+void Context::RegisterPlugin(Plugin* plugin)
+{
+    if (!plugin)
+        return;
+
+    plugins_[plugin->GetType()] = plugin;
+}
+    /// Remove a subsystem.
+void Context::RemovePlugin(StringHash pluginType)
+{
+    HashMap<StringHash, SharedPtr<Plugin> >::Iterator i = plugins_.Find(pluginType);
+    if (i != plugins_.End())
+        plugins_.Erase(i);
+}
+        
+/// Return subsystem by type.
+Plugin* Context::GetPlugin(StringHash type) const
+{
+    HashMap<StringHash, SharedPtr<Plugin> >::ConstIterator i = plugins_.Find(type);
+    if (i != plugins_.End())
+        return i->second_;
+    else
+        return nullptr;
+}
+
+bool Context::PostCommandToPlugin(const String& clazz, const String& method)
+{
+    auto data = MakeShared<JSONFile>(this);
+    return PostCommandToPlugin( clazz, method,*data);
+}
+
+bool Context::PostCommandToPlugin(const String& clazz, const String& method, JSONFile& data)
+{
+    Plugin* plugin = GetPlugin(clazz);
+    if(plugin != NULL)
+    {
+        return plugin->PostCommand(method, data);
+    }
+    return false;
+}
+
 }

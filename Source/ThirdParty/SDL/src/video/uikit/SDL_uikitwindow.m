@@ -500,6 +500,12 @@ SDL_iPhoneSetAnimationCallback(SDL_Window * window, int interval, void (*callbac
     return 0;
 }
 
+UIViewController * SDL_GetUIKitViewController(SDL_Window *window)
+{
+    SDL_WindowData *data = (__bridge SDL_WindowData *) window->driverdata;
+    return data.viewcontroller ;
+}
+
 #endif /* SDL_VIDEO_DRIVER_UIKIT */
 
 /* vi: set ts=4 sw=4 expandtab: */
