@@ -202,13 +202,20 @@ public class AdmobPlugin
       }
     }
 
-    public void loadRewardedAd() {
+    public void loadRewardedAd(String adUnitId) {
         if (rewardedAd == null) {
           isLoading = true;
           AdRequest adRequest = new AdRequest.Builder().build();
+          if(adUnitId.equals(""))
+          {
+            adUnitId = AD_UNIT_ID;
+          }
+
+         // Log.d(TAG, "loadRewardedAd("+adUnitId+")");
+
           RewardedAd.load(
               urhoActivity,
-              AD_UNIT_ID,
+              adUnitId,
               adRequest,
               new RewardedAdLoadCallback() {
                 @Override
@@ -309,6 +316,16 @@ public class AdmobPlugin
             });
       }
 
+      void setTestDeviceIds(String testDeviceId)
+      {
+        Log.d(TAG, "setTestDeviceIds("+testDeviceId+")");
+
+        List<String> testDeviceIds = Arrays.asList(testDeviceId);
+        RequestConfiguration configuration =
+            new RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build();
+        MobileAds.setRequestConfiguration(configuration);
+      }
+
       void showRewardedVideo(JSONObject js)
       {
          showRewardedVideo();
@@ -316,6 +333,30 @@ public class AdmobPlugin
   
       void loadRewardedAd(JSONObject js)
       {
-          loadRewardedAd();
+
+        String adUnitId = "";
+        String testDeviceId = "";
+
+        try 
+        {
+            if(!js.isNull("adUnitId"))
+              adUnitId =  js.getString("adUnitId");
+
+            if(!js.isNull("testDeviceId"))
+              testDeviceId =  js.getString("testDeviceId");
+              
+        }
+        catch (Exception e) 
+        {
+            Log.e(TAG, "onUnhandledMessage Exception", e);
+        }
+
+
+        if(!testDeviceId.equals(""))
+        {
+          setTestDeviceIds(testDeviceId);
+        }
+
+        loadRewardedAd(adUnitId);
       }
 }
