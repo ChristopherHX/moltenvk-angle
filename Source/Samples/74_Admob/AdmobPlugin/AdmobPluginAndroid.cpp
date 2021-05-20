@@ -119,7 +119,6 @@ bool AdmobPlugin::PostCommandToAndroid(const String& method,JSONFile& data)
 
  bool AdmobPlugin::LoadAndroidPlugin()
  {
-     URHO3D_LOGERROR("Eli AdmobPlugin::LoadAndroidPlugin");
      return LoadPluginJava();
  }
 

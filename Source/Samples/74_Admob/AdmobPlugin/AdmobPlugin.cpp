@@ -33,7 +33,6 @@ AdmobPlugin::AdmobPlugin(Context* context) :
     ios_plugin_handle = IOS_AdmobInit(context,this);
 #endif
 #ifdef __ANDROID__
-    URHO3D_LOGERROR("Eli LoadAndroidPlugin");
     LoadAndroidPlugin();
 #endif
 }
