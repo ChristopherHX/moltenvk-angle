@@ -544,6 +544,11 @@ bool Object::PostCommandToPlugin(const String& clazz, const String& method)
     return context_->PostCommandToPlugin( clazz, method);
 }
 
+bool Object::PostCommandToPlugin(const String& clazz, const String& method, SharedPtr<JsonBuilder> jsonBuilder)
+{
+    return context_->PostCommandToPlugin( clazz, method,jsonBuilder->data());
+}
+
 bool Object::PostCommandToPlugin(const String& clazz, const String& method, JSONFile& data)
 {
     return context_->PostCommandToPlugin( clazz, method,data);

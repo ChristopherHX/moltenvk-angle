@@ -334,7 +334,7 @@ void MasterControl::LoadRewardedVideo()
                 https://developers.google.com/admob/android/test-ads
                 https://developers.google.com/admob/ios/test-ads
         */
-        PostCommandToPlugin("AdmobPlugin", "loadRewardedAd", jsonBuilder->data());
+        PostCommandToPlugin("AdmobPlugin", "loadRewardedAd", jsonBuilder);
     }
 }
 
