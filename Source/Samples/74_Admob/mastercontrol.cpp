@@ -279,7 +279,7 @@ void MasterControl::HandlePluginMessage(StringHash eventType, VariantMap& eventD
     String source = root["source"].GetCString();
     String event = root["event"].GetCString();
 
-    URHO3D_LOGINFO("Eli HandlePluginMessage source:" + source + " event:" + event);
+    URHO3D_LOGINFO("HandlePluginMessage source:" + source + " event:" + event);
     if (event == "onAdLoaded")
     {
         isVideoAdLoaded = true;
@@ -312,7 +312,7 @@ void MasterControl::HandlePluginMessage(StringHash eventType, VariantMap& eventD
         String rewardType = root["rewardType"].GetCString();
         int rewardAmount = root["rewardAmount"].GetInt();
 
-        URHO3D_LOGINFO("Eli onUserEarnedReward rewardType:" + rewardType + " rewardAmount:" + String(rewardAmount));
+        URHO3D_LOGINFO("onUserEarnedReward rewardType:" + rewardType + " rewardAmount:" + String(rewardAmount));
 
     }
 }
@@ -323,7 +323,18 @@ void MasterControl::LoadRewardedVideo()
 
     if (isVideoAdLoaded == false)
     {
-        PostCommandToPlugin("AdmobPlugin", "loadRewardedAd");
+        // using test adUnitId
+        auto jsonBuilder = (MakeShared<JsonBuilder>(context_));
+        (*jsonBuilder)("adUnitId", "ca-app-pub-3940256099942544/1712485313");
+        
+        /*
+                test device can be also configured
+                (*jsonBuilder)("adUnitId", "ca-app-pub-3940256099942544/9793981313")("testDeviceId","2077ef9a63d2b398840261c8221a0c9b");
+                More information on TestDeviceId
+                https://developers.google.com/admob/android/test-ads
+                https://developers.google.com/admob/ios/test-ads
+        */
+        PostCommandToPlugin("AdmobPlugin", "loadRewardedAd", jsonBuilder->data());
     }
 }
 

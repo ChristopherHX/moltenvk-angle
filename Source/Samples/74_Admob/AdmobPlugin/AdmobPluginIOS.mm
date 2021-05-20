@@ -71,6 +71,24 @@
       }];
 }
 
+- (void)loadRewardedAd:(nonnull NSString *)adUnitID {
+  GADRequest *request = [GADRequest request];
+  [GADRewardedAd
+       loadWithAdUnitID:adUnitID
+                request:request
+      completionHandler:^(GADRewardedAd *ad, NSError *error) {
+        if (error) {
+          NSLog(@"Rewarded ad failed to load with error: %@", [error localizedDescription]);
+          self.admobPlugin->sendEvent("onAdFailedToLoad");
+          return;
+        }
+        self.rewardedAd = ad;
+        NSLog(@"Rewarded ad loaded.");
+        self.rewardedAd.fullScreenContentDelegate = self;
+        self.admobPlugin->sendEvent("onAdLoaded");
+      }];
+}
+
 - (void)showVideo {
   if (self.rewardedAd && [self.rewardedAd canPresentFromRootViewController:self.viewController error:nil]) {
     [self.rewardedAd presentFromRootViewController:self.viewController
@@ -150,7 +168,25 @@ bool AdmobPlugin::PostCommandToIOS(const String& method, JSONFile& data)
     {
         if(method == "loadRewardedAd")
         {
-            [admobIOSPlugin loadRewardedAd];
+            String testDeviceId = data.GetRoot()["testDeviceId"].GetString();
+            
+            if(testDeviceId != "")
+            {
+                NSString  * testDeviceIdNSString = [NSString stringWithUTF8String:testDeviceId.CString()] ;
+                GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers =@[ testDeviceIdNSString  ];
+            }
+            
+            String adUnitIdString = data.GetRoot()["adUnitId"].GetString();
+            
+            if(adUnitIdString != "")
+            {
+                NSString  * adUnitIdNSString = [NSString stringWithUTF8String:adUnitIdString.CString()] ;
+                [admobIOSPlugin loadRewardedAd:adUnitIdNSString];
+            }
+            else
+            {
+                [admobIOSPlugin loadRewardedAd];
+            }
             res = true;
         }
         else  if(method == "showRewardedVideo")

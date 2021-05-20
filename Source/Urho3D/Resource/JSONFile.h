@@ -76,7 +76,11 @@ public:
 
     JSONFile & F() {
         return *f;
-    }   
+    }
+    
+    JSONFile & data() {
+        return *f;
+    }
 
     JsonBuilder(Context* context)
         : Object(context)
