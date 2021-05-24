@@ -65,4 +65,78 @@ private:
     JSONValue root_;
 };
 
+
+
+class URHO3D_API JsonBuilder : public Object
+{
+    URHO3D_OBJECT(JsonBuilder, Object);
+
+public:
+    JSONFile *f;
+
+    JSONFile & F() {
+        return *f;
+    }
+    
+    JSONFile & data() {
+        return *f;
+    }
+
+    JsonBuilder(Context* context)
+        : Object(context)
+    {
+        f = new JSONFile(context);
+    }
+
+    ~JsonBuilder() 
+    {
+        delete f;
+    }
+
+    JsonBuilder& operator()(const String& key, int v)
+    {
+        f->GetRoot()[key] = v;
+        return *this;
+    }
+
+    JsonBuilder& operator()(const String& key, const String& v)
+    {
+        f->GetRoot()[key] = v;
+        return *this;
+    }
+
+    JsonBuilder& operator()(const String& key, const char * v)
+    {
+        f->GetRoot()[key] = v;
+        return *this;
+    }
+
+  
+    JsonBuilder& operator()(const String& key, bool v)
+    {
+         f->GetRoot()[key] = v;
+        return *this;
+    }
+
+    JsonBuilder& operator()(const String& key, StringVector & v)
+    {
+        JSONValue & root = f->GetRoot();
+        JSONValue var;
+        if (v.Size() == 0)
+        {
+            var.Push(JSONValue());
+            var.Pop();
+        }
+        else
+        {
+            for (unsigned int k = 0; k < v.Size(); k++)
+                var.Push(JSONValue(v[k]));
+        }
+        root[key] = var;
+        return * this;
+    }
+    
+
+};
+
 }

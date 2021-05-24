@@ -2425,7 +2425,26 @@ void Input::HandleSDLEvent(void* sdlEvent)
         SendEvent(E_EXITREQUESTED);
         break;
 
-    default: break;
+    default:
+        if (evt.type == Plugin::SDL_PLUGIN_EVENT)
+        {
+            if (evt.user.code)
+            {
+                Object* sender = reinterpret_cast<Object*>(evt.user.data1);
+                if (!sender)
+                    sender = this;
+                VariantMap* pMap = reinterpret_cast<VariantMap*>(evt.user.data2);
+                StringHash eventType((unsigned)evt.user.code);
+                if (!pMap)
+                    sender->SendEvent(eventType);
+                else
+                {
+                    sender->SendEvent(eventType, *pMap);
+                    delete pMap;
+                }
+            }
+        }
+        break;
     }
 }
 

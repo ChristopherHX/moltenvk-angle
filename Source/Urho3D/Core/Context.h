@@ -25,6 +25,7 @@
 #include "../Container/HashSet.h"
 #include "../Core/Attribute.h"
 #include "../Core/Object.h"
+#include "../Core/Plugin.h"
 
 namespace Urho3D
 {
@@ -203,6 +204,20 @@ public:
         return i != eventReceivers_.End() ? i->second_ : nullptr;
     }
 
+    /// Return all plugins.
+    const HashMap<StringHash, SharedPtr<Plugin> >& GetPlugins() const { return plugins_; }
+    /// Template version of registering subsystem.
+    template <class T> T* RegisterPlugin();
+        /// Register a subsystem.
+    void RegisterPlugin(Plugin* plugin);
+    /// Remove a subsystem.
+    void RemovePlugin(StringHash pluginType);
+        /// Return subsystem by type.
+    Plugin* GetPlugin(StringHash type) const;
+    
+    bool PostCommandToPlugin(const String& clazz, const String& method);
+    bool PostCommandToPlugin(const String& clazz, const String& method, JSONFile& data);
+
 private:
     /// Add event receiver.
     void AddEventReceiver(Object* receiver, StringHash eventType);
@@ -244,6 +259,8 @@ private:
     HashMap<String, Vector<StringHash> > objectCategories_;
     /// Variant map for global variables that can persist throughout application execution.
     VariantMap globalVars_;
+    /// Plugins.
+    HashMap<StringHash, SharedPtr<Plugin> > plugins_;
 };
 
 template <class T> void Context::RegisterFactory() { RegisterFactory(new ObjectFactoryImpl<T>(this)); }
@@ -277,6 +294,13 @@ template <class T> AttributeInfo* Context::GetAttribute(const char* name) { retu
 template <class T> void Context::UpdateAttributeDefaultValue(const char* name, const Variant& defaultValue)
 {
     UpdateAttributeDefaultValue(T::GetTypeStatic(), name, defaultValue);
+}
+
+template <class T> T* Context::RegisterPlugin()
+{
+    auto* plugin = new T(this);
+    RegisterPlugin(plugin);
+    return plugin;
 }
 
 }

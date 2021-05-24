@@ -32,6 +32,12 @@ open class UrhoActivity : SDLActivity() {
         private val regex = Regex("^lib(.*)\\.so$")
 
         @JvmStatic
+        fun GetSingelton() : UrhoActivity
+        {
+            return SDLActivity.mSingleton as UrhoActivity
+        }
+
+        @JvmStatic
         fun getLibraryNames(context: Context) = File(context.applicationInfo.nativeLibraryDir)
                     .listFiles { _, it -> regex.matches(it) }!!
                     .sortedBy { it.lastModified() }
