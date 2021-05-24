@@ -212,6 +212,14 @@ namespace Urho {
 } /* namespace */
 
 namespace Urho {
+        public partial struct PluginNotifyEventArgs {
+            public EventDataContainer EventData;
+            public String Data => EventData.get_String (unchecked((int)2349297546) /* Data (P_DATA) */);
+        } /* struct PluginNotifyEventArgs */
+
+} /* namespace */
+
+namespace Urho {
         public partial struct WorkItemCompletedEventArgs {
             public EventDataContainer EventData;
             public WorkItem Item => EventData.get_WorkItem (unchecked((int)2113250867) /* Item (P_ITEM) */);

@@ -493,6 +493,15 @@ namespace Urho
 			return UrhoObject_GetBlockEvents (handle);
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool UrhoObject_PostCommandToPlugin (IntPtr handle, string clazz, string method);
+
+		public bool PostCommandToPlugin (string clazz, string method)
+		{
+			Runtime.ValidateRefCounted (this);
+			return UrhoObject_PostCommandToPlugin (handle, clazz, method);
+		}
+
 		/// <summary>
 		/// Return type hash.
 		/// 

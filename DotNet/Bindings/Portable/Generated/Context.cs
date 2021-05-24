@@ -381,6 +381,51 @@ namespace Urho
 			return Runtime.LookupRefCounted<EventReceiverGroup> (Context_GetEventReceivers0 (handle, eventType.Code));
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Context_RegisterPlugin (IntPtr handle, IntPtr plugin);
+
+		/// <summary>
+		/// Register a subsystem.
+		/// </summary>
+		public void RegisterPlugin (Plugin plugin)
+		{
+			Runtime.ValidateRefCounted (this);
+			Context_RegisterPlugin (handle, (object)plugin == null ? IntPtr.Zero : plugin.Handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Context_RemovePlugin (IntPtr handle, int pluginType);
+
+		/// <summary>
+		/// Remove a subsystem.
+		/// </summary>
+		public void RemovePlugin (StringHash pluginType)
+		{
+			Runtime.ValidateRefCounted (this);
+			Context_RemovePlugin (handle, pluginType.Code);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern IntPtr Context_GetPlugin (IntPtr handle, int type);
+
+		/// <summary>
+		/// Return subsystem by type.
+		/// </summary>
+		public Plugin GetPlugin (StringHash type)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Runtime.LookupObject<Plugin> (Context_GetPlugin (handle, type.Code));
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Context_PostCommandToPlugin (IntPtr handle, string clazz, string method);
+
+		public bool PostCommandToPlugin (string clazz, string method)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Context_PostCommandToPlugin (handle, clazz, method);
+		}
+
 		/// <summary>
 		/// Return active event sender. Null outside event handling.
 		/// </summary>

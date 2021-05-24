@@ -39,6 +39,8 @@
 namespace Urho3D
 {
 
+HashMap<StringHash, SharedPtr<Plugin> > Context::plugins_;
+
 #ifndef MINI_URHO
 // Keeps track of how many times SDL was initialised so we know when to call SDL_Quit().
 static int sdlInitCounter = 0;
@@ -149,6 +151,8 @@ Context::~Context()
     for (PODVector<VariantMap*>::Iterator i = eventDataMaps_.Begin(); i != eventDataMaps_.End(); ++i)
         delete *i;
     eventDataMaps_.Clear();
+
+    plugins_.Clear();
 }
 
 SharedPtr<Object> Context::CreateObject(StringHash objectType)

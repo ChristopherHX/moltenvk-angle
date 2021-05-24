@@ -772,6 +772,13 @@ UrhoObject_GetBlockEvents (Urho3D::Object *_target)
 }
 
 
+DllExport int
+UrhoObject_PostCommandToPlugin (Urho3D::Object *_target, const char * clazz, const char * method)
+{
+	return _target->PostCommandToPlugin (Urho3D::String(clazz), Urho3D::String(method));
+}
+
+
 DllExport Urho3D::Object *
 ObjectFactory_CreateObject (Urho3D::ObjectFactory *_target)
 {
@@ -4036,6 +4043,195 @@ SoundSource3D_RollAngleoffFactor (Urho3D::SoundSource3D *_target)
 }
 
 
+DllExport int
+JsonFile_GetType (Urho3D::JSONFile *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+JsonFile_GetTypeName (Urho3D::JSONFile *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+JsonFile_GetTypeStatic ()
+{
+	return (JSONFile::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+JsonFile_GetTypeNameStatic ()
+{
+	return stringdup((JSONFile::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void *
+JsonFile_JSONFile (Urho3D::Context * context)
+{
+	return WeakPtr<JSONFile>(new JSONFile(context));
+}
+
+
+DllExport void
+JsonFile_RegisterObject (Urho3D::Context * context)
+{
+	JSONFile::RegisterObject (context);
+}
+
+
+DllExport int
+JsonFile_BeginLoad_File (Urho3D::JSONFile *_target, File * source)
+{
+	return _target->BeginLoad (*source);
+}
+
+
+DllExport int
+JsonFile_BeginLoad_MemoryBuffer (Urho3D::JSONFile *_target, MemoryBuffer * source)
+{
+	return _target->BeginLoad (*source);
+}
+
+
+DllExport int
+JsonFile_Save_File (Urho3D::JSONFile *_target, File * dest)
+{
+	return _target->Save (*dest);
+}
+
+
+DllExport int
+JsonFile_Save_MemoryBuffer (Urho3D::JSONFile *_target, MemoryBuffer * dest)
+{
+	return _target->Save (*dest);
+}
+
+
+DllExport int
+JsonFile_Save0_File (Urho3D::JSONFile *_target, File * dest, const char * indendation)
+{
+	return _target->Save (*dest, Urho3D::String(indendation));
+}
+
+
+DllExport int
+JsonFile_Save0_MemoryBuffer (Urho3D::JSONFile *_target, MemoryBuffer * dest, const char * indendation)
+{
+	return _target->Save (*dest, Urho3D::String(indendation));
+}
+
+
+DllExport int
+JsonFile_FromString (Urho3D::JSONFile *_target, const char * source)
+{
+	return _target->FromString (Urho3D::String(source));
+}
+
+
+DllExport const char *
+JsonFile_ToString (Urho3D::JSONFile *_target, const char * indendation)
+{
+	return stringdup((_target->ToString (Urho3D::String(indendation))).CString ());
+}
+
+
+DllExport int
+JsonBuilder_GetType (Urho3D::JsonBuilder *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+JsonBuilder_GetTypeName (Urho3D::JsonBuilder *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+JsonBuilder_GetTypeStatic ()
+{
+	return (JsonBuilder::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+JsonBuilder_GetTypeNameStatic ()
+{
+	return stringdup((JsonBuilder::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void *
+JsonBuilder_JsonBuilder (Urho3D::Context * context)
+{
+	return WeakPtr<JsonBuilder>(new JsonBuilder(context));
+}
+
+
+DllExport int
+Plugin_GetType (Urho3D::Plugin *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+Plugin_GetTypeName (Urho3D::Plugin *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+Plugin_GetTypeStatic ()
+{
+	return (Plugin::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+Plugin_GetTypeNameStatic ()
+{
+	return stringdup((Plugin::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void *
+Plugin_Plugin (Urho3D::Context * context)
+{
+	return WeakPtr<Plugin>(new Plugin(context));
+}
+
+
+DllExport int
+Plugin_LoadAndroidPlugin (Urho3D::Plugin *_target)
+{
+	return _target->LoadAndroidPlugin ();
+}
+
+
+DllExport void
+Plugin_sendEvent (Urho3D::Plugin *_target, Urho3D::String evt)
+{
+	_target->sendEvent (evt);
+}
+
+
+DllExport void
+Plugin_OnPluginEvent (Urho3D::String strData)
+{
+	Plugin::OnPluginEvent (strData);
+}
+
+
 DllExport void *
 EventReceiverGroup_EventReceiverGroup ()
 {
@@ -4349,6 +4545,34 @@ DllExport Urho3D::EventReceiverGroup *
 Context_GetEventReceivers0 (Urho3D::Context *_target, int eventType)
 {
 	return _target->GetEventReceivers (Urho3D::StringHash(eventType));
+}
+
+
+DllExport void
+Context_RegisterPlugin (Urho3D::Context *_target, Urho3D::Plugin * plugin)
+{
+	_target->RegisterPlugin (plugin);
+}
+
+
+DllExport void
+Context_RemovePlugin (Urho3D::Context *_target, int pluginType)
+{
+	_target->RemovePlugin (Urho3D::StringHash(pluginType));
+}
+
+
+DllExport Urho3D::Plugin *
+Context_GetPlugin (Urho3D::Context *_target, int type)
+{
+	return _target->GetPlugin (Urho3D::StringHash(type));
+}
+
+
+DllExport int
+Context_PostCommandToPlugin (Urho3D::Context *_target, const char * clazz, const char * method)
+{
+	return _target->PostCommandToPlugin (Urho3D::String(clazz), Urho3D::String(method));
 }
 
 
@@ -28426,104 +28650,6 @@ DllExport Urho3D::IntVector3
 RaycastVehicle_GetCoordinateSystem (Urho3D::RaycastVehicle *_target)
 {
 	return _target->GetCoordinateSystem ();
-}
-
-
-DllExport int
-JsonFile_GetType (Urho3D::JSONFile *_target)
-{
-	return (_target->GetType ()).Value ();
-}
-
-
-DllExport const char *
-JsonFile_GetTypeName (Urho3D::JSONFile *_target)
-{
-	return stringdup((_target->GetTypeName ()).CString ());
-}
-
-
-DllExport int
-JsonFile_GetTypeStatic ()
-{
-	return (JSONFile::GetTypeStatic ()).Value ();
-}
-
-
-DllExport const char *
-JsonFile_GetTypeNameStatic ()
-{
-	return stringdup((JSONFile::GetTypeNameStatic ()).CString ());
-}
-
-
-DllExport void *
-JsonFile_JSONFile (Urho3D::Context * context)
-{
-	return WeakPtr<JSONFile>(new JSONFile(context));
-}
-
-
-DllExport void
-JsonFile_RegisterObject (Urho3D::Context * context)
-{
-	JSONFile::RegisterObject (context);
-}
-
-
-DllExport int
-JsonFile_BeginLoad_File (Urho3D::JSONFile *_target, File * source)
-{
-	return _target->BeginLoad (*source);
-}
-
-
-DllExport int
-JsonFile_BeginLoad_MemoryBuffer (Urho3D::JSONFile *_target, MemoryBuffer * source)
-{
-	return _target->BeginLoad (*source);
-}
-
-
-DllExport int
-JsonFile_Save_File (Urho3D::JSONFile *_target, File * dest)
-{
-	return _target->Save (*dest);
-}
-
-
-DllExport int
-JsonFile_Save_MemoryBuffer (Urho3D::JSONFile *_target, MemoryBuffer * dest)
-{
-	return _target->Save (*dest);
-}
-
-
-DllExport int
-JsonFile_Save0_File (Urho3D::JSONFile *_target, File * dest, const char * indendation)
-{
-	return _target->Save (*dest, Urho3D::String(indendation));
-}
-
-
-DllExport int
-JsonFile_Save0_MemoryBuffer (Urho3D::JSONFile *_target, MemoryBuffer * dest, const char * indendation)
-{
-	return _target->Save (*dest, Urho3D::String(indendation));
-}
-
-
-DllExport int
-JsonFile_FromString (Urho3D::JSONFile *_target, const char * source)
-{
-	return _target->FromString (Urho3D::String(source));
-}
-
-
-DllExport const char *
-JsonFile_ToString (Urho3D::JSONFile *_target, const char * indendation)
-{
-	return stringdup((_target->ToString (Urho3D::String(indendation))).CString ());
 }
 
 

@@ -260,7 +260,7 @@ private:
     /// Variant map for global variables that can persist throughout application execution.
     VariantMap globalVars_;
     /// Plugins.
-    HashMap<StringHash, SharedPtr<Plugin> > plugins_;
+    static HashMap<StringHash, SharedPtr<Plugin> > plugins_;
 };
 
 template <class T> void Context::RegisterFactory() { RegisterFactory(new ObjectFactoryImpl<T>(this)); }
