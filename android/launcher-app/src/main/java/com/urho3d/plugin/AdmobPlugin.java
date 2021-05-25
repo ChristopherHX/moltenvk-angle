@@ -91,7 +91,6 @@ public class AdmobPlugin
        if(singelton == null)
        {
           singelton = new AdmobPlugin();
-          singelton.Initialize(); 
        }
     }
 
@@ -117,6 +116,32 @@ public class AdmobPlugin
         Message msg = admobPlugin.admobPluginHandler.obtainMessage();
         msg.obj = data;
         admobPlugin.admobPluginHandler.sendMessage(msg);
+      }
+      else if(admobPlugin != null)
+      {
+        try 
+        {
+            JSONObject js = new JSONObject(data);
+            String methodName = js.getString("method");
+            if(methodName.equals("Start"))
+            {
+              Method  method = AdmobPlugin.class.getDeclaredMethod(methodName,  JSONObject.class) ;
+              if(method != null)
+              {
+                  method.setAccessible(true);
+                  method.invoke(singelton, js);
+              }
+            }
+            
+        } catch (ClassCastException e) {
+            Log.e(TAG, "onUnhandledMessage ClassCastException", e);
+        } catch (JSONException e) {
+            Log.e(TAG, "onUnhandledMessage JSONException", e);
+        } catch (SecurityException e) {
+            Log.e(TAG, "onUnhandledMessage SecurityException", e);
+        } catch (Exception e) {
+            Log.e(TAG, "onUnhandledMessage Exception", e);
+        }
       }
     }
 
@@ -165,8 +190,27 @@ public class AdmobPlugin
     public AdmobPlugin()
     {
         singelton = this;
+        new Thread()
+        {
+            public void run()
+            {
+                urhoActivity = UrhoActivity.GetSingelton();
 
+                urhoActivity.runOnUiThread(new Runnable()
+                {
+                    public void run()
+                    {
+                        admobPluginHandler = new AdmobPluginHandler();
+                    }
+                });
+            }
+        }.start();
+    }
 
+    void Start(JSONObject js)
+    {
+        Log.d(TAG,"AdmobPluginJava Start");
+        singelton.Initialize(); 
     }
 
     public void Initialize()
@@ -191,10 +235,10 @@ public class AdmobPlugin
                         MobileAds.initialize(urhoActivity, new OnInitializationCompleteListener() {
                             @Override
                             public void onInitializationComplete(InitializationStatus initializationStatus) {
+                              Log.d(TAG,"AdmobPluginJava onInitializationComplete :"+initializationStatus);
+                              OnPluginEvent("AdmobPlugin", "OnStarted");
                             }
                           });
-
-                        admobPluginHandler = new AdmobPluginHandler();
                     }
                 });
             }
@@ -224,7 +268,8 @@ public class AdmobPlugin
                   Log.d(TAG, loadAdError.getMessage());
                   rewardedAd = null;
                   AdmobPlugin.this.isLoading = false;
-                  Toast.makeText(urhoActivity, "onAdFailedToLoad", Toast.LENGTH_SHORT).show();
+                  Log.d(TAG, "onAdFailedToLoad");
+                 // Toast.makeText(urhoActivity, "onAdFailedToLoad", Toast.LENGTH_SHORT).show();
 
                   OnPluginEvent("AdmobPlugin", "onAdFailedToLoad");
                 }
@@ -234,7 +279,7 @@ public class AdmobPlugin
                   AdmobPlugin.this.rewardedAd = rewardedAd;
                   Log.d(TAG, "onAdLoaded");
                   AdmobPlugin.this.isLoading = false;
-                  Toast.makeText(urhoActivity, "onAdLoaded", Toast.LENGTH_SHORT).show();
+                 // Toast.makeText(urhoActivity, "onAdLoaded", Toast.LENGTH_SHORT).show();
 
                   OnPluginEvent("AdmobPlugin", "onAdLoaded");
                 }
@@ -256,10 +301,9 @@ public class AdmobPlugin
               public void onAdShowedFullScreenContent() {
                 // Called when ad is shown.
                 Log.d(TAG, "onAdShowedFullScreenContent");
-                Toast.makeText(urhoActivity, "onAdShowedFullScreenContent", Toast.LENGTH_SHORT)
-                    .show();
+               // Toast.makeText(urhoActivity, "onAdShowedFullScreenContent", Toast.LENGTH_SHORT).show();
 
-                    OnPluginEvent("AdmobPlugin", "onAdShowedFullScreenContent");
+                OnPluginEvent("AdmobPlugin", "onAdShowedFullScreenContent");
               }
     
               @Override
@@ -269,11 +313,9 @@ public class AdmobPlugin
                 // Don't forget to set the ad reference to null so you
                 // don't show the ad a second time.
                 rewardedAd = null;
-                Toast.makeText(
-                        urhoActivity, "onAdFailedToShowFullScreenContent", Toast.LENGTH_SHORT)
-                    .show();
+               // Toast.makeText(urhoActivity, "onAdFailedToShowFullScreenContent", Toast.LENGTH_SHORT).show();
 
-                    OnPluginEvent("AdmobPlugin", "onAdFailedToShowFullScreenContent");
+                OnPluginEvent("AdmobPlugin", "onAdFailedToShowFullScreenContent");
               }
     
               @Override
@@ -283,10 +325,9 @@ public class AdmobPlugin
                 // don't show the ad a second time.
                 rewardedAd = null;
                 Log.d(TAG, "onAdDismissedFullScreenContent");
-                Toast.makeText(urhoActivity, "onAdDismissedFullScreenContent", Toast.LENGTH_SHORT)
-                    .show();
+               // Toast.makeText(urhoActivity, "onAdDismissedFullScreenContent", Toast.LENGTH_SHORT).show();
                 
-                    OnPluginEvent("AdmobPlugin", "onAdDismissedFullScreenContent");
+                OnPluginEvent("AdmobPlugin", "onAdDismissedFullScreenContent");
 
               }
             });
