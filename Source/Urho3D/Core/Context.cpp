@@ -39,7 +39,6 @@
 namespace Urho3D
 {
 
-HashMap<StringHash, SharedPtr<Plugin> > Context::plugins_;
 
 #ifndef MINI_URHO
 // Keeps track of how many times SDL was initialised so we know when to call SDL_Quit().

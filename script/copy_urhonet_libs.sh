@@ -8,6 +8,8 @@ else
     echo "URHONET_HOME_ROOT=${URHONET_HOME_ROOT}"
 fi
 
+cp -fRL ${URHO3D_HOME}/build-ios-dotnet-lib/include ${URHONET_HOME_ROOT}/template/IOS
+
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/desktop/UrhoDotNet.xml ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/desktop
