@@ -40,10 +40,10 @@ public:
     ~AdmobPlugin() override;
     
 #if defined(IOS)
-    bool PostCommandToIOS(const String& method,JSONFile& data)override ;
+    bool PostCommandToIOS(Context * context,const String& method,JSONFile& data)override ;
 #endif
 #ifdef __ANDROID__
-    bool PostCommandToAndroid(const String& method,JSONFile& data)override ;
+    bool PostCommandToAndroid(Context * context,const String& method,JSONFile& data)override ;
     bool LoadAndroidPlugin()override;
 #endif
     

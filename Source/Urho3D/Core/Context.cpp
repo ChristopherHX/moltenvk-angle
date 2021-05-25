@@ -40,6 +40,8 @@ namespace Urho3D
 {
 
 
+HashMap<StringHash, SharedPtr<Plugin> > Context::plugins_;
+
 #ifndef MINI_URHO
 // Keeps track of how many times SDL was initialised so we know when to call SDL_Quit().
 static int sdlInitCounter = 0;
@@ -518,7 +520,7 @@ bool Context::PostCommandToPlugin(const String& clazz, const String& method, JSO
     Plugin* plugin = GetPlugin(clazz);
     if(plugin != NULL)
     {
-        return plugin->PostCommand(method, data);
+        return plugin->PostCommand(this,method, data);
     }
     return false;
 }

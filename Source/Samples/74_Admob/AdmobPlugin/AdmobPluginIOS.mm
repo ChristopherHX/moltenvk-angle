@@ -160,7 +160,7 @@ void * IOS_AdmobInit(Context * context,AdmobPlugin * plugin)
     return (__bridge void *)admobIOSPlugin;
 }
 
-bool AdmobPlugin::PostCommandToIOS(const String& method, JSONFile& data)
+bool AdmobPlugin::PostCommandToIOS(Context * context,const String& method, JSONFile& data)
 {
     AdmobPluginIOS * admobIOSPlugin = (__bridge AdmobPluginIOS *)ios_plugin_handle;
     bool res = false;
@@ -199,12 +199,12 @@ bool AdmobPlugin::PostCommandToIOS(const String& method, JSONFile& data)
     {
         if(ios_plugin_handle == NULL)
         {
-            ios_plugin_handle = IOS_AdmobInit(this->context_,this);
+            ios_plugin_handle = IOS_AdmobInit(context,this);
         }
         
         if(ios_plugin_handle != NULL)
         {
-            auto jsonBuilder = (MakeShared<JsonBuilder>(this->context_));
+            auto jsonBuilder = (MakeShared<JsonBuilder>(context));
             (*jsonBuilder)("source",this->GetTypeName())("event","OnStarted");
             this->OnPluginEvent(jsonBuilder->F());
         }

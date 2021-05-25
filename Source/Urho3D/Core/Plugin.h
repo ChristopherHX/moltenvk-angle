@@ -48,11 +48,11 @@ public:
     /// Destruct.
     ~Plugin() override;
     
-    bool PostCommand(const String& method, JSONFile& data);
+    bool PostCommand(Context * context , const String& method, JSONFile& data);
     
-    virtual bool PostCommandToIOS(const String& method,JSONFile& data){return false;}
-    virtual bool PostCommandToAndroid(const String& method,JSONFile& data){return false;}
-    virtual bool HandleCommand(const String& method,JSONFile& data){return false;}
+    virtual bool PostCommandToIOS(Context * context ,const String& method,JSONFile& data){return false;}
+    virtual bool PostCommandToAndroid(Context * context ,const String& method,JSONFile& data){return false;}
+    virtual bool HandleCommand(Context * context ,const String& method,JSONFile& data){return false;}
     
     virtual bool LoadAndroidPlugin(){return true;}
 

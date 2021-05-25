@@ -109,7 +109,7 @@ bool LoadPluginJava()
     return true;
 }
 
-bool AdmobPlugin::PostCommandToAndroid(const String& method,JSONFile& data)
+bool AdmobPlugin::PostCommandToAndroid(Context * context,const String& method,JSONFile& data)
 {
     bool res = false;
     data.GetRoot()["method"] = method;

@@ -81,14 +81,14 @@ void Plugin::OnPluginEvent(String strData)
 }
 
 
-bool Plugin::PostCommand(const String& method, JSONFile& data)
+bool Plugin::PostCommand(Context * context , const String& method, JSONFile& data)
 {
 #ifdef __ANDROID__
-        return PostCommandToAndroid(method,data);
+        return PostCommandToAndroid(context,method,data);
 #elif defined(IOS)
-        return PostCommandToIOS(method,data);
+        return PostCommandToIOS(context,method,data);
 #else
-        return HandleCommand(method, data);
+        return HandleCommand(context, method, data);
 #endif
 }
 
