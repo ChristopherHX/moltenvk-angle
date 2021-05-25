@@ -30,7 +30,7 @@ AdmobPlugin::AdmobPlugin(Context* context) :
     Plugin(context)
 {
 #if defined(IOS)
-    ios_plugin_handle = IOS_AdmobInit(context,this);
+    ios_plugin_handle = NULL;
 #endif
 #ifdef __ANDROID__
     LoadAndroidPlugin();

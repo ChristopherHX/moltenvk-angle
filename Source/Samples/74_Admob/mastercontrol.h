@@ -42,6 +42,7 @@ private:
     void CreateCrown();
     void CreateUI();
 
+    bool isAdmobPluginStarted;
     bool isVideoAdLoaded;
 };
 

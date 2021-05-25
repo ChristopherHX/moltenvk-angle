@@ -143,7 +143,7 @@ UIViewController * SDL_GetUIKitViewController(SDL_Window *window);
 #endif
 
 //TBD ELI , this is an hack , need to figure out this one.s
-static AdmobPluginIOS * admobIOSPlugin;
+static AdmobPluginIOS * admobIOSPlugin = NULL;
 
 void * IOS_AdmobInit(Context * context,AdmobPlugin * plugin)
 {
@@ -193,6 +193,20 @@ bool AdmobPlugin::PostCommandToIOS(const String& method, JSONFile& data)
         {
             [admobIOSPlugin showVideo];
             res = true;
+        }
+    }
+    else if(method == "Start")
+    {
+        if(ios_plugin_handle == NULL)
+        {
+            ios_plugin_handle = IOS_AdmobInit(this->context_,this);
+        }
+        
+        if(ios_plugin_handle != NULL)
+        {
+            auto jsonBuilder = (MakeShared<JsonBuilder>(this->context_));
+            (*jsonBuilder)("source",this->GetTypeName())("event","OnStarted");
+            this->OnPluginEvent(jsonBuilder->F());
         }
     }
     return res;

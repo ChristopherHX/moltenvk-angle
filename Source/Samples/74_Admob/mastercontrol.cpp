@@ -54,7 +54,7 @@ void MasterControl::Start()
 {
 
     RegisterAdmobPlugin(context_);
-
+    isAdmobPluginStarted = false;
     isVideoAdLoaded = false;
     LoadRewardedVideo();
 
@@ -280,35 +280,49 @@ void MasterControl::HandlePluginMessage(StringHash eventType, VariantMap& eventD
     String event = root["event"].GetCString();
 
     URHO3D_LOGINFO("HandlePluginMessage source:" + source + " event:" + event);
-    if (event == "onAdLoaded")
+
+    if(source == "AdmobPlugin" && event == "OnStarted")
     {
+        // plugin started successfully , now we can load ads
+        isAdmobPluginStarted = true;
+        LoadRewardedVideo();
+    }
+    else if (event == "onAdLoaded")
+    {
+        // Video Ad loaded successfully
         isVideoAdLoaded = true;
     }
     else if (event == "onAdFailedToLoad")
     {
+        // Video Ad failed to load
         isVideoAdLoaded = false;
     }
     else if (event == "onAdShowedFullScreenContent")
     {
         GLOBAL->neededGameState_ = GS_VIDEO_AD;
+        // Mute the sound while the video ad is playing
         GetSubsystem<Audio>()->SetMasterGain(SOUND_MUSIC, 0.0f);
     }
     else if (event == "onAdDismissedFullScreenContent")
     {
         GLOBAL->neededGameState_ = GS_INTRO;
-
+        // Unmute the sound once the video ad stopped playing
         GetSubsystem<Audio>()->SetMasterGain(SOUND_MUSIC, 0.33f);
+        // Load new Video ad
         LoadRewardedVideo();
     }
     else if (event == "onAdFailedToShowFullScreenContent")
     {
-        GLOBAL->neededGameState_ = GS_INTRO;
+        // Video Ad failed to show
 
+        GLOBAL->neededGameState_ = GS_INTRO;
         GetSubsystem<Audio>()->SetMasterGain(SOUND_MUSIC, 0.33f);
         LoadRewardedVideo();
     }
     else if (event == "onUserEarnedReward")
     {
+        //  video ad completed , user is rewarded
+
         String rewardType = root["rewardType"].GetCString();
         int rewardAmount = root["rewardAmount"].GetInt();
 
@@ -320,8 +334,12 @@ void MasterControl::HandlePluginMessage(StringHash eventType, VariantMap& eventD
 
 void MasterControl::LoadRewardedVideo()
 {
-
-    if (isVideoAdLoaded == false)
+    if(isAdmobPluginStarted == false)
+    {
+        // before loading ads , one must start the plugin
+         PostCommandToPlugin("AdmobPlugin", "Start");
+    }
+    else if (isVideoAdLoaded == false)
     {
         // using test adUnitId
         auto jsonBuilder = (MakeShared<JsonBuilder>(context_));
