@@ -251,4 +251,65 @@ String JSONFile::ToString(const String& indendation) const
     return buffer.GetString();
 }
 
+String JSONFile::GetString(const String& key)
+{
+    return root_[key].GetString();
+}
+
+int JSONFile::GetInt(const String& key)
+{
+    return root_[key].GetInt();
+}
+
+unsigned int JSONFile::GetUInt(const String& key)
+{
+    return root_[key].GetUInt();
+}
+
+float JSONFile::GetFloat(const String& key)
+{
+    return root_[key].GetFloat();
+}
+
+double JSONFile::GetDouble(const String& key)
+{
+    return root_[key].GetDouble();
+}
+
+bool JSONFile::GetBool(const String& key)
+{
+    return root_[key].GetBool();
+}
+
+void JSONFile::SetString(const String& key , const String& val)
+{
+    root_[key] = val;
+}
+
+void JSONFile::SetInt(const String& key,int val)
+{
+    root_[key] = val;
+}
+
+void JSONFile::SetUInt(const String& key,unsigned int val)
+{
+    root_[key] = val;
+}
+
+void JSONFile::SetFloat(const String& key,float val)
+{
+    root_[key] = val;
+}
+
+void JSONFile::SetDouble(const String&  key,double val)
+{
+    root_[key] = val;
+}
+
+void JSONFile::SetBool(const String& key,bool val)
+{
+    root_[key] = val;
+}
+
+
 }

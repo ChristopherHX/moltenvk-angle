@@ -184,7 +184,7 @@ public:
 
     bool PostCommandToPlugin(const String& clazz, const String& method);
     bool PostCommandToPlugin(const String& clazz, const String& method, SharedPtr<JsonBuilder> jsonBuilder);
-    bool PostCommandToPlugin(const String& clazz, const String& method, JSONFile& data);
+    bool PostCommandToPlugin(const String& clazz, const String& method, JSONFile* data);
 
 protected:
     /// Execution context.

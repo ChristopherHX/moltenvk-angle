@@ -549,9 +549,9 @@ bool Object::PostCommandToPlugin(const String& clazz, const String& method, Shar
     return context_->PostCommandToPlugin( clazz, method,jsonBuilder->data());
 }
 
-bool Object::PostCommandToPlugin(const String& clazz, const String& method, JSONFile& data)
+bool Object::PostCommandToPlugin(const String& clazz, const String& method, JSONFile* data)
 {
-    return context_->PostCommandToPlugin( clazz, method,data);
+    return context_->PostCommandToPlugin( clazz, method,*data);
 }
 
 }

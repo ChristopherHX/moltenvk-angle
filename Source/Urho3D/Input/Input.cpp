@@ -39,9 +39,9 @@
 #include "../UI/UI.h"
 #include "../UI/UIEvents.h"
 
-#ifdef _WIN32
+
 #include "../Engine/Engine.h"
-#endif
+
 
 
 #include <SDL/SDL.h>
@@ -2432,7 +2432,9 @@ void Input::HandleSDLEvent(void* sdlEvent)
             {
                 Object* sender = reinterpret_cast<Object*>(evt.user.data1);
                 if (!sender)
-                    sender = this;
+                {
+                    sender = context_->GetSubsystem<Engine>();
+                }
                 VariantMap* pMap = reinterpret_cast<VariantMap*>(evt.user.data2);
                 StringHash eventType((unsigned)evt.user.code);
                 if (!pMap)

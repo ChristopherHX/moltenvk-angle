@@ -779,6 +779,13 @@ UrhoObject_PostCommandToPlugin (Urho3D::Object *_target, const char * clazz, con
 }
 
 
+DllExport int
+UrhoObject_PostCommandToPlugin4 (Urho3D::Object *_target, const char * clazz, const char * method, Urho3D::JSONFile * data)
+{
+	return _target->PostCommandToPlugin (Urho3D::String(clazz), Urho3D::String(method), data);
+}
+
+
 DllExport Urho3D::Object *
 ObjectFactory_CreateObject (Urho3D::ObjectFactory *_target)
 {
@@ -4138,6 +4145,90 @@ DllExport const char *
 JsonFile_ToString (Urho3D::JSONFile *_target, const char * indendation)
 {
 	return stringdup((_target->ToString (Urho3D::String(indendation))).CString ());
+}
+
+
+DllExport const char *
+JsonFile_GetString (Urho3D::JSONFile *_target, const char * key)
+{
+	return stringdup((_target->GetString (Urho3D::String(key))).CString ());
+}
+
+
+DllExport int
+JsonFile_GetInt (Urho3D::JSONFile *_target, const char * key)
+{
+	return _target->GetInt (Urho3D::String(key));
+}
+
+
+DllExport unsigned int
+JsonFile_GetUInt (Urho3D::JSONFile *_target, const char * key)
+{
+	return _target->GetUInt (Urho3D::String(key));
+}
+
+
+DllExport float
+JsonFile_GetFloat (Urho3D::JSONFile *_target, const char * key)
+{
+	return _target->GetFloat (Urho3D::String(key));
+}
+
+
+DllExport double
+JsonFile_GetDouble (Urho3D::JSONFile *_target, const char * key)
+{
+	return _target->GetDouble (Urho3D::String(key));
+}
+
+
+DllExport int
+JsonFile_GetBool (Urho3D::JSONFile *_target, const char * key)
+{
+	return _target->GetBool (Urho3D::String(key));
+}
+
+
+DllExport void
+JsonFile_SetString (Urho3D::JSONFile *_target, const char * key, const char * val)
+{
+	_target->SetString (Urho3D::String(key), Urho3D::String(val));
+}
+
+
+DllExport void
+JsonFile_SetInt (Urho3D::JSONFile *_target, const char * key, int val)
+{
+	_target->SetInt (Urho3D::String(key), val);
+}
+
+
+DllExport void
+JsonFile_SetUInt (Urho3D::JSONFile *_target, const char * key, unsigned int val)
+{
+	_target->SetUInt (Urho3D::String(key), val);
+}
+
+
+DllExport void
+JsonFile_SetFloat (Urho3D::JSONFile *_target, const char * key, float val)
+{
+	_target->SetFloat (Urho3D::String(key), val);
+}
+
+
+DllExport void
+JsonFile_SetDouble (Urho3D::JSONFile *_target, const char * key, double val)
+{
+	_target->SetDouble (Urho3D::String(key), val);
+}
+
+
+DllExport void
+JsonFile_SetBool (Urho3D::JSONFile *_target, const char * key, bool val)
+{
+	_target->SetBool (Urho3D::String(key), val);
 }
 
 

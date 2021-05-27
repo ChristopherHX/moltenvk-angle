@@ -502,6 +502,15 @@ namespace Urho
 			return UrhoObject_PostCommandToPlugin (handle, clazz, method);
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool UrhoObject_PostCommandToPlugin4 (IntPtr handle, string clazz, string method, IntPtr data);
+
+		public bool PostCommandToPlugin (string clazz, string method, Urho.Resources.JsonFile data)
+		{
+			Runtime.ValidateRefCounted (this);
+			return UrhoObject_PostCommandToPlugin4 (handle, clazz, method, (object)data == null ? IntPtr.Zero : data.Handle);
+		}
+
 		/// <summary>
 		/// Return type hash.
 		/// 

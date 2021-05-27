@@ -195,6 +195,114 @@ namespace Urho.Resources
 			return Marshal.PtrToStringAnsi (JsonFile_ToString (handle, indendation));
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern IntPtr JsonFile_GetString (IntPtr handle, string key);
+
+		public string GetString (string key)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Marshal.PtrToStringAnsi (JsonFile_GetString (handle, key));
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern int JsonFile_GetInt (IntPtr handle, string key);
+
+		public int GetInt (string key)
+		{
+			Runtime.ValidateRefCounted (this);
+			return JsonFile_GetInt (handle, key);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern uint JsonFile_GetUInt (IntPtr handle, string key);
+
+		public uint GetUInt (string key)
+		{
+			Runtime.ValidateRefCounted (this);
+			return JsonFile_GetUInt (handle, key);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern float JsonFile_GetFloat (IntPtr handle, string key);
+
+		public float GetFloat (string key)
+		{
+			Runtime.ValidateRefCounted (this);
+			return JsonFile_GetFloat (handle, key);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern double JsonFile_GetDouble (IntPtr handle, string key);
+
+		public double GetDouble (string key)
+		{
+			Runtime.ValidateRefCounted (this);
+			return JsonFile_GetDouble (handle, key);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool JsonFile_GetBool (IntPtr handle, string key);
+
+		public bool GetBool (string key)
+		{
+			Runtime.ValidateRefCounted (this);
+			return JsonFile_GetBool (handle, key);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void JsonFile_SetString (IntPtr handle, string key, string val);
+
+		public void SetString (string key, string val)
+		{
+			Runtime.ValidateRefCounted (this);
+			JsonFile_SetString (handle, key, val);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void JsonFile_SetInt (IntPtr handle, string key, int val);
+
+		public void SetInt (string key, int val)
+		{
+			Runtime.ValidateRefCounted (this);
+			JsonFile_SetInt (handle, key, val);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void JsonFile_SetUInt (IntPtr handle, string key, uint val);
+
+		public void SetUInt (string key, uint val)
+		{
+			Runtime.ValidateRefCounted (this);
+			JsonFile_SetUInt (handle, key, val);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void JsonFile_SetFloat (IntPtr handle, string key, float val);
+
+		public void SetFloat (string key, float val)
+		{
+			Runtime.ValidateRefCounted (this);
+			JsonFile_SetFloat (handle, key, val);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void JsonFile_SetDouble (IntPtr handle, string key, double val);
+
+		public void SetDouble (string key, double val)
+		{
+			Runtime.ValidateRefCounted (this);
+			JsonFile_SetDouble (handle, key, val);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void JsonFile_SetBool (IntPtr handle, string key, bool val);
+
+		public void SetBool (string key, bool val)
+		{
+			Runtime.ValidateRefCounted (this);
+			JsonFile_SetBool (handle, key, val);
+		}
+
 		public override StringHash Type {
 			get {
 				return UrhoGetType ();

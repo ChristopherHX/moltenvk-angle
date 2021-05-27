@@ -217,6 +217,29 @@ namespace Urho {
             public String Data => EventData.get_String (unchecked((int)2349297546) /* Data (P_DATA) */);
         } /* struct PluginNotifyEventArgs */
 
+        public partial class Engine {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.PluginNotify += ...' instead.")]
+             public Subscription SubscribeToPluginNotify (Action<PluginNotifyEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new PluginNotifyEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)3288271036) /* PluginNotify (E_PLUGIN_NOTIFY) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<PluginNotifyEventArgs> eventAdapterForPluginNotify;
+             public event Action<PluginNotifyEventArgs> PluginNotify
+             {
+                 add
+                 {
+                      if (eventAdapterForPluginNotify == null)
+                          eventAdapterForPluginNotify = new UrhoEventAdapter<PluginNotifyEventArgs>(typeof(Engine));
+                      eventAdapterForPluginNotify.AddManagedSubscriber(handle, value, SubscribeToPluginNotify);
+                 }
+                 remove { eventAdapterForPluginNotify.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class Engine */ 
+
 } /* namespace */
 
 namespace Urho {

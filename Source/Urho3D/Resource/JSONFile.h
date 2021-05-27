@@ -53,7 +53,22 @@ public:
     bool FromString(const String& source);
     /// Save to a string.
     String ToString(const String& indendation = "\t") const;
+    
+    String GetString(const String& key);
+    int GetInt(const String& key);
+    unsigned int GetUInt(const String& key);
+    float GetFloat(const String& key);
+    double GetDouble(const String&  key);
+    bool GetBool(const String& key);
 
+    
+    void SetString(const String& key , const String& val);
+    void SetInt(const String& key,int val);
+    void SetUInt(const String& key,unsigned int val);
+    void SetFloat(const String& key,float val);
+    void SetDouble(const String&  key,double val);
+    void SetBool(const String& key,bool val);
+    
     /// Return root value.
     /// @property
     JSONValue& GetRoot() { return root_; }
