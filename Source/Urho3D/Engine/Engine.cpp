@@ -67,6 +67,8 @@
 #include <emscripten/emscripten.h>
 #endif
 
+#include "SDL/SDL_loadso.h"
+
 #include "../DebugNew.h"
 
 
@@ -91,6 +93,52 @@ namespace Urho3D
 {
 
 extern const char* logLevelPrefixes[];
+
+
+void RegisterPlugins(Context* context)
+{
+
+#if defined(__ANDROID__)
+    typedef void (*RegisterPlugin)(Context * context);
+    RegisterPlugin registerPlugin = NULL;
+
+    URHO3D_LOGINFOF("RegisterPlugins()");
+
+    ResourceCache* cache = context->GetSubsystem<ResourceCache>();
+    SharedPtr<File> plugins_cfg_file = cache->GetFile("plugins.cfg");
+
+    if (plugins_cfg_file != NULL)
+    {
+        String plugin_name = "";
+
+        while (!plugins_cfg_file->IsEof() && ((plugin_name = plugins_cfg_file->ReadLine()) != ""))
+        {
+
+            String lib_name = "lib" + plugin_name + ".so";
+            void* object = SDL_LoadObject(lib_name.CString());
+            if (object)
+            {
+                URHO3D_LOGINFOF("RegisterPlugins : %s loaded", lib_name.CString());
+                String function_name = "Register" + plugin_name;
+                registerPlugin = (RegisterPlugin)SDL_LoadFunction(object, function_name.CString());
+                if (registerPlugin)
+                {
+                    URHO3D_LOGINFOF("RegisterPlugins : %s function found", function_name.CString());
+                    registerPlugin(context);
+                }
+            }
+            else
+            {
+                URHO3D_LOGINFOF("RegisterPlugins : %s not found", lib_name.CString());
+            }
+        }
+
+        plugins_cfg_file->Close();
+    }
+
+#endif
+
+}
 
 Engine::Engine(Context* context) :
     Object(context),
@@ -312,6 +360,8 @@ bool Engine::Initialize(const VariantMap& parameters)
     }
 #endif
     frameTimer_.Reset();
+
+    RegisterPlugins(context_);
 
     URHO3D_LOGINFO("Initialized engine");
     initialized_ = true;

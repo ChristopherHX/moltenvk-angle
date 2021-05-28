@@ -22,17 +22,27 @@
 
 package com.github.urho3d.launcher
 
+import org.libsdl.app.SDLActivity
 import com.github.urho3d.UrhoActivity
 
 class MainActivity : UrhoActivity() {
 
     companion object {
         const val argument = "argument"
+
+        
+        @JvmStatic
+        fun GetSingelton() : MainActivity
+        {
+            return SDLActivity.mSingleton as MainActivity
+        }
     }
 
     private lateinit var arguments: List<String>
 
     override fun getArguments() = arguments.toTypedArray()
+
+
 
     override fun onLoadLibrary(libraryNames: MutableList<String>) {
         // All runtime shared libraries must always be loaded if available

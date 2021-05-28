@@ -62,6 +62,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.github.urho3d.UrhoActivity;
+import com.github.urho3d.launcher.MainActivity;
 
 
 public class AdmobPlugin
@@ -194,7 +195,7 @@ public class AdmobPlugin
         {
             public void run()
             {
-                urhoActivity = UrhoActivity.GetSingelton();
+                urhoActivity = MainActivity.GetSingelton();
 
                 urhoActivity.runOnUiThread(new Runnable()
                 {
@@ -223,7 +224,7 @@ public class AdmobPlugin
         {
             public void run()
             {
-                urhoActivity = UrhoActivity.GetSingelton();
+                urhoActivity = MainActivity.GetSingelton();
 
                 urhoActivity.runOnUiThread(new Runnable()
                 {
