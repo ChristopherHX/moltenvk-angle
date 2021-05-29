@@ -12,7 +12,7 @@ else
 	alias aliassedinplace='sed -i""'
 fi
 
-rm -f ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated
+rm -rf ${URHO3D_HOME}/DotNet/Bindings/Portable/Generated
 
 ./script/cmake_xcode.sh build-xcode -DURHO3D_PCH=0  -DURHO3D_WEBP=0 -DURHO3D_LUA=0 -DURHO3D_ANGELSCRIPT=0 -DURHO3D_TOOLS=1  -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15
 
