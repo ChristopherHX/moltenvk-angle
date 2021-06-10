@@ -38920,6 +38920,202 @@ IKEffector_GetTypeNameStatic ()
 }
 
 
+DllExport void *
+IKEffector_IKEffector (Urho3D::Context * context)
+{
+	return WeakPtr<IKEffector>(new IKEffector(context));
+}
+
+
+DllExport void
+IKEffector_RegisterObject (Urho3D::Context * context)
+{
+	IKEffector::RegisterObject (context);
+}
+
+
+DllExport int
+IKEffector_GetFeature (Urho3D::IKEffector *_target, enum Urho3D::IKEffectorFeature feature)
+{
+	return _target->GetFeature (feature);
+}
+
+
+DllExport void
+IKEffector_SetFeature (Urho3D::IKEffector *_target, enum Urho3D::IKEffectorFeature feature, bool enable)
+{
+	_target->SetFeature (feature, enable);
+}
+
+
+DllExport Urho3D::Node *
+IKEffector_GetTargetNode (Urho3D::IKEffector *_target)
+{
+	return _target->GetTargetNode ();
+}
+
+
+DllExport void
+IKEffector_SetTargetNode (Urho3D::IKEffector *_target, Urho3D::Node * targetNode)
+{
+	_target->SetTargetNode (targetNode);
+}
+
+
+DllExport const char *
+IKEffector_GetTargetName (Urho3D::IKEffector *_target)
+{
+	return stringdup((_target->GetTargetName ()).CString ());
+}
+
+
+DllExport void
+IKEffector_SetTargetName (Urho3D::IKEffector *_target, const char * nodeName)
+{
+	_target->SetTargetName (Urho3D::String(nodeName));
+}
+
+
+DllExport Interop::Vector3 
+IKEffector_GetTargetPosition (Urho3D::IKEffector *_target)
+{
+	return *((Interop::Vector3  *) &(_target->GetTargetPosition ()));
+}
+
+
+DllExport void
+IKEffector_SetTargetPosition (Urho3D::IKEffector *_target, const class Urho3D::Vector3 & targetPosition)
+{
+	_target->SetTargetPosition (targetPosition);
+}
+
+
+DllExport Interop::Quaternion 
+IKEffector_GetTargetRotation (Urho3D::IKEffector *_target)
+{
+	return *((Interop::Quaternion  *) &(_target->GetTargetRotation ()));
+}
+
+
+DllExport void
+IKEffector_SetTargetRotation (Urho3D::IKEffector *_target, const class Urho3D::Quaternion & targetRotation)
+{
+	_target->SetTargetRotation (targetRotation);
+}
+
+
+DllExport Interop::Vector3 
+IKEffector_GetTargetRotationEuler (Urho3D::IKEffector *_target)
+{
+	return *((Interop::Vector3  *) &(_target->GetTargetRotationEuler ()));
+}
+
+
+DllExport void
+IKEffector_SetTargetRotationEuler (Urho3D::IKEffector *_target, const class Urho3D::Vector3 & targetRotation)
+{
+	_target->SetTargetRotationEuler (targetRotation);
+}
+
+
+DllExport unsigned int
+IKEffector_GetChainLength (Urho3D::IKEffector *_target)
+{
+	return _target->GetChainLength ();
+}
+
+
+DllExport void
+IKEffector_SetChainLength (Urho3D::IKEffector *_target, unsigned int chainLength)
+{
+	_target->SetChainLength (chainLength);
+}
+
+
+DllExport float
+IKEffector_GetWeight (Urho3D::IKEffector *_target)
+{
+	return _target->GetWeight ();
+}
+
+
+DllExport void
+IKEffector_SetWeight (Urho3D::IKEffector *_target, float weight)
+{
+	_target->SetWeight (weight);
+}
+
+
+DllExport float
+IKEffector_GetRotationWeight (Urho3D::IKEffector *_target)
+{
+	return _target->GetRotationWeight ();
+}
+
+
+DllExport void
+IKEffector_SetRotationWeight (Urho3D::IKEffector *_target, float weight)
+{
+	_target->SetRotationWeight (weight);
+}
+
+
+DllExport float
+IKEffector_GetRotationDecay (Urho3D::IKEffector *_target)
+{
+	return _target->GetRotationDecay ();
+}
+
+
+DllExport void
+IKEffector_SetRotationDecay (Urho3D::IKEffector *_target, float decay)
+{
+	_target->SetRotationDecay (decay);
+}
+
+
+DllExport void
+IKEffector_DrawDebugGeometry (Urho3D::IKEffector *_target, bool depthTest)
+{
+	_target->DrawDebugGeometry (depthTest);
+}
+
+
+DllExport void
+IKEffector_DrawDebugGeometry0 (Urho3D::IKEffector *_target, Urho3D::DebugRenderer * debug, bool depthTest)
+{
+	_target->DrawDebugGeometry (debug, depthTest);
+}
+
+
+DllExport int
+IKEffector_GetFEATURE_WEIGHT_NLERP (Urho3D::IKEffector *_target)
+{
+	return _target->GetFEATURE_WEIGHT_NLERP ();
+}
+
+
+DllExport int
+IKEffector_GetFEATURE_INHERIT_PARENT_ROTATION (Urho3D::IKEffector *_target)
+{
+	return _target->GetFEATURE_INHERIT_PARENT_ROTATION ();
+}
+
+
+DllExport void
+IKEffector_SetFEATURE_WEIGHT_NLERP (Urho3D::IKEffector *_target, bool enable)
+{
+	_target->SetFEATURE_WEIGHT_NLERP (enable);
+}
+
+
+DllExport void
+IKEffector_SetFEATURE_INHERIT_PARENT_ROTATION (Urho3D::IKEffector *_target, bool enable)
+{
+	_target->SetFEATURE_INHERIT_PARENT_ROTATION (enable);
+}
+
+
 DllExport int
 IKSolver_GetType (Urho3D::IKSolver *_target)
 {
@@ -38945,6 +39141,251 @@ DllExport const char *
 IKSolver_GetTypeNameStatic ()
 {
 	return stringdup((IKSolver::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void *
+IKSolver_IKSolver (Urho3D::Context * context)
+{
+	return WeakPtr<IKSolver>(new IKSolver(context));
+}
+
+
+DllExport void
+IKSolver_RegisterObject (Urho3D::Context * context)
+{
+	IKSolver::RegisterObject (context);
+}
+
+
+DllExport enum Urho3D::IKSolverAlgorithm
+IKSolver_GetAlgorithm (Urho3D::IKSolver *_target)
+{
+	return _target->GetAlgorithm ();
+}
+
+
+DllExport void
+IKSolver_SetAlgorithm (Urho3D::IKSolver *_target, enum Urho3D::IKSolverAlgorithm algorithm)
+{
+	_target->SetAlgorithm (algorithm);
+}
+
+
+DllExport int
+IKSolver_GetFeature (Urho3D::IKSolver *_target, enum Urho3D::IKSolverFeature feature)
+{
+	return _target->GetFeature (feature);
+}
+
+
+DllExport void
+IKSolver_SetFeature (Urho3D::IKSolver *_target, enum Urho3D::IKSolverFeature feature, bool enable)
+{
+	_target->SetFeature (feature, enable);
+}
+
+
+DllExport unsigned int
+IKSolver_GetMaximumIterations (Urho3D::IKSolver *_target)
+{
+	return _target->GetMaximumIterations ();
+}
+
+
+DllExport void
+IKSolver_SetMaximumIterations (Urho3D::IKSolver *_target, unsigned int iterations)
+{
+	_target->SetMaximumIterations (iterations);
+}
+
+
+DllExport float
+IKSolver_GetTolerance (Urho3D::IKSolver *_target)
+{
+	return _target->GetTolerance ();
+}
+
+
+DllExport void
+IKSolver_SetTolerance (Urho3D::IKSolver *_target, float tolerance)
+{
+	_target->SetTolerance (tolerance);
+}
+
+
+DllExport void
+IKSolver_RebuildChainTrees (Urho3D::IKSolver *_target)
+{
+	_target->RebuildChainTrees ();
+}
+
+
+DllExport void
+IKSolver_RecalculateSegmentLengths (Urho3D::IKSolver *_target)
+{
+	_target->RecalculateSegmentLengths ();
+}
+
+
+DllExport void
+IKSolver_CalculateJointRotations (Urho3D::IKSolver *_target)
+{
+	_target->CalculateJointRotations ();
+}
+
+
+DllExport void
+IKSolver_Solve (Urho3D::IKSolver *_target)
+{
+	_target->Solve ();
+}
+
+
+DllExport void
+IKSolver_ApplyOriginalPoseToScene (Urho3D::IKSolver *_target)
+{
+	_target->ApplyOriginalPoseToScene ();
+}
+
+
+DllExport void
+IKSolver_ApplySceneToOriginalPose (Urho3D::IKSolver *_target)
+{
+	_target->ApplySceneToOriginalPose ();
+}
+
+
+DllExport void
+IKSolver_ApplyActivePoseToScene (Urho3D::IKSolver *_target)
+{
+	_target->ApplyActivePoseToScene ();
+}
+
+
+DllExport void
+IKSolver_ApplySceneToActivePose (Urho3D::IKSolver *_target)
+{
+	_target->ApplySceneToActivePose ();
+}
+
+
+DllExport void
+IKSolver_ApplyOriginalPoseToActivePose (Urho3D::IKSolver *_target)
+{
+	_target->ApplyOriginalPoseToActivePose ();
+}
+
+
+DllExport void
+IKSolver_DrawDebugGeometry (Urho3D::IKSolver *_target, bool depthTest)
+{
+	_target->DrawDebugGeometry (depthTest);
+}
+
+
+DllExport void
+IKSolver_DrawDebugGeometry0 (Urho3D::IKSolver *_target, Urho3D::DebugRenderer * debug, bool depthTest)
+{
+	_target->DrawDebugGeometry (debug, depthTest);
+}
+
+
+DllExport int
+IKSolver_GetFEATURE_JOINT_ROTATIONS (Urho3D::IKSolver *_target)
+{
+	return _target->GetFEATURE_JOINT_ROTATIONS ();
+}
+
+
+DllExport int
+IKSolver_GetFEATURE_TARGET_ROTATIONS (Urho3D::IKSolver *_target)
+{
+	return _target->GetFEATURE_TARGET_ROTATIONS ();
+}
+
+
+DllExport int
+IKSolver_GetFEATURE_UPDATE_ORIGINAL_POSE (Urho3D::IKSolver *_target)
+{
+	return _target->GetFEATURE_UPDATE_ORIGINAL_POSE ();
+}
+
+
+DllExport int
+IKSolver_GetFEATURE_UPDATE_ACTIVE_POSE (Urho3D::IKSolver *_target)
+{
+	return _target->GetFEATURE_UPDATE_ACTIVE_POSE ();
+}
+
+
+DllExport int
+IKSolver_GetFEATURE_USE_ORIGINAL_POSE (Urho3D::IKSolver *_target)
+{
+	return _target->GetFEATURE_USE_ORIGINAL_POSE ();
+}
+
+
+DllExport int
+IKSolver_GetFEATURE_CONSTRAINTS (Urho3D::IKSolver *_target)
+{
+	return _target->GetFEATURE_CONSTRAINTS ();
+}
+
+
+DllExport int
+IKSolver_GetFEATURE_AUTO_SOLVE (Urho3D::IKSolver *_target)
+{
+	return _target->GetFEATURE_AUTO_SOLVE ();
+}
+
+
+DllExport void
+IKSolver_SetFEATURE_JOINT_ROTATIONS (Urho3D::IKSolver *_target, bool enable)
+{
+	_target->SetFEATURE_JOINT_ROTATIONS (enable);
+}
+
+
+DllExport void
+IKSolver_SetFEATURE_TARGET_ROTATIONS (Urho3D::IKSolver *_target, bool enable)
+{
+	_target->SetFEATURE_TARGET_ROTATIONS (enable);
+}
+
+
+DllExport void
+IKSolver_SetFEATURE_UPDATE_ORIGINAL_POSE (Urho3D::IKSolver *_target, bool enable)
+{
+	_target->SetFEATURE_UPDATE_ORIGINAL_POSE (enable);
+}
+
+
+DllExport void
+IKSolver_SetFEATURE_UPDATE_ACTIVE_POSE (Urho3D::IKSolver *_target, bool enable)
+{
+	_target->SetFEATURE_UPDATE_ACTIVE_POSE (enable);
+}
+
+
+DllExport void
+IKSolver_SetFEATURE_USE_ORIGINAL_POSE (Urho3D::IKSolver *_target, bool enable)
+{
+	_target->SetFEATURE_USE_ORIGINAL_POSE (enable);
+}
+
+
+DllExport void
+IKSolver_SetFEATURE_CONSTRAINTS (Urho3D::IKSolver *_target, bool enable)
+{
+	_target->SetFEATURE_CONSTRAINTS (enable);
+}
+
+
+DllExport void
+IKSolver_SetFEATURE_AUTO_SOLVE (Urho3D::IKSolver *_target, bool enable)
+{
+	_target->SetFEATURE_AUTO_SOLVE (enable);
 }
 
 

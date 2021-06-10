@@ -456,6 +456,102 @@ namespace Urho
             m03 = col3.X; m13 = col3.Y; m23 = col3.Z;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Matrix3x4"/> struct.
+        /// </summary>
+        /// <param name="row0">Top row of the matrix.</param>
+        /// <param name="row1">Second row of the matrix.</param>
+        /// <param name="row2">Bottom row of the matrix.</param>
+        public Matrix3x4(Vector4 row0, Vector4 row1, Vector4 row2)
+        {
+            m00 = row0.X ; m01 = row0.Y ; m02 = row0.Z ; m03 = row0.W;
+            m10 = row1.X ; m11 = row1.Y ; m12 = row1.Z ; m13 = row1.W;
+            m20 = row2.X ; m21 = row2.Y ; m22 = row2.Z ; m23 = row2.W;
+        }
+
+        /// <summary>Gets the component at the given row and column in the matrix.</summary>
+		/// <param name="row">The row of the matrix.</param>
+		/// <param name="column">The column of the matrix.</param>
+		/// <returns>The component at the given row and column in the matrix.</returns>
+		public float this[int row, int column]
+		{
+			get
+			{
+				switch( row )
+				{
+					case 0:
+						switch (column)
+						{
+							case 0: return m00;
+							case 1: return m01;
+							case 2: return m02;
+                            case 3: return m03;
+						}
+						break;
+
+					case 1:
+						switch (column)
+						{
+							case 0: return m10;
+							case 1: return m11;
+							case 2: return m12;
+                            case 3: return m13;
+						}
+						break;
+
+					case 2:
+						switch (column)
+						{
+							case 0: return m20;
+							case 1: return m21;
+							case 2: return m22;
+                            case 3: return m23;
+						}
+						break;
+				}
+
+				throw new IndexOutOfRangeException();
+			}
+			set
+			{
+				switch( row )
+				{
+					case 0:
+						switch (column)
+						{
+							case 0: m00 = value; return;
+							case 1: m01 = value; return;
+							case 2: m02 = value; return;
+                            case 3: m03 = value; return;
+						}
+						break;
+
+					case 1:
+						switch (column)
+						{
+							case 0: m10 = value; return;
+							case 1: m11 = value; return;
+							case 2: m12 = value; return;
+                            case 3: m13 = value; return;
+						}
+						break;
+
+					case 2:
+						switch (column)
+						{
+							case 0: m20 = value; return;
+							case 1: m21 = value; return;
+							case 2: m22 = value; return;
+                            case 3: m23 = value; return;
+						}
+						break;
+				}
+
+				throw new IndexOutOfRangeException();
+			}
+		}
+
+
 
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

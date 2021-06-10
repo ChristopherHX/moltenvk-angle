@@ -107,6 +107,55 @@ namespace Urho
 
 		#region Public Members
 
+
+        /// <summary>
+        /// Gets or sets the value at the index of the Vector.
+        /// </summary>
+        /// <param name="index">The index of the component from the Vector.</param>
+        /// <exception cref="IndexOutOfRangeException">Thrown if the index is less than 0 or greater than 2.</exception>
+        public float this[int index]
+        {
+            get
+            {
+                if (index == 0)
+                {
+                    return X;
+                }
+
+                if (index == 1)
+                {
+                    return Y;
+                }
+
+                if (index == 2)
+                {
+                    return Z;
+                }
+
+                throw new IndexOutOfRangeException("You tried to access this vector at index: " + index);
+            }
+
+            set
+            {
+                if (index == 0)
+                {
+                    X = value;
+                }
+                else if (index == 1)
+                {
+                    Y = value;
+                }
+                else if (index == 2)
+                {
+                    Z = value;
+                }
+                else
+                {
+                    throw new IndexOutOfRangeException("You tried to set this vector at index: " + index);
+                }
+            }
+        }
+		
 		#region Instance
 
 		#region public void Add()

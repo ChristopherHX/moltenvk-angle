@@ -70,8 +70,8 @@ void IKEffector::RegisterObject(Context* context)
     URHO3D_ACCESSOR_ATTRIBUTE("Weight", GetWeight, SetWeight, float, 1.0, AM_DEFAULT);
     URHO3D_ACCESSOR_ATTRIBUTE("Rotation Weight", GetRotationWeight, SetRotationWeight, float, 1.0, AM_DEFAULT);
     URHO3D_ACCESSOR_ATTRIBUTE("Rotation Decay", GetRotationDecay, SetRotationDecay, float, 0.25, AM_DEFAULT);
-    URHO3D_ACCESSOR_ATTRIBUTE("Nlerp Weight", GetWEIGHT_NLERP, SetWEIGHT_NLERP, bool, false, AM_DEFAULT);
-    URHO3D_ACCESSOR_ATTRIBUTE("Inherit Parent Rotation", GetINHERIT_PARENT_ROTATION, SetINHERIT_PARENT_ROTATION, bool, false, AM_DEFAULT);
+    URHO3D_ACCESSOR_ATTRIBUTE("Nlerp Weight", GetFEATURE_WEIGHT_NLERP, SetFEATURE_WEIGHT_NLERP, bool, false, AM_DEFAULT);
+    URHO3D_ACCESSOR_ATTRIBUTE("Inherit Parent Rotation", GetFEATURE_INHERIT_PARENT_ROTATION, SetFEATURE_INHERIT_PARENT_ROTATION, bool, false, AM_DEFAULT);
 }
 
 // ----------------------------------------------------------------------------
@@ -214,11 +214,11 @@ void IKEffector::SetRotationDecay(float decay)
 }
 
 // ----------------------------------------------------------------------------
-void IKEffector::SetFeature(Feature feature, bool enable)
+void IKEffector::SetFeature(IKEffectorFeature feature, bool enable)
 {
     switch (feature)
     {
-        case WEIGHT_NLERP:
+        case FEATURE_WEIGHT_NLERP:
         {
             if (ikEffectorNode_ != nullptr)
             {
@@ -228,7 +228,7 @@ void IKEffector::SetFeature(Feature feature, bool enable)
             }
         } break;
 
-        case INHERIT_PARENT_ROTATION:
+        case FEATURE_INHERIT_PARENT_ROTATION:
             break;
     }
 
@@ -238,7 +238,7 @@ void IKEffector::SetFeature(Feature feature, bool enable)
 }
 
 // ----------------------------------------------------------------------------
-bool IKEffector::GetFeature(Feature feature) const
+bool IKEffector::GetFeature(IKEffectorFeature feature) const
 {
     return (features_ & feature) != 0;
 }
@@ -334,7 +334,7 @@ void IKEffector::SetIKEffectorNode(ik_node_t* effectorNode)
         ikEffectorNode_->effector->rotation_decay = rotationDecay_;
         ikEffectorNode_->effector->chain_length = chainLength_;
 
-        if (features_ & WEIGHT_NLERP)
+        if (features_ & FEATURE_WEIGHT_NLERP)
             ikEffectorNode_->effector->flags |= EFFECTOR_WEIGHT_NLERP;
     }
 }
@@ -362,11 +362,11 @@ void IKEffector::Set##feature_name(bool enable) \
     SetFeature(feature_name, enable);           \
 }
 
-DEF_FEATURE_GETTER(WEIGHT_NLERP)
-DEF_FEATURE_GETTER(INHERIT_PARENT_ROTATION)
+DEF_FEATURE_GETTER(FEATURE_WEIGHT_NLERP)
+DEF_FEATURE_GETTER(FEATURE_INHERIT_PARENT_ROTATION)
 
-DEF_FEATURE_SETTER(WEIGHT_NLERP)
-DEF_FEATURE_SETTER(INHERIT_PARENT_ROTATION)
+DEF_FEATURE_SETTER(FEATURE_WEIGHT_NLERP)
+DEF_FEATURE_SETTER(FEATURE_INHERIT_PARENT_ROTATION)
 
 
 } // namespace Urho3D

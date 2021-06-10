@@ -137,6 +137,48 @@ namespace Urho
 			}
 		}
 
+		public Vector3 Row0
+		{
+			get
+			{
+				return new Vector3(R0C0,R0C1,R0C2);
+			}
+
+			set{
+				R0C0 = value.X;
+				R0C1 = value.Y;
+				R0C2 = value.Z;
+			}
+		}
+
+		public Vector3 Row1
+		{
+			get
+			{
+				return new Vector3(R1C0,R1C1,R1C2);
+			}
+
+			set{
+				R1C0 = value.X;
+				R1C1 = value.Y;
+				R1C2 = value.Z;
+			}
+		}
+
+
+		public Vector3 Row2
+		{
+			get
+			{
+				return new Vector3(R2C0,R2C1,R2C2);
+			}
+
+			set{
+				R2C0 = value.X;
+				R2C1 = value.Y;
+				R2C2 = value.Z;
+			}
+		}
 		/// <summary>Gets the component at the index into the matrix.</summary>
 		/// <param name="index">The index into the components of the matrix.</param>
 		/// <returns>The component at the given index into the matrix.</returns>
@@ -284,6 +326,31 @@ namespace Urho
 			this.R2C1 = floatArray[7];
 			this.R2C2 = floatArray[8];
 		}
+
+
+     /// <summary>
+        /// Initializes a new instance of the <see cref="Matrix3"/> struct.
+        /// </summary>
+        /// <param name="row0">Top row of the matrix.</param>
+        /// <param name="row1">Second row of the matrix.</param>
+        /// <param name="row2">Bottom row of the matrix.</param>
+        public Matrix3(Vector3 row0, Vector3 row1, Vector3 row2)
+        {
+			this.R0C0 = row0.X;
+			this.R0C1 = row0.Y;
+			this.R0C2 = row0.Z;
+
+			this.R1C0 = row1.X;
+			this.R1C1 = row1.Y;
+			this.R1C2 = row1.Z;
+
+			this.R2C0 = row2.X;
+			this.R2C1 = row2.Y;
+			this.R2C2 = row2.Z;
+
+        
+        }
+
 
 		#endregion
 

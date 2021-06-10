@@ -141,15 +141,15 @@ void InverseKinematics::CreateScene()
 
     // Two-bone solver is more efficient and more stable than FABRIK (but only
     // works for two bones, obviously).
-    solver_->SetAlgorithm(IKSolver::TWO_BONE);
+    solver_->SetAlgorithm(ALGORITHM_TWO_BONE);
 
     // Disable auto-solving, which means we need to call Solve() manually
-    solver_->SetFeature(IKSolver::AUTO_SOLVE, false);
+    solver_->SetFeature(FEATURE_AUTO_SOLVE, false);
 
     // Only enable this so the debug draw shows us the pose before solving.
     // This should NOT be enabled for any other reason (it does nothing and is
     // a waste of performance).
-    solver_->SetFeature(IKSolver::UPDATE_ORIGINAL_POSE, true);
+    solver_->SetFeature(FEATURE_UPDATE_ORIGINAL_POSE, true);
 
     // Create the camera.
     cameraRotateNode_ = scene_->CreateChild("CameraRotate");
