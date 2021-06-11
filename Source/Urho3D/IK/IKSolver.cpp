@@ -525,7 +525,8 @@ void IKSolver::OnSceneSet(Scene* scene)
 // ----------------------------------------------------------------------------
 void IKSolver::OnNodeSet(Node* node)
 {
-    ApplyOriginalPoseToScene();
+	if (node != nullptr)
+		ApplyOriginalPoseToScene();
     DestroyTree();
 
     if (node != nullptr)
