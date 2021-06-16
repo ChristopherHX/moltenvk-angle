@@ -8,6 +8,7 @@ using Urho.Resources;
 using Urho.IO;
 using Urho.Navigation;
 using Urho.Network;
+using System.Collections.Generic;
 
 namespace Urho
 {
@@ -16,6 +17,44 @@ namespace Urho
 	/// </summary>
 	public unsafe partial class UrhoObject
 	{
+		private Dictionary<string, WeakReference> _weakReferences =  new Dictionary<string, WeakReference>();
+		public bool  AddWeakReference(string key , UrhoObject obj)
+		{
+			bool res = true;
+			try
+			{
+				_weakReferences.Add(key, new WeakReference(obj, false));
+			}
+			catch (ArgumentException ex )
+			{
+				res = false;
+				LogSharp.Error(ex.ToString());
+			}
+
+			return res;
+		}
+
+		public UrhoObject GetWeakReference(string key)
+		{
+			UrhoObject weakReference = null;
+			try
+			{
+				weakReference = _weakReferences[key].Target as UrhoObject;
+			}
+			catch (KeyNotFoundException ex)
+			{
+				LogSharp.Error(ex.ToString());
+			}
+
+			return weakReference;
+		}
+
+		public UrhoObject this[string key]
+        {
+			get => GetWeakReference(key);
+			set => AddWeakReference( key , value);
+    	}
+
         public string ToString(bool v)
 		{
 			return v.ToString();
