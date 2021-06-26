@@ -40,6 +40,18 @@ set (LIBS
 endif()
 
 
+if(APPLE)
+if (IOS)
+else()
+set (SKIA_LIBPATH  skia/libs/osx) 
+set (SKIA_LIB libskia.a)
+set (LIBS 
+    ${SKIA_LIB}
+)
+endif()
+endif()
+
+
 link_directories(. ${SKIA_LIBPATH})
 
 set (INCLUDE_DIRS ${INCLUDE_DIRS} skia skia/include)
