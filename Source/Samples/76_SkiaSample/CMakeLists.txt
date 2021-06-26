@@ -42,6 +42,14 @@ endif()
 
 if(APPLE)
 if (IOS)
+set (SKIA_LIBPATH  skia/libs/ios) 
+set (SKIA_LIB libskia.a)
+set (LIBS 
+    ${SKIA_LIB}
+    "-framework CoreText"
+)
+set(BITCODE "")
+set(CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE "NO" CACHE INTERNAL "")
 else()
 set (SKIA_LIBPATH  skia/libs/osx) 
 set (SKIA_LIB libskia.a)
