@@ -8,7 +8,7 @@
  */
 
 #pragma once
-#include "..\Core\Object.h"
+#include <Urho3D/Core/Object.h>
 
 #pragma once
 #if defined(URHO3D_ANGLE_METAL)
