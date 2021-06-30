@@ -20,10 +20,21 @@
 # THE SOFTWARE.
 #
 
+
+if (NOT URHO3D_OPENGL)
+    return ()
+endif ()
+
 # Define target name
 set (TARGET_NAME 76_NonoVG)
 
 add_definitions(-DSTB_IMAGE_STATIC=1)
+
+if(ANDROID OR IOS OR TVOS OR WEB OR RPI4)
+    add_definitions(-DNANOVG_GLES2_IMPLEMENTATION=1)
+else()
+    add_definitions(-DNANOVG_GL3_IMPLEMENTATION=1)
+endif()
 
 file (GLOB NANOVG_FILES nanovg/*.c)
 

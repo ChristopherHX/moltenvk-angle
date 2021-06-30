@@ -711,6 +711,8 @@ public:
     static unsigned GetMaxBones();
     /// Return whether is using an OpenGL 3 context. Return always false on Direct3D9 & Direct3D11.
     static bool GetGL3Support();
+    /// Reset cached rendering state.
+    void ResetCachedState();
 
 private:
     /// Create the application window.
@@ -744,7 +746,7 @@ private:
     /// Check supported rendering features.
     void CheckFeatureSupport();
     /// Reset cached rendering state.
-    void ResetCachedState();
+
     /// Initialize texture unit mappings.
     void SetTextureUnitMappings();
     /// Process dirtied state before draw.

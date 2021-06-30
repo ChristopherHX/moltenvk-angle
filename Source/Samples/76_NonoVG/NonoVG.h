@@ -44,6 +44,9 @@ public:
     /// Setup after engine initialization and before running the main loop.
     void Start() override;
 
+    /// Cleanup after the main loop. Called by Application.
+    void Stop() override;
+
 protected:
     /// Return XML patch instructions for screen joystick layout for a specific sample app, if any.
     String GetScreenJoystickPatchString() const override { return
@@ -55,7 +58,7 @@ protected:
     }
 
 private:
-    SharedPtr<UIElement> uiRoot_;
+ //   SharedPtr<UIElement> uiRoot_;
 };
 
 

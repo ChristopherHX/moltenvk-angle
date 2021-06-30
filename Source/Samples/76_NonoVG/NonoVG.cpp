@@ -45,15 +45,16 @@
 URHO3D_DEFINE_APPLICATION_MAIN(NonoVG)
 
 NonoVG::NonoVG(Context* context) :
-    Sample(context),
-    uiRoot_(GetSubsystem<UI>()->GetRoot())
+    Sample(context)
 {
+
+     //   uiRoot_(GetSubsystem<UI>()->GetRoot())
 }
 
 void NonoVG::Setup()
 {
 
-    engineParameters_[EP_RESOURCE_PATHS] = "GameData;Data;CoreData;";
+    engineParameters_[EP_RESOURCE_PATHS] = "Data/nanovg;Data;CoreData;";
     engineParameters_[EP_LOG_NAME] = GetSubsystem<FileSystem>()->GetProgramDir() + GetTypeName() + ".log";
     engineParameters_[EP_FULL_SCREEN] = false;
     engineParameters_[EP_WINDOW_WIDTH] = 1280;
@@ -79,11 +80,11 @@ void NonoVG::Start()
     GetSubsystem<Input>()->SetMouseVisible(true);
 
     // Load XML file containing default UI style sheet
-    auto* cache = GetSubsystem<ResourceCache>();
-    auto* style = cache->GetResource<XMLFile>("UI/DefaultStyle.xml");
+ //   auto* cache = GetSubsystem<ResourceCache>();
+ //   auto* style = cache->GetResource<XMLFile>("UI/DefaultStyle.xml");
 
     // Set the loaded style as default style
-    uiRoot_->SetDefaultStyle(style);
+  //  uiRoot_->SetDefaultStyle(style);
 
 
 
@@ -91,5 +92,14 @@ void NonoVG::Start()
     Sample::InitMouseMode(MM_FREE);
 }
 
+void NonoVG::Stop() {
 
+    // Execute base class startup
+    Sample::Stop();
+    NanoGUI* nanogui = GetSubsystem<NanoGUI>();
+    if (nanogui)
+    {
+        nanogui->Clear();
+    }
+}
 

@@ -37,179 +37,18 @@
 #include "../Core/Timer.h"
 
 
-#define NANOVG_GLEW
-
-#ifdef NANOVG_GLEW
-#include <glew/glew.h>
-#endif
 #ifdef __APPLE__
 #	define GLFW_INCLUDE_GLCOREARB
 #endif
 #include "nanovg/nanovg.h"
-#define NANOVG_GL3_IMPLEMENTATION
 #include "nanovg/nanovg_gl.h"
 #include "nanovg/nanovg_gl_utils.h"
 
 
+#include "Demo.h"
 
 
-void renderPattern(NVGcontext* vg, NVGLUframebuffer* fb, float t, float pxRatio)
-{
-	int winWidth, winHeight;
-	int fboWidth, fboHeight;
-	int pw, ph, x, y;
-	float s = 20.0f;
-	float sr = (cosf(t) + 1)*0.5f;
-	float r = s * 0.6f * (0.2f + 0.8f * sr);
-
-	if (fb == NULL) return;
-
-	nvgImageSize(vg, fb->image, &fboWidth, &fboHeight);
-	winWidth = (int)(fboWidth / pxRatio);
-	winHeight = (int)(fboHeight / pxRatio);
-
-	// Draw some stuff to an FBO as a test
-	nvgluBindFramebuffer(fb);
-	glViewport(0, 0, fboWidth, fboHeight);
-	glClearColor(0, 0, 0, 0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-	nvgBeginFrame(vg, winWidth, winHeight, pxRatio);
-
-	pw = (int)ceilf(winWidth / s);
-	ph = (int)ceilf(winHeight / s);
-
-	nvgBeginPath(vg);
-	for (y = 0; y < ph; y++) {
-		for (x = 0; x < pw; x++) {
-			float cx = (x + 0.5f) * s;
-			float cy = (y + 0.5f) * s;
-			nvgCircle(vg, cx, cy, r);
-		}
-	}
-	nvgFillColor(vg, nvgRGBA(220, 160, 0, 200));
-	nvgFill(vg);
-
-	nvgEndFrame(vg);
-	nvgluBindFramebuffer(NULL);
-}
-void drawWindow(NVGcontext* vg, const char* title, float x, float y, float w, float h)
-{
-	float cornerRadius = 6.0f;
-	NVGpaint shadowPaint;
-	NVGpaint headerPaint;
-
-//	nvgSave(vg);
-	//	nvgClearState(vg);
-
-	// Window
-	nvgBeginPath(vg);
-	nvgRoundedRect(vg, x, y, w, h, cornerRadius);
-	nvgFillColor(vg, nvgRGBA(90, 30, 34, 255));
-	//	nvgFillColor(vg, nvgRGBA(0,0,0,128));
-	nvgFill(vg);
-
-	// Drop shadow
-	shadowPaint = nvgBoxGradient(vg, x, y + 2, w, h, cornerRadius * 2, 10, nvgRGBA(0, 0, 0, 128), nvgRGBA(0, 0, 0, 0));
-	nvgBeginPath(vg);
-	nvgRect(vg, x - 10, y - 10, w + 20, h + 30);
-	nvgRoundedRect(vg, x, y, w, h, cornerRadius);
-	nvgPathWinding(vg, NVG_HOLE);
-	nvgFillPaint(vg, shadowPaint);
-	nvgFill(vg);
-
-	// Header
-	headerPaint = nvgLinearGradient(vg, x, y, x, y + 15, nvgRGBA(255, 255, 255, 8), nvgRGBA(0, 0, 0, 16));
-	nvgBeginPath(vg);
-	nvgRoundedRect(vg, x + 1, y + 1, w - 2, 30, cornerRadius - 1);
-	nvgFillPaint(vg, headerPaint);
-	nvgFill(vg);
-	nvgBeginPath(vg);
-	nvgMoveTo(vg, x + 0.5f, y + 0.5f + 30);
-	nvgLineTo(vg, x + 0.5f + w - 1, y + 0.5f + 30);
-	nvgStrokeColor(vg, nvgRGBA(0, 0, 0, 32));
-	nvgStroke(vg);
-
-// 	nvgFontSize(vg, 18.0f);
-// 	nvgFontFace(vg, "sans-bold");
-// 	nvgTextAlign(vg, NVG_ALIGN_CENTER | NVG_ALIGN_MIDDLE);
-// 
-// 	nvgFontBlur(vg, 2);
-// 	nvgFillColor(vg, nvgRGBA(0, 0, 0, 128));
-// 	nvgText(vg, x + w / 2, y + 16 + 1, title, NULL);
-// 
-// 	nvgFontBlur(vg, 0);
-// 	nvgFillColor(vg, nvgRGBA(220, 220, 220, 160));
-// 	nvgText(vg, x + w / 2, y + 16, title, NULL);
-
-//	nvgRestore(vg);
-}
-
-void drawEyes(NVGcontext* vg, float x, float y, float w, float h, float mx, float my, float t)
-{
-	NVGpaint gloss, bg;
-	float ex = w *0.23f;
-	float ey = h * 0.5f;
-	float lx = x + ex;
-	float ly = y + ey;
-	float rx = x + w - ex;
-	float ry = y + ey;
-	float dx, dy, d;
-	float br = (ex < ey ? ex : ey) * 0.5f;
-	float blink = 1 - pow(sinf(t*0.5f), 200)*0.8f;
-
-	bg = nvgLinearGradient(vg, x, y + h*0.5f, x + w*0.1f, y + h, nvgRGBA(0, 0, 0, 32), nvgRGBA(0, 0, 0, 16));
-	nvgBeginPath(vg);
-	nvgEllipse(vg, lx + 3.0f, ly + 16.0f, ex, ey);
-	nvgEllipse(vg, rx + 3.0f, ry + 16.0f, ex, ey);
-	nvgFillPaint(vg, bg);
-	nvgFill(vg);
-
-	bg = nvgLinearGradient(vg, x, y + h*0.25f, x + w*0.1f, y + h, nvgRGBA(220, 220, 220, 255), nvgRGBA(128, 128, 128, 255));
-	nvgBeginPath(vg);
-	nvgEllipse(vg, lx, ly, ex, ey);
-	nvgEllipse(vg, rx, ry, ex, ey);
-	nvgFillPaint(vg, bg);
-	nvgFill(vg);
-
-	dx = (mx - rx) / (ex * 10);
-	dy = (my - ry) / (ey * 10);
-	d = sqrtf(dx*dx + dy*dy);
-	if (d > 1.0f) {
-		dx /= d; dy /= d;
-	}
-	dx *= ex*0.4f;
-	dy *= ey*0.5f;
-	nvgBeginPath(vg);
-	nvgEllipse(vg, lx + dx, ly + dy + ey*0.25f*(1 - blink), br, br*blink);
-	nvgFillColor(vg, nvgRGBA(32, 32, 32, 255));
-	nvgFill(vg);
-
-	dx = (mx - rx) / (ex * 10);
-	dy = (my - ry) / (ey * 10);
-	d = sqrtf(dx*dx + dy*dy);
-	if (d > 1.0f) {
-		dx /= d; dy /= d;
-	}
-	dx *= ex*0.4f;
-	dy *= ey*0.5f;
-	nvgBeginPath(vg);
-	nvgEllipse(vg, rx + dx, ry + dy + ey*0.25f*(1 - blink), br, br*blink);
-	nvgFillColor(vg, nvgRGBA(32, 32, 32, 255));
-	nvgFill(vg);
-
-	gloss = nvgRadialGradient(vg, lx - ex*0.25f, ly - ey*0.5f, ex*0.1f, ex*0.75f, nvgRGBA(255, 255, 255, 128), nvgRGBA(255, 255, 255, 0));
-	nvgBeginPath(vg);
-	nvgEllipse(vg, lx, ly, ex, ey);
-	nvgFillPaint(vg, gloss);
-	nvgFill(vg);
-
-	gloss = nvgRadialGradient(vg, rx - ex*0.25f, ry - ey*0.5f, ex*0.1f, ex*0.75f, nvgRGBA(255, 255, 255, 128), nvgRGBA(255, 255, 255, 0));
-	nvgBeginPath(vg);
-	nvgEllipse(vg, rx, ry, ex, ey);
-	nvgFillPaint(vg, gloss);
-	nvgFill(vg);
-}
-
+static DemoData data;
 
 namespace Urho3D
 {
@@ -278,19 +117,11 @@ namespace Urho3D
 	Urho3D::NanoGUI::~NanoGUI()
 	{
 	
-		if (vg_)
-		{
-			nvgDeleteGL3(vg_);
-		}
-		if (theme_)
-		{
-			delete theme_;
-		}
+		Clear();
 	}
 
 	Urho3D::NanoGUI::NanoGUI(Context* context) : Object(context),
 		initialized_(false),
-		nonModalBatchSize_(0),
 		vg_(NULL),
 		theme_(NULL)
 	{
@@ -305,11 +136,11 @@ namespace Urho3D
 
 		if (!graphics || !graphics->IsInitialized())
 			return;
-	
-		OpenConsoleWindow();
-		graphics_ = graphics;
 
-		vertexBuffer_ = new VertexBuffer(context_);
+		time_ = 0.0f;
+	
+	//	OpenConsoleWindow();
+		graphics_ = graphics;
 
 		initialized_ = true;
 
@@ -319,12 +150,14 @@ namespace Urho3D
         SubscribeToEvent(E_ENDRENDERING, URHO3D_HANDLER(NanoGUI, HandleRender));
 
 
-		rootElement_ = new UIElement(context_);
-		rootElement_->SetSize(graphics->GetWidth(), graphics->GetHeight());
-		rootElement_->SetPosition(0, 0);
+
 
 	//	vg_ = nvgCreateGL3(NVG_STENCIL_STROKES | NVG_DEBUG);
+#if defined(NANOVG_GL3_IMPLEMENTATION)
 		vg_ = nvgCreateGL3(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
+#else
+        vg_ = nvgCreateGLES2(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
+#endif
 
 		if (vg_ == NULL)
             URHO3D_LOGERROR("Could not init nanovg.");
@@ -333,155 +166,51 @@ namespace Urho3D
 		if (vg_)
 		{
 			theme_ = new Theme(vg_);
+            loadDemoData(GetSubsystem<ResourceCache>(),vg_, &data);
 		}
 
 		 URHO3D_LOGINFO("Initialized NanoGUI interface");
 	}
 
 	void NanoGUI::Clear()
-	{
-
+	{ 
+		freeDemoData(vg_, &data);
+        if (vg_)
+        {
+#if defined(NANOVG_GL3_IMPLEMENTATION)
+            nvgDeleteGL3(vg_);
+#else
+            nvgDeleteGLES2(vg_);
+#endif
+            vg_ = nullptr;
+        }
+        if (theme_)
+        {
+            delete theme_;
+            theme_ = nullptr;
+        }
 	}
 
 	void NanoGUI::Update(float timeStep)
-	{ URHO3D_PROFILE(UpdateNanoGUI);
-
-	}
-
-	void NanoGUI::RenderUpdate()
-	{
-        URHO3D_PROFILE(GetNanoGUIBatches);
-
-		// Get rendering batches from the non-modal UI elements
-		batches_.Clear();
-		vertexData_.Clear();
-		const IntVector2& rootSize = rootElement_->GetSize();
-		IntRect currentScissor = IntRect(0, 0, rootSize.x_, rootSize.y_);
-
-		/// getbatches
-		// create a test white quad on screen 
-// 		UIBatch batch(rootElement_, BLEND_REPLACE, currentScissor, NULL, &vertexData_);
-// 		batch.SetColor(Color::WHITE);
-// 		batch.AddQuad(0, 0, graphics_->GetWidth(), graphics_->GetHeight(), 0, 0);
-// 		UIBatch::AddOrMerge(batch, batches_);
-
-		// Save the batch size of the non-modal batches for later use
-		nonModalBatchSize_ = batches_.Size();
+	{ 
+		URHO3D_PROFILE(UpdateNanoGUI);
+        time_ += timeStep;
 	}
 
 	void NanoGUI::Render(bool resetRenderTargets /*= true*/)
 	{
         URHO3D_PROFILE(RenderNanoGUI);
 
-		SetVertexData(vertexBuffer_, vertexData_);
-		// Render non-modal batches
-		Render(resetRenderTargets, vertexBuffer_, batches_, 0, nonModalBatchSize_);
-
-
 		nvgBeginFrame(vg_, graphics_->GetWidth(), graphics_->GetHeight(), 1.0f);
 
-		for (int i = 0; i < 20; i++) {
-			nvgBeginPath(vg_);
-			nvgRect(vg_, 10 + i * 30, 10, 10, graphics_->GetHeight() - 20);
-			nvgFillColor(vg_, nvgHSLA(1 / 19.0f, 0.5f, 0.5f, 255));
-			nvgFill(vg_);
-		}
-
-
-		drawWindow(vg_,"hallloooasdsad",100,0,500,500);
-
-		drawEyes(vg_, 100, 150, 290, 200, 3, 4, 6);
-
-
+		renderDemo(vg_, 0, 0, graphics_->GetWidth(), graphics_->GetHeight(), time_, 0,&data);
+   
 		nvgEndFrame(vg_);
+
+		graphics_->ResetCachedState();
 	}
 
-	void NanoGUI::Render(bool resetRenderTargets, VertexBuffer* buffer, const PODVector<UIBatch>& batches, unsigned batchStart, unsigned batchEnd)
-	{
-		// Engine does not render when window is closed or device is lost
-		assert(graphics_ && graphics_->IsInitialized() && !graphics_->IsDeviceLost());
-
-		if (batches.Empty())
-			return;
-
-
-		Vector2 invScreenSize(1.0f / (float)graphics_->GetWidth(), 1.0f / (float)graphics_->GetHeight());
-		Vector2 scale(2.0f * invScreenSize.x_, -2.0f * invScreenSize.y_);
-		Vector2 offset(-1.0f, 1.0f);
-
-		Matrix4 projection(Matrix4::IDENTITY);
-		projection.m00_ = scale.x_;
-		projection.m03_ = offset.x_;
-		projection.m11_ = scale.y_;
-		projection.m13_ = offset.y_;
-		projection.m22_ = 1.0f;
-		projection.m23_ = 0.0f;
-		projection.m33_ = 1.0f;
-
-		graphics_->ClearParameterSources();
-		graphics_->SetColorWrite(true);
-		graphics_->SetCullMode(CULL_CCW);
-		graphics_->SetDepthTest(CMP_ALWAYS);
-		graphics_->SetDepthWrite(false);
-        graphics_->SetLineAntiAlias(false);
-		graphics_->SetFillMode(FILL_SOLID);
-		graphics_->SetStencilTest(false);
-		if (resetRenderTargets)
-			graphics_->ResetRenderTargets();
-		graphics_->SetVertexBuffer(buffer);
-
-		ShaderVariation* noTextureVS = graphics_->GetShader(VS, "Basic", "VERTEXCOLOR");
-		ShaderVariation* diffTextureVS = graphics_->GetShader(VS, "Basic", "DIFFMAP VERTEXCOLOR");
-		ShaderVariation* noTexturePS = graphics_->GetShader(PS, "Basic", "VERTEXCOLOR");
-		ShaderVariation* diffTexturePS = graphics_->GetShader(PS, "Basic", "DIFFMAP VERTEXCOLOR");
-		ShaderVariation* diffMaskTexturePS = graphics_->GetShader(PS, "Basic", "DIFFMAP ALPHAMASK VERTEXCOLOR");
-		ShaderVariation* alphaTexturePS = graphics_->GetShader(PS, "Basic", "ALPHAMAP VERTEXCOLOR");
-
-		unsigned alphaFormat = Graphics::GetAlphaFormat();
-
-		for (unsigned i = batchStart; i < batchEnd; ++i)
-		{
-			const UIBatch& batch = batches[i];
-			if (batch.vertexStart_ == batch.vertexEnd_)
-				continue;
-
-			ShaderVariation* ps;
-			ShaderVariation* vs;
-
-			if (!batch.texture_)
-			{
-				ps = noTexturePS;
-				vs = noTextureVS;
-			}
-			else
-			{
-				// If texture contains only an alpha channel, use alpha shader (for fonts)
-				vs = diffTextureVS;
-
-				if (batch.texture_->GetFormat() == alphaFormat)
-					ps = alphaTexturePS;
-				else if (batch.blendMode_ != BLEND_ALPHA && batch.blendMode_ != BLEND_ADDALPHA && batch.blendMode_ != BLEND_PREMULALPHA)
-					ps = diffMaskTexturePS;
-				else
-					ps = diffTexturePS;
-			}
-
-			graphics_->SetShaders(vs, ps);
-            if (graphics_->NeedParameterUpdate(SP_OBJECT, this))
-				graphics_->SetShaderParameter(VSP_MODEL, Matrix3x4::IDENTITY);
-			if (graphics_->NeedParameterUpdate(SP_CAMERA, this))
-				graphics_->SetShaderParameter(VSP_VIEWPROJ, projection);
-			if (graphics_->NeedParameterUpdate(SP_MATERIAL, this))
-				graphics_->SetShaderParameter(PSP_MATDIFFCOLOR, Color(1.0f, 1.0f, 1.0f, 1.0f));
-
-			graphics_->SetBlendMode(batch.blendMode_);
-			graphics_->SetScissorTest(true, batch.scissor_);
-			graphics_->SetTexture(0, batch.texture_);
-			graphics_->Draw(TRIANGLE_LIST, batch.vertexStart_ / UI_VERTEX_SIZE, (batch.vertexEnd_ - batch.vertexStart_) /
-				UI_VERTEX_SIZE);
-		}
-	}
-
+	
 	void NanoGUI::HandleBeginFrame(StringHash eventType, VariantMap& eventData)
 	{
 
@@ -496,28 +225,12 @@ namespace Urho3D
 
 	void NanoGUI::HandleRenderUpdate(StringHash eventType, VariantMap& eventData)
 	{
-		RenderUpdate();
 	}
 
 	void NanoGUI::HandleRender(StringHash eventType, VariantMap& eventData)
 	{
 		Render();
 	}
-
-	void NanoGUI::SetVertexData(VertexBuffer* dest, const PODVector<float>& vertexData)
-	{
-		if (vertexData.Empty())
-			return;
-
-		// Update quad geometry into the vertex buffer
-		// Resize the vertex buffer first if too small or much too large
-		unsigned numVertices = vertexData.Size() / NANOGUI_VERTEX_SIZE;
-		if (dest->GetVertexCount() < numVertices || dest->GetVertexCount() > numVertices * 2)
-			dest->SetSize(numVertices, MASK_POSITION | MASK_COLOR | MASK_TEXCOORD1, true);
-
-		dest->SetData(&vertexData[0]);
-	}
-
 
 
 
