@@ -1,3 +1,25 @@
+//
+// Copyright (c) 2008-2021 the Urho3D project.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+//
+
 #include "../Urho3D.h"
 #include "NanoGUI.h"
 #include "../UI/CheckBox.h"
@@ -52,62 +74,6 @@ static DemoData data;
 
 namespace Urho3D
 {
-	const unsigned NANOGUI_VERTEX_SIZE = 6;
-
-
-	Theme::Theme(NVGcontext *ctx)
-	{
-		
-			mStandardFontSize = 16;
-			mButtonFontSize = 20;
-			mWindowCornerRadius = 2;
-			mWindowHeaderHeight = 30;
-			mWindowDropShadowSize = 10;
-			mButtonCornerRadius = 2;
-
-			mDropShadow = Color(0.0f,0.0f,0.0f, 128 / 255.f);
-			mTransparent = Color(0.0f, 0.0f, 0.0f, 0.0f);
-			mBorderDark = Color(29 / 255.f, 29 / 255.f, 29 / 255.f, 255 / 255.f);
-			mBorderLight = Color(92 / 255.f, 92 / 255.f, 92 / 255.f, 255 / 255.f);
-			mBorderMedium = Color(35 / 255.f, 35 / 255.f, 35 / 255.f, 255 / 255.f);
-			mTextColor = Color(1.0f,1.0f,1.0f, 160 / 255.f);
-			mDisabledTextColor = Color(1.0f, 1.0f, 1.0f, 80 / 255.f);
-			mTextColorShadow = Color(0.0f, 0.0f, 0.0f, 160 / 255.f);
-			mIconColor = mTextColor;
-
-			mButtonGradientTopFocused = Color(64 / 255.f, 64 / 255.f, 64 / 255.f, 1.0f);
-			mButtonGradientBotFocused = Color(48 / 255.f, 48 / 255.f, 48 / 255.f, 1.0f);
-			mButtonGradientTopUnfocused = Color(74 / 255.f, 74 / 255.f, 74 / 255.f, 1.0f);
-			mButtonGradientBotUnfocused = Color(58 / 255.f, 58 / 255.f, 58 / 255.f, 1.0f);
-			mButtonGradientTopPushed = Color(41 / 255.f, 41 / 255.f, 41 / 255.f, 1.0f);
-			mButtonGradientBotPushed = Color(29 / 255.f, 29 / 255.f, 29 / 255.f, 1.0f);
-
-			/* Window-related */
-			mWindowFillUnfocused = Color(43 / 255.f, 43 / 255.f, 43 / 255.f, 230 / 255.f);
-			mWindowFillFocused = Color(45 / 255.f, 45 / 255.f, 45 / 255.f, 230 / 255.f);
-			mWindowTitleUnfocused = Color(220 / 255.f, 220 / 255.f, 220 / 255.f, 160 / 255.f);
-			mWindowTitleFocused = Color(1.0f, 1.0f, 1.0f, 190 / 255.f);
-
-			mWindowHeaderGradientTop = mButtonGradientTopUnfocused;
-			mWindowHeaderGradientBot = mButtonGradientBotUnfocused;
-			mWindowHeaderSepTop = mBorderLight;
-			mWindowHeaderSepBot = mBorderDark;
-
-			mWindowPopup = Color(50 / 255.f, 50 / 255.f, 50 / 255.f, 255);
-			mWindowPopupTransparent = Color(50 / 255.f, 50 / 255.f, 50 / 255.f, 0);
-			
-			mFontNormal = nvgCreateFont(ctx, "sans", "Roboto-Regular.ttf"); //nvgCreateFontMem(ctx, "sans", roboto_regular_ttf,	roboto_regular_ttf_size, 0);
-			mFontBold = nvgCreateFont(ctx, "sans-bold", "Roboto-Bold.ttf"); //nvgCreateFontMem(ctx, "sans-bold", roboto_bold_ttf,roboto_bold_ttf_size, 0);
-			mFontIcons = nvgCreateFont(ctx, "icons", "entypo.ttf"); //nvgCreateFontMem(ctx, "icons", entypo_ttf,	entypo_ttf_size, 0);
-
-			if (mFontNormal == -1 || mFontBold == -1 || mFontIcons == -1)
-			{
-                URHO3D_LOGERROR("Could not load fonts!");
-			}
-				
-		
-	}
-
 
 	void Urho3D::NanoGUI::RegisterObject(Context* context)
 	{
@@ -122,8 +88,7 @@ namespace Urho3D
 
 	Urho3D::NanoGUI::NanoGUI(Context* context) : Object(context),
 		initialized_(false),
-		vg_(NULL),
-		theme_(NULL)
+		vg_(NULL)
 	{
 
 	}
@@ -144,12 +109,8 @@ namespace Urho3D
 
 		initialized_ = true;
 
-		SubscribeToEvent(E_BEGINFRAME, URHO3D_HANDLER(NanoGUI, HandleBeginFrame));
         SubscribeToEvent(E_POSTUPDATE, URHO3D_HANDLER(NanoGUI, HandlePostUpdate));
-        SubscribeToEvent(E_RENDERUPDATE, URHO3D_HANDLER(NanoGUI, HandleRenderUpdate));
         SubscribeToEvent(E_ENDRENDERING, URHO3D_HANDLER(NanoGUI, HandleRender));
-
-
 
 
 //NVG_DEBUG
@@ -165,7 +126,6 @@ namespace Urho3D
 
 		if (vg_)
 		{
-			theme_ = new Theme(vg_);
             loadDemoData(GetSubsystem<ResourceCache>(),vg_, &data);
 		}
 
@@ -184,11 +144,7 @@ namespace Urho3D
 #endif
             vg_ = nullptr;
         }
-        if (theme_)
-        {
-            delete theme_;
-            theme_ = nullptr;
-        }
+  
 	}
 
 	void NanoGUI::Update(float timeStep)
@@ -201,20 +157,18 @@ namespace Urho3D
 	{
         URHO3D_PROFILE(RenderNanoGUI);
 
-		nvgBeginFrame(vg_, graphics_->GetWidth(), graphics_->GetHeight(), 1.0f);
+		if (vg_)
+        {
+            nvgBeginFrame(vg_, graphics_->GetWidth(), graphics_->GetHeight(), 1.0f);
 
-		renderDemo(vg_, 0, 0, graphics_->GetWidth(), graphics_->GetHeight(), time_, 0,&data);
-   
-		nvgEndFrame(vg_);
+            renderDemo(vg_, 0, 0, graphics_->GetWidth(), graphics_->GetHeight(), time_, 0, &data);
 
-		graphics_->ResetCachedState();
+            nvgEndFrame(vg_);
+
+            graphics_->ResetCachedState();
+        }
 	}
 
-	
-	void NanoGUI::HandleBeginFrame(StringHash eventType, VariantMap& eventData)
-	{
-
-	}
 
 	void NanoGUI::HandlePostUpdate(StringHash eventType, VariantMap& eventData)
 	{
@@ -223,9 +177,6 @@ namespace Urho3D
 		Update(eventData[P_TIMESTEP].GetFloat());
 	}
 
-	void NanoGUI::HandleRenderUpdate(StringHash eventType, VariantMap& eventData)
-	{
-	}
 
 	void NanoGUI::HandleRender(StringHash eventType, VariantMap& eventData)
 	{

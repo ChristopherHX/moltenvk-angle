@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2020 the Urho3D project.
+// Copyright (c) 2008-2021 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -48,7 +48,6 @@ NonoVG::NonoVG(Context* context) :
     Sample(context)
 {
 
-     //   uiRoot_(GetSubsystem<UI>()->GetRoot())
 }
 
 void NonoVG::Setup()
@@ -78,15 +77,6 @@ void NonoVG::Start()
 
     // Enable OS cursor
     GetSubsystem<Input>()->SetMouseVisible(true);
-
-    // Load XML file containing default UI style sheet
- //   auto* cache = GetSubsystem<ResourceCache>();
- //   auto* style = cache->GetResource<XMLFile>("UI/DefaultStyle.xml");
-
-    // Set the loaded style as default style
-  //  uiRoot_->SetDefaultStyle(style);
-
-
 
     // Set the mouse mode to use in the sample
     Sample::InitMouseMode(MM_FREE);

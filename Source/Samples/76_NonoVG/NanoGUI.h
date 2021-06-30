@@ -132,12 +132,8 @@ public:
 
 
 protected:
-	/// Handle frame begin event.
-	void HandleBeginFrame(StringHash eventType, VariantMap& eventData);
 	/// Handle logic post-update event.
 	void HandlePostUpdate(StringHash eventType, VariantMap& eventData);
-	/// Handle render update event.
-	void HandleRenderUpdate(StringHash eventType, VariantMap& eventData);
 	/// Handle render event.
 	void HandleRender(StringHash eventType, VariantMap& eventData);
 	/// Initialized flag.
@@ -147,7 +143,6 @@ protected:
 
 	/// nanovg context
 	NVGcontext* vg_;
-	Theme* theme_;
 
 	float time_;
 
