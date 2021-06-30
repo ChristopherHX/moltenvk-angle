@@ -152,11 +152,11 @@ namespace Urho3D
 
 
 
-	//	vg_ = nvgCreateGL3(NVG_STENCIL_STROKES | NVG_DEBUG);
+//NVG_DEBUG
 #if defined(NANOVG_GL3_IMPLEMENTATION)
-		vg_ = nvgCreateGL3(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
+		vg_ = nvgCreateGL3(NVG_ANTIALIAS | NVG_STENCIL_STROKES);
 #else
-        vg_ = nvgCreateGLES2(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
+        vg_ = nvgCreateGLES2(NVG_ANTIALIAS | NVG_STENCIL_STROKES);
 #endif
 
 		if (vg_ == NULL)

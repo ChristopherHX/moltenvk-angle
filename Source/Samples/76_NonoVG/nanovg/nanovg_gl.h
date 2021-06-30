@@ -423,7 +423,7 @@ static void glnvg__checkError(GLNVGcontext* gl, const char* str)
 	if ((gl->flags & NVG_DEBUG) == 0) return;
 	err = glGetError();
 	if (err != GL_NO_ERROR) {
-		// TBD ELI printf("Error %08x after %s\n", err, str);
+		printf("Error %08x after %s\n", err, str);
 		return;
 	}
 }
