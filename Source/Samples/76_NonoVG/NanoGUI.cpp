@@ -159,13 +159,24 @@ namespace Urho3D
 
 		if (vg_)
         {
+            GLint previousVBO = 0;
+            glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &previousVBO);
+
+            ShaderVariation* previousVS = graphics_->GetVertexShader();
+            ShaderVariation* previousPS = graphics_->GetPixelShader();
+
             nvgBeginFrame(vg_, graphics_->GetWidth(), graphics_->GetHeight(), 1.0f);
 
             renderDemo(vg_, 0, 0, graphics_->GetWidth(), graphics_->GetHeight(), time_, 0, &data);
 
             nvgEndFrame(vg_);
 
-            graphics_->ResetCachedState();
+            glBindBuffer(GL_ARRAY_BUFFER, previousVBO);
+            glEnable(GL_DEPTH_TEST);
+            graphics_->SetCullMode(CULL_CCW);
+            graphics_->SetDepthTest(CMP_LESSEQUAL);
+            graphics_->SetDepthWrite(true);
+            graphics_->SetShaders(previousVS, previousPS);
         }
 	}
 

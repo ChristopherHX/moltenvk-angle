@@ -1265,7 +1265,7 @@ static void glnvg__renderFlush(void* uptr)
 #endif
 #endif
         glDisable(GL_CULL_FACE);
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
         glUseProgram(0);
         glnvg__bindTexture(gl, 0);
     }

@@ -61,8 +61,9 @@ void NonoVG::Setup()
     engineParameters_[EP_RESOURCE_PATHS] = "Data/nanovg;Data;CoreData;";
     engineParameters_[EP_LOG_NAME] = GetSubsystem<FileSystem>()->GetProgramDir() + GetTypeName() + ".log";
     engineParameters_[EP_FULL_SCREEN] = false;
-    engineParameters_[EP_WINDOW_WIDTH] = 1280;
-    engineParameters_[EP_WINDOW_HEIGHT] = 720;
+    engineParameters_[EP_WINDOW_WIDTH] = 1400;
+    engineParameters_[EP_WINDOW_HEIGHT] = 1000;
+    engineParameters_[EP_WINDOW_RESIZABLE] = true;
     engineParameters_[EP_WINDOW_TITLE] = GetTypeName();
 
     NanoGUI::RegisterObject(context_);
@@ -87,9 +88,11 @@ void NonoVG::Start()
     InitControls();
     
     CreateScene();
-    SetupViewport();
-    
 
+    SetupViewport();
+
+    SubscribeToEvents();
+    
     // Enable OS cursor
     GetSubsystem<Input>()->SetMouseVisible(true);
 
@@ -203,8 +206,10 @@ void NonoVG::InitWindow()
     // Set Window size and layout settings
     window_->SetMinWidth(384);
     window_->SetLayout(LM_VERTICAL, 6, IntRect(6, 6, 6, 6));
-    window_->SetAlignment(HA_CENTER, VA_CENTER);
+    window_->SetAlignment(HA_LEFT, VA_TOP);
     window_->SetName("NanoVG Window");
+    window_->SetMovable(true);
+    window_->SetFocusMode(FocusMode::FM_FOCUSABLE);
 
     // Create Window 'titlebar' container
     auto* titleBar = new UIElement(context_);
@@ -235,9 +240,62 @@ void NonoVG::InitWindow()
 
 }
 
-void NonoVG::Stop() {
 
-    // Execute base class startup
+void NonoVG::MoveCamera(float timeStep)
+{
+    // Do not move if the UI has a focused element (the console)
+    if (GetSubsystem<UI>()->GetFocusElement())
+        return;
+
+    auto* input = GetSubsystem<Input>();
+
+    // Movement speed as world units per second
+    const float MOVE_SPEED = 20.0f;
+    // Mouse sensitivity as degrees per pixel
+    const float MOUSE_SENSITIVITY = 0.1f;
+
+    // Use this frame's mouse motion to adjust camera node yaw and pitch. Clamp the pitch between -90 and 90 degrees
+    IntVector2 mouseMove = input->GetMouseMove();
+    yaw_ += MOUSE_SENSITIVITY * mouseMove.x_;
+    pitch_ += MOUSE_SENSITIVITY * mouseMove.y_;
+    pitch_ = Clamp(pitch_, -90.0f, 90.0f);
+
+    // Construct new orientation for the camera scene node from yaw and pitch. Roll is fixed to zero
+    cameraNode_->SetRotation(Quaternion(pitch_, yaw_, 0.0f));
+
+    // Read WASD keys and move the camera scene node to the corresponding direction if they are pressed
+    // Use the Translate() function (default local space) to move relative to the node's orientation.
+    if (input->GetKeyDown(KEY_W))
+        cameraNode_->Translate(Vector3::FORWARD * MOVE_SPEED * timeStep);
+    if (input->GetKeyDown(KEY_S))
+        cameraNode_->Translate(Vector3::BACK * MOVE_SPEED * timeStep);
+    if (input->GetKeyDown(KEY_A))
+        cameraNode_->Translate(Vector3::LEFT * MOVE_SPEED * timeStep);
+    if (input->GetKeyDown(KEY_D))
+        cameraNode_->Translate(Vector3::RIGHT * MOVE_SPEED * timeStep);
+}
+
+void NonoVG::SubscribeToEvents()
+{
+    // Subscribe HandleUpdate() function for processing update events
+    SubscribeToEvent(E_UPDATE, URHO3D_HANDLER(NonoVG, HandleUpdate));
+}
+
+void NonoVG::HandleUpdate(StringHash eventType, VariantMap& eventData)
+{
+    using namespace Update;
+
+    // Take the frame time step, which is stored as a float
+    float timeStep = eventData[P_TIMESTEP].GetFloat();
+
+    // Move the camera, scale movement with time step
+    MoveCamera(timeStep);
+}
+
+
+void NonoVG::Stop() 
+{
+
     Sample::Stop();
     NanoGUI* nanogui = GetSubsystem<NanoGUI>();
     if (nanogui)

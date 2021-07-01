@@ -66,7 +66,6 @@
 #include "nanovg/nanovg_gl.h"
 #include "nanovg/nanovg_gl_utils.h"
 
-
 #include "Demo.h"
 
 
@@ -225,28 +224,36 @@ namespace Urho3D
 		if (vg_)
         {
 
-            
+            GLint previousVBO = 0;
+            glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &previousVBO);
+
+            ShaderVariation* previousVS = graphics_->GetVertexShader();
+            ShaderVariation* previousPS = graphics_->GetPixelShader();
+
+            graphics_->SetShaders(NULL, NULL);
+            //
+
             if(nvgFrameBuffer_ != nullptr)
             {
                 nvgluBindFramebuffer(nvgFrameBuffer_);
-                glViewport(0, 0, 1400, 1200);
+                glViewport(0, 0, CWIDTH, CHEIGHT);
                 glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
             }
-            nvgBeginFrame(vg_, 1400, 1200, 1.0f);
+
+            nvgBeginFrame(vg_, CWIDTH, CHEIGHT, 1.0f);
             
             // TBD ELI , hack to flip the image horizontal
-            
-            nvgTranslate(vg_, 700, 600);
+            nvgTranslate(vg_, CWIDTH / 2, CHEIGHT/2);
             nvgScale(vg_,1.0,-1.0);
-            nvgTranslate(vg_, -700, -600);
+            nvgTranslate(vg_, -CWIDTH / 2, -CHEIGHT/2);
             
             // TBD ELI , hack to clear the frame
             nvgBeginPath(vg_);
-            nvgRect(vg_, 0,0, 1400,1200);
+            nvgRect(vg_, 0, 0, CWIDTH, CHEIGHT);
             nvgFillColor(vg_, nvgRGBA(0,0,0,255));
             nvgFill(vg_);
 
-            renderDemo(vg_, 0, 0, 1400, 1200, time_, 0, &data);
+            renderDemo(vg_, 0, 0, CWIDTH, CHEIGHT, time_, 0, &data);
         
 
             nvgEndFrame(vg_);
@@ -256,7 +263,13 @@ namespace Urho3D
                 nvgluBindFramebuffer(nullptr);
             }
 
-          //  graphics_->ResetCachedState();
+            //  Urho3D restore old values
+            glBindBuffer(GL_ARRAY_BUFFER, previousVBO);
+            glEnable(GL_DEPTH_TEST);
+            graphics_->SetCullMode(CULL_CCW);
+            graphics_->SetDepthTest(CMP_LESSEQUAL);
+            graphics_->SetDepthWrite(true);
+            graphics_->SetShaders(previousVS, previousPS);
         }
 	}
 

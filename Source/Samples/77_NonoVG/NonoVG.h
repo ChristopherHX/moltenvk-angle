@@ -25,8 +25,6 @@
 #include "Sample.h"
 
 
-const int CWIDTH = 1400;
-const int CHEIGHT = 1200;
 
 
 namespace Urho3D
@@ -53,14 +51,7 @@ public:
     void Stop() override;
 
 protected:
-    /// Return XML patch instructions for screen joystick layout for a specific sample app, if any.
-    String GetScreenJoystickPatchString() const override { return
-        "<patch>"
-        "    <add sel=\"/element/element[./attribute[@name='Name' and @value='Hat0']]\">"
-        "        <attribute name=\"Is Visible\" value=\"false\" />"
-        "    </add>"
-        "</patch>";
-    }
+
 
 private:
     /// Create and initialize a Window control.
@@ -71,6 +62,13 @@ private:
     void CreateScene();
     /// Set up a viewport for displaying the scene.
     void SetupViewport();
+
+        /// Read input and moves the camera.
+    void MoveCamera(float timeStep);
+    /// Subscribe to application-wide logic update events.
+    void SubscribeToEvents();
+    /// Handle the logic update event.
+    void HandleUpdate(StringHash eventType, VariantMap& eventData);
     
     /// The Window.
     SharedPtr<Window> window_;
