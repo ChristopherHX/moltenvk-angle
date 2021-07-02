@@ -50,8 +50,8 @@
 struct NVGcontext;
 struct NVGLUframebuffer;
 
-const int CWIDTH = 1200;
-const int CHEIGHT = 800;
+const int CWIDTH = 1100;
+const int CHEIGHT = 700;
 
 
 namespace Urho3D

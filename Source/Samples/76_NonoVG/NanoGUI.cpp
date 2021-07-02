@@ -164,9 +164,15 @@ namespace Urho3D
 
             ShaderVariation* previousVS = graphics_->GetVertexShader();
             ShaderVariation* previousPS = graphics_->GetPixelShader();
-
+            
+            graphics_->SetShaders(NULL, NULL);
             nvgBeginFrame(vg_, graphics_->GetWidth(), graphics_->GetHeight(), 1.0f);
 
+            nvgBeginPath(vg_);
+            nvgRect(vg_, 0, 0, graphics_->GetWidth(),  graphics_->GetHeight());
+            nvgFillColor(vg_, nvgRGBA(128,128,128,255));
+            nvgFill(vg_);
+            
             renderDemo(vg_, 0, 0, graphics_->GetWidth(), graphics_->GetHeight(), time_, 0, &data);
 
             nvgEndFrame(vg_);

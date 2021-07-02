@@ -539,6 +539,8 @@ StringHashRegister& GetEventNameRegister()
     return eventNameRegister;
 }
 
+    
+#if !defined(MINI_URHO)
 bool Object::PostCommandToPlugin(const String& clazz, const String& method)
 {
     return context_->PostCommandToPlugin( clazz, method);
@@ -553,5 +555,6 @@ bool Object::PostCommandToPlugin(const String& clazz, const String& method, JSON
 {
     return context_->PostCommandToPlugin( clazz, method,data);
 }
+#endif
 
 }

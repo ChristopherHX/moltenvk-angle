@@ -53,7 +53,7 @@ NonoVG::NonoVG(Context* context) :
 void NonoVG::Setup()
 {
 
-    engineParameters_[EP_RESOURCE_PATHS] = "Data/nanovg;Data;CoreData;";
+    engineParameters_[EP_RESOURCE_PATHS] = "Data;CoreData;";
     engineParameters_[EP_LOG_NAME] = GetSubsystem<FileSystem>()->GetProgramDir() + GetTypeName() + ".log";
     engineParameters_[EP_FULL_SCREEN] = false;
     engineParameters_[EP_WINDOW_WIDTH] = 1280;

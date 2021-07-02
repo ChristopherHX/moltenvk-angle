@@ -21,8 +21,10 @@
 // THE SOFTWARE.
 //
 
+#include <stdio.h>
 #include "NanoGUI.h"
 
+#include <Urho3D/IO/Log.h>
 
 #ifdef __APPLE__
 #define GLFW_INCLUDE_GLCOREARB
@@ -1158,7 +1160,7 @@ int loadDemoData(Urho3D::ResourceCache* resourceCache, NVGcontext* vg, DemoData*
         data->images[i] = nvgCreateImageMem(vg, 0, buffer, bytesLen);
         if (data->images[i] == 0)
         {
-            printf("Could not load %s.\n", file);
+            URHO3D_LOGERRORF("Could not load %s.\n", file);
             return -1;
         }
     }
@@ -1167,25 +1169,25 @@ int loadDemoData(Urho3D::ResourceCache* resourceCache, NVGcontext* vg, DemoData*
     data->fontIcons = nvgLoadFont(resourceCache, vg, "icons", "nanovg/fonts/entypo.ttf");
     if (data->fontIcons == -1)
     {
-        printf("Could not add font icons.\n");
+        URHO3D_LOGERRORF("Could not add font icons.\n");
         return -1;
     }
     data->fontNormal = nvgLoadFont(resourceCache, vg, "sans", "nanovg/fonts/Roboto-Regular.ttf");
     if (data->fontNormal == -1)
     {
-        printf("Could not add font italic.\n");
+        URHO3D_LOGERRORF("Could not add font italic.\n");
         return -1;
     }
     data->fontBold = nvgLoadFont(resourceCache,vg, "sans-bold", "nanovg/fonts/Roboto-Bold.ttf");
     if (data->fontBold == -1)
     {
-        printf("Could not add font bold.\n");
+        URHO3D_LOGERRORF("Could not add font bold.\n");
         return -1;
     }
     data->fontEmoji = nvgLoadFont(resourceCache,vg, "emoji", "nanovg/fonts/NotoEmoji-Regular.ttf");
     if (data->fontEmoji == -1)
     {
-        printf("Could not add font emoji.\n");
+        URHO3D_LOGERRORF("Could not add font emoji.\n");
         return -1;
     }
     nvgAddFallbackFontId(vg, data->fontNormal, data->fontEmoji);

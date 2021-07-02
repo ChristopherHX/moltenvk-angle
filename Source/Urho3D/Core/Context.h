@@ -215,9 +215,10 @@ public:
         /// Return subsystem by type.
     Plugin* GetPlugin(StringHash type) const;
     
+#if !defined(MINI_URHO)
     bool PostCommandToPlugin(const String& clazz, const String& method);
     bool PostCommandToPlugin(const String& clazz, const String& method, JSONFile& data);
-
+#endif
 private:
     /// Add event receiver.
     void AddEventReceiver(Object* receiver, StringHash eventType);

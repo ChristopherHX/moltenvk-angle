@@ -250,8 +250,9 @@ namespace Urho3D
             // TBD ELI , hack to clear the frame
             nvgBeginPath(vg_);
             nvgRect(vg_, 0, 0, CWIDTH, CHEIGHT);
-            nvgFillColor(vg_, nvgRGBA(0,0,0,255));
+            nvgFillColor(vg_, nvgRGBA(128,128,128,255));
             nvgFill(vg_);
+            
 
             renderDemo(vg_, 0, 0, CWIDTH, CHEIGHT, time_, 0, &data);
         
