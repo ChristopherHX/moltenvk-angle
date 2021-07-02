@@ -63,7 +63,7 @@ void NonoVG::Setup()
     engineParameters_[EP_FULL_SCREEN] = false;
     engineParameters_[EP_WINDOW_WIDTH] = 1280;
     engineParameters_[EP_WINDOW_HEIGHT] = 800;
-    //engineParameters_[EP_WINDOW_RESIZABLE] = true;
+    engineParameters_[EP_WINDOW_RESIZABLE] = true;
     engineParameters_[EP_WINDOW_TITLE] = GetTypeName();
 
     NanoGUI::RegisterObject(context_);
