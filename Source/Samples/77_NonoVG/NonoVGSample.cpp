@@ -41,7 +41,7 @@
 #include <Urho3D/UI/Window.h>
 
 
-#include "NanoGUI.h"
+#include "NanoVGUI.h"
 
 #include "NonoVG.h"
 
@@ -66,8 +66,8 @@ void NonoVG::Setup()
     engineParameters_[EP_WINDOW_RESIZABLE] = true;
     engineParameters_[EP_WINDOW_TITLE] = GetTypeName();
 
-    NanoGUI::RegisterObject(context_);
-    context_->RegisterSubsystem(new NanoGUI(context_));
+    NanoVGUI::RegisterObject(context_);
+    context_->RegisterSubsystem(new NanoVGUI(context_));
 }
 
 void NonoVG::Start()
@@ -180,7 +180,7 @@ void NonoVG::InitControls()
     drawTexture_->SetNumLevels(1);
     drawTexture_->SetSize(textureSize_.x_, textureSize_.y_, Graphics::GetRGBAFormat(), TEXTURE_RENDERTARGET);
 
-    NanoGUI* nanogui = GetSubsystem<NanoGUI>();
+    NanoVGUI* nanogui = GetSubsystem<NanoVGUI>();
     if (nanogui)
     {
         nanogui->Initialize(drawTexture_,CWIDTH, CHEIGHT);
@@ -297,7 +297,7 @@ void NonoVG::Stop()
 {
 
     Sample::Stop();
-    NanoGUI* nanogui = GetSubsystem<NanoGUI>();
+    NanoVGUI* nanogui = GetSubsystem<NanoVGUI>();
     if (nanogui)
     {
         nanogui->Clear();

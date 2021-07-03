@@ -1,5 +1,5 @@
 /*!
- * \file NanoGUI.h
+ * \file NanoVGUI.h
  *
  * \author vitali
  * \date Februar 2015
@@ -67,13 +67,13 @@ namespace Urho3D
 	class XMLFile;
 
 	
-class NanoGUI : public Object
+class NanoVGUI : public Object
 {
-    URHO3D_OBJECT(NanoGUI, Object);
+    URHO3D_OBJECT(NanoVGUI, Object);
 
 public:
-	NanoGUI(Context* context);
-	virtual ~NanoGUI();
+	NanoVGUI(Context* context);
+	virtual ~NanoVGUI();
 	static void RegisterObject(Context* context);
 	/// Initialize when screen mode initially set.
 	void Initialize(Texture2D * texture2D,int Width, int Height);

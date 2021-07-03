@@ -21,7 +21,7 @@
 //
 
 #include "../Urho3D.h"
-#include "NanoGUI.h"
+#include "NanoVGUI.h"
 #include "../UI/CheckBox.h"
 #include "../Core/Context.h"
 #include "../Core/CoreEvents.h"
@@ -74,18 +74,18 @@ static DemoData data;
 namespace Urho3D
 {
 
-	void Urho3D::NanoGUI::RegisterObject(Context* context)
+	void Urho3D::NanoVGUI::RegisterObject(Context* context)
 	{
-		context->RegisterFactory<NanoGUI>();
+		context->RegisterFactory<NanoVGUI>();
 	}
 
-	Urho3D::NanoGUI::~NanoGUI()
+	Urho3D::NanoVGUI::~NanoVGUI()
 	{
 	
 		Clear();
 	}
 
-	Urho3D::NanoGUI::NanoGUI(Context* context) : Object(context),
+	Urho3D::NanoVGUI::NanoVGUI(Context* context) : Object(context),
 		initialized_(false),
 		vg_(NULL),
         texture2D_(NULL),
@@ -96,7 +96,7 @@ namespace Urho3D
 
 
 
-	void NanoGUI::Initialize(Texture2D * texture2D,int Width, int Height)
+	void NanoVGUI::Initialize(Texture2D * texture2D,int Width, int Height)
 	{
 		Graphics* graphics = GetSubsystem<Graphics>();
 
@@ -111,8 +111,8 @@ namespace Urho3D
 
 		initialized_ = true;
 
-        SubscribeToEvent(E_POSTUPDATE, URHO3D_HANDLER(NanoGUI, HandlePostUpdate));
-        SubscribeToEvent(E_ENDRENDERING, URHO3D_HANDLER(NanoGUI, HandleRender));
+        SubscribeToEvent(E_POSTUPDATE, URHO3D_HANDLER(NanoVGUI, HandlePostUpdate));
+        SubscribeToEvent(E_ENDRENDERING, URHO3D_HANDLER(NanoVGUI, HandleRender));
 
 
 //NVG_DEBUG
@@ -138,7 +138,7 @@ namespace Urho3D
 		 URHO3D_LOGINFO("Initialized NanoGUI interface");
 	}
 
-	void NanoGUI::Clear()
+	void NanoVGUI::Clear()
 	{ 
 		freeDemoData(vg_, &data);
         if (vg_)
@@ -156,7 +156,7 @@ namespace Urho3D
 	}
 
 
-    void NanoGUI::CreateFrameBuffer(int w, int h, unsigned & TextureID)
+    void NanoVGUI::CreateFrameBuffer(int w, int h, unsigned & TextureID)
     {
         GLint defaultFBO;
         GLint defaultRBO;
@@ -210,13 +210,13 @@ namespace Urho3D
         nvgluDeleteFramebuffer(fb);
     }
 
-	void NanoGUI::Update(float timeStep)
+	void NanoVGUI::Update(float timeStep)
 	{ 
 		URHO3D_PROFILE(UpdateNanoGUI);
         time_ += timeStep;
 	}
 
-	void NanoGUI::Render(bool resetRenderTargets /*= true*/)
+	void NanoVGUI::Render(bool resetRenderTargets /*= true*/)
 	{
         URHO3D_PROFILE(RenderNanoGUI);
         
@@ -275,7 +275,7 @@ namespace Urho3D
 	}
 
 
-	void NanoGUI::HandlePostUpdate(StringHash eventType, VariantMap& eventData)
+	void NanoVGUI::HandlePostUpdate(StringHash eventType, VariantMap& eventData)
 	{
 		using namespace PostUpdate;
  
@@ -283,7 +283,7 @@ namespace Urho3D
 	}
 
 
-	void NanoGUI::HandleRender(StringHash eventType, VariantMap& eventData)
+	void NanoVGUI::HandleRender(StringHash eventType, VariantMap& eventData)
 	{
 		Render();
 	}
