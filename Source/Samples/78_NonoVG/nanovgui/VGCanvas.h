@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GLHeaders.h"
-#include "NanoVGUIElement.h"
+#include "VGElement.h"
 
 
 struct NVGcontext;
@@ -12,14 +12,14 @@ namespace Urho3D
 
 class Texture2D;
 
-class URHO3D_API NanoVGCanvas : public NanoVGUIElement
+class URHO3D_API VGCanvas : public VGElement
 {
-    URHO3D_OBJECT(NanoVGCanvas, NanoVGUIElement);
+    URHO3D_OBJECT(VGCanvas, VGElement);
 
     /// Construct.
-    explicit NanoVGCanvas(Context* context);
+    explicit VGCanvas(Context* context);
     /// Destruct.
-    ~NanoVGCanvas() override;
+    ~VGCanvas() override;
     /// Register object factory.
     /// @nobind
     static void RegisterObject(Context* context);

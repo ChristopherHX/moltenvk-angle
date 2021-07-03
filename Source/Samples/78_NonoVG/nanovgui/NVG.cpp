@@ -20,7 +20,7 @@
 // THE SOFTWARE.
 //
 
-#include "NanoVGSubSystem.h"
+#include "NVG.h"
 #include "../Container/Sort.h"
 #include "../Core/Context.h"
 #include "../Core/CoreEvents.h"

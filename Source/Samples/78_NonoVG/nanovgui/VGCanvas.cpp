@@ -31,8 +31,8 @@
 #include <Urho3D/Graphics/Graphics.h>
 #include <Urho3D/Graphics/Texture2D.h>
 
-#include "NanoVGCanvas.h"
-#include "NanoVGSubSystem.h"
+#include "VGCanvas.h"
+#include "NVG.h"
 
 #ifdef __APPLE__
 #define GLFW_INCLUDE_GLCOREARB
@@ -47,17 +47,17 @@ namespace Urho3D
 {
 
 
-NanoVGCanvas::NanoVGCanvas(Context* context)
-    : NanoVGUIElement(context)
+VGCanvas::VGCanvas(Context* context)
+    : VGElement(context)
 {
   
 }
 
-NanoVGCanvas::~NanoVGCanvas() = default;
+VGCanvas::~VGCanvas() = default;
 
-void NanoVGCanvas::RegisterObject(Context* context)
+void VGCanvas::RegisterObject(Context* context)
 {
-    context->RegisterFactory<NanoVGCanvas>("UI");
+    context->RegisterFactory<VGCanvas>("UI");
     URHO3D_COPY_BASE_ATTRIBUTES(BorderImage);
     URHO3D_UPDATE_ATTRIBUTE_DEFAULT_VALUE("Is Enabled", true);
 }

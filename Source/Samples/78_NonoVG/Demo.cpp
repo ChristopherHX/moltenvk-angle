@@ -22,7 +22,7 @@
 //
 
 #include <stdio.h>
-#include "NanoVGSubSystem.h"
+#include "NVG.h"
 
 #include <Urho3D/IO/Log.h>
 

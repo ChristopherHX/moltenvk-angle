@@ -40,10 +40,10 @@
 #include <Urho3D/UI/UIEvents.h>
 #include <Urho3D/UI/Window.h>
 
-#include "NanoVGCanvas.h"
-#include "NanoVGEvents.h"
-#include "NanoVGSubSystem.h"
-#include "NanoVGUIElement.h"
+#include "NVG.h"
+#include "VGCanvas.h"
+#include "VGEvents.h"
+#include "VGElement.h"
 
 #include "NonoVG.h"
 
@@ -72,8 +72,8 @@ void NonoVG::Setup()
     engineParameters_[EP_WINDOW_TITLE] = GetTypeName();
 
     context_->RegisterSubsystem(new NanoVG(context_));
-    NanoVGUIElement::RegisterObject(context_);
-    NanoVGCanvas::RegisterObject(context_);
+    VGElement::RegisterObject(context_);
+    VGCanvas::RegisterObject(context_);
 
 }
 
@@ -187,10 +187,10 @@ void NonoVG::InitControls()
 {
 
     SharedPtr<Window> window_  = InitWindow();
-    window_->CreateChild<NanoVGCanvas>("NanoVGCanvas");
+    window_->CreateChild<VGCanvas>("VGCanvas");
 
     window_ = InitWindow();
-    window_->CreateChild<NanoVGCanvas>("NanoVGCanvas");
+    window_->CreateChild<VGCanvas>("VGCanvas");
     window_->SetPosition(200, 200);
 }
 
@@ -302,8 +302,8 @@ void NonoVG::HandleNVGRender(StringHash eventType, VariantMap& eventData)
 {
     using namespace NVGRender;
 
-    NanoVGUIElement* nanoVGUIElement = static_cast<NanoVGUIElement*>(eventData[P_NVGELEMENT].GetPtr());
-    NanoVG* nvgContext = static_cast<NanoVG*>(eventData[P_NVGCONTEXT].GetPtr());
+    VGElement* nanoVGUIElement = static_cast<VGElement*>(eventData[P_VGELEMENT].GetPtr());
+    NanoVG* nvgContext = static_cast<NanoVG*>(eventData[P_VGCONTEXT].GetPtr());
     IntVector2 size = nanoVGUIElement->GetSize();
     renderDemo(nvgContext->GetNVGContext(), 0, 0, size.x_, size.y_, time_, 0, &data);
 }

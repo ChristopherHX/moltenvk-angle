@@ -31,14 +31,14 @@
 #include <Urho3D/Graphics/Graphics.h>
 #include <Urho3D/Graphics/Texture2D.h>
 
-#include "NanoVGEvents.h"
-#include "NanoVGSubSystem.h"
-#include "NanoVGUIElement.h"
+#include "NVG.h"
+#include "VGElement.h"
+#include "VGEvents.h"
 
 #ifdef __APPLE__
 #define GLFW_INCLUDE_GLCOREARB
 #endif
-#include "nanovg.h"
+
 #include "nanovg_gl_utils.h"
 
 #include "../Demo.h"
@@ -48,7 +48,7 @@
 namespace Urho3D
 {
 
-NanoVGUIElement::NanoVGUIElement(Context* context)
+VGElement::VGElement(Context* context)
     : BorderImage(context)
     , nvgFrameBuffer_(NULL)
 {
@@ -57,10 +57,10 @@ NanoVGUIElement::NanoVGUIElement(Context* context)
     graphics_ = GetSubsystem<Graphics>();
     drawTexture_ = NULL;
 
-    SubscribeToEvent(E_ENDRENDERING, URHO3D_HANDLER(NanoVGUIElement, HandleRender));
+    SubscribeToEvent(E_ENDRENDERING, URHO3D_HANDLER(VGElement, HandleRender));
 }
 
-NanoVGUIElement::~NanoVGUIElement()
+VGElement::~VGElement()
 {
     NanoVG* nanovg = GetSubsystem<NanoVG>();
     NVGcontext* vg = nanovg->GetNVGContext();
@@ -87,14 +87,14 @@ NanoVGUIElement::~NanoVGUIElement()
     }
 }
 
-void NanoVGUIElement::RegisterObject(Context* context)
+void VGElement::RegisterObject(Context* context)
 {
-    context->RegisterFactory<NanoVGUIElement>("UI");
+    context->RegisterFactory<VGElement>("UI");
     URHO3D_COPY_BASE_ATTRIBUTES(BorderImage);
     URHO3D_UPDATE_ATTRIBUTE_DEFAULT_VALUE("Is Enabled", true);
 }
 
-void NanoVGUIElement::BeginRender()
+void VGElement::BeginRender()
 {
     if (nvgFrameBuffer_ != nullptr && vg_ != nullptr)
     {
@@ -127,7 +127,7 @@ void NanoVGUIElement::BeginRender()
     }
 }
 
-void NanoVGUIElement::EndRender()
+void VGElement::EndRender()
 {
     if (nvgFrameBuffer_ != nullptr && vg_ != nullptr)
     {
@@ -143,18 +143,18 @@ void NanoVGUIElement::EndRender()
     }
 }
 
-void NanoVGUIElement::HandleRender(StringHash eventType, VariantMap& eventData)
+void VGElement::HandleRender(StringHash eventType, VariantMap& eventData)
 {
     if (vg_ != nullptr)
     {
         BeginRender();
-        
+
         using namespace NVGRender;
 
         VariantMap& eventData = GetEventDataMap();
 
-        eventData[P_NVGELEMENT] = this;
-        eventData[P_NVGCONTEXT] = GetSubsystem<NanoVG>();
+        eventData[P_VGELEMENT] = this;
+        eventData[P_VGCONTEXT] = GetSubsystem<NanoVG>();
 
         this->SendEvent(E_NVGRENDER, eventData);
 
@@ -162,12 +162,12 @@ void NanoVGUIElement::HandleRender(StringHash eventType, VariantMap& eventData)
     }
 }
 
-void NanoVGUIElement::OnResize(const IntVector2& newSize, const IntVector2& delta)
+void VGElement::OnResize(const IntVector2& newSize, const IntVector2& delta)
 {
     CreateFrameBuffer(newSize.x_, newSize.y_);
 }
 
-void NanoVGUIElement::CreateFrameBuffer(int width, int height)
+void VGElement::CreateFrameBuffer(int width, int height)
 {
 
     if (width == 0 || height == 0)
@@ -250,5 +250,155 @@ error:
     delete drawTexture_;
     drawTexture_ = NULL;
 }
+
+void VGElement::BeginFrame(float windowWidth, float windowHeight, float devicePixelRatio)
+{
+    nvgBeginFrame(vg_, windowWidth, windowHeight, devicePixelRatio);
+}
+
+void VGElement::CancelFrame() { nvgCancelFrame(vg_); }
+
+void VGElement::EndFrame() { nvgEndFrame(vg_); }
+
+void VGElement::GlobalCompositeOperation(int op) { nvgGlobalCompositeOperation(vg_, op); }
+
+void VGElement::GlobalCompositeBlendFunc(int sfactor, int dfactor)
+{
+    nvgGlobalCompositeBlendFunc(vg_, sfactor, dfactor);
+}
+
+void VGElement::GlobalCompositeBlendFuncSeparate(int srcRGB, int dstRGB, int srcAlpha, int dstAlpha)
+{
+    nvgGlobalCompositeBlendFuncSeparate(vg_, srcRGB, dstRGB, srcAlpha, dstAlpha);
+}
+
+NVGcolor VGElement::RGB(unsigned char r, unsigned char g, unsigned char b) { return nvgRGB(r, g, b); }
+
+NVGcolor VGElement::RGBf(float r, float g, float b) { return nvgRGBf(r, g, b); }
+
+NVGcolor VGElement::RGBA(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+{
+    return nvgRGBA(r, g, b, a);
+}
+
+NVGcolor VGElement::RGBAf(float r, float g, float b, float a) { return nvgRGBAf(r, g, b, a); }
+
+NVGcolor VGElement::LerpRGBA(NVGcolor c0, NVGcolor c1, float u) { return nvgLerpRGBA(c0, c1, u); }
+
+NVGcolor VGElement::TransRGBA(NVGcolor c0, unsigned char a) { return nvgTransRGBA(c0, a); }
+
+NVGcolor VGElement::TransRGBAf(NVGcolor c0, float a) { return nvgTransRGBAf(c0, a); }
+
+NVGcolor VGElement::HSL(float h, float s, float l) { return nvgHSL(h, s, l); }
+
+NVGcolor VGElement::HSLA(float h, float s, float l, unsigned char a) { return nvgHSLA(h, s, l, a); }
+
+void VGElement::SaveState() { nvgSave(vg_); }
+
+void VGElement::RestoreState() { nvgRestore(vg_); }
+
+void VGElement::ResetState() { nvgReset(vg_); }
+
+void VGElement::ShapeAntiAlias(int enabled) { nvgShapeAntiAlias(vg_, enabled); }
+
+void VGElement::StrokeColor(NVGcolor color) { nvgStrokeColor(vg_, color); }
+
+void VGElement::StrokePaint(NVGpaint paint) { nvgStrokePaint(vg_, paint); }
+
+void VGElement::FillColor(NVGcolor color) { nvgFillColor(vg_, color); }
+
+void VGElement::FillPaint(NVGpaint paint) { nvgFillPaint(vg_, paint); }
+
+void VGElement::MiterLimit(float limit) { nvgMiterLimit(vg_, limit); }
+
+void VGElement::StrokeWidth(float size) { nvgStrokeWidth(vg_, size); }
+
+void VGElement::LineCap(int cap) { nvgLineCap(vg_, cap); }
+
+void VGElement::LineJoin(int join) { nvgLineJoin(vg_, join); }
+
+void VGElement::GlobalAlpha(float alpha) { nvgGlobalAlpha(vg_, alpha); }
+
+void VGElement::ResetTransform() { nvgResetTransform(vg_); }
+
+void VGElement::Transform(float a, float b, float c, float d, float e, float f) { nvgTransform(vg_, a, b, c, d, e, f); }
+
+void VGElement::Translate(float x, float y) { nvgTranslate(vg_, x, y); }
+
+void VGElement::Rotate(float angle) { nvgRotate(vg_, angle); }
+
+void VGElement::SkewX(float angle) { nvgSkewX(vg_, angle); }
+
+void VGElement::SkewY(float angle) { nvgSkewY(vg_, angle); }
+
+void VGElement::Scale(float x, float y) { nvgScale(vg_, x, y); }
+
+void VGElement::CurrentTransform(float* xform) { nvgCurrentTransform(vg_, xform); }
+
+void VGElement::TransformIdentity(float* dst) { nvgTransformIdentity(dst); }
+
+void VGElement::TransformTranslate(float* dst, float tx, float ty) { nvgTransformTranslate(dst, tx, ty); }
+
+void VGElement::TransformScale(float* dst, float sx, float sy) { nvgTransformScale(dst, sx, sy); }
+
+void VGElement::TransformRotate(float* dst, float a) { nvgTransformRotate(dst, a); }
+
+void VGElement::TransformSkewX(float* dst, float a) { nvgTransformSkewX(dst, a); }
+
+void VGElement::TransformSkewY(float* dst, float a) { nvgTransformSkewY(dst, a); }
+
+void VGElement::TransformMultiply(float* dst, const float* src) { nvgTransformMultiply(dst, src); }
+
+void VGElement::TransformPremultiply(float* dst, const float* src) { nvgTransformPremultiply(dst, src); }
+
+int VGElement::TransformInverse(float* dst, const float* src) { return nvgTransformInverse(dst, src); }
+
+void VGElement::TransformPoint(float* dstx, float* dsty, const float* xform, float srcx, float srcy)
+{
+    nvgTransformPoint(dstx, dsty, xform, srcx, srcy);
+}
+
+float VGElement::DegToRad(float deg) { return nvgDegToRad(deg); }
+
+float VGElement::RadToDeg(float rad) { return nvgRadToDeg(rad); }
+
+void VGElement::BeginPath() { nvgBeginPath(vg_); }
+
+void VGElement::MoveTo(float x, float y) { nvgMoveTo(vg_, x, y); }
+
+void VGElement::LineTo(float x, float y) { nvgLineTo(vg_, x, y); }
+
+void VGElement::BezierTo(float c1x, float c1y, float c2x, float c2y, float x, float y)
+{
+    nvgBezierTo(vg_, c1x, c1y, c2x, c2y, x, y);
+}
+
+void VGElement::QuadTo(float cx, float cy, float x, float y) { nvgQuadTo(vg_, cx, cy, x, y); }
+
+void VGElement::ArcTo(float x1, float y1, float x2, float y2, float radius) { nvgArcTo(vg_, x1, y1, x2, y2, radius); }
+
+void VGElement::ClosePath() { nvgClosePath(vg_); }
+
+void VGElement::PathWinding(int dir) { nvgPathWinding(vg_, dir); }
+
+void VGElement::Arc(float cx, float cy, float r, float a0, float a1, int dir) { nvgArc(vg_, cx, cy, r, a0, a1, dir); }
+
+void VGElement::Rect(float x, float y, float w, float h) { nvgRect(vg_, x, y, w, h); }
+
+void VGElement::RoundedRect(float x, float y, float w, float h, float r) { nvgRoundedRect(vg_, x, y, w, h, r); }
+
+void VGElement::RoundedRectVarying(float x, float y, float w, float h, float radTopLeft, float radTopRight,
+                                   float radBottomRight, float radBottomLeft)
+{
+    nvgRoundedRectVarying(vg_, x, y, w, h, radTopLeft, radTopRight, radBottomRight, radBottomLeft);
+}
+
+void VGElement::Ellipse(float cx, float cy, float rx, float ry) { nvgEllipse(vg_, cx, cy, rx, ry); }
+
+void VGElement::Circle(float cx, float cy, float r) { nvgCircle(vg_, cx, cy, r); }
+
+void VGElement::Fill() { nvgFill(vg_); }
+
+void VGElement::Stroke() { nvgStroke(vg_); }
 
 } // namespace Urho3D
