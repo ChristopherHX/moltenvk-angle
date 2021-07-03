@@ -24,16 +24,7 @@ class URHO3D_API NanoVGCanvas : public NanoVGUIElement
     /// @nobind
     static void RegisterObject(Context* context);
 
-    /// Perform UI element update.
-    void Update(float timeStep) override;
 
-
-private:
-    /// Handle render event.
-    void HandleRender(StringHash eventType, VariantMap& eventData);
-
-private:
-    float time_;
 };
 
 }

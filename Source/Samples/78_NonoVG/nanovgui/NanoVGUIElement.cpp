@@ -31,8 +31,9 @@
 #include <Urho3D/Graphics/Graphics.h>
 #include <Urho3D/Graphics/Texture2D.h>
 
-#include "NanoVGUIElement.h"
+#include "NanoVGEvents.h"
 #include "NanoVGSubSystem.h"
+#include "NanoVGUIElement.h"
 
 #ifdef __APPLE__
 #define GLFW_INCLUDE_GLCOREARB
@@ -56,13 +57,14 @@ NanoVGUIElement::NanoVGUIElement(Context* context)
     graphics_ = GetSubsystem<Graphics>();
     drawTexture_ = NULL;
 
+    SubscribeToEvent(E_ENDRENDERING, URHO3D_HANDLER(NanoVGUIElement, HandleRender));
 }
 
-NanoVGUIElement::~NanoVGUIElement() 
+NanoVGUIElement::~NanoVGUIElement()
 {
     NanoVG* nanovg = GetSubsystem<NanoVG>();
     NVGcontext* vg = nanovg->GetNVGContext();
-    
+
     if (vg)
     {
         nvgluDeleteFramebuffer(nvgFrameBuffer_);
@@ -76,7 +78,6 @@ NanoVGUIElement::~NanoVGUIElement()
             glDeleteRenderbuffers(1, &nvgFrameBuffer_->rbo);
     }
 
-
     if (drawTexture_ != NULL)
     {
         SetTexture(nullptr);
@@ -84,7 +85,6 @@ NanoVGUIElement::~NanoVGUIElement()
         drawTexture_ = NULL;
         imageRect_ = IntRect::ZERO;
     }
-    
 }
 
 void NanoVGUIElement::RegisterObject(Context* context)
@@ -94,8 +94,7 @@ void NanoVGUIElement::RegisterObject(Context* context)
     URHO3D_UPDATE_ATTRIBUTE_DEFAULT_VALUE("Is Enabled", true);
 }
 
-
-void NanoVGUIElement::BeginRender() 
+void NanoVGUIElement::BeginRender()
 {
     if (nvgFrameBuffer_ != nullptr && vg_ != nullptr)
     {
@@ -126,9 +125,9 @@ void NanoVGUIElement::BeginRender()
         nvgFillColor(vg_, nvgRGBA(128, 128, 128, 255));
         nvgFill(vg_);
     }
- }
+}
 
-void NanoVGUIElement::EndRender() 
+void NanoVGUIElement::EndRender()
 {
     if (nvgFrameBuffer_ != nullptr && vg_ != nullptr)
     {
@@ -141,6 +140,25 @@ void NanoVGUIElement::EndRender()
         graphics_->SetDepthTest(CMP_LESSEQUAL);
         graphics_->SetDepthWrite(true);
         graphics_->SetShaders(previousVS, previousPS);
+    }
+}
+
+void NanoVGUIElement::HandleRender(StringHash eventType, VariantMap& eventData)
+{
+    if (vg_ != nullptr)
+    {
+        BeginRender();
+        
+        using namespace NVGRender;
+
+        VariantMap& eventData = GetEventDataMap();
+
+        eventData[P_NVGELEMENT] = this;
+        eventData[P_NVGCONTEXT] = GetSubsystem<NanoVG>();
+
+        this->SendEvent(E_NVGRENDER, eventData);
+
+        EndRender();
     }
 }
 

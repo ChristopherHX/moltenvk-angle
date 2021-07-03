@@ -55,7 +55,7 @@ protected:
 
 private:
     /// Create and initialize a Window control.
-    void InitWindow();
+    SharedPtr<Window> InitWindow();
     /// Create and add various common controls for demonstration purposes.
     void InitControls();
     
@@ -69,11 +69,16 @@ private:
     void SubscribeToEvents();
     /// Handle the logic update event.
     void HandleUpdate(StringHash eventType, VariantMap& eventData);
+
+     /// Handle NVG render event.
+    void HandleNVGRender(StringHash eventType, VariantMap& eventData);
     
-    /// The Window.
-    SharedPtr<Window> window_;
     /// The UI's root UIElement.
     SharedPtr<UIElement> uiRoot_;
+
+    float time_;
+
+
 
 };
 

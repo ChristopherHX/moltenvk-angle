@@ -23,64 +23,45 @@
 #include "../Precompiled.h"
 
 #include "../Core/Context.h"
+#include "../Graphics/GraphicsEvents.h"
 #include "../Input/InputEvents.h"
 #include "../UI/UI.h"
 #include "../UI/UIEvents.h"
-#include "../Graphics/GraphicsEvents.h"
 
 #include <Urho3D/Graphics/Graphics.h>
 #include <Urho3D/Graphics/Texture2D.h>
 
-#include "NanoVGSubSystem.h"
 #include "NanoVGCanvas.h"
+#include "NanoVGSubSystem.h"
 
 #ifdef __APPLE__
-#	define GLFW_INCLUDE_GLCOREARB
+#define GLFW_INCLUDE_GLCOREARB
 #endif
 #include "nanovg.h"
 #include "nanovg_gl_utils.h"
 
-#include "../Demo.h"
 
 #include "../DebugNew.h"
 
 namespace Urho3D
 {
 
-static DemoData data;
 
 NanoVGCanvas::NanoVGCanvas(Context* context)
     : NanoVGUIElement(context)
-    , time_(0)
 {
-    SubscribeToEvent(E_ENDRENDERING, URHO3D_HANDLER(NanoVGCanvas, HandleRender));
-    loadDemoData(GetSubsystem<ResourceCache>(), vg_, &data);
+  
 }
 
 NanoVGCanvas::~NanoVGCanvas() = default;
 
-void NanoVGCanvas::RegisterObject(Context* context) 
+void NanoVGCanvas::RegisterObject(Context* context)
 {
     context->RegisterFactory<NanoVGCanvas>("UI");
     URHO3D_COPY_BASE_ATTRIBUTES(BorderImage);
     URHO3D_UPDATE_ATTRIBUTE_DEFAULT_VALUE("Is Enabled", true);
 }
 
-void NanoVGCanvas::Update(float timeStep) 
-{ 
-    time_ += timeStep; 
-}
 
-/// Handle render event.
-void NanoVGCanvas::HandleRender(StringHash eventType, VariantMap& eventData) 
-{
-    if (vg_ != nullptr)
-    {
-        BeginRender();
-        renderDemo(vg_, 0, 0, textureSize_.x_, textureSize_.y_, time_, 0, &data);
-        EndRender();
-    }
-}
 
-}
-  
+} // namespace Urho3D

@@ -29,12 +29,14 @@ class URHO3D_API NanoVGUIElement : public BorderImage
     void BeginRender();
     void EndRender();
 
-protected:
+    IntVector2 GetSize() { return textureSize_; }
 
+
+protected:
     void CreateFrameBuffer(int mWidth, int mHeight);
 
 protected:
-    WeakPtr<Graphics> graphics_; 
+    WeakPtr<Graphics> graphics_;
     Urho3D::SharedPtr<Texture2D> drawTexture_;
     IntVector2 textureSize_;
     NVGLUframebuffer* nvgFrameBuffer_;
@@ -43,6 +45,10 @@ protected:
     GLint previousFBO;
     ShaderVariation* previousVS;
     ShaderVariation* previousPS;
+
+private:
+    /// Handle render event.
+    void HandleRender(StringHash eventType, VariantMap& eventData);
 };
 
 } // namespace Urho3D

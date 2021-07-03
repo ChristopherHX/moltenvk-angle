@@ -24,9 +24,9 @@
 #include <Urho3D/Engine/Engine.h>
 #include <Urho3D/Graphics/Graphics.h>
 #include <Urho3D/Graphics/GraphicsEvents.h>
-#include <Urho3D/Graphics/Octree.h>
 #include <Urho3D/Graphics/Material.h>
 #include <Urho3D/Graphics/Model.h>
+#include <Urho3D/Graphics/Octree.h>
 #include <Urho3D/Graphics/StaticModel.h>
 #include <Urho3D/Graphics/Texture2D.h>
 #include <Urho3D/Input/Input.h>
@@ -40,26 +40,29 @@
 #include <Urho3D/UI/UIEvents.h>
 #include <Urho3D/UI/Window.h>
 
-
+#include "NanoVGCanvas.h"
+#include "NanoVGEvents.h"
 #include "NanoVGSubSystem.h"
 #include "NanoVGUIElement.h"
-#include "NanoVGCanvas.h"
 
 #include "NonoVG.h"
+
+#include "Demo.h"
 
 #include <Urho3D/DebugNew.h>
 
 URHO3D_DEFINE_APPLICATION_MAIN(NonoVG)
 
-NonoVG::NonoVG(Context* context) :
-    Sample(context)
-{
+static DemoData data;
 
+NonoVG::NonoVG(Context* context)
+    : Sample(context)
+    , time_(0)
+{
 }
 
 void NonoVG::Setup()
 {
-
     engineParameters_[EP_RESOURCE_PATHS] = "Data;CoreData;";
     engineParameters_[EP_LOG_NAME] = GetSubsystem<FileSystem>()->GetProgramDir() + GetTypeName() + ".log";
     engineParameters_[EP_FULL_SCREEN] = false;
@@ -68,17 +71,17 @@ void NonoVG::Setup()
     engineParameters_[EP_WINDOW_RESIZABLE] = true;
     engineParameters_[EP_WINDOW_TITLE] = GetTypeName();
 
-
     context_->RegisterSubsystem(new NanoVG(context_));
     NanoVGUIElement::RegisterObject(context_);
     NanoVGCanvas::RegisterObject(context_);
+
 }
 
 void NonoVG::Start()
 {
     // Execute base class startup
     Sample::Start();
-    
+
     uiRoot_ = GetSubsystem<UI>()->GetRoot();
     // Load XML file containing default UI style sheet
     auto* cache = GetSubsystem<ResourceCache>();
@@ -87,16 +90,24 @@ void NonoVG::Start()
     // Set the loaded style as default style
     uiRoot_->SetDefaultStyle(style);
 
-    InitWindow();
+    
+    NanoVG* nvg = GetSubsystem<NanoVG>();
+    if (nvg)
+    {
+        nvg->Initialize();
+    }
+
 
     InitControls();
-    
+
     CreateScene();
 
     SetupViewport();
 
     SubscribeToEvents();
-    
+
+    loadDemoData(GetSubsystem<ResourceCache>(), GetSubsystem<NanoVG>()->GetNVGContext(), &data);
+
     // Enable OS cursor
     GetSubsystem<Input>()->SetMouseVisible(true);
 
@@ -160,7 +171,6 @@ void NonoVG::CreateScene()
     cameraNode_->SetPosition(Vector3(0.0f, 5.0f, 0.0f));
 }
 
-
 void NonoVG::SetupViewport()
 {
     auto* renderer = GetSubsystem<Renderer>();
@@ -173,33 +183,30 @@ void NonoVG::SetupViewport()
     renderer->SetViewport(0, viewport);
 }
 
-
 void NonoVG::InitControls()
 {
 
-    NanoVG* nanogui = GetSubsystem<NanoVG>();
-    if (nanogui)
-    {
-        nanogui->Initialize();
-    }
+    SharedPtr<Window> window_  = InitWindow();
+    window_->CreateChild<NanoVGCanvas>("NanoVGCanvas");
 
-    NanoVGCanvas * nanoVGCanvas = window_->CreateChild<NanoVGCanvas>("NanoVGCanvas");
-  //  nanoVGCanvas->SetAlignment(HorizontalAlignment::HA_CENTER, VerticalAlignment::VA_CENTER);
-
- 
+    window_ = InitWindow();
+    window_->CreateChild<NanoVGCanvas>("NanoVGCanvas");
+    window_->SetPosition(200, 200);
 }
 
-void NonoVG::InitWindow()
+SharedPtr<Window> NonoVG::InitWindow()
 {
     // Create the Window and add it to the UI's root node
-    window_ = new Window(context_);
+        
+    /// The Window.
+    SharedPtr<Window> window_(new Window(context_));
     uiRoot_->AddChild(window_);
 
-   auto *  graphics = GetSubsystem<Graphics>();
+    auto* graphics = GetSubsystem<Graphics>();
 
     // Set Window size and layout settings
-   window_->SetMinWidth(graphics->GetWidth()/1.5);
-   window_->SetMinHeight(graphics->GetHeight()/1.5);
+    window_->SetMinWidth(graphics->GetWidth() / 1.5);
+    window_->SetMinHeight(graphics->GetHeight() / 1.5);
     window_->SetLayout(LM_VERTICAL, 6, IntRect(6, 6, 6, 6));
     window_->SetAlignment(HA_LEFT, VA_TOP);
     window_->SetName("NanoVG Window");
@@ -235,8 +242,8 @@ void NonoVG::InitWindow()
     windowTitle->SetStyleAuto();
     buttonClose->SetStyle("CloseButton");
 
+    return window_;
 }
-
 
 void NonoVG::MoveCamera(float timeStep)
 {
@@ -276,6 +283,7 @@ void NonoVG::SubscribeToEvents()
 {
     // Subscribe HandleUpdate() function for processing update events
     SubscribeToEvent(E_UPDATE, URHO3D_HANDLER(NonoVG, HandleUpdate));
+    SubscribeToEvent(E_NVGRENDER, URHO3D_HANDLER(NonoVG, HandleNVGRender));
 }
 
 void NonoVG::HandleUpdate(StringHash eventType, VariantMap& eventData)
@@ -285,19 +293,30 @@ void NonoVG::HandleUpdate(StringHash eventType, VariantMap& eventData)
     // Take the frame time step, which is stored as a float
     float timeStep = eventData[P_TIMESTEP].GetFloat();
 
+    time_ += timeStep;
     // Move the camera, scale movement with time step
     MoveCamera(timeStep);
 }
 
+void NonoVG::HandleNVGRender(StringHash eventType, VariantMap& eventData)
+{
+    using namespace NVGRender;
 
-void NonoVG::Stop() 
+    NanoVGUIElement* nanoVGUIElement = static_cast<NanoVGUIElement*>(eventData[P_NVGELEMENT].GetPtr());
+    NanoVG* nvgContext = static_cast<NanoVG*>(eventData[P_NVGCONTEXT].GetPtr());
+    IntVector2 size = nanoVGUIElement->GetSize();
+    renderDemo(nvgContext->GetNVGContext(), 0, 0, size.x_, size.y_, time_, 0, &data);
+}
+
+void NonoVG::Stop()
 {
 
     Sample::Stop();
-    NanoVG* nanogui = GetSubsystem<NanoVG>();
-    if (nanogui)
+    NanoVG* nvg = GetSubsystem<NanoVG>();
+    if (nvg)
     {
-        nanogui->Clear();
+        freeDemoData(nvg->GetNVGContext(), &data);
+
+        nvg->Clear();
     }
 }
-
