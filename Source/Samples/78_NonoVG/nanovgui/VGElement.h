@@ -244,7 +244,91 @@ class URHO3D_API VGElement : public BorderImage
     // Converts degrees to radians and vice versa.
     float DegToRad(float deg);
     float RadToDeg(float rad);
-    
+
+
+    //
+    // Images
+    //
+    // NanoVG allows you to load jpg, png, psd, tga, pic and gif files to be used for rendering.
+    // In addition you can upload your own image. The image loading is provided by stb_image.
+    // The parameter imageFlags is combination of flags defined in NVGimageFlags.
+
+    // Creates image by loading it from the disk from specified file name.
+    // Returns handle to the image.
+    int CreateImage( const char* filename, int imageFlags);
+
+    // Creates image by loading it from the specified chunk of memory.
+    // Returns handle to the image.
+    int CreateImageMem( int imageFlags, unsigned char* data, int ndata);
+
+    // Creates image from specified image data.
+    // Returns handle to the image.
+    int CreateImageRGBA( int w, int h, int imageFlags, const unsigned char* data);
+
+    // Updates image data specified by image handle.
+    void UpdateImage( int image, const unsigned char* data);
+
+    // Returns the dimensions of a created image.
+    void ImageSize( int image, int* w, int* h);
+
+    // Deletes created image.
+    void DeleteImage( int image);
+
+    //
+    // Paints
+    //
+    // NanoVG supports four types of paints: linear gradient, box gradient, radial gradient and image pattern.
+    // These can be used as paints for strokes and fills.
+
+    // Creates and returns a linear gradient. Parameters (sx,sy)-(ex,ey) specify the start and end coordinates
+    // of the linear gradient, icol specifies the start color and ocol the end color.
+    // The gradient is transformed by the current transform when it is passed to nvgFillPaint() or nvgStrokePaint().
+    NVGpaint LinearGradient( float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol);
+
+    // Creates and returns a box gradient. Box gradient is a feathered rounded rectangle, it is useful for rendering
+    // drop shadows or highlights for boxes. Parameters (x,y) define the top-left corner of the rectangle,
+    // (w,h) define the size of the rectangle, r defines the corner radius, and f feather. Feather defines how blurry
+    // the border of the rectangle is. Parameter icol specifies the inner color and ocol the outer color of the
+    // gradient. The gradient is transformed by the current transform when it is passed to nvgFillPaint() or
+    // nvgStrokePaint().
+    NVGpaint BoxGradient( float x, float y, float w, float h, float r, float f, NVGcolor icol,
+                            NVGcolor ocol);
+
+    // Creates and returns a radial gradient. Parameters (cx,cy) specify the center, inr and outr specify
+    // the inner and outer radius of the gradient, icol specifies the start color and ocol the end color.
+    // The gradient is transformed by the current transform when it is passed to nvgFillPaint() or nvgStrokePaint().
+    NVGpaint RadialGradient(float cx, float cy, float inr, float outr, NVGcolor icol,
+                               NVGcolor ocol);
+
+    // Creates and returns an image pattern. Parameters (ox,oy) specify the left-top location of the image pattern,
+    // (ex,ey) the size of one image, angle rotation around the top-left corner, image is handle to the image to render.
+    // The gradient is transformed by the current transform when it is passed to nvgFillPaint() or nvgStrokePaint().
+    NVGpaint ImagePattern( float ox, float oy, float ex, float ey, float angle, int image,
+                             float alpha);
+
+
+    //
+    // Scissoring
+    //
+    // Scissoring allows you to clip the rendering into a rectangle. This is useful for various
+    // user interface cases like rendering a text edit or a timeline.
+
+    // Sets the current scissor rectangle.
+    // The scissor rectangle is transformed by the current transform.
+    void Scissor( float x, float y, float w, float h);
+
+    // Intersects current scissor rectangle with the specified rectangle.
+    // The scissor rectangle is transformed by the current transform.
+    // Note: in case the rotation of previous scissor rect differs from
+    // the current one, the intersection will be done between the specified
+    // rectangle and the previous scissor rectangle transformed in the current
+    // transform space. The resulting shape is always rectangle.
+    void IntersectScissor( float x, float y, float w, float h);
+
+    // Reset and disables scissoring.
+    void ResetScissor();
+
+
     // Paths
     //
     // Drawing a new shape starts with nvgBeginPath(), it clears all the currently defined paths.
@@ -311,6 +395,128 @@ class URHO3D_API VGElement : public BorderImage
 
     // Fills the current path with current stroke style.
     void Stroke();
+
+    //
+    // Text
+    //
+    // NanoVG allows you to load .ttf files and use the font to render text.
+    //
+    // The appearance of the text can be defined by setting the current text style
+    // and by specifying the fill color. Common text and font settings such as
+    // font size, letter spacing and text align are supported. Font blur allows you
+    // to create simple text effects such as drop shadows.
+    //
+    // At render time the font face can be set based on the font handles or name.
+    //
+    // Font measure functions return values in local space, the calculations are
+    // carried in the same resolution as the final rendering. This is done because
+    // the text glyph positions are snapped to the nearest pixels sharp rendering.
+    //
+    // The local space means that values are not rotated or scale as per the current
+    // transformation. For example if you set font size to 12, which would mean that
+    // line height is 16, then regardless of the current scaling and rotation, the
+    // returned line height is always 16. Some measures may vary because of the scaling
+    // since aforementioned pixel snapping.
+    //
+    // While this may sound a little odd, the setup allows you to always render the
+    // same way regardless of scaling. I.e. following works regardless of scaling:
+    //
+    //		const char* txt = "Text me up.";
+    //		nvgTextBounds(vg, x,y, txt, NULL, bounds);
+    //		nvgBeginPath(vg);
+    //		nvgRoundedRect(vg, bounds[0],bounds[1], bounds[2]-bounds[0], bounds[3]-bounds[1]);
+    //		nvgFill(vg);
+    //
+    // Note: currently only solid color fill is supported for text.
+
+    // Creates font by loading it from the disk from specified file name.
+    // Returns handle to the font.
+    int CreateFont( const char* name, const char* filename);
+
+    // fontIndex specifies which font face to load from a .ttf/.ttc file.
+    int CreateFontAtIndex( const char* name, const char* filename, const int fontIndex);
+
+    // Creates font by loading it from the specified memory chunk.
+    // Returns handle to the font.
+    int CreateFontMem( const char* name, unsigned char* data, int ndata, int freeData);
+
+    // fontIndex specifies which font face to load from a .ttf/.ttc file.
+    int CreateFontMemAtIndex( const char* name, unsigned char* data, int ndata, int freeData,
+                                const int fontIndex);
+
+    // Finds a loaded font of specified name, and returns handle to it, or -1 if the font is not found.
+    int FindFont( const char* name);
+
+    // Adds a fallback font by handle.
+    int AddFallbackFontId( int baseFont, int fallbackFont);
+
+    // Adds a fallback font by name.
+    int AddFallbackFont( const char* baseFont, const char* fallbackFont);
+
+    // Resets fallback fonts by handle.
+    void ResetFallbackFontsId( int baseFont);
+
+    // Resets fallback fonts by name.
+    void ResetFallbackFonts( const char* baseFont);
+
+    // Sets the font size of current text style.
+    void FontSize( float size);
+
+    // Sets the blur of current text style.
+    void FontBlur( float blur);
+
+    // Sets the letter spacing of current text style.
+    void TextLetterSpacing( float spacing);
+
+    // Sets the proportional line height of current text style. The line height is specified as multiple of font size.
+    void TextLineHeight( float lineHeight);
+
+    // Sets the text align of current text style, see NVGalign for options.
+    void TextAlign( int align);
+
+    // Sets the font face based on specified id of current text style.
+    void FontFaceId( int font);
+
+    // Sets the font face based on specified name of current text style.
+    void FontFace( const char* font);
+
+    // Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
+    float Text( float x, float y, const char* string, const char* end);
+
+    // Draws multi-line text string at specified location wrapped at the specified width. If end is specified only the
+    // sub-string up to the end is drawn. White space is stripped at the beginning of the rows, the text is split at
+    // word boundaries or when new-line characters are encountered. Words longer than the max width are slit at nearest
+    // character (i.e. no hyphenation).
+    void TextBox( float x, float y, float breakRowWidth, const char* string, const char* end);
+
+    // Measures the specified text string. Parameter bounds should be a pointer to float[4],
+    // if the bounding box of the text should be returned. The bounds value are [xmin,ymin, xmax,ymax]
+    // Returns the horizontal advance of the measured text (i.e. where the next character should drawn).
+    // Measured values are returned in local coordinate space.
+    float TextBounds( float x, float y, const char* string, const char* end, float* bounds);
+
+    // Measures the specified multi-text string. Parameter bounds should be a pointer to float[4],
+    // if the bounding box of the text should be returned. The bounds value are [xmin,ymin, xmax,ymax]
+    // Measured values are returned in local coordinate space.
+    void TextBoxBounds( float x, float y, float breakRowWidth, const char* string, const char* end,
+                          float* bounds);
+
+    // Calculates the glyph x positions of the specified text. If end is specified only the sub-string will be used.
+    // Measured values are returned in local coordinate space.
+    int TextGlyphPositions( float x, float y, const char* string, const char* end,
+                              NVGglyphPosition* positions, int maxPositions);
+
+    // Returns the vertical metrics based on the current text style.
+    // Measured values are returned in local coordinate space.
+    void TextMetrics( float* ascender, float* descender, float* lineh);
+
+    // Breaks the specified text into lines. If end is specified only the sub-string will be used.
+    // White space is stripped at the beginning of the rows, the text is split at word boundaries or when new-line
+    // characters are encountered. Words longer than the max width are slit at nearest character (i.e. no hyphenation).
+    int TextBreakLines( const char* string, const char* end, float breakRowWidth, NVGtextRow* rows,
+                          int maxRows);
+
+
 
 protected:
     void CreateFrameBuffer(int mWidth, int mHeight);

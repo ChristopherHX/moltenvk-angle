@@ -362,6 +362,67 @@ float VGElement::DegToRad(float deg) { return nvgDegToRad(deg); }
 
 float VGElement::RadToDeg(float rad) { return nvgRadToDeg(rad); }
 
+int VGElement::CreateImage(const char* filename, int imageFlags)
+{
+    ResourceCache* resourceCache = GetSubsystem<ResourceCache>();
+
+    Urho3D::SharedPtr<Urho3D::File> imageFile = resourceCache->GetFile(filename);
+    if (imageFile != NULL)
+    {
+
+        uint8_t* buffer = (uint8_t*)malloc(imageFile->GetSize());
+        auto bytesLen = imageFile->Read(buffer, imageFile->GetSize());
+
+        return nvgCreateImageMem(vg_, imageFlags, buffer, bytesLen);
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int VGElement::CreateImageMem(int imageFlags, unsigned char* data, int ndata)
+{
+    return nvgCreateImageMem(vg_, imageFlags, data, ndata);
+}
+
+int VGElement::CreateImageRGBA(int w, int h, int imageFlags, const unsigned char* data)
+{
+    return nvgCreateImageRGBA(vg_, w, h, imageFlags, data);
+}
+
+void VGElement::UpdateImage(int image, const unsigned char* data) { nvgUpdateImage(vg_, image, data); }
+
+void VGElement::ImageSize(int image, int* w, int* h) { nvgImageSize(vg_, image, w, h); }
+
+void VGElement::DeleteImage(int image) { nvgDeleteImage(vg_, image); }
+
+NVGpaint VGElement::LinearGradient(float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol)
+{
+    return nvgLinearGradient(vg_, sx, sy, ex, ey, icol, ocol);
+}
+
+NVGpaint VGElement::BoxGradient(float x, float y, float w, float h, float r, float f, NVGcolor icol, NVGcolor ocol)
+{
+    return nvgBoxGradient(vg_, x, y, w, h, r, f, icol, ocol);
+}
+
+NVGpaint VGElement::RadialGradient(float cx, float cy, float inr, float outr, NVGcolor icol, NVGcolor ocol)
+{
+    return nvgRadialGradient(vg_, cx, cy, inr, outr, icol, ocol);
+}
+
+NVGpaint VGElement::ImagePattern(float ox, float oy, float ex, float ey, float angle, int image, float alpha)
+{
+    return nvgImagePattern(vg_, ox, oy, ex, ey, angle, image, alpha);
+}
+
+void VGElement::Scissor(float x, float y, float w, float h) { nvgScissor(vg_, x, y, w, h); }
+
+void VGElement::IntersectScissor(float x, float y, float w, float h) { nvgIntersectScissor(vg_, x, y, w, h); }
+
+void VGElement::ResetScissor() { nvgResetScissor(vg_); }
+
 void VGElement::BeginPath() { nvgBeginPath(vg_); }
 
 void VGElement::MoveTo(float x, float y) { nvgMoveTo(vg_, x, y); }
@@ -400,5 +461,148 @@ void VGElement::Circle(float cx, float cy, float r) { nvgCircle(vg_, cx, cy, r);
 void VGElement::Fill() { nvgFill(vg_); }
 
 void VGElement::Stroke() { nvgStroke(vg_); }
+
+int VGElement::CreateFont(const char* name, const char* filename)
+{
+    ResourceCache* resourceCache = GetSubsystem<ResourceCache>();
+    Urho3D::SharedPtr<Urho3D::File> fontFile = resourceCache->GetFile(filename);
+    if (fontFile != NULL)
+    {
+
+        uint8_t* buffer = (uint8_t*)malloc(fontFile->GetSize());
+        auto bytesLen = fontFile->Read(buffer, fontFile->GetSize());
+
+        return nvgCreateFontMem(vg_, name, buffer, bytesLen, 1);
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+// fontIndex specifies which font face to load from a .ttf/.ttc file.
+int VGElement::CreateFontAtIndex(const char* name, const char* filename, const int fontIndex)
+{
+    ResourceCache* resourceCache = GetSubsystem<ResourceCache>();
+    Urho3D::SharedPtr<Urho3D::File> fontFile = resourceCache->GetFile(filename);
+    if (fontFile != NULL)
+    {
+        uint8_t* buffer = (uint8_t*)malloc(fontFile->GetSize());
+        auto bytesLen = fontFile->Read(buffer, fontFile->GetSize());
+
+        return nvgCreateFontMemAtIndex(vg_, name, buffer, bytesLen, 1, fontIndex);
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+// Creates font by loading it from the specified memory chunk.
+// Returns handle to the font.
+int VGElement::CreateFontMem(const char* name, unsigned char* data, int ndata, int freeData)
+{
+    return nvgCreateFontMem(vg_, name, data, ndata, freeData);
+}
+
+// fontIndex specifies which font face to load from a .ttf/.ttc file.
+int VGElement::CreateFontMemAtIndex(const char* name, unsigned char* data, int ndata, int freeData, const int fontIndex)
+{
+    return nvgCreateFontMemAtIndex(vg_, name, data, ndata, freeData, fontIndex);
+}
+
+// Finds a loaded font of specified name, and returns handle to it, or -1 if the font is not found.
+int VGElement::FindFont(const char* name) { return nvgFindFont(vg_, name); }
+
+// Adds a fallback font by handle.
+int VGElement::AddFallbackFontId(int baseFont, int fallbackFont)
+{
+    return nvgAddFallbackFontId(vg_, baseFont, fallbackFont);
+}
+
+// Adds a fallback font by name.
+int VGElement::AddFallbackFont(const char* baseFont, const char* fallbackFont)
+{
+    return nvgAddFallbackFont(vg_, baseFont, fallbackFont);
+}
+
+// Resets fallback fonts by handle.
+void VGElement::ResetFallbackFontsId(int baseFont) { nvgResetFallbackFontsId(vg_, baseFont); }
+
+// Resets fallback fonts by name.
+void VGElement::ResetFallbackFonts(const char* baseFont) { nvgResetFallbackFonts(vg_, baseFont); }
+
+// Sets the font size of current text style.
+void VGElement::FontSize(float size) { nvgFontSize(vg_, size); }
+
+// Sets the blur of current text style.
+void VGElement::FontBlur(float blur) { nvgFontBlur(vg_, blur); }
+
+// Sets the letter spacing of current text style.
+void VGElement::TextLetterSpacing(float spacing) { nvgTextLetterSpacing(vg_, spacing); }
+
+// Sets the proportional line height of current text style. The line height is specified as multiple of font size.
+void VGElement::TextLineHeight(float lineHeight) { nvgTextLineHeight(vg_, lineHeight); }
+
+// Sets the text align of current text style, see NVGalign for options.
+void VGElement::TextAlign(int align) { nvgTextAlign(vg_, align); }
+
+// Sets the font face based on specified id of current text style.
+void VGElement::FontFaceId(int font) { nvgFontFaceId(vg_, font); }
+
+// Sets the font face based on specified name of current text style.
+void VGElement::FontFace(const char* font) { nvgFontFace(vg_, font); }
+
+// Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
+float VGElement::Text(float x, float y, const char* string, const char* end) { return nvgText(vg_, x, y, string, end); }
+
+// Draws multi-line text string at specified location wrapped at the specified width. If end is specified only the
+// sub-string up to the end is drawn. White space is stripped at the beginning of the rows, the text is split at
+// word boundaries or when new-line characters are encountered. Words longer than the max width are slit at nearest
+// character (i.e. no hyphenation).
+void VGElement::TextBox(float x, float y, float breakRowWidth, const char* string, const char* end)
+{
+    nvgTextBox(vg_, x, y, breakRowWidth, string, end);
+}
+
+// Measures the specified text string. Parameter bounds should be a pointer to float[4],
+// if the bounding box of the text should be returned. The bounds value are [xmin,ymin, xmax,ymax]
+// Returns the horizontal advance of the measured text (i.e. where the next character should drawn).
+// Measured values are returned in local coordinate space.
+float VGElement::TextBounds(float x, float y, const char* string, const char* end, float* bounds)
+{
+    return nvgTextBounds(vg_, x, y, string, end, bounds);
+}
+
+// Measures the specified multi-text string. Parameter bounds should be a pointer to float[4],
+// if the bounding box of the text should be returned. The bounds value are [xmin,ymin, xmax,ymax]
+// Measured values are returned in local coordinate space.
+void VGElement::TextBoxBounds(float x, float y, float breakRowWidth, const char* string, const char* end, float* bounds)
+{
+    nvgTextBoxBounds(vg_, x, y, breakRowWidth, string, end, bounds);
+}
+
+// Calculates the glyph x positions of the specified text. If end is specified only the sub-string will be used.
+// Measured values are returned in local coordinate space.
+int VGElement::TextGlyphPositions(float x, float y, const char* string, const char* end, NVGglyphPosition* positions,
+                                  int maxPositions)
+{
+    return nvgTextGlyphPositions(vg_, x, y, string, end, positions, maxPositions);
+}
+
+// Returns the vertical metrics based on the current text style.
+// Measured values are returned in local coordinate space.
+void VGElement::TextMetrics(float* ascender, float* descender, float* lineh)
+{
+    nvgTextMetrics(vg_, ascender, descender, lineh);
+}
+
+// Breaks the specified text into lines. If end is specified only the sub-string will be used.
+// White space is stripped at the beginning of the rows, the text is split at word boundaries or when new-line
+// characters are encountered. Words longer than the max width are slit at nearest character (i.e. no hyphenation).
+int VGElement::TextBreakLines(const char* string, const char* end, float breakRowWidth, NVGtextRow* rows, int maxRows)
+{
+    return nvgTextBreakLines(vg_, string, end, breakRowWidth, rows, maxRows);
+}
 
 } // namespace Urho3D
