@@ -2,6 +2,8 @@
 #include "GLHeaders.h"
 #include "nanovg.h"
 #include <Urho3D/UI/BorderImage.h>
+#include <Urho3D/Graphics/Graphics.h>
+#include <Urho3D/Graphics/Texture2D.h>
 
 struct NVGcontext;
 struct NVGLUframebuffer;
@@ -10,6 +12,7 @@ namespace Urho3D
 {
 
 class Texture2D;
+class NanoVG;
 
 class URHO3D_API VGElement : public BorderImage
 {
@@ -438,10 +441,10 @@ class URHO3D_API VGElement : public BorderImage
 
     // Creates font by loading it from the specified memory chunk.
     // Returns handle to the font.
-    int CreateFontMem( const char* name, unsigned char* data, int ndata, int freeData);
+    int CreateFontMem( const char* name, unsigned char* data, int ndata);
 
     // fontIndex specifies which font face to load from a .ttf/.ttc file.
-    int CreateFontMemAtIndex( const char* name, unsigned char* data, int ndata, int freeData,
+    int CreateFontMemAtIndex( const char* name, unsigned char* data, int ndata,
                                 const int fontIndex);
 
     // Finds a loaded font of specified name, and returns handle to it, or -1 if the font is not found.
@@ -526,6 +529,7 @@ protected:
     Urho3D::SharedPtr<Texture2D> drawTexture_;
     IntVector2 textureSize_;
     NVGLUframebuffer* nvgFrameBuffer_;
+    NanoVG* nanoVG_;
     NVGcontext* vg_;
     GLint previousVBO;
     GLint previousFBO;

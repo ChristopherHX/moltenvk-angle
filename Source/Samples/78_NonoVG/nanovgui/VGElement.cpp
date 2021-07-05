@@ -28,8 +28,7 @@
 #include "../UI/UI.h"
 #include "../UI/UIEvents.h"
 
-#include <Urho3D/Graphics/Graphics.h>
-#include <Urho3D/Graphics/Texture2D.h>
+
 
 #include "NVG.h"
 #include "VGElement.h"
@@ -41,8 +40,6 @@
 
 #include "nanovg_gl_utils.h"
 
-#include "../Demo.h"
-
 #include "../DebugNew.h"
 
 namespace Urho3D
@@ -52,8 +49,8 @@ VGElement::VGElement(Context* context)
     : BorderImage(context)
     , nvgFrameBuffer_(NULL)
 {
-    NanoVG* nanovg = GetSubsystem<NanoVG>();
-    vg_ = nanovg->GetNVGContext();
+    nanoVG_ = GetSubsystem<NanoVG>();
+    vg_ = nanoVG_->GetNVGContext();
     graphics_ = GetSubsystem<Graphics>();
     drawTexture_ = NULL;
 
@@ -364,38 +361,24 @@ float VGElement::RadToDeg(float rad) { return nvgRadToDeg(rad); }
 
 int VGElement::CreateImage(const char* filename, int imageFlags)
 {
-    ResourceCache* resourceCache = GetSubsystem<ResourceCache>();
-
-    Urho3D::SharedPtr<Urho3D::File> imageFile = resourceCache->GetFile(filename);
-    if (imageFile != NULL)
-    {
-
-        uint8_t* buffer = (uint8_t*)malloc(imageFile->GetSize());
-        auto bytesLen = imageFile->Read(buffer, imageFile->GetSize());
-
-        return nvgCreateImageMem(vg_, imageFlags, buffer, bytesLen);
-    }
-    else
-    {
-        return 0;
-    }
+    return nanoVG_->CreateImage(filename, imageFlags);
 }
 
 int VGElement::CreateImageMem(int imageFlags, unsigned char* data, int ndata)
 {
-    return nvgCreateImageMem(vg_, imageFlags, data, ndata);
+    return nanoVG_->CreateImageMem(imageFlags, data, ndata);
 }
 
 int VGElement::CreateImageRGBA(int w, int h, int imageFlags, const unsigned char* data)
 {
-    return nvgCreateImageRGBA(vg_, w, h, imageFlags, data);
+    return nanoVG_->CreateImageRGBA( w, h, imageFlags, data);
 }
 
-void VGElement::UpdateImage(int image, const unsigned char* data) { nvgUpdateImage(vg_, image, data); }
+void VGElement::UpdateImage(int image, const unsigned char* data) { nanoVG_->UpdateImage(image, data); }
 
-void VGElement::ImageSize(int image, int* w, int* h) { nvgImageSize(vg_, image, w, h); }
+void VGElement::ImageSize(int image, int* w, int* h) { nanoVG_->ImageSize(image, w, h); }
 
-void VGElement::DeleteImage(int image) { nvgDeleteImage(vg_, image); }
+void VGElement::DeleteImage(int image) { nanoVG_->DeleteImage( image); }
 
 NVGpaint VGElement::LinearGradient(float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol)
 {
@@ -464,73 +447,49 @@ void VGElement::Stroke() { nvgStroke(vg_); }
 
 int VGElement::CreateFont(const char* name, const char* filename)
 {
-    ResourceCache* resourceCache = GetSubsystem<ResourceCache>();
-    Urho3D::SharedPtr<Urho3D::File> fontFile = resourceCache->GetFile(filename);
-    if (fontFile != NULL)
-    {
 
-        uint8_t* buffer = (uint8_t*)malloc(fontFile->GetSize());
-        auto bytesLen = fontFile->Read(buffer, fontFile->GetSize());
-
-        return nvgCreateFontMem(vg_, name, buffer, bytesLen, 1);
-    }
-    else
-    {
-        return 0;
-    }
+    return nanoVG_->CreateFont(name, filename);
 }
 
 // fontIndex specifies which font face to load from a .ttf/.ttc file.
 int VGElement::CreateFontAtIndex(const char* name, const char* filename, const int fontIndex)
 {
-    ResourceCache* resourceCache = GetSubsystem<ResourceCache>();
-    Urho3D::SharedPtr<Urho3D::File> fontFile = resourceCache->GetFile(filename);
-    if (fontFile != NULL)
-    {
-        uint8_t* buffer = (uint8_t*)malloc(fontFile->GetSize());
-        auto bytesLen = fontFile->Read(buffer, fontFile->GetSize());
-
-        return nvgCreateFontMemAtIndex(vg_, name, buffer, bytesLen, 1, fontIndex);
-    }
-    else
-    {
-        return 0;
-    }
+    return nanoVG_->CreateFontAtIndex(name, filename, fontIndex);
 }
 
 // Creates font by loading it from the specified memory chunk.
 // Returns handle to the font.
-int VGElement::CreateFontMem(const char* name, unsigned char* data, int ndata, int freeData)
+int VGElement::CreateFontMem(const char* name, unsigned char* data, int ndata)
 {
-    return nvgCreateFontMem(vg_, name, data, ndata, freeData);
+    return nanoVG_->CreateFontMem( name, data, ndata);
 }
 
 // fontIndex specifies which font face to load from a .ttf/.ttc file.
-int VGElement::CreateFontMemAtIndex(const char* name, unsigned char* data, int ndata, int freeData, const int fontIndex)
+int VGElement::CreateFontMemAtIndex(const char* name, unsigned char* data, int ndata, const int fontIndex)
 {
-    return nvgCreateFontMemAtIndex(vg_, name, data, ndata, freeData, fontIndex);
+    return nanoVG_->CreateFontMemAtIndex( name, data, ndata, fontIndex);
 }
 
 // Finds a loaded font of specified name, and returns handle to it, or -1 if the font is not found.
-int VGElement::FindFont(const char* name) { return nvgFindFont(vg_, name); }
+int VGElement::FindFont(const char* name) { return nanoVG_->FindFont(name); }
 
 // Adds a fallback font by handle.
 int VGElement::AddFallbackFontId(int baseFont, int fallbackFont)
 {
-    return nvgAddFallbackFontId(vg_, baseFont, fallbackFont);
+    return nanoVG_->AddFallbackFontId( baseFont, fallbackFont);
 }
 
 // Adds a fallback font by name.
 int VGElement::AddFallbackFont(const char* baseFont, const char* fallbackFont)
 {
-    return nvgAddFallbackFont(vg_, baseFont, fallbackFont);
+    return nanoVG_->AddFallbackFont( baseFont, fallbackFont);
 }
 
 // Resets fallback fonts by handle.
-void VGElement::ResetFallbackFontsId(int baseFont) { nvgResetFallbackFontsId(vg_, baseFont); }
+void VGElement::ResetFallbackFontsId(int baseFont) { nanoVG_->ResetFallbackFontsId( baseFont); }
 
 // Resets fallback fonts by name.
-void VGElement::ResetFallbackFonts(const char* baseFont) { nvgResetFallbackFonts(vg_, baseFont); }
+void VGElement::ResetFallbackFonts(const char* baseFont) { nanoVG_->ResetFallbackFonts( baseFont); }
 
 // Sets the font size of current text style.
 void VGElement::FontSize(float size) { nvgFontSize(vg_, size); }

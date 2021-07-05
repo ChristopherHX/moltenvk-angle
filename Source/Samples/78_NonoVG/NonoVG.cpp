@@ -49,11 +49,14 @@
 
 #include "Demo.h"
 
+
+static DemoData demoData_;
+
+
 #include <Urho3D/DebugNew.h>
 
 URHO3D_DEFINE_APPLICATION_MAIN(NonoVG)
 
-static DemoData data;
 
 NonoVG::NonoVG(Context* context)
     : Sample(context)
@@ -95,6 +98,8 @@ void NonoVG::Start()
     if (nvg)
     {
         nvg->Initialize();
+        loadDemoData(nvg, &demoData_);
+
     }
 
 
@@ -105,8 +110,6 @@ void NonoVG::Start()
     SetupViewport();
 
     SubscribeToEvents();
-
-    loadDemoData(GetSubsystem<ResourceCache>(), GetSubsystem<NanoVG>()->GetNVGContext(), &data);
 
     // Enable OS cursor
     GetSubsystem<Input>()->SetMouseVisible(true);
@@ -192,6 +195,8 @@ void NonoVG::InitControls()
     window_ = InitWindow();
     window_->CreateChild<VGCanvas>("VGCanvas");
     window_->SetPosition(200, 200);
+
+    //
 }
 
 SharedPtr<Window> NonoVG::InitWindow()
@@ -305,7 +310,8 @@ void NonoVG::HandleNVGRender(StringHash eventType, VariantMap& eventData)
     VGElement* nanoVGUIElement = static_cast<VGElement*>(eventData[P_VGELEMENT].GetPtr());
     NanoVG* nvgContext = static_cast<NanoVG*>(eventData[P_VGCONTEXT].GetPtr());
     IntVector2 size = nanoVGUIElement->GetSize();
-    renderDemo(nvgContext->GetNVGContext(), 0, 0, size.x_, size.y_, time_, 0, &data);
+   // renderDemo(nvgContext->GetNVGContext(), 0, 0, size.x_, size.y_, time_, 0, &data);
+    renderVGElement(nanoVGUIElement, 0, 0, size.x_, size.y_, time_, 0, &demoData_);
 }
 
 void NonoVG::Stop()
@@ -315,8 +321,7 @@ void NonoVG::Stop()
     NanoVG* nvg = GetSubsystem<NanoVG>();
     if (nvg)
     {
-        freeDemoData(nvg->GetNVGContext(), &data);
-
         nvg->Clear();
     }
 }
+

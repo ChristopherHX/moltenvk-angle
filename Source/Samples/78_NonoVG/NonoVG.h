@@ -52,7 +52,6 @@ public:
 
 protected:
 
-
 private:
     /// Create and initialize a Window control.
     SharedPtr<Window> InitWindow();
