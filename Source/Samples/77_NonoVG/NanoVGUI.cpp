@@ -236,8 +236,18 @@ namespace Urho3D
             if(nvgFrameBuffer_ != nullptr)
             {
                 nvgluBindFramebuffer(nvgFrameBuffer_);
+                
+                graphics_->ClearParameterSources();
+                graphics_->SetColorWrite(true);
+                graphics_->SetCullMode(CULL_NONE);
+                graphics_->SetDepthTest(CMP_ALWAYS);
+                graphics_->SetDepthWrite(false);
+                graphics_->SetFillMode(FILL_SOLID);
+                graphics_->SetStencilTest(false);
+                graphics_->SetScissorTest(false);
+                graphics_->Clear(CLEAR_COLOR | CLEAR_DEPTH | CLEAR_STENCIL, Color(0.5,0.5,0.5,1.0), 0, 0);
+                
                 glViewport(0, 0, CWIDTH, CHEIGHT);
-                glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
             }
 
             nvgBeginFrame(vg_, CWIDTH, CHEIGHT, 1.0f);

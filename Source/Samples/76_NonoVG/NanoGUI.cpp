@@ -166,6 +166,17 @@ namespace Urho3D
             ShaderVariation* previousPS = graphics_->GetPixelShader();
             
             graphics_->SetShaders(NULL, NULL);
+            
+            graphics_->ClearParameterSources();
+            graphics_->SetColorWrite(true);
+            graphics_->SetCullMode(CULL_NONE);
+            graphics_->SetDepthTest(CMP_ALWAYS);
+            graphics_->SetDepthWrite(false);
+            graphics_->SetFillMode(FILL_SOLID);
+            graphics_->SetStencilTest(false);
+            graphics_->SetScissorTest(false);
+            graphics_->Clear(CLEAR_COLOR | CLEAR_DEPTH | CLEAR_STENCIL, Color(0.5,0.5,0.5,1.0), 0, 0);
+            
             nvgBeginFrame(vg_, graphics_->GetWidth(), graphics_->GetHeight(), 1.0f);
 
             nvgBeginPath(vg_);
