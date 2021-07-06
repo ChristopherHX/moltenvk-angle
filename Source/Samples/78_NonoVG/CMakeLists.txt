@@ -39,7 +39,7 @@ endif()
 file (GLOB NANOVG_C_FILES nanovg/*.c)
 file (GLOB NANOVG_URHO3D_FILES nanovgui/*.cpp)
 
-set (INCLUDE_DIRS ${INCLUDE_DIRS} nanovg nanovgui)
+set (INCLUDE_DIRS ${INCLUDE_DIRS} nanovg nanovgui nanosvg)
 
 source_group("NanoVG Core"            FILES ${NANOVG_C_FILES})
 source_group("NanoVG UI"            FILES ${NANOVG_URHO3D_FILES})

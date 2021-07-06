@@ -47,6 +47,12 @@
 
 #include "NonoVG.h"
 
+#define NANOSVG_ALL_COLOR_KEYWORDS  // Include full list of color keywords.
+#define NANOSVG_IMPLEMENTATION
+#include "nanosvg/nanosvg.h"
+#define NANOSVGRAST_IMPLEMENTATION
+#include "nanosvg/nanosvgrast.h"
+
 #include "Demo.h"
 
 
@@ -116,6 +122,57 @@ void NonoVG::Start()
 
     // Set the mouse mode to use in the sample
     Sample::InitMouseMode(MM_FREE);
+}
+
+Texture2D* NonoVG::LoadSVGIntoTexture(String path) 
+{ 
+
+     auto* cache = GetSubsystem<ResourceCache>();
+    NSVGimage* image = NULL;
+    NSVGrasterizer* rast = NULL;
+    int w, h;
+    // LOGINFOF("parsing %s\n", svgfile.CString());
+
+    Urho3D::SharedPtr<Urho3D::File> imageFile = cache->GetFile(path);
+    char* buffer = (char*)malloc(imageFile->GetSize()+1);
+    auto bytesLen = imageFile->Read(buffer, imageFile->GetSize());
+    buffer[imageFile->GetSize()] = '\0';
+
+    image = nsvgParse(buffer,  "px", 256.0f);
+
+    if (image == NULL)
+    {
+        // LOGERROR("Could not open SVG image.\n");
+    }
+
+    w = image->width;
+    h = image->height;
+
+    rast = nsvgCreateRasterizer();
+    if (rast == NULL)
+    {
+        // LOGERROR("Could not init rasterizer.\n");
+    }
+
+    rast->tessTol = 1.0f;
+    rast->distTol = 1.0f;
+
+    SharedPtr<Image> temp_image(new Image(context_));
+    temp_image->SetSize(w, h, 4);
+
+    nsvgRasterize(rast, image, 0.0f, 0.0f, 1, temp_image->GetData(), w, h, w * 4);
+
+    nsvgDeleteRasterizer(rast);
+    nsvgDelete(image);
+    free(buffer);
+
+
+    Texture2D* urho3DTexture = new Texture2D(context_);
+
+    urho3DTexture->SetData(temp_image);
+
+    return urho3DTexture;
+
 }
 
 void NonoVG::CreateScene()
@@ -188,7 +245,7 @@ void NonoVG::SetupViewport()
 
 void NonoVG::InitControls()
 {
-
+    auto* graphics = GetSubsystem<Graphics>();
     SharedPtr<Window> window_  = InitWindow();
     VGCanvas * vgCanvas = window_->CreateChild<VGCanvas>("VGCanvas");
     vgCanvas->SetClearColor(Color(0.5,0.5,0.5,1.0));
@@ -199,8 +256,18 @@ void NonoVG::InitControls()
     window_->SetPosition(200, 200);
 
 
+    window_ = InitWindow();
+    int winSize = Min(graphics->GetWidth() / 2.0, graphics->GetHeight() / 2.0);
 
-    //
+    window_->SetMinWidth(winSize);
+    window_->SetMinHeight(winSize);
+    window_->SetWidth(winSize);
+    window_->SetHeight(winSize);
+    Sprite * sprite = window_->CreateChild<Sprite>("SVGSprite");
+    svgTexture = LoadSVGIntoTexture("nanosvg/23.svg"); 
+    sprite->SetTexture(svgTexture);
+    window_->SetPosition(300, 300);
+    
 }
 
 SharedPtr<Window> NonoVG::InitWindow()
@@ -327,5 +394,8 @@ void NonoVG::Stop()
     {
         nvg->Clear();
     }
+
+    svgTexture.Reset();
+
 }
 
