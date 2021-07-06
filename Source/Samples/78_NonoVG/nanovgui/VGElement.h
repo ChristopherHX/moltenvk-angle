@@ -33,6 +33,8 @@ class URHO3D_API VGElement : public BorderImage
     void EndRender();
 
     IntVector2 GetSize() { return textureSize_; }
+    void SetClearColor(Color color);
+    Color GetClearColor();
 
     // Begin drawing a new frame
     // Calls to nanovg drawing API should be wrapped in nvgBeginFrame() & nvgEndFrame()
@@ -535,6 +537,7 @@ protected:
     GLint previousFBO;
     ShaderVariation* previousVS;
     ShaderVariation* previousPS;
+    Color clearColor_;
 
 private:
     // Handle render event.

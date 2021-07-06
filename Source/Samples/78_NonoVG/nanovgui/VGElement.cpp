@@ -53,6 +53,8 @@ VGElement::VGElement(Context* context)
     vg_ = nanoVG_->GetNVGContext();
     graphics_ = GetSubsystem<Graphics>();
     drawTexture_ = NULL;
+    clearColor_ = Color(0.0,0.0,0.0,1.0);
+
 
     SubscribeToEvent(E_ENDRENDERING, URHO3D_HANDLER(VGElement, HandleRender));
 }
@@ -91,6 +93,15 @@ void VGElement::RegisterObject(Context* context)
     URHO3D_UPDATE_ATTRIBUTE_DEFAULT_VALUE("Is Enabled", true);
 }
 
+void VGElement::SetClearColor(Color color) {
+
+    clearColor_ = color; }
+
+Color VGElement::GetClearColor() 
+{ 
+    return clearColor_; 
+}
+
 void VGElement::BeginRender()
 {
     if (nvgFrameBuffer_ != nullptr && vg_ != nullptr)
@@ -106,8 +117,20 @@ void VGElement::BeginRender()
 
         glBindFramebuffer(GL_FRAMEBUFFER, nvgFrameBuffer_->fbo);
 
+        
+        graphics_->ClearParameterSources();
+        graphics_->SetColorWrite(true);
+        graphics_->SetCullMode(CULL_NONE);
+        graphics_->SetDepthTest(CMP_ALWAYS);
+        graphics_->SetDepthWrite(false);
+        graphics_->SetFillMode(FILL_SOLID);
+        graphics_->SetStencilTest(false);
+        graphics_->SetScissorTest(false);
+        graphics_->Clear(CLEAR_COLOR | CLEAR_DEPTH | CLEAR_STENCIL, clearColor_, 0, 0);
+        
+
         glViewport(0, 0, textureSize_.x_, textureSize_.y_);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+  
 
         nvgBeginFrame(vg_, textureSize_.x_, textureSize_.y_, 1.0f);
 
@@ -115,12 +138,6 @@ void VGElement::BeginRender()
         nvgTranslate(vg_, textureSize_.x_ / 2, textureSize_.y_ / 2);
         nvgScale(vg_, 1.0, -1.0);
         nvgTranslate(vg_, -textureSize_.x_ / 2, -textureSize_.y_ / 2);
-
-        // TBD ELI , hack to clear the frame
-        nvgBeginPath(vg_);
-        nvgRect(vg_, 0, 0, textureSize_.x_, textureSize_.y_);
-        nvgFillColor(vg_, nvgRGBA(128, 128, 128, 255));
-        nvgFill(vg_);
     }
 }
 

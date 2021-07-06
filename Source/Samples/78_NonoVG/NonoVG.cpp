@@ -190,11 +190,15 @@ void NonoVG::InitControls()
 {
 
     SharedPtr<Window> window_  = InitWindow();
-    window_->CreateChild<VGCanvas>("VGCanvas");
-
+    VGCanvas * vgCanvas = window_->CreateChild<VGCanvas>("VGCanvas");
+    vgCanvas->SetClearColor(Color(0.5,0.5,0.5,1.0));
+ 
     window_ = InitWindow();
-    window_->CreateChild<VGCanvas>("VGCanvas");
+    vgCanvas = window_->CreateChild<VGCanvas>("VGCanvas");
+    vgCanvas->SetClearColor(Color(0.5, 0.5, 0.5, 1.0));
     window_->SetPosition(200, 200);
+
+
 
     //
 }
