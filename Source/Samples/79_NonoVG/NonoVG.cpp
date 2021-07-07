@@ -246,7 +246,7 @@ void NonoVG::CreateScene()
         screenObject->SetModel(cache->GetResource<Model>("Models/Plane.mdl"));
 
         VGFrameBuffer* vgFrameBuffer = scene_->CreateComponent<VGFrameBuffer>();
-        vgFrameBuffer->CreateFrameBuffer(graphics->GetWidth(), graphics->GetWidth());
+        vgFrameBuffer->CreateFrameBuffer(1024, 1024);
         vgFrameBuffer->SetClearColor(Color(0.4, 0.4, 0.4, 1.0));
         vgFrameBuffer->EnableRenderEvents();
         // Create a new material from scratch, use the diffuse unlit technique, assign the render texture
