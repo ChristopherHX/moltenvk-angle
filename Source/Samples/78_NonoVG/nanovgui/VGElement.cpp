@@ -55,6 +55,7 @@ VGElement::VGElement(Context* context)
     drawTexture_ = NULL;
     clearColor_ = Color(0.0,0.0,0.0,1.0);
 
+    nvgFrameBuffer_ = nullptr;
 
     SubscribeToEvent(E_ENDRENDERING, URHO3D_HANDLER(VGElement, HandleRender));
 }
@@ -64,6 +65,8 @@ VGElement::~VGElement()
     NanoVG* nanovg = GetSubsystem<NanoVG>();
     NVGcontext* vg = nanovg->GetNVGContext();
 
+    VGFrameBuffer_.Reset();
+
     if (vg)
     {
         nvgluDeleteFramebuffer(nvgFrameBuffer_);
@@ -71,16 +74,21 @@ VGElement::~VGElement()
     }
     else
     {
-        if (nvgFrameBuffer_->fbo != 0)
-            glDeleteFramebuffers(1, &nvgFrameBuffer_->fbo);
-        if (nvgFrameBuffer_->rbo != 0)
-            glDeleteRenderbuffers(1, &nvgFrameBuffer_->rbo);
+        if (nvgFrameBuffer_ != nullptr)
+        {
+
+            if (nvgFrameBuffer_->fbo != 0)
+                glDeleteFramebuffers(1, &nvgFrameBuffer_->fbo);
+            if (nvgFrameBuffer_->rbo != 0)
+                glDeleteRenderbuffers(1, &nvgFrameBuffer_->rbo);
+        }
     }
 
     if (drawTexture_ != NULL)
     {
         SetTexture(nullptr);
         drawTexture_->Release();
+        drawTexture_.Reset();
         drawTexture_ = NULL;
         imageRect_ = IntRect::ZERO;
     }
@@ -95,15 +103,41 @@ void VGElement::RegisterObject(Context* context)
 
 void VGElement::SetClearColor(Color color) {
 
-    clearColor_ = color; }
+    if (VGFrameBuffer_)
+    {
+        VGFrameBuffer_->SetClearColor(color);
+    }
+
+    clearColor_ = color; 
+
+}
 
 Color VGElement::GetClearColor() 
 { 
+    if (VGFrameBuffer_)
+    {
+        return VGFrameBuffer_->GetClearColor();
+    }
     return clearColor_; 
 }
 
+ IntVector2 VGElement::GetSize() 
+ { 
+     if (VGFrameBuffer_)
+     {
+         return VGFrameBuffer_->GetSize();
+     }
+
+     return textureSize_; 
+ }
+
 void VGElement::BeginRender()
 {
+    if (VGFrameBuffer_)
+    {
+        VGFrameBuffer_->Bind();
+    }
+    else
     if (nvgFrameBuffer_ != nullptr && vg_ != nullptr)
     {
 
@@ -139,10 +173,18 @@ void VGElement::BeginRender()
         nvgScale(vg_, 1.0, -1.0);
         nvgTranslate(vg_, -textureSize_.x_ / 2, -textureSize_.y_ / 2);
     }
+
+   
 }
 
 void VGElement::EndRender()
 {
+
+    if (VGFrameBuffer_)
+    {
+        VGFrameBuffer_->UnBind();
+    }
+    else
     if (nvgFrameBuffer_ != nullptr && vg_ != nullptr)
     {
         nvgEndFrame(vg_);
@@ -155,6 +197,7 @@ void VGElement::EndRender()
         graphics_->SetDepthWrite(true);
         graphics_->SetShaders(previousVS, previousPS);
     }
+    
 }
 
 void VGElement::HandleRender(StringHash eventType, VariantMap& eventData)
@@ -178,7 +221,13 @@ void VGElement::HandleRender(StringHash eventType, VariantMap& eventData)
 
 void VGElement::OnResize(const IntVector2& newSize, const IntVector2& delta)
 {
-    CreateFrameBuffer(newSize.x_, newSize.y_);
+  //  CreateFrameBuffer(newSize.x_, newSize.y_);
+ 
+    VGFrameBuffer_ = new VGFrameBuffer(context_, newSize.x_, newSize.y_);
+    VGFrameBuffer_->SetClearColor(this->clearColor_);
+    imageRect_ = IntRect::ZERO;
+    SetTexture(VGFrameBuffer_->GetRenderTarget());
+    
 }
 
 void VGElement::CreateFrameBuffer(int width, int height)
@@ -196,6 +245,7 @@ void VGElement::CreateFrameBuffer(int width, int height)
     {
         SetTexture(nullptr);
         drawTexture_->Release();
+        drawTexture_.Reset();
         drawTexture_ = NULL;
         imageRect_ = IntRect::ZERO;
     }
@@ -221,7 +271,7 @@ void VGElement::CreateFrameBuffer(int width, int height)
     memset(fb, 0, sizeof(NVGLUframebuffer));
 
     fb->texture = TextureID;
-
+    fb->image = -1;
     fb->ctx = vg_;
 
     // frame buffer object

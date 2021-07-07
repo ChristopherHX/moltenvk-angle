@@ -4,6 +4,7 @@
 #include <Urho3D/UI/BorderImage.h>
 #include <Urho3D/Graphics/Graphics.h>
 #include <Urho3D/Graphics/Texture2D.h>
+#include "VGFrameBuffer.h"
 
 struct NVGcontext;
 struct NVGLUframebuffer;
@@ -32,7 +33,7 @@ class URHO3D_API VGElement : public BorderImage
     void BeginRender();
     void EndRender();
 
-    IntVector2 GetSize() { return textureSize_; }
+    IntVector2 GetSize();
     void SetClearColor(Color color);
     Color GetClearColor();
 
@@ -527,6 +528,8 @@ protected:
     void CreateFrameBuffer(int mWidth, int mHeight);
 
 protected:
+    SharedPtr<VGFrameBuffer> VGFrameBuffer_;
+
     WeakPtr<Graphics> graphics_;
     Urho3D::SharedPtr<Texture2D> drawTexture_;
     IntVector2 textureSize_;
