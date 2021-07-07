@@ -221,11 +221,12 @@ void VGElement::HandleRender(StringHash eventType, VariantMap& eventData)
 void VGElement::OnResize(const IntVector2& newSize, const IntVector2& delta)
 {
   //  CreateFrameBuffer(newSize.x_, newSize.y_);
- 
+    IntRect imageRect = GetImageRect();
     VGFrameBuffer_ = new VGFrameBuffer(context_, newSize.x_, newSize.y_);
     VGFrameBuffer_->SetClearColor(this->clearColor_);
     imageRect_ = IntRect::ZERO;
     SetTexture(VGFrameBuffer_->GetRenderTarget());
+    SetImageRect(imageRect);
     
 }
 

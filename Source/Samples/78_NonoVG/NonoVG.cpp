@@ -258,8 +258,9 @@ void NonoVG::InitControls()
     window_ = InitWindow();
     vgCanvas = window_->CreateChild<VGCanvas>("VGCanvas");
     vgCanvas->SetClearColor(Color(0.5, 0.5, 0.5, 1.0));
+   // DEBUG ONLY vgCanvas->SetImageRect(IntRect(50,50,350,450));
     window_->SetPosition(200, 200);
-
+  
 
     window_ = InitWindow();
     int winSize = Min(graphics->GetWidth() / 2.0, graphics->GetHeight() / 2.0);
