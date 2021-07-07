@@ -112,7 +112,7 @@ void NonoVG::Start()
     }
 
 
-    InitControls();
+   // InitControls();
 
     CreateScene();
 
@@ -225,6 +225,41 @@ void NonoVG::CreateScene()
         mushroomObject->SetModel(cache->GetResource<Model>("Models/Mushroom.mdl"));
         mushroomObject->SetMaterial(cache->GetResource<Material>("Materials/Mushroom.xml"));
     }
+
+
+
+    // Create a "screen" like object for viewing the second scene. Construct it from two StaticModels, a box for the
+    // frame and a plane for the actual view
+    {
+        Node* boxNode = scene_->CreateChild("ScreenBox");
+        boxNode->SetPosition(Vector3(0.0f, 10.0f, 0.0f));
+        boxNode->SetScale(Vector3(21.0f, 16.0f, 0.5f));
+        auto* boxObject = boxNode->CreateComponent<StaticModel>();
+        boxObject->SetModel(cache->GetResource<Model>("Models/Box.mdl"));
+        boxObject->SetMaterial(cache->GetResource<Material>("Materials/Stone.xml"));
+
+        Node* screenNode = scene_->CreateChild("Screen");
+        screenNode->SetPosition(Vector3(0.0f, 10.0f, -0.27f));
+        screenNode->SetRotation(Quaternion(-90.0f, 0.0f, 0.0f));
+        screenNode->SetScale(Vector3(20.0f, 0.0f, 15.0f));
+        auto* screenObject = screenNode->CreateComponent<StaticModel>();
+        screenObject->SetModel(cache->GetResource<Model>("Models/Plane.mdl"));
+
+        VGFrameBuffer* vgFrameBuffer = scene_->CreateComponent<VGFrameBuffer>();
+        vgFrameBuffer->CreateFrameBuffer(graphics->GetWidth(), graphics->GetWidth());
+        vgFrameBuffer->SetClearColor(Color(0.4, 0.4, 0.4, 1.0));
+        vgFrameBuffer->EnableRenderEvents();
+        // Create a new material from scratch, use the diffuse unlit technique, assign the render texture
+        // as its diffuse texture, then assign the material to the screen plane object
+        SharedPtr<Material> renderMaterial(new Material(context_));
+        renderMaterial->SetTechnique(0, cache->GetResource<Technique>("Techniques/DiffUnlit.xml"));
+        renderMaterial->SetTexture(TU_DIFFUSE, vgFrameBuffer->GetRenderTarget());
+        // Since the screen material is on top of the box model and may Z-fight, use negative depth bias
+        // to push it forward (particularly necessary on mobiles with possibly less Z resolution)
+        renderMaterial->SetDepthBias(BiasParameters(-0.001f, 0.0f));
+        screenObject->SetMaterial(renderMaterial);
+    }
+
 
 
     // Create a scene node for the camera, which we will move around
@@ -365,6 +400,8 @@ void NonoVG::SubscribeToEvents()
     // Subscribe HandleUpdate() function for processing update events
     SubscribeToEvent(E_UPDATE, URHO3D_HANDLER(NonoVG, HandleUpdate));
     SubscribeToEvent(E_VGRENDER, URHO3D_HANDLER(NonoVG, HandleNVGRender));
+    SubscribeToEvent(E_VGFBRENDER, URHO3D_HANDLER(NonoVG, HandleVGFBRender));
+    //
 }
 
 void NonoVG::HandleUpdate(StringHash eventType, VariantMap& eventData)
@@ -387,6 +424,15 @@ void NonoVG::HandleNVGRender(StringHash eventType, VariantMap& eventData)
     IntVector2 size = nanoVGUIElement->GetSize();
 
     renderVGElement(nanoVGUIElement, 0, 0, size.x_, size.y_, time_, 0, &demoData_);
+}
+
+void NonoVG::HandleVGFBRender(StringHash eventType, VariantMap& eventData) {
+
+    using namespace VGFBRender;
+    VGFrameBuffer* vgFrameBuffer = static_cast<VGFrameBuffer*>(eventData[P_VGFRAMEBUFFER].GetPtr());
+    IntVector2 size = vgFrameBuffer->GetSize();
+    renderVGFrameBuffer(vgFrameBuffer, 0, 0, size.x_, size.y_, time_, 0, &demoData_);
+
 }
 
 void NonoVG::Stop()

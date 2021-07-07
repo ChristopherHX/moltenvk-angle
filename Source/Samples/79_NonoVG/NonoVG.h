@@ -74,6 +74,9 @@ private:
      /// Handle NVG render event.
     void HandleNVGRender(StringHash eventType, VariantMap& eventData);
 
+    /// Handle VGFrameBuffer render event.
+    void HandleVGFBRender(StringHash eventType, VariantMap& eventData);
+    
     /// The UI's root UIElement.
     SharedPtr<UIElement> uiRoot_;
 

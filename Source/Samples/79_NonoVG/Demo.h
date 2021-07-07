@@ -16,3 +16,5 @@ typedef struct DemoData DemoData;
 void loadDemoData(NanoVG* vge, DemoData* data);
 
 void renderVGElement(VGElement * vgElement, float mx, float my, float width, float height, float t, int blowup, DemoData* data);
+void renderVGFrameBuffer(VGFrameBuffer* vge, float mx, float my, float width, float height, float t, int blowup,
+                         DemoData* data);
