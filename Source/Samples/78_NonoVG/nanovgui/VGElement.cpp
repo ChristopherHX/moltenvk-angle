@@ -28,8 +28,6 @@
 #include "../UI/UI.h"
 #include "../UI/UIEvents.h"
 
-
-
 #include "NVG.h"
 #include "VGElement.h"
 #include "VGEvents.h"
@@ -53,7 +51,7 @@ VGElement::VGElement(Context* context)
     vg_ = nanoVG_->GetNVGContext();
     graphics_ = GetSubsystem<Graphics>();
     drawTexture_ = NULL;
-    clearColor_ = Color(0.0,0.0,0.0,1.0);
+    clearColor_ = Color(0.0, 0.0, 0.0, 1.0);
 
     nvgFrameBuffer_ = nullptr;
 
@@ -101,35 +99,35 @@ void VGElement::RegisterObject(Context* context)
     URHO3D_UPDATE_ATTRIBUTE_DEFAULT_VALUE("Is Enabled", true);
 }
 
-void VGElement::SetClearColor(Color color) {
+void VGElement::SetClearColor(Color color)
+{
 
     if (VGFrameBuffer_)
     {
         VGFrameBuffer_->SetClearColor(color);
     }
 
-    clearColor_ = color; 
-
+    clearColor_ = color;
 }
 
-Color VGElement::GetClearColor() 
-{ 
+Color VGElement::GetClearColor()
+{
     if (VGFrameBuffer_)
     {
         return VGFrameBuffer_->GetClearColor();
     }
-    return clearColor_; 
+    return clearColor_;
 }
 
- IntVector2 VGElement::GetSize() 
- { 
-     if (VGFrameBuffer_)
-     {
-         return VGFrameBuffer_->GetSize();
-     }
+IntVector2 VGElement::GetSize()
+{
+    if (VGFrameBuffer_)
+    {
+        return VGFrameBuffer_->GetSize();
+    }
 
-     return textureSize_; 
- }
+    return textureSize_;
+}
 
 void VGElement::BeginRender()
 {
@@ -137,8 +135,7 @@ void VGElement::BeginRender()
     {
         VGFrameBuffer_->Bind();
     }
-    else
-    if (nvgFrameBuffer_ != nullptr && vg_ != nullptr)
+    else if (nvgFrameBuffer_ != nullptr && vg_ != nullptr)
     {
 
         glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &previousVBO);
@@ -151,7 +148,6 @@ void VGElement::BeginRender()
 
         glBindFramebuffer(GL_FRAMEBUFFER, nvgFrameBuffer_->fbo);
 
-        
         graphics_->ClearParameterSources();
         graphics_->SetColorWrite(true);
         graphics_->SetCullMode(CULL_NONE);
@@ -161,10 +157,8 @@ void VGElement::BeginRender()
         graphics_->SetStencilTest(false);
         graphics_->SetScissorTest(false);
         graphics_->Clear(CLEAR_COLOR | CLEAR_DEPTH | CLEAR_STENCIL, clearColor_, 0, 0);
-        
 
         glViewport(0, 0, textureSize_.x_, textureSize_.y_);
-  
 
         nvgBeginFrame(vg_, textureSize_.x_, textureSize_.y_, 1.0f);
 
@@ -173,8 +167,6 @@ void VGElement::BeginRender()
         nvgScale(vg_, 1.0, -1.0);
         nvgTranslate(vg_, -textureSize_.x_ / 2, -textureSize_.y_ / 2);
     }
-
-   
 }
 
 void VGElement::EndRender()
@@ -184,8 +176,7 @@ void VGElement::EndRender()
     {
         VGFrameBuffer_->UnBind();
     }
-    else
-    if (nvgFrameBuffer_ != nullptr && vg_ != nullptr)
+    else if (nvgFrameBuffer_ != nullptr && vg_ != nullptr)
     {
         nvgEndFrame(vg_);
         //  Urho3D restore old values
@@ -197,7 +188,6 @@ void VGElement::EndRender()
         graphics_->SetDepthWrite(true);
         graphics_->SetShaders(previousVS, previousPS);
     }
-    
 }
 
 void VGElement::HandleRender(StringHash eventType, VariantMap& eventData)
@@ -220,14 +210,17 @@ void VGElement::HandleRender(StringHash eventType, VariantMap& eventData)
 
 void VGElement::OnResize(const IntVector2& newSize, const IntVector2& delta)
 {
-  //  CreateFrameBuffer(newSize.x_, newSize.y_);
+    //  CreateFrameBuffer(newSize.x_, newSize.y_);
     IntRect imageRect = GetImageRect();
+    IntVector2 imageRectSize = imageRect.Size();
+    IntVector2 oldSize = GetSize();
+
     VGFrameBuffer_ = new VGFrameBuffer(context_, newSize.x_, newSize.y_);
     VGFrameBuffer_->SetClearColor(this->clearColor_);
     imageRect_ = IntRect::ZERO;
     SetTexture(VGFrameBuffer_->GetRenderTarget());
-    SetImageRect(imageRect);
-    
+    if (oldSize != imageRectSize)
+        SetImageRect(imageRect);
 }
 
 void VGElement::CreateFrameBuffer(int width, int height)
@@ -426,10 +419,7 @@ float VGElement::DegToRad(float deg) { return nvgDegToRad(deg); }
 
 float VGElement::RadToDeg(float rad) { return nvgRadToDeg(rad); }
 
-int VGElement::CreateImage(const char* filename, int imageFlags)
-{
-    return nanoVG_->CreateImage(filename, imageFlags);
-}
+int VGElement::CreateImage(const char* filename, int imageFlags) { return nanoVG_->CreateImage(filename, imageFlags); }
 
 int VGElement::CreateImageMem(int imageFlags, unsigned char* data, int ndata)
 {
@@ -438,14 +428,14 @@ int VGElement::CreateImageMem(int imageFlags, unsigned char* data, int ndata)
 
 int VGElement::CreateImageRGBA(int w, int h, int imageFlags, const unsigned char* data)
 {
-    return nanoVG_->CreateImageRGBA( w, h, imageFlags, data);
+    return nanoVG_->CreateImageRGBA(w, h, imageFlags, data);
 }
 
 void VGElement::UpdateImage(int image, const unsigned char* data) { nanoVG_->UpdateImage(image, data); }
 
 void VGElement::ImageSize(int image, int* w, int* h) { nanoVG_->ImageSize(image, w, h); }
 
-void VGElement::DeleteImage(int image) { nanoVG_->DeleteImage( image); }
+void VGElement::DeleteImage(int image) { nanoVG_->DeleteImage(image); }
 
 NVGpaint VGElement::LinearGradient(float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol)
 {
@@ -512,11 +502,7 @@ void VGElement::Fill() { nvgFill(vg_); }
 
 void VGElement::Stroke() { nvgStroke(vg_); }
 
-int VGElement::CreateFont(const char* name, const char* filename)
-{
-
-    return nanoVG_->CreateFont(name, filename);
-}
+int VGElement::CreateFont(const char* name, const char* filename) { return nanoVG_->CreateFont(name, filename); }
 
 // fontIndex specifies which font face to load from a .ttf/.ttc file.
 int VGElement::CreateFontAtIndex(const char* name, const char* filename, const int fontIndex)
@@ -528,13 +514,13 @@ int VGElement::CreateFontAtIndex(const char* name, const char* filename, const i
 // Returns handle to the font.
 int VGElement::CreateFontMem(const char* name, unsigned char* data, int ndata)
 {
-    return nanoVG_->CreateFontMem( name, data, ndata);
+    return nanoVG_->CreateFontMem(name, data, ndata);
 }
 
 // fontIndex specifies which font face to load from a .ttf/.ttc file.
 int VGElement::CreateFontMemAtIndex(const char* name, unsigned char* data, int ndata, const int fontIndex)
 {
-    return nanoVG_->CreateFontMemAtIndex( name, data, ndata, fontIndex);
+    return nanoVG_->CreateFontMemAtIndex(name, data, ndata, fontIndex);
 }
 
 // Finds a loaded font of specified name, and returns handle to it, or -1 if the font is not found.
@@ -543,20 +529,20 @@ int VGElement::FindFont(const char* name) { return nanoVG_->FindFont(name); }
 // Adds a fallback font by handle.
 int VGElement::AddFallbackFontId(int baseFont, int fallbackFont)
 {
-    return nanoVG_->AddFallbackFontId( baseFont, fallbackFont);
+    return nanoVG_->AddFallbackFontId(baseFont, fallbackFont);
 }
 
 // Adds a fallback font by name.
 int VGElement::AddFallbackFont(const char* baseFont, const char* fallbackFont)
 {
-    return nanoVG_->AddFallbackFont( baseFont, fallbackFont);
+    return nanoVG_->AddFallbackFont(baseFont, fallbackFont);
 }
 
 // Resets fallback fonts by handle.
-void VGElement::ResetFallbackFontsId(int baseFont) { nanoVG_->ResetFallbackFontsId( baseFont); }
+void VGElement::ResetFallbackFontsId(int baseFont) { nanoVG_->ResetFallbackFontsId(baseFont); }
 
 // Resets fallback fonts by name.
-void VGElement::ResetFallbackFonts(const char* baseFont) { nanoVG_->ResetFallbackFonts( baseFont); }
+void VGElement::ResetFallbackFonts(const char* baseFont) { nanoVG_->ResetFallbackFonts(baseFont); }
 
 // Sets the font size of current text style.
 void VGElement::FontSize(float size) { nvgFontSize(vg_, size); }
