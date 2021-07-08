@@ -1031,6 +1031,17 @@ void drawThumbnails(VGFrameBuffer* vge, float x, float y, float w, float h, cons
     vge->RestoreState();
 }
 
+void drawSVGImage(VGFrameBuffer* vge, int imageID, float x, float y, float w, float h, float a)
+{
+    NVGpaint imgPaint;
+
+    imgPaint = vge->ImagePattern(x, y, w, h, 0, imageID, a);
+    vge->BeginPath();
+    vge->RoundedRect(x, y, w, h, 3.0);
+    vge->FillPaint(imgPaint);
+    vge->Fill();
+}
+
 void renderVGFrameBuffer(VGFrameBuffer* vge, float mx, float my, float width, float height, float t, int blowup, DemoData* data)
 {
     float x, y, popy;
@@ -1083,6 +1094,9 @@ void renderVGFrameBuffer(VGFrameBuffer* vge, float mx, float my, float width, fl
 
     // Thumbnails box
     drawThumbnails(vge, 365, popy - 30, 160, 300, data->images, 12, t);
+
+    float svgSize = Min(width / 3.0f, height / 3.0f);
+    drawSVGImage(vge, data->svgImage, width - svgSize, svgSize, svgSize, svgSize, 1.0f);
 
     vge->RestoreState();
 }

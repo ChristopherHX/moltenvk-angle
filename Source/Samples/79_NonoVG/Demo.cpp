@@ -1030,6 +1030,18 @@ void drawThumbnails(VGElement* vge, float x, float y, float w, float h, const in
     vge->RestoreState();
 }
 
+void drawSVGImage(VGElement* vge, int imageID, float x, float y, float w, float h, float a)
+{
+    NVGpaint imgPaint;
+
+    imgPaint = vge->ImagePattern(x, y, w, h, 0, imageID, a);
+    vge->BeginPath();
+    vge->RoundedRect(x, y, w, h, 3.0);
+    vge->FillPaint(imgPaint);
+    vge->Fill();
+}
+
+
 void renderVGElement(VGElement* vge, float mx, float my, float width, float height, float t, int blowup, DemoData* data)
 {
     float x, y, popy;
@@ -1083,6 +1095,9 @@ void renderVGElement(VGElement* vge, float mx, float my, float width, float heig
     // Thumbnails box
     drawThumbnails(vge, 365, popy - 30, 160, 300, data->images, 12, t);
 
+    float svgSize = Min(width / 3.0f, height / 3.0f);
+    drawSVGImage(vge, data->svgImage, width - svgSize, svgSize, svgSize, svgSize, 1.0f);
+
     vge->RestoreState();
 }
 
@@ -1095,6 +1110,8 @@ void loadDemoData(NanoVG* vge, DemoData* data)
         snprintf(file, 128, "nanovg/images/image%d.jpg", i + 1);
         data->images[i] = vge->CreateImage(file, 0);
     }
+
+    data->svgImage = vge->CreateImage("nanosvg/23_modified.svg", 0);
 
     data->fontIcons = vge->CreateFont("icons", "nanovg/fonts/entypo.ttf");
     data->fontNormal = vge->CreateFont("sans", "nanovg/fonts/Roboto-Regular.ttf");
