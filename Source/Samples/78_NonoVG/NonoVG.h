@@ -54,7 +54,6 @@ protected:
 
 private:
 
-    Texture2D * LoadSVGIntoTexture(String path);
     /// Create and initialize a Window control.
     SharedPtr<Window> InitWindow();
     /// Create and add various common controls for demonstration purposes.
