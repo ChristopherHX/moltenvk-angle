@@ -113,7 +113,7 @@ void VGComponent::GetTransformPositionRotation(float xform[6])
 
     nvgTransformTranslate(t, -hotSpot_.x_, -hotSpot_.y_);
     nvgTransformMultiply(xform, t);
-    nvgTransformRotate(t, rotation);
+    nvgTransformRotate(t,  nvgDegToRad(rotation));
     nvgTransformMultiply(xform, t);
     nvgTransformTranslate(t, hotSpot_.x_, hotSpot_.y_);
     nvgTransformMultiply(xform, t);

@@ -407,6 +407,9 @@ void NonoVG::RenderVGComponents()
     int screenWidth = frameBufferSize.x_;
     int screenHeight = frameBufferSize.y_;
 
+    // Urho takes the angles in degrees , as oppesed to nanovg which takes them in radians
+    float rotation = time_ * 90;
+
     for (VGComponent * vgComponent : vgComponents_)
     {
         String name = vgComponent->GetName();
@@ -420,7 +423,7 @@ void NonoVG::RenderVGComponents()
             vgComponent->BeginDraw();
             NVGpaint bg = vgComponent->LinearGradient(0, 0, 60, 30, nvgRGBA(255, 255, 255, 32), nvgRGBA(0, 0, 0, 32));
             vgComponent->SetPosition(screenWidth / 2.0, screenHeight/2.0);
-            vgComponent->SetRotation(time_);
+            vgComponent->SetRotation(rotation);
             //  vgComponent->SetScale(2.0f, 1.0f);
             vgComponent->BeginPath();
             vgComponent->Ellipse(width, height);
@@ -441,7 +444,7 @@ void NonoVG::RenderVGComponents()
             vgComponent->BeginDraw();
             /*position is set relative to the parent ,vgComponentRoot  */
             vgComponent->SetPosition(screenWidth * 0.17, screenHeight * 0.17);
-            vgComponent->SetRotation(-2 * time_);
+            vgComponent->SetRotation(-2 * rotation);
             vgComponent->SetHotSpot(hotspot_x, hotspot_y);
             drawColorwheelOnVGComponent(vgComponent, 0, 0, width, height, 0);
             vgComponent->EndDraw();
@@ -457,7 +460,7 @@ void NonoVG::RenderVGComponents()
             NVGpaint bg = vgComponent->LinearGradient(0, 0, 15, 30, nvgRGBA(255, 255, 255, 32), nvgRGBA(0, 0, 0, 32));
             /*position is set relative to the parent ,vgComponentChild  */
             vgComponent->SetPosition(screenWidth * 0.17, screenHeight * 0.17);
-            vgComponent->SetRotation(2 * time_);
+            vgComponent->SetRotation(2 * rotation);
             vgComponent->BeginPath();
             vgComponent->RoundedRect(width, height, 3);
             vgComponent->SetHotSpot(hotspot_x, hotspot_y);
@@ -477,7 +480,7 @@ void NonoVG::RenderVGComponents()
             vgComponent->BeginDraw();
             /*position is set relative to the parent ,vgComponentChild2  */
             vgComponent->SetPosition(screenWidth * 0.03, screenHeight * 0.03);
-            vgComponent->SetRotation(-time_);
+            vgComponent->SetRotation(-rotation);
           
             NVGpaint imgPaint = vgComponent->ImagePattern(0, 0, width, height, 0, demoData_.svgImage, 1.0);
             vgComponent->BeginPath();
