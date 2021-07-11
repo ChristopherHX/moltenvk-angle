@@ -69,6 +69,10 @@
 
 #include "SDL/SDL_loadso.h"
 
+#ifdef URHO3D_OPENGL
+#include "../NanoVG/NVG.h"
+#endif
+
 #include "../DebugNew.h"
 
 
@@ -223,6 +227,9 @@ bool Engine::Initialize(const VariantMap& parameters)
     {
         context_->RegisterSubsystem(new Graphics(context_));
         context_->RegisterSubsystem(new Renderer(context_));
+#ifdef URHO3D_OPENGL
+        context_->RegisterSubsystem(new NanoVG(context_));
+#endif
     }
     else
     {
@@ -332,6 +339,9 @@ bool Engine::Initialize(const VariantMap& parameters)
                 GetParameter(parameters, EP_SOUND_INTERPOLATION, true).GetBool()
             );
         }
+#ifdef URHO3D_OPENGL
+        GetSubsystem<NanoVG>()->Initialize();
+#endif
     }
 
     // Init FPU state of main thread

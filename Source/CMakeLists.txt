@@ -139,6 +139,15 @@ if(URHO3D_ANGLE_METAL)
     add_subdirectory (ThirdParty/angle)
 endif()
 
+if(URHO3D_OPENGL)
+    add_subdirectory (ThirdParty/nanovg)
+if(ANDROID OR IOS OR TVOS OR WEB OR RPI4)
+    add_definitions(-DNANOVG_GLES2_IMPLEMENTATION=1)
+else()
+    add_definitions(-DNANOVG_GL3_IMPLEMENTATION=1)
+endif()
+endif()
+
 # Urho3D game engine library
 add_subdirectory (Urho3D)
 
