@@ -20,4 +20,4 @@
 :: THE SOFTWARE.
 ::
 
-@"%~dp0cmake_generic.bat" %* -D URHO3D_OPENGL=1 -D URHO3D_64BIT=1 -VS=16
+@"%~dp0cmake_generic.bat" %* -D URHO3D_OPENGL=1 -D URHO3D_64BIT=1 -D URHO3D_LUA=0 -D URHO3D_ANGELSCRIPT=0  -VS=16

@@ -21,10 +21,17 @@
 //
 #pragma once
 
-
+#ifdef __APPLE__
+#define GLFW_INCLUDE_GLCOREARB
+#endif
+#include "../ThirdParty/nanovg/nanovg.h"
 #include "../Core/Object.h"
 #include "../Graphics/Texture2D.h"
+#include "VGCanvas.h"
+#include "VGEvents.h"
 #include "VGFrameBuffer.h"
+#include "VGElement.h"
+#include "VGComponent.h"
 
 #include "GLHeaders.h"
 

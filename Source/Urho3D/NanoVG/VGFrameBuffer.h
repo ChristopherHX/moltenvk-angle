@@ -28,7 +28,8 @@
 
 
 #include "GLHeaders.h"
-#include "nanovg.h"
+#include "../ThirdParty/nanovg/nanovg.h"
+
 
 struct NVGcontext;
 struct NVGLUframebuffer;

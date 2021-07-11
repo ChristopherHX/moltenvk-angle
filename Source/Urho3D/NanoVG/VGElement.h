@@ -21,7 +21,7 @@
 //
 #pragma once
 #include "GLHeaders.h"
-#include "nanovg.h"
+#include "../ThirdParty/nanovg/nanovg.h"
 #include "../UI/BorderImage.h"
 #include "../Graphics/Graphics.h"
 #include "../Graphics/Texture2D.h"
