@@ -45,7 +45,7 @@ class XMLElement;
 class XMLFile;
 class NanoVG;
 
-class VGComponent : public Component
+class URHO3D_API VGComponent : public Component
 {
     URHO3D_OBJECT(VGComponent, Component);
 

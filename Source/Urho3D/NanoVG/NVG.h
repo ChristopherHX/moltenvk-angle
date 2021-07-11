@@ -53,8 +53,8 @@ namespace Urho3D
 	class XMLFile;
 
 	
-class NanoVG : public Object
-{
+class URHO3D_API NanoVG : public Object
+    {
     URHO3D_OBJECT(NanoVG, Object);
 
 public:
