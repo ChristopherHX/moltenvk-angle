@@ -26,7 +26,6 @@
 #include <Urho3D/Graphics/Texture2D.h>
 #include <Urho3D/Scene/Component.h>
 
-
 #include "GLHeaders.h"
 #include "nanovg.h"
 
@@ -46,49 +45,59 @@ class XMLElement;
 class XMLFile;
 class NanoVG;
 
-class VGFrameBuffer : public Component
+class VGComponent : public Component
 {
-    URHO3D_OBJECT(VGFrameBuffer, Component);
+    URHO3D_OBJECT(VGComponent, Component);
 
 public:
     static void RegisterObject(Context* context);
-    static VGFrameBuffer* Current();
 
-    VGFrameBuffer(Context* context, int Width, int Height);
-    VGFrameBuffer(Context* context);
-    ~VGFrameBuffer();
+    VGComponent(Context* context, int Width, int Height);
+    VGComponent(Context* context);
+    ~VGComponent();
 
-    bool CreateFrameBuffer(int Width, int Height);
+    static SharedPtr<VGComponent> Create(Node* parent, String Name = "");
+    SharedPtr<VGComponent> CreateChild(String Name = "");
+    /// Return child scene node by name.
+    VGComponent* GetChild(const String& name, bool recursive = false) const;
+    void GetChildren(PODVector<VGComponent*>& dest, bool recursive = false) const;
 
-    void Bind();
-    void UnBind();
+    String GetName();
 
-    Texture2D* GetRenderTarget();
-    IntVector2 GetSize() { return textureSize_; }
+    void BeginDraw();
+    void EndDraw();
+        /// Set floating point position.
+    /// @property
+    void SetPosition(const Vector2& position);
+    /// Set floating point position.
+    void SetPosition(float x, float y);
+    /// Set hotspot for positioning and rotation.
+    /// @property
+    void SetHotSpot(const Vector2& hotSpot);
+    /// Set hotspot for positioning and rotation.
+    void SetHotSpot(float x, float y);
+    /// Set scale. Scale also affects child sprites.
+    /// @property
+    void SetScale(const Vector2& scale);
+    /// Set scale. Scale also affects child sprites.
+    void SetScale(float x, float y);
+    /// Set uniform scale. Scale also affects child sprites.
+    void SetScale(float scale);
+    /// Set rotation angle.
+    /// @property
+    void SetRotation(float angle);
+        /// Return hotspot.
+    /// @property
+    const Vector2& GetHotSpot() const { hotSpot_; }
+
+    void GetTransformPositionRotation(float xform[6]);
+    void GetTransformScale(float xform[6]);
+
     void SetClearColor(Color color);
     Color GetClearColor();
 
-    void EnableRenderEvents();
-    void DisbaleRenderEvents();
 
-   
 public:
-    // Begin drawing a new frame
-    // Calls to nanovg drawing API should be wrapped in nvgBeginFrame() & nvgEndFrame()
-    // nvgBeginFrame() defines the size of the window to render to in relation currently
-    // set viewport (i.e. glViewport on GL backends). Device pixel ration allows to
-    // control the rendering on Hi-DPI devices.
-    // For example, GLFW returns two dimension for an opened window: window size and
-    // frame buffer size. In that case you would set windowWidth/Height to the window size
-    // devicePixelRatio to: frameBufferWidth / windowWidth.
-    void BeginFrame();
-
-    // Cancels drawing the current frame.
-    void CancelFrame();
-
-    // Ends drawing flushing remaining render state.
-    void EndFrame();
-
     //
     // Composite operation
     //
@@ -405,7 +414,7 @@ public:
     // Sets the current sub-path winding, see NVGwinding and NVGsolidity.
     void PathWinding(int dir);
 
-    // Creates new circle arc shaped sub-path. The arc center is at cx,cy, the arc radius is r,
+        // Creates new circle arc shaped sub-path. The arc center is at cx,cy, the arc radius is r,
     // and the arc is drawn from angle a0 to a1, and swept in direction dir (NVG_CCW, or NVG_CW).
     // Angles are specified in radians.
     void Arc(float cx, float cy, float r, float a0, float a1, int dir);
@@ -425,6 +434,27 @@ public:
 
     // Creates new circle shaped sub-path.
     void Circle(float cx, float cy, float r);
+
+    // Creates new circle arc shaped sub-path. The arc center is at cx,cy, the arc radius is r,
+    // and the arc is drawn from angle a0 to a1, and swept in direction dir (NVG_CCW, or NVG_CW).
+    // Angles are specified in radians.
+    void Arc(float r, float a0, float a1, int dir);
+
+    // Creates new rectangle shaped sub-path.
+    void Rect( float w, float h);
+
+    // Creates new rounded rectangle shaped sub-path.
+    void RoundedRect( float w, float h, float r);
+
+    // Creates new rounded rectangle shaped sub-path with varying radii for each corner.
+    void RoundedRectVarying( float w, float h, float radTopLeft, float radTopRight,
+                            float radBottomRight, float radBottomLeft);
+
+    // Creates new ellipse shaped sub-path.
+    void Ellipse( float rx, float ry);
+
+    // Creates new circle shaped sub-path.
+    void Circle( float r);
 
     // Fills the current path with current fill style.
     void Fill();
@@ -551,19 +581,13 @@ public:
 
 protected:
     WeakPtr<Graphics> graphics_;
-    Urho3D::SharedPtr<Texture2D> drawTexture_;
-    IntVector2 textureSize_;
-    NVGLUframebuffer* nvgFrameBuffer_;
     WeakPtr<NanoVG> nanoVG_;
     NVGcontext* vg_;
-    GLint previousVBO;
-    GLint previousFBO;
-    ShaderVariation* previousVS;
-    ShaderVariation* previousPS;
-    Color clearColor_;
+    /// Hotspot for positioning and rotation.
+    Vector2 hotSpot_;
 
 private:
-    void HandleRender(StringHash eventType, VariantMap& eventData);
+   
 };
 
 } // namespace Urho3D

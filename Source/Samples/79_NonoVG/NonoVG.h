@@ -75,7 +75,11 @@ private:
 
     /// Handle VGFrameBuffer render event.
     void HandleVGFBRender(StringHash eventType, VariantMap& eventData);
-    
+
+    void RenderVGComponents();
+
+    Vector<SharedPtr<VGComponent>> vgComponents_;
+
     /// The UI's root UIElement.
     SharedPtr<UIElement> uiRoot_;
 

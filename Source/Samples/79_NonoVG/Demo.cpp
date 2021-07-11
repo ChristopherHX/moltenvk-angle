@@ -1,4 +1,5 @@
 ﻿#include "Demo.h"
+
 #include "NVG.h"
 
 #define ICON_SEARCH 0x1F50D
@@ -1039,6 +1040,91 @@ void drawSVGImage(VGElement* vge, int imageID, float x, float y, float w, float 
     vge->RoundedRect(x, y, w, h, 3.0);
     vge->FillPaint(imgPaint);
     vge->Fill();
+}
+
+void drawColorwheelOnVGComponent(VGComponent* vge, float x, float y, float w, float h, float t)
+{
+    int i;
+    float r0, r1, ax, ay, bx, by, cx, cy, aeps, r;
+    float hue = sinf(t * 0.12f);
+    NVGpaint paint;
+
+    vge->SaveState();
+
+    cx = x + w * 0.5f;
+    cy = y + h * 0.5f;
+    r1 = (w < h ? w : h) * 0.5f - 5.0f;
+    r0 = r1 - 20.0f;
+    aeps = 0.5f / r1; // half a pixel arc length in radians (2pi cancels out).
+
+    for (i = 0; i < 6; i++)
+    {
+        float a0 = (float)i / 6.0f * NVG_PI * 2.0f - aeps;
+        float a1 = (float)(i + 1.0f) / 6.0f * NVG_PI * 2.0f + aeps;
+        vge->BeginPath();
+        vge->Arc(cx, cy, r0, a0, a1, NVG_CW);
+        vge->Arc(cx, cy, r1, a1, a0, NVG_CCW);
+        vge->ClosePath();
+        ax = cx + cosf(a0) * (r0 + r1) * 0.5f;
+        ay = cy + sinf(a0) * (r0 + r1) * 0.5f;
+        bx = cx + cosf(a1) * (r0 + r1) * 0.5f;
+        by = cy + sinf(a1) * (r0 + r1) * 0.5f;
+        paint = vge->LinearGradient(ax, ay, bx, by, nvgHSLA(a0 / (NVG_PI * 2), 1.0f, 0.55f, 255),
+                                    nvgHSLA(a1 / (NVG_PI * 2), 1.0f, 0.55f, 255));
+        vge->FillPaint(paint);
+        vge->Fill();
+    }
+
+    vge->BeginPath();
+    vge->Circle(cx, cy, r0 - 0.5f);
+    vge->Circle(cx, cy, r1 + 0.5f);
+    vge->StrokeColor(nvgRGBA(0, 0, 0, 64));
+    vge->StrokeWidth(1.0f);
+    vge->Stroke();
+
+    // Selector
+    vge->SaveState();
+    vge->Translate(cx, cy);
+    vge->Rotate(hue * NVG_PI * 2);
+
+    // Marker on
+    vge->StrokeWidth(2.0f);
+    vge->BeginPath();
+    vge->Rect(r0 - 1, -3, r1 - r0 + 2, 6);
+    vge->StrokeColor(nvgRGBA(255, 255, 255, 192));
+    vge->Stroke();
+
+    paint = vge->BoxGradient(r0 - 3, -5, r1 - r0 + 6, 10, 2, 4, nvgRGBA(0, 0, 0, 128), nvgRGBA(0, 0, 0, 0));
+    vge->BeginPath();
+    vge->Rect(r0 - 2 - 10, -4 - 10, r1 - r0 + 4 + 20, 8 + 20);
+    vge->Rect(r0 - 2, -4, r1 - r0 + 4, 8);
+    vge->PathWinding(NVG_HOLE);
+    vge->FillPaint(paint);
+    vge->Fill();
+
+    // Center triangle
+    r = r0 - 6;
+    ax = cosf(120.0f / 180.0f * NVG_PI) * r;
+    ay = sinf(120.0f / 180.0f * NVG_PI) * r;
+    bx = cosf(-120.0f / 180.0f * NVG_PI) * r;
+    by = sinf(-120.0f / 180.0f * NVG_PI) * r;
+    vge->BeginPath();
+    vge->MoveTo(r, 0);
+    vge->LineTo(ax, ay);
+    vge->LineTo(bx, by);
+    vge->ClosePath();
+    paint = vge->LinearGradient(r, 0, ax, ay, nvgHSLA(hue, 1.0f, 0.5f, 255), nvgRGBA(255, 255, 255, 255));
+    vge->FillPaint(paint);
+    vge->Fill();
+    paint = vge->LinearGradient((r + ax) * 0.5f, (0 + ay) * 0.5f, bx, by, nvgRGBA(0, 0, 0, 0), nvgRGBA(0, 0, 0, 255));
+    vge->FillPaint(paint);
+    vge->Fill();
+    vge->StrokeColor(nvgRGBA(0, 0, 0, 64));
+    vge->Stroke();
+
+    vge->RestoreState();
+
+    vge->RestoreState();
 }
 
 

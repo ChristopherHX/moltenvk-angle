@@ -139,6 +139,10 @@ void NanoVG::Clear()
     }
 }
 
+VGFrameBuffer* NanoVG::GetCurrentFrameBuffer() 
+{ 
+    return VGFrameBuffer::Current(); 
+}
 
 int NanoVG::CreateFont(const char* name, const char* filename)
 {

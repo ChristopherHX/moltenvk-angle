@@ -18,6 +18,11 @@ void VGFrameBuffer::RegisterObject(Context* context)
     context->RegisterFactory<VGFrameBuffer>("UI");
 }
 
+VGFrameBuffer* VGFrameBuffer::Current() 
+{ 
+    return CurrenVGFrameBuffer_; 
+}
+
 VGFrameBuffer::VGFrameBuffer(Context* context)
     : Component(context)
     , nvgFrameBuffer_(nullptr)

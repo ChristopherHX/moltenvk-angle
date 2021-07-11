@@ -13,7 +13,8 @@ URHO3D_EVENT(E_VGRENDER, VGRender)
 
 URHO3D_EVENT(E_VGFBRENDER, VGFBRender)
 {
-    URHO3D_PARAM(P_VGFRAMEBUFFER, VGFrameBuffer); // NanoVGUIElement Element pointer
+    URHO3D_PARAM(P_VGFRAMEBUFFER, VGFrameBuffer); // NanoVG Framebuffer  pointer
 }
+
 
 }

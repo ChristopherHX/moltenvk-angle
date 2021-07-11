@@ -46,6 +46,7 @@
 #include "VGEvents.h"
 #include "VGFrameBuffer.h"
 #include "VGElement.h"
+#include "VGComponent.h"
 
 #include "NonoVG.h"
 
@@ -80,6 +81,7 @@ void NonoVG::Setup()
     VGElement::RegisterObject(context_);
     VGCanvas::RegisterObject(context_);
     VGFrameBuffer::RegisterObject(context_);
+    VGComponent::RegisterObject(context_);
 
 }
 
@@ -105,10 +107,9 @@ void NonoVG::Start()
 
     }
 
-
-  //  InitControls();
-
     CreateScene();
+
+    InitControls();
 
     SetupViewport();
 
@@ -236,11 +237,23 @@ void NonoVG::InitControls()
     vgCanvas->SetClearColor(Color(0.5,0.5,0.5,1.0));
  
     window_ = InitWindow();
-    vgCanvas = window_->CreateChild<VGCanvas>("VGCanvas");
+    vgCanvas = window_->CreateChild<VGCanvas>("VGCanvas2");
     vgCanvas->SetClearColor(Color(0.5, 0.5, 0.5, 1.0));
     window_->SetPosition(200, 200);
 
 
+    vgComponents_.Clear();
+    SharedPtr<VGComponent> vgComponent = VGComponent::Create(scene_, "vgComponentRoot");
+    vgComponents_.Push(vgComponent);
+    vgComponent = vgComponent->CreateChild("vgComponentChild");
+    vgComponents_.Push(vgComponent);
+    vgComponent = vgComponent->CreateChild("vgComponentChild2");
+    vgComponents_.Push(vgComponent);
+    vgComponent = vgComponent->CreateChild("vgComponentChild3");
+    vgComponents_.Push(vgComponent);
+ 
+
+    /*
     window_ = InitWindow();
     int winSize = Min(graphics->GetWidth() / 2.0, graphics->GetHeight() / 2.0);
 
@@ -252,6 +265,7 @@ void NonoVG::InitControls()
     svgTexture = nvg->LoadSVGIntoTexture("nanosvg/23_modified.svg"); 
     sprite->SetTexture(svgTexture);
     window_->SetPosition(300, 300);
+    */
     
 }
 
@@ -346,7 +360,6 @@ void NonoVG::SubscribeToEvents()
     SubscribeToEvent(E_UPDATE, URHO3D_HANDLER(NonoVG, HandleUpdate));
     SubscribeToEvent(E_VGRENDER, URHO3D_HANDLER(NonoVG, HandleNVGRender));
     SubscribeToEvent(E_VGFBRENDER, URHO3D_HANDLER(NonoVG, HandleVGFBRender));
-    //
 }
 
 void NonoVG::HandleUpdate(StringHash eventType, VariantMap& eventData)
@@ -368,7 +381,113 @@ void NonoVG::HandleNVGRender(StringHash eventType, VariantMap& eventData)
     VGElement* nanoVGUIElement = static_cast<VGElement*>(eventData[P_VGELEMENT].GetPtr());
     IntVector2 size = nanoVGUIElement->GetSize();
 
-    renderVGElement(nanoVGUIElement, 0, 0, size.x_, size.y_, time_, 0, &demoData_);
+    String canvasName = nanoVGUIElement->GetName();
+
+    if (canvasName == "VGCanvas")
+    {
+        renderVGElement(nanoVGUIElement, 0, 0, size.x_, size.y_, time_, 0, &demoData_);
+    }
+
+    if (canvasName == "VGCanvas2")
+    {
+        RenderVGComponents();
+    }
+}
+
+
+void NonoVG::RenderVGComponents() 
+{
+    NanoVG* nvg = GetSubsystem<NanoVG>();
+    VGFrameBuffer* frameBuffer = nvg->GetCurrentFrameBuffer();
+
+    if (frameBuffer == nullptr)
+        return;
+
+    IntVector2  frameBufferSize = frameBuffer->GetSize();
+    int screenWidth = frameBufferSize.x_;
+    int screenHeight = frameBufferSize.y_;
+
+    for (VGComponent * vgComponent : vgComponents_)
+    {
+        String name = vgComponent->GetName();
+        if (name == "vgComponentRoot")
+        {
+            float width = screenWidth * 0.04;
+            float height = screenWidth * 0.02;
+            float hotspot_x = width / 2.0;
+            float hotspot_y = height / 2.0;
+
+            vgComponent->BeginDraw();
+            NVGpaint bg = vgComponent->LinearGradient(0, 0, 60, 30, nvgRGBA(255, 255, 255, 32), nvgRGBA(0, 0, 0, 32));
+            vgComponent->SetPosition(screenWidth / 2.0, screenHeight/2.0);
+            vgComponent->SetRotation(time_);
+            //  vgComponent->SetScale(2.0f, 1.0f);
+            vgComponent->BeginPath();
+            vgComponent->Ellipse(width, height);
+            vgComponent->SetHotSpot(hotspot_x, hotspot_y);
+            vgComponent->FillColor(nvgRGBA(0, 96, 128, 255));
+            vgComponent->Fill();
+            vgComponent->FillPaint(bg);
+            vgComponent->Fill();
+            vgComponent->EndDraw();
+        }
+        else if (name == "vgComponentChild")
+        {
+            float width = screenWidth * 0.1;
+            float height = screenWidth * 0.1;
+            float hotspot_x = width / 2.0;
+            float hotspot_y = height / 2.0;
+
+            vgComponent->BeginDraw();
+            /*position is set relative to the parent ,vgComponentRoot  */
+            vgComponent->SetPosition(screenWidth * 0.17, screenHeight * 0.17);
+            vgComponent->SetRotation(-2 * time_);
+            vgComponent->SetHotSpot(hotspot_x, hotspot_y);
+            drawColorwheelOnVGComponent(vgComponent, 0, 0, width, height, 0);
+            vgComponent->EndDraw();
+        }
+        else if (name == "vgComponentChild2")
+        {
+            float width = screenWidth * 0.02;
+            float height = screenWidth * 0.02;
+            float hotspot_x = width / 2.0;
+            float hotspot_y = height / 2.0;
+
+            vgComponent->BeginDraw();
+            NVGpaint bg = vgComponent->LinearGradient(0, 0, 15, 30, nvgRGBA(255, 255, 255, 32), nvgRGBA(0, 0, 0, 32));
+            /*position is set relative to the parent ,vgComponentChild  */
+            vgComponent->SetPosition(screenWidth * 0.17, screenHeight * 0.17);
+            vgComponent->SetRotation(2 * time_);
+            vgComponent->BeginPath();
+            vgComponent->RoundedRect(width, height, 3);
+            vgComponent->SetHotSpot(hotspot_x, hotspot_y);
+            vgComponent->FillColor(nvgRGBA(125, 45, 200, 255));
+            vgComponent->Fill();
+            vgComponent->FillPaint(bg);
+            vgComponent->Fill();
+            vgComponent->EndDraw();
+        }
+        else if (name == "vgComponentChild3")
+        {
+            float width = screenWidth * 0.07;
+            float height = screenWidth * 0.07;
+            float hotspot_x = width / 2.0;
+            float hotspot_y = height / 2.0;
+
+            vgComponent->BeginDraw();
+            /*position is set relative to the parent ,vgComponentChild2  */
+            vgComponent->SetPosition(screenWidth * 0.03, screenHeight * 0.03);
+            vgComponent->SetRotation(-time_);
+          
+            NVGpaint imgPaint = vgComponent->ImagePattern(0, 0, width, height, 0, demoData_.svgImage, 1.0);
+            vgComponent->BeginPath();
+            vgComponent->RoundedRect(width, width, 3);
+            vgComponent->SetHotSpot(hotspot_x, hotspot_y);
+            vgComponent->FillPaint(imgPaint);
+            vgComponent->Fill();
+            vgComponent->EndDraw();
+        }
+    }
 }
 
 void NonoVG::HandleVGFBRender(StringHash eventType, VariantMap& eventData) {
@@ -376,8 +495,7 @@ void NonoVG::HandleVGFBRender(StringHash eventType, VariantMap& eventData) {
     using namespace VGFBRender;
     VGFrameBuffer* vgFrameBuffer = static_cast<VGFrameBuffer*>(eventData[P_VGFRAMEBUFFER].GetPtr());
     IntVector2 size = vgFrameBuffer->GetSize();
-    renderVGFrameBuffer(vgFrameBuffer, 0, 0, size.x_, size.y_, time_, 0, &demoData_);
-
+   renderVGFrameBuffer(vgFrameBuffer, 0, 0, size.x_, size.y_, time_, 0, &demoData_);
 }
 
 void NonoVG::Stop()

@@ -24,7 +24,7 @@
 
 #include <Urho3D/Core/Object.h>
 #include <Urho3D/Graphics/Texture2D.h>
-
+#include "VGFrameBuffer.h"
 
 #include "GLHeaders.h"
 
@@ -58,6 +58,7 @@ public:
 	void Clear();
 	NVGcontext * GetNVGContext() { return vg_; }
 
+    VGFrameBuffer* GetCurrentFrameBuffer();
 	//
     // Text
     //
