@@ -227,6 +227,16 @@ namespace Urho {
 		{
 			return Runtime.LookupObject<ParticleEffect2D>(urho_map_get_ptr(Handle, paramNameHash));
 		}
+
+		public VGElement get_VGElement(int paramNameHash)
+		{
+			return Runtime.LookupObject<VGElement>(urho_map_get_ptr(Handle, paramNameHash));
+		}
+
+		public VGFrameBuffer get_VGFrameBuffer(int paramNameHash)
+		{
+			return Runtime.LookupObject<VGFrameBuffer>(urho_map_get_ptr(Handle, paramNameHash));
+		}
 		
 		public Serializable get_Serializable (int paramNameHash)
 		{

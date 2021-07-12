@@ -509,8 +509,14 @@ class URHO3D_API VGElement : public BorderImage
     // Sets the font face based on specified name of current text style.
     void FontFace( const char* font);
 
+    // Sets the font face based on specified name of current text style.
+    void FontFace( const String& font);
+
     // Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
-    float Text( float x, float y, const char* string, const char* end);
+    float Text( float x, float y, const char* str, const char* end);
+
+    // Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
+    float Text( float x, float y, const String& str);
 
     // Draws multi-line text string at specified location wrapped at the specified width. If end is specified only the
     // sub-string up to the end is drawn. White space is stripped at the beginning of the rows, the text is split at

@@ -517,6 +517,18 @@ namespace Urho
 			}
 		}
 
+		NanoVG nanoVG;
+		public NanoVG NanoVG
+		{
+			get
+			{
+				Runtime.Validate(typeof(Application));
+				if (nanoVG == null)
+					nanoVG = new NanoVG(UrhoObject_GetSubsystem(handle, NanoVG.TypeStatic.Code));
+				return nanoVG;
+			}
+		}
+
 		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		extern static IntPtr Application_GetEngine(IntPtr handle);
 		Engine engine;

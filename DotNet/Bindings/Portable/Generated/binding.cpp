@@ -39389,4 +39389,2417 @@ IKSolver_SetFEATURE_AUTO_SOLVE (Urho3D::IKSolver *_target, bool enable)
 }
 
 
+DllExport int
+VGFrameBuffer_GetType (Urho3D::VGFrameBuffer *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+VGFrameBuffer_GetTypeName (Urho3D::VGFrameBuffer *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+VGFrameBuffer_GetTypeStatic ()
+{
+	return (VGFrameBuffer::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+VGFrameBuffer_GetTypeNameStatic ()
+{
+	return stringdup((VGFrameBuffer::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void
+VGFrameBuffer_RegisterObject (Urho3D::Context * context)
+{
+	VGFrameBuffer::RegisterObject (context);
+}
+
+
+DllExport Urho3D::VGFrameBuffer *
+VGFrameBuffer_Current ()
+{
+	return VGFrameBuffer::Current ();
+}
+
+
+DllExport void *
+VGFrameBuffer_VGFrameBuffer (Urho3D::Context * context, int Width, int Height)
+{
+	return WeakPtr<VGFrameBuffer>(new VGFrameBuffer(context, Width, Height));
+}
+
+
+DllExport void *
+VGFrameBuffer_VGFrameBuffer0 (Urho3D::Context * context)
+{
+	return WeakPtr<VGFrameBuffer>(new VGFrameBuffer(context));
+}
+
+
+DllExport int
+VGFrameBuffer_CreateFrameBuffer (Urho3D::VGFrameBuffer *_target, int Width, int Height)
+{
+	return _target->CreateFrameBuffer (Width, Height);
+}
+
+
+DllExport void
+VGFrameBuffer_Bind (Urho3D::VGFrameBuffer *_target)
+{
+	_target->Bind ();
+}
+
+
+DllExport void
+VGFrameBuffer_UnBind (Urho3D::VGFrameBuffer *_target)
+{
+	_target->UnBind ();
+}
+
+
+DllExport Urho3D::Texture2D *
+VGFrameBuffer_GetRenderTarget (Urho3D::VGFrameBuffer *_target)
+{
+	return _target->GetRenderTarget ();
+}
+
+
+DllExport Interop::IntVector2 
+VGFrameBuffer_GetSize (Urho3D::VGFrameBuffer *_target)
+{
+	return *((Interop::IntVector2  *) &(_target->GetSize ()));
+}
+
+
+DllExport void
+VGFrameBuffer_SetClearColor (Urho3D::VGFrameBuffer *_target, Urho3D::Color color)
+{
+	_target->SetClearColor (color);
+}
+
+
+DllExport Interop::Color 
+VGFrameBuffer_GetClearColor (Urho3D::VGFrameBuffer *_target)
+{
+	return *((Interop::Color  *) &(_target->GetClearColor ()));
+}
+
+
+DllExport void
+VGFrameBuffer_EnableRenderEvents (Urho3D::VGFrameBuffer *_target)
+{
+	_target->EnableRenderEvents ();
+}
+
+
+DllExport void
+VGFrameBuffer_DisbaleRenderEvents (Urho3D::VGFrameBuffer *_target)
+{
+	_target->DisbaleRenderEvents ();
+}
+
+
+DllExport void
+VGFrameBuffer_BeginFrame (Urho3D::VGFrameBuffer *_target)
+{
+	_target->BeginFrame ();
+}
+
+
+DllExport void
+VGFrameBuffer_CancelFrame (Urho3D::VGFrameBuffer *_target)
+{
+	_target->CancelFrame ();
+}
+
+
+DllExport void
+VGFrameBuffer_EndFrame (Urho3D::VGFrameBuffer *_target)
+{
+	_target->EndFrame ();
+}
+
+
+DllExport void
+VGFrameBuffer_GlobalCompositeOperation (Urho3D::VGFrameBuffer *_target, int op)
+{
+	_target->GlobalCompositeOperation (op);
+}
+
+
+DllExport void
+VGFrameBuffer_GlobalCompositeBlendFunc (Urho3D::VGFrameBuffer *_target, int sfactor, int dfactor)
+{
+	_target->GlobalCompositeBlendFunc (sfactor, dfactor);
+}
+
+
+DllExport void
+VGFrameBuffer_GlobalCompositeBlendFuncSeparate (Urho3D::VGFrameBuffer *_target, int srcRGB, int dstRGB, int srcAlpha, int dstAlpha)
+{
+	_target->GlobalCompositeBlendFuncSeparate (srcRGB, dstRGB, srcAlpha, dstAlpha);
+}
+
+
+DllExport NVGcolor
+VGFrameBuffer_RGB (Urho3D::VGFrameBuffer *_target, unsigned char r, unsigned char g, unsigned char b)
+{
+	return _target->RGB (r, g, b);
+}
+
+
+DllExport NVGcolor
+VGFrameBuffer_RGBf (Urho3D::VGFrameBuffer *_target, float r, float g, float b)
+{
+	return _target->RGBf (r, g, b);
+}
+
+
+DllExport NVGcolor
+VGFrameBuffer_RGBA (Urho3D::VGFrameBuffer *_target, unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+{
+	return _target->RGBA (r, g, b, a);
+}
+
+
+DllExport NVGcolor
+VGFrameBuffer_RGBAf (Urho3D::VGFrameBuffer *_target, float r, float g, float b, float a)
+{
+	return _target->RGBAf (r, g, b, a);
+}
+
+
+DllExport NVGcolor
+VGFrameBuffer_LerpRGBA (Urho3D::VGFrameBuffer *_target, NVGcolor c0, NVGcolor c1, float u)
+{
+	return _target->LerpRGBA (c0, c1, u);
+}
+
+
+DllExport NVGcolor
+VGFrameBuffer_TransRGBA (Urho3D::VGFrameBuffer *_target, NVGcolor c0, unsigned char a)
+{
+	return _target->TransRGBA (c0, a);
+}
+
+
+DllExport NVGcolor
+VGFrameBuffer_TransRGBAf (Urho3D::VGFrameBuffer *_target, NVGcolor c0, float a)
+{
+	return _target->TransRGBAf (c0, a);
+}
+
+
+DllExport NVGcolor
+VGFrameBuffer_HSL (Urho3D::VGFrameBuffer *_target, float h, float s, float l)
+{
+	return _target->HSL (h, s, l);
+}
+
+
+DllExport NVGcolor
+VGFrameBuffer_HSLA (Urho3D::VGFrameBuffer *_target, float h, float s, float l, unsigned char a)
+{
+	return _target->HSLA (h, s, l, a);
+}
+
+
+DllExport void
+VGFrameBuffer_SaveState (Urho3D::VGFrameBuffer *_target)
+{
+	_target->SaveState ();
+}
+
+
+DllExport void
+VGFrameBuffer_RestoreState (Urho3D::VGFrameBuffer *_target)
+{
+	_target->RestoreState ();
+}
+
+
+DllExport void
+VGFrameBuffer_ResetState (Urho3D::VGFrameBuffer *_target)
+{
+	_target->ResetState ();
+}
+
+
+DllExport void
+VGFrameBuffer_ShapeAntiAlias (Urho3D::VGFrameBuffer *_target, int enabled)
+{
+	_target->ShapeAntiAlias (enabled);
+}
+
+
+DllExport void
+VGFrameBuffer_StrokeColor (Urho3D::VGFrameBuffer *_target, NVGcolor color)
+{
+	_target->StrokeColor (color);
+}
+
+
+DllExport void
+VGFrameBuffer_StrokePaint (Urho3D::VGFrameBuffer *_target, NVGpaint paint)
+{
+	_target->StrokePaint (paint);
+}
+
+
+DllExport void
+VGFrameBuffer_FillColor (Urho3D::VGFrameBuffer *_target, NVGcolor color)
+{
+	_target->FillColor (color);
+}
+
+
+DllExport void
+VGFrameBuffer_FillPaint (Urho3D::VGFrameBuffer *_target, NVGpaint paint)
+{
+	_target->FillPaint (paint);
+}
+
+
+DllExport void
+VGFrameBuffer_MiterLimit (Urho3D::VGFrameBuffer *_target, float limit)
+{
+	_target->MiterLimit (limit);
+}
+
+
+DllExport void
+VGFrameBuffer_StrokeWidth (Urho3D::VGFrameBuffer *_target, float size)
+{
+	_target->StrokeWidth (size);
+}
+
+
+DllExport void
+VGFrameBuffer_LineCap (Urho3D::VGFrameBuffer *_target, int cap)
+{
+	_target->LineCap (cap);
+}
+
+
+DllExport void
+VGFrameBuffer_LineJoin (Urho3D::VGFrameBuffer *_target, int join)
+{
+	_target->LineJoin (join);
+}
+
+
+DllExport void
+VGFrameBuffer_GlobalAlpha (Urho3D::VGFrameBuffer *_target, float alpha)
+{
+	_target->GlobalAlpha (alpha);
+}
+
+
+DllExport void
+VGFrameBuffer_ResetTransform (Urho3D::VGFrameBuffer *_target)
+{
+	_target->ResetTransform ();
+}
+
+
+DllExport void
+VGFrameBuffer_Transform (Urho3D::VGFrameBuffer *_target, float a, float b, float c, float d, float e, float f)
+{
+	_target->Transform (a, b, c, d, e, f);
+}
+
+
+DllExport void
+VGFrameBuffer_Translate (Urho3D::VGFrameBuffer *_target, float x, float y)
+{
+	_target->Translate (x, y);
+}
+
+
+DllExport void
+VGFrameBuffer_Rotate (Urho3D::VGFrameBuffer *_target, float angle)
+{
+	_target->Rotate (angle);
+}
+
+
+DllExport void
+VGFrameBuffer_SkewX (Urho3D::VGFrameBuffer *_target, float angle)
+{
+	_target->SkewX (angle);
+}
+
+
+DllExport void
+VGFrameBuffer_SkewY (Urho3D::VGFrameBuffer *_target, float angle)
+{
+	_target->SkewY (angle);
+}
+
+
+DllExport void
+VGFrameBuffer_Scale (Urho3D::VGFrameBuffer *_target, float x, float y)
+{
+	_target->Scale (x, y);
+}
+
+
+DllExport void
+VGFrameBuffer_CurrentTransform (Urho3D::VGFrameBuffer *_target, float * xform)
+{
+	_target->CurrentTransform (xform);
+}
+
+
+DllExport void
+VGFrameBuffer_TransformIdentity (Urho3D::VGFrameBuffer *_target, float * dst)
+{
+	_target->TransformIdentity (dst);
+}
+
+
+DllExport void
+VGFrameBuffer_TransformTranslate (Urho3D::VGFrameBuffer *_target, float * dst, float tx, float ty)
+{
+	_target->TransformTranslate (dst, tx, ty);
+}
+
+
+DllExport void
+VGFrameBuffer_TransformScale (Urho3D::VGFrameBuffer *_target, float * dst, float sx, float sy)
+{
+	_target->TransformScale (dst, sx, sy);
+}
+
+
+DllExport void
+VGFrameBuffer_TransformRotate (Urho3D::VGFrameBuffer *_target, float * dst, float a)
+{
+	_target->TransformRotate (dst, a);
+}
+
+
+DllExport void
+VGFrameBuffer_TransformSkewX (Urho3D::VGFrameBuffer *_target, float * dst, float a)
+{
+	_target->TransformSkewX (dst, a);
+}
+
+
+DllExport void
+VGFrameBuffer_TransformSkewY (Urho3D::VGFrameBuffer *_target, float * dst, float a)
+{
+	_target->TransformSkewY (dst, a);
+}
+
+
+DllExport void
+VGFrameBuffer_TransformMultiply (Urho3D::VGFrameBuffer *_target, float * dst, const float * src)
+{
+	_target->TransformMultiply (dst, src);
+}
+
+
+DllExport void
+VGFrameBuffer_TransformPremultiply (Urho3D::VGFrameBuffer *_target, float * dst, const float * src)
+{
+	_target->TransformPremultiply (dst, src);
+}
+
+
+DllExport int
+VGFrameBuffer_TransformInverse (Urho3D::VGFrameBuffer *_target, float * dst, const float * src)
+{
+	return _target->TransformInverse (dst, src);
+}
+
+
+DllExport void
+VGFrameBuffer_TransformPoint (Urho3D::VGFrameBuffer *_target, float * dstx, float * dsty, const float * xform, float srcx, float srcy)
+{
+	_target->TransformPoint (dstx, dsty, xform, srcx, srcy);
+}
+
+
+DllExport float
+VGFrameBuffer_DegToRad (Urho3D::VGFrameBuffer *_target, float deg)
+{
+	return _target->DegToRad (deg);
+}
+
+
+DllExport float
+VGFrameBuffer_RadToDeg (Urho3D::VGFrameBuffer *_target, float rad)
+{
+	return _target->RadToDeg (rad);
+}
+
+
+DllExport int
+VGFrameBuffer_CreateImageMem (Urho3D::VGFrameBuffer *_target, int imageFlags, unsigned char * data, int ndata)
+{
+	return _target->CreateImageMem (imageFlags, data, ndata);
+}
+
+
+DllExport int
+VGFrameBuffer_CreateImageRGBA (Urho3D::VGFrameBuffer *_target, int w, int h, int imageFlags, const unsigned char * data)
+{
+	return _target->CreateImageRGBA (w, h, imageFlags, data);
+}
+
+
+DllExport void
+VGFrameBuffer_UpdateImage (Urho3D::VGFrameBuffer *_target, int image, const unsigned char * data)
+{
+	_target->UpdateImage (image, data);
+}
+
+
+DllExport void
+VGFrameBuffer_ImageSize (Urho3D::VGFrameBuffer *_target, int image, int * w, int * h)
+{
+	_target->ImageSize (image, w, h);
+}
+
+
+DllExport void
+VGFrameBuffer_DeleteImage (Urho3D::VGFrameBuffer *_target, int image)
+{
+	_target->DeleteImage (image);
+}
+
+
+DllExport NVGpaint
+VGFrameBuffer_LinearGradient (Urho3D::VGFrameBuffer *_target, float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol)
+{
+	return _target->LinearGradient (sx, sy, ex, ey, icol, ocol);
+}
+
+
+DllExport NVGpaint
+VGFrameBuffer_BoxGradient (Urho3D::VGFrameBuffer *_target, float x, float y, float w, float h, float r, float f, NVGcolor icol, NVGcolor ocol)
+{
+	return _target->BoxGradient (x, y, w, h, r, f, icol, ocol);
+}
+
+
+DllExport NVGpaint
+VGFrameBuffer_RadialGradient (Urho3D::VGFrameBuffer *_target, float cx, float cy, float inr, float outr, NVGcolor icol, NVGcolor ocol)
+{
+	return _target->RadialGradient (cx, cy, inr, outr, icol, ocol);
+}
+
+
+DllExport NVGpaint
+VGFrameBuffer_ImagePattern (Urho3D::VGFrameBuffer *_target, float ox, float oy, float ex, float ey, float angle, int image, float alpha)
+{
+	return _target->ImagePattern (ox, oy, ex, ey, angle, image, alpha);
+}
+
+
+DllExport void
+VGFrameBuffer_Scissor (Urho3D::VGFrameBuffer *_target, float x, float y, float w, float h)
+{
+	_target->Scissor (x, y, w, h);
+}
+
+
+DllExport void
+VGFrameBuffer_IntersectScissor (Urho3D::VGFrameBuffer *_target, float x, float y, float w, float h)
+{
+	_target->IntersectScissor (x, y, w, h);
+}
+
+
+DllExport void
+VGFrameBuffer_ResetScissor (Urho3D::VGFrameBuffer *_target)
+{
+	_target->ResetScissor ();
+}
+
+
+DllExport void
+VGFrameBuffer_BeginPath (Urho3D::VGFrameBuffer *_target)
+{
+	_target->BeginPath ();
+}
+
+
+DllExport void
+VGFrameBuffer_MoveTo (Urho3D::VGFrameBuffer *_target, float x, float y)
+{
+	_target->MoveTo (x, y);
+}
+
+
+DllExport void
+VGFrameBuffer_LineTo (Urho3D::VGFrameBuffer *_target, float x, float y)
+{
+	_target->LineTo (x, y);
+}
+
+
+DllExport void
+VGFrameBuffer_BezierTo (Urho3D::VGFrameBuffer *_target, float c1x, float c1y, float c2x, float c2y, float x, float y)
+{
+	_target->BezierTo (c1x, c1y, c2x, c2y, x, y);
+}
+
+
+DllExport void
+VGFrameBuffer_QuadTo (Urho3D::VGFrameBuffer *_target, float cx, float cy, float x, float y)
+{
+	_target->QuadTo (cx, cy, x, y);
+}
+
+
+DllExport void
+VGFrameBuffer_ArcTo (Urho3D::VGFrameBuffer *_target, float x1, float y1, float x2, float y2, float radius)
+{
+	_target->ArcTo (x1, y1, x2, y2, radius);
+}
+
+
+DllExport void
+VGFrameBuffer_ClosePath (Urho3D::VGFrameBuffer *_target)
+{
+	_target->ClosePath ();
+}
+
+
+DllExport void
+VGFrameBuffer_PathWinding (Urho3D::VGFrameBuffer *_target, int dir)
+{
+	_target->PathWinding (dir);
+}
+
+
+DllExport void
+VGFrameBuffer_Arc (Urho3D::VGFrameBuffer *_target, float cx, float cy, float r, float a0, float a1, int dir)
+{
+	_target->Arc (cx, cy, r, a0, a1, dir);
+}
+
+
+DllExport void
+VGFrameBuffer_Rect (Urho3D::VGFrameBuffer *_target, float x, float y, float w, float h)
+{
+	_target->Rect (x, y, w, h);
+}
+
+
+DllExport void
+VGFrameBuffer_RoundedRect (Urho3D::VGFrameBuffer *_target, float x, float y, float w, float h, float r)
+{
+	_target->RoundedRect (x, y, w, h, r);
+}
+
+
+DllExport void
+VGFrameBuffer_RoundedRectVarying (Urho3D::VGFrameBuffer *_target, float x, float y, float w, float h, float radTopLeft, float radTopRight, float radBottomRight, float radBottomLeft)
+{
+	_target->RoundedRectVarying (x, y, w, h, radTopLeft, radTopRight, radBottomRight, radBottomLeft);
+}
+
+
+DllExport void
+VGFrameBuffer_Ellipse (Urho3D::VGFrameBuffer *_target, float cx, float cy, float rx, float ry)
+{
+	_target->Ellipse (cx, cy, rx, ry);
+}
+
+
+DllExport void
+VGFrameBuffer_Circle (Urho3D::VGFrameBuffer *_target, float cx, float cy, float r)
+{
+	_target->Circle (cx, cy, r);
+}
+
+
+DllExport void
+VGFrameBuffer_Fill (Urho3D::VGFrameBuffer *_target)
+{
+	_target->Fill ();
+}
+
+
+DllExport void
+VGFrameBuffer_Stroke (Urho3D::VGFrameBuffer *_target)
+{
+	_target->Stroke ();
+}
+
+
+DllExport int
+VGFrameBuffer_AddFallbackFontId (Urho3D::VGFrameBuffer *_target, int baseFont, int fallbackFont)
+{
+	return _target->AddFallbackFontId (baseFont, fallbackFont);
+}
+
+
+DllExport void
+VGFrameBuffer_ResetFallbackFontsId (Urho3D::VGFrameBuffer *_target, int baseFont)
+{
+	_target->ResetFallbackFontsId (baseFont);
+}
+
+
+DllExport void
+VGFrameBuffer_FontSize (Urho3D::VGFrameBuffer *_target, float size)
+{
+	_target->FontSize (size);
+}
+
+
+DllExport void
+VGFrameBuffer_FontBlur (Urho3D::VGFrameBuffer *_target, float blur)
+{
+	_target->FontBlur (blur);
+}
+
+
+DllExport void
+VGFrameBuffer_TextLetterSpacing (Urho3D::VGFrameBuffer *_target, float spacing)
+{
+	_target->TextLetterSpacing (spacing);
+}
+
+
+DllExport void
+VGFrameBuffer_TextLineHeight (Urho3D::VGFrameBuffer *_target, float lineHeight)
+{
+	_target->TextLineHeight (lineHeight);
+}
+
+
+DllExport void
+VGFrameBuffer_TextAlign (Urho3D::VGFrameBuffer *_target, int align)
+{
+	_target->TextAlign (align);
+}
+
+
+DllExport void
+VGFrameBuffer_FontFaceId (Urho3D::VGFrameBuffer *_target, int font)
+{
+	_target->FontFaceId (font);
+}
+
+
+DllExport void
+VGFrameBuffer_TextMetrics (Urho3D::VGFrameBuffer *_target, float * ascender, float * descender, float * lineh)
+{
+	_target->TextMetrics (ascender, descender, lineh);
+}
+
+
+DllExport int
+VGElement_GetType (Urho3D::VGElement *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+VGElement_GetTypeName (Urho3D::VGElement *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+VGElement_GetTypeStatic ()
+{
+	return (VGElement::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+VGElement_GetTypeNameStatic ()
+{
+	return stringdup((VGElement::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void
+VGElement_RegisterObject (Urho3D::Context * context)
+{
+	VGElement::RegisterObject (context);
+}
+
+
+DllExport void *
+VGElement_VGElement (Urho3D::Context * context)
+{
+	return WeakPtr<VGElement>(new VGElement(context));
+}
+
+
+DllExport void
+VGElement_OnResize (Urho3D::VGElement *_target, const class Urho3D::IntVector2 & newSize, const class Urho3D::IntVector2 & delta)
+{
+	_target->OnResize (newSize, delta);
+}
+
+
+DllExport void
+VGElement_BeginRender (Urho3D::VGElement *_target)
+{
+	_target->BeginRender ();
+}
+
+
+DllExport void
+VGElement_EndRender (Urho3D::VGElement *_target)
+{
+	_target->EndRender ();
+}
+
+
+DllExport Interop::IntVector2 
+VGElement_GetSize (Urho3D::VGElement *_target)
+{
+	return *((Interop::IntVector2  *) &(_target->GetSize ()));
+}
+
+
+DllExport void
+VGElement_SetClearColor (Urho3D::VGElement *_target, Urho3D::Color color)
+{
+	_target->SetClearColor (color);
+}
+
+
+DllExport Interop::Color 
+VGElement_GetClearColor (Urho3D::VGElement *_target)
+{
+	return *((Interop::Color  *) &(_target->GetClearColor ()));
+}
+
+
+DllExport void
+VGElement_BeginFrame (Urho3D::VGElement *_target, float windowWidth, float windowHeight, float devicePixelRatio)
+{
+	_target->BeginFrame (windowWidth, windowHeight, devicePixelRatio);
+}
+
+
+DllExport void
+VGElement_CancelFrame (Urho3D::VGElement *_target)
+{
+	_target->CancelFrame ();
+}
+
+
+DllExport void
+VGElement_EndFrame (Urho3D::VGElement *_target)
+{
+	_target->EndFrame ();
+}
+
+
+DllExport void
+VGElement_GlobalCompositeOperation (Urho3D::VGElement *_target, int op)
+{
+	_target->GlobalCompositeOperation (op);
+}
+
+
+DllExport void
+VGElement_GlobalCompositeBlendFunc (Urho3D::VGElement *_target, int sfactor, int dfactor)
+{
+	_target->GlobalCompositeBlendFunc (sfactor, dfactor);
+}
+
+
+DllExport void
+VGElement_GlobalCompositeBlendFuncSeparate (Urho3D::VGElement *_target, int srcRGB, int dstRGB, int srcAlpha, int dstAlpha)
+{
+	_target->GlobalCompositeBlendFuncSeparate (srcRGB, dstRGB, srcAlpha, dstAlpha);
+}
+
+
+DllExport NVGcolor
+VGElement_RGB (Urho3D::VGElement *_target, unsigned char r, unsigned char g, unsigned char b)
+{
+	return _target->RGB (r, g, b);
+}
+
+
+DllExport NVGcolor
+VGElement_RGBf (Urho3D::VGElement *_target, float r, float g, float b)
+{
+	return _target->RGBf (r, g, b);
+}
+
+
+DllExport NVGcolor
+VGElement_RGBA (Urho3D::VGElement *_target, unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+{
+	return _target->RGBA (r, g, b, a);
+}
+
+
+DllExport NVGcolor
+VGElement_RGBAf (Urho3D::VGElement *_target, float r, float g, float b, float a)
+{
+	return _target->RGBAf (r, g, b, a);
+}
+
+
+DllExport NVGcolor
+VGElement_LerpRGBA (Urho3D::VGElement *_target, NVGcolor c0, NVGcolor c1, float u)
+{
+	return _target->LerpRGBA (c0, c1, u);
+}
+
+
+DllExport NVGcolor
+VGElement_TransRGBA (Urho3D::VGElement *_target, NVGcolor c0, unsigned char a)
+{
+	return _target->TransRGBA (c0, a);
+}
+
+
+DllExport NVGcolor
+VGElement_TransRGBAf (Urho3D::VGElement *_target, NVGcolor c0, float a)
+{
+	return _target->TransRGBAf (c0, a);
+}
+
+
+DllExport NVGcolor
+VGElement_HSL (Urho3D::VGElement *_target, float h, float s, float l)
+{
+	return _target->HSL (h, s, l);
+}
+
+
+DllExport NVGcolor
+VGElement_HSLA (Urho3D::VGElement *_target, float h, float s, float l, unsigned char a)
+{
+	return _target->HSLA (h, s, l, a);
+}
+
+
+DllExport void
+VGElement_SaveState (Urho3D::VGElement *_target)
+{
+	_target->SaveState ();
+}
+
+
+DllExport void
+VGElement_RestoreState (Urho3D::VGElement *_target)
+{
+	_target->RestoreState ();
+}
+
+
+DllExport void
+VGElement_ResetState (Urho3D::VGElement *_target)
+{
+	_target->ResetState ();
+}
+
+
+DllExport void
+VGElement_ShapeAntiAlias (Urho3D::VGElement *_target, int enabled)
+{
+	_target->ShapeAntiAlias (enabled);
+}
+
+
+DllExport void
+VGElement_StrokeColor (Urho3D::VGElement *_target, NVGcolor color)
+{
+	_target->StrokeColor (color);
+}
+
+
+DllExport void
+VGElement_StrokePaint (Urho3D::VGElement *_target, NVGpaint paint)
+{
+	_target->StrokePaint (paint);
+}
+
+
+DllExport void
+VGElement_FillColor (Urho3D::VGElement *_target, NVGcolor color)
+{
+	_target->FillColor (color);
+}
+
+
+DllExport void
+VGElement_FillPaint (Urho3D::VGElement *_target, NVGpaint paint)
+{
+	_target->FillPaint (paint);
+}
+
+
+DllExport void
+VGElement_MiterLimit (Urho3D::VGElement *_target, float limit)
+{
+	_target->MiterLimit (limit);
+}
+
+
+DllExport void
+VGElement_StrokeWidth (Urho3D::VGElement *_target, float size)
+{
+	_target->StrokeWidth (size);
+}
+
+
+DllExport void
+VGElement_LineCap (Urho3D::VGElement *_target, int cap)
+{
+	_target->LineCap (cap);
+}
+
+
+DllExport void
+VGElement_LineJoin (Urho3D::VGElement *_target, int join)
+{
+	_target->LineJoin (join);
+}
+
+
+DllExport void
+VGElement_GlobalAlpha (Urho3D::VGElement *_target, float alpha)
+{
+	_target->GlobalAlpha (alpha);
+}
+
+
+DllExport void
+VGElement_ResetTransform (Urho3D::VGElement *_target)
+{
+	_target->ResetTransform ();
+}
+
+
+DllExport void
+VGElement_Transform (Urho3D::VGElement *_target, float a, float b, float c, float d, float e, float f)
+{
+	_target->Transform (a, b, c, d, e, f);
+}
+
+
+DllExport void
+VGElement_Translate (Urho3D::VGElement *_target, float x, float y)
+{
+	_target->Translate (x, y);
+}
+
+
+DllExport void
+VGElement_Rotate (Urho3D::VGElement *_target, float angle)
+{
+	_target->Rotate (angle);
+}
+
+
+DllExport void
+VGElement_SkewX (Urho3D::VGElement *_target, float angle)
+{
+	_target->SkewX (angle);
+}
+
+
+DllExport void
+VGElement_SkewY (Urho3D::VGElement *_target, float angle)
+{
+	_target->SkewY (angle);
+}
+
+
+DllExport void
+VGElement_Scale (Urho3D::VGElement *_target, float x, float y)
+{
+	_target->Scale (x, y);
+}
+
+
+DllExport void
+VGElement_CurrentTransform (Urho3D::VGElement *_target, float * xform)
+{
+	_target->CurrentTransform (xform);
+}
+
+
+DllExport void
+VGElement_TransformIdentity (Urho3D::VGElement *_target, float * dst)
+{
+	_target->TransformIdentity (dst);
+}
+
+
+DllExport void
+VGElement_TransformTranslate (Urho3D::VGElement *_target, float * dst, float tx, float ty)
+{
+	_target->TransformTranslate (dst, tx, ty);
+}
+
+
+DllExport void
+VGElement_TransformScale (Urho3D::VGElement *_target, float * dst, float sx, float sy)
+{
+	_target->TransformScale (dst, sx, sy);
+}
+
+
+DllExport void
+VGElement_TransformRotate (Urho3D::VGElement *_target, float * dst, float a)
+{
+	_target->TransformRotate (dst, a);
+}
+
+
+DllExport void
+VGElement_TransformSkewX (Urho3D::VGElement *_target, float * dst, float a)
+{
+	_target->TransformSkewX (dst, a);
+}
+
+
+DllExport void
+VGElement_TransformSkewY (Urho3D::VGElement *_target, float * dst, float a)
+{
+	_target->TransformSkewY (dst, a);
+}
+
+
+DllExport void
+VGElement_TransformMultiply (Urho3D::VGElement *_target, float * dst, const float * src)
+{
+	_target->TransformMultiply (dst, src);
+}
+
+
+DllExport void
+VGElement_TransformPremultiply (Urho3D::VGElement *_target, float * dst, const float * src)
+{
+	_target->TransformPremultiply (dst, src);
+}
+
+
+DllExport int
+VGElement_TransformInverse (Urho3D::VGElement *_target, float * dst, const float * src)
+{
+	return _target->TransformInverse (dst, src);
+}
+
+
+DllExport void
+VGElement_TransformPoint (Urho3D::VGElement *_target, float * dstx, float * dsty, const float * xform, float srcx, float srcy)
+{
+	_target->TransformPoint (dstx, dsty, xform, srcx, srcy);
+}
+
+
+DllExport float
+VGElement_DegToRad (Urho3D::VGElement *_target, float deg)
+{
+	return _target->DegToRad (deg);
+}
+
+
+DllExport float
+VGElement_RadToDeg (Urho3D::VGElement *_target, float rad)
+{
+	return _target->RadToDeg (rad);
+}
+
+
+DllExport int
+VGElement_CreateImageMem (Urho3D::VGElement *_target, int imageFlags, unsigned char * data, int ndata)
+{
+	return _target->CreateImageMem (imageFlags, data, ndata);
+}
+
+
+DllExport int
+VGElement_CreateImageRGBA (Urho3D::VGElement *_target, int w, int h, int imageFlags, const unsigned char * data)
+{
+	return _target->CreateImageRGBA (w, h, imageFlags, data);
+}
+
+
+DllExport void
+VGElement_UpdateImage (Urho3D::VGElement *_target, int image, const unsigned char * data)
+{
+	_target->UpdateImage (image, data);
+}
+
+
+DllExport void
+VGElement_ImageSize (Urho3D::VGElement *_target, int image, int * w, int * h)
+{
+	_target->ImageSize (image, w, h);
+}
+
+
+DllExport void
+VGElement_DeleteImage (Urho3D::VGElement *_target, int image)
+{
+	_target->DeleteImage (image);
+}
+
+
+DllExport NVGpaint
+VGElement_LinearGradient (Urho3D::VGElement *_target, float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol)
+{
+	return _target->LinearGradient (sx, sy, ex, ey, icol, ocol);
+}
+
+
+DllExport NVGpaint
+VGElement_BoxGradient (Urho3D::VGElement *_target, float x, float y, float w, float h, float r, float f, NVGcolor icol, NVGcolor ocol)
+{
+	return _target->BoxGradient (x, y, w, h, r, f, icol, ocol);
+}
+
+
+DllExport NVGpaint
+VGElement_RadialGradient (Urho3D::VGElement *_target, float cx, float cy, float inr, float outr, NVGcolor icol, NVGcolor ocol)
+{
+	return _target->RadialGradient (cx, cy, inr, outr, icol, ocol);
+}
+
+
+DllExport NVGpaint
+VGElement_ImagePattern (Urho3D::VGElement *_target, float ox, float oy, float ex, float ey, float angle, int image, float alpha)
+{
+	return _target->ImagePattern (ox, oy, ex, ey, angle, image, alpha);
+}
+
+
+DllExport void
+VGElement_Scissor (Urho3D::VGElement *_target, float x, float y, float w, float h)
+{
+	_target->Scissor (x, y, w, h);
+}
+
+
+DllExport void
+VGElement_IntersectScissor (Urho3D::VGElement *_target, float x, float y, float w, float h)
+{
+	_target->IntersectScissor (x, y, w, h);
+}
+
+
+DllExport void
+VGElement_ResetScissor (Urho3D::VGElement *_target)
+{
+	_target->ResetScissor ();
+}
+
+
+DllExport void
+VGElement_BeginPath (Urho3D::VGElement *_target)
+{
+	_target->BeginPath ();
+}
+
+
+DllExport void
+VGElement_MoveTo (Urho3D::VGElement *_target, float x, float y)
+{
+	_target->MoveTo (x, y);
+}
+
+
+DllExport void
+VGElement_LineTo (Urho3D::VGElement *_target, float x, float y)
+{
+	_target->LineTo (x, y);
+}
+
+
+DllExport void
+VGElement_BezierTo (Urho3D::VGElement *_target, float c1x, float c1y, float c2x, float c2y, float x, float y)
+{
+	_target->BezierTo (c1x, c1y, c2x, c2y, x, y);
+}
+
+
+DllExport void
+VGElement_QuadTo (Urho3D::VGElement *_target, float cx, float cy, float x, float y)
+{
+	_target->QuadTo (cx, cy, x, y);
+}
+
+
+DllExport void
+VGElement_ArcTo (Urho3D::VGElement *_target, float x1, float y1, float x2, float y2, float radius)
+{
+	_target->ArcTo (x1, y1, x2, y2, radius);
+}
+
+
+DllExport void
+VGElement_ClosePath (Urho3D::VGElement *_target)
+{
+	_target->ClosePath ();
+}
+
+
+DllExport void
+VGElement_PathWinding (Urho3D::VGElement *_target, int dir)
+{
+	_target->PathWinding (dir);
+}
+
+
+DllExport void
+VGElement_Arc (Urho3D::VGElement *_target, float cx, float cy, float r, float a0, float a1, int dir)
+{
+	_target->Arc (cx, cy, r, a0, a1, dir);
+}
+
+
+DllExport void
+VGElement_Rect (Urho3D::VGElement *_target, float x, float y, float w, float h)
+{
+	_target->Rect (x, y, w, h);
+}
+
+
+DllExport void
+VGElement_RoundedRect (Urho3D::VGElement *_target, float x, float y, float w, float h, float r)
+{
+	_target->RoundedRect (x, y, w, h, r);
+}
+
+
+DllExport void
+VGElement_RoundedRectVarying (Urho3D::VGElement *_target, float x, float y, float w, float h, float radTopLeft, float radTopRight, float radBottomRight, float radBottomLeft)
+{
+	_target->RoundedRectVarying (x, y, w, h, radTopLeft, radTopRight, radBottomRight, radBottomLeft);
+}
+
+
+DllExport void
+VGElement_Ellipse (Urho3D::VGElement *_target, float cx, float cy, float rx, float ry)
+{
+	_target->Ellipse (cx, cy, rx, ry);
+}
+
+
+DllExport void
+VGElement_Circle (Urho3D::VGElement *_target, float cx, float cy, float r)
+{
+	_target->Circle (cx, cy, r);
+}
+
+
+DllExport void
+VGElement_Fill (Urho3D::VGElement *_target)
+{
+	_target->Fill ();
+}
+
+
+DllExport void
+VGElement_Stroke (Urho3D::VGElement *_target)
+{
+	_target->Stroke ();
+}
+
+
+DllExport int
+VGElement_AddFallbackFontId (Urho3D::VGElement *_target, int baseFont, int fallbackFont)
+{
+	return _target->AddFallbackFontId (baseFont, fallbackFont);
+}
+
+
+DllExport void
+VGElement_ResetFallbackFontsId (Urho3D::VGElement *_target, int baseFont)
+{
+	_target->ResetFallbackFontsId (baseFont);
+}
+
+
+DllExport void
+VGElement_FontSize (Urho3D::VGElement *_target, float size)
+{
+	_target->FontSize (size);
+}
+
+
+DllExport void
+VGElement_FontBlur (Urho3D::VGElement *_target, float blur)
+{
+	_target->FontBlur (blur);
+}
+
+
+DllExport void
+VGElement_TextLetterSpacing (Urho3D::VGElement *_target, float spacing)
+{
+	_target->TextLetterSpacing (spacing);
+}
+
+
+DllExport void
+VGElement_TextLineHeight (Urho3D::VGElement *_target, float lineHeight)
+{
+	_target->TextLineHeight (lineHeight);
+}
+
+
+DllExport void
+VGElement_TextAlign (Urho3D::VGElement *_target, int align)
+{
+	_target->TextAlign (align);
+}
+
+
+DllExport void
+VGElement_FontFaceId (Urho3D::VGElement *_target, int font)
+{
+	_target->FontFaceId (font);
+}
+
+
+DllExport void
+VGElement_FontFace (Urho3D::VGElement *_target, const char * font)
+{
+	_target->FontFace (Urho3D::String(font));
+}
+
+
+DllExport float
+VGElement_Text (Urho3D::VGElement *_target, float x, float y, const char * str)
+{
+	return _target->Text (x, y, Urho3D::String(str));
+}
+
+
+DllExport void
+VGElement_TextMetrics (Urho3D::VGElement *_target, float * ascender, float * descender, float * lineh)
+{
+	_target->TextMetrics (ascender, descender, lineh);
+}
+
+
+DllExport int
+VGCanvas_GetType (Urho3D::VGCanvas *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+VGCanvas_GetTypeName (Urho3D::VGCanvas *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+VGCanvas_GetTypeStatic ()
+{
+	return (VGCanvas::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+VGCanvas_GetTypeNameStatic ()
+{
+	return stringdup((VGCanvas::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void *
+VGCanvas_VGCanvas (Urho3D::Context * context)
+{
+	return WeakPtr<VGCanvas>(new VGCanvas(context));
+}
+
+
+DllExport void
+VGCanvas_RegisterObject (Urho3D::Context * context)
+{
+	VGCanvas::RegisterObject (context);
+}
+
+
+DllExport int
+VGComponent_GetType (Urho3D::VGComponent *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+VGComponent_GetTypeName (Urho3D::VGComponent *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+VGComponent_GetTypeStatic ()
+{
+	return (VGComponent::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+VGComponent_GetTypeNameStatic ()
+{
+	return stringdup((VGComponent::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void
+VGComponent_RegisterObject (Urho3D::Context * context)
+{
+	VGComponent::RegisterObject (context);
+}
+
+
+DllExport void *
+VGComponent_VGComponent (Urho3D::Context * context)
+{
+	return WeakPtr<VGComponent>(new VGComponent(context));
+}
+
+
+DllExport Urho3D::VGComponent *
+VGComponent_Create (Urho3D::Node * parent, Urho3D::String Name)
+{
+	auto copy = VGComponent::Create (parent, Name);
+	auto plain = copy.Get();
+	copy.Detach();
+	delete copy;
+	return plain;
+}
+
+
+DllExport Urho3D::VGComponent *
+VGComponent_CreateChild (Urho3D::VGComponent *_target, Urho3D::String Name)
+{
+	auto copy = _target->CreateChild (Name);
+	auto plain = copy.Get();
+	copy.Detach();
+	delete copy;
+	return plain;
+}
+
+
+DllExport Urho3D::VGComponent *
+VGComponent_GetChild (Urho3D::VGComponent *_target, const char * name, bool recursive)
+{
+	return _target->GetChild (Urho3D::String(name), recursive);
+}
+
+
+DllExport const char *
+VGComponent_GetName (Urho3D::VGComponent *_target)
+{
+	return stringdup((_target->GetName ()).CString ());
+}
+
+
+DllExport void
+VGComponent_BeginDraw (Urho3D::VGComponent *_target)
+{
+	_target->BeginDraw ();
+}
+
+
+DllExport void
+VGComponent_EndDraw (Urho3D::VGComponent *_target)
+{
+	_target->EndDraw ();
+}
+
+
+DllExport void
+VGComponent_SetPosition (Urho3D::VGComponent *_target, const class Urho3D::Vector2 & position)
+{
+	_target->SetPosition (position);
+}
+
+
+DllExport void
+VGComponent_SetPosition0 (Urho3D::VGComponent *_target, float x, float y)
+{
+	_target->SetPosition (x, y);
+}
+
+
+DllExport void
+VGComponent_SetHotSpot (Urho3D::VGComponent *_target, const class Urho3D::Vector2 & hotSpot)
+{
+	_target->SetHotSpot (hotSpot);
+}
+
+
+DllExport void
+VGComponent_SetHotSpot1 (Urho3D::VGComponent *_target, float x, float y)
+{
+	_target->SetHotSpot (x, y);
+}
+
+
+DllExport void
+VGComponent_SetScale (Urho3D::VGComponent *_target, const class Urho3D::Vector2 & scale)
+{
+	_target->SetScale (scale);
+}
+
+
+DllExport void
+VGComponent_SetScale2 (Urho3D::VGComponent *_target, float x, float y)
+{
+	_target->SetScale (x, y);
+}
+
+
+DllExport void
+VGComponent_SetScale3 (Urho3D::VGComponent *_target, float scale)
+{
+	_target->SetScale (scale);
+}
+
+
+DllExport void
+VGComponent_SetRotation (Urho3D::VGComponent *_target, float angle)
+{
+	_target->SetRotation (angle);
+}
+
+
+DllExport Interop::Vector2 
+VGComponent_GetHotSpot (Urho3D::VGComponent *_target)
+{
+	return *((Interop::Vector2  *) &(_target->GetHotSpot ()));
+}
+
+
+DllExport void
+VGComponent_GetTransformPositionRotation (Urho3D::VGComponent *_target, float * xform)
+{
+	_target->GetTransformPositionRotation (xform);
+}
+
+
+DllExport void
+VGComponent_GetTransformScale (Urho3D::VGComponent *_target, float * xform)
+{
+	_target->GetTransformScale (xform);
+}
+
+
+DllExport void
+VGComponent_GlobalCompositeOperation (Urho3D::VGComponent *_target, int op)
+{
+	_target->GlobalCompositeOperation (op);
+}
+
+
+DllExport void
+VGComponent_GlobalCompositeBlendFunc (Urho3D::VGComponent *_target, int sfactor, int dfactor)
+{
+	_target->GlobalCompositeBlendFunc (sfactor, dfactor);
+}
+
+
+DllExport void
+VGComponent_GlobalCompositeBlendFuncSeparate (Urho3D::VGComponent *_target, int srcRGB, int dstRGB, int srcAlpha, int dstAlpha)
+{
+	_target->GlobalCompositeBlendFuncSeparate (srcRGB, dstRGB, srcAlpha, dstAlpha);
+}
+
+
+DllExport NVGcolor
+VGComponent_RGB (Urho3D::VGComponent *_target, unsigned char r, unsigned char g, unsigned char b)
+{
+	return _target->RGB (r, g, b);
+}
+
+
+DllExport NVGcolor
+VGComponent_RGBf (Urho3D::VGComponent *_target, float r, float g, float b)
+{
+	return _target->RGBf (r, g, b);
+}
+
+
+DllExport NVGcolor
+VGComponent_RGBA (Urho3D::VGComponent *_target, unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+{
+	return _target->RGBA (r, g, b, a);
+}
+
+
+DllExport NVGcolor
+VGComponent_RGBAf (Urho3D::VGComponent *_target, float r, float g, float b, float a)
+{
+	return _target->RGBAf (r, g, b, a);
+}
+
+
+DllExport NVGcolor
+VGComponent_LerpRGBA (Urho3D::VGComponent *_target, NVGcolor c0, NVGcolor c1, float u)
+{
+	return _target->LerpRGBA (c0, c1, u);
+}
+
+
+DllExport NVGcolor
+VGComponent_TransRGBA (Urho3D::VGComponent *_target, NVGcolor c0, unsigned char a)
+{
+	return _target->TransRGBA (c0, a);
+}
+
+
+DllExport NVGcolor
+VGComponent_TransRGBAf (Urho3D::VGComponent *_target, NVGcolor c0, float a)
+{
+	return _target->TransRGBAf (c0, a);
+}
+
+
+DllExport NVGcolor
+VGComponent_HSL (Urho3D::VGComponent *_target, float h, float s, float l)
+{
+	return _target->HSL (h, s, l);
+}
+
+
+DllExport NVGcolor
+VGComponent_HSLA (Urho3D::VGComponent *_target, float h, float s, float l, unsigned char a)
+{
+	return _target->HSLA (h, s, l, a);
+}
+
+
+DllExport void
+VGComponent_SaveState (Urho3D::VGComponent *_target)
+{
+	_target->SaveState ();
+}
+
+
+DllExport void
+VGComponent_RestoreState (Urho3D::VGComponent *_target)
+{
+	_target->RestoreState ();
+}
+
+
+DllExport void
+VGComponent_ResetState (Urho3D::VGComponent *_target)
+{
+	_target->ResetState ();
+}
+
+
+DllExport void
+VGComponent_ShapeAntiAlias (Urho3D::VGComponent *_target, int enabled)
+{
+	_target->ShapeAntiAlias (enabled);
+}
+
+
+DllExport void
+VGComponent_StrokeColor (Urho3D::VGComponent *_target, NVGcolor color)
+{
+	_target->StrokeColor (color);
+}
+
+
+DllExport void
+VGComponent_StrokePaint (Urho3D::VGComponent *_target, NVGpaint paint)
+{
+	_target->StrokePaint (paint);
+}
+
+
+DllExport void
+VGComponent_FillColor (Urho3D::VGComponent *_target, NVGcolor color)
+{
+	_target->FillColor (color);
+}
+
+
+DllExport void
+VGComponent_FillPaint (Urho3D::VGComponent *_target, NVGpaint paint)
+{
+	_target->FillPaint (paint);
+}
+
+
+DllExport void
+VGComponent_MiterLimit (Urho3D::VGComponent *_target, float limit)
+{
+	_target->MiterLimit (limit);
+}
+
+
+DllExport void
+VGComponent_StrokeWidth (Urho3D::VGComponent *_target, float size)
+{
+	_target->StrokeWidth (size);
+}
+
+
+DllExport void
+VGComponent_LineCap (Urho3D::VGComponent *_target, int cap)
+{
+	_target->LineCap (cap);
+}
+
+
+DllExport void
+VGComponent_LineJoin (Urho3D::VGComponent *_target, int join)
+{
+	_target->LineJoin (join);
+}
+
+
+DllExport void
+VGComponent_GlobalAlpha (Urho3D::VGComponent *_target, float alpha)
+{
+	_target->GlobalAlpha (alpha);
+}
+
+
+DllExport void
+VGComponent_ResetTransform (Urho3D::VGComponent *_target)
+{
+	_target->ResetTransform ();
+}
+
+
+DllExport void
+VGComponent_Transform (Urho3D::VGComponent *_target, float a, float b, float c, float d, float e, float f)
+{
+	_target->Transform (a, b, c, d, e, f);
+}
+
+
+DllExport void
+VGComponent_Translate (Urho3D::VGComponent *_target, float x, float y)
+{
+	_target->Translate (x, y);
+}
+
+
+DllExport void
+VGComponent_Rotate (Urho3D::VGComponent *_target, float angle)
+{
+	_target->Rotate (angle);
+}
+
+
+DllExport void
+VGComponent_SkewX (Urho3D::VGComponent *_target, float angle)
+{
+	_target->SkewX (angle);
+}
+
+
+DllExport void
+VGComponent_SkewY (Urho3D::VGComponent *_target, float angle)
+{
+	_target->SkewY (angle);
+}
+
+
+DllExport void
+VGComponent_Scale (Urho3D::VGComponent *_target, float x, float y)
+{
+	_target->Scale (x, y);
+}
+
+
+DllExport void
+VGComponent_CurrentTransform (Urho3D::VGComponent *_target, float * xform)
+{
+	_target->CurrentTransform (xform);
+}
+
+
+DllExport void
+VGComponent_TransformIdentity (Urho3D::VGComponent *_target, float * dst)
+{
+	_target->TransformIdentity (dst);
+}
+
+
+DllExport void
+VGComponent_TransformTranslate (Urho3D::VGComponent *_target, float * dst, float tx, float ty)
+{
+	_target->TransformTranslate (dst, tx, ty);
+}
+
+
+DllExport void
+VGComponent_TransformScale (Urho3D::VGComponent *_target, float * dst, float sx, float sy)
+{
+	_target->TransformScale (dst, sx, sy);
+}
+
+
+DllExport void
+VGComponent_TransformRotate (Urho3D::VGComponent *_target, float * dst, float a)
+{
+	_target->TransformRotate (dst, a);
+}
+
+
+DllExport void
+VGComponent_TransformSkewX (Urho3D::VGComponent *_target, float * dst, float a)
+{
+	_target->TransformSkewX (dst, a);
+}
+
+
+DllExport void
+VGComponent_TransformSkewY (Urho3D::VGComponent *_target, float * dst, float a)
+{
+	_target->TransformSkewY (dst, a);
+}
+
+
+DllExport void
+VGComponent_TransformMultiply (Urho3D::VGComponent *_target, float * dst, const float * src)
+{
+	_target->TransformMultiply (dst, src);
+}
+
+
+DllExport void
+VGComponent_TransformPremultiply (Urho3D::VGComponent *_target, float * dst, const float * src)
+{
+	_target->TransformPremultiply (dst, src);
+}
+
+
+DllExport int
+VGComponent_TransformInverse (Urho3D::VGComponent *_target, float * dst, const float * src)
+{
+	return _target->TransformInverse (dst, src);
+}
+
+
+DllExport void
+VGComponent_TransformPoint (Urho3D::VGComponent *_target, float * dstx, float * dsty, const float * xform, float srcx, float srcy)
+{
+	_target->TransformPoint (dstx, dsty, xform, srcx, srcy);
+}
+
+
+DllExport float
+VGComponent_DegToRad (Urho3D::VGComponent *_target, float deg)
+{
+	return _target->DegToRad (deg);
+}
+
+
+DllExport float
+VGComponent_RadToDeg (Urho3D::VGComponent *_target, float rad)
+{
+	return _target->RadToDeg (rad);
+}
+
+
+DllExport int
+VGComponent_CreateImageMem (Urho3D::VGComponent *_target, int imageFlags, unsigned char * data, int ndata)
+{
+	return _target->CreateImageMem (imageFlags, data, ndata);
+}
+
+
+DllExport int
+VGComponent_CreateImageRGBA (Urho3D::VGComponent *_target, int w, int h, int imageFlags, const unsigned char * data)
+{
+	return _target->CreateImageRGBA (w, h, imageFlags, data);
+}
+
+
+DllExport void
+VGComponent_UpdateImage (Urho3D::VGComponent *_target, int image, const unsigned char * data)
+{
+	_target->UpdateImage (image, data);
+}
+
+
+DllExport void
+VGComponent_ImageSize (Urho3D::VGComponent *_target, int image, int * w, int * h)
+{
+	_target->ImageSize (image, w, h);
+}
+
+
+DllExport void
+VGComponent_DeleteImage (Urho3D::VGComponent *_target, int image)
+{
+	_target->DeleteImage (image);
+}
+
+
+DllExport NVGpaint
+VGComponent_LinearGradient (Urho3D::VGComponent *_target, float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol)
+{
+	return _target->LinearGradient (sx, sy, ex, ey, icol, ocol);
+}
+
+
+DllExport NVGpaint
+VGComponent_BoxGradient (Urho3D::VGComponent *_target, float x, float y, float w, float h, float r, float f, NVGcolor icol, NVGcolor ocol)
+{
+	return _target->BoxGradient (x, y, w, h, r, f, icol, ocol);
+}
+
+
+DllExport NVGpaint
+VGComponent_RadialGradient (Urho3D::VGComponent *_target, float cx, float cy, float inr, float outr, NVGcolor icol, NVGcolor ocol)
+{
+	return _target->RadialGradient (cx, cy, inr, outr, icol, ocol);
+}
+
+
+DllExport NVGpaint
+VGComponent_ImagePattern (Urho3D::VGComponent *_target, float ox, float oy, float ex, float ey, float angle, int image, float alpha)
+{
+	return _target->ImagePattern (ox, oy, ex, ey, angle, image, alpha);
+}
+
+
+DllExport void
+VGComponent_Scissor (Urho3D::VGComponent *_target, float x, float y, float w, float h)
+{
+	_target->Scissor (x, y, w, h);
+}
+
+
+DllExport void
+VGComponent_IntersectScissor (Urho3D::VGComponent *_target, float x, float y, float w, float h)
+{
+	_target->IntersectScissor (x, y, w, h);
+}
+
+
+DllExport void
+VGComponent_ResetScissor (Urho3D::VGComponent *_target)
+{
+	_target->ResetScissor ();
+}
+
+
+DllExport void
+VGComponent_BeginPath (Urho3D::VGComponent *_target)
+{
+	_target->BeginPath ();
+}
+
+
+DllExport void
+VGComponent_MoveTo (Urho3D::VGComponent *_target, float x, float y)
+{
+	_target->MoveTo (x, y);
+}
+
+
+DllExport void
+VGComponent_LineTo (Urho3D::VGComponent *_target, float x, float y)
+{
+	_target->LineTo (x, y);
+}
+
+
+DllExport void
+VGComponent_BezierTo (Urho3D::VGComponent *_target, float c1x, float c1y, float c2x, float c2y, float x, float y)
+{
+	_target->BezierTo (c1x, c1y, c2x, c2y, x, y);
+}
+
+
+DllExport void
+VGComponent_QuadTo (Urho3D::VGComponent *_target, float cx, float cy, float x, float y)
+{
+	_target->QuadTo (cx, cy, x, y);
+}
+
+
+DllExport void
+VGComponent_ArcTo (Urho3D::VGComponent *_target, float x1, float y1, float x2, float y2, float radius)
+{
+	_target->ArcTo (x1, y1, x2, y2, radius);
+}
+
+
+DllExport void
+VGComponent_ClosePath (Urho3D::VGComponent *_target)
+{
+	_target->ClosePath ();
+}
+
+
+DllExport void
+VGComponent_PathWinding (Urho3D::VGComponent *_target, int dir)
+{
+	_target->PathWinding (dir);
+}
+
+
+DllExport void
+VGComponent_Arc (Urho3D::VGComponent *_target, float cx, float cy, float r, float a0, float a1, int dir)
+{
+	_target->Arc (cx, cy, r, a0, a1, dir);
+}
+
+
+DllExport void
+VGComponent_Rect (Urho3D::VGComponent *_target, float x, float y, float w, float h)
+{
+	_target->Rect (x, y, w, h);
+}
+
+
+DllExport void
+VGComponent_RoundedRect (Urho3D::VGComponent *_target, float x, float y, float w, float h, float r)
+{
+	_target->RoundedRect (x, y, w, h, r);
+}
+
+
+DllExport void
+VGComponent_RoundedRectVarying (Urho3D::VGComponent *_target, float x, float y, float w, float h, float radTopLeft, float radTopRight, float radBottomRight, float radBottomLeft)
+{
+	_target->RoundedRectVarying (x, y, w, h, radTopLeft, radTopRight, radBottomRight, radBottomLeft);
+}
+
+
+DllExport void
+VGComponent_Ellipse (Urho3D::VGComponent *_target, float cx, float cy, float rx, float ry)
+{
+	_target->Ellipse (cx, cy, rx, ry);
+}
+
+
+DllExport void
+VGComponent_Circle (Urho3D::VGComponent *_target, float cx, float cy, float r)
+{
+	_target->Circle (cx, cy, r);
+}
+
+
+DllExport void
+VGComponent_Arc4 (Urho3D::VGComponent *_target, float r, float a0, float a1, int dir)
+{
+	_target->Arc (r, a0, a1, dir);
+}
+
+
+DllExport void
+VGComponent_Rect5 (Urho3D::VGComponent *_target, float w, float h)
+{
+	_target->Rect (w, h);
+}
+
+
+DllExport void
+VGComponent_RoundedRect6 (Urho3D::VGComponent *_target, float w, float h, float r)
+{
+	_target->RoundedRect (w, h, r);
+}
+
+
+DllExport void
+VGComponent_RoundedRectVarying7 (Urho3D::VGComponent *_target, float w, float h, float radTopLeft, float radTopRight, float radBottomRight, float radBottomLeft)
+{
+	_target->RoundedRectVarying (w, h, radTopLeft, radTopRight, radBottomRight, radBottomLeft);
+}
+
+
+DllExport void
+VGComponent_Ellipse8 (Urho3D::VGComponent *_target, float rx, float ry)
+{
+	_target->Ellipse (rx, ry);
+}
+
+
+DllExport void
+VGComponent_Circle9 (Urho3D::VGComponent *_target, float r)
+{
+	_target->Circle (r);
+}
+
+
+DllExport void
+VGComponent_Fill (Urho3D::VGComponent *_target)
+{
+	_target->Fill ();
+}
+
+
+DllExport void
+VGComponent_Stroke (Urho3D::VGComponent *_target)
+{
+	_target->Stroke ();
+}
+
+
+DllExport int
+VGComponent_AddFallbackFontId (Urho3D::VGComponent *_target, int baseFont, int fallbackFont)
+{
+	return _target->AddFallbackFontId (baseFont, fallbackFont);
+}
+
+
+DllExport void
+VGComponent_ResetFallbackFontsId (Urho3D::VGComponent *_target, int baseFont)
+{
+	_target->ResetFallbackFontsId (baseFont);
+}
+
+
+DllExport void
+VGComponent_FontSize (Urho3D::VGComponent *_target, float size)
+{
+	_target->FontSize (size);
+}
+
+
+DllExport void
+VGComponent_FontBlur (Urho3D::VGComponent *_target, float blur)
+{
+	_target->FontBlur (blur);
+}
+
+
+DllExport void
+VGComponent_TextLetterSpacing (Urho3D::VGComponent *_target, float spacing)
+{
+	_target->TextLetterSpacing (spacing);
+}
+
+
+DllExport void
+VGComponent_TextLineHeight (Urho3D::VGComponent *_target, float lineHeight)
+{
+	_target->TextLineHeight (lineHeight);
+}
+
+
+DllExport void
+VGComponent_TextAlign (Urho3D::VGComponent *_target, int align)
+{
+	_target->TextAlign (align);
+}
+
+
+DllExport void
+VGComponent_FontFaceId (Urho3D::VGComponent *_target, int font)
+{
+	_target->FontFaceId (font);
+}
+
+
+DllExport void
+VGComponent_TextMetrics (Urho3D::VGComponent *_target, float * ascender, float * descender, float * lineh)
+{
+	_target->TextMetrics (ascender, descender, lineh);
+}
+
+
+DllExport int
+NanoVG_GetType (Urho3D::NanoVG *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+NanoVG_GetTypeName (Urho3D::NanoVG *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+NanoVG_GetTypeStatic ()
+{
+	return (NanoVG::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+NanoVG_GetTypeNameStatic ()
+{
+	return stringdup((NanoVG::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void *
+NanoVG_NanoVG (Urho3D::Context * context)
+{
+	return WeakPtr<NanoVG>(new NanoVG(context));
+}
+
+
+DllExport void
+NanoVG_Initialize (Urho3D::NanoVG *_target)
+{
+	_target->Initialize ();
+}
+
+
+DllExport void
+NanoVG_Clear (Urho3D::NanoVG *_target)
+{
+	_target->Clear ();
+}
+
+
+DllExport NVGcontext *
+NanoVG_GetNVGContext (Urho3D::NanoVG *_target)
+{
+	return _target->GetNVGContext ();
+}
+
+
+DllExport Urho3D::VGFrameBuffer *
+NanoVG_GetCurrentFrameBuffer (Urho3D::NanoVG *_target)
+{
+	return _target->GetCurrentFrameBuffer ();
+}
+
+
+DllExport int
+NanoVG_CreateFont (Urho3D::NanoVG *_target, const char * name, const char * filename)
+{
+	return _target->CreateFont (Urho3D::String(name), Urho3D::String(filename));
+}
+
+
+DllExport int
+NanoVG_CreateFontAtIndex (Urho3D::NanoVG *_target, const char * name, const char * filename, int fontIndex)
+{
+	return _target->CreateFontAtIndex (Urho3D::String(name), Urho3D::String(filename), fontIndex);
+}
+
+
+DllExport int
+NanoVG_CreateFontMem (Urho3D::NanoVG *_target, const char * name, unsigned char * data, int ndata)
+{
+	return _target->CreateFontMem (Urho3D::String(name), data, ndata);
+}
+
+
+DllExport int
+NanoVG_CreateFontMemAtIndex (Urho3D::NanoVG *_target, const char * name, unsigned char * data, int ndata, int fontIndex)
+{
+	return _target->CreateFontMemAtIndex (Urho3D::String(name), data, ndata, fontIndex);
+}
+
+
+DllExport int
+NanoVG_FindFont (Urho3D::NanoVG *_target, const char * name)
+{
+	return _target->FindFont (Urho3D::String(name));
+}
+
+
+DllExport int
+NanoVG_AddFallbackFontId (Urho3D::NanoVG *_target, int baseFont, int fallbackFont)
+{
+	return _target->AddFallbackFontId (baseFont, fallbackFont);
+}
+
+
+DllExport void
+NanoVG_ResetFallbackFontsId (Urho3D::NanoVG *_target, int baseFont)
+{
+	_target->ResetFallbackFontsId (baseFont);
+}
+
+
+DllExport int
+NanoVG_AddFallbackFont (Urho3D::NanoVG *_target, const char * baseFont, const char * fallbackFont)
+{
+	return _target->AddFallbackFont (Urho3D::String(baseFont), Urho3D::String(fallbackFont));
+}
+
+
+DllExport void
+NanoVG_ResetFallbackFonts (Urho3D::NanoVG *_target, const char * baseFont)
+{
+	_target->ResetFallbackFonts (Urho3D::String(baseFont));
+}
+
+
+DllExport int
+NanoVG_CreateImage (Urho3D::NanoVG *_target, const char * filename, int imageFlags)
+{
+	return _target->CreateImage (Urho3D::String(filename), imageFlags);
+}
+
+
+DllExport int
+NanoVG_CreateImageMem (Urho3D::NanoVG *_target, int imageFlags, unsigned char * data, int ndata)
+{
+	return _target->CreateImageMem (imageFlags, data, ndata);
+}
+
+
+DllExport int
+NanoVG_CreateImageRGBA (Urho3D::NanoVG *_target, int w, int h, int imageFlags, const unsigned char * data)
+{
+	return _target->CreateImageRGBA (w, h, imageFlags, data);
+}
+
+
+DllExport void
+NanoVG_UpdateImage (Urho3D::NanoVG *_target, int image, const unsigned char * data)
+{
+	_target->UpdateImage (image, data);
+}
+
+
+DllExport void
+NanoVG_ImageSize (Urho3D::NanoVG *_target, int image, int * w, int * h)
+{
+	_target->ImageSize (image, w, h);
+}
+
+
+DllExport void
+NanoVG_DeleteImage (Urho3D::NanoVG *_target, int image)
+{
+	_target->DeleteImage (image);
+}
+
+
+DllExport Urho3D::Texture2D *
+NanoVG_LoadSVGIntoTexture (Urho3D::NanoVG *_target, Urho3D::String path)
+{
+	auto copy = _target->LoadSVGIntoTexture (path);
+	auto plain = copy.Get();
+	copy.Detach();
+	delete copy;
+	return plain;
+}
+
+
 }

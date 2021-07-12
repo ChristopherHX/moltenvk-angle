@@ -2588,7 +2588,7 @@ namespace Urho.Gui
 		/// Set size.
 		/// 
 		/// </summary>
-		public Urho.IntVector2 Size {
+		public virtual Urho.IntVector2 Size {
 			get {
 				return GetSize ();
 			}

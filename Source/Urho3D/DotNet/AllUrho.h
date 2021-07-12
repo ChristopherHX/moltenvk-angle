@@ -279,6 +279,7 @@
 #include "../IK/IKEffector.h"
 #include "../IK/IKEvents.h"
 #include "../IK/IKSolver.h"
+#include "../NanoVG/NVG.h"
 #if defined(URHO3D_DOTNET)
 #include "Mono.h"
 #endif

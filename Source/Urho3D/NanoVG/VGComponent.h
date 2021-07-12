@@ -51,8 +51,7 @@ class URHO3D_API VGComponent : public Component
 
 public:
     static void RegisterObject(Context* context);
-
-    VGComponent(Context* context, int Width, int Height);
+    
     VGComponent(Context* context);
     ~VGComponent();
 
@@ -92,9 +91,6 @@ public:
 
     void GetTransformPositionRotation(float xform[6]);
     void GetTransformScale(float xform[6]);
-
-    void SetClearColor(Color color);
-    Color GetClearColor();
 
 
 public:

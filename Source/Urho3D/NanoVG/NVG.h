@@ -115,6 +115,25 @@ public:
 
     // Finds a loaded font of specified name, and returns handle to it, or -1 if the font is not found.
     int FindFont(const char* name);
+        
+    // Creates font by loading it from the disk from specified file name.
+    // Returns handle to the font.
+    int CreateFont(const String&  name, const String&  filename);
+
+    // fontIndex specifies which font face to load from a .ttf/.ttc file.
+    int CreateFontAtIndex(const String&  name, const String&  filename, const int fontIndex);
+        
+    // Creates font by loading it from the specified memory chunk.
+        // Returns handle to the font.
+    int CreateFontMem(const String&  name, unsigned char*  data, int ndata);
+
+    // fontIndex specifies which font face to load from a .ttf/.ttc file.
+    int CreateFontMemAtIndex(const String&  name, unsigned char* data, int ndata, const int fontIndex);
+
+    // Finds a loaded font of specified name, and returns handle to it, or -1 if the font is not found.
+    int FindFont(const String&  name);
+            
+
 
     // Adds a fallback font by handle.
     int AddFallbackFontId(int baseFont, int fallbackFont);
@@ -127,6 +146,11 @@ public:
 
     // Resets fallback fonts by name.
     void ResetFallbackFonts(const char* baseFont);
+        
+    // Adds a fallback font by name.
+    int AddFallbackFont(const String&  baseFont, const String&  fallbackFont);
+    // Resets fallback fonts by name.
+    void ResetFallbackFonts(const String&  baseFont);
 
 
 	//
@@ -139,6 +163,10 @@ public:
     // Creates image by loading it from the disk from specified file name.
     // Returns handle to the image.
     int CreateImage(const char* filename, int imageFlags);
+        
+    // Creates image by loading it from the disk from specified file name.
+    // Returns handle to the image.
+    int CreateImage(const String& filename, int imageFlags);
 
     // Creates image by loading it from the specified chunk of memory.
     // Returns handle to the image.

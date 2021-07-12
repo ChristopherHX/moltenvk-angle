@@ -576,10 +576,21 @@ void VGElement::TextAlign(int align) { nvgTextAlign(vg_, align); }
 void VGElement::FontFaceId(int font) { nvgFontFaceId(vg_, font); }
 
 // Sets the font face based on specified name of current text style.
-void VGElement::FontFace(const char* font) { nvgFontFace(vg_, font); }
+ void VGElement::FontFace(const char* font) { nvgFontFace(vg_, font); }
+ // Sets the font face based on specified name of current text style.
+ void VGElement::FontFace( const String& font)
+ {
+    nvgFontFace(vg_, font.CString());
+ }
 
 // Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
 float VGElement::Text(float x, float y, const char* string, const char* end) { return nvgText(vg_, x, y, string, end); }
+
+// Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
+float VGElement::Text( float x, float y, const String& string)
+{
+    return nvgText(vg_, x, y, string.CString(), nullptr);
+}
 
 // Draws multi-line text string at specified location wrapped at the specified width. If end is specified only the
 // sub-string up to the end is drawn. White space is stripped at the beginning of the rows, the text is split at

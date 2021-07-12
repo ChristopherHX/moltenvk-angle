@@ -11,6 +11,7 @@ using Urho.Resources;
 
 namespace Urho
 {
+
     [StructLayout(LayoutKind.Sequential)]
     public struct Ray
     {
@@ -1778,9 +1779,141 @@ namespace Urho.Network
 
 namespace Urho
 {
+    using VGWinding = NVGwinding;
+    using VGColor = NVGcolor;
+    using VGPaint = NVGpaint;
+    using VGSolidity = NVGsolidity;
+    using VGLineCap = NVGlineCap;
+    using VGAlign = NVGalign;
+    using VGBlendFactor = NVGblendFactor;
+    using VGCompositeOperation = NVGcompositeOperation;
+    using VGCompositeOperationState= NVGcompositeOperationState;
+    using VGImageFlags = NVGimageFlags;
+
     public struct UrhoEventArgs
     {
         public int EventType;
         public DynamicMap EventData;
     } /* struct UrhoEventArgs */
+
+    public struct NVGcontext 
+    {
+
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct NVGcolor
+    {
+        public float r;
+        public float g;
+        public float b;
+        public float a;
+        public NVGcolor(float r_,float g_,float b_,float a_)
+        {
+            r = r_;
+            g = g_;
+            b = b_;
+            a = a_;
+        }
+
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe struct NVGpaint
+    {
+        public fixed float xform[6];
+        public fixed float extent[2];
+        public float radius;
+        public float feather;
+        public NVGcolor innerColor;
+        public NVGcolor outerColor;
+        public int image;
+
+    }
+
+
+
+        public static class NVGwinding
+        {
+            public const int CCW = 1;            // Winding for solid shapes
+            public const int CW = 2;            // Winding for holes
+            public const int Solid = 1;     // CCW
+            public const int Hole = 2;      // CW
+        }
+
+        public static class NVGsolidity
+        {
+            public const int Solid = 1;     // CCW
+            public const int Hole = 2;      // CW
+        };
+
+
+        public static class NVGlineCap
+        {
+            public const int Butt = 0;
+            public const int Round = 1;
+            public const int Square = 2;
+            public const int Bevel = 3;
+            public const int Miter = 4;
+        }
+
+        public static class NVGalign
+        {
+            // Horizontal align
+            public const int Left = 1 << 0;   // Default, align text horizontally to left.
+            public const int Center = 1 << 1; // Align text horizontally to center.
+            public const int Right = 1 << 2;  // Align text horizontally to right.
+                                                        // Vertical align
+            public const int Top = 1 << 3;    // Align text vertically to top.
+            public const int Middle = 1 << 4; // Align text vertically to middle.
+            public const int Bottom = 1 << 5; // Align text vertically to bottom.
+            public const int Baseline = 1 << 6; // Default, align text vertically to baseline.
+        }
+
+        public static class NVGblendFactor
+        {
+            public const int Zero = 1 << 0;
+            public const int One = 1 << 1;
+            public const int SrcColor = 1 << 2;
+            public const int OneMinusSrcColor  = 1 << 3;
+            public const int DstColor = 1 << 4;
+            public const int OneMinusDstColor = 1 << 5;
+            public const int SrcAlpha = 1 << 6;
+            public const int OneMinusSrcAlpha = 1 << 7;
+            public const int DstAlpha = 1 << 8;
+            public const int OneMinusDstAlpha = 1 << 9;
+            public const int SrcAlphaSaturate  = 1 << 10;
+        }
+
+    public static class NVGcompositeOperation {
+        public const int SoureOver = 0;
+        public const int SourceIn = 1;
+        public const int SourceOut =2;
+        public const int Atop =3;
+        public const int DestinationOver = 4;
+        public const int DestinationIn = 5;
+        public const int DestinationOut = 6;
+        public const int DestinationAtop = 7;
+        public const int Lighter = 8;
+        public const int Copy = 9;
+        public const int XOR = 10;
+    };
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct NVGcompositeOperationState {
+        int srcRGB;
+        int dstRGB;
+        int srcAlpha;
+        int dstAlpha;
+    }
+
+    public static class NVGimageFlags {
+        public const int  GenerateMipMaps 	= 1<<0;     // Generate mipmaps during creation of the image.
+        public const int RepeatX			= 1<<1;		// Repeat image in X direction.
+        public const int RepeatY			= 1<<2;		// Repeat image in Y direction.
+        public const int FlipY				= 1<<3;		// Flips (inverses) image in Y direction when rendered.
+        public const int Premultiplied		= 1<<4;		// Image data has premultiplied alpha.
+        public const int Nearest			= 1<<5;		// Image interpolation is Nearest instead Linear
+    };
+
 }

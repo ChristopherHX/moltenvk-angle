@@ -1,4 +1,4 @@
-﻿#include "Demo.h"
+#include "Demo.h"
 
 #define ICON_SEARCH 0x1F50D
 #define ICON_CIRCLED_CROSS 0x2716

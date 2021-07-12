@@ -279,6 +279,7 @@
 #include <Urho3D/IK/IKEffector.h>
 #include <Urho3D/IK/IKEvents.h>
 #include <Urho3D/IK/IKSolver.h>
+#include <Urho3D/NanoVG/NVG.h>
 #if defined(URHO3D_DOTNET)
 #include <Urho3D/Mono.h>
 #endif

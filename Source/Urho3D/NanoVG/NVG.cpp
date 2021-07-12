@@ -123,6 +123,7 @@ VGFrameBuffer* NanoVG::GetCurrentFrameBuffer()
     return VGFrameBuffer::Current(); 
 }
 
+
 int NanoVG::CreateFont(const char* name, const char* filename)
 {
 
@@ -192,6 +193,40 @@ int NanoVG::CreateFontMemAtIndex(const char* name, unsigned char* data, int ndat
 // Finds a loaded font of specified name, and returns handle to it, or -1 if the font is not found.
 int NanoVG::FindFont(const char* name) { return nvgFindFont(vg_, name); }
 
+
+// Creates font by loading it from the disk from specified file name.
+// Returns handle to the font.
+int NanoVG::CreateFont(const String&  name, const String&  filename)
+{
+    return CreateFont(name.CString(), filename.CString());
+}
+
+// fontIndex specifies which font face to load from a .ttf/.ttc file.
+int NanoVG::CreateFontAtIndex(const String&  name, const String&  filename, const int fontIndex)
+{
+    return CreateFontAtIndex(name.CString(), filename.CString(), fontIndex);
+}
+
+// Creates font by loading it from the specified memory chunk.
+// Returns handle to the font.
+int NanoVG::CreateFontMem(const String&  name, unsigned char* data, int ndata)
+{
+    return CreateFontMem(name.CString(),data,ndata);
+}
+
+// fontIndex specifies which font face to load from a .ttf/.ttc file.
+int NanoVG::CreateFontMemAtIndex(const String&  name, unsigned char* data, int ndata, const int fontIndex)
+{
+    return CreateFontMemAtIndex(name.CString(),data,ndata,fontIndex);
+}
+
+// Finds a loaded font of specified name, and returns handle to it, or -1 if the font is not found.
+int NanoVG::FindFont(const String&  name)
+{
+    return FindFont(name.CString());
+}
+
+
 // Adds a fallback font by handle.
 int NanoVG::AddFallbackFontId(int baseFont, int fallbackFont)
 {
@@ -211,6 +246,23 @@ void NanoVG::ResetFallbackFontsId(int baseFont) { nvgResetFallbackFontsId(vg_, b
 void NanoVG::ResetFallbackFonts(const char* baseFont) { nvgResetFallbackFonts(vg_, baseFont); }
 
 
+// Adds a fallback font by name.
+int NanoVG::AddFallbackFont(const String&  baseFont, const String&  fallbackFont)
+{
+    return AddFallbackFont(baseFont.CString(),fallbackFont.CString());
+}
+// Resets fallback fonts by name.
+void NanoVG::ResetFallbackFonts(const String&  baseFont)
+{
+    return ResetFallbackFonts(baseFont.CString());
+}
+
+// Creates image by loading it from the disk from specified file name.
+// Returns handle to the image.
+int NanoVG::CreateImage(const String& filename, int imageFlags)
+{
+    return CreateImage(filename.CString(),imageFlags);
+}
 
 int NanoVG::CreateImage(const char* filename, int imageFlags)
 {
