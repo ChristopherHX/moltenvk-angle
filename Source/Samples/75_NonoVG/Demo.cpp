@@ -167,7 +167,7 @@ void drawParagraph(VGElement* vge, float x, float y, float width, float height, 
     start = text;
     end = text + strlen(text);
     
-    //void VGElement::TextBreakLines(const String& str, float breakRowWidth, VGTextRowBuffer * vgTextRowBuffer)
+    /*
     VGTextRowBuffer * vgTextRowBuffer = new VGTextRowBuffer(vge->GetContext());
     int numberOfRows = vge->TextBreakLines(start, width, vgTextRowBuffer);
     for(int i = 0 ; i < numberOfRows ; i++)
@@ -185,8 +185,8 @@ void drawParagraph(VGElement* vge, float x, float y, float width, float height, 
         y += lineh;
     }
     delete vgTextRowBuffer;
-
-    /*
+*/
+    
     while ((nrows = vge->TextBreakLines(start, end, width, rows, 3)))
     {
         for (i = 0; i < nrows; i++)
@@ -231,7 +231,7 @@ void drawParagraph(VGElement* vge, float x, float y, float width, float height, 
         // Keep going...
         start = rows[nrows - 1].next;
     }
-     */
+    
 
     if (gutter)
     {

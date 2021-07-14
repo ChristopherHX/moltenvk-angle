@@ -364,16 +364,22 @@ void NonoVG::HandleUpdate(StringHash eventType, VariantMap& eventData)
 
 void NonoVG::HandleNVGRender(StringHash eventType, VariantMap& eventData)
 {
+  
     using namespace VGRender;
 
     VGElement* nanoVGUIElement = static_cast<VGElement*>(eventData[P_VGELEMENT].GetPtr());
     IntVector2 size = nanoVGUIElement->GetSize();
-
     String canvasName = nanoVGUIElement->GetName();
+
+    Input * input = GetSubsystem<Input>();
+    IntVector2  mousePosition = input->GetMousePosition();
+    IntVector2  elementMousePos = nanoVGUIElement->ScreenToElement(mousePosition);
+    
+    
 
     if (canvasName == "VGCanvas")
     {
-        renderVGElement(nanoVGUIElement, 0, 0, size.x_, size.y_, time_, 0, &demoData_);
+        renderVGElement(nanoVGUIElement, elementMousePos.x_, elementMousePos.y_, size.x_, size.y_, time_, 0, &demoData_);
     }
 
     if (canvasName == "VGCanvas2")
