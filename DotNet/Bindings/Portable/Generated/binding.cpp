@@ -40104,6 +40104,195 @@ VGFrameBuffer_TextMetrics (Urho3D::VGFrameBuffer *_target, float * ascender, flo
 
 
 DllExport int
+VGTextRow_GetType (Urho3D::VGTextRow *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+VGTextRow_GetTypeName (Urho3D::VGTextRow *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+VGTextRow_GetTypeStatic ()
+{
+	return (VGTextRow::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+VGTextRow_GetTypeNameStatic ()
+{
+	return stringdup((VGTextRow::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void *
+VGTextRow_VGTextRow (Urho3D::Context * context)
+{
+	return WeakPtr<VGTextRow>(new VGTextRow(context));
+}
+
+
+DllExport void *
+VGTextRow_VGTextRow0 (Urho3D::Context * context, const char * txt, float width_, float min_, float max_)
+{
+	return WeakPtr<VGTextRow>(new VGTextRow(context, Urho3D::String(txt), width_, min_, max_));
+}
+
+
+DllExport const char *
+VGTextRow_GetText (Urho3D::VGTextRow *_target)
+{
+	return stringdup((_target->GetText ()).CString ());
+}
+
+
+DllExport void
+VGTextRow_SetText (Urho3D::VGTextRow *_target, const char * str)
+{
+	_target->SetText (Urho3D::String(str));
+}
+
+
+DllExport float
+VGTextRow_GetWidth (Urho3D::VGTextRow *_target)
+{
+	return _target->GetWidth ();
+}
+
+
+DllExport void
+VGTextRow_SetWidth (Urho3D::VGTextRow *_target, float w)
+{
+	_target->SetWidth (w);
+}
+
+
+DllExport float
+VGTextRow_GetMin (Urho3D::VGTextRow *_target)
+{
+	return _target->GetMin ();
+}
+
+
+DllExport void
+VGTextRow_SetMin (Urho3D::VGTextRow *_target, float m)
+{
+	_target->SetMin (m);
+}
+
+
+DllExport float
+VGTextRow_GetMax (Urho3D::VGTextRow *_target)
+{
+	return _target->GetMax ();
+}
+
+
+DllExport void
+VGTextRow_SetMax (Urho3D::VGTextRow *_target, float m)
+{
+	_target->SetMax (m);
+}
+
+
+DllExport int
+VGTextRowBuffer_GetType (Urho3D::VGTextRowBuffer *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+VGTextRowBuffer_GetTypeName (Urho3D::VGTextRowBuffer *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+VGTextRowBuffer_GetTypeStatic ()
+{
+	return (VGTextRowBuffer::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+VGTextRowBuffer_GetTypeNameStatic ()
+{
+	return stringdup((VGTextRowBuffer::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void *
+VGTextRowBuffer_VGTextRowBuffer (Urho3D::Context * context)
+{
+	return WeakPtr<VGTextRowBuffer>(new VGTextRowBuffer(context));
+}
+
+
+DllExport void
+VGTextRowBuffer_Clear (Urho3D::VGTextRowBuffer *_target)
+{
+	_target->Clear ();
+}
+
+
+DllExport void
+VGTextRowBuffer_AddRow (Urho3D::VGTextRowBuffer *_target, Urho3D::VGTextRow * row)
+{
+	_target->AddRow (row);
+}
+
+
+DllExport unsigned int
+VGTextRowBuffer_GetSize (Urho3D::VGTextRowBuffer *_target)
+{
+	return _target->GetSize ();
+}
+
+
+DllExport const char *
+VGTextRowBuffer_GetRowData (Urho3D::VGTextRowBuffer *_target, int index, float * data)
+{
+	return stringdup((_target->GetRowData (index, data)).CString ());
+}
+
+
+DllExport const char *
+VGTextRowBuffer_GetRowText (Urho3D::VGTextRowBuffer *_target, int index)
+{
+	return stringdup((_target->GetRowText (index)).CString ());
+}
+
+
+DllExport float
+VGTextRowBuffer_GetRowMin (Urho3D::VGTextRowBuffer *_target, int index)
+{
+	return _target->GetRowMin (index);
+}
+
+
+DllExport float
+VGTextRowBuffer_GetRowMax (Urho3D::VGTextRowBuffer *_target, int index)
+{
+	return _target->GetRowMax (index);
+}
+
+
+DllExport float
+VGTextRowBuffer_GetRowWidth (Urho3D::VGTextRowBuffer *_target, int index)
+{
+	return _target->GetRowWidth (index);
+}
+
+
+DllExport int
 VGElement_GetType (Urho3D::VGElement *_target)
 {
 	return (_target->GetType ()).Value ();
@@ -40790,9 +40979,37 @@ VGElement_Text (Urho3D::VGElement *_target, float x, float y, const char * str)
 
 
 DllExport void
+VGElement_TextBox (Urho3D::VGElement *_target, float x, float y, float breakRowWidth, const char * str)
+{
+	_target->TextBox (x, y, breakRowWidth, Urho3D::String(str));
+}
+
+
+DllExport float
+VGElement_TextBounds (Urho3D::VGElement *_target, float x, float y, const char * str, float * bounds)
+{
+	return _target->TextBounds (x, y, Urho3D::String(str), bounds);
+}
+
+
+DllExport void
+VGElement_TextBoxBounds (Urho3D::VGElement *_target, float x, float y, float breakRowWidth, const char * str, float * bounds)
+{
+	_target->TextBoxBounds (x, y, breakRowWidth, Urho3D::String(str), bounds);
+}
+
+
+DllExport void
 VGElement_TextMetrics (Urho3D::VGElement *_target, float * ascender, float * descender, float * lineh)
 {
 	_target->TextMetrics (ascender, descender, lineh);
+}
+
+
+DllExport unsigned int
+VGElement_TextBreakLines (Urho3D::VGElement *_target, const char * str, float breakRowWidth, Urho3D::VGTextRowBuffer * vgTextRowBuffer)
+{
+	return _target->TextBreakLines (Urho3D::String(str), breakRowWidth, vgTextRowBuffer);
 }
 
 

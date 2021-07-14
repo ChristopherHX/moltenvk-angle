@@ -931,12 +931,48 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void VGElement_TextBox (IntPtr handle, float x, float y, float breakRowWidth, string str);
+
+		public void TextBox (float x, float y, float breakRowWidth, string str)
+		{
+			Runtime.ValidateRefCounted (this);
+			VGElement_TextBox (handle, x, y, breakRowWidth, str);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern float VGElement_TextBounds (IntPtr handle, float x, float y, string str, float* bounds);
+
+		public float TextBounds (float x, float y, string str, float* bounds)
+		{
+			Runtime.ValidateRefCounted (this);
+			return VGElement_TextBounds (handle, x, y, str, bounds);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void VGElement_TextBoxBounds (IntPtr handle, float x, float y, float breakRowWidth, string str, float* bounds);
+
+		public void TextBoxBounds (float x, float y, float breakRowWidth, string str, float* bounds)
+		{
+			Runtime.ValidateRefCounted (this);
+			VGElement_TextBoxBounds (handle, x, y, breakRowWidth, str, bounds);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void VGElement_TextMetrics (IntPtr handle, float* ascender, float* descender, float* lineh);
 
 		public void TextMetrics (float* ascender, float* descender, float* lineh)
 		{
 			Runtime.ValidateRefCounted (this);
 			VGElement_TextMetrics (handle, ascender, descender, lineh);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern uint VGElement_TextBreakLines (IntPtr handle, string str, float breakRowWidth, IntPtr vgTextRowBuffer);
+
+		public uint TextBreakLines (string str, float breakRowWidth, VGTextRowBuffer vgTextRowBuffer)
+		{
+			Runtime.ValidateRefCounted (this);
+			return VGElement_TextBreakLines (handle, str, breakRowWidth, (object)vgTextRowBuffer == null ? IntPtr.Zero : vgTextRowBuffer.Handle);
 		}
 
 		public override StringHash Type {

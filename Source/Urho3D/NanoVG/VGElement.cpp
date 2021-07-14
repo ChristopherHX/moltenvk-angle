@@ -601,6 +601,11 @@ void VGElement::TextBox(float x, float y, float breakRowWidth, const char* strin
     nvgTextBox(vg_, x, y, breakRowWidth, string, end);
 }
 
+void VGElement::TextBox( float x, float y, float breakRowWidth, const String& str)
+{
+    nvgTextBox(vg_, x, y, breakRowWidth, str.CString(), nullptr);
+}
+
 // Measures the specified text string. Parameter bounds should be a pointer to float[4],
 // if the bounding box of the text should be returned. The bounds value are [xmin,ymin, xmax,ymax]
 // Returns the horizontal advance of the measured text (i.e. where the next character should drawn).
@@ -610,12 +615,24 @@ float VGElement::TextBounds(float x, float y, const char* string, const char* en
     return nvgTextBounds(vg_, x, y, string, end, bounds);
 }
 
+float VGElement::TextBounds( float x, float y, const String& str, float* bounds)
+{
+    return nvgTextBounds(vg_, x, y, str.CString(), nullptr, bounds);
+}
+
+
+
 // Measures the specified multi-text string. Parameter bounds should be a pointer to float[4],
 // if the bounding box of the text should be returned. The bounds value are [xmin,ymin, xmax,ymax]
 // Measured values are returned in local coordinate space.
 void VGElement::TextBoxBounds(float x, float y, float breakRowWidth, const char* string, const char* end, float* bounds)
 {
     nvgTextBoxBounds(vg_, x, y, breakRowWidth, string, end, bounds);
+}
+
+void VGElement::TextBoxBounds( float x, float y, float breakRowWidth, const String& str,float* bounds)
+{
+    nvgTextBoxBounds(vg_, x, y, breakRowWidth, str.CString(), nullptr, bounds);
 }
 
 // Calculates the glyph x positions of the specified text. If end is specified only the sub-string will be used.
@@ -640,5 +657,41 @@ int VGElement::TextBreakLines(const char* string, const char* end, float breakRo
 {
     return nvgTextBreakLines(vg_, string, end, breakRowWidth, rows, maxRows);
 }
+
+
+unsigned int VGElement::TextBreakLines(const String& str, float breakRowWidth, VGTextRowBuffer * vgTextRowBuffer)
+{
+    NVGtextRow rows[3];
+    const char* start;
+    const char* end;
+    int nrows, i, nglyphs, j, lnum = 0;
+    
+    vgTextRowBuffer->Clear();
+    start = str.CString();
+    end = str.CString() + strlen(str.CString());
+    while ((nrows = TextBreakLines(start, end, breakRowWidth, rows, 3)))
+    {
+        for (i = 0; i < nrows; i++)
+        {
+            NVGtextRow* row = &rows[i];
+            VGTextRow * vgRow = new VGTextRow(context_);
+            String str(row->start,row->end - row->start);
+            str.Append('\0');
+            vgRow->SetText(str);
+            vgRow->SetMax(row->maxx);
+            vgRow->SetMin(row->minx);
+            vgRow->SetWidth(row->width);
+            
+            
+            vgTextRowBuffer->AddRow(vgRow);
+        
+        }
+        // Keep going...
+        start = rows[nrows - 1].next;
+    }
+    
+    return vgTextRowBuffer->GetSize();
+}
+
 
 } // namespace Urho3D

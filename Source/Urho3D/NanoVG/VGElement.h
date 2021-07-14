@@ -25,7 +25,9 @@
 #include "../UI/BorderImage.h"
 #include "../Graphics/Graphics.h"
 #include "../Graphics/Texture2D.h"
+#include "../IO/MemoryBuffer.h"
 #include "VGFrameBuffer.h"
+#include <vector>
 
 struct NVGcontext;
 struct NVGLUframebuffer;
@@ -35,6 +37,186 @@ namespace Urho3D
 
 class Texture2D;
 class NanoVG;
+
+class URHO3D_API VGTextRow : public Object
+{
+    URHO3D_OBJECT(VGTextRow, Object);
+public:
+    explicit VGTextRow(Context* context): Object(context)
+    {
+        
+    }
+    
+    explicit VGTextRow(Context* context , const String & txt , float width_ , float min_ , float max_): Object(context)
+    {
+        text = txt;
+        width = width_;
+        minx = min_;
+        maxx = max_;
+        
+    }
+    
+    /// Destruct.
+    ~VGTextRow()
+    {
+        
+    }
+    
+    const String& GetText()
+    {
+        return text;
+    }
+    
+    void SetText(const String & str)
+    {
+        text = str;
+    }
+    
+    float GetWidth()
+    {
+        return width;
+    }
+    
+    void SetWidth(float w)
+    {
+        width = w;
+    }
+    
+    float GetMin()
+    {
+        return minx;
+    }
+    
+    void SetMin(float m)
+    {
+        minx =m;
+    }
+    
+    float GetMax()
+    {
+        return maxx;
+    }
+    
+    void SetMax(float m)
+    {
+        maxx = m;
+    }
+    
+    private :
+    
+    String text;    // Pointer to the input text where the row starts.
+    float width;        // Logical width of the row.
+    float minx, maxx;    // Actual bounds of the row. Logical with and bounds can differ because of kerning and some parts over extending.
+};
+
+
+class URHO3D_API VGTextRowBuffer: public Object
+{
+    URHO3D_OBJECT(VGTextRowBuffer, Object);
+public:
+    explicit VGTextRowBuffer(Context* context): Object(context)
+    {
+        
+    }
+
+    /// Destruct.
+    ~VGTextRowBuffer()
+    {
+        for(VGTextRow * row : textRows_)
+        {
+            delete row;
+        }
+        
+        textRows_.clear();
+    }
+    
+    void Clear()
+    {
+        for(VGTextRow * row : textRows_)
+        {
+            delete row;
+        }
+        
+        textRows_.clear();
+    }
+    
+    void AddRow(VGTextRow * row)
+    {
+        textRows_.push_back(row);
+    }
+    
+    unsigned int GetSize()
+    {
+        return textRows_.size();
+    }
+    
+    // data should be allocated on the calling side
+    const String& GetRowData(int index, float * data)
+    {
+        if(index < textRows_.size())
+        {
+            data[0] = textRows_[index]->GetWidth();
+            data[1] = textRows_[index]->GetMin();
+            data[2] = textRows_[index]->GetMax();
+            return textRows_[index]->GetText();
+        }
+        else
+        {
+            return String::EMPTY;
+        }
+    }
+    
+    const String& GetRowText(int index)
+    {
+        if(index < textRows_.size())
+        {
+            return textRows_[index]->GetText();
+        }
+        else
+        {
+            return String::EMPTY;
+        }
+    }
+    
+    float GetRowMin(int index)
+    {
+        if(index < textRows_.size())
+        {
+            return textRows_[index]->GetMin();
+        }
+        else
+        {
+            return 0.0f;
+        }
+    }
+    
+    float GetRowMax(int index)
+    {
+        if(index < textRows_.size())
+        {
+            return textRows_[index]->GetMax();
+        }
+        else
+        {
+            return 0.0f;
+        }
+    }
+    
+    float GetRowWidth(int index)
+    {
+        if(index < textRows_.size())
+        {
+            return textRows_[index]->GetWidth();
+        }
+        else
+        {
+            return 0.0f;
+        }
+    }
+    
+
+    std::vector<VGTextRow *> textRows_;
+};
 
 class URHO3D_API VGElement : public BorderImage
 {
@@ -523,18 +705,24 @@ class URHO3D_API VGElement : public BorderImage
     // word boundaries or when new-line characters are encountered. Words longer than the max width are slit at nearest
     // character (i.e. no hyphenation).
     void TextBox( float x, float y, float breakRowWidth, const char* string, const char* end);
+    
+    void TextBox( float x, float y, float breakRowWidth, const String& str);
 
     // Measures the specified text string. Parameter bounds should be a pointer to float[4],
     // if the bounding box of the text should be returned. The bounds value are [xmin,ymin, xmax,ymax]
     // Returns the horizontal advance of the measured text (i.e. where the next character should drawn).
     // Measured values are returned in local coordinate space.
     float TextBounds( float x, float y, const char* string, const char* end, float* bounds);
+    
+    float TextBounds( float x, float y, const String& str, float* bounds);
 
     // Measures the specified multi-text string. Parameter bounds should be a pointer to float[4],
     // if the bounding box of the text should be returned. The bounds value are [xmin,ymin, xmax,ymax]
     // Measured values are returned in local coordinate space.
     void TextBoxBounds( float x, float y, float breakRowWidth, const char* string, const char* end,
                           float* bounds);
+    
+    void TextBoxBounds( float x, float y, float breakRowWidth, const String& str,float* bounds);
 
     // Calculates the glyph x positions of the specified text. If end is specified only the sub-string will be used.
     // Measured values are returned in local coordinate space.
@@ -550,9 +738,9 @@ class URHO3D_API VGElement : public BorderImage
     // characters are encountered. Words longer than the max width are slit at nearest character (i.e. no hyphenation).
     int TextBreakLines( const char* string, const char* end, float breakRowWidth, NVGtextRow* rows,
                           int maxRows);
-
-
-
+    
+   // MemoryBuffer TextBreakLines(const String& str, float breakRowWidth) ;
+    unsigned int TextBreakLines(const String& str, float breakRowWidth, VGTextRowBuffer * vgTextRowBuffer) ;
 protected:
     void CreateFrameBuffer(int mWidth, int mHeight);
 
