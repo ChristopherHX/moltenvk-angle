@@ -40999,6 +40999,13 @@ VGElement_TextBoxBounds (Urho3D::VGElement *_target, float x, float y, float bre
 }
 
 
+DllExport int
+VGElement_TextGlyphPositions (Urho3D::VGElement *_target, float x, float y, const char * str, float * positions, int maxPositions)
+{
+	return _target->TextGlyphPositions (x, y, Urho3D::String(str), positions, maxPositions);
+}
+
+
 DllExport void
 VGElement_TextMetrics (Urho3D::VGElement *_target, float * ascender, float * descender, float * lineh)
 {

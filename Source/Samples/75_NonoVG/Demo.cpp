@@ -139,6 +139,7 @@ void drawParagraph(VGElement* vge, float x, float y, float width, float height, 
 {
     NVGtextRow rows[3];
     NVGglyphPosition glyphs[100];
+    float  fglyphs[400];
     const char* text = "This is longer chunk of text.\n  \n  Would have used lorem ipsum but she    was busy jumping "
                        "over the lazy dog with the fox and all the men who came to the aid of the party.🎉";
     const char* start;
@@ -172,20 +173,45 @@ void drawParagraph(VGElement* vge, float x, float y, float width, float height, 
     int numberOfRows = vge->TextBreakLines(start, width, vgTextRowBuffer);
     for(int i = 0 ; i < numberOfRows ; i++)
     {
+        int hit = mx > x && mx < (x + width) && my >= y && my < (y + lineh);
         float row_data[3] = {0};
         String row_text = vgTextRowBuffer->GetRowData(i,row_data);
         vge->BeginPath();
-        vge->FillColor(nvgRGBA(255, 255, 255,  16));
+        vge->FillColor(nvgRGBA(255, 255, 255,   hit ? 64 : 16));
         vge->Rect(x + row_data[1], y, row_data[2] - row_data[1], lineh);
         vge->Fill();
 
         vge->FillColor(nvgRGBA(255, 255, 255, 255));
         vge->Text(x, y, row_text);
+        if (hit)
+        {
+            caretx = (mx < x + row_data[0] / 2) ? x : x + row_data[0];
+            px = x;
+            nglyphs = vge->TextGlyphPositions(x, y, row_text , fglyphs, 100);
+            for (j = 0; j < nglyphs; j++)
+            {
+                float x0 = fglyphs[j*4 + 1]; //glyphs[j].x;
+                float x1 = (j + 1 < nglyphs) ? fglyphs[(j + 1)*4+1] : x + row_data[0];
+                float gx = x0 * 0.3f + x1 * 0.7f;
+                if (mx >= px && mx < gx)
+                    caretx = fglyphs[j*4 + 1];
+                px = gx;
+            }
+            vge->BeginPath();
+            vge->FillColor(nvgRGBA(255, 192, 0, 255));
+            vge->Rect(caretx, y, 1, lineh);
+            vge->Fill();
+
+            gutter = lnum + 1;
+            gx = x - 10;
+            gy = y + lineh / 2;
+        }
         lnum++;
         y += lineh;
     }
     delete vgTextRowBuffer;
 */
+    
     
     while ((nrows = vge->TextBreakLines(start, end, width, rows, 3)))
     {
@@ -231,6 +257,7 @@ void drawParagraph(VGElement* vge, float x, float y, float width, float height, 
         // Keep going...
         start = rows[nrows - 1].next;
     }
+     
     
 
     if (gutter)

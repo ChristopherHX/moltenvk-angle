@@ -88,5 +88,22 @@ namespace Urho
 			height = h;
 		}
 
+		public int TextGlyphPositions (float x, float y, string str, out NVGglyphPosition [] positions, int maxPositions)
+		{
+			IntPtr pnt = Marshal.AllocHGlobal(sizeof(float) * 4 * maxPositions);
+			int ncount = TextGlyphPositions ( x,  y,  str, (float*)pnt,  maxPositions);
+			positions = new NVGglyphPosition[ncount];
+			for(int i = 0 ; i < ncount ; i++)
+			{
+				positions[i].StringPosition = (int)((float*)pnt)[i*4 + 0];
+				positions[i].X = ((float*)pnt)[i*4 + 1];
+				positions[i].MinX = ((float*)pnt)[i*4 + 2];
+				positions[i].MaxX = ((float*)pnt)[i*4 + 3];
+			}
+			
+			Marshal.FreeHGlobal(pnt);
+
+			return ncount;
+		}
 	}
 }

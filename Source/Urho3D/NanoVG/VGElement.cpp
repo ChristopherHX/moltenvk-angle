@@ -643,6 +643,29 @@ int VGElement::TextGlyphPositions(float x, float y, const char* string, const ch
     return nvgTextGlyphPositions(vg_, x, y, string, end, positions, maxPositions);
 }
 
+int VGElement::TextGlyphPositions( float x, float y, const String& str,
+                          float* positions, int maxPositions)
+{
+    int nglyphs = 0;
+    NVGglyphPosition  * glyphs = new NVGglyphPosition[maxPositions];
+    if(glyphs != nullptr)
+    {
+        nglyphs = TextGlyphPositions(x, y, str.CString(), nullptr, glyphs, maxPositions);
+        for(int i = 0 ; i < nglyphs ; i++)
+        {
+            positions[i*4+0] = (float)(glyphs[i].str - str.CString());
+            positions[i*4+1] = glyphs[i].x;
+            positions[i*4+2] = glyphs[i].minx;
+            positions[i*4+3] = glyphs[i].maxx;
+        }
+        
+        delete [] glyphs;
+        glyphs = nullptr;
+    }
+    
+    return nglyphs;
+}
+
 // Returns the vertical metrics based on the current text style.
 // Measured values are returned in local coordinate space.
 void VGElement::TextMetrics(float* ascender, float* descender, float* lineh)

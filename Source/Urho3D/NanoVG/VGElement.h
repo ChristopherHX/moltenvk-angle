@@ -729,6 +729,8 @@ class URHO3D_API VGElement : public BorderImage
     int TextGlyphPositions( float x, float y, const char* string, const char* end,
                               NVGglyphPosition* positions, int maxPositions);
 
+    int TextGlyphPositions( float x, float y, const String& str,
+                              float* positions, int maxPositions);
     // Returns the vertical metrics based on the current text style.
     // Measured values are returned in local coordinate space.
     void TextMetrics( float* ascender, float* descender, float* lineh);

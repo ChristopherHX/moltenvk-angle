@@ -958,6 +958,15 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern int VGElement_TextGlyphPositions (IntPtr handle, float x, float y, string str, float* positions, int maxPositions);
+
+		public int TextGlyphPositions (float x, float y, string str, float* positions, int maxPositions)
+		{
+			Runtime.ValidateRefCounted (this);
+			return VGElement_TextGlyphPositions (handle, x, y, str, positions, maxPositions);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void VGElement_TextMetrics (IntPtr handle, float* ascender, float* descender, float* lineh);
 
 		public void TextMetrics (float* ascender, float* descender, float* lineh)

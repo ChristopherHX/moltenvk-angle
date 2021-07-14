@@ -1916,4 +1916,10 @@ namespace Urho
         public const int Nearest			= 1<<5;		// Image interpolation is Nearest instead Linear
     };
 
+    public struct NVGglyphPosition {
+	public int StringPosition;	// Position of the glyph in the input string.
+	public float X;			// The x-coordinate of the logical glyph position.
+	public float MinX, MaxX;	// The bounds of the glyph shape.
+}
+
 }
