@@ -39,6 +39,11 @@
 struct NVGcontext;
 struct NVGLUframebuffer;
 
+#if defined(_WINDOWS)
+#undef RGB
+#undef CreateFont
+#undef CreateFontA
+#endif
 
 namespace Urho3D
 {

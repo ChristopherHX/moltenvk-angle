@@ -33,6 +33,10 @@
 struct NVGcontext;
 struct NVGLUframebuffer;
 
+#if defined(_WINDOWS)
+#undef RGB
+#endif
+
 namespace Urho3D
 {
 class Graphics;
@@ -89,7 +93,7 @@ public:
     void SetRotation(float angle);
         /// Return hotspot.
     /// @property
-    const Vector2& GetHotSpot() const { hotSpot_; }
+    const Vector2& GetHotSpot() const { return hotSpot_; }
 
     void GetTransformPositionRotation(float xform[6]);
     void GetTransformScale(float xform[6]);

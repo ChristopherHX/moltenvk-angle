@@ -30,6 +30,10 @@
 #include "VGFrameBuffer.h"
 #include <vector>
 
+#if defined(_WINDOWS)
+#undef RGB
+#endif
+
 struct NVGcontext;
 struct NVGLUframebuffer;
 

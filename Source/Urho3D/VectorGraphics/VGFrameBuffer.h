@@ -31,6 +31,9 @@
 #include "VGTextRowBuffer.h"
 #include "../ThirdParty/nanovg/nanovg.h"
 
+#if defined(_WINDOWS)
+#undef RGB
+#endif
 
 struct NVGcontext;
 struct NVGLUframebuffer;
