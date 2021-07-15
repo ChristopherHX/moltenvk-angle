@@ -70,7 +70,7 @@
 #include "SDL/SDL_loadso.h"
 
 #ifdef URHO3D_OPENGL
-#include "../NanoVG/NVG.h"
+#include "../VectorGraphics/VectorGraphics.h"
 #endif
 
 #include "../DebugNew.h"
@@ -228,7 +228,7 @@ bool Engine::Initialize(const VariantMap& parameters)
         context_->RegisterSubsystem(new Graphics(context_));
         context_->RegisterSubsystem(new Renderer(context_));
 #ifdef URHO3D_OPENGL
-        context_->RegisterSubsystem(new NanoVG(context_));
+        context_->RegisterSubsystem(new VectorGraphics(context_));
 #endif
     }
     else
@@ -340,7 +340,7 @@ bool Engine::Initialize(const VariantMap& parameters)
             );
         }
 #ifdef URHO3D_OPENGL
-        GetSubsystem<NanoVG>()->Initialize();
+        GetSubsystem<VectorGraphics>()->Initialize();
 #endif
     }
 

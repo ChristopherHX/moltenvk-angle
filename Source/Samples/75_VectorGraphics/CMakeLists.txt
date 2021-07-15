@@ -26,7 +26,7 @@ if (NOT URHO3D_OPENGL)
 endif ()
 
 # Define target name
-set (TARGET_NAME 75_NonoVG)
+set (TARGET_NAME 75_VectorGraphics)
 
 # Define source files
 define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES})

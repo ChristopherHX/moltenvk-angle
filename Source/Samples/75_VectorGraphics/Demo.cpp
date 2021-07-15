@@ -1234,7 +1234,7 @@ void renderVGElement(VGElement* vge, float mx, float my, float width, float heig
     vge->RestoreState();
 }
 
-void loadDemoData(NanoVG* vge, DemoData* data)
+void loadDemoData(VectorGraphics* vge, DemoData* data)
 {
 
     for (int i = 0; i < 12; i++)

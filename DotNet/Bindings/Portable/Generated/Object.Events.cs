@@ -1623,68 +1623,6 @@ namespace Urho {
 
 } /* namespace */
 
-namespace Urho {
-        public partial struct OnVGElementRenderEventArgs {
-            public EventDataContainer EventData;
-            public VGElement VGElement => EventData.get_VGElement (unchecked((int)111936971) /* VGElement (P_VGELEMENT) */);
-        } /* struct OnVGElementRenderEventArgs */
-
-        public partial class VGElement {
-             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.OnVGElementRender += ...' instead.")]
-             public Subscription SubscribeToOnVGElementRender (Action<OnVGElementRenderEventArgs> handler)
-             {
-                  Action<IntPtr> proxy = (x)=> { var d = new OnVGElementRenderEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
-                  var s = new Subscription (proxy);
-                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)1412571394) /* OnVGElementRender (E_VGELEMENTRENDER) */);
-                  return s;
-             }
-
-             static UrhoEventAdapter<OnVGElementRenderEventArgs> eventAdapterForOnVGElementRender;
-             public event Action<OnVGElementRenderEventArgs> OnVGElementRender
-             {
-                 add
-                 {
-                      if (eventAdapterForOnVGElementRender == null)
-                          eventAdapterForOnVGElementRender = new UrhoEventAdapter<OnVGElementRenderEventArgs>(typeof(VGElement));
-                      eventAdapterForOnVGElementRender.AddManagedSubscriber(handle, value, SubscribeToOnVGElementRender);
-                 }
-                 remove { eventAdapterForOnVGElementRender.RemoveManagedSubscriber(handle, value); }
-             }
-        } /* class VGElement */ 
-
-} /* namespace */
-
-namespace Urho {
-        public partial struct OnVGFrameBufferRenderEventArgs {
-            public EventDataContainer EventData;
-            public VGFrameBuffer VGFrameBuffer => EventData.get_VGFrameBuffer (unchecked((int)3352484028) /* VGFrameBuffer (P_VGFRAMEBUFFER) */);
-        } /* struct OnVGFrameBufferRenderEventArgs */
-
-        public partial class VGFrameBuffer {
-             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.OnVGFrameBufferRender += ...' instead.")]
-             public Subscription SubscribeToOnVGFrameBufferRender (Action<OnVGFrameBufferRenderEventArgs> handler)
-             {
-                  Action<IntPtr> proxy = (x)=> { var d = new OnVGFrameBufferRenderEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
-                  var s = new Subscription (proxy);
-                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)637041011) /* OnVGFrameBufferRender (E_VGFRAMEBUFFERRENDER) */);
-                  return s;
-             }
-
-             static UrhoEventAdapter<OnVGFrameBufferRenderEventArgs> eventAdapterForOnVGFrameBufferRender;
-             public event Action<OnVGFrameBufferRenderEventArgs> OnVGFrameBufferRender
-             {
-                 add
-                 {
-                      if (eventAdapterForOnVGFrameBufferRender == null)
-                          eventAdapterForOnVGFrameBufferRender = new UrhoEventAdapter<OnVGFrameBufferRenderEventArgs>(typeof(VGFrameBuffer));
-                      eventAdapterForOnVGFrameBufferRender.AddManagedSubscriber(handle, value, SubscribeToOnVGFrameBufferRender);
-                 }
-                 remove { eventAdapterForOnVGFrameBufferRender.RemoveManagedSubscriber(handle, value); }
-             }
-        } /* class VGFrameBuffer */ 
-
-} /* namespace */
-
 namespace Urho.Navigation {
         public partial struct NavigationMeshRebuiltEventArgs {
             public EventDataContainer EventData;
@@ -5380,6 +5318,68 @@ namespace Urho {
             public Node Node => EventData.get_Node (unchecked((int)1679846434) /* Node (P_NODE) */);
             public ParticleEffect2D Effect => EventData.get_ParticleEffect2D (unchecked((int)3321525041) /* Effect (P_EFFECT) */);
         } /* struct ParticlesDurationEventArgs */
+
+} /* namespace */
+
+namespace Urho {
+        public partial struct OnVGElementRenderEventArgs {
+            public EventDataContainer EventData;
+            public VGElement VGElement => EventData.get_VGElement (unchecked((int)111936971) /* VGElement (P_VGELEMENT) */);
+        } /* struct OnVGElementRenderEventArgs */
+
+        public partial class VGElement {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.OnVGElementRender += ...' instead.")]
+             public Subscription SubscribeToOnVGElementRender (Action<OnVGElementRenderEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new OnVGElementRenderEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)1412571394) /* OnVGElementRender (E_VGELEMENTRENDER) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<OnVGElementRenderEventArgs> eventAdapterForOnVGElementRender;
+             public event Action<OnVGElementRenderEventArgs> OnVGElementRender
+             {
+                 add
+                 {
+                      if (eventAdapterForOnVGElementRender == null)
+                          eventAdapterForOnVGElementRender = new UrhoEventAdapter<OnVGElementRenderEventArgs>(typeof(VGElement));
+                      eventAdapterForOnVGElementRender.AddManagedSubscriber(handle, value, SubscribeToOnVGElementRender);
+                 }
+                 remove { eventAdapterForOnVGElementRender.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class VGElement */ 
+
+} /* namespace */
+
+namespace Urho {
+        public partial struct OnVGFrameBufferRenderEventArgs {
+            public EventDataContainer EventData;
+            public VGFrameBuffer VGFrameBuffer => EventData.get_VGFrameBuffer (unchecked((int)3352484028) /* VGFrameBuffer (P_VGFRAMEBUFFER) */);
+        } /* struct OnVGFrameBufferRenderEventArgs */
+
+        public partial class VGFrameBuffer {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.OnVGFrameBufferRender += ...' instead.")]
+             public Subscription SubscribeToOnVGFrameBufferRender (Action<OnVGFrameBufferRenderEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new OnVGFrameBufferRenderEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)637041011) /* OnVGFrameBufferRender (E_VGFRAMEBUFFERRENDER) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<OnVGFrameBufferRenderEventArgs> eventAdapterForOnVGFrameBufferRender;
+             public event Action<OnVGFrameBufferRenderEventArgs> OnVGFrameBufferRender
+             {
+                 add
+                 {
+                      if (eventAdapterForOnVGFrameBufferRender == null)
+                          eventAdapterForOnVGFrameBufferRender = new UrhoEventAdapter<OnVGFrameBufferRenderEventArgs>(typeof(VGFrameBuffer));
+                      eventAdapterForOnVGFrameBufferRender.AddManagedSubscriber(handle, value, SubscribeToOnVGFrameBufferRender);
+                 }
+                 remove { eventAdapterForOnVGFrameBufferRender.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class VGFrameBuffer */ 
 
 } /* namespace */
 

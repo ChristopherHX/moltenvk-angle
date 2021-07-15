@@ -41,7 +41,7 @@
 #include <Urho3D/UI/Window.h>
 #include <Urho3D/Graphics/Technique.h>
 
-#include <Urho3D/NanoVG/NVG.h>
+#include <Urho3D/VectorGraphics/VectorGraphics.h>
 
 
 #include "NonoVG.h"
@@ -89,7 +89,7 @@ void NonoVG::Start()
     uiRoot_->SetDefaultStyle(style);
 
     
-    NanoVG* nvg = GetSubsystem<NanoVG>();
+    VectorGraphics* nvg = GetSubsystem<VectorGraphics>();
     if (nvg)
     {
         loadDemoData(nvg, &demoData_);
@@ -219,7 +219,7 @@ void NonoVG::SetupViewport()
 void NonoVG::InitControls()
 {
     auto* graphics = GetSubsystem<Graphics>();
-    NanoVG* nvg = GetSubsystem<NanoVG>();
+    VectorGraphics* nvg = GetSubsystem<VectorGraphics>();
     SharedPtr<Window> window_  = InitWindow();
     VGCanvas * vgCanvas = window_->CreateChild<VGCanvas>("VGCanvas");
     vgCanvas->SetClearColor(Color(0.5,0.5,0.5,1.0));
@@ -272,7 +272,7 @@ SharedPtr<Window> NonoVG::InitWindow()
     window_->SetMinHeight(graphics->GetHeight() / 1.5);
     window_->SetLayout(LM_VERTICAL, 6, IntRect(6, 6, 6, 6));
     window_->SetAlignment(HA_LEFT, VA_TOP);
-    window_->SetName("NanoVG Window");
+    window_->SetName("VectorGraphics Window");
     window_->SetMovable(true);
     window_->SetResizable(true);
     window_->SetFocusMode(FocusMode::FM_FOCUSABLE);
@@ -287,7 +287,7 @@ SharedPtr<Window> NonoVG::InitWindow()
     // Create the Window title Text
     auto* windowTitle = new Text(context_);
     windowTitle->SetName("WindowTitle");
-    windowTitle->SetText("Hello NanoVG!");
+    windowTitle->SetText("Hello VectorGraphics!");
 
     // Create the Window's close button
     auto* buttonClose = new Button(context_);
@@ -391,7 +391,7 @@ void NonoVG::HandleNVGRender(StringHash eventType, VariantMap& eventData)
 
 void NonoVG::RenderVGComponents() 
 {
-    NanoVG* nvg = GetSubsystem<NanoVG>();
+    VectorGraphics* nvg = GetSubsystem<VectorGraphics>();
     VGFrameBuffer* frameBuffer = nvg->GetCurrentFrameBuffer();
 
     if (frameBuffer == nullptr)
@@ -499,7 +499,7 @@ void NonoVG::Stop()
 {
 
     Sample::Stop();
-    NanoVG* nvg = GetSubsystem<NanoVG>();
+    VectorGraphics* nvg = GetSubsystem<VectorGraphics>();
     if (nvg)
     {
         nvg->Clear();

@@ -32,7 +32,7 @@
 #include "../Graphics/Texture2D.h"
 
 #include "VGCanvas.h"
-#include "NVG.h"
+#include "VectorGraphics.h"
 
 #ifdef __APPLE__
 #define GLFW_INCLUDE_GLCOREARB

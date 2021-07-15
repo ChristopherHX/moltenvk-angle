@@ -20,62 +20,50 @@
 // THE SOFTWARE.
 //
 #pragma once
-
-#include "../Core/Object.h"
 #include "../Graphics/Graphics.h"
 #include "../Graphics/Texture2D.h"
-#include "../Scene/Component.h"
-
-
+#include "../IO/MemoryBuffer.h"
+#include "../ThirdParty/nanovg/nanovg.h"
+#include "../UI/BorderImage.h"
 #include "GLHeaders.h"
 #include "VGTextRowBuffer.h"
-#include "../ThirdParty/nanovg/nanovg.h"
-
+#include "VGFrameBuffer.h"
+#include <vector>
 
 struct NVGcontext;
 struct NVGLUframebuffer;
 
 namespace Urho3D
 {
-class Graphics;
-class VertexBuffer;
-class Cursor;
-class ResourceCache;
-class Timer;
-class UIBatch;
-class UIElement;
-class XMLElement;
-class XMLFile;
-class NanoVG;
-class VGTextRowBuffer;
 
-class URHO3D_API VGFrameBuffer : public Component
+class Texture2D;
+class VectorGraphics;
+class VGTextRowBuffer;
+class VGFrameBuffer;
+
+class URHO3D_API VGElement : public BorderImage
 {
-    URHO3D_OBJECT(VGFrameBuffer, Component);
+    URHO3D_OBJECT(VGElement, BorderImage);
 
 public:
+    /// Register object factory.
+    /// @nobind
     static void RegisterObject(Context* context);
-    static VGFrameBuffer* Current();
+    /// Construct VGElement.
+    explicit VGElement(Context* context);
+    /// Destruct.
+    ~VGElement() override;
 
-    VGFrameBuffer(Context* context, int Width, int Height);
-    VGFrameBuffer(Context* context);
-    ~VGFrameBuffer();
+    /// React to resize.
+    void OnResize(const IntVector2& newSize, const IntVector2& delta) override;
 
-    bool CreateFrameBuffer(int Width, int Height);
+    void BeginRender();
+    void EndRender();
 
-    void Bind();
-    void UnBind();
-
-    Texture2D* GetRenderTarget();
-    IntVector2 GetSize() { return textureSize_; }
+    IntVector2 GetSize();
     void SetClearColor(Color color);
     Color GetClearColor();
 
-    void EnableRenderEvents();
-    void DisbaleRenderEvents();
-
-   
-public:
     // Begin drawing a new frame
     // Calls to nanovg drawing API should be wrapped in nvgBeginFrame() & nvgEndFrame()
     // nvgBeginFrame() defines the size of the window to render to in relation currently
@@ -84,7 +72,7 @@ public:
     // For example, GLFW returns two dimension for an opened window: window size and
     // frame buffer size. In that case you would set windowWidth/Height to the window size
     // devicePixelRatio to: frameBufferWidth / windowWidth.
-    void BeginFrame();
+    void BeginFrame(float windowWidth, float windowHeight, float devicePixelRatio);
 
     // Cancels drawing the current frame.
     void CancelFrame();
@@ -519,7 +507,7 @@ public:
     void FontFace(const char* font);
 
     // Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
-    float Text(float x, float y, const char* string, const char* end);
+    float Text(float x, float y, const char* str, const char* end);
 
     // Draws multi-line text string at specified location wrapped at the specified width. If end is specified only the
     // sub-string up to the end is drawn. White space is stripped at the beginning of the rows, the text is split at
@@ -552,7 +540,7 @@ public:
     // characters are encountered. Words longer than the max width are slit at nearest character (i.e. no hyphenation).
     int TextBreakLines(const char* string, const char* end, float breakRowWidth, NVGtextRow* rows, int maxRows);
 
- // Sets the font face based on specified name of current text style.
+    // Sets the font face based on specified name of current text style.
     void FontFace(const String& font);
 
     // Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
@@ -583,11 +571,16 @@ public:
     int TextGlyphPositions(float x, float y, const String& str, float* positions, int maxPositions);
 
 protected:
+    void CreateFrameBuffer(int mWidth, int mHeight);
+
+protected:
+    SharedPtr<VGFrameBuffer> VGFrameBuffer_;
+
     WeakPtr<Graphics> graphics_;
     Urho3D::SharedPtr<Texture2D> drawTexture_;
     IntVector2 textureSize_;
     NVGLUframebuffer* nvgFrameBuffer_;
-    WeakPtr<NanoVG> nanoVG_;
+    VectorGraphics* nanoVG_;
     NVGcontext* vg_;
     GLint previousVBO;
     GLint previousFBO;
@@ -596,6 +589,7 @@ protected:
     Color clearColor_;
 
 private:
+    // Handle render event.
     void HandleRender(StringHash eventType, VariantMap& eventData);
 };
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Urho3D/NanoVG/NVG.h>
+#include <Urho3D/VectorGraphics/VectorGraphics.h>
 
 using namespace Urho3D;
 
@@ -13,7 +13,7 @@ struct DemoData
 typedef struct DemoData DemoData;
 
 
-void loadDemoData(NanoVG* vge, DemoData* data);
+void loadDemoData(VectorGraphics* vge, DemoData* data);
 
 void renderVGElement(VGElement * vgElement, float mx, float my, float width, float height, float t, int blowup, DemoData* data);
 void renderVGFrameBuffer(VGFrameBuffer* vge, float mx, float my, float width, float height, float t, int blowup,

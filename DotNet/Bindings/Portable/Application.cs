@@ -517,15 +517,15 @@ namespace Urho
 			}
 		}
 
-		NanoVG nanoVG;
-		public NanoVG NanoVG
+		VectorGraphics vectorGraphics;
+		public VectorGraphics VectorGraphics
 		{
 			get
 			{
 				Runtime.Validate(typeof(Application));
-				if (nanoVG == null)
-					nanoVG = new NanoVG(UrhoObject_GetSubsystem(handle, NanoVG.TypeStatic.Code));
-				return nanoVG;
+				if (vectorGraphics == null)
+					vectorGraphics = new VectorGraphics(UrhoObject_GetSubsystem(handle, VectorGraphics.TypeStatic.Code));
+				return vectorGraphics;
 			}
 		}
 

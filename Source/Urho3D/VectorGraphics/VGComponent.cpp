@@ -21,7 +21,7 @@
 // THE SOFTWARE.
 //
 #include "VGComponent.h"
-#include "NVG.h"
+#include "VectorGraphics.h"
 #include "VGEvents.h"
 #include "nanovg.h"
 #include "../Core/Object.h"
@@ -76,7 +76,7 @@ VGComponent::VGComponent(Context* context)
     : Component(context)
     , hotSpot_(IntVector2::ZERO)
 {
-    nanoVG_ = GetSubsystem<NanoVG>();
+    nanoVG_ = GetSubsystem<VectorGraphics>();
     vg_ = nanoVG_->GetNVGContext();
     graphics_ = GetSubsystem<Graphics>();
 }

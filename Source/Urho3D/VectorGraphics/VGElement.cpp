@@ -30,7 +30,7 @@
 
 
 
-#include "NVG.h"
+#include "VectorGraphics.h"
 #include "VGElement.h"
 #include "VGEvents.h"
 
@@ -49,7 +49,7 @@ VGElement::VGElement(Context* context)
     : BorderImage(context)
     , nvgFrameBuffer_(NULL)
 {
-    nanoVG_ = GetSubsystem<NanoVG>();
+    nanoVG_ = GetSubsystem<VectorGraphics>();
     vg_ = nanoVG_->GetNVGContext();
     graphics_ = GetSubsystem<Graphics>();
     drawTexture_ = NULL;
@@ -62,7 +62,7 @@ VGElement::VGElement(Context* context)
 
 VGElement::~VGElement()
 {
-    NanoVG* nanovg = GetSubsystem<NanoVG>();
+    VectorGraphics* nanovg = GetSubsystem<VectorGraphics>();
     NVGcontext* vg = nanovg->GetNVGContext();
 
     VGFrameBuffer_.Reset();
@@ -235,7 +235,7 @@ void VGElement::CreateFrameBuffer(int width, int height)
     if (width == 0 || height == 0)
         return;
 
-    NanoVG* nanovg = GetSubsystem<NanoVG>();
+    VectorGraphics* nanovg = GetSubsystem<VectorGraphics>();
     NVGcontext* vg_ = nanovg->GetNVGContext();
 
     nvgluDeleteFramebuffer(nvgFrameBuffer_);

@@ -41946,175 +41946,175 @@ VGComponent_TextGlyphPositions (Urho3D::VGComponent *_target, float x, float y, 
 
 
 DllExport int
-NanoVG_GetType (Urho3D::NanoVG *_target)
+VectorGraphics_GetType (Urho3D::VectorGraphics *_target)
 {
 	return (_target->GetType ()).Value ();
 }
 
 
 DllExport const char *
-NanoVG_GetTypeName (Urho3D::NanoVG *_target)
+VectorGraphics_GetTypeName (Urho3D::VectorGraphics *_target)
 {
 	return stringdup((_target->GetTypeName ()).CString ());
 }
 
 
 DllExport int
-NanoVG_GetTypeStatic ()
+VectorGraphics_GetTypeStatic ()
 {
-	return (NanoVG::GetTypeStatic ()).Value ();
+	return (VectorGraphics::GetTypeStatic ()).Value ();
 }
 
 
 DllExport const char *
-NanoVG_GetTypeNameStatic ()
+VectorGraphics_GetTypeNameStatic ()
 {
-	return stringdup((NanoVG::GetTypeNameStatic ()).CString ());
+	return stringdup((VectorGraphics::GetTypeNameStatic ()).CString ());
 }
 
 
 DllExport void *
-NanoVG_NanoVG (Urho3D::Context * context)
+VectorGraphics_VectorGraphics (Urho3D::Context * context)
 {
-	return WeakPtr<NanoVG>(new NanoVG(context));
+	return WeakPtr<VectorGraphics>(new VectorGraphics(context));
 }
 
 
 DllExport void
-NanoVG_Initialize (Urho3D::NanoVG *_target)
+VectorGraphics_Initialize (Urho3D::VectorGraphics *_target)
 {
 	_target->Initialize ();
 }
 
 
 DllExport void
-NanoVG_Clear (Urho3D::NanoVG *_target)
+VectorGraphics_Clear (Urho3D::VectorGraphics *_target)
 {
 	_target->Clear ();
 }
 
 
 DllExport NVGcontext *
-NanoVG_GetNVGContext (Urho3D::NanoVG *_target)
+VectorGraphics_GetNVGContext (Urho3D::VectorGraphics *_target)
 {
 	return _target->GetNVGContext ();
 }
 
 
 DllExport Urho3D::VGFrameBuffer *
-NanoVG_GetCurrentFrameBuffer (Urho3D::NanoVG *_target)
+VectorGraphics_GetCurrentFrameBuffer (Urho3D::VectorGraphics *_target)
 {
 	return _target->GetCurrentFrameBuffer ();
 }
 
 
 DllExport int
-NanoVG_CreateFont (Urho3D::NanoVG *_target, const char * name, const char * filename)
+VectorGraphics_CreateFont (Urho3D::VectorGraphics *_target, const char * name, const char * filename)
 {
 	return _target->CreateFont (Urho3D::String(name), Urho3D::String(filename));
 }
 
 
 DllExport int
-NanoVG_CreateFontAtIndex (Urho3D::NanoVG *_target, const char * name, const char * filename, int fontIndex)
+VectorGraphics_CreateFontAtIndex (Urho3D::VectorGraphics *_target, const char * name, const char * filename, int fontIndex)
 {
 	return _target->CreateFontAtIndex (Urho3D::String(name), Urho3D::String(filename), fontIndex);
 }
 
 
 DllExport int
-NanoVG_CreateFontMem (Urho3D::NanoVG *_target, const char * name, unsigned char * data, int ndata)
+VectorGraphics_CreateFontMem (Urho3D::VectorGraphics *_target, const char * name, unsigned char * data, int ndata)
 {
 	return _target->CreateFontMem (Urho3D::String(name), data, ndata);
 }
 
 
 DllExport int
-NanoVG_CreateFontMemAtIndex (Urho3D::NanoVG *_target, const char * name, unsigned char * data, int ndata, int fontIndex)
+VectorGraphics_CreateFontMemAtIndex (Urho3D::VectorGraphics *_target, const char * name, unsigned char * data, int ndata, int fontIndex)
 {
 	return _target->CreateFontMemAtIndex (Urho3D::String(name), data, ndata, fontIndex);
 }
 
 
 DllExport int
-NanoVG_FindFont (Urho3D::NanoVG *_target, const char * name)
+VectorGraphics_FindFont (Urho3D::VectorGraphics *_target, const char * name)
 {
 	return _target->FindFont (Urho3D::String(name));
 }
 
 
 DllExport int
-NanoVG_AddFallbackFontId (Urho3D::NanoVG *_target, int baseFont, int fallbackFont)
+VectorGraphics_AddFallbackFontId (Urho3D::VectorGraphics *_target, int baseFont, int fallbackFont)
 {
 	return _target->AddFallbackFontId (baseFont, fallbackFont);
 }
 
 
 DllExport void
-NanoVG_ResetFallbackFontsId (Urho3D::NanoVG *_target, int baseFont)
+VectorGraphics_ResetFallbackFontsId (Urho3D::VectorGraphics *_target, int baseFont)
 {
 	_target->ResetFallbackFontsId (baseFont);
 }
 
 
 DllExport int
-NanoVG_AddFallbackFont (Urho3D::NanoVG *_target, const char * baseFont, const char * fallbackFont)
+VectorGraphics_AddFallbackFont (Urho3D::VectorGraphics *_target, const char * baseFont, const char * fallbackFont)
 {
 	return _target->AddFallbackFont (Urho3D::String(baseFont), Urho3D::String(fallbackFont));
 }
 
 
 DllExport void
-NanoVG_ResetFallbackFonts (Urho3D::NanoVG *_target, const char * baseFont)
+VectorGraphics_ResetFallbackFonts (Urho3D::VectorGraphics *_target, const char * baseFont)
 {
 	_target->ResetFallbackFonts (Urho3D::String(baseFont));
 }
 
 
 DllExport int
-NanoVG_CreateImage (Urho3D::NanoVG *_target, const char * filename, int imageFlags)
+VectorGraphics_CreateImage (Urho3D::VectorGraphics *_target, const char * filename, int imageFlags)
 {
 	return _target->CreateImage (Urho3D::String(filename), imageFlags);
 }
 
 
 DllExport int
-NanoVG_CreateImageMem (Urho3D::NanoVG *_target, int imageFlags, unsigned char * data, int ndata)
+VectorGraphics_CreateImageMem (Urho3D::VectorGraphics *_target, int imageFlags, unsigned char * data, int ndata)
 {
 	return _target->CreateImageMem (imageFlags, data, ndata);
 }
 
 
 DllExport int
-NanoVG_CreateImageRGBA (Urho3D::NanoVG *_target, int w, int h, int imageFlags, const unsigned char * data)
+VectorGraphics_CreateImageRGBA (Urho3D::VectorGraphics *_target, int w, int h, int imageFlags, const unsigned char * data)
 {
 	return _target->CreateImageRGBA (w, h, imageFlags, data);
 }
 
 
 DllExport void
-NanoVG_UpdateImage (Urho3D::NanoVG *_target, int image, const unsigned char * data)
+VectorGraphics_UpdateImage (Urho3D::VectorGraphics *_target, int image, const unsigned char * data)
 {
 	_target->UpdateImage (image, data);
 }
 
 
 DllExport void
-NanoVG_ImageSize (Urho3D::NanoVG *_target, int image, int * w, int * h)
+VectorGraphics_ImageSize (Urho3D::VectorGraphics *_target, int image, int * w, int * h)
 {
 	_target->ImageSize (image, w, h);
 }
 
 
 DllExport void
-NanoVG_DeleteImage (Urho3D::NanoVG *_target, int image)
+VectorGraphics_DeleteImage (Urho3D::VectorGraphics *_target, int image)
 {
 	_target->DeleteImage (image);
 }
 
 
 DllExport Urho3D::Texture2D *
-NanoVG_LoadSVGIntoTexture (Urho3D::NanoVG *_target, Urho3D::String path)
+VectorGraphics_LoadSVGIntoTexture (Urho3D::VectorGraphics *_target, Urho3D::String path)
 {
 	auto copy = _target->LoadSVGIntoTexture (path);
 	auto plain = copy.Get();

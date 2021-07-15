@@ -385,7 +385,7 @@ if (URHO3D_OPENGL)
 endif ()
 if (NOT URHO3D_OPENGL)
     # Exclude the opposite source directory
-    list (APPEND EXCLUDED_SOURCE_DIRS NanoVG)
+    list (APPEND EXCLUDED_SOURCE_DIRS VectorGraphics)
 endif ()
 # Workaround for GCC 5.4 and above when building a SHARED lib type for Linux platform to fix the undefined symbol "__cpu_model" issue (see #1519)
 if (CMAKE_COMPILER_IS_GNUCXX AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 5.3.1 AND CMAKE_SYSTEM_NAME STREQUAL Linux AND URHO3D_LIB_TYPE STREQUAL SHARED)  # 5.3.1 was the last known good version

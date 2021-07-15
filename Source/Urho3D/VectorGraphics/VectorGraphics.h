@@ -53,13 +53,13 @@ namespace Urho3D
 	class XMLFile;
 
 	
-class URHO3D_API NanoVG : public Object
+class URHO3D_API VectorGraphics : public Object
     {
-    URHO3D_OBJECT(NanoVG, Object);
+    URHO3D_OBJECT(VectorGraphics, Object);
 
 public:
-	NanoVG(Context* context);
-	virtual ~NanoVG();
+	VectorGraphics(Context* context);
+	virtual ~VectorGraphics();
 	/// Initialize when screen mode initially set.
 	void Initialize();
 	void Clear();
@@ -69,7 +69,7 @@ public:
 	//
     // Text
     //
-    // NanoVG allows you to load .ttf files and use the font to render text.
+    // VectorGraphics allows you to load .ttf files and use the font to render text.
     //
     // The appearance of the text can be defined by setting the current text style
     // and by specifying the fill color. Common text and font settings such as
@@ -156,7 +156,7 @@ public:
 	//
     // Images
     //
-    // NanoVG allows you to load jpg, png, psd, tga, pic and gif files to be used for rendering.
+    // VectorGraphics allows you to load jpg, png, psd, tga, pic and gif files to be used for rendering.
     // In addition you can upload your own image. The image loading is provided by stb_image.
     // The parameter imageFlags is combination of flags defined in NVGimageFlags.
 

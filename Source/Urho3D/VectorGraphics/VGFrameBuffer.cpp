@@ -20,7 +20,7 @@
 // THE SOFTWARE.
 //
 #include "VGFrameBuffer.h"
-#include "NVG.h"
+#include "VectorGraphics.h"
 #include "VGEvents.h"
 #include "nanovg.h"
 #include "../Core/Context.h"
@@ -47,7 +47,7 @@ VGFrameBuffer::VGFrameBuffer(Context* context)
     : Component(context)
     , nvgFrameBuffer_(nullptr)
 {
-    nanoVG_ = GetSubsystem<NanoVG>();
+    nanoVG_ = GetSubsystem<VectorGraphics>();
     vg_ = nanoVG_->GetNVGContext();
     graphics_ = GetSubsystem<Graphics>();
 
@@ -59,7 +59,7 @@ VGFrameBuffer::VGFrameBuffer(Context* context, int Width, int Height)
     : Component(context)
     , nvgFrameBuffer_(nullptr)
 {
-    nanoVG_ = GetSubsystem<NanoVG>();
+    nanoVG_ = GetSubsystem<VectorGraphics>();
     vg_ = nanoVG_->GetNVGContext();
     graphics_ = GetSubsystem<Graphics>();
 

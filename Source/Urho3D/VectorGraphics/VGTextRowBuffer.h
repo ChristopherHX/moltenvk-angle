@@ -22,7 +22,7 @@
 #pragma once
 #include "../ThirdParty/nanovg/nanovg.h"
 #include "GLHeaders.h"
-#include "NVG.h"
+#include "VectorGraphics.h"
 #include <vector>
 
 struct NVGcontext;

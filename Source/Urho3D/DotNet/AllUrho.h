@@ -9,7 +9,7 @@
 #define URHO3D_D3D11
 #endif
 
-#include "../Urho3D.h"
+#include "Urho3D.h"
 #include "../Urho2D/TileMapLayer2D.h"
 #include "../Urho2D/TmxFile2D.h"
 #include "../UI/MessageBox.h"
@@ -279,7 +279,7 @@
 #include "../IK/IKEffector.h"
 #include "../IK/IKEvents.h"
 #include "../IK/IKSolver.h"
-#include "../NanoVG/NVG.h"
+#include "../VectorGraphics/VectorGraphics.h"
 #if defined(URHO3D_DOTNET)
 #include "Mono.h"
 #endif

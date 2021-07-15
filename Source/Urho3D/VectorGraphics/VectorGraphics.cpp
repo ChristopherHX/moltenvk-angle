@@ -20,7 +20,7 @@
 // THE SOFTWARE.
 //
 
-#include "NVG.h"
+#include "VectorGraphics.h"
 #include "../Core/Context.h"
 #include "../IO/Log.h"
 #include "../IO/File.h"
@@ -50,7 +50,7 @@
 namespace Urho3D
 {
 
-NanoVG::NanoVG(Context* context)
+VectorGraphics::VectorGraphics(Context* context)
     : Object(context)
     , initialized_(false)
     , vg_(NULL)
@@ -66,9 +66,9 @@ NanoVG::NanoVG(Context* context)
     VGComponent::RegisterObject(context_);
 }
 
-NanoVG::~NanoVG() { Clear(); }
+VectorGraphics::~VectorGraphics() { Clear(); }
 
-void NanoVG::Initialize()
+void VectorGraphics::Initialize()
 {
     Graphics* graphics = GetSubsystem<Graphics>();
 
@@ -90,10 +90,10 @@ void NanoVG::Initialize()
     if (vg_ == NULL)
         URHO3D_LOGERROR("Could not init nanovg.");
     else
-        URHO3D_LOGINFO("Initialized NanoVG subsystem");
+        URHO3D_LOGINFO("Initialized VectorGraphics subsystem");
 }
 
-void NanoVG::Clear()
+void VectorGraphics::Clear()
 {
     if (vg_)
     {
@@ -118,13 +118,13 @@ void NanoVG::Clear()
     }
 }
 
-VGFrameBuffer* NanoVG::GetCurrentFrameBuffer() 
+VGFrameBuffer* VectorGraphics::GetCurrentFrameBuffer() 
 { 
     return VGFrameBuffer::Current(); 
 }
 
 
-int NanoVG::CreateFont(const char* name, const char* filename)
+int VectorGraphics::CreateFont(const char* name, const char* filename)
 {
 
     int index = FindFont(name);
@@ -148,7 +148,7 @@ int NanoVG::CreateFont(const char* name, const char* filename)
 }
 
 // fontIndex specifies which font face to load from a .ttf/.ttc file.
-int NanoVG::CreateFontAtIndex(const char* name, const char* filename, const int fontIndex)
+int VectorGraphics::CreateFontAtIndex(const char* name, const char* filename, const int fontIndex)
 {
     int index = FindFont(name);
     if (index >= 0)
@@ -171,7 +171,7 @@ int NanoVG::CreateFontAtIndex(const char* name, const char* filename, const int 
 
 // Creates font by loading it from the specified memory chunk.
 // Returns handle to the font.
-int NanoVG::CreateFontMem(const char* name, unsigned char* data, int ndata)
+int VectorGraphics::CreateFontMem(const char* name, unsigned char* data, int ndata)
 {
     int index = FindFont(name);
     if (index >= 0)
@@ -181,7 +181,7 @@ int NanoVG::CreateFontMem(const char* name, unsigned char* data, int ndata)
 }
 
 // fontIndex specifies which font face to load from a .ttf/.ttc file.
-int NanoVG::CreateFontMemAtIndex(const char* name, unsigned char* data, int ndata, const int fontIndex)
+int VectorGraphics::CreateFontMemAtIndex(const char* name, unsigned char* data, int ndata, const int fontIndex)
 {
     int index = FindFont(name);
     if (index >= 0)
@@ -191,80 +191,80 @@ int NanoVG::CreateFontMemAtIndex(const char* name, unsigned char* data, int ndat
 }
 
 // Finds a loaded font of specified name, and returns handle to it, or -1 if the font is not found.
-int NanoVG::FindFont(const char* name) { return nvgFindFont(vg_, name); }
+int VectorGraphics::FindFont(const char* name) { return nvgFindFont(vg_, name); }
 
 
 // Creates font by loading it from the disk from specified file name.
 // Returns handle to the font.
-int NanoVG::CreateFont(const String&  name, const String&  filename)
+int VectorGraphics::CreateFont(const String&  name, const String&  filename)
 {
     return CreateFont(name.CString(), filename.CString());
 }
 
 // fontIndex specifies which font face to load from a .ttf/.ttc file.
-int NanoVG::CreateFontAtIndex(const String&  name, const String&  filename, const int fontIndex)
+int VectorGraphics::CreateFontAtIndex(const String&  name, const String&  filename, const int fontIndex)
 {
     return CreateFontAtIndex(name.CString(), filename.CString(), fontIndex);
 }
 
 // Creates font by loading it from the specified memory chunk.
 // Returns handle to the font.
-int NanoVG::CreateFontMem(const String&  name, unsigned char* data, int ndata)
+int VectorGraphics::CreateFontMem(const String&  name, unsigned char* data, int ndata)
 {
     return CreateFontMem(name.CString(),data,ndata);
 }
 
 // fontIndex specifies which font face to load from a .ttf/.ttc file.
-int NanoVG::CreateFontMemAtIndex(const String&  name, unsigned char* data, int ndata, const int fontIndex)
+int VectorGraphics::CreateFontMemAtIndex(const String&  name, unsigned char* data, int ndata, const int fontIndex)
 {
     return CreateFontMemAtIndex(name.CString(),data,ndata,fontIndex);
 }
 
 // Finds a loaded font of specified name, and returns handle to it, or -1 if the font is not found.
-int NanoVG::FindFont(const String&  name)
+int VectorGraphics::FindFont(const String&  name)
 {
     return FindFont(name.CString());
 }
 
 
 // Adds a fallback font by handle.
-int NanoVG::AddFallbackFontId(int baseFont, int fallbackFont)
+int VectorGraphics::AddFallbackFontId(int baseFont, int fallbackFont)
 {
     return nvgAddFallbackFontId(vg_, baseFont, fallbackFont);
 }
 
 // Adds a fallback font by name.
-int NanoVG::AddFallbackFont(const char* baseFont, const char* fallbackFont)
+int VectorGraphics::AddFallbackFont(const char* baseFont, const char* fallbackFont)
 {
     return nvgAddFallbackFont(vg_, baseFont, fallbackFont);
 }
 
 // Resets fallback fonts by handle.
-void NanoVG::ResetFallbackFontsId(int baseFont) { nvgResetFallbackFontsId(vg_, baseFont); }
+void VectorGraphics::ResetFallbackFontsId(int baseFont) { nvgResetFallbackFontsId(vg_, baseFont); }
 
 // Resets fallback fonts by name.
-void NanoVG::ResetFallbackFonts(const char* baseFont) { nvgResetFallbackFonts(vg_, baseFont); }
+void VectorGraphics::ResetFallbackFonts(const char* baseFont) { nvgResetFallbackFonts(vg_, baseFont); }
 
 
 // Adds a fallback font by name.
-int NanoVG::AddFallbackFont(const String&  baseFont, const String&  fallbackFont)
+int VectorGraphics::AddFallbackFont(const String&  baseFont, const String&  fallbackFont)
 {
     return AddFallbackFont(baseFont.CString(),fallbackFont.CString());
 }
 // Resets fallback fonts by name.
-void NanoVG::ResetFallbackFonts(const String&  baseFont)
+void VectorGraphics::ResetFallbackFonts(const String&  baseFont)
 {
     return ResetFallbackFonts(baseFont.CString());
 }
 
 // Creates image by loading it from the disk from specified file name.
 // Returns handle to the image.
-int NanoVG::CreateImage(const String& filename, int imageFlags)
+int VectorGraphics::CreateImage(const String& filename, int imageFlags)
 {
     return CreateImage(filename.CString(),imageFlags);
 }
 
-int NanoVG::CreateImage(const char* filename, int imageFlags)
+int VectorGraphics::CreateImage(const char* filename, int imageFlags)
 {
     ResourceCache* resourceCache = GetSubsystem<ResourceCache>();
 
@@ -341,25 +341,25 @@ int NanoVG::CreateImage(const char* filename, int imageFlags)
     }
 }
 
-int NanoVG::CreateImageMem(int imageFlags, unsigned char* data, int ndata)
+int VectorGraphics::CreateImageMem(int imageFlags, unsigned char* data, int ndata)
 {
     int id =  nvgCreateImageMem(vg_, imageFlags, data, ndata);
     imagesIDMap_[id] = "__dummyImageName__";
     return id;
 }
 
-int NanoVG::CreateImageRGBA(int w, int h, int imageFlags, const unsigned char* data)
+int VectorGraphics::CreateImageRGBA(int w, int h, int imageFlags, const unsigned char* data)
 {
     int id = nvgCreateImageRGBA(vg_, w, h, imageFlags, data);
     imagesIDMap_[id] = "__dummyImageName__";
     return id;
 }
 
-void NanoVG::UpdateImage(int image, const unsigned char* data) { nvgUpdateImage(vg_, image, data); }
+void VectorGraphics::UpdateImage(int image, const unsigned char* data) { nvgUpdateImage(vg_, image, data); }
 
-void NanoVG::ImageSize(int image, int* w, int* h) { nvgImageSize(vg_, image, w, h); }
+void VectorGraphics::ImageSize(int image, int* w, int* h) { nvgImageSize(vg_, image, w, h); }
 
-void NanoVG::DeleteImage(int image) 
+void VectorGraphics::DeleteImage(int image) 
 { 
     nvgDeleteImage(vg_, image); 
 
@@ -375,7 +375,7 @@ void NanoVG::DeleteImage(int image)
     }
 }
 
-SharedPtr<Texture2D> NanoVG::LoadSVGIntoTexture(String path)
+SharedPtr<Texture2D> VectorGraphics::LoadSVGIntoTexture(String path)
 {
 
     auto* cache = GetSubsystem<ResourceCache>();

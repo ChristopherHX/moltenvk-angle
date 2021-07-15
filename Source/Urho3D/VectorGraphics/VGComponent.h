@@ -20,66 +20,82 @@
 // THE SOFTWARE.
 //
 #pragma once
+
+#include "../Core/Object.h"
 #include "../Graphics/Graphics.h"
 #include "../Graphics/Texture2D.h"
-#include "../IO/MemoryBuffer.h"
-#include "../ThirdParty/nanovg/nanovg.h"
-#include "../UI/BorderImage.h"
+#include "../Scene/Component.h"
+
 #include "GLHeaders.h"
 #include "VGTextRowBuffer.h"
-#include "VGFrameBuffer.h"
-#include <vector>
+#include "../ThirdParty/nanovg/nanovg.h"
 
 struct NVGcontext;
 struct NVGLUframebuffer;
 
 namespace Urho3D
 {
-
-class Texture2D;
-class NanoVG;
+class Graphics;
+class VertexBuffer;
+class Cursor;
+class ResourceCache;
+class Timer;
+class UIBatch;
+class UIElement;
+class XMLElement;
+class XMLFile;
+class VectorGraphics;
 class VGTextRowBuffer;
-class VGFrameBuffer;
 
-class URHO3D_API VGElement : public BorderImage
+class URHO3D_API VGComponent : public Component
 {
-    URHO3D_OBJECT(VGElement, BorderImage);
+    URHO3D_OBJECT(VGComponent, Component);
 
 public:
-    /// Register object factory.
-    /// @nobind
     static void RegisterObject(Context* context);
-    /// Construct VGElement.
-    explicit VGElement(Context* context);
-    /// Destruct.
-    ~VGElement() override;
+    
+    VGComponent(Context* context);
+    ~VGComponent();
 
-    /// React to resize.
-    void OnResize(const IntVector2& newSize, const IntVector2& delta) override;
+    static SharedPtr<VGComponent> Create(Node* parent, String Name = "");
+    SharedPtr<VGComponent> CreateChild(String Name = "");
+    /// Return child VGComponent.
+    VGComponent* GetChild(const String& name, bool recursive = false) const;
+    void GetChildren(PODVector<VGComponent*>& dest, bool recursive = false) const;
 
-    void BeginRender();
-    void EndRender();
+    String GetName();
 
-    IntVector2 GetSize();
-    void SetClearColor(Color color);
-    Color GetClearColor();
+    void BeginDraw();
+    void EndDraw();
+        /// Set floating point position.
+    /// @property
+    void SetPosition(const Vector2& position);
+    /// Set floating point position.
+    void SetPosition(float x, float y);
+    /// Set hotspot for positioning and rotation.
+    /// @property
+    void SetHotSpot(const Vector2& hotSpot);
+    /// Set hotspot for positioning and rotation.
+    void SetHotSpot(float x, float y);
+    /// Set scale. Scale also affects child sprites.
+    /// @property
+    void SetScale(const Vector2& scale);
+    /// Set scale. Scale also affects child sprites.
+    void SetScale(float x, float y);
+    /// Set uniform scale. Scale also affects child sprites.
+    void SetScale(float scale);
+    /// Set rotation angle.
+    /// @property
+    void SetRotation(float angle);
+        /// Return hotspot.
+    /// @property
+    const Vector2& GetHotSpot() const { hotSpot_; }
 
-    // Begin drawing a new frame
-    // Calls to nanovg drawing API should be wrapped in nvgBeginFrame() & nvgEndFrame()
-    // nvgBeginFrame() defines the size of the window to render to in relation currently
-    // set viewport (i.e. glViewport on GL backends). Device pixel ration allows to
-    // control the rendering on Hi-DPI devices.
-    // For example, GLFW returns two dimension for an opened window: window size and
-    // frame buffer size. In that case you would set windowWidth/Height to the window size
-    // devicePixelRatio to: frameBufferWidth / windowWidth.
-    void BeginFrame(float windowWidth, float windowHeight, float devicePixelRatio);
+    void GetTransformPositionRotation(float xform[6]);
+    void GetTransformScale(float xform[6]);
 
-    // Cancels drawing the current frame.
-    void CancelFrame();
 
-    // Ends drawing flushing remaining render state.
-    void EndFrame();
-
+public:
     //
     // Composite operation
     //
@@ -396,7 +412,7 @@ public:
     // Sets the current sub-path winding, see NVGwinding and NVGsolidity.
     void PathWinding(int dir);
 
-    // Creates new circle arc shaped sub-path. The arc center is at cx,cy, the arc radius is r,
+        // Creates new circle arc shaped sub-path. The arc center is at cx,cy, the arc radius is r,
     // and the arc is drawn from angle a0 to a1, and swept in direction dir (NVG_CCW, or NVG_CW).
     // Angles are specified in radians.
     void Arc(float cx, float cy, float r, float a0, float a1, int dir);
@@ -416,6 +432,27 @@ public:
 
     // Creates new circle shaped sub-path.
     void Circle(float cx, float cy, float r);
+
+    // Creates new circle arc shaped sub-path. The arc center is at cx,cy, the arc radius is r,
+    // and the arc is drawn from angle a0 to a1, and swept in direction dir (NVG_CCW, or NVG_CW).
+    // Angles are specified in radians.
+    void Arc(float r, float a0, float a1, int dir);
+
+    // Creates new rectangle shaped sub-path.
+    void Rect( float w, float h);
+
+    // Creates new rounded rectangle shaped sub-path.
+    void RoundedRect( float w, float h, float r);
+
+    // Creates new rounded rectangle shaped sub-path with varying radii for each corner.
+    void RoundedRectVarying( float w, float h, float radTopLeft, float radTopRight,
+                            float radBottomRight, float radBottomLeft);
+
+    // Creates new ellipse shaped sub-path.
+    void Ellipse( float rx, float ry);
+
+    // Creates new circle shaped sub-path.
+    void Circle( float r);
 
     // Fills the current path with current fill style.
     void Fill();
@@ -507,7 +544,7 @@ public:
     void FontFace(const char* font);
 
     // Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
-    float Text(float x, float y, const char* str, const char* end);
+    float Text(float x, float y, const char* string, const char* end);
 
     // Draws multi-line text string at specified location wrapped at the specified width. If end is specified only the
     // sub-string up to the end is drawn. White space is stripped at the beginning of the rows, the text is split at
@@ -540,7 +577,7 @@ public:
     // characters are encountered. Words longer than the max width are slit at nearest character (i.e. no hyphenation).
     int TextBreakLines(const char* string, const char* end, float breakRowWidth, NVGtextRow* rows, int maxRows);
 
-    // Sets the font face based on specified name of current text style.
+// Sets the font face based on specified name of current text style.
     void FontFace(const String& font);
 
     // Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
@@ -551,7 +588,7 @@ public:
     // word boundaries or when new-line characters are encountered. Words longer than the max width are slit at nearest
     // character (i.e. no hyphenation).
     void TextBox(float x, float y, float breakRowWidth, const String& str);
-    
+
     // MemoryBuffer TextBreakLines(const String& str, float breakRowWidth) ;
     unsigned int TextBreakLines(const String& str, float breakRowWidth, VGTextRowBuffer* vgTextRowBuffer);
 
@@ -571,26 +608,14 @@ public:
     int TextGlyphPositions(float x, float y, const String& str, float* positions, int maxPositions);
 
 protected:
-    void CreateFrameBuffer(int mWidth, int mHeight);
-
-protected:
-    SharedPtr<VGFrameBuffer> VGFrameBuffer_;
-
     WeakPtr<Graphics> graphics_;
-    Urho3D::SharedPtr<Texture2D> drawTexture_;
-    IntVector2 textureSize_;
-    NVGLUframebuffer* nvgFrameBuffer_;
-    NanoVG* nanoVG_;
+    WeakPtr<VectorGraphics> nanoVG_;
     NVGcontext* vg_;
-    GLint previousVBO;
-    GLint previousFBO;
-    ShaderVariation* previousVS;
-    ShaderVariation* previousPS;
-    Color clearColor_;
+    /// Hotspot for positioning and rotation.
+    Vector2 hotSpot_;
 
 private:
-    // Handle render event.
-    void HandleRender(StringHash eventType, VariantMap& eventData);
+   
 };
 
 } // namespace Urho3D
