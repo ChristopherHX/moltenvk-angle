@@ -206,13 +206,13 @@ void VGElement::HandleRender(StringHash eventType, VariantMap& eventData)
     {
         BeginRender();
 
-        using namespace VGRender;
+        using namespace OnVGElementRender;
 
         VariantMap& eventData = GetEventDataMap();
 
         eventData[P_VGELEMENT] = this;
 
-        this->SendEvent(E_VGRENDER, eventData);
+        this->SendEvent(E_VGELEMENTRENDER, eventData);
 
         EndRender();
     }
@@ -577,20 +577,9 @@ void VGElement::FontFaceId(int font) { nvgFontFaceId(vg_, font); }
 
 // Sets the font face based on specified name of current text style.
  void VGElement::FontFace(const char* font) { nvgFontFace(vg_, font); }
- // Sets the font face based on specified name of current text style.
- void VGElement::FontFace( const String& font)
- {
-    nvgFontFace(vg_, font.CString());
- }
 
 // Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
 float VGElement::Text(float x, float y, const char* string, const char* end) { return nvgText(vg_, x, y, string, end); }
-
-// Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
-float VGElement::Text( float x, float y, const String& string)
-{
-    return nvgText(vg_, x, y, string.CString(), nullptr);
-}
 
 // Draws multi-line text string at specified location wrapped at the specified width. If end is specified only the
 // sub-string up to the end is drawn. White space is stripped at the beginning of the rows, the text is split at
@@ -599,11 +588,6 @@ float VGElement::Text( float x, float y, const String& string)
 void VGElement::TextBox(float x, float y, float breakRowWidth, const char* string, const char* end)
 {
     nvgTextBox(vg_, x, y, breakRowWidth, string, end);
-}
-
-void VGElement::TextBox( float x, float y, float breakRowWidth, const String& str)
-{
-    nvgTextBox(vg_, x, y, breakRowWidth, str.CString(), nullptr);
 }
 
 // Measures the specified text string. Parameter bounds should be a pointer to float[4],
@@ -615,12 +599,6 @@ float VGElement::TextBounds(float x, float y, const char* string, const char* en
     return nvgTextBounds(vg_, x, y, string, end, bounds);
 }
 
-float VGElement::TextBounds( float x, float y, const String& str, float* bounds)
-{
-    return nvgTextBounds(vg_, x, y, str.CString(), nullptr, bounds);
-}
-
-
 
 // Measures the specified multi-text string. Parameter bounds should be a pointer to float[4],
 // if the bounding box of the text should be returned. The bounds value are [xmin,ymin, xmax,ymax]
@@ -630,10 +608,6 @@ void VGElement::TextBoxBounds(float x, float y, float breakRowWidth, const char*
     nvgTextBoxBounds(vg_, x, y, breakRowWidth, string, end, bounds);
 }
 
-void VGElement::TextBoxBounds( float x, float y, float breakRowWidth, const String& str,float* bounds)
-{
-    nvgTextBoxBounds(vg_, x, y, breakRowWidth, str.CString(), nullptr, bounds);
-}
 
 // Calculates the glyph x positions of the specified text. If end is specified only the sub-string will be used.
 // Measured values are returned in local coordinate space.
@@ -641,6 +615,49 @@ int VGElement::TextGlyphPositions(float x, float y, const char* string, const ch
                                   int maxPositions)
 {
     return nvgTextGlyphPositions(vg_, x, y, string, end, positions, maxPositions);
+}
+
+// Returns the vertical metrics based on the current text style.
+// Measured values are returned in local coordinate space.
+void VGElement::TextMetrics(float* ascender, float* descender, float* lineh)
+{
+    nvgTextMetrics(vg_, ascender, descender, lineh);
+}
+
+// Breaks the specified text into lines. If end is specified only the sub-string will be used.
+// White space is stripped at the beginning of the rows, the text is split at word boundaries or when new-line
+// characters are encountered. Words longer than the max width are slit at nearest character (i.e. no hyphenation).
+int VGElement::TextBreakLines(const char* string, const char* end, float breakRowWidth, NVGtextRow* rows, int maxRows)
+{
+    return nvgTextBreakLines(vg_, string, end, breakRowWidth, rows, maxRows);
+}
+
+
+// Sets the font face based on specified name of current text style.
+ void VGElement::FontFace( const String& font)
+ {
+    nvgFontFace(vg_, font.CString());
+ }
+
+// Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
+float VGElement::Text( float x, float y, const String& string)
+{
+    return nvgText(vg_, x, y, string.CString(), nullptr);
+}
+
+void VGElement::TextBox( float x, float y, float breakRowWidth, const String& str)
+{
+    nvgTextBox(vg_, x, y, breakRowWidth, str.CString(), nullptr);
+}
+
+float VGElement::TextBounds( float x, float y, const String& str, float* bounds)
+{
+    return nvgTextBounds(vg_, x, y, str.CString(), nullptr, bounds);
+}
+
+void VGElement::TextBoxBounds( float x, float y, float breakRowWidth, const String& str,float* bounds)
+{
+    nvgTextBoxBounds(vg_, x, y, breakRowWidth, str.CString(), nullptr, bounds);
 }
 
 int VGElement::TextGlyphPositions( float x, float y, const String& str,
@@ -665,22 +682,6 @@ int VGElement::TextGlyphPositions( float x, float y, const String& str,
     
     return nglyphs;
 }
-
-// Returns the vertical metrics based on the current text style.
-// Measured values are returned in local coordinate space.
-void VGElement::TextMetrics(float* ascender, float* descender, float* lineh)
-{
-    nvgTextMetrics(vg_, ascender, descender, lineh);
-}
-
-// Breaks the specified text into lines. If end is specified only the sub-string will be used.
-// White space is stripped at the beginning of the rows, the text is split at word boundaries or when new-line
-// characters are encountered. Words longer than the max width are slit at nearest character (i.e. no hyphenation).
-int VGElement::TextBreakLines(const char* string, const char* end, float breakRowWidth, NVGtextRow* rows, int maxRows)
-{
-    return nvgTextBreakLines(vg_, string, end, breakRowWidth, rows, maxRows);
-}
-
 
 unsigned int VGElement::TextBreakLines(const String& str, float breakRowWidth, VGTextRowBuffer * vgTextRowBuffer)
 {

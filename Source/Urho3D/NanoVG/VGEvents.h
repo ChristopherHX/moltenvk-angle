@@ -27,12 +27,12 @@ namespace Urho3D
 {
 
 	/// Update of NanoVG rendering.
-URHO3D_EVENT(E_VGRENDER, VGRender)
+URHO3D_EVENT(E_VGELEMENTRENDER, OnVGElementRender)
 {
     URHO3D_PARAM(P_VGELEMENT, VGElement);       // VGElement Element pointer
 }
 
-URHO3D_EVENT(E_VGFBRENDER, VGFBRender)
+URHO3D_EVENT(E_VGFRAMEBUFFERRENDER, OnVGFrameBufferRender)
 {
     URHO3D_PARAM(P_VGFRAMEBUFFER, VGFrameBuffer); // VGFrameBuffer Framebuffer  pointer
 }

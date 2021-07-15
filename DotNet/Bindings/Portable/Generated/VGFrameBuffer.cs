@@ -959,6 +959,69 @@ namespace Urho
 			VGFrameBuffer_TextMetrics (handle, ascender, descender, lineh);
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void VGFrameBuffer_FontFace (IntPtr handle, string font);
+
+		public void FontFace (string font)
+		{
+			Runtime.ValidateRefCounted (this);
+			VGFrameBuffer_FontFace (handle, font);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern float VGFrameBuffer_Text (IntPtr handle, float x, float y, string str);
+
+		public float Text (float x, float y, string str)
+		{
+			Runtime.ValidateRefCounted (this);
+			return VGFrameBuffer_Text (handle, x, y, str);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void VGFrameBuffer_TextBox (IntPtr handle, float x, float y, float breakRowWidth, string str);
+
+		public void TextBox (float x, float y, float breakRowWidth, string str)
+		{
+			Runtime.ValidateRefCounted (this);
+			VGFrameBuffer_TextBox (handle, x, y, breakRowWidth, str);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern uint VGFrameBuffer_TextBreakLines (IntPtr handle, string str, float breakRowWidth, IntPtr vgTextRowBuffer);
+
+		public uint TextBreakLines (string str, float breakRowWidth, VGTextRowBuffer vgTextRowBuffer)
+		{
+			Runtime.ValidateRefCounted (this);
+			return VGFrameBuffer_TextBreakLines (handle, str, breakRowWidth, (object)vgTextRowBuffer == null ? IntPtr.Zero : vgTextRowBuffer.Handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern float VGFrameBuffer_TextBounds (IntPtr handle, float x, float y, string str, float* bounds);
+
+		public float TextBounds (float x, float y, string str, float* bounds)
+		{
+			Runtime.ValidateRefCounted (this);
+			return VGFrameBuffer_TextBounds (handle, x, y, str, bounds);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void VGFrameBuffer_TextBoxBounds (IntPtr handle, float x, float y, float breakRowWidth, string str, float* bounds);
+
+		public void TextBoxBounds (float x, float y, float breakRowWidth, string str, float* bounds)
+		{
+			Runtime.ValidateRefCounted (this);
+			VGFrameBuffer_TextBoxBounds (handle, x, y, breakRowWidth, str, bounds);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern int VGFrameBuffer_TextGlyphPositions (IntPtr handle, float x, float y, string str, float* positions, int maxPositions);
+
+		public int TextGlyphPositions (float x, float y, string str, float* positions, int maxPositions)
+		{
+			Runtime.ValidateRefCounted (this);
+			return VGFrameBuffer_TextGlyphPositions (handle, x, y, str, positions, maxPositions);
+		}
+
 		public override StringHash Type {
 			get {
 				return UrhoGetType ();

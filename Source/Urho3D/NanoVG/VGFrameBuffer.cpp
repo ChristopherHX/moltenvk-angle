@@ -201,13 +201,13 @@ void VGFrameBuffer::HandleRender(StringHash eventType, VariantMap& eventData) {
     {
         Bind();
 
-        using namespace VGFBRender;
+        using namespace OnVGFrameBufferRender;
 
         VariantMap& eventData = GetEventDataMap();
 
         eventData[P_VGFRAMEBUFFER] = this;
 
-        this->SendEvent(E_VGFBRENDER, eventData);
+        this->SendEvent(E_VGFRAMEBUFFERRENDER, eventData);
 
         UnBind();
     }
@@ -862,6 +862,104 @@ int VGFrameBuffer::TextBreakLines(const char* string, const char* end, float bre
         return nvgTextBreakLines(vg_, string, end, breakRowWidth, rows, maxRows);
     else
         return -1;
+}
+
+// Sets the font face based on specified name of current text style.
+ void VGFrameBuffer::FontFace( const String& font)
+ {
+     if (CurrenVGFrameBuffer_ == this)
+         nvgFontFace(vg_, font.CString());
+ }
+
+// Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
+float VGFrameBuffer::Text( float x, float y, const String& string)
+{
+    if (CurrenVGFrameBuffer_ == this)
+        return nvgText(vg_, x, y, string.CString(), nullptr);
+    else
+        return 0.0f;
+}
+
+void VGFrameBuffer::TextBox( float x, float y, float breakRowWidth, const String& str)
+{
+    if (CurrenVGFrameBuffer_ == this)
+        nvgTextBox(vg_, x, y, breakRowWidth, str.CString(), nullptr);
+}
+
+float VGFrameBuffer::TextBounds( float x, float y, const String& str, float* bounds)
+{
+    if (CurrenVGFrameBuffer_ == this)
+        return nvgTextBounds(vg_, x, y, str.CString(), nullptr, bounds);
+    else
+        return 0.0f;
+}
+
+void VGFrameBuffer::TextBoxBounds(float x, float y, float breakRowWidth, const String& str, float* bounds)
+{
+    if (CurrenVGFrameBuffer_ == this)
+        nvgTextBoxBounds(vg_, x, y, breakRowWidth, str.CString(), nullptr, bounds);
+}
+
+int VGFrameBuffer::TextGlyphPositions(float x, float y, const String& str, float* positions, int maxPositions)
+{
+    int nglyphs = 0;
+    if (CurrenVGFrameBuffer_ == this)
+    {
+        NVGglyphPosition* glyphs = new NVGglyphPosition[maxPositions];
+        if (glyphs != nullptr)
+        {
+            nglyphs = TextGlyphPositions(x, y, str.CString(), nullptr, glyphs, maxPositions);
+            for (int i = 0; i < nglyphs; i++)
+            {
+                positions[i * 4 + 0] = (float)(glyphs[i].str - str.CString());
+                positions[i * 4 + 1] = glyphs[i].x;
+                positions[i * 4 + 2] = glyphs[i].minx;
+                positions[i * 4 + 3] = glyphs[i].maxx;
+            }
+
+            delete[] glyphs;
+            glyphs = nullptr;
+        }
+    }
+
+    return nglyphs;
+}
+
+unsigned int VGFrameBuffer::TextBreakLines(const String& str, float breakRowWidth, VGTextRowBuffer* vgTextRowBuffer)
+{
+    if (CurrenVGFrameBuffer_ == this)
+    {
+        NVGtextRow rows[3];
+        const char* start;
+        const char* end;
+        int nrows, i, nglyphs, j, lnum = 0;
+
+        vgTextRowBuffer->Clear();
+        start = str.CString();
+        end = str.CString() + strlen(str.CString());
+        while ((nrows = TextBreakLines(start, end, breakRowWidth, rows, 3)))
+        {
+            for (i = 0; i < nrows; i++)
+            {
+                NVGtextRow* row = &rows[i];
+                VGTextRow* vgRow = new VGTextRow(context_);
+                String str(row->start, row->end - row->start);
+                str.Append('\0');
+                vgRow->SetText(str);
+                vgRow->SetMax(row->maxx);
+                vgRow->SetMin(row->minx);
+                vgRow->SetWidth(row->width);
+
+                vgTextRowBuffer->AddRow(vgRow);
+            }
+            // Keep going...
+            start = rows[nrows - 1].next;
+        }
+
+        return vgTextRowBuffer->GetSize();
+    }
+    else
+        return 0;
 }
 
 } // namespace Urho3D

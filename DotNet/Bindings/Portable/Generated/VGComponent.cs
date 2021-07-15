@@ -15,7 +15,7 @@ using Urho.Network;
 namespace Urho
 {
 	/// <summary>
-	/// Return child scene node by name.
+	/// Return child VGComponent.
 	/// </summary>
 	public unsafe partial class VGComponent : Component
 	{
@@ -117,7 +117,7 @@ namespace Urho
 		internal static extern IntPtr VGComponent_GetChild (IntPtr handle, string name, bool recursive);
 
 		/// <summary>
-		/// Return child scene node by name.
+		/// Return child VGComponent.
 		/// </summary>
 		public VGComponent GetChild (string name, bool recursive = false)
 		{
@@ -1073,6 +1073,69 @@ namespace Urho
 		{
 			Runtime.ValidateRefCounted (this);
 			VGComponent_TextMetrics (handle, ascender, descender, lineh);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void VGComponent_FontFace (IntPtr handle, string font);
+
+		public void FontFace (string font)
+		{
+			Runtime.ValidateRefCounted (this);
+			VGComponent_FontFace (handle, font);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern float VGComponent_Text (IntPtr handle, float x, float y, string str);
+
+		public float Text (float x, float y, string str)
+		{
+			Runtime.ValidateRefCounted (this);
+			return VGComponent_Text (handle, x, y, str);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void VGComponent_TextBox (IntPtr handle, float x, float y, float breakRowWidth, string str);
+
+		public void TextBox (float x, float y, float breakRowWidth, string str)
+		{
+			Runtime.ValidateRefCounted (this);
+			VGComponent_TextBox (handle, x, y, breakRowWidth, str);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern uint VGComponent_TextBreakLines (IntPtr handle, string str, float breakRowWidth, IntPtr vgTextRowBuffer);
+
+		public uint TextBreakLines (string str, float breakRowWidth, VGTextRowBuffer vgTextRowBuffer)
+		{
+			Runtime.ValidateRefCounted (this);
+			return VGComponent_TextBreakLines (handle, str, breakRowWidth, (object)vgTextRowBuffer == null ? IntPtr.Zero : vgTextRowBuffer.Handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern float VGComponent_TextBounds (IntPtr handle, float x, float y, string str, float* bounds);
+
+		public float TextBounds (float x, float y, string str, float* bounds)
+		{
+			Runtime.ValidateRefCounted (this);
+			return VGComponent_TextBounds (handle, x, y, str, bounds);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void VGComponent_TextBoxBounds (IntPtr handle, float x, float y, float breakRowWidth, string str, float* bounds);
+
+		public void TextBoxBounds (float x, float y, float breakRowWidth, string str, float* bounds)
+		{
+			Runtime.ValidateRefCounted (this);
+			VGComponent_TextBoxBounds (handle, x, y, breakRowWidth, str, bounds);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern int VGComponent_TextGlyphPositions (IntPtr handle, float x, float y, string str, float* positions, int maxPositions);
+
+		public int TextGlyphPositions (float x, float y, string str, float* positions, int maxPositions)
+		{
+			Runtime.ValidateRefCounted (this);
+			return VGComponent_TextGlyphPositions (handle, x, y, str, positions, maxPositions);
 		}
 
 		public override StringHash Type {

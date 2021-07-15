@@ -28,6 +28,7 @@
 
 
 #include "GLHeaders.h"
+#include "VGTextRowBuffer.h"
 #include "../ThirdParty/nanovg/nanovg.h"
 
 
@@ -46,6 +47,7 @@ class UIElement;
 class XMLElement;
 class XMLFile;
 class NanoVG;
+class VGTextRowBuffer;
 
 class URHO3D_API VGFrameBuffer : public Component
 {
@@ -549,6 +551,36 @@ public:
     // White space is stripped at the beginning of the rows, the text is split at word boundaries or when new-line
     // characters are encountered. Words longer than the max width are slit at nearest character (i.e. no hyphenation).
     int TextBreakLines(const char* string, const char* end, float breakRowWidth, NVGtextRow* rows, int maxRows);
+
+ // Sets the font face based on specified name of current text style.
+    void FontFace(const String& font);
+
+    // Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
+    float Text(float x, float y, const String& str);
+
+    // Draws multi-line text string at specified location wrapped at the specified width. If end is specified only the
+    // sub-string up to the end is drawn. White space is stripped at the beginning of the rows, the text is split at
+    // word boundaries or when new-line characters are encountered. Words longer than the max width are slit at nearest
+    // character (i.e. no hyphenation).
+    void TextBox(float x, float y, float breakRowWidth, const String& str);
+    
+    // MemoryBuffer TextBreakLines(const String& str, float breakRowWidth) ;
+    unsigned int TextBreakLines(const String& str, float breakRowWidth, VGTextRowBuffer* vgTextRowBuffer);
+
+    // Measures the specified text string. Parameter bounds should be a pointer to float[4],
+    // if the bounding box of the text should be returned. The bounds value are [xmin,ymin, xmax,ymax]
+    // Returns the horizontal advance of the measured text (i.e. where the next character should drawn).
+    // Measured values are returned in local coordinate space.
+    float TextBounds(float x, float y, const String& str, float* bounds);
+
+    // Measures the specified multi-text string. Parameter bounds should be a pointer to float[4],
+    // if the bounding box of the text should be returned. The bounds value are [xmin,ymin, xmax,ymax]
+    // Measured values are returned in local coordinate space.
+    void TextBoxBounds(float x, float y, float breakRowWidth, const String& str, float* bounds);
+
+    // Calculates the glyph x positions of the specified text. If end is specified only the sub-string will be used.
+    // Measured values are returned in local coordinate space.
+    int TextGlyphPositions(float x, float y, const String& str, float* positions, int maxPositions);
 
 protected:
     WeakPtr<Graphics> graphics_;

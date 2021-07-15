@@ -346,8 +346,8 @@ void NonoVG::SubscribeToEvents()
 {
     // Subscribe HandleUpdate() function for processing update events
     SubscribeToEvent(E_UPDATE, URHO3D_HANDLER(NonoVG, HandleUpdate));
-    SubscribeToEvent(E_VGRENDER, URHO3D_HANDLER(NonoVG, HandleNVGRender));
-    SubscribeToEvent(E_VGFBRENDER, URHO3D_HANDLER(NonoVG, HandleVGFBRender));
+    SubscribeToEvent(E_VGELEMENTRENDER, URHO3D_HANDLER(NonoVG, HandleNVGRender));
+    SubscribeToEvent(E_VGFRAMEBUFFERRENDER, URHO3D_HANDLER(NonoVG, HandleVGFBRender));
 }
 
 void NonoVG::HandleUpdate(StringHash eventType, VariantMap& eventData)
@@ -365,7 +365,7 @@ void NonoVG::HandleUpdate(StringHash eventType, VariantMap& eventData)
 void NonoVG::HandleNVGRender(StringHash eventType, VariantMap& eventData)
 {
   
-    using namespace VGRender;
+    using namespace OnVGElementRender;
 
     VGElement* nanoVGUIElement = static_cast<VGElement*>(eventData[P_VGELEMENT].GetPtr());
     IntVector2 size = nanoVGUIElement->GetSize();
@@ -489,7 +489,7 @@ void NonoVG::RenderVGComponents()
 
 void NonoVG::HandleVGFBRender(StringHash eventType, VariantMap& eventData) {
 
-    using namespace VGFBRender;
+    using namespace OnVGFrameBufferRender;
     VGFrameBuffer* vgFrameBuffer = static_cast<VGFrameBuffer*>(eventData[P_VGFRAMEBUFFER].GetPtr());
     IntVector2 size = vgFrameBuffer->GetSize();
    renderVGFrameBuffer(vgFrameBuffer, 0, 0, size.x_, size.y_, time_, 0, &demoData_);

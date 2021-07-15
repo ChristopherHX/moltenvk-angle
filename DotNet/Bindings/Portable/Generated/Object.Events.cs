@@ -1624,62 +1624,62 @@ namespace Urho {
 } /* namespace */
 
 namespace Urho {
-        public partial struct VGRenderEventArgs {
+        public partial struct OnVGElementRenderEventArgs {
             public EventDataContainer EventData;
             public VGElement VGElement => EventData.get_VGElement (unchecked((int)111936971) /* VGElement (P_VGELEMENT) */);
-        } /* struct VGRenderEventArgs */
+        } /* struct OnVGElementRenderEventArgs */
 
         public partial class VGElement {
-             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.VGRender += ...' instead.")]
-             public Subscription SubscribeToVGRender (Action<VGRenderEventArgs> handler)
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.OnVGElementRender += ...' instead.")]
+             public Subscription SubscribeToOnVGElementRender (Action<OnVGElementRenderEventArgs> handler)
              {
-                  Action<IntPtr> proxy = (x)=> { var d = new VGRenderEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  Action<IntPtr> proxy = (x)=> { var d = new OnVGElementRenderEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
                   var s = new Subscription (proxy);
-                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)1138972487) /* VGRender (E_VGRENDER) */);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)1412571394) /* OnVGElementRender (E_VGELEMENTRENDER) */);
                   return s;
              }
 
-             static UrhoEventAdapter<VGRenderEventArgs> eventAdapterForVGRender;
-             public event Action<VGRenderEventArgs> VGRender
+             static UrhoEventAdapter<OnVGElementRenderEventArgs> eventAdapterForOnVGElementRender;
+             public event Action<OnVGElementRenderEventArgs> OnVGElementRender
              {
                  add
                  {
-                      if (eventAdapterForVGRender == null)
-                          eventAdapterForVGRender = new UrhoEventAdapter<VGRenderEventArgs>(typeof(VGElement));
-                      eventAdapterForVGRender.AddManagedSubscriber(handle, value, SubscribeToVGRender);
+                      if (eventAdapterForOnVGElementRender == null)
+                          eventAdapterForOnVGElementRender = new UrhoEventAdapter<OnVGElementRenderEventArgs>(typeof(VGElement));
+                      eventAdapterForOnVGElementRender.AddManagedSubscriber(handle, value, SubscribeToOnVGElementRender);
                  }
-                 remove { eventAdapterForVGRender.RemoveManagedSubscriber(handle, value); }
+                 remove { eventAdapterForOnVGElementRender.RemoveManagedSubscriber(handle, value); }
              }
         } /* class VGElement */ 
 
 } /* namespace */
 
 namespace Urho {
-        public partial struct VGFBRenderEventArgs {
+        public partial struct OnVGFrameBufferRenderEventArgs {
             public EventDataContainer EventData;
             public VGFrameBuffer VGFrameBuffer => EventData.get_VGFrameBuffer (unchecked((int)3352484028) /* VGFrameBuffer (P_VGFRAMEBUFFER) */);
-        } /* struct VGFBRenderEventArgs */
+        } /* struct OnVGFrameBufferRenderEventArgs */
 
         public partial class VGFrameBuffer {
-             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.VGFBRender += ...' instead.")]
-             public Subscription SubscribeToVGFBRender (Action<VGFBRenderEventArgs> handler)
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.OnVGFrameBufferRender += ...' instead.")]
+             public Subscription SubscribeToOnVGFrameBufferRender (Action<OnVGFrameBufferRenderEventArgs> handler)
              {
-                  Action<IntPtr> proxy = (x)=> { var d = new VGFBRenderEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  Action<IntPtr> proxy = (x)=> { var d = new OnVGFrameBufferRenderEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
                   var s = new Subscription (proxy);
-                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)54167107) /* VGFBRender (E_VGFBRENDER) */);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)637041011) /* OnVGFrameBufferRender (E_VGFRAMEBUFFERRENDER) */);
                   return s;
              }
 
-             static UrhoEventAdapter<VGFBRenderEventArgs> eventAdapterForVGFBRender;
-             public event Action<VGFBRenderEventArgs> VGFBRender
+             static UrhoEventAdapter<OnVGFrameBufferRenderEventArgs> eventAdapterForOnVGFrameBufferRender;
+             public event Action<OnVGFrameBufferRenderEventArgs> OnVGFrameBufferRender
              {
                  add
                  {
-                      if (eventAdapterForVGFBRender == null)
-                          eventAdapterForVGFBRender = new UrhoEventAdapter<VGFBRenderEventArgs>(typeof(VGFrameBuffer));
-                      eventAdapterForVGFBRender.AddManagedSubscriber(handle, value, SubscribeToVGFBRender);
+                      if (eventAdapterForOnVGFrameBufferRender == null)
+                          eventAdapterForOnVGFrameBufferRender = new UrhoEventAdapter<OnVGFrameBufferRenderEventArgs>(typeof(VGFrameBuffer));
+                      eventAdapterForOnVGFrameBufferRender.AddManagedSubscriber(handle, value, SubscribeToOnVGFrameBufferRender);
                  }
-                 remove { eventAdapterForVGFBRender.RemoveManagedSubscriber(handle, value); }
+                 remove { eventAdapterForOnVGFrameBufferRender.RemoveManagedSubscriber(handle, value); }
              }
         } /* class VGFrameBuffer */ 
 

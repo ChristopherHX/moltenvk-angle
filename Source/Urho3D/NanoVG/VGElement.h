@@ -20,12 +20,13 @@
 // THE SOFTWARE.
 //
 #pragma once
-#include "GLHeaders.h"
-#include "../ThirdParty/nanovg/nanovg.h"
-#include "../UI/BorderImage.h"
 #include "../Graphics/Graphics.h"
 #include "../Graphics/Texture2D.h"
 #include "../IO/MemoryBuffer.h"
+#include "../ThirdParty/nanovg/nanovg.h"
+#include "../UI/BorderImage.h"
+#include "GLHeaders.h"
+#include "VGTextRowBuffer.h"
 #include "VGFrameBuffer.h"
 #include <vector>
 
@@ -37,200 +38,21 @@ namespace Urho3D
 
 class Texture2D;
 class NanoVG;
-
-class URHO3D_API VGTextRow : public Object
-{
-    URHO3D_OBJECT(VGTextRow, Object);
-public:
-    explicit VGTextRow(Context* context): Object(context)
-    {
-        
-    }
-    
-    explicit VGTextRow(Context* context , const String & txt , float width_ , float min_ , float max_): Object(context)
-    {
-        text = txt;
-        width = width_;
-        minx = min_;
-        maxx = max_;
-        
-    }
-    
-    /// Destruct.
-    ~VGTextRow()
-    {
-        
-    }
-    
-    const String& GetText()
-    {
-        return text;
-    }
-    
-    void SetText(const String & str)
-    {
-        text = str;
-    }
-    
-    float GetWidth()
-    {
-        return width;
-    }
-    
-    void SetWidth(float w)
-    {
-        width = w;
-    }
-    
-    float GetMin()
-    {
-        return minx;
-    }
-    
-    void SetMin(float m)
-    {
-        minx =m;
-    }
-    
-    float GetMax()
-    {
-        return maxx;
-    }
-    
-    void SetMax(float m)
-    {
-        maxx = m;
-    }
-    
-    private :
-    
-    String text;    // Pointer to the input text where the row starts.
-    float width;        // Logical width of the row.
-    float minx, maxx;    // Actual bounds of the row. Logical with and bounds can differ because of kerning and some parts over extending.
-};
-
-
-class URHO3D_API VGTextRowBuffer: public Object
-{
-    URHO3D_OBJECT(VGTextRowBuffer, Object);
-public:
-    explicit VGTextRowBuffer(Context* context): Object(context)
-    {
-        
-    }
-
-    /// Destruct.
-    ~VGTextRowBuffer()
-    {
-        for(VGTextRow * row : textRows_)
-        {
-            delete row;
-        }
-        
-        textRows_.clear();
-    }
-    
-    void Clear()
-    {
-        for(VGTextRow * row : textRows_)
-        {
-            delete row;
-        }
-        
-        textRows_.clear();
-    }
-    
-    void AddRow(VGTextRow * row)
-    {
-        textRows_.push_back(row);
-    }
-    
-    unsigned int GetSize()
-    {
-        return textRows_.size();
-    }
-    
-    // data should be allocated on the calling side
-    const String& GetRowData(int index, float * data)
-    {
-        if(index < textRows_.size())
-        {
-            data[0] = textRows_[index]->GetWidth();
-            data[1] = textRows_[index]->GetMin();
-            data[2] = textRows_[index]->GetMax();
-            return textRows_[index]->GetText();
-        }
-        else
-        {
-            return String::EMPTY;
-        }
-    }
-    
-    const String& GetRowText(int index)
-    {
-        if(index < textRows_.size())
-        {
-            return textRows_[index]->GetText();
-        }
-        else
-        {
-            return String::EMPTY;
-        }
-    }
-    
-    float GetRowMin(int index)
-    {
-        if(index < textRows_.size())
-        {
-            return textRows_[index]->GetMin();
-        }
-        else
-        {
-            return 0.0f;
-        }
-    }
-    
-    float GetRowMax(int index)
-    {
-        if(index < textRows_.size())
-        {
-            return textRows_[index]->GetMax();
-        }
-        else
-        {
-            return 0.0f;
-        }
-    }
-    
-    float GetRowWidth(int index)
-    {
-        if(index < textRows_.size())
-        {
-            return textRows_[index]->GetWidth();
-        }
-        else
-        {
-            return 0.0f;
-        }
-    }
-    
-
-    std::vector<VGTextRow *> textRows_;
-};
+class VGTextRowBuffer;
+class VGFrameBuffer;
 
 class URHO3D_API VGElement : public BorderImage
 {
     URHO3D_OBJECT(VGElement, BorderImage);
 
-  public:
-        /// Register object factory.
+public:
+    /// Register object factory.
     /// @nobind
     static void RegisterObject(Context* context);
-    /// Construct.
+    /// Construct VGElement.
     explicit VGElement(Context* context);
     /// Destruct.
     ~VGElement() override;
-
 
     /// React to resize.
     void OnResize(const IntVector2& newSize, const IntVector2& delta) override;
@@ -456,7 +278,6 @@ class URHO3D_API VGElement : public BorderImage
     float DegToRad(float deg);
     float RadToDeg(float rad);
 
-
     //
     // Images
     //
@@ -466,24 +287,24 @@ class URHO3D_API VGElement : public BorderImage
 
     // Creates image by loading it from the disk from specified file name.
     // Returns handle to the image.
-    int CreateImage( const char* filename, int imageFlags);
+    int CreateImage(const char* filename, int imageFlags);
 
     // Creates image by loading it from the specified chunk of memory.
     // Returns handle to the image.
-    int CreateImageMem( int imageFlags, unsigned char* data, int ndata);
+    int CreateImageMem(int imageFlags, unsigned char* data, int ndata);
 
     // Creates image from specified image data.
     // Returns handle to the image.
-    int CreateImageRGBA( int w, int h, int imageFlags, const unsigned char* data);
+    int CreateImageRGBA(int w, int h, int imageFlags, const unsigned char* data);
 
     // Updates image data specified by image handle.
-    void UpdateImage( int image, const unsigned char* data);
+    void UpdateImage(int image, const unsigned char* data);
 
     // Returns the dimensions of a created image.
-    void ImageSize( int image, int* w, int* h);
+    void ImageSize(int image, int* w, int* h);
 
     // Deletes created image.
-    void DeleteImage( int image);
+    void DeleteImage(int image);
 
     //
     // Paints
@@ -494,7 +315,7 @@ class URHO3D_API VGElement : public BorderImage
     // Creates and returns a linear gradient. Parameters (sx,sy)-(ex,ey) specify the start and end coordinates
     // of the linear gradient, icol specifies the start color and ocol the end color.
     // The gradient is transformed by the current transform when it is passed to nvgFillPaint() or nvgStrokePaint().
-    NVGpaint LinearGradient( float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol);
+    NVGpaint LinearGradient(float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol);
 
     // Creates and returns a box gradient. Box gradient is a feathered rounded rectangle, it is useful for rendering
     // drop shadows or highlights for boxes. Parameters (x,y) define the top-left corner of the rectangle,
@@ -502,21 +323,17 @@ class URHO3D_API VGElement : public BorderImage
     // the border of the rectangle is. Parameter icol specifies the inner color and ocol the outer color of the
     // gradient. The gradient is transformed by the current transform when it is passed to nvgFillPaint() or
     // nvgStrokePaint().
-    NVGpaint BoxGradient( float x, float y, float w, float h, float r, float f, NVGcolor icol,
-                            NVGcolor ocol);
+    NVGpaint BoxGradient(float x, float y, float w, float h, float r, float f, NVGcolor icol, NVGcolor ocol);
 
     // Creates and returns a radial gradient. Parameters (cx,cy) specify the center, inr and outr specify
     // the inner and outer radius of the gradient, icol specifies the start color and ocol the end color.
     // The gradient is transformed by the current transform when it is passed to nvgFillPaint() or nvgStrokePaint().
-    NVGpaint RadialGradient(float cx, float cy, float inr, float outr, NVGcolor icol,
-                               NVGcolor ocol);
+    NVGpaint RadialGradient(float cx, float cy, float inr, float outr, NVGcolor icol, NVGcolor ocol);
 
     // Creates and returns an image pattern. Parameters (ox,oy) specify the left-top location of the image pattern,
     // (ex,ey) the size of one image, angle rotation around the top-left corner, image is handle to the image to render.
     // The gradient is transformed by the current transform when it is passed to nvgFillPaint() or nvgStrokePaint().
-    NVGpaint ImagePattern( float ox, float oy, float ex, float ey, float angle, int image,
-                             float alpha);
-
+    NVGpaint ImagePattern(float ox, float oy, float ex, float ey, float angle, int image, float alpha);
 
     //
     // Scissoring
@@ -526,7 +343,7 @@ class URHO3D_API VGElement : public BorderImage
 
     // Sets the current scissor rectangle.
     // The scissor rectangle is transformed by the current transform.
-    void Scissor( float x, float y, float w, float h);
+    void Scissor(float x, float y, float w, float h);
 
     // Intersects current scissor rectangle with the specified rectangle.
     // The scissor rectangle is transformed by the current transform.
@@ -534,11 +351,10 @@ class URHO3D_API VGElement : public BorderImage
     // the current one, the intersection will be done between the specified
     // rectangle and the previous scissor rectangle transformed in the current
     // transform space. The resulting shape is always rectangle.
-    void IntersectScissor( float x, float y, float w, float h);
+    void IntersectScissor(float x, float y, float w, float h);
 
     // Reset and disables scissoring.
     void ResetScissor();
-
 
     // Paths
     //
@@ -560,46 +376,46 @@ class URHO3D_API VGElement : public BorderImage
     void BeginPath();
 
     // Starts new sub-path with specified point as first point.
-    void MoveTo( float x, float y);
+    void MoveTo(float x, float y);
 
     // Adds line segment from the last point in the path to the specified point.
-    void LineTo( float x, float y);
+    void LineTo(float x, float y);
 
     // Adds cubic bezier segment from last point in the path via two control points to the specified point.
-    void BezierTo( float c1x, float c1y, float c2x, float c2y, float x, float y);
+    void BezierTo(float c1x, float c1y, float c2x, float c2y, float x, float y);
 
     // Adds quadratic bezier segment from last point in the path via a control point to the specified point.
-    void QuadTo( float cx, float cy, float x, float y);
+    void QuadTo(float cx, float cy, float x, float y);
 
     // Adds an arc segment at the corner defined by the last path point, and two specified points.
-    void ArcTo( float x1, float y1, float x2, float y2, float radius);
+    void ArcTo(float x1, float y1, float x2, float y2, float radius);
 
     // Closes current sub-path with a line segment.
     void ClosePath();
 
     // Sets the current sub-path winding, see NVGwinding and NVGsolidity.
-    void PathWinding( int dir);
+    void PathWinding(int dir);
 
     // Creates new circle arc shaped sub-path. The arc center is at cx,cy, the arc radius is r,
     // and the arc is drawn from angle a0 to a1, and swept in direction dir (NVG_CCW, or NVG_CW).
     // Angles are specified in radians.
-    void Arc( float cx, float cy, float r, float a0, float a1, int dir);
+    void Arc(float cx, float cy, float r, float a0, float a1, int dir);
 
     // Creates new rectangle shaped sub-path.
-    void Rect( float x, float y, float w, float h);
+    void Rect(float x, float y, float w, float h);
 
     // Creates new rounded rectangle shaped sub-path.
-    void RoundedRect( float x, float y, float w, float h, float r);
+    void RoundedRect(float x, float y, float w, float h, float r);
 
     // Creates new rounded rectangle shaped sub-path with varying radii for each corner.
-    void RoundedRectVarying( float x, float y, float w, float h, float radTopLeft, float radTopRight,
-                               float radBottomRight, float radBottomLeft);
+    void RoundedRectVarying(float x, float y, float w, float h, float radTopLeft, float radTopRight,
+                            float radBottomRight, float radBottomLeft);
 
     // Creates new ellipse shaped sub-path.
-    void Ellipse( float cx, float cy, float rx, float ry);
+    void Ellipse(float cx, float cy, float rx, float ry);
 
     // Creates new circle shaped sub-path.
-    void Circle( float cx, float cy, float r);
+    void Circle(float cx, float cy, float r);
 
     // Fills the current path with current fill style.
     void Fill();
@@ -642,107 +458,118 @@ class URHO3D_API VGElement : public BorderImage
 
     // Creates font by loading it from the disk from specified file name.
     // Returns handle to the font.
-    int CreateFont( const char* name, const char* filename);
+    int CreateFont(const char* name, const char* filename);
 
     // fontIndex specifies which font face to load from a .ttf/.ttc file.
-    int CreateFontAtIndex( const char* name, const char* filename, const int fontIndex);
+    int CreateFontAtIndex(const char* name, const char* filename, const int fontIndex);
 
     // Creates font by loading it from the specified memory chunk.
     // Returns handle to the font.
-    int CreateFontMem( const char* name, unsigned char* data, int ndata);
+    int CreateFontMem(const char* name, unsigned char* data, int ndata);
 
     // fontIndex specifies which font face to load from a .ttf/.ttc file.
-    int CreateFontMemAtIndex( const char* name, unsigned char* data, int ndata,
-                                const int fontIndex);
+    int CreateFontMemAtIndex(const char* name, unsigned char* data, int ndata, const int fontIndex);
 
     // Finds a loaded font of specified name, and returns handle to it, or -1 if the font is not found.
-    int FindFont( const char* name);
+    int FindFont(const char* name);
 
     // Adds a fallback font by handle.
-    int AddFallbackFontId( int baseFont, int fallbackFont);
+    int AddFallbackFontId(int baseFont, int fallbackFont);
 
     // Adds a fallback font by name.
-    int AddFallbackFont( const char* baseFont, const char* fallbackFont);
+    int AddFallbackFont(const char* baseFont, const char* fallbackFont);
 
     // Resets fallback fonts by handle.
-    void ResetFallbackFontsId( int baseFont);
+    void ResetFallbackFontsId(int baseFont);
 
     // Resets fallback fonts by name.
-    void ResetFallbackFonts( const char* baseFont);
+    void ResetFallbackFonts(const char* baseFont);
 
     // Sets the font size of current text style.
-    void FontSize( float size);
+    void FontSize(float size);
 
     // Sets the blur of current text style.
-    void FontBlur( float blur);
+    void FontBlur(float blur);
 
     // Sets the letter spacing of current text style.
-    void TextLetterSpacing( float spacing);
+    void TextLetterSpacing(float spacing);
 
     // Sets the proportional line height of current text style. The line height is specified as multiple of font size.
-    void TextLineHeight( float lineHeight);
+    void TextLineHeight(float lineHeight);
 
     // Sets the text align of current text style, see NVGalign for options.
-    void TextAlign( int align);
+    void TextAlign(int align);
 
     // Sets the font face based on specified id of current text style.
-    void FontFaceId( int font);
+    void FontFaceId(int font);
 
     // Sets the font face based on specified name of current text style.
-    void FontFace( const char* font);
-
-    // Sets the font face based on specified name of current text style.
-    void FontFace( const String& font);
+    void FontFace(const char* font);
 
     // Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
-    float Text( float x, float y, const char* str, const char* end);
-
-    // Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
-    float Text( float x, float y, const String& str);
+    float Text(float x, float y, const char* str, const char* end);
 
     // Draws multi-line text string at specified location wrapped at the specified width. If end is specified only the
     // sub-string up to the end is drawn. White space is stripped at the beginning of the rows, the text is split at
     // word boundaries or when new-line characters are encountered. Words longer than the max width are slit at nearest
     // character (i.e. no hyphenation).
-    void TextBox( float x, float y, float breakRowWidth, const char* string, const char* end);
-    
-    void TextBox( float x, float y, float breakRowWidth, const String& str);
+    void TextBox(float x, float y, float breakRowWidth, const char* string, const char* end);
 
     // Measures the specified text string. Parameter bounds should be a pointer to float[4],
     // if the bounding box of the text should be returned. The bounds value are [xmin,ymin, xmax,ymax]
     // Returns the horizontal advance of the measured text (i.e. where the next character should drawn).
     // Measured values are returned in local coordinate space.
-    float TextBounds( float x, float y, const char* string, const char* end, float* bounds);
-    
-    float TextBounds( float x, float y, const String& str, float* bounds);
+    float TextBounds(float x, float y, const char* string, const char* end, float* bounds);
 
     // Measures the specified multi-text string. Parameter bounds should be a pointer to float[4],
     // if the bounding box of the text should be returned. The bounds value are [xmin,ymin, xmax,ymax]
     // Measured values are returned in local coordinate space.
-    void TextBoxBounds( float x, float y, float breakRowWidth, const char* string, const char* end,
-                          float* bounds);
-    
-    void TextBoxBounds( float x, float y, float breakRowWidth, const String& str,float* bounds);
+    void TextBoxBounds(float x, float y, float breakRowWidth, const char* string, const char* end, float* bounds);
 
     // Calculates the glyph x positions of the specified text. If end is specified only the sub-string will be used.
     // Measured values are returned in local coordinate space.
-    int TextGlyphPositions( float x, float y, const char* string, const char* end,
-                              NVGglyphPosition* positions, int maxPositions);
+    int TextGlyphPositions(float x, float y, const char* string, const char* end, NVGglyphPosition* positions,
+                           int maxPositions);
 
-    int TextGlyphPositions( float x, float y, const String& str,
-                              float* positions, int maxPositions);
     // Returns the vertical metrics based on the current text style.
     // Measured values are returned in local coordinate space.
-    void TextMetrics( float* ascender, float* descender, float* lineh);
+    void TextMetrics(float* ascender, float* descender, float* lineh);
 
     // Breaks the specified text into lines. If end is specified only the sub-string will be used.
     // White space is stripped at the beginning of the rows, the text is split at word boundaries or when new-line
     // characters are encountered. Words longer than the max width are slit at nearest character (i.e. no hyphenation).
-    int TextBreakLines( const char* string, const char* end, float breakRowWidth, NVGtextRow* rows,
-                          int maxRows);
+    int TextBreakLines(const char* string, const char* end, float breakRowWidth, NVGtextRow* rows, int maxRows);
+
+    // Sets the font face based on specified name of current text style.
+    void FontFace(const String& font);
+
+    // Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
+    float Text(float x, float y, const String& str);
+
+    // Draws multi-line text string at specified location wrapped at the specified width. If end is specified only the
+    // sub-string up to the end is drawn. White space is stripped at the beginning of the rows, the text is split at
+    // word boundaries or when new-line characters are encountered. Words longer than the max width are slit at nearest
+    // character (i.e. no hyphenation).
+    void TextBox(float x, float y, float breakRowWidth, const String& str);
     
-   // MemoryBuffer TextBreakLines(const String& str, float breakRowWidth) ;
-    unsigned int TextBreakLines(const String& str, float breakRowWidth, VGTextRowBuffer * vgTextRowBuffer) ;
+    // MemoryBuffer TextBreakLines(const String& str, float breakRowWidth) ;
+    unsigned int TextBreakLines(const String& str, float breakRowWidth, VGTextRowBuffer* vgTextRowBuffer);
+
+    // Measures the specified text string. Parameter bounds should be a pointer to float[4],
+    // if the bounding box of the text should be returned. The bounds value are [xmin,ymin, xmax,ymax]
+    // Returns the horizontal advance of the measured text (i.e. where the next character should drawn).
+    // Measured values are returned in local coordinate space.
+    float TextBounds(float x, float y, const String& str, float* bounds);
+
+    // Measures the specified multi-text string. Parameter bounds should be a pointer to float[4],
+    // if the bounding box of the text should be returned. The bounds value are [xmin,ymin, xmax,ymax]
+    // Measured values are returned in local coordinate space.
+    void TextBoxBounds(float x, float y, float breakRowWidth, const String& str, float* bounds);
+
+    // Calculates the glyph x positions of the specified text. If end is specified only the sub-string will be used.
+    // Measured values are returned in local coordinate space.
+    int TextGlyphPositions(float x, float y, const String& str, float* positions, int maxPositions);
+
 protected:
     void CreateFrameBuffer(int mWidth, int mHeight);
 

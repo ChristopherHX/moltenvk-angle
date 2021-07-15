@@ -913,6 +913,15 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void VGElement_TextMetrics (IntPtr handle, float* ascender, float* descender, float* lineh);
+
+		public void TextMetrics (float* ascender, float* descender, float* lineh)
+		{
+			Runtime.ValidateRefCounted (this);
+			VGElement_TextMetrics (handle, ascender, descender, lineh);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void VGElement_FontFace (IntPtr handle, string font);
 
 		public void FontFace (string font)
@@ -940,6 +949,15 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern uint VGElement_TextBreakLines (IntPtr handle, string str, float breakRowWidth, IntPtr vgTextRowBuffer);
+
+		public uint TextBreakLines (string str, float breakRowWidth, VGTextRowBuffer vgTextRowBuffer)
+		{
+			Runtime.ValidateRefCounted (this);
+			return VGElement_TextBreakLines (handle, str, breakRowWidth, (object)vgTextRowBuffer == null ? IntPtr.Zero : vgTextRowBuffer.Handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern float VGElement_TextBounds (IntPtr handle, float x, float y, string str, float* bounds);
 
 		public float TextBounds (float x, float y, string str, float* bounds)
@@ -964,24 +982,6 @@ namespace Urho
 		{
 			Runtime.ValidateRefCounted (this);
 			return VGElement_TextGlyphPositions (handle, x, y, str, positions, maxPositions);
-		}
-
-		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void VGElement_TextMetrics (IntPtr handle, float* ascender, float* descender, float* lineh);
-
-		public void TextMetrics (float* ascender, float* descender, float* lineh)
-		{
-			Runtime.ValidateRefCounted (this);
-			VGElement_TextMetrics (handle, ascender, descender, lineh);
-		}
-
-		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern uint VGElement_TextBreakLines (IntPtr handle, string str, float breakRowWidth, IntPtr vgTextRowBuffer);
-
-		public uint TextBreakLines (string str, float breakRowWidth, VGTextRowBuffer vgTextRowBuffer)
-		{
-			Runtime.ValidateRefCounted (this);
-			return VGElement_TextBreakLines (handle, str, breakRowWidth, (object)vgTextRowBuffer == null ? IntPtr.Zero : vgTextRowBuffer.Handle);
 		}
 
 		public override StringHash Type {

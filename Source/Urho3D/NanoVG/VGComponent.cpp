@@ -531,4 +531,89 @@ int VGComponent::TextBreakLines(const char* string, const char* end, float break
     return nvgTextBreakLines(vg_, string, end, breakRowWidth, rows, maxRows);
 }
 
+
+// Sets the font face based on specified name of current text style.
+ void VGComponent::FontFace( const String& font)
+ {
+    nvgFontFace(vg_, font.CString());
+ }
+
+// Draws text string at specified location. If end is specified only the sub-string up to the end is drawn.
+float VGComponent::Text( float x, float y, const String& string)
+{
+    return nvgText(vg_, x, y, string.CString(), nullptr);
+}
+
+void VGComponent::TextBox( float x, float y, float breakRowWidth, const String& str)
+{
+    nvgTextBox(vg_, x, y, breakRowWidth, str.CString(), nullptr);
+}
+
+float VGComponent::TextBounds( float x, float y, const String& str, float* bounds)
+{
+    return nvgTextBounds(vg_, x, y, str.CString(), nullptr, bounds);
+}
+
+void VGComponent::TextBoxBounds( float x, float y, float breakRowWidth, const String& str,float* bounds)
+{
+    nvgTextBoxBounds(vg_, x, y, breakRowWidth, str.CString(), nullptr, bounds);
+}
+
+int VGComponent::TextGlyphPositions( float x, float y, const String& str,
+                          float* positions, int maxPositions)
+{
+    int nglyphs = 0;
+    NVGglyphPosition  * glyphs = new NVGglyphPosition[maxPositions];
+    if(glyphs != nullptr)
+    {
+        nglyphs = TextGlyphPositions(x, y, str.CString(), nullptr, glyphs, maxPositions);
+        for(int i = 0 ; i < nglyphs ; i++)
+        {
+            positions[i*4+0] = (float)(glyphs[i].str - str.CString());
+            positions[i*4+1] = glyphs[i].x;
+            positions[i*4+2] = glyphs[i].minx;
+            positions[i*4+3] = glyphs[i].maxx;
+        }
+        
+        delete [] glyphs;
+        glyphs = nullptr;
+    }
+    
+    return nglyphs;
+}
+
+unsigned int VGComponent::TextBreakLines(const String& str, float breakRowWidth, VGTextRowBuffer * vgTextRowBuffer)
+{
+    NVGtextRow rows[3];
+    const char* start;
+    const char* end;
+    int nrows, i, nglyphs, j, lnum = 0;
+    
+    vgTextRowBuffer->Clear();
+    start = str.CString();
+    end = str.CString() + strlen(str.CString());
+    while ((nrows = TextBreakLines(start, end, breakRowWidth, rows, 3)))
+    {
+        for (i = 0; i < nrows; i++)
+        {
+            NVGtextRow* row = &rows[i];
+            VGTextRow * vgRow = new VGTextRow(context_);
+            String str(row->start,row->end - row->start);
+            str.Append('\0');
+            vgRow->SetText(str);
+            vgRow->SetMax(row->maxx);
+            vgRow->SetMin(row->minx);
+            vgRow->SetWidth(row->width);
+            
+            
+            vgTextRowBuffer->AddRow(vgRow);
+        
+        }
+        // Keep going...
+        start = rows[nrows - 1].next;
+    }
+    
+    return vgTextRowBuffer->GetSize();
+}
+
 } // namespace Urho3D
