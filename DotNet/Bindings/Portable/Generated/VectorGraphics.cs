@@ -225,6 +225,42 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern int VectorGraphics_LoadSVGImage (IntPtr handle, string filename, float width, float height, int imageFlags);
+
+		public int LoadSVGImage (string filename, float width, float height, int imageFlags)
+		{
+			Runtime.ValidateRefCounted (this);
+			return VectorGraphics_LoadSVGImage (handle, filename, width, height, imageFlags);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern float VectorGraphics_GetSVGHeight (IntPtr handle, string filename);
+
+		public float GetSVGHeight (string filename)
+		{
+			Runtime.ValidateRefCounted (this);
+			return VectorGraphics_GetSVGHeight (handle, filename);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern float VectorGraphics_GetSVGWidth (IntPtr handle, string filename);
+
+		public float GetSVGWidth (string filename)
+		{
+			Runtime.ValidateRefCounted (this);
+			return VectorGraphics_GetSVGWidth (handle, filename);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void VectorGraphics_GetSVGSize (IntPtr handle, string filename, float* height, float* width);
+
+		public void GetSVGSize (string filename, float* height, float* width)
+		{
+			Runtime.ValidateRefCounted (this);
+			VectorGraphics_GetSVGSize (handle, filename, height, width);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern int VectorGraphics_CreateImageRGBA (IntPtr handle, int w, int h, int imageFlags, byte* data);
 
 		public int CreateImageRGBA (int w, int h, int imageFlags, byte* data)

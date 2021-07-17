@@ -176,7 +176,12 @@ public:
     // Creates image by loading it from the specified chunk of memory.
     // Returns handle to the image.
     int CreateImageMem(int imageFlags, unsigned char* data, int ndata);
-
+        
+    int LoadSVGImage(const String& filename,float width,float height, int imageFlags);
+        
+    float GetSVGHeight(const String& filename);
+    float GetSVGWidth(const String& filename);
+    void GetSVGSize(const String& filename , float * height, float * width);
     // Creates image from specified image data.
     // Returns handle to the image.
     int CreateImageRGBA(int w, int h, int imageFlags, const unsigned char* data);

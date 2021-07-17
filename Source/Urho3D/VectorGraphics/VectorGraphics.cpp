@@ -341,6 +341,222 @@ int VectorGraphics::CreateImage(const char* filename, int imageFlags)
     }
 }
 
+int VectorGraphics::LoadSVGImage(const String& filename ,float width,float height, int imageFlags)
+{
+    ResourceCache* resourceCache = GetSubsystem<ResourceCache>();
+
+    int imageID = -1;
+    
+    HashMap<String, int>::ConstIterator i = imagesMap_.Find(filename);
+    if (i != imagesMap_.End())
+        return i->second_;
+
+    String fileExtention = GetExtension(filename);
+
+    Urho3D::SharedPtr<Urho3D::File> imageFile = resourceCache->GetFile(filename);
+    if (fileExtention == ".svg" && imageFile != NULL)
+    {
+
+        uint8_t* buffer = (uint8_t*)malloc(imageFile->GetSize() + 1);
+
+        if (buffer != nullptr)
+        {
+
+            auto bytesLen = imageFile->Read(buffer, imageFile->GetSize());
+
+            NSVGimage* image = NULL;
+            NSVGrasterizer* rast = NULL;
+            int w, h;
+            buffer[imageFile->GetSize()] = '\0';
+
+            rast = nsvgCreateRasterizer();
+            if (rast != nullptr)
+            {
+
+                rast->tessTol = 1.0f;
+                rast->distTol = 1.0f;
+
+                image = nsvgParse((char*)buffer,"px", 400);
+                if (image != NULL)
+                {
+                    
+                    w = image->width;
+                    h = image->height;
+                    
+                    if(width > 0)
+                    {
+                        w = width;
+                    }
+                    
+                    if(height > 0 )
+                    {
+                        h = height;
+                    }
+                  
+                    
+                    float svgScaleHeightOnWidth = image->height /image->width;
+                    float ScaleHeightOnWidth = h /(float)w;
+                    float svgScale = w/image->width;
+                    h = h * svgScaleHeightOnWidth / ScaleHeightOnWidth;
+       
+                    unsigned char* out_buffer = (unsigned char*)malloc(w * h * 4);
+
+                    if (out_buffer != NULL)
+                    {
+                        nsvgRasterize(rast, image, 0, 0, svgScale, out_buffer, w, h, w * 4);
+                        imageID = nvgCreateImageRGBA(vg_, w, h, imageFlags, out_buffer);
+                        imagesMap_[filename] = imageID;
+                        imagesIDMap_[imageID] = filename;
+                        free(out_buffer);
+                    }
+                    nsvgDelete(image);
+                }
+                nsvgDeleteRasterizer(rast);
+            }
+
+            free(buffer);
+            return imageID;
+        }
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+
+float VectorGraphics::GetSVGHeight(const String& filename)
+{
+    ResourceCache* resourceCache = GetSubsystem<ResourceCache>();
+    String fileExtention = GetExtension(filename);
+    
+    float height = 0.0f;
+    Urho3D::SharedPtr<Urho3D::File> imageFile = resourceCache->GetFile(filename);
+    if (fileExtention == ".svg" && imageFile != NULL)
+    {
+        uint8_t* buffer = (uint8_t*)malloc(imageFile->GetSize() + 1);
+
+        if (buffer != nullptr)
+        {
+
+            auto bytesLen = imageFile->Read(buffer, imageFile->GetSize());
+
+            NSVGimage* image = NULL;
+            NSVGrasterizer* rast = NULL;
+            int w, h;
+            buffer[imageFile->GetSize()] = '\0';
+
+            rast = nsvgCreateRasterizer();
+            if (rast != nullptr)
+            {
+
+                rast->tessTol = 1.0f;
+                rast->distTol = 1.0f;
+
+                image = nsvgParse((char*)buffer, "px", 400);
+                if (image != NULL)
+                {
+                    height=  image->height;
+                    
+                    nsvgDelete(image);
+                }
+                nsvgDeleteRasterizer(rast);
+            }
+            free(buffer);
+        }
+    }
+ 
+    return height;
+}
+
+float VectorGraphics::GetSVGWidth(const String& filename)
+{
+    ResourceCache* resourceCache = GetSubsystem<ResourceCache>();
+    String fileExtention = GetExtension(filename);
+    
+    float width = 0.0f;
+    Urho3D::SharedPtr<Urho3D::File> imageFile = resourceCache->GetFile(filename);
+    if (fileExtention == ".svg" && imageFile != NULL)
+    {
+        uint8_t* buffer = (uint8_t*)malloc(imageFile->GetSize() + 1);
+
+        if (buffer != nullptr)
+        {
+
+            auto bytesLen = imageFile->Read(buffer, imageFile->GetSize());
+
+            NSVGimage* image = NULL;
+            NSVGrasterizer* rast = NULL;
+            int w, h;
+            buffer[imageFile->GetSize()] = '\0';
+
+            rast = nsvgCreateRasterizer();
+            if (rast != nullptr)
+            {
+
+                rast->tessTol = 1.0f;
+                rast->distTol = 1.0f;
+
+                image = nsvgParse((char*)buffer, "px", 400);
+                if (image != NULL)
+                {
+                    width=  image->width;
+                    
+                    nsvgDelete(image);
+                }
+                nsvgDeleteRasterizer(rast);
+            }
+            free(buffer);
+        }
+    }
+ 
+    return width;
+}
+
+void VectorGraphics::GetSVGSize(const String& filename , float * height, float * width)
+{
+    ResourceCache* resourceCache = GetSubsystem<ResourceCache>();
+    String fileExtention = GetExtension(filename);
+    
+    Urho3D::SharedPtr<Urho3D::File> imageFile = resourceCache->GetFile(filename);
+    if (fileExtention == ".svg" && imageFile != NULL)
+    {
+        uint8_t* buffer = (uint8_t*)malloc(imageFile->GetSize() + 1);
+
+        if (buffer != nullptr)
+        {
+
+            auto bytesLen = imageFile->Read(buffer, imageFile->GetSize());
+
+            NSVGimage* image = NULL;
+            NSVGrasterizer* rast = NULL;
+            int w, h;
+            buffer[imageFile->GetSize()] = '\0';
+
+            rast = nsvgCreateRasterizer();
+            if (rast != nullptr)
+            {
+
+                rast->tessTol = 1.0f;
+                rast->distTol = 1.0f;
+
+                image = nsvgParse((char*)buffer, "px", 400);
+                if (image != NULL)
+                {
+                    if(width != nullptr)
+                        *width=  image->width;
+                    if(height != nullptr)
+                        *height = image->height;
+                    nsvgDelete(image);
+                }
+                nsvgDeleteRasterizer(rast);
+            }
+            free(buffer);
+        }
+    }
+}
+
+
 int VectorGraphics::CreateImageMem(int imageFlags, unsigned char* data, int ndata)
 {
     int id =  nvgCreateImageMem(vg_, imageFlags, data, ndata);

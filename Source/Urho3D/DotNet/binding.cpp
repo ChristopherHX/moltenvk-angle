@@ -42086,6 +42086,34 @@ VectorGraphics_CreateImageMem (Urho3D::VectorGraphics *_target, int imageFlags, 
 
 
 DllExport int
+VectorGraphics_LoadSVGImage (Urho3D::VectorGraphics *_target, const char * filename, float width, float height, int imageFlags)
+{
+	return _target->LoadSVGImage (Urho3D::String(filename), width, height, imageFlags);
+}
+
+
+DllExport float
+VectorGraphics_GetSVGHeight (Urho3D::VectorGraphics *_target, const char * filename)
+{
+	return _target->GetSVGHeight (Urho3D::String(filename));
+}
+
+
+DllExport float
+VectorGraphics_GetSVGWidth (Urho3D::VectorGraphics *_target, const char * filename)
+{
+	return _target->GetSVGWidth (Urho3D::String(filename));
+}
+
+
+DllExport void
+VectorGraphics_GetSVGSize (Urho3D::VectorGraphics *_target, const char * filename, float * height, float * width)
+{
+	_target->GetSVGSize (Urho3D::String(filename), height, width);
+}
+
+
+DllExport int
 VectorGraphics_CreateImageRGBA (Urho3D::VectorGraphics *_target, int w, int h, int imageFlags, const unsigned char * data)
 {
 	return _target->CreateImageRGBA (w, h, imageFlags, data);
