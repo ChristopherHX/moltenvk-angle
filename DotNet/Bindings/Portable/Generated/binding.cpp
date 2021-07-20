@@ -40383,6 +40383,13 @@ VGElement_VGElement (Urho3D::Context * context)
 }
 
 
+DllExport Urho3D::Texture2D *
+VGElement_GetRenderTarget (Urho3D::VGElement *_target)
+{
+	return _target->GetRenderTarget ();
+}
+
+
 DllExport void
 VGElement_OnResize (Urho3D::VGElement *_target, const class Urho3D::IntVector2 & newSize, const class Urho3D::IntVector2 & delta)
 {

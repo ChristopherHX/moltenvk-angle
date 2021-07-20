@@ -339,6 +339,8 @@ int VectorGraphics::CreateImage(const char* filename, int imageFlags)
     {
         return -1;
     }
+
+    return -1;
 }
 
 int VectorGraphics::LoadSVGImage(const String& filename ,float width,float height, int imageFlags)
@@ -422,6 +424,8 @@ int VectorGraphics::LoadSVGImage(const String& filename ,float width,float heigh
     {
         return -1;
     }
+
+    return -1;
 }
 
 

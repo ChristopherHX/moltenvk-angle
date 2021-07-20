@@ -100,6 +100,15 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern IntPtr VGElement_GetRenderTarget (IntPtr handle);
+
+		private Texture2D GetRenderTarget ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return Runtime.LookupObject<Texture2D> (VGElement_GetRenderTarget (handle));
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void VGElement_OnResize (IntPtr handle, ref Urho.IntVector2 newSize, ref Urho.IntVector2 delta);
 
 		/// <summary>
@@ -1006,6 +1015,12 @@ namespace Urho
 		public new static string TypeNameStatic {
 			get {
 				return GetTypeNameStatic ();
+			}
+		}
+
+		public Texture2D RenderTarget {
+			get {
+				return GetRenderTarget ();
 			}
 		}
 

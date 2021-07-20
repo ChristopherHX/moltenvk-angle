@@ -3707,7 +3707,7 @@ namespace Urho.Gui {
             public int Qualifiers => EventData.get_int (unchecked((int)719575593) /* Qualifiers (P_QUALIFIERS) */);
         } /* struct UIMouseClickEventArgs */
 
-        public partial class UI {
+        public partial class UIElement {
              [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.UIMouseClick += ...' instead.")]
              public Subscription SubscribeToUIMouseClick (Action<UIMouseClickEventArgs> handler)
              {
@@ -3723,12 +3723,12 @@ namespace Urho.Gui {
                  add
                  {
                       if (eventAdapterForUIMouseClick == null)
-                          eventAdapterForUIMouseClick = new UrhoEventAdapter<UIMouseClickEventArgs>(typeof(UI));
+                          eventAdapterForUIMouseClick = new UrhoEventAdapter<UIMouseClickEventArgs>(typeof(UIElement));
                       eventAdapterForUIMouseClick.AddManagedSubscriber(handle, value, SubscribeToUIMouseClick);
                  }
                  remove { eventAdapterForUIMouseClick.RemoveManagedSubscriber(handle, value); }
              }
-        } /* class UI */ 
+        } /* class UIElement */ 
 
 } /* namespace */
 
@@ -3744,7 +3744,7 @@ namespace Urho.Gui {
             public int Qualifiers => EventData.get_int (unchecked((int)719575593) /* Qualifiers (P_QUALIFIERS) */);
         } /* struct UIMouseClickEndEventArgs */
 
-        public partial class UI {
+        public partial class UIElement {
              [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.UIMouseClickEnd += ...' instead.")]
              public Subscription SubscribeToUIMouseClickEnd (Action<UIMouseClickEndEventArgs> handler)
              {
@@ -3760,12 +3760,12 @@ namespace Urho.Gui {
                  add
                  {
                       if (eventAdapterForUIMouseClickEnd == null)
-                          eventAdapterForUIMouseClickEnd = new UrhoEventAdapter<UIMouseClickEndEventArgs>(typeof(UI));
+                          eventAdapterForUIMouseClickEnd = new UrhoEventAdapter<UIMouseClickEndEventArgs>(typeof(UIElement));
                       eventAdapterForUIMouseClickEnd.AddManagedSubscriber(handle, value, SubscribeToUIMouseClickEnd);
                  }
                  remove { eventAdapterForUIMouseClickEnd.RemoveManagedSubscriber(handle, value); }
              }
-        } /* class UI */ 
+        } /* class UIElement */ 
 
 } /* namespace */
 
@@ -3795,6 +3795,29 @@ namespace Urho {
             public int Qualifiers => EventData.get_int (unchecked((int)719575593) /* Qualifiers (P_QUALIFIERS) */);
         } /* struct ClickEventArgs */
 
+        public partial class UIElement {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.Click += ...' instead.")]
+             public Subscription SubscribeToClick (Action<ClickEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new ClickEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)2614387336) /* Click (E_CLICK) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<ClickEventArgs> eventAdapterForClick;
+             public event Action<ClickEventArgs> Click
+             {
+                 add
+                 {
+                      if (eventAdapterForClick == null)
+                          eventAdapterForClick = new UrhoEventAdapter<ClickEventArgs>(typeof(UIElement));
+                      eventAdapterForClick.AddManagedSubscriber(handle, value, SubscribeToClick);
+                 }
+                 remove { eventAdapterForClick.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class UIElement */ 
+
 } /* namespace */
 
 namespace Urho {
@@ -3808,6 +3831,29 @@ namespace Urho {
             public int Buttons => EventData.get_int (unchecked((int)1822582401) /* Buttons (P_BUTTONS) */);
             public int Qualifiers => EventData.get_int (unchecked((int)719575593) /* Qualifiers (P_QUALIFIERS) */);
         } /* struct ClickEndEventArgs */
+
+        public partial class UIElement {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.ClickEnd += ...' instead.")]
+             public Subscription SubscribeToClickEnd (Action<ClickEndEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new ClickEndEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)4179381427) /* ClickEnd (E_CLICKEND) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<ClickEndEventArgs> eventAdapterForClickEnd;
+             public event Action<ClickEndEventArgs> ClickEnd
+             {
+                 add
+                 {
+                      if (eventAdapterForClickEnd == null)
+                          eventAdapterForClickEnd = new UrhoEventAdapter<ClickEndEventArgs>(typeof(UIElement));
+                      eventAdapterForClickEnd.AddManagedSubscriber(handle, value, SubscribeToClickEnd);
+                 }
+                 remove { eventAdapterForClickEnd.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class UIElement */ 
 
 } /* namespace */
 
@@ -3823,6 +3869,29 @@ namespace Urho {
             public int Buttons => EventData.get_int (unchecked((int)1822582401) /* Buttons (P_BUTTONS) */);
             public int Qualifiers => EventData.get_int (unchecked((int)719575593) /* Qualifiers (P_QUALIFIERS) */);
         } /* struct DoubleClickEventArgs */
+
+        public partial class UIElement {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.DoubleClick += ...' instead.")]
+             public Subscription SubscribeToDoubleClick (Action<DoubleClickEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new DoubleClickEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)3258060791) /* DoubleClick (E_DOUBLECLICK) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<DoubleClickEventArgs> eventAdapterForDoubleClick;
+             public event Action<DoubleClickEventArgs> DoubleClick
+             {
+                 add
+                 {
+                      if (eventAdapterForDoubleClick == null)
+                          eventAdapterForDoubleClick = new UrhoEventAdapter<DoubleClickEventArgs>(typeof(UIElement));
+                      eventAdapterForDoubleClick.AddManagedSubscriber(handle, value, SubscribeToDoubleClick);
+                 }
+                 remove { eventAdapterForDoubleClick.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class UIElement */ 
 
 } /* namespace */
 

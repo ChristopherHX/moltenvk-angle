@@ -58,6 +58,8 @@ public:
     /// Destruct.
     ~VGElement() override;
 
+    Texture2D* GetRenderTarget();
+
     /// React to resize.
     void OnResize(const IntVector2& newSize, const IntVector2& delta) override;
 

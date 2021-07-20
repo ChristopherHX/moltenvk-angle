@@ -229,6 +229,17 @@ void VGElement::OnResize(const IntVector2& newSize, const IntVector2& delta)
     
 }
 
+Texture2D* VGElement::GetRenderTarget()
+{
+    if(VGFrameBuffer_ != nullptr)
+    {
+        return VGFrameBuffer_->GetRenderTarget();
+    }
+    else{
+        return nullptr;
+    }
+}
+
 void VGElement::CreateFrameBuffer(int width, int height)
 {
 
