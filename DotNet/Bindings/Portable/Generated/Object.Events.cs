@@ -3784,7 +3784,7 @@ namespace Urho.Gui {
 
 } /* namespace */
 
-namespace Urho {
+namespace Urho.Gui {
         public partial struct ClickEventArgs {
             public EventDataContainer EventData;
             public UIElement Element => EventData.get_UIElement (unchecked((int)3793610108) /* Element (P_ELEMENT) */);
@@ -3820,7 +3820,7 @@ namespace Urho {
 
 } /* namespace */
 
-namespace Urho {
+namespace Urho.Gui {
         public partial struct ClickEndEventArgs {
             public EventDataContainer EventData;
             public UIElement Element => EventData.get_UIElement (unchecked((int)3793610108) /* Element (P_ELEMENT) */);
@@ -3857,7 +3857,7 @@ namespace Urho {
 
 } /* namespace */
 
-namespace Urho {
+namespace Urho.Gui {
         public partial struct DoubleClickEventArgs {
             public EventDataContainer EventData;
             public UIElement Element => EventData.get_UIElement (unchecked((int)3793610108) /* Element (P_ELEMENT) */);
