@@ -28,7 +28,9 @@
 #include "../UI/UI.h"
 #include "../UI/UIEvents.h"
 
-
+#if defined(URHO3D_DOTNET)
+#include "../DotNet/Mono.h"
+#endif
 
 #include "VectorGraphics.h"
 #include "VGElement.h"
@@ -213,7 +215,9 @@ void VGElement::HandleRender(StringHash eventType, VariantMap& eventData)
         eventData[P_VGELEMENT] = this;
 
         this->SendEvent(E_VGELEMENTRENDER, eventData);
-
+#if defined(URHO3D_DOTNET)
+        Mono::Callback(VGElement_Render, this);
+#endif
         EndRender();
     }
 }

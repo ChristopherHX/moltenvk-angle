@@ -110,5 +110,10 @@ namespace Urho.Gui {
 		{
 			return CreateChild<ToolTip> (ToolTip.TypeStatic, name, index);
 		}
+
+		public virtual void OnVGRenderUpdate(float timeStep)
+		{
+
+		}
 	}
 }

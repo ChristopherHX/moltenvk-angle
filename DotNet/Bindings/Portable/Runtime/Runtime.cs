@@ -13,6 +13,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Urho.IO;
 using Urho.Resources;
+using Urho.Gui;
 
 namespace Urho
 {
@@ -183,6 +184,23 @@ namespace Urho
                     var xmlElement1 = new XmlElement(param1);
                     serializable?.OnDeserialize(xmlElement1);
                     break;
+                
+                case CallbackType.VGElement_Render:
+                {
+                    var vgElement = LookupObject<VGElement>(target, false);
+                    if(vgElement != null)
+                    {
+                            uint childCount = vgElement.GetNumChildren();
+                            for (uint i = 0; i < childCount; i++)
+                            {
+                                UIElement child = vgElement.GetChild(i);
+
+                                float timeStep = (Application.Current != null) ? Application.Current.Time.TimeStep : 0.0f;
+                                child.OnVGRenderUpdate(timeStep);
+                            }
+                        }
+                }
+                break;
             }
         }
 

@@ -16,6 +16,7 @@ enum CallbackType
     
     Log_Write,
     Serializable_LoadXml,
+    VGElement_Render,
 };
 
 class Mono

@@ -170,6 +170,7 @@ namespace Urho {
 		Log_Write,
 
 		Serializable_LoadXml,
+		VGElement_Render,
 	};
 
 }
