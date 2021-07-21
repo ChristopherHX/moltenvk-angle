@@ -50,6 +50,8 @@
 namespace Urho3D
 {
 
+
+
 VectorGraphics::VectorGraphics(Context* context)
     : Object(context)
     , initialized_(false)
@@ -98,7 +100,7 @@ void VectorGraphics::Clear()
     if (vg_)
     {
 
-        for (HashMap<int, String>::ConstIterator i = imagesIDMap_.Begin(); i != imagesIDMap_.End(); ++i)
+        for (HashMap<int, VGImageData>::ConstIterator i = imagesIDMap_.Begin(); i != imagesIDMap_.End(); ++i)
         {
             nvgDeleteImage(vg_, i->first_);
         }
@@ -272,7 +274,10 @@ int VectorGraphics::CreateImage(const char* filename, int imageFlags)
 
     HashMap<String, int>::ConstIterator i = imagesMap_.Find(filename);
     if (i != imagesMap_.End())
+    {
+        imagesIDMap_[i->second_].ref_count++;
         return i->second_;
+    }
 
     String fileExtention = GetExtension(filename);
 
@@ -315,7 +320,7 @@ int VectorGraphics::CreateImage(const char* filename, int imageFlags)
                             nsvgRasterize(rast, image, 0.0f, 0.0f, 1, out_buffer, w, h, w * 4);
                             imageID = nvgCreateImageRGBA(vg_, w, h, imageFlags, out_buffer);
                             imagesMap_[filename] = imageID;
-                            imagesIDMap_[imageID] = filename;
+                            imagesIDMap_[imageID] = VGImageData(imageID,filename);
                             free(out_buffer);
                         }
                         nsvgDelete(image);
@@ -328,7 +333,7 @@ int VectorGraphics::CreateImage(const char* filename, int imageFlags)
 
                 imageID = nvgCreateImageMem(vg_, imageFlags, buffer, bytesLen);
                 imagesMap_[filename] = imageID;
-                imagesIDMap_[imageID] = filename;
+                imagesIDMap_[imageID] = VGImageData(imageID,filename);
             }
 
             free(buffer);
@@ -349,9 +354,14 @@ int VectorGraphics::LoadSVGImage(const String& filename ,float width,float heigh
 
     int imageID = -1;
     
-    HashMap<String, int>::ConstIterator i = imagesMap_.Find(filename);
+    String dbFileName = filename + String(width) + String(height) + String(imageFlags);
+    
+    HashMap<String, int>::ConstIterator i = imagesMap_.Find(dbFileName);
     if (i != imagesMap_.End())
+    {
+        imagesIDMap_[i->second_].ref_count++;
         return i->second_;
+    }
 
     String fileExtention = GetExtension(filename);
 
@@ -407,8 +417,8 @@ int VectorGraphics::LoadSVGImage(const String& filename ,float width,float heigh
                     {
                         nsvgRasterize(rast, image, 0, 0, svgScale, out_buffer, w, h, w * 4);
                         imageID = nvgCreateImageRGBA(vg_, w, h, imageFlags, out_buffer);
-                        imagesMap_[filename] = imageID;
-                        imagesIDMap_[imageID] = filename;
+                        imagesMap_[dbFileName] = imageID;
+                        imagesIDMap_[imageID] = VGImageData(imageID,dbFileName);
                         free(out_buffer);
                     }
                     nsvgDelete(image);
@@ -564,14 +574,14 @@ void VectorGraphics::GetSVGSize(const String& filename , float * height, float *
 int VectorGraphics::CreateImageMem(int imageFlags, unsigned char* data, int ndata)
 {
     int id =  nvgCreateImageMem(vg_, imageFlags, data, ndata);
-    imagesIDMap_[id] = "__dummyImageName__";
+    imagesIDMap_[id] = VGImageData(id,"__dummyImageName__");
     return id;
 }
 
 int VectorGraphics::CreateImageRGBA(int w, int h, int imageFlags, const unsigned char* data)
 {
     int id = nvgCreateImageRGBA(vg_, w, h, imageFlags, data);
-    imagesIDMap_[id] = "__dummyImageName__";
+    imagesIDMap_[id] = VGImageData(id,"__dummyImageName__");
     return id;
 }
 
@@ -581,16 +591,24 @@ void VectorGraphics::ImageSize(int image, int* w, int* h) { nvgImageSize(vg_, im
 
 void VectorGraphics::DeleteImage(int image) 
 { 
-    nvgDeleteImage(vg_, image); 
+    
 
-    HashMap<int, String>::Iterator i = imagesIDMap_.Find(image);
-    if (i != imagesMap_.End())
+    HashMap<int, VGImageData>::Iterator i = imagesIDMap_.Find(image);
+    if (i != imagesIDMap_.End())
     {
-        String name = i->second_;
-        imagesIDMap_.Erase(i);
-        if (name != "__dummyImageName__")
+        VGImageData imageData =  i->second_;
+        imageData.ref_count --;
+        imagesIDMap_[image] = imageData;
+        
+        if(imageData.ref_count <=0)
         {
-            imagesMap_.Erase(name);
+            String name = imageData.image_name;
+            imagesIDMap_.Erase(i);
+            nvgDeleteImage(vg_, image); 
+            if (name != "__dummyImageName__")
+            {
+                imagesMap_.Erase(name);
+            }
         }
     }
 }

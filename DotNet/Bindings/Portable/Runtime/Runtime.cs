@@ -190,17 +190,26 @@ namespace Urho
                     var vgElement = LookupObject<VGElement>(target, false);
                     if(vgElement != null)
                     {
-                            uint childCount = vgElement.GetNumChildren();
-                            for (uint i = 0; i < childCount; i++)
-                            {
-                                UIElement child = vgElement.GetChild(i);
-
-                                float timeStep = (Application.Current != null) ? Application.Current.Time.TimeStep : 0.0f;
-                                child.OnVGRenderUpdate(timeStep);
-                            }
-                        }
+                        VGRenderChilderen(vgElement);
+                    }
                 }
                 break;
+            }
+        }
+
+        private static void VGRenderChilderen(UIElement element)
+        {
+            uint childCount = element.GetNumChildren();
+
+            for (uint i = 0; i < childCount; i++)
+            {
+                UIElement child = element.GetChild(i);
+                float timeStep = (Application.Current != null) ? Application.Current.Time.TimeStep : 0.0f;
+                child.OnVGRenderUpdate(timeStep);
+
+                //recursive VG render
+                VGRenderChilderen(child);
+
             }
         }
 
