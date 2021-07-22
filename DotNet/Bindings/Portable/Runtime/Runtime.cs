@@ -204,6 +204,13 @@ namespace Urho
             for (uint i = 0; i < childCount; i++)
             {
                 UIElement child = element.GetChild(i);
+
+                // don't render child of type VGCanvas , avoiding duplicate rendering 
+                if (child is VGCanvas)
+                {
+                    continue;
+                }
+
                 float timeStep = (Application.Current != null) ? Application.Current.Time.TimeStep : 0.0f;
                 child.OnVGRenderUpdate(timeStep);
 
