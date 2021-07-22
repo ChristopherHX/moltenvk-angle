@@ -12,12 +12,12 @@ namespace Urho
 
         public uint GetMSec(bool reset)
         {
-            uint currentTime = Tick();
-            uint elapsedTime = currentTime - startTime_;
+            long currentTime = Tick();
+            long elapsedTime = currentTime - startTime_;
             if (reset)
                 startTime_ = currentTime;
 
-            return elapsedTime;
+            return (uint)elapsedTime;
         }
         /// Reset the timer.
         public void Reset()
@@ -25,14 +25,14 @@ namespace Urho
             startTime_ = Tick();
         }
 
-        static uint Tick()
+        static long Tick()
         {
-            return (uint)DateTime.Now.TimeOfDay.Milliseconds;
+            return DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
         }
 
         /// Starting clock value in milliseconds.
-        uint startTime_;
+        long startTime_;
 
     }
 
