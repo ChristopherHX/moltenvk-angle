@@ -12,14 +12,14 @@ namespace Urho.Actions
 
 		public RepeatForever (params FiniteTimeAction[] actions)
 		{
-			Debug.Assert (actions != null);
+			System.Diagnostics.Debug.Assert (actions != null);
 			InnerAction = new Sequence (actions);
 
 		}
 
 		public RepeatForever (FiniteTimeAction action)
 		{
-			Debug.Assert (action != null);
+			System.Diagnostics.Debug.Assert (action != null);
 			InnerAction = action;
 		}
 

@@ -446,7 +446,7 @@ namespace Urho
 		}
 
 		Log log;
-		public Log Log
+		private Log InternalLog
 		{
 			get
 			{
@@ -456,6 +456,17 @@ namespace Urho
 				return log;
 			}
 		}
+
+        public static Log Log
+        {
+            get
+            {
+                if (Application.Current != null)
+                    return Application.Current.InternalLog;
+                else
+                    return new Log();
+            }
+        }
 
 		Input input;
 		public Input Input

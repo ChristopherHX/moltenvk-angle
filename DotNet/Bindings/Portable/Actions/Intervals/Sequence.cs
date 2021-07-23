@@ -68,8 +68,8 @@ namespace Urho.Actions
 
 		void InitSequence (FiniteTimeAction actionOne, FiniteTimeAction actionTwo)
 		{
-			Debug.Assert (actionOne != null);
-			Debug.Assert (actionTwo != null);
+			System.Diagnostics.Debug.Assert (actionOne != null);
+			System.Diagnostics.Debug.Assert (actionTwo != null);
 
 			Actions [0] = actionOne;
 			Actions [1] = actionTwo;

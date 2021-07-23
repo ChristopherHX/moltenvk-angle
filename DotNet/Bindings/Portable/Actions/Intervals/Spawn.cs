@@ -49,8 +49,8 @@ namespace Urho.Actions
 
 		private void InitSpawn (FiniteTimeAction action1, FiniteTimeAction action2)
 		{
-			Debug.Assert (action1 != null);
-			Debug.Assert (action2 != null);
+			System.Diagnostics.Debug.Assert (action1 != null);
+			System.Diagnostics.Debug.Assert (action2 != null);
 
 			float d1 = action1.Duration;
 			float d2 = action2.Duration;

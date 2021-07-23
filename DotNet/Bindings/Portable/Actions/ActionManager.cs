@@ -53,7 +53,7 @@ namespace Urho.Actions
 
 		public BaseAction GetAction(int tag, Node target)
 		{
-			Debug.Assert(tag != (int)ActionTag.Invalid);
+			System.Diagnostics.Debug.Assert(tag != (int)ActionTag.Invalid);
 
 			// Early out if we do not have any targets to search
 			if (targets.Count == 0)
@@ -81,7 +81,7 @@ namespace Urho.Actions
 
 		public ActionState GetActionState(int tag, Node target)
 		{
-			Debug.Assert(tag != (int)ActionTag.Invalid);
+			System.Diagnostics.Debug.Assert(tag != (int)ActionTag.Invalid);
 
 			// Early out if we do not have any targets to search
 			if (targets.Count == 0)
@@ -282,8 +282,8 @@ namespace Urho.Actions
 
 		public ActionState AddAction(BaseAction action, Node target, bool paused = false)
 		{
-			Debug.Assert(action != null);
-			Debug.Assert(target != null);
+			System.Diagnostics.Debug.Assert(action != null);
+			System.Diagnostics.Debug.Assert(target != null);
 
 			HashElement element;
 			if (!targets.TryGetValue(target, out element))
@@ -305,7 +305,7 @@ namespace Urho.Actions
 					break;
 				}
 			}
-			Debug.Assert(!isActionRunning, "Action is already running for this target.");
+			System.Diagnostics.Debug.Assert(!isActionRunning, "Action is already running for this target.");
 			var state = action.StartAction(target);
 			element.ActionStates.Add(state);
 
@@ -436,8 +436,8 @@ namespace Urho.Actions
 
 		public void RemoveAction(int tag, Node target)
 		{
-			Debug.Assert((tag != (int)ActionTag.Invalid));
-			Debug.Assert(target != null);
+			System.Diagnostics.Debug.Assert((tag != (int)ActionTag.Invalid));
+			System.Diagnostics.Debug.Assert(target != null);
 
 			// Early out if we do not have any targets to search
 			if (targets.Count == 0)

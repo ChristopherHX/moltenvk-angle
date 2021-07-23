@@ -1,19 +1,205 @@
 using System;
-using System.Runtime.InteropServices;
-using System.Collections.Generic;
 
 namespace Urho.IO
 {
-
-	public partial class Log
+	public unsafe partial class Log : UrhoObject
 	{
-		public LogLevel LogLevel {
-			get {
-				return (LogLevel)GetLevel ();
-			}
-			set {
-				SetLevel ((int)value);
-			}
+
+        public  LogLevel LogLevel
+        {
+            get
+            {
+                if (Application.Current != null)
+                {
+                    return (LogLevel)Application.Log.GetLevel();
+                }
+                else
+                {
+                    return LogLevel.None;
+                }
+            }
+            set
+            {
+                if (Application.Current != null)
+                {
+                    Application.Log.SetLevel((int)value);
+                }
+            }
+        }
+
+        public static LogLevel StaticLogLevel
+        {
+            get
+            {
+                if (Application.Current != null)
+                {
+                    return (LogLevel)Application.Log.GetLevel();
+                }
+                else
+                {
+                    return LogLevel.None;
+                }
+            }
+            set
+            {
+                if (Application.Current != null)
+                {
+                    Application.Log.SetLevel((int)value);
+                }
+            }
+        }
+
+        private static int s_indentLevel;
+        public static int IndentLevel
+        {
+            get
+            {
+                return s_indentLevel;
+            }
+            set
+            {
+                s_indentLevel = value < 0 ? 0 : value;
+            }
+        }
+
+        private static int s_indentSize = 4;
+        public static int IndentSize
+        {
+            get
+            {
+                return s_indentSize;
+            }
+            set
+            {
+                s_indentSize = value < 0 ? 0 : value;
+            }
+        }
+
+        public static void Indent()
+        {
+            IndentLevel++;
+        }
+
+        public static void Unindent()
+        {
+            IndentLevel--;
+        }
+
+        private static bool s_needIndent;
+
+        private static string s_indentString;
+
+		// public static LogLevel LogLevel { get; set; } = LogLevel.Debug;
+
+		public static void Error(string str, Exception exc = null) =>  LogSharpWrite(LogLevel.Error, $"Exception: {exc}. " + str);
+        public  void Error(string str, Exception exc = null,int dummy = 0 ) =>  LogSharpWrite(LogLevel.Error, $"Exception: {exc}. " + str);
+		public static void Warn(string str) =>  LogSharpWrite(LogLevel.Warning, str);
+        public  void Warn(string str,int dummy = 0 ) =>  LogSharpWrite(LogLevel.Warning, str);
+
+        public static void Debug(string str) =>  LogSharpWrite(LogLevel.Debug, str);
+        public  void Debug(string str,int dummy = 0) => LogSharpWrite(LogLevel.Debug, str);
+        
+		public static void Info(string str) =>  LogSharpWrite(LogLevel.Info, str);
+        public  void Info(string str , int dummy = 0) =>  LogSharpWrite(LogLevel.Info, str);
+
+        public static void Print(string message) =>  LogSharpWrite(LogLevel.Debug,message);
+        
+        public  void Print(string message , int dummy = 0 ) =>  LogSharpWrite(LogLevel.Debug,message);
+
+        public static void Assert(bool condition) =>  Assert(condition, string.Empty, string.Empty);
+        
+        public  void Assert(bool condition , int dummy = 0) =>  Assert(condition, string.Empty, string.Empty);
+
+        public static void Assert(bool condition, string message) =>  Assert(condition, message, string.Empty);
+        public  void Assert(bool condition, string message , int dummy = 0 ) =>  Assert(condition, message, string.Empty);
+
+        public static void Assert(bool condition, string message, string detailMessage)
+        {
+            if (!condition)
+            {
+                WriteLine(LogLevel.Error,FormatAssert(Environment.StackTrace, message, detailMessage));
+            }
+        }
+
+        public  void Assert(bool condition, string message, string detailMessage , int dummy =0) => Assert( condition,  message,  detailMessage);
+
+        public static void WriteLine(LogLevel level,string message, string category)
+        {
+            if (level < StaticLogLevel)return;
+
+            if (category == null)
+            {
+                WriteLine(level,message);
+            }
+            else
+            {
+                WriteLine(level,category + ":" + message);
+            }
+        }
+
+        public  void WriteLine(LogLevel level,string message, string category , int dummy = 0) => WriteLine( level, message,  category);
+
+        public static void WriteLine(LogLevel level,string message)
+        {
+            if (level < StaticLogLevel)return;
+             LogSharpWrite(level,message + Environment.NewLine);
+        }
+
+         public  void WriteLine(LogLevel level,string message , int dummy = 0) => WriteLine( level, message);
+
+        private static string FormatAssert(string stackTrace, string message, string detailMessage)
+        {
+            string newLine = GetIndentString() + Environment.NewLine;
+            return  message + newLine
+                   + detailMessage + newLine
+                   + stackTrace;
+        }
+
+        private static string GetIndentString()
+        {
+            int indentCount = IndentSize * IndentLevel;
+            if (s_indentString?.Length == indentCount)
+            {
+                return s_indentString;
+            }
+            return s_indentString = new string(' ', indentCount);
+        }
+
+        private static void  LogSharpWrite(LogLevel level, string message)
+		{
+			if (level < StaticLogLevel || message == null)
+				return;
+
+            if (s_needIndent)
+            {
+                message = GetIndentString() + message;
+                s_needIndent = false;
+            }
+
+            if (message.EndsWith(Environment.NewLine))
+            {
+                s_needIndent = true;
+            }
+
+#if __ANDROID__
+            switch(level)
+            {
+                case LogLevel.Raw:
+                case LogLevel.Debug:
+                     Urho.IO.Log.Write(LogLevel.Info,message);
+                break;
+
+                case LogLevel.Info:
+                case LogLevel.Warning:
+                case LogLevel.Error:
+			        Urho.IO.Log.Write(level,message);
+                break;
+            }
+
+#else
+            System.Console.WriteLine($"{level}: {message}");
+#endif
 		}
+
 	}
 }
