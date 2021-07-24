@@ -139,13 +139,43 @@ namespace Urho.IO
 
         public  void WriteLine(LogLevel level,string message, string category , int dummy = 0) => WriteLine( level, message,  category);
 
+        public static void WriteLine(LogLevel level,string format, object arg0)
+        {
+           if (level < StaticLogLevel)return;
+           WriteLine(level,String.Format(format,arg0));
+        }
+
+        public void WriteLine(LogLevel level,string format, object arg0 , int dummy =0 ) => WriteLine( level, format,  arg0);
+        public void WriteLine(string format, object arg0 , int dummy =0 ) => WriteLine( LogLevel.Info, format,  arg0);
+        public static void WriteLine(string format, object arg0) => WriteLine(LogLevel.Info, format,  arg0);
+
+        public static void WriteLine(LogLevel level,string format, object arg0, object arg1)
+        {
+           if (level < StaticLogLevel)return;
+           WriteLine(level,String.Format(format,arg0,arg1));
+        }
+        public  void WriteLine(LogLevel level,string format, object arg0, object arg1 , int dummy = 0 ) => WriteLine( level, format,  arg0,  arg1);
+        public  void WriteLine(string format, object arg0, object arg1 , int dummy = 0 ) => WriteLine( LogLevel.Info, format,  arg0,  arg1);
+        public  static void WriteLine(string format, object arg0, object arg1 ) => WriteLine( LogLevel.Info, format,  arg0,  arg1);
+
+        public static void WriteLine(LogLevel level,string format, object arg0, object arg1, object arg2)
+        {
+           if (level < StaticLogLevel)return;
+           WriteLine(level,String.Format(format,arg0,arg1,arg2));
+        }
+        public  void WriteLine(LogLevel level,string format, object arg0, object arg1, object arg2 , int dummy = 0 ) => WriteLine( level, format,  arg0,  arg1,  arg2);
+        public  void WriteLine(string format, object arg0, object arg1, object arg2, int dummy = 0 ) => WriteLine(  LogLevel.Info, format,  arg0,  arg1,  arg2);
+        public static void WriteLine(string format, object arg0, object arg1, object arg2  ) => WriteLine(  LogLevel.Info, format,  arg0,  arg1,  arg2);
+
         public static void WriteLine(LogLevel level,string message)
         {
             if (level < StaticLogLevel)return;
              LogSharpWrite(level,message + Environment.NewLine);
         }
 
-         public  void WriteLine(LogLevel level,string message , int dummy = 0) => WriteLine( level, message);
+        public  void WriteLine(LogLevel level,string message , int dummy = 0) => WriteLine( level, message);
+        public  void WriteLine(string message , int dummy = 0) => WriteLine( LogLevel.Info, message);
+        public static void WriteLine(string message ) => WriteLine( LogLevel.Info, message);
 
         private static string FormatAssert(string stackTrace, string message, string detailMessage)
         {
