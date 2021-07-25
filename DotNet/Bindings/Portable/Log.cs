@@ -227,7 +227,12 @@ namespace Urho.IO
             }
 
 #else
-            System.Console.WriteLine($"{level}: {message}");
+    #if __IOS__
+                System.Console.WriteLine($"{level}: {message}");
+    #else
+                var timestamp = "["+DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss.fff")+"] ";
+                System.Console.WriteLine($"{timestamp} {level}: {message}");
+    #endif
 #endif
 		}
 
