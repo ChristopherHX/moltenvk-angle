@@ -212,7 +212,11 @@ namespace Urho
                 }
 
                 float timeStep = (Application.Current != null) ? Application.Current.Time.TimeStep : 0.0f;
-                child.OnVGRenderUpdate(timeStep);
+
+                if (child.Visible == true )
+                {
+                     child.OnVGRenderUpdate(timeStep);
+                }
 
                 //recursive VG render
                 VGRenderChilderen(child);
