@@ -31,6 +31,7 @@
 #include "../IO/FileSystem.h"
 #include "../IO/IOEvents.h"
 #include "../IO/Log.h"
+#include "../Resource/ResourceCache.h"
 
 #ifdef __ANDROID__
 #include <SDL/SDL_rwops.h>
@@ -689,6 +690,30 @@ void FileSystem::ScanDir(Vector<String>& result, const String& pathName, const S
     }
 }
 
+void FileSystem::ScanResourceDirs(Vector<String>& result, const String& pathName, const String& filter, unsigned flags, bool recursive) const
+{
+    result.Clear();
+    
+    auto* resourceCache = GetSubsystem<ResourceCache>();
+    
+    const Vector<String> resourceDirs_ =  resourceCache->GetResourceDirs();
+    for (unsigned i = 0; i < resourceDirs_.Size(); ++i)
+    {
+        
+        String fullPathName = resourceDirs_[i] + pathName;
+   
+        if (DirExists(fullPathName))
+        {
+            if (CheckAccess(fullPathName))
+            {
+                String initialPath = AddTrailingSlash(fullPathName);
+                ScanDirInternal(result, initialPath, initialPath, filter, flags, recursive);
+            }
+        }
+
+    }
+}
+
 //
 String FileSystem::GetProgramDir() const
 {
@@ -803,6 +828,7 @@ void FileSystem::ScanDirInternal(Vector<String>& result, String path, const Stri
     if (filterExtension.Contains('*'))
         filterExtension.Clear();
 
+
 #ifdef __ANDROID__
     if (URHO3D_IS_ASSET(path))
     {
@@ -828,11 +854,39 @@ void FileSystem::ScanDirInternal(Vector<String>& result, String path, const Stri
                     ScanDirInternal(result, path + fileName, startPath, filter, flags, recursive);
             }
             else if (flags & SCAN_FILES)
-#endif
             {
                 if (filterExtension.Empty() || fileName.EndsWith(filterExtension))
                     result.Push(deltaPath + fileName);
             }
+#else
+            // TBD ELI , assuming names without extenstions are folders
+            bool isDirectory = fileName.Contains('.') == false;
+            if (isDirectory)
+            {
+                if (flags & SCAN_DIRS)
+                    result.Push(deltaPath + fileName);
+                if (recursive)
+                {
+                    int oldResultCount = result.Size();
+                    ScanDirInternal(result, path + fileName, startPath, filter, flags, recursive);
+                    /* TBD ELI
+                     Didn't find any files in the so called assumed folder , taking a chance and assuming that it's a file
+                     So if the search filter is empty and and search flag indicates also searching for a files , add it to the
+                     search results
+                     */
+                    if((result.Size() == oldResultCount) && filterExtension.Empty() && (flags & SCAN_FILES) && !(flags & SCAN_DIRS))
+                    {
+                        result.Push(deltaPath + fileName);
+                    }
+                }
+            }
+            else if (flags & SCAN_FILES)
+            {
+                if (filterExtension.Empty() || fileName.EndsWith(filterExtension))
+                    result.Push(deltaPath + fileName);
+            }
+#endif
+ 
         }
         SDL_Android_FreeFileList(&list, &count);
         return;

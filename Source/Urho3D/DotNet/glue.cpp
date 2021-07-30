@@ -856,8 +856,58 @@ extern "C"
         return t;
     }
 
-    /*
 
+    static Vector<String> resultFilesInResourceDirs;
+   
+    DllExport int
+    ResourceCache_GetFilesInResourceDirs (Urho3D::ResourceCache *_target, const char* name, const char* filter, bool recursive)
+    {
+        resultFilesInResourceDirs.Clear();
+        _target->GetFilesInResourceDirs(resultFilesInResourceDirs,name,  filter,  recursive);
+        return resultFilesInResourceDirs.Size();
+    }
+
+    DllExport const char* ResourceCache_GetFromResultFileInResourceDirs(Urho3D::ResourceCache *_target,int index)
+    {
+        if(index >=0 && index < resultFilesInResourceDirs.Size())
+        {
+            return stringdup(resultFilesInResourceDirs[index].CString());
+        }
+        else
+        {
+            return stringdup("");
+        }
+    }
+
+    DllExport void ResourceCache_ClearVectorResultFilesInResourceDirs(Urho3D::ResourceCache *_target)
+    {
+        resultFilesInResourceDirs.Clear();
+    }
+
+
+DllExport int
+ResourceCache_GetResourceDirsCount (Urho3D::ResourceCache *_target)
+{
+    Vector<String> resourceDirs = _target->GetResourceDirs();
+    return resourceDirs.Size();
+}
+
+DllExport const char* ResourceCache_GetResourceDir(Urho3D::ResourceCache *_target,int index)
+{
+    Vector<String> resourceDirs = _target->GetResourceDirs();
+    if(index >=0 && index < resourceDirs.Size())
+    {
+        return stringdup(resourceDirs[index].CString());
+    }
+    else
+    {
+        return stringdup("");
+    }
+}
+    
+
+
+    /*
      #if UWP
      #define stringdup _strdup
      #else

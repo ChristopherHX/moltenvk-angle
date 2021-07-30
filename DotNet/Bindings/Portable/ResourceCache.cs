@@ -147,6 +147,63 @@ namespace Urho.Resources {
 		{
 			return GetResource<TmxFile2D> (TmxFile2D.TypeStatic, name, sendEventOnFailure);
 		}
+
+
+		
+		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
+		 internal extern static int ResourceCache_GetFilesInResourceDirs (IntPtr handle,string name, string filter, bool recursive);
+
+
+		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
+		internal extern static IntPtr ResourceCache_GetFromResultFileInResourceDirs(IntPtr handle, int index);
+
+		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
+		internal extern static void ResourceCache_ClearVectorResultFilesInResourceDirs(IntPtr handle);
+
+
+		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
+		internal extern static int ResourceCache_GetResourceDirsCount (IntPtr handle);
+
+		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
+		internal extern static IntPtr ResourceCache_GetResourceDir(IntPtr handle, int index);
+
+		private string GetFromResultFileInResourceDirs (int index)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Marshal.PtrToStringAnsi(ResourceCache_GetFromResultFileInResourceDirs( handle,  index));
+		}
+
+		public string [] GetFilesInResourceDirs (string pathName, string filter, bool recursive)
+		{
+			Runtime.ValidateRefCounted (this);
+			int fileCount = ResourceCache_GetFilesInResourceDirs ( handle, pathName,  filter,  recursive);
+			string [] result = new string[fileCount];
+
+			for(int i = 0 ; i < fileCount ; i++)
+			{
+				result[i] = GetFromResultFileInResourceDirs (i);
+			}
+
+			ResourceCache_ClearVectorResultFilesInResourceDirs( handle);
+
+			return result;
+		}
+
+		public string [] GetResourceDirs ()
+		{
+			Runtime.ValidateRefCounted (this);
+			
+			int fileCount = ResourceCache_GetResourceDirsCount ( handle);
+			string [] result = new string[fileCount];
+
+			for(int i = 0 ; i < fileCount ; i++)
+			{
+				result[i] = Marshal.PtrToStringAnsi(ResourceCache_GetResourceDir (handle , i));
+			}
+
+			return result;
+		}
+
 #endregion
 	}
 }

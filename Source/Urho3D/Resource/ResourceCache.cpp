@@ -1131,6 +1131,25 @@ File* ResourceCache::SearchPackages(const String& name)
     return nullptr;
 }
 
+void ResourceCache::GetFilesInResourceDirs(Vector<String>& result,const String& name, const String& filter, bool recursive) const
+{
+    
+    auto* fileSystem = GetSubsystem<FileSystem>();
+    fileSystem->ScanResourceDirs(result,name, filter,  SCAN_FILES,  recursive);
+    
+//    for (unsigned i = 0; i < resourceDirs_.Size(); ++i)
+//    {
+//        // will return the first folder found in any resource dir
+//        if (fileSystem->DirExists(resourceDirs_[i] + name))
+//        {
+//            fileSystem->ScanDir(result,(resourceDirs_[i] + name), filter,  SCAN_FILES,  recursive);
+//            break;
+//        }
+//
+//    }
+
+}
+
 void RegisterResourceLibrary(Context* context)
 {
     Image::RegisterObject(context);

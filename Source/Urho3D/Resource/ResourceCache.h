@@ -227,6 +227,8 @@ public:
 
     /// Returns a formatted string containing the memory actively used.
     String PrintMemoryUsage() const;
+    
+    void  GetFilesInResourceDirs(Vector<String>& result,const String& name, const String& filter, bool recursive) const ;
 
 private:
     /// Find a resource.
