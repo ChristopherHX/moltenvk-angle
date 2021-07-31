@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2020 the Urho3D project.
+// Copyright (c) 2008-2021 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -195,7 +195,7 @@ void WriteFactories(ofstream& ofs)
 
 void GenerateTemplates()
 {
-    ofstream ofs(_sourceDir + "/Source/Urho3D/AngelScript/Generated_Templates_New.h");
+    ofstream ofs(_sourceDir + "/Source/Urho3D/AngelScript/Generated_Templates.h");
 
     ofs <<
         "// DO NOT EDIT. This file is generated\n"

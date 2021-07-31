@@ -7,13 +7,13 @@
 
 **Urho3D** is a free lightweight, cross-platform 2D and 3D game engine implemented in C++ and released under the MIT license. Greatly inspired by OGRE and Horde3D.
 
-Main website: [https://urho3d.github.io/](https://urho3d.github.io/)
+Main website: [https://urho3d.io/](https://urho3d.io/)
 
 ## License
 Licensed under the MIT license, see [LICENSE](https://github.com/urho3d/Urho3D/blob/master/LICENSE) for details.
 
 ## Contributing
-Before making pull requests, please read the [Contribution checklist](https://urho3d.github.io/documentation/HEAD/_contribution_checklist.html) and [Coding conventions](https://urho3d.github.io/documentation/HEAD/_coding_conventions.html) pages from the documentation.
+Before making pull requests, please read the [Contribution checklist](https://urho3d.io/documentation/HEAD/_contribution_checklist.html) and [Coding conventions](https://urho3d.io/documentation/HEAD/_coding_conventions.html) pages from the documentation.
 
 ## Credits
 
@@ -60,7 +60,7 @@ Urho3D uses the following third-party libraries:
 - rapidjson 1.1.0 (https://github.com/miloyip/rapidjson)
 - Recast/Detour (https://github.com/recastnavigation/recastnavigation)
 - SDL 2.0.10+ (https://www.libsdl.org)
-- SQLite 3.20.1 (https://www.sqlite.org)
+- SQLite 3.36.0 (https://www.sqlite.org)
 - StanHull (https://codesuppository.blogspot.com/2006/03/john-ratcliffs-code-suppository-blog.html)
 - stb_image 2.18 (https://nothings.org)
 - stb_image_write 1.08 (https://nothings.org)
@@ -93,12 +93,12 @@ See section "Documentation build" below on how to automate documentation
 generation as part of the build process.
 
 The documentation is also available online at
-  https://urho3d.github.io/documentation/HEAD/index.html
+  https://urho3d.io/documentation/HEAD/index.html
 
 Documentation on how to build Urho3D:
-  https://urho3d.github.io/documentation/HEAD/_building.html
+  https://urho3d.io/documentation/HEAD/_building.html
 Documentation on how to use Urho3D as external library
-  https://urho3d.github.io/documentation/HEAD/_using_library.html
+  https://urho3d.io/documentation/HEAD/_using_library.html
 
 Replace HEAD with a specific release version in the above links to obtain the
 documentation pertinent to the specified release. Alternatively, use the
@@ -106,4 +106,4 @@ document-switcher in the documentation website to do so.
 
 ## History
 The change history is available online at
-  https://urho3d.github.io/documentation/HEAD/_history.html
+  https://urho3d.io/documentation/HEAD/_history.html

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2020 the Urho3D project.
+// Copyright (c) 2008-2021 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,13 +22,11 @@
 
 #pragma once
 
-//#include "../AngelScript/APITemplates.h"
 #include "../Graphics/Skeleton.h"
 #include "../Scene/Scene.h"
 #include "../Graphics/Octree.h"
 #include "../Graphics/DebugRenderer.h"
 #include "../IO/PackageFile.h"
-//#include "../AngelScript/GeneratedIncludes.h"
 
 namespace Urho3D
 {

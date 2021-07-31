@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008-2020 the Urho3D project.
+# Copyright (c) 2008-2021 the Urho3D project.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -22,15 +22,34 @@
 
 task default: :build
 
+desc 'Show info for the specified target platform'
+task :info, [:kind] => [:init] do |_, args|
+  case args[:kind]
+  when 'build_tree'
+    print build_tree
+  when 'install_dir'
+    print install_dir
+  else
+    abort %q{Please specify the type of info requested: 'build_tree', 'install_dir'}
+  end
+end
+
 desc 'Invoke CMake to configure and generate a build tree'
 task :cmake => [:init] do
   if ENV['CI']
     system 'cmake --version' or abort 'Failed to find CMake'
-    if ENV['USE_CCACHE'] && /\[cache clear\]/ =~ `git log --format=%B -n1 2>/dev/null`
+    if ENV['USE_CCACHE'] && ENV['GITHUB_EVENT_NAME'] != 'repository_dispatch' && /\[cache clear\]/ =~ `git log --format=%B -n1 2>/dev/null`
       system 'bash', '-c', 'rm -rf ~/.{ccache,gradle}' or abort 'Failed to clear the build cache'
     end
   end
-  next if ENV['PLATFORM'] == 'android' || (Dir.exist?("#{build_tree}") and not ARGV.include?('cmake'))
+  next if ENV['PLATFORM'] == 'android' || (Dir.exists?(build_tree) and not ARGV.include?('cmake'))
+  ['CMAKE_INSTALL_PREFIX', 'URHO3D_HOME'].each { |var|
+    if ENV[var] == 'system'
+      ENV.delete(var)
+    elsif !ENV[var]
+      ENV[var] = install_dir if var == 'CMAKE_INSTALL_PREFIX' || Dir.exists?(install_dir)
+    end
+  }
   script = "script/cmake_#{ENV['GENERATOR']}#{ENV['OS'] ? '.bat' : '.sh'}"
   build_options = /linux|macOS|win/ =~ ENV['PLATFORM'] ? '' : "-D #{ENV['PLATFORM'].upcase}=1"
   File.readlines('script/.build-options').each { |var|
@@ -99,12 +118,12 @@ task :doc => [:init] do
 end
 
 desc 'Install the software'
-task :install, [:prefix] => [:init] do |_, args|
+task :install, [:dest_dir] => [:init] do |_, args|
   if ENV['PLATFORM'] == 'android'
     Rake::Task[:gradle].invoke('publishToMavenLocal')
     next
   end
-  wrapper = args[:prefix] && !ENV['OS'] ? "DESTDIR=#{verify_path(args[:prefix])}" : ''
+  wrapper = args[:dest_dir] && !ENV['OS'] ? "DESTDIR=#{verify_path(args[:dest_dir], true)}" : ''
   system build_target('install', wrapper) or abort
 end
 
@@ -151,6 +170,22 @@ end
 
 
 ### Internal tasks ###
+
+task :check_license do
+  commit = 0
+  # Automatically bump copyright when crossing a new year
+  if /2008-([0-9]{4}) the Urho3D project/.match(File.read('rakefile'))[1].to_i != Time.now.year
+    system %Q{
+      git config user.name #{ENV['PUBLISHER_NAME']} && \\
+      git config user.email #{ENV['PUBLISHER_EMAIL']} && \\
+      git add #{bump_copyright_year.join ' '} && \\
+      git commit -qm 'GH Actions: Bump copyright year to #{Time.now.year}.\n[cache clear]'
+    } or abort "Failed to commit copyright year update"
+    commit = 1
+  end
+  # TODO: Check and merge any new 3rd-party license into 'Source/ThirdParty/LICENSES'
+  puts "::set-output name=commit::#{commit}"
+end
 
 task :ci do
   ENV['URHO3D_PCH'] = '0' if ENV['PLATFORM'] == 'linux-gcc' # TODO - PCH causes cache miss on initial build for Linux/GCC, why?
@@ -240,24 +275,8 @@ task :ci_publish_web do
   } or abort 'Failed to update Web samples'
 end
 
-task :source_checksum do
-  require 'digest'
-  sha256_final = Digest::SHA256.new
-  sha256_iter = Digest::SHA256
-  Dir['Source/**/*.{c,h}*'].each { |it| sha256_final << sha256_iter.file(it).hexdigest }
-  puts "::set-output name=hexdigest::#{sha256_final.hexdigest}"
-end
-
-task :update_dot_files do
-  system 'bash', '-c', %q{
-    perl -ne 'undef $/; print $1 if /(Build Option.*?(?=\n\n))/s' Docs/GettingStarted.dox \
-      |tail -n +3 |cut -d'|' -f2 |tr -d [:blank:] >script/.build-options && \
-    echo URHO3D_LINT >>script/.build-options && \
-    cat script/.build-options <(perl -ne 'while (/([A-Z_]+):.+?/g) {print "$1\n"}' .github/workflows/main.yml) \
-      <(perl -ne 'while (/ENV\[\x27(\w+)\x27\]/g) {print "$1\n"}' rakefile) \
-      <(perl -ne 'while (/System.getenv\\("(\w+)"\\)/g) {print "$1\n"}' android/urho3d-lib/build.gradle.kts) \
-      |sort |uniq |grep -Ev '^(HOME|PATH)$' >script/.env-file
-  } or abort 'Failed to update dot files'
+task :gradle, [:task] do |_, args|
+  system "#{ENV['OS'] ? 'gradlew.bat' : './gradlew'} #{args[:task]} #{ENV['CI'] ? '--console plain' : ''}" or abort
 end
 
 task :init do
@@ -267,7 +286,15 @@ task :init do
   when /linux/
     $max_jobs = `grep -c processor /proc/cpuinfo`.chomp unless $max_jobs
     ENV['GENERATOR'] = 'generic' unless ENV['GENERATOR']
-    ENV['PLATFORM'] = 'linux' unless ENV['PLATFORM']
+    unless ENV['PLATFORM']
+      if /x86/ =~ `uname -m`
+        ENV['PLATFORM'] = 'linux'
+      elsif Dir.exists?('/opt/vc')
+        ENV['PLATFORM'] = 'rpi'
+      else
+        ENV['PLATFORM'] = 'arm'
+      end
+    end
   when /darwin|macOS/
     $max_jobs = `sysctl -n hw.logicalcpu`.chomp unless $max_jobs
     ENV['GENERATOR'] = 'xcode' unless ENV['GENERATOR']
@@ -286,10 +313,6 @@ task :init do
   end
   # The 'ARCH' env-var, when set, has higher precedence than the 'URHO3D_64BIT' env-var
   ENV['URHO3D_64BIT'] = ENV['ARCH'] == '32' ? '0' : '1' if /32|64/ =~ ENV['ARCH']
-end
-
-task :gradle, [:task] do |_, args|
-  system "#{ENV['OS'] ? 'gradlew.bat' : './gradlew'} #{args[:task]} #{ENV['CI'] ? '--console plain' : ''}" or abort
 end
 
 task :lint do
@@ -312,6 +335,36 @@ task :style do
   puts 'Passed the style checks'
 end
 
+task :source_checksum do
+  require 'digest'
+  sha256_final = Digest::SHA256.new
+  sha256_iter = Digest::SHA256
+  Dir['Source/**/*.{c,h}*'].each { |it| sha256_final << sha256_iter.file(it).hexdigest }
+  puts "::set-output name=hexdigest::#{sha256_final.hexdigest}"
+end
+
+task :update_dot_files do
+  system 'bash', '-c', %q{
+    perl -ne 'undef $/; print $1 if /(Build Option.*?(?=\n\n))/s' Docs/GettingStarted.dox \
+      |tail -n +3 |cut -d'|' -f2 |tr -d [:blank:] >script/.build-options && \
+    echo URHO3D_LINT >>script/.build-options && \
+    cat script/.build-options <(perl -ne 'while (/([A-Z_]+):.+?/g) {print "$1\n"}' .github/workflows/main.yml) \
+      <(perl -ne 'while (/ENV\[\x27(\w+)\x27\]/g) {print "$1\n"}' rakefile) \
+      <(perl -ne 'while (/System.getenv\\("(\w+)"\\)/g) {print "$1\n"}' android/urho3d-lib/build.gradle.kts) \
+      |sort |uniq |grep -Ev '^(HOME|PATH)$' >script/.env-file
+  } or abort 'Failed to update dot files'
+  if /schedule|workflow_dispatch/ =~ ENV['GITHUB_EVENT_NAME']
+    system %Q{
+      git config user.name #{ENV['PUBLISHER_NAME']} && \\
+      git config user.email #{ENV['PUBLISHER_EMAIL']} && \\
+      git add script/.build-options script/.env-file && \\
+      commit=0 && \\
+      if git commit -qm 'GH Actions: Update dot files for DBE.'; then commit=1; fi && \\
+      echo ::set-output name=commit::$commit
+    } or abort "Failed to commit dot files update"
+  end
+end
+
 
 ### Internal methods ###
 
@@ -320,7 +373,7 @@ def build_host
 end
 
 def build_tree
-  ENV['BUILD_TREE'] || "build/#{dockerized? ? 'dockerized-' : ''}#{ENV['PLATFORM'].downcase}"
+  ENV['BUILD_TREE'] || "build/#{dockerized? ? 'dockerized-' : ''}#{default_path}"
 end
 
 def build_config
@@ -331,21 +384,46 @@ def build_target(tgt, wrapper = '')
   %Q{#{wrapper} cmake --build "#{build_tree}" #{build_config} #{tgt ? "--target #{tgt}" : ''}}
 end
 
-def lint_err_file
-  'build/clang-tidy.out'
+def bump_copyright_year(regex = '2008-[0-9]{4} the Urho3D project')
+  begin
+    copyrighted = `git grep -El '#{regex}'`.split
+    copyrighted.each { |filename|
+      replaced_content = File.read(filename).gsub(/#{regex}/, regex.gsub('[0-9]{4}', Time.now.year.to_s))
+      File.open(filename, 'w') { |file| file.puts replaced_content }
+    }
+    return copyrighted
+  rescue
+    abort 'Failed to bump copyright year'
+  end
 end
 
-def verify_path(path)
-  require 'pathname'
-  begin
-    Pathname.new(File.expand_path(path)).realdirpath.to_s
-  rescue
-    abort "The specified path '#{path}' is invalid!"
-  end
+def default_path
+  "#{ENV['PLATFORM'].downcase}" \
+  "#{ENV['CC'] ? "-#{ENV['CC']}" : ''}" \
+  "#{ENV['GENERATOR'] && /generic|xcode|vs/ =~ ENV['GENERATOR'] ? '' : "-#{ENV['GENERATOR']}"}"
 end
 
 def dockerized?
   File.exists?('/entrypoint.sh')
+end
+
+def install_dir
+  "#{Dir.home}/.urho3d/install/#{default_path}"
+end
+
+def lint_err_file
+  'build/clang-tidy.out'
+end
+
+def verify_path(path, auto_create = false)
+  require 'pathname'
+  begin
+    expanded_path = File.expand_path(path)
+    FileUtils.mkdir_p(expanded_path) if (auto_create && !Dir.exists?(expanded_path))
+    Pathname.new(expanded_path).realdirpath.to_s
+  rescue
+    abort "The specified path '#{path}' is invalid!"
+  end
 end
 
 def first_match(regex, from)
@@ -685,12 +763,9 @@ def urho_app_cpp(name)
   <<-EOF
 #include "#{name}.h"
 
-URHO3D_DEFINE_APPLICATION_MAIN(#{name});
+URHO3D_DEFINE_APPLICATION_MAIN(#{name})
 
-#{name}::#{name}(Context* context)
-    : Application(context)
-{
-}
+#{name}::#{name}(Context* context) : Application(context) {}
 
 void #{name}::Start()
 {
