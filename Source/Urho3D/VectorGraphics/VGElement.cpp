@@ -58,12 +58,24 @@ VGElement::VGElement(Context* context)
     clearColor_ = Color(0.0,0.0,0.0,1.0);
 
     nvgFrameBuffer_ = nullptr;
+    
+// TBD ELI , disabled for now
+    // if it is not visible because of parent then mark it as such
+//    if(this->IsVisibleEffective() == false)
+//    {
+//        isHiddenByParent = true;
+//        SetVisible(false);
+//    }
 
     SubscribeToEvent(E_ENDRENDERING, URHO3D_HANDLER(VGElement, HandleRender));
+    //TBD ELI disabled for now
+//    SubscribeToEvent(E_VISIBLECHANGED, URHO3D_HANDLER(VGElement, HandleVisibleChanged));
 }
 
 VGElement::~VGElement()
 {
+    UnsubscribeFromAllEvents();
+    
     VectorGraphics* nanovg = GetSubsystem<VectorGraphics>();
     NVGcontext* vg = nanovg->GetNVGContext();
 
@@ -204,7 +216,7 @@ void VGElement::EndRender()
 
 void VGElement::HandleRender(StringHash eventType, VariantMap& eventData)
 {
-    if (vg_ != nullptr)
+    if (vg_ != nullptr && this->IsVisibleEffective() == true)
     {
         BeginRender();
 
@@ -220,6 +232,41 @@ void VGElement::HandleRender(StringHash eventType, VariantMap& eventData)
 #endif
         EndRender();
     }
+}
+
+void VGElement::HandleVisibleChanged(StringHash eventType, VariantMap& eventData)
+{
+// TBD ELI , need to check all if all use cases are valid
+    
+//    using namespace VisibleChanged;
+//    UIElement* uiElement = static_cast<UIElement*>(eventData[P_ELEMENT].GetPtr());
+//    bool isVisible = eventData[P_VISIBLE].GetBool();
+//    if(this != uiElement && this->IsChildOf(uiElement))
+//    {
+//        // parent is visible
+//        if(isVisible == true)
+//        {
+//            SetVisible(true);
+//
+//            // this element was hidden because of paretn , make it visible
+//            if(isHiddenByParent == true && this->IsVisibleEffective() == true)
+//            {
+//                isHiddenByParent = false;
+//                SetVisible(isVisible);
+//            }
+//            else
+//            {
+//                SetVisible(false);
+//            }
+//        }
+//        else
+//        {
+//            isHiddenByParent = true;
+//            SetVisible(isVisible);
+//        }
+//
+//    }
+    
 }
 
 void VGElement::OnResize(const IntVector2& newSize, const IntVector2& delta)

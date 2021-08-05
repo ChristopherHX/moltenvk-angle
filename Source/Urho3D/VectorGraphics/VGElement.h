@@ -593,10 +593,12 @@ protected:
     ShaderVariation* previousVS;
     ShaderVariation* previousPS;
     Color clearColor_;
+    bool isHiddenByParent;
 
 private:
     // Handle render event.
     void HandleRender(StringHash eventType, VariantMap& eventData);
+    void HandleVisibleChanged(StringHash eventType, VariantMap& eventData);
 };
 
 } // namespace Urho3D
