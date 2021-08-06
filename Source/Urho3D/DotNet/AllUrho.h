@@ -9,7 +9,7 @@
 #define URHO3D_D3D11
 #endif
 
-#include "Urho3D.h"
+#include "../Urho3D.h"
 #include "../Urho2D/TileMapLayer2D.h"
 #include "../Urho2D/TmxFile2D.h"
 #include "../UI/MessageBox.h"
