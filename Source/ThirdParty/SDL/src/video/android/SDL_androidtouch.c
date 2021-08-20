@@ -56,8 +56,22 @@ void Android_OnTouch(SDL_Window *window, int touch_device_id_in, int pointer_fin
     SDL_TouchID touchDeviceId = 0;
     SDL_FingerID fingerId = 0;
 
-    if (!window) {
+    if (!window)
+    {
         return;
+    }
+
+    /*
+    **   On some Android devices this touch_device_id_in is negative (maybe a bug ?)
+    **   Causing Touch events not to reach Input.cpp and as a result Touch input failures on those devices
+    ** See https://developer.android.com/reference/android/view/MotionEvent#getDeviceId()
+    ** Gets the id for the device that this event came from.
+    **  An id of zero indicates that the event didn't come from a physical device and maps to the default keymap.
+    **   The other numbers are arbitrary and you shouldn't depend on the values.
+    */
+    if (touch_device_id_in < 0)
+    {
+        touch_device_id_in = 0;
     }
 
     touchDeviceId = (SDL_TouchID)touch_device_id_in;
