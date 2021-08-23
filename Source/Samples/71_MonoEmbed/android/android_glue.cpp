@@ -207,7 +207,7 @@ DllExport MonoBoolean _mono_android_init_cert_store() {
 	return 1;
 }
 
-MonoArray *_mono_android_cert_store_lookup(MonoString *p_alias) {
+DllExport MonoArray *_mono_android_cert_store_lookup(MonoString *p_alias) {
 	// The JNI code is the equivalent of:
 	//
 	// Certificate certificate = certStore.getCertificate(alias);
