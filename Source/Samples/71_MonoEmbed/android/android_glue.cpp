@@ -215,6 +215,9 @@ DllExport MonoArray *_mono_android_cert_store_lookup(MonoString *p_alias) {
 	//	return null;
 	// return certificate.getEncoded();
 
+    return NULL;
+    
+/* TBD ELI , unstable , needs more work
 	MonoError mono_error;
 	char *alias_utf8 = mono_string_to_utf8_checked(p_alias, &mono_error);
 
@@ -254,6 +257,7 @@ DllExport MonoArray *_mono_android_cert_store_lookup(MonoString *p_alias) {
 	env->GetByteArrayRegion(encoded, 0, encodedLength, reinterpret_cast<jbyte *>(dest));
 
 	return encoded_ret;
+    */
 }
 
 #ifdef __cplusplus
