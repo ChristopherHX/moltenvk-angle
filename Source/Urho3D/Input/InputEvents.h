@@ -61,6 +61,8 @@ URHO3D_EVENT(E_MOUSEMOVE, MouseMove)
 URHO3D_EVENT(E_MOUSEWHEEL, MouseWheel)
 {
     URHO3D_PARAM(P_WHEEL, Wheel);                  // int
+    URHO3D_PARAM(P_WHEEL_X, WheelX);               // int
+    URHO3D_PARAM(P_WHEEL_Y, WheelY);               // int
     URHO3D_PARAM(P_BUTTONS, Buttons);              // int
     URHO3D_PARAM(P_QUALIFIERS, Qualifiers);        // int
 }

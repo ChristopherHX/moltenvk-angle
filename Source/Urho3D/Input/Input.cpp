@@ -1857,6 +1857,26 @@ void Input::SetMouseWheel(int delta)
 
         VariantMap& eventData = GetEventDataMap();
         eventData[P_WHEEL] = delta;
+        eventData[P_WHEEL_X] = 0;
+        eventData[P_WHEEL_Y] = delta;
+        eventData[P_BUTTONS] = (unsigned)mouseButtonDown_;
+        eventData[P_QUALIFIERS] = (unsigned)GetQualifiers();
+        SendEvent(E_MOUSEWHEEL, eventData);
+    }
+}
+
+void Input::SetMouseWheel(int delta_x,int delta_y)
+{
+    if (delta_x || delta_y)
+    {
+        mouseMoveWheel_ += delta_y;
+
+        using namespace MouseWheel;
+
+        VariantMap& eventData = GetEventDataMap();
+        eventData[P_WHEEL] = delta_y;
+        eventData[P_WHEEL_X] = delta_x;
+        eventData[P_WHEEL_Y] = delta_y;
         eventData[P_BUTTONS] = (unsigned)mouseButtonDown_;
         eventData[P_QUALIFIERS] = (unsigned)GetQualifiers();
         SendEvent(E_MOUSEWHEEL, eventData);
@@ -2076,7 +2096,9 @@ void Input::HandleSDLEvent(void* sdlEvent)
 
     case SDL_MOUSEWHEEL:
         if (!touchEmulation_)
-            SetMouseWheel(evt.wheel.y);
+        {
+            SetMouseWheel(evt.wheel.x,evt.wheel.y);
+        }
         break;
 
     case SDL_FINGERDOWN:

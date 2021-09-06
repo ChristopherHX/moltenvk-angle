@@ -909,6 +909,8 @@ namespace Urho {
         public partial struct MouseWheelEventArgs {
             public EventDataContainer EventData;
             public int Wheel => EventData.get_int (unchecked((int)775573019) /* Wheel (P_WHEEL) */);
+            public int WheelX => EventData.get_int (unchecked((int)2926852349) /* WheelX (P_WHEEL_X) */);
+            public int WheelY => EventData.get_int (unchecked((int)2926852350) /* WheelY (P_WHEEL_Y) */);
             public int Buttons => EventData.get_int (unchecked((int)1822582401) /* Buttons (P_BUTTONS) */);
             public int Qualifiers => EventData.get_int (unchecked((int)719575593) /* Qualifiers (P_QUALIFIERS) */);
         } /* struct MouseWheelEventArgs */

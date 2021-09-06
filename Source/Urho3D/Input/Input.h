@@ -390,6 +390,8 @@ private:
     void SetKey(Key key, Scancode scancode, bool newState);
     /// Handle mouse wheel change.
     void SetMouseWheel(int delta);
+    /// Handle mouse wheel change in both X and Y axis.
+    void SetMouseWheel(int delta_x,int delta_y);
     /// Suppress next mouse movement.
     void SuppressNextMouseMove();
     /// Unsuppress mouse movement.
