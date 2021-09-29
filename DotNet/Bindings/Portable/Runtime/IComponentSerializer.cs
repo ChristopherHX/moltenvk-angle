@@ -55,6 +55,9 @@ namespace Urho.Resources
 				xmlElement.SetBool(key, (bool)value);
 			else if (value is double)
 				xmlElement.SetDouble(key, (double)value);
+            else if (value.GetType().IsEnum)
+                xmlElement.SetAttribute(key, value.ToString());
+
 			else throw new NotSupportedException($"{value.GetType().Name} is not supported."); 
 		}
 
@@ -83,6 +86,9 @@ namespace Urho.Resources
 				return (T) (object) xmlElement.GetUInt(key);
 			else if (type == typeof (bool))
 				return (T) (object) xmlElement.GetBool(key);
+            else if (type.IsEnum) 
+                return (T) Enum.Parse(type,xmlElement.GetAttribute(key));
+
 			else throw new NotSupportedException($"{type.Name} is not supported."); 
 		}
 
@@ -126,6 +132,9 @@ namespace Urho.Resources
                 return (object)xmlElement.GetMatrix4(key);
             else if (type == typeof(ulong))
                 return (object)xmlElement.GetUInt64(key);
+            else if (type.IsEnum) 
+                return (object)Enum.Parse(type,xmlElement.GetAttribute(key));
+            
 
             return null;
         }
@@ -173,6 +182,9 @@ namespace Urho.Resources
                 xmlElement.SetMatrix4(key, (Matrix4)value);
             else if (value is ulong)
                 xmlElement.SetUInt64(key, (ulong)value);
+            else if (value.GetType().IsEnum)
+                xmlElement.SetAttribute(key, value.ToString());
+        
         }
 
 	}
