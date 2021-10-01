@@ -53,6 +53,10 @@ private:
     bool isRefToPoiner_; // *&
     string templateParams_;
 
+    // TODO
+    // starting from Doxygen 1.9.2 "volatile" is part of <type>
+    // volatile signed char* Urho3D::SoundSource::GetPlayPosition()
+
 public:
     TypeAnalyzer(xml_node type, const TemplateSpecialization& specialization = {});
 
@@ -300,6 +304,7 @@ public:
     bool AllFloats() const;
     bool AllInts() const;
     bool IsPod() const;
+    bool IsFakeRef() const { return Contains(GetComment(), "FAKE_REF"); }
     shared_ptr<ClassAnalyzer> GetBaseClass() const;
     vector<ClassAnalyzer> GetBaseClasses() const;
     vector<ClassAnalyzer> GetAllBaseClasses() const;

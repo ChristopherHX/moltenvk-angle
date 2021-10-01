@@ -41,10 +41,11 @@ namespace ASBindingGenerator
 static void RegisterObjectType(const ClassAnalyzer& classAnalyzer, ProcessedClass& inoutProcessedClass)
 {
     string className = classAnalyzer.GetClassName();
-
-    if (classAnalyzer.IsRefCounted() || Contains(classAnalyzer.GetComment(), "FAKE_REF"))
+    bool isFakeRef = classAnalyzer.IsFakeRef();
+    if (classAnalyzer.IsRefCounted() || isFakeRef)
     {
-        inoutProcessedClass.objectTypeRegistration_ = "engine->RegisterObjectType(\"" + className + "\", 0, asOBJ_REF);";
+        inoutProcessedClass.objectTypeRegistration_ = "engine->RegisterObjectType(\"" + className + "\", 0, asOBJ_REF" +
+            (isFakeRef ? " | asOBJ_NOCOUNT" : "") + ");";
     }
     else // Value type
     {
@@ -69,7 +70,7 @@ static bool IsConstructorRequired(const ClassAnalyzer& classAnalyzer)
     if (classAnalyzer.IsRefCounted())
         return false;
 
-    if (Contains(classAnalyzer.GetComment(), "FAKE_REF"))
+    if (classAnalyzer.IsFakeRef())
         return false;
 
     if (classAnalyzer.IsPod())
@@ -83,7 +84,7 @@ static bool IsDestructorRequired(const ClassAnalyzer& classAnalyzer)
     if (classAnalyzer.IsRefCounted())
         return false;
 
-    if (Contains(classAnalyzer.GetComment(), "FAKE_REF"))
+    if (classAnalyzer.IsFakeRef())
         return false;
 
     if (classAnalyzer.IsPod())
@@ -151,10 +152,14 @@ static void RegisterConstructor(const MethodAnalyzer& methodAnalyzer, ProcessedC
     string cppClassName = classAnalyzer.GetClassName();
     vector<ParamAnalyzer> params = methodAnalyzer.GetParams();
 
+    bool isFakeRef = classAnalyzer.IsFakeRef();
+
     if (params.empty()) // Default constructor
     {
-        if (classAnalyzer.IsRefCounted() || Contains(classAnalyzer.GetComment(), "FAKE_REF"))
-            result.registration_ = "engine->RegisterObjectBehaviour(\"" + asClassName + "\", asBEHAVE_FACTORY, \"" + asClassName + "@+ f()\", asFUNCTION(ASCompatibleFactory<" + cppClassName + ">), AS_CALL_CDECL);";
+        if (classAnalyzer.IsRefCounted() || isFakeRef)
+            result.registration_ = "engine->RegisterObjectBehaviour(\"" + asClassName + "\", asBEHAVE_FACTORY, \"" +
+                                   asClassName + "@" + (isFakeRef ? "" : "+") +
+                                   " f()\", asFUNCTION(ASCompatibleFactory<" + cppClassName + ">), AS_CALL_CDECL);";
         else
             result.registration_ = "engine->RegisterObjectBehaviour(\"" + asClassName + "\", asBEHAVE_CONSTRUCT, \"void f()\", asFUNCTION(ASCompatibleConstructor<" + cppClassName + ">), AS_CALL_CDECL_OBJFIRST);";
 
@@ -193,9 +198,9 @@ static void RegisterConstructor(const MethodAnalyzer& methodAnalyzer, ProcessedC
             needWrapper = true;
     }
 
-    if (classAnalyzer.IsRefCounted() || Contains(classAnalyzer.GetComment(), "FAKE_REF"))
+    if (classAnalyzer.IsRefCounted() || classAnalyzer.IsFakeRef())
     {
-        string asDeclaration = asClassName + "@+ f(" + JoinASDeclarations(convertedParams) + ")";
+        string asDeclaration = asClassName + "@" + (isFakeRef ? "" : "+") + " f(" + JoinASDeclarations(convertedParams) + ")";
         result.registration_ = result.registration_ =
             "engine->RegisterObjectBehaviour(\"" + asClassName + "\", asBEHAVE_FACTORY, \"" + asDeclaration + "\", AS_FUNCTION("
             + GenerateWrapperName(methodAnalyzer) + ") , AS_CALL_CDECL);";
@@ -219,7 +224,7 @@ static void RegisterDestructor(const ClassAnalyzer& classAnalyzer, ProcessedClas
     if (classAnalyzer.IsRefCounted())
         return;
 
-    if (Contains(classAnalyzer.GetComment(), "FAKE_REF"))
+    if (classAnalyzer.IsFakeRef())
         return;
 
     string className = classAnalyzer.GetClassName();
@@ -385,18 +390,18 @@ static string GetSignature(const MethodAnalyzer& method)
     return result;
 }
 
-struct ClassMemeberSignatures
+struct ClassMemberSignatures
 {
     unordered_set<string> methods_; // Signatures of all nonstatic public methods (including inherited)
     unordered_map<string, vector<string>> hiddenInAnyDerivedClassesMethods_; // method signature -> derived class names
     unordered_map<string, vector<string>> existsInBaseClassesMethods_; // method signature -> base class names
 };
 
-static unordered_map<string, shared_ptr<ClassMemeberSignatures>> _cachedMemberSignatures; // className -> signatures
+static unordered_map<string, shared_ptr<ClassMemberSignatures>> _cachedMemberSignatures; // className -> signatures
 
 static bool ContainsSameSignature(const string& className, const string& methodSignature)
 {
-    shared_ptr<ClassMemeberSignatures> classData = _cachedMemberSignatures[className];
+    shared_ptr<ClassMemberSignatures> classData = _cachedMemberSignatures[className];
     return classData->methods_.find(methodSignature) != classData->methods_.end();
 }
 
@@ -407,7 +412,7 @@ static void InitCachedMemberSignatures()
     {
         xml_node compounddef = element.second;
         ClassAnalyzer classAnalyzer(compounddef);
-        shared_ptr<ClassMemeberSignatures> classData = make_shared<ClassMemeberSignatures>();
+        shared_ptr<ClassMemberSignatures> classData = make_shared<ClassMemberSignatures>();
         vector<MethodAnalyzer> methods = classAnalyzer.GetAllPublicMethods();
         for (const MethodAnalyzer& method : methods)
             classData->methods_.insert(GetSignature(method));
@@ -420,7 +425,7 @@ static void InitCachedMemberSignatures()
         xml_node compounddef = element.second;
         ClassAnalyzer classAnalyzer(compounddef);
         string className = classAnalyzer.GetClassName();
-        shared_ptr<ClassMemeberSignatures> classData = _cachedMemberSignatures[classAnalyzer.GetClassName()];
+        shared_ptr<ClassMemberSignatures> classData = _cachedMemberSignatures[classAnalyzer.GetClassName()];
         vector<MethodAnalyzer> methods = classAnalyzer.GetAllPublicMethods();
         vector<ClassAnalyzer> allDerivedClasses = classAnalyzer.GetAllDerivedClasses();
         vector<ClassAnalyzer> baseClasses = classAnalyzer.GetBaseClasses();
@@ -489,7 +494,7 @@ static vector<string> HiddenInAnyDerivedClasses(const MethodAnalyzer& method)
     return result;*/
     string classname = method.GetClassName();
     string methodSignature = GetSignature(method);
-    shared_ptr<ClassMemeberSignatures> classData = _cachedMemberSignatures[classname];
+    shared_ptr<ClassMemberSignatures> classData = _cachedMemberSignatures[classname];
 
     auto it = classData->hiddenInAnyDerivedClassesMethods_.find(methodSignature);
     if (it == classData->hiddenInAnyDerivedClassesMethods_.end())
@@ -515,7 +520,7 @@ static vector<string> HiddenInAnyDerivedClasses(const MethodAnalyzer& method, co
 
     string classname = classAnalyzer.GetClassName();
     string methodSignature = GetSignature(method);
-    shared_ptr<ClassMemeberSignatures> classData = _cachedMemberSignatures[classname];
+    shared_ptr<ClassMemberSignatures> classData = _cachedMemberSignatures[classname];
 
     auto it = classData->hiddenInAnyDerivedClassesMethods_.find(methodSignature);
     if (it == classData->hiddenInAnyDerivedClassesMethods_.end())
@@ -542,7 +547,7 @@ static vector<string> ExistsInBaseClasses(const MethodAnalyzer& method)
 
     string classname = method.GetClassName();
     string methodSignature = GetSignature(method);
-    shared_ptr<ClassMemeberSignatures> classData = _cachedMemberSignatures[classname];
+    shared_ptr<ClassMemberSignatures> classData = _cachedMemberSignatures[classname];
     
     auto it = classData->existsInBaseClassesMethods_.find(methodSignature);
     if (it == classData->existsInBaseClassesMethods_.end())
@@ -567,9 +572,9 @@ static vector<string> ExistsInBaseClasses(const MethodAnalyzer& method, const Cl
 
     return result;*/
 
-    string classname = classAnalyzer.GetClassName();
+    string className = classAnalyzer.GetClassName();
     string methodSignature = GetSignature(method);
-    shared_ptr<ClassMemeberSignatures> classData = _cachedMemberSignatures[classname];
+    shared_ptr<ClassMemberSignatures> classData = _cachedMemberSignatures[className];
 
     auto it = classData->existsInBaseClassesMethods_.find(methodSignature);
     if (it == classData->existsInBaseClassesMethods_.end())
@@ -616,8 +621,8 @@ static void RegisterMethod(const MethodAnalyzer& methodAnalyzer, ProcessedClass&
 
     // TEST
 
-    if (methodAnalyzer.GetClassName() == "Component" && methodAnalyzer.GetName() == "DrawDebugGeometry")
-        int ddd = 1;
+    //if (/*methodAnalyzer.GetClassName() == "OcclusionBuffer" && */methodAnalyzer.GetName() == "AddRef")
+    //    string className = methodAnalyzer.GetClassName(); // Breakpoint here
 
     // TEST END
 
@@ -1295,7 +1300,9 @@ static void ProcessClass(const ClassAnalyzer& classAnalyzer)
     processedClass.hiddenFields_ = classAnalyzer.GetHiddenFields();
     processedClass.hiddenStaticFields_ = classAnalyzer.GetHiddenStaticFields();*/
 
-    if (classAnalyzer.IsAbstract() && !(classAnalyzer.IsRefCounted() || Contains(classAnalyzer.GetComment(), "FAKE_REF")))
+    bool isFakeRef = classAnalyzer.IsFakeRef();
+
+    if (classAnalyzer.IsAbstract() && !(classAnalyzer.IsRefCounted() || isFakeRef))
     {
         processedClass.objectTypeRegistration_ = "// Not registered because value types can not be abstract";
         processedClass.noBind_ = true;
@@ -1323,24 +1330,12 @@ static void ProcessClass(const ClassAnalyzer& classAnalyzer)
 
     RegisterObjectType(classAnalyzer, processedClass);
 
-    if (Contains(classAnalyzer.GetComment(), "FAKE_REF"))
-    {
-        string cppClassName = classAnalyzer.GetClassName();
-        string asClassName = classAnalyzer.GetClassName();
-        SpecialMethodRegistration fakeRef;
-        fakeRef.registration_ = "engine->RegisterObjectBehaviour(\"" + asClassName + "\", asBEHAVE_ADDREF, \"void f()\", AS_FUNCTION_OBJLAST(FakeAddRef), AS_CALL_CDECL_OBJLAST);";
-        processedClass.fakeRefBehaviors_.push_back(fakeRef);
-
-        fakeRef.registration_ = "engine->RegisterObjectBehaviour(\"" + asClassName + "\", asBEHAVE_RELEASE, \"void f()\", AS_FUNCTION_OBJLAST(FakeReleaseRef), AS_CALL_CDECL_OBJLAST);";
-        processedClass.fakeRefBehaviors_.push_back(fakeRef);
-    }
-
-    if (classAnalyzer.IsRefCounted() || Contains(classAnalyzer.GetComment(), "FAKE_REF"))
+    if (classAnalyzer.IsRefCounted() || isFakeRef)
     {
         vector<ClassAnalyzer> baseClasses = classAnalyzer.GetAllBaseClasses();
         for (ClassAnalyzer baseClass : baseClasses)
         {
-            if (baseClass.IsRefCounted() || Contains(baseClass.GetComment(), "FAKE_REF"))
+            if (baseClass.IsRefCounted() || baseClass.IsFakeRef())
             {
                 string cppBaseClassName = baseClass.GetClassName();
                 string asBaseClassName = cppBaseClassName;
@@ -1373,8 +1368,9 @@ static void ProcessClass(const ClassAnalyzer& classAnalyzer)
         string cppClassName = classAnalyzer.GetClassName();
         string asClassName = classAnalyzer.GetClassName();
 
-        if (classAnalyzer.IsRefCounted() || Contains(classAnalyzer.GetComment(), "FAKE_REF"))
-            result->registration_ = "engine->RegisterObjectBehaviour(\"" + asClassName + "\", asBEHAVE_FACTORY, \"" + asClassName + "@+ f()\", asFUNCTION(ASCompatibleFactory<" + cppClassName + ">), AS_CALL_CDECL);";
+        if (classAnalyzer.IsRefCounted() || isFakeRef)
+            result->registration_ = "engine->RegisterObjectBehaviour(\"" + asClassName + "\", asBEHAVE_FACTORY, \"" +
+                                    asClassName + "@" + (isFakeRef ? "" : "+") + " f()\", asFUNCTION(ASCompatibleFactory<" + cppClassName + ">), AS_CALL_CDECL);";
         else
             result->registration_ = "engine->RegisterObjectBehaviour(\"" + asClassName + "\", asBEHAVE_CONSTRUCT, \"void f()\", asFUNCTION(ASCompatibleConstructor<" + cppClassName + ">), AS_CALL_CDECL_OBJFIRST);";
 
