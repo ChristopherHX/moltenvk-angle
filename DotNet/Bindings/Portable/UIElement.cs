@@ -15,6 +15,8 @@ namespace Urho.Gui {
 	
 	public partial class UIElement
 	{
+
+		public Application Application => Application.Current;
 		public T CreateChild<T> (StringHash code, string name = "", uint index = UInt32.MaxValue) where T:UIElement
 		{
 			Runtime.ValidateRefCounted(this);

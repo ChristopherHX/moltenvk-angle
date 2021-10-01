@@ -42159,4 +42159,137 @@ VectorGraphics_LoadSVGIntoTexture (Urho3D::VectorGraphics *_target, Urho3D::Stri
 }
 
 
+DllExport int
+DbConnection_GetType (Urho3D::DbConnection *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+DbConnection_GetTypeName (Urho3D::DbConnection *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+DbConnection_GetTypeStatic ()
+{
+	return (DbConnection::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+DbConnection_GetTypeNameStatic ()
+{
+	return stringdup((DbConnection::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void *
+DbConnection_DbConnection (Urho3D::Context * context, const char * connectionString)
+{
+	return WeakPtr<DbConnection>(new DbConnection(context, Urho3D::String(connectionString)));
+}
+
+
+DllExport void
+DbConnection_Finalize (Urho3D::DbConnection *_target)
+{
+	_target->Finalize ();
+}
+
+
+DllExport const char *
+DbConnection_GetConnectionString (Urho3D::DbConnection *_target)
+{
+	return stringdup((_target->GetConnectionString ()).CString ());
+}
+
+
+DllExport int
+DbConnection_IsConnected (Urho3D::DbConnection *_target)
+{
+	return _target->IsConnected ();
+}
+
+
+DllExport int
+Database_GetType (Urho3D::Database *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+Database_GetTypeName (Urho3D::Database *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+Database_GetTypeStatic ()
+{
+	return (Database::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+Database_GetTypeNameStatic ()
+{
+	return stringdup((Database::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void *
+Database_Database (Urho3D::Context * context)
+{
+	return WeakPtr<Database>(new Database(context));
+}
+
+
+DllExport enum Urho3D::DBAPI
+Database_GetAPI ()
+{
+	return Database::GetAPI ();
+}
+
+
+DllExport Urho3D::DbConnection *
+Database_Connect (Urho3D::Database *_target, const char * connectionString)
+{
+	return _target->Connect (Urho3D::String(connectionString));
+}
+
+
+DllExport void
+Database_Disconnect (Urho3D::Database *_target, Urho3D::DbConnection * connection)
+{
+	_target->Disconnect (connection);
+}
+
+
+DllExport int
+Database_IsPooling (Urho3D::Database *_target)
+{
+	return _target->IsPooling ();
+}
+
+
+DllExport unsigned int
+Database_GetPoolSize (Urho3D::Database *_target)
+{
+	return _target->GetPoolSize ();
+}
+
+
+DllExport void
+Database_SetPoolSize (Urho3D::Database *_target, unsigned int poolSize)
+{
+	_target->SetPoolSize (poolSize);
+}
+
+
 }

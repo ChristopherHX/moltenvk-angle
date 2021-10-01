@@ -997,6 +997,11 @@ namespace SharpieBinder
 				}
 				
 				break;
+
+                case "DbConnection":
+                    if (decl.Name == "GetConnectionImpl" || decl.Name == "Execute")
+                        return true;
+                    break;
 			}
 
 			switch (decl.Name) {

@@ -435,6 +435,29 @@ namespace Urho {
             public int RefreshRate => EventData.get_int (unchecked((int)2996603963) /* RefreshRate (P_REFRESHRATE) */);
         } /* struct ScreenModeEventArgs */
 
+        public partial class Graphics {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.ScreenMode += ...' instead.")]
+             public Subscription SubscribeToScreenMode (Action<ScreenModeEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new ScreenModeEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)1670611055) /* ScreenMode (E_SCREENMODE) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<ScreenModeEventArgs> eventAdapterForScreenMode;
+             public event Action<ScreenModeEventArgs> ScreenMode
+             {
+                 add
+                 {
+                      if (eventAdapterForScreenMode == null)
+                          eventAdapterForScreenMode = new UrhoEventAdapter<ScreenModeEventArgs>(typeof(Graphics));
+                      eventAdapterForScreenMode.AddManagedSubscriber(handle, value, SubscribeToScreenMode);
+                 }
+                 remove { eventAdapterForScreenMode.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class Graphics */ 
+
 } /* namespace */
 
 namespace Urho {
@@ -443,6 +466,29 @@ namespace Urho {
             public int X => EventData.get_int (unchecked((int)88) /* X (P_X) */);
             public int Y => EventData.get_int (unchecked((int)89) /* Y (P_Y) */);
         } /* struct WindowPosEventArgs */
+
+        public partial class Graphics {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.WindowPos += ...' instead.")]
+             public Subscription SubscribeToWindowPos (Action<WindowPosEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new WindowPosEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)2345017348) /* WindowPos (E_WINDOWPOS) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<WindowPosEventArgs> eventAdapterForWindowPos;
+             public event Action<WindowPosEventArgs> WindowPos
+             {
+                 add
+                 {
+                      if (eventAdapterForWindowPos == null)
+                          eventAdapterForWindowPos = new UrhoEventAdapter<WindowPosEventArgs>(typeof(Graphics));
+                      eventAdapterForWindowPos.AddManagedSubscriber(handle, value, SubscribeToWindowPos);
+                 }
+                 remove { eventAdapterForWindowPos.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class Graphics */ 
 
 } /* namespace */
 
@@ -480,6 +526,29 @@ namespace Urho {
         public partial struct BeginRenderingEventArgs {
             public EventDataContainer EventData;
         } /* struct BeginRenderingEventArgs */
+
+        public partial class Graphics {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.BeginRendering += ...' instead.")]
+             public Subscription SubscribeToBeginRendering (Action<BeginRenderingEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new BeginRenderingEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)557297667) /* BeginRendering (E_BEGINRENDERING) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<BeginRenderingEventArgs> eventAdapterForBeginRendering;
+             public event Action<BeginRenderingEventArgs> BeginRendering
+             {
+                 add
+                 {
+                      if (eventAdapterForBeginRendering == null)
+                          eventAdapterForBeginRendering = new UrhoEventAdapter<BeginRenderingEventArgs>(typeof(Graphics));
+                      eventAdapterForBeginRendering.AddManagedSubscriber(handle, value, SubscribeToBeginRendering);
+                 }
+                 remove { eventAdapterForBeginRendering.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class Graphics */ 
 
 } /* namespace */
 
@@ -523,7 +592,7 @@ namespace Urho {
             public Camera Camera => EventData.get_Camera (unchecked((int)2344783493) /* Camera (P_CAMERA) */);
         } /* struct BeginViewUpdateEventArgs */
 
-        public partial class Graphics {
+        public partial class View {
              [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.BeginViewUpdate += ...' instead.")]
              public Subscription SubscribeToBeginViewUpdate (Action<BeginViewUpdateEventArgs> handler)
              {
@@ -539,12 +608,12 @@ namespace Urho {
                  add
                  {
                       if (eventAdapterForBeginViewUpdate == null)
-                          eventAdapterForBeginViewUpdate = new UrhoEventAdapter<BeginViewUpdateEventArgs>(typeof(Graphics));
+                          eventAdapterForBeginViewUpdate = new UrhoEventAdapter<BeginViewUpdateEventArgs>(typeof(View));
                       eventAdapterForBeginViewUpdate.AddManagedSubscriber(handle, value, SubscribeToBeginViewUpdate);
                  }
                  remove { eventAdapterForBeginViewUpdate.RemoveManagedSubscriber(handle, value); }
              }
-        } /* class Graphics */ 
+        } /* class View */ 
 
 } /* namespace */
 
@@ -628,6 +697,29 @@ namespace Urho {
             public Camera Camera => EventData.get_Camera (unchecked((int)2344783493) /* Camera (P_CAMERA) */);
         } /* struct ViewBuffersReadyEventArgs */
 
+        public partial class View {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.ViewBuffersReady += ...' instead.")]
+             public Subscription SubscribeToViewBuffersReady (Action<ViewBuffersReadyEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new ViewBuffersReadyEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)4174686421) /* ViewBuffersReady (E_VIEWBUFFERSREADY) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<ViewBuffersReadyEventArgs> eventAdapterForViewBuffersReady;
+             public event Action<ViewBuffersReadyEventArgs> ViewBuffersReady
+             {
+                 add
+                 {
+                      if (eventAdapterForViewBuffersReady == null)
+                          eventAdapterForViewBuffersReady = new UrhoEventAdapter<ViewBuffersReadyEventArgs>(typeof(View));
+                      eventAdapterForViewBuffersReady.AddManagedSubscriber(handle, value, SubscribeToViewBuffersReady);
+                 }
+                 remove { eventAdapterForViewBuffersReady.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class View */ 
+
 } /* namespace */
 
 namespace Urho {
@@ -639,6 +731,29 @@ namespace Urho {
             public Scene Scene => EventData.get_Scene (unchecked((int)904904844) /* Scene (P_SCENE) */);
             public Camera Camera => EventData.get_Camera (unchecked((int)2344783493) /* Camera (P_CAMERA) */);
         } /* struct ViewGlobalShaderParametersEventArgs */
+
+        public partial class View {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.ViewGlobalShaderParameters += ...' instead.")]
+             public Subscription SubscribeToViewGlobalShaderParameters (Action<ViewGlobalShaderParametersEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new ViewGlobalShaderParametersEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)3142403287) /* ViewGlobalShaderParameters (E_VIEWGLOBALSHADERPARAMETERS) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<ViewGlobalShaderParametersEventArgs> eventAdapterForViewGlobalShaderParameters;
+             public event Action<ViewGlobalShaderParametersEventArgs> ViewGlobalShaderParameters
+             {
+                 add
+                 {
+                      if (eventAdapterForViewGlobalShaderParameters == null)
+                          eventAdapterForViewGlobalShaderParameters = new UrhoEventAdapter<ViewGlobalShaderParametersEventArgs>(typeof(View));
+                      eventAdapterForViewGlobalShaderParameters.AddManagedSubscriber(handle, value, SubscribeToViewGlobalShaderParameters);
+                 }
+                 remove { eventAdapterForViewGlobalShaderParameters.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class View */ 
 
 } /* namespace */
 
@@ -682,6 +797,29 @@ namespace Urho {
             public EventDataContainer EventData;
         } /* struct EndAllViewsRenderEventArgs */
 
+        public partial class Renderer {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.EndAllViewsRender += ...' instead.")]
+             public Subscription SubscribeToEndAllViewsRender (Action<EndAllViewsRenderEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new EndAllViewsRenderEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)1037274462) /* EndAllViewsRender (E_ENDALLVIEWSRENDER) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<EndAllViewsRenderEventArgs> eventAdapterForEndAllViewsRender;
+             public event Action<EndAllViewsRenderEventArgs> EndAllViewsRender
+             {
+                 add
+                 {
+                      if (eventAdapterForEndAllViewsRender == null)
+                          eventAdapterForEndAllViewsRender = new UrhoEventAdapter<EndAllViewsRenderEventArgs>(typeof(Renderer));
+                      eventAdapterForEndAllViewsRender.AddManagedSubscriber(handle, value, SubscribeToEndAllViewsRender);
+                 }
+                 remove { eventAdapterForEndAllViewsRender.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class Renderer */ 
+
 } /* namespace */
 
 namespace Urho {
@@ -689,6 +827,29 @@ namespace Urho {
             public EventDataContainer EventData;
             public String Name => EventData.get_String (unchecked((int)1564775755) /* Name (P_NAME) */);
         } /* struct RenderPathEventEventArgs */
+
+        public partial class View {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.RenderPathEvent += ...' instead.")]
+             public Subscription SubscribeToRenderPathEvent (Action<RenderPathEventEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new RenderPathEventEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)1123016863) /* RenderPathEvent (E_RENDERPATHEVENT) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<RenderPathEventEventArgs> eventAdapterForRenderPathEvent;
+             public event Action<RenderPathEventEventArgs> RenderPathEvent
+             {
+                 add
+                 {
+                      if (eventAdapterForRenderPathEvent == null)
+                          eventAdapterForRenderPathEvent = new UrhoEventAdapter<RenderPathEventEventArgs>(typeof(View));
+                      eventAdapterForRenderPathEvent.AddManagedSubscriber(handle, value, SubscribeToRenderPathEvent);
+                 }
+                 remove { eventAdapterForRenderPathEvent.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class View */ 
 
 } /* namespace */
 
@@ -703,6 +864,29 @@ namespace Urho {
         public partial struct DeviceResetEventArgs {
             public EventDataContainer EventData;
         } /* struct DeviceResetEventArgs */
+
+        public partial class Graphics {
+             [Obsolete("SubscribeTo API may lead to unxpected behaviour and will be removed in a future version. Use C# event '.DeviceReset += ...' instead.")]
+             public Subscription SubscribeToDeviceReset (Action<DeviceResetEventArgs> handler)
+             {
+                  Action<IntPtr> proxy = (x)=> { var d = new DeviceResetEventArgs () { EventData = new EventDataContainer(x) }; handler (d); };
+                  var s = new Subscription (proxy);
+                  s.UnmanagedProxy = UrhoObject.urho_subscribe_event (handle, UrhoObject.ObjectCallbackInstance, GCHandle.ToIntPtr (s.gch), unchecked((int)1341794457) /* DeviceReset (E_DEVICERESET) */);
+                  return s;
+             }
+
+             static UrhoEventAdapter<DeviceResetEventArgs> eventAdapterForDeviceReset;
+             public event Action<DeviceResetEventArgs> DeviceReset
+             {
+                 add
+                 {
+                      if (eventAdapterForDeviceReset == null)
+                          eventAdapterForDeviceReset = new UrhoEventAdapter<DeviceResetEventArgs>(typeof(Graphics));
+                      eventAdapterForDeviceReset.AddManagedSubscriber(handle, value, SubscribeToDeviceReset);
+                 }
+                 remove { eventAdapterForDeviceReset.RemoveManagedSubscriber(handle, value); }
+             }
+        } /* class Graphics */ 
 
 } /* namespace */
 

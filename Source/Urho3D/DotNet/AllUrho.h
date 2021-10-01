@@ -280,9 +280,15 @@
 #include "../IK/IKEvents.h"
 #include "../IK/IKSolver.h"
 #include "../VectorGraphics/VectorGraphics.h"
+#include "../Database/Database.h"
+#include "../Database/DatabaseEvents.h"
+#include "../Database/DbConnection.h"
+#include "../Database/DbResult.h"
 #if defined(URHO3D_DOTNET)
 #include "Mono.h"
 #endif
+
+
 
 // Workaround Windows defining these
 #undef GetObject

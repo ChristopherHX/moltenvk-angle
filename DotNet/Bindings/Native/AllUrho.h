@@ -280,6 +280,11 @@
 #include <Urho3D/IK/IKEvents.h>
 #include <Urho3D/IK/IKSolver.h>
 #include <Urho3D/vectorGraphics/vectorGraphics.h>
+#include <Urho3D/Database/Database.h>
+#include <Urho3D/Database/DatabaseEvents.h>
+#include <Urho3D/Database/DbConnection.h>
+#include <Urho3D/Database/DbResult.h>
+
 #if defined(URHO3D_DOTNET)
 #include <Urho3D/Mono.h>
 #endif

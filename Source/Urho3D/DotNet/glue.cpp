@@ -905,13 +905,111 @@ DllExport const char* ResourceCache_GetResourceDir(Urho3D::ResourceCache *_targe
     }
 }
     
+DllExport void *
+DbConnection_GetSQLite3Implementation (Urho3D::DbConnection *_target)
+{
+    const sqlite3*  sqlConnection = _target->GetConnectionImpl();
+    return (void*)sqlConnection;
+}
+
+DllExport void *
+sqlite3_connection_prepare(sqlite3* connectionImpl_,const char *  sqlQuery)
+{
+   
+    if(connectionImpl_ == nullptr) return nullptr;
+    
+    sqlite3_stmt* pStmt = nullptr;
+    const char* zLeftover = nullptr;
+    String trimmedSqlStr = String(sqlQuery).Trimmed();
+    
+    int rc = sqlite3_prepare_v2(connectionImpl_, trimmedSqlStr.CString(), -1, &pStmt, &zLeftover);
+    if (rc != SQLITE_OK)
+    {
+        URHO3D_LOGERRORF("Could not execute: %s", sqlite3_errmsg(connectionImpl_));
+        pStmt = nullptr;
+        return nullptr;
+    }
+    
+    if (*zLeftover)
+    {
+        URHO3D_LOGERROR("Could not execute: only one SQL statement is allowed");
+        sqlite3_finalize(pStmt);
+        return nullptr;
+    }
+    
+    return pStmt;
+    
+}
+
+DllExport int
+sqlite3_connection_changes(sqlite3* connectionImpl_)
+{
+    if(connectionImpl_ == nullptr) return -1;
+    
+    return sqlite3_changes(connectionImpl_);
+}
+
+DllExport int
+sqlite3_connection_finalize(sqlite3_stmt *pStmt)
+{
+    if(pStmt == nullptr) return -1;
+    return  sqlite3_finalize(pStmt);
+}
+
+DllExport int
+sqlite3_connection_column_count( sqlite3_stmt* pStmt )
+{
+    if(pStmt == nullptr) return -1;
+    return (int)sqlite3_column_count(pStmt);
+}
+
+DllExport const char*
+sqlite3_connection_column_name(sqlite3_stmt* pStmt, int index)
+{
+    if(pStmt == nullptr) return nullptr;
+    return stringdup(sqlite3_column_name(pStmt, index));
+}
+
+DllExport int
+sqlite3_connection_column_step(sqlite3_stmt* pStmt)
+{
+    return sqlite3_step(pStmt);
+}
+
+DllExport int
+sqlite3_connection_column_type(sqlite3_stmt* pStmt, int index)
+{
+    if(pStmt == nullptr) return -1;
+    return sqlite3_column_type(pStmt, index);
+}
+
+DllExport int
+sqlite3_connection_column_int(sqlite3_stmt* pStmt, int index)
+{
+    if(pStmt == nullptr) return -1;
+    return sqlite3_column_int(pStmt, index);
+}
+
+DllExport double
+sqlite3_connection_column_double(sqlite3_stmt* pStmt, int index)
+{
+    if(pStmt == nullptr) return -1;
+    return sqlite3_column_double(pStmt, index);
+}
+
+DllExport const char*
+sqlite3_connection_column_decltype(sqlite3_stmt* pStmt, int index)
+{
+    if(pStmt == nullptr) return nullptr;
+    return stringdup(sqlite3_column_decltype(pStmt, index));
+}
 
 
-    /*
-     #if UWP
-     #define stringdup _strdup
-     #else
-     #define stringdup strdup
-     #endif
-     */
+DllExport const char*
+sqlite3_connection_column_text(sqlite3_stmt* pStmt, int index)
+{
+    if(pStmt == nullptr) return nullptr;
+    return stringdup((const char*)sqlite3_column_text(pStmt, index));
+}
+
 }

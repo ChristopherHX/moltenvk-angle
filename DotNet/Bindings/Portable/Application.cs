@@ -540,6 +540,18 @@ namespace Urho
 			}
 		}
 
+		Database database;
+		public Database Database
+		{
+			get
+			{
+				Runtime.Validate(typeof(Application));
+				if (database == null)
+					database = new Database(UrhoObject_GetSubsystem(handle, Database.TypeStatic.Code));
+				return database;
+			}
+		}
+
 		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		extern static IntPtr Application_GetEngine(IntPtr handle);
 		Engine engine;
