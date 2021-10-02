@@ -36,27 +36,60 @@ namespace Urho {
 			Node_Remove (handle);
 		}
 
-		public Node[] GetChildrenWithComponent<T> (bool recursive = false) where T: Component
-		{
-			Runtime.ValidateRefCounted(this);
-			var stringhash = Runtime.LookupStringHash (typeof (T));
-			int count;
-			var ptr = NodeHelper.urho_node_get_components (handle, stringhash.Code, recursive ? 1 : 0, out count);
-			if (ptr == IntPtr.Zero)
-				return ZeroArray;
-			
-			var res = new Node[count];
-			for (int i = 0; i < count; i++){
-				var node = Marshal.ReadIntPtr(ptr, i * IntPtr.Size);
-				res [i] = Runtime.LookupObject<Node> (node);
-			}
-			if (Component.IsDefinedInManagedCode<T>())
-				//is not really efficient, but underlying Urho3D knows nothing about components defined in C#
-				return res.Where(c => c.GetComponent<T>() != null).ToArray();
-			return res;
-		}
-			
-		public Node[] GetChildrenWithTag(string tag, bool recursive = false)
+        private void GetChildrenWithManagedComponent(Node parent, System.Type type, bool recursive, ref List<Node> children)
+        {
+            if (parent == null) return;
+
+            foreach (Node node in parent.Children)
+            {
+                var components = node.Components;
+                foreach (Component component in components)
+                {
+                    if (component.GetType() == type)
+                    {
+                        children.Add(node);
+                    }
+                }
+
+                if (recursive == true)
+                {
+                    GetChildrenWithManagedComponent(node, type, recursive, ref children);
+                }
+            }
+        }
+
+        public Node[] GetChildrenWithComponent<T>(bool recursive = false) where T : Component
+        {
+            Runtime.ValidateRefCounted(this);
+
+            // This is a managed component so don't search it in Urho3D native
+            // TBD ELI , This soultion needs some optimization
+            if (Component.IsDefinedInManagedCode<T>())
+            {
+                List<Node> children = new List<Node>();
+                GetChildrenWithManagedComponent(this, typeof(T), recursive, ref children);
+                return children.ToArray();
+            }
+
+            var stringhash = Runtime.LookupStringHash(typeof(T));
+            int count;
+            var ptr = NodeHelper.urho_node_get_components(handle, stringhash.Code, recursive ? 1 : 0, out count);
+            if (ptr == IntPtr.Zero)
+                return ZeroArray;
+
+            var res = new Node[count];
+            for (int i = 0; i < count; i++)
+            {
+                var node = Marshal.ReadIntPtr(ptr, i * IntPtr.Size);
+                res[i] = Runtime.LookupObject<Node>(node);
+            }
+            if (Component.IsDefinedInManagedCode<T>())
+                //is not really efficient, but underlying Urho3D knows nothing about components defined in C#
+                return res.Where(c => c.GetComponent<T>() != null).ToArray();
+            return res;
+        }
+
+        public Node[] GetChildrenWithTag(string tag, bool recursive = false)
 		{
 			Runtime.ValidateRefCounted(this);
 			int count;
