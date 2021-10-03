@@ -23,11 +23,14 @@ namespace Urho
 
         public int NumAffectedRows;
 
+        public SQLResult Result;
+
         public DbResult()
         {
             Columns.Clear();
             Rows.Clear();
             NumAffectedRows = 0;
+            Result = SQLResult.OK;
         }
     }
 
@@ -105,7 +108,7 @@ namespace Urho
                     }
                     else if (rc != SQLResult.Done)
                     {
-                        Log.Error("SQl Error",null);
+                        result.Result = rc;
                     }
 
                     if (rc != SQLResult.Row)
@@ -116,6 +119,10 @@ namespace Urho
                 }
 
                result.NumAffectedRows = (columnCount > 0  )? -1 : sqlInstance.Changes();
+            }
+            else
+            {
+                result.Result = SQLResult.Error;
             }
 
             return result;
