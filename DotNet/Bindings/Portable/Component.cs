@@ -16,7 +16,9 @@ namespace Urho
 {
 	public partial class Component : Animatable
 	{
-		bool subscribedToSceneUpdate;
+		bool subscribedToSceneUpdate = false;
+
+		bool isDisposed = false;
 
 		protected bool ReceiveSceneUpdates 
 		{ 	
@@ -38,7 +40,7 @@ namespace Urho
 				{
 					if (subscribedToSceneUpdate)
 					{
-						subscribedToSceneUpdate = true;
+						subscribedToSceneUpdate = false;
 						Application.Update -= HandleUpdate;
 					}
 				}
@@ -50,6 +52,13 @@ namespace Urho
 			Runtime.ValidateRefCounted(this);
 			return (T)Node.Components.FirstOrDefault(c => c is T);
 		}
+
+        protected override void Dispose(bool disposing)
+        {
+            isDisposed = true;
+            base.Dispose(disposing);
+            ReceiveSceneUpdates = false;
+        }
 
 		public Application Application => Application.Current;
 
@@ -137,6 +146,7 @@ namespace Urho
 
 		protected override void OnDeleted()
 		{
+			isDisposed = true;
 			if (subscribedToSceneUpdate)
 			{
 				ReceiveSceneUpdates = false;
@@ -162,6 +172,8 @@ namespace Urho
 
 		void HandleUpdate(UpdateEventArgs args)
 		{
+			if(isDisposed)return;
+
 			OnUpdate(args.TimeStep);
 		}
 	}
