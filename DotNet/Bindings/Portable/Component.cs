@@ -11,6 +11,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using Urho.Resources;
+using Urho.IO;
 
 namespace Urho
 {
@@ -174,7 +175,15 @@ namespace Urho
 		{
 			if(isDisposed)return;
 
-			OnUpdate(args.TimeStep);
+			try
+            {
+				OnUpdate(args.TimeStep);
+			}
+			catch(Exception ex)
+			{
+				   Urho.Application.ThrowUnhandledException(
+                        new Exception(ex.ToString() + " . You can omit this exception by subscribing to Urho.Application.UnhandledException event and set Handled property to True.\nApplicationOptions: " + Application.CurrentOptions));
+			}
 		}
 	}
 }
