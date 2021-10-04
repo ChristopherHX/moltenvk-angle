@@ -171,19 +171,19 @@ namespace Urho
 
 		internal static bool IsDefinedInManagedCode<T>() => typeof(T).GetRuntimeProperty("TypeStatic") == null;
 
-		void HandleUpdate(UpdateEventArgs args)
-		{
-			if(isDisposed)return;
+        void HandleUpdate(UpdateEventArgs args)
+        {
+            if (isDisposed) return;
 
-			try
+            try
             {
-				OnUpdate(args.TimeStep);
-			}
-			catch(Exception ex)
-			{
-				   Urho.Application.ThrowUnhandledException(
-                        new Exception(ex.ToString() + " . You can omit this exception by subscribing to Urho.Application.UnhandledException event and set Handled property to True.\nApplicationOptions: " + Application.CurrentOptions));
-			}
-		}
+                OnUpdate(args.TimeStep);
+            }
+            catch (Exception ex)
+            {
+                Urho.Application.ThrowUnhandledException(
+                     new Exception(ex.ToString() + " . You can omit this exception by subscribing to Urho.Application.UnhandledException event and set Handled property to True.\nApplicationOptions: " + Application.CurrentOptions));
+            }
+        }
 	}
 }
