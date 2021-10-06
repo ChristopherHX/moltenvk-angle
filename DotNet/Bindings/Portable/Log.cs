@@ -105,8 +105,9 @@ namespace Urho.IO
 		// public static LogLevel LogLevel { get; set; } = LogLevel.Debug;
 
         public static void Error(string str) =>  LogSharpWrite(LogLevel.Error, str);
+        public  void Error(string str , int dummy = 0) =>  LogSharpWrite(LogLevel.Error, str);
 		public static void Error(string str, Exception exc) =>  LogSharpWrite(LogLevel.Error, $"Exception: {exc}. " + str);
-        public  void Error(string str, Exception exc,int dummy) =>  LogSharpWrite(LogLevel.Error, $"Exception: {exc}. " + str);
+        public  void Error(string str, Exception exc ,int dummy = 0) =>  LogSharpWrite(LogLevel.Error, $"Exception: {exc}. " + str);
 		public static void Warn(string str) =>  LogSharpWrite(LogLevel.Warning, str);
         public  void Warn(string str,int dummy = 0 ) =>  LogSharpWrite(LogLevel.Warning, str);
 
