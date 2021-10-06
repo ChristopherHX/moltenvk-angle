@@ -12,13 +12,32 @@ namespace Urho.IO
 
 		public uint Size => File_GetSize(Handle);
 
-		public uint Read(byte[] buffer, uint size)
+		public uint Read(byte[] buffer, uint size = 0 )
 		{
 			unsafe
 			{
 				fixed (byte* b = buffer)
 				{
+					if(size == 0 || size > buffer.Length)
+					{
+						size = (uint)buffer.Length;
+					}
 					return Read((IntPtr)b, size);
+				}
+			}
+		}
+
+		public uint Write(byte[] buffer, uint size = 0)
+		{
+			unsafe
+			{
+				fixed (byte* b = buffer)
+				{
+                    if (size == 0 || size > buffer.Length)
+                    {
+                        size = (uint)buffer.Length;
+                    }
+					return Write((void*)b, (uint)size);
 				}
 			}
 		}
