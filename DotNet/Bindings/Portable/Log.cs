@@ -230,10 +230,11 @@ namespace Urho.IO
             switch(level)
             {
                 case LogLevel.Raw:
+                case LogLevel.Debug:
                     Urho.IO.Log.Write(LogLevel.Info,message);
                 break;
                 
-                case LogLevel.Debug:
+               
                 case LogLevel.Info:
                 case LogLevel.Warning:
 			        Urho.IO.Log.Write(level,message);
