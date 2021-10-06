@@ -236,8 +236,12 @@ namespace Urho.IO
                 case LogLevel.Debug:
                 case LogLevel.Info:
                 case LogLevel.Warning:
-                case LogLevel.Error:
 			        Urho.IO.Log.Write(level,message);
+                break;
+
+                // sending LogLevel.Error is causing Android crash
+                case LogLevel.Error:
+			        Urho.IO.Log.Write(LogLevel.Warning,message);
                 break;
             }
 
