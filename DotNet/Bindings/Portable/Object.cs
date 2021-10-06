@@ -24,12 +24,20 @@ namespace Urho
         [MonoPInvokeCallback(typeof(ObjectCallbackSignature))]
         internal static void ObjectCallback(IntPtr data, int stringHash, IntPtr variantMap)
         {
-            GCHandle gch = GCHandle.FromIntPtr(data);
-            Action<IntPtr> a = (Action<IntPtr>)gch.Target;
-            a(variantMap);
+            try
+            {
+                GCHandle gch = GCHandle.FromIntPtr(data);
+                Action<IntPtr> a = (Action<IntPtr>)gch.Target;
+                a(variantMap);
+            }
+            catch (Exception ex)
+            {
+                Urho.Application.ThrowUnhandledException(
+                     new Exception(ex.ToString() + " . You can omit this exception by subscribing to Urho.Application.UnhandledException event and set Handled property to True.\nApplicationOptions: " + Application.CurrentOptions));
+            }
         }
 
-		[MonoPInvokeCallback(typeof(ObjectCallbackSignature))]
+        [MonoPInvokeCallback(typeof(ObjectCallbackSignature))]
         internal static void ObjectCallback2(IntPtr data, int stringHash, IntPtr variantMap)
         {
             GCHandle gch = GCHandle.FromIntPtr(data);

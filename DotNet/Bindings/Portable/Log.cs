@@ -4,6 +4,19 @@ namespace Urho.IO
 {
 	public unsafe partial class Log : UrhoObject
 	{
+        const string RedColorBackground = "\u001b[41m";
+        const string GreenColorBackground = "\u001b[42m";
+        const string YellowColorBackground = "\u001b[43m";
+        const string BlueColorBackground = "\u001b[44m";
+        const string PurpleColorBackground = "\u001b[45m";
+        const string CyanColorBackground = "\u001b[46m";
+        
+        const string RedColorText = "\u001b[31m";
+        const string GreenColorText = "\u001b[32m";
+        const string YellowColorText = "\u001b[33m";
+        const string BlueColorText = "\u001b[34m";
+        const string PurpleColorText = "\u001b[35m";
+        const string CyanColorText = "\u001b[36m";
 
         public  LogLevel LogLevel
         {
@@ -91,8 +104,9 @@ namespace Urho.IO
 
 		// public static LogLevel LogLevel { get; set; } = LogLevel.Debug;
 
-		public static void Error(string str, Exception exc = null) =>  LogSharpWrite(LogLevel.Error, $"Exception: {exc}. " + str);
-        public  void Error(string str, Exception exc = null,int dummy = 0 ) =>  LogSharpWrite(LogLevel.Error, $"Exception: {exc}. " + str);
+        public static void Error(string str) =>  LogSharpWrite(LogLevel.Error, str);
+		public static void Error(string str, Exception exc) =>  LogSharpWrite(LogLevel.Error, $"Exception: {exc}. " + str);
+        public  void Error(string str, Exception exc,int dummy) =>  LogSharpWrite(LogLevel.Error, $"Exception: {exc}. " + str);
 		public static void Warn(string str) =>  LogSharpWrite(LogLevel.Warning, str);
         public  void Warn(string str,int dummy = 0 ) =>  LogSharpWrite(LogLevel.Warning, str);
 
@@ -195,10 +209,10 @@ namespace Urho.IO
             return s_indentString = new string(' ', indentCount);
         }
 
-        private static void  LogSharpWrite(LogLevel level, string message)
-		{
-			if (level < StaticLogLevel || message == null)
-				return;
+        private static void LogSharpWrite(LogLevel level, string message)
+        {
+            if (level < StaticLogLevel || message == null)
+                return;
 
             if (s_needIndent)
             {
@@ -227,14 +241,44 @@ namespace Urho.IO
             }
 
 #else
-    #if __IOS__
-                System.Console.WriteLine($"{level}: {message}");
-    #else
-                var timestamp = "["+DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss.fff")+"] ";
-                System.Console.WriteLine($"{timestamp} {level}: {message}");
-    #endif
+#if __IOS__
+            
+            switch (level)
+            {
+                case LogLevel.Info:
+                case LogLevel.Raw:
+                case LogLevel.Debug:
+                    System.Console.WriteLine("📗"+$"{level}: {message}");
+                break;
+
+                case LogLevel.Warning:
+                    System.Console.WriteLine("📙"+$"{level}: {message}");
+                break;
+                case LogLevel.Error:
+                    System.Console.WriteLine("📕" +$"{level}: {message}");
+                break;
+            }
+#else
+            var timestamp = "[" + DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss.fff") + "] ";
+
+            switch (level)
+            {
+                case LogLevel.Info:
+                case LogLevel.Raw:
+                case LogLevel.Debug:
+                     System.Console.WriteLine($"{timestamp} {level}: {message}");
+                break;
+
+                case LogLevel.Warning:
+                     System.Console.WriteLine(YellowColorText+$"{timestamp} {level}: {message}");
+                break;
+                case LogLevel.Error:
+			        System.Console.WriteLine(RedColorText + $"{timestamp} {level}: {message}");
+                break;
+            }
 #endif
-		}
+#endif
+        }
 
 	}
 }
