@@ -1171,12 +1171,6 @@ SDL_JoystickID Input::AddScreenJoystick(XMLFile* layoutFile, XMLFile* styleFile)
 
     state.Initialize(numButtons, numAxes, numHats);
 
-    // There could be potentially more than one screen joystick, however they all will be handled by a same handler method
-    // So there is no harm to replace the old handler with the new handler in each call to SubscribeToEvent()
-    SubscribeToEvent(E_TOUCHBEGIN, URHO3D_HANDLER(Input, HandleScreenJoystickTouch));
-    SubscribeToEvent(E_TOUCHMOVE, URHO3D_HANDLER(Input, HandleScreenJoystickTouch));
-    SubscribeToEvent(E_TOUCHEND, URHO3D_HANDLER(Input, HandleScreenJoystickTouch));
-
     return joystickID;
 }
 
@@ -2120,7 +2114,10 @@ void Input::HandleSDLEvent(void* sdlEvent)
             eventData[P_Y] = state.position_.y_;
             eventData[P_PRESSURE] = state.pressure_;
             SendEvent(E_TOUCHBEGIN, eventData);
-
+            if (touches_.Contains(touchID))
+            {
+                HandleScreenJoystickTouch(E_TOUCHBEGIN, eventData);
+            }
             // Finger touch may move the mouse cursor. Suppress next mouse move when cursor hidden to prevent jumps
             if (!mouseVisible_)
                 SuppressNextMouseMove();
@@ -2142,7 +2139,10 @@ void Input::HandleSDLEvent(void* sdlEvent)
             eventData[P_X] = state.position_.x_;
             eventData[P_Y] = state.position_.y_;
             SendEvent(E_TOUCHEND, eventData);
-
+            if (touches_.Contains(touchID))
+            {
+                HandleScreenJoystickTouch(E_TOUCHEND, eventData);
+            }
             // Add touch index back to list of available touch Ids
             PushTouchIndex(evt.tfinger.fingerId & 0x7ffffffu);
 
@@ -2174,7 +2174,10 @@ void Input::HandleSDLEvent(void* sdlEvent)
             eventData[P_DY] = (int)(evt.tfinger.dy * graphics_->GetHeight());
             eventData[P_PRESSURE] = state.pressure_;
             SendEvent(E_TOUCHMOVE, eventData);
-
+            if(touches_.Contains(touchID))
+            {
+                HandleScreenJoystickTouch(E_TOUCHMOVE, eventData);
+            }
             // Finger touch may move the mouse cursor. Suppress next mouse move when cursor hidden to prevent jumps
             if (!mouseVisible_)
                 SuppressNextMouseMove();
