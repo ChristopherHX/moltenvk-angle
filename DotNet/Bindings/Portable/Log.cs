@@ -111,10 +111,6 @@ namespace Urho.IO
 		public static void Warn(string str) =>  LogSharpWrite(LogLevel.Warning, str);
         public  void Warn(string str,int dummy = 0 ) =>  LogSharpWrite(LogLevel.Warning, str);
 
-
-        public static void Trace(string str) =>  LogSharpWrite(LogLevel.Trace, str);
-        public  void Trace(string str,int dummy = 0) => LogSharpWrite(LogLevel.Trace, str);
-
         public static void Debug(string str) =>  LogSharpWrite(LogLevel.Debug, str);
         public  void Debug(string str,int dummy = 0) => LogSharpWrite(LogLevel.Debug, str);
         
@@ -234,7 +230,6 @@ namespace Urho.IO
             switch(level)
             {
                 case LogLevel.Raw:
-                case LogLevel.Trace:
                 case LogLevel.Debug:
                     Urho.IO.Log.Write(LogLevel.Info,message);
                 break;
@@ -258,7 +253,6 @@ namespace Urho.IO
             {
                 case LogLevel.Info:
                 case LogLevel.Raw:
-                case LogLevel.Trace:
                 case LogLevel.Debug:
                     System.Console.WriteLine("📗"+$"{level}: {message}");
                 break;
@@ -277,7 +271,6 @@ namespace Urho.IO
             {
                 case LogLevel.Info:
                 case LogLevel.Raw:
-                case LogLevel.Trace:
                 case LogLevel.Debug:
                      System.Console.WriteLine($"{timestamp} {level}: {message}");
                 break;

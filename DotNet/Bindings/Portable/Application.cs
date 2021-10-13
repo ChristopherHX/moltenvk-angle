@@ -208,7 +208,7 @@ namespace Urho
 			isExiting = true;
 			if (CancelActiveActionsOnStop)
 				Current.ActionManager.CancelActiveActions();
-			Log.Debug("ProxyStop");
+			LogSharp.Debug("ProxyStop");
 			UrhoPlatformInitializer.Initialized = false;
 			var context = Current?.Context;
 			var app = GetApp(h);
@@ -218,13 +218,13 @@ namespace Urho
 				app.Stop();
 			}
 
-			Log.Debug("ProxyStop: Runtime.Cleanup");
+			LogSharp.Debug("ProxyStop: Runtime.Cleanup");
 			Runtime.Cleanup(Platform != Platforms.Android);
-			Log.Debug("ProxyStop: Disposing context");
+			LogSharp.Debug("ProxyStop: Disposing context");
 			Current = null;
 
 			Stopped?.Invoke();
-			Log.Debug("ProxyStop: end");
+			LogSharp.Debug("ProxyStop: end");
 			exitTask?.TrySetResult(true);
 		}
 
@@ -255,15 +255,15 @@ namespace Urho
 #if WINDOWS_UWP && !UWP_HOLO
 			UWP.UrhoSurface.StopRendering().Wait();
 #endif
-			Log.Debug($"StopCurrent: Current.IsFrameRendering={Current.IsFrameRendering}");
+			LogSharp.Debug($"StopCurrent: Current.IsFrameRendering={Current.IsFrameRendering}");
 			if (Current.IsFrameRendering)// && !Current.Engine.PauseMinimized)
 			{
 				waitFrameEndTaskSource = new TaskCompletionSource<bool>();
 				await waitFrameEndTaskSource.Task;
-				Log.Debug($"StopCurrent: waitFrameEndTaskSource awaited");
+				LogSharp.Debug($"StopCurrent: waitFrameEndTaskSource awaited");
 				waitFrameEndTaskSource = null;
 			}
-			Log.Debug($"StopCurrent: Engine.Exit");
+			LogSharp.Debug($"StopCurrent: Engine.Exit");
 
 			Current.Engine.Exit();
 

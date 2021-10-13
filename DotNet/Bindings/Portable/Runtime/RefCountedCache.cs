@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Urho.IO;
 
 namespace Urho
 {
@@ -83,7 +82,7 @@ namespace Urho
 				}
 				reference?.Dispose();
 			}
-			Log.Warn($"RefCountedCache objects alive: {knownObjects.Count}");
+			LogSharp.Warn($"RefCountedCache objects alive: {knownObjects.Count}");
 
 			//knownObjects.Clear();
 		}
