@@ -311,13 +311,13 @@ namespace Urho
             if (IsClosing)
             {
                 var errorText = $"{typeof(T).Name}.{name} (Handle={obj.Handle}) was invoked after Application.Stop";
-                LogSharp.Error(errorText);
+                Log.Error(errorText);
                 throw new InvalidOperationException(errorText);
             }
             if (obj.IsDeleted) //IsDeleted is set to True when we receive a native callback from RefCounted::~RefCounted
             {
                 var errorText = $"Underlying native object was deleted for Handle={obj.Handle}. {typeof(T).Name}.{name}";
-                LogSharp.Error(errorText);
+                Log.Error(errorText);
                 throw new InvalidOperationException(errorText);
             }
             //if (obj.Handle == IntPtr.Zero)
@@ -332,7 +332,7 @@ namespace Urho
             if (IsClosing)
             {
                 var errorText = $"{typeof(T).Name}.{name} was invoked after Application.Stop";
-                LogSharp.Error(errorText);
+                Log.Error(errorText);
                 throw new InvalidOperationException(errorText);
             }
         }
@@ -343,7 +343,7 @@ namespace Urho
             if (IsClosing)
             {
                 var errorText = $"{type.Name}.{name} was invoked after Application.Stop";
-                LogSharp.Error(errorText);
+                Log.Error(errorText);
                 throw new InvalidOperationException(errorText);
             }
         }

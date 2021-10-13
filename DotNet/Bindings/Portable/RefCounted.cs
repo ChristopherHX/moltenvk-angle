@@ -37,7 +37,7 @@ namespace Urho {
 		/// </summary>
 		internal void HandleNativeDelete()
 		{
-			LogSharp.Trace($"{GetType().Name}: HandleNativeDelete");
+			Log.Trace($"{GetType().Name}: HandleNativeDelete");
 			Dispose(true);
 			GC.SuppressFinalize(this);
 		}
@@ -52,7 +52,7 @@ namespace Urho {
 		{
 			if (!IsDeleted && AllowNativeDelete)
 			{
-				LogSharp.Trace($"{GetType().Name}: DeleteNativeObject");
+				Log.Trace($"{GetType().Name}: DeleteNativeObject");
 				TryDeleteRefCounted(handle);
 			}
 		}

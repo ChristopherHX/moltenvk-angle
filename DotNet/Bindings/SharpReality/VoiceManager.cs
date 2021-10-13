@@ -67,7 +67,7 @@ namespace Urho
 			}
 			catch (Exception exc)
 			{
-				LogSharp.Warn("RegisterCortanaCommands: " + exc);
+				Log.Warn("RegisterCortanaCommands: " + exc);
 				return false;
 			}
 		}

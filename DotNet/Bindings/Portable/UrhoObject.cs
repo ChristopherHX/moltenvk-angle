@@ -28,7 +28,7 @@ namespace Urho
 			catch (ArgumentException ex )
 			{
 				res = false;
-				LogSharp.Error(ex.ToString());
+				Log.Error(ex.ToString());
 			}
 
 			return res;
@@ -43,7 +43,7 @@ namespace Urho
 			}
 			catch (KeyNotFoundException ex)
 			{
-				LogSharp.Error(ex.ToString());
+				Log.Error(ex.ToString());
 			}
 
 			return weakReference;

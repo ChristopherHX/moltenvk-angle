@@ -79,13 +79,13 @@ namespace Urho.iOS
 
 		public async Task<Application> Show(Type appType, ApplicationOptions opts = null)
 		{
-			LogSharp.Debug("UrhoSurface: Show.");
+			Log.Debug("UrhoSurface: Show.");
 			await waitWhileSuperviewIsNullTaskSource.Task;
 			UrhoPlatformInitializer.DefaultInit();
 			await Task.Yield();
 			paused = false;
 			opts = opts ?? new ApplicationOptions();
-			LogSharp.Debug("UrhoSurface: Show. Wait semaphore.");
+			Log.Debug("UrhoSurface: Show. Wait semaphore.");
 			await Semaphore.WaitAsync();
 			//await Stop();
 			if (Application.HasCurrent)
@@ -106,43 +106,43 @@ namespace Urho.iOS
 			if (!opts.DelayedStart)
 				await Application.ToMainThreadAsync();
            	InvokeOnMainThread(() => Hidden = false);
-			LogSharp.Debug("UrhoSurface: Finished.");
+			Log.Debug("UrhoSurface: Finished.");
 			return app;
 		}
 
 		public static void StopRendering(Application app)
 		{
-			LogSharp.Debug("UrhoSurface: StopRendering.");
+			Log.Debug("UrhoSurface: StopRendering.");
             Resume();
 			if (Application.HasCurrent && Application.Current.Graphics?.IsDeleted != true)
 			{
 				var window = Application.Current.Graphics.SdlWindow;
 				if (window != IntPtr.Zero)
 				{
-					LogSharp.Debug("UrhoSurface: UIKit_StopRenderLoop.");
+					Log.Debug("UrhoSurface: UIKit_StopRenderLoop.");
 					UIKit_StopRenderLoop(window);
 				}
 			}
-			LogSharp.Debug("UrhoSurface: Finished.");
+			Log.Debug("UrhoSurface: Finished.");
 		}
 
 		public async Task Stop()
 		{
-			LogSharp.Debug("UrhoSurface: Stop.");
+			Log.Debug("UrhoSurface: Stop.");
 			if (Application == null || !Application.IsActive)
 				return;
 
-			LogSharp.Debug("UrhoSurface: Stop. Wait semaphore.");
+			Log.Debug("UrhoSurface: Stop. Wait semaphore.");
 			await ExitSemaphore.WaitAsync();
-			LogSharp.Debug("UrhoSurface: Stop. Exiting...");
+			Log.Debug("UrhoSurface: Stop. Exiting...");
 			await Application.Exit();
-			LogSharp.Debug("UrhoSurface: Stop. Removing subviews...");
+			Log.Debug("UrhoSurface: Stop. Removing subviews...");
 			foreach (var view in Subviews)
 			{
 				view.RemoveFromSuperview();
 			}
 			ExitSemaphore.Release();
-			LogSharp.Debug("UrhoSurface: Stop. Finished.");
+			Log.Debug("UrhoSurface: Stop. Finished.");
 		}
 
 		public override void RemoveFromSuperview()
