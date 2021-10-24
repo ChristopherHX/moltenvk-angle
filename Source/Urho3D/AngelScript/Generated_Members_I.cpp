@@ -537,8 +537,8 @@ void ASRegisterGenerated_Members_I(asIScriptEngine* engine)
     // unsigned Component::GetID() const | File: ../Scene/Component.h
     engine->RegisterObjectMethod("IKEffector", "uint GetID() const", asMETHODPR(IKEffector, GetID, () const, unsigned), asCALL_THISCALL);
     engine->RegisterObjectMethod("IKEffector", "uint get_id() const", asMETHODPR(IKEffector, GetID, () const, unsigned), asCALL_THISCALL);
-    // bool IKEffector::GetINHERIT_PARENT_ROTATION() const | File: ../IK/IKEffector.h
-    engine->RegisterObjectMethod("IKEffector", "bool GetINHERIT_PARENT_ROTATION() const", asMETHODPR(IKEffector, GetINHERIT_PARENT_ROTATION, () const, bool), asCALL_THISCALL);
+    // bool IKEffector::GetFEATURE_INHERIT_PARENT_ROTATION() const | File: ../IK/IKEffector.h
+    engine->RegisterObjectMethod("IKEffector", "bool GetFEATURE_INHERIT_PARENT_ROTATION() const", asMETHODPR(IKEffector, GetFEATURE_INHERIT_PARENT_ROTATION, () const, bool), asCALL_THISCALL);
     // bool Serializable::GetInterceptNetworkUpdate(const String& attributeName) const | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("IKEffector", "bool GetInterceptNetworkUpdate(const String&in) const", asMETHODPR(IKEffector, GetInterceptNetworkUpdate, (const String&) const, bool), asCALL_THISCALL);
     // virtual const Vector<AttributeInfo>* Serializable::GetNetworkAttributes() const | File: ../Scene/Serializable.h
@@ -597,8 +597,8 @@ void ASRegisterGenerated_Members_I(asIScriptEngine* engine)
     // float IKEffector::GetWeight() const | File: ../IK/IKEffector.h
     engine->RegisterObjectMethod("IKEffector", "float GetWeight() const", asMETHODPR(IKEffector, GetWeight, () const, float), asCALL_THISCALL);
     engine->RegisterObjectMethod("IKEffector", "float get_weight() const", asMETHODPR(IKEffector, GetWeight, () const, float), asCALL_THISCALL);
-    // bool IKEffector::GetWEIGHT_NLERP() const | File: ../IK/IKEffector.h
-    engine->RegisterObjectMethod("IKEffector", "bool GetWEIGHT_NLERP() const", asMETHODPR(IKEffector, GetWEIGHT_NLERP, () const, bool), asCALL_THISCALL);
+    // bool IKEffector::GetFEATURE_WEIGHT_NLERP() const | File: ../IK/IKEffector.h
+    engine->RegisterObjectMethod("IKEffector", "bool GetFEATURE_WEIGHT_NLERP() const", asMETHODPR(IKEffector, GetFEATURE_WEIGHT_NLERP, () const, bool), asCALL_THISCALL);
     // bool Object::HasEventHandlers() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("IKEffector", "bool HasEventHandlers() const", asMETHODPR(IKEffector, HasEventHandlers, () const, bool), asCALL_THISCALL);
     // bool Object::HasSubscribedToEvent(StringHash eventType) const | File: ../Core/Object.h
@@ -711,8 +711,8 @@ void ASRegisterGenerated_Members_I(asIScriptEngine* engine)
     // void Object::SetGlobalVar(StringHash key, const Variant& value) | File: ../Core/Object.h
     engine->RegisterObjectMethod("IKEffector", "void SetGlobalVar(StringHash, const Variant&in)", asMETHODPR(IKEffector, SetGlobalVar, (StringHash, const Variant&), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("IKEffector", "void set_globalVar(StringHash, const Variant&in)", asMETHODPR(IKEffector, SetGlobalVar, (StringHash, const Variant&), void), asCALL_THISCALL);
-    // void IKEffector::SetINHERIT_PARENT_ROTATION(bool enable) | File: ../IK/IKEffector.h
-    engine->RegisterObjectMethod("IKEffector", "void SetINHERIT_PARENT_ROTATION(bool)", asMETHODPR(IKEffector, SetINHERIT_PARENT_ROTATION, (bool), void), asCALL_THISCALL);
+    // void IKEffector::SetFEATURE_INHERIT_PARENT_ROTATION(bool enable) | File: ../IK/IKEffector.h
+    engine->RegisterObjectMethod("IKEffector", "void SetFEATURE_INHERIT_PARENT_ROTATION(bool)", asMETHODPR(IKEffector, SetFEATURE_INHERIT_PARENT_ROTATION, (bool), void), asCALL_THISCALL);
     // void Serializable::SetInstanceDefault(bool enable) | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("IKEffector", "void SetInstanceDefault(bool)", asMETHODPR(IKEffector, SetInstanceDefault, (bool), void), asCALL_THISCALL);
     // void Serializable::SetInterceptNetworkUpdate(const String& attributeName, bool enable) | File: ../Scene/Serializable.h
@@ -748,8 +748,8 @@ void ASRegisterGenerated_Members_I(asIScriptEngine* engine)
     // void IKEffector::SetWeight(float weight) | File: ../IK/IKEffector.h
     engine->RegisterObjectMethod("IKEffector", "void SetWeight(float)", asMETHODPR(IKEffector, SetWeight, (float), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("IKEffector", "void set_weight(float)", asMETHODPR(IKEffector, SetWeight, (float), void), asCALL_THISCALL);
-    // void IKEffector::SetWEIGHT_NLERP(bool enable) | File: ../IK/IKEffector.h
-    engine->RegisterObjectMethod("IKEffector", "void SetWEIGHT_NLERP(bool)", asMETHODPR(IKEffector, SetWEIGHT_NLERP, (bool), void), asCALL_THISCALL);
+    // void IKEffector::SetFEATURE_WEIGHT_NLERP(bool enable) | File: ../IK/IKEffector.h
+    engine->RegisterObjectMethod("IKEffector", "void SetFEATURE_WEIGHT_NLERP(bool)", asMETHODPR(IKEffector, SetFEATURE_WEIGHT_NLERP, (bool), void), asCALL_THISCALL);
     // void Object::SubscribeToEvent(StringHash eventType, EventHandler* handler) | File: ../Core/Object.h
     // Error: type "EventHandler*" can not automatically bind
     // void Object::SubscribeToEvent(Object* sender, StringHash eventType, EventHandler* handler) | File: ../Core/Object.h
@@ -858,9 +858,9 @@ void ASRegisterGenerated_Members_I(asIScriptEngine* engine)
     engine->RegisterObjectMethod("IKSolver", "Variant GetAttributeDefault(const String&in) const", asMETHODPR(IKSolver, GetAttributeDefault, (const String&) const, Variant), asCALL_THISCALL);
     // virtual const Vector<AttributeInfo>* Serializable::GetAttributes() const | File: ../Scene/Serializable.h
     // Error: type "const Vector<AttributeInfo>*" can not automatically bind
-    // bool IKSolver::GetAUTO_SOLVE() const | File: ../IK/IKSolver.h
-    engine->RegisterObjectMethod("IKSolver", "bool GetAUTO_SOLVE() const", asMETHODPR(IKSolver, GetAUTO_SOLVE, () const, bool), asCALL_THISCALL);
-    engine->RegisterObjectMethod("IKSolver", "bool get_AUTO_SOLVE() const", asMETHODPR(IKSolver, GetAUTO_SOLVE, () const, bool), asCALL_THISCALL);
+    // bool IKSolver::GetFEATURE_AUTO_SOLVE() const | File: ../IK/IKSolver.h
+    engine->RegisterObjectMethod("IKSolver", "bool GetFEATURE_AUTO_SOLVE() const", asMETHODPR(IKSolver, GetFEATURE_AUTO_SOLVE, () const, bool), asCALL_THISCALL);
+    engine->RegisterObjectMethod("IKSolver", "bool get_AUTO_SOLVE() const", asMETHODPR(IKSolver, GetFEATURE_AUTO_SOLVE, () const, bool), asCALL_THISCALL);
     // bool Object::GetBlockEvents() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("IKSolver", "bool GetBlockEvents() const", asMETHODPR(IKSolver, GetBlockEvents, () const, bool), asCALL_THISCALL);
     // const String& Object::GetCategory() const | File: ../Core/Object.h
@@ -874,9 +874,9 @@ void ASRegisterGenerated_Members_I(asIScriptEngine* engine)
     // Error: type "PODVector<Component*>&" can not automatically bind
     // template<class T> void Component::GetComponents(PODVector<T*>& dest) const | File: ../Scene/Component.h
     // Not registered because template
-    // bool IKSolver::GetCONSTRAINTS() const | File: ../IK/IKSolver.h
-    engine->RegisterObjectMethod("IKSolver", "bool GetCONSTRAINTS() const", asMETHODPR(IKSolver, GetCONSTRAINTS, () const, bool), asCALL_THISCALL);
-    engine->RegisterObjectMethod("IKSolver", "bool get_CONSTRAINTS() const", asMETHODPR(IKSolver, GetCONSTRAINTS, () const, bool), asCALL_THISCALL);
+    // bool IKSolver::GetFEATURE_CONSTRAINTS() const | File: ../IK/IKSolver.h
+    engine->RegisterObjectMethod("IKSolver", "bool GetFEATURE_CONSTRAINTS() const", asMETHODPR(IKSolver, GetFEATURE_CONSTRAINTS, () const, bool), asCALL_THISCALL);
+    engine->RegisterObjectMethod("IKSolver", "bool get_CONSTRAINTS() const", asMETHODPR(IKSolver, GetFEATURE_CONSTRAINTS, () const, bool), asCALL_THISCALL);
     // Context* Object::GetContext() const | File: ../Core/Object.h
     // Error: type "Context*" can used only as function parameter
     // virtual void Component::GetDependencyNodes(PODVector<Node*>& dest) | File: ../Scene/Component.h
@@ -900,9 +900,9 @@ void ASRegisterGenerated_Members_I(asIScriptEngine* engine)
     engine->RegisterObjectMethod("IKSolver", "uint get_id() const", asMETHODPR(IKSolver, GetID, () const, unsigned), asCALL_THISCALL);
     // bool Serializable::GetInterceptNetworkUpdate(const String& attributeName) const | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("IKSolver", "bool GetInterceptNetworkUpdate(const String&in) const", asMETHODPR(IKSolver, GetInterceptNetworkUpdate, (const String&) const, bool), asCALL_THISCALL);
-    // bool IKSolver::GetJOINT_ROTATIONS() const | File: ../IK/IKSolver.h
-    engine->RegisterObjectMethod("IKSolver", "bool GetJOINT_ROTATIONS() const", asMETHODPR(IKSolver, GetJOINT_ROTATIONS, () const, bool), asCALL_THISCALL);
-    engine->RegisterObjectMethod("IKSolver", "bool get_JOINT_ROTATIONS() const", asMETHODPR(IKSolver, GetJOINT_ROTATIONS, () const, bool), asCALL_THISCALL);
+    // bool IKSolver::GetFEATURE_JOINT_ROTATIONS() const | File: ../IK/IKSolver.h
+    engine->RegisterObjectMethod("IKSolver", "bool GetFEATURE_JOINT_ROTATIONS() const", asMETHODPR(IKSolver, GetFEATURE_JOINT_ROTATIONS, () const, bool), asCALL_THISCALL);
+    engine->RegisterObjectMethod("IKSolver", "bool get_JOINT_ROTATIONS() const", asMETHODPR(IKSolver, GetFEATURE_JOINT_ROTATIONS, () const, bool), asCALL_THISCALL);
     // unsigned IKSolver::GetMaximumIterations() const | File: ../IK/IKSolver.h
     engine->RegisterObjectMethod("IKSolver", "uint GetMaximumIterations() const", asMETHODPR(IKSolver, GetMaximumIterations, () const, unsigned), asCALL_THISCALL);
     engine->RegisterObjectMethod("IKSolver", "uint get_maximumIterations() const", asMETHODPR(IKSolver, GetMaximumIterations, () const, unsigned), asCALL_THISCALL);
@@ -929,9 +929,9 @@ void ASRegisterGenerated_Members_I(asIScriptEngine* engine)
     engine->RegisterObjectMethod("IKSolver", "Object@+ GetSubsystem(StringHash) const", asMETHODPR(IKSolver, GetSubsystem, (StringHash) const, Object*), asCALL_THISCALL);
     // template<class T> T*  Object::GetSubsystem() const | File: ../Core/Object.h
     // Not registered because template
-    // bool IKSolver::GetTARGET_ROTATIONS() const | File: ../IK/IKSolver.h
-    engine->RegisterObjectMethod("IKSolver", "bool GetTARGET_ROTATIONS() const", asMETHODPR(IKSolver, GetTARGET_ROTATIONS, () const, bool), asCALL_THISCALL);
-    engine->RegisterObjectMethod("IKSolver", "bool get_TARGET_ROTATIONS() const", asMETHODPR(IKSolver, GetTARGET_ROTATIONS, () const, bool), asCALL_THISCALL);
+    // bool IKSolver::GetFEATURE_TARGET_ROTATIONS() const | File: ../IK/IKSolver.h
+    engine->RegisterObjectMethod("IKSolver", "bool GetFEATURE_TARGET_ROTATIONS() const", asMETHODPR(IKSolver, GetFEATURE_TARGET_ROTATIONS, () const, bool), asCALL_THISCALL);
+    engine->RegisterObjectMethod("IKSolver", "bool get_TARGET_ROTATIONS() const", asMETHODPR(IKSolver, GetFEATURE_TARGET_ROTATIONS, () const, bool), asCALL_THISCALL);
     // float IKSolver::GetTolerance() const | File: ../IK/IKSolver.h
     engine->RegisterObjectMethod("IKSolver", "float GetTolerance() const", asMETHODPR(IKSolver, GetTolerance, () const, float), asCALL_THISCALL);
     engine->RegisterObjectMethod("IKSolver", "float get_tolerance() const", asMETHODPR(IKSolver, GetTolerance, () const, float), asCALL_THISCALL);
@@ -945,15 +945,15 @@ void ASRegisterGenerated_Members_I(asIScriptEngine* engine)
     // virtual const String& Object::GetTypeName() const =0 | File: ../Core/Object.h
     engine->RegisterObjectMethod("IKSolver", "const String& GetTypeName() const", asMETHODPR(IKSolver, GetTypeName, () const, const String&), asCALL_THISCALL);
     engine->RegisterObjectMethod("IKSolver", "const String& get_typeName() const", asMETHODPR(IKSolver, GetTypeName, () const, const String&), asCALL_THISCALL);
-    // bool IKSolver::GetUPDATE_ACTIVE_POSE() const | File: ../IK/IKSolver.h
-    engine->RegisterObjectMethod("IKSolver", "bool GetUPDATE_ACTIVE_POSE() const", asMETHODPR(IKSolver, GetUPDATE_ACTIVE_POSE, () const, bool), asCALL_THISCALL);
-    engine->RegisterObjectMethod("IKSolver", "bool get_UPDATE_ACTIVE_POSE() const", asMETHODPR(IKSolver, GetUPDATE_ACTIVE_POSE, () const, bool), asCALL_THISCALL);
-    // bool IKSolver::GetUPDATE_ORIGINAL_POSE() const | File: ../IK/IKSolver.h
-    engine->RegisterObjectMethod("IKSolver", "bool GetUPDATE_ORIGINAL_POSE() const", asMETHODPR(IKSolver, GetUPDATE_ORIGINAL_POSE, () const, bool), asCALL_THISCALL);
-    engine->RegisterObjectMethod("IKSolver", "bool get_UPDATE_ORIGINAL_POSE() const", asMETHODPR(IKSolver, GetUPDATE_ORIGINAL_POSE, () const, bool), asCALL_THISCALL);
-    // bool IKSolver::GetUSE_ORIGINAL_POSE() const | File: ../IK/IKSolver.h
-    engine->RegisterObjectMethod("IKSolver", "bool GetUSE_ORIGINAL_POSE() const", asMETHODPR(IKSolver, GetUSE_ORIGINAL_POSE, () const, bool), asCALL_THISCALL);
-    engine->RegisterObjectMethod("IKSolver", "bool get_USE_ORIGINAL_POSE() const", asMETHODPR(IKSolver, GetUSE_ORIGINAL_POSE, () const, bool), asCALL_THISCALL);
+    // bool IKSolver::GetFEATURE_UPDATE_ACTIVE_POSE() const | File: ../IK/IKSolver.h
+    engine->RegisterObjectMethod("IKSolver", "bool GetFEATURE_UPDATE_ACTIVE_POSE() const", asMETHODPR(IKSolver, GetFEATURE_UPDATE_ACTIVE_POSE, () const, bool), asCALL_THISCALL);
+    engine->RegisterObjectMethod("IKSolver", "bool get_UPDATE_ACTIVE_POSE() const", asMETHODPR(IKSolver, GetFEATURE_UPDATE_ACTIVE_POSE, () const, bool), asCALL_THISCALL);
+    // bool IKSolver::GetFEATURE_UPDATE_ORIGINAL_POSE() const | File: ../IK/IKSolver.h
+    engine->RegisterObjectMethod("IKSolver", "bool GetFEATURE_UPDATE_ORIGINAL_POSE() const", asMETHODPR(IKSolver, GetFEATURE_UPDATE_ORIGINAL_POSE, () const, bool), asCALL_THISCALL);
+    engine->RegisterObjectMethod("IKSolver", "bool get_UPDATE_ORIGINAL_POSE() const", asMETHODPR(IKSolver, GetFEATURE_UPDATE_ORIGINAL_POSE, () const, bool), asCALL_THISCALL);
+    // bool IKSolver::GetFEATURE_USE_ORIGINAL_POSE() const | File: ../IK/IKSolver.h
+    engine->RegisterObjectMethod("IKSolver", "bool GetFEATURE_USE_ORIGINAL_POSE() const", asMETHODPR(IKSolver, GetFEATURE_USE_ORIGINAL_POSE, () const, bool), asCALL_THISCALL);
+    engine->RegisterObjectMethod("IKSolver", "bool get_USE_ORIGINAL_POSE() const", asMETHODPR(IKSolver, GetFEATURE_USE_ORIGINAL_POSE, () const, bool), asCALL_THISCALL);
     // bool Object::HasEventHandlers() const | File: ../Core/Object.h
     engine->RegisterObjectMethod("IKSolver", "bool HasEventHandlers() const", asMETHODPR(IKSolver, HasEventHandlers, () const, bool), asCALL_THISCALL);
     // bool Object::HasSubscribedToEvent(StringHash eventType) const | File: ../Core/Object.h
@@ -1059,14 +1059,14 @@ void ASRegisterGenerated_Members_I(asIScriptEngine* engine)
     engine->RegisterObjectMethod("IKSolver", "void SetAttributeAnimationTime(const String&in, float)", asMETHODPR(IKSolver, SetAttributeAnimationTime, (const String&, float), void), asCALL_THISCALL);
     // void Animatable::SetAttributeAnimationWrapMode(const String& name, WrapMode wrapMode) | File: ../Scene/Animatable.h
     engine->RegisterObjectMethod("IKSolver", "void SetAttributeAnimationWrapMode(const String&in, WrapMode)", asMETHODPR(IKSolver, SetAttributeAnimationWrapMode, (const String&, WrapMode), void), asCALL_THISCALL);
-    // void IKSolver::SetAUTO_SOLVE(bool enable) | File: ../IK/IKSolver.h
-    engine->RegisterObjectMethod("IKSolver", "void SetAUTO_SOLVE(bool)", asMETHODPR(IKSolver, SetAUTO_SOLVE, (bool), void), asCALL_THISCALL);
-    engine->RegisterObjectMethod("IKSolver", "void set_AUTO_SOLVE(bool)", asMETHODPR(IKSolver, SetAUTO_SOLVE, (bool), void), asCALL_THISCALL);
+    // void IKSolver::SetFEATURE_AUTO_SOLVE(bool enable) | File: ../IK/IKSolver.h
+    engine->RegisterObjectMethod("IKSolver", "void SetFEATURE_AUTO_SOLVE(bool)", asMETHODPR(IKSolver, SetFEATURE_AUTO_SOLVE, (bool), void), asCALL_THISCALL);
+    engine->RegisterObjectMethod("IKSolver", "void set_AUTO_SOLVE(bool)", asMETHODPR(IKSolver, SetFEATURE_AUTO_SOLVE, (bool), void), asCALL_THISCALL);
     // void Object::SetBlockEvents(bool block) | File: ../Core/Object.h
     engine->RegisterObjectMethod("IKSolver", "void SetBlockEvents(bool)", asMETHODPR(IKSolver, SetBlockEvents, (bool), void), asCALL_THISCALL);
-    // void IKSolver::SetCONSTRAINTS(bool enable) | File: ../IK/IKSolver.h
-    engine->RegisterObjectMethod("IKSolver", "void SetCONSTRAINTS(bool)", asMETHODPR(IKSolver, SetCONSTRAINTS, (bool), void), asCALL_THISCALL);
-    engine->RegisterObjectMethod("IKSolver", "void set_CONSTRAINTS(bool)", asMETHODPR(IKSolver, SetCONSTRAINTS, (bool), void), asCALL_THISCALL);
+    // void IKSolver::SetFEATURE_CONSTRAINTS(bool enable) | File: ../IK/IKSolver.h
+    engine->RegisterObjectMethod("IKSolver", "void SetFEATURE_CONSTRAINTS(bool)", asMETHODPR(IKSolver, SetFEATURE_CONSTRAINTS, (bool), void), asCALL_THISCALL);
+    engine->RegisterObjectMethod("IKSolver", "void set_CONSTRAINTS(bool)", asMETHODPR(IKSolver, SetFEATURE_CONSTRAINTS, (bool), void), asCALL_THISCALL);
     // void Component::SetEnabled(bool enable) | File: ../Scene/Component.h
     engine->RegisterObjectMethod("IKSolver", "void SetEnabled(bool)", asMETHODPR(IKSolver, SetEnabled, (bool), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("IKSolver", "void set_enabled(bool)", asMETHODPR(IKSolver, SetEnabled, (bool), void), asCALL_THISCALL);
@@ -1079,9 +1079,9 @@ void ASRegisterGenerated_Members_I(asIScriptEngine* engine)
     engine->RegisterObjectMethod("IKSolver", "void SetInstanceDefault(bool)", asMETHODPR(IKSolver, SetInstanceDefault, (bool), void), asCALL_THISCALL);
     // void Serializable::SetInterceptNetworkUpdate(const String& attributeName, bool enable) | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("IKSolver", "void SetInterceptNetworkUpdate(const String&in, bool)", asMETHODPR(IKSolver, SetInterceptNetworkUpdate, (const String&, bool), void), asCALL_THISCALL);
-    // void IKSolver::SetJOINT_ROTATIONS(bool enable) | File: ../IK/IKSolver.h
-    engine->RegisterObjectMethod("IKSolver", "void SetJOINT_ROTATIONS(bool)", asMETHODPR(IKSolver, SetJOINT_ROTATIONS, (bool), void), asCALL_THISCALL);
-    engine->RegisterObjectMethod("IKSolver", "void set_JOINT_ROTATIONS(bool)", asMETHODPR(IKSolver, SetJOINT_ROTATIONS, (bool), void), asCALL_THISCALL);
+    // void IKSolver::SetFEATURE_JOINT_ROTATIONS(bool enable) | File: ../IK/IKSolver.h
+    engine->RegisterObjectMethod("IKSolver", "void SetFEATURE_JOINT_ROTATIONS(bool)", asMETHODPR(IKSolver, SetFEATURE_JOINT_ROTATIONS, (bool), void), asCALL_THISCALL);
+    engine->RegisterObjectMethod("IKSolver", "void set_JOINT_ROTATIONS(bool)", asMETHODPR(IKSolver, SetFEATURE_JOINT_ROTATIONS, (bool), void), asCALL_THISCALL);
     // void IKSolver::SetMaximumIterations(unsigned iterations) | File: ../IK/IKSolver.h
     engine->RegisterObjectMethod("IKSolver", "void SetMaximumIterations(uint)", asMETHODPR(IKSolver, SetMaximumIterations, (unsigned), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("IKSolver", "void set_maximumIterations(uint)", asMETHODPR(IKSolver, SetMaximumIterations, (unsigned), void), asCALL_THISCALL);
@@ -1090,24 +1090,24 @@ void ASRegisterGenerated_Members_I(asIScriptEngine* engine)
     engine->RegisterObjectMethod("IKSolver", "void set_objectAnimation(ObjectAnimation@+)", asMETHODPR(IKSolver, SetObjectAnimation, (ObjectAnimation*), void), asCALL_THISCALL);
     // void Animatable::SetObjectAnimationAttr(const ResourceRef& value) | File: ../Scene/Animatable.h
     engine->RegisterObjectMethod("IKSolver", "void SetObjectAnimationAttr(const ResourceRef&in)", asMETHODPR(IKSolver, SetObjectAnimationAttr, (const ResourceRef&), void), asCALL_THISCALL);
-    // void IKSolver::SetTARGET_ROTATIONS(bool enable) | File: ../IK/IKSolver.h
-    engine->RegisterObjectMethod("IKSolver", "void SetTARGET_ROTATIONS(bool)", asMETHODPR(IKSolver, SetTARGET_ROTATIONS, (bool), void), asCALL_THISCALL);
-    engine->RegisterObjectMethod("IKSolver", "void set_TARGET_ROTATIONS(bool)", asMETHODPR(IKSolver, SetTARGET_ROTATIONS, (bool), void), asCALL_THISCALL);
+    // void IKSolver::SetFEATURE_TARGET_ROTATIONS(bool enable) | File: ../IK/IKSolver.h
+    engine->RegisterObjectMethod("IKSolver", "void SetFEATURE_TARGET_ROTATIONS(bool)", asMETHODPR(IKSolver, SetFEATURE_TARGET_ROTATIONS, (bool), void), asCALL_THISCALL);
+    engine->RegisterObjectMethod("IKSolver", "void set_TARGET_ROTATIONS(bool)", asMETHODPR(IKSolver, SetFEATURE_TARGET_ROTATIONS, (bool), void), asCALL_THISCALL);
     // void Serializable::SetTemporary(bool enable) | File: ../Scene/Serializable.h
     engine->RegisterObjectMethod("IKSolver", "void SetTemporary(bool)", asMETHODPR(IKSolver, SetTemporary, (bool), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("IKSolver", "void set_temporary(bool)", asMETHODPR(IKSolver, SetTemporary, (bool), void), asCALL_THISCALL);
     // void IKSolver::SetTolerance(float tolerance) | File: ../IK/IKSolver.h
     engine->RegisterObjectMethod("IKSolver", "void SetTolerance(float)", asMETHODPR(IKSolver, SetTolerance, (float), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("IKSolver", "void set_tolerance(float)", asMETHODPR(IKSolver, SetTolerance, (float), void), asCALL_THISCALL);
-    // void IKSolver::SetUPDATE_ACTIVE_POSE(bool enable) | File: ../IK/IKSolver.h
-    engine->RegisterObjectMethod("IKSolver", "void SetUPDATE_ACTIVE_POSE(bool)", asMETHODPR(IKSolver, SetUPDATE_ACTIVE_POSE, (bool), void), asCALL_THISCALL);
-    engine->RegisterObjectMethod("IKSolver", "void set_UPDATE_ACTIVE_POSE(bool)", asMETHODPR(IKSolver, SetUPDATE_ACTIVE_POSE, (bool), void), asCALL_THISCALL);
-    // void IKSolver::SetUPDATE_ORIGINAL_POSE(bool enable) | File: ../IK/IKSolver.h
-    engine->RegisterObjectMethod("IKSolver", "void SetUPDATE_ORIGINAL_POSE(bool)", asMETHODPR(IKSolver, SetUPDATE_ORIGINAL_POSE, (bool), void), asCALL_THISCALL);
-    engine->RegisterObjectMethod("IKSolver", "void set_UPDATE_ORIGINAL_POSE(bool)", asMETHODPR(IKSolver, SetUPDATE_ORIGINAL_POSE, (bool), void), asCALL_THISCALL);
-    // void IKSolver::SetUSE_ORIGINAL_POSE(bool enable) | File: ../IK/IKSolver.h
-    engine->RegisterObjectMethod("IKSolver", "void SetUSE_ORIGINAL_POSE(bool)", asMETHODPR(IKSolver, SetUSE_ORIGINAL_POSE, (bool), void), asCALL_THISCALL);
-    engine->RegisterObjectMethod("IKSolver", "void set_USE_ORIGINAL_POSE(bool)", asMETHODPR(IKSolver, SetUSE_ORIGINAL_POSE, (bool), void), asCALL_THISCALL);
+    // void IKSolver::SetFEATURE_UPDATE_ACTIVE_POSE(bool enable) | File: ../IK/IKSolver.h
+    engine->RegisterObjectMethod("IKSolver", "void SetFEATURE_UPDATE_ACTIVE_POSE(bool)", asMETHODPR(IKSolver, SetFEATURE_UPDATE_ACTIVE_POSE, (bool), void), asCALL_THISCALL);
+    engine->RegisterObjectMethod("IKSolver", "void set_UPDATE_ACTIVE_POSE(bool)", asMETHODPR(IKSolver, SetFEATURE_UPDATE_ACTIVE_POSE, (bool), void), asCALL_THISCALL);
+    // void IKSolver::SetFEATURE_UPDATE_ORIGINAL_POSE(bool enable) | File: ../IK/IKSolver.h
+    engine->RegisterObjectMethod("IKSolver", "void SetFEATURE_UPDATE_ORIGINAL_POSE(bool)", asMETHODPR(IKSolver, SetFEATURE_UPDATE_ORIGINAL_POSE, (bool), void), asCALL_THISCALL);
+    engine->RegisterObjectMethod("IKSolver", "void set_UPDATE_ORIGINAL_POSE(bool)", asMETHODPR(IKSolver, SetFEATURE_UPDATE_ORIGINAL_POSE, (bool), void), asCALL_THISCALL);
+    // void IKSolver::SetFEATURE_USE_ORIGINAL_POSE(bool enable) | File: ../IK/IKSolver.h
+    engine->RegisterObjectMethod("IKSolver", "void SetFEATURE_USE_ORIGINAL_POSE(bool)", asMETHODPR(IKSolver, SetFEATURE_USE_ORIGINAL_POSE, (bool), void), asCALL_THISCALL);
+    engine->RegisterObjectMethod("IKSolver", "void set_USE_ORIGINAL_POSE(bool)", asMETHODPR(IKSolver, SetFEATURE_USE_ORIGINAL_POSE, (bool), void), asCALL_THISCALL);
     // void IKSolver::Solve() | File: ../IK/IKSolver.h
     engine->RegisterObjectMethod("IKSolver", "void Solve()", asMETHODPR(IKSolver, Solve, (), void), asCALL_THISCALL);
     // void Object::SubscribeToEvent(StringHash eventType, EventHandler* handler) | File: ../Core/Object.h

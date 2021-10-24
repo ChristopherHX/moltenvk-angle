@@ -21,6 +21,6 @@
 # THE SOFTWARE.
 #
 
-$(dirname $0)/cmake_generic.sh "$@" -D WEB=1
+$(dirname $0)/cmake_generic.sh "$@" -D WEB=1 -D URHO3D_LUA=0  -D URHO3D_DATABASE_SQLITE=1
 
 # vi: set ts=4 sw=4 expandtab:

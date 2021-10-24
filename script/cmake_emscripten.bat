@@ -20,4 +20,4 @@
 :: THE SOFTWARE.
 ::
 
-@"%~dp0cmake_generic.bat" %* -D WEB=1
+@"%~dp0cmake_generic.bat" %* -D WEB=1 -D URHO3D_LUA=0  -D URHO3D_DATABASE_SQLITE=1

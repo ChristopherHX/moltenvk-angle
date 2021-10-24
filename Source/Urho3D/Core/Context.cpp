@@ -509,6 +509,7 @@ Plugin* Context::GetPlugin(StringHash type) const
         return nullptr;
 }
 
+#if !defined(MINI_URHO)
 bool Context::PostCommandToPlugin(const String& clazz, const String& method)
 {
     auto data = MakeShared<JSONFile>(this);
@@ -524,5 +525,6 @@ bool Context::PostCommandToPlugin(const String& clazz, const String& method, JSO
     }
     return false;
 }
+#endif
 
 }

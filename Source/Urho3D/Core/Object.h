@@ -181,11 +181,11 @@ public:
     void SetBlockEvents(bool block) { blockEvents_ = block; }
     /// Return sending and receiving events blocking status.
     bool GetBlockEvents() const { return blockEvents_; }
-
+#if !defined(MINI_URHO)
     bool PostCommandToPlugin(const String& clazz, const String& method);
     bool PostCommandToPlugin(const String& clazz, const String& method, SharedPtr<JsonBuilder> jsonBuilder);
     bool PostCommandToPlugin(const String& clazz, const String& method, JSONFile* data);
-
+#endif
 protected:
     /// Execution context.
     Context* context_;

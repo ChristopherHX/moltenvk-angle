@@ -26,7 +26,7 @@
 
 #ifdef __APPLE__
     #include "TargetConditionals.h"
-    #if defined(__APPLE__) && defined(TARGET_OS_OSX) && defined(TARGET_CPU_ARM64)
+    #if defined(__APPLE__) && defined(TARGET_OS_OSX) && defined(TARGET_CPU_ARM64) && !defined(MINI_URHO)
         #define APPLE_SILICON
     #endif
 #endif

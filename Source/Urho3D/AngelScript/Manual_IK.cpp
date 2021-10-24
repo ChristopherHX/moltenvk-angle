@@ -35,19 +35,19 @@ void ASRegisterManualFirst_IK(asIScriptEngine* engine)
 {
     // enum IKSolver::Algorithm | File: ../IK/IKSolver.h
     engine->RegisterEnum("IKAlgorithm");
-    engine->RegisterEnumValue("IKAlgorithm", "ONE_BONE", IKSolver::ONE_BONE);
-    engine->RegisterEnumValue("IKAlgorithm", "TWO_BONE", IKSolver::TWO_BONE);
-    engine->RegisterEnumValue("IKAlgorithm", "FABRIK", IKSolver::FABRIK);
+    engine->RegisterEnumValue("IKAlgorithm", "SOLVER_ONE_BONE", ALGORITHM_ONE_BONE);
+    engine->RegisterEnumValue("IKAlgorithm", "SOLVER_TWO_BONE", ALGORITHM_TWO_BONE);
+    engine->RegisterEnumValue("IKAlgorithm", "FABRIK", ALGORITHM_FABRIK);
 
     // enum IKSolver::Feature | File: ../IK/IKSolver.h
     engine->RegisterEnum("IKFeature");
-    engine->RegisterEnumValue("IKFeature", "JOINT_ROTATIONS", IKSolver::JOINT_ROTATIONS);
-    engine->RegisterEnumValue("IKFeature", "TARGET_ROTATIONS", IKSolver::TARGET_ROTATIONS);
-    engine->RegisterEnumValue("IKFeature", "UPDATE_ORIGINAL_POSE", IKSolver::UPDATE_ORIGINAL_POSE);
-    engine->RegisterEnumValue("IKFeature", "UPDATE_ACTIVE_POSE", IKSolver::UPDATE_ACTIVE_POSE);
-    engine->RegisterEnumValue("IKFeature", "USE_ORIGINAL_POSE", IKSolver::USE_ORIGINAL_POSE);
-    engine->RegisterEnumValue("IKFeature", "CONSTRAINTS", IKSolver::CONSTRAINTS);
-    engine->RegisterEnumValue("IKFeature", "AUTO_SOLVE", IKSolver::AUTO_SOLVE);
+    engine->RegisterEnumValue("IKFeature", "JOINT_ROTATIONS", FEATURE_JOINT_ROTATIONS);
+    engine->RegisterEnumValue("IKFeature", "TARGET_ROTATIONS", FEATURE_TARGET_ROTATIONS);
+    engine->RegisterEnumValue("IKFeature", "UPDATE_ORIGINAL_POSE", FEATURE_UPDATE_ORIGINAL_POSE);
+    engine->RegisterEnumValue("IKFeature", "UPDATE_ACTIVE_POSE", FEATURE_UPDATE_ACTIVE_POSE);
+    engine->RegisterEnumValue("IKFeature", "USE_ORIGINAL_POSE", FEATURE_USE_ORIGINAL_POSE);
+    engine->RegisterEnumValue("IKFeature", "CONSTRAINTS", FEATURE_CONSTRAINTS);
+    engine->RegisterEnumValue("IKFeature", "AUTO_SOLVE", FEATURE_AUTO_SOLVE);
 }
 
 // This function is called after ASRegisterGenerated()
