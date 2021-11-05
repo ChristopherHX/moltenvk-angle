@@ -62,6 +62,7 @@ Viewport::Viewport(Context* context, Scene* scene, Camera* camera, const IntRect
     drawDebug_(true)
 {
     SetRenderPath(renderPath);
+    overrideClearColor_ = false;
 }
 
 Viewport::~Viewport() = default;
@@ -214,6 +215,16 @@ Vector3 Viewport::ScreenToWorldPoint(int x, int y, float depth) const
 void Viewport::AllocateView()
 {
     view_ = new View(context_);
+    if(overrideClearColor_ == true)
+    {
+        view_->SetClearColor(clearColor_);
+    }
+}
+
+void Viewport::SetClearColor(const class Urho3D::Color& color)
+{
+    overrideClearColor_ = true;
+    clearColor_ = color;
 }
 
 }

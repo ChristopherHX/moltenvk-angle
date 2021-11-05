@@ -194,7 +194,7 @@ public:
 
     /// Get a named texture from the rendertarget list or from the resource cache, to be either used as a rendertarget or texture binding.
     Texture* FindNamedTexture(const String& name, bool isRenderTarget, bool isVolumeMap = false);
-
+    void SetClearColor(const class Urho3D::Color& color);
 private:
     /// Query the octree for drawable objects.
     void GetDrawables();
@@ -437,6 +437,10 @@ private:
     const RenderPathCommand* passCommand_{};
     /// Flag for scene being resolved from the backbuffer.
     bool usedResolve_{};
+    /// flag for overriding clear Color of commands of type CLEAR_CMD
+    bool overrideClearColor_{};
+    
+    Color clearColor_;
 };
 
 }

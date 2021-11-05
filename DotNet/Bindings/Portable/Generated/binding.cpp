@@ -14635,6 +14635,13 @@ Viewport_AllocateView (Urho3D::Viewport *_target)
 }
 
 
+DllExport void
+Viewport_SetClearColor (Urho3D::Viewport *_target, const class Urho3D::Color & color)
+{
+	_target->SetClearColor (color);
+}
+
+
 DllExport void *
 RenderSurface_RenderSurface (Urho3D::Texture * parentTexture)
 {
@@ -20927,6 +20934,13 @@ DllExport Urho3D::Texture *
 View_FindNamedTexture (Urho3D::View *_target, const char * name, bool isRenderTarget, bool isVolumeMap)
 {
 	return _target->FindNamedTexture (Urho3D::String(name), isRenderTarget, isVolumeMap);
+}
+
+
+DllExport void
+View_SetClearColor (Urho3D::View *_target, const class Urho3D::Color & color)
+{
+	_target->SetClearColor (color);
 }
 
 

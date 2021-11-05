@@ -107,6 +107,8 @@ public:
 
     /// Allocate the view structure. Called by Renderer.
     void AllocateView();
+    
+    void SetClearColor(const class Urho3D::Color& color);
 
 private:
     /// Scene pointer.
@@ -123,6 +125,10 @@ private:
     SharedPtr<View> view_;
     /// Debug draw flag.
     bool drawDebug_;
+    /// flag for overriding clear Color of commands of type CLEAR_CMD
+    bool overrideClearColor_{};
+    
+    Color clearColor_;
 };
 
 }

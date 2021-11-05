@@ -338,6 +338,15 @@ namespace Urho
 			Viewport_AllocateView (handle);
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Viewport_SetClearColor (IntPtr handle, ref Urho.Color color);
+
+		public void SetClearColor (Urho.Color color)
+		{
+			Runtime.ValidateRefCounted (this);
+			Viewport_SetClearColor (handle, ref color);
+		}
+
 		public override StringHash Type {
 			get {
 				return UrhoGetType ();

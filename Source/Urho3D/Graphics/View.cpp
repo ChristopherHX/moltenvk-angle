@@ -289,6 +289,7 @@ View::View(Context* context) :
     unsigned numThreads = GetSubsystem<WorkQueue>()->GetNumThreads() + 1; // Worker threads + main thread
     tempDrawables_.Resize(numThreads);
     sceneResults_.Resize(numThreads);
+    overrideClearColor_ = false;
 }
 
 bool View::Define(RenderSurface* renderTarget, Viewport* viewport)
@@ -1571,9 +1572,13 @@ void View::ExecuteRenderPathCommands()
                     Color clearColor = command.clearColor_;
                     if (command.useFogColor_)
                         clearColor = actualView->farClipZone_->GetFogColor();
-
+                    if(overrideClearColor_ == true)
+                        clearColor = clearColor_;
+                    
                     SetRenderTargets(command);
+              
                     graphics_->Clear(command.clearFlags_, clearColor, command.clearDepth_, command.clearStencil_);
+                    
                 }
                 break;
 
@@ -3227,6 +3232,12 @@ Texture* View::FindNamedTexture(const String& name, bool isRenderTarget, bool is
     }
 
     return nullptr;
+}
+
+void View::SetClearColor(const class Urho3D::Color& color)
+{
+    overrideClearColor_ = true;
+    clearColor_ = color;
 }
 
 }

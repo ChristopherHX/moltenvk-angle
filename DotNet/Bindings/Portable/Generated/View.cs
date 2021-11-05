@@ -338,6 +338,15 @@ namespace Urho
 			return Runtime.LookupObject<Texture> (View_FindNamedTexture (handle, name, isRenderTarget, isVolumeMap));
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void View_SetClearColor (IntPtr handle, ref Urho.Color color);
+
+		public void SetClearColor (Urho.Color color)
+		{
+			Runtime.ValidateRefCounted (this);
+			View_SetClearColor (handle, ref color);
+		}
+
 		public override StringHash Type {
 			get {
 				return UrhoGetType ();
