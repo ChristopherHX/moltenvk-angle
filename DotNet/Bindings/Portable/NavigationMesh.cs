@@ -6,13 +6,13 @@ namespace Urho.Navigation
 	partial class NavigationMesh
 	{
 		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal extern static IntPtr urho_navigationmesh_findpath(IntPtr navMesh, Vector3 start, Vector3 end, out int count);
+		internal extern static IntPtr urho_navigationmesh_findpath(IntPtr navMesh, ref Vector3 start, ref Vector3 end, out int count);
 
 		public Vector3[] FindPath(Vector3 start, Vector3 end)
 		{
 			Runtime.ValidateRefCounted(this);
 			int count;
-			var ptr = urho_navigationmesh_findpath(Handle, start, end, out count);
+			var ptr = urho_navigationmesh_findpath(Handle, ref start, ref end, out count);
 			if (ptr == IntPtr.Zero)
 				return new Vector3[0];
 
