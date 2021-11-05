@@ -1012,4 +1012,12 @@ sqlite3_connection_column_text(sqlite3_stmt* pStmt, int index)
     return stringdup((const char*)sqlite3_column_text(pStmt, index));
 }
 
+DllExport void delete_vector3_pointer(const class Urho3D::Vector3 *  vector3_ptr)
+{
+    if (vector3_ptr != nullptr)
+    {
+        delete[] vector3_ptr;
+    }
+}
+
 }

@@ -25,6 +25,8 @@ namespace Urho.Navigation
 				Vector3 item = (Vector3)Marshal.PtrToStructure(data, typeof(Vector3));
 				res[i] = item;
 			}
+
+			Utils.delete_vector3_pointer(ptr);
 			
 			return res;
 		}
