@@ -194,6 +194,7 @@ public:
 
     /// Get a named texture from the rendertarget list or from the resource cache, to be either used as a rendertarget or texture binding.
     Texture* FindNamedTexture(const String& name, bool isRenderTarget, bool isVolumeMap = false);
+    /// Set  View clear color , will override the color set in the RenderPath (CLEAR_CMD) , setting  the value of Color(0,0,0,0) will reset it to the default clear color used in the RenderPath
     void SetClearColor(const class Urho3D::Color& color);
 private:
     /// Query the octree for drawable objects.

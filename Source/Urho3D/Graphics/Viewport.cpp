@@ -225,6 +225,10 @@ void Viewport::SetClearColor(const class Urho3D::Color& color)
 {
     overrideClearColor_ = true;
     clearColor_ = color;
+    if(view_ != nullptr)
+    {
+        view_->SetClearColor(clearColor_);
+    }
 }
 
 }

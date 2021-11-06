@@ -50,6 +50,7 @@
 #include "../Resource/ResourceCache.h"
 #include "../Scene/Scene.h"
 #include "../UI/UI.h"
+#include "../Math/MathDefs.h"
 
 #include "../DebugNew.h"
 
@@ -3236,7 +3237,15 @@ Texture* View::FindNamedTexture(const String& name, bool isRenderTarget, bool is
 
 void View::SetClearColor(const class Urho3D::Color& color)
 {
-    overrideClearColor_ = true;
+    float z = 0;
+    if(Urho3D::Equals(color.r_, z) && Urho3D::Equals(color.g_, z) && Urho3D::Equals(color.b_, z) && Urho3D::Equals(color.a_, z))
+    {
+        overrideClearColor_ = false;
+    }
+    else
+    {
+        overrideClearColor_ = true;
+    }
     clearColor_ = color;
 }
 
