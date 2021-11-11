@@ -148,11 +148,11 @@ bool CheckMinimalVersion(int major, int minor)
     NSDictionary* pListDict = [[[NSDictionary alloc] initWithContentsOfFile:plistPath] autorelease];
     NSString* productVersion = [pListDict valueForKey:@"ProductVersion"];
     NSArray* parts = [productVersion componentsSeparatedByString: @"."];
-    if ([[parts objectAtIndex:0] integerValue] < major)
-        return false;
-    if ([[parts objectAtIndex:1] integerValue] < minor)
-        return false;
-    return true;
+    if ([[parts objectAtIndex:0] integerValue] > major)
+        return true;
+    if ([[parts objectAtIndex:0] integerValue] >= major && [[parts objectAtIndex:1] integerValue] >= minor)
+        return true;
+    return false;
 }
 
 bool IsFileWatcherSupported()
