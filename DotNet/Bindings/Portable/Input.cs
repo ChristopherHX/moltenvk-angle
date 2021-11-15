@@ -562,7 +562,11 @@ namespace Urho
 		private Urho.IntVector2 GetMouseMove ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Input_GetMouseMove (handle);
+			// TBD ELI , temmporary workaround for Web support 
+			int x = Input_GetMouseMoveX (handle);
+			int y = Input_GetMouseMoveY (handle);
+			// return Input_GetMouseMove (handle);
+			return new Urho.IntVector2(x,y);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

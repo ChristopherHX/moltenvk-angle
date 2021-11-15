@@ -341,6 +341,9 @@ namespace Urho
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void Viewport_SetClearColor (IntPtr handle, ref Urho.Color color);
 
+		/// <summary>
+		/// Set  Viewport clear color , will override the color set in the RenderPath (CLEAR_CMD) , setting  the value of Color(0,0,0,0) will reset it to the default clear color used in the RenderPath
+		/// </summary>
 		public void SetClearColor (Urho.Color color)
 		{
 			Runtime.ValidateRefCounted (this);

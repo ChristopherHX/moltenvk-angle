@@ -85,7 +85,21 @@ if(APPLE)
 set (LIBS  ${LIBS}  z ncurses)
 endif()
 
+if (EMSCRIPTEN)
+set (MONO_LIBPATH  ../../../DotNet/libs/wasm)  
+set (LIBS 
+    libmonosgen-2.0.a
+    libmono-native.a
+    libmono-icall-table.a
+    libmono-ee-interp.a
+    libmono-ilgen.a
+)
 
+file (GLOB EMSCRIPTEN_FILES web/*.*)
+list (APPEND LINK_FLAGS "--js-library ${CMAKE_CURRENT_SOURCE_DIR}/web/dotnet_support.js")
+list (APPEND LINK_FLAGS "--js-library ${CMAKE_CURRENT_SOURCE_DIR}/web/library_mono.js")
+list (APPEND LINK_FLAGS "-s \"EXTRA_EXPORTED_RUNTIME_METHODS=['ccall', 'FS_createPath', 'FS_createDataFile', 'cwrap', 'setValue', 'getValue', 'UTF8ToString', 'addFunction']\"")
+endif()
 
 
 link_directories(. ${MONO_LIBPATH})
@@ -98,8 +112,9 @@ set (LIBS  ${LIBS}  bcrypt)
 endif()
 
 
+
 # Define source files
-define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES} ${S_FILES} ${EXTRA_MM_FILES} ${MACOS_FILES} ${ANDROID_FILES})
+define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES} ${S_FILES} ${EXTRA_MM_FILES} ${MACOS_FILES} ${ANDROID_FILES} ${EMSCRIPTEN_FILES})
 
 # Setup target with resource copying
 setup_main_executable ()

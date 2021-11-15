@@ -1879,8 +1879,12 @@ macro (_setup_target)
                 # If not using EMRUN then we need to include the emrun_prejs.js manually in order to process the request parameters as app's arguments correctly
                 list (APPEND LINK_FLAGS "--pre-js \"${EMSCRIPTEN_ROOT_PATH}/src/emrun_prejs.js\"")
             endif ()
+            if(URHO3D_DOTNET) # TBD ELI , tempoarary workaround for missing  undefines during the link stage
+                list (APPEND LINK_FLAGS "-s NO_EXIT_RUNTIME=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0")
+            else()
             # These flags are here instead of in the CMAKE_EXE_LINKER_FLAGS so that they do not interfere with the auto-detection logic during initial configuration
-            list (APPEND LINK_FLAGS "-s NO_EXIT_RUNTIME=1 -s ERROR_ON_UNDEFINED_SYMBOLS=1")
+                list (APPEND LINK_FLAGS "-s NO_EXIT_RUNTIME=1 -s ERROR_ON_UNDEFINED_SYMBOLS=1")
+            endif ()
         endif ()
         # Pass additional source files to linker with the supported flags, such as: js-library, pre-js, post-js, embed-file, preload-file, shell-file
         foreach (FILE ${SOURCE_FILES})
