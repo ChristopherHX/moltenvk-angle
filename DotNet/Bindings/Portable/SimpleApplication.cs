@@ -19,7 +19,7 @@ namespace Urho
 
 		public static Task<SimpleApplication> RunAsync(int width = 600, int height = 500)
 		{
-#if NET45
+#if NET45 || __WEB__
 			return RunAsync(new ApplicationOptions(assetsFolder: "Data;CoreData") { Width = width, Height = height, ResizableWindow = true });
 #endif
 			return RunAsync(new ApplicationOptions(assetsFolder: "Data;CoreData"));
@@ -28,7 +28,7 @@ namespace Urho
 		[Obsolete("RunAsync is Obsolete. Use Show() instead.")]
 		public static Task<SimpleApplication> RunAsync(ApplicationOptions options)
 		{
-#if NET45
+#if NET45 || __WEB__
 			var dataDir = options.ResourcePaths?.FirstOrDefault();
 			Environment.CurrentDirectory = Path.GetDirectoryName(typeof(SimpleApplication).Assembly.Location);
 
@@ -61,7 +61,7 @@ namespace Urho
 #endif
 		}
 
-#if NET45
+#if NET45 || __WEB__
 		[DllImport("user32")]
 		static extern bool SetWindowPos(IntPtr hwnd, IntPtr hwnd2, int x, int y, int cx, int cy, int flags);
 #endif
@@ -187,7 +187,7 @@ namespace Urho
 				Viewport.RenderPath.Append(CoreAssets.PostProcess.FXAA3);
 			}
 
-#if NET45
+#if NET45  || __WEB__
 			Input.SubscribeToMouseWheel(args => CameraNode.Translate(-Vector3.UnitZ * 1f * args.Wheel * -1));
 			Input.SetMouseVisible(true, true);
 			Input.SubscribeToKeyDown(args => {

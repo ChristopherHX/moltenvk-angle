@@ -166,7 +166,7 @@ namespace Urho
 				builder.AppendFormat(" -pf \"{0}\"", string.Join(";", ResourcePackagesPaths));
 
 			string[] resourcePrefixPaths = ResourcePrefixPaths;
-#if NET45
+#if NET45 
 			var urhoDllFolder = System.IO.Path.GetDirectoryName(typeof(SimpleApplication).Assembly.Location);
 			var possibleCoreDataDirectories = new[]
 				{
