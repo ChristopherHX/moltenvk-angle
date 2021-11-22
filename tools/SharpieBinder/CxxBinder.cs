@@ -12,6 +12,8 @@
 //  operators
 // 
 
+// #define WEB_SUPPORT
+
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -26,6 +28,8 @@ using Sharpie.Bind;
 using System.Text;
 using UnwrapTypeInfo = System.Tuple<string, string, string[]>;
 using System.Runtime.CompilerServices;
+
+
 
 namespace SharpieBinder
 {
@@ -1135,8 +1139,14 @@ namespace SharpieBinder
 			return new AttributeSection(dllImport);
 		}
 
+#if WEB_SUPPORT
+		private static int static_type_index = 0 ;
+#endif
+
 		public override void VisitCXXMethodDecl(CXXMethodDecl decl, VisitKind visitKind)
 		{
+			
+
 			ShowMessage($"ELI {decl} {visitKind}");
 
 			if (!MethodIsBindable (decl, visitKind))
@@ -1191,6 +1201,9 @@ namespace SharpieBinder
 			// The C counterpart
 			var cinvoke = new StringBuilder();
 			string marshalReturn = "{0}";
+#if WEB_SUPPORT
+			bool isDuplicateMarshalReturn = false;
+#endif
 			string creturnType = CleanTypeCplusplus(decl.ReturnQualType);
 			bool creturnIsVariant = creturnType == "const class Urho3D::Variant &";
 
@@ -1271,7 +1284,36 @@ namespace SharpieBinder
 			if (isConstructor)
 				cmethodBuilder.Append($"DllExport void *\n{pinvoke_name}{methodNameSuffix} (");
 			else
+			{
+#if WEB_SUPPORT
+				if(creturnType.Contains("Interop::"))
+				{
+					var static_var_type = creturnType.Replace("Interop::","");
+					var static_var_name = pinvoke_name+"_"+(static_type_index).ToString()+"_"+static_var_type;
+
+					marshalReturn = "\n#ifdef __EMSCRIPTEN__\n";
+					marshalReturn += "	((" + creturnType + " *) &("+static_var_name+"={0}))";
+					marshalReturn +="\n#else\n";
+					marshalReturn += "	*((" + creturnType + " *) &({1}))";
+					marshalReturn +="\n#endif\n";
+					isDuplicateMarshalReturn = true;
+
+					cmethodBuilder.Append("\n#ifdef __EMSCRIPTEN__\n");
+						cmethodBuilder.Append($"static {static_var_type} {static_var_name};\n");
+						cmethodBuilder.Append($"DllExport {creturnType} *\n{pinvoke_name}{methodNameSuffix} (");
+					cmethodBuilder.Append("\n#else\n");
+						cmethodBuilder.Append($"DllExport {creturnType}\n{pinvoke_name}{methodNameSuffix} (");
+					cmethodBuilder.Append("\n#endif\n");
+					static_type_index++;
+				}
+				else
+				{
+					cmethodBuilder.Append($"DllExport {creturnType}\n{pinvoke_name}{methodNameSuffix} (");
+				}
+#else
 				cmethodBuilder.Append($"DllExport {creturnType}\n{pinvoke_name}{methodNameSuffix} (");
+#endif
+			}
 
 			if (decl.IsStatic) {
 				cinvoke.Append($"{decl.Parent.Name}::{decl.Name} (");
@@ -1587,7 +1629,18 @@ namespace SharpieBinder
 						constructor.Body.Add(new InvocationExpression(new IdentifierExpression($"On{currentType.Name}Created"), null));
 					}
 				}
+#if WEB_SUPPORT
+				string rstr = "";
+				if(isDuplicateMarshalReturn == true)
+				{
+				 	rstr = String.Format(marshalReturn,cinvoke.ToString(),cinvoke.ToString());
+				}
+				else{
+					rstr = String.Format(marshalReturn, cinvoke.ToString());
+				}
+#else
 				var rstr = String.Format(marshalReturn, cinvoke.ToString());
+#endif
 				CXXRecordDecl returnType;
 				//Wrap with WeakPtr all RefCounted subclasses constructors
 				if (isConstructor) {
@@ -1645,13 +1698,46 @@ namespace SharpieBinder
 					bool isString = item.Key == "const char *";
 					bool isPrimitive = !item.Key.Contains("class");
 					    
-					//C:
-					p(code
-					  .Replace(variantArgDef, cVarReplacedType)
-						.Replace(methodNameSuffix, "_" + index.ToString())
-					    .Replace("%ConvertReturn%", !isPrimitive ? $"*(({cVarReplacedType} *) &" : (isString ? "stringdup" : ""))
-					  	.Replace("%VariantToTypeMethod%", "Get" + item.Value.Capitalize(false) + "()" + (isString ? ".CString()" : "") + (isPrimitive ? "" : ")"))
-						.Replace(variantConverterMask, isString ? "Urho3D::String" : string.Empty));
+					//C:					
+#if WEB_SUPPORT
+                    if (cVarReplacedType.Contains("Interop::"))
+                    {
+                        var static_var_type = item.Key.DropConstAndReference().DropClassOrStructPrefix().DropUrhoNamespace();
+                        var static_var_name = pinvoke_name + "_" + static_var_type+"_"+index.ToString();
+                        var static_var = "static " + static_var_type + "  " + static_var_name + ";";
+						
+						pn("\n#ifdef __EMSCRIPTEN__");
+						pn("");
+                        pn(static_var);
+
+                        var modifiedcVarReplacedType =  cVarReplacedType + " *";
+                        p(code
+                              .Replace(variantArgDef, modifiedcVarReplacedType)
+                                .Replace(methodNameSuffix, "_" + index.ToString())
+                                 .Replace("%ConvertReturn%", !isPrimitive ? $"(({modifiedcVarReplacedType}) &({static_var_name} = " : (isString ? "stringdup" : ""))
+                                .Replace("%VariantToTypeMethod%", "Get" + item.Value.Capitalize(false) + "()" + (isString ? ".CString()" : "") + (isPrimitive ? "" : "))"))
+                                .Replace(variantConverterMask, isString ? "Urho3D::String" : string.Empty));
+						pn("#else");
+						pn("");
+        				p(code
+                          .Replace(variantArgDef, cVarReplacedType)
+                            .Replace(methodNameSuffix, "_" + index.ToString())
+                            .Replace("%ConvertReturn%", !isPrimitive ? $"*(({cVarReplacedType} *) &" : (isString ? "stringdup" : ""))
+                              .Replace("%VariantToTypeMethod%", "Get" + item.Value.Capitalize(false) + "()" + (isString ? ".CString()" : "") + (isPrimitive ? "" : ")"))
+                            .Replace(variantConverterMask, isString ? "Urho3D::String" : string.Empty));
+						pn("#endif");
+                    }
+                    else
+
+#endif
+                    {
+                        p(code
+                          .Replace(variantArgDef, cVarReplacedType)
+                            .Replace(methodNameSuffix, "_" + index.ToString())
+                            .Replace("%ConvertReturn%", !isPrimitive ? $"*(({cVarReplacedType} *) &" : (isString ? "stringdup" : ""))
+                              .Replace("%VariantToTypeMethod%", "Get" + item.Value.Capitalize(false) + "()" + (isString ? ".CString()" : "") + (isPrimitive ? "" : ")"))
+                            .Replace(variantConverterMask, isString ? "Urho3D::String" : string.Empty));
+                    }
 					//methodNameSuffix to avoid error:
 					//error C2733: second C linkage of overloaded function 'function name' not allowed.
 
