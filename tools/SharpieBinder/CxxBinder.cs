@@ -1335,10 +1335,10 @@ namespace SharpieBinder
             else
             {
 #if WEB_SUPPORT
-				if(creturnType.Contains("Interop::"))
+				if(creturnType.Contains("Interop::") || creturnType.Contains("Urho3D::Ray"))
 				{
 					// C++
-					var static_var_type = creturnType.Replace("Interop::","");
+					var static_var_type = creturnType.Replace("Interop::","").Replace("Urho3D::","");
 					var static_var_name = pinvoke_name+"_"+(static_type_index).ToString()+"_"+static_var_type;
 
 					marshalReturn = "\n#ifdef __EMSCRIPTEN__\n";
@@ -1800,7 +1800,7 @@ namespace SharpieBinder
 
                     //C:					
 #if WEB_SUPPORT
-                    if (cVarReplacedType.Contains("Interop::"))
+                    if (cVarReplacedType.Contains("Interop::") || creturnType.Contains("Urho3D::Ray"))
                     {
                         var static_var_type = item.Key.DropConstAndReference().DropClassOrStructPrefix().DropUrhoNamespace();
                         var static_var_name = pinvoke_name + "_" + static_var_type+"_"+index.ToString();
