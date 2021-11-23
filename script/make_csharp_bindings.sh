@@ -53,6 +53,7 @@ cd ${URHO3D_HOME}/DotNet/Bindings
 ./build-desktop-bindings.sh 
 ./build-ios-bindings.sh
 ./build-android-bindings.sh
+./build-web-bindings.sh
 
 cd ${URHO3D_HOME}
 
