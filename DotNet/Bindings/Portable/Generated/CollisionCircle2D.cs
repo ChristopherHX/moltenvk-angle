@@ -151,7 +151,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 CollisionCircle2D_GetCenter (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ CollisionCircle2D_GetCenter (IntPtr handle);
 
 		/// <summary>
 		/// Return center.
@@ -160,7 +166,13 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetCenter ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CollisionCircle2D_GetCenter (handle);
+			return 
+#if __WEB__
+*CollisionCircle2D_GetCenter
+#else
+CollisionCircle2D_GetCenter
+#endif
+ (handle);
 		}
 
 		public override StringHash Type {

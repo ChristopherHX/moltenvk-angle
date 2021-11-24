@@ -310,7 +310,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.BoundingBox Drawable_GetBoundingBox (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.BoundingBox *
+#else
+Urho.BoundingBox
+#endif
+ Drawable_GetBoundingBox (IntPtr handle);
 
 		/// <summary>
 		/// Return local space bounding box. May not be applicable or properly updated on all drawables.
@@ -319,11 +325,23 @@ namespace Urho
 		private Urho.BoundingBox GetBoundingBox ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Drawable_GetBoundingBox (handle);
+			return 
+#if __WEB__
+*Drawable_GetBoundingBox
+#else
+Drawable_GetBoundingBox
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.BoundingBox Drawable_GetWorldBoundingBox (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.BoundingBox *
+#else
+Urho.BoundingBox
+#endif
+ Drawable_GetWorldBoundingBox (IntPtr handle);
 
 		/// <summary>
 		/// Return world-space bounding box.
@@ -332,7 +350,13 @@ namespace Urho
 		private Urho.BoundingBox GetWorldBoundingBox ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Drawable_GetWorldBoundingBox (handle);
+			return 
+#if __WEB__
+*Drawable_GetWorldBoundingBox
+#else
+Drawable_GetWorldBoundingBox
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

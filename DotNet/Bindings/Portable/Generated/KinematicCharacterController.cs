@@ -111,7 +111,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 KinematicCharacterController_GetPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ KinematicCharacterController_GetPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return character position in world space.
@@ -119,11 +125,23 @@ namespace Urho
 		private Vector3 GetPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return KinematicCharacterController_GetPosition (handle);
+			return 
+#if __WEB__
+*KinematicCharacterController_GetPosition
+#else
+KinematicCharacterController_GetPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Quaternion KinematicCharacterController_GetRotation (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Quaternion *
+#else
+Quaternion
+#endif
+ KinematicCharacterController_GetRotation (IntPtr handle);
 
 		/// <summary>
 		/// Return character rotation in world space.
@@ -131,7 +149,13 @@ namespace Urho
 		private Quaternion GetRotation ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return KinematicCharacterController_GetRotation (handle);
+			return 
+#if __WEB__
+*KinematicCharacterController_GetRotation
+#else
+KinematicCharacterController_GetRotation
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -219,7 +243,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 KinematicCharacterController_GetGravity (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ KinematicCharacterController_GetGravity (IntPtr handle);
 
 		/// <summary>
 		/// Get gravity.
@@ -227,7 +257,13 @@ namespace Urho
 		private Urho.Vector3 GetGravity ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return KinematicCharacterController_GetGravity (handle);
+			return 
+#if __WEB__
+*KinematicCharacterController_GetGravity
+#else
+KinematicCharacterController_GetGravity
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -471,7 +507,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 KinematicCharacterController_GetAngularVelocity (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ KinematicCharacterController_GetAngularVelocity (IntPtr handle);
 
 		/// <summary>
 		/// Return angular velocity.
@@ -479,7 +521,13 @@ namespace Urho
 		private Vector3 GetAngularVelocity ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return KinematicCharacterController_GetAngularVelocity (handle);
+			return 
+#if __WEB__
+*KinematicCharacterController_GetAngularVelocity
+#else
+KinematicCharacterController_GetAngularVelocity
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -495,7 +543,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 KinematicCharacterController_GetLinearVelocity (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ KinematicCharacterController_GetLinearVelocity (IntPtr handle);
 
 		/// <summary>
 		/// Return linear velocity.
@@ -503,7 +557,13 @@ namespace Urho
 		private Vector3 GetLinearVelocity ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return KinematicCharacterController_GetLinearVelocity (handle);
+			return 
+#if __WEB__
+*KinematicCharacterController_GetLinearVelocity
+#else
+KinematicCharacterController_GetLinearVelocity
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

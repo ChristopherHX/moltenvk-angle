@@ -259,7 +259,13 @@ namespace Urho.Navigation
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CrowdManager_FindNearestPoint (IntPtr handle, ref Urho.Vector3 point, int queryFilterType, uint* nearestRef);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CrowdManager_FindNearestPoint (IntPtr handle, ref Urho.Vector3 point, int queryFilterType, uint* nearestRef);
 
 		/// <summary>
 		/// Find the nearest point on the navigation mesh to a given point using the crowd initialized query extent (based on maxAgentRadius) and the specified query filter type.
@@ -267,11 +273,23 @@ namespace Urho.Navigation
 		public Vector3 FindNearestPoint (Urho.Vector3 point, int queryFilterType, uint* nearestRef = null)
 		{
 			Runtime.ValidateRefCounted (this);
-			return CrowdManager_FindNearestPoint (handle, ref point, queryFilterType, nearestRef);
+			return 
+#if __WEB__
+*CrowdManager_FindNearestPoint
+#else
+CrowdManager_FindNearestPoint
+#endif
+ (handle, ref point, queryFilterType, nearestRef);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CrowdManager_MoveAlongSurface (IntPtr handle, ref Urho.Vector3 start, ref Urho.Vector3 end, int queryFilterType, int maxVisited);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CrowdManager_MoveAlongSurface (IntPtr handle, ref Urho.Vector3 start, ref Urho.Vector3 end, int queryFilterType, int maxVisited);
 
 		/// <summary>
 		/// Try to move along the surface from one point to another using the crowd initialized query extent (based on maxAgentRadius) and the specified query filter type.
@@ -279,11 +297,23 @@ namespace Urho.Navigation
 		public Vector3 MoveAlongSurface (Urho.Vector3 start, Urho.Vector3 end, int queryFilterType, int maxVisited = 3)
 		{
 			Runtime.ValidateRefCounted (this);
-			return CrowdManager_MoveAlongSurface (handle, ref start, ref end, queryFilterType, maxVisited);
+			return 
+#if __WEB__
+*CrowdManager_MoveAlongSurface
+#else
+CrowdManager_MoveAlongSurface
+#endif
+ (handle, ref start, ref end, queryFilterType, maxVisited);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CrowdManager_GetRandomPoint (IntPtr handle, int queryFilterType, uint* randomRef);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CrowdManager_GetRandomPoint (IntPtr handle, int queryFilterType, uint* randomRef);
 
 		/// <summary>
 		/// Return a random point on the navigation mesh using the crowd initialized query extent (based on maxAgentRadius) and the specified query filter type.
@@ -291,11 +321,23 @@ namespace Urho.Navigation
 		public Vector3 GetRandomPoint (int queryFilterType, uint* randomRef = null)
 		{
 			Runtime.ValidateRefCounted (this);
-			return CrowdManager_GetRandomPoint (handle, queryFilterType, randomRef);
+			return 
+#if __WEB__
+*CrowdManager_GetRandomPoint
+#else
+CrowdManager_GetRandomPoint
+#endif
+ (handle, queryFilterType, randomRef);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CrowdManager_GetRandomPointInCircle (IntPtr handle, ref Urho.Vector3 center, float radius, int queryFilterType, uint* randomRef);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CrowdManager_GetRandomPointInCircle (IntPtr handle, ref Urho.Vector3 center, float radius, int queryFilterType, uint* randomRef);
 
 		/// <summary>
 		/// Return a random point on the navigation mesh within a circle using the crowd initialized query extent (based on maxAgentRadius) and the specified query filter type. The circle radius is only a guideline and in practice the returned point may be further away.
@@ -303,7 +345,13 @@ namespace Urho.Navigation
 		public Vector3 GetRandomPointInCircle (Urho.Vector3 center, float radius, int queryFilterType, uint* randomRef = null)
 		{
 			Runtime.ValidateRefCounted (this);
-			return CrowdManager_GetRandomPointInCircle (handle, ref center, radius, queryFilterType, randomRef);
+			return 
+#if __WEB__
+*CrowdManager_GetRandomPointInCircle
+#else
+CrowdManager_GetRandomPointInCircle
+#endif
+ (handle, ref center, radius, queryFilterType, randomRef);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -319,7 +367,13 @@ namespace Urho.Navigation
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CrowdManager_Raycast (IntPtr handle, ref Urho.Vector3 start, ref Urho.Vector3 end, int queryFilterType, Vector3* hitNormal);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CrowdManager_Raycast (IntPtr handle, ref Urho.Vector3 start, ref Urho.Vector3 end, int queryFilterType, Vector3* hitNormal);
 
 		/// <summary>
 		/// Perform a walkability raycast on the navigation mesh between start and end using the crowd initialized query extent (based on maxAgentRadius) and the specified query filter type. Return the point where a wall was hit, or the end point if no walls.
@@ -327,7 +381,13 @@ namespace Urho.Navigation
 		public Vector3 Raycast (Urho.Vector3 start, Urho.Vector3 end, int queryFilterType, Vector3* hitNormal = null)
 		{
 			Runtime.ValidateRefCounted (this);
-			return CrowdManager_Raycast (handle, ref start, ref end, queryFilterType, hitNormal);
+			return 
+#if __WEB__
+*CrowdManager_Raycast
+#else
+CrowdManager_Raycast
+#endif
+ (handle, ref start, ref end, queryFilterType, hitNormal);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -445,7 +505,13 @@ namespace Urho.Navigation
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern CrowdObstacleAvoidanceParams CrowdManager_GetObstacleAvoidanceParams (IntPtr handle, uint obstacleAvoidanceType);
+		internal static extern 
+#if __WEB__
+CrowdObstacleAvoidanceParams *
+#else
+CrowdObstacleAvoidanceParams
+#endif
+ CrowdManager_GetObstacleAvoidanceParams (IntPtr handle, uint obstacleAvoidanceType);
 
 		/// <summary>
 		/// Get the params for the specified obstacle avoidance type.
@@ -453,7 +519,13 @@ namespace Urho.Navigation
 		public CrowdObstacleAvoidanceParams GetObstacleAvoidanceParams (uint obstacleAvoidanceType)
 		{
 			Runtime.ValidateRefCounted (this);
-			return CrowdManager_GetObstacleAvoidanceParams (handle, obstacleAvoidanceType);
+			return 
+#if __WEB__
+*CrowdManager_GetObstacleAvoidanceParams
+#else
+CrowdManager_GetObstacleAvoidanceParams
+#endif
+ (handle, obstacleAvoidanceType);
 		}
 
 		public override StringHash Type {

@@ -17,6 +17,8 @@ mkdir -p ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/mobile/ios
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/ios/UrhoDotNet.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/mobile/ios
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/mobile/android
 cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/mobile/android/UrhoDotNet.dll  ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/mobile/android
+mkdir -p ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/web
+cp -f ${URHO3D_HOME}/DotNet/UrhoDotNet/web/UrhoDotNet.dll ${URHONET_HOME_ROOT}/template/libs/dotnet/urho/web
 
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/gles
 cp -f ${URHO3D_HOME}/DotNet/libs/iphone/Release-iphoneos/libUrho3D-GLES.a  ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/gles/libUrho3D.a

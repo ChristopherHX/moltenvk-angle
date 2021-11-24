@@ -369,7 +369,13 @@ namespace Urho.Physics
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 Constraint_GetPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ Constraint_GetPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return constraint position relative to own body.
@@ -378,11 +384,23 @@ namespace Urho.Physics
 		private Urho.Vector3 GetPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Constraint_GetPosition (handle);
+			return 
+#if __WEB__
+*Constraint_GetPosition
+#else
+Constraint_GetPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Quaternion Constraint_GetRotation (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Quaternion *
+#else
+Urho.Quaternion
+#endif
+ Constraint_GetRotation (IntPtr handle);
 
 		/// <summary>
 		/// Return constraint rotation relative to own body.
@@ -391,11 +409,23 @@ namespace Urho.Physics
 		private Urho.Quaternion GetRotation ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Constraint_GetRotation (handle);
+			return 
+#if __WEB__
+*Constraint_GetRotation
+#else
+Constraint_GetRotation
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 Constraint_GetOtherPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ Constraint_GetOtherPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return constraint position relative to other body.
@@ -404,11 +434,23 @@ namespace Urho.Physics
 		private Urho.Vector3 GetOtherPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Constraint_GetOtherPosition (handle);
+			return 
+#if __WEB__
+*Constraint_GetOtherPosition
+#else
+Constraint_GetOtherPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Quaternion Constraint_GetOtherRotation (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Quaternion *
+#else
+Urho.Quaternion
+#endif
+ Constraint_GetOtherRotation (IntPtr handle);
 
 		/// <summary>
 		/// Return constraint rotation relative to other body.
@@ -417,11 +459,23 @@ namespace Urho.Physics
 		private Urho.Quaternion GetOtherRotation ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Constraint_GetOtherRotation (handle);
+			return 
+#if __WEB__
+*Constraint_GetOtherRotation
+#else
+Constraint_GetOtherRotation
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Constraint_GetWorldPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Constraint_GetWorldPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return constraint world position, calculated from own body.
@@ -430,11 +484,23 @@ namespace Urho.Physics
 		private Vector3 GetWorldPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Constraint_GetWorldPosition (handle);
+			return 
+#if __WEB__
+*Constraint_GetWorldPosition
+#else
+Constraint_GetWorldPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 Constraint_GetHighLimit (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ Constraint_GetHighLimit (IntPtr handle);
 
 		/// <summary>
 		/// Return high limit.
@@ -443,11 +509,23 @@ namespace Urho.Physics
 		private Urho.Vector2 GetHighLimit ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Constraint_GetHighLimit (handle);
+			return 
+#if __WEB__
+*Constraint_GetHighLimit
+#else
+Constraint_GetHighLimit
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 Constraint_GetLowLimit (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ Constraint_GetLowLimit (IntPtr handle);
 
 		/// <summary>
 		/// Return low limit.
@@ -456,7 +534,13 @@ namespace Urho.Physics
 		private Urho.Vector2 GetLowLimit ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Constraint_GetLowLimit (handle);
+			return 
+#if __WEB__
+*Constraint_GetLowLimit
+#else
+Constraint_GetLowLimit
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

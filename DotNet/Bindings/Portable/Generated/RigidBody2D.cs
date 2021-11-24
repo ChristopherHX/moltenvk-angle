@@ -502,7 +502,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector2 RigidBody2D_GetMassCenter (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector2 *
+#else
+Vector2
+#endif
+ RigidBody2D_GetMassCenter (IntPtr handle);
 
 		/// <summary>
 		/// Return mass center.
@@ -511,7 +517,13 @@ namespace Urho.Urho2D
 		private Vector2 GetMassCenter ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return RigidBody2D_GetMassCenter (handle);
+			return 
+#if __WEB__
+*RigidBody2D_GetMassCenter
+#else
+RigidBody2D_GetMassCenter
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -619,7 +631,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector2 RigidBody2D_GetLinearVelocity (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector2 *
+#else
+Vector2
+#endif
+ RigidBody2D_GetLinearVelocity (IntPtr handle);
 
 		/// <summary>
 		/// Return linear velocity.
@@ -628,7 +646,13 @@ namespace Urho.Urho2D
 		private Vector2 GetLinearVelocity ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return RigidBody2D_GetLinearVelocity (handle);
+			return 
+#if __WEB__
+*RigidBody2D_GetLinearVelocity
+#else
+RigidBody2D_GetLinearVelocity
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

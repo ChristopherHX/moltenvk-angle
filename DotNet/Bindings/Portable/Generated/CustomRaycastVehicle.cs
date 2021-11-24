@@ -114,12 +114,24 @@ namespace Urho.Physics
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CustomRaycastVehicle_GetVehicleCenterOfMass (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CustomRaycastVehicle_GetVehicleCenterOfMass (IntPtr handle);
 
 		private Vector3 GetVehicleCenterOfMass ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CustomRaycastVehicle_GetVehicleCenterOfMass (handle);
+			return 
+#if __WEB__
+*CustomRaycastVehicle_GetVehicleCenterOfMass
+#else
+CustomRaycastVehicle_GetVehicleCenterOfMass
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -159,30 +171,66 @@ namespace Urho.Physics
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CustomRaycastVehicle_GetWheelPositionWS (IntPtr handle, int wheel);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CustomRaycastVehicle_GetWheelPositionWS (IntPtr handle, int wheel);
 
 		public Vector3 GetWheelPositionWS (int wheel)
 		{
 			Runtime.ValidateRefCounted (this);
-			return CustomRaycastVehicle_GetWheelPositionWS (handle, wheel);
+			return 
+#if __WEB__
+*CustomRaycastVehicle_GetWheelPositionWS
+#else
+CustomRaycastVehicle_GetWheelPositionWS
+#endif
+ (handle, wheel);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CustomRaycastVehicle_GetWheelPositionLS (IntPtr handle, int wheel);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CustomRaycastVehicle_GetWheelPositionLS (IntPtr handle, int wheel);
 
 		public Vector3 GetWheelPositionLS (int wheel)
 		{
 			Runtime.ValidateRefCounted (this);
-			return CustomRaycastVehicle_GetWheelPositionLS (handle, wheel);
+			return 
+#if __WEB__
+*CustomRaycastVehicle_GetWheelPositionLS
+#else
+CustomRaycastVehicle_GetWheelPositionLS
+#endif
+ (handle, wheel);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Quaternion CustomRaycastVehicle_GetWheelRotation (IntPtr handle, int wheel);
+		internal static extern 
+#if __WEB__
+Quaternion *
+#else
+Quaternion
+#endif
+ CustomRaycastVehicle_GetWheelRotation (IntPtr handle, int wheel);
 
 		public Quaternion GetWheelRotation (int wheel)
 		{
 			Runtime.ValidateRefCounted (this);
-			return CustomRaycastVehicle_GetWheelRotation (handle, wheel);
+			return 
+#if __WEB__
+*CustomRaycastVehicle_GetWheelRotation
+#else
+CustomRaycastVehicle_GetWheelRotation
+#endif
+ (handle, wheel);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -213,12 +261,24 @@ namespace Urho.Physics
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CustomRaycastVehicle_GetForwardVector (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CustomRaycastVehicle_GetForwardVector (IntPtr handle);
 
 		private Vector3 GetForwardVector ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CustomRaycastVehicle_GetForwardVector (handle);
+			return 
+#if __WEB__
+*CustomRaycastVehicle_GetForwardVector
+#else
+CustomRaycastVehicle_GetForwardVector
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -231,39 +291,87 @@ namespace Urho.Physics
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CustomRaycastVehicle_GetCompoundLocalExtents (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CustomRaycastVehicle_GetCompoundLocalExtents (IntPtr handle);
 
 		private Vector3 GetCompoundLocalExtents ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CustomRaycastVehicle_GetCompoundLocalExtents (handle);
+			return 
+#if __WEB__
+*CustomRaycastVehicle_GetCompoundLocalExtents
+#else
+CustomRaycastVehicle_GetCompoundLocalExtents
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CustomRaycastVehicle_GetCompooundLocalExtentsCenter (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CustomRaycastVehicle_GetCompooundLocalExtentsCenter (IntPtr handle);
 
 		private Vector3 GetCompooundLocalExtentsCenter ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CustomRaycastVehicle_GetCompooundLocalExtentsCenter (handle);
+			return 
+#if __WEB__
+*CustomRaycastVehicle_GetCompooundLocalExtentsCenter
+#else
+CustomRaycastVehicle_GetCompooundLocalExtentsCenter
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CustomRaycastVehicle_GetCompoundLocalAabbMin (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CustomRaycastVehicle_GetCompoundLocalAabbMin (IntPtr handle);
 
 		private Vector3 GetCompoundLocalAabbMin ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CustomRaycastVehicle_GetCompoundLocalAabbMin (handle);
+			return 
+#if __WEB__
+*CustomRaycastVehicle_GetCompoundLocalAabbMin
+#else
+CustomRaycastVehicle_GetCompoundLocalAabbMin
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CustomRaycastVehicle_GetCompoundLocalAabbMax (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CustomRaycastVehicle_GetCompoundLocalAabbMax (IntPtr handle);
 
 		private Vector3 GetCompoundLocalAabbMax ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CustomRaycastVehicle_GetCompoundLocalAabbMax (handle);
+			return 
+#if __WEB__
+*CustomRaycastVehicle_GetCompoundLocalAabbMax
+#else
+CustomRaycastVehicle_GetCompoundLocalAabbMax
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -393,12 +501,24 @@ namespace Urho.Physics
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CustomRaycastVehicle_GetChassisConnectionPointCS (IntPtr handle, int wheel);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CustomRaycastVehicle_GetChassisConnectionPointCS (IntPtr handle, int wheel);
 
 		public Vector3 GetChassisConnectionPointCS (int wheel)
 		{
 			Runtime.ValidateRefCounted (this);
-			return CustomRaycastVehicle_GetChassisConnectionPointCS (handle, wheel);
+			return 
+#if __WEB__
+*CustomRaycastVehicle_GetChassisConnectionPointCS
+#else
+CustomRaycastVehicle_GetChassisConnectionPointCS
+#endif
+ (handle, wheel);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -411,21 +531,45 @@ namespace Urho.Physics
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CustomRaycastVehicle_GetContactPointWS (IntPtr handle, int wheel);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CustomRaycastVehicle_GetContactPointWS (IntPtr handle, int wheel);
 
 		public Vector3 GetContactPointWS (int wheel)
 		{
 			Runtime.ValidateRefCounted (this);
-			return CustomRaycastVehicle_GetContactPointWS (handle, wheel);
+			return 
+#if __WEB__
+*CustomRaycastVehicle_GetContactPointWS
+#else
+CustomRaycastVehicle_GetContactPointWS
+#endif
+ (handle, wheel);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CustomRaycastVehicle_GetContactNormalWS (IntPtr handle, int wheel);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CustomRaycastVehicle_GetContactNormalWS (IntPtr handle, int wheel);
 
 		public Vector3 GetContactNormalWS (int wheel)
 		{
 			Runtime.ValidateRefCounted (this);
-			return CustomRaycastVehicle_GetContactNormalWS (handle, wheel);
+			return 
+#if __WEB__
+*CustomRaycastVehicle_GetContactNormalWS
+#else
+CustomRaycastVehicle_GetContactNormalWS
+#endif
+ (handle, wheel);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -510,12 +654,24 @@ namespace Urho.Physics
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CustomRaycastVehicle_GetWheelAxleWS (IntPtr handle, int wheel);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CustomRaycastVehicle_GetWheelAxleWS (IntPtr handle, int wheel);
 
 		public Vector3 GetWheelAxleWS (int wheel)
 		{
 			Runtime.ValidateRefCounted (this);
-			return CustomRaycastVehicle_GetWheelAxleWS (handle, wheel);
+			return 
+#if __WEB__
+*CustomRaycastVehicle_GetWheelAxleWS
+#else
+CustomRaycastVehicle_GetWheelAxleWS
+#endif
+ (handle, wheel);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

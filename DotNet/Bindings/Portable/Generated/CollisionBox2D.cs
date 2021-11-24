@@ -163,7 +163,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 CollisionBox2D_GetSize (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ CollisionBox2D_GetSize (IntPtr handle);
 
 		/// <summary>
 		/// Return size.
@@ -172,11 +178,23 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetSize ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CollisionBox2D_GetSize (handle);
+			return 
+#if __WEB__
+*CollisionBox2D_GetSize
+#else
+CollisionBox2D_GetSize
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 CollisionBox2D_GetCenter (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ CollisionBox2D_GetCenter (IntPtr handle);
 
 		/// <summary>
 		/// Return center.
@@ -185,7 +203,13 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetCenter ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CollisionBox2D_GetCenter (handle);
+			return 
+#if __WEB__
+*CollisionBox2D_GetCenter
+#else
+CollisionBox2D_GetCenter
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

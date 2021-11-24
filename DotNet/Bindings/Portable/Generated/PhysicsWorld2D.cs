@@ -509,7 +509,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 PhysicsWorld2D_GetGravity (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ PhysicsWorld2D_GetGravity (IntPtr handle);
 
 		/// <summary>
 		/// Return gravity.
@@ -518,7 +524,13 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetGravity ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return PhysicsWorld2D_GetGravity (handle);
+			return 
+#if __WEB__
+*PhysicsWorld2D_GetGravity
+#else
+PhysicsWorld2D_GetGravity
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

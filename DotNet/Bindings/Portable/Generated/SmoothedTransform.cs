@@ -164,7 +164,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 SmoothedTransform_GetTargetPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ SmoothedTransform_GetTargetPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return target position in parent space.
@@ -173,11 +179,23 @@ namespace Urho
 		private Urho.Vector3 GetTargetPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return SmoothedTransform_GetTargetPosition (handle);
+			return 
+#if __WEB__
+*SmoothedTransform_GetTargetPosition
+#else
+SmoothedTransform_GetTargetPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Quaternion SmoothedTransform_GetTargetRotation (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Quaternion *
+#else
+Urho.Quaternion
+#endif
+ SmoothedTransform_GetTargetRotation (IntPtr handle);
 
 		/// <summary>
 		/// Return target rotation in parent space.
@@ -186,11 +204,23 @@ namespace Urho
 		private Urho.Quaternion GetTargetRotation ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return SmoothedTransform_GetTargetRotation (handle);
+			return 
+#if __WEB__
+*SmoothedTransform_GetTargetRotation
+#else
+SmoothedTransform_GetTargetRotation
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 SmoothedTransform_GetTargetWorldPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ SmoothedTransform_GetTargetWorldPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return target position in world space.
@@ -199,11 +229,23 @@ namespace Urho
 		private Vector3 GetTargetWorldPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return SmoothedTransform_GetTargetWorldPosition (handle);
+			return 
+#if __WEB__
+*SmoothedTransform_GetTargetWorldPosition
+#else
+SmoothedTransform_GetTargetWorldPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Quaternion SmoothedTransform_GetTargetWorldRotation (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Quaternion *
+#else
+Quaternion
+#endif
+ SmoothedTransform_GetTargetWorldRotation (IntPtr handle);
 
 		/// <summary>
 		/// Return target rotation in world space.
@@ -212,7 +254,13 @@ namespace Urho
 		private Quaternion GetTargetWorldRotation ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return SmoothedTransform_GetTargetWorldRotation (handle);
+			return 
+#if __WEB__
+*SmoothedTransform_GetTargetWorldRotation
+#else
+SmoothedTransform_GetTargetWorldRotation
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

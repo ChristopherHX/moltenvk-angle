@@ -420,7 +420,13 @@ namespace Urho.Physics
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 CollisionShape_GetSize (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ CollisionShape_GetSize (IntPtr handle);
 
 		/// <summary>
 		/// Return shape size.
@@ -429,11 +435,23 @@ namespace Urho.Physics
 		private Urho.Vector3 GetSize ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CollisionShape_GetSize (handle);
+			return 
+#if __WEB__
+*CollisionShape_GetSize
+#else
+CollisionShape_GetSize
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 CollisionShape_GetPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ CollisionShape_GetPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return offset position.
@@ -442,11 +460,23 @@ namespace Urho.Physics
 		private Urho.Vector3 GetPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CollisionShape_GetPosition (handle);
+			return 
+#if __WEB__
+*CollisionShape_GetPosition
+#else
+CollisionShape_GetPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Quaternion CollisionShape_GetRotation (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Quaternion *
+#else
+Urho.Quaternion
+#endif
+ CollisionShape_GetRotation (IntPtr handle);
 
 		/// <summary>
 		/// Return offset rotation.
@@ -455,7 +485,13 @@ namespace Urho.Physics
 		private Urho.Quaternion GetRotation ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CollisionShape_GetRotation (handle);
+			return 
+#if __WEB__
+*CollisionShape_GetRotation
+#else
+CollisionShape_GetRotation
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -498,7 +534,13 @@ namespace Urho.Physics
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern BoundingBox CollisionShape_GetWorldBoundingBox (IntPtr handle);
+		internal static extern 
+#if __WEB__
+BoundingBox *
+#else
+BoundingBox
+#endif
+ CollisionShape_GetWorldBoundingBox (IntPtr handle);
 
 		/// <summary>
 		/// Return world-space bounding box.
@@ -507,7 +549,13 @@ namespace Urho.Physics
 		private BoundingBox GetWorldBoundingBox ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CollisionShape_GetWorldBoundingBox (handle);
+			return 
+#if __WEB__
+*CollisionShape_GetWorldBoundingBox
+#else
+CollisionShape_GetWorldBoundingBox
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

@@ -109,7 +109,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color UISelectable_GetSelectionColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ UISelectable_GetSelectionColor (IntPtr handle);
 
 		/// <summary>
 		/// Return selection background color.
@@ -118,11 +124,23 @@ namespace Urho
 		private Urho.Color GetSelectionColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UISelectable_GetSelectionColor (handle);
+			return 
+#if __WEB__
+*UISelectable_GetSelectionColor
+#else
+UISelectable_GetSelectionColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color UISelectable_GetHoverColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ UISelectable_GetHoverColor (IntPtr handle);
 
 		/// <summary>
 		/// Return hover background color.
@@ -131,7 +149,13 @@ namespace Urho
 		private Urho.Color GetHoverColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UISelectable_GetHoverColor (handle);
+			return 
+#if __WEB__
+*UISelectable_GetHoverColor
+#else
+UISelectable_GetHoverColor
+#endif
+ (handle);
 		}
 
 		[Preserve]

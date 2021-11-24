@@ -507,7 +507,10 @@ namespace Urho
         {
             if (Handle != IntPtr.Zero)
             {
+                // TBD ELI , not sure about this one , causing excpetion on Emscripten
+#if ! __WEB__
                 Dynamic_Dispose(Handle);
+#endif
             }
         }
 

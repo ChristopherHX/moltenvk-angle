@@ -253,7 +253,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 VGComponent_GetHotSpot (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ VGComponent_GetHotSpot (IntPtr handle);
 
 		/// <summary>
 		/// Return hotspot.
@@ -262,7 +268,13 @@ namespace Urho
 		private Urho.Vector2 GetHotSpot ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGComponent_GetHotSpot (handle);
+			return 
+#if __WEB__
+*VGComponent_GetHotSpot
+#else
+VGComponent_GetHotSpot
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

@@ -138,7 +138,13 @@ namespace Urho.Navigation
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern BoundingBox NavArea_GetBoundingBox (IntPtr handle);
+		internal static extern 
+#if __WEB__
+BoundingBox *
+#else
+BoundingBox
+#endif
+ NavArea_GetBoundingBox (IntPtr handle);
 
 		/// <summary>
 		/// Get the bounding box of this navigation area, in local space.
@@ -147,7 +153,13 @@ namespace Urho.Navigation
 		private BoundingBox GetBoundingBox ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return NavArea_GetBoundingBox (handle);
+			return 
+#if __WEB__
+*NavArea_GetBoundingBox
+#else
+NavArea_GetBoundingBox
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -164,7 +176,13 @@ namespace Urho.Navigation
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern BoundingBox NavArea_GetWorldBoundingBox (IntPtr handle);
+		internal static extern 
+#if __WEB__
+BoundingBox *
+#else
+BoundingBox
+#endif
+ NavArea_GetWorldBoundingBox (IntPtr handle);
 
 		/// <summary>
 		/// Get the bounds of this navigation area in world space.
@@ -173,7 +191,13 @@ namespace Urho.Navigation
 		private BoundingBox GetWorldBoundingBox ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return NavArea_GetWorldBoundingBox (handle);
+			return 
+#if __WEB__
+*NavArea_GetWorldBoundingBox
+#else
+NavArea_GetWorldBoundingBox
+#endif
+ (handle);
 		}
 
 		public override StringHash Type {

@@ -1127,7 +1127,13 @@ namespace Urho.Resources
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern BoundingBox XmlElement_GetBoundingBox (IntPtr handle);
+		internal static extern 
+#if __WEB__
+BoundingBox *
+#else
+BoundingBox
+#endif
+ XmlElement_GetBoundingBox (IntPtr handle);
 
 		/// <summary>
 		/// Return bounding box attribute, or empty if missing.
@@ -1135,11 +1141,23 @@ namespace Urho.Resources
 		private BoundingBox GetBoundingBox ()
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_GetBoundingBox (handle);
+			return 
+#if __WEB__
+*XmlElement_GetBoundingBox
+#else
+XmlElement_GetBoundingBox
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern BoundingBox XmlElement_GetBoundingBox4 (IntPtr handle, string name);
+		internal static extern 
+#if __WEB__
+BoundingBox *
+#else
+BoundingBox
+#endif
+ XmlElement_GetBoundingBox4 (IntPtr handle, string name);
 
 		/// <summary>
 		/// Return bounding box attribute, or empty if missing.
@@ -1147,11 +1165,23 @@ namespace Urho.Resources
 		public BoundingBox GetBoundingBox (string name)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_GetBoundingBox4 (handle, name);
+			return 
+#if __WEB__
+*XmlElement_GetBoundingBox4
+#else
+XmlElement_GetBoundingBox4
+#endif
+ (handle, name);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Color XmlElement_GetColor (IntPtr handle, string name);
+		internal static extern 
+#if __WEB__
+Color *
+#else
+Color
+#endif
+ XmlElement_GetColor (IntPtr handle, string name);
 
 		/// <summary>
 		/// Return a color attribute, or default if missing.
@@ -1159,7 +1189,13 @@ namespace Urho.Resources
 		public Color GetColor (string name)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_GetColor (handle, name);
+			return 
+#if __WEB__
+*XmlElement_GetColor
+#else
+XmlElement_GetColor
+#endif
+ (handle, name);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1235,7 +1271,13 @@ namespace Urho.Resources
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntRect XmlElement_GetIntRect (IntPtr handle, string name);
+		internal static extern 
+#if __WEB__
+IntRect *
+#else
+IntRect
+#endif
+ XmlElement_GetIntRect (IntPtr handle, string name);
 
 		/// <summary>
 		/// Return an IntRect attribute, or default if missing.
@@ -1243,11 +1285,23 @@ namespace Urho.Resources
 		public IntRect GetIntRect (string name)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_GetIntRect (handle, name);
+			return 
+#if __WEB__
+*XmlElement_GetIntRect
+#else
+XmlElement_GetIntRect
+#endif
+ (handle, name);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 XmlElement_GetIntVector2 (IntPtr handle, string name);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ XmlElement_GetIntVector2 (IntPtr handle, string name);
 
 		/// <summary>
 		/// Return an IntVector2 attribute, or default if missing.
@@ -1255,7 +1309,13 @@ namespace Urho.Resources
 		public Urho.IntVector2 GetIntVector2 (string name)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_GetIntVector2 (handle, name);
+			return 
+#if __WEB__
+*XmlElement_GetIntVector2
+#else
+XmlElement_GetIntVector2
+#endif
+ (handle, name);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1283,7 +1343,13 @@ namespace Urho.Resources
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Quaternion XmlElement_GetQuaternion (IntPtr handle, string name);
+		internal static extern 
+#if __WEB__
+Quaternion *
+#else
+Quaternion
+#endif
+ XmlElement_GetQuaternion (IntPtr handle, string name);
 
 		/// <summary>
 		/// Return a quaternion attribute, or default if missing.
@@ -1291,7 +1357,13 @@ namespace Urho.Resources
 		public Quaternion GetQuaternion (string name)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_GetQuaternion (handle, name);
+			return 
+#if __WEB__
+*XmlElement_GetQuaternion
+#else
+XmlElement_GetQuaternion
+#endif
+ (handle, name);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1343,7 +1415,13 @@ namespace Urho.Resources
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector2 XmlElement_GetVector2 (IntPtr handle, string name);
+		internal static extern 
+#if __WEB__
+Vector2 *
+#else
+Vector2
+#endif
+ XmlElement_GetVector2 (IntPtr handle, string name);
 
 		/// <summary>
 		/// Return a Vector2 attribute, or zero vector if missing.
@@ -1351,11 +1429,23 @@ namespace Urho.Resources
 		public Vector2 GetVector2 (string name)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_GetVector2 (handle, name);
+			return 
+#if __WEB__
+*XmlElement_GetVector2
+#else
+XmlElement_GetVector2
+#endif
+ (handle, name);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 XmlElement_GetVector3 (IntPtr handle, string name);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ XmlElement_GetVector3 (IntPtr handle, string name);
 
 		/// <summary>
 		/// Return a Vector3 attribute, or zero vector if missing.
@@ -1363,11 +1453,23 @@ namespace Urho.Resources
 		public Vector3 GetVector3 (string name)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_GetVector3 (handle, name);
+			return 
+#if __WEB__
+*XmlElement_GetVector3
+#else
+XmlElement_GetVector3
+#endif
+ (handle, name);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector4 XmlElement_GetVector4 (IntPtr handle, string name);
+		internal static extern 
+#if __WEB__
+Vector4 *
+#else
+Vector4
+#endif
+ XmlElement_GetVector4 (IntPtr handle, string name);
 
 		/// <summary>
 		/// Return a Vector4 attribute, or zero vector if missing.
@@ -1375,11 +1477,23 @@ namespace Urho.Resources
 		public Vector4 GetVector4 (string name)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_GetVector4 (handle, name);
+			return 
+#if __WEB__
+*XmlElement_GetVector4
+#else
+XmlElement_GetVector4
+#endif
+ (handle, name);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector4 XmlElement_GetVector (IntPtr handle, string name);
+		internal static extern 
+#if __WEB__
+Vector4 *
+#else
+Vector4
+#endif
+ XmlElement_GetVector (IntPtr handle, string name);
 
 		/// <summary>
 		/// Return any Vector attribute as Vector4. Missing coordinates will be zero.
@@ -1387,7 +1501,13 @@ namespace Urho.Resources
 		public Vector4 GetVector (string name)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_GetVector (handle, name);
+			return 
+#if __WEB__
+*XmlElement_GetVector
+#else
+XmlElement_GetVector
+#endif
+ (handle, name);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1403,7 +1523,13 @@ namespace Urho.Resources
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Matrix3 XmlElement_GetMatrix3 (IntPtr handle, string name);
+		internal static extern 
+#if __WEB__
+Matrix3 *
+#else
+Matrix3
+#endif
+ XmlElement_GetMatrix3 (IntPtr handle, string name);
 
 		/// <summary>
 		/// Return a Matrix3 attribute, or zero matrix if missing.
@@ -1411,11 +1537,23 @@ namespace Urho.Resources
 		public Matrix3 GetMatrix3 (string name)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_GetMatrix3 (handle, name);
+			return 
+#if __WEB__
+*XmlElement_GetMatrix3
+#else
+XmlElement_GetMatrix3
+#endif
+ (handle, name);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Matrix3x4 XmlElement_GetMatrix3x4 (IntPtr handle, string name);
+		internal static extern 
+#if __WEB__
+Matrix3x4 *
+#else
+Matrix3x4
+#endif
+ XmlElement_GetMatrix3x4 (IntPtr handle, string name);
 
 		/// <summary>
 		/// Return a Matrix3x4 attribute, or zero matrix if missing.
@@ -1423,11 +1561,23 @@ namespace Urho.Resources
 		public Matrix3x4 GetMatrix3x4 (string name)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_GetMatrix3x4 (handle, name);
+			return 
+#if __WEB__
+*XmlElement_GetMatrix3x4
+#else
+XmlElement_GetMatrix3x4
+#endif
+ (handle, name);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Matrix4 XmlElement_GetMatrix4 (IntPtr handle, string name);
+		internal static extern 
+#if __WEB__
+Matrix4 *
+#else
+Matrix4
+#endif
+ XmlElement_GetMatrix4 (IntPtr handle, string name);
 
 		/// <summary>
 		/// Return a Matrix4 attribute, or zero matrix if missing.
@@ -1435,7 +1585,13 @@ namespace Urho.Resources
 		public Matrix4 GetMatrix4 (string name)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_GetMatrix4 (handle, name);
+			return 
+#if __WEB__
+*XmlElement_GetMatrix4
+#else
+XmlElement_GetMatrix4
+#endif
+ (handle, name);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

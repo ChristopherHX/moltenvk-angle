@@ -211,7 +211,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Font_GetAbsoluteGlyphOffset (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Font_GetAbsoluteGlyphOffset (IntPtr handle);
 
 		/// <summary>
 		/// Return absolute position adjustment for glyphs.
@@ -220,11 +226,23 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetAbsoluteGlyphOffset ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Font_GetAbsoluteGlyphOffset (handle);
+			return 
+#if __WEB__
+*Font_GetAbsoluteGlyphOffset
+#else
+Font_GetAbsoluteGlyphOffset
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 Font_GetScaledGlyphOffset (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ Font_GetScaledGlyphOffset (IntPtr handle);
 
 		/// <summary>
 		/// Return point size scaled position adjustment for glyphs.
@@ -233,11 +251,23 @@ namespace Urho.Gui
 		private Urho.Vector2 GetScaledGlyphOffset ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Font_GetScaledGlyphOffset (handle);
+			return 
+#if __WEB__
+*Font_GetScaledGlyphOffset
+#else
+Font_GetScaledGlyphOffset
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Font_GetTotalGlyphOffset (IntPtr handle, float pointSize);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Font_GetTotalGlyphOffset (IntPtr handle, float pointSize);
 
 		/// <summary>
 		/// Return the total effective offset for a point size.
@@ -245,7 +275,13 @@ namespace Urho.Gui
 		public Urho.IntVector2 GetTotalGlyphOffset (float pointSize)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Font_GetTotalGlyphOffset (handle, pointSize);
+			return 
+#if __WEB__
+*Font_GetTotalGlyphOffset
+#else
+Font_GetTotalGlyphOffset
+#endif
+ (handle, pointSize);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

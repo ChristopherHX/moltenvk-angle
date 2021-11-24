@@ -236,7 +236,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Menu_GetPopupOffset (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Menu_GetPopupOffset (IntPtr handle);
 
 		/// <summary>
 		/// Return popup element offset.
@@ -245,7 +251,13 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetPopupOffset ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Menu_GetPopupOffset (handle);
+			return 
+#if __WEB__
+*Menu_GetPopupOffset
+#else
+Menu_GetPopupOffset
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

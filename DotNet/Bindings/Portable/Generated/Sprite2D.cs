@@ -226,7 +226,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntRect Sprite2D_GetRectangle (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntRect *
+#else
+Urho.IntRect
+#endif
+ Sprite2D_GetRectangle (IntPtr handle);
 
 		/// <summary>
 		/// Return rectangle.
@@ -235,11 +241,23 @@ namespace Urho.Urho2D
 		private Urho.IntRect GetRectangle ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Sprite2D_GetRectangle (handle);
+			return 
+#if __WEB__
+*Sprite2D_GetRectangle
+#else
+Sprite2D_GetRectangle
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 Sprite2D_GetHotSpot (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ Sprite2D_GetHotSpot (IntPtr handle);
 
 		/// <summary>
 		/// Return hot spot.
@@ -248,11 +266,23 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetHotSpot ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Sprite2D_GetHotSpot (handle);
+			return 
+#if __WEB__
+*Sprite2D_GetHotSpot
+#else
+Sprite2D_GetHotSpot
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Sprite2D_GetOffset (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Sprite2D_GetOffset (IntPtr handle);
 
 		/// <summary>
 		/// Return offset.
@@ -261,7 +291,13 @@ namespace Urho.Urho2D
 		private Urho.IntVector2 GetOffset ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Sprite2D_GetOffset (handle);
+			return 
+#if __WEB__
+*Sprite2D_GetOffset
+#else
+Sprite2D_GetOffset
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

@@ -184,7 +184,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 UIElement_GetScreenPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ UIElement_GetScreenPosition (IntPtr handle);
 
 		/// <summary>
 		/// Update and return screen position.
@@ -193,7 +199,13 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetScreenPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetScreenPosition (handle);
+			return 
+#if __WEB__
+*UIElement_GetScreenPosition
+#else
+UIElement_GetScreenPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -257,7 +269,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 UIElement_ScreenToElement (IntPtr handle, ref Urho.IntVector2 screenPosition);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ UIElement_ScreenToElement (IntPtr handle, ref Urho.IntVector2 screenPosition);
 
 		/// <summary>
 		/// Convert screen coordinates to element coordinates.
@@ -265,11 +283,23 @@ namespace Urho.Gui
 		public virtual Urho.IntVector2 ScreenToElement (Urho.IntVector2 screenPosition)
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_ScreenToElement (handle, ref screenPosition);
+			return 
+#if __WEB__
+*UIElement_ScreenToElement
+#else
+UIElement_ScreenToElement
+#endif
+ (handle, ref screenPosition);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 UIElement_ElementToScreen (IntPtr handle, ref Urho.IntVector2 position);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ UIElement_ElementToScreen (IntPtr handle, ref Urho.IntVector2 position);
 
 		/// <summary>
 		/// Convert element coordinates to screen coordinates.
@@ -277,7 +307,13 @@ namespace Urho.Gui
 		public virtual Urho.IntVector2 ElementToScreen (Urho.IntVector2 position)
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_ElementToScreen (handle, ref position);
+			return 
+#if __WEB__
+*UIElement_ElementToScreen
+#else
+UIElement_ElementToScreen
+#endif
+ (handle, ref position);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1545,7 +1581,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 UIElement_GetPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ UIElement_GetPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return position.
@@ -1554,11 +1596,23 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetPosition (handle);
+			return 
+#if __WEB__
+*UIElement_GetPosition
+#else
+UIElement_GetPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 UIElement_GetSize (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ UIElement_GetSize (IntPtr handle);
 
 		/// <summary>
 		/// Return size.
@@ -1567,7 +1621,13 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetSize ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetSize (handle);
+			return 
+#if __WEB__
+*UIElement_GetSize
+#else
+UIElement_GetSize
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1597,7 +1657,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 UIElement_GetMinSize (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ UIElement_GetMinSize (IntPtr handle);
 
 		/// <summary>
 		/// Return minimum size.
@@ -1606,7 +1672,13 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetMinSize ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetMinSize (handle);
+			return 
+#if __WEB__
+*UIElement_GetMinSize
+#else
+UIElement_GetMinSize
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1636,7 +1708,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 UIElement_GetMaxSize (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ UIElement_GetMaxSize (IntPtr handle);
 
 		/// <summary>
 		/// Return maximum size.
@@ -1645,7 +1723,13 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetMaxSize ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetMaxSize (handle);
+			return 
+#if __WEB__
+*UIElement_GetMaxSize
+#else
+UIElement_GetMaxSize
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1714,7 +1798,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 UIElement_GetChildOffset (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ UIElement_GetChildOffset (IntPtr handle);
 
 		/// <summary>
 		/// Return child element offset.
@@ -1723,7 +1813,13 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetChildOffset ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetChildOffset (handle);
+			return 
+#if __WEB__
+*UIElement_GetChildOffset
+#else
+UIElement_GetChildOffset
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1768,7 +1864,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 UIElement_GetMinAnchor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ UIElement_GetMinAnchor (IntPtr handle);
 
 		/// <summary>
 		/// Return minimum anchor.
@@ -1777,11 +1879,23 @@ namespace Urho.Gui
 		private Urho.Vector2 GetMinAnchor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetMinAnchor (handle);
+			return 
+#if __WEB__
+*UIElement_GetMinAnchor
+#else
+UIElement_GetMinAnchor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 UIElement_GetMaxAnchor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ UIElement_GetMaxAnchor (IntPtr handle);
 
 		/// <summary>
 		/// Return maximum anchor.
@@ -1790,11 +1904,23 @@ namespace Urho.Gui
 		private Urho.Vector2 GetMaxAnchor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetMaxAnchor (handle);
+			return 
+#if __WEB__
+*UIElement_GetMaxAnchor
+#else
+UIElement_GetMaxAnchor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 UIElement_GetMinOffset (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ UIElement_GetMinOffset (IntPtr handle);
 
 		/// <summary>
 		/// 
@@ -1802,11 +1928,23 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetMinOffset ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetMinOffset (handle);
+			return 
+#if __WEB__
+*UIElement_GetMinOffset
+#else
+UIElement_GetMinOffset
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 UIElement_GetMaxOffset (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ UIElement_GetMaxOffset (IntPtr handle);
 
 		/// <summary>
 		/// 
@@ -1814,11 +1952,23 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetMaxOffset ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetMaxOffset (handle);
+			return 
+#if __WEB__
+*UIElement_GetMaxOffset
+#else
+UIElement_GetMaxOffset
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 UIElement_GetPivot (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ UIElement_GetPivot (IntPtr handle);
 
 		/// <summary>
 		/// Return pivot.
@@ -1827,11 +1977,23 @@ namespace Urho.Gui
 		private Urho.Vector2 GetPivot ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetPivot (handle);
+			return 
+#if __WEB__
+*UIElement_GetPivot
+#else
+UIElement_GetPivot
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntRect UIElement_GetClipBorder (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntRect *
+#else
+Urho.IntRect
+#endif
+ UIElement_GetClipBorder (IntPtr handle);
 
 		/// <summary>
 		/// Return child element clipping border.
@@ -1840,11 +2002,23 @@ namespace Urho.Gui
 		private Urho.IntRect GetClipBorder ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetClipBorder (handle);
+			return 
+#if __WEB__
+*UIElement_GetClipBorder
+#else
+UIElement_GetClipBorder
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color UIElement_GetColor (IntPtr handle, Corner corner);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ UIElement_GetColor (IntPtr handle, Corner corner);
 
 		/// <summary>
 		/// Return corner color.
@@ -1853,7 +2027,13 @@ namespace Urho.Gui
 		public Urho.Color GetColor (Corner corner)
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetColor (handle, corner);
+			return 
+#if __WEB__
+*UIElement_GetColor
+#else
+UIElement_GetColor
+#endif
+ (handle, corner);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -2167,7 +2347,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntRect UIElement_GetLayoutBorder (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntRect *
+#else
+Urho.IntRect
+#endif
+ UIElement_GetLayoutBorder (IntPtr handle);
 
 		/// <summary>
 		/// Return layout border.
@@ -2176,11 +2362,23 @@ namespace Urho.Gui
 		private Urho.IntRect GetLayoutBorder ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetLayoutBorder (handle);
+			return 
+#if __WEB__
+*UIElement_GetLayoutBorder
+#else
+UIElement_GetLayoutBorder
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 UIElement_GetLayoutFlexScale (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ UIElement_GetLayoutFlexScale (IntPtr handle);
 
 		/// <summary>
 		/// Return layout flex scale.
@@ -2189,7 +2387,13 @@ namespace Urho.Gui
 		private Urho.Vector2 GetLayoutFlexScale ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetLayoutFlexScale (handle);
+			return 
+#if __WEB__
+*UIElement_GetLayoutFlexScale
+#else
+UIElement_GetLayoutFlexScale
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -2271,7 +2475,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color UIElement_GetDerivedColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ UIElement_GetDerivedColor (IntPtr handle);
 
 		/// <summary>
 		/// Return derived color. Only valid when no gradient.
@@ -2279,7 +2489,13 @@ namespace Urho.Gui
 		private Urho.Color GetDerivedColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetDerivedColor (handle);
+			return 
+#if __WEB__
+*UIElement_GetDerivedColor
+#else
+UIElement_GetDerivedColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -2332,7 +2548,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntRect UIElement_GetCombinedScreenRect (IntPtr handle);
+		internal static extern 
+#if __WEB__
+IntRect *
+#else
+IntRect
+#endif
+ UIElement_GetCombinedScreenRect (IntPtr handle);
 
 		/// <summary>
 		/// Return combined screen coordinate rect of element and its children.
@@ -2341,7 +2563,13 @@ namespace Urho.Gui
 		private IntRect GetCombinedScreenRect ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetCombinedScreenRect (handle);
+			return 
+#if __WEB__
+*UIElement_GetCombinedScreenRect
+#else
+UIElement_GetCombinedScreenRect
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -2432,7 +2660,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color UIElement_GetColorAttr (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ UIElement_GetColorAttr (IntPtr handle);
 
 		/// <summary>
 		/// Return color attribute. Uses just the top-left color.
@@ -2440,7 +2674,13 @@ namespace Urho.Gui
 		private Urho.Color GetColorAttr ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetColorAttr (handle);
+			return 
+#if __WEB__
+*UIElement_GetColorAttr
+#else
+UIElement_GetColorAttr
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -2482,7 +2722,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 UIElement_GetEffectiveMinSize (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ UIElement_GetEffectiveMinSize (IntPtr handle);
 
 		/// <summary>
 		/// Return effective minimum size, also considering layout. Used internally.
@@ -2490,7 +2736,13 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetEffectiveMinSize ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UIElement_GetEffectiveMinSize (handle);
+			return 
+#if __WEB__
+*UIElement_GetEffectiveMinSize
+#else
+UIElement_GetEffectiveMinSize
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

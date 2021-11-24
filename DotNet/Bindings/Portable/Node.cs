@@ -135,18 +135,30 @@ namespace Urho {
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+#if __WEB__
+		internal static extern Variant * Node_GetVar (IntPtr handle, int key);
+#else
 		internal static extern Variant Node_GetVar (IntPtr handle, int key);
+#endif
 
 		public Variant GetVar (StringHash key)
 		{
 			Runtime.ValidateRefCounted (this);
+#if __WEB__
+			return *Node_GetVar (handle, key.Code);
+#else
 			return Node_GetVar (handle, key.Code);
+#endif
 		}
 
 		public Variant GetVar (int key)
 		{
 			Runtime.ValidateRefCounted (this);
+#if __WEB__
+			return *Node_GetVar (handle, key);
+#else
 			return Node_GetVar (handle, key);
+#endif
 		}
 
 		public T CreateComponent<T> (CreateMode mode = CreateMode.Replicated, uint id = 0) where T:Component

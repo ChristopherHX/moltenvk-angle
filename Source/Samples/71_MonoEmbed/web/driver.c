@@ -235,6 +235,8 @@ wasm_dl_symbol (void *handle, const char *name, char **err, void *user_data)
 				fflush (stderr);
 				exit (1);
 			}
+			// TBD ELI , for debug purpose only , once Web runtime will become stable , will remove it
+			printf("wasm_dl_symbol %s \n",table [i].name);
 			return table [i].func;
 		}
 	}

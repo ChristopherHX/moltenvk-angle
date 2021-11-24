@@ -268,7 +268,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Matrix3x4 Zone_GetInverseWorldTransform (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Matrix3x4 *
+#else
+Urho.Matrix3x4
+#endif
+ Zone_GetInverseWorldTransform (IntPtr handle);
 
 		/// <summary>
 		/// Return inverse world transform.
@@ -277,11 +283,23 @@ namespace Urho
 		private Urho.Matrix3x4 GetInverseWorldTransform ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Zone_GetInverseWorldTransform (handle);
+			return 
+#if __WEB__
+*Zone_GetInverseWorldTransform
+#else
+Zone_GetInverseWorldTransform
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color Zone_GetAmbientColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ Zone_GetAmbientColor (IntPtr handle);
 
 		/// <summary>
 		/// Return zone's own ambient color, disregarding gradient mode.
@@ -290,11 +308,23 @@ namespace Urho
 		private Urho.Color GetAmbientColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Zone_GetAmbientColor (handle);
+			return 
+#if __WEB__
+*Zone_GetAmbientColor
+#else
+Zone_GetAmbientColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color Zone_GetAmbientStartColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ Zone_GetAmbientStartColor (IntPtr handle);
 
 		/// <summary>
 		/// Return ambient start color. Not safe to call from worker threads due to possible octree query.
@@ -303,11 +333,23 @@ namespace Urho
 		private Urho.Color GetAmbientStartColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Zone_GetAmbientStartColor (handle);
+			return 
+#if __WEB__
+*Zone_GetAmbientStartColor
+#else
+Zone_GetAmbientStartColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color Zone_GetAmbientEndColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ Zone_GetAmbientEndColor (IntPtr handle);
 
 		/// <summary>
 		/// Return ambient end color. Not safe to call from worker threads due to possible octree query.
@@ -316,11 +358,23 @@ namespace Urho
 		private Urho.Color GetAmbientEndColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Zone_GetAmbientEndColor (handle);
+			return 
+#if __WEB__
+*Zone_GetAmbientEndColor
+#else
+Zone_GetAmbientEndColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color Zone_GetFogColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ Zone_GetFogColor (IntPtr handle);
 
 		/// <summary>
 		/// Return fog color.
@@ -329,7 +383,13 @@ namespace Urho
 		private Urho.Color GetFogColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Zone_GetFogColor (handle);
+			return 
+#if __WEB__
+*Zone_GetFogColor
+#else
+Zone_GetFogColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

@@ -437,7 +437,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color Light_GetColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ Light_GetColor (IntPtr handle);
 
 		/// <summary>
 		/// Return color.
@@ -446,7 +452,13 @@ namespace Urho
 		private Urho.Color GetColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Light_GetColor (handle);
+			return 
+#if __WEB__
+*Light_GetColor
+#else
+Light_GetColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -502,7 +514,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Color Light_GetColorFromTemperature (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Color *
+#else
+Color
+#endif
+ Light_GetColorFromTemperature (IntPtr handle);
 
 		/// <summary>
 		/// Return the color value of the temperature in Kelvin.
@@ -511,7 +529,13 @@ namespace Urho
 		private Color GetColorFromTemperature ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Light_GetColorFromTemperature (handle);
+			return 
+#if __WEB__
+*Light_GetColorFromTemperature
+#else
+Light_GetColorFromTemperature
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -541,7 +565,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Color Light_GetEffectiveColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Color *
+#else
+Color
+#endif
+ Light_GetEffectiveColor (IntPtr handle);
 
 		/// <summary>
 		/// Return effective color, multiplied by brightness and affected by temperature when "use physical values" is enabled. Alpha is always 1 so that can compare against the default black color to detect a light with no effect.
@@ -550,7 +580,13 @@ namespace Urho
 		private Color GetEffectiveColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Light_GetEffectiveColor (handle);
+			return 
+#if __WEB__
+*Light_GetEffectiveColor
+#else
+Light_GetEffectiveColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -836,7 +872,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Matrix3x4 Light_GetVolumeTransform (IntPtr handle, IntPtr camera);
+		internal static extern 
+#if __WEB__
+Urho.Matrix3x4 *
+#else
+Urho.Matrix3x4
+#endif
+ Light_GetVolumeTransform (IntPtr handle, IntPtr camera);
 
 		/// <summary>
 		/// Return light volume model transform.
@@ -844,7 +886,13 @@ namespace Urho
 		public Urho.Matrix3x4 GetVolumeTransform (Camera camera)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Light_GetVolumeTransform (handle, (object)camera == null ? IntPtr.Zero : camera.Handle);
+			return 
+#if __WEB__
+*Light_GetVolumeTransform
+#else
+Light_GetVolumeTransform
+#endif
+ (handle, (object)camera == null ? IntPtr.Zero : camera.Handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -896,7 +944,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Matrix3x4 Light_GetFullscreenQuadTransform (IntPtr camera);
+		internal static extern 
+#if __WEB__
+Matrix3x4 *
+#else
+Matrix3x4
+#endif
+ Light_GetFullscreenQuadTransform (IntPtr camera);
 
 		/// <summary>
 		/// Return a transform for deferred fullscreen quad (directional light) rendering.
@@ -904,7 +958,13 @@ namespace Urho
 		public static Matrix3x4 GetFullscreenQuadTransform (Camera camera)
 		{
 			Runtime.Validate (typeof(Light));
-			return Light_GetFullscreenQuadTransform ((object)camera == null ? IntPtr.Zero : camera.Handle);
+			return 
+#if __WEB__
+*Light_GetFullscreenQuadTransform
+#else
+Light_GetFullscreenQuadTransform
+#endif
+ ((object)camera == null ? IntPtr.Zero : camera.Handle);
 		}
 
 		public override StringHash Type {

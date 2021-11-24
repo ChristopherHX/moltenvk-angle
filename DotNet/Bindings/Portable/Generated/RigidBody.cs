@@ -642,7 +642,13 @@ namespace Urho.Physics
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 RigidBody_GetPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ RigidBody_GetPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return rigid body position in world space.
@@ -651,11 +657,23 @@ namespace Urho.Physics
 		private Vector3 GetPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return RigidBody_GetPosition (handle);
+			return 
+#if __WEB__
+*RigidBody_GetPosition
+#else
+RigidBody_GetPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Quaternion RigidBody_GetRotation (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Quaternion *
+#else
+Quaternion
+#endif
+ RigidBody_GetRotation (IntPtr handle);
 
 		/// <summary>
 		/// Return rigid body rotation in world space.
@@ -664,11 +682,23 @@ namespace Urho.Physics
 		private Quaternion GetRotation ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return RigidBody_GetRotation (handle);
+			return 
+#if __WEB__
+*RigidBody_GetRotation
+#else
+RigidBody_GetRotation
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 RigidBody_GetLinearVelocity (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ RigidBody_GetLinearVelocity (IntPtr handle);
 
 		/// <summary>
 		/// Return linear velocity.
@@ -677,11 +707,23 @@ namespace Urho.Physics
 		private Vector3 GetLinearVelocity ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return RigidBody_GetLinearVelocity (handle);
+			return 
+#if __WEB__
+*RigidBody_GetLinearVelocity
+#else
+RigidBody_GetLinearVelocity
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 RigidBody_GetLinearFactor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ RigidBody_GetLinearFactor (IntPtr handle);
 
 		/// <summary>
 		/// Return linear degrees of freedom.
@@ -690,11 +732,23 @@ namespace Urho.Physics
 		private Vector3 GetLinearFactor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return RigidBody_GetLinearFactor (handle);
+			return 
+#if __WEB__
+*RigidBody_GetLinearFactor
+#else
+RigidBody_GetLinearFactor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 RigidBody_GetVelocityAtPoint (IntPtr handle, ref Urho.Vector3 position);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ RigidBody_GetVelocityAtPoint (IntPtr handle, ref Urho.Vector3 position);
 
 		/// <summary>
 		/// Return linear velocity at local point.
@@ -702,7 +756,13 @@ namespace Urho.Physics
 		public Vector3 GetVelocityAtPoint (Urho.Vector3 position)
 		{
 			Runtime.ValidateRefCounted (this);
-			return RigidBody_GetVelocityAtPoint (handle, ref position);
+			return 
+#if __WEB__
+*RigidBody_GetVelocityAtPoint
+#else
+RigidBody_GetVelocityAtPoint
+#endif
+ (handle, ref position);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -732,7 +792,13 @@ namespace Urho.Physics
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 RigidBody_GetAngularVelocity (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ RigidBody_GetAngularVelocity (IntPtr handle);
 
 		/// <summary>
 		/// Return angular velocity.
@@ -741,11 +807,23 @@ namespace Urho.Physics
 		private Vector3 GetAngularVelocity ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return RigidBody_GetAngularVelocity (handle);
+			return 
+#if __WEB__
+*RigidBody_GetAngularVelocity
+#else
+RigidBody_GetAngularVelocity
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 RigidBody_GetAngularFactor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ RigidBody_GetAngularFactor (IntPtr handle);
 
 		/// <summary>
 		/// Return angular degrees of freedom.
@@ -754,7 +832,13 @@ namespace Urho.Physics
 		private Vector3 GetAngularFactor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return RigidBody_GetAngularFactor (handle);
+			return 
+#if __WEB__
+*RigidBody_GetAngularFactor
+#else
+RigidBody_GetAngularFactor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -797,7 +881,13 @@ namespace Urho.Physics
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 RigidBody_GetAnisotropicFriction (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ RigidBody_GetAnisotropicFriction (IntPtr handle);
 
 		/// <summary>
 		/// Return anisotropic friction.
@@ -806,7 +896,13 @@ namespace Urho.Physics
 		private Vector3 GetAnisotropicFriction ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return RigidBody_GetAnisotropicFriction (handle);
+			return 
+#if __WEB__
+*RigidBody_GetAnisotropicFriction
+#else
+RigidBody_GetAnisotropicFriction
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -888,7 +984,13 @@ namespace Urho.Physics
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 RigidBody_GetGravityOverride (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ RigidBody_GetGravityOverride (IntPtr handle);
 
 		/// <summary>
 		/// Return gravity override. If zero (default), uses the physics world's gravity.
@@ -897,11 +999,23 @@ namespace Urho.Physics
 		private Urho.Vector3 GetGravityOverride ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return RigidBody_GetGravityOverride (handle);
+			return 
+#if __WEB__
+*RigidBody_GetGravityOverride
+#else
+RigidBody_GetGravityOverride
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 RigidBody_GetCenterOfMass (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ RigidBody_GetCenterOfMass (IntPtr handle);
 
 		/// <summary>
 		/// Return center of mass offset.
@@ -910,7 +1024,13 @@ namespace Urho.Physics
 		private Urho.Vector3 GetCenterOfMass ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return RigidBody_GetCenterOfMass (handle);
+			return 
+#if __WEB__
+*RigidBody_GetCenterOfMass
+#else
+RigidBody_GetCenterOfMass
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

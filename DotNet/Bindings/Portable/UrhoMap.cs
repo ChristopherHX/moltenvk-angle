@@ -13,7 +13,7 @@ namespace Urho {
 	/// <summary>
 	/// Helper functions to return elements from a VariantMap
 	/// </summary>
-	public class EventDataContainer 
+	public unsafe class EventDataContainer 
 	{
 		public IntPtr Handle { get; }
 		private bool isManaged = false;
@@ -84,13 +84,25 @@ namespace Urho {
 		static extern uint urho_map_get_uint(IntPtr handle, int paramNameHash);
 
 		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+#if __WEB__
+		static extern Vector3 * urho_map_get_Vector3(IntPtr handle, int paramNameHash);
+#else
 		static extern Vector3 urho_map_get_Vector3(IntPtr handle, int paramNameHash);
+#endif
 
 		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+#if __WEB__
+		static extern IntVector2 * urho_map_get_IntVector2(IntPtr handle, int paramNameHash);
+#else
 		static extern IntVector2 urho_map_get_IntVector2(IntPtr handle, int paramNameHash);
+#endif
 
 		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+#if __WEB__
+		static extern Variant * urho_map_get_Variant(IntPtr handle, int paramNameHash);
+#else
 		static extern Variant urho_map_get_Variant(IntPtr handle, int paramNameHash);
+#endif
     
 		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)] 
 		public static extern void urho_map_get_value(IntPtr handle, int paramNameHash, out Variant value);
@@ -280,17 +292,29 @@ namespace Urho {
 	
 		public Variant get_Variant (int paramNameHash)
 		{
+#if __WEB__
+			return *urho_map_get_Variant (Handle, paramNameHash);
+#else
 			return urho_map_get_Variant (Handle, paramNameHash);
+#endif
 		}
 
 		public Vector3 get_Vector3 (int paramNameHash)
 		{
+#if __WEB__
+			return *urho_map_get_Vector3 (Handle, paramNameHash);
+#else
 			return urho_map_get_Vector3 (Handle, paramNameHash);
+#endif
 		}
 
 		public IntVector2 get_IntVector2(int paramNameHash)
 		{
+#if __WEB__
+			return *urho_map_get_IntVector2(Handle, paramNameHash);
+#else
 			return urho_map_get_IntVector2(Handle, paramNameHash);
+#endif
 		}
 		
 		public View get_View (int paramNameHash)

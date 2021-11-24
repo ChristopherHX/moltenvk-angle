@@ -96,23 +96,48 @@ extern "C"
         return map[h].GetStringHash().Value();
     }
 
+#ifdef __EMSCRIPTEN__
+    DllExport Variant * urho_map_get_Variant(VariantMap& map, int hash)
+    {
+        StringHash h(hash);
+        return &map[h];
+    }
+#else
     DllExport Variant urho_map_get_Variant(VariantMap& map, int hash)
     {
         StringHash h(hash);
         return map[h];
     }
+#endif
 
+#ifdef __EMSCRIPTEN__
+    DllExport Interop::Vector3 * urho_map_get_Vector3(VariantMap& map, int hash)
+    {
+        StringHash h(hash);
+        return ((Interop::Vector3*)&(map[h].GetVector3()));
+    }
+#else
     DllExport Interop::Vector3 urho_map_get_Vector3(VariantMap& map, int hash)
     {
         StringHash h(hash);
         return *((Interop::Vector3*)&(map[h].GetVector3()));
     }
+#endif
 
+#ifdef __EMSCRIPTEN__
+    DllExport Interop::IntVector2 * urho_map_get_IntVector2(VariantMap& map, int hash)
+    {
+        StringHash h(hash);
+        return ((Interop::IntVector2*)&(map[h].GetIntVector2()));
+    }
+#else
     DllExport Interop::IntVector2 urho_map_get_IntVector2(VariantMap& map, int hash)
     {
         StringHash h(hash);
         return *((Interop::IntVector2*)&(map[h].GetIntVector2()));
     }
+#endif
+
 
     DllExport int urho_map_get_bool(VariantMap& map, int hash)
     {
@@ -791,19 +816,45 @@ extern "C"
         *rotation = *((Interop::Quaternion*)&(_rot));
     }
 
-    DllExport Variant Node_GetVar(Urho3D::Node* _target, int key) { return _target->GetVar(Urho3D::StringHash(key)); }
 
+#ifdef __EMSCRIPTEN__
+    DllExport Variant * Node_GetVar(Urho3D::Node* _target, int key) 
+    { 
+        return (Urho3D::Variant *)(&_target->GetVar(Urho3D::StringHash(key))); 
+    }
+#else
+    DllExport Variant Node_GetVar(Urho3D::Node* _target, int key) { return _target->GetVar(Urho3D::StringHash(key)); }
+#endif
+
+#ifdef __EMSCRIPTEN_
+    static matrix3x4 Matrix3x4_Create_matrix3x4;
+    DllExport Interop::Matrix3x4 *  Matrix3x4_Create(Vector3& translation, Quaternion& rotation, Vector3& scale)
+    {
+        Matrix3x4_Create_matrix3x4 = Matrix3x4(translation, rotation, scale);
+        return ((Interop::Matrix3x4*)&(Matrix3x4_Create_matrix3x4));
+    }
+#else
     DllExport Interop::Matrix3x4 Matrix3x4_Create(Vector3& translation, Quaternion& rotation, Vector3& scale)
     {
         Matrix3x4 matrix3x4(translation, rotation, scale);
         return *((Interop::Matrix3x4*)&(matrix3x4));
     }
+#endif
 
+#ifdef __EMSCRIPTEN_
+    static matrix3x4 Matrix3x4_Multiply_matrix3x4;
+    DllExport Interop::Matrix3x4 *  Matrix3x4_Multiply(Matrix3x4& left, Matrix3x4& right)
+    {
+        Matrix3x4_Multiply_matrix3x4 = left * right;
+        return ((Interop::Matrix3x4*)&(Matrix3x4_Multiply_matrix3x4));
+    }
+#else
     DllExport Interop::Matrix3x4 Matrix3x4_Multiply(Matrix3x4& left, Matrix3x4& right)
     {
         Matrix3x4 matrix3x4 = left * right;
         return *((Interop::Matrix3x4*)&(matrix3x4));
     }
+#endif
 
     DllExport Interop::Vector3 Matrix3x4_Translation(Matrix3x4& matrix3x4)
     {

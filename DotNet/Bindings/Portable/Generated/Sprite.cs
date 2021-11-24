@@ -112,7 +112,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Sprite_GetScreenPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Sprite_GetScreenPosition (IntPtr handle);
 
 		/// <summary>
 		/// Update and return screen position.
@@ -120,7 +126,13 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetScreenPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Sprite_GetScreenPosition (handle);
+			return 
+#if __WEB__
+*Sprite_GetScreenPosition
+#else
+Sprite_GetScreenPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -136,7 +148,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Sprite_ScreenToElement (IntPtr handle, ref Urho.IntVector2 screenPosition);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Sprite_ScreenToElement (IntPtr handle, ref Urho.IntVector2 screenPosition);
 
 		/// <summary>
 		/// Convert screen coordinates to element coordinates.
@@ -144,11 +162,23 @@ namespace Urho.Gui
 		public override Urho.IntVector2 ScreenToElement (Urho.IntVector2 screenPosition)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Sprite_ScreenToElement (handle, ref screenPosition);
+			return 
+#if __WEB__
+*Sprite_ScreenToElement
+#else
+Sprite_ScreenToElement
+#endif
+ (handle, ref screenPosition);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Sprite_ElementToScreen (IntPtr handle, ref Urho.IntVector2 position);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Sprite_ElementToScreen (IntPtr handle, ref Urho.IntVector2 position);
 
 		/// <summary>
 		/// Convert element coordinates to screen coordinates.
@@ -156,7 +186,13 @@ namespace Urho.Gui
 		public override Urho.IntVector2 ElementToScreen (Urho.IntVector2 position)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Sprite_ElementToScreen (handle, ref position);
+			return 
+#if __WEB__
+*Sprite_ElementToScreen
+#else
+Sprite_ElementToScreen
+#endif
+ (handle, ref position);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -311,7 +347,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 Sprite_GetPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ Sprite_GetPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return floating point position.
@@ -320,11 +362,23 @@ namespace Urho.Gui
 		private Urho.Vector2 GetPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Sprite_GetPosition (handle);
+			return 
+#if __WEB__
+*Sprite_GetPosition
+#else
+Sprite_GetPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Sprite_GetHotSpot (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Sprite_GetHotSpot (IntPtr handle);
 
 		/// <summary>
 		/// Return hotspot.
@@ -333,11 +387,23 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetHotSpot ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Sprite_GetHotSpot (handle);
+			return 
+#if __WEB__
+*Sprite_GetHotSpot
+#else
+Sprite_GetHotSpot
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 Sprite_GetScale (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ Sprite_GetScale (IntPtr handle);
 
 		/// <summary>
 		/// Return scale.
@@ -346,7 +412,13 @@ namespace Urho.Gui
 		private Urho.Vector2 GetScale ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Sprite_GetScale (handle);
+			return 
+#if __WEB__
+*Sprite_GetScale
+#else
+Sprite_GetScale
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -376,7 +448,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntRect Sprite_GetImageRect (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntRect *
+#else
+Urho.IntRect
+#endif
+ Sprite_GetImageRect (IntPtr handle);
 
 		/// <summary>
 		/// Return image rectangle.
@@ -385,7 +463,13 @@ namespace Urho.Gui
 		private Urho.IntRect GetImageRect ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Sprite_GetImageRect (handle);
+			return 
+#if __WEB__
+*Sprite_GetImageRect
+#else
+Sprite_GetImageRect
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -414,7 +498,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Matrix3x4 Sprite_GetTransform (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Matrix3x4 *
+#else
+Urho.Matrix3x4
+#endif
+ Sprite_GetTransform (IntPtr handle);
 
 		/// <summary>
 		/// Update and return rendering transform, also used to transform child sprites.
@@ -422,7 +512,13 @@ namespace Urho.Gui
 		private Urho.Matrix3x4 GetTransform ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Sprite_GetTransform (handle);
+			return 
+#if __WEB__
+*Sprite_GetTransform
+#else
+Sprite_GetTransform
+#endif
+ (handle);
 		}
 
 		public override StringHash Type {

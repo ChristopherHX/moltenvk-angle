@@ -191,7 +191,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 ConstraintRevolute2D_GetAnchor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ ConstraintRevolute2D_GetAnchor (IntPtr handle);
 
 		/// <summary>
 		/// Return anchor.
@@ -200,7 +206,13 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetAnchor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ConstraintRevolute2D_GetAnchor (handle);
+			return 
+#if __WEB__
+*ConstraintRevolute2D_GetAnchor
+#else
+ConstraintRevolute2D_GetAnchor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

@@ -390,7 +390,13 @@ namespace Urho.Navigation
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern BoundingBox NavigationMesh_GetTileBoundingBox (IntPtr handle, ref Urho.IntVector2 tile);
+		internal static extern 
+#if __WEB__
+BoundingBox *
+#else
+BoundingBox
+#endif
+ NavigationMesh_GetTileBoundingBox (IntPtr handle, ref Urho.IntVector2 tile);
 
 		/// <summary>
 		/// Return bounding box of the tile in the node space.
@@ -398,11 +404,23 @@ namespace Urho.Navigation
 		public BoundingBox GetTileBoundingBox (Urho.IntVector2 tile)
 		{
 			Runtime.ValidateRefCounted (this);
-			return NavigationMesh_GetTileBoundingBox (handle, ref tile);
+			return 
+#if __WEB__
+*NavigationMesh_GetTileBoundingBox
+#else
+NavigationMesh_GetTileBoundingBox
+#endif
+ (handle, ref tile);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 NavigationMesh_GetTileIndex (IntPtr handle, ref Urho.Vector3 position);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ NavigationMesh_GetTileIndex (IntPtr handle, ref Urho.Vector3 position);
 
 		/// <summary>
 		/// Return index of the tile at the position.
@@ -410,11 +428,23 @@ namespace Urho.Navigation
 		public Urho.IntVector2 GetTileIndex (Urho.Vector3 position)
 		{
 			Runtime.ValidateRefCounted (this);
-			return NavigationMesh_GetTileIndex (handle, ref position);
+			return 
+#if __WEB__
+*NavigationMesh_GetTileIndex
+#else
+NavigationMesh_GetTileIndex
+#endif
+ (handle, ref position);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 NavigationMesh_FindNearestPoint (IntPtr handle, ref Urho.Vector3 point, ref Urho.Vector3 extents, dtQueryFilter* filter, uint* nearestRef);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ NavigationMesh_FindNearestPoint (IntPtr handle, ref Urho.Vector3 point, ref Urho.Vector3 extents, dtQueryFilter* filter, uint* nearestRef);
 
 		/// <summary>
 		/// Find the nearest point on the navigation mesh to a given point. Extents specifies how far out from the specified point to check along each axis.
@@ -422,11 +452,23 @@ namespace Urho.Navigation
 		public Vector3 FindNearestPoint (Urho.Vector3 point, Urho.Vector3 extents, dtQueryFilter* filter = null, uint* nearestRef = null)
 		{
 			Runtime.ValidateRefCounted (this);
-			return NavigationMesh_FindNearestPoint (handle, ref point, ref extents, filter, nearestRef);
+			return 
+#if __WEB__
+*NavigationMesh_FindNearestPoint
+#else
+NavigationMesh_FindNearestPoint
+#endif
+ (handle, ref point, ref extents, filter, nearestRef);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 NavigationMesh_MoveAlongSurface (IntPtr handle, ref Urho.Vector3 start, ref Urho.Vector3 end, ref Urho.Vector3 extents, int maxVisited, dtQueryFilter* filter);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ NavigationMesh_MoveAlongSurface (IntPtr handle, ref Urho.Vector3 start, ref Urho.Vector3 end, ref Urho.Vector3 extents, int maxVisited, dtQueryFilter* filter);
 
 		/// <summary>
 		/// Try to move along the surface from one point to another.
@@ -434,11 +476,23 @@ namespace Urho.Navigation
 		public Vector3 MoveAlongSurface (Urho.Vector3 start, Urho.Vector3 end, Urho.Vector3 extents, int maxVisited = 3, dtQueryFilter* filter = null)
 		{
 			Runtime.ValidateRefCounted (this);
-			return NavigationMesh_MoveAlongSurface (handle, ref start, ref end, ref extents, maxVisited, filter);
+			return 
+#if __WEB__
+*NavigationMesh_MoveAlongSurface
+#else
+NavigationMesh_MoveAlongSurface
+#endif
+ (handle, ref start, ref end, ref extents, maxVisited, filter);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 NavigationMesh_GetRandomPoint (IntPtr handle, dtQueryFilter* filter, uint* randomRef);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ NavigationMesh_GetRandomPoint (IntPtr handle, dtQueryFilter* filter, uint* randomRef);
 
 		/// <summary>
 		/// Return a random point on the navigation mesh.
@@ -446,11 +500,23 @@ namespace Urho.Navigation
 		public Vector3 GetRandomPoint (dtQueryFilter* filter = null, uint* randomRef = null)
 		{
 			Runtime.ValidateRefCounted (this);
-			return NavigationMesh_GetRandomPoint (handle, filter, randomRef);
+			return 
+#if __WEB__
+*NavigationMesh_GetRandomPoint
+#else
+NavigationMesh_GetRandomPoint
+#endif
+ (handle, filter, randomRef);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 NavigationMesh_GetRandomPointInCircle (IntPtr handle, ref Urho.Vector3 center, float radius, ref Urho.Vector3 extents, dtQueryFilter* filter, uint* randomRef);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ NavigationMesh_GetRandomPointInCircle (IntPtr handle, ref Urho.Vector3 center, float radius, ref Urho.Vector3 extents, dtQueryFilter* filter, uint* randomRef);
 
 		/// <summary>
 		/// Return a random point on the navigation mesh within a circle. The circle radius is only a guideline and in practice the returned point may be further away.
@@ -458,7 +524,13 @@ namespace Urho.Navigation
 		public Vector3 GetRandomPointInCircle (Urho.Vector3 center, float radius, Urho.Vector3 extents, dtQueryFilter* filter = null, uint* randomRef = null)
 		{
 			Runtime.ValidateRefCounted (this);
-			return NavigationMesh_GetRandomPointInCircle (handle, ref center, radius, ref extents, filter, randomRef);
+			return 
+#if __WEB__
+*NavigationMesh_GetRandomPointInCircle
+#else
+NavigationMesh_GetRandomPointInCircle
+#endif
+ (handle, ref center, radius, ref extents, filter, randomRef);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -474,7 +546,13 @@ namespace Urho.Navigation
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 NavigationMesh_Raycast (IntPtr handle, ref Urho.Vector3 start, ref Urho.Vector3 end, ref Urho.Vector3 extents, dtQueryFilter* filter, Vector3* hitNormal);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ NavigationMesh_Raycast (IntPtr handle, ref Urho.Vector3 start, ref Urho.Vector3 end, ref Urho.Vector3 extents, dtQueryFilter* filter, Vector3* hitNormal);
 
 		/// <summary>
 		/// Perform a walkability raycast on the navigation mesh between start and end and return the point where a wall was hit, or the end point if no walls.
@@ -482,7 +560,13 @@ namespace Urho.Navigation
 		public Vector3 Raycast (Urho.Vector3 start, Urho.Vector3 end, Urho.Vector3 extents, dtQueryFilter* filter = null, Vector3* hitNormal = null)
 		{
 			Runtime.ValidateRefCounted (this);
-			return NavigationMesh_Raycast (handle, ref start, ref end, ref extents, filter, hitNormal);
+			return 
+#if __WEB__
+*NavigationMesh_Raycast
+#else
+NavigationMesh_Raycast
+#endif
+ (handle, ref start, ref end, ref extents, filter, hitNormal);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -691,7 +775,13 @@ namespace Urho.Navigation
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 NavigationMesh_GetPadding (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ NavigationMesh_GetPadding (IntPtr handle);
 
 		/// <summary>
 		/// Return navigation mesh bounding box padding.
@@ -700,7 +790,13 @@ namespace Urho.Navigation
 		private Urho.Vector3 GetPadding ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return NavigationMesh_GetPadding (handle);
+			return 
+#if __WEB__
+*NavigationMesh_GetPadding
+#else
+NavigationMesh_GetPadding
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -729,7 +825,13 @@ namespace Urho.Navigation
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.BoundingBox NavigationMesh_GetBoundingBox (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.BoundingBox *
+#else
+Urho.BoundingBox
+#endif
+ NavigationMesh_GetBoundingBox (IntPtr handle);
 
 		/// <summary>
 		/// Return local space bounding box of the navigation mesh.
@@ -738,11 +840,23 @@ namespace Urho.Navigation
 		private Urho.BoundingBox GetBoundingBox ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return NavigationMesh_GetBoundingBox (handle);
+			return 
+#if __WEB__
+*NavigationMesh_GetBoundingBox
+#else
+NavigationMesh_GetBoundingBox
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern BoundingBox NavigationMesh_GetWorldBoundingBox (IntPtr handle);
+		internal static extern 
+#if __WEB__
+BoundingBox *
+#else
+BoundingBox
+#endif
+ NavigationMesh_GetWorldBoundingBox (IntPtr handle);
 
 		/// <summary>
 		/// Return world space bounding box of the navigation mesh.
@@ -751,11 +865,23 @@ namespace Urho.Navigation
 		private BoundingBox GetWorldBoundingBox ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return NavigationMesh_GetWorldBoundingBox (handle);
+			return 
+#if __WEB__
+*NavigationMesh_GetWorldBoundingBox
+#else
+NavigationMesh_GetWorldBoundingBox
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 NavigationMesh_GetNumTiles (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ NavigationMesh_GetNumTiles (IntPtr handle);
 
 		/// <summary>
 		/// Return number of tiles.
@@ -764,7 +890,13 @@ namespace Urho.Navigation
 		private Urho.IntVector2 GetNumTiles ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return NavigationMesh_GetNumTiles (handle);
+			return 
+#if __WEB__
+*NavigationMesh_GetNumTiles
+#else
+NavigationMesh_GetNumTiles
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

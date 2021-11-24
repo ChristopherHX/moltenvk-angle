@@ -1036,7 +1036,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Graphics_GetWindowPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Graphics_GetWindowPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return window position.
@@ -1045,7 +1051,13 @@ namespace Urho
 		private Urho.IntVector2 GetWindowPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Graphics_GetWindowPosition (handle);
+			return 
+#if __WEB__
+*Graphics_GetWindowPosition
+#else
+Graphics_GetWindowPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1088,7 +1100,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Graphics_GetSize (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Graphics_GetSize (IntPtr handle);
 
 		/// <summary>
 		/// Return window size in pixels.
@@ -1097,7 +1115,13 @@ namespace Urho
 		private Urho.IntVector2 GetSize ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Graphics_GetSize (handle);
+			return 
+#if __WEB__
+*Graphics_GetSize
+#else
+Graphics_GetSize
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1444,7 +1468,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Graphics_GetDesktopResolution (IntPtr handle, int monitor);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Graphics_GetDesktopResolution (IntPtr handle, int monitor);
 
 		/// <summary>
 		/// Return the desktop resolution.
@@ -1453,7 +1483,13 @@ namespace Urho
 		public Urho.IntVector2 GetDesktopResolution (int monitor)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Graphics_GetDesktopResolution (handle, monitor);
+			return 
+#if __WEB__
+*Graphics_GetDesktopResolution
+#else
+Graphics_GetDesktopResolution
+#endif
+ (handle, monitor);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1496,7 +1532,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Graphics_GetDisplayDPI (IntPtr handle, int monitor);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Graphics_GetDisplayDPI (IntPtr handle, int monitor);
 
 		/// <summary>
 		/// Return display dpi information: (hdpi, vdpi, ddpi). On failure returns zero vector.
@@ -1505,7 +1547,13 @@ namespace Urho
 		public Vector3 GetDisplayDPI (int monitor = 0)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Graphics_GetDisplayDPI (handle, monitor);
+			return 
+#if __WEB__
+*Graphics_GetDisplayDPI
+#else
+Graphics_GetDisplayDPI
+#endif
+ (handle, monitor);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1665,7 +1713,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntRect Graphics_GetViewport (IntPtr handle);
+		internal static extern 
+#if __WEB__
+IntRect *
+#else
+IntRect
+#endif
+ Graphics_GetViewport (IntPtr handle);
 
 		/// <summary>
 		/// Return the viewport coordinates.
@@ -1673,7 +1727,13 @@ namespace Urho
 		private IntRect GetViewport ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Graphics_GetViewport (handle);
+			return 
+#if __WEB__
+*Graphics_GetViewport
+#else
+Graphics_GetViewport
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1821,7 +1881,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntRect Graphics_GetScissorRect (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntRect *
+#else
+Urho.IntRect
+#endif
+ Graphics_GetScissorRect (IntPtr handle);
 
 		/// <summary>
 		/// Return scissor rectangle coordinates.
@@ -1829,7 +1895,13 @@ namespace Urho
 		private Urho.IntRect GetScissorRect ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Graphics_GetScissorRect (handle);
+			return 
+#if __WEB__
+*Graphics_GetScissorRect
+#else
+Graphics_GetScissorRect
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1942,7 +2014,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Graphics_GetRenderTargetDimensions (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Graphics_GetRenderTargetDimensions (IntPtr handle);
 
 		/// <summary>
 		/// Return current rendertarget width and height.
@@ -1950,7 +2028,13 @@ namespace Urho
 		private Urho.IntVector2 GetRenderTargetDimensions ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Graphics_GetRenderTargetDimensions (handle);
+			return 
+#if __WEB__
+*Graphics_GetRenderTargetDimensions
+#else
+Graphics_GetRenderTargetDimensions
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -2338,7 +2422,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 Graphics_GetPixelUVOffset ();
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ Graphics_GetPixelUVOffset ();
 
 		/// <summary>
 		/// Return UV offset required for pixel perfect rendering.
@@ -2346,7 +2436,13 @@ namespace Urho
 		private static Urho.Vector2 GetPixelUVOffset ()
 		{
 			Runtime.Validate (typeof(Graphics));
-			return Graphics_GetPixelUVOffset ();
+			return 
+#if __WEB__
+*Graphics_GetPixelUVOffset
+#else
+Graphics_GetPixelUVOffset
+#endif
+ ();
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

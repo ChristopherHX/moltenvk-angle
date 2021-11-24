@@ -236,7 +236,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.BoundingBox Model_GetBoundingBox (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.BoundingBox *
+#else
+Urho.BoundingBox
+#endif
+ Model_GetBoundingBox (IntPtr handle);
 
 		/// <summary>
 		/// Return bounding box.
@@ -245,7 +251,13 @@ namespace Urho
 		private Urho.BoundingBox GetBoundingBox ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Model_GetBoundingBox (handle);
+			return 
+#if __WEB__
+*Model_GetBoundingBox
+#else
+Model_GetBoundingBox
+#endif
+ (handle);
 		}
 
 		private IReadOnlyList<VertexBuffer> _GetVertexBuffers_cache;
@@ -315,7 +327,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 Model_GetGeometryCenter (IntPtr handle, uint index);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ Model_GetGeometryCenter (IntPtr handle, uint index);
 
 		/// <summary>
 		/// Return geometry center by index.
@@ -324,7 +342,13 @@ namespace Urho
 		public Urho.Vector3 GetGeometryCenter (uint index)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Model_GetGeometryCenter (handle, index);
+			return 
+#if __WEB__
+*Model_GetGeometryCenter
+#else
+Model_GetGeometryCenter
+#endif
+ (handle, index);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

@@ -200,7 +200,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Button_GetPressedOffset (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Button_GetPressedOffset (IntPtr handle);
 
 		/// <summary>
 		/// Return pressed image offset.
@@ -209,11 +215,23 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetPressedOffset ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Button_GetPressedOffset (handle);
+			return 
+#if __WEB__
+*Button_GetPressedOffset
+#else
+Button_GetPressedOffset
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Button_GetPressedChildOffset (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Button_GetPressedChildOffset (IntPtr handle);
 
 		/// <summary>
 		/// Return offset of child elements when pressed.
@@ -222,7 +240,13 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetPressedChildOffset ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Button_GetPressedChildOffset (handle);
+			return 
+#if __WEB__
+*Button_GetPressedChildOffset
+#else
+Button_GetPressedChildOffset
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

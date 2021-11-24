@@ -151,7 +151,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 CheckBox_GetCheckedOffset (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ CheckBox_GetCheckedOffset (IntPtr handle);
 
 		/// <summary>
 		/// Return checked image offset.
@@ -160,7 +166,13 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetCheckedOffset ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CheckBox_GetCheckedOffset (handle);
+			return 
+#if __WEB__
+*CheckBox_GetCheckedOffset
+#else
+CheckBox_GetCheckedOffset
+#endif
+ (handle);
 		}
 
 		public override StringHash Type {

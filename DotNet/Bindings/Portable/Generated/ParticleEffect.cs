@@ -802,7 +802,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 ParticleEffect_GetEmitterSize (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ ParticleEffect_GetEmitterSize (IntPtr handle);
 
 		/// <summary>
 		/// Return emitter size.
@@ -811,11 +817,23 @@ namespace Urho
 		private Urho.Vector3 GetEmitterSize ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ParticleEffect_GetEmitterSize (handle);
+			return 
+#if __WEB__
+*ParticleEffect_GetEmitterSize
+#else
+ParticleEffect_GetEmitterSize
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 ParticleEffect_GetMinDirection (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ ParticleEffect_GetMinDirection (IntPtr handle);
 
 		/// <summary>
 		/// Return negative direction limit.
@@ -824,11 +842,23 @@ namespace Urho
 		private Urho.Vector3 GetMinDirection ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ParticleEffect_GetMinDirection (handle);
+			return 
+#if __WEB__
+*ParticleEffect_GetMinDirection
+#else
+ParticleEffect_GetMinDirection
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 ParticleEffect_GetMaxDirection (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ ParticleEffect_GetMaxDirection (IntPtr handle);
 
 		/// <summary>
 		/// Return positive direction limit.
@@ -837,11 +867,23 @@ namespace Urho
 		private Urho.Vector3 GetMaxDirection ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ParticleEffect_GetMaxDirection (handle);
+			return 
+#if __WEB__
+*ParticleEffect_GetMaxDirection
+#else
+ParticleEffect_GetMaxDirection
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 ParticleEffect_GetConstantForce (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ ParticleEffect_GetConstantForce (IntPtr handle);
 
 		/// <summary>
 		/// Return constant force acting on particles.
@@ -850,7 +892,13 @@ namespace Urho
 		private Urho.Vector3 GetConstantForce ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ParticleEffect_GetConstantForce (handle);
+			return 
+#if __WEB__
+*ParticleEffect_GetConstantForce
+#else
+ParticleEffect_GetConstantForce
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -919,7 +967,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 ParticleEffect_GetMinParticleSize (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ ParticleEffect_GetMinParticleSize (IntPtr handle);
 
 		/// <summary>
 		/// Return particle minimum size.
@@ -928,11 +982,23 @@ namespace Urho
 		private Urho.Vector2 GetMinParticleSize ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ParticleEffect_GetMinParticleSize (handle);
+			return 
+#if __WEB__
+*ParticleEffect_GetMinParticleSize
+#else
+ParticleEffect_GetMinParticleSize
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 ParticleEffect_GetMaxParticleSize (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ ParticleEffect_GetMaxParticleSize (IntPtr handle);
 
 		/// <summary>
 		/// Return particle maximum size.
@@ -941,7 +1007,13 @@ namespace Urho
 		private Urho.Vector2 GetMaxParticleSize ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ParticleEffect_GetMaxParticleSize (handle);
+			return 
+#if __WEB__
+*ParticleEffect_GetMaxParticleSize
+#else
+ParticleEffect_GetMaxParticleSize
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1138,7 +1210,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 ParticleEffect_GetRandomDirection (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ ParticleEffect_GetRandomDirection (IntPtr handle);
 
 		/// <summary>
 		/// Return random direction.
@@ -1146,11 +1224,23 @@ namespace Urho
 		private Vector3 GetRandomDirection ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ParticleEffect_GetRandomDirection (handle);
+			return 
+#if __WEB__
+*ParticleEffect_GetRandomDirection
+#else
+ParticleEffect_GetRandomDirection
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector2 ParticleEffect_GetRandomSize (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector2 *
+#else
+Vector2
+#endif
+ ParticleEffect_GetRandomSize (IntPtr handle);
 
 		/// <summary>
 		/// Return random size.
@@ -1158,7 +1248,13 @@ namespace Urho
 		private Vector2 GetRandomSize ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ParticleEffect_GetRandomSize (handle);
+			return 
+#if __WEB__
+*ParticleEffect_GetRandomSize
+#else
+ParticleEffect_GetRandomSize
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

@@ -196,7 +196,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 IKEffector_GetTargetPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ IKEffector_GetTargetPosition (IntPtr handle);
 
 		/// <summary>
 		/// Returns the current target position in world space.
@@ -205,7 +211,13 @@ namespace Urho
 		private Urho.Vector3 GetTargetPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return IKEffector_GetTargetPosition (handle);
+			return 
+#if __WEB__
+*IKEffector_GetTargetPosition
+#else
+IKEffector_GetTargetPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -222,7 +234,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Quaternion IKEffector_GetTargetRotation (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Quaternion *
+#else
+Urho.Quaternion
+#endif
+ IKEffector_GetTargetRotation (IntPtr handle);
 
 		/// <summary>
 		/// Gets the current target rotation in world space.
@@ -231,7 +249,13 @@ namespace Urho
 		private Urho.Quaternion GetTargetRotation ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return IKEffector_GetTargetRotation (handle);
+			return 
+#if __WEB__
+*IKEffector_GetTargetRotation
+#else
+IKEffector_GetTargetRotation
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -248,7 +272,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 IKEffector_GetTargetRotationEuler (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ IKEffector_GetTargetRotationEuler (IntPtr handle);
 
 		/// <summary>
 		/// Required for the editor, get the target rotation in euler angles.
@@ -256,7 +286,13 @@ namespace Urho
 		private Vector3 GetTargetRotationEuler ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return IKEffector_GetTargetRotationEuler (handle);
+			return 
+#if __WEB__
+*IKEffector_GetTargetRotationEuler
+#else
+IKEffector_GetTargetRotationEuler
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

@@ -693,7 +693,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector2 Renderer_GetVSMShadowParameters (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector2 *
+#else
+Vector2
+#endif
+ Renderer_GetVSMShadowParameters (IntPtr handle);
 
 		/// <summary>
 		/// Return VSM shadow parameters.
@@ -702,7 +708,13 @@ namespace Urho
 		private Vector2 GetVSMShadowParameters ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Renderer_GetVSMShadowParameters (handle);
+			return 
+#if __WEB__
+*Renderer_GetVSMShadowParameters
+#else
+Renderer_GetVSMShadowParameters
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

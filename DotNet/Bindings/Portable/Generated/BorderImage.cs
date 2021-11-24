@@ -266,7 +266,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntRect BorderImage_GetImageRect (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntRect *
+#else
+Urho.IntRect
+#endif
+ BorderImage_GetImageRect (IntPtr handle);
 
 		/// <summary>
 		/// Return image rectangle.
@@ -275,11 +281,23 @@ namespace Urho.Gui
 		private Urho.IntRect GetImageRect ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return BorderImage_GetImageRect (handle);
+			return 
+#if __WEB__
+*BorderImage_GetImageRect
+#else
+BorderImage_GetImageRect
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntRect BorderImage_GetBorder (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntRect *
+#else
+Urho.IntRect
+#endif
+ BorderImage_GetBorder (IntPtr handle);
 
 		/// <summary>
 		/// Return border screen dimensions.
@@ -288,11 +306,23 @@ namespace Urho.Gui
 		private Urho.IntRect GetBorder ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return BorderImage_GetBorder (handle);
+			return 
+#if __WEB__
+*BorderImage_GetBorder
+#else
+BorderImage_GetBorder
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntRect BorderImage_GetImageBorder (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntRect *
+#else
+Urho.IntRect
+#endif
+ BorderImage_GetImageBorder (IntPtr handle);
 
 		/// <summary>
 		/// Return border image dimensions. Zero rect uses border screen dimensions.
@@ -301,11 +331,23 @@ namespace Urho.Gui
 		private Urho.IntRect GetImageBorder ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return BorderImage_GetImageBorder (handle);
+			return 
+#if __WEB__
+*BorderImage_GetImageBorder
+#else
+BorderImage_GetImageBorder
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 BorderImage_GetHoverOffset (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ BorderImage_GetHoverOffset (IntPtr handle);
 
 		/// <summary>
 		/// Return offset to image rectangle used on hover.
@@ -314,11 +356,23 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetHoverOffset ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return BorderImage_GetHoverOffset (handle);
+			return 
+#if __WEB__
+*BorderImage_GetHoverOffset
+#else
+BorderImage_GetHoverOffset
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 BorderImage_GetDisabledOffset (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ BorderImage_GetDisabledOffset (IntPtr handle);
 
 		/// <summary>
 		/// Return offset to image rectangle used when disabled.
@@ -327,7 +381,13 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetDisabledOffset ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return BorderImage_GetDisabledOffset (handle);
+			return 
+#if __WEB__
+*BorderImage_GetDisabledOffset
+#else
+BorderImage_GetDisabledOffset
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

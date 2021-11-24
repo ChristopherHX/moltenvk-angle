@@ -150,7 +150,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Urho2D.TileMapInfo2D TileMap2D_GetInfo (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Urho2D.TileMapInfo2D *
+#else
+Urho.Urho2D.TileMapInfo2D
+#endif
+ TileMap2D_GetInfo (IntPtr handle);
 
 		/// <summary>
 		/// Return information.
@@ -159,7 +165,13 @@ namespace Urho.Urho2D
 		private Urho.Urho2D.TileMapInfo2D GetInfo ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return TileMap2D_GetInfo (handle);
+			return 
+#if __WEB__
+*TileMap2D_GetInfo
+#else
+TileMap2D_GetInfo
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -188,7 +200,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector2 TileMap2D_TileIndexToPosition (IntPtr handle, int x, int y);
+		internal static extern 
+#if __WEB__
+Vector2 *
+#else
+Vector2
+#endif
+ TileMap2D_TileIndexToPosition (IntPtr handle, int x, int y);
 
 		/// <summary>
 		/// Convert tile index to position.
@@ -196,7 +214,13 @@ namespace Urho.Urho2D
 		public Vector2 TileIndexToPosition (int x, int y)
 		{
 			Runtime.ValidateRefCounted (this);
-			return TileMap2D_TileIndexToPosition (handle, x, y);
+			return 
+#if __WEB__
+*TileMap2D_TileIndexToPosition
+#else
+TileMap2D_TileIndexToPosition
+#endif
+ (handle, x, y);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

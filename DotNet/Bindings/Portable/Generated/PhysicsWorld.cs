@@ -337,7 +337,13 @@ namespace Urho.Physics
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 PhysicsWorld_GetGravity (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ PhysicsWorld_GetGravity (IntPtr handle);
 
 		/// <summary>
 		/// Return gravity.
@@ -346,7 +352,13 @@ namespace Urho.Physics
 		private Vector3 GetGravity ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return PhysicsWorld_GetGravity (handle);
+			return 
+#if __WEB__
+*PhysicsWorld_GetGravity
+#else
+PhysicsWorld_GetGravity
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

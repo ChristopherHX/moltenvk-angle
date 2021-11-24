@@ -515,7 +515,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Matrix4 Camera_GetProjection (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Matrix4 *
+#else
+Matrix4
+#endif
+ Camera_GetProjection (IntPtr handle);
 
 		/// <summary>
 		/// Return projection matrix. It's in D3D convention with depth range 0 - 1.
@@ -524,11 +530,23 @@ namespace Urho
 		private Matrix4 GetProjection ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Camera_GetProjection (handle);
+			return 
+#if __WEB__
+*Camera_GetProjection
+#else
+Camera_GetProjection
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Matrix4 Camera_GetGPUProjection (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Matrix4 *
+#else
+Matrix4
+#endif
+ Camera_GetGPUProjection (IntPtr handle);
 
 		/// <summary>
 		/// Return projection matrix converted to API-specific format for use as a shader parameter.
@@ -537,11 +555,23 @@ namespace Urho
 		private Matrix4 GetGPUProjection ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Camera_GetGPUProjection (handle);
+			return 
+#if __WEB__
+*Camera_GetGPUProjection
+#else
+Camera_GetGPUProjection
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Matrix3x4 Camera_GetView (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Matrix3x4 *
+#else
+Urho.Matrix3x4
+#endif
+ Camera_GetView (IntPtr handle);
 
 		/// <summary>
 		/// Return view matrix.
@@ -550,7 +580,13 @@ namespace Urho
 		private Urho.Matrix3x4 GetView ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Camera_GetView (handle);
+			return 
+#if __WEB__
+*Camera_GetView
+#else
+Camera_GetView
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -604,7 +640,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Ray Camera_GetScreenRay (IntPtr handle, float x, float y);
+		internal static extern 
+#if __WEB__
+Ray *
+#else
+Ray
+#endif
+ Camera_GetScreenRay (IntPtr handle, float x, float y);
 
 		/// <summary>
 		/// Return ray corresponding to normalized screen coordinates (0 - 1), with origin on the near clip plane.
@@ -612,11 +654,23 @@ namespace Urho
 		public Ray GetScreenRay (float x, float y)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Camera_GetScreenRay (handle, x, y);
+			return 
+#if __WEB__
+*Camera_GetScreenRay
+#else
+Camera_GetScreenRay
+#endif
+ (handle, x, y);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector2 Camera_WorldToScreenPoint (IntPtr handle, ref Urho.Vector3 worldPos);
+		internal static extern 
+#if __WEB__
+Vector2 *
+#else
+Vector2
+#endif
+ Camera_WorldToScreenPoint (IntPtr handle, ref Urho.Vector3 worldPos);
 
 		/// <summary>
 		/// Convert a world space point to normalized screen coordinates (0 - 1).
@@ -624,11 +678,23 @@ namespace Urho
 		public Vector2 WorldToScreenPoint (Urho.Vector3 worldPos)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Camera_WorldToScreenPoint (handle, ref worldPos);
+			return 
+#if __WEB__
+*Camera_WorldToScreenPoint
+#else
+Camera_WorldToScreenPoint
+#endif
+ (handle, ref worldPos);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Camera_ScreenToWorldPoint (IntPtr handle, ref Urho.Vector3 screenPos);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Camera_ScreenToWorldPoint (IntPtr handle, ref Urho.Vector3 screenPos);
 
 		/// <summary>
 		/// Convert normalized screen coordinates (0 - 1) and distance along view Z axis (in Z coordinate) to a world space point. The distance can not be closer than the near clip plane.
@@ -637,11 +703,23 @@ namespace Urho
 		public Vector3 ScreenToWorldPoint (Urho.Vector3 screenPos)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Camera_ScreenToWorldPoint (handle, ref screenPos);
+			return 
+#if __WEB__
+*Camera_ScreenToWorldPoint
+#else
+Camera_ScreenToWorldPoint
+#endif
+ (handle, ref screenPos);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 Camera_GetProjectionOffset (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ Camera_GetProjectionOffset (IntPtr handle);
 
 		/// <summary>
 		/// Return projection offset.
@@ -650,7 +728,13 @@ namespace Urho
 		private Urho.Vector2 GetProjectionOffset ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Camera_GetProjectionOffset (handle);
+			return 
+#if __WEB__
+*Camera_GetProjectionOffset
+#else
+Camera_GetProjectionOffset
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -667,7 +751,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Plane Camera_GetReflectionPlane (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Plane *
+#else
+Urho.Plane
+#endif
+ Camera_GetReflectionPlane (IntPtr handle);
 
 		/// <summary>
 		/// Return the reflection plane.
@@ -676,7 +766,13 @@ namespace Urho
 		private Urho.Plane GetReflectionPlane ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Camera_GetReflectionPlane (handle);
+			return 
+#if __WEB__
+*Camera_GetReflectionPlane
+#else
+Camera_GetReflectionPlane
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -693,7 +789,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Plane Camera_GetClipPlane (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Plane *
+#else
+Urho.Plane
+#endif
+ Camera_GetClipPlane (IntPtr handle);
 
 		/// <summary>
 		/// Return the custom clipping plane.
@@ -702,7 +804,13 @@ namespace Urho
 		private Urho.Plane GetClipPlane ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Camera_GetClipPlane (handle);
+			return 
+#if __WEB__
+*Camera_GetClipPlane
+#else
+Camera_GetClipPlane
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -766,7 +874,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Quaternion Camera_GetFaceCameraRotation (IntPtr handle, ref Urho.Vector3 position, ref Urho.Quaternion rotation, FaceCameraMode mode, float minAngle);
+		internal static extern 
+#if __WEB__
+Quaternion *
+#else
+Quaternion
+#endif
+ Camera_GetFaceCameraRotation (IntPtr handle, ref Urho.Vector3 position, ref Urho.Quaternion rotation, FaceCameraMode mode, float minAngle);
 
 		/// <summary>
 		/// Return a world rotation for facing a camera on certain axes based on the existing world rotation.
@@ -774,11 +888,23 @@ namespace Urho
 		public Quaternion GetFaceCameraRotation (Urho.Vector3 position, Urho.Quaternion rotation, FaceCameraMode mode, float minAngle = 0f)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Camera_GetFaceCameraRotation (handle, ref position, ref rotation, mode, minAngle);
+			return 
+#if __WEB__
+*Camera_GetFaceCameraRotation
+#else
+Camera_GetFaceCameraRotation
+#endif
+ (handle, ref position, ref rotation, mode, minAngle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Matrix3x4 Camera_GetEffectiveWorldTransform (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Matrix3x4 *
+#else
+Matrix3x4
+#endif
+ Camera_GetEffectiveWorldTransform (IntPtr handle);
 
 		/// <summary>
 		/// Get effective world transform for matrix and frustum calculations including reflection but excluding node scaling.
@@ -787,7 +913,13 @@ namespace Urho
 		private Matrix3x4 GetEffectiveWorldTransform ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Camera_GetEffectiveWorldTransform (handle);
+			return 
+#if __WEB__
+*Camera_GetEffectiveWorldTransform
+#else
+Camera_GetEffectiveWorldTransform
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -839,7 +971,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector4 Camera_GetReflectionPlaneAttr (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector4 *
+#else
+Vector4
+#endif
+ Camera_GetReflectionPlaneAttr (IntPtr handle);
 
 		/// <summary>
 		/// Return reflection plane attribute.
@@ -847,7 +985,13 @@ namespace Urho
 		private Vector4 GetReflectionPlaneAttr ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Camera_GetReflectionPlaneAttr (handle);
+			return 
+#if __WEB__
+*Camera_GetReflectionPlaneAttr
+#else
+Camera_GetReflectionPlaneAttr
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -863,7 +1007,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector4 Camera_GetClipPlaneAttr (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector4 *
+#else
+Vector4
+#endif
+ Camera_GetClipPlaneAttr (IntPtr handle);
 
 		/// <summary>
 		/// Return clipping plane attribute.
@@ -871,7 +1021,13 @@ namespace Urho
 		private Vector4 GetClipPlaneAttr ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Camera_GetClipPlaneAttr (handle);
+			return 
+#if __WEB__
+*Camera_GetClipPlaneAttr
+#else
+Camera_GetClipPlaneAttr
+#endif
+ (handle);
 		}
 
 		public override StringHash Type {

@@ -138,7 +138,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 CollisionEdge2D_GetVertex1 (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ CollisionEdge2D_GetVertex1 (IntPtr handle);
 
 		/// <summary>
 		/// Return vertex 1.
@@ -147,11 +153,23 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetVertex1 ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CollisionEdge2D_GetVertex1 (handle);
+			return 
+#if __WEB__
+*CollisionEdge2D_GetVertex1
+#else
+CollisionEdge2D_GetVertex1
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 CollisionEdge2D_GetVertex2 (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ CollisionEdge2D_GetVertex2 (IntPtr handle);
 
 		/// <summary>
 		/// Return vertex 2.
@@ -160,7 +178,13 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetVertex2 ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CollisionEdge2D_GetVertex2 (handle);
+			return 
+#if __WEB__
+*CollisionEdge2D_GetVertex2
+#else
+CollisionEdge2D_GetVertex2
+#endif
+ (handle);
 		}
 
 		public override StringHash Type {

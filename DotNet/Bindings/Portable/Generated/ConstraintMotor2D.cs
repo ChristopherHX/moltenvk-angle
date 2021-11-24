@@ -165,7 +165,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 ConstraintMotor2D_GetLinearOffset (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ ConstraintMotor2D_GetLinearOffset (IntPtr handle);
 
 		/// <summary>
 		/// Return linear offset.
@@ -174,7 +180,13 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetLinearOffset ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ConstraintMotor2D_GetLinearOffset (handle);
+			return 
+#if __WEB__
+*ConstraintMotor2D_GetLinearOffset
+#else
+ConstraintMotor2D_GetLinearOffset
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

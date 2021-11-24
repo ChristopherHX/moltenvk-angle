@@ -139,12 +139,24 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 VGElement_GetSize (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ VGElement_GetSize (IntPtr handle);
 
 		private Urho.IntVector2 GetSize ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGElement_GetSize (handle);
+			return 
+#if __WEB__
+*VGElement_GetSize
+#else
+VGElement_GetSize
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -157,12 +169,24 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Color VGElement_GetClearColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Color *
+#else
+Color
+#endif
+ VGElement_GetClearColor (IntPtr handle);
 
 		private Color GetClearColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGElement_GetClearColor (handle);
+			return 
+#if __WEB__
+*VGElement_GetClearColor
+#else
+VGElement_GetClearColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

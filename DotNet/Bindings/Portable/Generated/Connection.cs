@@ -291,7 +291,13 @@ namespace Urho.Network
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 Connection_GetPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ Connection_GetPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return the observer position sent by the client for interest management.
@@ -300,11 +306,23 @@ namespace Urho.Network
 		private Urho.Vector3 GetPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Connection_GetPosition (handle);
+			return 
+#if __WEB__
+*Connection_GetPosition
+#else
+Connection_GetPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Quaternion Connection_GetRotation (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Quaternion *
+#else
+Urho.Quaternion
+#endif
+ Connection_GetRotation (IntPtr handle);
 
 		/// <summary>
 		/// Return the observer rotation sent by the client for interest management.
@@ -313,7 +331,13 @@ namespace Urho.Network
 		private Urho.Quaternion GetRotation ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Connection_GetRotation (handle);
+			return 
+#if __WEB__
+*Connection_GetRotation
+#else
+Connection_GetRotation
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

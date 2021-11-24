@@ -12,7 +12,7 @@
 //  operators
 // 
 
-// #define WEB_SUPPORT
+#define WEB_SUPPORT
 
 using System;
 using System.IO;
@@ -1183,7 +1183,22 @@ namespace SharpieBinder
 
 #if WEB_SUPPORT
 		private static int static_type_index = 0 ;
+        bool IsWebSpecialBinding(string creturnType)
+        {
+            bool result = false;
+
+            if(creturnType.Contains("Interop::") || 
+               creturnType.Contains("Urho3D::Ray") || 
+               creturnType.Contains("Urho3D::CrowdObstacleAvoidanceParams") || 
+               creturnType.Contains("Urho3D::TileMapInfo2D"))
+            {
+                result = true;
+            }
+
+            return result;
+        }
 #endif
+
 
         public override void VisitCXXMethodDecl(CXXMethodDecl decl, VisitKind visitKind)
         {
@@ -1335,7 +1350,7 @@ namespace SharpieBinder
             else
             {
 #if WEB_SUPPORT
-				if(creturnType.Contains("Interop::") || creturnType.Contains("Urho3D::Ray"))
+                if(IsWebSpecialBinding(creturnType))
 				{
 					// C++
 					var static_var_type = creturnType.Replace("Interop::","").Replace("Urho3D::","");
@@ -1800,7 +1815,7 @@ namespace SharpieBinder
 
                     //C:					
 #if WEB_SUPPORT
-                    if (cVarReplacedType.Contains("Interop::") || creturnType.Contains("Urho3D::Ray"))
+                    if(IsWebSpecialBinding(cVarReplacedType))                   
                     {
                         var static_var_type = item.Key.DropConstAndReference().DropClassOrStructPrefix().DropUrhoNamespace();
                         var static_var_name = pinvoke_name + "_" + static_var_type+"_"+index.ToString();

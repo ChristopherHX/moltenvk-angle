@@ -139,7 +139,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 ConstraintRope2D_GetOwnerBodyAnchor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ ConstraintRope2D_GetOwnerBodyAnchor (IntPtr handle);
 
 		/// <summary>
 		/// Return owner body anchor.
@@ -148,11 +154,23 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetOwnerBodyAnchor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ConstraintRope2D_GetOwnerBodyAnchor (handle);
+			return 
+#if __WEB__
+*ConstraintRope2D_GetOwnerBodyAnchor
+#else
+ConstraintRope2D_GetOwnerBodyAnchor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 ConstraintRope2D_GetOtherBodyAnchor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ ConstraintRope2D_GetOtherBodyAnchor (IntPtr handle);
 
 		/// <summary>
 		/// Return other body anchor.
@@ -161,7 +179,13 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetOtherBodyAnchor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ConstraintRope2D_GetOtherBodyAnchor (handle);
+			return 
+#if __WEB__
+*ConstraintRope2D_GetOtherBodyAnchor
+#else
+ConstraintRope2D_GetOtherBodyAnchor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

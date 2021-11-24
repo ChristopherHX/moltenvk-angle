@@ -538,11 +538,36 @@ UrhoObject_GetContext (Urho3D::Object *_target)
 
 
 // Urho3D::Variant overloads begin:
+
+#ifdef __EMSCRIPTEN__
+
+static Vector3  UrhoObject_GetGlobalVar_Vector3_0;
+DllExport Interop::Vector3 *
+UrhoObject_GetGlobalVar_0 (Urho3D::Object *_target, int key)
+{
+	return ((Interop::Vector3 *) &(UrhoObject_GetGlobalVar_Vector3_0 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetVector3())));
+}
+
+#else
+
 DllExport Interop::Vector3
 UrhoObject_GetGlobalVar_0 (Urho3D::Object *_target, int key)
 {
 	return *((Interop::Vector3 *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetVector3()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static IntRect  UrhoObject_GetGlobalVar_IntRect_1;
+DllExport Interop::IntRect *
+UrhoObject_GetGlobalVar_1 (Urho3D::Object *_target, int key)
+{
+	return ((Interop::IntRect *) &(UrhoObject_GetGlobalVar_IntRect_1 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetIntRect())));
+}
+
+#else
 
 DllExport Interop::IntRect
 UrhoObject_GetGlobalVar_1 (Urho3D::Object *_target, int key)
@@ -550,11 +575,37 @@ UrhoObject_GetGlobalVar_1 (Urho3D::Object *_target, int key)
 	return *((Interop::IntRect *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetIntRect()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Color  UrhoObject_GetGlobalVar_Color_2;
+DllExport Interop::Color *
+UrhoObject_GetGlobalVar_2 (Urho3D::Object *_target, int key)
+{
+	return ((Interop::Color *) &(UrhoObject_GetGlobalVar_Color_2 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetColor())));
+}
+
+#else
+
 DllExport Interop::Color
 UrhoObject_GetGlobalVar_2 (Urho3D::Object *_target, int key)
 {
 	return *((Interop::Color *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetColor()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Vector2  UrhoObject_GetGlobalVar_Vector2_3;
+DllExport Interop::Vector2 *
+UrhoObject_GetGlobalVar_3 (Urho3D::Object *_target, int key)
+{
+	return ((Interop::Vector2 *) &(UrhoObject_GetGlobalVar_Vector2_3 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetVector2())));
+}
+
+#else
 
 DllExport Interop::Vector2
 UrhoObject_GetGlobalVar_3 (Urho3D::Object *_target, int key)
@@ -562,11 +613,37 @@ UrhoObject_GetGlobalVar_3 (Urho3D::Object *_target, int key)
 	return *((Interop::Vector2 *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetVector2()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Vector4  UrhoObject_GetGlobalVar_Vector4_4;
+DllExport Interop::Vector4 *
+UrhoObject_GetGlobalVar_4 (Urho3D::Object *_target, int key)
+{
+	return ((Interop::Vector4 *) &(UrhoObject_GetGlobalVar_Vector4_4 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetVector4())));
+}
+
+#else
+
 DllExport Interop::Vector4
 UrhoObject_GetGlobalVar_4 (Urho3D::Object *_target, int key)
 {
 	return *((Interop::Vector4 *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetVector4()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static IntVector2  UrhoObject_GetGlobalVar_IntVector2_5;
+DllExport Interop::IntVector2 *
+UrhoObject_GetGlobalVar_5 (Urho3D::Object *_target, int key)
+{
+	return ((Interop::IntVector2 *) &(UrhoObject_GetGlobalVar_IntVector2_5 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetIntVector2())));
+}
+
+#else
 
 DllExport Interop::IntVector2
 UrhoObject_GetGlobalVar_5 (Urho3D::Object *_target, int key)
@@ -574,11 +651,37 @@ UrhoObject_GetGlobalVar_5 (Urho3D::Object *_target, int key)
 	return *((Interop::IntVector2 *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetIntVector2()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Quaternion  UrhoObject_GetGlobalVar_Quaternion_6;
+DllExport Interop::Quaternion *
+UrhoObject_GetGlobalVar_6 (Urho3D::Object *_target, int key)
+{
+	return ((Interop::Quaternion *) &(UrhoObject_GetGlobalVar_Quaternion_6 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetQuaternion())));
+}
+
+#else
+
 DllExport Interop::Quaternion
 UrhoObject_GetGlobalVar_6 (Urho3D::Object *_target, int key)
 {
 	return *((Interop::Quaternion *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetQuaternion()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix4  UrhoObject_GetGlobalVar_Matrix4_7;
+DllExport Interop::Matrix4 *
+UrhoObject_GetGlobalVar_7 (Urho3D::Object *_target, int key)
+{
+	return ((Interop::Matrix4 *) &(UrhoObject_GetGlobalVar_Matrix4_7 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetMatrix4())));
+}
+
+#else
 
 DllExport Interop::Matrix4
 UrhoObject_GetGlobalVar_7 (Urho3D::Object *_target, int key)
@@ -586,11 +689,37 @@ UrhoObject_GetGlobalVar_7 (Urho3D::Object *_target, int key)
 	return *((Interop::Matrix4 *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetMatrix4()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix3  UrhoObject_GetGlobalVar_Matrix3_8;
+DllExport Interop::Matrix3 *
+UrhoObject_GetGlobalVar_8 (Urho3D::Object *_target, int key)
+{
+	return ((Interop::Matrix3 *) &(UrhoObject_GetGlobalVar_Matrix3_8 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetMatrix3())));
+}
+
+#else
+
 DllExport Interop::Matrix3
 UrhoObject_GetGlobalVar_8 (Urho3D::Object *_target, int key)
 {
 	return *((Interop::Matrix3 *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetMatrix3()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix3x4  UrhoObject_GetGlobalVar_Matrix3x4_9;
+DllExport Interop::Matrix3x4 *
+UrhoObject_GetGlobalVar_9 (Urho3D::Object *_target, int key)
+{
+	return ((Interop::Matrix3x4 *) &(UrhoObject_GetGlobalVar_Matrix3x4_9 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetMatrix3x4())));
+}
+
+#else
 
 DllExport Interop::Matrix3x4
 UrhoObject_GetGlobalVar_9 (Urho3D::Object *_target, int key)
@@ -598,6 +727,7 @@ UrhoObject_GetGlobalVar_9 (Urho3D::Object *_target, int key)
 	return *((Interop::Matrix3x4 *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetMatrix3x4()));
 }
 
+#endif
 DllExport int
 UrhoObject_GetGlobalVar_10 (Urho3D::Object *_target, int key)
 {
@@ -2071,11 +2201,36 @@ ResourceWithMetadata_RemoveAllMetadata (Urho3D::ResourceWithMetadata *_target)
 
 
 // Urho3D::Variant overloads begin:
+
+#ifdef __EMSCRIPTEN__
+
+static Vector3  ResourceWithMetadata_GetMetadata_Vector3_0;
+DllExport Interop::Vector3 *
+ResourceWithMetadata_GetMetadata_0 (Urho3D::ResourceWithMetadata *_target, const char * name)
+{
+	return ((Interop::Vector3 *) &(ResourceWithMetadata_GetMetadata_Vector3_0 = (_target->GetMetadata (Urho3D::String(name)).GetVector3())));
+}
+
+#else
+
 DllExport Interop::Vector3
 ResourceWithMetadata_GetMetadata_0 (Urho3D::ResourceWithMetadata *_target, const char * name)
 {
 	return *((Interop::Vector3 *) &(_target->GetMetadata (Urho3D::String(name)).GetVector3()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static IntRect  ResourceWithMetadata_GetMetadata_IntRect_1;
+DllExport Interop::IntRect *
+ResourceWithMetadata_GetMetadata_1 (Urho3D::ResourceWithMetadata *_target, const char * name)
+{
+	return ((Interop::IntRect *) &(ResourceWithMetadata_GetMetadata_IntRect_1 = (_target->GetMetadata (Urho3D::String(name)).GetIntRect())));
+}
+
+#else
 
 DllExport Interop::IntRect
 ResourceWithMetadata_GetMetadata_1 (Urho3D::ResourceWithMetadata *_target, const char * name)
@@ -2083,11 +2238,37 @@ ResourceWithMetadata_GetMetadata_1 (Urho3D::ResourceWithMetadata *_target, const
 	return *((Interop::IntRect *) &(_target->GetMetadata (Urho3D::String(name)).GetIntRect()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Color  ResourceWithMetadata_GetMetadata_Color_2;
+DllExport Interop::Color *
+ResourceWithMetadata_GetMetadata_2 (Urho3D::ResourceWithMetadata *_target, const char * name)
+{
+	return ((Interop::Color *) &(ResourceWithMetadata_GetMetadata_Color_2 = (_target->GetMetadata (Urho3D::String(name)).GetColor())));
+}
+
+#else
+
 DllExport Interop::Color
 ResourceWithMetadata_GetMetadata_2 (Urho3D::ResourceWithMetadata *_target, const char * name)
 {
 	return *((Interop::Color *) &(_target->GetMetadata (Urho3D::String(name)).GetColor()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Vector2  ResourceWithMetadata_GetMetadata_Vector2_3;
+DllExport Interop::Vector2 *
+ResourceWithMetadata_GetMetadata_3 (Urho3D::ResourceWithMetadata *_target, const char * name)
+{
+	return ((Interop::Vector2 *) &(ResourceWithMetadata_GetMetadata_Vector2_3 = (_target->GetMetadata (Urho3D::String(name)).GetVector2())));
+}
+
+#else
 
 DllExport Interop::Vector2
 ResourceWithMetadata_GetMetadata_3 (Urho3D::ResourceWithMetadata *_target, const char * name)
@@ -2095,11 +2276,37 @@ ResourceWithMetadata_GetMetadata_3 (Urho3D::ResourceWithMetadata *_target, const
 	return *((Interop::Vector2 *) &(_target->GetMetadata (Urho3D::String(name)).GetVector2()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Vector4  ResourceWithMetadata_GetMetadata_Vector4_4;
+DllExport Interop::Vector4 *
+ResourceWithMetadata_GetMetadata_4 (Urho3D::ResourceWithMetadata *_target, const char * name)
+{
+	return ((Interop::Vector4 *) &(ResourceWithMetadata_GetMetadata_Vector4_4 = (_target->GetMetadata (Urho3D::String(name)).GetVector4())));
+}
+
+#else
+
 DllExport Interop::Vector4
 ResourceWithMetadata_GetMetadata_4 (Urho3D::ResourceWithMetadata *_target, const char * name)
 {
 	return *((Interop::Vector4 *) &(_target->GetMetadata (Urho3D::String(name)).GetVector4()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static IntVector2  ResourceWithMetadata_GetMetadata_IntVector2_5;
+DllExport Interop::IntVector2 *
+ResourceWithMetadata_GetMetadata_5 (Urho3D::ResourceWithMetadata *_target, const char * name)
+{
+	return ((Interop::IntVector2 *) &(ResourceWithMetadata_GetMetadata_IntVector2_5 = (_target->GetMetadata (Urho3D::String(name)).GetIntVector2())));
+}
+
+#else
 
 DllExport Interop::IntVector2
 ResourceWithMetadata_GetMetadata_5 (Urho3D::ResourceWithMetadata *_target, const char * name)
@@ -2107,11 +2314,37 @@ ResourceWithMetadata_GetMetadata_5 (Urho3D::ResourceWithMetadata *_target, const
 	return *((Interop::IntVector2 *) &(_target->GetMetadata (Urho3D::String(name)).GetIntVector2()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Quaternion  ResourceWithMetadata_GetMetadata_Quaternion_6;
+DllExport Interop::Quaternion *
+ResourceWithMetadata_GetMetadata_6 (Urho3D::ResourceWithMetadata *_target, const char * name)
+{
+	return ((Interop::Quaternion *) &(ResourceWithMetadata_GetMetadata_Quaternion_6 = (_target->GetMetadata (Urho3D::String(name)).GetQuaternion())));
+}
+
+#else
+
 DllExport Interop::Quaternion
 ResourceWithMetadata_GetMetadata_6 (Urho3D::ResourceWithMetadata *_target, const char * name)
 {
 	return *((Interop::Quaternion *) &(_target->GetMetadata (Urho3D::String(name)).GetQuaternion()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix4  ResourceWithMetadata_GetMetadata_Matrix4_7;
+DllExport Interop::Matrix4 *
+ResourceWithMetadata_GetMetadata_7 (Urho3D::ResourceWithMetadata *_target, const char * name)
+{
+	return ((Interop::Matrix4 *) &(ResourceWithMetadata_GetMetadata_Matrix4_7 = (_target->GetMetadata (Urho3D::String(name)).GetMatrix4())));
+}
+
+#else
 
 DllExport Interop::Matrix4
 ResourceWithMetadata_GetMetadata_7 (Urho3D::ResourceWithMetadata *_target, const char * name)
@@ -2119,11 +2352,37 @@ ResourceWithMetadata_GetMetadata_7 (Urho3D::ResourceWithMetadata *_target, const
 	return *((Interop::Matrix4 *) &(_target->GetMetadata (Urho3D::String(name)).GetMatrix4()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix3  ResourceWithMetadata_GetMetadata_Matrix3_8;
+DllExport Interop::Matrix3 *
+ResourceWithMetadata_GetMetadata_8 (Urho3D::ResourceWithMetadata *_target, const char * name)
+{
+	return ((Interop::Matrix3 *) &(ResourceWithMetadata_GetMetadata_Matrix3_8 = (_target->GetMetadata (Urho3D::String(name)).GetMatrix3())));
+}
+
+#else
+
 DllExport Interop::Matrix3
 ResourceWithMetadata_GetMetadata_8 (Urho3D::ResourceWithMetadata *_target, const char * name)
 {
 	return *((Interop::Matrix3 *) &(_target->GetMetadata (Urho3D::String(name)).GetMatrix3()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix3x4  ResourceWithMetadata_GetMetadata_Matrix3x4_9;
+DllExport Interop::Matrix3x4 *
+ResourceWithMetadata_GetMetadata_9 (Urho3D::ResourceWithMetadata *_target, const char * name)
+{
+	return ((Interop::Matrix3x4 *) &(ResourceWithMetadata_GetMetadata_Matrix3x4_9 = (_target->GetMetadata (Urho3D::String(name)).GetMatrix3x4())));
+}
+
+#else
 
 DllExport Interop::Matrix3x4
 ResourceWithMetadata_GetMetadata_9 (Urho3D::ResourceWithMetadata *_target, const char * name)
@@ -2131,6 +2390,7 @@ ResourceWithMetadata_GetMetadata_9 (Urho3D::ResourceWithMetadata *_target, const
 	return *((Interop::Matrix3x4 *) &(_target->GetMetadata (Urho3D::String(name)).GetMatrix3x4()));
 }
 
+#endif
 DllExport int
 ResourceWithMetadata_GetMetadata_10 (Urho3D::ResourceWithMetadata *_target, const char * name)
 {
@@ -2275,24 +2535,66 @@ Sprite2D_GetTexture (Urho3D::Sprite2D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntRect  Sprite2D_GetRectangle_0_IntRect ;
+DllExport Interop::IntRect  *
+Sprite2D_GetRectangle (
+#else
 DllExport Interop::IntRect 
-Sprite2D_GetRectangle (Urho3D::Sprite2D *_target)
+Sprite2D_GetRectangle (
+#endif
+Urho3D::Sprite2D *_target)
 {
-	return *((Interop::IntRect  *) &(_target->GetRectangle ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntRect  *) &(Sprite2D_GetRectangle_0_IntRect =_target->GetRectangle ()))
+#else
+	*((Interop::IntRect  *) &(_target->GetRectangle ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Sprite2D_GetHotSpot_1_Vector2 ;
+DllExport Interop::Vector2  *
+Sprite2D_GetHotSpot (
+#else
 DllExport Interop::Vector2 
-Sprite2D_GetHotSpot (Urho3D::Sprite2D *_target)
+Sprite2D_GetHotSpot (
+#endif
+Urho3D::Sprite2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetHotSpot ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Sprite2D_GetHotSpot_1_Vector2 =_target->GetHotSpot ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetHotSpot ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Sprite2D_GetOffset_2_IntVector2 ;
+DllExport Interop::IntVector2  *
+Sprite2D_GetOffset (
+#else
 DllExport Interop::IntVector2 
-Sprite2D_GetOffset (Urho3D::Sprite2D *_target)
+Sprite2D_GetOffset (
+#endif
+Urho3D::Sprite2D *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetOffset ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Sprite2D_GetOffset_2_IntVector2 =_target->GetOffset ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetOffset ()))
+#endif
+;
 }
 
 
@@ -2429,17 +2731,45 @@ TileMapObject2D_GetType (Urho3D::TileMapObject2D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  TileMapObject2D_GetPosition_3_Vector2 ;
+DllExport Interop::Vector2  *
+TileMapObject2D_GetPosition (
+#else
 DllExport Interop::Vector2 
-TileMapObject2D_GetPosition (Urho3D::TileMapObject2D *_target)
+TileMapObject2D_GetPosition (
+#endif
+Urho3D::TileMapObject2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(TileMapObject2D_GetPosition_3_Vector2 =_target->GetPosition ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetPosition ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  TileMapObject2D_GetSize_4_Vector2 ;
+DllExport Interop::Vector2  *
+TileMapObject2D_GetSize (
+#else
 DllExport Interop::Vector2 
-TileMapObject2D_GetSize (Urho3D::TileMapObject2D *_target)
+TileMapObject2D_GetSize (
+#endif
+Urho3D::TileMapObject2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetSize ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(TileMapObject2D_GetSize_4_Vector2 =_target->GetSize ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetSize ()))
+#endif
+;
 }
 
 
@@ -2450,10 +2780,24 @@ TileMapObject2D_GetNumPoints (Urho3D::TileMapObject2D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  TileMapObject2D_GetPoint_5_Vector2 ;
+DllExport Interop::Vector2  *
+TileMapObject2D_GetPoint (
+#else
 DllExport Interop::Vector2 
-TileMapObject2D_GetPoint (Urho3D::TileMapObject2D *_target, unsigned int index)
+TileMapObject2D_GetPoint (
+#endif
+Urho3D::TileMapObject2D *_target, unsigned int index)
 {
-	return *((Interop::Vector2  *) &(_target->GetPoint (index)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(TileMapObject2D_GetPoint_5_Vector2 =_target->GetPoint (index)))
+#else
+	*((Interop::Vector2  *) &(_target->GetPoint (index)))
+#endif
+;
 }
 
 
@@ -2807,10 +3151,24 @@ TmxImageLayer2D_Load (Urho3D::TmxImageLayer2D *_target, const class Urho3D::XMLE
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  TmxImageLayer2D_GetPosition_6_Vector2 ;
+DllExport Interop::Vector2  *
+TmxImageLayer2D_GetPosition (
+#else
 DllExport Interop::Vector2 
-TmxImageLayer2D_GetPosition (Urho3D::TmxImageLayer2D *_target)
+TmxImageLayer2D_GetPosition (
+#endif
+Urho3D::TmxImageLayer2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(TmxImageLayer2D_GetPosition_6_Vector2 =_target->GetPosition ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetPosition ()))
+#endif
+;
 }
 
 
@@ -2905,10 +3263,24 @@ TmxFile2D_AddLayer (Urho3D::TmxFile2D *_target, unsigned int index, Urho3D::TmxL
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static TileMapInfo2D TmxFile2D_GetInfo_7_TileMapInfo2D;
+DllExport Urho3D::TileMapInfo2D *
+TmxFile2D_GetInfo (
+#else
 DllExport Urho3D::TileMapInfo2D
-TmxFile2D_GetInfo (Urho3D::TmxFile2D *_target)
+TmxFile2D_GetInfo (
+#endif
+Urho3D::TmxFile2D *_target)
 {
-	return _target->GetInfo ();
+	return 
+#ifdef __EMSCRIPTEN__
+	((Urho3D::TileMapInfo2D *) &(TmxFile2D_GetInfo_7_TileMapInfo2D=_target->GetInfo ()))
+#else
+	*((Urho3D::TileMapInfo2D *) &(_target->GetInfo ()))
+#endif
+;
 }
 
 
@@ -4433,11 +4805,36 @@ Context_GetSubsystem (Urho3D::Context *_target, int type)
 
 
 // Urho3D::Variant overloads begin:
+
+#ifdef __EMSCRIPTEN__
+
+static Vector3  Context_GetGlobalVar_Vector3_0;
+DllExport Interop::Vector3 *
+Context_GetGlobalVar_0 (Urho3D::Context *_target, int key)
+{
+	return ((Interop::Vector3 *) &(Context_GetGlobalVar_Vector3_0 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetVector3())));
+}
+
+#else
+
 DllExport Interop::Vector3
 Context_GetGlobalVar_0 (Urho3D::Context *_target, int key)
 {
 	return *((Interop::Vector3 *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetVector3()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static IntRect  Context_GetGlobalVar_IntRect_1;
+DllExport Interop::IntRect *
+Context_GetGlobalVar_1 (Urho3D::Context *_target, int key)
+{
+	return ((Interop::IntRect *) &(Context_GetGlobalVar_IntRect_1 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetIntRect())));
+}
+
+#else
 
 DllExport Interop::IntRect
 Context_GetGlobalVar_1 (Urho3D::Context *_target, int key)
@@ -4445,11 +4842,37 @@ Context_GetGlobalVar_1 (Urho3D::Context *_target, int key)
 	return *((Interop::IntRect *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetIntRect()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Color  Context_GetGlobalVar_Color_2;
+DllExport Interop::Color *
+Context_GetGlobalVar_2 (Urho3D::Context *_target, int key)
+{
+	return ((Interop::Color *) &(Context_GetGlobalVar_Color_2 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetColor())));
+}
+
+#else
+
 DllExport Interop::Color
 Context_GetGlobalVar_2 (Urho3D::Context *_target, int key)
 {
 	return *((Interop::Color *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetColor()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Vector2  Context_GetGlobalVar_Vector2_3;
+DllExport Interop::Vector2 *
+Context_GetGlobalVar_3 (Urho3D::Context *_target, int key)
+{
+	return ((Interop::Vector2 *) &(Context_GetGlobalVar_Vector2_3 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetVector2())));
+}
+
+#else
 
 DllExport Interop::Vector2
 Context_GetGlobalVar_3 (Urho3D::Context *_target, int key)
@@ -4457,11 +4880,37 @@ Context_GetGlobalVar_3 (Urho3D::Context *_target, int key)
 	return *((Interop::Vector2 *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetVector2()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Vector4  Context_GetGlobalVar_Vector4_4;
+DllExport Interop::Vector4 *
+Context_GetGlobalVar_4 (Urho3D::Context *_target, int key)
+{
+	return ((Interop::Vector4 *) &(Context_GetGlobalVar_Vector4_4 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetVector4())));
+}
+
+#else
+
 DllExport Interop::Vector4
 Context_GetGlobalVar_4 (Urho3D::Context *_target, int key)
 {
 	return *((Interop::Vector4 *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetVector4()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static IntVector2  Context_GetGlobalVar_IntVector2_5;
+DllExport Interop::IntVector2 *
+Context_GetGlobalVar_5 (Urho3D::Context *_target, int key)
+{
+	return ((Interop::IntVector2 *) &(Context_GetGlobalVar_IntVector2_5 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetIntVector2())));
+}
+
+#else
 
 DllExport Interop::IntVector2
 Context_GetGlobalVar_5 (Urho3D::Context *_target, int key)
@@ -4469,11 +4918,37 @@ Context_GetGlobalVar_5 (Urho3D::Context *_target, int key)
 	return *((Interop::IntVector2 *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetIntVector2()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Quaternion  Context_GetGlobalVar_Quaternion_6;
+DllExport Interop::Quaternion *
+Context_GetGlobalVar_6 (Urho3D::Context *_target, int key)
+{
+	return ((Interop::Quaternion *) &(Context_GetGlobalVar_Quaternion_6 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetQuaternion())));
+}
+
+#else
+
 DllExport Interop::Quaternion
 Context_GetGlobalVar_6 (Urho3D::Context *_target, int key)
 {
 	return *((Interop::Quaternion *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetQuaternion()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix4  Context_GetGlobalVar_Matrix4_7;
+DllExport Interop::Matrix4 *
+Context_GetGlobalVar_7 (Urho3D::Context *_target, int key)
+{
+	return ((Interop::Matrix4 *) &(Context_GetGlobalVar_Matrix4_7 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetMatrix4())));
+}
+
+#else
 
 DllExport Interop::Matrix4
 Context_GetGlobalVar_7 (Urho3D::Context *_target, int key)
@@ -4481,11 +4956,37 @@ Context_GetGlobalVar_7 (Urho3D::Context *_target, int key)
 	return *((Interop::Matrix4 *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetMatrix4()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix3  Context_GetGlobalVar_Matrix3_8;
+DllExport Interop::Matrix3 *
+Context_GetGlobalVar_8 (Urho3D::Context *_target, int key)
+{
+	return ((Interop::Matrix3 *) &(Context_GetGlobalVar_Matrix3_8 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetMatrix3())));
+}
+
+#else
+
 DllExport Interop::Matrix3
 Context_GetGlobalVar_8 (Urho3D::Context *_target, int key)
 {
 	return *((Interop::Matrix3 *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetMatrix3()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix3x4  Context_GetGlobalVar_Matrix3x4_9;
+DllExport Interop::Matrix3x4 *
+Context_GetGlobalVar_9 (Urho3D::Context *_target, int key)
+{
+	return ((Interop::Matrix3x4 *) &(Context_GetGlobalVar_Matrix3x4_9 = (_target->GetGlobalVar (Urho3D::StringHash(key)).GetMatrix3x4())));
+}
+
+#else
 
 DllExport Interop::Matrix3x4
 Context_GetGlobalVar_9 (Urho3D::Context *_target, int key)
@@ -4493,6 +4994,7 @@ Context_GetGlobalVar_9 (Urho3D::Context *_target, int key)
 	return *((Interop::Matrix3x4 *) &(_target->GetGlobalVar (Urho3D::StringHash(key)).GetMatrix3x4()));
 }
 
+#endif
 DllExport int
 Context_GetGlobalVar_10 (Urho3D::Context *_target, int key)
 {
@@ -6695,24 +7197,66 @@ Node_GetOwner (Urho3D::Node *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Node_GetPosition_8_Vector3 ;
+DllExport Interop::Vector3  *
+Node_GetPosition (
+#else
 DllExport Interop::Vector3 
-Node_GetPosition (Urho3D::Node *_target)
+Node_GetPosition (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Node_GetPosition_8_Vector3 =_target->GetPosition ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetPosition ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Node_GetPosition2D_9_Vector2 ;
+DllExport Interop::Vector2  *
+Node_GetPosition2D (
+#else
 DllExport Interop::Vector2 
-Node_GetPosition2D (Urho3D::Node *_target)
+Node_GetPosition2D (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetPosition2D ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Node_GetPosition2D_9_Vector2 =_target->GetPosition2D ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetPosition2D ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Quaternion  Node_GetRotation_10_Quaternion ;
+DllExport Interop::Quaternion  *
+Node_GetRotation (
+#else
 DllExport Interop::Quaternion 
-Node_GetRotation (Urho3D::Node *_target)
+Node_GetRotation (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Quaternion  *) &(_target->GetRotation ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Quaternion  *) &(Node_GetRotation_10_Quaternion =_target->GetRotation ()))
+#else
+	*((Interop::Quaternion  *) &(_target->GetRotation ()))
+#endif
+;
 }
 
 
@@ -6723,66 +7267,192 @@ Node_GetRotation2D (Urho3D::Node *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Node_GetDirection_11_Vector3 ;
+DllExport Interop::Vector3  *
+Node_GetDirection (
+#else
 DllExport Interop::Vector3 
-Node_GetDirection (Urho3D::Node *_target)
+Node_GetDirection (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetDirection ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Node_GetDirection_11_Vector3 =_target->GetDirection ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetDirection ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Node_GetUp_12_Vector3 ;
+DllExport Interop::Vector3  *
+Node_GetUp (
+#else
 DllExport Interop::Vector3 
-Node_GetUp (Urho3D::Node *_target)
+Node_GetUp (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetUp ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Node_GetUp_12_Vector3 =_target->GetUp ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetUp ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Node_GetRight_13_Vector3 ;
+DllExport Interop::Vector3  *
+Node_GetRight (
+#else
 DllExport Interop::Vector3 
-Node_GetRight (Urho3D::Node *_target)
+Node_GetRight (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetRight ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Node_GetRight_13_Vector3 =_target->GetRight ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetRight ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Node_GetScale_14_Vector3 ;
+DllExport Interop::Vector3  *
+Node_GetScale (
+#else
 DllExport Interop::Vector3 
-Node_GetScale (Urho3D::Node *_target)
+Node_GetScale (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetScale ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Node_GetScale_14_Vector3 =_target->GetScale ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetScale ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Node_GetScale2D_15_Vector2 ;
+DllExport Interop::Vector2  *
+Node_GetScale2D (
+#else
 DllExport Interop::Vector2 
-Node_GetScale2D (Urho3D::Node *_target)
+Node_GetScale2D (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetScale2D ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Node_GetScale2D_15_Vector2 =_target->GetScale2D ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetScale2D ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Matrix3x4  Node_GetTransform_16_Matrix3x4 ;
+DllExport Interop::Matrix3x4  *
+Node_GetTransform (
+#else
 DllExport Interop::Matrix3x4 
-Node_GetTransform (Urho3D::Node *_target)
+Node_GetTransform (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Matrix3x4  *) &(_target->GetTransform ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Matrix3x4  *) &(Node_GetTransform_16_Matrix3x4 =_target->GetTransform ()))
+#else
+	*((Interop::Matrix3x4  *) &(_target->GetTransform ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Node_GetWorldPosition_17_Vector3 ;
+DllExport Interop::Vector3  *
+Node_GetWorldPosition (
+#else
 DllExport Interop::Vector3 
-Node_GetWorldPosition (Urho3D::Node *_target)
+Node_GetWorldPosition (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetWorldPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Node_GetWorldPosition_17_Vector3 =_target->GetWorldPosition ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetWorldPosition ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Node_GetWorldPosition2D_18_Vector2 ;
+DllExport Interop::Vector2  *
+Node_GetWorldPosition2D (
+#else
 DllExport Interop::Vector2 
-Node_GetWorldPosition2D (Urho3D::Node *_target)
+Node_GetWorldPosition2D (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetWorldPosition2D ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Node_GetWorldPosition2D_18_Vector2 =_target->GetWorldPosition2D ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetWorldPosition2D ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Quaternion  Node_GetWorldRotation_19_Quaternion ;
+DllExport Interop::Quaternion  *
+Node_GetWorldRotation (
+#else
 DllExport Interop::Quaternion 
-Node_GetWorldRotation (Urho3D::Node *_target)
+Node_GetWorldRotation (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Quaternion  *) &(_target->GetWorldRotation ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Quaternion  *) &(Node_GetWorldRotation_19_Quaternion =_target->GetWorldRotation ()))
+#else
+	*((Interop::Quaternion  *) &(_target->GetWorldRotation ()))
+#endif
+;
 }
 
 
@@ -6793,94 +7463,276 @@ Node_GetWorldRotation2D (Urho3D::Node *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Node_GetWorldDirection_20_Vector3 ;
+DllExport Interop::Vector3  *
+Node_GetWorldDirection (
+#else
 DllExport Interop::Vector3 
-Node_GetWorldDirection (Urho3D::Node *_target)
+Node_GetWorldDirection (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetWorldDirection ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Node_GetWorldDirection_20_Vector3 =_target->GetWorldDirection ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetWorldDirection ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Node_GetWorldUp_21_Vector3 ;
+DllExport Interop::Vector3  *
+Node_GetWorldUp (
+#else
 DllExport Interop::Vector3 
-Node_GetWorldUp (Urho3D::Node *_target)
+Node_GetWorldUp (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetWorldUp ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Node_GetWorldUp_21_Vector3 =_target->GetWorldUp ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetWorldUp ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Node_GetWorldRight_22_Vector3 ;
+DllExport Interop::Vector3  *
+Node_GetWorldRight (
+#else
 DllExport Interop::Vector3 
-Node_GetWorldRight (Urho3D::Node *_target)
+Node_GetWorldRight (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetWorldRight ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Node_GetWorldRight_22_Vector3 =_target->GetWorldRight ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetWorldRight ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Node_GetWorldScale_23_Vector3 ;
+DllExport Interop::Vector3  *
+Node_GetWorldScale (
+#else
 DllExport Interop::Vector3 
-Node_GetWorldScale (Urho3D::Node *_target)
+Node_GetWorldScale (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetWorldScale ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Node_GetWorldScale_23_Vector3 =_target->GetWorldScale ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetWorldScale ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Node_GetSignedWorldScale_24_Vector3 ;
+DllExport Interop::Vector3  *
+Node_GetSignedWorldScale (
+#else
 DllExport Interop::Vector3 
-Node_GetSignedWorldScale (Urho3D::Node *_target)
+Node_GetSignedWorldScale (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetSignedWorldScale ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Node_GetSignedWorldScale_24_Vector3 =_target->GetSignedWorldScale ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetSignedWorldScale ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Node_GetWorldScale2D_25_Vector2 ;
+DllExport Interop::Vector2  *
+Node_GetWorldScale2D (
+#else
 DllExport Interop::Vector2 
-Node_GetWorldScale2D (Urho3D::Node *_target)
+Node_GetWorldScale2D (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetWorldScale2D ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Node_GetWorldScale2D_25_Vector2 =_target->GetWorldScale2D ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetWorldScale2D ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Matrix3x4  Node_GetWorldTransform_26_Matrix3x4 ;
+DllExport Interop::Matrix3x4  *
+Node_GetWorldTransform (
+#else
 DllExport Interop::Matrix3x4 
-Node_GetWorldTransform (Urho3D::Node *_target)
+Node_GetWorldTransform (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Matrix3x4  *) &(_target->GetWorldTransform ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Matrix3x4  *) &(Node_GetWorldTransform_26_Matrix3x4 =_target->GetWorldTransform ()))
+#else
+	*((Interop::Matrix3x4  *) &(_target->GetWorldTransform ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Node_LocalToWorld_27_Vector3 ;
+DllExport Interop::Vector3  *
+Node_LocalToWorld (
+#else
 DllExport Interop::Vector3 
-Node_LocalToWorld (Urho3D::Node *_target, const class Urho3D::Vector3 & position)
+Node_LocalToWorld (
+#endif
+Urho3D::Node *_target, const class Urho3D::Vector3 & position)
 {
-	return *((Interop::Vector3  *) &(_target->LocalToWorld (position)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Node_LocalToWorld_27_Vector3 =_target->LocalToWorld (position)))
+#else
+	*((Interop::Vector3  *) &(_target->LocalToWorld (position)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Node_LocalToWorld20_28_Vector3 ;
+DllExport Interop::Vector3  *
+Node_LocalToWorld20 (
+#else
 DllExport Interop::Vector3 
-Node_LocalToWorld20 (Urho3D::Node *_target, const class Urho3D::Vector4 & vector)
+Node_LocalToWorld20 (
+#endif
+Urho3D::Node *_target, const class Urho3D::Vector4 & vector)
 {
-	return *((Interop::Vector3  *) &(_target->LocalToWorld (vector)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Node_LocalToWorld20_28_Vector3 =_target->LocalToWorld (vector)))
+#else
+	*((Interop::Vector3  *) &(_target->LocalToWorld (vector)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Node_LocalToWorld2D_29_Vector2 ;
+DllExport Interop::Vector2  *
+Node_LocalToWorld2D (
+#else
 DllExport Interop::Vector2 
-Node_LocalToWorld2D (Urho3D::Node *_target, const class Urho3D::Vector2 & vector)
+Node_LocalToWorld2D (
+#endif
+Urho3D::Node *_target, const class Urho3D::Vector2 & vector)
 {
-	return *((Interop::Vector2  *) &(_target->LocalToWorld2D (vector)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Node_LocalToWorld2D_29_Vector2 =_target->LocalToWorld2D (vector)))
+#else
+	*((Interop::Vector2  *) &(_target->LocalToWorld2D (vector)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Node_WorldToLocal_30_Vector3 ;
+DllExport Interop::Vector3  *
+Node_WorldToLocal (
+#else
 DllExport Interop::Vector3 
-Node_WorldToLocal (Urho3D::Node *_target, const class Urho3D::Vector3 & position)
+Node_WorldToLocal (
+#endif
+Urho3D::Node *_target, const class Urho3D::Vector3 & position)
 {
-	return *((Interop::Vector3  *) &(_target->WorldToLocal (position)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Node_WorldToLocal_30_Vector3 =_target->WorldToLocal (position)))
+#else
+	*((Interop::Vector3  *) &(_target->WorldToLocal (position)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Node_WorldToLocal21_31_Vector3 ;
+DllExport Interop::Vector3  *
+Node_WorldToLocal21 (
+#else
 DllExport Interop::Vector3 
-Node_WorldToLocal21 (Urho3D::Node *_target, const class Urho3D::Vector4 & vector)
+Node_WorldToLocal21 (
+#endif
+Urho3D::Node *_target, const class Urho3D::Vector4 & vector)
 {
-	return *((Interop::Vector3  *) &(_target->WorldToLocal (vector)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Node_WorldToLocal21_31_Vector3 =_target->WorldToLocal (vector)))
+#else
+	*((Interop::Vector3  *) &(_target->WorldToLocal (vector)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Node_WorldToLocal2D_32_Vector2 ;
+DllExport Interop::Vector2  *
+Node_WorldToLocal2D (
+#else
 DllExport Interop::Vector2 
-Node_WorldToLocal2D (Urho3D::Node *_target, const class Urho3D::Vector2 & vector)
+Node_WorldToLocal2D (
+#endif
+Urho3D::Node *_target, const class Urho3D::Vector2 & vector)
 {
-	return *((Interop::Vector2  *) &(_target->WorldToLocal2D (vector)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Node_WorldToLocal2D_32_Vector2 =_target->WorldToLocal2D (vector)))
+#else
+	*((Interop::Vector2  *) &(_target->WorldToLocal2D (vector)))
+#endif
+;
 }
 
 
@@ -6969,11 +7821,36 @@ Node_HasComponent (Urho3D::Node *_target, int type)
 
 
 // Urho3D::Variant overloads begin:
+
+#ifdef __EMSCRIPTEN__
+
+static Vector3  Node_GetVar_Vector3_0;
+DllExport Interop::Vector3 *
+Node_GetVar_0 (Urho3D::Node *_target, int key)
+{
+	return ((Interop::Vector3 *) &(Node_GetVar_Vector3_0 = (_target->GetVar (Urho3D::StringHash(key)).GetVector3())));
+}
+
+#else
+
 DllExport Interop::Vector3
 Node_GetVar_0 (Urho3D::Node *_target, int key)
 {
 	return *((Interop::Vector3 *) &(_target->GetVar (Urho3D::StringHash(key)).GetVector3()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static IntRect  Node_GetVar_IntRect_1;
+DllExport Interop::IntRect *
+Node_GetVar_1 (Urho3D::Node *_target, int key)
+{
+	return ((Interop::IntRect *) &(Node_GetVar_IntRect_1 = (_target->GetVar (Urho3D::StringHash(key)).GetIntRect())));
+}
+
+#else
 
 DllExport Interop::IntRect
 Node_GetVar_1 (Urho3D::Node *_target, int key)
@@ -6981,11 +7858,37 @@ Node_GetVar_1 (Urho3D::Node *_target, int key)
 	return *((Interop::IntRect *) &(_target->GetVar (Urho3D::StringHash(key)).GetIntRect()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Color  Node_GetVar_Color_2;
+DllExport Interop::Color *
+Node_GetVar_2 (Urho3D::Node *_target, int key)
+{
+	return ((Interop::Color *) &(Node_GetVar_Color_2 = (_target->GetVar (Urho3D::StringHash(key)).GetColor())));
+}
+
+#else
+
 DllExport Interop::Color
 Node_GetVar_2 (Urho3D::Node *_target, int key)
 {
 	return *((Interop::Color *) &(_target->GetVar (Urho3D::StringHash(key)).GetColor()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Vector2  Node_GetVar_Vector2_3;
+DllExport Interop::Vector2 *
+Node_GetVar_3 (Urho3D::Node *_target, int key)
+{
+	return ((Interop::Vector2 *) &(Node_GetVar_Vector2_3 = (_target->GetVar (Urho3D::StringHash(key)).GetVector2())));
+}
+
+#else
 
 DllExport Interop::Vector2
 Node_GetVar_3 (Urho3D::Node *_target, int key)
@@ -6993,11 +7896,37 @@ Node_GetVar_3 (Urho3D::Node *_target, int key)
 	return *((Interop::Vector2 *) &(_target->GetVar (Urho3D::StringHash(key)).GetVector2()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Vector4  Node_GetVar_Vector4_4;
+DllExport Interop::Vector4 *
+Node_GetVar_4 (Urho3D::Node *_target, int key)
+{
+	return ((Interop::Vector4 *) &(Node_GetVar_Vector4_4 = (_target->GetVar (Urho3D::StringHash(key)).GetVector4())));
+}
+
+#else
+
 DllExport Interop::Vector4
 Node_GetVar_4 (Urho3D::Node *_target, int key)
 {
 	return *((Interop::Vector4 *) &(_target->GetVar (Urho3D::StringHash(key)).GetVector4()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static IntVector2  Node_GetVar_IntVector2_5;
+DllExport Interop::IntVector2 *
+Node_GetVar_5 (Urho3D::Node *_target, int key)
+{
+	return ((Interop::IntVector2 *) &(Node_GetVar_IntVector2_5 = (_target->GetVar (Urho3D::StringHash(key)).GetIntVector2())));
+}
+
+#else
 
 DllExport Interop::IntVector2
 Node_GetVar_5 (Urho3D::Node *_target, int key)
@@ -7005,11 +7934,37 @@ Node_GetVar_5 (Urho3D::Node *_target, int key)
 	return *((Interop::IntVector2 *) &(_target->GetVar (Urho3D::StringHash(key)).GetIntVector2()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Quaternion  Node_GetVar_Quaternion_6;
+DllExport Interop::Quaternion *
+Node_GetVar_6 (Urho3D::Node *_target, int key)
+{
+	return ((Interop::Quaternion *) &(Node_GetVar_Quaternion_6 = (_target->GetVar (Urho3D::StringHash(key)).GetQuaternion())));
+}
+
+#else
+
 DllExport Interop::Quaternion
 Node_GetVar_6 (Urho3D::Node *_target, int key)
 {
 	return *((Interop::Quaternion *) &(_target->GetVar (Urho3D::StringHash(key)).GetQuaternion()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix4  Node_GetVar_Matrix4_7;
+DllExport Interop::Matrix4 *
+Node_GetVar_7 (Urho3D::Node *_target, int key)
+{
+	return ((Interop::Matrix4 *) &(Node_GetVar_Matrix4_7 = (_target->GetVar (Urho3D::StringHash(key)).GetMatrix4())));
+}
+
+#else
 
 DllExport Interop::Matrix4
 Node_GetVar_7 (Urho3D::Node *_target, int key)
@@ -7017,11 +7972,37 @@ Node_GetVar_7 (Urho3D::Node *_target, int key)
 	return *((Interop::Matrix4 *) &(_target->GetVar (Urho3D::StringHash(key)).GetMatrix4()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix3  Node_GetVar_Matrix3_8;
+DllExport Interop::Matrix3 *
+Node_GetVar_8 (Urho3D::Node *_target, int key)
+{
+	return ((Interop::Matrix3 *) &(Node_GetVar_Matrix3_8 = (_target->GetVar (Urho3D::StringHash(key)).GetMatrix3())));
+}
+
+#else
+
 DllExport Interop::Matrix3
 Node_GetVar_8 (Urho3D::Node *_target, int key)
 {
 	return *((Interop::Matrix3 *) &(_target->GetVar (Urho3D::StringHash(key)).GetMatrix3()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix3x4  Node_GetVar_Matrix3x4_9;
+DllExport Interop::Matrix3x4 *
+Node_GetVar_9 (Urho3D::Node *_target, int key)
+{
+	return ((Interop::Matrix3x4 *) &(Node_GetVar_Matrix3x4_9 = (_target->GetVar (Urho3D::StringHash(key)).GetMatrix3x4())));
+}
+
+#else
 
 DllExport Interop::Matrix3x4
 Node_GetVar_9 (Urho3D::Node *_target, int key)
@@ -7029,6 +8010,7 @@ Node_GetVar_9 (Urho3D::Node *_target, int key)
 	return *((Interop::Matrix3x4 *) &(_target->GetVar (Urho3D::StringHash(key)).GetMatrix3x4()));
 }
 
+#endif
 DllExport int
 Node_GetVar_10 (Urho3D::Node *_target, int key)
 {
@@ -7082,10 +8064,24 @@ Node_SetNetPositionAttr (Urho3D::Node *_target, const class Urho3D::Vector3 & va
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Node_GetNetPositionAttr_33_Vector3 ;
+DllExport Interop::Vector3  *
+Node_GetNetPositionAttr (
+#else
 DllExport Interop::Vector3 
-Node_GetNetPositionAttr (Urho3D::Node *_target)
+Node_GetNetPositionAttr (
+#endif
+Urho3D::Node *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetNetPositionAttr ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Node_GetNetPositionAttr_33_Vector3 =_target->GetNetPositionAttr ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetNetPositionAttr ()))
+#endif
+;
 }
 
 
@@ -7387,10 +8383,24 @@ Model_Clone (Urho3D::Model *_target, const char * cloneName)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static BoundingBox  Model_GetBoundingBox_34_BoundingBox ;
+DllExport Interop::BoundingBox  *
+Model_GetBoundingBox (
+#else
 DllExport Interop::BoundingBox 
-Model_GetBoundingBox (Urho3D::Model *_target)
+Model_GetBoundingBox (
+#endif
+Urho3D::Model *_target)
 {
-	return *((Interop::BoundingBox  *) &(_target->GetBoundingBox ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::BoundingBox  *) &(Model_GetBoundingBox_34_BoundingBox =_target->GetBoundingBox ()))
+#else
+	*((Interop::BoundingBox  *) &(_target->GetBoundingBox ()))
+#endif
+;
 }
 
 
@@ -7429,10 +8439,24 @@ Model_GetGeometry (Urho3D::Model *_target, unsigned int index, unsigned int lodL
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Model_GetGeometryCenter_35_Vector3 ;
+DllExport Interop::Vector3  *
+Model_GetGeometryCenter (
+#else
 DllExport Interop::Vector3 
-Model_GetGeometryCenter (Urho3D::Model *_target, unsigned int index)
+Model_GetGeometryCenter (
+#endif
+Urho3D::Model *_target, unsigned int index)
 {
-	return *((Interop::Vector3  *) &(_target->GetGeometryCenter (index)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Model_GetGeometryCenter_35_Vector3 =_target->GetGeometryCenter (index)))
+#else
+	*((Interop::Vector3  *) &(_target->GetGeometryCenter (index)))
+#endif
+;
 }
 
 
@@ -7639,17 +8663,45 @@ Drawable_MarkForUpdate (Urho3D::Drawable *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static BoundingBox  Drawable_GetBoundingBox_36_BoundingBox ;
+DllExport Interop::BoundingBox  *
+Drawable_GetBoundingBox (
+#else
 DllExport Interop::BoundingBox 
-Drawable_GetBoundingBox (Urho3D::Drawable *_target)
+Drawable_GetBoundingBox (
+#endif
+Urho3D::Drawable *_target)
 {
-	return *((Interop::BoundingBox  *) &(_target->GetBoundingBox ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::BoundingBox  *) &(Drawable_GetBoundingBox_36_BoundingBox =_target->GetBoundingBox ()))
+#else
+	*((Interop::BoundingBox  *) &(_target->GetBoundingBox ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static BoundingBox  Drawable_GetWorldBoundingBox_37_BoundingBox ;
+DllExport Interop::BoundingBox  *
+Drawable_GetWorldBoundingBox (
+#else
 DllExport Interop::BoundingBox 
-Drawable_GetWorldBoundingBox (Urho3D::Drawable *_target)
+Drawable_GetWorldBoundingBox (
+#endif
+Urho3D::Drawable *_target)
 {
-	return *((Interop::BoundingBox  *) &(_target->GetWorldBoundingBox ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::BoundingBox  *) &(Drawable_GetWorldBoundingBox_37_BoundingBox =_target->GetWorldBoundingBox ()))
+#else
+	*((Interop::BoundingBox  *) &(_target->GetWorldBoundingBox ()))
+#endif
+;
 }
 
 
@@ -9339,17 +10391,45 @@ Sphere_Distance (Urho3D::Sphere *_target, const class Urho3D::Vector3 & point)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Sphere_GetLocalPoint_38_Vector3 ;
+DllExport Interop::Vector3  *
+Sphere_GetLocalPoint (
+#else
 DllExport Interop::Vector3 
-Sphere_GetLocalPoint (Urho3D::Sphere *_target, float theta, float phi)
+Sphere_GetLocalPoint (
+#endif
+Urho3D::Sphere *_target, float theta, float phi)
 {
-	return *((Interop::Vector3  *) &(_target->GetLocalPoint (theta, phi)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Sphere_GetLocalPoint_38_Vector3 =_target->GetLocalPoint (theta, phi)))
+#else
+	*((Interop::Vector3  *) &(_target->GetLocalPoint (theta, phi)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Sphere_GetPoint_39_Vector3 ;
+DllExport Interop::Vector3  *
+Sphere_GetPoint (
+#else
 DllExport Interop::Vector3 
-Sphere_GetPoint (Urho3D::Sphere *_target, float theta, float phi)
+Sphere_GetPoint (
+#endif
+Urho3D::Sphere *_target, float theta, float phi)
 {
-	return *((Interop::Vector3  *) &(_target->GetPoint (theta, phi)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Sphere_GetPoint_39_Vector3 =_target->GetPoint (theta, phi)))
+#else
+	*((Interop::Vector3  *) &(_target->GetPoint (theta, phi)))
+#endif
+;
 }
 
 
@@ -9736,10 +10816,24 @@ Texture_GetShadowCompare (Urho3D::Texture *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Texture_GetBorderColor_40_Color ;
+DllExport Interop::Color  *
+Texture_GetBorderColor (
+#else
 DllExport Interop::Color 
-Texture_GetBorderColor (Urho3D::Texture *_target)
+Texture_GetBorderColor (
+#endif
+Urho3D::Texture *_target)
 {
-	return *((Interop::Color  *) &(_target->GetBorderColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Texture_GetBorderColor_40_Color =_target->GetBorderColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetBorderColor ()))
+#endif
+;
 }
 
 
@@ -10170,10 +11264,24 @@ Light_GetPerVertex (Urho3D::Light *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Light_GetColor_41_Color ;
+DllExport Interop::Color  *
+Light_GetColor (
+#else
 DllExport Interop::Color 
-Light_GetColor (Urho3D::Light *_target)
+Light_GetColor (
+#endif
+Urho3D::Light *_target)
 {
-	return *((Interop::Color  *) &(_target->GetColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Light_GetColor_41_Color =_target->GetColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetColor ()))
+#endif
+;
 }
 
 
@@ -10205,10 +11313,24 @@ Light_GetUsePhysicalValues (Urho3D::Light *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Light_GetColorFromTemperature_42_Color ;
+DllExport Interop::Color  *
+Light_GetColorFromTemperature (
+#else
 DllExport Interop::Color 
-Light_GetColorFromTemperature (Urho3D::Light *_target)
+Light_GetColorFromTemperature (
+#endif
+Urho3D::Light *_target)
 {
-	return *((Interop::Color  *) &(_target->GetColorFromTemperature ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Light_GetColorFromTemperature_42_Color =_target->GetColorFromTemperature ()))
+#else
+	*((Interop::Color  *) &(_target->GetColorFromTemperature ()))
+#endif
+;
 }
 
 
@@ -10226,10 +11348,24 @@ Light_GetBrightness (Urho3D::Light *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Light_GetEffectiveColor_43_Color ;
+DllExport Interop::Color  *
+Light_GetEffectiveColor (
+#else
 DllExport Interop::Color 
-Light_GetEffectiveColor (Urho3D::Light *_target)
+Light_GetEffectiveColor (
+#endif
+Urho3D::Light *_target)
 {
-	return *((Interop::Color  *) &(_target->GetEffectiveColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Light_GetEffectiveColor_43_Color =_target->GetEffectiveColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetEffectiveColor ()))
+#endif
+;
 }
 
 
@@ -10387,10 +11523,24 @@ Light_SetLightQueue (Urho3D::Light *_target, Urho3D::LightBatchQueue * queue)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Matrix3x4  Light_GetVolumeTransform_44_Matrix3x4 ;
+DllExport Interop::Matrix3x4  *
+Light_GetVolumeTransform (
+#else
 DllExport Interop::Matrix3x4 
-Light_GetVolumeTransform (Urho3D::Light *_target, Urho3D::Camera * camera)
+Light_GetVolumeTransform (
+#endif
+Urho3D::Light *_target, Urho3D::Camera * camera)
 {
-	return *((Interop::Matrix3x4  *) &(_target->GetVolumeTransform (camera)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Matrix3x4  *) &(Light_GetVolumeTransform_44_Matrix3x4 =_target->GetVolumeTransform (camera)))
+#else
+	*((Interop::Matrix3x4  *) &(_target->GetVolumeTransform (camera)))
+#endif
+;
 }
 
 
@@ -10422,10 +11572,24 @@ Light_GetShapeTextureAttr (Urho3D::Light *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Matrix3x4  Light_GetFullscreenQuadTransform_45_Matrix3x4 ;
+DllExport Interop::Matrix3x4  *
+Light_GetFullscreenQuadTransform (
+#else
 DllExport Interop::Matrix3x4 
-Light_GetFullscreenQuadTransform (Urho3D::Camera * camera)
+Light_GetFullscreenQuadTransform (
+#endif
+Urho3D::Camera * camera)
 {
-	return *((Interop::Matrix3x4  *) &(Light::GetFullscreenQuadTransform (camera)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Matrix3x4  *) &(Light_GetFullscreenQuadTransform_45_Matrix3x4 =Light::GetFullscreenQuadTransform (camera)))
+#else
+	*((Interop::Matrix3x4  *) &(Light::GetFullscreenQuadTransform (camera)))
+#endif
+;
 }
 
 
@@ -10835,11 +11999,36 @@ Material_GetPixelShaderDefines (Urho3D::Material *_target)
 
 
 // Urho3D::Variant overloads begin:
+
+#ifdef __EMSCRIPTEN__
+
+static Vector3  Material_GetShaderParameter_Vector3_0;
+DllExport Interop::Vector3 *
+Material_GetShaderParameter_0 (Urho3D::Material *_target, const char * name)
+{
+	return ((Interop::Vector3 *) &(Material_GetShaderParameter_Vector3_0 = (_target->GetShaderParameter (Urho3D::String(name)).GetVector3())));
+}
+
+#else
+
 DllExport Interop::Vector3
 Material_GetShaderParameter_0 (Urho3D::Material *_target, const char * name)
 {
 	return *((Interop::Vector3 *) &(_target->GetShaderParameter (Urho3D::String(name)).GetVector3()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static IntRect  Material_GetShaderParameter_IntRect_1;
+DllExport Interop::IntRect *
+Material_GetShaderParameter_1 (Urho3D::Material *_target, const char * name)
+{
+	return ((Interop::IntRect *) &(Material_GetShaderParameter_IntRect_1 = (_target->GetShaderParameter (Urho3D::String(name)).GetIntRect())));
+}
+
+#else
 
 DllExport Interop::IntRect
 Material_GetShaderParameter_1 (Urho3D::Material *_target, const char * name)
@@ -10847,11 +12036,37 @@ Material_GetShaderParameter_1 (Urho3D::Material *_target, const char * name)
 	return *((Interop::IntRect *) &(_target->GetShaderParameter (Urho3D::String(name)).GetIntRect()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Color  Material_GetShaderParameter_Color_2;
+DllExport Interop::Color *
+Material_GetShaderParameter_2 (Urho3D::Material *_target, const char * name)
+{
+	return ((Interop::Color *) &(Material_GetShaderParameter_Color_2 = (_target->GetShaderParameter (Urho3D::String(name)).GetColor())));
+}
+
+#else
+
 DllExport Interop::Color
 Material_GetShaderParameter_2 (Urho3D::Material *_target, const char * name)
 {
 	return *((Interop::Color *) &(_target->GetShaderParameter (Urho3D::String(name)).GetColor()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Vector2  Material_GetShaderParameter_Vector2_3;
+DllExport Interop::Vector2 *
+Material_GetShaderParameter_3 (Urho3D::Material *_target, const char * name)
+{
+	return ((Interop::Vector2 *) &(Material_GetShaderParameter_Vector2_3 = (_target->GetShaderParameter (Urho3D::String(name)).GetVector2())));
+}
+
+#else
 
 DllExport Interop::Vector2
 Material_GetShaderParameter_3 (Urho3D::Material *_target, const char * name)
@@ -10859,11 +12074,37 @@ Material_GetShaderParameter_3 (Urho3D::Material *_target, const char * name)
 	return *((Interop::Vector2 *) &(_target->GetShaderParameter (Urho3D::String(name)).GetVector2()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Vector4  Material_GetShaderParameter_Vector4_4;
+DllExport Interop::Vector4 *
+Material_GetShaderParameter_4 (Urho3D::Material *_target, const char * name)
+{
+	return ((Interop::Vector4 *) &(Material_GetShaderParameter_Vector4_4 = (_target->GetShaderParameter (Urho3D::String(name)).GetVector4())));
+}
+
+#else
+
 DllExport Interop::Vector4
 Material_GetShaderParameter_4 (Urho3D::Material *_target, const char * name)
 {
 	return *((Interop::Vector4 *) &(_target->GetShaderParameter (Urho3D::String(name)).GetVector4()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static IntVector2  Material_GetShaderParameter_IntVector2_5;
+DllExport Interop::IntVector2 *
+Material_GetShaderParameter_5 (Urho3D::Material *_target, const char * name)
+{
+	return ((Interop::IntVector2 *) &(Material_GetShaderParameter_IntVector2_5 = (_target->GetShaderParameter (Urho3D::String(name)).GetIntVector2())));
+}
+
+#else
 
 DllExport Interop::IntVector2
 Material_GetShaderParameter_5 (Urho3D::Material *_target, const char * name)
@@ -10871,11 +12112,37 @@ Material_GetShaderParameter_5 (Urho3D::Material *_target, const char * name)
 	return *((Interop::IntVector2 *) &(_target->GetShaderParameter (Urho3D::String(name)).GetIntVector2()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Quaternion  Material_GetShaderParameter_Quaternion_6;
+DllExport Interop::Quaternion *
+Material_GetShaderParameter_6 (Urho3D::Material *_target, const char * name)
+{
+	return ((Interop::Quaternion *) &(Material_GetShaderParameter_Quaternion_6 = (_target->GetShaderParameter (Urho3D::String(name)).GetQuaternion())));
+}
+
+#else
+
 DllExport Interop::Quaternion
 Material_GetShaderParameter_6 (Urho3D::Material *_target, const char * name)
 {
 	return *((Interop::Quaternion *) &(_target->GetShaderParameter (Urho3D::String(name)).GetQuaternion()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix4  Material_GetShaderParameter_Matrix4_7;
+DllExport Interop::Matrix4 *
+Material_GetShaderParameter_7 (Urho3D::Material *_target, const char * name)
+{
+	return ((Interop::Matrix4 *) &(Material_GetShaderParameter_Matrix4_7 = (_target->GetShaderParameter (Urho3D::String(name)).GetMatrix4())));
+}
+
+#else
 
 DllExport Interop::Matrix4
 Material_GetShaderParameter_7 (Urho3D::Material *_target, const char * name)
@@ -10883,11 +12150,37 @@ Material_GetShaderParameter_7 (Urho3D::Material *_target, const char * name)
 	return *((Interop::Matrix4 *) &(_target->GetShaderParameter (Urho3D::String(name)).GetMatrix4()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix3  Material_GetShaderParameter_Matrix3_8;
+DllExport Interop::Matrix3 *
+Material_GetShaderParameter_8 (Urho3D::Material *_target, const char * name)
+{
+	return ((Interop::Matrix3 *) &(Material_GetShaderParameter_Matrix3_8 = (_target->GetShaderParameter (Urho3D::String(name)).GetMatrix3())));
+}
+
+#else
+
 DllExport Interop::Matrix3
 Material_GetShaderParameter_8 (Urho3D::Material *_target, const char * name)
 {
 	return *((Interop::Matrix3 *) &(_target->GetShaderParameter (Urho3D::String(name)).GetMatrix3()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix3x4  Material_GetShaderParameter_Matrix3x4_9;
+DllExport Interop::Matrix3x4 *
+Material_GetShaderParameter_9 (Urho3D::Material *_target, const char * name)
+{
+	return ((Interop::Matrix3x4 *) &(Material_GetShaderParameter_Matrix3x4_9 = (_target->GetShaderParameter (Urho3D::String(name)).GetMatrix3x4())));
+}
+
+#else
 
 DllExport Interop::Matrix3x4
 Material_GetShaderParameter_9 (Urho3D::Material *_target, const char * name)
@@ -10895,6 +12188,7 @@ Material_GetShaderParameter_9 (Urho3D::Material *_target, const char * name)
 	return *((Interop::Matrix3x4 *) &(_target->GetShaderParameter (Urho3D::String(name)).GetMatrix3x4()));
 }
 
+#endif
 DllExport int
 Material_GetShaderParameter_10 (Urho3D::Material *_target, const char * name)
 {
@@ -11501,24 +12795,66 @@ Camera_GetFrustum (Urho3D::Camera *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Matrix4  Camera_GetProjection_46_Matrix4 ;
+DllExport Interop::Matrix4  *
+Camera_GetProjection (
+#else
 DllExport Interop::Matrix4 
-Camera_GetProjection (Urho3D::Camera *_target)
+Camera_GetProjection (
+#endif
+Urho3D::Camera *_target)
 {
-	return *((Interop::Matrix4  *) &(_target->GetProjection ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Matrix4  *) &(Camera_GetProjection_46_Matrix4 =_target->GetProjection ()))
+#else
+	*((Interop::Matrix4  *) &(_target->GetProjection ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Matrix4  Camera_GetGPUProjection_47_Matrix4 ;
+DllExport Interop::Matrix4  *
+Camera_GetGPUProjection (
+#else
 DllExport Interop::Matrix4 
-Camera_GetGPUProjection (Urho3D::Camera *_target)
+Camera_GetGPUProjection (
+#endif
+Urho3D::Camera *_target)
 {
-	return *((Interop::Matrix4  *) &(_target->GetGPUProjection ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Matrix4  *) &(Camera_GetGPUProjection_47_Matrix4 =_target->GetGPUProjection ()))
+#else
+	*((Interop::Matrix4  *) &(_target->GetGPUProjection ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Matrix3x4  Camera_GetView_48_Matrix3x4 ;
+DllExport Interop::Matrix3x4  *
+Camera_GetView (
+#else
 DllExport Interop::Matrix3x4 
-Camera_GetView (Urho3D::Camera *_target)
+Camera_GetView (
+#endif
+Urho3D::Camera *_target)
 {
-	return *((Interop::Matrix3x4  *) &(_target->GetView ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Matrix3x4  *) &(Camera_GetView_48_Matrix3x4 =_target->GetView ()))
+#else
+	*((Interop::Matrix3x4  *) &(_target->GetView ()))
+#endif
+;
 }
 
 
@@ -11550,31 +12886,87 @@ Camera_GetViewSpaceSplitFrustum (Urho3D::Camera *_target, float nearClip, float 
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Ray Camera_GetScreenRay_49_Ray;
+DllExport Urho3D::Ray *
+Camera_GetScreenRay (
+#else
 DllExport Urho3D::Ray
-Camera_GetScreenRay (Urho3D::Camera *_target, float x, float y)
+Camera_GetScreenRay (
+#endif
+Urho3D::Camera *_target, float x, float y)
 {
-	return _target->GetScreenRay (x, y);
+	return 
+#ifdef __EMSCRIPTEN__
+	((Urho3D::Ray *) &(Camera_GetScreenRay_49_Ray=_target->GetScreenRay (x, y)))
+#else
+	*((Urho3D::Ray *) &(_target->GetScreenRay (x, y)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Camera_WorldToScreenPoint_50_Vector2 ;
+DllExport Interop::Vector2  *
+Camera_WorldToScreenPoint (
+#else
 DllExport Interop::Vector2 
-Camera_WorldToScreenPoint (Urho3D::Camera *_target, const class Urho3D::Vector3 & worldPos)
+Camera_WorldToScreenPoint (
+#endif
+Urho3D::Camera *_target, const class Urho3D::Vector3 & worldPos)
 {
-	return *((Interop::Vector2  *) &(_target->WorldToScreenPoint (worldPos)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Camera_WorldToScreenPoint_50_Vector2 =_target->WorldToScreenPoint (worldPos)))
+#else
+	*((Interop::Vector2  *) &(_target->WorldToScreenPoint (worldPos)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Camera_ScreenToWorldPoint_51_Vector3 ;
+DllExport Interop::Vector3  *
+Camera_ScreenToWorldPoint (
+#else
 DllExport Interop::Vector3 
-Camera_ScreenToWorldPoint (Urho3D::Camera *_target, const class Urho3D::Vector3 & screenPos)
+Camera_ScreenToWorldPoint (
+#endif
+Urho3D::Camera *_target, const class Urho3D::Vector3 & screenPos)
 {
-	return *((Interop::Vector3  *) &(_target->ScreenToWorldPoint (screenPos)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Camera_ScreenToWorldPoint_51_Vector3 =_target->ScreenToWorldPoint (screenPos)))
+#else
+	*((Interop::Vector3  *) &(_target->ScreenToWorldPoint (screenPos)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Camera_GetProjectionOffset_52_Vector2 ;
+DllExport Interop::Vector2  *
+Camera_GetProjectionOffset (
+#else
 DllExport Interop::Vector2 
-Camera_GetProjectionOffset (Urho3D::Camera *_target)
+Camera_GetProjectionOffset (
+#endif
+Urho3D::Camera *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetProjectionOffset ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Camera_GetProjectionOffset_52_Vector2 =_target->GetProjectionOffset ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetProjectionOffset ()))
+#endif
+;
 }
 
 
@@ -11585,10 +12977,24 @@ Camera_GetUseReflection (Urho3D::Camera *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Plane  Camera_GetReflectionPlane_53_Plane ;
+DllExport Interop::Plane  *
+Camera_GetReflectionPlane (
+#else
 DllExport Interop::Plane 
-Camera_GetReflectionPlane (Urho3D::Camera *_target)
+Camera_GetReflectionPlane (
+#endif
+Urho3D::Camera *_target)
 {
-	return *((Interop::Plane  *) &(_target->GetReflectionPlane ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Plane  *) &(Camera_GetReflectionPlane_53_Plane =_target->GetReflectionPlane ()))
+#else
+	*((Interop::Plane  *) &(_target->GetReflectionPlane ()))
+#endif
+;
 }
 
 
@@ -11599,10 +13005,24 @@ Camera_GetUseClipping (Urho3D::Camera *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Plane  Camera_GetClipPlane_54_Plane ;
+DllExport Interop::Plane  *
+Camera_GetClipPlane (
+#else
 DllExport Interop::Plane 
-Camera_GetClipPlane (Urho3D::Camera *_target)
+Camera_GetClipPlane (
+#endif
+Urho3D::Camera *_target)
 {
-	return *((Interop::Plane  *) &(_target->GetClipPlane ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Plane  *) &(Camera_GetClipPlane_54_Plane =_target->GetClipPlane ()))
+#else
+	*((Interop::Plane  *) &(_target->GetClipPlane ()))
+#endif
+;
 }
 
 
@@ -11641,17 +13061,45 @@ Camera_GetLodDistance (Urho3D::Camera *_target, float distance, float scale, flo
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Quaternion  Camera_GetFaceCameraRotation_55_Quaternion ;
+DllExport Interop::Quaternion  *
+Camera_GetFaceCameraRotation (
+#else
 DllExport Interop::Quaternion 
-Camera_GetFaceCameraRotation (Urho3D::Camera *_target, const class Urho3D::Vector3 & position, const class Urho3D::Quaternion & rotation, enum Urho3D::FaceCameraMode mode, float minAngle)
+Camera_GetFaceCameraRotation (
+#endif
+Urho3D::Camera *_target, const class Urho3D::Vector3 & position, const class Urho3D::Quaternion & rotation, enum Urho3D::FaceCameraMode mode, float minAngle)
 {
-	return *((Interop::Quaternion  *) &(_target->GetFaceCameraRotation (position, rotation, mode, minAngle)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Quaternion  *) &(Camera_GetFaceCameraRotation_55_Quaternion =_target->GetFaceCameraRotation (position, rotation, mode, minAngle)))
+#else
+	*((Interop::Quaternion  *) &(_target->GetFaceCameraRotation (position, rotation, mode, minAngle)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Matrix3x4  Camera_GetEffectiveWorldTransform_56_Matrix3x4 ;
+DllExport Interop::Matrix3x4  *
+Camera_GetEffectiveWorldTransform (
+#else
 DllExport Interop::Matrix3x4 
-Camera_GetEffectiveWorldTransform (Urho3D::Camera *_target)
+Camera_GetEffectiveWorldTransform (
+#endif
+Urho3D::Camera *_target)
 {
-	return *((Interop::Matrix3x4  *) &(_target->GetEffectiveWorldTransform ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Matrix3x4  *) &(Camera_GetEffectiveWorldTransform_56_Matrix3x4 =_target->GetEffectiveWorldTransform ()))
+#else
+	*((Interop::Matrix3x4  *) &(_target->GetEffectiveWorldTransform ()))
+#endif
+;
 }
 
 
@@ -11683,10 +13131,24 @@ Camera_SetReflectionPlaneAttr (Urho3D::Camera *_target, const class Urho3D::Vect
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector4  Camera_GetReflectionPlaneAttr_57_Vector4 ;
+DllExport Interop::Vector4  *
+Camera_GetReflectionPlaneAttr (
+#else
 DllExport Interop::Vector4 
-Camera_GetReflectionPlaneAttr (Urho3D::Camera *_target)
+Camera_GetReflectionPlaneAttr (
+#endif
+Urho3D::Camera *_target)
 {
-	return *((Interop::Vector4  *) &(_target->GetReflectionPlaneAttr ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector4  *) &(Camera_GetReflectionPlaneAttr_57_Vector4 =_target->GetReflectionPlaneAttr ()))
+#else
+	*((Interop::Vector4  *) &(_target->GetReflectionPlaneAttr ()))
+#endif
+;
 }
 
 
@@ -11697,10 +13159,24 @@ Camera_SetClipPlaneAttr (Urho3D::Camera *_target, const class Urho3D::Vector4 & 
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector4  Camera_GetClipPlaneAttr_58_Vector4 ;
+DllExport Interop::Vector4  *
+Camera_GetClipPlaneAttr (
+#else
 DllExport Interop::Vector4 
-Camera_GetClipPlaneAttr (Urho3D::Camera *_target)
+Camera_GetClipPlaneAttr (
+#endif
+Urho3D::Camera *_target)
 {
-	return *((Interop::Vector4  *) &(_target->GetClipPlaneAttr ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector4  *) &(Camera_GetClipPlaneAttr_58_Vector4 =_target->GetClipPlaneAttr ()))
+#else
+	*((Interop::Vector4  *) &(_target->GetClipPlaneAttr ()))
+#endif
+;
 }
 
 
@@ -12185,17 +13661,45 @@ DebugRenderer_GetLineAntiAlias (Urho3D::DebugRenderer *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Matrix3x4  DebugRenderer_GetView_59_Matrix3x4 ;
+DllExport Interop::Matrix3x4  *
+DebugRenderer_GetView (
+#else
 DllExport Interop::Matrix3x4 
-DebugRenderer_GetView (Urho3D::DebugRenderer *_target)
+DebugRenderer_GetView (
+#endif
+Urho3D::DebugRenderer *_target)
 {
-	return *((Interop::Matrix3x4  *) &(_target->GetView ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Matrix3x4  *) &(DebugRenderer_GetView_59_Matrix3x4 =_target->GetView ()))
+#else
+	*((Interop::Matrix3x4  *) &(_target->GetView ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Matrix4  DebugRenderer_GetProjection_60_Matrix4 ;
+DllExport Interop::Matrix4  *
+DebugRenderer_GetProjection (
+#else
 DllExport Interop::Matrix4 
-DebugRenderer_GetProjection (Urho3D::DebugRenderer *_target)
+DebugRenderer_GetProjection (
+#endif
+Urho3D::DebugRenderer *_target)
 {
-	return *((Interop::Matrix4  *) &(_target->GetProjection ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Matrix4  *) &(DebugRenderer_GetProjection_60_Matrix4 =_target->GetProjection ()))
+#else
+	*((Interop::Matrix4  *) &(_target->GetProjection ()))
+#endif
+;
 }
 
 
@@ -12925,17 +14429,45 @@ Image_IsSRGB (Urho3D::Image *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Image_GetPixel_61_Color ;
+DllExport Interop::Color  *
+Image_GetPixel (
+#else
 DllExport Interop::Color 
-Image_GetPixel (Urho3D::Image *_target, int x, int y)
+Image_GetPixel (
+#endif
+Urho3D::Image *_target, int x, int y)
 {
-	return *((Interop::Color  *) &(_target->GetPixel (x, y)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Image_GetPixel_61_Color =_target->GetPixel (x, y)))
+#else
+	*((Interop::Color  *) &(_target->GetPixel (x, y)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Image_GetPixel3_62_Color ;
+DllExport Interop::Color  *
+Image_GetPixel3 (
+#else
 DllExport Interop::Color 
-Image_GetPixel3 (Urho3D::Image *_target, int x, int y, int z)
+Image_GetPixel3 (
+#endif
+Urho3D::Image *_target, int x, int y, int z)
 {
-	return *((Interop::Color  *) &(_target->GetPixel (x, y, z)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Image_GetPixel3_62_Color =_target->GetPixel (x, y, z)))
+#else
+	*((Interop::Color  *) &(_target->GetPixel (x, y, z)))
+#endif
+;
 }
 
 
@@ -12953,17 +14485,45 @@ Image_GetPixelInt4 (Urho3D::Image *_target, int x, int y, int z)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Image_GetPixelBilinear_63_Color ;
+DllExport Interop::Color  *
+Image_GetPixelBilinear (
+#else
 DllExport Interop::Color 
-Image_GetPixelBilinear (Urho3D::Image *_target, float x, float y)
+Image_GetPixelBilinear (
+#endif
+Urho3D::Image *_target, float x, float y)
 {
-	return *((Interop::Color  *) &(_target->GetPixelBilinear (x, y)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Image_GetPixelBilinear_63_Color =_target->GetPixelBilinear (x, y)))
+#else
+	*((Interop::Color  *) &(_target->GetPixelBilinear (x, y)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Image_GetPixelTrilinear_64_Color ;
+DllExport Interop::Color  *
+Image_GetPixelTrilinear (
+#else
 DllExport Interop::Color 
-Image_GetPixelTrilinear (Urho3D::Image *_target, float x, float y, float z)
+Image_GetPixelTrilinear (
+#endif
+Urho3D::Image *_target, float x, float y, float z)
 {
-	return *((Interop::Color  *) &(_target->GetPixelTrilinear (x, y, z)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Image_GetPixelTrilinear_64_Color =_target->GetPixelTrilinear (x, y, z)))
+#else
+	*((Interop::Color  *) &(_target->GetPixelTrilinear (x, y, z)))
+#endif
+;
 }
 
 
@@ -13690,10 +15250,24 @@ Graphics_GetApiName (Urho3D::Graphics *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Graphics_GetWindowPosition_65_IntVector2 ;
+DllExport Interop::IntVector2  *
+Graphics_GetWindowPosition (
+#else
 DllExport Interop::IntVector2 
-Graphics_GetWindowPosition (Urho3D::Graphics *_target)
+Graphics_GetWindowPosition (
+#endif
+Urho3D::Graphics *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetWindowPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Graphics_GetWindowPosition_65_IntVector2 =_target->GetWindowPosition ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetWindowPosition ()))
+#endif
+;
 }
 
 
@@ -13718,10 +15292,24 @@ Graphics_GetMultiSample (Urho3D::Graphics *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Graphics_GetSize_66_IntVector2 ;
+DllExport Interop::IntVector2  *
+Graphics_GetSize (
+#else
 DllExport Interop::IntVector2 
-Graphics_GetSize (Urho3D::Graphics *_target)
+Graphics_GetSize (
+#endif
+Urho3D::Graphics *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetSize ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Graphics_GetSize_66_IntVector2 =_target->GetSize ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetSize ()))
+#endif
+;
 }
 
 
@@ -13914,10 +15502,24 @@ Graphics_FindBestResolutionIndex (Urho3D::Graphics *_target, int monitor, int wi
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Graphics_GetDesktopResolution_67_IntVector2 ;
+DllExport Interop::IntVector2  *
+Graphics_GetDesktopResolution (
+#else
 DllExport Interop::IntVector2 
-Graphics_GetDesktopResolution (Urho3D::Graphics *_target, int monitor)
+Graphics_GetDesktopResolution (
+#endif
+Urho3D::Graphics *_target, int monitor)
 {
-	return *((Interop::IntVector2  *) &(_target->GetDesktopResolution (monitor)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Graphics_GetDesktopResolution_67_IntVector2 =_target->GetDesktopResolution (monitor)))
+#else
+	*((Interop::IntVector2  *) &(_target->GetDesktopResolution (monitor)))
+#endif
+;
 }
 
 
@@ -13942,10 +15544,24 @@ Graphics_GetMaximized (Urho3D::Graphics *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Graphics_GetDisplayDPI_68_Vector3 ;
+DllExport Interop::Vector3  *
+Graphics_GetDisplayDPI (
+#else
 DllExport Interop::Vector3 
-Graphics_GetDisplayDPI (Urho3D::Graphics *_target, int monitor)
+Graphics_GetDisplayDPI (
+#endif
+Urho3D::Graphics *_target, int monitor)
 {
-	return *((Interop::Vector3  *) &(_target->GetDisplayDPI (monitor)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Graphics_GetDisplayDPI_68_Vector3 =_target->GetDisplayDPI (monitor)))
+#else
+	*((Interop::Vector3  *) &(_target->GetDisplayDPI (monitor)))
+#endif
+;
 }
 
 
@@ -14040,10 +15656,24 @@ Graphics_GetDepthStencil (Urho3D::Graphics *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntRect  Graphics_GetViewport_69_IntRect ;
+DllExport Interop::IntRect  *
+Graphics_GetViewport (
+#else
 DllExport Interop::IntRect 
-Graphics_GetViewport (Urho3D::Graphics *_target)
+Graphics_GetViewport (
+#endif
+Urho3D::Graphics *_target)
 {
-	return *((Interop::IntRect  *) &(_target->GetViewport ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntRect  *) &(Graphics_GetViewport_69_IntRect =_target->GetViewport ()))
+#else
+	*((Interop::IntRect  *) &(_target->GetViewport ()))
+#endif
+;
 }
 
 
@@ -14131,10 +15761,24 @@ Graphics_GetScissorTest (Urho3D::Graphics *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntRect  Graphics_GetScissorRect_70_IntRect ;
+DllExport Interop::IntRect  *
+Graphics_GetScissorRect (
+#else
 DllExport Interop::IntRect 
-Graphics_GetScissorRect (Urho3D::Graphics *_target)
+Graphics_GetScissorRect (
+#endif
+Urho3D::Graphics *_target)
 {
-	return *((Interop::IntRect  *) &(_target->GetScissorRect ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntRect  *) &(Graphics_GetScissorRect_70_IntRect =_target->GetScissorRect ()))
+#else
+	*((Interop::IntRect  *) &(_target->GetScissorRect ()))
+#endif
+;
 }
 
 
@@ -14201,10 +15845,24 @@ Graphics_GetShaderCacheDir (Urho3D::Graphics *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Graphics_GetRenderTargetDimensions_71_IntVector2 ;
+DllExport Interop::IntVector2  *
+Graphics_GetRenderTargetDimensions (
+#else
 DllExport Interop::IntVector2 
-Graphics_GetRenderTargetDimensions (Urho3D::Graphics *_target)
+Graphics_GetRenderTargetDimensions (
+#endif
+Urho3D::Graphics *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetRenderTargetDimensions ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Graphics_GetRenderTargetDimensions_71_IntVector2 =_target->GetRenderTargetDimensions ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetRenderTargetDimensions ()))
+#endif
+;
 }
 
 
@@ -14432,10 +16090,24 @@ Graphics_GetFormat19 (const char * formatName)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Graphics_GetPixelUVOffset_72_Vector2 ;
+DllExport Interop::Vector2  *
+Graphics_GetPixelUVOffset (
+#else
 DllExport Interop::Vector2 
-Graphics_GetPixelUVOffset ()
+Graphics_GetPixelUVOffset (
+#endif
+)
 {
-	return *((Interop::Vector2  *) &(Graphics::GetPixelUVOffset ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Graphics_GetPixelUVOffset_72_Vector2 =Graphics::GetPixelUVOffset ()))
+#else
+	*((Interop::Vector2  *) &(Graphics::GetPixelUVOffset ()))
+#endif
+;
 }
 
 
@@ -14579,10 +16251,24 @@ Viewport_GetView (Urho3D::Viewport *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntRect  Viewport_GetRect_73_IntRect ;
+DllExport Interop::IntRect  *
+Viewport_GetRect (
+#else
 DllExport Interop::IntRect 
-Viewport_GetRect (Urho3D::Viewport *_target)
+Viewport_GetRect (
+#endif
+Urho3D::Viewport *_target)
 {
-	return *((Interop::IntRect  *) &(_target->GetRect ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntRect  *) &(Viewport_GetRect_73_IntRect =_target->GetRect ()))
+#else
+	*((Interop::IntRect  *) &(_target->GetRect ()))
+#endif
+;
 }
 
 
@@ -14607,24 +16293,66 @@ Viewport_GetCullCamera (Urho3D::Viewport *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Ray Viewport_GetScreenRay_74_Ray;
+DllExport Urho3D::Ray *
+Viewport_GetScreenRay (
+#else
 DllExport Urho3D::Ray
-Viewport_GetScreenRay (Urho3D::Viewport *_target, int x, int y)
+Viewport_GetScreenRay (
+#endif
+Urho3D::Viewport *_target, int x, int y)
 {
-	return _target->GetScreenRay (x, y);
+	return 
+#ifdef __EMSCRIPTEN__
+	((Urho3D::Ray *) &(Viewport_GetScreenRay_74_Ray=_target->GetScreenRay (x, y)))
+#else
+	*((Urho3D::Ray *) &(_target->GetScreenRay (x, y)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Viewport_WorldToScreenPoint_75_IntVector2 ;
+DllExport Interop::IntVector2  *
+Viewport_WorldToScreenPoint (
+#else
 DllExport Interop::IntVector2 
-Viewport_WorldToScreenPoint (Urho3D::Viewport *_target, const class Urho3D::Vector3 & worldPos)
+Viewport_WorldToScreenPoint (
+#endif
+Urho3D::Viewport *_target, const class Urho3D::Vector3 & worldPos)
 {
-	return *((Interop::IntVector2  *) &(_target->WorldToScreenPoint (worldPos)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Viewport_WorldToScreenPoint_75_IntVector2 =_target->WorldToScreenPoint (worldPos)))
+#else
+	*((Interop::IntVector2  *) &(_target->WorldToScreenPoint (worldPos)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Viewport_ScreenToWorldPoint_76_Vector3 ;
+DllExport Interop::Vector3  *
+Viewport_ScreenToWorldPoint (
+#else
 DllExport Interop::Vector3 
-Viewport_ScreenToWorldPoint (Urho3D::Viewport *_target, int x, int y, float depth)
+Viewport_ScreenToWorldPoint (
+#endif
+Urho3D::Viewport *_target, int x, int y, float depth)
 {
-	return *((Interop::Vector3  *) &(_target->ScreenToWorldPoint (x, y, depth)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Viewport_ScreenToWorldPoint_76_Vector3 =_target->ScreenToWorldPoint (x, y, depth)))
+#else
+	*((Interop::Vector3  *) &(_target->ScreenToWorldPoint (x, y, depth)))
+#endif
+;
 }
 
 
@@ -15225,17 +16953,45 @@ OcclusionBuffer_GetBuffer (Urho3D::OcclusionBuffer *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Matrix3x4  OcclusionBuffer_GetView_77_Matrix3x4 ;
+DllExport Interop::Matrix3x4  *
+OcclusionBuffer_GetView (
+#else
 DllExport Interop::Matrix3x4 
-OcclusionBuffer_GetView (Urho3D::OcclusionBuffer *_target)
+OcclusionBuffer_GetView (
+#endif
+Urho3D::OcclusionBuffer *_target)
 {
-	return *((Interop::Matrix3x4  *) &(_target->GetView ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Matrix3x4  *) &(OcclusionBuffer_GetView_77_Matrix3x4 =_target->GetView ()))
+#else
+	*((Interop::Matrix3x4  *) &(_target->GetView ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Matrix4  OcclusionBuffer_GetProjection_78_Matrix4 ;
+DllExport Interop::Matrix4  *
+OcclusionBuffer_GetProjection (
+#else
 DllExport Interop::Matrix4 
-OcclusionBuffer_GetProjection (Urho3D::OcclusionBuffer *_target)
+OcclusionBuffer_GetProjection (
+#endif
+Urho3D::OcclusionBuffer *_target)
 {
-	return *((Interop::Matrix4  *) &(_target->GetProjection ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Matrix4  *) &(OcclusionBuffer_GetProjection_78_Matrix4 =_target->GetProjection ()))
+#else
+	*((Interop::Matrix4  *) &(_target->GetProjection ()))
+#endif
+;
 }
 
 
@@ -15824,31 +17580,87 @@ ParticleEffect_GetEmitterType (Urho3D::ParticleEffect *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  ParticleEffect_GetEmitterSize_79_Vector3 ;
+DllExport Interop::Vector3  *
+ParticleEffect_GetEmitterSize (
+#else
 DllExport Interop::Vector3 
-ParticleEffect_GetEmitterSize (Urho3D::ParticleEffect *_target)
+ParticleEffect_GetEmitterSize (
+#endif
+Urho3D::ParticleEffect *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetEmitterSize ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(ParticleEffect_GetEmitterSize_79_Vector3 =_target->GetEmitterSize ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetEmitterSize ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  ParticleEffect_GetMinDirection_80_Vector3 ;
+DllExport Interop::Vector3  *
+ParticleEffect_GetMinDirection (
+#else
 DllExport Interop::Vector3 
-ParticleEffect_GetMinDirection (Urho3D::ParticleEffect *_target)
+ParticleEffect_GetMinDirection (
+#endif
+Urho3D::ParticleEffect *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetMinDirection ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(ParticleEffect_GetMinDirection_80_Vector3 =_target->GetMinDirection ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetMinDirection ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  ParticleEffect_GetMaxDirection_81_Vector3 ;
+DllExport Interop::Vector3  *
+ParticleEffect_GetMaxDirection (
+#else
 DllExport Interop::Vector3 
-ParticleEffect_GetMaxDirection (Urho3D::ParticleEffect *_target)
+ParticleEffect_GetMaxDirection (
+#endif
+Urho3D::ParticleEffect *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetMaxDirection ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(ParticleEffect_GetMaxDirection_81_Vector3 =_target->GetMaxDirection ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetMaxDirection ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  ParticleEffect_GetConstantForce_82_Vector3 ;
+DllExport Interop::Vector3  *
+ParticleEffect_GetConstantForce (
+#else
 DllExport Interop::Vector3 
-ParticleEffect_GetConstantForce (Urho3D::ParticleEffect *_target)
+ParticleEffect_GetConstantForce (
+#endif
+Urho3D::ParticleEffect *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetConstantForce ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(ParticleEffect_GetConstantForce_82_Vector3 =_target->GetConstantForce ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetConstantForce ()))
+#endif
+;
 }
 
 
@@ -15887,17 +17699,45 @@ ParticleEffect_GetMaxEmissionRate (Urho3D::ParticleEffect *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ParticleEffect_GetMinParticleSize_83_Vector2 ;
+DllExport Interop::Vector2  *
+ParticleEffect_GetMinParticleSize (
+#else
 DllExport Interop::Vector2 
-ParticleEffect_GetMinParticleSize (Urho3D::ParticleEffect *_target)
+ParticleEffect_GetMinParticleSize (
+#endif
+Urho3D::ParticleEffect *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetMinParticleSize ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ParticleEffect_GetMinParticleSize_83_Vector2 =_target->GetMinParticleSize ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetMinParticleSize ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ParticleEffect_GetMaxParticleSize_84_Vector2 ;
+DllExport Interop::Vector2  *
+ParticleEffect_GetMaxParticleSize (
+#else
 DllExport Interop::Vector2 
-ParticleEffect_GetMaxParticleSize (Urho3D::ParticleEffect *_target)
+ParticleEffect_GetMaxParticleSize (
+#endif
+Urho3D::ParticleEffect *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetMaxParticleSize ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ParticleEffect_GetMaxParticleSize_84_Vector2 =_target->GetMaxParticleSize ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetMaxParticleSize ()))
+#endif
+;
 }
 
 
@@ -16006,17 +17846,45 @@ ParticleEffect_GetFaceCameraMode (Urho3D::ParticleEffect *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  ParticleEffect_GetRandomDirection_85_Vector3 ;
+DllExport Interop::Vector3  *
+ParticleEffect_GetRandomDirection (
+#else
 DllExport Interop::Vector3 
-ParticleEffect_GetRandomDirection (Urho3D::ParticleEffect *_target)
+ParticleEffect_GetRandomDirection (
+#endif
+Urho3D::ParticleEffect *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetRandomDirection ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(ParticleEffect_GetRandomDirection_85_Vector3 =_target->GetRandomDirection ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetRandomDirection ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ParticleEffect_GetRandomSize_86_Vector2 ;
+DllExport Interop::Vector2  *
+ParticleEffect_GetRandomSize (
+#else
 DllExport Interop::Vector2 
-ParticleEffect_GetRandomSize (Urho3D::ParticleEffect *_target)
+ParticleEffect_GetRandomSize (
+#endif
+Urho3D::ParticleEffect *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetRandomSize ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ParticleEffect_GetRandomSize_86_Vector2 =_target->GetRandomSize ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetRandomSize ()))
+#endif
+;
 }
 
 
@@ -16426,11 +18294,36 @@ RenderPath_GetCommand (Urho3D::RenderPath *_target, unsigned int index)
 
 
 // Urho3D::Variant overloads begin:
+
+#ifdef __EMSCRIPTEN__
+
+static Vector3  RenderPath_GetShaderParameter_Vector3_0;
+DllExport Interop::Vector3 *
+RenderPath_GetShaderParameter_0 (Urho3D::RenderPath *_target, const char * name)
+{
+	return ((Interop::Vector3 *) &(RenderPath_GetShaderParameter_Vector3_0 = (_target->GetShaderParameter (Urho3D::String(name)).GetVector3())));
+}
+
+#else
+
 DllExport Interop::Vector3
 RenderPath_GetShaderParameter_0 (Urho3D::RenderPath *_target, const char * name)
 {
 	return *((Interop::Vector3 *) &(_target->GetShaderParameter (Urho3D::String(name)).GetVector3()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static IntRect  RenderPath_GetShaderParameter_IntRect_1;
+DllExport Interop::IntRect *
+RenderPath_GetShaderParameter_1 (Urho3D::RenderPath *_target, const char * name)
+{
+	return ((Interop::IntRect *) &(RenderPath_GetShaderParameter_IntRect_1 = (_target->GetShaderParameter (Urho3D::String(name)).GetIntRect())));
+}
+
+#else
 
 DllExport Interop::IntRect
 RenderPath_GetShaderParameter_1 (Urho3D::RenderPath *_target, const char * name)
@@ -16438,11 +18331,37 @@ RenderPath_GetShaderParameter_1 (Urho3D::RenderPath *_target, const char * name)
 	return *((Interop::IntRect *) &(_target->GetShaderParameter (Urho3D::String(name)).GetIntRect()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Color  RenderPath_GetShaderParameter_Color_2;
+DllExport Interop::Color *
+RenderPath_GetShaderParameter_2 (Urho3D::RenderPath *_target, const char * name)
+{
+	return ((Interop::Color *) &(RenderPath_GetShaderParameter_Color_2 = (_target->GetShaderParameter (Urho3D::String(name)).GetColor())));
+}
+
+#else
+
 DllExport Interop::Color
 RenderPath_GetShaderParameter_2 (Urho3D::RenderPath *_target, const char * name)
 {
 	return *((Interop::Color *) &(_target->GetShaderParameter (Urho3D::String(name)).GetColor()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Vector2  RenderPath_GetShaderParameter_Vector2_3;
+DllExport Interop::Vector2 *
+RenderPath_GetShaderParameter_3 (Urho3D::RenderPath *_target, const char * name)
+{
+	return ((Interop::Vector2 *) &(RenderPath_GetShaderParameter_Vector2_3 = (_target->GetShaderParameter (Urho3D::String(name)).GetVector2())));
+}
+
+#else
 
 DllExport Interop::Vector2
 RenderPath_GetShaderParameter_3 (Urho3D::RenderPath *_target, const char * name)
@@ -16450,11 +18369,37 @@ RenderPath_GetShaderParameter_3 (Urho3D::RenderPath *_target, const char * name)
 	return *((Interop::Vector2 *) &(_target->GetShaderParameter (Urho3D::String(name)).GetVector2()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Vector4  RenderPath_GetShaderParameter_Vector4_4;
+DllExport Interop::Vector4 *
+RenderPath_GetShaderParameter_4 (Urho3D::RenderPath *_target, const char * name)
+{
+	return ((Interop::Vector4 *) &(RenderPath_GetShaderParameter_Vector4_4 = (_target->GetShaderParameter (Urho3D::String(name)).GetVector4())));
+}
+
+#else
+
 DllExport Interop::Vector4
 RenderPath_GetShaderParameter_4 (Urho3D::RenderPath *_target, const char * name)
 {
 	return *((Interop::Vector4 *) &(_target->GetShaderParameter (Urho3D::String(name)).GetVector4()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static IntVector2  RenderPath_GetShaderParameter_IntVector2_5;
+DllExport Interop::IntVector2 *
+RenderPath_GetShaderParameter_5 (Urho3D::RenderPath *_target, const char * name)
+{
+	return ((Interop::IntVector2 *) &(RenderPath_GetShaderParameter_IntVector2_5 = (_target->GetShaderParameter (Urho3D::String(name)).GetIntVector2())));
+}
+
+#else
 
 DllExport Interop::IntVector2
 RenderPath_GetShaderParameter_5 (Urho3D::RenderPath *_target, const char * name)
@@ -16462,11 +18407,37 @@ RenderPath_GetShaderParameter_5 (Urho3D::RenderPath *_target, const char * name)
 	return *((Interop::IntVector2 *) &(_target->GetShaderParameter (Urho3D::String(name)).GetIntVector2()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Quaternion  RenderPath_GetShaderParameter_Quaternion_6;
+DllExport Interop::Quaternion *
+RenderPath_GetShaderParameter_6 (Urho3D::RenderPath *_target, const char * name)
+{
+	return ((Interop::Quaternion *) &(RenderPath_GetShaderParameter_Quaternion_6 = (_target->GetShaderParameter (Urho3D::String(name)).GetQuaternion())));
+}
+
+#else
+
 DllExport Interop::Quaternion
 RenderPath_GetShaderParameter_6 (Urho3D::RenderPath *_target, const char * name)
 {
 	return *((Interop::Quaternion *) &(_target->GetShaderParameter (Urho3D::String(name)).GetQuaternion()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix4  RenderPath_GetShaderParameter_Matrix4_7;
+DllExport Interop::Matrix4 *
+RenderPath_GetShaderParameter_7 (Urho3D::RenderPath *_target, const char * name)
+{
+	return ((Interop::Matrix4 *) &(RenderPath_GetShaderParameter_Matrix4_7 = (_target->GetShaderParameter (Urho3D::String(name)).GetMatrix4())));
+}
+
+#else
 
 DllExport Interop::Matrix4
 RenderPath_GetShaderParameter_7 (Urho3D::RenderPath *_target, const char * name)
@@ -16474,11 +18445,37 @@ RenderPath_GetShaderParameter_7 (Urho3D::RenderPath *_target, const char * name)
 	return *((Interop::Matrix4 *) &(_target->GetShaderParameter (Urho3D::String(name)).GetMatrix4()));
 }
 
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix3  RenderPath_GetShaderParameter_Matrix3_8;
+DllExport Interop::Matrix3 *
+RenderPath_GetShaderParameter_8 (Urho3D::RenderPath *_target, const char * name)
+{
+	return ((Interop::Matrix3 *) &(RenderPath_GetShaderParameter_Matrix3_8 = (_target->GetShaderParameter (Urho3D::String(name)).GetMatrix3())));
+}
+
+#else
+
 DllExport Interop::Matrix3
 RenderPath_GetShaderParameter_8 (Urho3D::RenderPath *_target, const char * name)
 {
 	return *((Interop::Matrix3 *) &(_target->GetShaderParameter (Urho3D::String(name)).GetMatrix3()));
 }
+
+#endif
+
+#ifdef __EMSCRIPTEN__
+
+static Matrix3x4  RenderPath_GetShaderParameter_Matrix3x4_9;
+DllExport Interop::Matrix3x4 *
+RenderPath_GetShaderParameter_9 (Urho3D::RenderPath *_target, const char * name)
+{
+	return ((Interop::Matrix3x4 *) &(RenderPath_GetShaderParameter_Matrix3x4_9 = (_target->GetShaderParameter (Urho3D::String(name)).GetMatrix3x4())));
+}
+
+#else
 
 DllExport Interop::Matrix3x4
 RenderPath_GetShaderParameter_9 (Urho3D::RenderPath *_target, const char * name)
@@ -16486,6 +18483,7 @@ RenderPath_GetShaderParameter_9 (Urho3D::RenderPath *_target, const char * name)
 	return *((Interop::Matrix3x4 *) &(_target->GetShaderParameter (Urho3D::String(name)).GetMatrix3x4()));
 }
 
+#endif
 DllExport int
 RenderPath_GetShaderParameter_10 (Urho3D::RenderPath *_target, const char * name)
 {
@@ -16875,10 +18873,24 @@ Renderer_GetShadowSoftness (Urho3D::Renderer *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Renderer_GetVSMShadowParameters_87_Vector2 ;
+DllExport Interop::Vector2  *
+Renderer_GetVSMShadowParameters (
+#else
 DllExport Interop::Vector2 
-Renderer_GetVSMShadowParameters (Urho3D::Renderer *_target)
+Renderer_GetVSMShadowParameters (
+#endif
+Urho3D::Renderer *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetVSMShadowParameters ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Renderer_GetVSMShadowParameters_87_Vector2 =_target->GetVSMShadowParameters ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetVSMShadowParameters ()))
+#endif
+;
 }
 
 
@@ -17491,17 +19503,45 @@ RibbonTrail_GetWidth (Urho3D::RibbonTrail *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  RibbonTrail_GetStartColor_88_Color ;
+DllExport Interop::Color  *
+RibbonTrail_GetStartColor (
+#else
 DllExport Interop::Color 
-RibbonTrail_GetStartColor (Urho3D::RibbonTrail *_target)
+RibbonTrail_GetStartColor (
+#endif
+Urho3D::RibbonTrail *_target)
 {
-	return *((Interop::Color  *) &(_target->GetStartColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(RibbonTrail_GetStartColor_88_Color =_target->GetStartColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetStartColor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  RibbonTrail_GetEndColor_89_Color ;
+DllExport Interop::Color  *
+RibbonTrail_GetEndColor (
+#else
 DllExport Interop::Color 
-RibbonTrail_GetEndColor (Urho3D::RibbonTrail *_target)
+RibbonTrail_GetEndColor (
+#endif
+Urho3D::RibbonTrail *_target)
 {
-	return *((Interop::Color  *) &(_target->GetEndColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(RibbonTrail_GetEndColor_89_Color =_target->GetEndColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetEndColor ()))
+#endif
+;
 }
 
 
@@ -17547,10 +19587,24 @@ RibbonTrail_GetTrailType (Urho3D::RibbonTrail *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  RibbonTrail_GetBaseVelocity_90_Vector3 ;
+DllExport Interop::Vector3  *
+RibbonTrail_GetBaseVelocity (
+#else
 DllExport Interop::Vector3 
-RibbonTrail_GetBaseVelocity (Urho3D::RibbonTrail *_target)
+RibbonTrail_GetBaseVelocity (
+#endif
+Urho3D::RibbonTrail *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetBaseVelocity ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(RibbonTrail_GetBaseVelocity_90_Vector3 =_target->GetBaseVelocity ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetBaseVelocity ()))
+#endif
+;
 }
 
 
@@ -18176,24 +20230,66 @@ XmlElement_GetBuffer (Urho3D::XMLElement *_target, const char * name, void * des
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static BoundingBox  XmlElement_GetBoundingBox_91_BoundingBox ;
+DllExport Interop::BoundingBox  *
+XmlElement_GetBoundingBox (
+#else
 DllExport Interop::BoundingBox 
-XmlElement_GetBoundingBox (Urho3D::XMLElement *_target)
+XmlElement_GetBoundingBox (
+#endif
+Urho3D::XMLElement *_target)
 {
-	return *((Interop::BoundingBox  *) &(_target->GetBoundingBox ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::BoundingBox  *) &(XmlElement_GetBoundingBox_91_BoundingBox =_target->GetBoundingBox ()))
+#else
+	*((Interop::BoundingBox  *) &(_target->GetBoundingBox ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static BoundingBox  XmlElement_GetBoundingBox4_92_BoundingBox ;
+DllExport Interop::BoundingBox  *
+XmlElement_GetBoundingBox4 (
+#else
 DllExport Interop::BoundingBox 
-XmlElement_GetBoundingBox4 (Urho3D::XMLElement *_target, const char * name)
+XmlElement_GetBoundingBox4 (
+#endif
+Urho3D::XMLElement *_target, const char * name)
 {
-	return *((Interop::BoundingBox  *) &(_target->GetBoundingBox (Urho3D::String(name))));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::BoundingBox  *) &(XmlElement_GetBoundingBox4_92_BoundingBox =_target->GetBoundingBox (Urho3D::String(name))))
+#else
+	*((Interop::BoundingBox  *) &(_target->GetBoundingBox (Urho3D::String(name))))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  XmlElement_GetColor_93_Color ;
+DllExport Interop::Color  *
+XmlElement_GetColor (
+#else
 DllExport Interop::Color 
-XmlElement_GetColor (Urho3D::XMLElement *_target, const char * name)
+XmlElement_GetColor (
+#endif
+Urho3D::XMLElement *_target, const char * name)
 {
-	return *((Interop::Color  *) &(_target->GetColor (Urho3D::String(name))));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(XmlElement_GetColor_93_Color =_target->GetColor (Urho3D::String(name))))
+#else
+	*((Interop::Color  *) &(_target->GetColor (Urho3D::String(name))))
+#endif
+;
 }
 
 
@@ -18239,17 +20335,45 @@ XmlElement_GetInt64 (Urho3D::XMLElement *_target, const char * name)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntRect  XmlElement_GetIntRect_94_IntRect ;
+DllExport Interop::IntRect  *
+XmlElement_GetIntRect (
+#else
 DllExport Interop::IntRect 
-XmlElement_GetIntRect (Urho3D::XMLElement *_target, const char * name)
+XmlElement_GetIntRect (
+#endif
+Urho3D::XMLElement *_target, const char * name)
 {
-	return *((Interop::IntRect  *) &(_target->GetIntRect (Urho3D::String(name))));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntRect  *) &(XmlElement_GetIntRect_94_IntRect =_target->GetIntRect (Urho3D::String(name))))
+#else
+	*((Interop::IntRect  *) &(_target->GetIntRect (Urho3D::String(name))))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  XmlElement_GetIntVector2_95_IntVector2 ;
+DllExport Interop::IntVector2  *
+XmlElement_GetIntVector2 (
+#else
 DllExport Interop::IntVector2 
-XmlElement_GetIntVector2 (Urho3D::XMLElement *_target, const char * name)
+XmlElement_GetIntVector2 (
+#endif
+Urho3D::XMLElement *_target, const char * name)
 {
-	return *((Interop::IntVector2  *) &(_target->GetIntVector2 (Urho3D::String(name))));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(XmlElement_GetIntVector2_95_IntVector2 =_target->GetIntVector2 (Urho3D::String(name))))
+#else
+	*((Interop::IntVector2  *) &(_target->GetIntVector2 (Urho3D::String(name))))
+#endif
+;
 }
 
 
@@ -18267,10 +20391,24 @@ XmlElement_GetRect (Urho3D::XMLElement *_target, const char * name)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Quaternion  XmlElement_GetQuaternion_96_Quaternion ;
+DllExport Interop::Quaternion  *
+XmlElement_GetQuaternion (
+#else
 DllExport Interop::Quaternion 
-XmlElement_GetQuaternion (Urho3D::XMLElement *_target, const char * name)
+XmlElement_GetQuaternion (
+#endif
+Urho3D::XMLElement *_target, const char * name)
 {
-	return *((Interop::Quaternion  *) &(_target->GetQuaternion (Urho3D::String(name))));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Quaternion  *) &(XmlElement_GetQuaternion_96_Quaternion =_target->GetQuaternion (Urho3D::String(name))))
+#else
+	*((Interop::Quaternion  *) &(_target->GetQuaternion (Urho3D::String(name))))
+#endif
+;
 }
 
 
@@ -18302,31 +20440,87 @@ XmlElement_GetResourceRefList (Urho3D::XMLElement *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  XmlElement_GetVector2_97_Vector2 ;
+DllExport Interop::Vector2  *
+XmlElement_GetVector2 (
+#else
 DllExport Interop::Vector2 
-XmlElement_GetVector2 (Urho3D::XMLElement *_target, const char * name)
+XmlElement_GetVector2 (
+#endif
+Urho3D::XMLElement *_target, const char * name)
 {
-	return *((Interop::Vector2  *) &(_target->GetVector2 (Urho3D::String(name))));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(XmlElement_GetVector2_97_Vector2 =_target->GetVector2 (Urho3D::String(name))))
+#else
+	*((Interop::Vector2  *) &(_target->GetVector2 (Urho3D::String(name))))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  XmlElement_GetVector3_98_Vector3 ;
+DllExport Interop::Vector3  *
+XmlElement_GetVector3 (
+#else
 DllExport Interop::Vector3 
-XmlElement_GetVector3 (Urho3D::XMLElement *_target, const char * name)
+XmlElement_GetVector3 (
+#endif
+Urho3D::XMLElement *_target, const char * name)
 {
-	return *((Interop::Vector3  *) &(_target->GetVector3 (Urho3D::String(name))));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(XmlElement_GetVector3_98_Vector3 =_target->GetVector3 (Urho3D::String(name))))
+#else
+	*((Interop::Vector3  *) &(_target->GetVector3 (Urho3D::String(name))))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector4  XmlElement_GetVector4_99_Vector4 ;
+DllExport Interop::Vector4  *
+XmlElement_GetVector4 (
+#else
 DllExport Interop::Vector4 
-XmlElement_GetVector4 (Urho3D::XMLElement *_target, const char * name)
+XmlElement_GetVector4 (
+#endif
+Urho3D::XMLElement *_target, const char * name)
 {
-	return *((Interop::Vector4  *) &(_target->GetVector4 (Urho3D::String(name))));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector4  *) &(XmlElement_GetVector4_99_Vector4 =_target->GetVector4 (Urho3D::String(name))))
+#else
+	*((Interop::Vector4  *) &(_target->GetVector4 (Urho3D::String(name))))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector4  XmlElement_GetVector_100_Vector4 ;
+DllExport Interop::Vector4  *
+XmlElement_GetVector (
+#else
 DllExport Interop::Vector4 
-XmlElement_GetVector (Urho3D::XMLElement *_target, const char * name)
+XmlElement_GetVector (
+#endif
+Urho3D::XMLElement *_target, const char * name)
 {
-	return *((Interop::Vector4  *) &(_target->GetVector (Urho3D::String(name))));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector4  *) &(XmlElement_GetVector_100_Vector4 =_target->GetVector (Urho3D::String(name))))
+#else
+	*((Interop::Vector4  *) &(_target->GetVector (Urho3D::String(name))))
+#endif
+;
 }
 
 
@@ -18337,24 +20531,66 @@ XmlElement_GetVectorVariant (Urho3D::XMLElement *_target, const char * name)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Matrix3  XmlElement_GetMatrix3_101_Matrix3 ;
+DllExport Interop::Matrix3  *
+XmlElement_GetMatrix3 (
+#else
 DllExport Interop::Matrix3 
-XmlElement_GetMatrix3 (Urho3D::XMLElement *_target, const char * name)
+XmlElement_GetMatrix3 (
+#endif
+Urho3D::XMLElement *_target, const char * name)
 {
-	return *((Interop::Matrix3  *) &(_target->GetMatrix3 (Urho3D::String(name))));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Matrix3  *) &(XmlElement_GetMatrix3_101_Matrix3 =_target->GetMatrix3 (Urho3D::String(name))))
+#else
+	*((Interop::Matrix3  *) &(_target->GetMatrix3 (Urho3D::String(name))))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Matrix3x4  XmlElement_GetMatrix3x4_102_Matrix3x4 ;
+DllExport Interop::Matrix3x4  *
+XmlElement_GetMatrix3x4 (
+#else
 DllExport Interop::Matrix3x4 
-XmlElement_GetMatrix3x4 (Urho3D::XMLElement *_target, const char * name)
+XmlElement_GetMatrix3x4 (
+#endif
+Urho3D::XMLElement *_target, const char * name)
 {
-	return *((Interop::Matrix3x4  *) &(_target->GetMatrix3x4 (Urho3D::String(name))));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Matrix3x4  *) &(XmlElement_GetMatrix3x4_102_Matrix3x4 =_target->GetMatrix3x4 (Urho3D::String(name))))
+#else
+	*((Interop::Matrix3x4  *) &(_target->GetMatrix3x4 (Urho3D::String(name))))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Matrix4  XmlElement_GetMatrix4_103_Matrix4 ;
+DllExport Interop::Matrix4  *
+XmlElement_GetMatrix4 (
+#else
 DllExport Interop::Matrix4 
-XmlElement_GetMatrix4 (Urho3D::XMLElement *_target, const char * name)
+XmlElement_GetMatrix4 (
+#endif
+Urho3D::XMLElement *_target, const char * name)
 {
-	return *((Interop::Matrix4  *) &(_target->GetMatrix4 (Urho3D::String(name))));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Matrix4  *) &(XmlElement_GetMatrix4_103_Matrix4 =_target->GetMatrix4 (Urho3D::String(name))))
+#else
+	*((Interop::Matrix4  *) &(_target->GetMatrix4 (Urho3D::String(name))))
+#endif
+;
 }
 
 
@@ -19360,24 +21596,66 @@ Terrain_GetPatchSize (Urho3D::Terrain *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Terrain_GetSpacing_104_Vector3 ;
+DllExport Interop::Vector3  *
+Terrain_GetSpacing (
+#else
 DllExport Interop::Vector3 
-Terrain_GetSpacing (Urho3D::Terrain *_target)
+Terrain_GetSpacing (
+#endif
+Urho3D::Terrain *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetSpacing ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Terrain_GetSpacing_104_Vector3 =_target->GetSpacing ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetSpacing ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Terrain_GetNumVertices_105_IntVector2 ;
+DllExport Interop::IntVector2  *
+Terrain_GetNumVertices (
+#else
 DllExport Interop::IntVector2 
-Terrain_GetNumVertices (Urho3D::Terrain *_target)
+Terrain_GetNumVertices (
+#endif
+Urho3D::Terrain *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetNumVertices ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Terrain_GetNumVertices_105_IntVector2 =_target->GetNumVertices ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetNumVertices ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Terrain_GetNumPatches_106_IntVector2 ;
+DllExport Interop::IntVector2  *
+Terrain_GetNumPatches (
+#else
 DllExport Interop::IntVector2 
-Terrain_GetNumPatches (Urho3D::Terrain *_target)
+Terrain_GetNumPatches (
+#endif
+Urho3D::Terrain *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetNumPatches ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Terrain_GetNumPatches_106_IntVector2 =_target->GetNumPatches ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetNumPatches ()))
+#endif
+;
 }
 
 
@@ -19444,24 +21722,66 @@ Terrain_GetHeight (Urho3D::Terrain *_target, const class Urho3D::Vector3 & world
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Terrain_GetNormal_107_Vector3 ;
+DllExport Interop::Vector3  *
+Terrain_GetNormal (
+#else
 DllExport Interop::Vector3 
-Terrain_GetNormal (Urho3D::Terrain *_target, const class Urho3D::Vector3 & worldPosition)
+Terrain_GetNormal (
+#endif
+Urho3D::Terrain *_target, const class Urho3D::Vector3 & worldPosition)
 {
-	return *((Interop::Vector3  *) &(_target->GetNormal (worldPosition)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Terrain_GetNormal_107_Vector3 =_target->GetNormal (worldPosition)))
+#else
+	*((Interop::Vector3  *) &(_target->GetNormal (worldPosition)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Terrain_WorldToHeightMap_108_IntVector2 ;
+DllExport Interop::IntVector2  *
+Terrain_WorldToHeightMap (
+#else
 DllExport Interop::IntVector2 
-Terrain_WorldToHeightMap (Urho3D::Terrain *_target, const class Urho3D::Vector3 & worldPosition)
+Terrain_WorldToHeightMap (
+#endif
+Urho3D::Terrain *_target, const class Urho3D::Vector3 & worldPosition)
 {
-	return *((Interop::IntVector2  *) &(_target->WorldToHeightMap (worldPosition)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Terrain_WorldToHeightMap_108_IntVector2 =_target->WorldToHeightMap (worldPosition)))
+#else
+	*((Interop::IntVector2  *) &(_target->WorldToHeightMap (worldPosition)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Terrain_HeightMapToWorld_109_Vector3 ;
+DllExport Interop::Vector3  *
+Terrain_HeightMapToWorld (
+#else
 DllExport Interop::Vector3 
-Terrain_HeightMapToWorld (Urho3D::Terrain *_target, const class Urho3D::IntVector2 & pixelPosition)
+Terrain_HeightMapToWorld (
+#endif
+Urho3D::Terrain *_target, const class Urho3D::IntVector2 & pixelPosition)
 {
-	return *((Interop::Vector3  *) &(_target->HeightMapToWorld (pixelPosition)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Terrain_HeightMapToWorld_109_Vector3 =_target->HeightMapToWorld (pixelPosition)))
+#else
+	*((Interop::Vector3  *) &(_target->HeightMapToWorld (pixelPosition)))
+#endif
+;
 }
 
 
@@ -19808,10 +22128,24 @@ TerrainPatch_GetEastPatch (Urho3D::TerrainPatch *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  TerrainPatch_GetCoordinates_110_IntVector2 ;
+DllExport Interop::IntVector2  *
+TerrainPatch_GetCoordinates (
+#else
 DllExport Interop::IntVector2 
-TerrainPatch_GetCoordinates (Urho3D::TerrainPatch *_target)
+TerrainPatch_GetCoordinates (
+#endif
+Urho3D::TerrainPatch *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetCoordinates ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(TerrainPatch_GetCoordinates_110_IntVector2 =_target->GetCoordinates ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetCoordinates ()))
+#endif
+;
 }
 
 
@@ -20524,38 +22858,108 @@ Zone_SetZoneTexture (Urho3D::Zone *_target, Urho3D::Texture * texture)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Matrix3x4  Zone_GetInverseWorldTransform_111_Matrix3x4 ;
+DllExport Interop::Matrix3x4  *
+Zone_GetInverseWorldTransform (
+#else
 DllExport Interop::Matrix3x4 
-Zone_GetInverseWorldTransform (Urho3D::Zone *_target)
+Zone_GetInverseWorldTransform (
+#endif
+Urho3D::Zone *_target)
 {
-	return *((Interop::Matrix3x4  *) &(_target->GetInverseWorldTransform ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Matrix3x4  *) &(Zone_GetInverseWorldTransform_111_Matrix3x4 =_target->GetInverseWorldTransform ()))
+#else
+	*((Interop::Matrix3x4  *) &(_target->GetInverseWorldTransform ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Zone_GetAmbientColor_112_Color ;
+DllExport Interop::Color  *
+Zone_GetAmbientColor (
+#else
 DllExport Interop::Color 
-Zone_GetAmbientColor (Urho3D::Zone *_target)
+Zone_GetAmbientColor (
+#endif
+Urho3D::Zone *_target)
 {
-	return *((Interop::Color  *) &(_target->GetAmbientColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Zone_GetAmbientColor_112_Color =_target->GetAmbientColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetAmbientColor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Zone_GetAmbientStartColor_113_Color ;
+DllExport Interop::Color  *
+Zone_GetAmbientStartColor (
+#else
 DllExport Interop::Color 
-Zone_GetAmbientStartColor (Urho3D::Zone *_target)
+Zone_GetAmbientStartColor (
+#endif
+Urho3D::Zone *_target)
 {
-	return *((Interop::Color  *) &(_target->GetAmbientStartColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Zone_GetAmbientStartColor_113_Color =_target->GetAmbientStartColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetAmbientStartColor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Zone_GetAmbientEndColor_114_Color ;
+DllExport Interop::Color  *
+Zone_GetAmbientEndColor (
+#else
 DllExport Interop::Color 
-Zone_GetAmbientEndColor (Urho3D::Zone *_target)
+Zone_GetAmbientEndColor (
+#endif
+Urho3D::Zone *_target)
 {
-	return *((Interop::Color  *) &(_target->GetAmbientEndColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Zone_GetAmbientEndColor_114_Color =_target->GetAmbientEndColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetAmbientEndColor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Zone_GetFogColor_115_Color ;
+DllExport Interop::Color  *
+Zone_GetFogColor (
+#else
 DllExport Interop::Color 
-Zone_GetFogColor (Urho3D::Zone *_target)
+Zone_GetFogColor (
+#endif
+Urho3D::Zone *_target)
 {
-	return *((Interop::Color  *) &(_target->GetFogColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Zone_GetFogColor_115_Color =_target->GetFogColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetFogColor ()))
+#endif
+;
 }
 
 
@@ -20860,17 +23264,45 @@ View_GetDrawDebug (Urho3D::View *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntRect  View_GetViewRect_116_IntRect ;
+DllExport Interop::IntRect  *
+View_GetViewRect (
+#else
 DllExport Interop::IntRect 
-View_GetViewRect (Urho3D::View *_target)
+View_GetViewRect (
+#endif
+Urho3D::View *_target)
 {
-	return *((Interop::IntRect  *) &(_target->GetViewRect ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntRect  *) &(View_GetViewRect_116_IntRect =_target->GetViewRect ()))
+#else
+	*((Interop::IntRect  *) &(_target->GetViewRect ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  View_GetViewSize_117_IntVector2 ;
+DllExport Interop::IntVector2  *
+View_GetViewSize (
+#else
 DllExport Interop::IntVector2 
-View_GetViewSize (Urho3D::View *_target)
+View_GetViewSize (
+#endif
+Urho3D::View *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetViewSize ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(View_GetViewSize_117_IntVector2 =_target->GetViewSize ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetViewSize ()))
+#endif
+;
 }
 
 
@@ -21728,10 +24160,24 @@ UIElement_IsWithinScissor (Urho3D::UIElement *_target, const class Urho3D::IntRe
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  UIElement_GetScreenPosition_118_IntVector2 ;
+DllExport Interop::IntVector2  *
+UIElement_GetScreenPosition (
+#else
 DllExport Interop::IntVector2 
-UIElement_GetScreenPosition (Urho3D::UIElement *_target)
+UIElement_GetScreenPosition (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetScreenPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(UIElement_GetScreenPosition_118_IntVector2 =_target->GetScreenPosition ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetScreenPosition ()))
+#endif
+;
 }
 
 
@@ -21770,17 +24216,45 @@ UIElement_OnIndentSet (Urho3D::UIElement *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  UIElement_ScreenToElement_119_IntVector2 ;
+DllExport Interop::IntVector2  *
+UIElement_ScreenToElement (
+#else
 DllExport Interop::IntVector2 
-UIElement_ScreenToElement (Urho3D::UIElement *_target, const class Urho3D::IntVector2 & screenPosition)
+UIElement_ScreenToElement (
+#endif
+Urho3D::UIElement *_target, const class Urho3D::IntVector2 & screenPosition)
 {
-	return *((Interop::IntVector2  *) &(_target->ScreenToElement (screenPosition)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(UIElement_ScreenToElement_119_IntVector2 =_target->ScreenToElement (screenPosition)))
+#else
+	*((Interop::IntVector2  *) &(_target->ScreenToElement (screenPosition)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  UIElement_ElementToScreen_120_IntVector2 ;
+DllExport Interop::IntVector2  *
+UIElement_ElementToScreen (
+#else
 DllExport Interop::IntVector2 
-UIElement_ElementToScreen (Urho3D::UIElement *_target, const class Urho3D::IntVector2 & position)
+UIElement_ElementToScreen (
+#endif
+Urho3D::UIElement *_target, const class Urho3D::IntVector2 & position)
 {
-	return *((Interop::IntVector2  *) &(_target->ElementToScreen (position)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(UIElement_ElementToScreen_120_IntVector2 =_target->ElementToScreen (position)))
+#else
+	*((Interop::IntVector2  *) &(_target->ElementToScreen (position)))
+#endif
+;
 }
 
 
@@ -22479,17 +24953,45 @@ UIElement_GetName (Urho3D::UIElement *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  UIElement_GetPosition_121_IntVector2 ;
+DllExport Interop::IntVector2  *
+UIElement_GetPosition (
+#else
 DllExport Interop::IntVector2 
-UIElement_GetPosition (Urho3D::UIElement *_target)
+UIElement_GetPosition (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(UIElement_GetPosition_121_IntVector2 =_target->GetPosition ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetPosition ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  UIElement_GetSize_122_IntVector2 ;
+DllExport Interop::IntVector2  *
+UIElement_GetSize (
+#else
 DllExport Interop::IntVector2 
-UIElement_GetSize (Urho3D::UIElement *_target)
+UIElement_GetSize (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetSize ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(UIElement_GetSize_122_IntVector2 =_target->GetSize ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetSize ()))
+#endif
+;
 }
 
 
@@ -22507,10 +25009,24 @@ UIElement_GetHeight (Urho3D::UIElement *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  UIElement_GetMinSize_123_IntVector2 ;
+DllExport Interop::IntVector2  *
+UIElement_GetMinSize (
+#else
 DllExport Interop::IntVector2 
-UIElement_GetMinSize (Urho3D::UIElement *_target)
+UIElement_GetMinSize (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetMinSize ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(UIElement_GetMinSize_123_IntVector2 =_target->GetMinSize ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetMinSize ()))
+#endif
+;
 }
 
 
@@ -22528,10 +25044,24 @@ UIElement_GetMinHeight (Urho3D::UIElement *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  UIElement_GetMaxSize_124_IntVector2 ;
+DllExport Interop::IntVector2  *
+UIElement_GetMaxSize (
+#else
 DllExport Interop::IntVector2 
-UIElement_GetMaxSize (Urho3D::UIElement *_target)
+UIElement_GetMaxSize (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetMaxSize ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(UIElement_GetMaxSize_124_IntVector2 =_target->GetMaxSize ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetMaxSize ()))
+#endif
+;
 }
 
 
@@ -22570,10 +25100,24 @@ UIElement_IsFixedHeight (Urho3D::UIElement *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  UIElement_GetChildOffset_125_IntVector2 ;
+DllExport Interop::IntVector2  *
+UIElement_GetChildOffset (
+#else
 DllExport Interop::IntVector2 
-UIElement_GetChildOffset (Urho3D::UIElement *_target)
+UIElement_GetChildOffset (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetChildOffset ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(UIElement_GetChildOffset_125_IntVector2 =_target->GetChildOffset ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetChildOffset ()))
+#endif
+;
 }
 
 
@@ -22598,52 +25142,150 @@ UIElement_GetEnableAnchor (Urho3D::UIElement *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  UIElement_GetMinAnchor_126_Vector2 ;
+DllExport Interop::Vector2  *
+UIElement_GetMinAnchor (
+#else
 DllExport Interop::Vector2 
-UIElement_GetMinAnchor (Urho3D::UIElement *_target)
+UIElement_GetMinAnchor (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetMinAnchor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(UIElement_GetMinAnchor_126_Vector2 =_target->GetMinAnchor ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetMinAnchor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  UIElement_GetMaxAnchor_127_Vector2 ;
+DllExport Interop::Vector2  *
+UIElement_GetMaxAnchor (
+#else
 DllExport Interop::Vector2 
-UIElement_GetMaxAnchor (Urho3D::UIElement *_target)
+UIElement_GetMaxAnchor (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetMaxAnchor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(UIElement_GetMaxAnchor_127_Vector2 =_target->GetMaxAnchor ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetMaxAnchor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  UIElement_GetMinOffset_128_IntVector2 ;
+DllExport Interop::IntVector2  *
+UIElement_GetMinOffset (
+#else
 DllExport Interop::IntVector2 
-UIElement_GetMinOffset (Urho3D::UIElement *_target)
+UIElement_GetMinOffset (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetMinOffset ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(UIElement_GetMinOffset_128_IntVector2 =_target->GetMinOffset ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetMinOffset ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  UIElement_GetMaxOffset_129_IntVector2 ;
+DllExport Interop::IntVector2  *
+UIElement_GetMaxOffset (
+#else
 DllExport Interop::IntVector2 
-UIElement_GetMaxOffset (Urho3D::UIElement *_target)
+UIElement_GetMaxOffset (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetMaxOffset ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(UIElement_GetMaxOffset_129_IntVector2 =_target->GetMaxOffset ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetMaxOffset ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  UIElement_GetPivot_130_Vector2 ;
+DllExport Interop::Vector2  *
+UIElement_GetPivot (
+#else
 DllExport Interop::Vector2 
-UIElement_GetPivot (Urho3D::UIElement *_target)
+UIElement_GetPivot (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetPivot ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(UIElement_GetPivot_130_Vector2 =_target->GetPivot ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetPivot ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntRect  UIElement_GetClipBorder_131_IntRect ;
+DllExport Interop::IntRect  *
+UIElement_GetClipBorder (
+#else
 DllExport Interop::IntRect 
-UIElement_GetClipBorder (Urho3D::UIElement *_target)
+UIElement_GetClipBorder (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::IntRect  *) &(_target->GetClipBorder ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntRect  *) &(UIElement_GetClipBorder_131_IntRect =_target->GetClipBorder ()))
+#else
+	*((Interop::IntRect  *) &(_target->GetClipBorder ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  UIElement_GetColor_132_Color ;
+DllExport Interop::Color  *
+UIElement_GetColor (
+#else
 DllExport Interop::Color 
-UIElement_GetColor (Urho3D::UIElement *_target, enum Urho3D::Corner corner)
+UIElement_GetColor (
+#endif
+Urho3D::UIElement *_target, enum Urho3D::Corner corner)
 {
-	return *((Interop::Color  *) &(_target->GetColor (corner)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(UIElement_GetColor_132_Color =_target->GetColor (corner)))
+#else
+	*((Interop::Color  *) &(_target->GetColor (corner)))
+#endif
+;
 }
 
 
@@ -22815,17 +25457,45 @@ UIElement_GetLayoutSpacing (Urho3D::UIElement *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntRect  UIElement_GetLayoutBorder_133_IntRect ;
+DllExport Interop::IntRect  *
+UIElement_GetLayoutBorder (
+#else
 DllExport Interop::IntRect 
-UIElement_GetLayoutBorder (Urho3D::UIElement *_target)
+UIElement_GetLayoutBorder (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::IntRect  *) &(_target->GetLayoutBorder ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntRect  *) &(UIElement_GetLayoutBorder_133_IntRect =_target->GetLayoutBorder ()))
+#else
+	*((Interop::IntRect  *) &(_target->GetLayoutBorder ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  UIElement_GetLayoutFlexScale_134_Vector2 ;
+DllExport Interop::Vector2  *
+UIElement_GetLayoutFlexScale (
+#else
 DllExport Interop::Vector2 
-UIElement_GetLayoutFlexScale (Urho3D::UIElement *_target)
+UIElement_GetLayoutFlexScale (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetLayoutFlexScale ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(UIElement_GetLayoutFlexScale_134_Vector2 =_target->GetLayoutFlexScale ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetLayoutFlexScale ()))
+#endif
+;
 }
 
 
@@ -22871,10 +25541,24 @@ UIElement_GetRoot (Urho3D::UIElement *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  UIElement_GetDerivedColor_135_Color ;
+DllExport Interop::Color  *
+UIElement_GetDerivedColor (
+#else
 DllExport Interop::Color 
-UIElement_GetDerivedColor (Urho3D::UIElement *_target)
+UIElement_GetDerivedColor (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::Color  *) &(_target->GetDerivedColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(UIElement_GetDerivedColor_135_Color =_target->GetDerivedColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetDerivedColor ()))
+#endif
+;
 }
 
 
@@ -22906,10 +25590,24 @@ UIElement_IsInsideCombined (Urho3D::UIElement *_target, const class Urho3D::IntV
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntRect  UIElement_GetCombinedScreenRect_136_IntRect ;
+DllExport Interop::IntRect  *
+UIElement_GetCombinedScreenRect (
+#else
 DllExport Interop::IntRect 
-UIElement_GetCombinedScreenRect (Urho3D::UIElement *_target)
+UIElement_GetCombinedScreenRect (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::IntRect  *) &(_target->GetCombinedScreenRect ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntRect  *) &(UIElement_GetCombinedScreenRect_136_IntRect =_target->GetCombinedScreenRect ()))
+#else
+	*((Interop::IntRect  *) &(_target->GetCombinedScreenRect ()))
+#endif
+;
 }
 
 
@@ -22962,10 +25660,24 @@ UIElement_SetHovering (Urho3D::UIElement *_target, bool enable)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  UIElement_GetColorAttr_137_Color ;
+DllExport Interop::Color  *
+UIElement_GetColorAttr (
+#else
 DllExport Interop::Color 
-UIElement_GetColorAttr (Urho3D::UIElement *_target)
+UIElement_GetColorAttr (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::Color  *) &(_target->GetColorAttr ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(UIElement_GetColorAttr_137_Color =_target->GetColorAttr ()))
+#else
+	*((Interop::Color  *) &(_target->GetColorAttr ()))
+#endif
+;
 }
 
 
@@ -22990,10 +25702,24 @@ UIElement_GetElementEventSender (Urho3D::UIElement *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  UIElement_GetEffectiveMinSize_138_IntVector2 ;
+DllExport Interop::IntVector2  *
+UIElement_GetEffectiveMinSize (
+#else
 DllExport Interop::IntVector2 
-UIElement_GetEffectiveMinSize (Urho3D::UIElement *_target)
+UIElement_GetEffectiveMinSize (
+#endif
+Urho3D::UIElement *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetEffectiveMinSize ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(UIElement_GetEffectiveMinSize_138_IntVector2 =_target->GetEffectiveMinSize ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetEffectiveMinSize ()))
+#endif
+;
 }
 
 
@@ -23137,38 +25863,108 @@ BorderImage_GetTexture (Urho3D::BorderImage *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntRect  BorderImage_GetImageRect_139_IntRect ;
+DllExport Interop::IntRect  *
+BorderImage_GetImageRect (
+#else
 DllExport Interop::IntRect 
-BorderImage_GetImageRect (Urho3D::BorderImage *_target)
+BorderImage_GetImageRect (
+#endif
+Urho3D::BorderImage *_target)
 {
-	return *((Interop::IntRect  *) &(_target->GetImageRect ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntRect  *) &(BorderImage_GetImageRect_139_IntRect =_target->GetImageRect ()))
+#else
+	*((Interop::IntRect  *) &(_target->GetImageRect ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntRect  BorderImage_GetBorder_140_IntRect ;
+DllExport Interop::IntRect  *
+BorderImage_GetBorder (
+#else
 DllExport Interop::IntRect 
-BorderImage_GetBorder (Urho3D::BorderImage *_target)
+BorderImage_GetBorder (
+#endif
+Urho3D::BorderImage *_target)
 {
-	return *((Interop::IntRect  *) &(_target->GetBorder ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntRect  *) &(BorderImage_GetBorder_140_IntRect =_target->GetBorder ()))
+#else
+	*((Interop::IntRect  *) &(_target->GetBorder ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntRect  BorderImage_GetImageBorder_141_IntRect ;
+DllExport Interop::IntRect  *
+BorderImage_GetImageBorder (
+#else
 DllExport Interop::IntRect 
-BorderImage_GetImageBorder (Urho3D::BorderImage *_target)
+BorderImage_GetImageBorder (
+#endif
+Urho3D::BorderImage *_target)
 {
-	return *((Interop::IntRect  *) &(_target->GetImageBorder ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntRect  *) &(BorderImage_GetImageBorder_141_IntRect =_target->GetImageBorder ()))
+#else
+	*((Interop::IntRect  *) &(_target->GetImageBorder ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  BorderImage_GetHoverOffset_142_IntVector2 ;
+DllExport Interop::IntVector2  *
+BorderImage_GetHoverOffset (
+#else
 DllExport Interop::IntVector2 
-BorderImage_GetHoverOffset (Urho3D::BorderImage *_target)
+BorderImage_GetHoverOffset (
+#endif
+Urho3D::BorderImage *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetHoverOffset ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(BorderImage_GetHoverOffset_142_IntVector2 =_target->GetHoverOffset ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetHoverOffset ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  BorderImage_GetDisabledOffset_143_IntVector2 ;
+DllExport Interop::IntVector2  *
+BorderImage_GetDisabledOffset (
+#else
 DllExport Interop::IntVector2 
-BorderImage_GetDisabledOffset (Urho3D::BorderImage *_target)
+BorderImage_GetDisabledOffset (
+#endif
+Urho3D::BorderImage *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetDisabledOffset ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(BorderImage_GetDisabledOffset_143_IntVector2 =_target->GetDisabledOffset ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetDisabledOffset ()))
+#endif
+;
 }
 
 
@@ -23592,17 +26388,45 @@ Input_GetQualifierPress (Urho3D::Input *_target, enum Urho3D::Qualifier qualifie
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Input_GetMousePosition_144_IntVector2 ;
+DllExport Interop::IntVector2  *
+Input_GetMousePosition (
+#else
 DllExport Interop::IntVector2 
-Input_GetMousePosition (Urho3D::Input *_target)
+Input_GetMousePosition (
+#endif
+Urho3D::Input *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetMousePosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Input_GetMousePosition_144_IntVector2 =_target->GetMousePosition ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetMousePosition ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Input_GetMouseMove_145_IntVector2 ;
+DllExport Interop::IntVector2  *
+Input_GetMouseMove (
+#else
 DllExport Interop::IntVector2 
-Input_GetMouseMove (Urho3D::Input *_target)
+Input_GetMouseMove (
+#endif
+Urho3D::Input *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetMouseMove ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Input_GetMouseMove_145_IntVector2 =_target->GetMouseMove ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetMouseMove ()))
+#endif
+;
 }
 
 
@@ -23627,10 +26451,24 @@ Input_GetMouseMoveWheel (Urho3D::Input *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Input_GetInputScale_146_Vector2 ;
+DllExport Interop::Vector2  *
+Input_GetInputScale (
+#else
 DllExport Interop::Vector2 
-Input_GetInputScale (Urho3D::Input *_target)
+Input_GetInputScale (
+#endif
+Urho3D::Input *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetInputScale ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Input_GetInputScale_146_Vector2 =_target->GetInputScale ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetInputScale ()))
+#endif
+;
 }
 
 
@@ -23942,31 +26780,87 @@ CrowdManager_SetObstacleAvoidanceParams (Urho3D::CrowdManager *_target, unsigned
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CrowdManager_FindNearestPoint_147_Vector3 ;
+DllExport Interop::Vector3  *
+CrowdManager_FindNearestPoint (
+#else
 DllExport Interop::Vector3 
-CrowdManager_FindNearestPoint (Urho3D::CrowdManager *_target, const class Urho3D::Vector3 & point, int queryFilterType, dtPolyRef * nearestRef)
+CrowdManager_FindNearestPoint (
+#endif
+Urho3D::CrowdManager *_target, const class Urho3D::Vector3 & point, int queryFilterType, dtPolyRef * nearestRef)
 {
-	return *((Interop::Vector3  *) &(_target->FindNearestPoint (point, queryFilterType, nearestRef)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CrowdManager_FindNearestPoint_147_Vector3 =_target->FindNearestPoint (point, queryFilterType, nearestRef)))
+#else
+	*((Interop::Vector3  *) &(_target->FindNearestPoint (point, queryFilterType, nearestRef)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CrowdManager_MoveAlongSurface_148_Vector3 ;
+DllExport Interop::Vector3  *
+CrowdManager_MoveAlongSurface (
+#else
 DllExport Interop::Vector3 
-CrowdManager_MoveAlongSurface (Urho3D::CrowdManager *_target, const class Urho3D::Vector3 & start, const class Urho3D::Vector3 & end, int queryFilterType, int maxVisited)
+CrowdManager_MoveAlongSurface (
+#endif
+Urho3D::CrowdManager *_target, const class Urho3D::Vector3 & start, const class Urho3D::Vector3 & end, int queryFilterType, int maxVisited)
 {
-	return *((Interop::Vector3  *) &(_target->MoveAlongSurface (start, end, queryFilterType, maxVisited)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CrowdManager_MoveAlongSurface_148_Vector3 =_target->MoveAlongSurface (start, end, queryFilterType, maxVisited)))
+#else
+	*((Interop::Vector3  *) &(_target->MoveAlongSurface (start, end, queryFilterType, maxVisited)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CrowdManager_GetRandomPoint_149_Vector3 ;
+DllExport Interop::Vector3  *
+CrowdManager_GetRandomPoint (
+#else
 DllExport Interop::Vector3 
-CrowdManager_GetRandomPoint (Urho3D::CrowdManager *_target, int queryFilterType, dtPolyRef * randomRef)
+CrowdManager_GetRandomPoint (
+#endif
+Urho3D::CrowdManager *_target, int queryFilterType, dtPolyRef * randomRef)
 {
-	return *((Interop::Vector3  *) &(_target->GetRandomPoint (queryFilterType, randomRef)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CrowdManager_GetRandomPoint_149_Vector3 =_target->GetRandomPoint (queryFilterType, randomRef)))
+#else
+	*((Interop::Vector3  *) &(_target->GetRandomPoint (queryFilterType, randomRef)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CrowdManager_GetRandomPointInCircle_150_Vector3 ;
+DllExport Interop::Vector3  *
+CrowdManager_GetRandomPointInCircle (
+#else
 DllExport Interop::Vector3 
-CrowdManager_GetRandomPointInCircle (Urho3D::CrowdManager *_target, const class Urho3D::Vector3 & center, float radius, int queryFilterType, dtPolyRef * randomRef)
+CrowdManager_GetRandomPointInCircle (
+#endif
+Urho3D::CrowdManager *_target, const class Urho3D::Vector3 & center, float radius, int queryFilterType, dtPolyRef * randomRef)
 {
-	return *((Interop::Vector3  *) &(_target->GetRandomPointInCircle (center, radius, queryFilterType, randomRef)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CrowdManager_GetRandomPointInCircle_150_Vector3 =_target->GetRandomPointInCircle (center, radius, queryFilterType, randomRef)))
+#else
+	*((Interop::Vector3  *) &(_target->GetRandomPointInCircle (center, radius, queryFilterType, randomRef)))
+#endif
+;
 }
 
 
@@ -23977,10 +26871,24 @@ CrowdManager_GetDistanceToWall (Urho3D::CrowdManager *_target, const class Urho3
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CrowdManager_Raycast_151_Vector3 ;
+DllExport Interop::Vector3  *
+CrowdManager_Raycast (
+#else
 DllExport Interop::Vector3 
-CrowdManager_Raycast (Urho3D::CrowdManager *_target, const class Urho3D::Vector3 & start, const class Urho3D::Vector3 & end, int queryFilterType, Urho3D::Vector3 * hitNormal)
+CrowdManager_Raycast (
+#endif
+Urho3D::CrowdManager *_target, const class Urho3D::Vector3 & start, const class Urho3D::Vector3 & end, int queryFilterType, Urho3D::Vector3 * hitNormal)
 {
-	return *((Interop::Vector3  *) &(_target->Raycast (start, end, queryFilterType, hitNormal)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CrowdManager_Raycast_151_Vector3 =_target->Raycast (start, end, queryFilterType, hitNormal)))
+#else
+	*((Interop::Vector3  *) &(_target->Raycast (start, end, queryFilterType, hitNormal)))
+#endif
+;
 }
 
 
@@ -24047,10 +26955,24 @@ CrowdManager_GetNumObstacleAvoidanceTypes (Urho3D::CrowdManager *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static CrowdObstacleAvoidanceParams CrowdManager_GetObstacleAvoidanceParams_152_CrowdObstacleAvoidanceParams;
+DllExport Urho3D::CrowdObstacleAvoidanceParams *
+CrowdManager_GetObstacleAvoidanceParams (
+#else
 DllExport Urho3D::CrowdObstacleAvoidanceParams
-CrowdManager_GetObstacleAvoidanceParams (Urho3D::CrowdManager *_target, unsigned int obstacleAvoidanceType)
+CrowdManager_GetObstacleAvoidanceParams (
+#endif
+Urho3D::CrowdManager *_target, unsigned int obstacleAvoidanceType)
 {
-	return _target->GetObstacleAvoidanceParams (obstacleAvoidanceType);
+	return 
+#ifdef __EMSCRIPTEN__
+	((Urho3D::CrowdObstacleAvoidanceParams *) &(CrowdManager_GetObstacleAvoidanceParams_152_CrowdObstacleAvoidanceParams=_target->GetObstacleAvoidanceParams (obstacleAvoidanceType)))
+#else
+	*((Urho3D::CrowdObstacleAvoidanceParams *) &(_target->GetObstacleAvoidanceParams (obstacleAvoidanceType)))
+#endif
+;
 }
 
 
@@ -24208,38 +27130,108 @@ CrowdAgent_SetNavigationPushiness (Urho3D::CrowdAgent *_target, enum Urho3D::Nav
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CrowdAgent_GetPosition_153_Vector3 ;
+DllExport Interop::Vector3  *
+CrowdAgent_GetPosition (
+#else
 DllExport Interop::Vector3 
-CrowdAgent_GetPosition (Urho3D::CrowdAgent *_target)
+CrowdAgent_GetPosition (
+#endif
+Urho3D::CrowdAgent *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CrowdAgent_GetPosition_153_Vector3 =_target->GetPosition ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetPosition ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CrowdAgent_GetDesiredVelocity_154_Vector3 ;
+DllExport Interop::Vector3  *
+CrowdAgent_GetDesiredVelocity (
+#else
 DllExport Interop::Vector3 
-CrowdAgent_GetDesiredVelocity (Urho3D::CrowdAgent *_target)
+CrowdAgent_GetDesiredVelocity (
+#endif
+Urho3D::CrowdAgent *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetDesiredVelocity ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CrowdAgent_GetDesiredVelocity_154_Vector3 =_target->GetDesiredVelocity ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetDesiredVelocity ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CrowdAgent_GetActualVelocity_155_Vector3 ;
+DllExport Interop::Vector3  *
+CrowdAgent_GetActualVelocity (
+#else
 DllExport Interop::Vector3 
-CrowdAgent_GetActualVelocity (Urho3D::CrowdAgent *_target)
+CrowdAgent_GetActualVelocity (
+#endif
+Urho3D::CrowdAgent *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetActualVelocity ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CrowdAgent_GetActualVelocity_155_Vector3 =_target->GetActualVelocity ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetActualVelocity ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CrowdAgent_GetTargetPosition_156_Vector3 ;
+DllExport Interop::Vector3  *
+CrowdAgent_GetTargetPosition (
+#else
 DllExport Interop::Vector3 
-CrowdAgent_GetTargetPosition (Urho3D::CrowdAgent *_target)
+CrowdAgent_GetTargetPosition (
+#endif
+Urho3D::CrowdAgent *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetTargetPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CrowdAgent_GetTargetPosition_156_Vector3 =_target->GetTargetPosition ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetTargetPosition ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CrowdAgent_GetTargetVelocity_157_Vector3 ;
+DllExport Interop::Vector3  *
+CrowdAgent_GetTargetVelocity (
+#else
 DllExport Interop::Vector3 
-CrowdAgent_GetTargetVelocity (Urho3D::CrowdAgent *_target)
+CrowdAgent_GetTargetVelocity (
+#endif
+Urho3D::CrowdAgent *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetTargetVelocity ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CrowdAgent_GetTargetVelocity_157_Vector3 =_target->GetTargetVelocity ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetTargetVelocity ()))
+#endif
+;
 }
 
 
@@ -24558,45 +27550,129 @@ NavigationMesh_HasTile (Urho3D::NavigationMesh *_target, const class Urho3D::Int
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static BoundingBox  NavigationMesh_GetTileBoundingBox_158_BoundingBox ;
+DllExport Interop::BoundingBox  *
+NavigationMesh_GetTileBoundingBox (
+#else
 DllExport Interop::BoundingBox 
-NavigationMesh_GetTileBoundingBox (Urho3D::NavigationMesh *_target, const class Urho3D::IntVector2 & tile)
+NavigationMesh_GetTileBoundingBox (
+#endif
+Urho3D::NavigationMesh *_target, const class Urho3D::IntVector2 & tile)
 {
-	return *((Interop::BoundingBox  *) &(_target->GetTileBoundingBox (tile)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::BoundingBox  *) &(NavigationMesh_GetTileBoundingBox_158_BoundingBox =_target->GetTileBoundingBox (tile)))
+#else
+	*((Interop::BoundingBox  *) &(_target->GetTileBoundingBox (tile)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  NavigationMesh_GetTileIndex_159_IntVector2 ;
+DllExport Interop::IntVector2  *
+NavigationMesh_GetTileIndex (
+#else
 DllExport Interop::IntVector2 
-NavigationMesh_GetTileIndex (Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & position)
+NavigationMesh_GetTileIndex (
+#endif
+Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & position)
 {
-	return *((Interop::IntVector2  *) &(_target->GetTileIndex (position)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(NavigationMesh_GetTileIndex_159_IntVector2 =_target->GetTileIndex (position)))
+#else
+	*((Interop::IntVector2  *) &(_target->GetTileIndex (position)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  NavigationMesh_FindNearestPoint_160_Vector3 ;
+DllExport Interop::Vector3  *
+NavigationMesh_FindNearestPoint (
+#else
 DllExport Interop::Vector3 
-NavigationMesh_FindNearestPoint (Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & point, const class Urho3D::Vector3 & extents, const class dtQueryFilter * filter, dtPolyRef * nearestRef)
+NavigationMesh_FindNearestPoint (
+#endif
+Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & point, const class Urho3D::Vector3 & extents, const class dtQueryFilter * filter, dtPolyRef * nearestRef)
 {
-	return *((Interop::Vector3  *) &(_target->FindNearestPoint (point, extents, filter, nearestRef)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(NavigationMesh_FindNearestPoint_160_Vector3 =_target->FindNearestPoint (point, extents, filter, nearestRef)))
+#else
+	*((Interop::Vector3  *) &(_target->FindNearestPoint (point, extents, filter, nearestRef)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  NavigationMesh_MoveAlongSurface_161_Vector3 ;
+DllExport Interop::Vector3  *
+NavigationMesh_MoveAlongSurface (
+#else
 DllExport Interop::Vector3 
-NavigationMesh_MoveAlongSurface (Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & start, const class Urho3D::Vector3 & end, const class Urho3D::Vector3 & extents, int maxVisited, const class dtQueryFilter * filter)
+NavigationMesh_MoveAlongSurface (
+#endif
+Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & start, const class Urho3D::Vector3 & end, const class Urho3D::Vector3 & extents, int maxVisited, const class dtQueryFilter * filter)
 {
-	return *((Interop::Vector3  *) &(_target->MoveAlongSurface (start, end, extents, maxVisited, filter)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(NavigationMesh_MoveAlongSurface_161_Vector3 =_target->MoveAlongSurface (start, end, extents, maxVisited, filter)))
+#else
+	*((Interop::Vector3  *) &(_target->MoveAlongSurface (start, end, extents, maxVisited, filter)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  NavigationMesh_GetRandomPoint_162_Vector3 ;
+DllExport Interop::Vector3  *
+NavigationMesh_GetRandomPoint (
+#else
 DllExport Interop::Vector3 
-NavigationMesh_GetRandomPoint (Urho3D::NavigationMesh *_target, const class dtQueryFilter * filter, dtPolyRef * randomRef)
+NavigationMesh_GetRandomPoint (
+#endif
+Urho3D::NavigationMesh *_target, const class dtQueryFilter * filter, dtPolyRef * randomRef)
 {
-	return *((Interop::Vector3  *) &(_target->GetRandomPoint (filter, randomRef)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(NavigationMesh_GetRandomPoint_162_Vector3 =_target->GetRandomPoint (filter, randomRef)))
+#else
+	*((Interop::Vector3  *) &(_target->GetRandomPoint (filter, randomRef)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  NavigationMesh_GetRandomPointInCircle_163_Vector3 ;
+DllExport Interop::Vector3  *
+NavigationMesh_GetRandomPointInCircle (
+#else
 DllExport Interop::Vector3 
-NavigationMesh_GetRandomPointInCircle (Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & center, float radius, const class Urho3D::Vector3 & extents, const class dtQueryFilter * filter, dtPolyRef * randomRef)
+NavigationMesh_GetRandomPointInCircle (
+#endif
+Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & center, float radius, const class Urho3D::Vector3 & extents, const class dtQueryFilter * filter, dtPolyRef * randomRef)
 {
-	return *((Interop::Vector3  *) &(_target->GetRandomPointInCircle (center, radius, extents, filter, randomRef)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(NavigationMesh_GetRandomPointInCircle_163_Vector3 =_target->GetRandomPointInCircle (center, radius, extents, filter, randomRef)))
+#else
+	*((Interop::Vector3  *) &(_target->GetRandomPointInCircle (center, radius, extents, filter, randomRef)))
+#endif
+;
 }
 
 
@@ -24607,10 +27683,24 @@ NavigationMesh_GetDistanceToWall (Urho3D::NavigationMesh *_target, const class U
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  NavigationMesh_Raycast_164_Vector3 ;
+DllExport Interop::Vector3  *
+NavigationMesh_Raycast (
+#else
 DllExport Interop::Vector3 
-NavigationMesh_Raycast (Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & start, const class Urho3D::Vector3 & end, const class Urho3D::Vector3 & extents, const class dtQueryFilter * filter, Urho3D::Vector3 * hitNormal)
+NavigationMesh_Raycast (
+#endif
+Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & start, const class Urho3D::Vector3 & end, const class Urho3D::Vector3 & extents, const class dtQueryFilter * filter, Urho3D::Vector3 * hitNormal)
 {
-	return *((Interop::Vector3  *) &(_target->Raycast (start, end, extents, filter, hitNormal)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(NavigationMesh_Raycast_164_Vector3 =_target->Raycast (start, end, extents, filter, hitNormal)))
+#else
+	*((Interop::Vector3  *) &(_target->Raycast (start, end, extents, filter, hitNormal)))
+#endif
+;
 }
 
 
@@ -24726,10 +27816,24 @@ NavigationMesh_GetDetailSampleMaxError (Urho3D::NavigationMesh *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  NavigationMesh_GetPadding_165_Vector3 ;
+DllExport Interop::Vector3  *
+NavigationMesh_GetPadding (
+#else
 DllExport Interop::Vector3 
-NavigationMesh_GetPadding (Urho3D::NavigationMesh *_target)
+NavigationMesh_GetPadding (
+#endif
+Urho3D::NavigationMesh *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetPadding ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(NavigationMesh_GetPadding_165_Vector3 =_target->GetPadding ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetPadding ()))
+#endif
+;
 }
 
 
@@ -24747,24 +27851,66 @@ NavigationMesh_IsInitialized (Urho3D::NavigationMesh *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static BoundingBox  NavigationMesh_GetBoundingBox_166_BoundingBox ;
+DllExport Interop::BoundingBox  *
+NavigationMesh_GetBoundingBox (
+#else
 DllExport Interop::BoundingBox 
-NavigationMesh_GetBoundingBox (Urho3D::NavigationMesh *_target)
+NavigationMesh_GetBoundingBox (
+#endif
+Urho3D::NavigationMesh *_target)
 {
-	return *((Interop::BoundingBox  *) &(_target->GetBoundingBox ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::BoundingBox  *) &(NavigationMesh_GetBoundingBox_166_BoundingBox =_target->GetBoundingBox ()))
+#else
+	*((Interop::BoundingBox  *) &(_target->GetBoundingBox ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static BoundingBox  NavigationMesh_GetWorldBoundingBox_167_BoundingBox ;
+DllExport Interop::BoundingBox  *
+NavigationMesh_GetWorldBoundingBox (
+#else
 DllExport Interop::BoundingBox 
-NavigationMesh_GetWorldBoundingBox (Urho3D::NavigationMesh *_target)
+NavigationMesh_GetWorldBoundingBox (
+#endif
+Urho3D::NavigationMesh *_target)
 {
-	return *((Interop::BoundingBox  *) &(_target->GetWorldBoundingBox ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::BoundingBox  *) &(NavigationMesh_GetWorldBoundingBox_167_BoundingBox =_target->GetWorldBoundingBox ()))
+#else
+	*((Interop::BoundingBox  *) &(_target->GetWorldBoundingBox ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  NavigationMesh_GetNumTiles_168_IntVector2 ;
+DllExport Interop::IntVector2  *
+NavigationMesh_GetNumTiles (
+#else
 DllExport Interop::IntVector2 
-NavigationMesh_GetNumTiles (Urho3D::NavigationMesh *_target)
+NavigationMesh_GetNumTiles (
+#endif
+Urho3D::NavigationMesh *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetNumTiles ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(NavigationMesh_GetNumTiles_168_IntVector2 =_target->GetNumTiles ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetNumTiles ()))
+#endif
+;
 }
 
 
@@ -25020,10 +28166,24 @@ NavArea_SetAreaID (Urho3D::NavArea *_target, unsigned int newID)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static BoundingBox  NavArea_GetBoundingBox_169_BoundingBox ;
+DllExport Interop::BoundingBox  *
+NavArea_GetBoundingBox (
+#else
 DllExport Interop::BoundingBox 
-NavArea_GetBoundingBox (Urho3D::NavArea *_target)
+NavArea_GetBoundingBox (
+#endif
+Urho3D::NavArea *_target)
 {
-	return *((Interop::BoundingBox  *) &(_target->GetBoundingBox ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::BoundingBox  *) &(NavArea_GetBoundingBox_169_BoundingBox =_target->GetBoundingBox ()))
+#else
+	*((Interop::BoundingBox  *) &(_target->GetBoundingBox ()))
+#endif
+;
 }
 
 
@@ -25034,10 +28194,24 @@ NavArea_SetBoundingBox (Urho3D::NavArea *_target, const class Urho3D::BoundingBo
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static BoundingBox  NavArea_GetWorldBoundingBox_170_BoundingBox ;
+DllExport Interop::BoundingBox  *
+NavArea_GetWorldBoundingBox (
+#else
 DllExport Interop::BoundingBox 
-NavArea_GetWorldBoundingBox (Urho3D::NavArea *_target)
+NavArea_GetWorldBoundingBox (
+#endif
+Urho3D::NavArea *_target)
 {
-	return *((Interop::BoundingBox  *) &(_target->GetWorldBoundingBox ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::BoundingBox  *) &(NavArea_GetWorldBoundingBox_170_BoundingBox =_target->GetWorldBoundingBox ()))
+#else
+	*((Interop::BoundingBox  *) &(_target->GetWorldBoundingBox ()))
+#endif
+;
 }
 
 
@@ -25475,17 +28649,45 @@ Connection_GetTimeStamp (Urho3D::Connection *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Connection_GetPosition_171_Vector3 ;
+DllExport Interop::Vector3  *
+Connection_GetPosition (
+#else
 DllExport Interop::Vector3 
-Connection_GetPosition (Urho3D::Connection *_target)
+Connection_GetPosition (
+#endif
+Urho3D::Connection *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Connection_GetPosition_171_Vector3 =_target->GetPosition ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetPosition ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Quaternion  Connection_GetRotation_172_Quaternion ;
+DllExport Interop::Quaternion  *
+Connection_GetRotation (
+#else
 DllExport Interop::Quaternion 
-Connection_GetRotation (Urho3D::Connection *_target)
+Connection_GetRotation (
+#endif
+Urho3D::Connection *_target)
 {
-	return *((Interop::Quaternion  *) &(_target->GetRotation ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Quaternion  *) &(Connection_GetRotation_172_Quaternion =_target->GetRotation ()))
+#else
+	*((Interop::Quaternion  *) &(_target->GetRotation ()))
+#endif
+;
 }
 
 
@@ -26301,24 +29503,66 @@ CollisionShape_GetShapeType (Urho3D::CollisionShape *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CollisionShape_GetSize_173_Vector3 ;
+DllExport Interop::Vector3  *
+CollisionShape_GetSize (
+#else
 DllExport Interop::Vector3 
-CollisionShape_GetSize (Urho3D::CollisionShape *_target)
+CollisionShape_GetSize (
+#endif
+Urho3D::CollisionShape *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetSize ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CollisionShape_GetSize_173_Vector3 =_target->GetSize ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetSize ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CollisionShape_GetPosition_174_Vector3 ;
+DllExport Interop::Vector3  *
+CollisionShape_GetPosition (
+#else
 DllExport Interop::Vector3 
-CollisionShape_GetPosition (Urho3D::CollisionShape *_target)
+CollisionShape_GetPosition (
+#endif
+Urho3D::CollisionShape *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CollisionShape_GetPosition_174_Vector3 =_target->GetPosition ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetPosition ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Quaternion  CollisionShape_GetRotation_175_Quaternion ;
+DllExport Interop::Quaternion  *
+CollisionShape_GetRotation (
+#else
 DllExport Interop::Quaternion 
-CollisionShape_GetRotation (Urho3D::CollisionShape *_target)
+CollisionShape_GetRotation (
+#endif
+Urho3D::CollisionShape *_target)
 {
-	return *((Interop::Quaternion  *) &(_target->GetRotation ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Quaternion  *) &(CollisionShape_GetRotation_175_Quaternion =_target->GetRotation ()))
+#else
+	*((Interop::Quaternion  *) &(_target->GetRotation ()))
+#endif
+;
 }
 
 
@@ -26343,10 +29587,24 @@ CollisionShape_GetLodLevel (Urho3D::CollisionShape *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static BoundingBox  CollisionShape_GetWorldBoundingBox_176_BoundingBox ;
+DllExport Interop::BoundingBox  *
+CollisionShape_GetWorldBoundingBox (
+#else
 DllExport Interop::BoundingBox 
-CollisionShape_GetWorldBoundingBox (Urho3D::CollisionShape *_target)
+CollisionShape_GetWorldBoundingBox (
+#endif
+Urho3D::CollisionShape *_target)
 {
-	return *((Interop::BoundingBox  *) &(_target->GetWorldBoundingBox ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::BoundingBox  *) &(CollisionShape_GetWorldBoundingBox_176_BoundingBox =_target->GetWorldBoundingBox ()))
+#else
+	*((Interop::BoundingBox  *) &(_target->GetWorldBoundingBox ()))
+#endif
+;
 }
 
 
@@ -26560,52 +29818,150 @@ Constraint_GetOtherBody (Urho3D::Constraint *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Constraint_GetPosition_177_Vector3 ;
+DllExport Interop::Vector3  *
+Constraint_GetPosition (
+#else
 DllExport Interop::Vector3 
-Constraint_GetPosition (Urho3D::Constraint *_target)
+Constraint_GetPosition (
+#endif
+Urho3D::Constraint *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Constraint_GetPosition_177_Vector3 =_target->GetPosition ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetPosition ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Quaternion  Constraint_GetRotation_178_Quaternion ;
+DllExport Interop::Quaternion  *
+Constraint_GetRotation (
+#else
 DllExport Interop::Quaternion 
-Constraint_GetRotation (Urho3D::Constraint *_target)
+Constraint_GetRotation (
+#endif
+Urho3D::Constraint *_target)
 {
-	return *((Interop::Quaternion  *) &(_target->GetRotation ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Quaternion  *) &(Constraint_GetRotation_178_Quaternion =_target->GetRotation ()))
+#else
+	*((Interop::Quaternion  *) &(_target->GetRotation ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Constraint_GetOtherPosition_179_Vector3 ;
+DllExport Interop::Vector3  *
+Constraint_GetOtherPosition (
+#else
 DllExport Interop::Vector3 
-Constraint_GetOtherPosition (Urho3D::Constraint *_target)
+Constraint_GetOtherPosition (
+#endif
+Urho3D::Constraint *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetOtherPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Constraint_GetOtherPosition_179_Vector3 =_target->GetOtherPosition ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetOtherPosition ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Quaternion  Constraint_GetOtherRotation_180_Quaternion ;
+DllExport Interop::Quaternion  *
+Constraint_GetOtherRotation (
+#else
 DllExport Interop::Quaternion 
-Constraint_GetOtherRotation (Urho3D::Constraint *_target)
+Constraint_GetOtherRotation (
+#endif
+Urho3D::Constraint *_target)
 {
-	return *((Interop::Quaternion  *) &(_target->GetOtherRotation ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Quaternion  *) &(Constraint_GetOtherRotation_180_Quaternion =_target->GetOtherRotation ()))
+#else
+	*((Interop::Quaternion  *) &(_target->GetOtherRotation ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Constraint_GetWorldPosition_181_Vector3 ;
+DllExport Interop::Vector3  *
+Constraint_GetWorldPosition (
+#else
 DllExport Interop::Vector3 
-Constraint_GetWorldPosition (Urho3D::Constraint *_target)
+Constraint_GetWorldPosition (
+#endif
+Urho3D::Constraint *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetWorldPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Constraint_GetWorldPosition_181_Vector3 =_target->GetWorldPosition ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetWorldPosition ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Constraint_GetHighLimit_182_Vector2 ;
+DllExport Interop::Vector2  *
+Constraint_GetHighLimit (
+#else
 DllExport Interop::Vector2 
-Constraint_GetHighLimit (Urho3D::Constraint *_target)
+Constraint_GetHighLimit (
+#endif
+Urho3D::Constraint *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetHighLimit ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Constraint_GetHighLimit_182_Vector2 =_target->GetHighLimit ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetHighLimit ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Constraint_GetLowLimit_183_Vector2 ;
+DllExport Interop::Vector2  *
+Constraint_GetLowLimit (
+#else
 DllExport Interop::Vector2 
-Constraint_GetLowLimit (Urho3D::Constraint *_target)
+Constraint_GetLowLimit (
+#endif
+Urho3D::Constraint *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetLowLimit ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Constraint_GetLowLimit_183_Vector2 =_target->GetLowLimit ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetLowLimit ()))
+#endif
+;
 }
 
 
@@ -27085,38 +30441,108 @@ RigidBody_GetMass (Urho3D::RigidBody *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  RigidBody_GetPosition_184_Vector3 ;
+DllExport Interop::Vector3  *
+RigidBody_GetPosition (
+#else
 DllExport Interop::Vector3 
-RigidBody_GetPosition (Urho3D::RigidBody *_target)
+RigidBody_GetPosition (
+#endif
+Urho3D::RigidBody *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(RigidBody_GetPosition_184_Vector3 =_target->GetPosition ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetPosition ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Quaternion  RigidBody_GetRotation_185_Quaternion ;
+DllExport Interop::Quaternion  *
+RigidBody_GetRotation (
+#else
 DllExport Interop::Quaternion 
-RigidBody_GetRotation (Urho3D::RigidBody *_target)
+RigidBody_GetRotation (
+#endif
+Urho3D::RigidBody *_target)
 {
-	return *((Interop::Quaternion  *) &(_target->GetRotation ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Quaternion  *) &(RigidBody_GetRotation_185_Quaternion =_target->GetRotation ()))
+#else
+	*((Interop::Quaternion  *) &(_target->GetRotation ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  RigidBody_GetLinearVelocity_186_Vector3 ;
+DllExport Interop::Vector3  *
+RigidBody_GetLinearVelocity (
+#else
 DllExport Interop::Vector3 
-RigidBody_GetLinearVelocity (Urho3D::RigidBody *_target)
+RigidBody_GetLinearVelocity (
+#endif
+Urho3D::RigidBody *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetLinearVelocity ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(RigidBody_GetLinearVelocity_186_Vector3 =_target->GetLinearVelocity ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetLinearVelocity ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  RigidBody_GetLinearFactor_187_Vector3 ;
+DllExport Interop::Vector3  *
+RigidBody_GetLinearFactor (
+#else
 DllExport Interop::Vector3 
-RigidBody_GetLinearFactor (Urho3D::RigidBody *_target)
+RigidBody_GetLinearFactor (
+#endif
+Urho3D::RigidBody *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetLinearFactor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(RigidBody_GetLinearFactor_187_Vector3 =_target->GetLinearFactor ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetLinearFactor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  RigidBody_GetVelocityAtPoint_188_Vector3 ;
+DllExport Interop::Vector3  *
+RigidBody_GetVelocityAtPoint (
+#else
 DllExport Interop::Vector3 
-RigidBody_GetVelocityAtPoint (Urho3D::RigidBody *_target, const class Urho3D::Vector3 & position)
+RigidBody_GetVelocityAtPoint (
+#endif
+Urho3D::RigidBody *_target, const class Urho3D::Vector3 & position)
 {
-	return *((Interop::Vector3  *) &(_target->GetVelocityAtPoint (position)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(RigidBody_GetVelocityAtPoint_188_Vector3 =_target->GetVelocityAtPoint (position)))
+#else
+	*((Interop::Vector3  *) &(_target->GetVelocityAtPoint (position)))
+#endif
+;
 }
 
 
@@ -27134,17 +30560,45 @@ RigidBody_GetLinearDamping (Urho3D::RigidBody *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  RigidBody_GetAngularVelocity_189_Vector3 ;
+DllExport Interop::Vector3  *
+RigidBody_GetAngularVelocity (
+#else
 DllExport Interop::Vector3 
-RigidBody_GetAngularVelocity (Urho3D::RigidBody *_target)
+RigidBody_GetAngularVelocity (
+#endif
+Urho3D::RigidBody *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetAngularVelocity ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(RigidBody_GetAngularVelocity_189_Vector3 =_target->GetAngularVelocity ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetAngularVelocity ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  RigidBody_GetAngularFactor_190_Vector3 ;
+DllExport Interop::Vector3  *
+RigidBody_GetAngularFactor (
+#else
 DllExport Interop::Vector3 
-RigidBody_GetAngularFactor (Urho3D::RigidBody *_target)
+RigidBody_GetAngularFactor (
+#endif
+Urho3D::RigidBody *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetAngularFactor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(RigidBody_GetAngularFactor_190_Vector3 =_target->GetAngularFactor ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetAngularFactor ()))
+#endif
+;
 }
 
 
@@ -27169,10 +30623,24 @@ RigidBody_GetFriction (Urho3D::RigidBody *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  RigidBody_GetAnisotropicFriction_191_Vector3 ;
+DllExport Interop::Vector3  *
+RigidBody_GetAnisotropicFriction (
+#else
 DllExport Interop::Vector3 
-RigidBody_GetAnisotropicFriction (Urho3D::RigidBody *_target)
+RigidBody_GetAnisotropicFriction (
+#endif
+Urho3D::RigidBody *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetAnisotropicFriction ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(RigidBody_GetAnisotropicFriction_191_Vector3 =_target->GetAnisotropicFriction ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetAnisotropicFriction ()))
+#endif
+;
 }
 
 
@@ -27218,17 +30686,45 @@ RigidBody_GetUseGravity (Urho3D::RigidBody *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  RigidBody_GetGravityOverride_192_Vector3 ;
+DllExport Interop::Vector3  *
+RigidBody_GetGravityOverride (
+#else
 DllExport Interop::Vector3 
-RigidBody_GetGravityOverride (Urho3D::RigidBody *_target)
+RigidBody_GetGravityOverride (
+#endif
+Urho3D::RigidBody *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetGravityOverride ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(RigidBody_GetGravityOverride_192_Vector3 =_target->GetGravityOverride ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetGravityOverride ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  RigidBody_GetCenterOfMass_193_Vector3 ;
+DllExport Interop::Vector3  *
+RigidBody_GetCenterOfMass (
+#else
 DllExport Interop::Vector3 
-RigidBody_GetCenterOfMass (Urho3D::RigidBody *_target)
+RigidBody_GetCenterOfMass (
+#endif
+Urho3D::RigidBody *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetCenterOfMass ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(RigidBody_GetCenterOfMass_193_Vector3 =_target->GetCenterOfMass ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetCenterOfMass ()))
+#endif
+;
 }
 
 
@@ -27372,10 +30868,24 @@ CustomRaycastVehicle_SetVehicleCenterOfMass (Urho3D::CustomRaycastVehicle *_targ
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CustomRaycastVehicle_GetVehicleCenterOfMass_194_Vector3 ;
+DllExport Interop::Vector3  *
+CustomRaycastVehicle_GetVehicleCenterOfMass (
+#else
 DllExport Interop::Vector3 
-CustomRaycastVehicle_GetVehicleCenterOfMass (Urho3D::CustomRaycastVehicle *_target)
+CustomRaycastVehicle_GetVehicleCenterOfMass (
+#endif
+Urho3D::CustomRaycastVehicle *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetVehicleCenterOfMass ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetVehicleCenterOfMass_194_Vector3 =_target->GetVehicleCenterOfMass ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetVehicleCenterOfMass ()))
+#endif
+;
 }
 
 
@@ -27407,24 +30917,66 @@ CustomRaycastVehicle_SetBrake (Urho3D::CustomRaycastVehicle *_target, float brak
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CustomRaycastVehicle_GetWheelPositionWS_195_Vector3 ;
+DllExport Interop::Vector3  *
+CustomRaycastVehicle_GetWheelPositionWS (
+#else
 DllExport Interop::Vector3 
-CustomRaycastVehicle_GetWheelPositionWS (Urho3D::CustomRaycastVehicle *_target, int wheel)
+CustomRaycastVehicle_GetWheelPositionWS (
+#endif
+Urho3D::CustomRaycastVehicle *_target, int wheel)
 {
-	return *((Interop::Vector3  *) &(_target->GetWheelPositionWS (wheel)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetWheelPositionWS_195_Vector3 =_target->GetWheelPositionWS (wheel)))
+#else
+	*((Interop::Vector3  *) &(_target->GetWheelPositionWS (wheel)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CustomRaycastVehicle_GetWheelPositionLS_196_Vector3 ;
+DllExport Interop::Vector3  *
+CustomRaycastVehicle_GetWheelPositionLS (
+#else
 DllExport Interop::Vector3 
-CustomRaycastVehicle_GetWheelPositionLS (Urho3D::CustomRaycastVehicle *_target, int wheel)
+CustomRaycastVehicle_GetWheelPositionLS (
+#endif
+Urho3D::CustomRaycastVehicle *_target, int wheel)
 {
-	return *((Interop::Vector3  *) &(_target->GetWheelPositionLS (wheel)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetWheelPositionLS_196_Vector3 =_target->GetWheelPositionLS (wheel)))
+#else
+	*((Interop::Vector3  *) &(_target->GetWheelPositionLS (wheel)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Quaternion  CustomRaycastVehicle_GetWheelRotation_197_Quaternion ;
+DllExport Interop::Quaternion  *
+CustomRaycastVehicle_GetWheelRotation (
+#else
 DllExport Interop::Quaternion 
-CustomRaycastVehicle_GetWheelRotation (Urho3D::CustomRaycastVehicle *_target, int wheel)
+CustomRaycastVehicle_GetWheelRotation (
+#endif
+Urho3D::CustomRaycastVehicle *_target, int wheel)
 {
-	return *((Interop::Quaternion  *) &(_target->GetWheelRotation (wheel)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Quaternion  *) &(CustomRaycastVehicle_GetWheelRotation_197_Quaternion =_target->GetWheelRotation (wheel)))
+#else
+	*((Interop::Quaternion  *) &(_target->GetWheelRotation (wheel)))
+#endif
+;
 }
 
 
@@ -27449,10 +31001,24 @@ CustomRaycastVehicle_GetNumWheels (Urho3D::CustomRaycastVehicle *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CustomRaycastVehicle_GetForwardVector_198_Vector3 ;
+DllExport Interop::Vector3  *
+CustomRaycastVehicle_GetForwardVector (
+#else
 DllExport Interop::Vector3 
-CustomRaycastVehicle_GetForwardVector (Urho3D::CustomRaycastVehicle *_target)
+CustomRaycastVehicle_GetForwardVector (
+#endif
+Urho3D::CustomRaycastVehicle *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetForwardVector ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetForwardVector_198_Vector3 =_target->GetForwardVector ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetForwardVector ()))
+#endif
+;
 }
 
 
@@ -27463,31 +31029,87 @@ CustomRaycastVehicle_GetCurrentSpeedKmHour (Urho3D::CustomRaycastVehicle *_targe
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CustomRaycastVehicle_GetCompoundLocalExtents_199_Vector3 ;
+DllExport Interop::Vector3  *
+CustomRaycastVehicle_GetCompoundLocalExtents (
+#else
 DllExport Interop::Vector3 
-CustomRaycastVehicle_GetCompoundLocalExtents (Urho3D::CustomRaycastVehicle *_target)
+CustomRaycastVehicle_GetCompoundLocalExtents (
+#endif
+Urho3D::CustomRaycastVehicle *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetCompoundLocalExtents ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetCompoundLocalExtents_199_Vector3 =_target->GetCompoundLocalExtents ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetCompoundLocalExtents ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CustomRaycastVehicle_GetCompooundLocalExtentsCenter_200_Vector3 ;
+DllExport Interop::Vector3  *
+CustomRaycastVehicle_GetCompooundLocalExtentsCenter (
+#else
 DllExport Interop::Vector3 
-CustomRaycastVehicle_GetCompooundLocalExtentsCenter (Urho3D::CustomRaycastVehicle *_target)
+CustomRaycastVehicle_GetCompooundLocalExtentsCenter (
+#endif
+Urho3D::CustomRaycastVehicle *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetCompooundLocalExtentsCenter ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetCompooundLocalExtentsCenter_200_Vector3 =_target->GetCompooundLocalExtentsCenter ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetCompooundLocalExtentsCenter ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CustomRaycastVehicle_GetCompoundLocalAabbMin_201_Vector3 ;
+DllExport Interop::Vector3  *
+CustomRaycastVehicle_GetCompoundLocalAabbMin (
+#else
 DllExport Interop::Vector3 
-CustomRaycastVehicle_GetCompoundLocalAabbMin (Urho3D::CustomRaycastVehicle *_target)
+CustomRaycastVehicle_GetCompoundLocalAabbMin (
+#endif
+Urho3D::CustomRaycastVehicle *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetCompoundLocalAabbMin ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetCompoundLocalAabbMin_201_Vector3 =_target->GetCompoundLocalAabbMin ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetCompoundLocalAabbMin ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CustomRaycastVehicle_GetCompoundLocalAabbMax_202_Vector3 ;
+DllExport Interop::Vector3  *
+CustomRaycastVehicle_GetCompoundLocalAabbMax (
+#else
 DllExport Interop::Vector3 
-CustomRaycastVehicle_GetCompoundLocalAabbMax (Urho3D::CustomRaycastVehicle *_target)
+CustomRaycastVehicle_GetCompoundLocalAabbMax (
+#endif
+Urho3D::CustomRaycastVehicle *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetCompoundLocalAabbMax ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetCompoundLocalAabbMax_202_Vector3 =_target->GetCompoundLocalAabbMax ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetCompoundLocalAabbMax ()))
+#endif
+;
 }
 
 
@@ -27589,10 +31211,24 @@ CustomRaycastVehicle_GetSideFrictionStiffness (Urho3D::CustomRaycastVehicle *_ta
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CustomRaycastVehicle_GetChassisConnectionPointCS_203_Vector3 ;
+DllExport Interop::Vector3  *
+CustomRaycastVehicle_GetChassisConnectionPointCS (
+#else
 DllExport Interop::Vector3 
-CustomRaycastVehicle_GetChassisConnectionPointCS (Urho3D::CustomRaycastVehicle *_target, int wheel)
+CustomRaycastVehicle_GetChassisConnectionPointCS (
+#endif
+Urho3D::CustomRaycastVehicle *_target, int wheel)
 {
-	return *((Interop::Vector3  *) &(_target->GetChassisConnectionPointCS (wheel)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetChassisConnectionPointCS_203_Vector3 =_target->GetChassisConnectionPointCS (wheel)))
+#else
+	*((Interop::Vector3  *) &(_target->GetChassisConnectionPointCS (wheel)))
+#endif
+;
 }
 
 
@@ -27603,17 +31239,45 @@ CustomRaycastVehicle_IsWheelInContact (Urho3D::CustomRaycastVehicle *_target, in
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CustomRaycastVehicle_GetContactPointWS_204_Vector3 ;
+DllExport Interop::Vector3  *
+CustomRaycastVehicle_GetContactPointWS (
+#else
 DllExport Interop::Vector3 
-CustomRaycastVehicle_GetContactPointWS (Urho3D::CustomRaycastVehicle *_target, int wheel)
+CustomRaycastVehicle_GetContactPointWS (
+#endif
+Urho3D::CustomRaycastVehicle *_target, int wheel)
 {
-	return *((Interop::Vector3  *) &(_target->GetContactPointWS (wheel)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetContactPointWS_204_Vector3 =_target->GetContactPointWS (wheel)))
+#else
+	*((Interop::Vector3  *) &(_target->GetContactPointWS (wheel)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CustomRaycastVehicle_GetContactNormalWS_205_Vector3 ;
+DllExport Interop::Vector3  *
+CustomRaycastVehicle_GetContactNormalWS (
+#else
 DllExport Interop::Vector3 
-CustomRaycastVehicle_GetContactNormalWS (Urho3D::CustomRaycastVehicle *_target, int wheel)
+CustomRaycastVehicle_GetContactNormalWS (
+#endif
+Urho3D::CustomRaycastVehicle *_target, int wheel)
 {
-	return *((Interop::Vector3  *) &(_target->GetContactNormalWS (wheel)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetContactNormalWS_205_Vector3 =_target->GetContactNormalWS (wheel)))
+#else
+	*((Interop::Vector3  *) &(_target->GetContactNormalWS (wheel)))
+#endif
+;
 }
 
 
@@ -27680,10 +31344,24 @@ CustomRaycastVehicle_GetRotation (Urho3D::CustomRaycastVehicle *_target, int whe
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  CustomRaycastVehicle_GetWheelAxleWS_206_Vector3 ;
+DllExport Interop::Vector3  *
+CustomRaycastVehicle_GetWheelAxleWS (
+#else
 DllExport Interop::Vector3 
-CustomRaycastVehicle_GetWheelAxleWS (Urho3D::CustomRaycastVehicle *_target, int wheel)
+CustomRaycastVehicle_GetWheelAxleWS (
+#endif
+Urho3D::CustomRaycastVehicle *_target, int wheel)
 {
-	return *((Interop::Vector3  *) &(_target->GetWheelAxleWS (wheel)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetWheelAxleWS_206_Vector3 =_target->GetWheelAxleWS (wheel)))
+#else
+	*((Interop::Vector3  *) &(_target->GetWheelAxleWS (wheel)))
+#endif
+;
 }
 
 
@@ -27750,17 +31428,45 @@ KinematicCharacterController_ApplyAttributes (Urho3D::KinematicCharacterControll
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  KinematicCharacterController_GetPosition_207_Vector3 ;
+DllExport Interop::Vector3  *
+KinematicCharacterController_GetPosition (
+#else
 DllExport Interop::Vector3 
-KinematicCharacterController_GetPosition (Urho3D::KinematicCharacterController *_target)
+KinematicCharacterController_GetPosition (
+#endif
+Urho3D::KinematicCharacterController *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(KinematicCharacterController_GetPosition_207_Vector3 =_target->GetPosition ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetPosition ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Quaternion  KinematicCharacterController_GetRotation_208_Quaternion ;
+DllExport Interop::Quaternion  *
+KinematicCharacterController_GetRotation (
+#else
 DllExport Interop::Quaternion 
-KinematicCharacterController_GetRotation (Urho3D::KinematicCharacterController *_target)
+KinematicCharacterController_GetRotation (
+#endif
+Urho3D::KinematicCharacterController *_target)
 {
-	return *((Interop::Quaternion  *) &(_target->GetRotation ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Quaternion  *) &(KinematicCharacterController_GetRotation_208_Quaternion =_target->GetRotation ()))
+#else
+	*((Interop::Quaternion  *) &(_target->GetRotation ()))
+#endif
+;
 }
 
 
@@ -27813,10 +31519,24 @@ KinematicCharacterController_SetGravity (Urho3D::KinematicCharacterController *_
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  KinematicCharacterController_GetGravity_209_Vector3 ;
+DllExport Interop::Vector3  *
+KinematicCharacterController_GetGravity (
+#else
 DllExport Interop::Vector3 
-KinematicCharacterController_GetGravity (Urho3D::KinematicCharacterController *_target)
+KinematicCharacterController_GetGravity (
+#endif
+Urho3D::KinematicCharacterController *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetGravity ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(KinematicCharacterController_GetGravity_209_Vector3 =_target->GetGravity ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetGravity ()))
+#endif
+;
 }
 
 
@@ -27960,10 +31680,24 @@ KinematicCharacterController_SetAngularVelocity (Urho3D::KinematicCharacterContr
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  KinematicCharacterController_GetAngularVelocity_210_Vector3 ;
+DllExport Interop::Vector3  *
+KinematicCharacterController_GetAngularVelocity (
+#else
 DllExport Interop::Vector3 
-KinematicCharacterController_GetAngularVelocity (Urho3D::KinematicCharacterController *_target)
+KinematicCharacterController_GetAngularVelocity (
+#endif
+Urho3D::KinematicCharacterController *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetAngularVelocity ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(KinematicCharacterController_GetAngularVelocity_210_Vector3 =_target->GetAngularVelocity ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetAngularVelocity ()))
+#endif
+;
 }
 
 
@@ -27974,10 +31708,24 @@ KinematicCharacterController_SetLinearVelocity (Urho3D::KinematicCharacterContro
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  KinematicCharacterController_GetLinearVelocity_211_Vector3 ;
+DllExport Interop::Vector3  *
+KinematicCharacterController_GetLinearVelocity (
+#else
 DllExport Interop::Vector3 
-KinematicCharacterController_GetLinearVelocity (Urho3D::KinematicCharacterController *_target)
+KinematicCharacterController_GetLinearVelocity (
+#endif
+Urho3D::KinematicCharacterController *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetLinearVelocity ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(KinematicCharacterController_GetLinearVelocity_211_Vector3 =_target->GetLinearVelocity ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetLinearVelocity ()))
+#endif
+;
 }
 
 
@@ -28170,10 +31918,24 @@ PhysicsWorld_RemoveCachedGeometry (Urho3D::PhysicsWorld *_target, Urho3D::Model 
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  PhysicsWorld_GetGravity_212_Vector3 ;
+DllExport Interop::Vector3  *
+PhysicsWorld_GetGravity (
+#else
 DllExport Interop::Vector3 
-PhysicsWorld_GetGravity (Urho3D::PhysicsWorld *_target)
+PhysicsWorld_GetGravity (
+#endif
+Urho3D::PhysicsWorld *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetGravity ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(PhysicsWorld_GetGravity_212_Vector3 =_target->GetGravity ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetGravity ()))
+#endif
+;
 }
 
 
@@ -28555,24 +32317,66 @@ RaycastVehicle_PostUpdate (Urho3D::RaycastVehicle *_target, float timeStep)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  RaycastVehicle_GetWheelPosition_213_Vector3 ;
+DllExport Interop::Vector3  *
+RaycastVehicle_GetWheelPosition (
+#else
 DllExport Interop::Vector3 
-RaycastVehicle_GetWheelPosition (Urho3D::RaycastVehicle *_target, int wheel)
+RaycastVehicle_GetWheelPosition (
+#endif
+Urho3D::RaycastVehicle *_target, int wheel)
 {
-	return *((Interop::Vector3  *) &(_target->GetWheelPosition (wheel)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(RaycastVehicle_GetWheelPosition_213_Vector3 =_target->GetWheelPosition (wheel)))
+#else
+	*((Interop::Vector3  *) &(_target->GetWheelPosition (wheel)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Quaternion  RaycastVehicle_GetWheelRotation_214_Quaternion ;
+DllExport Interop::Quaternion  *
+RaycastVehicle_GetWheelRotation (
+#else
 DllExport Interop::Quaternion 
-RaycastVehicle_GetWheelRotation (Urho3D::RaycastVehicle *_target, int wheel)
+RaycastVehicle_GetWheelRotation (
+#endif
+Urho3D::RaycastVehicle *_target, int wheel)
 {
-	return *((Interop::Quaternion  *) &(_target->GetWheelRotation (wheel)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Quaternion  *) &(RaycastVehicle_GetWheelRotation_214_Quaternion =_target->GetWheelRotation (wheel)))
+#else
+	*((Interop::Quaternion  *) &(_target->GetWheelRotation (wheel)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  RaycastVehicle_GetWheelConnectionPoint_215_Vector3 ;
+DllExport Interop::Vector3  *
+RaycastVehicle_GetWheelConnectionPoint (
+#else
 DllExport Interop::Vector3 
-RaycastVehicle_GetWheelConnectionPoint (Urho3D::RaycastVehicle *_target, int wheel)
+RaycastVehicle_GetWheelConnectionPoint (
+#endif
+Urho3D::RaycastVehicle *_target, int wheel)
 {
-	return *((Interop::Vector3  *) &(_target->GetWheelConnectionPoint (wheel)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(RaycastVehicle_GetWheelConnectionPoint_215_Vector3 =_target->GetWheelConnectionPoint (wheel)))
+#else
+	*((Interop::Vector3  *) &(_target->GetWheelConnectionPoint (wheel)))
+#endif
+;
 }
 
 
@@ -28681,10 +32485,24 @@ RaycastVehicle_GetMaxSuspensionTravel (Urho3D::RaycastVehicle *_target, int whee
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  RaycastVehicle_GetWheelAxle_216_Vector3 ;
+DllExport Interop::Vector3  *
+RaycastVehicle_GetWheelAxle (
+#else
 DllExport Interop::Vector3 
-RaycastVehicle_GetWheelAxle (Urho3D::RaycastVehicle *_target, int wheel)
+RaycastVehicle_GetWheelAxle (
+#endif
+Urho3D::RaycastVehicle *_target, int wheel)
 {
-	return *((Interop::Vector3  *) &(_target->GetWheelAxle (wheel)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(RaycastVehicle_GetWheelAxle_216_Vector3 =_target->GetWheelAxle (wheel)))
+#else
+	*((Interop::Vector3  *) &(_target->GetWheelAxle (wheel)))
+#endif
+;
 }
 
 
@@ -28709,10 +32527,24 @@ RaycastVehicle_GetWheelSkidInfo (Urho3D::RaycastVehicle *_target, int wheel)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  RaycastVehicle_GetWheelDirection_217_Vector3 ;
+DllExport Interop::Vector3  *
+RaycastVehicle_GetWheelDirection (
+#else
 DllExport Interop::Vector3 
-RaycastVehicle_GetWheelDirection (Urho3D::RaycastVehicle *_target, int wheel)
+RaycastVehicle_GetWheelDirection (
+#endif
+Urho3D::RaycastVehicle *_target, int wheel)
 {
-	return *((Interop::Vector3  *) &(_target->GetWheelDirection (wheel)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(RaycastVehicle_GetWheelDirection_217_Vector3 =_target->GetWheelDirection (wheel)))
+#else
+	*((Interop::Vector3  *) &(_target->GetWheelDirection (wheel)))
+#endif
+;
 }
 
 
@@ -28730,17 +32562,45 @@ RaycastVehicle_IsFrontWheel (Urho3D::RaycastVehicle *_target, int wheel)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  RaycastVehicle_GetContactPosition_218_Vector3 ;
+DllExport Interop::Vector3  *
+RaycastVehicle_GetContactPosition (
+#else
 DllExport Interop::Vector3 
-RaycastVehicle_GetContactPosition (Urho3D::RaycastVehicle *_target, int wheel)
+RaycastVehicle_GetContactPosition (
+#endif
+Urho3D::RaycastVehicle *_target, int wheel)
 {
-	return *((Interop::Vector3  *) &(_target->GetContactPosition (wheel)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(RaycastVehicle_GetContactPosition_218_Vector3 =_target->GetContactPosition (wheel)))
+#else
+	*((Interop::Vector3  *) &(_target->GetContactPosition (wheel)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  RaycastVehicle_GetContactNormal_219_Vector3 ;
+DllExport Interop::Vector3  *
+RaycastVehicle_GetContactNormal (
+#else
 DllExport Interop::Vector3 
-RaycastVehicle_GetContactNormal (Urho3D::RaycastVehicle *_target, int wheel)
+RaycastVehicle_GetContactNormal (
+#endif
+Urho3D::RaycastVehicle *_target, int wheel)
 {
-	return *((Interop::Vector3  *) &(_target->GetContactNormal (wheel)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(RaycastVehicle_GetContactNormal_219_Vector3 =_target->GetContactNormal (wheel)))
+#else
+	*((Interop::Vector3  *) &(_target->GetContactNormal (wheel)))
+#endif
+;
 }
 
 
@@ -30047,31 +33907,87 @@ SmoothedTransform_SetTargetWorldRotation (Urho3D::SmoothedTransform *_target, co
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  SmoothedTransform_GetTargetPosition_220_Vector3 ;
+DllExport Interop::Vector3  *
+SmoothedTransform_GetTargetPosition (
+#else
 DllExport Interop::Vector3 
-SmoothedTransform_GetTargetPosition (Urho3D::SmoothedTransform *_target)
+SmoothedTransform_GetTargetPosition (
+#endif
+Urho3D::SmoothedTransform *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetTargetPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(SmoothedTransform_GetTargetPosition_220_Vector3 =_target->GetTargetPosition ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetTargetPosition ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Quaternion  SmoothedTransform_GetTargetRotation_221_Quaternion ;
+DllExport Interop::Quaternion  *
+SmoothedTransform_GetTargetRotation (
+#else
 DllExport Interop::Quaternion 
-SmoothedTransform_GetTargetRotation (Urho3D::SmoothedTransform *_target)
+SmoothedTransform_GetTargetRotation (
+#endif
+Urho3D::SmoothedTransform *_target)
 {
-	return *((Interop::Quaternion  *) &(_target->GetTargetRotation ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Quaternion  *) &(SmoothedTransform_GetTargetRotation_221_Quaternion =_target->GetTargetRotation ()))
+#else
+	*((Interop::Quaternion  *) &(_target->GetTargetRotation ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  SmoothedTransform_GetTargetWorldPosition_222_Vector3 ;
+DllExport Interop::Vector3  *
+SmoothedTransform_GetTargetWorldPosition (
+#else
 DllExport Interop::Vector3 
-SmoothedTransform_GetTargetWorldPosition (Urho3D::SmoothedTransform *_target)
+SmoothedTransform_GetTargetWorldPosition (
+#endif
+Urho3D::SmoothedTransform *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetTargetWorldPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(SmoothedTransform_GetTargetWorldPosition_222_Vector3 =_target->GetTargetWorldPosition ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetTargetWorldPosition ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Quaternion  SmoothedTransform_GetTargetWorldRotation_223_Quaternion ;
+DllExport Interop::Quaternion  *
+SmoothedTransform_GetTargetWorldRotation (
+#else
 DllExport Interop::Quaternion 
-SmoothedTransform_GetTargetWorldRotation (Urho3D::SmoothedTransform *_target)
+SmoothedTransform_GetTargetWorldRotation (
+#endif
+Urho3D::SmoothedTransform *_target)
 {
-	return *((Interop::Quaternion  *) &(_target->GetTargetWorldRotation ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Quaternion  *) &(SmoothedTransform_GetTargetWorldRotation_223_Quaternion =_target->GetTargetWorldRotation ()))
+#else
+	*((Interop::Quaternion  *) &(_target->GetTargetWorldRotation ()))
+#endif
+;
 }
 
 
@@ -30208,10 +34124,24 @@ SplinePath_GetLength (Urho3D::SplinePath *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  SplinePath_GetPosition_224_Vector3 ;
+DllExport Interop::Vector3  *
+SplinePath_GetPosition (
+#else
 DllExport Interop::Vector3 
-SplinePath_GetPosition (Urho3D::SplinePath *_target)
+SplinePath_GetPosition (
+#endif
+Urho3D::SplinePath *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(SplinePath_GetPosition_224_Vector3 =_target->GetPosition ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetPosition ()))
+#endif
+;
 }
 
 
@@ -30222,10 +34152,24 @@ SplinePath_GetControlledNode (Urho3D::SplinePath *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  SplinePath_GetPoint_225_Vector3 ;
+DllExport Interop::Vector3  *
+SplinePath_GetPoint (
+#else
 DllExport Interop::Vector3 
-SplinePath_GetPoint (Urho3D::SplinePath *_target, float factor)
+SplinePath_GetPoint (
+#endif
+Urho3D::SplinePath *_target, float factor)
 {
-	return *((Interop::Vector3  *) &(_target->GetPoint (factor)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(SplinePath_GetPoint_225_Vector3 =_target->GetPoint (factor)))
+#else
+	*((Interop::Vector3  *) &(_target->GetPoint (factor)))
+#endif
+;
 }
 
 
@@ -30728,17 +34672,45 @@ Button_SetRepeatRate (Urho3D::Button *_target, float rate)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Button_GetPressedOffset_226_IntVector2 ;
+DllExport Interop::IntVector2  *
+Button_GetPressedOffset (
+#else
 DllExport Interop::IntVector2 
-Button_GetPressedOffset (Urho3D::Button *_target)
+Button_GetPressedOffset (
+#endif
+Urho3D::Button *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetPressedOffset ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Button_GetPressedOffset_226_IntVector2 =_target->GetPressedOffset ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetPressedOffset ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Button_GetPressedChildOffset_227_IntVector2 ;
+DllExport Interop::IntVector2  *
+Button_GetPressedChildOffset (
+#else
 DllExport Interop::IntVector2 
-Button_GetPressedChildOffset (Urho3D::Button *_target)
+Button_GetPressedChildOffset (
+#endif
+Urho3D::Button *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetPressedChildOffset ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Button_GetPressedChildOffset_227_IntVector2 =_target->GetPressedChildOffset ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetPressedChildOffset ()))
+#endif
+;
 }
 
 
@@ -30833,10 +34805,24 @@ CheckBox_IsChecked (Urho3D::CheckBox *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  CheckBox_GetCheckedOffset_228_IntVector2 ;
+DllExport Interop::IntVector2  *
+CheckBox_GetCheckedOffset (
+#else
 DllExport Interop::IntVector2 
-CheckBox_GetCheckedOffset (Urho3D::CheckBox *_target)
+CheckBox_GetCheckedOffset (
+#endif
+Urho3D::CheckBox *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetCheckedOffset ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(CheckBox_GetCheckedOffset_228_IntVector2 =_target->GetCheckedOffset ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetCheckedOffset ()))
+#endif
+;
 }
 
 
@@ -30959,10 +34945,24 @@ Menu_GetPopup (Urho3D::Menu *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Menu_GetPopupOffset_229_IntVector2 ;
+DllExport Interop::IntVector2  *
+Menu_GetPopupOffset (
+#else
 DllExport Interop::IntVector2 
-Menu_GetPopupOffset (Urho3D::Menu *_target)
+Menu_GetPopupOffset (
+#endif
+Urho3D::Menu *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetPopupOffset ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Menu_GetPopupOffset_229_IntVector2 =_target->GetPopupOffset ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetPopupOffset ()))
+#endif
+;
 }
 
 
@@ -31484,24 +35484,66 @@ Font_IsSDFFont (Urho3D::Font *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Font_GetAbsoluteGlyphOffset_230_IntVector2 ;
+DllExport Interop::IntVector2  *
+Font_GetAbsoluteGlyphOffset (
+#else
 DllExport Interop::IntVector2 
-Font_GetAbsoluteGlyphOffset (Urho3D::Font *_target)
+Font_GetAbsoluteGlyphOffset (
+#endif
+Urho3D::Font *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetAbsoluteGlyphOffset ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Font_GetAbsoluteGlyphOffset_230_IntVector2 =_target->GetAbsoluteGlyphOffset ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetAbsoluteGlyphOffset ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Font_GetScaledGlyphOffset_231_Vector2 ;
+DllExport Interop::Vector2  *
+Font_GetScaledGlyphOffset (
+#else
 DllExport Interop::Vector2 
-Font_GetScaledGlyphOffset (Urho3D::Font *_target)
+Font_GetScaledGlyphOffset (
+#endif
+Urho3D::Font *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetScaledGlyphOffset ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Font_GetScaledGlyphOffset_231_Vector2 =_target->GetScaledGlyphOffset ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetScaledGlyphOffset ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Font_GetTotalGlyphOffset_232_IntVector2 ;
+DllExport Interop::IntVector2  *
+Font_GetTotalGlyphOffset (
+#else
 DllExport Interop::IntVector2 
-Font_GetTotalGlyphOffset (Urho3D::Font *_target, float pointSize)
+Font_GetTotalGlyphOffset (
+#endif
+Urho3D::Font *_target, float pointSize)
 {
-	return *((Interop::IntVector2  *) &(_target->GetTotalGlyphOffset (pointSize)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Font_GetTotalGlyphOffset_232_IntVector2 =_target->GetTotalGlyphOffset (pointSize)))
+#else
+	*((Interop::IntVector2  *) &(_target->GetTotalGlyphOffset (pointSize)))
+#endif
+;
 }
 
 
@@ -31981,10 +36023,24 @@ ScrollView_SetAutoDisableThreshold (Urho3D::ScrollView *_target, float amount)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  ScrollView_GetViewPosition_233_IntVector2 ;
+DllExport Interop::IntVector2  *
+ScrollView_GetViewPosition (
+#else
 DllExport Interop::IntVector2 
-ScrollView_GetViewPosition (Urho3D::ScrollView *_target)
+ScrollView_GetViewPosition (
+#endif
+Urho3D::ScrollView *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetViewPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(ScrollView_GetViewPosition_233_IntVector2 =_target->GetViewPosition ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetViewPosition ()))
+#endif
+;
 }
 
 
@@ -32828,10 +36884,24 @@ Sprite_IsWithinScissor (Urho3D::Sprite *_target, const class Urho3D::IntRect & c
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Sprite_GetScreenPosition_234_IntVector2 ;
+DllExport Interop::IntVector2  *
+Sprite_GetScreenPosition (
+#else
 DllExport Interop::IntVector2 
-Sprite_GetScreenPosition (Urho3D::Sprite *_target)
+Sprite_GetScreenPosition (
+#endif
+Urho3D::Sprite *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetScreenPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Sprite_GetScreenPosition_234_IntVector2 =_target->GetScreenPosition ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetScreenPosition ()))
+#endif
+;
 }
 
 
@@ -32842,17 +36912,45 @@ Sprite_OnPositionSet (Urho3D::Sprite *_target, const class Urho3D::IntVector2 & 
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Sprite_ScreenToElement_235_IntVector2 ;
+DllExport Interop::IntVector2  *
+Sprite_ScreenToElement (
+#else
 DllExport Interop::IntVector2 
-Sprite_ScreenToElement (Urho3D::Sprite *_target, const class Urho3D::IntVector2 & screenPosition)
+Sprite_ScreenToElement (
+#endif
+Urho3D::Sprite *_target, const class Urho3D::IntVector2 & screenPosition)
 {
-	return *((Interop::IntVector2  *) &(_target->ScreenToElement (screenPosition)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Sprite_ScreenToElement_235_IntVector2 =_target->ScreenToElement (screenPosition)))
+#else
+	*((Interop::IntVector2  *) &(_target->ScreenToElement (screenPosition)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Sprite_ElementToScreen_236_IntVector2 ;
+DllExport Interop::IntVector2  *
+Sprite_ElementToScreen (
+#else
 DllExport Interop::IntVector2 
-Sprite_ElementToScreen (Urho3D::Sprite *_target, const class Urho3D::IntVector2 & position)
+Sprite_ElementToScreen (
+#endif
+Urho3D::Sprite *_target, const class Urho3D::IntVector2 & position)
 {
-	return *((Interop::IntVector2  *) &(_target->ElementToScreen (position)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Sprite_ElementToScreen_236_IntVector2 =_target->ElementToScreen (position)))
+#else
+	*((Interop::IntVector2  *) &(_target->ElementToScreen (position)))
+#endif
+;
 }
 
 
@@ -32940,24 +37038,66 @@ Sprite_SetBlendMode (Urho3D::Sprite *_target, enum Urho3D::BlendMode mode)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Sprite_GetPosition_237_Vector2 ;
+DllExport Interop::Vector2  *
+Sprite_GetPosition (
+#else
 DllExport Interop::Vector2 
-Sprite_GetPosition (Urho3D::Sprite *_target)
+Sprite_GetPosition (
+#endif
+Urho3D::Sprite *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Sprite_GetPosition_237_Vector2 =_target->GetPosition ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetPosition ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Sprite_GetHotSpot_238_IntVector2 ;
+DllExport Interop::IntVector2  *
+Sprite_GetHotSpot (
+#else
 DllExport Interop::IntVector2 
-Sprite_GetHotSpot (Urho3D::Sprite *_target)
+Sprite_GetHotSpot (
+#endif
+Urho3D::Sprite *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetHotSpot ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Sprite_GetHotSpot_238_IntVector2 =_target->GetHotSpot ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetHotSpot ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Sprite_GetScale_239_Vector2 ;
+DllExport Interop::Vector2  *
+Sprite_GetScale (
+#else
 DllExport Interop::Vector2 
-Sprite_GetScale (Urho3D::Sprite *_target)
+Sprite_GetScale (
+#endif
+Urho3D::Sprite *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetScale ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Sprite_GetScale_239_Vector2 =_target->GetScale ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetScale ()))
+#endif
+;
 }
 
 
@@ -32975,10 +37115,24 @@ Sprite_GetTexture (Urho3D::Sprite *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntRect  Sprite_GetImageRect_240_IntRect ;
+DllExport Interop::IntRect  *
+Sprite_GetImageRect (
+#else
 DllExport Interop::IntRect 
-Sprite_GetImageRect (Urho3D::Sprite *_target)
+Sprite_GetImageRect (
+#endif
+Urho3D::Sprite *_target)
 {
-	return *((Interop::IntRect  *) &(_target->GetImageRect ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntRect  *) &(Sprite_GetImageRect_240_IntRect =_target->GetImageRect ()))
+#else
+	*((Interop::IntRect  *) &(_target->GetImageRect ()))
+#endif
+;
 }
 
 
@@ -32996,10 +37150,24 @@ Sprite_GetTextureAttr (Urho3D::Sprite *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Matrix3x4  Sprite_GetTransform_241_Matrix3x4 ;
+DllExport Interop::Matrix3x4  *
+Sprite_GetTransform (
+#else
 DllExport Interop::Matrix3x4 
-Sprite_GetTransform (Urho3D::Sprite *_target)
+Sprite_GetTransform (
+#endif
+Urho3D::Sprite *_target)
 {
-	return *((Interop::Matrix3x4  *) &(_target->GetTransform ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Matrix3x4  *) &(Sprite_GetTransform_241_Matrix3x4 =_target->GetTransform ()))
+#else
+	*((Interop::Matrix3x4  *) &(_target->GetTransform ()))
+#endif
+;
 }
 
 
@@ -33052,17 +37220,45 @@ UISelectable_SetHoverColor (Urho3D::UISelectable *_target, const class Urho3D::C
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  UISelectable_GetSelectionColor_242_Color ;
+DllExport Interop::Color  *
+UISelectable_GetSelectionColor (
+#else
 DllExport Interop::Color 
-UISelectable_GetSelectionColor (Urho3D::UISelectable *_target)
+UISelectable_GetSelectionColor (
+#endif
+Urho3D::UISelectable *_target)
 {
-	return *((Interop::Color  *) &(_target->GetSelectionColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(UISelectable_GetSelectionColor_242_Color =_target->GetSelectionColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetSelectionColor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  UISelectable_GetHoverColor_243_Color ;
+DllExport Interop::Color  *
+UISelectable_GetHoverColor (
+#else
 DllExport Interop::Color 
-UISelectable_GetHoverColor (Urho3D::UISelectable *_target)
+UISelectable_GetHoverColor (
+#endif
+Urho3D::UISelectable *_target)
 {
-	return *((Interop::Color  *) &(_target->GetHoverColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(UISelectable_GetHoverColor_243_Color =_target->GetHoverColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetHoverColor ()))
+#endif
+;
 }
 
 
@@ -33311,10 +37507,24 @@ Text_GetTextEffect (Urho3D::Text *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Text_GetEffectShadowOffset_244_IntVector2 ;
+DllExport Interop::IntVector2  *
+Text_GetEffectShadowOffset (
+#else
 DllExport Interop::IntVector2 
-Text_GetEffectShadowOffset (Urho3D::Text *_target)
+Text_GetEffectShadowOffset (
+#endif
+Urho3D::Text *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetEffectShadowOffset ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Text_GetEffectShadowOffset_244_IntVector2 =_target->GetEffectShadowOffset ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetEffectShadowOffset ()))
+#endif
+;
 }
 
 
@@ -33332,10 +37542,24 @@ Text_GetEffectRoundStroke (Urho3D::Text *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Text_GetEffectColor_245_Color ;
+DllExport Interop::Color  *
+Text_GetEffectColor (
+#else
 DllExport Interop::Color 
-Text_GetEffectColor (Urho3D::Text *_target)
+Text_GetEffectColor (
+#endif
+Urho3D::Text *_target)
 {
-	return *((Interop::Color  *) &(_target->GetEffectColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Text_GetEffectColor_245_Color =_target->GetEffectColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetEffectColor ()))
+#endif
+;
 }
 
 
@@ -33367,17 +37591,45 @@ Text_GetRowWidth (Urho3D::Text *_target, unsigned int index)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Text_GetCharPosition_246_Vector2 ;
+DllExport Interop::Vector2  *
+Text_GetCharPosition (
+#else
 DllExport Interop::Vector2 
-Text_GetCharPosition (Urho3D::Text *_target, unsigned int index)
+Text_GetCharPosition (
+#endif
+Urho3D::Text *_target, unsigned int index)
 {
-	return *((Interop::Vector2  *) &(_target->GetCharPosition (index)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Text_GetCharPosition_246_Vector2 =_target->GetCharPosition (index)))
+#else
+	*((Interop::Vector2  *) &(_target->GetCharPosition (index)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Text_GetCharSize_247_Vector2 ;
+DllExport Interop::Vector2  *
+Text_GetCharSize (
+#else
 DllExport Interop::Vector2 
-Text_GetCharSize (Urho3D::Text *_target, unsigned int index)
+Text_GetCharSize (
+#endif
+Urho3D::Text *_target, unsigned int index)
 {
-	return *((Interop::Vector2  *) &(_target->GetCharSize (index)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Text_GetCharSize_247_Vector2 =_target->GetCharSize (index)))
+#else
+	*((Interop::Vector2  *) &(_target->GetCharSize (index)))
+#endif
+;
 }
 
 
@@ -33703,10 +37955,24 @@ Text3D_GetTextEffect (Urho3D::Text3D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Text3D_GetEffectShadowOffset_248_IntVector2 ;
+DllExport Interop::IntVector2  *
+Text3D_GetEffectShadowOffset (
+#else
 DllExport Interop::IntVector2 
-Text3D_GetEffectShadowOffset (Urho3D::Text3D *_target)
+Text3D_GetEffectShadowOffset (
+#endif
+Urho3D::Text3D *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetEffectShadowOffset ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Text3D_GetEffectShadowOffset_248_IntVector2 =_target->GetEffectShadowOffset ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetEffectShadowOffset ()))
+#endif
+;
 }
 
 
@@ -33724,10 +37990,24 @@ Text3D_GetEffectRoundStroke (Urho3D::Text3D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Text3D_GetEffectColor_249_Color ;
+DllExport Interop::Color  *
+Text3D_GetEffectColor (
+#else
 DllExport Interop::Color 
-Text3D_GetEffectColor (Urho3D::Text3D *_target)
+Text3D_GetEffectColor (
+#endif
+Urho3D::Text3D *_target)
 {
-	return *((Interop::Color  *) &(_target->GetEffectColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Text3D_GetEffectColor_249_Color =_target->GetEffectColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetEffectColor ()))
+#endif
+;
 }
 
 
@@ -33780,24 +38060,66 @@ Text3D_GetRowWidth (Urho3D::Text3D *_target, unsigned int index)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Text3D_GetCharPosition_250_Vector2 ;
+DllExport Interop::Vector2  *
+Text3D_GetCharPosition (
+#else
 DllExport Interop::Vector2 
-Text3D_GetCharPosition (Urho3D::Text3D *_target, unsigned int index)
+Text3D_GetCharPosition (
+#endif
+Urho3D::Text3D *_target, unsigned int index)
 {
-	return *((Interop::Vector2  *) &(_target->GetCharPosition (index)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Text3D_GetCharPosition_250_Vector2 =_target->GetCharPosition (index)))
+#else
+	*((Interop::Vector2  *) &(_target->GetCharPosition (index)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  Text3D_GetCharSize_251_Vector2 ;
+DllExport Interop::Vector2  *
+Text3D_GetCharSize (
+#else
 DllExport Interop::Vector2 
-Text3D_GetCharSize (Urho3D::Text3D *_target, unsigned int index)
+Text3D_GetCharSize (
+#endif
+Urho3D::Text3D *_target, unsigned int index)
 {
-	return *((Interop::Vector2  *) &(_target->GetCharSize (index)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(Text3D_GetCharSize_251_Vector2 =_target->GetCharSize (index)))
+#else
+	*((Interop::Vector2  *) &(_target->GetCharSize (index)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Text3D_GetColor_252_Color ;
+DllExport Interop::Color  *
+Text3D_GetColor (
+#else
 DllExport Interop::Color 
-Text3D_GetColor (Urho3D::Text3D *_target, enum Urho3D::Corner corner)
+Text3D_GetColor (
+#endif
+Urho3D::Text3D *_target, enum Urho3D::Corner corner)
 {
-	return *((Interop::Color  *) &(_target->GetColor (corner)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Text3D_GetColor_252_Color =_target->GetColor (corner)))
+#else
+	*((Interop::Color  *) &(_target->GetColor (corner)))
+#endif
+;
 }
 
 
@@ -33850,10 +38172,24 @@ Text3D_GetTextAttr (Urho3D::Text3D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Text3D_GetColorAttr_253_Color ;
+DllExport Interop::Color  *
+Text3D_GetColorAttr (
+#else
 DllExport Interop::Color 
-Text3D_GetColorAttr (Urho3D::Text3D *_target)
+Text3D_GetColorAttr (
+#endif
+Urho3D::Text3D *_target)
 {
-	return *((Interop::Color  *) &(_target->GetColorAttr ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Text3D_GetColorAttr_253_Color =_target->GetColorAttr ()))
+#else
+	*((Interop::Color  *) &(_target->GetColorAttr ()))
+#endif
+;
 }
 
 
@@ -34233,10 +38569,24 @@ UI_GetCursor (Urho3D::UI *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  UI_GetCursorPosition_254_IntVector2 ;
+DllExport Interop::IntVector2  *
+UI_GetCursorPosition (
+#else
 DllExport Interop::IntVector2 
-UI_GetCursorPosition (Urho3D::UI *_target)
+UI_GetCursorPosition (
+#endif
+Urho3D::UI *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetCursorPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(UI_GetCursorPosition_254_IntVector2 =_target->GetCursorPosition ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetCursorPosition ()))
+#endif
+;
 }
 
 
@@ -34261,17 +38611,45 @@ UI_GetElementAt3 (Urho3D::UI *_target, Urho3D::UIElement * root, const class Urh
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  UI_ConvertSystemToUI_255_IntVector2 ;
+DllExport Interop::IntVector2  *
+UI_ConvertSystemToUI (
+#else
 DllExport Interop::IntVector2 
-UI_ConvertSystemToUI (Urho3D::UI *_target, const class Urho3D::IntVector2 & systemPos)
+UI_ConvertSystemToUI (
+#endif
+Urho3D::UI *_target, const class Urho3D::IntVector2 & systemPos)
 {
-	return *((Interop::IntVector2  *) &(_target->ConvertSystemToUI (systemPos)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(UI_ConvertSystemToUI_255_IntVector2 =_target->ConvertSystemToUI (systemPos)))
+#else
+	*((Interop::IntVector2  *) &(_target->ConvertSystemToUI (systemPos)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  UI_ConvertUIToSystem_256_IntVector2 ;
+DllExport Interop::IntVector2  *
+UI_ConvertUIToSystem (
+#else
 DllExport Interop::IntVector2 
-UI_ConvertUIToSystem (Urho3D::UI *_target, const class Urho3D::IntVector2 & uiPos)
+UI_ConvertUIToSystem (
+#endif
+Urho3D::UI *_target, const class Urho3D::IntVector2 & uiPos)
 {
-	return *((Interop::IntVector2  *) &(_target->ConvertUIToSystem (uiPos)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(UI_ConvertUIToSystem_256_IntVector2 =_target->ConvertUIToSystem (uiPos)))
+#else
+	*((Interop::IntVector2  *) &(_target->ConvertUIToSystem (uiPos)))
+#endif
+;
 }
 
 
@@ -34429,10 +38807,24 @@ UI_GetScale (Urho3D::UI *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  UI_GetCustomSize_257_IntVector2 ;
+DllExport Interop::IntVector2  *
+UI_GetCustomSize (
+#else
 DllExport Interop::IntVector2 
-UI_GetCustomSize (Urho3D::UI *_target)
+UI_GetCustomSize (
+#endif
+Urho3D::UI *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetCustomSize ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(UI_GetCustomSize_257_IntVector2 =_target->GetCustomSize ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetCustomSize ()))
+#endif
+;
 }
 
 
@@ -34583,10 +38975,24 @@ Window_GetFixedHeightResizing (Urho3D::Window *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntRect  Window_GetResizeBorder_258_IntRect ;
+DllExport Interop::IntRect  *
+Window_GetResizeBorder (
+#else
 DllExport Interop::IntRect 
-Window_GetResizeBorder (Urho3D::Window *_target)
+Window_GetResizeBorder (
+#endif
+Urho3D::Window *_target)
 {
-	return *((Interop::IntRect  *) &(_target->GetResizeBorder ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntRect  *) &(Window_GetResizeBorder_258_IntRect =_target->GetResizeBorder ()))
+#else
+	*((Interop::IntRect  *) &(_target->GetResizeBorder ()))
+#endif
+;
 }
 
 
@@ -34597,24 +39003,66 @@ Window_IsModal (Urho3D::Window *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Window_GetModalShadeColor_259_Color ;
+DllExport Interop::Color  *
+Window_GetModalShadeColor (
+#else
 DllExport Interop::Color 
-Window_GetModalShadeColor (Urho3D::Window *_target)
+Window_GetModalShadeColor (
+#endif
+Urho3D::Window *_target)
 {
-	return *((Interop::Color  *) &(_target->GetModalShadeColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Window_GetModalShadeColor_259_Color =_target->GetModalShadeColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetModalShadeColor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  Window_GetModalFrameColor_260_Color ;
+DllExport Interop::Color  *
+Window_GetModalFrameColor (
+#else
 DllExport Interop::Color 
-Window_GetModalFrameColor (Urho3D::Window *_target)
+Window_GetModalFrameColor (
+#endif
+Urho3D::Window *_target)
 {
-	return *((Interop::Color  *) &(_target->GetModalFrameColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(Window_GetModalFrameColor_260_Color =_target->GetModalFrameColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetModalFrameColor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  Window_GetModalFrameSize_261_IntVector2 ;
+DllExport Interop::IntVector2  *
+Window_GetModalFrameSize (
+#else
 DllExport Interop::IntVector2 
-Window_GetModalFrameSize (Urho3D::Window *_target)
+Window_GetModalFrameSize (
+#endif
+Urho3D::Window *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetModalFrameSize ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(Window_GetModalFrameSize_261_IntVector2 =_target->GetModalFrameSize ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetModalFrameSize ()))
+#endif
+;
 }
 
 
@@ -34989,10 +39437,24 @@ StaticSprite2D_GetSwapXY (Urho3D::StaticSprite2D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  StaticSprite2D_GetColor_262_Color ;
+DllExport Interop::Color  *
+StaticSprite2D_GetColor (
+#else
 DllExport Interop::Color 
-StaticSprite2D_GetColor (Urho3D::StaticSprite2D *_target)
+StaticSprite2D_GetColor (
+#endif
+Urho3D::StaticSprite2D *_target)
 {
-	return *((Interop::Color  *) &(_target->GetColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(StaticSprite2D_GetColor_262_Color =_target->GetColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetColor ()))
+#endif
+;
 }
 
 
@@ -35024,10 +39486,24 @@ StaticSprite2D_GetUseTextureRect (Urho3D::StaticSprite2D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  StaticSprite2D_GetHotSpot_263_Vector2 ;
+DllExport Interop::Vector2  *
+StaticSprite2D_GetHotSpot (
+#else
 DllExport Interop::Vector2 
-StaticSprite2D_GetHotSpot (Urho3D::StaticSprite2D *_target)
+StaticSprite2D_GetHotSpot (
+#endif
+Urho3D::StaticSprite2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetHotSpot ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(StaticSprite2D_GetHotSpot_263_Vector2 =_target->GetHotSpot ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetHotSpot ()))
+#endif
+;
 }
 
 
@@ -35451,10 +39927,24 @@ CollisionShape2D_GetInertia (Urho3D::CollisionShape2D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  CollisionShape2D_GetMassCenter_264_Vector2 ;
+DllExport Interop::Vector2  *
+CollisionShape2D_GetMassCenter (
+#else
 DllExport Interop::Vector2 
-CollisionShape2D_GetMassCenter (Urho3D::CollisionShape2D *_target)
+CollisionShape2D_GetMassCenter (
+#endif
+Urho3D::CollisionShape2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetMassCenter ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(CollisionShape2D_GetMassCenter_264_Vector2 =_target->GetMassCenter ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetMassCenter ()))
+#endif
+;
 }
 
 
@@ -35535,17 +40025,45 @@ CollisionBox2D_SetAngle (Urho3D::CollisionBox2D *_target, float angle)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  CollisionBox2D_GetSize_265_Vector2 ;
+DllExport Interop::Vector2  *
+CollisionBox2D_GetSize (
+#else
 DllExport Interop::Vector2 
-CollisionBox2D_GetSize (Urho3D::CollisionBox2D *_target)
+CollisionBox2D_GetSize (
+#endif
+Urho3D::CollisionBox2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetSize ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(CollisionBox2D_GetSize_265_Vector2 =_target->GetSize ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetSize ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  CollisionBox2D_GetCenter_266_Vector2 ;
+DllExport Interop::Vector2  *
+CollisionBox2D_GetCenter (
+#else
 DllExport Interop::Vector2 
-CollisionBox2D_GetCenter (Urho3D::CollisionBox2D *_target)
+CollisionBox2D_GetCenter (
+#endif
+Urho3D::CollisionBox2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetCenter ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(CollisionBox2D_GetCenter_266_Vector2 =_target->GetCenter ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetCenter ()))
+#endif
+;
 }
 
 
@@ -35633,10 +40151,24 @@ CollisionChain2D_GetVertexCount (Urho3D::CollisionChain2D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  CollisionChain2D_GetVertex_267_Vector2 ;
+DllExport Interop::Vector2  *
+CollisionChain2D_GetVertex (
+#else
 DllExport Interop::Vector2 
-CollisionChain2D_GetVertex (Urho3D::CollisionChain2D *_target, unsigned int index)
+CollisionChain2D_GetVertex (
+#endif
+Urho3D::CollisionChain2D *_target, unsigned int index)
 {
-	return *((Interop::Vector2  *) &(_target->GetVertex (index)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(CollisionChain2D_GetVertex_267_Vector2 =_target->GetVertex (index)))
+#else
+	*((Interop::Vector2  *) &(_target->GetVertex (index)))
+#endif
+;
 }
 
 
@@ -35710,10 +40242,24 @@ CollisionCircle2D_GetRadius (Urho3D::CollisionCircle2D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  CollisionCircle2D_GetCenter_268_Vector2 ;
+DllExport Interop::Vector2  *
+CollisionCircle2D_GetCenter (
+#else
 DllExport Interop::Vector2 
-CollisionCircle2D_GetCenter (Urho3D::CollisionCircle2D *_target)
+CollisionCircle2D_GetCenter (
+#endif
+Urho3D::CollisionCircle2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetCenter ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(CollisionCircle2D_GetCenter_268_Vector2 =_target->GetCenter ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetCenter ()))
+#endif
+;
 }
 
 
@@ -35780,17 +40326,45 @@ CollisionEdge2D_SetVertices (Urho3D::CollisionEdge2D *_target, const class Urho3
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  CollisionEdge2D_GetVertex1_269_Vector2 ;
+DllExport Interop::Vector2  *
+CollisionEdge2D_GetVertex1 (
+#else
 DllExport Interop::Vector2 
-CollisionEdge2D_GetVertex1 (Urho3D::CollisionEdge2D *_target)
+CollisionEdge2D_GetVertex1 (
+#endif
+Urho3D::CollisionEdge2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetVertex1 ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(CollisionEdge2D_GetVertex1_269_Vector2 =_target->GetVertex1 ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetVertex1 ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  CollisionEdge2D_GetVertex2_270_Vector2 ;
+DllExport Interop::Vector2  *
+CollisionEdge2D_GetVertex2 (
+#else
 DllExport Interop::Vector2 
-CollisionEdge2D_GetVertex2 (Urho3D::CollisionEdge2D *_target)
+CollisionEdge2D_GetVertex2 (
+#endif
+Urho3D::CollisionEdge2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetVertex2 ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(CollisionEdge2D_GetVertex2_270_Vector2 =_target->GetVertex2 ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetVertex2 ()))
+#endif
+;
 }
 
 
@@ -35857,10 +40431,24 @@ CollisionPolygon2D_GetVertexCount (Urho3D::CollisionPolygon2D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  CollisionPolygon2D_GetVertex_271_Vector2 ;
+DllExport Interop::Vector2  *
+CollisionPolygon2D_GetVertex (
+#else
 DllExport Interop::Vector2 
-CollisionPolygon2D_GetVertex (Urho3D::CollisionPolygon2D *_target, unsigned int index)
+CollisionPolygon2D_GetVertex (
+#endif
+Urho3D::CollisionPolygon2D *_target, unsigned int index)
 {
-	return *((Interop::Vector2  *) &(_target->GetVertex (index)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(CollisionPolygon2D_GetVertex_271_Vector2 =_target->GetVertex (index)))
+#else
+	*((Interop::Vector2  *) &(_target->GetVertex (index)))
+#endif
+;
 }
 
 
@@ -36060,17 +40648,45 @@ ConstraintDistance2D_SetLength (Urho3D::ConstraintDistance2D *_target, float len
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ConstraintDistance2D_GetOwnerBodyAnchor_272_Vector2 ;
+DllExport Interop::Vector2  *
+ConstraintDistance2D_GetOwnerBodyAnchor (
+#else
 DllExport Interop::Vector2 
-ConstraintDistance2D_GetOwnerBodyAnchor (Urho3D::ConstraintDistance2D *_target)
+ConstraintDistance2D_GetOwnerBodyAnchor (
+#endif
+Urho3D::ConstraintDistance2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetOwnerBodyAnchor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ConstraintDistance2D_GetOwnerBodyAnchor_272_Vector2 =_target->GetOwnerBodyAnchor ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetOwnerBodyAnchor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ConstraintDistance2D_GetOtherBodyAnchor_273_Vector2 ;
+DllExport Interop::Vector2  *
+ConstraintDistance2D_GetOtherBodyAnchor (
+#else
 DllExport Interop::Vector2 
-ConstraintDistance2D_GetOtherBodyAnchor (Urho3D::ConstraintDistance2D *_target)
+ConstraintDistance2D_GetOtherBodyAnchor (
+#endif
+Urho3D::ConstraintDistance2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetOtherBodyAnchor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ConstraintDistance2D_GetOtherBodyAnchor_273_Vector2 =_target->GetOtherBodyAnchor ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetOtherBodyAnchor ()))
+#endif
+;
 }
 
 
@@ -36158,10 +40774,24 @@ ConstraintFriction2D_SetMaxTorque (Urho3D::ConstraintFriction2D *_target, float 
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ConstraintFriction2D_GetAnchor_274_Vector2 ;
+DllExport Interop::Vector2  *
+ConstraintFriction2D_GetAnchor (
+#else
 DllExport Interop::Vector2 
-ConstraintFriction2D_GetAnchor (Urho3D::ConstraintFriction2D *_target)
+ConstraintFriction2D_GetAnchor (
+#endif
+Urho3D::ConstraintFriction2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetAnchor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ConstraintFriction2D_GetAnchor_274_Vector2 =_target->GetAnchor ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetAnchor ()))
+#endif
+;
 }
 
 
@@ -36340,10 +40970,24 @@ ConstraintMotor2D_SetCorrectionFactor (Urho3D::ConstraintMotor2D *_target, float
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ConstraintMotor2D_GetLinearOffset_275_Vector2 ;
+DllExport Interop::Vector2  *
+ConstraintMotor2D_GetLinearOffset (
+#else
 DllExport Interop::Vector2 
-ConstraintMotor2D_GetLinearOffset (Urho3D::ConstraintMotor2D *_target)
+ConstraintMotor2D_GetLinearOffset (
+#endif
+Urho3D::ConstraintMotor2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetLinearOffset ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ConstraintMotor2D_GetLinearOffset_275_Vector2 =_target->GetLinearOffset ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetLinearOffset ()))
+#endif
+;
 }
 
 
@@ -36445,10 +41089,24 @@ ConstraintMouse2D_SetDampingRatio (Urho3D::ConstraintMouse2D *_target, float dam
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ConstraintMouse2D_GetTarget_276_Vector2 ;
+DllExport Interop::Vector2  *
+ConstraintMouse2D_GetTarget (
+#else
 DllExport Interop::Vector2 
-ConstraintMouse2D_GetTarget (Urho3D::ConstraintMouse2D *_target)
+ConstraintMouse2D_GetTarget (
+#endif
+Urho3D::ConstraintMouse2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetTarget ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ConstraintMouse2D_GetTarget_276_Vector2 =_target->GetTarget ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetTarget ()))
+#endif
+;
 }
 
 
@@ -36571,17 +41229,45 @@ ConstraintPrismatic2D_SetMotorSpeed (Urho3D::ConstraintPrismatic2D *_target, flo
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ConstraintPrismatic2D_GetAnchor_277_Vector2 ;
+DllExport Interop::Vector2  *
+ConstraintPrismatic2D_GetAnchor (
+#else
 DllExport Interop::Vector2 
-ConstraintPrismatic2D_GetAnchor (Urho3D::ConstraintPrismatic2D *_target)
+ConstraintPrismatic2D_GetAnchor (
+#endif
+Urho3D::ConstraintPrismatic2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetAnchor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ConstraintPrismatic2D_GetAnchor_277_Vector2 =_target->GetAnchor ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetAnchor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ConstraintPrismatic2D_GetAxis_278_Vector2 ;
+DllExport Interop::Vector2  *
+ConstraintPrismatic2D_GetAxis (
+#else
 DllExport Interop::Vector2 
-ConstraintPrismatic2D_GetAxis (Urho3D::ConstraintPrismatic2D *_target)
+ConstraintPrismatic2D_GetAxis (
+#endif
+Urho3D::ConstraintPrismatic2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetAxis ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ConstraintPrismatic2D_GetAxis_278_Vector2 =_target->GetAxis ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetAxis ()))
+#endif
+;
 }
 
 
@@ -36704,31 +41390,87 @@ ConstraintPulley2D_SetRatio (Urho3D::ConstraintPulley2D *_target, float ratio)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ConstraintPulley2D_GetOwnerBodyGroundAnchor_279_Vector2 ;
+DllExport Interop::Vector2  *
+ConstraintPulley2D_GetOwnerBodyGroundAnchor (
+#else
 DllExport Interop::Vector2 
-ConstraintPulley2D_GetOwnerBodyGroundAnchor (Urho3D::ConstraintPulley2D *_target)
+ConstraintPulley2D_GetOwnerBodyGroundAnchor (
+#endif
+Urho3D::ConstraintPulley2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetOwnerBodyGroundAnchor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ConstraintPulley2D_GetOwnerBodyGroundAnchor_279_Vector2 =_target->GetOwnerBodyGroundAnchor ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetOwnerBodyGroundAnchor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ConstraintPulley2D_GetOtherBodyGroundAnchor_280_Vector2 ;
+DllExport Interop::Vector2  *
+ConstraintPulley2D_GetOtherBodyGroundAnchor (
+#else
 DllExport Interop::Vector2 
-ConstraintPulley2D_GetOtherBodyGroundAnchor (Urho3D::ConstraintPulley2D *_target)
+ConstraintPulley2D_GetOtherBodyGroundAnchor (
+#endif
+Urho3D::ConstraintPulley2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetOtherBodyGroundAnchor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ConstraintPulley2D_GetOtherBodyGroundAnchor_280_Vector2 =_target->GetOtherBodyGroundAnchor ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetOtherBodyGroundAnchor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ConstraintPulley2D_GetOwnerBodyAnchor_281_Vector2 ;
+DllExport Interop::Vector2  *
+ConstraintPulley2D_GetOwnerBodyAnchor (
+#else
 DllExport Interop::Vector2 
-ConstraintPulley2D_GetOwnerBodyAnchor (Urho3D::ConstraintPulley2D *_target)
+ConstraintPulley2D_GetOwnerBodyAnchor (
+#endif
+Urho3D::ConstraintPulley2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetOwnerBodyAnchor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ConstraintPulley2D_GetOwnerBodyAnchor_281_Vector2 =_target->GetOwnerBodyAnchor ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetOwnerBodyAnchor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ConstraintPulley2D_GetOtherBodyAnchor_282_Vector2 ;
+DllExport Interop::Vector2  *
+ConstraintPulley2D_GetOtherBodyAnchor (
+#else
 DllExport Interop::Vector2 
-ConstraintPulley2D_GetOtherBodyAnchor (Urho3D::ConstraintPulley2D *_target)
+ConstraintPulley2D_GetOtherBodyAnchor (
+#endif
+Urho3D::ConstraintPulley2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetOtherBodyAnchor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ConstraintPulley2D_GetOtherBodyAnchor_282_Vector2 =_target->GetOtherBodyAnchor ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetOtherBodyAnchor ()))
+#endif
+;
 }
 
 
@@ -36830,10 +41572,24 @@ ConstraintRevolute2D_SetMaxMotorTorque (Urho3D::ConstraintRevolute2D *_target, f
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ConstraintRevolute2D_GetAnchor_283_Vector2 ;
+DllExport Interop::Vector2  *
+ConstraintRevolute2D_GetAnchor (
+#else
 DllExport Interop::Vector2 
-ConstraintRevolute2D_GetAnchor (Urho3D::ConstraintRevolute2D *_target)
+ConstraintRevolute2D_GetAnchor (
+#endif
+Urho3D::ConstraintRevolute2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetAnchor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ConstraintRevolute2D_GetAnchor_283_Vector2 =_target->GetAnchor ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetAnchor ()))
+#endif
+;
 }
 
 
@@ -36942,17 +41698,45 @@ ConstraintRope2D_SetMaxLength (Urho3D::ConstraintRope2D *_target, float maxLengt
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ConstraintRope2D_GetOwnerBodyAnchor_284_Vector2 ;
+DllExport Interop::Vector2  *
+ConstraintRope2D_GetOwnerBodyAnchor (
+#else
 DllExport Interop::Vector2 
-ConstraintRope2D_GetOwnerBodyAnchor (Urho3D::ConstraintRope2D *_target)
+ConstraintRope2D_GetOwnerBodyAnchor (
+#endif
+Urho3D::ConstraintRope2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetOwnerBodyAnchor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ConstraintRope2D_GetOwnerBodyAnchor_284_Vector2 =_target->GetOwnerBodyAnchor ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetOwnerBodyAnchor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ConstraintRope2D_GetOtherBodyAnchor_285_Vector2 ;
+DllExport Interop::Vector2  *
+ConstraintRope2D_GetOtherBodyAnchor (
+#else
 DllExport Interop::Vector2 
-ConstraintRope2D_GetOtherBodyAnchor (Urho3D::ConstraintRope2D *_target)
+ConstraintRope2D_GetOtherBodyAnchor (
+#endif
+Urho3D::ConstraintRope2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetOtherBodyAnchor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ConstraintRope2D_GetOtherBodyAnchor_285_Vector2 =_target->GetOtherBodyAnchor ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetOtherBodyAnchor ()))
+#endif
+;
 }
 
 
@@ -37026,10 +41810,24 @@ ConstraintWeld2D_SetDampingRatio (Urho3D::ConstraintWeld2D *_target, float dampi
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ConstraintWeld2D_GetAnchor_286_Vector2 ;
+DllExport Interop::Vector2  *
+ConstraintWeld2D_GetAnchor (
+#else
 DllExport Interop::Vector2 
-ConstraintWeld2D_GetAnchor (Urho3D::ConstraintWeld2D *_target)
+ConstraintWeld2D_GetAnchor (
+#endif
+Urho3D::ConstraintWeld2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetAnchor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ConstraintWeld2D_GetAnchor_286_Vector2 =_target->GetAnchor ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetAnchor ()))
+#endif
+;
 }
 
 
@@ -37138,17 +41936,45 @@ ConstraintWheel2D_SetDampingRatio (Urho3D::ConstraintWheel2D *_target, float dam
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ConstraintWheel2D_GetAnchor_287_Vector2 ;
+DllExport Interop::Vector2  *
+ConstraintWheel2D_GetAnchor (
+#else
 DllExport Interop::Vector2 
-ConstraintWheel2D_GetAnchor (Urho3D::ConstraintWheel2D *_target)
+ConstraintWheel2D_GetAnchor (
+#endif
+Urho3D::ConstraintWheel2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetAnchor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ConstraintWheel2D_GetAnchor_287_Vector2 =_target->GetAnchor ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetAnchor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ConstraintWheel2D_GetAxis_288_Vector2 ;
+DllExport Interop::Vector2  *
+ConstraintWheel2D_GetAxis (
+#else
 DllExport Interop::Vector2 
-ConstraintWheel2D_GetAxis (Urho3D::ConstraintWheel2D *_target)
+ConstraintWheel2D_GetAxis (
+#endif
+Urho3D::ConstraintWheel2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetAxis ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ConstraintWheel2D_GetAxis_288_Vector2 =_target->GetAxis ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetAxis ()))
+#endif
+;
 }
 
 
@@ -37527,10 +42353,24 @@ ParticleEffect2D_GetSprite (Urho3D::ParticleEffect2D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ParticleEffect2D_GetSourcePositionVariance_289_Vector2 ;
+DllExport Interop::Vector2  *
+ParticleEffect2D_GetSourcePositionVariance (
+#else
 DllExport Interop::Vector2 
-ParticleEffect2D_GetSourcePositionVariance (Urho3D::ParticleEffect2D *_target)
+ParticleEffect2D_GetSourcePositionVariance (
+#endif
+Urho3D::ParticleEffect2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetSourcePositionVariance ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ParticleEffect2D_GetSourcePositionVariance_289_Vector2 =_target->GetSourcePositionVariance ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetSourcePositionVariance ()))
+#endif
+;
 }
 
 
@@ -37576,10 +42416,24 @@ ParticleEffect2D_GetAngleVariance (Urho3D::ParticleEffect2D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  ParticleEffect2D_GetGravity_290_Vector2 ;
+DllExport Interop::Vector2  *
+ParticleEffect2D_GetGravity (
+#else
 DllExport Interop::Vector2 
-ParticleEffect2D_GetGravity (Urho3D::ParticleEffect2D *_target)
+ParticleEffect2D_GetGravity (
+#endif
+Urho3D::ParticleEffect2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetGravity ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(ParticleEffect2D_GetGravity_290_Vector2 =_target->GetGravity ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetGravity ()))
+#endif
+;
 }
 
 
@@ -37611,31 +42465,87 @@ ParticleEffect2D_GetTangentialAccelVariance (Urho3D::ParticleEffect2D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  ParticleEffect2D_GetStartColor_291_Color ;
+DllExport Interop::Color  *
+ParticleEffect2D_GetStartColor (
+#else
 DllExport Interop::Color 
-ParticleEffect2D_GetStartColor (Urho3D::ParticleEffect2D *_target)
+ParticleEffect2D_GetStartColor (
+#endif
+Urho3D::ParticleEffect2D *_target)
 {
-	return *((Interop::Color  *) &(_target->GetStartColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(ParticleEffect2D_GetStartColor_291_Color =_target->GetStartColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetStartColor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  ParticleEffect2D_GetStartColorVariance_292_Color ;
+DllExport Interop::Color  *
+ParticleEffect2D_GetStartColorVariance (
+#else
 DllExport Interop::Color 
-ParticleEffect2D_GetStartColorVariance (Urho3D::ParticleEffect2D *_target)
+ParticleEffect2D_GetStartColorVariance (
+#endif
+Urho3D::ParticleEffect2D *_target)
 {
-	return *((Interop::Color  *) &(_target->GetStartColorVariance ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(ParticleEffect2D_GetStartColorVariance_292_Color =_target->GetStartColorVariance ()))
+#else
+	*((Interop::Color  *) &(_target->GetStartColorVariance ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  ParticleEffect2D_GetFinishColor_293_Color ;
+DllExport Interop::Color  *
+ParticleEffect2D_GetFinishColor (
+#else
 DllExport Interop::Color 
-ParticleEffect2D_GetFinishColor (Urho3D::ParticleEffect2D *_target)
+ParticleEffect2D_GetFinishColor (
+#endif
+Urho3D::ParticleEffect2D *_target)
 {
-	return *((Interop::Color  *) &(_target->GetFinishColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(ParticleEffect2D_GetFinishColor_293_Color =_target->GetFinishColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetFinishColor ()))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  ParticleEffect2D_GetFinishColorVariance_294_Color ;
+DllExport Interop::Color  *
+ParticleEffect2D_GetFinishColorVariance (
+#else
 DllExport Interop::Color 
-ParticleEffect2D_GetFinishColorVariance (Urho3D::ParticleEffect2D *_target)
+ParticleEffect2D_GetFinishColorVariance (
+#endif
+Urho3D::ParticleEffect2D *_target)
 {
-	return *((Interop::Color  *) &(_target->GetFinishColorVariance ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(ParticleEffect2D_GetFinishColorVariance_294_Color =_target->GetFinishColorVariance ()))
+#else
+	*((Interop::Color  *) &(_target->GetFinishColorVariance ()))
+#endif
+;
 }
 
 
@@ -38164,10 +43074,24 @@ PhysicsWorld2D_GetAutoClearForces (Urho3D::PhysicsWorld2D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  PhysicsWorld2D_GetGravity_295_Vector2 ;
+DllExport Interop::Vector2  *
+PhysicsWorld2D_GetGravity (
+#else
 DllExport Interop::Vector2 
-PhysicsWorld2D_GetGravity (Urho3D::PhysicsWorld2D *_target)
+PhysicsWorld2D_GetGravity (
+#endif
+Urho3D::PhysicsWorld2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetGravity ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(PhysicsWorld2D_GetGravity_295_Vector2 =_target->GetGravity ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetGravity ()))
+#endif
+;
 }
 
 
@@ -38542,10 +43466,24 @@ RigidBody2D_GetInertia (Urho3D::RigidBody2D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  RigidBody2D_GetMassCenter_296_Vector2 ;
+DllExport Interop::Vector2  *
+RigidBody2D_GetMassCenter (
+#else
 DllExport Interop::Vector2 
-RigidBody2D_GetMassCenter (Urho3D::RigidBody2D *_target)
+RigidBody2D_GetMassCenter (
+#endif
+Urho3D::RigidBody2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetMassCenter ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(RigidBody2D_GetMassCenter_296_Vector2 =_target->GetMassCenter ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetMassCenter ()))
+#endif
+;
 }
 
 
@@ -38605,10 +43543,24 @@ RigidBody2D_IsAwake (Urho3D::RigidBody2D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  RigidBody2D_GetLinearVelocity_297_Vector2 ;
+DllExport Interop::Vector2  *
+RigidBody2D_GetLinearVelocity (
+#else
 DllExport Interop::Vector2 
-RigidBody2D_GetLinearVelocity (Urho3D::RigidBody2D *_target)
+RigidBody2D_GetLinearVelocity (
+#endif
+Urho3D::RigidBody2D *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetLinearVelocity ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(RigidBody2D_GetLinearVelocity_297_Vector2 =_target->GetLinearVelocity ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetLinearVelocity ()))
+#endif
+;
 }
 
 
@@ -38780,10 +43732,24 @@ TileMap2D_GetTmxFile (Urho3D::TileMap2D *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static TileMapInfo2D TileMap2D_GetInfo_298_TileMapInfo2D;
+DllExport Urho3D::TileMapInfo2D *
+TileMap2D_GetInfo (
+#else
 DllExport Urho3D::TileMapInfo2D
-TileMap2D_GetInfo (Urho3D::TileMap2D *_target)
+TileMap2D_GetInfo (
+#endif
+Urho3D::TileMap2D *_target)
 {
-	return _target->GetInfo ();
+	return 
+#ifdef __EMSCRIPTEN__
+	((Urho3D::TileMapInfo2D *) &(TileMap2D_GetInfo_298_TileMapInfo2D=_target->GetInfo ()))
+#else
+	*((Urho3D::TileMapInfo2D *) &(_target->GetInfo ()))
+#endif
+;
 }
 
 
@@ -38801,10 +43767,24 @@ TileMap2D_GetLayer (Urho3D::TileMap2D *_target, unsigned int index)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  TileMap2D_TileIndexToPosition_299_Vector2 ;
+DllExport Interop::Vector2  *
+TileMap2D_TileIndexToPosition (
+#else
 DllExport Interop::Vector2 
-TileMap2D_TileIndexToPosition (Urho3D::TileMap2D *_target, int x, int y)
+TileMap2D_TileIndexToPosition (
+#endif
+Urho3D::TileMap2D *_target, int x, int y)
 {
-	return *((Interop::Vector2  *) &(_target->TileIndexToPosition (x, y)));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(TileMap2D_TileIndexToPosition_299_Vector2 =_target->TileIndexToPosition (x, y)))
+#else
+	*((Interop::Vector2  *) &(_target->TileIndexToPosition (x, y)))
+#endif
+;
 }
 
 
@@ -38892,10 +43872,24 @@ IKConstraint_SetStretchiness (Urho3D::IKConstraint *_target, float stretchiness)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  IKConstraint_GetLengthConstraints_300_Vector2 ;
+DllExport Interop::Vector2  *
+IKConstraint_GetLengthConstraints (
+#else
 DllExport Interop::Vector2 
-IKConstraint_GetLengthConstraints (Urho3D::IKConstraint *_target)
+IKConstraint_GetLengthConstraints (
+#endif
+Urho3D::IKConstraint *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetLengthConstraints ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(IKConstraint_GetLengthConstraints_300_Vector2 =_target->GetLengthConstraints ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetLengthConstraints ()))
+#endif
+;
 }
 
 
@@ -38990,10 +43984,24 @@ IKEffector_SetTargetName (Urho3D::IKEffector *_target, const char * nodeName)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  IKEffector_GetTargetPosition_301_Vector3 ;
+DllExport Interop::Vector3  *
+IKEffector_GetTargetPosition (
+#else
 DllExport Interop::Vector3 
-IKEffector_GetTargetPosition (Urho3D::IKEffector *_target)
+IKEffector_GetTargetPosition (
+#endif
+Urho3D::IKEffector *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetTargetPosition ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(IKEffector_GetTargetPosition_301_Vector3 =_target->GetTargetPosition ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetTargetPosition ()))
+#endif
+;
 }
 
 
@@ -39004,10 +44012,24 @@ IKEffector_SetTargetPosition (Urho3D::IKEffector *_target, const class Urho3D::V
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Quaternion  IKEffector_GetTargetRotation_302_Quaternion ;
+DllExport Interop::Quaternion  *
+IKEffector_GetTargetRotation (
+#else
 DllExport Interop::Quaternion 
-IKEffector_GetTargetRotation (Urho3D::IKEffector *_target)
+IKEffector_GetTargetRotation (
+#endif
+Urho3D::IKEffector *_target)
 {
-	return *((Interop::Quaternion  *) &(_target->GetTargetRotation ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Quaternion  *) &(IKEffector_GetTargetRotation_302_Quaternion =_target->GetTargetRotation ()))
+#else
+	*((Interop::Quaternion  *) &(_target->GetTargetRotation ()))
+#endif
+;
 }
 
 
@@ -39018,10 +44040,24 @@ IKEffector_SetTargetRotation (Urho3D::IKEffector *_target, const class Urho3D::Q
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  IKEffector_GetTargetRotationEuler_303_Vector3 ;
+DllExport Interop::Vector3  *
+IKEffector_GetTargetRotationEuler (
+#else
 DllExport Interop::Vector3 
-IKEffector_GetTargetRotationEuler (Urho3D::IKEffector *_target)
+IKEffector_GetTargetRotationEuler (
+#endif
+Urho3D::IKEffector *_target)
 {
-	return *((Interop::Vector3  *) &(_target->GetTargetRotationEuler ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(IKEffector_GetTargetRotationEuler_303_Vector3 =_target->GetTargetRotationEuler ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetTargetRotationEuler ()))
+#endif
+;
 }
 
 
@@ -39676,10 +44712,24 @@ VGFrameBuffer_GetRenderTarget (Urho3D::VGFrameBuffer *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  VGFrameBuffer_GetSize_304_IntVector2 ;
+DllExport Interop::IntVector2  *
+VGFrameBuffer_GetSize (
+#else
 DllExport Interop::IntVector2 
-VGFrameBuffer_GetSize (Urho3D::VGFrameBuffer *_target)
+VGFrameBuffer_GetSize (
+#endif
+Urho3D::VGFrameBuffer *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetSize ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(VGFrameBuffer_GetSize_304_IntVector2 =_target->GetSize ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetSize ()))
+#endif
+;
 }
 
 
@@ -39690,10 +44740,24 @@ VGFrameBuffer_SetClearColor (Urho3D::VGFrameBuffer *_target, Urho3D::Color color
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  VGFrameBuffer_GetClearColor_305_Color ;
+DllExport Interop::Color  *
+VGFrameBuffer_GetClearColor (
+#else
 DllExport Interop::Color 
-VGFrameBuffer_GetClearColor (Urho3D::VGFrameBuffer *_target)
+VGFrameBuffer_GetClearColor (
+#endif
+Urho3D::VGFrameBuffer *_target)
 {
-	return *((Interop::Color  *) &(_target->GetClearColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(VGFrameBuffer_GetClearColor_305_Color =_target->GetClearColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetClearColor ()))
+#endif
+;
 }
 
 
@@ -40425,10 +45489,24 @@ VGElement_EndRender (Urho3D::VGElement *_target)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static IntVector2  VGElement_GetSize_306_IntVector2 ;
+DllExport Interop::IntVector2  *
+VGElement_GetSize (
+#else
 DllExport Interop::IntVector2 
-VGElement_GetSize (Urho3D::VGElement *_target)
+VGElement_GetSize (
+#endif
+Urho3D::VGElement *_target)
 {
-	return *((Interop::IntVector2  *) &(_target->GetSize ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::IntVector2  *) &(VGElement_GetSize_306_IntVector2 =_target->GetSize ()))
+#else
+	*((Interop::IntVector2  *) &(_target->GetSize ()))
+#endif
+;
 }
 
 
@@ -40439,10 +45517,24 @@ VGElement_SetClearColor (Urho3D::VGElement *_target, Urho3D::Color color)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Color  VGElement_GetClearColor_307_Color ;
+DllExport Interop::Color  *
+VGElement_GetClearColor (
+#else
 DllExport Interop::Color 
-VGElement_GetClearColor (Urho3D::VGElement *_target)
+VGElement_GetClearColor (
+#endif
+Urho3D::VGElement *_target)
 {
-	return *((Interop::Color  *) &(_target->GetClearColor ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Color  *) &(VGElement_GetClearColor_307_Color =_target->GetClearColor ()))
+#else
+	*((Interop::Color  *) &(_target->GetClearColor ()))
+#endif
+;
 }
 
 
@@ -41280,10 +46372,24 @@ VGComponent_SetRotation (Urho3D::VGComponent *_target, float angle)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector2  VGComponent_GetHotSpot_308_Vector2 ;
+DllExport Interop::Vector2  *
+VGComponent_GetHotSpot (
+#else
 DllExport Interop::Vector2 
-VGComponent_GetHotSpot (Urho3D::VGComponent *_target)
+VGComponent_GetHotSpot (
+#endif
+Urho3D::VGComponent *_target)
 {
-	return *((Interop::Vector2  *) &(_target->GetHotSpot ()));
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector2  *) &(VGComponent_GetHotSpot_308_Vector2 =_target->GetHotSpot ()))
+#else
+	*((Interop::Vector2  *) &(_target->GetHotSpot ()))
+#endif
+;
 }
 
 

@@ -1518,7 +1518,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 Node_GetPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ Node_GetPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return position in parent space.
@@ -1527,11 +1533,23 @@ namespace Urho
 		private Urho.Vector3 GetPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetPosition (handle);
+			return 
+#if __WEB__
+*Node_GetPosition
+#else
+Node_GetPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector2 Node_GetPosition2D (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector2 *
+#else
+Vector2
+#endif
+ Node_GetPosition2D (IntPtr handle);
 
 		/// <summary>
 		/// Return position in parent space (for Urho2D).
@@ -1540,11 +1558,23 @@ namespace Urho
 		private Vector2 GetPosition2D ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetPosition2D (handle);
+			return 
+#if __WEB__
+*Node_GetPosition2D
+#else
+Node_GetPosition2D
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Quaternion Node_GetRotation (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Quaternion *
+#else
+Urho.Quaternion
+#endif
+ Node_GetRotation (IntPtr handle);
 
 		/// <summary>
 		/// Return rotation in parent space.
@@ -1553,7 +1583,13 @@ namespace Urho
 		private Urho.Quaternion GetRotation ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetRotation (handle);
+			return 
+#if __WEB__
+*Node_GetRotation
+#else
+Node_GetRotation
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1570,7 +1606,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Node_GetDirection (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Node_GetDirection (IntPtr handle);
 
 		/// <summary>
 		/// Return forward direction in parent space. Positive Z axis equals identity rotation.
@@ -1579,11 +1621,23 @@ namespace Urho
 		private Vector3 GetDirection ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetDirection (handle);
+			return 
+#if __WEB__
+*Node_GetDirection
+#else
+Node_GetDirection
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Node_GetUp (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Node_GetUp (IntPtr handle);
 
 		/// <summary>
 		/// Return up direction in parent space. Positive Y axis equals identity rotation.
@@ -1592,11 +1646,23 @@ namespace Urho
 		private Vector3 GetUp ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetUp (handle);
+			return 
+#if __WEB__
+*Node_GetUp
+#else
+Node_GetUp
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Node_GetRight (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Node_GetRight (IntPtr handle);
 
 		/// <summary>
 		/// Return right direction in parent space. Positive X axis equals identity rotation.
@@ -1605,11 +1671,23 @@ namespace Urho
 		private Vector3 GetRight ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetRight (handle);
+			return 
+#if __WEB__
+*Node_GetRight
+#else
+Node_GetRight
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 Node_GetScale (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ Node_GetScale (IntPtr handle);
 
 		/// <summary>
 		/// Return scale in parent space.
@@ -1618,11 +1696,23 @@ namespace Urho
 		private Urho.Vector3 GetScale ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetScale (handle);
+			return 
+#if __WEB__
+*Node_GetScale
+#else
+Node_GetScale
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector2 Node_GetScale2D (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector2 *
+#else
+Vector2
+#endif
+ Node_GetScale2D (IntPtr handle);
 
 		/// <summary>
 		/// Return scale in parent space (for Urho2D).
@@ -1631,11 +1721,23 @@ namespace Urho
 		private Vector2 GetScale2D ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetScale2D (handle);
+			return 
+#if __WEB__
+*Node_GetScale2D
+#else
+Node_GetScale2D
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Matrix3x4 Node_GetTransform (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Matrix3x4 *
+#else
+Matrix3x4
+#endif
+ Node_GetTransform (IntPtr handle);
 
 		/// <summary>
 		/// Return parent space transform matrix.
@@ -1644,11 +1746,23 @@ namespace Urho
 		private Matrix3x4 GetTransform ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetTransform (handle);
+			return 
+#if __WEB__
+*Node_GetTransform
+#else
+Node_GetTransform
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Node_GetWorldPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Node_GetWorldPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return position in world space.
@@ -1657,11 +1771,23 @@ namespace Urho
 		private Vector3 GetWorldPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetWorldPosition (handle);
+			return 
+#if __WEB__
+*Node_GetWorldPosition
+#else
+Node_GetWorldPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector2 Node_GetWorldPosition2D (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector2 *
+#else
+Vector2
+#endif
+ Node_GetWorldPosition2D (IntPtr handle);
 
 		/// <summary>
 		/// Return position in world space (for Urho2D).
@@ -1670,11 +1796,23 @@ namespace Urho
 		private Vector2 GetWorldPosition2D ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetWorldPosition2D (handle);
+			return 
+#if __WEB__
+*Node_GetWorldPosition2D
+#else
+Node_GetWorldPosition2D
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Quaternion Node_GetWorldRotation (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Quaternion *
+#else
+Quaternion
+#endif
+ Node_GetWorldRotation (IntPtr handle);
 
 		/// <summary>
 		/// Return rotation in world space.
@@ -1683,7 +1821,13 @@ namespace Urho
 		private Quaternion GetWorldRotation ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetWorldRotation (handle);
+			return 
+#if __WEB__
+*Node_GetWorldRotation
+#else
+Node_GetWorldRotation
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1700,7 +1844,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Node_GetWorldDirection (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Node_GetWorldDirection (IntPtr handle);
 
 		/// <summary>
 		/// Return direction in world space.
@@ -1709,11 +1859,23 @@ namespace Urho
 		private Vector3 GetWorldDirection ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetWorldDirection (handle);
+			return 
+#if __WEB__
+*Node_GetWorldDirection
+#else
+Node_GetWorldDirection
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Node_GetWorldUp (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Node_GetWorldUp (IntPtr handle);
 
 		/// <summary>
 		/// Return node's up vector in world space.
@@ -1722,11 +1884,23 @@ namespace Urho
 		private Vector3 GetWorldUp ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetWorldUp (handle);
+			return 
+#if __WEB__
+*Node_GetWorldUp
+#else
+Node_GetWorldUp
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Node_GetWorldRight (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Node_GetWorldRight (IntPtr handle);
 
 		/// <summary>
 		/// Return node's right vector in world space.
@@ -1735,11 +1909,23 @@ namespace Urho
 		private Vector3 GetWorldRight ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetWorldRight (handle);
+			return 
+#if __WEB__
+*Node_GetWorldRight
+#else
+Node_GetWorldRight
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Node_GetWorldScale (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Node_GetWorldScale (IntPtr handle);
 
 		/// <summary>
 		/// Return scale in world space.
@@ -1748,11 +1934,23 @@ namespace Urho
 		private Vector3 GetWorldScale ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetWorldScale (handle);
+			return 
+#if __WEB__
+*Node_GetWorldScale
+#else
+Node_GetWorldScale
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Node_GetSignedWorldScale (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Node_GetSignedWorldScale (IntPtr handle);
 
 		/// <summary>
 		/// Return signed scale in world space. Utilized for Urho2D physics.
@@ -1761,11 +1959,23 @@ namespace Urho
 		private Vector3 GetSignedWorldScale ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetSignedWorldScale (handle);
+			return 
+#if __WEB__
+*Node_GetSignedWorldScale
+#else
+Node_GetSignedWorldScale
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector2 Node_GetWorldScale2D (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector2 *
+#else
+Vector2
+#endif
+ Node_GetWorldScale2D (IntPtr handle);
 
 		/// <summary>
 		/// Return scale in world space (for Urho2D).
@@ -1774,11 +1984,23 @@ namespace Urho
 		private Vector2 GetWorldScale2D ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetWorldScale2D (handle);
+			return 
+#if __WEB__
+*Node_GetWorldScale2D
+#else
+Node_GetWorldScale2D
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Matrix3x4 Node_GetWorldTransform (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Matrix3x4 *
+#else
+Urho.Matrix3x4
+#endif
+ Node_GetWorldTransform (IntPtr handle);
 
 		/// <summary>
 		/// Return world space transform matrix.
@@ -1787,11 +2009,23 @@ namespace Urho
 		private Urho.Matrix3x4 GetWorldTransform ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetWorldTransform (handle);
+			return 
+#if __WEB__
+*Node_GetWorldTransform
+#else
+Node_GetWorldTransform
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Node_LocalToWorld (IntPtr handle, ref Urho.Vector3 position);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Node_LocalToWorld (IntPtr handle, ref Urho.Vector3 position);
 
 		/// <summary>
 		/// Convert a local space position to world space.
@@ -1799,11 +2033,23 @@ namespace Urho
 		public Vector3 LocalToWorld (Urho.Vector3 position)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_LocalToWorld (handle, ref position);
+			return 
+#if __WEB__
+*Node_LocalToWorld
+#else
+Node_LocalToWorld
+#endif
+ (handle, ref position);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Node_LocalToWorld20 (IntPtr handle, ref Urho.Vector4 vector);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Node_LocalToWorld20 (IntPtr handle, ref Urho.Vector4 vector);
 
 		/// <summary>
 		/// Convert a local space position or rotation to world space.
@@ -1811,11 +2057,23 @@ namespace Urho
 		public Vector3 LocalToWorld (Urho.Vector4 vector)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_LocalToWorld20 (handle, ref vector);
+			return 
+#if __WEB__
+*Node_LocalToWorld20
+#else
+Node_LocalToWorld20
+#endif
+ (handle, ref vector);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector2 Node_LocalToWorld2D (IntPtr handle, ref Urho.Vector2 vector);
+		internal static extern 
+#if __WEB__
+Vector2 *
+#else
+Vector2
+#endif
+ Node_LocalToWorld2D (IntPtr handle, ref Urho.Vector2 vector);
 
 		/// <summary>
 		/// Convert a local space position or rotation to world space (for Urho2D).
@@ -1823,11 +2081,23 @@ namespace Urho
 		public Vector2 LocalToWorld2D (Urho.Vector2 vector)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_LocalToWorld2D (handle, ref vector);
+			return 
+#if __WEB__
+*Node_LocalToWorld2D
+#else
+Node_LocalToWorld2D
+#endif
+ (handle, ref vector);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Node_WorldToLocal (IntPtr handle, ref Urho.Vector3 position);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Node_WorldToLocal (IntPtr handle, ref Urho.Vector3 position);
 
 		/// <summary>
 		/// Convert a world space position to local space.
@@ -1835,11 +2105,23 @@ namespace Urho
 		public Vector3 WorldToLocal (Urho.Vector3 position)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_WorldToLocal (handle, ref position);
+			return 
+#if __WEB__
+*Node_WorldToLocal
+#else
+Node_WorldToLocal
+#endif
+ (handle, ref position);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Node_WorldToLocal21 (IntPtr handle, ref Urho.Vector4 vector);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Node_WorldToLocal21 (IntPtr handle, ref Urho.Vector4 vector);
 
 		/// <summary>
 		/// Convert a world space position or rotation to local space.
@@ -1847,11 +2129,23 @@ namespace Urho
 		public Vector3 WorldToLocal (Urho.Vector4 vector)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_WorldToLocal21 (handle, ref vector);
+			return 
+#if __WEB__
+*Node_WorldToLocal21
+#else
+Node_WorldToLocal21
+#endif
+ (handle, ref vector);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector2 Node_WorldToLocal2D (IntPtr handle, ref Urho.Vector2 vector);
+		internal static extern 
+#if __WEB__
+Vector2 *
+#else
+Vector2
+#endif
+ Node_WorldToLocal2D (IntPtr handle, ref Urho.Vector2 vector);
 
 		/// <summary>
 		/// Convert a world space position or rotation to local space (for Urho2D).
@@ -1859,7 +2153,13 @@ namespace Urho
 		public Vector2 WorldToLocal2D (Urho.Vector2 vector)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_WorldToLocal2D (handle, ref vector);
+			return 
+#if __WEB__
+*Node_WorldToLocal2D
+#else
+Node_WorldToLocal2D
+#endif
+ (handle, ref vector);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -2061,7 +2361,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 Node_GetNetPositionAttr (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ Node_GetNetPositionAttr (IntPtr handle);
 
 		/// <summary>
 		/// Return network position attribute.
@@ -2069,7 +2375,13 @@ namespace Urho
 		private Urho.Vector3 GetNetPositionAttr ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetNetPositionAttr (handle);
+			return 
+#if __WEB__
+*Node_GetNetPositionAttr
+#else
+Node_GetNetPositionAttr
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

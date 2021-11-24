@@ -382,7 +382,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color RibbonTrail_GetStartColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ RibbonTrail_GetStartColor (IntPtr handle);
 
 		/// <summary>
 		/// Get vertex blended color for start of trail.
@@ -391,11 +397,23 @@ namespace Urho
 		private Urho.Color GetStartColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return RibbonTrail_GetStartColor (handle);
+			return 
+#if __WEB__
+*RibbonTrail_GetStartColor
+#else
+RibbonTrail_GetStartColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color RibbonTrail_GetEndColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ RibbonTrail_GetEndColor (IntPtr handle);
 
 		/// <summary>
 		/// Get vertex blended color for end of trail.
@@ -404,7 +422,13 @@ namespace Urho
 		private Urho.Color GetEndColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return RibbonTrail_GetEndColor (handle);
+			return 
+#if __WEB__
+*RibbonTrail_GetEndColor
+#else
+RibbonTrail_GetEndColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -486,7 +510,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 RibbonTrail_GetBaseVelocity (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ RibbonTrail_GetBaseVelocity (IntPtr handle);
 
 		/// <summary>
 		/// Return base trail velocity.
@@ -495,7 +525,13 @@ namespace Urho
 		private Urho.Vector3 GetBaseVelocity ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return RibbonTrail_GetBaseVelocity (handle);
+			return 
+#if __WEB__
+*RibbonTrail_GetBaseVelocity
+#else
+RibbonTrail_GetBaseVelocity
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

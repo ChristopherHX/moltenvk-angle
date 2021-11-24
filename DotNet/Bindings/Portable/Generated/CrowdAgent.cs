@@ -303,7 +303,13 @@ namespace Urho.Navigation
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CrowdAgent_GetPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CrowdAgent_GetPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return the agent's position.
@@ -312,11 +318,23 @@ namespace Urho.Navigation
 		private Vector3 GetPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CrowdAgent_GetPosition (handle);
+			return 
+#if __WEB__
+*CrowdAgent_GetPosition
+#else
+CrowdAgent_GetPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CrowdAgent_GetDesiredVelocity (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CrowdAgent_GetDesiredVelocity (IntPtr handle);
 
 		/// <summary>
 		/// Return the agent's desired velocity.
@@ -325,11 +343,23 @@ namespace Urho.Navigation
 		private Vector3 GetDesiredVelocity ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CrowdAgent_GetDesiredVelocity (handle);
+			return 
+#if __WEB__
+*CrowdAgent_GetDesiredVelocity
+#else
+CrowdAgent_GetDesiredVelocity
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 CrowdAgent_GetActualVelocity (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ CrowdAgent_GetActualVelocity (IntPtr handle);
 
 		/// <summary>
 		/// Return the agent's actual velocity.
@@ -338,11 +368,23 @@ namespace Urho.Navigation
 		private Vector3 GetActualVelocity ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CrowdAgent_GetActualVelocity (handle);
+			return 
+#if __WEB__
+*CrowdAgent_GetActualVelocity
+#else
+CrowdAgent_GetActualVelocity
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 CrowdAgent_GetTargetPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ CrowdAgent_GetTargetPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return the agent's requested target position.
@@ -351,11 +393,23 @@ namespace Urho.Navigation
 		private Urho.Vector3 GetTargetPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CrowdAgent_GetTargetPosition (handle);
+			return 
+#if __WEB__
+*CrowdAgent_GetTargetPosition
+#else
+CrowdAgent_GetTargetPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 CrowdAgent_GetTargetVelocity (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ CrowdAgent_GetTargetVelocity (IntPtr handle);
 
 		/// <summary>
 		/// Return the agent's requested target velocity.
@@ -364,7 +418,13 @@ namespace Urho.Navigation
 		private Urho.Vector3 GetTargetVelocity ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CrowdAgent_GetTargetVelocity (handle);
+			return 
+#if __WEB__
+*CrowdAgent_GetTargetVelocity
+#else
+CrowdAgent_GetTargetVelocity
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

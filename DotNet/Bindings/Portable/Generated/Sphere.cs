@@ -347,7 +347,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Sphere_GetLocalPoint (IntPtr handle, float theta, float phi);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Sphere_GetLocalPoint (IntPtr handle, float theta, float phi);
 
 		/// <summary>
 		/// Return point on the sphere relative to sphere position.
@@ -355,11 +361,23 @@ namespace Urho
 		public Vector3 GetLocalPoint (float theta, float phi)
 		{
 			Runtime.ValidateObject (this);
-			return Sphere_GetLocalPoint (handle, theta, phi);
+			return 
+#if __WEB__
+*Sphere_GetLocalPoint
+#else
+Sphere_GetLocalPoint
+#endif
+ (handle, theta, phi);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Sphere_GetPoint (IntPtr handle, float theta, float phi);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Sphere_GetPoint (IntPtr handle, float theta, float phi);
 
 		/// <summary>
 		/// Return point on the sphere.
@@ -367,7 +385,13 @@ namespace Urho
 		public Vector3 GetPoint (float theta, float phi)
 		{
 			Runtime.ValidateObject (this);
-			return Sphere_GetPoint (handle, theta, phi);
+			return 
+#if __WEB__
+*Sphere_GetPoint
+#else
+Sphere_GetPoint
+#endif
+ (handle, theta, phi);
 		}
 	}
 }

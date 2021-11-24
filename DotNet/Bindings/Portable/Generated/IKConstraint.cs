@@ -136,12 +136,24 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 IKConstraint_GetLengthConstraints (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ IKConstraint_GetLengthConstraints (IntPtr handle);
 
 		private Urho.Vector2 GetLengthConstraints ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return IKConstraint_GetLengthConstraints (handle);
+			return 
+#if __WEB__
+*IKConstraint_GetLengthConstraints
+#else
+IKConstraint_GetLengthConstraints
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

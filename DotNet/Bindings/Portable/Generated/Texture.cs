@@ -341,7 +341,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color Texture_GetBorderColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ Texture_GetBorderColor (IntPtr handle);
 
 		/// <summary>
 		/// Return border color.
@@ -350,7 +356,13 @@ namespace Urho
 		private Urho.Color GetBorderColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Texture_GetBorderColor (handle);
+			return 
+#if __WEB__
+*Texture_GetBorderColor
+#else
+Texture_GetBorderColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

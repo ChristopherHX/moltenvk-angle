@@ -327,7 +327,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector2 CollisionShape2D_GetMassCenter (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector2 *
+#else
+Vector2
+#endif
+ CollisionShape2D_GetMassCenter (IntPtr handle);
 
 		/// <summary>
 		/// Return mass center.
@@ -336,7 +342,13 @@ namespace Urho.Urho2D
 		private Vector2 GetMassCenter ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return CollisionShape2D_GetMassCenter (handle);
+			return 
+#if __WEB__
+*CollisionShape2D_GetMassCenter
+#else
+CollisionShape2D_GetMassCenter
+#endif
+ (handle);
 		}
 
 		public override StringHash Type {

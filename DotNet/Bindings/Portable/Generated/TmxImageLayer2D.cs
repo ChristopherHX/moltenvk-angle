@@ -58,7 +58,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 TmxImageLayer2D_GetPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ TmxImageLayer2D_GetPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return position.
@@ -66,7 +72,13 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return TmxImageLayer2D_GetPosition (handle);
+			return 
+#if __WEB__
+*TmxImageLayer2D_GetPosition
+#else
+TmxImageLayer2D_GetPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

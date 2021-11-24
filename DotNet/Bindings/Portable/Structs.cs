@@ -421,7 +421,7 @@ namespace Urho
 
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct Matrix3x4
+    public unsafe struct Matrix3x4
     {
         public float m00;
         public float m01;
@@ -556,12 +556,35 @@ namespace Urho
 
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern Matrix3x4 Matrix3x4_Create(ref Urho.Vector3 translation, ref Urho.Quaternion rotation, ref Urho.Vector3 scale);
 
+#if __WEB__
+        internal static extern Matrix3x4 *  Matrix3x4_Create(ref Urho.Vector3 translation, ref Urho.Quaternion rotation, ref Urho.Vector3 scale);
+#else
+        internal static extern Matrix3x4 Matrix3x4_Create(ref Urho.Vector3 translation, ref Urho.Quaternion rotation, ref Urho.Vector3 scale);
+#endif
         public Matrix3x4(Vector3 translation, Quaternion Rotation, Vector3 scale)
         {
+#if __WEB__
+            // Matrix3x4 matrix3x4 = *Matrix3x4_Create(ref translation, ref Rotation, ref scale);
+            Matrix3 rotation = Rotation.RotationMatrix().Scaled(scale);
+			m00 = rotation.R0C0;
+			m01 = rotation.R0C1;
+			m02 = rotation.R0C2;
+			m10 = rotation.R1C0;
+			m11 = rotation.R1C1;
+			m12 = rotation.R1C2;
+			m20 = rotation.R2C0;
+			m21 = rotation.R2C1;
+			m22 = rotation.R2C2;
+
+			m03 = translation.X;
+			m13 = translation.Y;
+			m23 = translation.Z;
+#else
             Matrix3x4 matrix3x4 = Matrix3x4_Create(ref translation, ref Rotation, ref scale);
             this = matrix3x4;
+#endif
+            // 
             /* TBD ELI 
 			Matrix3 rotation = Rotation.RotationMatrix().Scaled(scale);
 			m00 = rotation.R0C0;
@@ -609,11 +632,32 @@ namespace Urho
         }
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+#if __WEB__
+        internal static extern Matrix3x4 * Matrix3x4_Multiply(ref Urho.Matrix3x4 left, ref Urho.Matrix3x4 right);
+#else
         internal static extern Matrix3x4 Matrix3x4_Multiply(ref Urho.Matrix3x4 left, ref Urho.Matrix3x4 right);
+#endif
 
         public static Matrix3x4 operator *(Matrix3x4 left, Matrix3x4 rhs)
         {
+#if __WEB__
+			return new  Matrix3x4(
+				left.m00 * rhs.m00 + left.m01 * rhs.m10 + left.m02 * rhs.m20,
+				left.m00 * rhs.m01 + left.m01 * rhs.m11 + left.m02 * rhs.m21,
+				left.m00 * rhs.m02 + left.m01 * rhs.m12 + left.m02 * rhs.m22,
+				left.m00 * rhs.m03 + left.m01 * rhs.m13 + left.m02 * rhs.m23 + left.m03,
+				left.m10 * rhs.m00 + left.m11 * rhs.m10 + left.m12 * rhs.m20,
+				left.m10 * rhs.m01 + left.m11 * rhs.m11 + left.m12 * rhs.m21,
+				left.m10 * rhs.m02 + left.m11 * rhs.m12 + left.m12 * rhs.m22,
+				left.m10 * rhs.m03 + left.m11 * rhs.m13 + left.m12 * rhs.m23 + left.m13,
+				left.m20 * rhs.m00 + left.m21 * rhs.m10 + left.m22 * rhs.m20,
+				left.m20 * rhs.m01 + left.m21 * rhs.m11 + left.m22 * rhs.m21,
+				left.m20 * rhs.m02 + left.m21 * rhs.m12 + left.m22 * rhs.m22,
+				left.m20 * rhs.m03 + left.m21 * rhs.m13 + left.m22 * rhs.m23 + left.m23
+			);	
+#else
             return Matrix3x4_Multiply(ref left, ref rhs);
+#endif
             /* TBD ELI
 			return new  Matrix3x4(
 				left.m00 * rhs.m00 + left.m01 * rhs.m10 + left.m02 * rhs.m20,
@@ -680,7 +724,11 @@ namespace Urho
 
         public Vector3 Translation()
         {
+#if __WEB__
+            return new Vector3(m03,m13,m23);
+#else
             return Matrix3x4_Translation(ref this);
+#endif
             // TBD ELI return new Vector3(m03,m13,m23);
         }
 
@@ -689,7 +737,12 @@ namespace Urho
 
         public Quaternion Rotation()
         {
+#if __WEB__
+            Matrix3 matrix3 = RotationMatrix();
+            return new  Quaternion(ref matrix3); 
+#else
             return Matrix3x4_Rotation(ref this);
+#endif
             //Matrix3 matrix3 = RotationMatrix();
             // TBD ELI  return new  Quaternion(ref matrix3); 
         }
@@ -1530,6 +1583,7 @@ namespace Urho
         public float SortDistance;
         public float ScreenScaleFactor;
     }
+
 
     public unsafe class BillboardWrapper
     {

@@ -340,7 +340,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 TerrainPatch_GetCoordinates (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ TerrainPatch_GetCoordinates (IntPtr handle);
 
 		/// <summary>
 		/// Return patch coordinates.
@@ -348,7 +354,13 @@ namespace Urho
 		private Urho.IntVector2 GetCoordinates ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return TerrainPatch_GetCoordinates (handle);
+			return 
+#if __WEB__
+*TerrainPatch_GetCoordinates
+#else
+TerrainPatch_GetCoordinates
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

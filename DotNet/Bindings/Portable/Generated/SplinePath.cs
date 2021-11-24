@@ -250,7 +250,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 SplinePath_GetPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ SplinePath_GetPosition (IntPtr handle);
 
 		/// <summary>
 		/// Get the parent Node's last position on the spline.
@@ -258,7 +264,13 @@ namespace Urho
 		private Vector3 GetPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return SplinePath_GetPosition (handle);
+			return 
+#if __WEB__
+*SplinePath_GetPosition
+#else
+SplinePath_GetPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -275,7 +287,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 SplinePath_GetPoint (IntPtr handle, float factor);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ SplinePath_GetPoint (IntPtr handle, float factor);
 
 		/// <summary>
 		/// Get a point on the SplinePath from 0.f to 1.f where 0 is the start and 1 is the end.
@@ -283,7 +301,13 @@ namespace Urho
 		public Vector3 GetPoint (float factor)
 		{
 			Runtime.ValidateRefCounted (this);
-			return SplinePath_GetPoint (handle, factor);
+			return 
+#if __WEB__
+*SplinePath_GetPoint
+#else
+SplinePath_GetPoint
+#endif
+ (handle, factor);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

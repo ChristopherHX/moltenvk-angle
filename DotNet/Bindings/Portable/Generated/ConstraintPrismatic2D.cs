@@ -204,7 +204,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 ConstraintPrismatic2D_GetAnchor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ ConstraintPrismatic2D_GetAnchor (IntPtr handle);
 
 		/// <summary>
 		/// Return anchor.
@@ -213,11 +219,23 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetAnchor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ConstraintPrismatic2D_GetAnchor (handle);
+			return 
+#if __WEB__
+*ConstraintPrismatic2D_GetAnchor
+#else
+ConstraintPrismatic2D_GetAnchor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 ConstraintPrismatic2D_GetAxis (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ ConstraintPrismatic2D_GetAxis (IntPtr handle);
 
 		/// <summary>
 		/// Return axis.
@@ -226,7 +244,13 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetAxis ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ConstraintPrismatic2D_GetAxis (handle);
+			return 
+#if __WEB__
+*ConstraintPrismatic2D_GetAxis
+#else
+ConstraintPrismatic2D_GetAxis
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

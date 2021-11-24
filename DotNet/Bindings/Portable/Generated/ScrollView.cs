@@ -315,7 +315,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 ScrollView_GetViewPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ ScrollView_GetViewPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return view offset from the top-left corner.
@@ -324,7 +330,13 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetViewPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ScrollView_GetViewPosition (handle);
+			return 
+#if __WEB__
+*ScrollView_GetViewPosition
+#else
+ScrollView_GetViewPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

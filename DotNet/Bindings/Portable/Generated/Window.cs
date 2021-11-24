@@ -282,7 +282,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntRect Window_GetResizeBorder (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntRect *
+#else
+Urho.IntRect
+#endif
+ Window_GetResizeBorder (IntPtr handle);
 
 		/// <summary>
 		/// Return resize area width at edges.
@@ -291,7 +297,13 @@ namespace Urho.Gui
 		private Urho.IntRect GetResizeBorder ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Window_GetResizeBorder (handle);
+			return 
+#if __WEB__
+*Window_GetResizeBorder
+#else
+Window_GetResizeBorder
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -308,7 +320,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color Window_GetModalShadeColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ Window_GetModalShadeColor (IntPtr handle);
 
 		/// <summary>
 		/// Get modal shade color.
@@ -317,11 +335,23 @@ namespace Urho.Gui
 		private Urho.Color GetModalShadeColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Window_GetModalShadeColor (handle);
+			return 
+#if __WEB__
+*Window_GetModalShadeColor
+#else
+Window_GetModalShadeColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color Window_GetModalFrameColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ Window_GetModalFrameColor (IntPtr handle);
 
 		/// <summary>
 		/// Get modal frame color.
@@ -330,11 +360,23 @@ namespace Urho.Gui
 		private Urho.Color GetModalFrameColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Window_GetModalFrameColor (handle);
+			return 
+#if __WEB__
+*Window_GetModalFrameColor
+#else
+Window_GetModalFrameColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Window_GetModalFrameSize (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Window_GetModalFrameSize (IntPtr handle);
 
 		/// <summary>
 		/// Get modal frame size.
@@ -343,7 +385,13 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetModalFrameSize ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Window_GetModalFrameSize (handle);
+			return 
+#if __WEB__
+*Window_GetModalFrameSize
+#else
+Window_GetModalFrameSize
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

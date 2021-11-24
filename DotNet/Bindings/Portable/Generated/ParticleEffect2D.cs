@@ -604,7 +604,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 ParticleEffect2D_GetSourcePositionVariance (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ ParticleEffect2D_GetSourcePositionVariance (IntPtr handle);
 
 		/// <summary>
 		/// Return source position variance.
@@ -612,7 +618,13 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetSourcePositionVariance ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ParticleEffect2D_GetSourcePositionVariance (handle);
+			return 
+#if __WEB__
+*ParticleEffect2D_GetSourcePositionVariance
+#else
+ParticleEffect2D_GetSourcePositionVariance
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -688,7 +700,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 ParticleEffect2D_GetGravity (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ ParticleEffect2D_GetGravity (IntPtr handle);
 
 		/// <summary>
 		/// Return gravity.
@@ -696,7 +714,13 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetGravity ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ParticleEffect2D_GetGravity (handle);
+			return 
+#if __WEB__
+*ParticleEffect2D_GetGravity
+#else
+ParticleEffect2D_GetGravity
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -748,7 +772,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color ParticleEffect2D_GetStartColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ ParticleEffect2D_GetStartColor (IntPtr handle);
 
 		/// <summary>
 		/// Return start color.
@@ -756,11 +786,23 @@ namespace Urho.Urho2D
 		private Urho.Color GetStartColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ParticleEffect2D_GetStartColor (handle);
+			return 
+#if __WEB__
+*ParticleEffect2D_GetStartColor
+#else
+ParticleEffect2D_GetStartColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color ParticleEffect2D_GetStartColorVariance (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ ParticleEffect2D_GetStartColorVariance (IntPtr handle);
 
 		/// <summary>
 		/// Return start color variance.
@@ -768,11 +810,23 @@ namespace Urho.Urho2D
 		private Urho.Color GetStartColorVariance ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ParticleEffect2D_GetStartColorVariance (handle);
+			return 
+#if __WEB__
+*ParticleEffect2D_GetStartColorVariance
+#else
+ParticleEffect2D_GetStartColorVariance
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color ParticleEffect2D_GetFinishColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ ParticleEffect2D_GetFinishColor (IntPtr handle);
 
 		/// <summary>
 		/// Return finish color.
@@ -780,11 +834,23 @@ namespace Urho.Urho2D
 		private Urho.Color GetFinishColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ParticleEffect2D_GetFinishColor (handle);
+			return 
+#if __WEB__
+*ParticleEffect2D_GetFinishColor
+#else
+ParticleEffect2D_GetFinishColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color ParticleEffect2D_GetFinishColorVariance (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ ParticleEffect2D_GetFinishColorVariance (IntPtr handle);
 
 		/// <summary>
 		/// Return finish color variance.
@@ -792,7 +858,13 @@ namespace Urho.Urho2D
 		private Urho.Color GetFinishColorVariance ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ParticleEffect2D_GetFinishColorVariance (handle);
+			return 
+#if __WEB__
+*ParticleEffect2D_GetFinishColorVariance
+#else
+ParticleEffect2D_GetFinishColorVariance
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

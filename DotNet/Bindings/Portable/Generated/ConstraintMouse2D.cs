@@ -152,7 +152,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 ConstraintMouse2D_GetTarget (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ ConstraintMouse2D_GetTarget (IntPtr handle);
 
 		/// <summary>
 		/// Return target.
@@ -161,7 +167,13 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetTarget ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return ConstraintMouse2D_GetTarget (handle);
+			return 
+#if __WEB__
+*ConstraintMouse2D_GetTarget
+#else
+ConstraintMouse2D_GetTarget
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

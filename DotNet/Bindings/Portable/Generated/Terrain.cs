@@ -447,7 +447,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector3 Terrain_GetSpacing (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector3 *
+#else
+Urho.Vector3
+#endif
+ Terrain_GetSpacing (IntPtr handle);
 
 		/// <summary>
 		/// Return vertex and height spacing.
@@ -456,11 +462,23 @@ namespace Urho
 		private Urho.Vector3 GetSpacing ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Terrain_GetSpacing (handle);
+			return 
+#if __WEB__
+*Terrain_GetSpacing
+#else
+Terrain_GetSpacing
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Terrain_GetNumVertices (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Terrain_GetNumVertices (IntPtr handle);
 
 		/// <summary>
 		/// Return heightmap size in vertices.
@@ -469,11 +487,23 @@ namespace Urho
 		private Urho.IntVector2 GetNumVertices ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Terrain_GetNumVertices (handle);
+			return 
+#if __WEB__
+*Terrain_GetNumVertices
+#else
+Terrain_GetNumVertices
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Terrain_GetNumPatches (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Terrain_GetNumPatches (IntPtr handle);
 
 		/// <summary>
 		/// Return heightmap size in patches.
@@ -482,7 +512,13 @@ namespace Urho
 		private Urho.IntVector2 GetNumPatches ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Terrain_GetNumPatches (handle);
+			return 
+#if __WEB__
+*Terrain_GetNumPatches
+#else
+Terrain_GetNumPatches
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -600,7 +636,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Terrain_GetNormal (IntPtr handle, ref Urho.Vector3 worldPosition);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Terrain_GetNormal (IntPtr handle, ref Urho.Vector3 worldPosition);
 
 		/// <summary>
 		/// Return normal at world coordinates.
@@ -608,11 +650,23 @@ namespace Urho
 		public Vector3 GetNormal (Urho.Vector3 worldPosition)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Terrain_GetNormal (handle, ref worldPosition);
+			return 
+#if __WEB__
+*Terrain_GetNormal
+#else
+Terrain_GetNormal
+#endif
+ (handle, ref worldPosition);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Terrain_WorldToHeightMap (IntPtr handle, ref Urho.Vector3 worldPosition);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Terrain_WorldToHeightMap (IntPtr handle, ref Urho.Vector3 worldPosition);
 
 		/// <summary>
 		/// Convert world position to heightmap pixel position. Note that the internal height data representation is reversed vertically, but in the heightmap image north is at the top.
@@ -620,11 +674,23 @@ namespace Urho
 		public Urho.IntVector2 WorldToHeightMap (Urho.Vector3 worldPosition)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Terrain_WorldToHeightMap (handle, ref worldPosition);
+			return 
+#if __WEB__
+*Terrain_WorldToHeightMap
+#else
+Terrain_WorldToHeightMap
+#endif
+ (handle, ref worldPosition);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Terrain_HeightMapToWorld (IntPtr handle, ref Urho.IntVector2 pixelPosition);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Terrain_HeightMapToWorld (IntPtr handle, ref Urho.IntVector2 pixelPosition);
 
 		/// <summary>
 		/// Convert heightmap pixel position to world position.
@@ -632,7 +698,13 @@ namespace Urho
 		public Vector3 HeightMapToWorld (Urho.IntVector2 pixelPosition)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Terrain_HeightMapToWorld (handle, ref pixelPosition);
+			return 
+#if __WEB__
+*Terrain_HeightMapToWorld
+#else
+Terrain_HeightMapToWorld
+#endif
+ (handle, ref pixelPosition);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

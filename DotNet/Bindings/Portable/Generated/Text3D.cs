@@ -550,7 +550,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Text3D_GetEffectShadowOffset (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Text3D_GetEffectShadowOffset (IntPtr handle);
 
 		/// <summary>
 		/// Return effect shadow offset.
@@ -559,7 +565,13 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetEffectShadowOffset ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Text3D_GetEffectShadowOffset (handle);
+			return 
+#if __WEB__
+*Text3D_GetEffectShadowOffset
+#else
+Text3D_GetEffectShadowOffset
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -589,7 +601,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color Text3D_GetEffectColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ Text3D_GetEffectColor (IntPtr handle);
 
 		/// <summary>
 		/// Return effect color.
@@ -598,7 +616,13 @@ namespace Urho.Gui
 		private Urho.Color GetEffectColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Text3D_GetEffectColor (handle);
+			return 
+#if __WEB__
+*Text3D_GetEffectColor
+#else
+Text3D_GetEffectColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -693,7 +717,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector2 Text3D_GetCharPosition (IntPtr handle, uint index);
+		internal static extern 
+#if __WEB__
+Vector2 *
+#else
+Vector2
+#endif
+ Text3D_GetCharPosition (IntPtr handle, uint index);
 
 		/// <summary>
 		/// Return position of character by index relative to the text element origin.
@@ -702,11 +732,23 @@ namespace Urho.Gui
 		public Vector2 GetCharPosition (uint index)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Text3D_GetCharPosition (handle, index);
+			return 
+#if __WEB__
+*Text3D_GetCharPosition
+#else
+Text3D_GetCharPosition
+#endif
+ (handle, index);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector2 Text3D_GetCharSize (IntPtr handle, uint index);
+		internal static extern 
+#if __WEB__
+Vector2 *
+#else
+Vector2
+#endif
+ Text3D_GetCharSize (IntPtr handle, uint index);
 
 		/// <summary>
 		/// Return size of character by index.
@@ -715,11 +757,23 @@ namespace Urho.Gui
 		public Vector2 GetCharSize (uint index)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Text3D_GetCharSize (handle, index);
+			return 
+#if __WEB__
+*Text3D_GetCharSize
+#else
+Text3D_GetCharSize
+#endif
+ (handle, index);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color Text3D_GetColor (IntPtr handle, Corner corner);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ Text3D_GetColor (IntPtr handle, Corner corner);
 
 		/// <summary>
 		/// Return corner color.
@@ -728,7 +782,13 @@ namespace Urho.Gui
 		public Urho.Color GetColor (Corner corner)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Text3D_GetColor (handle, corner);
+			return 
+#if __WEB__
+*Text3D_GetColor
+#else
+Text3D_GetColor
+#endif
+ (handle, corner);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -819,7 +879,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color Text3D_GetColorAttr (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ Text3D_GetColorAttr (IntPtr handle);
 
 		/// <summary>
 		/// Get color attribute. Uses just the top-left color.
@@ -827,7 +893,13 @@ namespace Urho.Gui
 		private Urho.Color GetColorAttr ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Text3D_GetColorAttr (handle);
+			return 
+#if __WEB__
+*Text3D_GetColorAttr
+#else
+Text3D_GetColorAttr
+#endif
+ (handle);
 		}
 
 		public override StringHash Type {

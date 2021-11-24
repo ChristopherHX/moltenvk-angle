@@ -239,7 +239,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntRect Viewport_GetRect (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntRect *
+#else
+Urho.IntRect
+#endif
+ Viewport_GetRect (IntPtr handle);
 
 		/// <summary>
 		/// Return view rectangle. A zero rectangle (0 0 0 0) means to use the rendertarget's full dimensions. In this case you could fetch the actual view rectangle from View object, though it will be valid only after the first frame.
@@ -248,7 +254,13 @@ namespace Urho
 		private Urho.IntRect GetRect ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return Viewport_GetRect (handle);
+			return 
+#if __WEB__
+*Viewport_GetRect
+#else
+Viewport_GetRect
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -291,7 +303,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Ray Viewport_GetScreenRay (IntPtr handle, int x, int y);
+		internal static extern 
+#if __WEB__
+Ray *
+#else
+Ray
+#endif
+ Viewport_GetScreenRay (IntPtr handle, int x, int y);
 
 		/// <summary>
 		/// Return ray corresponding to normalized screen coordinates.
@@ -299,11 +317,23 @@ namespace Urho
 		public Ray GetScreenRay (int x, int y)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Viewport_GetScreenRay (handle, x, y);
+			return 
+#if __WEB__
+*Viewport_GetScreenRay
+#else
+Viewport_GetScreenRay
+#endif
+ (handle, x, y);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 Viewport_WorldToScreenPoint (IntPtr handle, ref Urho.Vector3 worldPos);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ Viewport_WorldToScreenPoint (IntPtr handle, ref Urho.Vector3 worldPos);
 
 		/// <summary>
 		/// Convert a world space point to normalized screen coordinates.
@@ -311,11 +341,23 @@ namespace Urho
 		public Urho.IntVector2 WorldToScreenPoint (Urho.Vector3 worldPos)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Viewport_WorldToScreenPoint (handle, ref worldPos);
+			return 
+#if __WEB__
+*Viewport_WorldToScreenPoint
+#else
+Viewport_WorldToScreenPoint
+#endif
+ (handle, ref worldPos);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Vector3 Viewport_ScreenToWorldPoint (IntPtr handle, int x, int y, float depth);
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Viewport_ScreenToWorldPoint (IntPtr handle, int x, int y, float depth);
 
 		/// <summary>
 		/// Convert screen coordinates and depth to a world space point.
@@ -323,7 +365,13 @@ namespace Urho
 		public Vector3 ScreenToWorldPoint (int x, int y, float depth)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Viewport_ScreenToWorldPoint (handle, x, y, depth);
+			return 
+#if __WEB__
+*Viewport_ScreenToWorldPoint
+#else
+Viewport_ScreenToWorldPoint
+#endif
+ (handle, x, y, depth);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

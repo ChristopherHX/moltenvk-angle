@@ -378,7 +378,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Matrix3x4 DebugRenderer_GetView (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Matrix3x4 *
+#else
+Urho.Matrix3x4
+#endif
+ DebugRenderer_GetView (IntPtr handle);
 
 		/// <summary>
 		/// Return the view transform.
@@ -386,11 +392,23 @@ namespace Urho
 		private Urho.Matrix3x4 GetView ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return DebugRenderer_GetView (handle);
+			return 
+#if __WEB__
+*DebugRenderer_GetView
+#else
+DebugRenderer_GetView
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Matrix4 DebugRenderer_GetProjection (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Matrix4 *
+#else
+Urho.Matrix4
+#endif
+ DebugRenderer_GetProjection (IntPtr handle);
 
 		/// <summary>
 		/// Return the projection transform.
@@ -398,7 +416,13 @@ namespace Urho
 		private Urho.Matrix4 GetProjection ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return DebugRenderer_GetProjection (handle);
+			return 
+#if __WEB__
+*DebugRenderer_GetProjection
+#else
+DebugRenderer_GetProjection
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

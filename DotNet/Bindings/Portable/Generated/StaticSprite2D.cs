@@ -333,7 +333,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Color StaticSprite2D_GetColor (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Color *
+#else
+Urho.Color
+#endif
+ StaticSprite2D_GetColor (IntPtr handle);
 
 		/// <summary>
 		/// Return color.
@@ -342,7 +348,13 @@ namespace Urho.Urho2D
 		private Urho.Color GetColor ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return StaticSprite2D_GetColor (handle);
+			return 
+#if __WEB__
+*StaticSprite2D_GetColor
+#else
+StaticSprite2D_GetColor
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -398,7 +410,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 StaticSprite2D_GetHotSpot (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ StaticSprite2D_GetHotSpot (IntPtr handle);
 
 		/// <summary>
 		/// Return hot spot.
@@ -407,7 +425,13 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetHotSpot ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return StaticSprite2D_GetHotSpot (handle);
+			return 
+#if __WEB__
+*StaticSprite2D_GetHotSpot
+#else
+StaticSprite2D_GetHotSpot
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

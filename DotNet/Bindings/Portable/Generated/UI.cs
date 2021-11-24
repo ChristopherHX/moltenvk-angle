@@ -541,7 +541,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 UI_GetCursorPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ UI_GetCursorPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return cursor position.
@@ -550,7 +556,13 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetCursorPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UI_GetCursorPosition (handle);
+			return 
+#if __WEB__
+*UI_GetCursorPosition
+#else
+UI_GetCursorPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -590,7 +602,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 UI_ConvertSystemToUI (IntPtr handle, ref Urho.IntVector2 systemPos);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ UI_ConvertSystemToUI (IntPtr handle, ref Urho.IntVector2 systemPos);
 
 		/// <summary>
 		/// Convert system mouse position (or offset) to scaled UI position (or offset).
@@ -598,11 +616,23 @@ namespace Urho.Gui
 		public Urho.IntVector2 ConvertSystemToUI (Urho.IntVector2 systemPos)
 		{
 			Runtime.ValidateRefCounted (this);
-			return UI_ConvertSystemToUI (handle, ref systemPos);
+			return 
+#if __WEB__
+*UI_ConvertSystemToUI
+#else
+UI_ConvertSystemToUI
+#endif
+ (handle, ref systemPos);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 UI_ConvertUIToSystem (IntPtr handle, ref Urho.IntVector2 uiPos);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ UI_ConvertUIToSystem (IntPtr handle, ref Urho.IntVector2 uiPos);
 
 		/// <summary>
 		/// Convert scaled UI position (or offset) to system mouse position (or offset).
@@ -610,7 +640,13 @@ namespace Urho.Gui
 		public Urho.IntVector2 ConvertUIToSystem (Urho.IntVector2 uiPos)
 		{
 			Runtime.ValidateRefCounted (this);
-			return UI_ConvertUIToSystem (handle, ref uiPos);
+			return 
+#if __WEB__
+*UI_ConvertUIToSystem
+#else
+UI_ConvertUIToSystem
+#endif
+ (handle, ref uiPos);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -896,7 +932,13 @@ namespace Urho.Gui
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 UI_GetCustomSize (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ UI_GetCustomSize (IntPtr handle);
 
 		/// <summary>
 		/// Return root element custom size. Returns 0,0 when custom size is not being used and automatic resizing according to window size is in use instead (default).
@@ -905,7 +947,13 @@ namespace Urho.Gui
 		private Urho.IntVector2 GetCustomSize ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return UI_GetCustomSize (handle);
+			return 
+#if __WEB__
+*UI_GetCustomSize
+#else
+UI_GetCustomSize
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

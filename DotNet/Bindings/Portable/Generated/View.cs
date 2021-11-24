@@ -207,7 +207,13 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntRect View_GetViewRect (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntRect *
+#else
+Urho.IntRect
+#endif
+ View_GetViewRect (IntPtr handle);
 
 		/// <summary>
 		/// Return view rectangle.
@@ -215,11 +221,23 @@ namespace Urho
 		private Urho.IntRect GetViewRect ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return View_GetViewRect (handle);
+			return 
+#if __WEB__
+*View_GetViewRect
+#else
+View_GetViewRect
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.IntVector2 View_GetViewSize (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.IntVector2 *
+#else
+Urho.IntVector2
+#endif
+ View_GetViewSize (IntPtr handle);
 
 		/// <summary>
 		/// Return view dimensions.
@@ -227,7 +245,13 @@ namespace Urho
 		private Urho.IntVector2 GetViewSize ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return View_GetViewSize (handle);
+			return 
+#if __WEB__
+*View_GetViewSize
+#else
+View_GetViewSize
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

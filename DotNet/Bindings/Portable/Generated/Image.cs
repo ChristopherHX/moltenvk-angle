@@ -439,7 +439,13 @@ namespace Urho.Resources
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Color Image_GetPixel (IntPtr handle, int x, int y);
+		internal static extern 
+#if __WEB__
+Color *
+#else
+Color
+#endif
+ Image_GetPixel (IntPtr handle, int x, int y);
 
 		/// <summary>
 		/// Return a 2D pixel color.
@@ -447,11 +453,23 @@ namespace Urho.Resources
 		public Color GetPixel (int x, int y)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Image_GetPixel (handle, x, y);
+			return 
+#if __WEB__
+*Image_GetPixel
+#else
+Image_GetPixel
+#endif
+ (handle, x, y);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Color Image_GetPixel3 (IntPtr handle, int x, int y, int z);
+		internal static extern 
+#if __WEB__
+Color *
+#else
+Color
+#endif
+ Image_GetPixel3 (IntPtr handle, int x, int y, int z);
 
 		/// <summary>
 		/// Return a 3D pixel color.
@@ -459,7 +477,13 @@ namespace Urho.Resources
 		public Color GetPixel (int x, int y, int z)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Image_GetPixel3 (handle, x, y, z);
+			return 
+#if __WEB__
+*Image_GetPixel3
+#else
+Image_GetPixel3
+#endif
+ (handle, x, y, z);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -487,7 +511,13 @@ namespace Urho.Resources
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Color Image_GetPixelBilinear (IntPtr handle, float x, float y);
+		internal static extern 
+#if __WEB__
+Color *
+#else
+Color
+#endif
+ Image_GetPixelBilinear (IntPtr handle, float x, float y);
 
 		/// <summary>
 		/// Return a bilinearly sampled 2D pixel color. X and Y have the range 0-1.
@@ -495,11 +525,23 @@ namespace Urho.Resources
 		public Color GetPixelBilinear (float x, float y)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Image_GetPixelBilinear (handle, x, y);
+			return 
+#if __WEB__
+*Image_GetPixelBilinear
+#else
+Image_GetPixelBilinear
+#endif
+ (handle, x, y);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Color Image_GetPixelTrilinear (IntPtr handle, float x, float y, float z);
+		internal static extern 
+#if __WEB__
+Color *
+#else
+Color
+#endif
+ Image_GetPixelTrilinear (IntPtr handle, float x, float y, float z);
 
 		/// <summary>
 		/// Return a trilinearly sampled 3D pixel color. X, Y and Z have the range 0-1.
@@ -507,7 +549,13 @@ namespace Urho.Resources
 		public Color GetPixelTrilinear (float x, float y, float z)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Image_GetPixelTrilinear (handle, x, y, z);
+			return 
+#if __WEB__
+*Image_GetPixelTrilinear
+#else
+Image_GetPixelTrilinear
+#endif
+ (handle, x, y, z);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

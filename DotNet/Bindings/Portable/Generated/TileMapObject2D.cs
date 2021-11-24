@@ -85,7 +85,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 TileMapObject2D_GetPosition (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ TileMapObject2D_GetPosition (IntPtr handle);
 
 		/// <summary>
 		/// Return position.
@@ -94,11 +100,23 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetPosition ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return TileMapObject2D_GetPosition (handle);
+			return 
+#if __WEB__
+*TileMapObject2D_GetPosition
+#else
+TileMapObject2D_GetPosition
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 TileMapObject2D_GetSize (IntPtr handle);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ TileMapObject2D_GetSize (IntPtr handle);
 
 		/// <summary>
 		/// Return size (for rectangle and ellipse).
@@ -107,7 +125,13 @@ namespace Urho.Urho2D
 		private Urho.Vector2 GetSize ()
 		{
 			Runtime.ValidateRefCounted (this);
-			return TileMapObject2D_GetSize (handle);
+			return 
+#if __WEB__
+*TileMapObject2D_GetSize
+#else
+TileMapObject2D_GetSize
+#endif
+ (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -124,7 +148,13 @@ namespace Urho.Urho2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Urho.Vector2 TileMapObject2D_GetPoint (IntPtr handle, uint index);
+		internal static extern 
+#if __WEB__
+Urho.Vector2 *
+#else
+Urho.Vector2
+#endif
+ TileMapObject2D_GetPoint (IntPtr handle, uint index);
 
 		/// <summary>
 		/// Return point at index (use for script).
@@ -132,7 +162,13 @@ namespace Urho.Urho2D
 		public Urho.Vector2 GetPoint (uint index)
 		{
 			Runtime.ValidateRefCounted (this);
-			return TileMapObject2D_GetPoint (handle, index);
+			return 
+#if __WEB__
+*TileMapObject2D_GetPoint
+#else
+TileMapObject2D_GetPoint
+#endif
+ (handle, index);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
