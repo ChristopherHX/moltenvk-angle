@@ -304,6 +304,11 @@ else ()
     endif ()
 endif ()
 cmake_dependent_option (URHO3D_PACKAGING "Enable resources packaging support" FALSE "NOT WEB" TRUE)
+
+if (WEB AND URHO3D_DOTNET)
+    set(URHO3D_PACKAGING FALSE)
+endif()
+
 # Enable profiling by default. If disabled, autoprofileblocks become no-ops and the Profiler subsystem is not instantiated.
 option (URHO3D_PROFILING "Enable profiling support" TRUE)
 # Enable logging by default. If disabled, LOGXXXX macros become no-ops and the Log subsystem is not instantiated.

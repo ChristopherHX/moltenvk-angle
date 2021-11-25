@@ -99,6 +99,8 @@ file (GLOB EMSCRIPTEN_FILES web/*.*)
 list (APPEND LINK_FLAGS "--js-library ${CMAKE_CURRENT_SOURCE_DIR}/web/dotnet_support.js")
 list (APPEND LINK_FLAGS "--js-library ${CMAKE_CURRENT_SOURCE_DIR}/web/library_mono.js")
 list (APPEND LINK_FLAGS "-s \"EXTRA_EXPORTED_RUNTIME_METHODS=['ccall', 'FS_createPath', 'FS_createDataFile', 'cwrap', 'setValue', 'getValue', 'UTF8ToString', 'addFunction']\"")
+list (APPEND LINK_FLAGS "-s FORCE_FILESYSTEM=1")
+list (APPEND LINK_FLAGS "-s LZ4=1")
 endif()
 
 

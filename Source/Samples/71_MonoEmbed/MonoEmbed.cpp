@@ -98,7 +98,7 @@ int start_urho_wasm_mono_main()
     ResourceCache* cache = context->GetSubsystem<ResourceCache>();
 
     String programDir = fileSystem->GetProgramDir();
-    cache->AddPackageFile(fixPathString(programDir + "/Data.pak"));
+    cache->AddResourceDir(fixPathString(programDir + "/Data"));
 
     urho3d_init_mono(context);
 
