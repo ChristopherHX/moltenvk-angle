@@ -25,6 +25,12 @@ cp -f ${URHO3D_HOME}/DotNet/libs/iphone/Release-iphoneos/libUrho3D-GLES.a  ${URH
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/metal
 cp -f ${URHO3D_HOME}/DotNet/libs/iphone/Release-iphoneos/libUrho3D-Metal.a ${URHONET_HOME_ROOT}/template/libs/ios/urho3d/metal/libUrho3D.a
 
+
+mkdir -p ${URHONET_HOME_ROOT}/template/libs/web
+cp -f ${URHO3D_HOME}/DotNet/libs/wasm/index.html  ${URHONET_HOME_ROOT}/template/libs/web/index.html
+cp -f ${URHO3D_HOME}/DotNet/libs/wasm/MonoEmbedded.js  ${URHONET_HOME_ROOT}/template/libs/web/MonoEmbedded.js
+cp -f ${URHO3D_HOME}/DotNet/libs/wasm/MonoEmbedded.wasm  ${URHONET_HOME_ROOT}/template/libs/web/MonoEmbedded.wasm
+
 mkdir -p ${URHONET_HOME_ROOT}/template/libs/macos
 cp -f ${URHO3D_HOME}/DotNet/libs/macos/Release/libUrho3D.dylib  ${URHONET_HOME_ROOT}/template/libs/macos
 

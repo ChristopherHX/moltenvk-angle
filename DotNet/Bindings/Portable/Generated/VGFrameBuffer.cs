@@ -273,84 +273,192 @@ VGFrameBuffer_GetClearColor
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGFrameBuffer_RGB (IntPtr handle, byte r, byte g, byte b);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGFrameBuffer_RGB (IntPtr handle, byte r, byte g, byte b);
 
 		public NVGcolor RGB (byte r, byte g, byte b)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGFrameBuffer_RGB (handle, r, g, b);
+			return 
+#if __WEB__
+*VGFrameBuffer_RGB
+#else
+VGFrameBuffer_RGB
+#endif
+ (handle, r, g, b);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGFrameBuffer_RGBf (IntPtr handle, float r, float g, float b);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGFrameBuffer_RGBf (IntPtr handle, float r, float g, float b);
 
 		public NVGcolor RGBf (float r, float g, float b)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGFrameBuffer_RGBf (handle, r, g, b);
+			return 
+#if __WEB__
+*VGFrameBuffer_RGBf
+#else
+VGFrameBuffer_RGBf
+#endif
+ (handle, r, g, b);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGFrameBuffer_RGBA (IntPtr handle, byte r, byte g, byte b, byte a);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGFrameBuffer_RGBA (IntPtr handle, byte r, byte g, byte b, byte a);
 
 		public NVGcolor RGBA (byte r, byte g, byte b, byte a)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGFrameBuffer_RGBA (handle, r, g, b, a);
+			return 
+#if __WEB__
+*VGFrameBuffer_RGBA
+#else
+VGFrameBuffer_RGBA
+#endif
+ (handle, r, g, b, a);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGFrameBuffer_RGBAf (IntPtr handle, float r, float g, float b, float a);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGFrameBuffer_RGBAf (IntPtr handle, float r, float g, float b, float a);
 
 		public NVGcolor RGBAf (float r, float g, float b, float a)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGFrameBuffer_RGBAf (handle, r, g, b, a);
+			return 
+#if __WEB__
+*VGFrameBuffer_RGBAf
+#else
+VGFrameBuffer_RGBAf
+#endif
+ (handle, r, g, b, a);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGFrameBuffer_LerpRGBA (IntPtr handle, NVGcolor c0, NVGcolor c1, float u);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGFrameBuffer_LerpRGBA (IntPtr handle, NVGcolor c0, NVGcolor c1, float u);
 
 		public NVGcolor LerpRGBA (NVGcolor c0, NVGcolor c1, float u)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGFrameBuffer_LerpRGBA (handle, c0, c1, u);
+			return 
+#if __WEB__
+*VGFrameBuffer_LerpRGBA
+#else
+VGFrameBuffer_LerpRGBA
+#endif
+ (handle, c0, c1, u);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGFrameBuffer_TransRGBA (IntPtr handle, NVGcolor c0, byte a);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGFrameBuffer_TransRGBA (IntPtr handle, NVGcolor c0, byte a);
 
 		public NVGcolor TransRGBA (NVGcolor c0, byte a)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGFrameBuffer_TransRGBA (handle, c0, a);
+			return 
+#if __WEB__
+*VGFrameBuffer_TransRGBA
+#else
+VGFrameBuffer_TransRGBA
+#endif
+ (handle, c0, a);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGFrameBuffer_TransRGBAf (IntPtr handle, NVGcolor c0, float a);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGFrameBuffer_TransRGBAf (IntPtr handle, NVGcolor c0, float a);
 
 		public NVGcolor TransRGBAf (NVGcolor c0, float a)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGFrameBuffer_TransRGBAf (handle, c0, a);
+			return 
+#if __WEB__
+*VGFrameBuffer_TransRGBAf
+#else
+VGFrameBuffer_TransRGBAf
+#endif
+ (handle, c0, a);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGFrameBuffer_HSL (IntPtr handle, float h, float s, float l);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGFrameBuffer_HSL (IntPtr handle, float h, float s, float l);
 
 		public NVGcolor HSL (float h, float s, float l)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGFrameBuffer_HSL (handle, h, s, l);
+			return 
+#if __WEB__
+*VGFrameBuffer_HSL
+#else
+VGFrameBuffer_HSL
+#endif
+ (handle, h, s, l);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGFrameBuffer_HSLA (IntPtr handle, float h, float s, float l, byte a);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGFrameBuffer_HSLA (IntPtr handle, float h, float s, float l, byte a);
 
 		public NVGcolor HSLA (float h, float s, float l, byte a)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGFrameBuffer_HSLA (handle, h, s, l, a);
+			return 
+#if __WEB__
+*VGFrameBuffer_HSLA
+#else
+VGFrameBuffer_HSLA
+#endif
+ (handle, h, s, l, a);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -696,39 +804,87 @@ VGFrameBuffer_GetClearColor
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGpaint VGFrameBuffer_LinearGradient (IntPtr handle, float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol);
+		internal static extern 
+#if __WEB__
+NVGpaint *
+#else
+NVGpaint
+#endif
+ VGFrameBuffer_LinearGradient (IntPtr handle, float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol);
 
 		public NVGpaint LinearGradient (float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGFrameBuffer_LinearGradient (handle, sx, sy, ex, ey, icol, ocol);
+			return 
+#if __WEB__
+*VGFrameBuffer_LinearGradient
+#else
+VGFrameBuffer_LinearGradient
+#endif
+ (handle, sx, sy, ex, ey, icol, ocol);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGpaint VGFrameBuffer_BoxGradient (IntPtr handle, float x, float y, float w, float h, float r, float f, NVGcolor icol, NVGcolor ocol);
+		internal static extern 
+#if __WEB__
+NVGpaint *
+#else
+NVGpaint
+#endif
+ VGFrameBuffer_BoxGradient (IntPtr handle, float x, float y, float w, float h, float r, float f, NVGcolor icol, NVGcolor ocol);
 
 		public NVGpaint BoxGradient (float x, float y, float w, float h, float r, float f, NVGcolor icol, NVGcolor ocol)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGFrameBuffer_BoxGradient (handle, x, y, w, h, r, f, icol, ocol);
+			return 
+#if __WEB__
+*VGFrameBuffer_BoxGradient
+#else
+VGFrameBuffer_BoxGradient
+#endif
+ (handle, x, y, w, h, r, f, icol, ocol);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGpaint VGFrameBuffer_RadialGradient (IntPtr handle, float cx, float cy, float inr, float outr, NVGcolor icol, NVGcolor ocol);
+		internal static extern 
+#if __WEB__
+NVGpaint *
+#else
+NVGpaint
+#endif
+ VGFrameBuffer_RadialGradient (IntPtr handle, float cx, float cy, float inr, float outr, NVGcolor icol, NVGcolor ocol);
 
 		public NVGpaint RadialGradient (float cx, float cy, float inr, float outr, NVGcolor icol, NVGcolor ocol)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGFrameBuffer_RadialGradient (handle, cx, cy, inr, outr, icol, ocol);
+			return 
+#if __WEB__
+*VGFrameBuffer_RadialGradient
+#else
+VGFrameBuffer_RadialGradient
+#endif
+ (handle, cx, cy, inr, outr, icol, ocol);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGpaint VGFrameBuffer_ImagePattern (IntPtr handle, float ox, float oy, float ex, float ey, float angle, int image, float alpha);
+		internal static extern 
+#if __WEB__
+NVGpaint *
+#else
+NVGpaint
+#endif
+ VGFrameBuffer_ImagePattern (IntPtr handle, float ox, float oy, float ex, float ey, float angle, int image, float alpha);
 
 		public NVGpaint ImagePattern (float ox, float oy, float ex, float ey, float angle, int image, float alpha)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGFrameBuffer_ImagePattern (handle, ox, oy, ex, ey, angle, image, alpha);
+			return 
+#if __WEB__
+*VGFrameBuffer_ImagePattern
+#else
+VGFrameBuffer_ImagePattern
+#endif
+ (handle, ox, oy, ex, ey, angle, image, alpha);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

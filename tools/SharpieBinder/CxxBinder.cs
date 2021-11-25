@@ -1190,7 +1190,9 @@ namespace SharpieBinder
             if(creturnType.Contains("Interop::") || 
                creturnType.Contains("Urho3D::Ray") || 
                creturnType.Contains("Urho3D::CrowdObstacleAvoidanceParams") || 
-               creturnType.Contains("Urho3D::TileMapInfo2D"))
+               creturnType.Contains("Urho3D::TileMapInfo2D")||
+               creturnType.Contains("NVGcolor")||
+               creturnType.Contains("NVGpaint"))
             {
                 result = true;
             }

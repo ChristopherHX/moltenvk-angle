@@ -44817,66 +44817,192 @@ VGFrameBuffer_GlobalCompositeBlendFuncSeparate (Urho3D::VGFrameBuffer *_target, 
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGFrameBuffer_RGB_306_NVGcolor;
+DllExport NVGcolor *
+VGFrameBuffer_RGB (
+#else
 DllExport NVGcolor
-VGFrameBuffer_RGB (Urho3D::VGFrameBuffer *_target, unsigned char r, unsigned char g, unsigned char b)
+VGFrameBuffer_RGB (
+#endif
+Urho3D::VGFrameBuffer *_target, unsigned char r, unsigned char g, unsigned char b)
 {
-	return _target->RGB (r, g, b);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGFrameBuffer_RGB_306_NVGcolor=_target->RGB (r, g, b)))
+#else
+	*((NVGcolor *) &(_target->RGB (r, g, b)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGFrameBuffer_RGBf_307_NVGcolor;
+DllExport NVGcolor *
+VGFrameBuffer_RGBf (
+#else
 DllExport NVGcolor
-VGFrameBuffer_RGBf (Urho3D::VGFrameBuffer *_target, float r, float g, float b)
+VGFrameBuffer_RGBf (
+#endif
+Urho3D::VGFrameBuffer *_target, float r, float g, float b)
 {
-	return _target->RGBf (r, g, b);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGFrameBuffer_RGBf_307_NVGcolor=_target->RGBf (r, g, b)))
+#else
+	*((NVGcolor *) &(_target->RGBf (r, g, b)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGFrameBuffer_RGBA_308_NVGcolor;
+DllExport NVGcolor *
+VGFrameBuffer_RGBA (
+#else
 DllExport NVGcolor
-VGFrameBuffer_RGBA (Urho3D::VGFrameBuffer *_target, unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+VGFrameBuffer_RGBA (
+#endif
+Urho3D::VGFrameBuffer *_target, unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 {
-	return _target->RGBA (r, g, b, a);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGFrameBuffer_RGBA_308_NVGcolor=_target->RGBA (r, g, b, a)))
+#else
+	*((NVGcolor *) &(_target->RGBA (r, g, b, a)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGFrameBuffer_RGBAf_309_NVGcolor;
+DllExport NVGcolor *
+VGFrameBuffer_RGBAf (
+#else
 DllExport NVGcolor
-VGFrameBuffer_RGBAf (Urho3D::VGFrameBuffer *_target, float r, float g, float b, float a)
+VGFrameBuffer_RGBAf (
+#endif
+Urho3D::VGFrameBuffer *_target, float r, float g, float b, float a)
 {
-	return _target->RGBAf (r, g, b, a);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGFrameBuffer_RGBAf_309_NVGcolor=_target->RGBAf (r, g, b, a)))
+#else
+	*((NVGcolor *) &(_target->RGBAf (r, g, b, a)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGFrameBuffer_LerpRGBA_310_NVGcolor;
+DllExport NVGcolor *
+VGFrameBuffer_LerpRGBA (
+#else
 DllExport NVGcolor
-VGFrameBuffer_LerpRGBA (Urho3D::VGFrameBuffer *_target, NVGcolor c0, NVGcolor c1, float u)
+VGFrameBuffer_LerpRGBA (
+#endif
+Urho3D::VGFrameBuffer *_target, NVGcolor c0, NVGcolor c1, float u)
 {
-	return _target->LerpRGBA (c0, c1, u);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGFrameBuffer_LerpRGBA_310_NVGcolor=_target->LerpRGBA (c0, c1, u)))
+#else
+	*((NVGcolor *) &(_target->LerpRGBA (c0, c1, u)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGFrameBuffer_TransRGBA_311_NVGcolor;
+DllExport NVGcolor *
+VGFrameBuffer_TransRGBA (
+#else
 DllExport NVGcolor
-VGFrameBuffer_TransRGBA (Urho3D::VGFrameBuffer *_target, NVGcolor c0, unsigned char a)
+VGFrameBuffer_TransRGBA (
+#endif
+Urho3D::VGFrameBuffer *_target, NVGcolor c0, unsigned char a)
 {
-	return _target->TransRGBA (c0, a);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGFrameBuffer_TransRGBA_311_NVGcolor=_target->TransRGBA (c0, a)))
+#else
+	*((NVGcolor *) &(_target->TransRGBA (c0, a)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGFrameBuffer_TransRGBAf_312_NVGcolor;
+DllExport NVGcolor *
+VGFrameBuffer_TransRGBAf (
+#else
 DllExport NVGcolor
-VGFrameBuffer_TransRGBAf (Urho3D::VGFrameBuffer *_target, NVGcolor c0, float a)
+VGFrameBuffer_TransRGBAf (
+#endif
+Urho3D::VGFrameBuffer *_target, NVGcolor c0, float a)
 {
-	return _target->TransRGBAf (c0, a);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGFrameBuffer_TransRGBAf_312_NVGcolor=_target->TransRGBAf (c0, a)))
+#else
+	*((NVGcolor *) &(_target->TransRGBAf (c0, a)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGFrameBuffer_HSL_313_NVGcolor;
+DllExport NVGcolor *
+VGFrameBuffer_HSL (
+#else
 DllExport NVGcolor
-VGFrameBuffer_HSL (Urho3D::VGFrameBuffer *_target, float h, float s, float l)
+VGFrameBuffer_HSL (
+#endif
+Urho3D::VGFrameBuffer *_target, float h, float s, float l)
 {
-	return _target->HSL (h, s, l);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGFrameBuffer_HSL_313_NVGcolor=_target->HSL (h, s, l)))
+#else
+	*((NVGcolor *) &(_target->HSL (h, s, l)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGFrameBuffer_HSLA_314_NVGcolor;
+DllExport NVGcolor *
+VGFrameBuffer_HSLA (
+#else
 DllExport NVGcolor
-VGFrameBuffer_HSLA (Urho3D::VGFrameBuffer *_target, float h, float s, float l, unsigned char a)
+VGFrameBuffer_HSLA (
+#endif
+Urho3D::VGFrameBuffer *_target, float h, float s, float l, unsigned char a)
 {
-	return _target->HSLA (h, s, l, a);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGFrameBuffer_HSLA_314_NVGcolor=_target->HSLA (h, s, l, a)))
+#else
+	*((NVGcolor *) &(_target->HSLA (h, s, l, a)))
+#endif
+;
 }
 
 
@@ -45146,31 +45272,87 @@ VGFrameBuffer_DeleteImage (Urho3D::VGFrameBuffer *_target, int image)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGpaint VGFrameBuffer_LinearGradient_315_NVGpaint;
+DllExport NVGpaint *
+VGFrameBuffer_LinearGradient (
+#else
 DllExport NVGpaint
-VGFrameBuffer_LinearGradient (Urho3D::VGFrameBuffer *_target, float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol)
+VGFrameBuffer_LinearGradient (
+#endif
+Urho3D::VGFrameBuffer *_target, float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol)
 {
-	return _target->LinearGradient (sx, sy, ex, ey, icol, ocol);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGpaint *) &(VGFrameBuffer_LinearGradient_315_NVGpaint=_target->LinearGradient (sx, sy, ex, ey, icol, ocol)))
+#else
+	*((NVGpaint *) &(_target->LinearGradient (sx, sy, ex, ey, icol, ocol)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGpaint VGFrameBuffer_BoxGradient_316_NVGpaint;
+DllExport NVGpaint *
+VGFrameBuffer_BoxGradient (
+#else
 DllExport NVGpaint
-VGFrameBuffer_BoxGradient (Urho3D::VGFrameBuffer *_target, float x, float y, float w, float h, float r, float f, NVGcolor icol, NVGcolor ocol)
+VGFrameBuffer_BoxGradient (
+#endif
+Urho3D::VGFrameBuffer *_target, float x, float y, float w, float h, float r, float f, NVGcolor icol, NVGcolor ocol)
 {
-	return _target->BoxGradient (x, y, w, h, r, f, icol, ocol);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGpaint *) &(VGFrameBuffer_BoxGradient_316_NVGpaint=_target->BoxGradient (x, y, w, h, r, f, icol, ocol)))
+#else
+	*((NVGpaint *) &(_target->BoxGradient (x, y, w, h, r, f, icol, ocol)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGpaint VGFrameBuffer_RadialGradient_317_NVGpaint;
+DllExport NVGpaint *
+VGFrameBuffer_RadialGradient (
+#else
 DllExport NVGpaint
-VGFrameBuffer_RadialGradient (Urho3D::VGFrameBuffer *_target, float cx, float cy, float inr, float outr, NVGcolor icol, NVGcolor ocol)
+VGFrameBuffer_RadialGradient (
+#endif
+Urho3D::VGFrameBuffer *_target, float cx, float cy, float inr, float outr, NVGcolor icol, NVGcolor ocol)
 {
-	return _target->RadialGradient (cx, cy, inr, outr, icol, ocol);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGpaint *) &(VGFrameBuffer_RadialGradient_317_NVGpaint=_target->RadialGradient (cx, cy, inr, outr, icol, ocol)))
+#else
+	*((NVGpaint *) &(_target->RadialGradient (cx, cy, inr, outr, icol, ocol)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGpaint VGFrameBuffer_ImagePattern_318_NVGpaint;
+DllExport NVGpaint *
+VGFrameBuffer_ImagePattern (
+#else
 DllExport NVGpaint
-VGFrameBuffer_ImagePattern (Urho3D::VGFrameBuffer *_target, float ox, float oy, float ex, float ey, float angle, int image, float alpha)
+VGFrameBuffer_ImagePattern (
+#endif
+Urho3D::VGFrameBuffer *_target, float ox, float oy, float ex, float ey, float angle, int image, float alpha)
 {
-	return _target->ImagePattern (ox, oy, ex, ey, angle, image, alpha);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGpaint *) &(VGFrameBuffer_ImagePattern_318_NVGpaint=_target->ImagePattern (ox, oy, ex, ey, angle, image, alpha)))
+#else
+	*((NVGpaint *) &(_target->ImagePattern (ox, oy, ex, ey, angle, image, alpha)))
+#endif
+;
 }
 
 
@@ -45491,7 +45673,7 @@ VGElement_EndRender (Urho3D::VGElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  VGElement_GetSize_306_IntVector2 ;
+static IntVector2  VGElement_GetSize_319_IntVector2 ;
 DllExport Interop::IntVector2  *
 VGElement_GetSize (
 #else
@@ -45502,7 +45684,7 @@ Urho3D::VGElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(VGElement_GetSize_306_IntVector2 =_target->GetSize ()))
+	((Interop::IntVector2  *) &(VGElement_GetSize_319_IntVector2 =_target->GetSize ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetSize ()))
 #endif
@@ -45519,7 +45701,7 @@ VGElement_SetClearColor (Urho3D::VGElement *_target, Urho3D::Color color)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  VGElement_GetClearColor_307_Color ;
+static Color  VGElement_GetClearColor_320_Color ;
 DllExport Interop::Color  *
 VGElement_GetClearColor (
 #else
@@ -45530,7 +45712,7 @@ Urho3D::VGElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(VGElement_GetClearColor_307_Color =_target->GetClearColor ()))
+	((Interop::Color  *) &(VGElement_GetClearColor_320_Color =_target->GetClearColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetClearColor ()))
 #endif
@@ -45580,66 +45762,192 @@ VGElement_GlobalCompositeBlendFuncSeparate (Urho3D::VGElement *_target, int srcR
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGElement_RGB_321_NVGcolor;
+DllExport NVGcolor *
+VGElement_RGB (
+#else
 DllExport NVGcolor
-VGElement_RGB (Urho3D::VGElement *_target, unsigned char r, unsigned char g, unsigned char b)
+VGElement_RGB (
+#endif
+Urho3D::VGElement *_target, unsigned char r, unsigned char g, unsigned char b)
 {
-	return _target->RGB (r, g, b);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGElement_RGB_321_NVGcolor=_target->RGB (r, g, b)))
+#else
+	*((NVGcolor *) &(_target->RGB (r, g, b)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGElement_RGBf_322_NVGcolor;
+DllExport NVGcolor *
+VGElement_RGBf (
+#else
 DllExport NVGcolor
-VGElement_RGBf (Urho3D::VGElement *_target, float r, float g, float b)
+VGElement_RGBf (
+#endif
+Urho3D::VGElement *_target, float r, float g, float b)
 {
-	return _target->RGBf (r, g, b);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGElement_RGBf_322_NVGcolor=_target->RGBf (r, g, b)))
+#else
+	*((NVGcolor *) &(_target->RGBf (r, g, b)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGElement_RGBA_323_NVGcolor;
+DllExport NVGcolor *
+VGElement_RGBA (
+#else
 DllExport NVGcolor
-VGElement_RGBA (Urho3D::VGElement *_target, unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+VGElement_RGBA (
+#endif
+Urho3D::VGElement *_target, unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 {
-	return _target->RGBA (r, g, b, a);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGElement_RGBA_323_NVGcolor=_target->RGBA (r, g, b, a)))
+#else
+	*((NVGcolor *) &(_target->RGBA (r, g, b, a)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGElement_RGBAf_324_NVGcolor;
+DllExport NVGcolor *
+VGElement_RGBAf (
+#else
 DllExport NVGcolor
-VGElement_RGBAf (Urho3D::VGElement *_target, float r, float g, float b, float a)
+VGElement_RGBAf (
+#endif
+Urho3D::VGElement *_target, float r, float g, float b, float a)
 {
-	return _target->RGBAf (r, g, b, a);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGElement_RGBAf_324_NVGcolor=_target->RGBAf (r, g, b, a)))
+#else
+	*((NVGcolor *) &(_target->RGBAf (r, g, b, a)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGElement_LerpRGBA_325_NVGcolor;
+DllExport NVGcolor *
+VGElement_LerpRGBA (
+#else
 DllExport NVGcolor
-VGElement_LerpRGBA (Urho3D::VGElement *_target, NVGcolor c0, NVGcolor c1, float u)
+VGElement_LerpRGBA (
+#endif
+Urho3D::VGElement *_target, NVGcolor c0, NVGcolor c1, float u)
 {
-	return _target->LerpRGBA (c0, c1, u);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGElement_LerpRGBA_325_NVGcolor=_target->LerpRGBA (c0, c1, u)))
+#else
+	*((NVGcolor *) &(_target->LerpRGBA (c0, c1, u)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGElement_TransRGBA_326_NVGcolor;
+DllExport NVGcolor *
+VGElement_TransRGBA (
+#else
 DllExport NVGcolor
-VGElement_TransRGBA (Urho3D::VGElement *_target, NVGcolor c0, unsigned char a)
+VGElement_TransRGBA (
+#endif
+Urho3D::VGElement *_target, NVGcolor c0, unsigned char a)
 {
-	return _target->TransRGBA (c0, a);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGElement_TransRGBA_326_NVGcolor=_target->TransRGBA (c0, a)))
+#else
+	*((NVGcolor *) &(_target->TransRGBA (c0, a)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGElement_TransRGBAf_327_NVGcolor;
+DllExport NVGcolor *
+VGElement_TransRGBAf (
+#else
 DllExport NVGcolor
-VGElement_TransRGBAf (Urho3D::VGElement *_target, NVGcolor c0, float a)
+VGElement_TransRGBAf (
+#endif
+Urho3D::VGElement *_target, NVGcolor c0, float a)
 {
-	return _target->TransRGBAf (c0, a);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGElement_TransRGBAf_327_NVGcolor=_target->TransRGBAf (c0, a)))
+#else
+	*((NVGcolor *) &(_target->TransRGBAf (c0, a)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGElement_HSL_328_NVGcolor;
+DllExport NVGcolor *
+VGElement_HSL (
+#else
 DllExport NVGcolor
-VGElement_HSL (Urho3D::VGElement *_target, float h, float s, float l)
+VGElement_HSL (
+#endif
+Urho3D::VGElement *_target, float h, float s, float l)
 {
-	return _target->HSL (h, s, l);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGElement_HSL_328_NVGcolor=_target->HSL (h, s, l)))
+#else
+	*((NVGcolor *) &(_target->HSL (h, s, l)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGElement_HSLA_329_NVGcolor;
+DllExport NVGcolor *
+VGElement_HSLA (
+#else
 DllExport NVGcolor
-VGElement_HSLA (Urho3D::VGElement *_target, float h, float s, float l, unsigned char a)
+VGElement_HSLA (
+#endif
+Urho3D::VGElement *_target, float h, float s, float l, unsigned char a)
 {
-	return _target->HSLA (h, s, l, a);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGElement_HSLA_329_NVGcolor=_target->HSLA (h, s, l, a)))
+#else
+	*((NVGcolor *) &(_target->HSLA (h, s, l, a)))
+#endif
+;
 }
 
 
@@ -45909,31 +46217,87 @@ VGElement_DeleteImage (Urho3D::VGElement *_target, int image)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGpaint VGElement_LinearGradient_330_NVGpaint;
+DllExport NVGpaint *
+VGElement_LinearGradient (
+#else
 DllExport NVGpaint
-VGElement_LinearGradient (Urho3D::VGElement *_target, float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol)
+VGElement_LinearGradient (
+#endif
+Urho3D::VGElement *_target, float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol)
 {
-	return _target->LinearGradient (sx, sy, ex, ey, icol, ocol);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGpaint *) &(VGElement_LinearGradient_330_NVGpaint=_target->LinearGradient (sx, sy, ex, ey, icol, ocol)))
+#else
+	*((NVGpaint *) &(_target->LinearGradient (sx, sy, ex, ey, icol, ocol)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGpaint VGElement_BoxGradient_331_NVGpaint;
+DllExport NVGpaint *
+VGElement_BoxGradient (
+#else
 DllExport NVGpaint
-VGElement_BoxGradient (Urho3D::VGElement *_target, float x, float y, float w, float h, float r, float f, NVGcolor icol, NVGcolor ocol)
+VGElement_BoxGradient (
+#endif
+Urho3D::VGElement *_target, float x, float y, float w, float h, float r, float f, NVGcolor icol, NVGcolor ocol)
 {
-	return _target->BoxGradient (x, y, w, h, r, f, icol, ocol);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGpaint *) &(VGElement_BoxGradient_331_NVGpaint=_target->BoxGradient (x, y, w, h, r, f, icol, ocol)))
+#else
+	*((NVGpaint *) &(_target->BoxGradient (x, y, w, h, r, f, icol, ocol)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGpaint VGElement_RadialGradient_332_NVGpaint;
+DllExport NVGpaint *
+VGElement_RadialGradient (
+#else
 DllExport NVGpaint
-VGElement_RadialGradient (Urho3D::VGElement *_target, float cx, float cy, float inr, float outr, NVGcolor icol, NVGcolor ocol)
+VGElement_RadialGradient (
+#endif
+Urho3D::VGElement *_target, float cx, float cy, float inr, float outr, NVGcolor icol, NVGcolor ocol)
 {
-	return _target->RadialGradient (cx, cy, inr, outr, icol, ocol);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGpaint *) &(VGElement_RadialGradient_332_NVGpaint=_target->RadialGradient (cx, cy, inr, outr, icol, ocol)))
+#else
+	*((NVGpaint *) &(_target->RadialGradient (cx, cy, inr, outr, icol, ocol)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGpaint VGElement_ImagePattern_333_NVGpaint;
+DllExport NVGpaint *
+VGElement_ImagePattern (
+#else
 DllExport NVGpaint
-VGElement_ImagePattern (Urho3D::VGElement *_target, float ox, float oy, float ex, float ey, float angle, int image, float alpha)
+VGElement_ImagePattern (
+#endif
+Urho3D::VGElement *_target, float ox, float oy, float ex, float ey, float angle, int image, float alpha)
 {
-	return _target->ImagePattern (ox, oy, ex, ey, angle, image, alpha);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGpaint *) &(VGElement_ImagePattern_333_NVGpaint=_target->ImagePattern (ox, oy, ex, ey, angle, image, alpha)))
+#else
+	*((NVGpaint *) &(_target->ImagePattern (ox, oy, ex, ey, angle, image, alpha)))
+#endif
+;
 }
 
 
@@ -46374,7 +46738,7 @@ VGComponent_SetRotation (Urho3D::VGComponent *_target, float angle)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  VGComponent_GetHotSpot_308_Vector2 ;
+static Vector2  VGComponent_GetHotSpot_334_Vector2 ;
 DllExport Interop::Vector2  *
 VGComponent_GetHotSpot (
 #else
@@ -46385,7 +46749,7 @@ Urho3D::VGComponent *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(VGComponent_GetHotSpot_308_Vector2 =_target->GetHotSpot ()))
+	((Interop::Vector2  *) &(VGComponent_GetHotSpot_334_Vector2 =_target->GetHotSpot ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetHotSpot ()))
 #endif
@@ -46428,66 +46792,192 @@ VGComponent_GlobalCompositeBlendFuncSeparate (Urho3D::VGComponent *_target, int 
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGComponent_RGB_335_NVGcolor;
+DllExport NVGcolor *
+VGComponent_RGB (
+#else
 DllExport NVGcolor
-VGComponent_RGB (Urho3D::VGComponent *_target, unsigned char r, unsigned char g, unsigned char b)
+VGComponent_RGB (
+#endif
+Urho3D::VGComponent *_target, unsigned char r, unsigned char g, unsigned char b)
 {
-	return _target->RGB (r, g, b);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGComponent_RGB_335_NVGcolor=_target->RGB (r, g, b)))
+#else
+	*((NVGcolor *) &(_target->RGB (r, g, b)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGComponent_RGBf_336_NVGcolor;
+DllExport NVGcolor *
+VGComponent_RGBf (
+#else
 DllExport NVGcolor
-VGComponent_RGBf (Urho3D::VGComponent *_target, float r, float g, float b)
+VGComponent_RGBf (
+#endif
+Urho3D::VGComponent *_target, float r, float g, float b)
 {
-	return _target->RGBf (r, g, b);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGComponent_RGBf_336_NVGcolor=_target->RGBf (r, g, b)))
+#else
+	*((NVGcolor *) &(_target->RGBf (r, g, b)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGComponent_RGBA_337_NVGcolor;
+DllExport NVGcolor *
+VGComponent_RGBA (
+#else
 DllExport NVGcolor
-VGComponent_RGBA (Urho3D::VGComponent *_target, unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+VGComponent_RGBA (
+#endif
+Urho3D::VGComponent *_target, unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 {
-	return _target->RGBA (r, g, b, a);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGComponent_RGBA_337_NVGcolor=_target->RGBA (r, g, b, a)))
+#else
+	*((NVGcolor *) &(_target->RGBA (r, g, b, a)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGComponent_RGBAf_338_NVGcolor;
+DllExport NVGcolor *
+VGComponent_RGBAf (
+#else
 DllExport NVGcolor
-VGComponent_RGBAf (Urho3D::VGComponent *_target, float r, float g, float b, float a)
+VGComponent_RGBAf (
+#endif
+Urho3D::VGComponent *_target, float r, float g, float b, float a)
 {
-	return _target->RGBAf (r, g, b, a);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGComponent_RGBAf_338_NVGcolor=_target->RGBAf (r, g, b, a)))
+#else
+	*((NVGcolor *) &(_target->RGBAf (r, g, b, a)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGComponent_LerpRGBA_339_NVGcolor;
+DllExport NVGcolor *
+VGComponent_LerpRGBA (
+#else
 DllExport NVGcolor
-VGComponent_LerpRGBA (Urho3D::VGComponent *_target, NVGcolor c0, NVGcolor c1, float u)
+VGComponent_LerpRGBA (
+#endif
+Urho3D::VGComponent *_target, NVGcolor c0, NVGcolor c1, float u)
 {
-	return _target->LerpRGBA (c0, c1, u);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGComponent_LerpRGBA_339_NVGcolor=_target->LerpRGBA (c0, c1, u)))
+#else
+	*((NVGcolor *) &(_target->LerpRGBA (c0, c1, u)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGComponent_TransRGBA_340_NVGcolor;
+DllExport NVGcolor *
+VGComponent_TransRGBA (
+#else
 DllExport NVGcolor
-VGComponent_TransRGBA (Urho3D::VGComponent *_target, NVGcolor c0, unsigned char a)
+VGComponent_TransRGBA (
+#endif
+Urho3D::VGComponent *_target, NVGcolor c0, unsigned char a)
 {
-	return _target->TransRGBA (c0, a);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGComponent_TransRGBA_340_NVGcolor=_target->TransRGBA (c0, a)))
+#else
+	*((NVGcolor *) &(_target->TransRGBA (c0, a)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGComponent_TransRGBAf_341_NVGcolor;
+DllExport NVGcolor *
+VGComponent_TransRGBAf (
+#else
 DllExport NVGcolor
-VGComponent_TransRGBAf (Urho3D::VGComponent *_target, NVGcolor c0, float a)
+VGComponent_TransRGBAf (
+#endif
+Urho3D::VGComponent *_target, NVGcolor c0, float a)
 {
-	return _target->TransRGBAf (c0, a);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGComponent_TransRGBAf_341_NVGcolor=_target->TransRGBAf (c0, a)))
+#else
+	*((NVGcolor *) &(_target->TransRGBAf (c0, a)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGComponent_HSL_342_NVGcolor;
+DllExport NVGcolor *
+VGComponent_HSL (
+#else
 DllExport NVGcolor
-VGComponent_HSL (Urho3D::VGComponent *_target, float h, float s, float l)
+VGComponent_HSL (
+#endif
+Urho3D::VGComponent *_target, float h, float s, float l)
 {
-	return _target->HSL (h, s, l);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGComponent_HSL_342_NVGcolor=_target->HSL (h, s, l)))
+#else
+	*((NVGcolor *) &(_target->HSL (h, s, l)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGcolor VGComponent_HSLA_343_NVGcolor;
+DllExport NVGcolor *
+VGComponent_HSLA (
+#else
 DllExport NVGcolor
-VGComponent_HSLA (Urho3D::VGComponent *_target, float h, float s, float l, unsigned char a)
+VGComponent_HSLA (
+#endif
+Urho3D::VGComponent *_target, float h, float s, float l, unsigned char a)
 {
-	return _target->HSLA (h, s, l, a);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGcolor *) &(VGComponent_HSLA_343_NVGcolor=_target->HSLA (h, s, l, a)))
+#else
+	*((NVGcolor *) &(_target->HSLA (h, s, l, a)))
+#endif
+;
 }
 
 
@@ -46757,31 +47247,87 @@ VGComponent_DeleteImage (Urho3D::VGComponent *_target, int image)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGpaint VGComponent_LinearGradient_344_NVGpaint;
+DllExport NVGpaint *
+VGComponent_LinearGradient (
+#else
 DllExport NVGpaint
-VGComponent_LinearGradient (Urho3D::VGComponent *_target, float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol)
+VGComponent_LinearGradient (
+#endif
+Urho3D::VGComponent *_target, float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol)
 {
-	return _target->LinearGradient (sx, sy, ex, ey, icol, ocol);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGpaint *) &(VGComponent_LinearGradient_344_NVGpaint=_target->LinearGradient (sx, sy, ex, ey, icol, ocol)))
+#else
+	*((NVGpaint *) &(_target->LinearGradient (sx, sy, ex, ey, icol, ocol)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGpaint VGComponent_BoxGradient_345_NVGpaint;
+DllExport NVGpaint *
+VGComponent_BoxGradient (
+#else
 DllExport NVGpaint
-VGComponent_BoxGradient (Urho3D::VGComponent *_target, float x, float y, float w, float h, float r, float f, NVGcolor icol, NVGcolor ocol)
+VGComponent_BoxGradient (
+#endif
+Urho3D::VGComponent *_target, float x, float y, float w, float h, float r, float f, NVGcolor icol, NVGcolor ocol)
 {
-	return _target->BoxGradient (x, y, w, h, r, f, icol, ocol);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGpaint *) &(VGComponent_BoxGradient_345_NVGpaint=_target->BoxGradient (x, y, w, h, r, f, icol, ocol)))
+#else
+	*((NVGpaint *) &(_target->BoxGradient (x, y, w, h, r, f, icol, ocol)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGpaint VGComponent_RadialGradient_346_NVGpaint;
+DllExport NVGpaint *
+VGComponent_RadialGradient (
+#else
 DllExport NVGpaint
-VGComponent_RadialGradient (Urho3D::VGComponent *_target, float cx, float cy, float inr, float outr, NVGcolor icol, NVGcolor ocol)
+VGComponent_RadialGradient (
+#endif
+Urho3D::VGComponent *_target, float cx, float cy, float inr, float outr, NVGcolor icol, NVGcolor ocol)
 {
-	return _target->RadialGradient (cx, cy, inr, outr, icol, ocol);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGpaint *) &(VGComponent_RadialGradient_346_NVGpaint=_target->RadialGradient (cx, cy, inr, outr, icol, ocol)))
+#else
+	*((NVGpaint *) &(_target->RadialGradient (cx, cy, inr, outr, icol, ocol)))
+#endif
+;
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static NVGpaint VGComponent_ImagePattern_347_NVGpaint;
+DllExport NVGpaint *
+VGComponent_ImagePattern (
+#else
 DllExport NVGpaint
-VGComponent_ImagePattern (Urho3D::VGComponent *_target, float ox, float oy, float ex, float ey, float angle, int image, float alpha)
+VGComponent_ImagePattern (
+#endif
+Urho3D::VGComponent *_target, float ox, float oy, float ex, float ey, float angle, int image, float alpha)
 {
-	return _target->ImagePattern (ox, oy, ex, ey, angle, image, alpha);
+	return 
+#ifdef __EMSCRIPTEN__
+	((NVGpaint *) &(VGComponent_ImagePattern_347_NVGpaint=_target->ImagePattern (ox, oy, ex, ey, angle, image, alpha)))
+#else
+	*((NVGpaint *) &(_target->ImagePattern (ox, oy, ex, ey, angle, image, alpha)))
+#endif
+;
 }
 
 

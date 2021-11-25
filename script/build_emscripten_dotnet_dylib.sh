@@ -20,3 +20,7 @@ aliassedinplace "s*,-Bdynamic**g" "Source/Samples/71_MonoEmbed/CMakeFiles/MonoEm
 make -j4
 ../tools/python/macos/bin/python3 ../tools/ems_tools/tools/file_packager.py  bin/UrhoNetFileSystem.data  --preload "../bin@/"   --js-output=bin/UrhoNetFileSystemPreloader.js --use-preload-cache --lz4
 cd ..
+
+cp -f build-emscripten-dotnet-dylib/bin/MonoEmbedded.html DotNet/libs/wasm/index.html
+cp -f build-emscripten-dotnet-dylib/bin/MonoEmbedded.js DotNet/libs/wasm/MonoEmbedded.js
+cp -f build-emscripten-dotnet-dylib/bin/MonoEmbedded.wasm DotNet/libs/wasm/MonoEmbedded.wasm

@@ -323,84 +323,192 @@ VGComponent_GetHotSpot
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGComponent_RGB (IntPtr handle, byte r, byte g, byte b);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGComponent_RGB (IntPtr handle, byte r, byte g, byte b);
 
 		public NVGcolor RGB (byte r, byte g, byte b)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGComponent_RGB (handle, r, g, b);
+			return 
+#if __WEB__
+*VGComponent_RGB
+#else
+VGComponent_RGB
+#endif
+ (handle, r, g, b);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGComponent_RGBf (IntPtr handle, float r, float g, float b);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGComponent_RGBf (IntPtr handle, float r, float g, float b);
 
 		public NVGcolor RGBf (float r, float g, float b)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGComponent_RGBf (handle, r, g, b);
+			return 
+#if __WEB__
+*VGComponent_RGBf
+#else
+VGComponent_RGBf
+#endif
+ (handle, r, g, b);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGComponent_RGBA (IntPtr handle, byte r, byte g, byte b, byte a);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGComponent_RGBA (IntPtr handle, byte r, byte g, byte b, byte a);
 
 		public NVGcolor RGBA (byte r, byte g, byte b, byte a)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGComponent_RGBA (handle, r, g, b, a);
+			return 
+#if __WEB__
+*VGComponent_RGBA
+#else
+VGComponent_RGBA
+#endif
+ (handle, r, g, b, a);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGComponent_RGBAf (IntPtr handle, float r, float g, float b, float a);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGComponent_RGBAf (IntPtr handle, float r, float g, float b, float a);
 
 		public NVGcolor RGBAf (float r, float g, float b, float a)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGComponent_RGBAf (handle, r, g, b, a);
+			return 
+#if __WEB__
+*VGComponent_RGBAf
+#else
+VGComponent_RGBAf
+#endif
+ (handle, r, g, b, a);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGComponent_LerpRGBA (IntPtr handle, NVGcolor c0, NVGcolor c1, float u);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGComponent_LerpRGBA (IntPtr handle, NVGcolor c0, NVGcolor c1, float u);
 
 		public NVGcolor LerpRGBA (NVGcolor c0, NVGcolor c1, float u)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGComponent_LerpRGBA (handle, c0, c1, u);
+			return 
+#if __WEB__
+*VGComponent_LerpRGBA
+#else
+VGComponent_LerpRGBA
+#endif
+ (handle, c0, c1, u);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGComponent_TransRGBA (IntPtr handle, NVGcolor c0, byte a);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGComponent_TransRGBA (IntPtr handle, NVGcolor c0, byte a);
 
 		public NVGcolor TransRGBA (NVGcolor c0, byte a)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGComponent_TransRGBA (handle, c0, a);
+			return 
+#if __WEB__
+*VGComponent_TransRGBA
+#else
+VGComponent_TransRGBA
+#endif
+ (handle, c0, a);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGComponent_TransRGBAf (IntPtr handle, NVGcolor c0, float a);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGComponent_TransRGBAf (IntPtr handle, NVGcolor c0, float a);
 
 		public NVGcolor TransRGBAf (NVGcolor c0, float a)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGComponent_TransRGBAf (handle, c0, a);
+			return 
+#if __WEB__
+*VGComponent_TransRGBAf
+#else
+VGComponent_TransRGBAf
+#endif
+ (handle, c0, a);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGComponent_HSL (IntPtr handle, float h, float s, float l);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGComponent_HSL (IntPtr handle, float h, float s, float l);
 
 		public NVGcolor HSL (float h, float s, float l)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGComponent_HSL (handle, h, s, l);
+			return 
+#if __WEB__
+*VGComponent_HSL
+#else
+VGComponent_HSL
+#endif
+ (handle, h, s, l);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGcolor VGComponent_HSLA (IntPtr handle, float h, float s, float l, byte a);
+		internal static extern 
+#if __WEB__
+NVGcolor *
+#else
+NVGcolor
+#endif
+ VGComponent_HSLA (IntPtr handle, float h, float s, float l, byte a);
 
 		public NVGcolor HSLA (float h, float s, float l, byte a)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGComponent_HSLA (handle, h, s, l, a);
+			return 
+#if __WEB__
+*VGComponent_HSLA
+#else
+VGComponent_HSLA
+#endif
+ (handle, h, s, l, a);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -746,39 +854,87 @@ VGComponent_GetHotSpot
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGpaint VGComponent_LinearGradient (IntPtr handle, float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol);
+		internal static extern 
+#if __WEB__
+NVGpaint *
+#else
+NVGpaint
+#endif
+ VGComponent_LinearGradient (IntPtr handle, float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol);
 
 		public NVGpaint LinearGradient (float sx, float sy, float ex, float ey, NVGcolor icol, NVGcolor ocol)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGComponent_LinearGradient (handle, sx, sy, ex, ey, icol, ocol);
+			return 
+#if __WEB__
+*VGComponent_LinearGradient
+#else
+VGComponent_LinearGradient
+#endif
+ (handle, sx, sy, ex, ey, icol, ocol);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGpaint VGComponent_BoxGradient (IntPtr handle, float x, float y, float w, float h, float r, float f, NVGcolor icol, NVGcolor ocol);
+		internal static extern 
+#if __WEB__
+NVGpaint *
+#else
+NVGpaint
+#endif
+ VGComponent_BoxGradient (IntPtr handle, float x, float y, float w, float h, float r, float f, NVGcolor icol, NVGcolor ocol);
 
 		public NVGpaint BoxGradient (float x, float y, float w, float h, float r, float f, NVGcolor icol, NVGcolor ocol)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGComponent_BoxGradient (handle, x, y, w, h, r, f, icol, ocol);
+			return 
+#if __WEB__
+*VGComponent_BoxGradient
+#else
+VGComponent_BoxGradient
+#endif
+ (handle, x, y, w, h, r, f, icol, ocol);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGpaint VGComponent_RadialGradient (IntPtr handle, float cx, float cy, float inr, float outr, NVGcolor icol, NVGcolor ocol);
+		internal static extern 
+#if __WEB__
+NVGpaint *
+#else
+NVGpaint
+#endif
+ VGComponent_RadialGradient (IntPtr handle, float cx, float cy, float inr, float outr, NVGcolor icol, NVGcolor ocol);
 
 		public NVGpaint RadialGradient (float cx, float cy, float inr, float outr, NVGcolor icol, NVGcolor ocol)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGComponent_RadialGradient (handle, cx, cy, inr, outr, icol, ocol);
+			return 
+#if __WEB__
+*VGComponent_RadialGradient
+#else
+VGComponent_RadialGradient
+#endif
+ (handle, cx, cy, inr, outr, icol, ocol);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern NVGpaint VGComponent_ImagePattern (IntPtr handle, float ox, float oy, float ex, float ey, float angle, int image, float alpha);
+		internal static extern 
+#if __WEB__
+NVGpaint *
+#else
+NVGpaint
+#endif
+ VGComponent_ImagePattern (IntPtr handle, float ox, float oy, float ex, float ey, float angle, int image, float alpha);
 
 		public NVGpaint ImagePattern (float ox, float oy, float ex, float ey, float angle, int image, float alpha)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VGComponent_ImagePattern (handle, ox, oy, ex, ey, angle, image, alpha);
+			return 
+#if __WEB__
+*VGComponent_ImagePattern
+#else
+VGComponent_ImagePattern
+#endif
+ (handle, ox, oy, ex, ey, angle, image, alpha);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
