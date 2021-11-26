@@ -124,7 +124,10 @@ public:
 
     /// Mix sound sources into the buffer.
     void MixOutput(void* dest, unsigned samples);
-
+   /// Re-initialize sound output with same parameters.
+    bool RefreshMode();
+    /// Close Audio device.
+    void Close(){Release();}
 private:
     /// Handle render update event.
     void HandleRenderUpdate(StringHash eventType, VariantMap& eventData);
@@ -159,6 +162,9 @@ private:
     PODVector<SoundSource*> soundSources_;
     /// Sound listener.
     WeakPtr<SoundListener> listener_;
+
+    int bufferLengthMSec_;
+    bool speakerMode_;
 };
 
 /// Register Audio library objects.

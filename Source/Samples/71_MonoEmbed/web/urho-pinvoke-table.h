@@ -2681,6 +2681,7 @@ void Audio_AddSoundSource (int,int);
 void Audio_RemoveSoundSource (int,int);
 float Audio_GetSoundSourceMasterGain (int,int);
 void Audio_MixOutput (int,int,int);
+int Audio_RefreshMode (int);
 int BorderImage_GetType (int);
 int BorderImage_GetTypeName (int);
 int BorderImage_GetTypeStatic ();
@@ -8735,6 +8736,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Audio_RemoveSoundSource", Audio_RemoveSoundSource},
 {"Audio_GetSoundSourceMasterGain", Audio_GetSoundSourceMasterGain},
 {"Audio_MixOutput", Audio_MixOutput},
+{"Audio_RefreshMode", Audio_RefreshMode},
 {"BorderImage_GetType", BorderImage_GetType},
 {"BorderImage_GetTypeName", BorderImage_GetTypeName},
 {"BorderImage_GetTypeStatic", BorderImage_GetTypeStatic},

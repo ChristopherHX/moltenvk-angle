@@ -38,6 +38,7 @@
 #include "../UI/Text.h"
 #include "../UI/UI.h"
 #include "../UI/UIEvents.h"
+#include "../Audio/Audio.h"
 
 
 #include "../Engine/Engine.h"
@@ -1981,6 +1982,7 @@ void Input::HandleSDLEvent(void* sdlEvent)
         break;
 
     case SDL_MOUSEBUTTONDOWN:
+        OnUserAction();
         if (!touchEmulation_)
         {
             const auto mouseButton = static_cast<MouseButton>(1u << (evt.button.button - 1u));  // NOLINT(misc-misplaced-widening-cast)
@@ -2096,6 +2098,7 @@ void Input::HandleSDLEvent(void* sdlEvent)
         break;
 
     case SDL_FINGERDOWN:
+        OnUserAction();
         if (evt.tfinger.touchId != SDL_TOUCH_MOUSEID)
         {
             int touchID = GetTouchIndexFromID(evt.tfinger.fingerId & 0x7ffffffu);
@@ -2434,7 +2437,7 @@ void Input::HandleSDLEvent(void* sdlEvent)
         }
         break;
 
-    case SDL_DROPFILE:
+        case SDL_DROPFILE:
         {
             using namespace DropFile;
 
@@ -2446,32 +2449,49 @@ void Input::HandleSDLEvent(void* sdlEvent)
         }
         break;
 
-    case SDL_QUIT:
-        SendEvent(E_EXITREQUESTED);
-        break;
-
-    default:
-        if (Plugin::SDL_PLUGIN_EVENT != -1 && evt.type == Plugin::SDL_PLUGIN_EVENT)
+        case SDL_AUDIODEVICEADDED:
         {
-            if (evt.user.code)
+            if (evt.adevice.iscapture == SDL_FALSE)
             {
-                Object* sender = reinterpret_cast<Object*>(evt.user.data1);
-                if (!sender)
-                {
-                    sender = context_->GetSubsystem<Engine>();
-                }
-                VariantMap* pMap = reinterpret_cast<VariantMap*>(evt.user.data2);
-                StringHash eventType((unsigned)evt.user.code);
-                if (!pMap)
-                    sender->SendEvent(eventType);
-                else
-                {
-                    sender->SendEvent(eventType, *pMap);
-                    delete pMap;
-                }
+                Audio* audio = GetSubsystem<Audio>();
+                audio->RefreshMode();
             }
         }
         break;
+
+        case SDL_AUDIODEVICEREMOVED:
+        {
+
+            GetSubsystem<Audio>()->Close();
+        }
+        break;
+
+        case SDL_QUIT:
+            SendEvent(E_EXITREQUESTED);
+            break;
+
+        default:
+            if (Plugin::SDL_PLUGIN_EVENT != -1 && evt.type == Plugin::SDL_PLUGIN_EVENT)
+            {
+                if (evt.user.code)
+                {
+                    Object* sender = reinterpret_cast<Object*>(evt.user.data1);
+                    if (!sender)
+                    {
+                        sender = context_->GetSubsystem<Engine>();
+                    }
+                    VariantMap* pMap = reinterpret_cast<VariantMap*>(evt.user.data2);
+                    StringHash eventType((unsigned)evt.user.code);
+                    if (!pMap)
+                        sender->SendEvent(eventType);
+                    else
+                    {
+                        sender->SendEvent(eventType, *pMap);
+                        delete pMap;
+                    }
+                }
+            }
+            break;
     }
 }
 
@@ -2741,6 +2761,21 @@ void Input::HandleScreenJoystickDrag(StringHash eventType, VariantMap& eventData
         }
     }
 }
+
+
+void Input::OnUserAction()
+{
+#ifdef __EMSCRIPTEN__
+    static bool audioRefreshed = false;
+    if (!audioRefreshed)
+    {
+        audioRefreshed = true;
+        auto audio = GetSubsystem<Audio>();
+        audio->RefreshMode();
+    }
+#endif
+}
+
 
 
 }

@@ -359,6 +359,8 @@ public:
     /// @property
     bool IsMinimized() const;
 
+     /// Called on user action (click or tap).
+    void OnUserAction();
 private:
     /// Initialize when screen mode initially set.
     void Initialize();

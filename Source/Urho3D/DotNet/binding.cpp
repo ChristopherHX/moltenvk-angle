@@ -3607,6 +3607,20 @@ Audio_MixOutput (Urho3D::Audio *_target, void * dest, unsigned int samples)
 
 
 DllExport int
+Audio_RefreshMode (Urho3D::Audio *_target)
+{
+	return _target->RefreshMode ();
+}
+
+
+DllExport void
+Audio_Close (Urho3D::Audio *_target)
+{
+	_target->Close ();
+}
+
+
+DllExport int
 SoundStream_Seek (Urho3D::SoundStream *_target, unsigned int sample_number)
 {
 	return _target->Seek (sample_number);
@@ -26588,6 +26602,13 @@ DllExport int
 Input_IsMinimized (Urho3D::Input *_target)
 {
 	return _target->IsMinimized ();
+}
+
+
+DllExport void
+Input_OnUserAction (Urho3D::Input *_target)
+{
+	_target->OnUserAction ();
 }
 
 

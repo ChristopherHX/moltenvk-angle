@@ -386,6 +386,30 @@ namespace Urho.Audio
 			Audio_MixOutput (handle, dest, samples);
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Audio_RefreshMode (IntPtr handle);
+
+		/// <summary>
+		/// Re-initialize sound output with same parameters.
+		/// </summary>
+		public bool RefreshMode ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return Audio_RefreshMode (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Audio_Close (IntPtr handle);
+
+		/// <summary>
+		/// Close Audio device.
+		/// </summary>
+		public void Close ()
+		{
+			Runtime.ValidateRefCounted (this);
+			Audio_Close (handle);
+		}
+
 		public override StringHash Type {
 			get {
 				return UrhoGetType ();

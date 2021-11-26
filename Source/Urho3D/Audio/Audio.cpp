@@ -87,6 +87,8 @@ bool Audio::SetMode(int bufferLengthMSec, int mixRate, bool stereo, bool interpo
     desired.format = AUDIO_S16;
     desired.callback = SDLAudioCallback;
     desired.userdata = this;
+    bufferLengthMSec_ = bufferLengthMSec;
+    speakerMode_ = stereo;
 
     // SDL uses power of two audio fragments. Determine the closest match
     int bufferSamples = mixRate * bufferLengthMSec / 1000;
@@ -98,6 +100,8 @@ bool Audio::SetMode(int bufferLengthMSec, int mixRate, bool stereo, bool interpo
     // is not matching the device format, however in doing it will enable the SDL's internal audio stream with audio conversion.
     // Also disallow channels change to avoid issues on multichannel audio device (5.1, 7.1, etc)
     int allowedChanges = SDL_AUDIO_ALLOW_ANY_CHANGE & ~SDL_AUDIO_ALLOW_FORMAT_CHANGE & ~SDL_AUDIO_ALLOW_CHANNELS_CHANGE;
+
+   
 
     if (stereo)
     {
@@ -329,13 +333,17 @@ void Audio::HandleRenderUpdate(StringHash eventType, VariantMap& eventData)
 void Audio::Release()
 {
     Stop();
-
+    
     if (deviceID_)
     {
         SDL_CloseAudioDevice(deviceID_);
         deviceID_ = 0;
         clipBuffer_.Reset();
     }
+#ifdef __EMSCRIPTEN__
+    else
+      SDL_CloseAudio();
+#endif
 }
 
 void Audio::UpdateInternal(float timeStep)
@@ -356,6 +364,11 @@ void Audio::UpdateInternal(float timeStep)
 
         source->Update(timeStep);
     }
+}
+
+bool Audio::RefreshMode()
+{
+    return SetMode(bufferLengthMSec_, mixRate_, speakerMode_, interpolation_);
 }
 
 void RegisterAudioLibrary(Context* context)
