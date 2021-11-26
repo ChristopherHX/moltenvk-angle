@@ -15,6 +15,9 @@
 #include <mono/jit/jit.h>
 #include <mono/jit/mono-private-unstable.h>
 
+
+#include <Urho3D/ThirdParty/SDL/SDL_stdinc.h>
+
 #include "pinvoke.h"
 
 #ifdef CORE_BINDINGS
@@ -24,6 +27,8 @@ void core_initialize_internals ();
 // Blazor specific custom routines - see dotnet_support.js for backing code
 extern void* mono_wasm_invoke_js_marshalled (MonoString **exceptionMessage, void *asyncHandleLongPtr, MonoString *funcName, MonoString *argsJson);
 extern void* mono_wasm_invoke_js_unmarshalled (MonoString **exceptionMessage, MonoString *funcName, void* arg0, void* arg1, void* arg2);
+
+extern MonoString *mono_wasm_get_userAgent();
 
 void mono_wasm_enable_debugging (int);
 
@@ -364,6 +369,8 @@ void mono_initialize_internals ()
 	mono_add_internal_call ("WebAssembly.JSInterop.InternalCalls::InvokeJSMarshalled", mono_wasm_invoke_js_marshalled);
 	mono_add_internal_call ("WebAssembly.JSInterop.InternalCalls::InvokeJSUnmarshalled", mono_wasm_invoke_js_unmarshalled);
 
+	
+
 #ifdef CORE_BINDINGS
 	core_initialize_internals();
 #endif
@@ -442,7 +449,13 @@ mono_wasm_load_runtime (const char *managed_path, int enable_debugging)
 
 	mono_initialize_internals();
 
-	mono_thread_set_main (mono_thread_current ());
+    MonoString* userAgent = mono_wasm_get_userAgent();
+    if (userAgent != NULL)
+    {
+        SDL_setenv("UserAgent", mono_string_to_utf8(mono_wasm_get_userAgent()), 1);
+    }
+
+    mono_thread_set_main (mono_thread_current ());
 }
 
 EMSCRIPTEN_KEEPALIVE MonoAssembly*
