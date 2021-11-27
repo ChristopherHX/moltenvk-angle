@@ -97,10 +97,19 @@ namespace Urho
 
 		//TODO: Surface Variant& GetShaderParameter
 		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+#if __WEB__
+		static extern Color * Material_GetShaderParameterColor(IntPtr target, string paramName);
+#else
 		static extern Color Material_GetShaderParameterColor(IntPtr target, string paramName);
+#endif
+
 		public Color GetShaderParameter(string parameterName)
 		{
+#if __WEB__
+			return *Material_GetShaderParameterColor(Handle, parameterName);
+#else
 			return Material_GetShaderParameterColor(Handle, parameterName);
+#endif
 		}
 	}
 }

@@ -404,10 +404,17 @@ extern "C"
         return results;
     }
 
+#ifdef __EMSCRIPTEN__
+    DllExport Interop::Color * Material_GetShaderParameterColor(Urho3D::Material* _target, const char* paramName)
+    {
+        return ((Interop::Color*)&(_target->GetShaderParameter(Urho3D::String(paramName)).GetColor()));
+    }
+#else
     DllExport Interop::Color Material_GetShaderParameterColor(Urho3D::Material* _target, const char* paramName)
     {
         return *((Interop::Color*)&(_target->GetShaderParameter(Urho3D::String(paramName)).GetColor()));
     }
+#endif
 
     DllExport unsigned char* Image_GetDataBytes(Urho3D::Image* _target, int* len)
     {
