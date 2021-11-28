@@ -15,8 +15,7 @@
 #include <mono/jit/jit.h>
 #include <mono/jit/mono-private-unstable.h>
 
-
-#include <Urho3D/ThirdParty/SDL/SDL_stdinc.h>
+#include <Urho3D/ThirdParty/SDL/SDL.h>
 
 #include "pinvoke.h"
 
@@ -24,11 +23,15 @@
 void core_initialize_internals ();
 #endif
 
+
 // Blazor specific custom routines - see dotnet_support.js for backing code
 extern void* mono_wasm_invoke_js_marshalled (MonoString **exceptionMessage, void *asyncHandleLongPtr, MonoString *funcName, MonoString *argsJson);
 extern void* mono_wasm_invoke_js_unmarshalled (MonoString **exceptionMessage, MonoString *funcName, void* arg0, void* arg1, void* arg2);
 
 extern MonoString *mono_wasm_get_userAgent();
+extern void mono_wasm_register_page_unload();
+
+
 
 void mono_wasm_enable_debugging (int);
 
@@ -455,6 +458,9 @@ mono_wasm_load_runtime (const char *managed_path, int enable_debugging)
         SDL_setenv("UserAgent", mono_string_to_utf8(mono_wasm_get_userAgent()), 1);
     }
 
+
+	mono_wasm_register_page_unload();
+
     mono_thread_set_main (mono_thread_current ());
 }
 
@@ -870,4 +876,11 @@ mono_timezone_get_local_name (MonoString **result)
 	mono_unichar2 *tzd_local_name = (mono_unichar2*)mono_wasm_timezone_get_local_name ();
 	*result = mono_string_from_utf16 (tzd_local_name);
 	free (tzd_local_name);
+}
+
+
+
+void EMSCRIPTEN_KEEPALIVE mono_wasm_cleanup_stuff() {
+     // trying to close audio device prior of closing the page
+	 SDL_CloseAudio();
 }

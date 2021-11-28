@@ -37,6 +37,13 @@ var DotNetSupportLib = {
 		return mono_string(navigator.userAgent);
 	},
 
+	mono_wasm_register_page_unload: function()
+	{
+		window.addEventListener("beforeunload", function (event) {
+			Module._mono_wasm_cleanup_stuff();
+		});
+	},
+	
 	mono_wasm_invoke_js_blazor: function(exceptionMessage, callInfo, arg0, arg1, arg2)	{
 		var mono_string = DOTNET._dotnet_get_global()._mono_string_cached
 			|| (DOTNET._dotnet_get_global()._mono_string_cached = Module.cwrap('mono_wasm_string_from_js', 'number', ['string']));
@@ -116,8 +123,6 @@ var DotNetSupportLib = {
 			return 0;
 		}
 	}
-	
-
 };
 
 autoAddDeps(DotNetSupportLib, '$DOTNET')
