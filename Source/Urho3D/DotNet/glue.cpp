@@ -757,7 +757,7 @@ extern "C"
     }
 
 #ifdef __EMSCRIPTEN__
-    DllExport Interop::Matrix3x4 Dynamic_GetMatrix3x4(Variant* v){return *((Interop::Matrix3x4*)&(v->GetMatrix3x4()));}
+    DllExport Interop::Matrix3x4  * Dynamic_GetMatrix3x4(Variant* v){return ((Interop::Matrix3x4*)&(v->GetMatrix3x4()));}
 #else
     DllExport Interop::Matrix3x4 Dynamic_GetMatrix3x4(Variant* v){return *((Interop::Matrix3x4*)&(v->GetMatrix3x4()));}
 #endif
