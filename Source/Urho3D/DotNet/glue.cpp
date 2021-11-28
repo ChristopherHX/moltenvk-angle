@@ -1087,4 +1087,14 @@ DllExport void delete_vector3_pointer(const class Urho3D::Vector3 *  vector3_ptr
     }
 }
 
+DllExport Urho3D::Model *
+Model_Clone_EmptyName (Urho3D::Model *_target)
+{
+	auto copy = _target->Clone();
+	auto plain = copy.Get();
+	copy.Detach();
+	delete copy;
+	return plain;
+}
+
 }

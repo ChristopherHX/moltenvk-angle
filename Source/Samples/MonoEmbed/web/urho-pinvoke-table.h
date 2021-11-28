@@ -807,6 +807,7 @@ int Model_SetNumGeometryLodLevels (int,int,int);
 int Model_SetGeometry (int,int,int,int);
 int Model_SetGeometryCenter (int,int,int);
 int Model_Clone (int,int);
+int Model_Clone_EmptyName(int);
 int Model_GetBoundingBox (int);
 int Model_GetVertexBuffers (int);
 int Model_GetIndexBuffers (int);
@@ -6878,7 +6879,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"MemoryBuffer_GetSize", MemoryBuffer_GetSize},
 {"MemoryBuffer_Dispose", MemoryBuffer_Dispose},
 {"MemoryBuffer_GetString", MemoryBuffer_GetString},
-{"Model_Clone", Model_Clone},
+{"Model_Clone_EmptyName", Model_Clone_EmptyName},
 {"Model_GetType", Model_GetType},
 {"Model_GetTypeName", Model_GetTypeName},
 {"Model_GetTypeStatic", Model_GetTypeStatic},
@@ -6895,7 +6896,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Model_SetNumGeometryLodLevels", Model_SetNumGeometryLodLevels},
 {"Model_SetGeometry", Model_SetGeometry},
 {"Model_SetGeometryCenter", Model_SetGeometryCenter},
-{"Model_Clone", Model_Clone},
+
 {"Model_GetBoundingBox", Model_GetBoundingBox},
 {"Model_GetVertexBuffers", Model_GetVertexBuffers},
 {"Model_GetIndexBuffers", Model_GetIndexBuffers},
