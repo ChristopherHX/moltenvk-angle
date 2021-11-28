@@ -469,7 +469,13 @@ namespace Urho
             if (v != null && v.ReferenceObject != null)
                 return (Matrix3)v.ReferenceObject;
             else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
+            {
+#if __WEB__
+                return *Dynamic_GetMatrix3(v.Handle);
+#else   
                 return Dynamic_GetMatrix3(v.Handle);
+#endif
+            }
             else return new Matrix3();
         }
 
@@ -483,7 +489,13 @@ namespace Urho
             if (v != null && v.ReferenceObject != null)
                 return (Matrix4)v.ReferenceObject;
             else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
+            {
+#if __WEB__
+                return *Dynamic_GetMatrix4(v.Handle);
+#else
                 return Dynamic_GetMatrix4(v.Handle);
+#endif
+            }
             else return new Matrix4();
         }
 
@@ -499,7 +511,13 @@ namespace Urho
             if (v != null && v.ReferenceObject != null)
                 return (Matrix3x4)v.ReferenceObject;
             else if (v.Handle != IntPtr.Zero && v.variant.Type != VariantType.None)
+            {
+#if __WEB__
+                return *Dynamic_GetMatrix3x4(v.Handle);
+#else
                 return Dynamic_GetMatrix3x4(v.Handle);
+#endif
+            }
             else return new Matrix3x4();
         }
 
@@ -602,7 +620,11 @@ namespace Urho
         static extern IntPtr Dynamic_CreateMatrix3(Matrix3 v);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+#if __WEB__
+        static extern Matrix3* Dynamic_GetMatrix3(IntPtr v);
+#else
         static extern Matrix3 Dynamic_GetMatrix3(IntPtr v);
+#endif
 
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -610,13 +632,21 @@ namespace Urho
 
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+#if __WEB__
+         static extern Matrix4*  Dynamic_GetMatrix4(IntPtr v);
+#else
         static extern Matrix4 Dynamic_GetMatrix4(IntPtr v);
+#endif
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Dynamic_CreateMatrix3x4(Matrix3x4 v);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+#if __WEB__
+          static extern Matrix3x4* Dynamic_GetMatrix3x4(IntPtr v);
+#else
         static extern Matrix3x4 Dynamic_GetMatrix3x4(IntPtr v);
+#endif
 
         ////////////////////////////////////////////////////////////////////
 

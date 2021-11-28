@@ -730,7 +730,11 @@ extern "C"
         return v;
     }
 
+#ifdef __EMSCRIPTEN__
+    DllExport Interop::Matrix3  * Dynamic_GetMatrix3(Variant* v) { return ((Interop::Matrix3*)&(v->GetMatrix3())); }
+#else
     DllExport Interop::Matrix3 Dynamic_GetMatrix3(Variant* v) { return *((Interop::Matrix3*)&(v->GetMatrix3())); }
+#endif
 
     DllExport Variant* Dynamic_CreateMatrix4(Interop::Matrix4 val)
     {
@@ -739,7 +743,11 @@ extern "C"
         return v;
     }
 
+#ifdef __EMSCRIPTEN__
+    DllExport Interop::Matrix4 *  Dynamic_GetMatrix4(Variant* v) { return ((Interop::Matrix4*)&(v->GetMatrix4())); }
+#else
     DllExport Interop::Matrix4 Dynamic_GetMatrix4(Variant* v) { return *((Interop::Matrix4*)&(v->GetMatrix4())); }
+#endif
 
     DllExport Variant* Dynamic_CreateMatrix3x4(Interop::Matrix3x4 val)
     {
@@ -748,10 +756,11 @@ extern "C"
         return v;
     }
 
-    DllExport Interop::Matrix3x4 Dynamic_GetMatrix3x4(Variant* v)
-    {
-        return *((Interop::Matrix3x4*)&(v->GetMatrix3x4()));
-    }
+#ifdef __EMSCRIPTEN__
+    DllExport Interop::Matrix3x4 Dynamic_GetMatrix3x4(Variant* v){return *((Interop::Matrix3x4*)&(v->GetMatrix3x4()));}
+#else
+    DllExport Interop::Matrix3x4 Dynamic_GetMatrix3x4(Variant* v){return *((Interop::Matrix3x4*)&(v->GetMatrix3x4()));}
+#endif
 
     DllExport Variant* Dynamic_CreateString(const char* value)
     {
