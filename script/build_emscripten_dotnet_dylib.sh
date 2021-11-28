@@ -15,8 +15,8 @@ fi
 
 ./script/cmake_emscripten_dotnet_lib.sh build-emscripten-dotnet-dylib
 cd build-emscripten-dotnet-dylib
-aliassedinplace "s*,-Bstatic**g" "Source/Samples/71_MonoEmbed/CMakeFiles/MonoEmbedded.dir/link.txt"
-aliassedinplace "s*,-Bdynamic**g" "Source/Samples/71_MonoEmbed/CMakeFiles/MonoEmbedded.dir/link.txt"
+aliassedinplace "s*,-Bstatic**g" "Source/Samples/MonoEmbed/CMakeFiles/MonoEmbedded.dir/link.txt"
+aliassedinplace "s*,-Bdynamic**g" "Source/Samples/MonoEmbed/CMakeFiles/MonoEmbedded.dir/link.txt"
 make -j4
 cd ..
 

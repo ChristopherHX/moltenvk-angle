@@ -61,7 +61,7 @@ if (URHO3D_SAMPLES)
     endforeach ()
 else()
     if (URHO3D_DOTNET AND NOT URHO3D_DOTNET_LIB)
-        add_sample_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/71_MonoEmbed)
+        add_sample_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/MonoEmbed)
     endif ()
 endif ()
 

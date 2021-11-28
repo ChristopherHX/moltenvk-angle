@@ -15,8 +15,8 @@ fi
 
 ./script/cmake_emscripten_dotnet_lib.sh build-emscripten-dotnet-dylib
 cd build-emscripten-dotnet-dylib
-aliassedinplace "s*,-Bstatic**g" "Source/Samples/71_MonoEmbed/CMakeFiles/MonoEmbedded.dir/link.txt"
-aliassedinplace "s*,-Bdynamic**g" "Source/Samples/71_MonoEmbed/CMakeFiles/MonoEmbedded.dir/link.txt"
+aliassedinplace "s*,-Bstatic**g" "Source/Samples/MonoEmbed/CMakeFiles/MonoEmbedded.dir/link.txt"
+aliassedinplace "s*,-Bdynamic**g" "Source/Samples/MonoEmbed/CMakeFiles/MonoEmbedded.dir/link.txt"
 make -j4
 ../tools/python/macos/bin/python3 ../tools/ems_tools/tools/file_packager.py  bin/UrhoNetFileSystem.data  --preload "../bin@/"   --js-output=bin/UrhoNetFileSystemPreloader.js --use-preload-cache --lz4
 cd ..
