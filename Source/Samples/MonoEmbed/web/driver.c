@@ -248,6 +248,8 @@ wasm_dl_symbol (void *handle, const char *name, char **err, void *user_data)
 			return table [i].func;
 		}
 	}
+	// Didn't find the method , this will cause an exception
+	printf("wasm_dl_symbol ERROR: didn't find %s \n",name);
 	return NULL;
 }
 
