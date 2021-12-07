@@ -602,7 +602,7 @@ public:
     }
 
     /// Construct empty.
-    UniquePtr(std::nullptr_t) { }   // NOLINT(google-explicit-constructor)
+    UniquePtr(std::nullptr_t) : ptr_(nullptr) { }   // NOLINT(google-explicit-constructor)
 
     /// Move-construct from UniquePtr.
     UniquePtr(UniquePtr&& up) noexcept :
