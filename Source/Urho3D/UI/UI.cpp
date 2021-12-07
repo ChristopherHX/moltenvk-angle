@@ -1321,6 +1321,9 @@ void UI::GetCursorPositionAndVisible(IntVector2& pos, bool& visible)
         if (!visible && cursor_)
             pos = GetCursorPosition();
     }
+
+    pos.x_ = (int)(pos.x_ / uiScale_);
+    pos.y_ = (int)(pos.y_ / uiScale_);
 }
 
 void UI::SetCursorShape(CursorShape shape)
