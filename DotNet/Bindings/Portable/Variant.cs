@@ -107,6 +107,10 @@ namespace Urho
             return v.Value._double;
         }
 
+        public static implicit operator IntPtr(Variant v)
+        {
+            return v.Value.intPtr;
+        }
 
         public static implicit operator string(Variant v)
         {

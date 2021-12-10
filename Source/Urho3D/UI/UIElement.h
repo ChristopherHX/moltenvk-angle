@@ -685,7 +685,7 @@ public:
     /// Return derived color. Only valid when no gradient.
     const Color& GetDerivedColor() const;
     /// Return a user variable.
-    const Variant& GetVar(const StringHash& key) const;
+    Variant GetVar(StringHash key) const;
 
     /// Return all user variables.
     const VariantMap& GetVars() const { return vars_; }

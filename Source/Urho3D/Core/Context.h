@@ -218,6 +218,12 @@ public:
     bool PostCommandToPlugin(const String& clazz, const String& method);
     bool PostCommandToPlugin(const String& clazz, const String& method, JSONFile& data);
 #endif
+    void PopulateByCategory(const String& category);
+    int GetObjectCountInLastPopulatedCetegory();
+    const String& GetObjectInLastPopulatedCetegory(int index);
+    void ClearLastPopulatedCategory();
+    int GetCetegoriesSize();
+    const String& GetCategory(int index);
 private:
     /// Add event receiver.
     void AddEventReceiver(Object* receiver, StringHash eventType);

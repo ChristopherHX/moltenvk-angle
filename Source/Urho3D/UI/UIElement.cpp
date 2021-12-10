@@ -1692,7 +1692,8 @@ const Color& UIElement::GetDerivedColor() const
     return derivedColor_;
 }
 
-const Variant& UIElement::GetVar(const StringHash& key) const
+
+Variant UIElement::GetVar(StringHash key) const
 {
     VariantMap::ConstIterator i = vars_.Find(key);
     return i != vars_.End() ? i->second_ : Variant::EMPTY;

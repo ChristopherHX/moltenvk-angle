@@ -426,6 +426,60 @@ namespace Urho
 			return Context_PostCommandToPlugin (handle, clazz, method);
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Context_PopulateByCategory (IntPtr handle, string category);
+
+		public void PopulateByCategory (string category)
+		{
+			Runtime.ValidateRefCounted (this);
+			Context_PopulateByCategory (handle, category);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern int Context_GetObjectCountInLastPopulatedCetegory (IntPtr handle);
+
+		private int GetObjectCountInLastPopulatedCetegory ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return Context_GetObjectCountInLastPopulatedCetegory (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern IntPtr Context_GetObjectInLastPopulatedCetegory (IntPtr handle, int index);
+
+		public string GetObjectInLastPopulatedCetegory (int index)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Marshal.PtrToStringAnsi (Context_GetObjectInLastPopulatedCetegory (handle, index));
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Context_ClearLastPopulatedCategory (IntPtr handle);
+
+		public void ClearLastPopulatedCategory ()
+		{
+			Runtime.ValidateRefCounted (this);
+			Context_ClearLastPopulatedCategory (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern int Context_GetCetegoriesSize (IntPtr handle);
+
+		private int GetCetegoriesSize ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return Context_GetCetegoriesSize (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern IntPtr Context_GetCategory (IntPtr handle, int index);
+
+		public string GetCategory (int index)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Marshal.PtrToStringAnsi (Context_GetCategory (handle, index));
+		}
+
 		/// <summary>
 		/// Return active event sender. Null outside event handling.
 		/// </summary>
@@ -441,6 +495,18 @@ namespace Urho
 		public IntPtr EventHandler {
 			get {
 				return GetEventHandler ();
+			}
+		}
+
+		public int ObjectCountInLastPopulatedCetegory {
+			get {
+				return GetObjectCountInLastPopulatedCetegory ();
+			}
+		}
+
+		public int CetegoriesSize {
+			get {
+				return GetCetegoriesSize ();
 			}
 		}
 	}

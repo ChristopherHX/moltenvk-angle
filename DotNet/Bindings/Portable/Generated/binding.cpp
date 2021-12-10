@@ -5183,6 +5183,48 @@ Context_PostCommandToPlugin (Urho3D::Context *_target, const char * clazz, const
 }
 
 
+DllExport void
+Context_PopulateByCategory (Urho3D::Context *_target, const char * category)
+{
+	_target->PopulateByCategory (Urho3D::String(category));
+}
+
+
+DllExport int
+Context_GetObjectCountInLastPopulatedCetegory (Urho3D::Context *_target)
+{
+	return _target->GetObjectCountInLastPopulatedCetegory ();
+}
+
+
+DllExport const char *
+Context_GetObjectInLastPopulatedCetegory (Urho3D::Context *_target, int index)
+{
+	return stringdup((_target->GetObjectInLastPopulatedCetegory (index)).CString ());
+}
+
+
+DllExport void
+Context_ClearLastPopulatedCategory (Urho3D::Context *_target)
+{
+	_target->ClearLastPopulatedCategory ();
+}
+
+
+DllExport int
+Context_GetCetegoriesSize (Urho3D::Context *_target)
+{
+	return _target->GetCetegoriesSize ();
+}
+
+
+DllExport const char *
+Context_GetCategory (Urho3D::Context *_target, int index)
+{
+	return stringdup((_target->GetCategory (index)).CString ());
+}
+
+
 DllExport int
 Profiler_GetType (Urho3D::Profiler *_target)
 {
@@ -25573,6 +25615,13 @@ Urho3D::UIElement *_target)
 	*((Interop::Color  *) &(_target->GetDerivedColor ()))
 #endif
 ;
+}
+
+
+DllExport Urho3D::Variant
+UIElement_GetVar (Urho3D::UIElement *_target, int key)
+{
+	return _target->GetVar (Urho3D::StringHash(key));
 }
 
 

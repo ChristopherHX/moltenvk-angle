@@ -527,4 +527,59 @@ bool Context::PostCommandToPlugin(const String& clazz, const String& method, JSO
 }
 #endif
 
+static Vector<String>  GetObjectsByCategoryComponents;
+void Context::PopulateByCategory(const String& category)
+{
+    
+   
+	GetObjectsByCategoryComponents.Clear();
+
+	HashMap<String, Vector<StringHash> >::ConstIterator i = objectCategories_.Find(category);
+	if (i != objectCategories_.End())
+	{
+		const HashMap<StringHash, SharedPtr<ObjectFactory> >& factories = GetObjectFactories();
+		const Vector<StringHash>& factoryHashes = i->second_;
+		GetObjectsByCategoryComponents.Reserve(factoryHashes.Size());
+
+		for (unsigned j = 0; j < factoryHashes.Size(); ++j)
+		{
+			HashMap<StringHash, SharedPtr<ObjectFactory> >::ConstIterator k = factories.Find(factoryHashes[j]);
+			if (k != factories.End())
+				GetObjectsByCategoryComponents.Push(k->second_->GetTypeName());
+		}
+	}
+
+	Sort(GetObjectsByCategoryComponents.Begin(), GetObjectsByCategoryComponents.End());
+    
+  
+}
+
+int Context::GetObjectCountInLastPopulatedCetegory()
+{
+    return GetObjectsByCategoryComponents.Size();
+}
+
+const String& Context::GetObjectInLastPopulatedCetegory(int index)
+{
+    return GetObjectsByCategoryComponents[index];
+}
+
+void Context::ClearLastPopulatedCategory()
+{
+     GetObjectsByCategoryComponents.Clear();
+}
+
+int Context::GetCetegoriesSize()
+{
+    return   objectCategories_.Keys().Size();
+}
+
+static String  GetCategoryString;
+const String& Context::GetCategory(int index)
+{
+    Vector<String> objectCategories = objectCategories_.Keys();
+    GetCategoryString = objectCategories[index];
+    return GetCategoryString;
+}
+
 }

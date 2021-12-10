@@ -2499,6 +2499,18 @@ UIElement_GetDerivedColor
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern Variant UIElement_GetVar (IntPtr handle, int key);
+
+		/// <summary>
+		/// Return a user variable.
+		/// </summary>
+		public Variant GetVar (StringHash key)
+		{
+			Runtime.ValidateRefCounted (this);
+			return UIElement_GetVar (handle, key.Code);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern bool UIElement_HasTag (IntPtr handle, string tag);
 
 		/// <summary>
