@@ -1,8 +1,4 @@
 // GENERATED FILE, DO NOT MODIFY
-// typedef struct {
-// const char *name;
-// void *func;
-// } PinvokeImport;
 
 int ApplicationProxy_ApplicationProxy (int,int,int,int,int,int);
 int Urho_GetPlatform ();
@@ -187,6 +183,45 @@ float Connection_GetDownloadProgress (int);
 void Connection_SendPackageToClient (int,int);
 void Connection_ConfigureNetworkSimulator (int,int,float);
 void Connection_SetPacketSizeLimit (int,int);
+int Context_Context ();
+int Context_CreateObject (int,int);
+void Context_RegisterFactory (int,int);
+void Context_RegisterSubsystem (int,int);
+void Context_RemoveSubsystem (int,int);
+void Context_RemoveAllAttributes (int,int);
+int Context_RequireSDL (int,int);
+void Context_ReleaseSDL (int);
+void Context_CopyBaseAttributes (int,int,int);
+int Context_GetSubsystem (int,int);
+void Context_SetGlobalVar_0 (int,int,int);
+void Context_SetGlobalVar_1 (int,int,int);
+void Context_SetGlobalVar_2 (int,int,int);
+void Context_SetGlobalVar_3 (int,int,int);
+void Context_SetGlobalVar_4 (int,int,int);
+void Context_SetGlobalVar_5 (int,int,int);
+void Context_SetGlobalVar_6 (int,int,int);
+void Context_SetGlobalVar_7 (int,int,int);
+void Context_SetGlobalVar_8 (int,int,int);
+void Context_SetGlobalVar_9 (int,int,int);
+void Context_SetGlobalVar_10 (int,int,int);
+void Context_SetGlobalVar_11 (int,int,float);
+void Context_SetGlobalVar_12 (int,int,int);
+void Context_SetGlobalVar_13 (int,int,int);
+int Context_GetEventSender (int);
+int Context_GetEventHandler (int);
+int Context_GetTypeName (int,int);
+int Context_GetEventReceivers (int,int,int);
+int Context_GetEventReceivers0 (int,int);
+void Context_RegisterPlugin (int,int);
+void Context_RemovePlugin (int,int);
+int Context_GetPlugin (int,int);
+int Context_PostCommandToPlugin (int,int,int);
+void Context_PopulateByCategory (int,int);
+int Context_GetObjectCountInLastPopulatedCetegory (int);
+int Context_GetObjectInLastPopulatedCetegory (int,int);
+void Context_ClearLastPopulatedCategory (int);
+int Context_GetCetegoriesSize (int);
+int Context_GetCategory (int,int);
 void Controls_Destroy (int);
 int Controls_Create ();
 int Controls_GetButtons (int);
@@ -790,6 +825,7 @@ int MemoryBuffer_GetData (int,int);
 int MemoryBuffer_GetSize (int);
 int MemoryBuffer_Dispose (int);
 int MemoryBuffer_GetString (int);
+int Model_Clone_EmptyName (int);
 int Model_GetType (int);
 int Model_GetTypeName (int);
 int Model_GetTypeStatic ();
@@ -807,7 +843,6 @@ int Model_SetNumGeometryLodLevels (int,int,int);
 int Model_SetGeometry (int,int,int,int);
 int Model_SetGeometryCenter (int,int,int);
 int Model_Clone (int,int);
-int Model_Clone_EmptyName(int);
 int Model_GetBoundingBox (int);
 int Model_GetVertexBuffers (int);
 int Model_GetIndexBuffers (int);
@@ -1818,6 +1853,7 @@ int UIElement_GetChildren (int);
 int UIElement_GetParent (int);
 int UIElement_GetRoot (int);
 int UIElement_GetDerivedColor (int);
+int UIElement_GetVar (int,int);
 int UIElement_HasTag (int,int);
 int UIElement_GetDragButtonCount (int);
 int UIElement_IsInside (int,int,int);
@@ -2683,6 +2719,7 @@ void Audio_RemoveSoundSource (int,int);
 float Audio_GetSoundSourceMasterGain (int,int);
 void Audio_MixOutput (int,int,int);
 int Audio_RefreshMode (int);
+void Audio_Close (int);
 int BorderImage_GetType (int);
 int BorderImage_GetTypeName (int);
 int BorderImage_GetTypeStatic ();
@@ -3108,39 +3145,6 @@ float ConstraintWheel2D_GetMaxMotorTorque (int);
 float ConstraintWheel2D_GetMotorSpeed (int);
 float ConstraintWheel2D_GetFrequencyHz (int);
 float ConstraintWheel2D_GetDampingRatio (int);
-int Context_Context ();
-int Context_CreateObject (int,int);
-void Context_RegisterFactory (int,int);
-void Context_RegisterSubsystem (int,int);
-void Context_RemoveSubsystem (int,int);
-void Context_RemoveAllAttributes (int,int);
-int Context_RequireSDL (int,int);
-void Context_ReleaseSDL (int);
-void Context_CopyBaseAttributes (int,int,int);
-int Context_GetSubsystem (int,int);
-void Context_SetGlobalVar_0 (int,int,int);
-void Context_SetGlobalVar_1 (int,int,int);
-void Context_SetGlobalVar_2 (int,int,int);
-void Context_SetGlobalVar_3 (int,int,int);
-void Context_SetGlobalVar_4 (int,int,int);
-void Context_SetGlobalVar_5 (int,int,int);
-void Context_SetGlobalVar_6 (int,int,int);
-void Context_SetGlobalVar_7 (int,int,int);
-void Context_SetGlobalVar_8 (int,int,int);
-void Context_SetGlobalVar_9 (int,int,int);
-void Context_SetGlobalVar_10 (int,int,int);
-void Context_SetGlobalVar_11 (int,int,float);
-void Context_SetGlobalVar_12 (int,int,int);
-void Context_SetGlobalVar_13 (int,int,int);
-int Context_GetEventSender (int);
-int Context_GetEventHandler (int);
-int Context_GetTypeName (int,int);
-int Context_GetEventReceivers (int,int,int);
-int Context_GetEventReceivers0 (int,int);
-void Context_RegisterPlugin (int,int);
-void Context_RemovePlugin (int,int);
-int Context_GetPlugin (int,int);
-int Context_PostCommandToPlugin (int,int,int);
 int ConvexData_ConvexData (int,int);
 int ConvexData_ConvexData0 (int);
 int CrowdAgent_GetType (int);
@@ -3704,6 +3708,7 @@ int HttpRequest_IsEof (int);
 int HttpRequest_GetURL (int);
 int HttpRequest_GetVerb (int);
 int HttpRequest_GetError (int);
+int HttpRequest_GetState (int);
 int HttpRequest_GetAvailableSize (int);
 int HttpRequest_IsOpen (int);
 int IKConstraint_GetType (int);
@@ -6276,6 +6281,93 @@ static PinvokeImport Urho3D_imports [] = {
 {"Component_AddReplicationState", Component_AddReplicationState},
 {"Component_PrepareNetworkUpdate", Component_PrepareNetworkUpdate},
 {"Component_CleanupConnection", Component_CleanupConnection},
+{"Connection_GetControls", Connection_GetControls},
+{"Connection_SetControls", Connection_SetControls},
+{"Connection_SendRemoteEvent", Connection_SendRemoteEvent},
+{"Connection_SendRemoteEvent2", Connection_SendRemoteEvent2},
+{"Connection_GetType", Connection_GetType},
+{"Connection_GetTypeName", Connection_GetTypeName},
+{"Connection_GetTypeStatic", Connection_GetTypeStatic},
+{"Connection_GetTypeNameStatic", Connection_GetTypeNameStatic},
+{"Connection_GetPacketType", Connection_GetPacketType},
+{"Connection_SendMessage", Connection_SendMessage},
+{"Connection_SetScene", Connection_SetScene},
+{"Connection_SetPosition", Connection_SetPosition},
+{"Connection_SetRotation", Connection_SetRotation},
+{"Connection_SetConnectPending", Connection_SetConnectPending},
+{"Connection_SetLogStatistics", Connection_SetLogStatistics},
+{"Connection_Disconnect", Connection_Disconnect},
+{"Connection_SendServerUpdate", Connection_SendServerUpdate},
+{"Connection_SendClientUpdate", Connection_SendClientUpdate},
+{"Connection_SendRemoteEvents", Connection_SendRemoteEvents},
+{"Connection_SendPackages", Connection_SendPackages},
+{"Connection_SendBuffer", Connection_SendBuffer},
+{"Connection_SendAllBuffers", Connection_SendAllBuffers},
+{"Connection_ProcessPendingLatestData", Connection_ProcessPendingLatestData},
+{"Connection_Ban", Connection_Ban},
+{"Connection_GetScene", Connection_GetScene},
+{"Connection_GetTimeStamp", Connection_GetTimeStamp},
+{"Connection_GetPosition", Connection_GetPosition},
+{"Connection_GetRotation", Connection_GetRotation},
+{"Connection_IsClient", Connection_IsClient},
+{"Connection_IsConnected", Connection_IsConnected},
+{"Connection_IsConnectPending", Connection_IsConnectPending},
+{"Connection_IsSceneLoaded", Connection_IsSceneLoaded},
+{"Connection_GetLogStatistics", Connection_GetLogStatistics},
+{"Connection_GetAddress", Connection_GetAddress},
+{"Connection_GetPort", Connection_GetPort},
+{"Connection_GetRoundTripTime", Connection_GetRoundTripTime},
+{"Connection_GetLastHeardTime", Connection_GetLastHeardTime},
+{"Connection_GetBytesInPerSec", Connection_GetBytesInPerSec},
+{"Connection_GetBytesOutPerSec", Connection_GetBytesOutPerSec},
+{"Connection_GetPacketsInPerSec", Connection_GetPacketsInPerSec},
+{"Connection_GetPacketsOutPerSec", Connection_GetPacketsOutPerSec},
+{"Connection_ToString", Connection_ToString},
+{"Connection_GetNumDownloads", Connection_GetNumDownloads},
+{"Connection_GetDownloadName", Connection_GetDownloadName},
+{"Connection_GetDownloadProgress", Connection_GetDownloadProgress},
+{"Connection_SendPackageToClient", Connection_SendPackageToClient},
+{"Connection_ConfigureNetworkSimulator", Connection_ConfigureNetworkSimulator},
+{"Connection_SetPacketSizeLimit", Connection_SetPacketSizeLimit},
+{"Context_Context", Context_Context},
+{"Context_CreateObject", Context_CreateObject},
+{"Context_RegisterFactory", Context_RegisterFactory},
+{"Context_RegisterSubsystem", Context_RegisterSubsystem},
+{"Context_RemoveSubsystem", Context_RemoveSubsystem},
+{"Context_RemoveAllAttributes", Context_RemoveAllAttributes},
+{"Context_RequireSDL", Context_RequireSDL},
+{"Context_ReleaseSDL", Context_ReleaseSDL},
+{"Context_CopyBaseAttributes", Context_CopyBaseAttributes},
+{"Context_GetSubsystem", Context_GetSubsystem},
+{"Context_SetGlobalVar_0", Context_SetGlobalVar_0},
+{"Context_SetGlobalVar_1", Context_SetGlobalVar_1},
+{"Context_SetGlobalVar_2", Context_SetGlobalVar_2},
+{"Context_SetGlobalVar_3", Context_SetGlobalVar_3},
+{"Context_SetGlobalVar_4", Context_SetGlobalVar_4},
+{"Context_SetGlobalVar_5", Context_SetGlobalVar_5},
+{"Context_SetGlobalVar_6", Context_SetGlobalVar_6},
+{"Context_SetGlobalVar_7", Context_SetGlobalVar_7},
+{"Context_SetGlobalVar_8", Context_SetGlobalVar_8},
+{"Context_SetGlobalVar_9", Context_SetGlobalVar_9},
+{"Context_SetGlobalVar_10", Context_SetGlobalVar_10},
+{"Context_SetGlobalVar_11", Context_SetGlobalVar_11},
+{"Context_SetGlobalVar_12", Context_SetGlobalVar_12},
+{"Context_SetGlobalVar_13", Context_SetGlobalVar_13},
+{"Context_GetEventSender", Context_GetEventSender},
+{"Context_GetEventHandler", Context_GetEventHandler},
+{"Context_GetTypeName", Context_GetTypeName},
+{"Context_GetEventReceivers", Context_GetEventReceivers},
+{"Context_GetEventReceivers0", Context_GetEventReceivers0},
+{"Context_RegisterPlugin", Context_RegisterPlugin},
+{"Context_RemovePlugin", Context_RemovePlugin},
+{"Context_GetPlugin", Context_GetPlugin},
+{"Context_PostCommandToPlugin", Context_PostCommandToPlugin},
+{"Context_PopulateByCategory", Context_PopulateByCategory},
+{"Context_GetObjectCountInLastPopulatedCetegory", Context_GetObjectCountInLastPopulatedCetegory},
+{"Context_GetObjectInLastPopulatedCetegory", Context_GetObjectInLastPopulatedCetegory},
+{"Context_ClearLastPopulatedCategory", Context_ClearLastPopulatedCategory},
+{"Context_GetCetegoriesSize", Context_GetCetegoriesSize},
+{"Context_GetCategory", Context_GetCategory},
 {"Controls_Destroy", Controls_Destroy},
 {"Controls_Create", Controls_Create},
 {"Controls_GetButtons", Controls_GetButtons},
@@ -6896,7 +6988,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Model_SetNumGeometryLodLevels", Model_SetNumGeometryLodLevels},
 {"Model_SetGeometry", Model_SetGeometry},
 {"Model_SetGeometryCenter", Model_SetGeometryCenter},
-
+{"Model_Clone", Model_Clone},
 {"Model_GetBoundingBox", Model_GetBoundingBox},
 {"Model_GetVertexBuffers", Model_GetVertexBuffers},
 {"Model_GetIndexBuffers", Model_GetIndexBuffers},
@@ -6976,6 +7068,40 @@ static PinvokeImport Urho3D_imports [] = {
 {"NavigationMesh_GetDrawOffMeshConnections", NavigationMesh_GetDrawOffMeshConnections},
 {"NavigationMesh_SetDrawNavAreas", NavigationMesh_SetDrawNavAreas},
 {"NavigationMesh_GetDrawNavAreas", NavigationMesh_GetDrawNavAreas},
+{"Network_Connect", Network_Connect},
+{"Network_GetClientConnections", Network_GetClientConnections},
+{"Network_GetType", Network_GetType},
+{"Network_GetTypeName", Network_GetTypeName},
+{"Network_GetTypeStatic", Network_GetTypeStatic},
+{"Network_GetTypeNameStatic", Network_GetTypeNameStatic},
+{"Network_Network", Network_Network},
+{"Network_DiscoverHosts", Network_DiscoverHosts},
+{"Network_SetPassword", Network_SetPassword},
+{"Network_SetNATServerInfo", Network_SetNATServerInfo},
+{"Network_Disconnect", Network_Disconnect},
+{"Network_StartServer", Network_StartServer},
+{"Network_StopServer", Network_StopServer},
+{"Network_StartNATClient", Network_StartNATClient},
+{"Network_GetGUID", Network_GetGUID},
+{"Network_BroadcastMessage", Network_BroadcastMessage},
+{"Network_SetUpdateFps", Network_SetUpdateFps},
+{"Network_SetSimulatedLatency", Network_SetSimulatedLatency},
+{"Network_SetSimulatedPacketLoss", Network_SetSimulatedPacketLoss},
+{"Network_RegisterRemoteEvent", Network_RegisterRemoteEvent},
+{"Network_UnregisterRemoteEvent", Network_UnregisterRemoteEvent},
+{"Network_UnregisterAllRemoteEvents", Network_UnregisterAllRemoteEvents},
+{"Network_SetPackageCacheDir", Network_SetPackageCacheDir},
+{"Network_SendPackageToClients", Network_SendPackageToClients},
+{"Network_BanAddress", Network_BanAddress},
+{"Network_GetUpdateFps", Network_GetUpdateFps},
+{"Network_GetSimulatedLatency", Network_GetSimulatedLatency},
+{"Network_GetSimulatedPacketLoss", Network_GetSimulatedPacketLoss},
+{"Network_GetServerConnection", Network_GetServerConnection},
+{"Network_IsServerRunning", Network_IsServerRunning},
+{"Network_CheckRemoteEvent", Network_CheckRemoteEvent},
+{"Network_GetPackageCacheDir", Network_GetPackageCacheDir},
+{"Network_Update", Network_Update},
+{"Network_PostUpdate", Network_PostUpdate},
 {"urho_node_get_components", urho_node_get_components},
 {"Node_GetChildrenWithTag", Node_GetChildrenWithTag},
 {"Node_RemoveComponent22", Node_RemoveComponent22},
@@ -7873,6 +7999,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"UIElement_GetParent", UIElement_GetParent},
 {"UIElement_GetRoot", UIElement_GetRoot},
 {"UIElement_GetDerivedColor", UIElement_GetDerivedColor},
+{"UIElement_GetVar", UIElement_GetVar},
 {"UIElement_HasTag", UIElement_HasTag},
 {"UIElement_GetDragButtonCount", UIElement_GetDragButtonCount},
 {"UIElement_IsInside", UIElement_IsInside},
@@ -8738,6 +8865,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Audio_GetSoundSourceMasterGain", Audio_GetSoundSourceMasterGain},
 {"Audio_MixOutput", Audio_MixOutput},
 {"Audio_RefreshMode", Audio_RefreshMode},
+{"Audio_Close", Audio_Close},
 {"BorderImage_GetType", BorderImage_GetType},
 {"BorderImage_GetTypeName", BorderImage_GetTypeName},
 {"BorderImage_GetTypeStatic", BorderImage_GetTypeStatic},
@@ -9163,39 +9291,6 @@ static PinvokeImport Urho3D_imports [] = {
 {"ConstraintWheel2D_GetMotorSpeed", ConstraintWheel2D_GetMotorSpeed},
 {"ConstraintWheel2D_GetFrequencyHz", ConstraintWheel2D_GetFrequencyHz},
 {"ConstraintWheel2D_GetDampingRatio", ConstraintWheel2D_GetDampingRatio},
-{"Context_Context", Context_Context},
-{"Context_CreateObject", Context_CreateObject},
-{"Context_RegisterFactory", Context_RegisterFactory},
-{"Context_RegisterSubsystem", Context_RegisterSubsystem},
-{"Context_RemoveSubsystem", Context_RemoveSubsystem},
-{"Context_RemoveAllAttributes", Context_RemoveAllAttributes},
-{"Context_RequireSDL", Context_RequireSDL},
-{"Context_ReleaseSDL", Context_ReleaseSDL},
-{"Context_CopyBaseAttributes", Context_CopyBaseAttributes},
-{"Context_GetSubsystem", Context_GetSubsystem},
-{"Context_SetGlobalVar_0", Context_SetGlobalVar_0},
-{"Context_SetGlobalVar_1", Context_SetGlobalVar_1},
-{"Context_SetGlobalVar_2", Context_SetGlobalVar_2},
-{"Context_SetGlobalVar_3", Context_SetGlobalVar_3},
-{"Context_SetGlobalVar_4", Context_SetGlobalVar_4},
-{"Context_SetGlobalVar_5", Context_SetGlobalVar_5},
-{"Context_SetGlobalVar_6", Context_SetGlobalVar_6},
-{"Context_SetGlobalVar_7", Context_SetGlobalVar_7},
-{"Context_SetGlobalVar_8", Context_SetGlobalVar_8},
-{"Context_SetGlobalVar_9", Context_SetGlobalVar_9},
-{"Context_SetGlobalVar_10", Context_SetGlobalVar_10},
-{"Context_SetGlobalVar_11", Context_SetGlobalVar_11},
-{"Context_SetGlobalVar_12", Context_SetGlobalVar_12},
-{"Context_SetGlobalVar_13", Context_SetGlobalVar_13},
-{"Context_GetEventSender", Context_GetEventSender},
-{"Context_GetEventHandler", Context_GetEventHandler},
-{"Context_GetTypeName", Context_GetTypeName},
-{"Context_GetEventReceivers", Context_GetEventReceivers},
-{"Context_GetEventReceivers0", Context_GetEventReceivers0},
-{"Context_RegisterPlugin", Context_RegisterPlugin},
-{"Context_RemovePlugin", Context_RemovePlugin},
-{"Context_GetPlugin", Context_GetPlugin},
-{"Context_PostCommandToPlugin", Context_PostCommandToPlugin},
 {"ConvexData_ConvexData", ConvexData_ConvexData},
 {"ConvexData_ConvexData0", ConvexData_ConvexData0},
 {"CrowdAgent_GetType", CrowdAgent_GetType},
@@ -9752,6 +9847,16 @@ static PinvokeImport Urho3D_imports [] = {
 {"Geometry_IsInside", Geometry_IsInside},
 {"Geometry_IsEmpty", Geometry_IsEmpty},
 {"HeightfieldData_HeightfieldData", HeightfieldData_HeightfieldData},
+{"HttpRequest_ThreadFunction", HttpRequest_ThreadFunction},
+{"HttpRequest_Read", HttpRequest_Read},
+{"HttpRequest_Seek", HttpRequest_Seek},
+{"HttpRequest_IsEof", HttpRequest_IsEof},
+{"HttpRequest_GetURL", HttpRequest_GetURL},
+{"HttpRequest_GetVerb", HttpRequest_GetVerb},
+{"HttpRequest_GetError", HttpRequest_GetError},
+{"HttpRequest_GetState", HttpRequest_GetState},
+{"HttpRequest_GetAvailableSize", HttpRequest_GetAvailableSize},
+{"HttpRequest_IsOpen", HttpRequest_IsOpen},
 {"IKConstraint_GetType", IKConstraint_GetType},
 {"IKConstraint_GetTypeName", IKConstraint_GetTypeName},
 {"IKConstraint_GetTypeStatic", IKConstraint_GetTypeStatic},
@@ -10074,6 +10179,21 @@ static PinvokeImport Urho3D_imports [] = {
 {"Navigable_RegisterObject", Navigable_RegisterObject},
 {"Navigable_SetRecursive", Navigable_SetRecursive},
 {"Navigable_IsRecursive", Navigable_IsRecursive},
+{"NetworkPriority_GetType", NetworkPriority_GetType},
+{"NetworkPriority_GetTypeName", NetworkPriority_GetTypeName},
+{"NetworkPriority_GetTypeStatic", NetworkPriority_GetTypeStatic},
+{"NetworkPriority_GetTypeNameStatic", NetworkPriority_GetTypeNameStatic},
+{"NetworkPriority_NetworkPriority", NetworkPriority_NetworkPriority},
+{"NetworkPriority_RegisterObject", NetworkPriority_RegisterObject},
+{"NetworkPriority_SetBasePriority", NetworkPriority_SetBasePriority},
+{"NetworkPriority_SetDistanceFactor", NetworkPriority_SetDistanceFactor},
+{"NetworkPriority_SetMinPriority", NetworkPriority_SetMinPriority},
+{"NetworkPriority_SetAlwaysUpdateOwner", NetworkPriority_SetAlwaysUpdateOwner},
+{"NetworkPriority_GetBasePriority", NetworkPriority_GetBasePriority},
+{"NetworkPriority_GetDistanceFactor", NetworkPriority_GetDistanceFactor},
+{"NetworkPriority_GetMinPriority", NetworkPriority_GetMinPriority},
+{"NetworkPriority_GetAlwaysUpdateOwner", NetworkPriority_GetAlwaysUpdateOwner},
+{"NetworkPriority_CheckUpdate", NetworkPriority_CheckUpdate},
 {"Time_GetType", Time_GetType},
 {"Time_GetTypeName", Time_GetTypeName},
 {"Time_GetTypeStatic", Time_GetTypeStatic},
@@ -12174,6 +12294,7 @@ static PinvokeImport Urho3D_imports [] = {
 {NULL, NULL}
 };
 
+
 int SystemNative_ConvertErrorPlatformToPal (int);
 int SystemNative_ConvertErrorPalToPlatform (int);
 int SystemNative_StrErrorR (int,int,int);
@@ -12236,7 +12357,6 @@ static PinvokeImport System_Native_imports [] = {
 
 static void *pinvoke_tables[] = { Urho3D_imports,System_Native_imports};
 static char *pinvoke_names[] = { "Urho3D","System.Native"};
-
 InterpFtnDesc wasm_native_to_interp_ftndescs[6];
 typedef void  (*WasmInterpEntrySig_0) (int,int);
 void wasm_native_to_interp_UrhoDotNet_100663336 (int arg0) { 
@@ -12251,22 +12371,22 @@ void wasm_native_to_interp_UrhoDotNet_100663340 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100666725 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100666811 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100666726 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100666812 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672147 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672236 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100666725,wasm_native_to_interp_UrhoDotNet_100666726,wasm_native_to_interp_UrhoDotNet_100672147,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100666811,wasm_native_to_interp_UrhoDotNet_100666812,wasm_native_to_interp_UrhoDotNet_100672236,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
-"UrhoDotNet_100666725",
-"UrhoDotNet_100666726",
-"UrhoDotNet_100672147",
+"UrhoDotNet_100666811",
+"UrhoDotNet_100666812",
+"UrhoDotNet_100672236",
 };
