@@ -24,7 +24,7 @@ void mono_wasm_printerr (const char *s);
 
 
 
-#include "urho-pinvoke-table.h"
+#include "pinvoke-tables-all.h"
 
 
 
@@ -38,9 +38,9 @@ mono_wasm_pinvoke_vararg_stub (void)
 void*
 wasm_dl_lookup_pinvoke_table (const char *name)
 {
-	for (int i = 0; i < sizeof (pinvoke_tables) / sizeof (void*); ++i) {
-		if (!strcmp (name, pinvoke_names [i]))
-			return pinvoke_tables [i];
+	for (int i = 0; i < sizeof (pinvoke_tables_all) / sizeof (void*); ++i) {
+		if (!strcmp (name, pinvoke_names_all [i]))
+			return pinvoke_tables_all [i];
 	}
 	return NULL;
 }
@@ -48,8 +48,8 @@ wasm_dl_lookup_pinvoke_table (const char *name)
 int
 wasm_dl_is_pinvoke_table (void *handle)
 {
-	for (int i = 0; i < sizeof (pinvoke_tables) / sizeof (void*); ++i) {
-		if (pinvoke_tables [i] == handle) {
+	for (int i = 0; i < sizeof (pinvoke_tables_all) / sizeof (void*); ++i) {
+		if (pinvoke_tables_all [i] == handle) {
 			return 1;
 		}
 	}

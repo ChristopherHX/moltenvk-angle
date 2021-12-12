@@ -24706,6 +24706,13 @@ UIElement_SetFocusMode (Urho3D::UIElement *_target, enum Urho3D::FocusMode mode)
 }
 
 
+DllExport void
+UIElement_SetDragDropMode (Urho3D::UIElement *_target, enum Urho3D::DragAndDropMode mode)
+{
+	_target->SetDragDropMode (mode);
+}
+
+
 DllExport int
 UIElement_SetStyle (Urho3D::UIElement *_target, const char * styleName, Urho3D::XMLFile * file)
 {
@@ -25482,6 +25489,13 @@ DllExport enum Urho3D::FocusMode
 UIElement_GetFocusMode (Urho3D::UIElement *_target)
 {
 	return _target->GetFocusMode ();
+}
+
+
+DllExport enum Urho3D::DragAndDropMode
+UIElement_GetDragDropMode (Urho3D::UIElement *_target)
+{
+	return _target->GetDragDropMode ();
 }
 
 
@@ -36209,6 +36223,55 @@ DllExport void
 ScrollView_SetViewPositionAttr (Urho3D::ScrollView *_target, const class Urho3D::IntVector2 & value)
 {
 	_target->SetViewPositionAttr (value);
+}
+
+
+DllExport int
+HierarchyContainer_GetType (Urho3D::HierarchyContainer *_target)
+{
+	return (_target->GetType ()).Value ();
+}
+
+
+DllExport const char *
+HierarchyContainer_GetTypeName (Urho3D::HierarchyContainer *_target)
+{
+	return stringdup((_target->GetTypeName ()).CString ());
+}
+
+
+DllExport int
+HierarchyContainer_GetTypeStatic ()
+{
+	return (HierarchyContainer::GetTypeStatic ()).Value ();
+}
+
+
+DllExport const char *
+HierarchyContainer_GetTypeNameStatic ()
+{
+	return stringdup((HierarchyContainer::GetTypeNameStatic ()).CString ());
+}
+
+
+DllExport void *
+HierarchyContainer_HierarchyContainer (Urho3D::Context * context, Urho3D::ListView * listView, Urho3D::UIElement * overlayContainer)
+{
+	return WeakPtr<HierarchyContainer>(new HierarchyContainer(context, listView, overlayContainer));
+}
+
+
+DllExport void
+HierarchyContainer_RegisterObject (Urho3D::Context * context)
+{
+	HierarchyContainer::RegisterObject (context);
+}
+
+
+DllExport void
+HierarchyContainer_InsertChild (Urho3D::HierarchyContainer *_target, unsigned int index, Urho3D::UIElement * element)
+{
+	_target->InsertChild (index, element);
 }
 
 

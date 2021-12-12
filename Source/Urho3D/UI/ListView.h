@@ -41,6 +41,28 @@ enum HighlightMode
     HM_ALWAYS
 };
 
+class ListView;
+/// Hierarchy container (used by ListView internally when in hierarchy mode).
+class URHO3D_API HierarchyContainer : public UIElement
+{
+    URHO3D_OBJECT(HierarchyContainer, UIElement);
+
+public:
+    HierarchyContainer(Context* context, ListView* listView, UIElement* overlayContainer);
+        /// Destruct.
+    ~HierarchyContainer() override;
+    static void RegisterObject(Context* context);
+    void HandleLayoutUpdated(StringHash eventType, VariantMap& eventData);
+    void HandleViewChanged(StringHash eventType, VariantMap& eventData);
+    void HandleUIMouseClick(StringHash eventType, VariantMap& eventData);
+    void InsertChild(unsigned index, UIElement* element);
+private:
+    // Parent list view.
+    ListView* listView_;
+    // Container for overlay checkboxes.
+    UIElement* overlayContainer_;
+};
+
 /// Scrollable list %UI element.
 class URHO3D_API ListView : public ScrollView
 {

@@ -59,5 +59,4 @@ static PinvokeImport System_Native_imports [] = {
 {"SystemNative_Unlink", SystemNative_Unlink},
 {NULL, NULL}
 };
-static void *pinvoke_tables[] = { System_Native_imports,};
-static char *pinvoke_names[] = { "System.Native",};
+

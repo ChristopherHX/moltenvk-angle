@@ -1030,6 +1030,19 @@ UIElement_ElementToScreen
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetDragDropMode (IntPtr handle, DragAndDropMode mode);
+
+		/// <summary>
+		/// Set drag and drop flags.
+		/// 
+		/// </summary>
+		private void SetDragDropMode (DragAndDropMode mode)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetDragDropMode (handle, mode);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern bool UIElement_SetStyle (IntPtr handle, string styleName, IntPtr file);
 
 		/// <summary>
@@ -1246,7 +1259,7 @@ UIElement_ElementToScreen
 		/// <summary>
 		/// Insert a child element into a specific position in the child list.
 		/// </summary>
-		public void InsertChild (uint index, UIElement element)
+		public virtual void InsertChild (uint index, UIElement element)
 		{
 			Runtime.ValidateRefCounted (this);
 			UIElement_InsertChild (handle, index, (object)element == null ? IntPtr.Zero : element.Handle);
@@ -2293,6 +2306,19 @@ UIElement_GetColor
 		{
 			Runtime.ValidateRefCounted (this);
 			return UIElement_GetFocusMode (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern DragAndDropMode UIElement_GetDragDropMode (IntPtr handle);
+
+		/// <summary>
+		/// Return drag and drop flags.
+		/// 
+		/// </summary>
+		private DragAndDropMode GetDragDropMode ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return UIElement_GetDragDropMode (handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -3356,6 +3382,22 @@ UIElement_GetEffectiveMinSize
 			}
 			set {
 				SetFocusMode (value);
+			}
+		}
+
+		/// <summary>
+		/// Return drag and drop flags.
+		/// 
+		/// Or
+		/// Set drag and drop flags.
+		/// 
+		/// </summary>
+		public DragAndDropMode DragDropMode {
+			get {
+				return GetDragDropMode ();
+			}
+			set {
+				SetDragDropMode (value);
 			}
 		}
 

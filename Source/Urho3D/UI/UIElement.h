@@ -353,8 +353,9 @@ public:
     /// @property
     void SetFocusMode(FocusMode mode);
     /// Set drag and drop flags.
-    /// @property
-    void SetDragDropMode(DragAndDropModeFlags mode);
+        /// @property
+    void SetDragDropMode(DragAndDropMode mode);
+   
     /// Set style from an XML file. Find the style element by name. If the style file is not explicitly provided, use the default style from parental chain. Return true if the style is applied successfully. See also \ref UI_Programmatic.
     bool SetStyle(const String& styleName, XMLFile* file = nullptr);
     /// Set style from an XML element. Return true if the style is applied successfully.
@@ -631,7 +632,7 @@ public:
 
     /// Return drag and drop flags.
     /// @property
-    DragAndDropModeFlags GetDragDropMode() const { return dragDropMode_; }
+    DragAndDropMode GetDragDropMode() const { return dragDropMode_; }
 
     /// Return applied style name. Return an empty string when the applied style is an 'auto' style (i.e. style derived from instance's type).
     /// @property{get_style}
@@ -826,7 +827,7 @@ protected:
     /// Focus mode.
     FocusMode focusMode_{FM_NOTFOCUSABLE};
     /// Drag and drop flags.
-    DragAndDropModeFlags dragDropMode_{DD_DISABLED};
+    DragAndDropMode dragDropMode_{DD_DISABLED};
     /// Layout mode.
     LayoutMode layoutMode_{LM_FREE};
     /// Layout spacing.
