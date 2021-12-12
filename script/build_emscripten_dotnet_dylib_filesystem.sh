@@ -12,6 +12,8 @@ else
 	alias aliassedinplace='sed -i""'
 fi
 
+mono tools/wasm_tools/wasm-tuner.exe --gen-pinvoke-table Urho3D Dotnet/UrhoDotNet/web/UrhoDotNet.dll > Source/Samples/MonoEmbed/web/urho-pinvoke-table.h
+
 
 ./script/cmake_emscripten_dotnet_lib.sh build-emscripten-dotnet-dylib
 cd build-emscripten-dotnet-dylib

@@ -13,20 +13,9 @@
 int strcmp (const char *s1, const char *s2);
 void mono_wasm_printerr (const char *s);
 
-// #ifdef GEN_PINVOKE
-// #include "pinvoke-table.h"
-// #else
-// #include "pinvoke-tables-default.h"
-// #endif
-
 
 #include "interop.h"
-
-
-
 #include "pinvoke-tables-all.h"
-
-
 
 
 void
