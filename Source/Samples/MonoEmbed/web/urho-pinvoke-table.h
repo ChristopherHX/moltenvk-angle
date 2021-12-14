@@ -281,6 +281,8 @@ int Dynamic_CreateMatrix3x4 (int);
 int Dynamic_GetMatrix3x4 (int);
 int Dynamic_Dispose (int);
 int Dynamic_GetBuffer (int,int);
+int Dynamic_CreateResourceRef (int,int);
+int Dynamic_GetResourceRef (int);
 int File_GetSize (int);
 int File_GetType (int);
 int File_GetTypeName (int);
@@ -1446,6 +1448,7 @@ void Scene_CleanupConnection (int,int);
 void Scene_MarkNetworkUpdate2 (int,int);
 void Scene_MarkNetworkUpdate3 (int,int);
 void Scene_MarkReplicationDirty (int,int);
+int Serializable_SetAttribute_Variant (int,int,int);
 int Serializable_GetType (int);
 int Serializable_GetTypeName (int);
 int Serializable_GetTypeStatic ();
@@ -2314,6 +2317,8 @@ float VGTextRowBuffer_GetRowMax (int,int);
 float VGTextRowBuffer_GetRowWidth (int,int);
 int Variant_GetString (int);
 int Variant_GetBuffer (int,int);
+int Variant_GetResourceRefName (int);
+int Variant_GetResourceRefType (int);
 int VertexBuffer_GetElementMask (int);
 int VertexBuffer_CastToGPUObject (int);
 int VertexBuffer_GetType (int);
@@ -6436,6 +6441,8 @@ static PinvokeImport Urho3D_imports [] = {
 {"Dynamic_GetMatrix3x4", Dynamic_GetMatrix3x4},
 {"Dynamic_Dispose", Dynamic_Dispose},
 {"Dynamic_GetBuffer", Dynamic_GetBuffer},
+{"Dynamic_CreateResourceRef", Dynamic_CreateResourceRef},
+{"Dynamic_GetResourceRef", Dynamic_GetResourceRef},
 {"File_GetSize", File_GetSize},
 {"File_GetType", File_GetType},
 {"File_GetTypeName", File_GetTypeName},
@@ -7601,6 +7608,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Scene_MarkNetworkUpdate2", Scene_MarkNetworkUpdate2},
 {"Scene_MarkNetworkUpdate3", Scene_MarkNetworkUpdate3},
 {"Scene_MarkReplicationDirty", Scene_MarkReplicationDirty},
+{"Serializable_SetAttribute_Variant", Serializable_SetAttribute_Variant},
 {"Serializable_GetType", Serializable_GetType},
 {"Serializable_GetTypeName", Serializable_GetTypeName},
 {"Serializable_GetTypeStatic", Serializable_GetTypeStatic},
@@ -8469,6 +8477,8 @@ static PinvokeImport Urho3D_imports [] = {
 {"VGTextRowBuffer_GetRowWidth", VGTextRowBuffer_GetRowWidth},
 {"Variant_GetString", Variant_GetString},
 {"Variant_GetBuffer", Variant_GetBuffer},
+{"Variant_GetResourceRefName", Variant_GetResourceRefName},
+{"Variant_GetResourceRefType", Variant_GetResourceRefType},
 {"VertexBuffer_GetElementMask", VertexBuffer_GetElementMask},
 {"VertexBuffer_CastToGPUObject", VertexBuffer_CastToGPUObject},
 {"VertexBuffer_GetType", VertexBuffer_GetType},
@@ -12327,22 +12337,22 @@ void wasm_native_to_interp_UrhoDotNet_100663340 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100666811 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100666817 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100666812 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100666818 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672242 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672255 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100666811,wasm_native_to_interp_UrhoDotNet_100666812,wasm_native_to_interp_UrhoDotNet_100672242,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100666817,wasm_native_to_interp_UrhoDotNet_100666818,wasm_native_to_interp_UrhoDotNet_100672255,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
-"UrhoDotNet_100666811",
-"UrhoDotNet_100666812",
-"UrhoDotNet_100672242",
+"UrhoDotNet_100666817",
+"UrhoDotNet_100666818",
+"UrhoDotNet_100672255",
 };

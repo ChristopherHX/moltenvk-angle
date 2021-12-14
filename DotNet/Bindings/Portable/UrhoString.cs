@@ -512,5 +512,15 @@ namespace Urho
 			Runtime.ValidateObject (this);
 			return UrhoString_ToHash (handle);
 		}
+
+		public static implicit operator string(UrhoString s)  // implicit UrhoString to string conversion operator
+		{
+			return s.Substring(0);
+		}
+
+		public static explicit operator UrhoString(string s)  // explicit string  to UrhoString conversion operator
+		{
+			return new UrhoString(s);
+		}
 	}
 }

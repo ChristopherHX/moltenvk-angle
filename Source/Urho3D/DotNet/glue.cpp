@@ -787,6 +787,19 @@ extern "C"
         return pod.Buffer();
     }
 
+    
+    DllExport Variant* Dynamic_CreateResourceRef(int type ,const char* name)
+    {
+        Variant* v = new Variant(ResourceRef(StringHash(type),name));
+        return v;
+    }
+
+    DllExport ResourceRef *  Dynamic_GetResourceRef(Variant* v)
+    {
+        return ((ResourceRef*)&(v->GetResourceRef()));
+    }
+
+
     DllExport void Dynamic_Dispose(Variant* target) { delete target; }
 
     DllExport void Connection_SendRemoteEvent(Connection* conn, int eventType, bool inOrder, VariantMap& eventData)
@@ -1095,6 +1108,26 @@ Model_Clone_EmptyName (Urho3D::Model *_target)
 	copy.Detach();
 	delete copy;
 	return plain;
+}
+
+DllExport bool
+Serializable_SetAttribute_Variant (Urho3D::Serializable *_target, const char * name, Variant * v)
+{
+    if(v != NULL)
+	    return _target->SetAttribute (name, *v);
+    else
+        return false;
+}
+
+
+DllExport const char* Variant_GetResourceRefName(Variant& variant)
+{
+    return stringdup(variant.GetResourceRef().name_.CString());
+}
+
+DllExport unsigned int Variant_GetResourceRefType(Variant& variant)
+{
+    return variant.GetResourceRef().type_.Value();
 }
 
 }

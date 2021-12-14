@@ -131,12 +131,30 @@ namespace Urho
             return result;
         }
 
+        public static implicit operator ResourceRef(Variant v)
+        {
+
+            ResourceRef resourceRef = new ResourceRef();
+            if (v.Type == VariantType.Resourceref)
+            {
+                resourceRef.Name = new UrhoString(Marshal.PtrToStringAnsi(Variant_GetResourceRefName(ref v)));
+                resourceRef.Type = new StringHash((int)Variant_GetResourceRefType(ref v));
+            }
+            return resourceRef;
+        }
+
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Variant_GetString(ref Variant v);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Variant_GetBuffer(ref Variant v, out int count);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Variant_GetResourceRefName(ref Variant v);
+    
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern uint Variant_GetResourceRefType(ref Variant v);
     }
 
 }

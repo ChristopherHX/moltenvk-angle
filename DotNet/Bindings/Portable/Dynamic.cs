@@ -209,9 +209,34 @@ namespace Urho
             Handle = Dynamic_CreateMatrix3x4(v);
         }
 
+        public Dynamic(ResourceRef v)
+        {
+            ReferenceObject = v;
+            DynamicType = VariantType.Resourceref;
+            Handle = Dynamic_CreateResourceRef(v.Type.Code,(string)v.Name);
+        }
+
+
+        public static implicit operator Dynamic(ResourceRef resourceRef)
+        {
+            return new Dynamic(resourceRef);
+        }
+
+        public static implicit operator ResourceRef(Dynamic v)
+        {
+            if (v.Handle != IntPtr.Zero && v.DynamicType == VariantType.Resourceref)
+                return v;
+            else return new ResourceRef();
+        }
+
         public static implicit operator Dynamic(bool b)
         {
             return new Dynamic(b);
+        }
+
+        public static implicit operator Variant(Dynamic v)
+        {
+            return v.variant;
         }
 
         public static implicit operator bool(Dynamic v)
@@ -657,6 +682,13 @@ namespace Urho
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Dynamic_GetBuffer(IntPtr v, out int count);
+
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+         static extern IntPtr Dynamic_CreateResourceRef(int type ,string name);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Dynamic_GetResourceRef(IntPtr v);
 
 
 

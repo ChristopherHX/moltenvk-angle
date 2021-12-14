@@ -104,6 +104,16 @@ namespace Urho
                 xmlElement = xmlElement.GetNext("attribute");
             }
         }
+
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Serializable_SetAttribute_Variant (IntPtr handle, string name, IntPtr variant);
+
+        public bool SetAttribute (string name, Dynamic value)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Serializable_SetAttribute_Variant (handle, name, value.Handle);
+		}
     }
 
 }
