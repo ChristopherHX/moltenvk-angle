@@ -116,5 +116,72 @@ namespace Urho
 				}
 			}
 		}
+
+		[DllImport ("Urho3D", CallingConvention=CallingConvention.Cdecl)]
+		internal extern static int PodVectorUint_Count (IntPtr h);
+
+		[DllImport ("Urho3D", CallingConvention=CallingConvention.Cdecl)]
+        internal extern static uint PodVectorUint_GetIdx (IntPtr h, int idx);
+
+        public class ProxyPodVectorUint<T> : IReadOnlyList<uint>
+        {
+            protected IntPtr handle;
+			public ProxyPodVectorUint(IntPtr handle)
+			{
+				this.handle = handle;
+			}
+            
+            public uint this[int index] => PodVectorUint_GetIdx (handle, index);
+
+            public int Count => PodVectorUint_Count (handle);
+
+            public IEnumerator<uint> GetEnumerator()
+            {
+                return  new ProxyPodVectorUintEnumerator(handle);
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return new ProxyPodVectorUintEnumerator(handle);
+            }
+
+            class ProxyPodVectorUintEnumerator : IEnumerator<uint>
+            {
+                readonly IntPtr handle;
+                int index;
+                uint current;
+
+                public ProxyPodVectorUintEnumerator(IntPtr handle)
+                {
+                    this.handle = handle;
+                }
+
+                public uint Current => current;
+
+                object IEnumerator.Current => current;
+
+                public void Dispose()
+                {
+                    Reset();
+                }
+
+                public bool MoveNext()
+                {
+                    var count = PodVectorUint_Count(handle);
+					if (count < 1 || count <= index)
+						return false;
+
+					current = PodVectorUint_GetIdx(handle, index);
+					index++;
+                    return true;
+                }
+
+                public void Reset()
+                {
+                    index = 0;
+					current = 0;
+                }
+            }
+        }
 	}
 }

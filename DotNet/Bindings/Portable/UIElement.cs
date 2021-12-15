@@ -117,5 +117,18 @@ namespace Urho.Gui {
 		{
 
 		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetVar_IntPtr (IntPtr handle, int key, IntPtr value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (StringHash key, IntPtr value)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetVar_IntPtr (handle, key.Code, value);
+		}
+
 	}
 }

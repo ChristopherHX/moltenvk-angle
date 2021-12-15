@@ -26,4 +26,19 @@ extern "C" {
 		return (*vector) [idx].Get ();
 	}
 
+	DllExport
+	int PodVectorUint_Count (PODVector<unsigned> *vector)
+	{
+		return vector->Size ();
+	}
+
+	DllExport
+	unsigned PodVectorUint_GetIdx (PODVector<unsigned> *vector, int idx)
+	{
+		if (idx < 0 || idx > vector->Size ())
+			return NULL;
+		
+		return (*vector) [idx];
+	}
+
 }

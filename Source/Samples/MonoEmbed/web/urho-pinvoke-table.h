@@ -717,6 +717,53 @@ void KinematicCharacterController_SetLinearVelocity (int,int);
 int KinematicCharacterController_GetLinearVelocity (int);
 void KinematicCharacterController_Warp (int,int);
 void KinematicCharacterController_DrawDebugGeometry (int);
+int ListView_GetSelections (int);
+void ListView_SetSelections (int,int,int);
+int ListView_GetType (int);
+int ListView_GetTypeName (int);
+int ListView_GetTypeStatic ();
+int ListView_GetTypeNameStatic ();
+int ListView_ListView (int);
+void ListView_RegisterObject (int);
+void ListView_OnResize (int,int,int);
+void ListView_UpdateInternalLayout (int);
+void ListView_DisableInternalLayoutUpdate (int);
+void ListView_EnableInternalLayoutUpdate (int);
+void ListView_AddItem (int,int);
+void ListView_InsertItem (int,int,int,int);
+void ListView_RemoveItem (int,int,int);
+void ListView_RemoveItem0 (int,int);
+void ListView_RemoveAllItems (int);
+void ListView_SetSelection (int,int);
+void ListView_AddSelection (int,int);
+void ListView_RemoveSelection (int,int);
+void ListView_ToggleSelection (int,int);
+void ListView_ChangeSelection (int,int,int);
+void ListView_ClearSelection (int);
+void ListView_SetHighlightMode (int,int);
+void ListView_SetMultiselect (int,int);
+void ListView_SetHierarchyMode (int,int);
+void ListView_SetBaseIndent (int,int);
+void ListView_SetClearSelectionOnDefocus (int,int);
+void ListView_SetSelectOnClickEnd (int,int);
+void ListView_Expand (int,int,int,int);
+void ListView_ToggleExpand (int,int,int);
+int ListView_GetNumItems (int);
+int ListView_GetItem (int,int);
+int ListView_FindItem (int,int);
+int ListView_GetSelection (int);
+void ListView_CopySelectedItemsToClipboard (int);
+int ListView_GetSelectedItem (int);
+int ListView_IsSelected (int,int);
+int ListView_IsExpanded (int,int);
+int ListView_GetHighlightMode (int);
+int ListView_GetMultiselect (int);
+int ListView_GetClearSelectionOnDefocus (int);
+int ListView_GetSelectOnClickEnd (int);
+int ListView_GetHierarchyMode (int);
+int ListView_GetBaseIndent (int);
+void ListView_EnsureItemVisibility (int,int);
+void ListView_EnsureItemVisibility1 (int,int);
 int Log_GetType (int);
 int Log_GetTypeName (int);
 int Log_GetTypeStatic ();
@@ -1677,6 +1724,7 @@ int UI_IsDragging (int);
 float UI_GetScale (int);
 int UI_GetCustomSize (int);
 void UI_SetElementRenderTexture (int,int,int);
+void UIElement_SetVar_IntPtr (int,int,int);
 int UIElement_GetType (int);
 int UIElement_GetTypeName (int);
 int UIElement_GetTypeStatic ();
@@ -2501,6 +2549,8 @@ void RegisterMonoNativeCallbacks (int);
 void urho_unsubscribe (int);
 int VectorSharedPtr_Count (int);
 int VectorSharedPtr_GetIdx (int,int);
+int PodVectorUint_Count (int);
+int PodVectorUint_GetIdx (int,int);
 int Animatable_GetType (int);
 int Animatable_GetTypeName (int);
 int Animatable_GetTypeStatic ();
@@ -3935,51 +3985,6 @@ int LineEdit_IsTextSelectable (int);
 int LineEdit_IsTextCopyable (int);
 int LineEdit_GetTextElement (int);
 int LineEdit_GetCursor (int);
-int ListView_GetType (int);
-int ListView_GetTypeName (int);
-int ListView_GetTypeStatic ();
-int ListView_GetTypeNameStatic ();
-int ListView_ListView (int);
-void ListView_RegisterObject (int);
-void ListView_OnResize (int,int,int);
-void ListView_UpdateInternalLayout (int);
-void ListView_DisableInternalLayoutUpdate (int);
-void ListView_EnableInternalLayoutUpdate (int);
-void ListView_AddItem (int,int);
-void ListView_InsertItem (int,int,int,int);
-void ListView_RemoveItem (int,int,int);
-void ListView_RemoveItem0 (int,int);
-void ListView_RemoveAllItems (int);
-void ListView_SetSelection (int,int);
-void ListView_AddSelection (int,int);
-void ListView_RemoveSelection (int,int);
-void ListView_ToggleSelection (int,int);
-void ListView_ChangeSelection (int,int,int);
-void ListView_ClearSelection (int);
-void ListView_SetHighlightMode (int,int);
-void ListView_SetMultiselect (int,int);
-void ListView_SetHierarchyMode (int,int);
-void ListView_SetBaseIndent (int,int);
-void ListView_SetClearSelectionOnDefocus (int,int);
-void ListView_SetSelectOnClickEnd (int,int);
-void ListView_Expand (int,int,int,int);
-void ListView_ToggleExpand (int,int,int);
-int ListView_GetNumItems (int);
-int ListView_GetItem (int,int);
-int ListView_FindItem (int,int);
-int ListView_GetSelection (int);
-void ListView_CopySelectedItemsToClipboard (int);
-int ListView_GetSelectedItem (int);
-int ListView_IsSelected (int,int);
-int ListView_IsExpanded (int,int);
-int ListView_GetHighlightMode (int);
-int ListView_GetMultiselect (int);
-int ListView_GetClearSelectionOnDefocus (int);
-int ListView_GetSelectOnClickEnd (int);
-int ListView_GetHierarchyMode (int);
-int ListView_GetBaseIndent (int);
-void ListView_EnsureItemVisibility (int,int);
-void ListView_EnsureItemVisibility1 (int,int);
 int Localization_GetType (int);
 int Localization_GetTypeName (int);
 int Localization_GetTypeStatic ();
@@ -6877,6 +6882,53 @@ static PinvokeImport Urho3D_imports [] = {
 {"KinematicCharacterController_GetLinearVelocity", KinematicCharacterController_GetLinearVelocity},
 {"KinematicCharacterController_Warp", KinematicCharacterController_Warp},
 {"KinematicCharacterController_DrawDebugGeometry", KinematicCharacterController_DrawDebugGeometry},
+{"ListView_GetSelections", ListView_GetSelections},
+{"ListView_SetSelections", ListView_SetSelections},
+{"ListView_GetType", ListView_GetType},
+{"ListView_GetTypeName", ListView_GetTypeName},
+{"ListView_GetTypeStatic", ListView_GetTypeStatic},
+{"ListView_GetTypeNameStatic", ListView_GetTypeNameStatic},
+{"ListView_ListView", ListView_ListView},
+{"ListView_RegisterObject", ListView_RegisterObject},
+{"ListView_OnResize", ListView_OnResize},
+{"ListView_UpdateInternalLayout", ListView_UpdateInternalLayout},
+{"ListView_DisableInternalLayoutUpdate", ListView_DisableInternalLayoutUpdate},
+{"ListView_EnableInternalLayoutUpdate", ListView_EnableInternalLayoutUpdate},
+{"ListView_AddItem", ListView_AddItem},
+{"ListView_InsertItem", ListView_InsertItem},
+{"ListView_RemoveItem", ListView_RemoveItem},
+{"ListView_RemoveItem0", ListView_RemoveItem0},
+{"ListView_RemoveAllItems", ListView_RemoveAllItems},
+{"ListView_SetSelection", ListView_SetSelection},
+{"ListView_AddSelection", ListView_AddSelection},
+{"ListView_RemoveSelection", ListView_RemoveSelection},
+{"ListView_ToggleSelection", ListView_ToggleSelection},
+{"ListView_ChangeSelection", ListView_ChangeSelection},
+{"ListView_ClearSelection", ListView_ClearSelection},
+{"ListView_SetHighlightMode", ListView_SetHighlightMode},
+{"ListView_SetMultiselect", ListView_SetMultiselect},
+{"ListView_SetHierarchyMode", ListView_SetHierarchyMode},
+{"ListView_SetBaseIndent", ListView_SetBaseIndent},
+{"ListView_SetClearSelectionOnDefocus", ListView_SetClearSelectionOnDefocus},
+{"ListView_SetSelectOnClickEnd", ListView_SetSelectOnClickEnd},
+{"ListView_Expand", ListView_Expand},
+{"ListView_ToggleExpand", ListView_ToggleExpand},
+{"ListView_GetNumItems", ListView_GetNumItems},
+{"ListView_GetItem", ListView_GetItem},
+{"ListView_FindItem", ListView_FindItem},
+{"ListView_GetSelection", ListView_GetSelection},
+{"ListView_CopySelectedItemsToClipboard", ListView_CopySelectedItemsToClipboard},
+{"ListView_GetSelectedItem", ListView_GetSelectedItem},
+{"ListView_IsSelected", ListView_IsSelected},
+{"ListView_IsExpanded", ListView_IsExpanded},
+{"ListView_GetHighlightMode", ListView_GetHighlightMode},
+{"ListView_GetMultiselect", ListView_GetMultiselect},
+{"ListView_GetClearSelectionOnDefocus", ListView_GetClearSelectionOnDefocus},
+{"ListView_GetSelectOnClickEnd", ListView_GetSelectOnClickEnd},
+{"ListView_GetHierarchyMode", ListView_GetHierarchyMode},
+{"ListView_GetBaseIndent", ListView_GetBaseIndent},
+{"ListView_EnsureItemVisibility", ListView_EnsureItemVisibility},
+{"ListView_EnsureItemVisibility1", ListView_EnsureItemVisibility1},
 {"Log_GetType", Log_GetType},
 {"Log_GetTypeName", Log_GetTypeName},
 {"Log_GetTypeStatic", Log_GetTypeStatic},
@@ -7837,6 +7889,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"UI_GetScale", UI_GetScale},
 {"UI_GetCustomSize", UI_GetCustomSize},
 {"UI_SetElementRenderTexture", UI_SetElementRenderTexture},
+{"UIElement_SetVar_IntPtr", UIElement_SetVar_IntPtr},
 {"UIElement_GetType", UIElement_GetType},
 {"UIElement_GetTypeName", UIElement_GetTypeName},
 {"UIElement_GetTypeStatic", UIElement_GetTypeStatic},
@@ -8661,6 +8714,8 @@ static PinvokeImport Urho3D_imports [] = {
 {"urho_unsubscribe", urho_unsubscribe},
 {"VectorSharedPtr_Count", VectorSharedPtr_Count},
 {"VectorSharedPtr_GetIdx", VectorSharedPtr_GetIdx},
+{"PodVectorUint_Count", PodVectorUint_Count},
+{"PodVectorUint_GetIdx", PodVectorUint_GetIdx},
 {"Animatable_GetType", Animatable_GetType},
 {"Animatable_GetTypeName", Animatable_GetTypeName},
 {"Animatable_GetTypeStatic", Animatable_GetTypeStatic},
@@ -10095,51 +10150,6 @@ static PinvokeImport Urho3D_imports [] = {
 {"LineEdit_IsTextCopyable", LineEdit_IsTextCopyable},
 {"LineEdit_GetTextElement", LineEdit_GetTextElement},
 {"LineEdit_GetCursor", LineEdit_GetCursor},
-{"ListView_GetType", ListView_GetType},
-{"ListView_GetTypeName", ListView_GetTypeName},
-{"ListView_GetTypeStatic", ListView_GetTypeStatic},
-{"ListView_GetTypeNameStatic", ListView_GetTypeNameStatic},
-{"ListView_ListView", ListView_ListView},
-{"ListView_RegisterObject", ListView_RegisterObject},
-{"ListView_OnResize", ListView_OnResize},
-{"ListView_UpdateInternalLayout", ListView_UpdateInternalLayout},
-{"ListView_DisableInternalLayoutUpdate", ListView_DisableInternalLayoutUpdate},
-{"ListView_EnableInternalLayoutUpdate", ListView_EnableInternalLayoutUpdate},
-{"ListView_AddItem", ListView_AddItem},
-{"ListView_InsertItem", ListView_InsertItem},
-{"ListView_RemoveItem", ListView_RemoveItem},
-{"ListView_RemoveItem0", ListView_RemoveItem0},
-{"ListView_RemoveAllItems", ListView_RemoveAllItems},
-{"ListView_SetSelection", ListView_SetSelection},
-{"ListView_AddSelection", ListView_AddSelection},
-{"ListView_RemoveSelection", ListView_RemoveSelection},
-{"ListView_ToggleSelection", ListView_ToggleSelection},
-{"ListView_ChangeSelection", ListView_ChangeSelection},
-{"ListView_ClearSelection", ListView_ClearSelection},
-{"ListView_SetHighlightMode", ListView_SetHighlightMode},
-{"ListView_SetMultiselect", ListView_SetMultiselect},
-{"ListView_SetHierarchyMode", ListView_SetHierarchyMode},
-{"ListView_SetBaseIndent", ListView_SetBaseIndent},
-{"ListView_SetClearSelectionOnDefocus", ListView_SetClearSelectionOnDefocus},
-{"ListView_SetSelectOnClickEnd", ListView_SetSelectOnClickEnd},
-{"ListView_Expand", ListView_Expand},
-{"ListView_ToggleExpand", ListView_ToggleExpand},
-{"ListView_GetNumItems", ListView_GetNumItems},
-{"ListView_GetItem", ListView_GetItem},
-{"ListView_FindItem", ListView_FindItem},
-{"ListView_GetSelection", ListView_GetSelection},
-{"ListView_CopySelectedItemsToClipboard", ListView_CopySelectedItemsToClipboard},
-{"ListView_GetSelectedItem", ListView_GetSelectedItem},
-{"ListView_IsSelected", ListView_IsSelected},
-{"ListView_IsExpanded", ListView_IsExpanded},
-{"ListView_GetHighlightMode", ListView_GetHighlightMode},
-{"ListView_GetMultiselect", ListView_GetMultiselect},
-{"ListView_GetClearSelectionOnDefocus", ListView_GetClearSelectionOnDefocus},
-{"ListView_GetSelectOnClickEnd", ListView_GetSelectOnClickEnd},
-{"ListView_GetHierarchyMode", ListView_GetHierarchyMode},
-{"ListView_GetBaseIndent", ListView_GetBaseIndent},
-{"ListView_EnsureItemVisibility", ListView_EnsureItemVisibility},
-{"ListView_EnsureItemVisibility1", ListView_EnsureItemVisibility1},
 {"Localization_GetType", Localization_GetType},
 {"Localization_GetTypeName", Localization_GetTypeName},
 {"Localization_GetTypeStatic", Localization_GetTypeStatic},
@@ -12337,22 +12347,22 @@ void wasm_native_to_interp_UrhoDotNet_100663340 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100666817 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100666953 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100666818 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100666954 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672255 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672393 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100666817,wasm_native_to_interp_UrhoDotNet_100666818,wasm_native_to_interp_UrhoDotNet_100672255,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100666953,wasm_native_to_interp_UrhoDotNet_100666954,wasm_native_to_interp_UrhoDotNet_100672393,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
-"UrhoDotNet_100666817",
-"UrhoDotNet_100666818",
-"UrhoDotNet_100672255",
+"UrhoDotNet_100666953",
+"UrhoDotNet_100666954",
+"UrhoDotNet_100672393",
 };

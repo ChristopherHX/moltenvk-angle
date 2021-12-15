@@ -1130,4 +1130,27 @@ DllExport unsigned int Variant_GetResourceRefType(Variant& variant)
     return variant.GetResourceRef().type_.Value();
 }
 
+DllExport void
+UIElement_SetVar_IntPtr (Urho3D::UIElement *_target, int key, const void * value)
+{
+	_target->SetVar (Urho3D::StringHash(key), (value));
+}
+
+DllExport const PODVector<unsigned>&
+ListView_GetSelections (Urho3D::ListView *_target)
+{
+	return _target->GetSelections ();
+}
+
+DllExport void ListView_SetSelections(Urho3D::ListView* _target, unsigned* data, int size)
+{
+    PODVector<unsigned> selections;
+    for (int i = 0; i < size; i++)
+    {
+        selections.Push(data[i]);
+    }
+
+    _target->SetSelections(selections);
+}
+
 }

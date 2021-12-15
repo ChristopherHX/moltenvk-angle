@@ -358,6 +358,11 @@ namespace Urho
             return new Vectors.ProxyRefCounted<T>(handle);
         }
 
+        internal static IReadOnlyList<uint> CreatePodVectorUintProxy(IntPtr handle)
+        {
+            return new Vectors.ProxyPodVectorUint<uint>(handle);
+        }
+
         internal static void Cleanup(bool disposeContext = true)
         {
             IsClosing = true;
