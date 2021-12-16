@@ -413,6 +413,8 @@ public:
     void SetParent(UIElement* parent, unsigned index = M_MAX_UNSIGNED);
     /// Set a user variable.
     void SetVar(StringHash key, const Variant& value);
+      /// Set a user variable.
+    void SetVar(const String&  key, const Variant& value);
     /// Mark as internally (programmatically) created. Used when an element composes itself out of child elements.
     /// @property
     void SetInternal(bool enable);
@@ -685,8 +687,11 @@ public:
     UIElement* GetRoot() const;
     /// Return derived color. Only valid when no gradient.
     const Color& GetDerivedColor() const;
+
     /// Return a user variable.
     Variant GetVar(StringHash key) const;
+      /// Return a user variable.
+    Variant GetVar(const String&  key) const;
 
     /// Return all user variables.
     const VariantMap& GetVars() const { return vars_; }

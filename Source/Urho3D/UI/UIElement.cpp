@@ -1436,9 +1436,14 @@ void UIElement::SetParent(UIElement* parent, unsigned index)
         parent->InsertChild(index, this);
 }
 
-void UIElement::SetVar(StringHash key, const Variant& value)
+void UIElement::SetVar(StringHash key, const Variant& value) 
+{ 
+    vars_[key] = value; 
+}
+
+void UIElement::SetVar(const String& key, const Variant& value) 
 {
-    vars_[key] = value;
+    SetVar(StringHash(key), value) ;
 }
 
 void UIElement::SetInternal(bool enable)
@@ -1697,6 +1702,11 @@ Variant UIElement::GetVar(StringHash key) const
 {
     VariantMap::ConstIterator i = vars_.Find(key);
     return i != vars_.End() ? i->second_ : Variant::EMPTY;
+}
+
+Variant UIElement::GetVar(const String& key) const 
+{ 
+    return GetVar(StringHash(key)); 
 }
 
 bool UIElement::HasTag(const String& tag) const

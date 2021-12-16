@@ -24967,6 +24967,92 @@ UIElement_SetVar_13 (Urho3D::UIElement *_target, int key, bool value)
 }
 
 // Urho3D::Variant overloads end.
+// Urho3D::Variant overloads begin:
+DllExport void
+UIElement_SetVar13_0 (Urho3D::UIElement *_target, const char * key, const class Urho3D::Vector3 & value)
+{
+	_target->SetVar (Urho3D::String(key), (value));
+}
+
+DllExport void
+UIElement_SetVar13_1 (Urho3D::UIElement *_target, const char * key, const class Urho3D::IntRect & value)
+{
+	_target->SetVar (Urho3D::String(key), (value));
+}
+
+DllExport void
+UIElement_SetVar13_2 (Urho3D::UIElement *_target, const char * key, const class Urho3D::Color & value)
+{
+	_target->SetVar (Urho3D::String(key), (value));
+}
+
+DllExport void
+UIElement_SetVar13_3 (Urho3D::UIElement *_target, const char * key, const class Urho3D::Vector2 & value)
+{
+	_target->SetVar (Urho3D::String(key), (value));
+}
+
+DllExport void
+UIElement_SetVar13_4 (Urho3D::UIElement *_target, const char * key, const class Urho3D::Vector4 & value)
+{
+	_target->SetVar (Urho3D::String(key), (value));
+}
+
+DllExport void
+UIElement_SetVar13_5 (Urho3D::UIElement *_target, const char * key, const class Urho3D::IntVector2 & value)
+{
+	_target->SetVar (Urho3D::String(key), (value));
+}
+
+DllExport void
+UIElement_SetVar13_6 (Urho3D::UIElement *_target, const char * key, const class Urho3D::Quaternion & value)
+{
+	_target->SetVar (Urho3D::String(key), (value));
+}
+
+DllExport void
+UIElement_SetVar13_7 (Urho3D::UIElement *_target, const char * key, const class Urho3D::Matrix4 & value)
+{
+	_target->SetVar (Urho3D::String(key), (value));
+}
+
+DllExport void
+UIElement_SetVar13_8 (Urho3D::UIElement *_target, const char * key, const class Urho3D::Matrix3 & value)
+{
+	_target->SetVar (Urho3D::String(key), (value));
+}
+
+DllExport void
+UIElement_SetVar13_9 (Urho3D::UIElement *_target, const char * key, const class Urho3D::Matrix3x4 & value)
+{
+	_target->SetVar (Urho3D::String(key), (value));
+}
+
+DllExport void
+UIElement_SetVar13_10 (Urho3D::UIElement *_target, const char * key, int value)
+{
+	_target->SetVar (Urho3D::String(key), (value));
+}
+
+DllExport void
+UIElement_SetVar13_11 (Urho3D::UIElement *_target, const char * key, float value)
+{
+	_target->SetVar (Urho3D::String(key), (value));
+}
+
+DllExport void
+UIElement_SetVar13_12 (Urho3D::UIElement *_target, const char * key, const char * value)
+{
+	_target->SetVar (Urho3D::String(key), Urho3D::String(value));
+}
+
+DllExport void
+UIElement_SetVar13_13 (Urho3D::UIElement *_target, const char * key, bool value)
+{
+	_target->SetVar (Urho3D::String(key), (value));
+}
+
+// Urho3D::Variant overloads end.
 DllExport void
 UIElement_SetInternal (Urho3D::UIElement *_target, bool enable)
 {
@@ -25584,7 +25670,7 @@ UIElement_GetChild (Urho3D::UIElement *_target, unsigned int index)
 
 
 DllExport Urho3D::UIElement *
-UIElement_GetChild13 (Urho3D::UIElement *_target, const char * name, bool recursive)
+UIElement_GetChild14 (Urho3D::UIElement *_target, const char * name, bool recursive)
 {
 	return _target->GetChild (Urho3D::String(name), recursive);
 }
@@ -25636,6 +25722,13 @@ DllExport Urho3D::Variant
 UIElement_GetVar (Urho3D::UIElement *_target, int key)
 {
 	return _target->GetVar (Urho3D::StringHash(key));
+}
+
+
+DllExport Urho3D::Variant
+UIElement_GetVar15 (Urho3D::UIElement *_target, const char * key)
+{
+	return _target->GetVar (Urho3D::String(key));
 }
 
 

@@ -1506,6 +1506,174 @@ UIElement_ElementToScreen
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetVar13_0 (IntPtr handle, string key, ref Vector3 value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, Vector3 value)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetVar13_0 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetVar13_1 (IntPtr handle, string key, ref IntRect value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, IntRect value)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetVar13_1 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetVar13_2 (IntPtr handle, string key, ref Color value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, Color value)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetVar13_2 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetVar13_3 (IntPtr handle, string key, ref Vector2 value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, Vector2 value)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetVar13_3 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetVar13_4 (IntPtr handle, string key, ref Vector4 value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, Vector4 value)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetVar13_4 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetVar13_5 (IntPtr handle, string key, ref IntVector2 value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, IntVector2 value)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetVar13_5 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetVar13_6 (IntPtr handle, string key, ref Quaternion value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, Quaternion value)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetVar13_6 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetVar13_7 (IntPtr handle, string key, ref Matrix4 value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, Matrix4 value)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetVar13_7 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetVar13_8 (IntPtr handle, string key, ref Matrix3 value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, Matrix3 value)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetVar13_8 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetVar13_9 (IntPtr handle, string key, ref Matrix3x4 value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, Matrix3x4 value)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetVar13_9 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetVar13_10 (IntPtr handle, string key, int value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, int value)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetVar13_10 (handle, key, value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetVar13_11 (IntPtr handle, string key, float value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, float value)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetVar13_11 (handle, key, value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetVar13_12 (IntPtr handle, string key, string value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, string value)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetVar13_12 (handle, key, value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetVar13_13 (IntPtr handle, string key, bool value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, bool value)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetVar13_13 (handle, key, value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void UIElement_SetInternal (IntPtr handle, bool enable);
 
 		/// <summary>
@@ -2449,7 +2617,7 @@ UIElement_GetLayoutFlexScale
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr UIElement_GetChild13 (IntPtr handle, string name, bool recursive);
+		internal static extern IntPtr UIElement_GetChild14 (IntPtr handle, string name, bool recursive);
 
 		/// <summary>
 		/// Return child element by name.
@@ -2457,7 +2625,7 @@ UIElement_GetLayoutFlexScale
 		public UIElement GetChild (string name, bool recursive = false)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Runtime.LookupObject<UIElement> (UIElement_GetChild13 (handle, name, recursive));
+			return Runtime.LookupObject<UIElement> (UIElement_GetChild14 (handle, name, recursive));
 		}
 
 		private IReadOnlyList<UIElement> _GetChildren_cache;
@@ -2534,6 +2702,18 @@ UIElement_GetDerivedColor
 		{
 			Runtime.ValidateRefCounted (this);
 			return UIElement_GetVar (handle, key.Code);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern Variant UIElement_GetVar15 (IntPtr handle, string key);
+
+		/// <summary>
+		/// Return a user variable.
+		/// </summary>
+		public Variant GetVar (string key)
+		{
+			Runtime.ValidateRefCounted (this);
+			return UIElement_GetVar15 (handle, key);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

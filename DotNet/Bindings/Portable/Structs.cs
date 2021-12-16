@@ -234,7 +234,7 @@ namespace Urho
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct ResourceRefList
+    public partial class ResourceRefList
     {
     }
 

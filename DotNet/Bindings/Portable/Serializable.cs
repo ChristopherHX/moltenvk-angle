@@ -109,11 +109,42 @@ namespace Urho
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern bool Serializable_SetAttribute_Variant (IntPtr handle, string name, IntPtr variant);
 
+        [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Serializable_SetAttribute_Variant2 (IntPtr handle, string name, ref Variant variant);
+
+        [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Serializable_SetAttribute_Variant3 (IntPtr handle, uint name, ref Variant variant);
+
+        public bool SetAttribute (uint index, ref Variant value)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Serializable_SetAttribute_Variant3 (handle, index, ref value);
+		}
+        public bool SetAttribute (string name, ref Variant value)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Serializable_SetAttribute_Variant2 (handle, name, ref value);
+		}
+
         public bool SetAttribute (string name, Dynamic value)
 		{
 			Runtime.ValidateRefCounted (this);
 			return Serializable_SetAttribute_Variant (handle, name, value.Handle);
 		}
+
+      
+
+        public AttributesVector GetAttributes()
+        {
+            return Application.Current.Context.GetAttributes(Type);
+        }
+
+        public AttributesVector Attributes
+        {
+            get{
+                return Application.Current.Context.GetAttributes(Type);
+            }
+        }
     }
 
 }

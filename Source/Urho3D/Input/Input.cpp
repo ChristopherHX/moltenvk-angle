@@ -2720,11 +2720,11 @@ void Input::HandleScreenJoystickDrag(StringHash eventType, VariantMap& eventData
         if (eventType == E_DRAGBEGIN)
         {
             IntVector2 p = borderImage->GetPosition();
-            borderImage->SetVar("DELTA", IntVector2(p.x_ - X, p.y_ - Y));
+            borderImage->SetVar(StringHash("DELTA"), IntVector2(p.x_ - X, p.y_ - Y));
         }
         else if (eventType == E_DRAGMOVE)
         {
-            IntVector2 d = borderImage->GetVar("DELTA").GetIntVector2();
+            IntVector2 d = borderImage->GetVar(StringHash("DELTA")).GetIntVector2();
             int iX = X + d.x_;
             int iY = Y + d.y_;
 

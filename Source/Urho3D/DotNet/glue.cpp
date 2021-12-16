@@ -1119,6 +1119,16 @@ Serializable_SetAttribute_Variant (Urho3D::Serializable *_target, const char * n
         return false;
 }
 
+DllExport bool Serializable_SetAttribute_Variant2 (Urho3D::Serializable *_target, const char * name, Variant & v)
+{
+	return _target->SetAttribute (name, v);
+}
+
+DllExport bool Serializable_SetAttribute_Variant3 (Urho3D::Serializable *_target, unsigned index, Variant & v)
+{
+	return _target->SetAttribute (index, v);
+}
+
 
 DllExport const char* Variant_GetResourceRefName(Variant& variant)
 {
@@ -1129,6 +1139,49 @@ DllExport unsigned int Variant_GetResourceRefType(Variant& variant)
 {
     return variant.GetResourceRef().type_.Value();
 }
+
+
+DllExport const Variant * Variant_VariantVector_GetVariant(Variant& variant, int index)
+{
+    return &(variant.GetVariantVector()[index]);
+}
+
+DllExport  int
+Variant_VariantVector_GetSize(Variant& variant)
+{
+    return variant.GetVariantVector().Size();
+}
+
+DllExport const char* Variant_StringVector_GetString(Variant& variant, int index)
+{
+    return stringdup(variant.GetStringVector()[index].CString());
+}
+
+DllExport  int
+Variant_StringVector_GetSize(Variant& variant)
+{
+    return variant.GetStringVector().Size();
+}
+
+DllExport  int
+Variant_ResourceRefList_GetType(Variant& variant)
+{
+    return variant.GetResourceRefList().type_.Value();
+}
+
+DllExport  int
+Variant_ResourceRefList_Names_GetSize(Variant& variant)
+{
+    return variant.GetResourceRefList().names_.Size();
+}
+
+
+DllExport  const char* 
+Variant_ResourceRefList_Names_GetNameAt(Variant& variant, int index)
+{
+    return stringdup(variant.GetResourceRefList().names_[index].CString());
+}
+
 
 DllExport void
 UIElement_SetVar_IntPtr (Urho3D::UIElement *_target, int key, const void * value)
@@ -1152,5 +1205,52 @@ DllExport void ListView_SetSelections(Urho3D::ListView* _target, unsigned* data,
 
     _target->SetSelections(selections);
 }
+
+
+DllExport const Vector<AttributeInfo>*
+Context_GetAttributes (Urho3D::Context * context , int type)
+{
+    StringHash attrType(type);
+    return context->GetAttributes(attrType);
+}
+
+DllExport int
+AttributeVector_GetSize(const Vector<AttributeInfo>* attributes)
+{
+    return attributes->Size();
+}
+
+DllExport VariantType
+AttributeVector_Attribute_GetType(const Vector<AttributeInfo>* attributes, unsigned int index)
+{
+    return attributes->At(index).type_;
+}
+
+DllExport const char* 
+AttributeVector_Attribute_GetName(const Vector<AttributeInfo>* attributes, unsigned int index)
+{
+    return attributes->At(index).name_.CString();
+}
+
+static AttributeInfo  attributes_attributeInfo ;
+DllExport AttributeInfo*
+Attributes_GetAttribute(const Vector<AttributeInfo>* attributes, int index)
+{
+    attributes_attributeInfo = attributes->At(index);
+    return &attributes_attributeInfo;
+}
+
+
+DllExport VariantType
+AttributeInfo_GetType(AttributeInfo * attributeInfo)
+{
+    return attributeInfo->type_;
+}
+
+DllExport const char* AttributeInfo_GetName(AttributeInfo * attributeInfo)
+{
+    return stringdup(attributeInfo->name_.CString());
+}
+
 
 }

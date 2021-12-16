@@ -1072,6 +1072,7 @@ void ListView::HandleUIMouseDoubleClick(StringHash eventType, VariantMap& eventD
 
 void ListView::HandleItemFocusChanged(StringHash eventType, VariantMap& eventData)
 {
+#if !defined(URHO3D_DOTNET)
     using namespace FocusChanged;
 
     auto* element = static_cast<UIElement*>(eventData[P_ELEMENT].GetPtr());
@@ -1086,6 +1087,7 @@ void ListView::HandleItemFocusChanged(StringHash eventType, VariantMap& eventDat
         }
         element = parent;
     }
+#endif
 }
 
 void ListView::HandleFocusChanged(StringHash eventType, VariantMap& eventData)

@@ -9,6 +9,8 @@ int Application_GetTypeStatic ();
 int Application_GetTypeNameStatic ();
 int Application_Run (int);
 void Application_ErrorExit (int,int);
+int AttributeInfo_GetType (int);
+int AttributeInfo_GetName (int);
 int BillboardSet_GetType (int);
 int BillboardSet_GetTypeName (int);
 int BillboardSet_GetTypeStatic ();
@@ -183,6 +185,10 @@ float Connection_GetDownloadProgress (int);
 void Connection_SendPackageToClient (int,int);
 void Connection_ConfigureNetworkSimulator (int,int,float);
 void Connection_SetPacketSizeLimit (int,int);
+int AttributeVector_GetSize (int);
+int AttributeVector_Attribute_GetType (int,int);
+int AttributeVector_Attribute_GetName (int,int);
+int Context_GetAttributes (int,int);
 int Context_Context ();
 int Context_CreateObject (int,int);
 void Context_RegisterFactory (int,int);
@@ -1496,6 +1502,8 @@ void Scene_MarkNetworkUpdate2 (int,int);
 void Scene_MarkNetworkUpdate3 (int,int);
 void Scene_MarkReplicationDirty (int,int);
 int Serializable_SetAttribute_Variant (int,int,int);
+int Serializable_SetAttribute_Variant2 (int,int,int);
+int Serializable_SetAttribute_Variant3 (int,int,int);
 int Serializable_GetType (int);
 int Serializable_GetTypeName (int);
 int Serializable_GetTypeStatic ();
@@ -1841,6 +1849,20 @@ void UIElement_SetVar_10 (int,int,int);
 void UIElement_SetVar_11 (int,int,float);
 void UIElement_SetVar_12 (int,int,int);
 void UIElement_SetVar_13 (int,int,int);
+void UIElement_SetVar13_0 (int,int,int);
+void UIElement_SetVar13_1 (int,int,int);
+void UIElement_SetVar13_2 (int,int,int);
+void UIElement_SetVar13_3 (int,int,int);
+void UIElement_SetVar13_4 (int,int,int);
+void UIElement_SetVar13_5 (int,int,int);
+void UIElement_SetVar13_6 (int,int,int);
+void UIElement_SetVar13_7 (int,int,int);
+void UIElement_SetVar13_8 (int,int,int);
+void UIElement_SetVar13_9 (int,int,int);
+void UIElement_SetVar13_10 (int,int,int);
+void UIElement_SetVar13_11 (int,int,float);
+void UIElement_SetVar13_12 (int,int,int);
+void UIElement_SetVar13_13 (int,int,int);
 void UIElement_SetInternal (int,int);
 void UIElement_SetTraversalMode (int,int);
 void UIElement_SetElementEventSender (int,int);
@@ -1901,12 +1923,13 @@ int UIElement_GetLayoutBorder (int);
 int UIElement_GetLayoutFlexScale (int);
 int UIElement_GetNumChildren (int,int);
 int UIElement_GetChild (int,int);
-int UIElement_GetChild13 (int,int,int);
+int UIElement_GetChild14 (int,int,int);
 int UIElement_GetChildren (int);
 int UIElement_GetParent (int);
 int UIElement_GetRoot (int);
 int UIElement_GetDerivedColor (int);
 int UIElement_GetVar (int,int);
+int UIElement_GetVar15 (int,int);
 int UIElement_HasTag (int,int);
 int UIElement_GetDragButtonCount (int);
 int UIElement_IsInside (int,int,int);
@@ -2367,6 +2390,13 @@ int Variant_GetString (int);
 int Variant_GetBuffer (int,int);
 int Variant_GetResourceRefName (int);
 int Variant_GetResourceRefType (int);
+int Variant_VariantVector_GetVariant (int,int);
+int Variant_VariantVector_GetSize (int);
+int Variant_StringVector_GetString (int,int);
+int Variant_StringVector_GetSize (int);
+int Variant_ResourceRefList_GetType (int);
+int Variant_ResourceRefList_Names_GetSize (int);
+int Variant_ResourceRefList_Names_GetNameAt (int,int);
 int VertexBuffer_GetElementMask (int);
 int VertexBuffer_CastToGPUObject (int);
 int VertexBuffer_GetType (int);
@@ -6174,6 +6204,8 @@ static PinvokeImport Urho3D_imports [] = {
 {"Application_GetTypeNameStatic", Application_GetTypeNameStatic},
 {"Application_Run", Application_Run},
 {"Application_ErrorExit", Application_ErrorExit},
+{"AttributeInfo_GetType", AttributeInfo_GetType},
+{"AttributeInfo_GetName", AttributeInfo_GetName},
 {"BillboardSet_GetType", BillboardSet_GetType},
 {"BillboardSet_GetTypeName", BillboardSet_GetTypeName},
 {"BillboardSet_GetTypeStatic", BillboardSet_GetTypeStatic},
@@ -6348,6 +6380,10 @@ static PinvokeImport Urho3D_imports [] = {
 {"Connection_SendPackageToClient", Connection_SendPackageToClient},
 {"Connection_ConfigureNetworkSimulator", Connection_ConfigureNetworkSimulator},
 {"Connection_SetPacketSizeLimit", Connection_SetPacketSizeLimit},
+{"AttributeVector_GetSize", AttributeVector_GetSize},
+{"AttributeVector_Attribute_GetType", AttributeVector_Attribute_GetType},
+{"AttributeVector_Attribute_GetName", AttributeVector_Attribute_GetName},
+{"Context_GetAttributes", Context_GetAttributes},
 {"Context_Context", Context_Context},
 {"Context_CreateObject", Context_CreateObject},
 {"Context_RegisterFactory", Context_RegisterFactory},
@@ -7661,6 +7697,8 @@ static PinvokeImport Urho3D_imports [] = {
 {"Scene_MarkNetworkUpdate3", Scene_MarkNetworkUpdate3},
 {"Scene_MarkReplicationDirty", Scene_MarkReplicationDirty},
 {"Serializable_SetAttribute_Variant", Serializable_SetAttribute_Variant},
+{"Serializable_SetAttribute_Variant2", Serializable_SetAttribute_Variant2},
+{"Serializable_SetAttribute_Variant3", Serializable_SetAttribute_Variant3},
 {"Serializable_GetType", Serializable_GetType},
 {"Serializable_GetTypeName", Serializable_GetTypeName},
 {"Serializable_GetTypeStatic", Serializable_GetTypeStatic},
@@ -8006,6 +8044,20 @@ static PinvokeImport Urho3D_imports [] = {
 {"UIElement_SetVar_11", UIElement_SetVar_11},
 {"UIElement_SetVar_12", UIElement_SetVar_12},
 {"UIElement_SetVar_13", UIElement_SetVar_13},
+{"UIElement_SetVar13_0", UIElement_SetVar13_0},
+{"UIElement_SetVar13_1", UIElement_SetVar13_1},
+{"UIElement_SetVar13_2", UIElement_SetVar13_2},
+{"UIElement_SetVar13_3", UIElement_SetVar13_3},
+{"UIElement_SetVar13_4", UIElement_SetVar13_4},
+{"UIElement_SetVar13_5", UIElement_SetVar13_5},
+{"UIElement_SetVar13_6", UIElement_SetVar13_6},
+{"UIElement_SetVar13_7", UIElement_SetVar13_7},
+{"UIElement_SetVar13_8", UIElement_SetVar13_8},
+{"UIElement_SetVar13_9", UIElement_SetVar13_9},
+{"UIElement_SetVar13_10", UIElement_SetVar13_10},
+{"UIElement_SetVar13_11", UIElement_SetVar13_11},
+{"UIElement_SetVar13_12", UIElement_SetVar13_12},
+{"UIElement_SetVar13_13", UIElement_SetVar13_13},
 {"UIElement_SetInternal", UIElement_SetInternal},
 {"UIElement_SetTraversalMode", UIElement_SetTraversalMode},
 {"UIElement_SetElementEventSender", UIElement_SetElementEventSender},
@@ -8066,12 +8118,13 @@ static PinvokeImport Urho3D_imports [] = {
 {"UIElement_GetLayoutFlexScale", UIElement_GetLayoutFlexScale},
 {"UIElement_GetNumChildren", UIElement_GetNumChildren},
 {"UIElement_GetChild", UIElement_GetChild},
-{"UIElement_GetChild13", UIElement_GetChild13},
+{"UIElement_GetChild14", UIElement_GetChild14},
 {"UIElement_GetChildren", UIElement_GetChildren},
 {"UIElement_GetParent", UIElement_GetParent},
 {"UIElement_GetRoot", UIElement_GetRoot},
 {"UIElement_GetDerivedColor", UIElement_GetDerivedColor},
 {"UIElement_GetVar", UIElement_GetVar},
+{"UIElement_GetVar15", UIElement_GetVar15},
 {"UIElement_HasTag", UIElement_HasTag},
 {"UIElement_GetDragButtonCount", UIElement_GetDragButtonCount},
 {"UIElement_IsInside", UIElement_IsInside},
@@ -8532,6 +8585,13 @@ static PinvokeImport Urho3D_imports [] = {
 {"Variant_GetBuffer", Variant_GetBuffer},
 {"Variant_GetResourceRefName", Variant_GetResourceRefName},
 {"Variant_GetResourceRefType", Variant_GetResourceRefType},
+{"Variant_VariantVector_GetVariant", Variant_VariantVector_GetVariant},
+{"Variant_VariantVector_GetSize", Variant_VariantVector_GetSize},
+{"Variant_StringVector_GetString", Variant_StringVector_GetString},
+{"Variant_StringVector_GetSize", Variant_StringVector_GetSize},
+{"Variant_ResourceRefList_GetType", Variant_ResourceRefList_GetType},
+{"Variant_ResourceRefList_Names_GetSize", Variant_ResourceRefList_Names_GetSize},
+{"Variant_ResourceRefList_Names_GetNameAt", Variant_ResourceRefList_Names_GetNameAt},
 {"VertexBuffer_GetElementMask", VertexBuffer_GetElementMask},
 {"VertexBuffer_CastToGPUObject", VertexBuffer_CastToGPUObject},
 {"VertexBuffer_GetType", VertexBuffer_GetType},
@@ -12347,22 +12407,22 @@ void wasm_native_to_interp_UrhoDotNet_100663340 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100666953 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100666974 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100666954 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100666975 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672393 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672470 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100666953,wasm_native_to_interp_UrhoDotNet_100666954,wasm_native_to_interp_UrhoDotNet_100672393,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100666974,wasm_native_to_interp_UrhoDotNet_100666975,wasm_native_to_interp_UrhoDotNet_100672470,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
-"UrhoDotNet_100666953",
-"UrhoDotNet_100666954",
-"UrhoDotNet_100672393",
+"UrhoDotNet_100666974",
+"UrhoDotNet_100666975",
+"UrhoDotNet_100672470",
 };
