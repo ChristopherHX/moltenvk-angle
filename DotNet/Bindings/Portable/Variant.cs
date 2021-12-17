@@ -120,6 +120,16 @@ namespace Urho
         [FieldOffset(8)]
         public VariantValue Value;
 
+        public static implicit operator DynamicMap(Variant v)
+        {
+            IntPtr nativeDynamicMap = Variant_GetVariantMap(ref v);
+            return new DynamicMap(nativeDynamicMap);
+        }
+
+        public DynamicMap GetVariantMap()
+        {
+            return (DynamicMap)this;
+        }
 
         public static implicit operator int(Variant v)
         {
@@ -271,6 +281,8 @@ namespace Urho
             return stringVector;
         }
 
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Variant_GetVariantMap(ref Variant v);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Variant_GetString(ref Variant v);

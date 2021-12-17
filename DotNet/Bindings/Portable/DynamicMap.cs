@@ -25,6 +25,10 @@ namespace Urho
         {
             dynamicMap = new Dictionary<int, Dynamic>();
         }
+        public  DynamicMap(EventDataContainer eventDataContainer):base(eventDataContainer.Handle)
+        {
+            
+        }
 
 
         public Dynamic this[String key]
@@ -53,6 +57,10 @@ namespace Urho
                 if(value.Handle != IntPtr.Zero)
                 {
 				    urho_map_set_value_ptr(Handle, hash ,value.Handle);
+                }
+                else
+                {
+                    urho_map_set_value(Handle, hash ,ref value.variant);
                 }
 
                 dynamicMap[hash] = value;
@@ -86,6 +94,9 @@ namespace Urho
 				if(value.Handle != IntPtr.Zero)
                 {
 				    urho_map_set_value_ptr(Handle, hash ,value.Handle);
+                }
+                else{
+                    urho_map_set_value(Handle, hash ,ref value.variant);
                 }
 
                 dynamicMap[hash] = value;

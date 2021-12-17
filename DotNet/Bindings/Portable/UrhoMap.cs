@@ -7,6 +7,7 @@ using Urho.Urho2D;
 using Urho.Resources;
 using Urho.Gui;
 using Urho.Network;
+using System.Collections.Generic;
 
 namespace Urho {
 
@@ -30,6 +31,23 @@ namespace Urho {
 			isManaged = false;
 			disposed = false;
 		}
+
+        public List<StringHash> Keys
+        {
+            get
+            {
+                List<StringHash> keys = new List<StringHash>();
+                uint size = urho_map_get_keys_size(Handle);
+
+                for (uint i = 0; i < size; i++)
+                {
+                    uint key = urho_map_keys_get_key(Handle,i);
+                    keys.Add(new StringHash((int)key));
+                }
+
+				return keys;
+            }
+        }
 
 		public void Dispose()
 		{
@@ -113,6 +131,13 @@ namespace Urho {
 
 		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)] 
 		public static extern void urho_map_set_value_ptr(IntPtr handle, int paramNameHash, IntPtr value);
+
+		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)] 
+		public static extern  uint urho_map_get_keys_size(IntPtr handle);
+   
+		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)] 
+    	public static extern  uint urho_map_keys_get_key(IntPtr handle , uint index);
+
 
 		public T get_Object<T>(int paramNameHash) where T : UrhoObject
 		{

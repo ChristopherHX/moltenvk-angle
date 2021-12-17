@@ -2007,6 +2007,8 @@ int urho_map_get_Variant (int,int);
 void urho_map_get_value (int,int,int);
 void urho_map_set_value (int,int,int);
 void urho_map_set_value_ptr (int,int,int);
+int urho_map_get_keys_size (int);
+int urho_map_keys_get_key (int,int);
 int UrhoString_String ();
 int UrhoString_String0 (int);
 int UrhoString_String1 (int);
@@ -2395,6 +2397,7 @@ int VGTextRowBuffer_GetRowText (int,int);
 float VGTextRowBuffer_GetRowMin (int,int);
 float VGTextRowBuffer_GetRowMax (int,int);
 float VGTextRowBuffer_GetRowWidth (int,int);
+int Variant_GetVariantMap (int);
 int Variant_GetString (int);
 int Variant_GetBuffer (int,int);
 int Variant_GetResourceRefName (int);
@@ -8211,6 +8214,8 @@ static PinvokeImport Urho3D_imports [] = {
 {"urho_map_get_value", urho_map_get_value},
 {"urho_map_set_value", urho_map_set_value},
 {"urho_map_set_value_ptr", urho_map_set_value_ptr},
+{"urho_map_get_keys_size", urho_map_get_keys_size},
+{"urho_map_keys_get_key", urho_map_keys_get_key},
 {"UrhoString_String", UrhoString_String},
 {"UrhoString_String0", UrhoString_String0},
 {"UrhoString_String1", UrhoString_String1},
@@ -8599,6 +8604,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"VGTextRowBuffer_GetRowMin", VGTextRowBuffer_GetRowMin},
 {"VGTextRowBuffer_GetRowMax", VGTextRowBuffer_GetRowMax},
 {"VGTextRowBuffer_GetRowWidth", VGTextRowBuffer_GetRowWidth},
+{"Variant_GetVariantMap", Variant_GetVariantMap},
 {"Variant_GetString", Variant_GetString},
 {"Variant_GetBuffer", Variant_GetBuffer},
 {"Variant_GetResourceRefName", Variant_GetResourceRefName},
@@ -12425,22 +12431,22 @@ void wasm_native_to_interp_UrhoDotNet_100663340 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100666992 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100666996 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100666993 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100666997 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672497 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672507 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100666992,wasm_native_to_interp_UrhoDotNet_100666993,wasm_native_to_interp_UrhoDotNet_100672497,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100666996,wasm_native_to_interp_UrhoDotNet_100666997,wasm_native_to_interp_UrhoDotNet_100672507,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
-"UrhoDotNet_100666992",
-"UrhoDotNet_100666993",
-"UrhoDotNet_100672497",
+"UrhoDotNet_100666996",
+"UrhoDotNet_100666997",
+"UrhoDotNet_100672507",
 };

@@ -581,6 +581,12 @@ extern "C"
         return pod.Buffer();
     }
 
+    DllExport const VariantMap * Variant_GetVariantMap(Variant& variant)
+    {
+        const VariantMap&  variantMap = variant.GetVariantMap();
+        return &variantMap;
+    }
+
     DllExport void urho_map_get_value(VariantMap& nativeInstance, int key, Variant& value)
     {
         value = nativeInstance[StringHash(key)];
@@ -594,6 +600,16 @@ extern "C"
     DllExport void urho_map_set_value_ptr(VariantMap& nativeInstance, int key, Variant* value)
     {
         nativeInstance[StringHash(key)] = *value;
+    }
+
+    DllExport unsigned urho_map_get_keys_size(VariantMap& nativeInstance)
+    {
+        return nativeInstance.Keys().Size();
+    }
+
+    DllExport unsigned urho_map_keys_get_key(VariantMap& nativeInstance,unsigned index)
+    {
+        nativeInstance.Keys()[index].Value();
     }
 
     static char conversionNumbersBuffer[CONVERSION_BUFFER_LENGTH];

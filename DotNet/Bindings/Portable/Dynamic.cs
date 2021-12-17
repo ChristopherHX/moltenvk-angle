@@ -45,12 +45,19 @@ namespace Urho
         public VariantType DynamicType { get; private set; } = VariantType.None;
 
 
+        public VariantType Type{
+            get
+            {
+                return DynamicType;
+            }
+        }
         // TBD ELI , not sure it safe 
         public Dynamic(Variant v)
         {
             Handle = Dynamic_CreateVariant(ref v);
             if (Handle != IntPtr.Zero)
                 variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
+            DynamicType = variant.Type;
         }
 
         public Dynamic(byte[] data)
@@ -318,6 +325,18 @@ namespace Urho
             if (Handle != IntPtr.Zero && DynamicType == VariantType.Variantvector)
                 return this;
             else return new VariantVector();     
+        }
+
+        public static implicit operator DynamicMap(Dynamic v)
+        {
+             return v.variant.GetVariantMap();
+        }
+
+        public DynamicMap GetVariantMap()
+        {
+            if (Handle != IntPtr.Zero && DynamicType == VariantType.Variantmap)
+                return variant.GetVariantMap();
+            else return new DynamicMap();
         }
 
         public static implicit operator Dynamic(bool b)
