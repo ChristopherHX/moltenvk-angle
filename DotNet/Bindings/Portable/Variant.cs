@@ -14,18 +14,27 @@ namespace Urho
 
     public class VariantVector
     {
-        List<Variant> variants = new List<Variant>();
-        public Variant this[uint index]
+        List<Dynamic> variants = new List<Dynamic>();
+
+        public int Count
+        {
+            get{
+                return variants.Count;
+            }
+        }
+
+        public Dynamic this[uint index]
         {
             get => variants[(int)index];
+            set => variants[(int)index] = value;
         }
 
         public void Add(Variant variant)
         {
-            variants.Add(variant);
+            variants.Add(new Dynamic(variant));
         }
 
-        public Variant[] ToArray ()
+        public Dynamic[] ToArray ()
         {
             return variants.ToArray ();
         }
@@ -34,9 +43,17 @@ namespace Urho
     public class StringVector
     {
         List<string> strings = new List<string>();
+
+        public int Count
+        {
+            get{
+                return strings.Count;
+            }
+        }
         public string this[uint index]
         {
             get => strings[(int)index];
+            set => strings[(int)index] = value;
         }
 
         public void Add(string str)
@@ -180,6 +197,10 @@ namespace Urho
             return result;
         }
 
+        public ResourceRef GetResourceRef()
+        {
+            return (ResourceRef)this;
+        }
         public static implicit operator ResourceRef(Variant v)
         {
 
@@ -190,6 +211,11 @@ namespace Urho
                 resourceRef.Type = new StringHash((int)Variant_GetResourceRefType(ref v));
             }
             return resourceRef;
+        }
+
+        public ResourceRefList GetResourceRefList()
+        {
+            return (ResourceRefList)this;
         }
 
         public static implicit operator ResourceRefList(Variant v)
@@ -208,6 +234,11 @@ namespace Urho
             }
 
             return resourceRefList;
+        }
+
+        public VariantVector GetVariantVector()
+        {
+            return (VariantVector)this;
         }
 
         public static implicit operator VariantVector(Variant v)

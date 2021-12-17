@@ -293,6 +293,10 @@ int Dynamic_Dispose (int);
 int Dynamic_GetBuffer (int,int);
 int Dynamic_CreateResourceRef (int,int);
 int Dynamic_GetResourceRef (int);
+int Dynamic_CreateResourceRefList (int,int);
+void Dynamic_ResourceRefList_AddName (int,int);
+int Dynamic_CreateVariantVector (int);
+void Dynamic_VariantVector_AddVariant (int,int);
 int File_GetSize (int);
 int File_GetType (int);
 int File_GetTypeName (int);
@@ -1508,6 +1512,7 @@ void Scene_MarkReplicationDirty (int,int);
 int Serializable_SetAttribute_Variant (int,int,int);
 int Serializable_SetAttribute_Variant2 (int,int,int);
 int Serializable_SetAttribute_Variant3 (int,int,int);
+int Serializable_SetAttribute_Variant4 (int,int,int);
 int Serializable_GetType (int);
 int Serializable_GetTypeName (int);
 int Serializable_GetTypeStatic ();
@@ -6492,6 +6497,10 @@ static PinvokeImport Urho3D_imports [] = {
 {"Dynamic_GetBuffer", Dynamic_GetBuffer},
 {"Dynamic_CreateResourceRef", Dynamic_CreateResourceRef},
 {"Dynamic_GetResourceRef", Dynamic_GetResourceRef},
+{"Dynamic_CreateResourceRefList", Dynamic_CreateResourceRefList},
+{"Dynamic_ResourceRefList_AddName", Dynamic_ResourceRefList_AddName},
+{"Dynamic_CreateVariantVector", Dynamic_CreateVariantVector},
+{"Dynamic_VariantVector_AddVariant", Dynamic_VariantVector_AddVariant},
 {"File_GetSize", File_GetSize},
 {"File_GetType", File_GetType},
 {"File_GetTypeName", File_GetTypeName},
@@ -7707,6 +7716,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Serializable_SetAttribute_Variant", Serializable_SetAttribute_Variant},
 {"Serializable_SetAttribute_Variant2", Serializable_SetAttribute_Variant2},
 {"Serializable_SetAttribute_Variant3", Serializable_SetAttribute_Variant3},
+{"Serializable_SetAttribute_Variant4", Serializable_SetAttribute_Variant4},
 {"Serializable_GetType", Serializable_GetType},
 {"Serializable_GetTypeName", Serializable_GetTypeName},
 {"Serializable_GetTypeStatic", Serializable_GetTypeStatic},
@@ -12415,22 +12425,22 @@ void wasm_native_to_interp_UrhoDotNet_100663340 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100666978 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100666992 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100666979 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100666993 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672474 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672497 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100666978,wasm_native_to_interp_UrhoDotNet_100666979,wasm_native_to_interp_UrhoDotNet_100672474,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100666992,wasm_native_to_interp_UrhoDotNet_100666993,wasm_native_to_interp_UrhoDotNet_100672497,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
-"UrhoDotNet_100666978",
-"UrhoDotNet_100666979",
-"UrhoDotNet_100672474",
+"UrhoDotNet_100666992",
+"UrhoDotNet_100666993",
+"UrhoDotNet_100672497",
 };

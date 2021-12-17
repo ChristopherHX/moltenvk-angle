@@ -28,6 +28,10 @@ namespace Urho
             }
         }
 
+        public AttributeInfo At(uint index)
+        {
+            return this[index];
+        }
         public AttributeInfo this[uint index]
         {
             get
@@ -39,13 +43,13 @@ namespace Urho
                 attributeInfo.Name = result;
                 attributeInfo.Mode = (AttributeMode)AttributeVector_Attribute_GetMode(Handle, index);
 
-                IntPtr enumNames =  AttributeVector_Attribute_GetEnumNamesPtr(Handle , index);
-                while(enumNames != IntPtr.Zero)
+                IntPtr enumNames = AttributeVector_Attribute_GetEnumNamesPtr(Handle, index);
+                while (enumNames != IntPtr.Zero)
                 {
-                    IntPtr enumName =  AttributeVector_Attribute_EnumNames_GetNexEnumtName(enumNames);
-                    if(enumName == IntPtr.Zero)break;
+                    IntPtr enumName = AttributeVector_Attribute_EnumNames_GetNexEnumtName(enumNames);
+                    if (enumName == IntPtr.Zero) break;
                     attributeInfo.EnumNames.Add(Marshal.PtrToStringAnsi(enumName));
-                    enumNames =  AttributeVector_Attribute_EnumNames_AdvancePtr(enumNames);
+                    enumNames = AttributeVector_Attribute_EnumNames_AdvancePtr(enumNames);
                 }
 
                 return attributeInfo;
@@ -65,13 +69,13 @@ namespace Urho
         static extern uint AttributeVector_Attribute_GetMode(IntPtr handle, uint index);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr AttributeVector_Attribute_GetEnumNamesPtr(IntPtr handle , uint index);
+        static extern IntPtr AttributeVector_Attribute_GetEnumNamesPtr(IntPtr handle, uint index);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr AttributeVector_Attribute_EnumNames_AdvancePtr( IntPtr enumNames);
+        static extern IntPtr AttributeVector_Attribute_EnumNames_AdvancePtr(IntPtr enumNames);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr AttributeVector_Attribute_EnumNames_GetNexEnumtName( IntPtr enumNames);
+        static extern IntPtr AttributeVector_Attribute_EnumNames_GetNexEnumtName(IntPtr enumNames);
     }
 
     /// <summary>

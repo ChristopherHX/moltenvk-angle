@@ -50,7 +50,7 @@ namespace Urho
         {
             Handle = Dynamic_CreateVariant(ref v);
             if (Handle != IntPtr.Zero)
-                variant = (Variant)Marshal.PtrToStructure(Handle, typeof(Variant));
+                variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
         public Dynamic(byte[] data)
@@ -60,6 +60,7 @@ namespace Urho
             fixed (byte* bptr = data)
             {
                 Handle = Dynamic_CreateBuffer(bptr, data.Length);
+                variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
             }
         }
 
@@ -68,6 +69,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Bool;
             Handle = Dynamic_CreateBool(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
 
@@ -76,6 +78,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Int;
             Handle = Dynamic_CreateInt(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
         public Dynamic(uint v)
@@ -83,6 +86,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Int;
             Handle = Dynamic_CreateUInt(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
 
@@ -91,6 +95,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Int64;
             Handle = Dynamic_CreateInt64(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
         public Dynamic(System.UInt64 v)
@@ -98,6 +103,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Int64;
             Handle = Dynamic_CreateUInt64(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
 
@@ -106,6 +112,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Float;
             Handle = Dynamic_CreateFloat(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
         public Dynamic(double v)
@@ -113,6 +120,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Double;
             Handle = Dynamic_CreateDouble(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
 
@@ -121,6 +129,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Vector2;
             Handle = Dynamic_CreateVector2(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
         public Dynamic(IntVector2 v)
@@ -128,6 +137,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Intvector2;
             Handle = Dynamic_CreateIntVector2(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
 
@@ -136,6 +146,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Vector3;
             Handle = Dynamic_CreateVector3(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
         public Dynamic(IntVector3 v)
@@ -143,6 +154,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Intvector3;
             Handle = Dynamic_CreateIntVector3(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
 
@@ -151,6 +163,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Rect;
             Handle = Dynamic_CreateRect(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
         public Dynamic(IntRect v)
@@ -158,6 +171,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Intrect;
             Handle = Dynamic_CreateIntRect(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
 
@@ -166,6 +180,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Vector4;
             Handle = Dynamic_CreateVector4(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
         public Dynamic(Quaternion v)
@@ -173,12 +188,14 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Quaternion;
             Handle = Dynamic_CreateQuaternion(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
         public Dynamic(Color v)
         {
             ReferenceObject = v;
             DynamicType = VariantType.Color;
             Handle = Dynamic_CreateColor(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
         public Dynamic(string v)
@@ -186,6 +203,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.String;
             Handle = Dynamic_CreateString(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
         public Dynamic(Matrix3 v)
@@ -193,6 +211,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Matrix3;
             Handle = Dynamic_CreateMatrix3(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
         public Dynamic(Matrix4 v)
@@ -200,6 +219,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Matrix4;
             Handle = Dynamic_CreateMatrix4(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
         public Dynamic(Matrix3x4 v)
@@ -207,6 +227,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Matrix3x4;
             Handle = Dynamic_CreateMatrix3x4(v);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
         public Dynamic(ResourceRef v)
@@ -214,6 +235,7 @@ namespace Urho
             ReferenceObject = v;
             DynamicType = VariantType.Resourceref;
             Handle = Dynamic_CreateResourceRef(v.Type.Code,(string)v.Name);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
         }
 
 
@@ -227,6 +249,75 @@ namespace Urho
             if (v.Handle != IntPtr.Zero && v.DynamicType == VariantType.Resourceref)
                 return v;
             else return new ResourceRef();
+        }
+
+        public ResourceRef GetResourceRef()
+        {
+            if (Handle != IntPtr.Zero && DynamicType == VariantType.Resourceref)
+                return this;
+            else return new ResourceRef();
+        }
+
+        public Dynamic(ResourceRefList resourceRefList)
+        {
+            ReferenceObject = resourceRefList;
+            DynamicType = VariantType.Resourcereflist;
+            Handle = Dynamic_CreateResourceRefList(resourceRefList.Type.Code,resourceRefList.Names.Count);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
+            for(uint i =0 ; i < resourceRefList.Names.Count ; i++)
+            {
+                Dynamic_ResourceRefList_AddName(Handle,resourceRefList.Names[i]);
+            }
+        }
+
+        public static implicit operator Dynamic(ResourceRefList resourceRefList)
+        {
+            return new Dynamic(resourceRefList);
+        }
+
+        public static implicit operator ResourceRefList(Dynamic v)
+        {
+            if (v.Handle != IntPtr.Zero && v.DynamicType == VariantType.Resourcereflist)
+                return v;
+            else return new ResourceRefList();
+        }
+
+        public ResourceRefList GetResourceRefList()
+        {
+            if (Handle != IntPtr.Zero && DynamicType == VariantType.Resourcereflist)
+                return this;
+            else return new ResourceRefList();     
+        }
+
+        public Dynamic(VariantVector variantVector)
+        {
+            ReferenceObject = variantVector;
+            DynamicType = VariantType.Variantvector;
+            Handle = Dynamic_CreateVariantVector(variantVector.Count);
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
+            for(uint i =0 ; i < variantVector.Count ; i++)
+            {
+                Dynamic_VariantVector_AddVariant(Handle,ref variantVector[i].variant);
+            }
+        }
+
+        public static implicit operator Dynamic(VariantVector variantVector)
+        {
+            return new Dynamic(variantVector);
+        }
+
+        public static implicit operator VariantVector(Dynamic v)
+        {
+            if (v.Handle != IntPtr.Zero && v.DynamicType == VariantType.Variantvector)
+                return v;
+            else return new VariantVector();
+        }
+
+        public VariantVector GetVariantVector()
+        {
+            if (Handle != IntPtr.Zero && DynamicType == VariantType.Variantvector)
+                return this;
+            else return new VariantVector();     
         }
 
         public static implicit operator Dynamic(bool b)
@@ -585,6 +676,7 @@ namespace Urho
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Dynamic_CreateVariant(ref Variant v);
 
+
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Dynamic_CreateBool(bool v);
 
@@ -690,9 +782,17 @@ namespace Urho
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Dynamic_GetResourceRef(IntPtr v);
 
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Dynamic_CreateResourceRefList(int type,int count);
 
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern void Dynamic_ResourceRefList_AddName(IntPtr handle,string name);
 
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Dynamic_CreateVariantVector(int count);
 
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern void Dynamic_VariantVector_AddVariant(IntPtr handle,ref Variant v);
 
 
     }

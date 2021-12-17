@@ -799,6 +799,33 @@ extern "C"
         return ((ResourceRef*)&(v->GetResourceRef()));
     }
 
+    DllExport Variant* Dynamic_CreateResourceRefList(int type, int count)
+    {
+        ResourceRefList resourceRefList;
+        resourceRefList.type_ = StringHash(type);
+        resourceRefList.names_.Resize(count);
+        Variant* v = new Variant(resourceRefList);
+        return v;
+    }
+
+    DllExport void Dynamic_ResourceRefList_AddName(Variant* v, const char* name)
+    {
+        ResourceRefList resourceRefList = v->GetResourceRefList();
+        resourceRefList.names_.Push(String(name));
+    }
+
+    DllExport Variant* Dynamic_CreateVariantVector(int count)
+    {
+        VariantVector variantVector(count);
+        Variant* v = new Variant(variantVector);
+        return v;
+    }
+
+    DllExport void Dynamic_VariantVector_AddVariant(Variant* v, Variant& value)
+    {
+        VariantVector variantVector = v->GetVariantVector();
+        variantVector.Push(value);
+    }
 
     DllExport void Dynamic_Dispose(Variant* target) { delete target; }
 
@@ -1127,6 +1154,15 @@ DllExport bool Serializable_SetAttribute_Variant2 (Urho3D::Serializable *_target
 DllExport bool Serializable_SetAttribute_Variant3 (Urho3D::Serializable *_target, unsigned index, Variant & v)
 {
 	return _target->SetAttribute (index, v);
+}
+
+DllExport bool
+Serializable_SetAttribute_Variant4 (Urho3D::Serializable *_target, unsigned index, Variant * v)
+{
+    if(v != NULL)
+	    return _target->SetAttribute (index, *v);
+    else
+        return false;
 }
 
 
