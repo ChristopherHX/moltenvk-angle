@@ -1232,6 +1232,39 @@ AttributeVector_Attribute_GetName(const Vector<AttributeInfo>* attributes, unsig
     return attributes->At(index).name_.CString();
 }
 
+DllExport unsigned int
+AttributeVector_Attribute_GetMode(const Vector<AttributeInfo>* attributes, unsigned int index)
+{
+    return attributes->At(index).mode_;
+}
+
+DllExport const char** 
+AttributeVector_Attribute_GetEnumNamesPtr(const Vector<AttributeInfo>* attributes, unsigned int index)
+{
+    return attributes->At(index).enumNames_;
+}
+
+DllExport const char**
+AttributeVector_Attribute_EnumNames_AdvancePtr( const char** enumNames)
+{
+    if(enumNames)
+    {
+        enumNames++;
+    }
+    return enumNames;
+}
+
+
+DllExport const char*
+AttributeVector_Attribute_EnumNames_GetNexEnumtName( const char** enumNames)
+{
+    if(enumNames && *enumNames)
+    {
+        return *enumNames;
+    }
+}
+
+
 static AttributeInfo  attributes_attributeInfo ;
 DllExport AttributeInfo*
 Attributes_GetAttribute(const Vector<AttributeInfo>* attributes, int index)

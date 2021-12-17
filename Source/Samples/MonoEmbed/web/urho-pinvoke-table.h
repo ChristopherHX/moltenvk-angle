@@ -188,6 +188,10 @@ void Connection_SetPacketSizeLimit (int,int);
 int AttributeVector_GetSize (int);
 int AttributeVector_Attribute_GetType (int,int);
 int AttributeVector_Attribute_GetName (int,int);
+int AttributeVector_Attribute_GetMode (int,int);
+int AttributeVector_Attribute_GetEnumNamesPtr (int,int);
+int AttributeVector_Attribute_EnumNames_AdvancePtr (int);
+int AttributeVector_Attribute_EnumNames_GetNexEnumtName (int);
 int Context_GetAttributes (int,int);
 int Context_Context ();
 int Context_CreateObject (int,int);
@@ -6383,6 +6387,10 @@ static PinvokeImport Urho3D_imports [] = {
 {"AttributeVector_GetSize", AttributeVector_GetSize},
 {"AttributeVector_Attribute_GetType", AttributeVector_Attribute_GetType},
 {"AttributeVector_Attribute_GetName", AttributeVector_Attribute_GetName},
+{"AttributeVector_Attribute_GetMode", AttributeVector_Attribute_GetMode},
+{"AttributeVector_Attribute_GetEnumNamesPtr", AttributeVector_Attribute_GetEnumNamesPtr},
+{"AttributeVector_Attribute_EnumNames_AdvancePtr", AttributeVector_Attribute_EnumNames_AdvancePtr},
+{"AttributeVector_Attribute_EnumNames_GetNexEnumtName", AttributeVector_Attribute_EnumNames_GetNexEnumtName},
 {"Context_GetAttributes", Context_GetAttributes},
 {"Context_Context", Context_Context},
 {"Context_CreateObject", Context_CreateObject},
@@ -12407,22 +12415,22 @@ void wasm_native_to_interp_UrhoDotNet_100663340 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100666974 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100666978 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100666975 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100666979 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672470 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672474 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100666974,wasm_native_to_interp_UrhoDotNet_100666975,wasm_native_to_interp_UrhoDotNet_100672470,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100666978,wasm_native_to_interp_UrhoDotNet_100666979,wasm_native_to_interp_UrhoDotNet_100672474,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
-"UrhoDotNet_100666974",
-"UrhoDotNet_100666975",
-"UrhoDotNet_100672470",
+"UrhoDotNet_100666978",
+"UrhoDotNet_100666979",
+"UrhoDotNet_100672474",
 };
