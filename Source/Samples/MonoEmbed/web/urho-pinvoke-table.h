@@ -192,6 +192,7 @@ int AttributeVector_Attribute_GetMode (int,int);
 int AttributeVector_Attribute_GetEnumNamesPtr (int,int);
 int AttributeVector_Attribute_EnumNames_AdvancePtr (int);
 int AttributeVector_Attribute_EnumNames_GetNexEnumtName (int);
+int AttributeVector_Attribute_GetDefaultValue (int,int);
 int Context_GetAttributes (int,int);
 int Context_Context ();
 int Context_CreateObject (int,int);
@@ -264,6 +265,7 @@ void DbConnection_Finalize (int);
 int DbConnection_GetConnectionString (int);
 int DbConnection_IsConnected (int);
 int Dynamic_CreateBuffer (int,int);
+int Dynamic_CreateFromType (int,int);
 int Dynamic_CreateVariant (int);
 int Dynamic_CreateBool (int);
 int Dynamic_CreateInt (int);
@@ -2004,6 +2006,7 @@ int urho_map_get_uint (int,int);
 int urho_map_get_Vector3 (int,int);
 int urho_map_get_IntVector2 (int,int);
 int urho_map_get_Variant (int,int);
+int urho_map_contains_value (int,int);
 void urho_map_get_value (int,int,int);
 void urho_map_set_value (int,int,int);
 void urho_map_set_value_ptr (int,int,int);
@@ -2399,6 +2402,7 @@ float VGTextRowBuffer_GetRowMax (int,int);
 float VGTextRowBuffer_GetRowWidth (int,int);
 int Variant_GetVariantMap (int);
 int Variant_GetString (int);
+int Variant_ToString (int);
 int Variant_GetBuffer (int,int);
 int Variant_GetResourceRefName (int);
 int Variant_GetResourceRefType (int);
@@ -2409,6 +2413,8 @@ int Variant_StringVector_GetSize (int);
 int Variant_ResourceRefList_GetType (int);
 int Variant_ResourceRefList_Names_GetSize (int);
 int Variant_ResourceRefList_Names_GetNameAt (int,int);
+int Variant_EqualityOperator (int,int);
+int Variant_NonEqualityOperator (int,int);
 int VertexBuffer_GetElementMask (int);
 int VertexBuffer_CastToGPUObject (int);
 int VertexBuffer_GetType (int);
@@ -6399,6 +6405,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"AttributeVector_Attribute_GetEnumNamesPtr", AttributeVector_Attribute_GetEnumNamesPtr},
 {"AttributeVector_Attribute_EnumNames_AdvancePtr", AttributeVector_Attribute_EnumNames_AdvancePtr},
 {"AttributeVector_Attribute_EnumNames_GetNexEnumtName", AttributeVector_Attribute_EnumNames_GetNexEnumtName},
+{"AttributeVector_Attribute_GetDefaultValue", AttributeVector_Attribute_GetDefaultValue},
 {"Context_GetAttributes", Context_GetAttributes},
 {"Context_Context", Context_Context},
 {"Context_CreateObject", Context_CreateObject},
@@ -6471,6 +6478,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"DbConnection_GetConnectionString", DbConnection_GetConnectionString},
 {"DbConnection_IsConnected", DbConnection_IsConnected},
 {"Dynamic_CreateBuffer", Dynamic_CreateBuffer},
+{"Dynamic_CreateFromType", Dynamic_CreateFromType},
 {"Dynamic_CreateVariant", Dynamic_CreateVariant},
 {"Dynamic_CreateBool", Dynamic_CreateBool},
 {"Dynamic_CreateInt", Dynamic_CreateInt},
@@ -8211,6 +8219,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"urho_map_get_Vector3", urho_map_get_Vector3},
 {"urho_map_get_IntVector2", urho_map_get_IntVector2},
 {"urho_map_get_Variant", urho_map_get_Variant},
+{"urho_map_contains_value", urho_map_contains_value},
 {"urho_map_get_value", urho_map_get_value},
 {"urho_map_set_value", urho_map_set_value},
 {"urho_map_set_value_ptr", urho_map_set_value_ptr},
@@ -8606,6 +8615,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"VGTextRowBuffer_GetRowWidth", VGTextRowBuffer_GetRowWidth},
 {"Variant_GetVariantMap", Variant_GetVariantMap},
 {"Variant_GetString", Variant_GetString},
+{"Variant_ToString", Variant_ToString},
 {"Variant_GetBuffer", Variant_GetBuffer},
 {"Variant_GetResourceRefName", Variant_GetResourceRefName},
 {"Variant_GetResourceRefType", Variant_GetResourceRefType},
@@ -8616,6 +8626,8 @@ static PinvokeImport Urho3D_imports [] = {
 {"Variant_ResourceRefList_GetType", Variant_ResourceRefList_GetType},
 {"Variant_ResourceRefList_Names_GetSize", Variant_ResourceRefList_Names_GetSize},
 {"Variant_ResourceRefList_Names_GetNameAt", Variant_ResourceRefList_Names_GetNameAt},
+{"Variant_EqualityOperator", Variant_EqualityOperator},
+{"Variant_NonEqualityOperator", Variant_NonEqualityOperator},
 {"VertexBuffer_GetElementMask", VertexBuffer_GetElementMask},
 {"VertexBuffer_CastToGPUObject", VertexBuffer_CastToGPUObject},
 {"VertexBuffer_GetType", VertexBuffer_GetType},
@@ -12431,22 +12443,22 @@ void wasm_native_to_interp_UrhoDotNet_100663340 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100666996 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667005 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100666997 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667006 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672507 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672528 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100666996,wasm_native_to_interp_UrhoDotNet_100666997,wasm_native_to_interp_UrhoDotNet_100672507,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667005,wasm_native_to_interp_UrhoDotNet_100667006,wasm_native_to_interp_UrhoDotNet_100672528,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
-"UrhoDotNet_100666996",
-"UrhoDotNet_100666997",
-"UrhoDotNet_100672507",
+"UrhoDotNet_100667005",
+"UrhoDotNet_100667006",
+"UrhoDotNet_100672528",
 };

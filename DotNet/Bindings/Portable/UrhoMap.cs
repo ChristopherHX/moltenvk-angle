@@ -16,7 +16,7 @@ namespace Urho {
 	/// </summary>
 	public unsafe class EventDataContainer 
 	{
-		public IntPtr Handle { get; }
+		public IntPtr Handle { get; private set ;} = IntPtr.Zero;
 		private bool isManaged = false;
 		private bool disposed = false;
 		public EventDataContainer()
@@ -32,20 +32,34 @@ namespace Urho {
 			disposed = false;
 		}
 
+		public int Count
+		{
+			get
+			{
+				if(Handle != IntPtr.Zero)
+					return (int)urho_map_get_keys_size(Handle);
+				else
+					return 0;
+			}
+		}
         public List<StringHash> Keys
         {
             get
             {
                 List<StringHash> keys = new List<StringHash>();
-                uint size = urho_map_get_keys_size(Handle);
 
-                for (uint i = 0; i < size; i++)
+                if (Handle != IntPtr.Zero)
                 {
-                    uint key = urho_map_keys_get_key(Handle,i);
-                    keys.Add(new StringHash((int)key));
+                    uint size = urho_map_get_keys_size(Handle);
+
+                    for (uint i = 0; i < size; i++)
+                    {
+                        uint key = urho_map_keys_get_key(Handle, i);
+                        keys.Add(new StringHash((int)key));
+                    }
                 }
 
-				return keys;
+                return keys;
             }
         }
 
@@ -121,6 +135,9 @@ namespace Urho {
 #else
 		static extern Variant urho_map_get_Variant(IntPtr handle, int paramNameHash);
 #endif
+
+		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)] 
+		public static extern bool urho_map_contains_value(IntPtr handle, int paramNameHash);
     
 		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)] 
 		public static extern void urho_map_get_value(IntPtr handle, int paramNameHash, out Variant value);

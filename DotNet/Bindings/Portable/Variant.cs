@@ -120,12 +120,26 @@ namespace Urho
         [FieldOffset(8)]
         public VariantValue Value;
 
+
+        public bool IsZero()
+        {
+            return Type == VariantType.None;
+        }
         public static implicit operator DynamicMap(Variant v)
         {
             IntPtr nativeDynamicMap = Variant_GetVariantMap(ref v);
             return new DynamicMap(nativeDynamicMap);
         }
 
+        public static bool operator ==(Variant obj1, Variant obj2)
+        {
+            return Variant_EqualityOperator(ref obj1 , ref obj2);
+        }
+
+        public static bool operator !=(Variant obj1, Variant obj2)
+        {
+            return Variant_NonEqualityOperator(ref obj1 , ref obj2);
+        }
         public DynamicMap GetVariantMap()
         {
             return (DynamicMap)this;
@@ -191,6 +205,13 @@ namespace Urho
         public static implicit operator string(Variant v)
         {
             IntPtr nativeCString = Variant_GetString(ref v);
+            string result = Marshal.PtrToStringAnsi(nativeCString);
+            return result;
+        }
+
+        public override string ToString()
+        {
+            IntPtr nativeCString = Variant_ToString(ref this);
             string result = Marshal.PtrToStringAnsi(nativeCString);
             return result;
         }
@@ -288,6 +309,9 @@ namespace Urho
         static extern IntPtr Variant_GetString(ref Variant v);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Variant_ToString(ref Variant v);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Variant_GetBuffer(ref Variant v, out int count);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -316,6 +340,13 @@ namespace Urho
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr Variant_ResourceRefList_Names_GetNameAt(ref Variant v, int index);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern bool Variant_EqualityOperator(ref Variant variant1 ,ref Variant variant2 );
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+         internal static extern bool Variant_NonEqualityOperator(ref Variant variant1 ,ref Variant variant2 );
+         
     }
 
 }

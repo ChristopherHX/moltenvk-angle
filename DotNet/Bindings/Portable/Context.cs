@@ -43,6 +43,8 @@ namespace Urho
                 attributeInfo.Name = result;
                 attributeInfo.Mode = (AttributeMode)AttributeVector_Attribute_GetMode(Handle, index);
 
+                attributeInfo.DefaultValue = new Dynamic(AttributeVector_Attribute_GetDefaultValue(Handle, index));
+
                 IntPtr enumNames = AttributeVector_Attribute_GetEnumNamesPtr(Handle, index);
                 while (enumNames != IntPtr.Zero)
                 {
@@ -76,6 +78,9 @@ namespace Urho
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr AttributeVector_Attribute_EnumNames_GetNexEnumtName(IntPtr enumNames);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern  IntPtr AttributeVector_Attribute_GetDefaultValue(IntPtr handle, uint index);
     }
 
     /// <summary>

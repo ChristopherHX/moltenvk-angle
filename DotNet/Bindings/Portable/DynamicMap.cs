@@ -27,9 +27,13 @@ namespace Urho
         }
         public  DynamicMap(EventDataContainer eventDataContainer):base(eventDataContainer.Handle)
         {
-            
+
         }
 
+        public bool Contains(string key)
+        {
+            return urho_map_contains_value(Handle, StringHash.urho_stringhash_from_string (key));
+        }
 
         public Dynamic this[String key]
     	{
@@ -67,6 +71,11 @@ namespace Urho
 			}
             
     	}
+
+        public bool Contains(StringHash key)
+        {
+            return urho_map_contains_value(Handle, key.Code);
+        }
 
         public Dynamic this[StringHash key]
     	{

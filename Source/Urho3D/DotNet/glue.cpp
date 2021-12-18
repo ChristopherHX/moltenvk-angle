@@ -485,6 +485,7 @@ extern "C"
          */
     }
 
+
     DllExport Variant Variant_CreateInt(int i)
     {
         Variant v = i;
@@ -572,6 +573,13 @@ extern "C"
         return stringdup(urhoString.CString());
     }
 
+    DllExport const char* Variant_ToString(Variant& variant)
+    {
+        String urhoString = variant.ToString();
+        return stringdup(urhoString.CString());
+    }
+
+
     DllExport void Variant_CreateBuffer(void* data, int size, Variant& v) { v = VectorBuffer(data, size); }
 
     DllExport unsigned char* Variant_GetBuffer(Variant& v, int* count)
@@ -587,9 +595,25 @@ extern "C"
         return &variantMap;
     }
 
+    
+    DllExport bool Variant_EqualityOperator(Variant& variant1 ,Variant& variant2 )
+    {
+        return variant1 == variant2;
+    }
+
+    DllExport bool Variant_NonEqualityOperator(Variant& variant1 ,Variant& variant2 )
+    {
+        return variant1 != variant2;
+    }
+
     DllExport void urho_map_get_value(VariantMap& nativeInstance, int key, Variant& value)
     {
         value = nativeInstance[StringHash(key)];
+    }
+
+    DllExport bool urho_map_contains_value(VariantMap& nativeInstance, int key)
+    {
+        return nativeInstance.Contains(StringHash(key));
     }
 
     DllExport void urho_map_set_value(VariantMap& nativeInstance, int key, Variant& value)
@@ -628,6 +652,12 @@ extern "C"
     }
 
     /*DYNAMIC*/
+
+    DllExport Variant * Dynamic_CreateFromType(VariantType type, const char* value)
+    {
+        Variant * v = new Variant(type, value);
+        return v;
+    }
 
     //
     DllExport Variant* Dynamic_CreateVariant(Variant& value)
@@ -1282,6 +1312,12 @@ DllExport const char*
 AttributeVector_Attribute_GetName(const Vector<AttributeInfo>* attributes, unsigned int index)
 {
     return attributes->At(index).name_.CString();
+}
+
+DllExport const Variant *
+AttributeVector_Attribute_GetDefaultValue(const Vector<AttributeInfo>* attributes, unsigned int index)
+{
+    return &(attributes->At(index).defaultValue_);
 }
 
 DllExport unsigned int

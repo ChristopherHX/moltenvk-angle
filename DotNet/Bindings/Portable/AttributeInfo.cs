@@ -66,6 +66,8 @@ namespace Urho
 
         public AttributeMode Mode;
 
+		public Dynamic DefaultValue = new Dynamic(0);
+
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern VariantType AttributeInfo_GetType(IntPtr handle);

@@ -51,7 +51,23 @@ namespace Urho
                 return DynamicType;
             }
         }
-        // TBD ELI , not sure it safe 
+
+        public Dynamic(IntPtr handle)
+        {
+            Handle = handle;
+            if (Handle != IntPtr.Zero)
+                variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
+            DynamicType = variant.Type;
+        }
+
+        public Dynamic(VariantType type, string value)
+        {
+            Handle = Dynamic_CreateFromType( type,  value);
+            if (Handle != IntPtr.Zero)
+                variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
+            DynamicType = variant.Type;
+        }
+        
         public Dynamic(Variant v)
         {
             Handle = Dynamic_CreateVariant(ref v);
@@ -69,6 +85,11 @@ namespace Urho
                 Handle = Dynamic_CreateBuffer(bptr, data.Length);
                 variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
             }
+        }
+
+        public override string ToString()
+        {
+            return variant.ToString();
         }
 
         public Dynamic(bool v)
@@ -327,6 +348,19 @@ namespace Urho
             else return new VariantVector();     
         }
 
+         public Dynamic(DynamicMap dynamicMap)
+         {
+            ReferenceObject = dynamicMap;
+            DynamicType = VariantType.Variantmap;
+            Handle =  dynamicMap.Handle;
+            variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
+         }
+
+        public static implicit operator Dynamic(DynamicMap dynamicMap)
+        {
+            return new Dynamic(dynamicMap);
+        }
+        
         public static implicit operator DynamicMap(Dynamic v)
         {
              return v.variant.GetVariantMap();
@@ -691,6 +725,9 @@ namespace Urho
 
 
         /////////////////////////////////////////////////////////////////////
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Dynamic_CreateFromType(VariantType type, string value);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Dynamic_CreateVariant(ref Variant v);
