@@ -63,6 +63,18 @@ extern "C"
         }
     }
 
+    bool VariantMap_Erase(VariantMap& map, const char* key)
+    {
+        StringHash h(key);
+        return map.Erase(h);
+    }
+
+    bool VariantMap_Erase2(VariantMap& map, int key)
+    {
+        StringHash h(key);
+        return map.Erase(h);
+    }
+
     DllExport void* urho_map_get_variantmap(VariantMap& map, int hash)
     {
         StringHash h(hash);
@@ -631,9 +643,19 @@ extern "C"
         return nativeInstance.Keys().Size();
     }
 
-    DllExport unsigned urho_map_keys_get_key(VariantMap& nativeInstance,unsigned index)
+    DllExport void urho_map_keys_get_keys(VariantMap& nativeInstance,unsigned int *buffer)
+    {   
+        Vector<StringHash> keys = nativeInstance.Keys();
+        for(unsigned i = 0 ; i< keys.Size();i++)
+        {
+            buffer[i] =  keys[i].ToHash();
+        }
+    }
+
+    DllExport unsigned urho_map_keys_get_key(VariantMap& nativeInstance,int index)
     {
-        nativeInstance.Keys()[index].Value();
+       unsigned value =  nativeInstance.Keys()[index].Value();
+       return value;
     }
 
     static char conversionNumbersBuffer[CONVERSION_BUFFER_LENGTH];
@@ -1371,6 +1393,37 @@ AttributeInfo_GetType(AttributeInfo * attributeInfo)
 DllExport const char* AttributeInfo_GetName(AttributeInfo * attributeInfo)
 {
     return stringdup(attributeInfo->name_.CString());
+}
+
+
+static Variant UIElement_GetTags_Variant;
+DllExport Variant *
+UIElement_GetTags(UIElement * target)
+{
+    UIElement_GetTags_Variant = target->GetTags();
+    return &UIElement_GetTags_Variant;
+}
+
+DllExport const VariantMap*
+UIElement_GetVars(UIElement * target)
+{
+    return &target->GetVars();
+
+}
+
+static Variant Node_GetTags_Variant;
+DllExport Variant *
+Node_GetTags(Node * target)
+{
+    Node_GetTags_Variant = target->GetTags();
+    return &Node_GetTags_Variant;
+}
+
+
+DllExport const VariantMap*
+Node_GetVars(Node * target)
+{
+    return &target->GetVars();
 }
 
 

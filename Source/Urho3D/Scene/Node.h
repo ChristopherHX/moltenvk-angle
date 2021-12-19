@@ -344,6 +344,8 @@ public:
     void SetParent(Node* parent);
     /// Set a user variable.
     void SetVar(StringHash key, const Variant& value);
+    /// Set a user variable.
+    void SetVar(const String&  key, const Variant& value);
     /// Add listener component that is notified of node being dirtied. Can either be in the same node or another.
     void AddListener(Component* component);
     /// Remove listener component.
@@ -605,6 +607,8 @@ public:
 
     /// Return a user variable.
     const Variant& GetVar(StringHash key) const;
+    /// Return a user variable.
+    Variant GetVar(const String&  key) const;
 
     /// Return all user variables.
     const VariantMap& GetVars() const { return vars_; }

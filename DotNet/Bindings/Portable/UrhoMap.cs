@@ -50,18 +50,25 @@ namespace Urho {
 
                 if (Handle != IntPtr.Zero)
                 {
-                    uint size = urho_map_get_keys_size(Handle);
-
-                    for (uint i = 0; i < size; i++)
+                    int size = (int)urho_map_get_keys_size(Handle);
+					IntPtr pnt = Marshal.AllocHGlobal(sizeof(uint) * size);
+					urho_map_keys_get_keys(Handle,(uint*)pnt);
+                    for (int i = 0; i < size; i++)
                     {
-                        uint key = urho_map_keys_get_key(Handle, i);
-                        keys.Add(new StringHash((int)key));
+                        keys.Add(new StringHash((int)((uint*)pnt)[i]));
                     }
+
+					Marshal.FreeHGlobal(pnt);
                 }
 
                 return keys;
             }
         }
+
+		public uint GetKey(int index)
+		{
+			return urho_map_keys_get_key(Handle, index);
+		}
 
 		public void Dispose()
 		{
@@ -81,12 +88,29 @@ namespace Urho {
 			Dispose();
 		}
 
+		public bool Erase(string key)
+		{
+			return  VariantMap_Erase(Handle, key);
+		}
+
+		public bool Erase(StringHash key)
+		{
+			return  VariantMap_Erase2(Handle, key.Code);
+		}
+		
 		
 		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
 		static extern IntPtr  VariantMap_VariantMap();
 
 		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
 		static extern void VariantMap_Dispose(IntPtr variantMap);
+
+		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
+		static extern bool VariantMap_Erase (IntPtr handle, string key);
+
+		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
+		static extern bool VariantMap_Erase2 (IntPtr handle, int paramNameHash);
+
 
 		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
 		static extern IntPtr urho_map_get_variantmap (IntPtr handle, int paramNameHash);
@@ -153,8 +177,10 @@ namespace Urho {
 		public static extern  uint urho_map_get_keys_size(IntPtr handle);
    
 		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)] 
-    	public static extern  uint urho_map_keys_get_key(IntPtr handle , uint index);
+    	public static extern  uint urho_map_keys_get_key(IntPtr handle , int index);
 
+		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)] 
+    	public static extern  void urho_map_keys_get_keys(IntPtr handle , uint * buffer);
 
 		public T get_Object<T>(int paramNameHash) where T : UrhoObject
 		{

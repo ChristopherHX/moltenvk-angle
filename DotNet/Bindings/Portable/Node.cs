@@ -12,29 +12,31 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Reflection;
 
-namespace Urho {
+namespace Urho
+{
 
-	internal partial class NodeHelper
+    internal partial class NodeHelper
     {
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		internal extern static IntPtr urho_node_get_components(IntPtr node, int code, int recursive, out int count);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal extern static IntPtr urho_node_get_components(IntPtr node, int code, int recursive, out int count);
 
-		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
-		internal extern static IntPtr Node_GetChildrenWithTag(IntPtr node, string tag, int recursive, out int count);
-	}
-	
-	public partial class Node {
-		static Node[] ZeroArray = new Node[0];
-			
-				/// <summary>
-		/// Remove from the parent node. If no other shared pointer references exist, causes immediate deletion.
-		/// </summary>
-		public void Remove ()
-		{
-			RemoveAllActions(); // TBD ELI , should remove all actions prior of deletion
-			Runtime.ValidateRefCounted (this);
-			Node_Remove (handle);
-		}
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal extern static IntPtr Node_GetChildrenWithTag(IntPtr node, string tag, int recursive, out int count);
+    }
+
+    public partial class Node
+    {
+        static Node[] ZeroArray = new Node[0];
+
+        /// <summary>
+        /// Remove from the parent node. If no other shared pointer references exist, causes immediate deletion.
+        /// </summary>
+        public void Remove()
+        {
+            RemoveAllActions(); // TBD ELI , should remove all actions prior of deletion
+            Runtime.ValidateRefCounted(this);
+            Node_Remove(handle);
+        }
 
         private void GetChildrenWithManagedComponent(Node parent, System.Type type, bool recursive, ref List<Node> children)
         {
@@ -90,135 +92,173 @@ namespace Urho {
         }
 
         public Node[] GetChildrenWithTag(string tag, bool recursive = false)
-		{
-			Runtime.ValidateRefCounted(this);
-			int count;
-			var ptr = NodeHelper.Node_GetChildrenWithTag(handle, tag, recursive ? 1 : 0, out count);
-			if (ptr == IntPtr.Zero)
-				return ZeroArray;
-			
-			var res = new Node[count];
-			for (int i = 0; i < count; i++){
-				var node = Marshal.ReadIntPtr(ptr, i * IntPtr.Size);
-				res [i] = Runtime.LookupObject<Node> (node);
-			}
+        {
+            Runtime.ValidateRefCounted(this);
+            int count;
+            var ptr = NodeHelper.Node_GetChildrenWithTag(handle, tag, recursive ? 1 : 0, out count);
+            if (ptr == IntPtr.Zero)
+                return ZeroArray;
 
-			return res;
-		}
-		
-		public T CreateComponent<T> (StringHash type, CreateMode mode = CreateMode.Replicated, uint id = 0) where T:Component
-		{
-			Runtime.ValidateRefCounted(this);
-			var ptr = Node_CreateComponent (handle, type.Code, mode, id);
-			return Runtime.LookupObject<T> (ptr);
-		}
+            var res = new Node[count];
+            for (int i = 0; i < count; i++)
+            {
+                var node = Marshal.ReadIntPtr(ptr, i * IntPtr.Size);
+                res[i] = Runtime.LookupObject<Node>(node);
+            }
 
-		public void RemoveComponent<T> ()
-		{
-			Runtime.ValidateRefCounted(this);
-			var stringHash = Runtime.LookupStringHash (typeof (T));
-			RemoveComponent (stringHash);
-		}
+            return res;
+        }
+
+        public T CreateComponent<T>(StringHash type, CreateMode mode = CreateMode.Replicated, uint id = 0) where T : Component
+        {
+            Runtime.ValidateRefCounted(this);
+            var ptr = Node_CreateComponent(handle, type.Code, mode, id);
+            return Runtime.LookupObject<T>(ptr);
+        }
+
+        public void RemoveComponent<T>()
+        {
+            Runtime.ValidateRefCounted(this);
+            var stringHash = Runtime.LookupStringHash(typeof(T));
+            RemoveComponent(stringHash);
+        }
 
 
-		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_RemoveComponent22 (IntPtr handle, IntPtr component);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Node_RemoveComponent22(IntPtr handle, IntPtr component);
 
-		/// <summary>
-		/// Remove a component from this node.
-		/// </summary>
-		public void RemoveComponent (Component component)
-		{
-			Runtime.ValidateRefCounted (this);
-			component.UnSubscribeFromAllEvents();
-			component.Remove();
-		}
+        /// <summary>
+        /// Remove a component from this node.
+        /// </summary>
+        public void RemoveComponent(Component component)
+        {
+            Runtime.ValidateRefCounted(this);
+            component.UnSubscribeFromAllEvents();
+            component.Remove();
+        }
 
-		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 #if __WEB__
 		internal static extern Variant * Node_GetVar (IntPtr handle, int key);
 #else
-		internal static extern Variant Node_GetVar (IntPtr handle, int key);
+        internal static extern Variant Node_GetVar(IntPtr handle, int key);
 #endif
 
-		public Variant GetVar (StringHash key)
-		{
-			Runtime.ValidateRefCounted (this);
+        public Variant GetVar(StringHash key)
+        {
+            Runtime.ValidateRefCounted(this);
 #if __WEB__
 			return *Node_GetVar (handle, key.Code);
 #else
-			return Node_GetVar (handle, key.Code);
+            return Node_GetVar(handle, key.Code);
 #endif
-		}
+        }
 
-		public Variant GetVar (int key)
-		{
-			Runtime.ValidateRefCounted (this);
+        public Variant GetVar(int key)
+        {
+            Runtime.ValidateRefCounted(this);
 #if __WEB__
 			return *Node_GetVar (handle, key);
 #else
-			return Node_GetVar (handle, key);
+            return Node_GetVar(handle, key);
 #endif
-		}
+        }
 
-		public T CreateComponent<T> (CreateMode mode = CreateMode.Replicated, uint id = 0) where T:Component
-		{
-			Runtime.ValidateRefCounted(this);
-			var component = Activator.CreateInstance<T>();
-			AddComponent(component, id, mode);
-			return component;
-		}
+        public T CreateComponent<T>(CreateMode mode = CreateMode.Replicated, uint id = 0) where T : Component
+        {
+            Runtime.ValidateRefCounted(this);
+            var component = Activator.CreateInstance<T>();
+            AddComponent(component, id, mode);
+            return component;
+        }
 
-		/// <summary>
-		/// Add a pre-created component.
-		/// </summary>
-		public void AddComponent (Component component, uint id = 0)
-		{
-			Runtime.ValidateRefCounted(this);
-			AddComponent (component, id, CreateMode.Replicated);
-		}
-		
-		/// <summary>
-		/// Changes Parent for the node
-		/// </summary>
-		public void ChangeParent(Node newParent)
-		{
-			AddRef();
-			Remove(); //without AddRef "Delete" will completly delete the node and the next operation will throw AccessViolationException
-			newParent.AddChild(this);
-			ReleaseRef();
-		}
+        /// <summary>
+        /// Add a pre-created component.
+        /// </summary>
+        public void AddComponent(Component component, uint id = 0)
+        {
+            Runtime.ValidateRefCounted(this);
+            AddComponent(component, id, CreateMode.Replicated);
+        }
 
-		public T GetComponent<T> (bool recursive = false) where T : Component
-		{
-			Runtime.ValidateRefCounted(this);
-			var nativeTypeHash = typeof(T).GetRuntimeProperty("TypeStatic")?.GetValue(null);
-			if (nativeTypeHash != null)
-				return (T)GetComponent((StringHash)nativeTypeHash, recursive);
+        /// <summary>
+        /// Changes Parent for the node
+        /// </summary>
+        public void ChangeParent(Node newParent)
+        {
+            AddRef();
+            Remove(); //without AddRef "Delete" will completly delete the node and the next operation will throw AccessViolationException
+            newParent.AddChild(this);
+            ReleaseRef();
+        }
 
-			//slow search (only for components defined by user):
-			var component = (T)Components.FirstOrDefault(c => c is T);
-			if (component == null && recursive)
-				return GetChildrenWithComponent<T>(true).FirstOrDefault()?.GetComponent<T>(false);
-			return component;
-		}
+        public T GetComponent<T>(bool recursive = false) where T : Component
+        {
+            Runtime.ValidateRefCounted(this);
+            var nativeTypeHash = typeof(T).GetRuntimeProperty("TypeStatic")?.GetValue(null);
+            if (nativeTypeHash != null)
+                return (T)GetComponent((StringHash)nativeTypeHash, recursive);
 
-		public T GetOrCreateComponent<T>(bool recursive = false) where T : Component
-		{
-			Runtime.ValidateRefCounted(this);
-			var component = GetComponent<T>(recursive);
-			if (component == null)
-				return CreateComponent<T>();
-			return component;
-		}
+            //slow search (only for components defined by user):
+            var component = (T)Components.FirstOrDefault(c => c is T);
+            if (component == null && recursive)
+                return GetChildrenWithComponent<T>(true).FirstOrDefault()?.GetComponent<T>(false);
+            return component;
+        }
 
-		public bool LoadXml(string prefab)
-		{
-			var file = Application.Current.ResourceCache.GetXmlFile(prefab, true);
-			var element = file.GetRoot("node");
-			if (element == null || element.Null)
-				throw new Exception("'node' root element was not found");
-			return LoadXml(element);
-		}
-	}
+        public T GetOrCreateComponent<T>(bool recursive = false) where T : Component
+        {
+            Runtime.ValidateRefCounted(this);
+            var component = GetComponent<T>(recursive);
+            if (component == null)
+                return CreateComponent<T>();
+            return component;
+        }
+
+        public bool LoadXml(string prefab)
+        {
+            var file = Application.Current.ResourceCache.GetXmlFile(prefab, true);
+            var element = file.GetRoot("node");
+            if (element == null || element.Null)
+                throw new Exception("'node' root element was not found");
+            return LoadXml(element);
+        }
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern Variant * Node_GetTags(IntPtr handle);
+
+		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr Node_GetVars(IntPtr handle);
+
+        public StringVector Tags
+        {
+            get
+            {
+                return (StringVector)(*Node_GetTags(Handle));
+            }
+
+            set
+            {
+                SetTags(value);
+            }
+        }
+
+		public DynamicMap Vars
+        {
+            get
+            {
+				return new DynamicMap(Node_GetVars(Handle));
+            }
+        }
+
+
+        public void SetTags(StringVector tags)
+        {
+            RemoveAllTags();
+            for (int i = 0; i < tags.Count; i++)
+            {
+                AddTag(tags[i]);
+            }
+        }
+    }
 }

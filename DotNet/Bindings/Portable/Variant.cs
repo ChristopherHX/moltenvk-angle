@@ -14,7 +14,7 @@ namespace Urho
 
     public class VariantVector
     {
-        List<Dynamic> variants = new List<Dynamic>();
+        public List<Dynamic> variants = new List<Dynamic>();
 
         public int Count
         {
@@ -23,7 +23,7 @@ namespace Urho
             }
         }
 
-        public Dynamic this[uint index]
+        public Dynamic this[int index]
         {
             get => variants[(int)index];
             set => variants[(int)index] = value;
@@ -42,18 +42,40 @@ namespace Urho
 
     public class StringVector
     {
-        List<string> strings = new List<string>();
+        public List<string> strings = new List<string>();
 
+        public StringVector()
+        {
+            strings = new List<string>();
+        }
+        public StringVector(string [] stringArray)
+        {
+            foreach(string str in stringArray )
+            {
+                strings.Add(str);
+            }
+        }
         public int Count
         {
             get{
                 return strings.Count;
             }
         }
-        public string this[uint index]
+        public string this[int index]
         {
-            get => strings[(int)index];
-            set => strings[(int)index] = value;
+            get
+            {
+                if (index < strings.Count)
+                    return strings[(int)index];
+                else
+                    return string.Empty;
+            }
+
+            set
+            {
+                if (index < strings.Count)
+                    strings[(int)index] = value;
+            }
         }
 
         public void Add(string str)

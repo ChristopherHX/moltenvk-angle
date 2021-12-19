@@ -1025,6 +1025,8 @@ int urho_node_get_components (int,int,int,int);
 int Node_GetChildrenWithTag (int,int,int,int);
 void Node_RemoveComponent22 (int,int);
 int Node_GetVar (int,int);
+int Node_GetTags (int);
+int Node_GetVars (int);
 int Node_GetType (int);
 int Node_GetTypeName (int);
 int Node_GetTypeStatic ();
@@ -1134,6 +1136,20 @@ void Node_SetVar_10 (int,int,int);
 void Node_SetVar_11 (int,int,float);
 void Node_SetVar_12 (int,int,int);
 void Node_SetVar_13 (int,int,int);
+void Node_SetVar20_0 (int,int,int);
+void Node_SetVar20_1 (int,int,int);
+void Node_SetVar20_2 (int,int,int);
+void Node_SetVar20_3 (int,int,int);
+void Node_SetVar20_4 (int,int,int);
+void Node_SetVar20_5 (int,int,int);
+void Node_SetVar20_6 (int,int,int);
+void Node_SetVar20_7 (int,int,int);
+void Node_SetVar20_8 (int,int,int);
+void Node_SetVar20_9 (int,int,int);
+void Node_SetVar20_10 (int,int,int);
+void Node_SetVar20_11 (int,int,float);
+void Node_SetVar20_12 (int,int,int);
+void Node_SetVar20_13 (int,int,int);
 void Node_AddListener (int,int);
 void Node_RemoveListener (int,int);
 int Node_GetID (int);
@@ -1169,23 +1185,24 @@ int Node_GetSignedWorldScale (int);
 int Node_GetWorldScale2D (int);
 int Node_GetWorldTransform (int);
 int Node_LocalToWorld (int,int);
-int Node_LocalToWorld20 (int,int);
+int Node_LocalToWorld21 (int,int);
 int Node_LocalToWorld2D (int,int);
 int Node_WorldToLocal (int,int);
-int Node_WorldToLocal21 (int,int);
+int Node_WorldToLocal22 (int,int);
 int Node_WorldToLocal2D (int,int);
 int Node_IsDirty (int);
 int Node_GetNumChildren (int,int);
 int Node_GetChildren (int);
 int Node_GetChild (int,int);
-int Node_GetChild22 (int,int,int);
 int Node_GetChild23 (int,int,int);
+int Node_GetChild24 (int,int,int);
 int Node_GetNumComponents (int);
 int Node_GetNumNetworkComponents (int);
 int Node_GetComponents (int);
 int Node_GetComponent (int,int,int);
 int Node_GetParentComponent (int,int,int);
 int Node_HasComponent (int,int);
+int Node_GetVar25 (int,int);
 void Node_SetID (int,int);
 void Node_SetScene (int,int);
 void Node_ResetScene (int);
@@ -1194,7 +1211,7 @@ int Node_GetNetPositionAttr (int);
 void Node_PrepareNetworkUpdate (int);
 void Node_CleanupConnection (int,int);
 void Node_MarkReplicationDirty (int);
-int Node_CreateChild24 (int,int,int,int);
+int Node_CreateChild26 (int,int,int,int);
 void Node_AddComponent (int,int,int,int);
 int Node_GetNumPersistentChildren (int);
 int Node_GetNumPersistentComponents (int);
@@ -1744,6 +1761,8 @@ float UI_GetScale (int);
 int UI_GetCustomSize (int);
 void UI_SetElementRenderTexture (int,int,int);
 void UIElement_SetVar_IntPtr (int,int,int);
+int UIElement_GetTags (int);
+int UIElement_GetVars (int);
 int UIElement_GetType (int);
 int UIElement_GetTypeName (int);
 int UIElement_GetTypeStatic ();
@@ -1994,6 +2013,8 @@ int UrhoConsole_GetHistoryRow (int,int);
 int UrhoConsole_GetFocusOnShow (int);
 int VariantMap_VariantMap ();
 void VariantMap_Dispose (int);
+int VariantMap_Erase (int,int);
+int VariantMap_Erase2 (int,int);
 int urho_map_get_variantmap (int,int);
 int urho_map_get_ptr (int,int);
 int urho_map_get_buffer (int,int,int);
@@ -2012,6 +2033,7 @@ void urho_map_set_value (int,int,int);
 void urho_map_set_value_ptr (int,int,int);
 int urho_map_get_keys_size (int);
 int urho_map_keys_get_key (int,int);
+void urho_map_keys_get_keys (int,int);
 int UrhoString_String ();
 int UrhoString_String0 (int);
 int UrhoString_String1 (int);
@@ -7238,6 +7260,8 @@ static PinvokeImport Urho3D_imports [] = {
 {"Node_GetChildrenWithTag", Node_GetChildrenWithTag},
 {"Node_RemoveComponent22", Node_RemoveComponent22},
 {"Node_GetVar", Node_GetVar},
+{"Node_GetTags", Node_GetTags},
+{"Node_GetVars", Node_GetVars},
 {"Node_GetType", Node_GetType},
 {"Node_GetTypeName", Node_GetTypeName},
 {"Node_GetTypeStatic", Node_GetTypeStatic},
@@ -7347,6 +7371,20 @@ static PinvokeImport Urho3D_imports [] = {
 {"Node_SetVar_11", Node_SetVar_11},
 {"Node_SetVar_12", Node_SetVar_12},
 {"Node_SetVar_13", Node_SetVar_13},
+{"Node_SetVar20_0", Node_SetVar20_0},
+{"Node_SetVar20_1", Node_SetVar20_1},
+{"Node_SetVar20_2", Node_SetVar20_2},
+{"Node_SetVar20_3", Node_SetVar20_3},
+{"Node_SetVar20_4", Node_SetVar20_4},
+{"Node_SetVar20_5", Node_SetVar20_5},
+{"Node_SetVar20_6", Node_SetVar20_6},
+{"Node_SetVar20_7", Node_SetVar20_7},
+{"Node_SetVar20_8", Node_SetVar20_8},
+{"Node_SetVar20_9", Node_SetVar20_9},
+{"Node_SetVar20_10", Node_SetVar20_10},
+{"Node_SetVar20_11", Node_SetVar20_11},
+{"Node_SetVar20_12", Node_SetVar20_12},
+{"Node_SetVar20_13", Node_SetVar20_13},
 {"Node_AddListener", Node_AddListener},
 {"Node_RemoveListener", Node_RemoveListener},
 {"Node_GetID", Node_GetID},
@@ -7382,23 +7420,24 @@ static PinvokeImport Urho3D_imports [] = {
 {"Node_GetWorldScale2D", Node_GetWorldScale2D},
 {"Node_GetWorldTransform", Node_GetWorldTransform},
 {"Node_LocalToWorld", Node_LocalToWorld},
-{"Node_LocalToWorld20", Node_LocalToWorld20},
+{"Node_LocalToWorld21", Node_LocalToWorld21},
 {"Node_LocalToWorld2D", Node_LocalToWorld2D},
 {"Node_WorldToLocal", Node_WorldToLocal},
-{"Node_WorldToLocal21", Node_WorldToLocal21},
+{"Node_WorldToLocal22", Node_WorldToLocal22},
 {"Node_WorldToLocal2D", Node_WorldToLocal2D},
 {"Node_IsDirty", Node_IsDirty},
 {"Node_GetNumChildren", Node_GetNumChildren},
 {"Node_GetChildren", Node_GetChildren},
 {"Node_GetChild", Node_GetChild},
-{"Node_GetChild22", Node_GetChild22},
 {"Node_GetChild23", Node_GetChild23},
+{"Node_GetChild24", Node_GetChild24},
 {"Node_GetNumComponents", Node_GetNumComponents},
 {"Node_GetNumNetworkComponents", Node_GetNumNetworkComponents},
 {"Node_GetComponents", Node_GetComponents},
 {"Node_GetComponent", Node_GetComponent},
 {"Node_GetParentComponent", Node_GetParentComponent},
 {"Node_HasComponent", Node_HasComponent},
+{"Node_GetVar25", Node_GetVar25},
 {"Node_SetID", Node_SetID},
 {"Node_SetScene", Node_SetScene},
 {"Node_ResetScene", Node_ResetScene},
@@ -7407,7 +7446,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Node_PrepareNetworkUpdate", Node_PrepareNetworkUpdate},
 {"Node_CleanupConnection", Node_CleanupConnection},
 {"Node_MarkReplicationDirty", Node_MarkReplicationDirty},
-{"Node_CreateChild24", Node_CreateChild24},
+{"Node_CreateChild26", Node_CreateChild26},
 {"Node_AddComponent", Node_AddComponent},
 {"Node_GetNumPersistentChildren", Node_GetNumPersistentChildren},
 {"Node_GetNumPersistentComponents", Node_GetNumPersistentComponents},
@@ -7957,6 +7996,8 @@ static PinvokeImport Urho3D_imports [] = {
 {"UI_GetCustomSize", UI_GetCustomSize},
 {"UI_SetElementRenderTexture", UI_SetElementRenderTexture},
 {"UIElement_SetVar_IntPtr", UIElement_SetVar_IntPtr},
+{"UIElement_GetTags", UIElement_GetTags},
+{"UIElement_GetVars", UIElement_GetVars},
 {"UIElement_GetType", UIElement_GetType},
 {"UIElement_GetTypeName", UIElement_GetTypeName},
 {"UIElement_GetTypeStatic", UIElement_GetTypeStatic},
@@ -8207,6 +8248,8 @@ static PinvokeImport Urho3D_imports [] = {
 {"UrhoConsole_GetFocusOnShow", UrhoConsole_GetFocusOnShow},
 {"VariantMap_VariantMap", VariantMap_VariantMap},
 {"VariantMap_Dispose", VariantMap_Dispose},
+{"VariantMap_Erase", VariantMap_Erase},
+{"VariantMap_Erase2", VariantMap_Erase2},
 {"urho_map_get_variantmap", urho_map_get_variantmap},
 {"urho_map_get_ptr", urho_map_get_ptr},
 {"urho_map_get_buffer", urho_map_get_buffer},
@@ -8225,6 +8268,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"urho_map_set_value_ptr", urho_map_set_value_ptr},
 {"urho_map_get_keys_size", urho_map_get_keys_size},
 {"urho_map_keys_get_key", urho_map_keys_get_key},
+{"urho_map_keys_get_keys", urho_map_keys_get_keys},
 {"UrhoString_String", UrhoString_String},
 {"UrhoString_String0", UrhoString_String0},
 {"UrhoString_String1", UrhoString_String1},
@@ -12443,22 +12487,22 @@ void wasm_native_to_interp_UrhoDotNet_100663340 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667005 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667041 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667006 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667042 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672528 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672577 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667005,wasm_native_to_interp_UrhoDotNet_100667006,wasm_native_to_interp_UrhoDotNet_100672528,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667041,wasm_native_to_interp_UrhoDotNet_100667042,wasm_native_to_interp_UrhoDotNet_100672577,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
-"UrhoDotNet_100667005",
-"UrhoDotNet_100667006",
-"UrhoDotNet_100672528",
+"UrhoDotNet_100667041",
+"UrhoDotNet_100667042",
+"UrhoDotNet_100672577",
 };

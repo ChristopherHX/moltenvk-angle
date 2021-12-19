@@ -1156,6 +1156,11 @@ void Node::SetVar(StringHash key, const Variant& value)
     MarkNetworkUpdate();
 }
 
+void Node::SetVar(const String& key, const Variant& value)
+{
+    SetVar(StringHash(key), value) ;
+}
+
 void Node::AddListener(Component* component)
 {
     if (!component)
@@ -1403,6 +1408,11 @@ const Variant& Node::GetVar(StringHash key) const
 {
     VariantMap::ConstIterator i = vars_.Find(key);
     return i != vars_.End() ? i->second_ : Variant::EMPTY;
+}
+
+Variant Node::GetVar(const String& key) const
+{
+    return GetVar(StringHash(key));
 }
 
 Component* Node::GetComponent(StringHash type, bool recursive) const

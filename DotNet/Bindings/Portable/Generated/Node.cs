@@ -1354,6 +1354,174 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Node_SetVar20_0 (IntPtr handle, string key, ref Vector3 value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, Vector3 value)
+		{
+			Runtime.ValidateRefCounted (this);
+			Node_SetVar20_0 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Node_SetVar20_1 (IntPtr handle, string key, ref IntRect value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, IntRect value)
+		{
+			Runtime.ValidateRefCounted (this);
+			Node_SetVar20_1 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Node_SetVar20_2 (IntPtr handle, string key, ref Color value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, Color value)
+		{
+			Runtime.ValidateRefCounted (this);
+			Node_SetVar20_2 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Node_SetVar20_3 (IntPtr handle, string key, ref Vector2 value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, Vector2 value)
+		{
+			Runtime.ValidateRefCounted (this);
+			Node_SetVar20_3 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Node_SetVar20_4 (IntPtr handle, string key, ref Vector4 value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, Vector4 value)
+		{
+			Runtime.ValidateRefCounted (this);
+			Node_SetVar20_4 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Node_SetVar20_5 (IntPtr handle, string key, ref IntVector2 value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, IntVector2 value)
+		{
+			Runtime.ValidateRefCounted (this);
+			Node_SetVar20_5 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Node_SetVar20_6 (IntPtr handle, string key, ref Quaternion value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, Quaternion value)
+		{
+			Runtime.ValidateRefCounted (this);
+			Node_SetVar20_6 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Node_SetVar20_7 (IntPtr handle, string key, ref Matrix4 value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, Matrix4 value)
+		{
+			Runtime.ValidateRefCounted (this);
+			Node_SetVar20_7 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Node_SetVar20_8 (IntPtr handle, string key, ref Matrix3 value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, Matrix3 value)
+		{
+			Runtime.ValidateRefCounted (this);
+			Node_SetVar20_8 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Node_SetVar20_9 (IntPtr handle, string key, ref Matrix3x4 value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, Matrix3x4 value)
+		{
+			Runtime.ValidateRefCounted (this);
+			Node_SetVar20_9 (handle, key, ref value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Node_SetVar20_10 (IntPtr handle, string key, int value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, int value)
+		{
+			Runtime.ValidateRefCounted (this);
+			Node_SetVar20_10 (handle, key, value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Node_SetVar20_11 (IntPtr handle, string key, float value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, float value)
+		{
+			Runtime.ValidateRefCounted (this);
+			Node_SetVar20_11 (handle, key, value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Node_SetVar20_12 (IntPtr handle, string key, string value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, string value)
+		{
+			Runtime.ValidateRefCounted (this);
+			Node_SetVar20_12 (handle, key, value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Node_SetVar20_13 (IntPtr handle, string key, bool value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, bool value)
+		{
+			Runtime.ValidateRefCounted (this);
+			Node_SetVar20_13 (handle, key, value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void Node_AddListener (IntPtr handle, IntPtr component);
 
 		/// <summary>
@@ -2049,7 +2217,7 @@ Vector3 *
 #else
 Vector3
 #endif
- Node_LocalToWorld20 (IntPtr handle, ref Urho.Vector4 vector);
+ Node_LocalToWorld21 (IntPtr handle, ref Urho.Vector4 vector);
 
 		/// <summary>
 		/// Convert a local space position or rotation to world space.
@@ -2059,9 +2227,9 @@ Vector3
 			Runtime.ValidateRefCounted (this);
 			return 
 #if __WEB__
-*Node_LocalToWorld20
+*Node_LocalToWorld21
 #else
-Node_LocalToWorld20
+Node_LocalToWorld21
 #endif
  (handle, ref vector);
 		}
@@ -2121,7 +2289,7 @@ Vector3 *
 #else
 Vector3
 #endif
- Node_WorldToLocal21 (IntPtr handle, ref Urho.Vector4 vector);
+ Node_WorldToLocal22 (IntPtr handle, ref Urho.Vector4 vector);
 
 		/// <summary>
 		/// Convert a world space position or rotation to local space.
@@ -2131,9 +2299,9 @@ Vector3
 			Runtime.ValidateRefCounted (this);
 			return 
 #if __WEB__
-*Node_WorldToLocal21
+*Node_WorldToLocal22
 #else
-Node_WorldToLocal21
+Node_WorldToLocal22
 #endif
  (handle, ref vector);
 		}
@@ -2213,7 +2381,7 @@ Node_WorldToLocal2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr Node_GetChild22 (IntPtr handle, string name, bool recursive);
+		internal static extern IntPtr Node_GetChild23 (IntPtr handle, string name, bool recursive);
 
 		/// <summary>
 		/// Return child scene node by name.
@@ -2221,11 +2389,11 @@ Node_WorldToLocal2D
 		public Node GetChild (string name, bool recursive = false)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Runtime.LookupObject<Node> (Node_GetChild22 (handle, name, recursive));
+			return Runtime.LookupObject<Node> (Node_GetChild23 (handle, name, recursive));
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr Node_GetChild23 (IntPtr handle, int nameHash, bool recursive);
+		internal static extern IntPtr Node_GetChild24 (IntPtr handle, int nameHash, bool recursive);
 
 		/// <summary>
 		/// Return child scene node by name hash.
@@ -2233,7 +2401,7 @@ Node_WorldToLocal2D
 		public Node GetChild (StringHash nameHash, bool recursive = false)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Runtime.LookupObject<Node> (Node_GetChild23 (handle, nameHash.Code, recursive));
+			return Runtime.LookupObject<Node> (Node_GetChild24 (handle, nameHash.Code, recursive));
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -2309,6 +2477,18 @@ Node_WorldToLocal2D
 		{
 			Runtime.ValidateRefCounted (this);
 			return Node_HasComponent (handle, type.Code);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern Variant Node_GetVar25 (IntPtr handle, string key);
+
+		/// <summary>
+		/// Return a user variable.
+		/// </summary>
+		public Variant GetVar (string key)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Node_GetVar25 (handle, key);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -2422,7 +2602,7 @@ Node_GetNetPositionAttr
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr Node_CreateChild24 (IntPtr handle, uint id, CreateMode mode, bool temporary);
+		internal static extern IntPtr Node_CreateChild26 (IntPtr handle, uint id, CreateMode mode, bool temporary);
 
 		/// <summary>
 		/// Create a child node with specific ID.
@@ -2430,7 +2610,7 @@ Node_GetNetPositionAttr
 		public Node CreateChild (uint id, CreateMode mode, bool temporary = false)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Runtime.LookupObject<Node> (Node_CreateChild24 (handle, id, mode, temporary));
+			return Runtime.LookupObject<Node> (Node_CreateChild26 (handle, id, mode, temporary));
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

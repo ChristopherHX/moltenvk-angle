@@ -292,7 +292,7 @@ namespace Urho
             DynamicType = VariantType.Resourcereflist;
             Handle = Dynamic_CreateResourceRefList(resourceRefList.Type.Code,resourceRefList.Names.Count);
             variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
-            for(uint i =0 ; i < resourceRefList.Names.Count ; i++)
+            for(int i =0 ; i < resourceRefList.Names.Count ; i++)
             {
                 Dynamic_ResourceRefList_AddName(Handle,resourceRefList.Names[i]);
             }
@@ -323,7 +323,7 @@ namespace Urho
             DynamicType = VariantType.Variantvector;
             Handle = Dynamic_CreateVariantVector(variantVector.Count);
             variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
-            for(uint i =0 ; i < variantVector.Count ; i++)
+            for(int i =0 ; i < variantVector.Count ; i++)
             {
                 Dynamic_VariantVector_AddVariant(Handle,ref variantVector[i].variant);
             }
