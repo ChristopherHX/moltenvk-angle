@@ -1290,7 +1290,7 @@ Variant_ResourceRefList_Names_GetNameAt(Variant& variant, int index)
 DllExport void
 UIElement_SetVar_IntPtr (Urho3D::UIElement *_target, int key, const void * value)
 {
-	_target->SetVar (Urho3D::StringHash(key), (value));
+	_target->SetVar (Urho3D::StringHash(key), *((Variant *)value));
 }
 
 DllExport const PODVector<unsigned>&

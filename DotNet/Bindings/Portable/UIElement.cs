@@ -131,6 +131,24 @@ namespace Urho.Gui
             UIElement_SetVar_IntPtr(handle, key.Code, value);
         }
 
+		public void SetVar(string key, IntPtr value)
+        {
+            Runtime.ValidateRefCounted(this);
+            SetVar(new StringHash(key), value);
+        }
+
+		public void SetVar(string key, Variant value)
+		{
+			Runtime.ValidateRefCounted(this);
+            SetVar(new StringHash(key), new Dynamic(value).Handle);
+		}
+
+		public void SetVar(StringHash key, Variant value)
+        {
+            Runtime.ValidateRefCounted(this);
+            SetVar(key, new Dynamic(value).Handle);
+        }
+
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         internal static extern Variant * UIElement_GetTags(IntPtr handle);
 
