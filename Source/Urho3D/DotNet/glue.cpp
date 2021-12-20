@@ -497,6 +497,10 @@ extern "C"
          */
     }
 
+    DllExport const char* Variant_GetTypeName(Variant& v) 
+    {
+        return stringdup(v.GetTypeName().CString());
+    }
 
     DllExport Variant Variant_CreateInt(int i)
     {

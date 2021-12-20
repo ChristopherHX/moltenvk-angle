@@ -238,6 +238,16 @@ namespace Urho
             return result;
         }
 
+        public string TypeName
+        {
+            get
+            {
+                IntPtr nativeCString = Variant_GetTypeName(ref this);
+                string result = Marshal.PtrToStringAnsi(nativeCString);
+                return result;
+            }
+        }
+
 
         public static implicit operator byte[](Variant v)
         {
@@ -324,6 +334,9 @@ namespace Urho
             return stringVector;
         }
 
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Variant_GetTypeName (ref Variant v);
+        
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Variant_GetVariantMap(ref Variant v);
 

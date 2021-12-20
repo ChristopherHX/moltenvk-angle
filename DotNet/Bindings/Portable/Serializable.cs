@@ -142,6 +142,12 @@ namespace Urho
 			return Serializable_SetAttribute_Variant4 (handle, (uint)index, value.Handle);
 		}
         
+        public bool SetAttribute (string name, Variant value)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Serializable_SetAttribute_Variant2 (handle, name, ref value);
+		}
+        
         public bool SetAttribute (string name, ref Variant value)
 		{
 			Runtime.ValidateRefCounted (this);
