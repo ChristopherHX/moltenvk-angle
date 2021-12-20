@@ -107,6 +107,9 @@ public:
     /// @property
     bool IsPackaged() const { return offset_ != 0; }
 
+     /// Return the file name.
+    const String& GetName() const override { return name_; }
+
 private:
     /// Open file internally using either C standard IO functions or SDL RWops for Android asset files. Return true if successful.
     bool OpenInternal(const String& fileName, FileMode mode, bool fromPackage = false);

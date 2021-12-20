@@ -257,6 +257,18 @@ namespace Urho.IO
 			return File_IsPackaged (handle);
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern IntPtr File_GetName (IntPtr handle);
+
+		/// <summary>
+		/// Return the file name.
+		/// </summary>
+		private string GetName ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return Marshal.PtrToStringAnsi (File_GetName (handle));
+		}
+
 		public override StringHash Type {
 			get {
 				return UrhoGetType ();
@@ -317,6 +329,15 @@ namespace Urho.IO
 		public bool Packaged {
 			get {
 				return IsPackaged ();
+			}
+		}
+
+		/// <summary>
+		/// Return the file name.
+		/// </summary>
+		public string Name {
+			get {
+				return GetName ();
 			}
 		}
 	}

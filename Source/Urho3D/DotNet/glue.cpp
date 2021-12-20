@@ -1328,6 +1328,12 @@ AttributeVector_GetSize(const Vector<AttributeInfo>* attributes)
     return attributes->Size();
 }
 
+DllExport const AttributeInfo *
+AttributeVector_Attribute_GetHandle(const Vector<AttributeInfo>* attributes, unsigned int index)
+{
+    return &attributes->At(index);
+}
+
 DllExport VariantType
 AttributeVector_Attribute_GetType(const Vector<AttributeInfo>* attributes, unsigned int index)
 {
@@ -1430,5 +1436,15 @@ Node_GetVars(Node * target)
     return &target->GetVars();
 }
 
+DllExport bool File_WriteLine(File * file , const char * line)
+{
+    file->WriteLine(line);
+}
+
+DllExport const char *  File_ReadLine(File * file)
+{
+    String str = file->ReadLine();
+    return stringdup(str.CString());
+}
 
 }

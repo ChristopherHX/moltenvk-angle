@@ -23658,6 +23658,13 @@ File_IsPackaged (Urho3D::File *_target)
 }
 
 
+DllExport const char *
+File_GetName (Urho3D::File *_target)
+{
+	return stringdup((_target->GetName ()).CString ());
+}
+
+
 DllExport int
 FileSystem_GetType (Urho3D::FileSystem *_target)
 {
