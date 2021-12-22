@@ -189,9 +189,7 @@ int AttributeVector_GetSize (int);
 int AttributeVector_Attribute_GetType (int,int);
 int AttributeVector_Attribute_GetName (int,int);
 int AttributeVector_Attribute_GetMode (int,int);
-int AttributeVector_Attribute_GetEnumNamesPtr (int,int);
-int AttributeVector_Attribute_EnumNames_AdvancePtr (int);
-int AttributeVector_Attribute_EnumNames_GetNexEnumtName (int);
+void AttributeVector_Attribute_GetEnumNames (int,int,int);
 int AttributeVector_Attribute_GetDefaultValue (int,int);
 int Context_GetAttributes (int,int);
 int Context_Context ();
@@ -215,9 +213,10 @@ void Context_SetGlobalVar_7 (int,int,int);
 void Context_SetGlobalVar_8 (int,int,int);
 void Context_SetGlobalVar_9 (int,int,int);
 void Context_SetGlobalVar_10 (int,int,int);
-void Context_SetGlobalVar_11 (int,int,float);
-void Context_SetGlobalVar_12 (int,int,int);
+void Context_SetGlobalVar_11 (int,int,int);
+void Context_SetGlobalVar_12 (int,int,float);
 void Context_SetGlobalVar_13 (int,int,int);
+void Context_SetGlobalVar_14 (int,int,int);
 int Context_GetEventSender (int);
 int Context_GetEventHandler (int);
 int Context_GetTypeName (int,int);
@@ -298,7 +297,7 @@ int Dynamic_GetResourceRef (int);
 int Dynamic_CreateResourceRefList (int,int);
 void Dynamic_ResourceRefList_AddName (int,int);
 int Dynamic_CreateVariantVector (int);
-void Dynamic_VariantVector_AddVariant (int,int);
+void Dynamic_VariantVector_AddVariant (int,int,int);
 int File_GetSize (int);
 int File_WriteLine (int,int);
 int File_ReadLine (int);
@@ -842,9 +841,10 @@ void Material_SetShaderParameter_7 (int,int,int);
 void Material_SetShaderParameter_8 (int,int,int);
 void Material_SetShaderParameter_9 (int,int,int);
 void Material_SetShaderParameter_10 (int,int,int);
-void Material_SetShaderParameter_11 (int,int,float);
-void Material_SetShaderParameter_12 (int,int,int);
+void Material_SetShaderParameter_11 (int,int,int);
+void Material_SetShaderParameter_12 (int,int,float);
 void Material_SetShaderParameter_13 (int,int,int);
+void Material_SetShaderParameter_14 (int,int,int);
 void Material_SetShaderParameterAnimation (int,int,int,int,float);
 void Material_SetShaderParameterAnimationWrapMode (int,int,int);
 void Material_SetShaderParameterAnimationSpeed (int,int,float);
@@ -1136,9 +1136,10 @@ void Node_SetVar_7 (int,int,int);
 void Node_SetVar_8 (int,int,int);
 void Node_SetVar_9 (int,int,int);
 void Node_SetVar_10 (int,int,int);
-void Node_SetVar_11 (int,int,float);
-void Node_SetVar_12 (int,int,int);
+void Node_SetVar_11 (int,int,int);
+void Node_SetVar_12 (int,int,float);
 void Node_SetVar_13 (int,int,int);
+void Node_SetVar_14 (int,int,int);
 void Node_SetVar20_0 (int,int,int);
 void Node_SetVar20_1 (int,int,int);
 void Node_SetVar20_2 (int,int,int);
@@ -1150,9 +1151,10 @@ void Node_SetVar20_7 (int,int,int);
 void Node_SetVar20_8 (int,int,int);
 void Node_SetVar20_9 (int,int,int);
 void Node_SetVar20_10 (int,int,int);
-void Node_SetVar20_11 (int,int,float);
-void Node_SetVar20_12 (int,int,int);
+void Node_SetVar20_11 (int,int,int);
+void Node_SetVar20_12 (int,int,float);
 void Node_SetVar20_13 (int,int,int);
+void Node_SetVar20_14 (int,int,int);
 void Node_AddListener (int,int);
 void Node_RemoveListener (int,int);
 int Node_GetID (int);
@@ -1250,9 +1252,10 @@ void UrhoObject_SetGlobalVar_7 (int,int,int);
 void UrhoObject_SetGlobalVar_8 (int,int,int);
 void UrhoObject_SetGlobalVar_9 (int,int,int);
 void UrhoObject_SetGlobalVar_10 (int,int,int);
-void UrhoObject_SetGlobalVar_11 (int,int,float);
-void UrhoObject_SetGlobalVar_12 (int,int,int);
+void UrhoObject_SetGlobalVar_11 (int,int,int);
+void UrhoObject_SetGlobalVar_12 (int,int,float);
 void UrhoObject_SetGlobalVar_13 (int,int,int);
+void UrhoObject_SetGlobalVar_14 (int,int,int);
 int UrhoObject_GetSubsystem (int,int);
 int UrhoObject_GetEventSender (int);
 int UrhoObject_GetEventHandler (int);
@@ -1388,9 +1391,10 @@ void RenderPath_SetShaderParameter_7 (int,int,int);
 void RenderPath_SetShaderParameter_8 (int,int,int);
 void RenderPath_SetShaderParameter_9 (int,int,int);
 void RenderPath_SetShaderParameter_10 (int,int,int);
-void RenderPath_SetShaderParameter_11 (int,int,float);
-void RenderPath_SetShaderParameter_12 (int,int,int);
+void RenderPath_SetShaderParameter_11 (int,int,int);
+void RenderPath_SetShaderParameter_12 (int,int,float);
 void RenderPath_SetShaderParameter_13 (int,int,int);
+void RenderPath_SetShaderParameter_14 (int,int,int);
 int RenderPath_GetNumRenderTargets (int);
 int RenderPath_GetNumCommands (int);
 int RenderPath_GetCommand (int,int);
@@ -1560,9 +1564,10 @@ int Serializable_SetAttribute_7 (int,int,int);
 int Serializable_SetAttribute_8 (int,int,int);
 int Serializable_SetAttribute_9 (int,int,int);
 int Serializable_SetAttribute_10 (int,int,int);
-int Serializable_SetAttribute_11 (int,int,float);
-int Serializable_SetAttribute_12 (int,int,int);
+int Serializable_SetAttribute_11 (int,int,int);
+int Serializable_SetAttribute_12 (int,int,float);
 int Serializable_SetAttribute_13 (int,int,int);
+int Serializable_SetAttribute_14 (int,int,int);
 int Serializable_SetAttribute0_0 (int,int,int);
 int Serializable_SetAttribute0_1 (int,int,int);
 int Serializable_SetAttribute0_2 (int,int,int);
@@ -1574,9 +1579,10 @@ int Serializable_SetAttribute0_7 (int,int,int);
 int Serializable_SetAttribute0_8 (int,int,int);
 int Serializable_SetAttribute0_9 (int,int,int);
 int Serializable_SetAttribute0_10 (int,int,int);
-int Serializable_SetAttribute0_11 (int,int,float);
-int Serializable_SetAttribute0_12 (int,int,int);
+int Serializable_SetAttribute0_11 (int,int,int);
+int Serializable_SetAttribute0_12 (int,int,float);
 int Serializable_SetAttribute0_13 (int,int,int);
+int Serializable_SetAttribute0_14 (int,int,int);
 void Serializable_SetInstanceDefault (int,int);
 void Serializable_ResetToDefault (int);
 void Serializable_RemoveInstanceDefault (int);
@@ -1879,9 +1885,10 @@ void UIElement_SetVar_7 (int,int,int);
 void UIElement_SetVar_8 (int,int,int);
 void UIElement_SetVar_9 (int,int,int);
 void UIElement_SetVar_10 (int,int,int);
-void UIElement_SetVar_11 (int,int,float);
-void UIElement_SetVar_12 (int,int,int);
+void UIElement_SetVar_11 (int,int,int);
+void UIElement_SetVar_12 (int,int,float);
 void UIElement_SetVar_13 (int,int,int);
+void UIElement_SetVar_14 (int,int,int);
 void UIElement_SetVar13_0 (int,int,int);
 void UIElement_SetVar13_1 (int,int,int);
 void UIElement_SetVar13_2 (int,int,int);
@@ -1893,9 +1900,10 @@ void UIElement_SetVar13_7 (int,int,int);
 void UIElement_SetVar13_8 (int,int,int);
 void UIElement_SetVar13_9 (int,int,int);
 void UIElement_SetVar13_10 (int,int,int);
-void UIElement_SetVar13_11 (int,int,float);
-void UIElement_SetVar13_12 (int,int,int);
+void UIElement_SetVar13_11 (int,int,int);
+void UIElement_SetVar13_12 (int,int,float);
 void UIElement_SetVar13_13 (int,int,int);
+void UIElement_SetVar13_14 (int,int,int);
 void UIElement_SetInternal (int,int);
 void UIElement_SetTraversalMode (int,int);
 void UIElement_SetElementEventSender (int,int);
@@ -2425,6 +2433,13 @@ int VGTextRowBuffer_GetRowText (int,int);
 float VGTextRowBuffer_GetRowMin (int,int);
 float VGTextRowBuffer_GetRowMax (int,int);
 float VGTextRowBuffer_GetRowWidth (int,int);
+int StringVector_Create ();
+int StringVector_GetSize (int);
+int StringVector_GetString (int,int);
+void StringVector_AddString (int,int);
+int StringVector_SetString (int,int,int);
+void StringVector_Empty (int);
+void StringVector_Delete (int);
 int Variant_GetTypeName (int);
 int Variant_GetVariantMap (int);
 int Variant_GetString (int);
@@ -2535,9 +2550,10 @@ int XmlElement_SetVariant_7 (int,int);
 int XmlElement_SetVariant_8 (int,int);
 int XmlElement_SetVariant_9 (int,int);
 int XmlElement_SetVariant_10 (int,int);
-int XmlElement_SetVariant_11 (int,float);
-int XmlElement_SetVariant_12 (int,int);
+int XmlElement_SetVariant_11 (int,int);
+int XmlElement_SetVariant_12 (int,float);
 int XmlElement_SetVariant_13 (int,int);
+int XmlElement_SetVariant_14 (int,int);
 int XmlElement_SetVariantValue_0 (int,int);
 int XmlElement_SetVariantValue_1 (int,int);
 int XmlElement_SetVariantValue_2 (int,int);
@@ -2549,9 +2565,10 @@ int XmlElement_SetVariantValue_7 (int,int);
 int XmlElement_SetVariantValue_8 (int,int);
 int XmlElement_SetVariantValue_9 (int,int);
 int XmlElement_SetVariantValue_10 (int,int);
-int XmlElement_SetVariantValue_11 (int,float);
-int XmlElement_SetVariantValue_12 (int,int);
+int XmlElement_SetVariantValue_11 (int,int);
+int XmlElement_SetVariantValue_12 (int,float);
 int XmlElement_SetVariantValue_13 (int,int);
+int XmlElement_SetVariantValue_14 (int,int);
 int XmlElement_SetVector2 (int,int,int);
 int XmlElement_SetVector3 (int,int,int);
 int XmlElement_SetVector4 (int,int,int);
@@ -2566,9 +2583,10 @@ int XmlElement_SetVectorVariant_7 (int,int,int);
 int XmlElement_SetVectorVariant_8 (int,int,int);
 int XmlElement_SetVectorVariant_9 (int,int,int);
 int XmlElement_SetVectorVariant_10 (int,int,int);
-int XmlElement_SetVectorVariant_11 (int,int,float);
-int XmlElement_SetVectorVariant_12 (int,int,int);
+int XmlElement_SetVectorVariant_11 (int,int,int);
+int XmlElement_SetVectorVariant_12 (int,int,float);
 int XmlElement_SetVectorVariant_13 (int,int,int);
+int XmlElement_SetVectorVariant_14 (int,int,int);
 int XmlElement_SetMatrix3 (int,int,int);
 int XmlElement_SetMatrix3x4 (int,int,int);
 int XmlElement_SetMatrix4 (int,int,int);
@@ -2693,9 +2711,10 @@ void Animation_AddTrigger_7 (int,float,int,int);
 void Animation_AddTrigger_8 (int,float,int,int);
 void Animation_AddTrigger_9 (int,float,int,int);
 void Animation_AddTrigger_10 (int,float,int,int);
-void Animation_AddTrigger_11 (int,float,int,float);
-void Animation_AddTrigger_12 (int,float,int,int);
+void Animation_AddTrigger_11 (int,float,int,int);
+void Animation_AddTrigger_12 (int,float,int,float);
 void Animation_AddTrigger_13 (int,float,int,int);
+void Animation_AddTrigger_14 (int,float,int,int);
 void Animation_RemoveTrigger (int,int);
 void Animation_RemoveAllTriggers (int);
 void Animation_SetNumTriggers (int,int);
@@ -2817,9 +2836,10 @@ void AttributeAccessor_Set_7 (int,int,int);
 void AttributeAccessor_Set_8 (int,int,int);
 void AttributeAccessor_Set_9 (int,int,int);
 void AttributeAccessor_Set_10 (int,int,int);
-void AttributeAccessor_Set_11 (int,int,float);
-void AttributeAccessor_Set_12 (int,int,int);
+void AttributeAccessor_Set_11 (int,int,int);
+void AttributeAccessor_Set_12 (int,int,float);
 void AttributeAccessor_Set_13 (int,int,int);
+void AttributeAccessor_Set_14 (int,int,int);
 int Audio_GetType (int);
 int Audio_GetTypeName (int);
 int Audio_GetTypeStatic ();
@@ -5057,9 +5077,10 @@ void ResourceWithMetadata_AddMetadata_7 (int,int,int);
 void ResourceWithMetadata_AddMetadata_8 (int,int,int);
 void ResourceWithMetadata_AddMetadata_9 (int,int,int);
 void ResourceWithMetadata_AddMetadata_10 (int,int,int);
-void ResourceWithMetadata_AddMetadata_11 (int,int,float);
-void ResourceWithMetadata_AddMetadata_12 (int,int,int);
+void ResourceWithMetadata_AddMetadata_11 (int,int,int);
+void ResourceWithMetadata_AddMetadata_12 (int,int,float);
 void ResourceWithMetadata_AddMetadata_13 (int,int,int);
+void ResourceWithMetadata_AddMetadata_14 (int,int,int);
 void ResourceWithMetadata_RemoveMetadata (int,int);
 void ResourceWithMetadata_RemoveAllMetadata (int);
 int ResourceWithMetadata_HasMetadata (int);
@@ -5439,9 +5460,10 @@ void Spline_SetKnot_7 (int,int,int);
 void Spline_SetKnot_8 (int,int,int);
 void Spline_SetKnot_9 (int,int,int);
 void Spline_SetKnot_10 (int,int,int);
-void Spline_SetKnot_11 (int,float,int);
-void Spline_SetKnot_12 (int,int,int);
+void Spline_SetKnot_11 (int,int,int);
+void Spline_SetKnot_12 (int,float,int);
 void Spline_SetKnot_13 (int,int,int);
+void Spline_SetKnot_14 (int,int,int);
 void Spline_AddKnot_0 (int,int);
 void Spline_AddKnot_1 (int,int);
 void Spline_AddKnot_2 (int,int);
@@ -5453,9 +5475,10 @@ void Spline_AddKnot_7 (int,int);
 void Spline_AddKnot_8 (int,int);
 void Spline_AddKnot_9 (int,int);
 void Spline_AddKnot_10 (int,int);
-void Spline_AddKnot_11 (int,float);
-void Spline_AddKnot_12 (int,int);
+void Spline_AddKnot_11 (int,int);
+void Spline_AddKnot_12 (int,float);
 void Spline_AddKnot_13 (int,int);
+void Spline_AddKnot_14 (int,int);
 void Spline_AddKnot1_0 (int,int,int);
 void Spline_AddKnot1_1 (int,int,int);
 void Spline_AddKnot1_2 (int,int,int);
@@ -5467,9 +5490,10 @@ void Spline_AddKnot1_7 (int,int,int);
 void Spline_AddKnot1_8 (int,int,int);
 void Spline_AddKnot1_9 (int,int,int);
 void Spline_AddKnot1_10 (int,int,int);
-void Spline_AddKnot1_11 (int,float,int);
-void Spline_AddKnot1_12 (int,int,int);
+void Spline_AddKnot1_11 (int,int,int);
+void Spline_AddKnot1_12 (int,float,int);
 void Spline_AddKnot1_13 (int,int,int);
+void Spline_AddKnot1_14 (int,int,int);
 void Spline_RemoveKnot (int);
 void Spline_RemoveKnot2 (int,int);
 void Spline_Clear (int);
@@ -6114,9 +6138,10 @@ int ValueAnimation_SetKeyFrame_7 (int,float,int);
 int ValueAnimation_SetKeyFrame_8 (int,float,int);
 int ValueAnimation_SetKeyFrame_9 (int,float,int);
 int ValueAnimation_SetKeyFrame_10 (int,float,int);
-int ValueAnimation_SetKeyFrame_11 (int,float,float);
-int ValueAnimation_SetKeyFrame_12 (int,float,int);
+int ValueAnimation_SetKeyFrame_11 (int,float,int);
+int ValueAnimation_SetKeyFrame_12 (int,float,float);
 int ValueAnimation_SetKeyFrame_13 (int,float,int);
+int ValueAnimation_SetKeyFrame_14 (int,float,int);
 int ValueAnimation_IsValid (int);
 int ValueAnimation_GetOwner (int);
 int ValueAnimation_GetInterpolationMethod (int);
@@ -6428,9 +6453,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"AttributeVector_Attribute_GetType", AttributeVector_Attribute_GetType},
 {"AttributeVector_Attribute_GetName", AttributeVector_Attribute_GetName},
 {"AttributeVector_Attribute_GetMode", AttributeVector_Attribute_GetMode},
-{"AttributeVector_Attribute_GetEnumNamesPtr", AttributeVector_Attribute_GetEnumNamesPtr},
-{"AttributeVector_Attribute_EnumNames_AdvancePtr", AttributeVector_Attribute_EnumNames_AdvancePtr},
-{"AttributeVector_Attribute_EnumNames_GetNexEnumtName", AttributeVector_Attribute_EnumNames_GetNexEnumtName},
+{"AttributeVector_Attribute_GetEnumNames", AttributeVector_Attribute_GetEnumNames},
 {"AttributeVector_Attribute_GetDefaultValue", AttributeVector_Attribute_GetDefaultValue},
 {"Context_GetAttributes", Context_GetAttributes},
 {"Context_Context", Context_Context},
@@ -6457,6 +6480,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Context_SetGlobalVar_11", Context_SetGlobalVar_11},
 {"Context_SetGlobalVar_12", Context_SetGlobalVar_12},
 {"Context_SetGlobalVar_13", Context_SetGlobalVar_13},
+{"Context_SetGlobalVar_14", Context_SetGlobalVar_14},
 {"Context_GetEventSender", Context_GetEventSender},
 {"Context_GetEventHandler", Context_GetEventHandler},
 {"Context_GetTypeName", Context_GetTypeName},
@@ -7084,6 +7108,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Material_SetShaderParameter_11", Material_SetShaderParameter_11},
 {"Material_SetShaderParameter_12", Material_SetShaderParameter_12},
 {"Material_SetShaderParameter_13", Material_SetShaderParameter_13},
+{"Material_SetShaderParameter_14", Material_SetShaderParameter_14},
 {"Material_SetShaderParameterAnimation", Material_SetShaderParameterAnimation},
 {"Material_SetShaderParameterAnimationWrapMode", Material_SetShaderParameterAnimationWrapMode},
 {"Material_SetShaderParameterAnimationSpeed", Material_SetShaderParameterAnimationSpeed},
@@ -7378,6 +7403,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Node_SetVar_11", Node_SetVar_11},
 {"Node_SetVar_12", Node_SetVar_12},
 {"Node_SetVar_13", Node_SetVar_13},
+{"Node_SetVar_14", Node_SetVar_14},
 {"Node_SetVar20_0", Node_SetVar20_0},
 {"Node_SetVar20_1", Node_SetVar20_1},
 {"Node_SetVar20_2", Node_SetVar20_2},
@@ -7392,6 +7418,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Node_SetVar20_11", Node_SetVar20_11},
 {"Node_SetVar20_12", Node_SetVar20_12},
 {"Node_SetVar20_13", Node_SetVar20_13},
+{"Node_SetVar20_14", Node_SetVar20_14},
 {"Node_AddListener", Node_AddListener},
 {"Node_RemoveListener", Node_RemoveListener},
 {"Node_GetID", Node_GetID},
@@ -7492,6 +7519,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"UrhoObject_SetGlobalVar_11", UrhoObject_SetGlobalVar_11},
 {"UrhoObject_SetGlobalVar_12", UrhoObject_SetGlobalVar_12},
 {"UrhoObject_SetGlobalVar_13", UrhoObject_SetGlobalVar_13},
+{"UrhoObject_SetGlobalVar_14", UrhoObject_SetGlobalVar_14},
 {"UrhoObject_GetSubsystem", UrhoObject_GetSubsystem},
 {"UrhoObject_GetEventSender", UrhoObject_GetEventSender},
 {"UrhoObject_GetEventHandler", UrhoObject_GetEventHandler},
@@ -7630,6 +7658,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"RenderPath_SetShaderParameter_11", RenderPath_SetShaderParameter_11},
 {"RenderPath_SetShaderParameter_12", RenderPath_SetShaderParameter_12},
 {"RenderPath_SetShaderParameter_13", RenderPath_SetShaderParameter_13},
+{"RenderPath_SetShaderParameter_14", RenderPath_SetShaderParameter_14},
 {"RenderPath_GetNumRenderTargets", RenderPath_GetNumRenderTargets},
 {"RenderPath_GetNumCommands", RenderPath_GetNumCommands},
 {"RenderPath_GetCommand", RenderPath_GetCommand},
@@ -7802,6 +7831,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Serializable_SetAttribute_11", Serializable_SetAttribute_11},
 {"Serializable_SetAttribute_12", Serializable_SetAttribute_12},
 {"Serializable_SetAttribute_13", Serializable_SetAttribute_13},
+{"Serializable_SetAttribute_14", Serializable_SetAttribute_14},
 {"Serializable_SetAttribute0_0", Serializable_SetAttribute0_0},
 {"Serializable_SetAttribute0_1", Serializable_SetAttribute0_1},
 {"Serializable_SetAttribute0_2", Serializable_SetAttribute0_2},
@@ -7816,6 +7846,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Serializable_SetAttribute0_11", Serializable_SetAttribute0_11},
 {"Serializable_SetAttribute0_12", Serializable_SetAttribute0_12},
 {"Serializable_SetAttribute0_13", Serializable_SetAttribute0_13},
+{"Serializable_SetAttribute0_14", Serializable_SetAttribute0_14},
 {"Serializable_SetInstanceDefault", Serializable_SetInstanceDefault},
 {"Serializable_ResetToDefault", Serializable_ResetToDefault},
 {"Serializable_RemoveInstanceDefault", Serializable_RemoveInstanceDefault},
@@ -8121,6 +8152,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"UIElement_SetVar_11", UIElement_SetVar_11},
 {"UIElement_SetVar_12", UIElement_SetVar_12},
 {"UIElement_SetVar_13", UIElement_SetVar_13},
+{"UIElement_SetVar_14", UIElement_SetVar_14},
 {"UIElement_SetVar13_0", UIElement_SetVar13_0},
 {"UIElement_SetVar13_1", UIElement_SetVar13_1},
 {"UIElement_SetVar13_2", UIElement_SetVar13_2},
@@ -8135,6 +8167,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"UIElement_SetVar13_11", UIElement_SetVar13_11},
 {"UIElement_SetVar13_12", UIElement_SetVar13_12},
 {"UIElement_SetVar13_13", UIElement_SetVar13_13},
+{"UIElement_SetVar13_14", UIElement_SetVar13_14},
 {"UIElement_SetInternal", UIElement_SetInternal},
 {"UIElement_SetTraversalMode", UIElement_SetTraversalMode},
 {"UIElement_SetElementEventSender", UIElement_SetElementEventSender},
@@ -8664,6 +8697,13 @@ static PinvokeImport Urho3D_imports [] = {
 {"VGTextRowBuffer_GetRowMin", VGTextRowBuffer_GetRowMin},
 {"VGTextRowBuffer_GetRowMax", VGTextRowBuffer_GetRowMax},
 {"VGTextRowBuffer_GetRowWidth", VGTextRowBuffer_GetRowWidth},
+{"StringVector_Create", StringVector_Create},
+{"StringVector_GetSize", StringVector_GetSize},
+{"StringVector_GetString", StringVector_GetString},
+{"StringVector_AddString", StringVector_AddString},
+{"StringVector_SetString", StringVector_SetString},
+{"StringVector_Empty", StringVector_Empty},
+{"StringVector_Delete", StringVector_Delete},
 {"Variant_GetTypeName", Variant_GetTypeName},
 {"Variant_GetVariantMap", Variant_GetVariantMap},
 {"Variant_GetString", Variant_GetString},
@@ -8777,6 +8817,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"XmlElement_SetVariant_11", XmlElement_SetVariant_11},
 {"XmlElement_SetVariant_12", XmlElement_SetVariant_12},
 {"XmlElement_SetVariant_13", XmlElement_SetVariant_13},
+{"XmlElement_SetVariant_14", XmlElement_SetVariant_14},
 {"XmlElement_SetVariantValue_0", XmlElement_SetVariantValue_0},
 {"XmlElement_SetVariantValue_1", XmlElement_SetVariantValue_1},
 {"XmlElement_SetVariantValue_2", XmlElement_SetVariantValue_2},
@@ -8791,6 +8832,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"XmlElement_SetVariantValue_11", XmlElement_SetVariantValue_11},
 {"XmlElement_SetVariantValue_12", XmlElement_SetVariantValue_12},
 {"XmlElement_SetVariantValue_13", XmlElement_SetVariantValue_13},
+{"XmlElement_SetVariantValue_14", XmlElement_SetVariantValue_14},
 {"XmlElement_SetVector2", XmlElement_SetVector2},
 {"XmlElement_SetVector3", XmlElement_SetVector3},
 {"XmlElement_SetVector4", XmlElement_SetVector4},
@@ -8808,6 +8850,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"XmlElement_SetVectorVariant_11", XmlElement_SetVectorVariant_11},
 {"XmlElement_SetVectorVariant_12", XmlElement_SetVectorVariant_12},
 {"XmlElement_SetVectorVariant_13", XmlElement_SetVectorVariant_13},
+{"XmlElement_SetVectorVariant_14", XmlElement_SetVectorVariant_14},
 {"XmlElement_SetMatrix3", XmlElement_SetMatrix3},
 {"XmlElement_SetMatrix3x4", XmlElement_SetMatrix3x4},
 {"XmlElement_SetMatrix4", XmlElement_SetMatrix4},
@@ -8935,6 +8978,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Animation_AddTrigger_11", Animation_AddTrigger_11},
 {"Animation_AddTrigger_12", Animation_AddTrigger_12},
 {"Animation_AddTrigger_13", Animation_AddTrigger_13},
+{"Animation_AddTrigger_14", Animation_AddTrigger_14},
 {"Animation_RemoveTrigger", Animation_RemoveTrigger},
 {"Animation_RemoveAllTriggers", Animation_RemoveAllTriggers},
 {"Animation_SetNumTriggers", Animation_SetNumTriggers},
@@ -9059,6 +9103,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"AttributeAccessor_Set_11", AttributeAccessor_Set_11},
 {"AttributeAccessor_Set_12", AttributeAccessor_Set_12},
 {"AttributeAccessor_Set_13", AttributeAccessor_Set_13},
+{"AttributeAccessor_Set_14", AttributeAccessor_Set_14},
 {"Audio_GetType", Audio_GetType},
 {"Audio_GetTypeName", Audio_GetTypeName},
 {"Audio_GetTypeStatic", Audio_GetTypeStatic},
@@ -11299,6 +11344,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"ResourceWithMetadata_AddMetadata_11", ResourceWithMetadata_AddMetadata_11},
 {"ResourceWithMetadata_AddMetadata_12", ResourceWithMetadata_AddMetadata_12},
 {"ResourceWithMetadata_AddMetadata_13", ResourceWithMetadata_AddMetadata_13},
+{"ResourceWithMetadata_AddMetadata_14", ResourceWithMetadata_AddMetadata_14},
 {"ResourceWithMetadata_RemoveMetadata", ResourceWithMetadata_RemoveMetadata},
 {"ResourceWithMetadata_RemoveAllMetadata", ResourceWithMetadata_RemoveAllMetadata},
 {"ResourceWithMetadata_HasMetadata", ResourceWithMetadata_HasMetadata},
@@ -11681,6 +11727,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Spline_SetKnot_11", Spline_SetKnot_11},
 {"Spline_SetKnot_12", Spline_SetKnot_12},
 {"Spline_SetKnot_13", Spline_SetKnot_13},
+{"Spline_SetKnot_14", Spline_SetKnot_14},
 {"Spline_AddKnot_0", Spline_AddKnot_0},
 {"Spline_AddKnot_1", Spline_AddKnot_1},
 {"Spline_AddKnot_2", Spline_AddKnot_2},
@@ -11695,6 +11742,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Spline_AddKnot_11", Spline_AddKnot_11},
 {"Spline_AddKnot_12", Spline_AddKnot_12},
 {"Spline_AddKnot_13", Spline_AddKnot_13},
+{"Spline_AddKnot_14", Spline_AddKnot_14},
 {"Spline_AddKnot1_0", Spline_AddKnot1_0},
 {"Spline_AddKnot1_1", Spline_AddKnot1_1},
 {"Spline_AddKnot1_2", Spline_AddKnot1_2},
@@ -11709,6 +11757,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Spline_AddKnot1_11", Spline_AddKnot1_11},
 {"Spline_AddKnot1_12", Spline_AddKnot1_12},
 {"Spline_AddKnot1_13", Spline_AddKnot1_13},
+{"Spline_AddKnot1_14", Spline_AddKnot1_14},
 {"Spline_RemoveKnot", Spline_RemoveKnot},
 {"Spline_RemoveKnot2", Spline_RemoveKnot2},
 {"Spline_Clear", Spline_Clear},
@@ -12356,6 +12405,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"ValueAnimation_SetKeyFrame_11", ValueAnimation_SetKeyFrame_11},
 {"ValueAnimation_SetKeyFrame_12", ValueAnimation_SetKeyFrame_12},
 {"ValueAnimation_SetKeyFrame_13", ValueAnimation_SetKeyFrame_13},
+{"ValueAnimation_SetKeyFrame_14", ValueAnimation_SetKeyFrame_14},
 {"ValueAnimation_IsValid", ValueAnimation_IsValid},
 {"ValueAnimation_GetOwner", ValueAnimation_GetOwner},
 {"ValueAnimation_GetInterpolationMethod", ValueAnimation_GetInterpolationMethod},
@@ -12495,22 +12545,22 @@ void wasm_native_to_interp_UrhoDotNet_100663340 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667049 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667054 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667050 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667055 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672593 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672628 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667049,wasm_native_to_interp_UrhoDotNet_100667050,wasm_native_to_interp_UrhoDotNet_100672593,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667054,wasm_native_to_interp_UrhoDotNet_100667055,wasm_native_to_interp_UrhoDotNet_100672628,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
-"UrhoDotNet_100667049",
-"UrhoDotNet_100667050",
-"UrhoDotNet_100672593",
+"UrhoDotNet_100667054",
+"UrhoDotNet_100667055",
+"UrhoDotNet_100672628",
 };

@@ -1140,6 +1140,18 @@ public:
             return 0;
     }
 
+    unsigned GetUint() const
+    {
+        if (type_ == VAR_INT)
+            return static_cast<unsigned>(value_.int_);
+        else if (type_ == VAR_FLOAT)
+            return static_cast<unsigned>(value_.float_);
+        else if (type_ == VAR_DOUBLE)
+            return static_cast<unsigned>(value_.double_);
+        else
+            return 0;
+    }
+    
     /// Return StringHash or zero on type mismatch.
     StringHash GetStringHash() const { return StringHash(GetUInt()); }
 

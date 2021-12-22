@@ -355,7 +355,19 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool ValueAnimation_SetKeyFrame_11 (IntPtr handle, float time, float value);
+		internal static extern bool ValueAnimation_SetKeyFrame_11 (IntPtr handle, float time, uint value);
+
+		/// <summary>
+		/// Set key frame.
+		/// </summary>
+		public bool SetKeyFrame (float time, uint value)
+		{
+			Runtime.ValidateRefCounted (this);
+			return ValueAnimation_SetKeyFrame_11 (handle, time, value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool ValueAnimation_SetKeyFrame_12 (IntPtr handle, float time, float value);
 
 		/// <summary>
 		/// Set key frame.
@@ -363,11 +375,11 @@ namespace Urho
 		public bool SetKeyFrame (float time, float value)
 		{
 			Runtime.ValidateRefCounted (this);
-			return ValueAnimation_SetKeyFrame_11 (handle, time, value);
+			return ValueAnimation_SetKeyFrame_12 (handle, time, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool ValueAnimation_SetKeyFrame_12 (IntPtr handle, float time, string value);
+		internal static extern bool ValueAnimation_SetKeyFrame_13 (IntPtr handle, float time, string value);
 
 		/// <summary>
 		/// Set key frame.
@@ -375,11 +387,11 @@ namespace Urho
 		public bool SetKeyFrame (float time, string value)
 		{
 			Runtime.ValidateRefCounted (this);
-			return ValueAnimation_SetKeyFrame_12 (handle, time, value);
+			return ValueAnimation_SetKeyFrame_13 (handle, time, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool ValueAnimation_SetKeyFrame_13 (IntPtr handle, float time, bool value);
+		internal static extern bool ValueAnimation_SetKeyFrame_14 (IntPtr handle, float time, bool value);
 
 		/// <summary>
 		/// Set key frame.
@@ -387,7 +399,7 @@ namespace Urho
 		public bool SetKeyFrame (float time, bool value)
 		{
 			Runtime.ValidateRefCounted (this);
-			return ValueAnimation_SetKeyFrame_13 (handle, time, value);
+			return ValueAnimation_SetKeyFrame_14 (handle, time, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

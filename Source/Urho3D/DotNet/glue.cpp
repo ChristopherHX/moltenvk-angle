@@ -605,10 +605,11 @@ extern "C"
         return pod.Buffer();
     }
 
+    static VariantMap Variant_GetVariantMap_VariantMap;
     DllExport const VariantMap * Variant_GetVariantMap(Variant& variant)
     {
-        const VariantMap&  variantMap = variant.GetVariantMap();
-        return &variantMap;
+        Variant_GetVariantMap_VariantMap = variant.GetVariantMap();
+        return &Variant_GetVariantMap_VariantMap;
     }
 
     
@@ -893,10 +894,11 @@ extern "C"
         return v;
     }
 
-    DllExport void Dynamic_VariantVector_AddVariant(Variant* v, Variant& value)
+    DllExport void Dynamic_VariantVector_AddVariant(Variant* v, Variant& value , int index)
     {
         VariantVector variantVector = v->GetVariantVector();
-        variantVector.Push(value);
+        variantVector[index] = value;
+        *v = variantVector;
     }
 
     DllExport void Dynamic_Dispose(Variant* target) { delete target; }
@@ -1346,10 +1348,10 @@ AttributeVector_Attribute_GetName(const Vector<AttributeInfo>* attributes, unsig
     return attributes->At(index).name_.CString();
 }
 
-DllExport const Variant *
+DllExport const Variant 
 AttributeVector_Attribute_GetDefaultValue(const Vector<AttributeInfo>* attributes, unsigned int index)
 {
-    return &(attributes->At(index).defaultValue_);
+    return (attributes->At(index).defaultValue_);
 }
 
 DllExport unsigned int
@@ -1358,30 +1360,13 @@ AttributeVector_Attribute_GetMode(const Vector<AttributeInfo>* attributes, unsig
     return attributes->At(index).mode_;
 }
 
-DllExport const char** 
-AttributeVector_Attribute_GetEnumNamesPtr(const Vector<AttributeInfo>* attributes, unsigned int index)
+DllExport void AttributeVector_Attribute_GetEnumNames(const Vector<AttributeInfo>* attributes,int index , Vector<String>* stringVector)
 {
-    return attributes->At(index).enumNames_;
-}
+    const char** enumNamePtrs = attributes->At(index).enumNames_;
 
-DllExport const char**
-AttributeVector_Attribute_EnumNames_AdvancePtr( const char** enumNames)
-{
-    if(enumNames)
-    {
-        enumNames++;
-    }
-    return enumNames;
-}
+    while (enumNamePtrs && *enumNamePtrs)
+        stringVector->Push(*enumNamePtrs++);
 
-
-DllExport const char*
-AttributeVector_Attribute_EnumNames_GetNexEnumtName( const char** enumNames)
-{
-    if(enumNames && *enumNames)
-    {
-        return *enumNames;
-    }
 }
 
 
@@ -1445,6 +1430,66 @@ DllExport const char *  File_ReadLine(File * file)
 {
     String str = file->ReadLine();
     return stringdup(str.CString());
+}
+
+DllExport Vector<String>* StringVector_Create()
+{
+    Vector<String>* stringVector = new Vector<String>();
+    stringVector->Empty();
+    return  stringVector;
+}
+
+DllExport int
+StringVector_GetSize(const Vector<String>* stringVector)
+{
+    if(stringVector != NULL )
+    {
+        return stringVector->Size();
+    }
+    else{
+        return 0;
+    }
+}
+
+
+DllExport const char*
+StringVector_GetString(const Vector<String>* stringVector, int index)
+{
+    if(stringVector != NULL && index >=0 && index < stringVector->Size())
+    {
+        return stringVector->At(index).CString();
+    }
+}
+
+DllExport bool
+StringVector_SetString(Vector<String>* stringVector, int index,const char * str)
+{
+    bool result = false;
+    if(stringVector != NULL && index >=0 && index < stringVector->Size())
+    {
+        stringVector->At(index) = str;
+        result = true;
+    }
+    return result;
+}
+
+
+DllExport void StringVector_AddString(Vector<String>* stringVector , const char *str)
+{
+     if(stringVector != NULL)
+     {
+         stringVector->Push(str);
+     }
+}
+
+DllExport void StringVector_Empty(const Vector<String>* stringVector)
+{
+    stringVector->Empty();
+}
+
+DllExport void StringVector_Delete(const Vector<String>* stringVector)
+{
+    delete stringVector;
 }
 
 }

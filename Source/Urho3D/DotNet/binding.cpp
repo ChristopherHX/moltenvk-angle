@@ -421,19 +421,25 @@ AttributeAccessor_Set_10 (Urho3D::AttributeAccessor *_target, Urho3D::Serializab
 }
 
 DllExport void
-AttributeAccessor_Set_11 (Urho3D::AttributeAccessor *_target, Urho3D::Serializable * ptr, float src)
+AttributeAccessor_Set_11 (Urho3D::AttributeAccessor *_target, Urho3D::Serializable * ptr, unsigned src)
 {
 	_target->Set (ptr, (src));
 }
 
 DllExport void
-AttributeAccessor_Set_12 (Urho3D::AttributeAccessor *_target, Urho3D::Serializable * ptr, const char * src)
+AttributeAccessor_Set_12 (Urho3D::AttributeAccessor *_target, Urho3D::Serializable * ptr, float src)
+{
+	_target->Set (ptr, (src));
+}
+
+DllExport void
+AttributeAccessor_Set_13 (Urho3D::AttributeAccessor *_target, Urho3D::Serializable * ptr, const char * src)
 {
 	_target->Set (ptr, Urho3D::String(src));
 }
 
 DllExport void
-AttributeAccessor_Set_13 (Urho3D::AttributeAccessor *_target, Urho3D::Serializable * ptr, bool src)
+AttributeAccessor_Set_14 (Urho3D::AttributeAccessor *_target, Urho3D::Serializable * ptr, bool src)
 {
 	_target->Set (ptr, (src));
 }
@@ -734,20 +740,26 @@ UrhoObject_GetGlobalVar_10 (Urho3D::Object *_target, int key)
 	return (_target->GetGlobalVar (Urho3D::StringHash(key)).GetInt());
 }
 
-DllExport float
+DllExport unsigned
 UrhoObject_GetGlobalVar_11 (Urho3D::Object *_target, int key)
+{
+	return (_target->GetGlobalVar (Urho3D::StringHash(key)).GetUint());
+}
+
+DllExport float
+UrhoObject_GetGlobalVar_12 (Urho3D::Object *_target, int key)
 {
 	return (_target->GetGlobalVar (Urho3D::StringHash(key)).GetFloat());
 }
 
 DllExport const char *
-UrhoObject_GetGlobalVar_12 (Urho3D::Object *_target, int key)
+UrhoObject_GetGlobalVar_13 (Urho3D::Object *_target, int key)
 {
 	return stringdup(_target->GetGlobalVar (Urho3D::StringHash(key)).GetString().CString());
 }
 
 DllExport bool
-UrhoObject_GetGlobalVar_13 (Urho3D::Object *_target, int key)
+UrhoObject_GetGlobalVar_14 (Urho3D::Object *_target, int key)
 {
 	return (_target->GetGlobalVar (Urho3D::StringHash(key)).GetBool());
 }
@@ -821,19 +833,25 @@ UrhoObject_SetGlobalVar_10 (Urho3D::Object *_target, int key, int value)
 }
 
 DllExport void
-UrhoObject_SetGlobalVar_11 (Urho3D::Object *_target, int key, float value)
+UrhoObject_SetGlobalVar_11 (Urho3D::Object *_target, int key, unsigned value)
 {
 	_target->SetGlobalVar (Urho3D::StringHash(key), (value));
 }
 
 DllExport void
-UrhoObject_SetGlobalVar_12 (Urho3D::Object *_target, int key, const char * value)
+UrhoObject_SetGlobalVar_12 (Urho3D::Object *_target, int key, float value)
+{
+	_target->SetGlobalVar (Urho3D::StringHash(key), (value));
+}
+
+DllExport void
+UrhoObject_SetGlobalVar_13 (Urho3D::Object *_target, int key, const char * value)
 {
 	_target->SetGlobalVar (Urho3D::StringHash(key), Urho3D::String(value));
 }
 
 DllExport void
-UrhoObject_SetGlobalVar_13 (Urho3D::Object *_target, int key, bool value)
+UrhoObject_SetGlobalVar_14 (Urho3D::Object *_target, int key, bool value)
 {
 	_target->SetGlobalVar (Urho3D::StringHash(key), (value));
 }
@@ -1121,19 +1139,25 @@ Serializable_SetAttribute_10 (Urho3D::Serializable *_target, unsigned int index,
 }
 
 DllExport int
-Serializable_SetAttribute_11 (Urho3D::Serializable *_target, unsigned int index, float value)
+Serializable_SetAttribute_11 (Urho3D::Serializable *_target, unsigned int index, unsigned value)
 {
 	return _target->SetAttribute (index, (value));
 }
 
 DllExport int
-Serializable_SetAttribute_12 (Urho3D::Serializable *_target, unsigned int index, const char * value)
+Serializable_SetAttribute_12 (Urho3D::Serializable *_target, unsigned int index, float value)
+{
+	return _target->SetAttribute (index, (value));
+}
+
+DllExport int
+Serializable_SetAttribute_13 (Urho3D::Serializable *_target, unsigned int index, const char * value)
 {
 	return _target->SetAttribute (index, Urho3D::String(value));
 }
 
 DllExport int
-Serializable_SetAttribute_13 (Urho3D::Serializable *_target, unsigned int index, bool value)
+Serializable_SetAttribute_14 (Urho3D::Serializable *_target, unsigned int index, bool value)
 {
 	return _target->SetAttribute (index, (value));
 }
@@ -1207,19 +1231,25 @@ Serializable_SetAttribute0_10 (Urho3D::Serializable *_target, const char * name,
 }
 
 DllExport int
-Serializable_SetAttribute0_11 (Urho3D::Serializable *_target, const char * name, float value)
+Serializable_SetAttribute0_11 (Urho3D::Serializable *_target, const char * name, unsigned value)
 {
 	return _target->SetAttribute (Urho3D::String(name), (value));
 }
 
 DllExport int
-Serializable_SetAttribute0_12 (Urho3D::Serializable *_target, const char * name, const char * value)
+Serializable_SetAttribute0_12 (Urho3D::Serializable *_target, const char * name, float value)
+{
+	return _target->SetAttribute (Urho3D::String(name), (value));
+}
+
+DllExport int
+Serializable_SetAttribute0_13 (Urho3D::Serializable *_target, const char * name, const char * value)
 {
 	return _target->SetAttribute (Urho3D::String(name), Urho3D::String(value));
 }
 
 DllExport int
-Serializable_SetAttribute0_13 (Urho3D::Serializable *_target, const char * name, bool value)
+Serializable_SetAttribute0_14 (Urho3D::Serializable *_target, const char * name, bool value)
 {
 	return _target->SetAttribute (Urho3D::String(name), (value));
 }
@@ -2168,19 +2198,25 @@ ResourceWithMetadata_AddMetadata_10 (Urho3D::ResourceWithMetadata *_target, cons
 }
 
 DllExport void
-ResourceWithMetadata_AddMetadata_11 (Urho3D::ResourceWithMetadata *_target, const char * name, float value)
+ResourceWithMetadata_AddMetadata_11 (Urho3D::ResourceWithMetadata *_target, const char * name, unsigned value)
 {
 	_target->AddMetadata (Urho3D::String(name), (value));
 }
 
 DllExport void
-ResourceWithMetadata_AddMetadata_12 (Urho3D::ResourceWithMetadata *_target, const char * name, const char * value)
+ResourceWithMetadata_AddMetadata_12 (Urho3D::ResourceWithMetadata *_target, const char * name, float value)
+{
+	_target->AddMetadata (Urho3D::String(name), (value));
+}
+
+DllExport void
+ResourceWithMetadata_AddMetadata_13 (Urho3D::ResourceWithMetadata *_target, const char * name, const char * value)
 {
 	_target->AddMetadata (Urho3D::String(name), Urho3D::String(value));
 }
 
 DllExport void
-ResourceWithMetadata_AddMetadata_13 (Urho3D::ResourceWithMetadata *_target, const char * name, bool value)
+ResourceWithMetadata_AddMetadata_14 (Urho3D::ResourceWithMetadata *_target, const char * name, bool value)
 {
 	_target->AddMetadata (Urho3D::String(name), (value));
 }
@@ -2397,20 +2433,26 @@ ResourceWithMetadata_GetMetadata_10 (Urho3D::ResourceWithMetadata *_target, cons
 	return (_target->GetMetadata (Urho3D::String(name)).GetInt());
 }
 
-DllExport float
+DllExport unsigned
 ResourceWithMetadata_GetMetadata_11 (Urho3D::ResourceWithMetadata *_target, const char * name)
+{
+	return (_target->GetMetadata (Urho3D::String(name)).GetUint());
+}
+
+DllExport float
+ResourceWithMetadata_GetMetadata_12 (Urho3D::ResourceWithMetadata *_target, const char * name)
 {
 	return (_target->GetMetadata (Urho3D::String(name)).GetFloat());
 }
 
 DllExport const char *
-ResourceWithMetadata_GetMetadata_12 (Urho3D::ResourceWithMetadata *_target, const char * name)
+ResourceWithMetadata_GetMetadata_13 (Urho3D::ResourceWithMetadata *_target, const char * name)
 {
 	return stringdup(_target->GetMetadata (Urho3D::String(name)).GetString().CString());
 }
 
 DllExport bool
-ResourceWithMetadata_GetMetadata_13 (Urho3D::ResourceWithMetadata *_target, const char * name)
+ResourceWithMetadata_GetMetadata_14 (Urho3D::ResourceWithMetadata *_target, const char * name)
 {
 	return (_target->GetMetadata (Urho3D::String(name)).GetBool());
 }
@@ -5015,20 +5057,26 @@ Context_GetGlobalVar_10 (Urho3D::Context *_target, int key)
 	return (_target->GetGlobalVar (Urho3D::StringHash(key)).GetInt());
 }
 
-DllExport float
+DllExport unsigned
 Context_GetGlobalVar_11 (Urho3D::Context *_target, int key)
+{
+	return (_target->GetGlobalVar (Urho3D::StringHash(key)).GetUint());
+}
+
+DllExport float
+Context_GetGlobalVar_12 (Urho3D::Context *_target, int key)
 {
 	return (_target->GetGlobalVar (Urho3D::StringHash(key)).GetFloat());
 }
 
 DllExport const char *
-Context_GetGlobalVar_12 (Urho3D::Context *_target, int key)
+Context_GetGlobalVar_13 (Urho3D::Context *_target, int key)
 {
 	return stringdup(_target->GetGlobalVar (Urho3D::StringHash(key)).GetString().CString());
 }
 
 DllExport bool
-Context_GetGlobalVar_13 (Urho3D::Context *_target, int key)
+Context_GetGlobalVar_14 (Urho3D::Context *_target, int key)
 {
 	return (_target->GetGlobalVar (Urho3D::StringHash(key)).GetBool());
 }
@@ -5102,19 +5150,25 @@ Context_SetGlobalVar_10 (Urho3D::Context *_target, int key, int value)
 }
 
 DllExport void
-Context_SetGlobalVar_11 (Urho3D::Context *_target, int key, float value)
+Context_SetGlobalVar_11 (Urho3D::Context *_target, int key, unsigned value)
 {
 	_target->SetGlobalVar (Urho3D::StringHash(key), (value));
 }
 
 DllExport void
-Context_SetGlobalVar_12 (Urho3D::Context *_target, int key, const char * value)
+Context_SetGlobalVar_12 (Urho3D::Context *_target, int key, float value)
+{
+	_target->SetGlobalVar (Urho3D::StringHash(key), (value));
+}
+
+DllExport void
+Context_SetGlobalVar_13 (Urho3D::Context *_target, int key, const char * value)
 {
 	_target->SetGlobalVar (Urho3D::StringHash(key), Urho3D::String(value));
 }
 
 DllExport void
-Context_SetGlobalVar_13 (Urho3D::Context *_target, int key, bool value)
+Context_SetGlobalVar_14 (Urho3D::Context *_target, int key, bool value)
 {
 	_target->SetGlobalVar (Urho3D::StringHash(key), (value));
 }
@@ -5419,19 +5473,25 @@ Spline_SetKnot_10 (Urho3D::Spline *_target, int knot, unsigned int index)
 }
 
 DllExport void
-Spline_SetKnot_11 (Urho3D::Spline *_target, float knot, unsigned int index)
+Spline_SetKnot_11 (Urho3D::Spline *_target, unsigned knot, unsigned int index)
 {
 	_target->SetKnot ((knot), index);
 }
 
 DllExport void
-Spline_SetKnot_12 (Urho3D::Spline *_target, const char * knot, unsigned int index)
+Spline_SetKnot_12 (Urho3D::Spline *_target, float knot, unsigned int index)
+{
+	_target->SetKnot ((knot), index);
+}
+
+DllExport void
+Spline_SetKnot_13 (Urho3D::Spline *_target, const char * knot, unsigned int index)
 {
 	_target->SetKnot (Urho3D::String(knot), index);
 }
 
 DllExport void
-Spline_SetKnot_13 (Urho3D::Spline *_target, bool knot, unsigned int index)
+Spline_SetKnot_14 (Urho3D::Spline *_target, bool knot, unsigned int index)
 {
 	_target->SetKnot ((knot), index);
 }
@@ -5505,19 +5565,25 @@ Spline_AddKnot_10 (Urho3D::Spline *_target, int knot)
 }
 
 DllExport void
-Spline_AddKnot_11 (Urho3D::Spline *_target, float knot)
+Spline_AddKnot_11 (Urho3D::Spline *_target, unsigned knot)
 {
 	_target->AddKnot ((knot));
 }
 
 DllExport void
-Spline_AddKnot_12 (Urho3D::Spline *_target, const char * knot)
+Spline_AddKnot_12 (Urho3D::Spline *_target, float knot)
+{
+	_target->AddKnot ((knot));
+}
+
+DllExport void
+Spline_AddKnot_13 (Urho3D::Spline *_target, const char * knot)
 {
 	_target->AddKnot (Urho3D::String(knot));
 }
 
 DllExport void
-Spline_AddKnot_13 (Urho3D::Spline *_target, bool knot)
+Spline_AddKnot_14 (Urho3D::Spline *_target, bool knot)
 {
 	_target->AddKnot ((knot));
 }
@@ -5591,19 +5657,25 @@ Spline_AddKnot1_10 (Urho3D::Spline *_target, int knot, unsigned int index)
 }
 
 DllExport void
-Spline_AddKnot1_11 (Urho3D::Spline *_target, float knot, unsigned int index)
+Spline_AddKnot1_11 (Urho3D::Spline *_target, unsigned knot, unsigned int index)
 {
 	_target->AddKnot ((knot), index);
 }
 
 DllExport void
-Spline_AddKnot1_12 (Urho3D::Spline *_target, const char * knot, unsigned int index)
+Spline_AddKnot1_12 (Urho3D::Spline *_target, float knot, unsigned int index)
+{
+	_target->AddKnot ((knot), index);
+}
+
+DllExport void
+Spline_AddKnot1_13 (Urho3D::Spline *_target, const char * knot, unsigned int index)
 {
 	_target->AddKnot (Urho3D::String(knot), index);
 }
 
 DllExport void
-Spline_AddKnot1_13 (Urho3D::Spline *_target, bool knot, unsigned int index)
+Spline_AddKnot1_14 (Urho3D::Spline *_target, bool knot, unsigned int index)
 {
 	_target->AddKnot ((knot), index);
 }
@@ -7144,19 +7216,25 @@ Node_SetVar_10 (Urho3D::Node *_target, int key, int value)
 }
 
 DllExport void
-Node_SetVar_11 (Urho3D::Node *_target, int key, float value)
+Node_SetVar_11 (Urho3D::Node *_target, int key, unsigned value)
 {
 	_target->SetVar (Urho3D::StringHash(key), (value));
 }
 
 DllExport void
-Node_SetVar_12 (Urho3D::Node *_target, int key, const char * value)
+Node_SetVar_12 (Urho3D::Node *_target, int key, float value)
+{
+	_target->SetVar (Urho3D::StringHash(key), (value));
+}
+
+DllExport void
+Node_SetVar_13 (Urho3D::Node *_target, int key, const char * value)
 {
 	_target->SetVar (Urho3D::StringHash(key), Urho3D::String(value));
 }
 
 DllExport void
-Node_SetVar_13 (Urho3D::Node *_target, int key, bool value)
+Node_SetVar_14 (Urho3D::Node *_target, int key, bool value)
 {
 	_target->SetVar (Urho3D::StringHash(key), (value));
 }
@@ -7230,19 +7308,25 @@ Node_SetVar20_10 (Urho3D::Node *_target, const char * key, int value)
 }
 
 DllExport void
-Node_SetVar20_11 (Urho3D::Node *_target, const char * key, float value)
+Node_SetVar20_11 (Urho3D::Node *_target, const char * key, unsigned value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
 
 DllExport void
-Node_SetVar20_12 (Urho3D::Node *_target, const char * key, const char * value)
+Node_SetVar20_12 (Urho3D::Node *_target, const char * key, float value)
+{
+	_target->SetVar (Urho3D::String(key), (value));
+}
+
+DllExport void
+Node_SetVar20_13 (Urho3D::Node *_target, const char * key, const char * value)
 {
 	_target->SetVar (Urho3D::String(key), Urho3D::String(value));
 }
 
 DllExport void
-Node_SetVar20_13 (Urho3D::Node *_target, const char * key, bool value)
+Node_SetVar20_14 (Urho3D::Node *_target, const char * key, bool value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
@@ -8159,20 +8243,26 @@ Node_GetVar_10 (Urho3D::Node *_target, int key)
 	return (_target->GetVar (Urho3D::StringHash(key)).GetInt());
 }
 
-DllExport float
+DllExport unsigned
 Node_GetVar_11 (Urho3D::Node *_target, int key)
+{
+	return (_target->GetVar (Urho3D::StringHash(key)).GetUint());
+}
+
+DllExport float
+Node_GetVar_12 (Urho3D::Node *_target, int key)
 {
 	return (_target->GetVar (Urho3D::StringHash(key)).GetFloat());
 }
 
 DllExport const char *
-Node_GetVar_12 (Urho3D::Node *_target, int key)
+Node_GetVar_13 (Urho3D::Node *_target, int key)
 {
 	return stringdup(_target->GetVar (Urho3D::StringHash(key)).GetString().CString());
 }
 
 DllExport bool
-Node_GetVar_13 (Urho3D::Node *_target, int key)
+Node_GetVar_14 (Urho3D::Node *_target, int key)
 {
 	return (_target->GetVar (Urho3D::StringHash(key)).GetBool());
 }
@@ -9713,19 +9803,25 @@ Animation_AddTrigger_10 (Urho3D::Animation *_target, float time, bool timeIsNorm
 }
 
 DllExport void
-Animation_AddTrigger_11 (Urho3D::Animation *_target, float time, bool timeIsNormalized, float data)
+Animation_AddTrigger_11 (Urho3D::Animation *_target, float time, bool timeIsNormalized, unsigned data)
 {
 	_target->AddTrigger (time, timeIsNormalized, (data));
 }
 
 DllExport void
-Animation_AddTrigger_12 (Urho3D::Animation *_target, float time, bool timeIsNormalized, const char * data)
+Animation_AddTrigger_12 (Urho3D::Animation *_target, float time, bool timeIsNormalized, float data)
+{
+	_target->AddTrigger (time, timeIsNormalized, (data));
+}
+
+DllExport void
+Animation_AddTrigger_13 (Urho3D::Animation *_target, float time, bool timeIsNormalized, const char * data)
 {
 	_target->AddTrigger (time, timeIsNormalized, Urho3D::String(data));
 }
 
 DllExport void
-Animation_AddTrigger_13 (Urho3D::Animation *_target, float time, bool timeIsNormalized, bool data)
+Animation_AddTrigger_14 (Urho3D::Animation *_target, float time, bool timeIsNormalized, bool data)
 {
 	_target->AddTrigger (time, timeIsNormalized, (data));
 }
@@ -11943,19 +12039,25 @@ Material_SetShaderParameter_10 (Urho3D::Material *_target, const char * name, in
 }
 
 DllExport void
-Material_SetShaderParameter_11 (Urho3D::Material *_target, const char * name, float value)
+Material_SetShaderParameter_11 (Urho3D::Material *_target, const char * name, unsigned value)
 {
 	_target->SetShaderParameter (Urho3D::String(name), (value));
 }
 
 DllExport void
-Material_SetShaderParameter_12 (Urho3D::Material *_target, const char * name, const char * value)
+Material_SetShaderParameter_12 (Urho3D::Material *_target, const char * name, float value)
+{
+	_target->SetShaderParameter (Urho3D::String(name), (value));
+}
+
+DllExport void
+Material_SetShaderParameter_13 (Urho3D::Material *_target, const char * name, const char * value)
 {
 	_target->SetShaderParameter (Urho3D::String(name), Urho3D::String(value));
 }
 
 DllExport void
-Material_SetShaderParameter_13 (Urho3D::Material *_target, const char * name, bool value)
+Material_SetShaderParameter_14 (Urho3D::Material *_target, const char * name, bool value)
 {
 	_target->SetShaderParameter (Urho3D::String(name), (value));
 }
@@ -12344,20 +12446,26 @@ Material_GetShaderParameter_10 (Urho3D::Material *_target, const char * name)
 	return (_target->GetShaderParameter (Urho3D::String(name)).GetInt());
 }
 
-DllExport float
+DllExport unsigned
 Material_GetShaderParameter_11 (Urho3D::Material *_target, const char * name)
+{
+	return (_target->GetShaderParameter (Urho3D::String(name)).GetUint());
+}
+
+DllExport float
+Material_GetShaderParameter_12 (Urho3D::Material *_target, const char * name)
 {
 	return (_target->GetShaderParameter (Urho3D::String(name)).GetFloat());
 }
 
 DllExport const char *
-Material_GetShaderParameter_12 (Urho3D::Material *_target, const char * name)
+Material_GetShaderParameter_13 (Urho3D::Material *_target, const char * name)
 {
 	return stringdup(_target->GetShaderParameter (Urho3D::String(name)).GetString().CString());
 }
 
 DllExport bool
-Material_GetShaderParameter_13 (Urho3D::Material *_target, const char * name)
+Material_GetShaderParameter_14 (Urho3D::Material *_target, const char * name)
 {
 	return (_target->GetShaderParameter (Urho3D::String(name)).GetBool());
 }
@@ -18403,19 +18511,25 @@ RenderPath_SetShaderParameter_10 (Urho3D::RenderPath *_target, const char * name
 }
 
 DllExport void
-RenderPath_SetShaderParameter_11 (Urho3D::RenderPath *_target, const char * name, float value)
+RenderPath_SetShaderParameter_11 (Urho3D::RenderPath *_target, const char * name, unsigned value)
 {
 	_target->SetShaderParameter (Urho3D::String(name), (value));
 }
 
 DllExport void
-RenderPath_SetShaderParameter_12 (Urho3D::RenderPath *_target, const char * name, const char * value)
+RenderPath_SetShaderParameter_12 (Urho3D::RenderPath *_target, const char * name, float value)
+{
+	_target->SetShaderParameter (Urho3D::String(name), (value));
+}
+
+DllExport void
+RenderPath_SetShaderParameter_13 (Urho3D::RenderPath *_target, const char * name, const char * value)
 {
 	_target->SetShaderParameter (Urho3D::String(name), Urho3D::String(value));
 }
 
 DllExport void
-RenderPath_SetShaderParameter_13 (Urho3D::RenderPath *_target, const char * name, bool value)
+RenderPath_SetShaderParameter_14 (Urho3D::RenderPath *_target, const char * name, bool value)
 {
 	_target->SetShaderParameter (Urho3D::String(name), (value));
 }
@@ -18639,20 +18753,26 @@ RenderPath_GetShaderParameter_10 (Urho3D::RenderPath *_target, const char * name
 	return (_target->GetShaderParameter (Urho3D::String(name)).GetInt());
 }
 
-DllExport float
+DllExport unsigned
 RenderPath_GetShaderParameter_11 (Urho3D::RenderPath *_target, const char * name)
+{
+	return (_target->GetShaderParameter (Urho3D::String(name)).GetUint());
+}
+
+DllExport float
+RenderPath_GetShaderParameter_12 (Urho3D::RenderPath *_target, const char * name)
 {
 	return (_target->GetShaderParameter (Urho3D::String(name)).GetFloat());
 }
 
 DllExport const char *
-RenderPath_GetShaderParameter_12 (Urho3D::RenderPath *_target, const char * name)
+RenderPath_GetShaderParameter_13 (Urho3D::RenderPath *_target, const char * name)
 {
 	return stringdup(_target->GetShaderParameter (Urho3D::String(name)).GetString().CString());
 }
 
 DllExport bool
-RenderPath_GetShaderParameter_13 (Urho3D::RenderPath *_target, const char * name)
+RenderPath_GetShaderParameter_14 (Urho3D::RenderPath *_target, const char * name)
 {
 	return (_target->GetShaderParameter (Urho3D::String(name)).GetBool());
 }
@@ -20042,19 +20162,25 @@ XmlElement_SetVariant_10 (Urho3D::XMLElement *_target, int value)
 }
 
 DllExport int
-XmlElement_SetVariant_11 (Urho3D::XMLElement *_target, float value)
+XmlElement_SetVariant_11 (Urho3D::XMLElement *_target, unsigned value)
 {
 	return _target->SetVariant ((value));
 }
 
 DllExport int
-XmlElement_SetVariant_12 (Urho3D::XMLElement *_target, const char * value)
+XmlElement_SetVariant_12 (Urho3D::XMLElement *_target, float value)
+{
+	return _target->SetVariant ((value));
+}
+
+DllExport int
+XmlElement_SetVariant_13 (Urho3D::XMLElement *_target, const char * value)
 {
 	return _target->SetVariant (Urho3D::String(value));
 }
 
 DllExport int
-XmlElement_SetVariant_13 (Urho3D::XMLElement *_target, bool value)
+XmlElement_SetVariant_14 (Urho3D::XMLElement *_target, bool value)
 {
 	return _target->SetVariant ((value));
 }
@@ -20128,19 +20254,25 @@ XmlElement_SetVariantValue_10 (Urho3D::XMLElement *_target, int value)
 }
 
 DllExport int
-XmlElement_SetVariantValue_11 (Urho3D::XMLElement *_target, float value)
+XmlElement_SetVariantValue_11 (Urho3D::XMLElement *_target, unsigned value)
 {
 	return _target->SetVariantValue ((value));
 }
 
 DllExport int
-XmlElement_SetVariantValue_12 (Urho3D::XMLElement *_target, const char * value)
+XmlElement_SetVariantValue_12 (Urho3D::XMLElement *_target, float value)
+{
+	return _target->SetVariantValue ((value));
+}
+
+DllExport int
+XmlElement_SetVariantValue_13 (Urho3D::XMLElement *_target, const char * value)
 {
 	return _target->SetVariantValue (Urho3D::String(value));
 }
 
 DllExport int
-XmlElement_SetVariantValue_13 (Urho3D::XMLElement *_target, bool value)
+XmlElement_SetVariantValue_14 (Urho3D::XMLElement *_target, bool value)
 {
 	return _target->SetVariantValue ((value));
 }
@@ -20235,19 +20367,25 @@ XmlElement_SetVectorVariant_10 (Urho3D::XMLElement *_target, const char * name, 
 }
 
 DllExport int
-XmlElement_SetVectorVariant_11 (Urho3D::XMLElement *_target, const char * name, float value)
+XmlElement_SetVectorVariant_11 (Urho3D::XMLElement *_target, const char * name, unsigned value)
 {
 	return _target->SetVectorVariant (Urho3D::String(name), (value));
 }
 
 DllExport int
-XmlElement_SetVectorVariant_12 (Urho3D::XMLElement *_target, const char * name, const char * value)
+XmlElement_SetVectorVariant_12 (Urho3D::XMLElement *_target, const char * name, float value)
+{
+	return _target->SetVectorVariant (Urho3D::String(name), (value));
+}
+
+DllExport int
+XmlElement_SetVectorVariant_13 (Urho3D::XMLElement *_target, const char * name, const char * value)
 {
 	return _target->SetVectorVariant (Urho3D::String(name), Urho3D::String(value));
 }
 
 DllExport int
-XmlElement_SetVectorVariant_13 (Urho3D::XMLElement *_target, const char * name, bool value)
+XmlElement_SetVectorVariant_14 (Urho3D::XMLElement *_target, const char * name, bool value)
 {
 	return _target->SetVectorVariant (Urho3D::String(name), (value));
 }
@@ -25049,19 +25187,25 @@ UIElement_SetVar_10 (Urho3D::UIElement *_target, int key, int value)
 }
 
 DllExport void
-UIElement_SetVar_11 (Urho3D::UIElement *_target, int key, float value)
+UIElement_SetVar_11 (Urho3D::UIElement *_target, int key, unsigned value)
 {
 	_target->SetVar (Urho3D::StringHash(key), (value));
 }
 
 DllExport void
-UIElement_SetVar_12 (Urho3D::UIElement *_target, int key, const char * value)
+UIElement_SetVar_12 (Urho3D::UIElement *_target, int key, float value)
+{
+	_target->SetVar (Urho3D::StringHash(key), (value));
+}
+
+DllExport void
+UIElement_SetVar_13 (Urho3D::UIElement *_target, int key, const char * value)
 {
 	_target->SetVar (Urho3D::StringHash(key), Urho3D::String(value));
 }
 
 DllExport void
-UIElement_SetVar_13 (Urho3D::UIElement *_target, int key, bool value)
+UIElement_SetVar_14 (Urho3D::UIElement *_target, int key, bool value)
 {
 	_target->SetVar (Urho3D::StringHash(key), (value));
 }
@@ -25135,19 +25279,25 @@ UIElement_SetVar13_10 (Urho3D::UIElement *_target, const char * key, int value)
 }
 
 DllExport void
-UIElement_SetVar13_11 (Urho3D::UIElement *_target, const char * key, float value)
+UIElement_SetVar13_11 (Urho3D::UIElement *_target, const char * key, unsigned value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
 
 DllExport void
-UIElement_SetVar13_12 (Urho3D::UIElement *_target, const char * key, const char * value)
+UIElement_SetVar13_12 (Urho3D::UIElement *_target, const char * key, float value)
+{
+	_target->SetVar (Urho3D::String(key), (value));
+}
+
+DllExport void
+UIElement_SetVar13_13 (Urho3D::UIElement *_target, const char * key, const char * value)
 {
 	_target->SetVar (Urho3D::String(key), Urho3D::String(value));
 }
 
 DllExport void
-UIElement_SetVar13_13 (Urho3D::UIElement *_target, const char * key, bool value)
+UIElement_SetVar13_14 (Urho3D::UIElement *_target, const char * key, bool value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
@@ -34770,19 +34920,25 @@ ValueAnimation_SetKeyFrame_10 (Urho3D::ValueAnimation *_target, float time, int 
 }
 
 DllExport int
-ValueAnimation_SetKeyFrame_11 (Urho3D::ValueAnimation *_target, float time, float value)
+ValueAnimation_SetKeyFrame_11 (Urho3D::ValueAnimation *_target, float time, unsigned value)
 {
 	return _target->SetKeyFrame (time, (value));
 }
 
 DllExport int
-ValueAnimation_SetKeyFrame_12 (Urho3D::ValueAnimation *_target, float time, const char * value)
+ValueAnimation_SetKeyFrame_12 (Urho3D::ValueAnimation *_target, float time, float value)
+{
+	return _target->SetKeyFrame (time, (value));
+}
+
+DllExport int
+ValueAnimation_SetKeyFrame_13 (Urho3D::ValueAnimation *_target, float time, const char * value)
 {
 	return _target->SetKeyFrame (time, Urho3D::String(value));
 }
 
 DllExport int
-ValueAnimation_SetKeyFrame_13 (Urho3D::ValueAnimation *_target, float time, bool value)
+ValueAnimation_SetKeyFrame_14 (Urho3D::ValueAnimation *_target, float time, bool value)
 {
 	return _target->SetKeyFrame (time, (value));
 }

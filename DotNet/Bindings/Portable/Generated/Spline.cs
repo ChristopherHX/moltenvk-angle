@@ -235,7 +235,19 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Spline_SetKnot_11 (IntPtr handle, float knot, uint index);
+		internal static extern void Spline_SetKnot_11 (IntPtr handle, uint knot, uint index);
+
+		/// <summary>
+		/// Set the value of an existing knot.
+		/// </summary>
+		public void SetKnot (uint knot, uint index)
+		{
+			Runtime.ValidateObject (this);
+			Spline_SetKnot_11 (handle, knot, index);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Spline_SetKnot_12 (IntPtr handle, float knot, uint index);
 
 		/// <summary>
 		/// Set the value of an existing knot.
@@ -243,11 +255,11 @@ namespace Urho
 		public void SetKnot (float knot, uint index)
 		{
 			Runtime.ValidateObject (this);
-			Spline_SetKnot_11 (handle, knot, index);
+			Spline_SetKnot_12 (handle, knot, index);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Spline_SetKnot_12 (IntPtr handle, string knot, uint index);
+		internal static extern void Spline_SetKnot_13 (IntPtr handle, string knot, uint index);
 
 		/// <summary>
 		/// Set the value of an existing knot.
@@ -255,11 +267,11 @@ namespace Urho
 		public void SetKnot (string knot, uint index)
 		{
 			Runtime.ValidateObject (this);
-			Spline_SetKnot_12 (handle, knot, index);
+			Spline_SetKnot_13 (handle, knot, index);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Spline_SetKnot_13 (IntPtr handle, bool knot, uint index);
+		internal static extern void Spline_SetKnot_14 (IntPtr handle, bool knot, uint index);
 
 		/// <summary>
 		/// Set the value of an existing knot.
@@ -267,7 +279,7 @@ namespace Urho
 		public void SetKnot (bool knot, uint index)
 		{
 			Runtime.ValidateObject (this);
-			Spline_SetKnot_13 (handle, knot, index);
+			Spline_SetKnot_14 (handle, knot, index);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -403,7 +415,19 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Spline_AddKnot_11 (IntPtr handle, float knot);
+		internal static extern void Spline_AddKnot_11 (IntPtr handle, uint knot);
+
+		/// <summary>
+		/// Add a knot to the end of the spline.
+		/// </summary>
+		public void AddKnot (uint knot)
+		{
+			Runtime.ValidateObject (this);
+			Spline_AddKnot_11 (handle, knot);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Spline_AddKnot_12 (IntPtr handle, float knot);
 
 		/// <summary>
 		/// Add a knot to the end of the spline.
@@ -411,11 +435,11 @@ namespace Urho
 		public void AddKnot (float knot)
 		{
 			Runtime.ValidateObject (this);
-			Spline_AddKnot_11 (handle, knot);
+			Spline_AddKnot_12 (handle, knot);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Spline_AddKnot_12 (IntPtr handle, string knot);
+		internal static extern void Spline_AddKnot_13 (IntPtr handle, string knot);
 
 		/// <summary>
 		/// Add a knot to the end of the spline.
@@ -423,11 +447,11 @@ namespace Urho
 		public void AddKnot (string knot)
 		{
 			Runtime.ValidateObject (this);
-			Spline_AddKnot_12 (handle, knot);
+			Spline_AddKnot_13 (handle, knot);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Spline_AddKnot_13 (IntPtr handle, bool knot);
+		internal static extern void Spline_AddKnot_14 (IntPtr handle, bool knot);
 
 		/// <summary>
 		/// Add a knot to the end of the spline.
@@ -435,7 +459,7 @@ namespace Urho
 		public void AddKnot (bool knot)
 		{
 			Runtime.ValidateObject (this);
-			Spline_AddKnot_13 (handle, knot);
+			Spline_AddKnot_14 (handle, knot);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -571,7 +595,19 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Spline_AddKnot1_11 (IntPtr handle, float knot, uint index);
+		internal static extern void Spline_AddKnot1_11 (IntPtr handle, uint knot, uint index);
+
+		/// <summary>
+		/// Add a knot to the spline at a specific index.
+		/// </summary>
+		public void AddKnot (uint knot, uint index)
+		{
+			Runtime.ValidateObject (this);
+			Spline_AddKnot1_11 (handle, knot, index);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Spline_AddKnot1_12 (IntPtr handle, float knot, uint index);
 
 		/// <summary>
 		/// Add a knot to the spline at a specific index.
@@ -579,11 +615,11 @@ namespace Urho
 		public void AddKnot (float knot, uint index)
 		{
 			Runtime.ValidateObject (this);
-			Spline_AddKnot1_11 (handle, knot, index);
+			Spline_AddKnot1_12 (handle, knot, index);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Spline_AddKnot1_12 (IntPtr handle, string knot, uint index);
+		internal static extern void Spline_AddKnot1_13 (IntPtr handle, string knot, uint index);
 
 		/// <summary>
 		/// Add a knot to the spline at a specific index.
@@ -591,11 +627,11 @@ namespace Urho
 		public void AddKnot (string knot, uint index)
 		{
 			Runtime.ValidateObject (this);
-			Spline_AddKnot1_12 (handle, knot, index);
+			Spline_AddKnot1_13 (handle, knot, index);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Spline_AddKnot1_13 (IntPtr handle, bool knot, uint index);
+		internal static extern void Spline_AddKnot1_14 (IntPtr handle, bool knot, uint index);
 
 		/// <summary>
 		/// Add a knot to the spline at a specific index.
@@ -603,7 +639,7 @@ namespace Urho
 		public void AddKnot (bool knot, uint index)
 		{
 			Runtime.ValidateObject (this);
-			Spline_AddKnot1_13 (handle, knot, index);
+			Spline_AddKnot1_14 (handle, knot, index);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

@@ -40,53 +40,129 @@ namespace Urho
         }
     }
 
-    public class StringVector
+    public class StringVector : IDisposable
     {
-        public List<string> strings = new List<string>();
+         public IntPtr Handle { get; private set; } = IntPtr.Zero;
+
+         private bool _disposedValue;
 
         public StringVector()
         {
-            strings = new List<string>();
+            _disposedValue = false;
+            Handle = StringVector_Create();
         }
         public StringVector(string [] stringArray)
         {
-            foreach(string str in stringArray )
+            if(Handle != IntPtr.Zero)
             {
-                strings.Add(str);
+                foreach (string str in stringArray)
+                {
+                    StringVector_AddString(Handle, str);
+                }
+            }
+          
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose (bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects)
+                }
+
+                if (Handle != IntPtr.Zero)
+                {
+                    StringVector_Delete(Handle);
+                    Handle = IntPtr.Zero;
+                }
+                _disposedValue = true;
             }
         }
+
         public int Count
         {
             get{
-                return strings.Count;
+                return StringVector_GetSize(Handle);
             }
         }
         public string this[int index]
         {
             get
             {
-                if (index < strings.Count)
-                    return strings[(int)index];
+                if (index < Count)
+                {
+                    IntPtr nativeString = StringVector_GetString(Handle, index);
+                    string result = Marshal.PtrToStringAnsi(nativeString);
+                    return result;
+                }
                 else
                     return string.Empty;
             }
 
             set
             {
-                if (index < strings.Count)
-                    strings[(int)index] = value;
+                if (index < Count)
+                {
+                    StringVector_SetString(Handle,  index,value);
+                }
             }
         }
 
         public void Add(string str)
         {
-            strings.Add(str);
+            StringVector_AddString(Handle, str);
         }
 
         public string[] ToArray ()
         {
-            return strings.ToArray ();
+            int count = Count;
+            if (count == 0)
+            {
+                return new string[1];
+            }
+            string[] array = new string[count];
+            for (int i = 0; i < count; i++)
+            {
+                IntPtr nativeString = StringVector_GetString(Handle, i);
+                array[i] = Marshal.PtrToStringAnsi(nativeString);
+            }
+            return array;
         }
+
+        ~StringVector()
+        {
+            Dispose(false);
+        }
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr StringVector_Create();
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int  StringVector_GetSize(IntPtr handle);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr StringVector_GetString(IntPtr handle, int index);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void StringVector_AddString(IntPtr handle, string str);
+
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern bool StringVector_SetString(IntPtr handle, int index,string str);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern  void StringVector_Empty(IntPtr handle);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void StringVector_Delete(IntPtr handle);
     }
 
     public partial class ResourceRefList
@@ -150,7 +226,15 @@ namespace Urho
         public static implicit operator DynamicMap(Variant v)
         {
             IntPtr nativeDynamicMap = Variant_GetVariantMap(ref v);
-            return new DynamicMap(nativeDynamicMap);
+            EventDataContainer src = new EventDataContainer(nativeDynamicMap);
+            List<StringHash> Keys = src.Keys;
+            DynamicMap dst = new DynamicMap();
+            for(int i = 0 ; i < src.Count;i++)
+            {
+                dst[Keys[i]] = new Dynamic(src.get_Variant(Keys[i].Code));
+            }
+            return dst;
+            // return new DynamicMap(nativeDynamicMap);
         }
 
         public static bool operator ==(Variant obj1, Variant obj2)
@@ -312,7 +396,9 @@ namespace Urho
                 int size =  Variant_VariantVector_GetSize(ref v);
                 for(int i = 0 ; i < size;i++)
                 {
-                    variantVector.Add(*Variant_VariantVector_GetVariant(ref v, i));
+                    IntPtr variantPtr = Variant_VariantVector_GetVariant(ref v, i);
+                    Variant variant =  (Variant)Marshal.PtrToStructure(variantPtr,typeof(Variant));
+                    variantVector.Add(variant);
                 }
             }
             return variantVector;
@@ -356,7 +442,7 @@ namespace Urho
         static extern uint Variant_GetResourceRefType(ref Variant v);
 
         [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Variant * Variant_VariantVector_GetVariant (ref Variant v, int index);
+		internal static extern IntPtr Variant_VariantVector_GetVariant (ref Variant v, int index);
 
         [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         internal static extern  int Variant_VariantVector_GetSize(ref Variant v);

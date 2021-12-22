@@ -1470,7 +1470,19 @@ UIElement_ElementToScreen
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void UIElement_SetVar_11 (IntPtr handle, int key, float value);
+		internal static extern void UIElement_SetVar_11 (IntPtr handle, int key, uint value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (StringHash key, uint value)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetVar_11 (handle, key.Code, value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetVar_12 (IntPtr handle, int key, float value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1478,11 +1490,11 @@ UIElement_ElementToScreen
 		public void SetVar (StringHash key, float value)
 		{
 			Runtime.ValidateRefCounted (this);
-			UIElement_SetVar_11 (handle, key.Code, value);
+			UIElement_SetVar_12 (handle, key.Code, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void UIElement_SetVar_12 (IntPtr handle, int key, string value);
+		internal static extern void UIElement_SetVar_13 (IntPtr handle, int key, string value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1490,11 +1502,11 @@ UIElement_ElementToScreen
 		public void SetVar (StringHash key, string value)
 		{
 			Runtime.ValidateRefCounted (this);
-			UIElement_SetVar_12 (handle, key.Code, value);
+			UIElement_SetVar_13 (handle, key.Code, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void UIElement_SetVar_13 (IntPtr handle, int key, bool value);
+		internal static extern void UIElement_SetVar_14 (IntPtr handle, int key, bool value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1502,7 +1514,7 @@ UIElement_ElementToScreen
 		public void SetVar (StringHash key, bool value)
 		{
 			Runtime.ValidateRefCounted (this);
-			UIElement_SetVar_13 (handle, key.Code, value);
+			UIElement_SetVar_14 (handle, key.Code, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1638,7 +1650,19 @@ UIElement_ElementToScreen
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void UIElement_SetVar13_11 (IntPtr handle, string key, float value);
+		internal static extern void UIElement_SetVar13_11 (IntPtr handle, string key, uint value);
+
+		/// <summary>
+		/// Set a user variable.
+		/// </summary>
+		public void SetVar (string key, uint value)
+		{
+			Runtime.ValidateRefCounted (this);
+			UIElement_SetVar13_11 (handle, key, value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void UIElement_SetVar13_12 (IntPtr handle, string key, float value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1646,11 +1670,11 @@ UIElement_ElementToScreen
 		public void SetVar (string key, float value)
 		{
 			Runtime.ValidateRefCounted (this);
-			UIElement_SetVar13_11 (handle, key, value);
+			UIElement_SetVar13_12 (handle, key, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void UIElement_SetVar13_12 (IntPtr handle, string key, string value);
+		internal static extern void UIElement_SetVar13_13 (IntPtr handle, string key, string value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1658,11 +1682,11 @@ UIElement_ElementToScreen
 		public void SetVar (string key, string value)
 		{
 			Runtime.ValidateRefCounted (this);
-			UIElement_SetVar13_12 (handle, key, value);
+			UIElement_SetVar13_13 (handle, key, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void UIElement_SetVar13_13 (IntPtr handle, string key, bool value);
+		internal static extern void UIElement_SetVar13_14 (IntPtr handle, string key, bool value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1670,7 +1694,7 @@ UIElement_ElementToScreen
 		public void SetVar (string key, bool value)
 		{
 			Runtime.ValidateRefCounted (this);
-			UIElement_SetVar13_13 (handle, key, value);
+			UIElement_SetVar13_14 (handle, key, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

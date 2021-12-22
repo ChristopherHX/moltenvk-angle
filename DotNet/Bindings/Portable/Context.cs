@@ -15,9 +15,40 @@ namespace Urho
     {
         public IntPtr Handle { get; private set; } = IntPtr.Zero;
 
+        public List<AttributeInfo> attributes  = new  List<AttributeInfo>();
+
         public AttributesVector(IntPtr handle)
         {
             Handle = handle;
+            FillAttributes();
+        }
+
+        private void FillAttributes()
+        {
+
+            for(uint index = 0 ; index < Count ; index++)
+            {
+                AttributeInfo attributeInfo = new AttributeInfo();
+                attributeInfo.Type = AttributeVector_Attribute_GetType(Handle, index);
+                IntPtr nativeString = AttributeVector_Attribute_GetName(Handle, index);
+                string result = Marshal.PtrToStringAnsi(nativeString);
+                attributeInfo.Name = result;
+                attributeInfo.Mode = (AttributeMode)AttributeVector_Attribute_GetMode(Handle, index);
+
+                attributeInfo.DefaultValue = new Dynamic(AttributeVector_Attribute_GetDefaultValue(Handle, index));
+
+                StringVector  enumNames = new StringVector();
+                AttributeVector_Attribute_GetEnumNames(Handle, (int)index , enumNames.Handle);
+           
+                for(int i = 0 ; i < enumNames.Count;i++)
+                {
+                    attributeInfo.EnumNames.Add(enumNames[i]);
+                }
+
+                enumNames.Dispose();
+
+                attributes.Add(attributeInfo);
+            }
         }
 
         public int Count
@@ -30,31 +61,14 @@ namespace Urho
 
         public AttributeInfo At(uint index)
         {
-            return this[index];
+            // return this[index];
+            return attributes[(int)index];
         }
         public AttributeInfo this[uint index]
         {
             get
             {
-                AttributeInfo attributeInfo = new AttributeInfo();
-                attributeInfo.Type = AttributeVector_Attribute_GetType(Handle, index);
-                IntPtr nativeString = AttributeVector_Attribute_GetName(Handle, index);
-                string result = Marshal.PtrToStringAnsi(nativeString);
-                attributeInfo.Name = result;
-                attributeInfo.Mode = (AttributeMode)AttributeVector_Attribute_GetMode(Handle, index);
-
-                attributeInfo.DefaultValue = new Dynamic(AttributeVector_Attribute_GetDefaultValue(Handle, index));
-
-                IntPtr enumNames = AttributeVector_Attribute_GetEnumNamesPtr(Handle, index);
-                while (enumNames != IntPtr.Zero)
-                {
-                    IntPtr enumName = AttributeVector_Attribute_EnumNames_GetNexEnumtName(enumNames);
-                    if (enumName == IntPtr.Zero) break;
-                    attributeInfo.EnumNames.Add(Marshal.PtrToStringAnsi(enumName));
-                    enumNames = AttributeVector_Attribute_EnumNames_AdvancePtr(enumNames);
-                }
-
-                return attributeInfo;
+                return attributes[(int)index];
             }
         }
 
@@ -71,16 +85,10 @@ namespace Urho
         static extern uint AttributeVector_Attribute_GetMode(IntPtr handle, uint index);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr AttributeVector_Attribute_GetEnumNamesPtr(IntPtr handle, uint index);
+        static extern void AttributeVector_Attribute_GetEnumNames(IntPtr handle,int index , IntPtr stringVector);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr AttributeVector_Attribute_EnumNames_AdvancePtr(IntPtr enumNames);
-
-        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr AttributeVector_Attribute_EnumNames_GetNexEnumtName(IntPtr enumNames);
-
-        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern  IntPtr AttributeVector_Attribute_GetDefaultValue(IntPtr handle, uint index);
+        static extern  Variant AttributeVector_Attribute_GetDefaultValue(IntPtr handle, uint index);
     }
 
     /// <summary>
@@ -118,12 +126,12 @@ namespace Urho
 
         public AttributesVector GetAttributes(StringHash type)
         {
-            return new AttributesVector(Context_GetAttributes(handle, type.Code));
+            return new AttributesVector(Context_GetAttributes(Handle, type.Code));
         }
 
         public AttributesVector GetAttributes(string type)
         {
-            return new AttributesVector(Context_GetAttributes(handle, new StringHash(type).Code));
+            return new AttributesVector(Context_GetAttributes(Handle, new StringHash(type).Code));
         }
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

@@ -338,7 +338,20 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool Serializable_SetAttribute_11 (IntPtr handle, uint index, float value);
+		internal static extern bool Serializable_SetAttribute_11 (IntPtr handle, uint index, uint value);
+
+		/// <summary>
+		/// Set attribute by index. Return true if successfully set.
+		/// 
+		/// </summary>
+		public bool SetAttribute (uint index, uint value)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Serializable_SetAttribute_11 (handle, index, value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Serializable_SetAttribute_12 (IntPtr handle, uint index, float value);
 
 		/// <summary>
 		/// Set attribute by index. Return true if successfully set.
@@ -347,11 +360,11 @@ namespace Urho
 		public bool SetAttribute (uint index, float value)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Serializable_SetAttribute_11 (handle, index, value);
+			return Serializable_SetAttribute_12 (handle, index, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool Serializable_SetAttribute_12 (IntPtr handle, uint index, string value);
+		internal static extern bool Serializable_SetAttribute_13 (IntPtr handle, uint index, string value);
 
 		/// <summary>
 		/// Set attribute by index. Return true if successfully set.
@@ -360,11 +373,11 @@ namespace Urho
 		public bool SetAttribute (uint index, string value)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Serializable_SetAttribute_12 (handle, index, value);
+			return Serializable_SetAttribute_13 (handle, index, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool Serializable_SetAttribute_13 (IntPtr handle, uint index, bool value);
+		internal static extern bool Serializable_SetAttribute_14 (IntPtr handle, uint index, bool value);
 
 		/// <summary>
 		/// Set attribute by index. Return true if successfully set.
@@ -373,7 +386,7 @@ namespace Urho
 		public bool SetAttribute (uint index, bool value)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Serializable_SetAttribute_13 (handle, index, value);
+			return Serializable_SetAttribute_14 (handle, index, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -509,7 +522,19 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool Serializable_SetAttribute0_11 (IntPtr handle, string name, float value);
+		internal static extern bool Serializable_SetAttribute0_11 (IntPtr handle, string name, uint value);
+
+		/// <summary>
+		/// Set attribute by name. Return true if successfully set.
+		/// </summary>
+		public bool SetAttribute (string name, uint value)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Serializable_SetAttribute0_11 (handle, name, value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Serializable_SetAttribute0_12 (IntPtr handle, string name, float value);
 
 		/// <summary>
 		/// Set attribute by name. Return true if successfully set.
@@ -517,11 +542,11 @@ namespace Urho
 		public bool SetAttribute (string name, float value)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Serializable_SetAttribute0_11 (handle, name, value);
+			return Serializable_SetAttribute0_12 (handle, name, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool Serializable_SetAttribute0_12 (IntPtr handle, string name, string value);
+		internal static extern bool Serializable_SetAttribute0_13 (IntPtr handle, string name, string value);
 
 		/// <summary>
 		/// Set attribute by name. Return true if successfully set.
@@ -529,11 +554,11 @@ namespace Urho
 		public bool SetAttribute (string name, string value)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Serializable_SetAttribute0_12 (handle, name, value);
+			return Serializable_SetAttribute0_13 (handle, name, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool Serializable_SetAttribute0_13 (IntPtr handle, string name, bool value);
+		internal static extern bool Serializable_SetAttribute0_14 (IntPtr handle, string name, bool value);
 
 		/// <summary>
 		/// Set attribute by name. Return true if successfully set.
@@ -541,7 +566,7 @@ namespace Urho
 		public bool SetAttribute (string name, bool value)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Serializable_SetAttribute0_13 (handle, name, value);
+			return Serializable_SetAttribute0_14 (handle, name, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

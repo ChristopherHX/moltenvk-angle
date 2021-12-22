@@ -286,7 +286,19 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Context_SetGlobalVar_11 (IntPtr handle, int key, float value);
+		internal static extern void Context_SetGlobalVar_11 (IntPtr handle, int key, uint value);
+
+		/// <summary>
+		/// Set global variable with the respective key and value.
+		/// </summary>
+		public void SetGlobalVar (StringHash key, uint value)
+		{
+			Runtime.ValidateRefCounted (this);
+			Context_SetGlobalVar_11 (handle, key.Code, value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Context_SetGlobalVar_12 (IntPtr handle, int key, float value);
 
 		/// <summary>
 		/// Set global variable with the respective key and value.
@@ -294,11 +306,11 @@ namespace Urho
 		public void SetGlobalVar (StringHash key, float value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Context_SetGlobalVar_11 (handle, key.Code, value);
+			Context_SetGlobalVar_12 (handle, key.Code, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Context_SetGlobalVar_12 (IntPtr handle, int key, string value);
+		internal static extern void Context_SetGlobalVar_13 (IntPtr handle, int key, string value);
 
 		/// <summary>
 		/// Set global variable with the respective key and value.
@@ -306,11 +318,11 @@ namespace Urho
 		public void SetGlobalVar (StringHash key, string value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Context_SetGlobalVar_12 (handle, key.Code, value);
+			Context_SetGlobalVar_13 (handle, key.Code, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Context_SetGlobalVar_13 (IntPtr handle, int key, bool value);
+		internal static extern void Context_SetGlobalVar_14 (IntPtr handle, int key, bool value);
 
 		/// <summary>
 		/// Set global variable with the respective key and value.
@@ -318,7 +330,7 @@ namespace Urho
 		public void SetGlobalVar (StringHash key, bool value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Context_SetGlobalVar_13 (handle, key.Code, value);
+			Context_SetGlobalVar_14 (handle, key.Code, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

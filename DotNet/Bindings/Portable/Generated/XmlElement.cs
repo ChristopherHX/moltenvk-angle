@@ -493,7 +493,19 @@ namespace Urho.Resources
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool XmlElement_SetVariant_11 (IntPtr handle, float value);
+		internal static extern bool XmlElement_SetVariant_11 (IntPtr handle, uint value);
+
+		/// <summary>
+		/// Set a variant attribute.
+		/// </summary>
+		public bool SetVariant (uint value)
+		{
+			Runtime.ValidateObject (this);
+			return XmlElement_SetVariant_11 (handle, value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool XmlElement_SetVariant_12 (IntPtr handle, float value);
 
 		/// <summary>
 		/// Set a variant attribute.
@@ -501,11 +513,11 @@ namespace Urho.Resources
 		public bool SetVariant (float value)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_SetVariant_11 (handle, value);
+			return XmlElement_SetVariant_12 (handle, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool XmlElement_SetVariant_12 (IntPtr handle, string value);
+		internal static extern bool XmlElement_SetVariant_13 (IntPtr handle, string value);
 
 		/// <summary>
 		/// Set a variant attribute.
@@ -513,11 +525,11 @@ namespace Urho.Resources
 		public bool SetVariant (string value)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_SetVariant_12 (handle, value);
+			return XmlElement_SetVariant_13 (handle, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool XmlElement_SetVariant_13 (IntPtr handle, bool value);
+		internal static extern bool XmlElement_SetVariant_14 (IntPtr handle, bool value);
 
 		/// <summary>
 		/// Set a variant attribute.
@@ -525,7 +537,7 @@ namespace Urho.Resources
 		public bool SetVariant (bool value)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_SetVariant_13 (handle, value);
+			return XmlElement_SetVariant_14 (handle, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -661,7 +673,19 @@ namespace Urho.Resources
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool XmlElement_SetVariantValue_11 (IntPtr handle, float value);
+		internal static extern bool XmlElement_SetVariantValue_11 (IntPtr handle, uint value);
+
+		/// <summary>
+		/// Set a variant attribute excluding the type.
+		/// </summary>
+		public bool SetVariantValue (uint value)
+		{
+			Runtime.ValidateObject (this);
+			return XmlElement_SetVariantValue_11 (handle, value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool XmlElement_SetVariantValue_12 (IntPtr handle, float value);
 
 		/// <summary>
 		/// Set a variant attribute excluding the type.
@@ -669,11 +693,11 @@ namespace Urho.Resources
 		public bool SetVariantValue (float value)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_SetVariantValue_11 (handle, value);
+			return XmlElement_SetVariantValue_12 (handle, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool XmlElement_SetVariantValue_12 (IntPtr handle, string value);
+		internal static extern bool XmlElement_SetVariantValue_13 (IntPtr handle, string value);
 
 		/// <summary>
 		/// Set a variant attribute excluding the type.
@@ -681,11 +705,11 @@ namespace Urho.Resources
 		public bool SetVariantValue (string value)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_SetVariantValue_12 (handle, value);
+			return XmlElement_SetVariantValue_13 (handle, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool XmlElement_SetVariantValue_13 (IntPtr handle, bool value);
+		internal static extern bool XmlElement_SetVariantValue_14 (IntPtr handle, bool value);
 
 		/// <summary>
 		/// Set a variant attribute excluding the type.
@@ -693,7 +717,7 @@ namespace Urho.Resources
 		public bool SetVariantValue (bool value)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_SetVariantValue_13 (handle, value);
+			return XmlElement_SetVariantValue_14 (handle, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -865,7 +889,19 @@ namespace Urho.Resources
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool XmlElement_SetVectorVariant_11 (IntPtr handle, string name, float value);
+		internal static extern bool XmlElement_SetVectorVariant_11 (IntPtr handle, string name, uint value);
+
+		/// <summary>
+		/// Set a float, Vector or Matrix attribute stored in a variant.
+		/// </summary>
+		public bool SetVectorVariant (string name, uint value)
+		{
+			Runtime.ValidateObject (this);
+			return XmlElement_SetVectorVariant_11 (handle, name, value);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool XmlElement_SetVectorVariant_12 (IntPtr handle, string name, float value);
 
 		/// <summary>
 		/// Set a float, Vector or Matrix attribute stored in a variant.
@@ -873,11 +909,11 @@ namespace Urho.Resources
 		public bool SetVectorVariant (string name, float value)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_SetVectorVariant_11 (handle, name, value);
+			return XmlElement_SetVectorVariant_12 (handle, name, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool XmlElement_SetVectorVariant_12 (IntPtr handle, string name, string value);
+		internal static extern bool XmlElement_SetVectorVariant_13 (IntPtr handle, string name, string value);
 
 		/// <summary>
 		/// Set a float, Vector or Matrix attribute stored in a variant.
@@ -885,11 +921,11 @@ namespace Urho.Resources
 		public bool SetVectorVariant (string name, string value)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_SetVectorVariant_12 (handle, name, value);
+			return XmlElement_SetVectorVariant_13 (handle, name, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool XmlElement_SetVectorVariant_13 (IntPtr handle, string name, bool value);
+		internal static extern bool XmlElement_SetVectorVariant_14 (IntPtr handle, string name, bool value);
 
 		/// <summary>
 		/// Set a float, Vector or Matrix attribute stored in a variant.
@@ -897,7 +933,7 @@ namespace Urho.Resources
 		public bool SetVectorVariant (string name, bool value)
 		{
 			Runtime.ValidateObject (this);
-			return XmlElement_SetVectorVariant_13 (handle, name, value);
+			return XmlElement_SetVectorVariant_14 (handle, name, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
