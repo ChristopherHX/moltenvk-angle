@@ -5443,6 +5443,9 @@ int Sphere_IsInsideFast18 (int,int);
 float Sphere_Distance (int,int);
 int Sphere_GetLocalPoint (int,float,float);
 int Sphere_GetPoint (int,float,float);
+int Sphere_GetCenter (int);
+float Sphere_GetRadius (int);
+void Sphere_SetRadius (int,float);
 int Spline_Spline ();
 int Spline_Spline0 (int);
 int Spline_GetInterpolationMode (int);
@@ -11707,6 +11710,9 @@ static PinvokeImport Urho3D_imports [] = {
 {"Sphere_Distance", Sphere_Distance},
 {"Sphere_GetLocalPoint", Sphere_GetLocalPoint},
 {"Sphere_GetPoint", Sphere_GetPoint},
+{"Sphere_GetCenter", Sphere_GetCenter},
+{"Sphere_GetRadius", Sphere_GetRadius},
+{"Sphere_SetRadius", Sphere_SetRadius},
 {"Spline_Spline", Spline_Spline},
 {"Spline_Spline0", Spline_Spline0},
 {"Spline_GetInterpolationMode", Spline_GetInterpolationMode},
@@ -12553,14 +12559,14 @@ void wasm_native_to_interp_UrhoDotNet_100667055 (int arg0,int arg1,int arg2) {
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672628 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672631 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667054,wasm_native_to_interp_UrhoDotNet_100667055,wasm_native_to_interp_UrhoDotNet_100672628,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667054,wasm_native_to_interp_UrhoDotNet_100667055,wasm_native_to_interp_UrhoDotNet_100672631,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
 "UrhoDotNet_100667054",
 "UrhoDotNet_100667055",
-"UrhoDotNet_100672628",
+"UrhoDotNet_100672631",
 };

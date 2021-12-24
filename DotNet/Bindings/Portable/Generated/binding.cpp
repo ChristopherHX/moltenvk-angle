@@ -10678,6 +10678,41 @@ Urho3D::Sphere *_target, float theta, float phi)
 }
 
 
+
+#ifdef __EMSCRIPTEN__
+static Vector3  Sphere_GetCenter_40_Vector3 ;
+DllExport Interop::Vector3  *
+Sphere_GetCenter (
+#else
+DllExport Interop::Vector3 
+Sphere_GetCenter (
+#endif
+Urho3D::Sphere *_target)
+{
+	return 
+#ifdef __EMSCRIPTEN__
+	((Interop::Vector3  *) &(Sphere_GetCenter_40_Vector3 =_target->GetCenter ()))
+#else
+	*((Interop::Vector3  *) &(_target->GetCenter ()))
+#endif
+;
+}
+
+
+DllExport float
+Sphere_GetRadius (Urho3D::Sphere *_target)
+{
+	return _target->GetRadius ();
+}
+
+
+DllExport void
+Sphere_SetRadius (Urho3D::Sphere *_target, float radius)
+{
+	_target->SetRadius (radius);
+}
+
+
 DllExport void *
 Frustum_Frustum ()
 {
@@ -11063,7 +11098,7 @@ Texture_GetShadowCompare (Urho3D::Texture *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Texture_GetBorderColor_40_Color ;
+static Color  Texture_GetBorderColor_41_Color ;
 DllExport Interop::Color  *
 Texture_GetBorderColor (
 #else
@@ -11074,7 +11109,7 @@ Urho3D::Texture *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Texture_GetBorderColor_40_Color =_target->GetBorderColor ()))
+	((Interop::Color  *) &(Texture_GetBorderColor_41_Color =_target->GetBorderColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetBorderColor ()))
 #endif
@@ -11511,7 +11546,7 @@ Light_GetPerVertex (Urho3D::Light *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Light_GetColor_41_Color ;
+static Color  Light_GetColor_42_Color ;
 DllExport Interop::Color  *
 Light_GetColor (
 #else
@@ -11522,7 +11557,7 @@ Urho3D::Light *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Light_GetColor_41_Color =_target->GetColor ()))
+	((Interop::Color  *) &(Light_GetColor_42_Color =_target->GetColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetColor ()))
 #endif
@@ -11560,7 +11595,7 @@ Light_GetUsePhysicalValues (Urho3D::Light *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Light_GetColorFromTemperature_42_Color ;
+static Color  Light_GetColorFromTemperature_43_Color ;
 DllExport Interop::Color  *
 Light_GetColorFromTemperature (
 #else
@@ -11571,7 +11606,7 @@ Urho3D::Light *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Light_GetColorFromTemperature_42_Color =_target->GetColorFromTemperature ()))
+	((Interop::Color  *) &(Light_GetColorFromTemperature_43_Color =_target->GetColorFromTemperature ()))
 #else
 	*((Interop::Color  *) &(_target->GetColorFromTemperature ()))
 #endif
@@ -11595,7 +11630,7 @@ Light_GetBrightness (Urho3D::Light *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Light_GetEffectiveColor_43_Color ;
+static Color  Light_GetEffectiveColor_44_Color ;
 DllExport Interop::Color  *
 Light_GetEffectiveColor (
 #else
@@ -11606,7 +11641,7 @@ Urho3D::Light *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Light_GetEffectiveColor_43_Color =_target->GetEffectiveColor ()))
+	((Interop::Color  *) &(Light_GetEffectiveColor_44_Color =_target->GetEffectiveColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetEffectiveColor ()))
 #endif
@@ -11770,7 +11805,7 @@ Light_SetLightQueue (Urho3D::Light *_target, Urho3D::LightBatchQueue * queue)
 
 
 #ifdef __EMSCRIPTEN__
-static Matrix3x4  Light_GetVolumeTransform_44_Matrix3x4 ;
+static Matrix3x4  Light_GetVolumeTransform_45_Matrix3x4 ;
 DllExport Interop::Matrix3x4  *
 Light_GetVolumeTransform (
 #else
@@ -11781,7 +11816,7 @@ Urho3D::Light *_target, Urho3D::Camera * camera)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Matrix3x4  *) &(Light_GetVolumeTransform_44_Matrix3x4 =_target->GetVolumeTransform (camera)))
+	((Interop::Matrix3x4  *) &(Light_GetVolumeTransform_45_Matrix3x4 =_target->GetVolumeTransform (camera)))
 #else
 	*((Interop::Matrix3x4  *) &(_target->GetVolumeTransform (camera)))
 #endif
@@ -11819,7 +11854,7 @@ Light_GetShapeTextureAttr (Urho3D::Light *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Matrix3x4  Light_GetFullscreenQuadTransform_45_Matrix3x4 ;
+static Matrix3x4  Light_GetFullscreenQuadTransform_46_Matrix3x4 ;
 DllExport Interop::Matrix3x4  *
 Light_GetFullscreenQuadTransform (
 #else
@@ -11830,7 +11865,7 @@ Urho3D::Camera * camera)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Matrix3x4  *) &(Light_GetFullscreenQuadTransform_45_Matrix3x4 =Light::GetFullscreenQuadTransform (camera)))
+	((Interop::Matrix3x4  *) &(Light_GetFullscreenQuadTransform_46_Matrix3x4 =Light::GetFullscreenQuadTransform (camera)))
 #else
 	*((Interop::Matrix3x4  *) &(Light::GetFullscreenQuadTransform (camera)))
 #endif
@@ -13054,7 +13089,7 @@ Camera_GetFrustum (Urho3D::Camera *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Matrix4  Camera_GetProjection_46_Matrix4 ;
+static Matrix4  Camera_GetProjection_47_Matrix4 ;
 DllExport Interop::Matrix4  *
 Camera_GetProjection (
 #else
@@ -13065,7 +13100,7 @@ Urho3D::Camera *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Matrix4  *) &(Camera_GetProjection_46_Matrix4 =_target->GetProjection ()))
+	((Interop::Matrix4  *) &(Camera_GetProjection_47_Matrix4 =_target->GetProjection ()))
 #else
 	*((Interop::Matrix4  *) &(_target->GetProjection ()))
 #endif
@@ -13075,7 +13110,7 @@ Urho3D::Camera *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Matrix4  Camera_GetGPUProjection_47_Matrix4 ;
+static Matrix4  Camera_GetGPUProjection_48_Matrix4 ;
 DllExport Interop::Matrix4  *
 Camera_GetGPUProjection (
 #else
@@ -13086,7 +13121,7 @@ Urho3D::Camera *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Matrix4  *) &(Camera_GetGPUProjection_47_Matrix4 =_target->GetGPUProjection ()))
+	((Interop::Matrix4  *) &(Camera_GetGPUProjection_48_Matrix4 =_target->GetGPUProjection ()))
 #else
 	*((Interop::Matrix4  *) &(_target->GetGPUProjection ()))
 #endif
@@ -13096,7 +13131,7 @@ Urho3D::Camera *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Matrix3x4  Camera_GetView_48_Matrix3x4 ;
+static Matrix3x4  Camera_GetView_49_Matrix3x4 ;
 DllExport Interop::Matrix3x4  *
 Camera_GetView (
 #else
@@ -13107,7 +13142,7 @@ Urho3D::Camera *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Matrix3x4  *) &(Camera_GetView_48_Matrix3x4 =_target->GetView ()))
+	((Interop::Matrix3x4  *) &(Camera_GetView_49_Matrix3x4 =_target->GetView ()))
 #else
 	*((Interop::Matrix3x4  *) &(_target->GetView ()))
 #endif
@@ -13145,7 +13180,7 @@ Camera_GetViewSpaceSplitFrustum (Urho3D::Camera *_target, float nearClip, float 
 
 
 #ifdef __EMSCRIPTEN__
-static Ray Camera_GetScreenRay_49_Ray;
+static Ray Camera_GetScreenRay_50_Ray;
 DllExport Urho3D::Ray *
 Camera_GetScreenRay (
 #else
@@ -13156,7 +13191,7 @@ Urho3D::Camera *_target, float x, float y)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Urho3D::Ray *) &(Camera_GetScreenRay_49_Ray=_target->GetScreenRay (x, y)))
+	((Urho3D::Ray *) &(Camera_GetScreenRay_50_Ray=_target->GetScreenRay (x, y)))
 #else
 	*((Urho3D::Ray *) &(_target->GetScreenRay (x, y)))
 #endif
@@ -13166,7 +13201,7 @@ Urho3D::Camera *_target, float x, float y)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  Camera_WorldToScreenPoint_50_Vector2 ;
+static Vector2  Camera_WorldToScreenPoint_51_Vector2 ;
 DllExport Interop::Vector2  *
 Camera_WorldToScreenPoint (
 #else
@@ -13177,7 +13212,7 @@ Urho3D::Camera *_target, const class Urho3D::Vector3 & worldPos)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(Camera_WorldToScreenPoint_50_Vector2 =_target->WorldToScreenPoint (worldPos)))
+	((Interop::Vector2  *) &(Camera_WorldToScreenPoint_51_Vector2 =_target->WorldToScreenPoint (worldPos)))
 #else
 	*((Interop::Vector2  *) &(_target->WorldToScreenPoint (worldPos)))
 #endif
@@ -13187,7 +13222,7 @@ Urho3D::Camera *_target, const class Urho3D::Vector3 & worldPos)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  Camera_ScreenToWorldPoint_51_Vector3 ;
+static Vector3  Camera_ScreenToWorldPoint_52_Vector3 ;
 DllExport Interop::Vector3  *
 Camera_ScreenToWorldPoint (
 #else
@@ -13198,7 +13233,7 @@ Urho3D::Camera *_target, const class Urho3D::Vector3 & screenPos)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(Camera_ScreenToWorldPoint_51_Vector3 =_target->ScreenToWorldPoint (screenPos)))
+	((Interop::Vector3  *) &(Camera_ScreenToWorldPoint_52_Vector3 =_target->ScreenToWorldPoint (screenPos)))
 #else
 	*((Interop::Vector3  *) &(_target->ScreenToWorldPoint (screenPos)))
 #endif
@@ -13208,7 +13243,7 @@ Urho3D::Camera *_target, const class Urho3D::Vector3 & screenPos)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  Camera_GetProjectionOffset_52_Vector2 ;
+static Vector2  Camera_GetProjectionOffset_53_Vector2 ;
 DllExport Interop::Vector2  *
 Camera_GetProjectionOffset (
 #else
@@ -13219,7 +13254,7 @@ Urho3D::Camera *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(Camera_GetProjectionOffset_52_Vector2 =_target->GetProjectionOffset ()))
+	((Interop::Vector2  *) &(Camera_GetProjectionOffset_53_Vector2 =_target->GetProjectionOffset ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetProjectionOffset ()))
 #endif
@@ -13236,7 +13271,7 @@ Camera_GetUseReflection (Urho3D::Camera *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Plane  Camera_GetReflectionPlane_53_Plane ;
+static Plane  Camera_GetReflectionPlane_54_Plane ;
 DllExport Interop::Plane  *
 Camera_GetReflectionPlane (
 #else
@@ -13247,7 +13282,7 @@ Urho3D::Camera *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Plane  *) &(Camera_GetReflectionPlane_53_Plane =_target->GetReflectionPlane ()))
+	((Interop::Plane  *) &(Camera_GetReflectionPlane_54_Plane =_target->GetReflectionPlane ()))
 #else
 	*((Interop::Plane  *) &(_target->GetReflectionPlane ()))
 #endif
@@ -13264,7 +13299,7 @@ Camera_GetUseClipping (Urho3D::Camera *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Plane  Camera_GetClipPlane_54_Plane ;
+static Plane  Camera_GetClipPlane_55_Plane ;
 DllExport Interop::Plane  *
 Camera_GetClipPlane (
 #else
@@ -13275,7 +13310,7 @@ Urho3D::Camera *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Plane  *) &(Camera_GetClipPlane_54_Plane =_target->GetClipPlane ()))
+	((Interop::Plane  *) &(Camera_GetClipPlane_55_Plane =_target->GetClipPlane ()))
 #else
 	*((Interop::Plane  *) &(_target->GetClipPlane ()))
 #endif
@@ -13320,7 +13355,7 @@ Camera_GetLodDistance (Urho3D::Camera *_target, float distance, float scale, flo
 
 
 #ifdef __EMSCRIPTEN__
-static Quaternion  Camera_GetFaceCameraRotation_55_Quaternion ;
+static Quaternion  Camera_GetFaceCameraRotation_56_Quaternion ;
 DllExport Interop::Quaternion  *
 Camera_GetFaceCameraRotation (
 #else
@@ -13331,7 +13366,7 @@ Urho3D::Camera *_target, const class Urho3D::Vector3 & position, const class Urh
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Quaternion  *) &(Camera_GetFaceCameraRotation_55_Quaternion =_target->GetFaceCameraRotation (position, rotation, mode, minAngle)))
+	((Interop::Quaternion  *) &(Camera_GetFaceCameraRotation_56_Quaternion =_target->GetFaceCameraRotation (position, rotation, mode, minAngle)))
 #else
 	*((Interop::Quaternion  *) &(_target->GetFaceCameraRotation (position, rotation, mode, minAngle)))
 #endif
@@ -13341,7 +13376,7 @@ Urho3D::Camera *_target, const class Urho3D::Vector3 & position, const class Urh
 
 
 #ifdef __EMSCRIPTEN__
-static Matrix3x4  Camera_GetEffectiveWorldTransform_56_Matrix3x4 ;
+static Matrix3x4  Camera_GetEffectiveWorldTransform_57_Matrix3x4 ;
 DllExport Interop::Matrix3x4  *
 Camera_GetEffectiveWorldTransform (
 #else
@@ -13352,7 +13387,7 @@ Urho3D::Camera *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Matrix3x4  *) &(Camera_GetEffectiveWorldTransform_56_Matrix3x4 =_target->GetEffectiveWorldTransform ()))
+	((Interop::Matrix3x4  *) &(Camera_GetEffectiveWorldTransform_57_Matrix3x4 =_target->GetEffectiveWorldTransform ()))
 #else
 	*((Interop::Matrix3x4  *) &(_target->GetEffectiveWorldTransform ()))
 #endif
@@ -13390,7 +13425,7 @@ Camera_SetReflectionPlaneAttr (Urho3D::Camera *_target, const class Urho3D::Vect
 
 
 #ifdef __EMSCRIPTEN__
-static Vector4  Camera_GetReflectionPlaneAttr_57_Vector4 ;
+static Vector4  Camera_GetReflectionPlaneAttr_58_Vector4 ;
 DllExport Interop::Vector4  *
 Camera_GetReflectionPlaneAttr (
 #else
@@ -13401,7 +13436,7 @@ Urho3D::Camera *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector4  *) &(Camera_GetReflectionPlaneAttr_57_Vector4 =_target->GetReflectionPlaneAttr ()))
+	((Interop::Vector4  *) &(Camera_GetReflectionPlaneAttr_58_Vector4 =_target->GetReflectionPlaneAttr ()))
 #else
 	*((Interop::Vector4  *) &(_target->GetReflectionPlaneAttr ()))
 #endif
@@ -13418,7 +13453,7 @@ Camera_SetClipPlaneAttr (Urho3D::Camera *_target, const class Urho3D::Vector4 & 
 
 
 #ifdef __EMSCRIPTEN__
-static Vector4  Camera_GetClipPlaneAttr_58_Vector4 ;
+static Vector4  Camera_GetClipPlaneAttr_59_Vector4 ;
 DllExport Interop::Vector4  *
 Camera_GetClipPlaneAttr (
 #else
@@ -13429,7 +13464,7 @@ Urho3D::Camera *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector4  *) &(Camera_GetClipPlaneAttr_58_Vector4 =_target->GetClipPlaneAttr ()))
+	((Interop::Vector4  *) &(Camera_GetClipPlaneAttr_59_Vector4 =_target->GetClipPlaneAttr ()))
 #else
 	*((Interop::Vector4  *) &(_target->GetClipPlaneAttr ()))
 #endif
@@ -13920,7 +13955,7 @@ DebugRenderer_GetLineAntiAlias (Urho3D::DebugRenderer *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Matrix3x4  DebugRenderer_GetView_59_Matrix3x4 ;
+static Matrix3x4  DebugRenderer_GetView_60_Matrix3x4 ;
 DllExport Interop::Matrix3x4  *
 DebugRenderer_GetView (
 #else
@@ -13931,7 +13966,7 @@ Urho3D::DebugRenderer *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Matrix3x4  *) &(DebugRenderer_GetView_59_Matrix3x4 =_target->GetView ()))
+	((Interop::Matrix3x4  *) &(DebugRenderer_GetView_60_Matrix3x4 =_target->GetView ()))
 #else
 	*((Interop::Matrix3x4  *) &(_target->GetView ()))
 #endif
@@ -13941,7 +13976,7 @@ Urho3D::DebugRenderer *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Matrix4  DebugRenderer_GetProjection_60_Matrix4 ;
+static Matrix4  DebugRenderer_GetProjection_61_Matrix4 ;
 DllExport Interop::Matrix4  *
 DebugRenderer_GetProjection (
 #else
@@ -13952,7 +13987,7 @@ Urho3D::DebugRenderer *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Matrix4  *) &(DebugRenderer_GetProjection_60_Matrix4 =_target->GetProjection ()))
+	((Interop::Matrix4  *) &(DebugRenderer_GetProjection_61_Matrix4 =_target->GetProjection ()))
 #else
 	*((Interop::Matrix4  *) &(_target->GetProjection ()))
 #endif
@@ -14688,7 +14723,7 @@ Image_IsSRGB (Urho3D::Image *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Image_GetPixel_61_Color ;
+static Color  Image_GetPixel_62_Color ;
 DllExport Interop::Color  *
 Image_GetPixel (
 #else
@@ -14699,7 +14734,7 @@ Urho3D::Image *_target, int x, int y)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Image_GetPixel_61_Color =_target->GetPixel (x, y)))
+	((Interop::Color  *) &(Image_GetPixel_62_Color =_target->GetPixel (x, y)))
 #else
 	*((Interop::Color  *) &(_target->GetPixel (x, y)))
 #endif
@@ -14709,7 +14744,7 @@ Urho3D::Image *_target, int x, int y)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Image_GetPixel3_62_Color ;
+static Color  Image_GetPixel3_63_Color ;
 DllExport Interop::Color  *
 Image_GetPixel3 (
 #else
@@ -14720,7 +14755,7 @@ Urho3D::Image *_target, int x, int y, int z)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Image_GetPixel3_62_Color =_target->GetPixel (x, y, z)))
+	((Interop::Color  *) &(Image_GetPixel3_63_Color =_target->GetPixel (x, y, z)))
 #else
 	*((Interop::Color  *) &(_target->GetPixel (x, y, z)))
 #endif
@@ -14744,7 +14779,7 @@ Image_GetPixelInt4 (Urho3D::Image *_target, int x, int y, int z)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Image_GetPixelBilinear_63_Color ;
+static Color  Image_GetPixelBilinear_64_Color ;
 DllExport Interop::Color  *
 Image_GetPixelBilinear (
 #else
@@ -14755,7 +14790,7 @@ Urho3D::Image *_target, float x, float y)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Image_GetPixelBilinear_63_Color =_target->GetPixelBilinear (x, y)))
+	((Interop::Color  *) &(Image_GetPixelBilinear_64_Color =_target->GetPixelBilinear (x, y)))
 #else
 	*((Interop::Color  *) &(_target->GetPixelBilinear (x, y)))
 #endif
@@ -14765,7 +14800,7 @@ Urho3D::Image *_target, float x, float y)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Image_GetPixelTrilinear_64_Color ;
+static Color  Image_GetPixelTrilinear_65_Color ;
 DllExport Interop::Color  *
 Image_GetPixelTrilinear (
 #else
@@ -14776,7 +14811,7 @@ Urho3D::Image *_target, float x, float y, float z)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Image_GetPixelTrilinear_64_Color =_target->GetPixelTrilinear (x, y, z)))
+	((Interop::Color  *) &(Image_GetPixelTrilinear_65_Color =_target->GetPixelTrilinear (x, y, z)))
 #else
 	*((Interop::Color  *) &(_target->GetPixelTrilinear (x, y, z)))
 #endif
@@ -15509,7 +15544,7 @@ Graphics_GetApiName (Urho3D::Graphics *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Graphics_GetWindowPosition_65_IntVector2 ;
+static IntVector2  Graphics_GetWindowPosition_66_IntVector2 ;
 DllExport Interop::IntVector2  *
 Graphics_GetWindowPosition (
 #else
@@ -15520,7 +15555,7 @@ Urho3D::Graphics *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Graphics_GetWindowPosition_65_IntVector2 =_target->GetWindowPosition ()))
+	((Interop::IntVector2  *) &(Graphics_GetWindowPosition_66_IntVector2 =_target->GetWindowPosition ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetWindowPosition ()))
 #endif
@@ -15551,7 +15586,7 @@ Graphics_GetMultiSample (Urho3D::Graphics *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Graphics_GetSize_66_IntVector2 ;
+static IntVector2  Graphics_GetSize_67_IntVector2 ;
 DllExport Interop::IntVector2  *
 Graphics_GetSize (
 #else
@@ -15562,7 +15597,7 @@ Urho3D::Graphics *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Graphics_GetSize_66_IntVector2 =_target->GetSize ()))
+	((Interop::IntVector2  *) &(Graphics_GetSize_67_IntVector2 =_target->GetSize ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetSize ()))
 #endif
@@ -15761,7 +15796,7 @@ Graphics_FindBestResolutionIndex (Urho3D::Graphics *_target, int monitor, int wi
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Graphics_GetDesktopResolution_67_IntVector2 ;
+static IntVector2  Graphics_GetDesktopResolution_68_IntVector2 ;
 DllExport Interop::IntVector2  *
 Graphics_GetDesktopResolution (
 #else
@@ -15772,7 +15807,7 @@ Urho3D::Graphics *_target, int monitor)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Graphics_GetDesktopResolution_67_IntVector2 =_target->GetDesktopResolution (monitor)))
+	((Interop::IntVector2  *) &(Graphics_GetDesktopResolution_68_IntVector2 =_target->GetDesktopResolution (monitor)))
 #else
 	*((Interop::IntVector2  *) &(_target->GetDesktopResolution (monitor)))
 #endif
@@ -15803,7 +15838,7 @@ Graphics_GetMaximized (Urho3D::Graphics *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  Graphics_GetDisplayDPI_68_Vector3 ;
+static Vector3  Graphics_GetDisplayDPI_69_Vector3 ;
 DllExport Interop::Vector3  *
 Graphics_GetDisplayDPI (
 #else
@@ -15814,7 +15849,7 @@ Urho3D::Graphics *_target, int monitor)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(Graphics_GetDisplayDPI_68_Vector3 =_target->GetDisplayDPI (monitor)))
+	((Interop::Vector3  *) &(Graphics_GetDisplayDPI_69_Vector3 =_target->GetDisplayDPI (monitor)))
 #else
 	*((Interop::Vector3  *) &(_target->GetDisplayDPI (monitor)))
 #endif
@@ -15915,7 +15950,7 @@ Graphics_GetDepthStencil (Urho3D::Graphics *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntRect  Graphics_GetViewport_69_IntRect ;
+static IntRect  Graphics_GetViewport_70_IntRect ;
 DllExport Interop::IntRect  *
 Graphics_GetViewport (
 #else
@@ -15926,7 +15961,7 @@ Urho3D::Graphics *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntRect  *) &(Graphics_GetViewport_69_IntRect =_target->GetViewport ()))
+	((Interop::IntRect  *) &(Graphics_GetViewport_70_IntRect =_target->GetViewport ()))
 #else
 	*((Interop::IntRect  *) &(_target->GetViewport ()))
 #endif
@@ -16020,7 +16055,7 @@ Graphics_GetScissorTest (Urho3D::Graphics *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntRect  Graphics_GetScissorRect_70_IntRect ;
+static IntRect  Graphics_GetScissorRect_71_IntRect ;
 DllExport Interop::IntRect  *
 Graphics_GetScissorRect (
 #else
@@ -16031,7 +16066,7 @@ Urho3D::Graphics *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntRect  *) &(Graphics_GetScissorRect_70_IntRect =_target->GetScissorRect ()))
+	((Interop::IntRect  *) &(Graphics_GetScissorRect_71_IntRect =_target->GetScissorRect ()))
 #else
 	*((Interop::IntRect  *) &(_target->GetScissorRect ()))
 #endif
@@ -16104,7 +16139,7 @@ Graphics_GetShaderCacheDir (Urho3D::Graphics *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Graphics_GetRenderTargetDimensions_71_IntVector2 ;
+static IntVector2  Graphics_GetRenderTargetDimensions_72_IntVector2 ;
 DllExport Interop::IntVector2  *
 Graphics_GetRenderTargetDimensions (
 #else
@@ -16115,7 +16150,7 @@ Urho3D::Graphics *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Graphics_GetRenderTargetDimensions_71_IntVector2 =_target->GetRenderTargetDimensions ()))
+	((Interop::IntVector2  *) &(Graphics_GetRenderTargetDimensions_72_IntVector2 =_target->GetRenderTargetDimensions ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetRenderTargetDimensions ()))
 #endif
@@ -16349,7 +16384,7 @@ Graphics_GetFormat19 (const char * formatName)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  Graphics_GetPixelUVOffset_72_Vector2 ;
+static Vector2  Graphics_GetPixelUVOffset_73_Vector2 ;
 DllExport Interop::Vector2  *
 Graphics_GetPixelUVOffset (
 #else
@@ -16360,7 +16395,7 @@ Graphics_GetPixelUVOffset (
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(Graphics_GetPixelUVOffset_72_Vector2 =Graphics::GetPixelUVOffset ()))
+	((Interop::Vector2  *) &(Graphics_GetPixelUVOffset_73_Vector2 =Graphics::GetPixelUVOffset ()))
 #else
 	*((Interop::Vector2  *) &(Graphics::GetPixelUVOffset ()))
 #endif
@@ -16510,7 +16545,7 @@ Viewport_GetView (Urho3D::Viewport *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntRect  Viewport_GetRect_73_IntRect ;
+static IntRect  Viewport_GetRect_74_IntRect ;
 DllExport Interop::IntRect  *
 Viewport_GetRect (
 #else
@@ -16521,7 +16556,7 @@ Urho3D::Viewport *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntRect  *) &(Viewport_GetRect_73_IntRect =_target->GetRect ()))
+	((Interop::IntRect  *) &(Viewport_GetRect_74_IntRect =_target->GetRect ()))
 #else
 	*((Interop::IntRect  *) &(_target->GetRect ()))
 #endif
@@ -16552,7 +16587,7 @@ Viewport_GetCullCamera (Urho3D::Viewport *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Ray Viewport_GetScreenRay_74_Ray;
+static Ray Viewport_GetScreenRay_75_Ray;
 DllExport Urho3D::Ray *
 Viewport_GetScreenRay (
 #else
@@ -16563,7 +16598,7 @@ Urho3D::Viewport *_target, int x, int y)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Urho3D::Ray *) &(Viewport_GetScreenRay_74_Ray=_target->GetScreenRay (x, y)))
+	((Urho3D::Ray *) &(Viewport_GetScreenRay_75_Ray=_target->GetScreenRay (x, y)))
 #else
 	*((Urho3D::Ray *) &(_target->GetScreenRay (x, y)))
 #endif
@@ -16573,7 +16608,7 @@ Urho3D::Viewport *_target, int x, int y)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Viewport_WorldToScreenPoint_75_IntVector2 ;
+static IntVector2  Viewport_WorldToScreenPoint_76_IntVector2 ;
 DllExport Interop::IntVector2  *
 Viewport_WorldToScreenPoint (
 #else
@@ -16584,7 +16619,7 @@ Urho3D::Viewport *_target, const class Urho3D::Vector3 & worldPos)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Viewport_WorldToScreenPoint_75_IntVector2 =_target->WorldToScreenPoint (worldPos)))
+	((Interop::IntVector2  *) &(Viewport_WorldToScreenPoint_76_IntVector2 =_target->WorldToScreenPoint (worldPos)))
 #else
 	*((Interop::IntVector2  *) &(_target->WorldToScreenPoint (worldPos)))
 #endif
@@ -16594,7 +16629,7 @@ Urho3D::Viewport *_target, const class Urho3D::Vector3 & worldPos)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  Viewport_ScreenToWorldPoint_76_Vector3 ;
+static Vector3  Viewport_ScreenToWorldPoint_77_Vector3 ;
 DllExport Interop::Vector3  *
 Viewport_ScreenToWorldPoint (
 #else
@@ -16605,7 +16640,7 @@ Urho3D::Viewport *_target, int x, int y, float depth)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(Viewport_ScreenToWorldPoint_76_Vector3 =_target->ScreenToWorldPoint (x, y, depth)))
+	((Interop::Vector3  *) &(Viewport_ScreenToWorldPoint_77_Vector3 =_target->ScreenToWorldPoint (x, y, depth)))
 #else
 	*((Interop::Vector3  *) &(_target->ScreenToWorldPoint (x, y, depth)))
 #endif
@@ -17212,7 +17247,7 @@ OcclusionBuffer_GetBuffer (Urho3D::OcclusionBuffer *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Matrix3x4  OcclusionBuffer_GetView_77_Matrix3x4 ;
+static Matrix3x4  OcclusionBuffer_GetView_78_Matrix3x4 ;
 DllExport Interop::Matrix3x4  *
 OcclusionBuffer_GetView (
 #else
@@ -17223,7 +17258,7 @@ Urho3D::OcclusionBuffer *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Matrix3x4  *) &(OcclusionBuffer_GetView_77_Matrix3x4 =_target->GetView ()))
+	((Interop::Matrix3x4  *) &(OcclusionBuffer_GetView_78_Matrix3x4 =_target->GetView ()))
 #else
 	*((Interop::Matrix3x4  *) &(_target->GetView ()))
 #endif
@@ -17233,7 +17268,7 @@ Urho3D::OcclusionBuffer *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Matrix4  OcclusionBuffer_GetProjection_78_Matrix4 ;
+static Matrix4  OcclusionBuffer_GetProjection_79_Matrix4 ;
 DllExport Interop::Matrix4  *
 OcclusionBuffer_GetProjection (
 #else
@@ -17244,7 +17279,7 @@ Urho3D::OcclusionBuffer *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Matrix4  *) &(OcclusionBuffer_GetProjection_78_Matrix4 =_target->GetProjection ()))
+	((Interop::Matrix4  *) &(OcclusionBuffer_GetProjection_79_Matrix4 =_target->GetProjection ()))
 #else
 	*((Interop::Matrix4  *) &(_target->GetProjection ()))
 #endif
@@ -17839,7 +17874,7 @@ ParticleEffect_GetEmitterType (Urho3D::ParticleEffect *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  ParticleEffect_GetEmitterSize_79_Vector3 ;
+static Vector3  ParticleEffect_GetEmitterSize_80_Vector3 ;
 DllExport Interop::Vector3  *
 ParticleEffect_GetEmitterSize (
 #else
@@ -17850,7 +17885,7 @@ Urho3D::ParticleEffect *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(ParticleEffect_GetEmitterSize_79_Vector3 =_target->GetEmitterSize ()))
+	((Interop::Vector3  *) &(ParticleEffect_GetEmitterSize_80_Vector3 =_target->GetEmitterSize ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetEmitterSize ()))
 #endif
@@ -17860,7 +17895,7 @@ Urho3D::ParticleEffect *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  ParticleEffect_GetMinDirection_80_Vector3 ;
+static Vector3  ParticleEffect_GetMinDirection_81_Vector3 ;
 DllExport Interop::Vector3  *
 ParticleEffect_GetMinDirection (
 #else
@@ -17871,7 +17906,7 @@ Urho3D::ParticleEffect *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(ParticleEffect_GetMinDirection_80_Vector3 =_target->GetMinDirection ()))
+	((Interop::Vector3  *) &(ParticleEffect_GetMinDirection_81_Vector3 =_target->GetMinDirection ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetMinDirection ()))
 #endif
@@ -17881,7 +17916,7 @@ Urho3D::ParticleEffect *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  ParticleEffect_GetMaxDirection_81_Vector3 ;
+static Vector3  ParticleEffect_GetMaxDirection_82_Vector3 ;
 DllExport Interop::Vector3  *
 ParticleEffect_GetMaxDirection (
 #else
@@ -17892,7 +17927,7 @@ Urho3D::ParticleEffect *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(ParticleEffect_GetMaxDirection_81_Vector3 =_target->GetMaxDirection ()))
+	((Interop::Vector3  *) &(ParticleEffect_GetMaxDirection_82_Vector3 =_target->GetMaxDirection ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetMaxDirection ()))
 #endif
@@ -17902,7 +17937,7 @@ Urho3D::ParticleEffect *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  ParticleEffect_GetConstantForce_82_Vector3 ;
+static Vector3  ParticleEffect_GetConstantForce_83_Vector3 ;
 DllExport Interop::Vector3  *
 ParticleEffect_GetConstantForce (
 #else
@@ -17913,7 +17948,7 @@ Urho3D::ParticleEffect *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(ParticleEffect_GetConstantForce_82_Vector3 =_target->GetConstantForce ()))
+	((Interop::Vector3  *) &(ParticleEffect_GetConstantForce_83_Vector3 =_target->GetConstantForce ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetConstantForce ()))
 #endif
@@ -17958,7 +17993,7 @@ ParticleEffect_GetMaxEmissionRate (Urho3D::ParticleEffect *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ParticleEffect_GetMinParticleSize_83_Vector2 ;
+static Vector2  ParticleEffect_GetMinParticleSize_84_Vector2 ;
 DllExport Interop::Vector2  *
 ParticleEffect_GetMinParticleSize (
 #else
@@ -17969,7 +18004,7 @@ Urho3D::ParticleEffect *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ParticleEffect_GetMinParticleSize_83_Vector2 =_target->GetMinParticleSize ()))
+	((Interop::Vector2  *) &(ParticleEffect_GetMinParticleSize_84_Vector2 =_target->GetMinParticleSize ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetMinParticleSize ()))
 #endif
@@ -17979,7 +18014,7 @@ Urho3D::ParticleEffect *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ParticleEffect_GetMaxParticleSize_84_Vector2 ;
+static Vector2  ParticleEffect_GetMaxParticleSize_85_Vector2 ;
 DllExport Interop::Vector2  *
 ParticleEffect_GetMaxParticleSize (
 #else
@@ -17990,7 +18025,7 @@ Urho3D::ParticleEffect *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ParticleEffect_GetMaxParticleSize_84_Vector2 =_target->GetMaxParticleSize ()))
+	((Interop::Vector2  *) &(ParticleEffect_GetMaxParticleSize_85_Vector2 =_target->GetMaxParticleSize ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetMaxParticleSize ()))
 #endif
@@ -18105,7 +18140,7 @@ ParticleEffect_GetFaceCameraMode (Urho3D::ParticleEffect *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  ParticleEffect_GetRandomDirection_85_Vector3 ;
+static Vector3  ParticleEffect_GetRandomDirection_86_Vector3 ;
 DllExport Interop::Vector3  *
 ParticleEffect_GetRandomDirection (
 #else
@@ -18116,7 +18151,7 @@ Urho3D::ParticleEffect *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(ParticleEffect_GetRandomDirection_85_Vector3 =_target->GetRandomDirection ()))
+	((Interop::Vector3  *) &(ParticleEffect_GetRandomDirection_86_Vector3 =_target->GetRandomDirection ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetRandomDirection ()))
 #endif
@@ -18126,7 +18161,7 @@ Urho3D::ParticleEffect *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ParticleEffect_GetRandomSize_86_Vector2 ;
+static Vector2  ParticleEffect_GetRandomSize_87_Vector2 ;
 DllExport Interop::Vector2  *
 ParticleEffect_GetRandomSize (
 #else
@@ -18137,7 +18172,7 @@ Urho3D::ParticleEffect *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ParticleEffect_GetRandomSize_86_Vector2 =_target->GetRandomSize ()))
+	((Interop::Vector2  *) &(ParticleEffect_GetRandomSize_87_Vector2 =_target->GetRandomSize ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetRandomSize ()))
 #endif
@@ -19144,7 +19179,7 @@ Renderer_GetShadowSoftness (Urho3D::Renderer *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  Renderer_GetVSMShadowParameters_87_Vector2 ;
+static Vector2  Renderer_GetVSMShadowParameters_88_Vector2 ;
 DllExport Interop::Vector2  *
 Renderer_GetVSMShadowParameters (
 #else
@@ -19155,7 +19190,7 @@ Urho3D::Renderer *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(Renderer_GetVSMShadowParameters_87_Vector2 =_target->GetVSMShadowParameters ()))
+	((Interop::Vector2  *) &(Renderer_GetVSMShadowParameters_88_Vector2 =_target->GetVSMShadowParameters ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetVSMShadowParameters ()))
 #endif
@@ -19774,7 +19809,7 @@ RibbonTrail_GetWidth (Urho3D::RibbonTrail *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  RibbonTrail_GetStartColor_88_Color ;
+static Color  RibbonTrail_GetStartColor_89_Color ;
 DllExport Interop::Color  *
 RibbonTrail_GetStartColor (
 #else
@@ -19785,7 +19820,7 @@ Urho3D::RibbonTrail *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(RibbonTrail_GetStartColor_88_Color =_target->GetStartColor ()))
+	((Interop::Color  *) &(RibbonTrail_GetStartColor_89_Color =_target->GetStartColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetStartColor ()))
 #endif
@@ -19795,7 +19830,7 @@ Urho3D::RibbonTrail *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  RibbonTrail_GetEndColor_89_Color ;
+static Color  RibbonTrail_GetEndColor_90_Color ;
 DllExport Interop::Color  *
 RibbonTrail_GetEndColor (
 #else
@@ -19806,7 +19841,7 @@ Urho3D::RibbonTrail *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(RibbonTrail_GetEndColor_89_Color =_target->GetEndColor ()))
+	((Interop::Color  *) &(RibbonTrail_GetEndColor_90_Color =_target->GetEndColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetEndColor ()))
 #endif
@@ -19858,7 +19893,7 @@ RibbonTrail_GetTrailType (Urho3D::RibbonTrail *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  RibbonTrail_GetBaseVelocity_90_Vector3 ;
+static Vector3  RibbonTrail_GetBaseVelocity_91_Vector3 ;
 DllExport Interop::Vector3  *
 RibbonTrail_GetBaseVelocity (
 #else
@@ -19869,7 +19904,7 @@ Urho3D::RibbonTrail *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(RibbonTrail_GetBaseVelocity_90_Vector3 =_target->GetBaseVelocity ()))
+	((Interop::Vector3  *) &(RibbonTrail_GetBaseVelocity_91_Vector3 =_target->GetBaseVelocity ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetBaseVelocity ()))
 #endif
@@ -20519,7 +20554,7 @@ XmlElement_GetBuffer (Urho3D::XMLElement *_target, const char * name, void * des
 
 
 #ifdef __EMSCRIPTEN__
-static BoundingBox  XmlElement_GetBoundingBox_91_BoundingBox ;
+static BoundingBox  XmlElement_GetBoundingBox_92_BoundingBox ;
 DllExport Interop::BoundingBox  *
 XmlElement_GetBoundingBox (
 #else
@@ -20530,7 +20565,7 @@ Urho3D::XMLElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::BoundingBox  *) &(XmlElement_GetBoundingBox_91_BoundingBox =_target->GetBoundingBox ()))
+	((Interop::BoundingBox  *) &(XmlElement_GetBoundingBox_92_BoundingBox =_target->GetBoundingBox ()))
 #else
 	*((Interop::BoundingBox  *) &(_target->GetBoundingBox ()))
 #endif
@@ -20540,7 +20575,7 @@ Urho3D::XMLElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static BoundingBox  XmlElement_GetBoundingBox4_92_BoundingBox ;
+static BoundingBox  XmlElement_GetBoundingBox4_93_BoundingBox ;
 DllExport Interop::BoundingBox  *
 XmlElement_GetBoundingBox4 (
 #else
@@ -20551,7 +20586,7 @@ Urho3D::XMLElement *_target, const char * name)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::BoundingBox  *) &(XmlElement_GetBoundingBox4_92_BoundingBox =_target->GetBoundingBox (Urho3D::String(name))))
+	((Interop::BoundingBox  *) &(XmlElement_GetBoundingBox4_93_BoundingBox =_target->GetBoundingBox (Urho3D::String(name))))
 #else
 	*((Interop::BoundingBox  *) &(_target->GetBoundingBox (Urho3D::String(name))))
 #endif
@@ -20561,7 +20596,7 @@ Urho3D::XMLElement *_target, const char * name)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  XmlElement_GetColor_93_Color ;
+static Color  XmlElement_GetColor_94_Color ;
 DllExport Interop::Color  *
 XmlElement_GetColor (
 #else
@@ -20572,7 +20607,7 @@ Urho3D::XMLElement *_target, const char * name)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(XmlElement_GetColor_93_Color =_target->GetColor (Urho3D::String(name))))
+	((Interop::Color  *) &(XmlElement_GetColor_94_Color =_target->GetColor (Urho3D::String(name))))
 #else
 	*((Interop::Color  *) &(_target->GetColor (Urho3D::String(name))))
 #endif
@@ -20624,7 +20659,7 @@ XmlElement_GetInt64 (Urho3D::XMLElement *_target, const char * name)
 
 
 #ifdef __EMSCRIPTEN__
-static IntRect  XmlElement_GetIntRect_94_IntRect ;
+static IntRect  XmlElement_GetIntRect_95_IntRect ;
 DllExport Interop::IntRect  *
 XmlElement_GetIntRect (
 #else
@@ -20635,7 +20670,7 @@ Urho3D::XMLElement *_target, const char * name)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntRect  *) &(XmlElement_GetIntRect_94_IntRect =_target->GetIntRect (Urho3D::String(name))))
+	((Interop::IntRect  *) &(XmlElement_GetIntRect_95_IntRect =_target->GetIntRect (Urho3D::String(name))))
 #else
 	*((Interop::IntRect  *) &(_target->GetIntRect (Urho3D::String(name))))
 #endif
@@ -20645,7 +20680,7 @@ Urho3D::XMLElement *_target, const char * name)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  XmlElement_GetIntVector2_95_IntVector2 ;
+static IntVector2  XmlElement_GetIntVector2_96_IntVector2 ;
 DllExport Interop::IntVector2  *
 XmlElement_GetIntVector2 (
 #else
@@ -20656,7 +20691,7 @@ Urho3D::XMLElement *_target, const char * name)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(XmlElement_GetIntVector2_95_IntVector2 =_target->GetIntVector2 (Urho3D::String(name))))
+	((Interop::IntVector2  *) &(XmlElement_GetIntVector2_96_IntVector2 =_target->GetIntVector2 (Urho3D::String(name))))
 #else
 	*((Interop::IntVector2  *) &(_target->GetIntVector2 (Urho3D::String(name))))
 #endif
@@ -20680,7 +20715,7 @@ XmlElement_GetRect (Urho3D::XMLElement *_target, const char * name)
 
 
 #ifdef __EMSCRIPTEN__
-static Quaternion  XmlElement_GetQuaternion_96_Quaternion ;
+static Quaternion  XmlElement_GetQuaternion_97_Quaternion ;
 DllExport Interop::Quaternion  *
 XmlElement_GetQuaternion (
 #else
@@ -20691,7 +20726,7 @@ Urho3D::XMLElement *_target, const char * name)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Quaternion  *) &(XmlElement_GetQuaternion_96_Quaternion =_target->GetQuaternion (Urho3D::String(name))))
+	((Interop::Quaternion  *) &(XmlElement_GetQuaternion_97_Quaternion =_target->GetQuaternion (Urho3D::String(name))))
 #else
 	*((Interop::Quaternion  *) &(_target->GetQuaternion (Urho3D::String(name))))
 #endif
@@ -20729,7 +20764,7 @@ XmlElement_GetResourceRefList (Urho3D::XMLElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  XmlElement_GetVector2_97_Vector2 ;
+static Vector2  XmlElement_GetVector2_98_Vector2 ;
 DllExport Interop::Vector2  *
 XmlElement_GetVector2 (
 #else
@@ -20740,7 +20775,7 @@ Urho3D::XMLElement *_target, const char * name)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(XmlElement_GetVector2_97_Vector2 =_target->GetVector2 (Urho3D::String(name))))
+	((Interop::Vector2  *) &(XmlElement_GetVector2_98_Vector2 =_target->GetVector2 (Urho3D::String(name))))
 #else
 	*((Interop::Vector2  *) &(_target->GetVector2 (Urho3D::String(name))))
 #endif
@@ -20750,7 +20785,7 @@ Urho3D::XMLElement *_target, const char * name)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  XmlElement_GetVector3_98_Vector3 ;
+static Vector3  XmlElement_GetVector3_99_Vector3 ;
 DllExport Interop::Vector3  *
 XmlElement_GetVector3 (
 #else
@@ -20761,7 +20796,7 @@ Urho3D::XMLElement *_target, const char * name)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(XmlElement_GetVector3_98_Vector3 =_target->GetVector3 (Urho3D::String(name))))
+	((Interop::Vector3  *) &(XmlElement_GetVector3_99_Vector3 =_target->GetVector3 (Urho3D::String(name))))
 #else
 	*((Interop::Vector3  *) &(_target->GetVector3 (Urho3D::String(name))))
 #endif
@@ -20771,7 +20806,7 @@ Urho3D::XMLElement *_target, const char * name)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector4  XmlElement_GetVector4_99_Vector4 ;
+static Vector4  XmlElement_GetVector4_100_Vector4 ;
 DllExport Interop::Vector4  *
 XmlElement_GetVector4 (
 #else
@@ -20782,7 +20817,7 @@ Urho3D::XMLElement *_target, const char * name)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector4  *) &(XmlElement_GetVector4_99_Vector4 =_target->GetVector4 (Urho3D::String(name))))
+	((Interop::Vector4  *) &(XmlElement_GetVector4_100_Vector4 =_target->GetVector4 (Urho3D::String(name))))
 #else
 	*((Interop::Vector4  *) &(_target->GetVector4 (Urho3D::String(name))))
 #endif
@@ -20792,7 +20827,7 @@ Urho3D::XMLElement *_target, const char * name)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector4  XmlElement_GetVector_100_Vector4 ;
+static Vector4  XmlElement_GetVector_101_Vector4 ;
 DllExport Interop::Vector4  *
 XmlElement_GetVector (
 #else
@@ -20803,7 +20838,7 @@ Urho3D::XMLElement *_target, const char * name)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector4  *) &(XmlElement_GetVector_100_Vector4 =_target->GetVector (Urho3D::String(name))))
+	((Interop::Vector4  *) &(XmlElement_GetVector_101_Vector4 =_target->GetVector (Urho3D::String(name))))
 #else
 	*((Interop::Vector4  *) &(_target->GetVector (Urho3D::String(name))))
 #endif
@@ -20820,7 +20855,7 @@ XmlElement_GetVectorVariant (Urho3D::XMLElement *_target, const char * name)
 
 
 #ifdef __EMSCRIPTEN__
-static Matrix3  XmlElement_GetMatrix3_101_Matrix3 ;
+static Matrix3  XmlElement_GetMatrix3_102_Matrix3 ;
 DllExport Interop::Matrix3  *
 XmlElement_GetMatrix3 (
 #else
@@ -20831,7 +20866,7 @@ Urho3D::XMLElement *_target, const char * name)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Matrix3  *) &(XmlElement_GetMatrix3_101_Matrix3 =_target->GetMatrix3 (Urho3D::String(name))))
+	((Interop::Matrix3  *) &(XmlElement_GetMatrix3_102_Matrix3 =_target->GetMatrix3 (Urho3D::String(name))))
 #else
 	*((Interop::Matrix3  *) &(_target->GetMatrix3 (Urho3D::String(name))))
 #endif
@@ -20841,7 +20876,7 @@ Urho3D::XMLElement *_target, const char * name)
 
 
 #ifdef __EMSCRIPTEN__
-static Matrix3x4  XmlElement_GetMatrix3x4_102_Matrix3x4 ;
+static Matrix3x4  XmlElement_GetMatrix3x4_103_Matrix3x4 ;
 DllExport Interop::Matrix3x4  *
 XmlElement_GetMatrix3x4 (
 #else
@@ -20852,7 +20887,7 @@ Urho3D::XMLElement *_target, const char * name)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Matrix3x4  *) &(XmlElement_GetMatrix3x4_102_Matrix3x4 =_target->GetMatrix3x4 (Urho3D::String(name))))
+	((Interop::Matrix3x4  *) &(XmlElement_GetMatrix3x4_103_Matrix3x4 =_target->GetMatrix3x4 (Urho3D::String(name))))
 #else
 	*((Interop::Matrix3x4  *) &(_target->GetMatrix3x4 (Urho3D::String(name))))
 #endif
@@ -20862,7 +20897,7 @@ Urho3D::XMLElement *_target, const char * name)
 
 
 #ifdef __EMSCRIPTEN__
-static Matrix4  XmlElement_GetMatrix4_103_Matrix4 ;
+static Matrix4  XmlElement_GetMatrix4_104_Matrix4 ;
 DllExport Interop::Matrix4  *
 XmlElement_GetMatrix4 (
 #else
@@ -20873,7 +20908,7 @@ Urho3D::XMLElement *_target, const char * name)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Matrix4  *) &(XmlElement_GetMatrix4_103_Matrix4 =_target->GetMatrix4 (Urho3D::String(name))))
+	((Interop::Matrix4  *) &(XmlElement_GetMatrix4_104_Matrix4 =_target->GetMatrix4 (Urho3D::String(name))))
 #else
 	*((Interop::Matrix4  *) &(_target->GetMatrix4 (Urho3D::String(name))))
 #endif
@@ -21885,7 +21920,7 @@ Terrain_GetPatchSize (Urho3D::Terrain *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  Terrain_GetSpacing_104_Vector3 ;
+static Vector3  Terrain_GetSpacing_105_Vector3 ;
 DllExport Interop::Vector3  *
 Terrain_GetSpacing (
 #else
@@ -21896,7 +21931,7 @@ Urho3D::Terrain *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(Terrain_GetSpacing_104_Vector3 =_target->GetSpacing ()))
+	((Interop::Vector3  *) &(Terrain_GetSpacing_105_Vector3 =_target->GetSpacing ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetSpacing ()))
 #endif
@@ -21906,7 +21941,7 @@ Urho3D::Terrain *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Terrain_GetNumVertices_105_IntVector2 ;
+static IntVector2  Terrain_GetNumVertices_106_IntVector2 ;
 DllExport Interop::IntVector2  *
 Terrain_GetNumVertices (
 #else
@@ -21917,7 +21952,7 @@ Urho3D::Terrain *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Terrain_GetNumVertices_105_IntVector2 =_target->GetNumVertices ()))
+	((Interop::IntVector2  *) &(Terrain_GetNumVertices_106_IntVector2 =_target->GetNumVertices ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetNumVertices ()))
 #endif
@@ -21927,7 +21962,7 @@ Urho3D::Terrain *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Terrain_GetNumPatches_106_IntVector2 ;
+static IntVector2  Terrain_GetNumPatches_107_IntVector2 ;
 DllExport Interop::IntVector2  *
 Terrain_GetNumPatches (
 #else
@@ -21938,7 +21973,7 @@ Urho3D::Terrain *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Terrain_GetNumPatches_106_IntVector2 =_target->GetNumPatches ()))
+	((Interop::IntVector2  *) &(Terrain_GetNumPatches_107_IntVector2 =_target->GetNumPatches ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetNumPatches ()))
 #endif
@@ -22011,7 +22046,7 @@ Terrain_GetHeight (Urho3D::Terrain *_target, const class Urho3D::Vector3 & world
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  Terrain_GetNormal_107_Vector3 ;
+static Vector3  Terrain_GetNormal_108_Vector3 ;
 DllExport Interop::Vector3  *
 Terrain_GetNormal (
 #else
@@ -22022,7 +22057,7 @@ Urho3D::Terrain *_target, const class Urho3D::Vector3 & worldPosition)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(Terrain_GetNormal_107_Vector3 =_target->GetNormal (worldPosition)))
+	((Interop::Vector3  *) &(Terrain_GetNormal_108_Vector3 =_target->GetNormal (worldPosition)))
 #else
 	*((Interop::Vector3  *) &(_target->GetNormal (worldPosition)))
 #endif
@@ -22032,7 +22067,7 @@ Urho3D::Terrain *_target, const class Urho3D::Vector3 & worldPosition)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Terrain_WorldToHeightMap_108_IntVector2 ;
+static IntVector2  Terrain_WorldToHeightMap_109_IntVector2 ;
 DllExport Interop::IntVector2  *
 Terrain_WorldToHeightMap (
 #else
@@ -22043,7 +22078,7 @@ Urho3D::Terrain *_target, const class Urho3D::Vector3 & worldPosition)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Terrain_WorldToHeightMap_108_IntVector2 =_target->WorldToHeightMap (worldPosition)))
+	((Interop::IntVector2  *) &(Terrain_WorldToHeightMap_109_IntVector2 =_target->WorldToHeightMap (worldPosition)))
 #else
 	*((Interop::IntVector2  *) &(_target->WorldToHeightMap (worldPosition)))
 #endif
@@ -22053,7 +22088,7 @@ Urho3D::Terrain *_target, const class Urho3D::Vector3 & worldPosition)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  Terrain_HeightMapToWorld_109_Vector3 ;
+static Vector3  Terrain_HeightMapToWorld_110_Vector3 ;
 DllExport Interop::Vector3  *
 Terrain_HeightMapToWorld (
 #else
@@ -22064,7 +22099,7 @@ Urho3D::Terrain *_target, const class Urho3D::IntVector2 & pixelPosition)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(Terrain_HeightMapToWorld_109_Vector3 =_target->HeightMapToWorld (pixelPosition)))
+	((Interop::Vector3  *) &(Terrain_HeightMapToWorld_110_Vector3 =_target->HeightMapToWorld (pixelPosition)))
 #else
 	*((Interop::Vector3  *) &(_target->HeightMapToWorld (pixelPosition)))
 #endif
@@ -22417,7 +22452,7 @@ TerrainPatch_GetEastPatch (Urho3D::TerrainPatch *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  TerrainPatch_GetCoordinates_110_IntVector2 ;
+static IntVector2  TerrainPatch_GetCoordinates_111_IntVector2 ;
 DllExport Interop::IntVector2  *
 TerrainPatch_GetCoordinates (
 #else
@@ -22428,7 +22463,7 @@ Urho3D::TerrainPatch *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(TerrainPatch_GetCoordinates_110_IntVector2 =_target->GetCoordinates ()))
+	((Interop::IntVector2  *) &(TerrainPatch_GetCoordinates_111_IntVector2 =_target->GetCoordinates ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetCoordinates ()))
 #endif
@@ -23147,7 +23182,7 @@ Zone_SetZoneTexture (Urho3D::Zone *_target, Urho3D::Texture * texture)
 
 
 #ifdef __EMSCRIPTEN__
-static Matrix3x4  Zone_GetInverseWorldTransform_111_Matrix3x4 ;
+static Matrix3x4  Zone_GetInverseWorldTransform_112_Matrix3x4 ;
 DllExport Interop::Matrix3x4  *
 Zone_GetInverseWorldTransform (
 #else
@@ -23158,7 +23193,7 @@ Urho3D::Zone *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Matrix3x4  *) &(Zone_GetInverseWorldTransform_111_Matrix3x4 =_target->GetInverseWorldTransform ()))
+	((Interop::Matrix3x4  *) &(Zone_GetInverseWorldTransform_112_Matrix3x4 =_target->GetInverseWorldTransform ()))
 #else
 	*((Interop::Matrix3x4  *) &(_target->GetInverseWorldTransform ()))
 #endif
@@ -23168,7 +23203,7 @@ Urho3D::Zone *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Zone_GetAmbientColor_112_Color ;
+static Color  Zone_GetAmbientColor_113_Color ;
 DllExport Interop::Color  *
 Zone_GetAmbientColor (
 #else
@@ -23179,7 +23214,7 @@ Urho3D::Zone *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Zone_GetAmbientColor_112_Color =_target->GetAmbientColor ()))
+	((Interop::Color  *) &(Zone_GetAmbientColor_113_Color =_target->GetAmbientColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetAmbientColor ()))
 #endif
@@ -23189,7 +23224,7 @@ Urho3D::Zone *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Zone_GetAmbientStartColor_113_Color ;
+static Color  Zone_GetAmbientStartColor_114_Color ;
 DllExport Interop::Color  *
 Zone_GetAmbientStartColor (
 #else
@@ -23200,7 +23235,7 @@ Urho3D::Zone *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Zone_GetAmbientStartColor_113_Color =_target->GetAmbientStartColor ()))
+	((Interop::Color  *) &(Zone_GetAmbientStartColor_114_Color =_target->GetAmbientStartColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetAmbientStartColor ()))
 #endif
@@ -23210,7 +23245,7 @@ Urho3D::Zone *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Zone_GetAmbientEndColor_114_Color ;
+static Color  Zone_GetAmbientEndColor_115_Color ;
 DllExport Interop::Color  *
 Zone_GetAmbientEndColor (
 #else
@@ -23221,7 +23256,7 @@ Urho3D::Zone *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Zone_GetAmbientEndColor_114_Color =_target->GetAmbientEndColor ()))
+	((Interop::Color  *) &(Zone_GetAmbientEndColor_115_Color =_target->GetAmbientEndColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetAmbientEndColor ()))
 #endif
@@ -23231,7 +23266,7 @@ Urho3D::Zone *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Zone_GetFogColor_115_Color ;
+static Color  Zone_GetFogColor_116_Color ;
 DllExport Interop::Color  *
 Zone_GetFogColor (
 #else
@@ -23242,7 +23277,7 @@ Urho3D::Zone *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Zone_GetFogColor_115_Color =_target->GetFogColor ()))
+	((Interop::Color  *) &(Zone_GetFogColor_116_Color =_target->GetFogColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetFogColor ()))
 #endif
@@ -23553,7 +23588,7 @@ View_GetDrawDebug (Urho3D::View *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntRect  View_GetViewRect_116_IntRect ;
+static IntRect  View_GetViewRect_117_IntRect ;
 DllExport Interop::IntRect  *
 View_GetViewRect (
 #else
@@ -23564,7 +23599,7 @@ Urho3D::View *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntRect  *) &(View_GetViewRect_116_IntRect =_target->GetViewRect ()))
+	((Interop::IntRect  *) &(View_GetViewRect_117_IntRect =_target->GetViewRect ()))
 #else
 	*((Interop::IntRect  *) &(_target->GetViewRect ()))
 #endif
@@ -23574,7 +23609,7 @@ Urho3D::View *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  View_GetViewSize_117_IntVector2 ;
+static IntVector2  View_GetViewSize_118_IntVector2 ;
 DllExport Interop::IntVector2  *
 View_GetViewSize (
 #else
@@ -23585,7 +23620,7 @@ Urho3D::View *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(View_GetViewSize_117_IntVector2 =_target->GetViewSize ()))
+	((Interop::IntVector2  *) &(View_GetViewSize_118_IntVector2 =_target->GetViewSize ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetViewSize ()))
 #endif
@@ -24456,7 +24491,7 @@ UIElement_IsWithinScissor (Urho3D::UIElement *_target, const class Urho3D::IntRe
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  UIElement_GetScreenPosition_118_IntVector2 ;
+static IntVector2  UIElement_GetScreenPosition_119_IntVector2 ;
 DllExport Interop::IntVector2  *
 UIElement_GetScreenPosition (
 #else
@@ -24467,7 +24502,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(UIElement_GetScreenPosition_118_IntVector2 =_target->GetScreenPosition ()))
+	((Interop::IntVector2  *) &(UIElement_GetScreenPosition_119_IntVector2 =_target->GetScreenPosition ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetScreenPosition ()))
 #endif
@@ -24512,7 +24547,7 @@ UIElement_OnIndentSet (Urho3D::UIElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  UIElement_ScreenToElement_119_IntVector2 ;
+static IntVector2  UIElement_ScreenToElement_120_IntVector2 ;
 DllExport Interop::IntVector2  *
 UIElement_ScreenToElement (
 #else
@@ -24523,7 +24558,7 @@ Urho3D::UIElement *_target, const class Urho3D::IntVector2 & screenPosition)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(UIElement_ScreenToElement_119_IntVector2 =_target->ScreenToElement (screenPosition)))
+	((Interop::IntVector2  *) &(UIElement_ScreenToElement_120_IntVector2 =_target->ScreenToElement (screenPosition)))
 #else
 	*((Interop::IntVector2  *) &(_target->ScreenToElement (screenPosition)))
 #endif
@@ -24533,7 +24568,7 @@ Urho3D::UIElement *_target, const class Urho3D::IntVector2 & screenPosition)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  UIElement_ElementToScreen_120_IntVector2 ;
+static IntVector2  UIElement_ElementToScreen_121_IntVector2 ;
 DllExport Interop::IntVector2  *
 UIElement_ElementToScreen (
 #else
@@ -24544,7 +24579,7 @@ Urho3D::UIElement *_target, const class Urho3D::IntVector2 & position)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(UIElement_ElementToScreen_120_IntVector2 =_target->ElementToScreen (position)))
+	((Interop::IntVector2  *) &(UIElement_ElementToScreen_121_IntVector2 =_target->ElementToScreen (position)))
 #else
 	*((Interop::IntVector2  *) &(_target->ElementToScreen (position)))
 #endif
@@ -25354,7 +25389,7 @@ UIElement_GetName (Urho3D::UIElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  UIElement_GetPosition_121_IntVector2 ;
+static IntVector2  UIElement_GetPosition_122_IntVector2 ;
 DllExport Interop::IntVector2  *
 UIElement_GetPosition (
 #else
@@ -25365,7 +25400,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(UIElement_GetPosition_121_IntVector2 =_target->GetPosition ()))
+	((Interop::IntVector2  *) &(UIElement_GetPosition_122_IntVector2 =_target->GetPosition ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetPosition ()))
 #endif
@@ -25375,7 +25410,7 @@ Urho3D::UIElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  UIElement_GetSize_122_IntVector2 ;
+static IntVector2  UIElement_GetSize_123_IntVector2 ;
 DllExport Interop::IntVector2  *
 UIElement_GetSize (
 #else
@@ -25386,7 +25421,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(UIElement_GetSize_122_IntVector2 =_target->GetSize ()))
+	((Interop::IntVector2  *) &(UIElement_GetSize_123_IntVector2 =_target->GetSize ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetSize ()))
 #endif
@@ -25410,7 +25445,7 @@ UIElement_GetHeight (Urho3D::UIElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  UIElement_GetMinSize_123_IntVector2 ;
+static IntVector2  UIElement_GetMinSize_124_IntVector2 ;
 DllExport Interop::IntVector2  *
 UIElement_GetMinSize (
 #else
@@ -25421,7 +25456,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(UIElement_GetMinSize_123_IntVector2 =_target->GetMinSize ()))
+	((Interop::IntVector2  *) &(UIElement_GetMinSize_124_IntVector2 =_target->GetMinSize ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetMinSize ()))
 #endif
@@ -25445,7 +25480,7 @@ UIElement_GetMinHeight (Urho3D::UIElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  UIElement_GetMaxSize_124_IntVector2 ;
+static IntVector2  UIElement_GetMaxSize_125_IntVector2 ;
 DllExport Interop::IntVector2  *
 UIElement_GetMaxSize (
 #else
@@ -25456,7 +25491,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(UIElement_GetMaxSize_124_IntVector2 =_target->GetMaxSize ()))
+	((Interop::IntVector2  *) &(UIElement_GetMaxSize_125_IntVector2 =_target->GetMaxSize ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetMaxSize ()))
 #endif
@@ -25501,7 +25536,7 @@ UIElement_IsFixedHeight (Urho3D::UIElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  UIElement_GetChildOffset_125_IntVector2 ;
+static IntVector2  UIElement_GetChildOffset_126_IntVector2 ;
 DllExport Interop::IntVector2  *
 UIElement_GetChildOffset (
 #else
@@ -25512,7 +25547,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(UIElement_GetChildOffset_125_IntVector2 =_target->GetChildOffset ()))
+	((Interop::IntVector2  *) &(UIElement_GetChildOffset_126_IntVector2 =_target->GetChildOffset ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetChildOffset ()))
 #endif
@@ -25543,7 +25578,7 @@ UIElement_GetEnableAnchor (Urho3D::UIElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  UIElement_GetMinAnchor_126_Vector2 ;
+static Vector2  UIElement_GetMinAnchor_127_Vector2 ;
 DllExport Interop::Vector2  *
 UIElement_GetMinAnchor (
 #else
@@ -25554,7 +25589,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(UIElement_GetMinAnchor_126_Vector2 =_target->GetMinAnchor ()))
+	((Interop::Vector2  *) &(UIElement_GetMinAnchor_127_Vector2 =_target->GetMinAnchor ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetMinAnchor ()))
 #endif
@@ -25564,7 +25599,7 @@ Urho3D::UIElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  UIElement_GetMaxAnchor_127_Vector2 ;
+static Vector2  UIElement_GetMaxAnchor_128_Vector2 ;
 DllExport Interop::Vector2  *
 UIElement_GetMaxAnchor (
 #else
@@ -25575,7 +25610,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(UIElement_GetMaxAnchor_127_Vector2 =_target->GetMaxAnchor ()))
+	((Interop::Vector2  *) &(UIElement_GetMaxAnchor_128_Vector2 =_target->GetMaxAnchor ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetMaxAnchor ()))
 #endif
@@ -25585,7 +25620,7 @@ Urho3D::UIElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  UIElement_GetMinOffset_128_IntVector2 ;
+static IntVector2  UIElement_GetMinOffset_129_IntVector2 ;
 DllExport Interop::IntVector2  *
 UIElement_GetMinOffset (
 #else
@@ -25596,7 +25631,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(UIElement_GetMinOffset_128_IntVector2 =_target->GetMinOffset ()))
+	((Interop::IntVector2  *) &(UIElement_GetMinOffset_129_IntVector2 =_target->GetMinOffset ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetMinOffset ()))
 #endif
@@ -25606,7 +25641,7 @@ Urho3D::UIElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  UIElement_GetMaxOffset_129_IntVector2 ;
+static IntVector2  UIElement_GetMaxOffset_130_IntVector2 ;
 DllExport Interop::IntVector2  *
 UIElement_GetMaxOffset (
 #else
@@ -25617,7 +25652,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(UIElement_GetMaxOffset_129_IntVector2 =_target->GetMaxOffset ()))
+	((Interop::IntVector2  *) &(UIElement_GetMaxOffset_130_IntVector2 =_target->GetMaxOffset ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetMaxOffset ()))
 #endif
@@ -25627,7 +25662,7 @@ Urho3D::UIElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  UIElement_GetPivot_130_Vector2 ;
+static Vector2  UIElement_GetPivot_131_Vector2 ;
 DllExport Interop::Vector2  *
 UIElement_GetPivot (
 #else
@@ -25638,7 +25673,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(UIElement_GetPivot_130_Vector2 =_target->GetPivot ()))
+	((Interop::Vector2  *) &(UIElement_GetPivot_131_Vector2 =_target->GetPivot ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetPivot ()))
 #endif
@@ -25648,7 +25683,7 @@ Urho3D::UIElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntRect  UIElement_GetClipBorder_131_IntRect ;
+static IntRect  UIElement_GetClipBorder_132_IntRect ;
 DllExport Interop::IntRect  *
 UIElement_GetClipBorder (
 #else
@@ -25659,7 +25694,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntRect  *) &(UIElement_GetClipBorder_131_IntRect =_target->GetClipBorder ()))
+	((Interop::IntRect  *) &(UIElement_GetClipBorder_132_IntRect =_target->GetClipBorder ()))
 #else
 	*((Interop::IntRect  *) &(_target->GetClipBorder ()))
 #endif
@@ -25669,7 +25704,7 @@ Urho3D::UIElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  UIElement_GetColor_132_Color ;
+static Color  UIElement_GetColor_133_Color ;
 DllExport Interop::Color  *
 UIElement_GetColor (
 #else
@@ -25680,7 +25715,7 @@ Urho3D::UIElement *_target, enum Urho3D::Corner corner)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(UIElement_GetColor_132_Color =_target->GetColor (corner)))
+	((Interop::Color  *) &(UIElement_GetColor_133_Color =_target->GetColor (corner)))
 #else
 	*((Interop::Color  *) &(_target->GetColor (corner)))
 #endif
@@ -25865,7 +25900,7 @@ UIElement_GetLayoutSpacing (Urho3D::UIElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntRect  UIElement_GetLayoutBorder_133_IntRect ;
+static IntRect  UIElement_GetLayoutBorder_134_IntRect ;
 DllExport Interop::IntRect  *
 UIElement_GetLayoutBorder (
 #else
@@ -25876,7 +25911,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntRect  *) &(UIElement_GetLayoutBorder_133_IntRect =_target->GetLayoutBorder ()))
+	((Interop::IntRect  *) &(UIElement_GetLayoutBorder_134_IntRect =_target->GetLayoutBorder ()))
 #else
 	*((Interop::IntRect  *) &(_target->GetLayoutBorder ()))
 #endif
@@ -25886,7 +25921,7 @@ Urho3D::UIElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  UIElement_GetLayoutFlexScale_134_Vector2 ;
+static Vector2  UIElement_GetLayoutFlexScale_135_Vector2 ;
 DllExport Interop::Vector2  *
 UIElement_GetLayoutFlexScale (
 #else
@@ -25897,7 +25932,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(UIElement_GetLayoutFlexScale_134_Vector2 =_target->GetLayoutFlexScale ()))
+	((Interop::Vector2  *) &(UIElement_GetLayoutFlexScale_135_Vector2 =_target->GetLayoutFlexScale ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetLayoutFlexScale ()))
 #endif
@@ -25949,7 +25984,7 @@ UIElement_GetRoot (Urho3D::UIElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  UIElement_GetDerivedColor_135_Color ;
+static Color  UIElement_GetDerivedColor_136_Color ;
 DllExport Interop::Color  *
 UIElement_GetDerivedColor (
 #else
@@ -25960,7 +25995,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(UIElement_GetDerivedColor_135_Color =_target->GetDerivedColor ()))
+	((Interop::Color  *) &(UIElement_GetDerivedColor_136_Color =_target->GetDerivedColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetDerivedColor ()))
 #endif
@@ -26012,7 +26047,7 @@ UIElement_IsInsideCombined (Urho3D::UIElement *_target, const class Urho3D::IntV
 
 
 #ifdef __EMSCRIPTEN__
-static IntRect  UIElement_GetCombinedScreenRect_136_IntRect ;
+static IntRect  UIElement_GetCombinedScreenRect_137_IntRect ;
 DllExport Interop::IntRect  *
 UIElement_GetCombinedScreenRect (
 #else
@@ -26023,7 +26058,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntRect  *) &(UIElement_GetCombinedScreenRect_136_IntRect =_target->GetCombinedScreenRect ()))
+	((Interop::IntRect  *) &(UIElement_GetCombinedScreenRect_137_IntRect =_target->GetCombinedScreenRect ()))
 #else
 	*((Interop::IntRect  *) &(_target->GetCombinedScreenRect ()))
 #endif
@@ -26082,7 +26117,7 @@ UIElement_SetHovering (Urho3D::UIElement *_target, bool enable)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  UIElement_GetColorAttr_137_Color ;
+static Color  UIElement_GetColorAttr_138_Color ;
 DllExport Interop::Color  *
 UIElement_GetColorAttr (
 #else
@@ -26093,7 +26128,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(UIElement_GetColorAttr_137_Color =_target->GetColorAttr ()))
+	((Interop::Color  *) &(UIElement_GetColorAttr_138_Color =_target->GetColorAttr ()))
 #else
 	*((Interop::Color  *) &(_target->GetColorAttr ()))
 #endif
@@ -26124,7 +26159,7 @@ UIElement_GetElementEventSender (Urho3D::UIElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  UIElement_GetEffectiveMinSize_138_IntVector2 ;
+static IntVector2  UIElement_GetEffectiveMinSize_139_IntVector2 ;
 DllExport Interop::IntVector2  *
 UIElement_GetEffectiveMinSize (
 #else
@@ -26135,7 +26170,7 @@ Urho3D::UIElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(UIElement_GetEffectiveMinSize_138_IntVector2 =_target->GetEffectiveMinSize ()))
+	((Interop::IntVector2  *) &(UIElement_GetEffectiveMinSize_139_IntVector2 =_target->GetEffectiveMinSize ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetEffectiveMinSize ()))
 #endif
@@ -26285,7 +26320,7 @@ BorderImage_GetTexture (Urho3D::BorderImage *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntRect  BorderImage_GetImageRect_139_IntRect ;
+static IntRect  BorderImage_GetImageRect_140_IntRect ;
 DllExport Interop::IntRect  *
 BorderImage_GetImageRect (
 #else
@@ -26296,7 +26331,7 @@ Urho3D::BorderImage *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntRect  *) &(BorderImage_GetImageRect_139_IntRect =_target->GetImageRect ()))
+	((Interop::IntRect  *) &(BorderImage_GetImageRect_140_IntRect =_target->GetImageRect ()))
 #else
 	*((Interop::IntRect  *) &(_target->GetImageRect ()))
 #endif
@@ -26306,7 +26341,7 @@ Urho3D::BorderImage *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntRect  BorderImage_GetBorder_140_IntRect ;
+static IntRect  BorderImage_GetBorder_141_IntRect ;
 DllExport Interop::IntRect  *
 BorderImage_GetBorder (
 #else
@@ -26317,7 +26352,7 @@ Urho3D::BorderImage *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntRect  *) &(BorderImage_GetBorder_140_IntRect =_target->GetBorder ()))
+	((Interop::IntRect  *) &(BorderImage_GetBorder_141_IntRect =_target->GetBorder ()))
 #else
 	*((Interop::IntRect  *) &(_target->GetBorder ()))
 #endif
@@ -26327,7 +26362,7 @@ Urho3D::BorderImage *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntRect  BorderImage_GetImageBorder_141_IntRect ;
+static IntRect  BorderImage_GetImageBorder_142_IntRect ;
 DllExport Interop::IntRect  *
 BorderImage_GetImageBorder (
 #else
@@ -26338,7 +26373,7 @@ Urho3D::BorderImage *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntRect  *) &(BorderImage_GetImageBorder_141_IntRect =_target->GetImageBorder ()))
+	((Interop::IntRect  *) &(BorderImage_GetImageBorder_142_IntRect =_target->GetImageBorder ()))
 #else
 	*((Interop::IntRect  *) &(_target->GetImageBorder ()))
 #endif
@@ -26348,7 +26383,7 @@ Urho3D::BorderImage *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  BorderImage_GetHoverOffset_142_IntVector2 ;
+static IntVector2  BorderImage_GetHoverOffset_143_IntVector2 ;
 DllExport Interop::IntVector2  *
 BorderImage_GetHoverOffset (
 #else
@@ -26359,7 +26394,7 @@ Urho3D::BorderImage *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(BorderImage_GetHoverOffset_142_IntVector2 =_target->GetHoverOffset ()))
+	((Interop::IntVector2  *) &(BorderImage_GetHoverOffset_143_IntVector2 =_target->GetHoverOffset ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetHoverOffset ()))
 #endif
@@ -26369,7 +26404,7 @@ Urho3D::BorderImage *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  BorderImage_GetDisabledOffset_143_IntVector2 ;
+static IntVector2  BorderImage_GetDisabledOffset_144_IntVector2 ;
 DllExport Interop::IntVector2  *
 BorderImage_GetDisabledOffset (
 #else
@@ -26380,7 +26415,7 @@ Urho3D::BorderImage *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(BorderImage_GetDisabledOffset_143_IntVector2 =_target->GetDisabledOffset ()))
+	((Interop::IntVector2  *) &(BorderImage_GetDisabledOffset_144_IntVector2 =_target->GetDisabledOffset ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetDisabledOffset ()))
 #endif
@@ -26810,7 +26845,7 @@ Input_GetQualifierPress (Urho3D::Input *_target, enum Urho3D::Qualifier qualifie
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Input_GetMousePosition_144_IntVector2 ;
+static IntVector2  Input_GetMousePosition_145_IntVector2 ;
 DllExport Interop::IntVector2  *
 Input_GetMousePosition (
 #else
@@ -26821,7 +26856,7 @@ Urho3D::Input *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Input_GetMousePosition_144_IntVector2 =_target->GetMousePosition ()))
+	((Interop::IntVector2  *) &(Input_GetMousePosition_145_IntVector2 =_target->GetMousePosition ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetMousePosition ()))
 #endif
@@ -26831,7 +26866,7 @@ Urho3D::Input *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Input_GetMouseMove_145_IntVector2 ;
+static IntVector2  Input_GetMouseMove_146_IntVector2 ;
 DllExport Interop::IntVector2  *
 Input_GetMouseMove (
 #else
@@ -26842,7 +26877,7 @@ Urho3D::Input *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Input_GetMouseMove_145_IntVector2 =_target->GetMouseMove ()))
+	((Interop::IntVector2  *) &(Input_GetMouseMove_146_IntVector2 =_target->GetMouseMove ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetMouseMove ()))
 #endif
@@ -26873,7 +26908,7 @@ Input_GetMouseMoveWheel (Urho3D::Input *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  Input_GetInputScale_146_Vector2 ;
+static Vector2  Input_GetInputScale_147_Vector2 ;
 DllExport Interop::Vector2  *
 Input_GetInputScale (
 #else
@@ -26884,7 +26919,7 @@ Urho3D::Input *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(Input_GetInputScale_146_Vector2 =_target->GetInputScale ()))
+	((Interop::Vector2  *) &(Input_GetInputScale_147_Vector2 =_target->GetInputScale ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetInputScale ()))
 #endif
@@ -27209,7 +27244,7 @@ CrowdManager_SetObstacleAvoidanceParams (Urho3D::CrowdManager *_target, unsigned
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CrowdManager_FindNearestPoint_147_Vector3 ;
+static Vector3  CrowdManager_FindNearestPoint_148_Vector3 ;
 DllExport Interop::Vector3  *
 CrowdManager_FindNearestPoint (
 #else
@@ -27220,7 +27255,7 @@ Urho3D::CrowdManager *_target, const class Urho3D::Vector3 & point, int queryFil
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CrowdManager_FindNearestPoint_147_Vector3 =_target->FindNearestPoint (point, queryFilterType, nearestRef)))
+	((Interop::Vector3  *) &(CrowdManager_FindNearestPoint_148_Vector3 =_target->FindNearestPoint (point, queryFilterType, nearestRef)))
 #else
 	*((Interop::Vector3  *) &(_target->FindNearestPoint (point, queryFilterType, nearestRef)))
 #endif
@@ -27230,7 +27265,7 @@ Urho3D::CrowdManager *_target, const class Urho3D::Vector3 & point, int queryFil
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CrowdManager_MoveAlongSurface_148_Vector3 ;
+static Vector3  CrowdManager_MoveAlongSurface_149_Vector3 ;
 DllExport Interop::Vector3  *
 CrowdManager_MoveAlongSurface (
 #else
@@ -27241,7 +27276,7 @@ Urho3D::CrowdManager *_target, const class Urho3D::Vector3 & start, const class 
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CrowdManager_MoveAlongSurface_148_Vector3 =_target->MoveAlongSurface (start, end, queryFilterType, maxVisited)))
+	((Interop::Vector3  *) &(CrowdManager_MoveAlongSurface_149_Vector3 =_target->MoveAlongSurface (start, end, queryFilterType, maxVisited)))
 #else
 	*((Interop::Vector3  *) &(_target->MoveAlongSurface (start, end, queryFilterType, maxVisited)))
 #endif
@@ -27251,7 +27286,7 @@ Urho3D::CrowdManager *_target, const class Urho3D::Vector3 & start, const class 
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CrowdManager_GetRandomPoint_149_Vector3 ;
+static Vector3  CrowdManager_GetRandomPoint_150_Vector3 ;
 DllExport Interop::Vector3  *
 CrowdManager_GetRandomPoint (
 #else
@@ -27262,7 +27297,7 @@ Urho3D::CrowdManager *_target, int queryFilterType, dtPolyRef * randomRef)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CrowdManager_GetRandomPoint_149_Vector3 =_target->GetRandomPoint (queryFilterType, randomRef)))
+	((Interop::Vector3  *) &(CrowdManager_GetRandomPoint_150_Vector3 =_target->GetRandomPoint (queryFilterType, randomRef)))
 #else
 	*((Interop::Vector3  *) &(_target->GetRandomPoint (queryFilterType, randomRef)))
 #endif
@@ -27272,7 +27307,7 @@ Urho3D::CrowdManager *_target, int queryFilterType, dtPolyRef * randomRef)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CrowdManager_GetRandomPointInCircle_150_Vector3 ;
+static Vector3  CrowdManager_GetRandomPointInCircle_151_Vector3 ;
 DllExport Interop::Vector3  *
 CrowdManager_GetRandomPointInCircle (
 #else
@@ -27283,7 +27318,7 @@ Urho3D::CrowdManager *_target, const class Urho3D::Vector3 & center, float radiu
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CrowdManager_GetRandomPointInCircle_150_Vector3 =_target->GetRandomPointInCircle (center, radius, queryFilterType, randomRef)))
+	((Interop::Vector3  *) &(CrowdManager_GetRandomPointInCircle_151_Vector3 =_target->GetRandomPointInCircle (center, radius, queryFilterType, randomRef)))
 #else
 	*((Interop::Vector3  *) &(_target->GetRandomPointInCircle (center, radius, queryFilterType, randomRef)))
 #endif
@@ -27300,7 +27335,7 @@ CrowdManager_GetDistanceToWall (Urho3D::CrowdManager *_target, const class Urho3
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CrowdManager_Raycast_151_Vector3 ;
+static Vector3  CrowdManager_Raycast_152_Vector3 ;
 DllExport Interop::Vector3  *
 CrowdManager_Raycast (
 #else
@@ -27311,7 +27346,7 @@ Urho3D::CrowdManager *_target, const class Urho3D::Vector3 & start, const class 
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CrowdManager_Raycast_151_Vector3 =_target->Raycast (start, end, queryFilterType, hitNormal)))
+	((Interop::Vector3  *) &(CrowdManager_Raycast_152_Vector3 =_target->Raycast (start, end, queryFilterType, hitNormal)))
 #else
 	*((Interop::Vector3  *) &(_target->Raycast (start, end, queryFilterType, hitNormal)))
 #endif
@@ -27384,7 +27419,7 @@ CrowdManager_GetNumObstacleAvoidanceTypes (Urho3D::CrowdManager *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static CrowdObstacleAvoidanceParams CrowdManager_GetObstacleAvoidanceParams_152_CrowdObstacleAvoidanceParams;
+static CrowdObstacleAvoidanceParams CrowdManager_GetObstacleAvoidanceParams_153_CrowdObstacleAvoidanceParams;
 DllExport Urho3D::CrowdObstacleAvoidanceParams *
 CrowdManager_GetObstacleAvoidanceParams (
 #else
@@ -27395,7 +27430,7 @@ Urho3D::CrowdManager *_target, unsigned int obstacleAvoidanceType)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Urho3D::CrowdObstacleAvoidanceParams *) &(CrowdManager_GetObstacleAvoidanceParams_152_CrowdObstacleAvoidanceParams=_target->GetObstacleAvoidanceParams (obstacleAvoidanceType)))
+	((Urho3D::CrowdObstacleAvoidanceParams *) &(CrowdManager_GetObstacleAvoidanceParams_153_CrowdObstacleAvoidanceParams=_target->GetObstacleAvoidanceParams (obstacleAvoidanceType)))
 #else
 	*((Urho3D::CrowdObstacleAvoidanceParams *) &(_target->GetObstacleAvoidanceParams (obstacleAvoidanceType)))
 #endif
@@ -27559,7 +27594,7 @@ CrowdAgent_SetNavigationPushiness (Urho3D::CrowdAgent *_target, enum Urho3D::Nav
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CrowdAgent_GetPosition_153_Vector3 ;
+static Vector3  CrowdAgent_GetPosition_154_Vector3 ;
 DllExport Interop::Vector3  *
 CrowdAgent_GetPosition (
 #else
@@ -27570,7 +27605,7 @@ Urho3D::CrowdAgent *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CrowdAgent_GetPosition_153_Vector3 =_target->GetPosition ()))
+	((Interop::Vector3  *) &(CrowdAgent_GetPosition_154_Vector3 =_target->GetPosition ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetPosition ()))
 #endif
@@ -27580,7 +27615,7 @@ Urho3D::CrowdAgent *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CrowdAgent_GetDesiredVelocity_154_Vector3 ;
+static Vector3  CrowdAgent_GetDesiredVelocity_155_Vector3 ;
 DllExport Interop::Vector3  *
 CrowdAgent_GetDesiredVelocity (
 #else
@@ -27591,7 +27626,7 @@ Urho3D::CrowdAgent *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CrowdAgent_GetDesiredVelocity_154_Vector3 =_target->GetDesiredVelocity ()))
+	((Interop::Vector3  *) &(CrowdAgent_GetDesiredVelocity_155_Vector3 =_target->GetDesiredVelocity ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetDesiredVelocity ()))
 #endif
@@ -27601,7 +27636,7 @@ Urho3D::CrowdAgent *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CrowdAgent_GetActualVelocity_155_Vector3 ;
+static Vector3  CrowdAgent_GetActualVelocity_156_Vector3 ;
 DllExport Interop::Vector3  *
 CrowdAgent_GetActualVelocity (
 #else
@@ -27612,7 +27647,7 @@ Urho3D::CrowdAgent *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CrowdAgent_GetActualVelocity_155_Vector3 =_target->GetActualVelocity ()))
+	((Interop::Vector3  *) &(CrowdAgent_GetActualVelocity_156_Vector3 =_target->GetActualVelocity ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetActualVelocity ()))
 #endif
@@ -27622,7 +27657,7 @@ Urho3D::CrowdAgent *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CrowdAgent_GetTargetPosition_156_Vector3 ;
+static Vector3  CrowdAgent_GetTargetPosition_157_Vector3 ;
 DllExport Interop::Vector3  *
 CrowdAgent_GetTargetPosition (
 #else
@@ -27633,7 +27668,7 @@ Urho3D::CrowdAgent *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CrowdAgent_GetTargetPosition_156_Vector3 =_target->GetTargetPosition ()))
+	((Interop::Vector3  *) &(CrowdAgent_GetTargetPosition_157_Vector3 =_target->GetTargetPosition ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetTargetPosition ()))
 #endif
@@ -27643,7 +27678,7 @@ Urho3D::CrowdAgent *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CrowdAgent_GetTargetVelocity_157_Vector3 ;
+static Vector3  CrowdAgent_GetTargetVelocity_158_Vector3 ;
 DllExport Interop::Vector3  *
 CrowdAgent_GetTargetVelocity (
 #else
@@ -27654,7 +27689,7 @@ Urho3D::CrowdAgent *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CrowdAgent_GetTargetVelocity_157_Vector3 =_target->GetTargetVelocity ()))
+	((Interop::Vector3  *) &(CrowdAgent_GetTargetVelocity_158_Vector3 =_target->GetTargetVelocity ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetTargetVelocity ()))
 #endif
@@ -27979,7 +28014,7 @@ NavigationMesh_HasTile (Urho3D::NavigationMesh *_target, const class Urho3D::Int
 
 
 #ifdef __EMSCRIPTEN__
-static BoundingBox  NavigationMesh_GetTileBoundingBox_158_BoundingBox ;
+static BoundingBox  NavigationMesh_GetTileBoundingBox_159_BoundingBox ;
 DllExport Interop::BoundingBox  *
 NavigationMesh_GetTileBoundingBox (
 #else
@@ -27990,7 +28025,7 @@ Urho3D::NavigationMesh *_target, const class Urho3D::IntVector2 & tile)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::BoundingBox  *) &(NavigationMesh_GetTileBoundingBox_158_BoundingBox =_target->GetTileBoundingBox (tile)))
+	((Interop::BoundingBox  *) &(NavigationMesh_GetTileBoundingBox_159_BoundingBox =_target->GetTileBoundingBox (tile)))
 #else
 	*((Interop::BoundingBox  *) &(_target->GetTileBoundingBox (tile)))
 #endif
@@ -28000,7 +28035,7 @@ Urho3D::NavigationMesh *_target, const class Urho3D::IntVector2 & tile)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  NavigationMesh_GetTileIndex_159_IntVector2 ;
+static IntVector2  NavigationMesh_GetTileIndex_160_IntVector2 ;
 DllExport Interop::IntVector2  *
 NavigationMesh_GetTileIndex (
 #else
@@ -28011,7 +28046,7 @@ Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & position)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(NavigationMesh_GetTileIndex_159_IntVector2 =_target->GetTileIndex (position)))
+	((Interop::IntVector2  *) &(NavigationMesh_GetTileIndex_160_IntVector2 =_target->GetTileIndex (position)))
 #else
 	*((Interop::IntVector2  *) &(_target->GetTileIndex (position)))
 #endif
@@ -28021,7 +28056,7 @@ Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & position)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  NavigationMesh_FindNearestPoint_160_Vector3 ;
+static Vector3  NavigationMesh_FindNearestPoint_161_Vector3 ;
 DllExport Interop::Vector3  *
 NavigationMesh_FindNearestPoint (
 #else
@@ -28032,7 +28067,7 @@ Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & point, const clas
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(NavigationMesh_FindNearestPoint_160_Vector3 =_target->FindNearestPoint (point, extents, filter, nearestRef)))
+	((Interop::Vector3  *) &(NavigationMesh_FindNearestPoint_161_Vector3 =_target->FindNearestPoint (point, extents, filter, nearestRef)))
 #else
 	*((Interop::Vector3  *) &(_target->FindNearestPoint (point, extents, filter, nearestRef)))
 #endif
@@ -28042,7 +28077,7 @@ Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & point, const clas
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  NavigationMesh_MoveAlongSurface_161_Vector3 ;
+static Vector3  NavigationMesh_MoveAlongSurface_162_Vector3 ;
 DllExport Interop::Vector3  *
 NavigationMesh_MoveAlongSurface (
 #else
@@ -28053,7 +28088,7 @@ Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & start, const clas
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(NavigationMesh_MoveAlongSurface_161_Vector3 =_target->MoveAlongSurface (start, end, extents, maxVisited, filter)))
+	((Interop::Vector3  *) &(NavigationMesh_MoveAlongSurface_162_Vector3 =_target->MoveAlongSurface (start, end, extents, maxVisited, filter)))
 #else
 	*((Interop::Vector3  *) &(_target->MoveAlongSurface (start, end, extents, maxVisited, filter)))
 #endif
@@ -28063,7 +28098,7 @@ Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & start, const clas
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  NavigationMesh_GetRandomPoint_162_Vector3 ;
+static Vector3  NavigationMesh_GetRandomPoint_163_Vector3 ;
 DllExport Interop::Vector3  *
 NavigationMesh_GetRandomPoint (
 #else
@@ -28074,7 +28109,7 @@ Urho3D::NavigationMesh *_target, const class dtQueryFilter * filter, dtPolyRef *
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(NavigationMesh_GetRandomPoint_162_Vector3 =_target->GetRandomPoint (filter, randomRef)))
+	((Interop::Vector3  *) &(NavigationMesh_GetRandomPoint_163_Vector3 =_target->GetRandomPoint (filter, randomRef)))
 #else
 	*((Interop::Vector3  *) &(_target->GetRandomPoint (filter, randomRef)))
 #endif
@@ -28084,7 +28119,7 @@ Urho3D::NavigationMesh *_target, const class dtQueryFilter * filter, dtPolyRef *
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  NavigationMesh_GetRandomPointInCircle_163_Vector3 ;
+static Vector3  NavigationMesh_GetRandomPointInCircle_164_Vector3 ;
 DllExport Interop::Vector3  *
 NavigationMesh_GetRandomPointInCircle (
 #else
@@ -28095,7 +28130,7 @@ Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & center, float rad
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(NavigationMesh_GetRandomPointInCircle_163_Vector3 =_target->GetRandomPointInCircle (center, radius, extents, filter, randomRef)))
+	((Interop::Vector3  *) &(NavigationMesh_GetRandomPointInCircle_164_Vector3 =_target->GetRandomPointInCircle (center, radius, extents, filter, randomRef)))
 #else
 	*((Interop::Vector3  *) &(_target->GetRandomPointInCircle (center, radius, extents, filter, randomRef)))
 #endif
@@ -28112,7 +28147,7 @@ NavigationMesh_GetDistanceToWall (Urho3D::NavigationMesh *_target, const class U
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  NavigationMesh_Raycast_164_Vector3 ;
+static Vector3  NavigationMesh_Raycast_165_Vector3 ;
 DllExport Interop::Vector3  *
 NavigationMesh_Raycast (
 #else
@@ -28123,7 +28158,7 @@ Urho3D::NavigationMesh *_target, const class Urho3D::Vector3 & start, const clas
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(NavigationMesh_Raycast_164_Vector3 =_target->Raycast (start, end, extents, filter, hitNormal)))
+	((Interop::Vector3  *) &(NavigationMesh_Raycast_165_Vector3 =_target->Raycast (start, end, extents, filter, hitNormal)))
 #else
 	*((Interop::Vector3  *) &(_target->Raycast (start, end, extents, filter, hitNormal)))
 #endif
@@ -28245,7 +28280,7 @@ NavigationMesh_GetDetailSampleMaxError (Urho3D::NavigationMesh *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  NavigationMesh_GetPadding_165_Vector3 ;
+static Vector3  NavigationMesh_GetPadding_166_Vector3 ;
 DllExport Interop::Vector3  *
 NavigationMesh_GetPadding (
 #else
@@ -28256,7 +28291,7 @@ Urho3D::NavigationMesh *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(NavigationMesh_GetPadding_165_Vector3 =_target->GetPadding ()))
+	((Interop::Vector3  *) &(NavigationMesh_GetPadding_166_Vector3 =_target->GetPadding ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetPadding ()))
 #endif
@@ -28280,7 +28315,7 @@ NavigationMesh_IsInitialized (Urho3D::NavigationMesh *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static BoundingBox  NavigationMesh_GetBoundingBox_166_BoundingBox ;
+static BoundingBox  NavigationMesh_GetBoundingBox_167_BoundingBox ;
 DllExport Interop::BoundingBox  *
 NavigationMesh_GetBoundingBox (
 #else
@@ -28291,7 +28326,7 @@ Urho3D::NavigationMesh *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::BoundingBox  *) &(NavigationMesh_GetBoundingBox_166_BoundingBox =_target->GetBoundingBox ()))
+	((Interop::BoundingBox  *) &(NavigationMesh_GetBoundingBox_167_BoundingBox =_target->GetBoundingBox ()))
 #else
 	*((Interop::BoundingBox  *) &(_target->GetBoundingBox ()))
 #endif
@@ -28301,7 +28336,7 @@ Urho3D::NavigationMesh *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static BoundingBox  NavigationMesh_GetWorldBoundingBox_167_BoundingBox ;
+static BoundingBox  NavigationMesh_GetWorldBoundingBox_168_BoundingBox ;
 DllExport Interop::BoundingBox  *
 NavigationMesh_GetWorldBoundingBox (
 #else
@@ -28312,7 +28347,7 @@ Urho3D::NavigationMesh *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::BoundingBox  *) &(NavigationMesh_GetWorldBoundingBox_167_BoundingBox =_target->GetWorldBoundingBox ()))
+	((Interop::BoundingBox  *) &(NavigationMesh_GetWorldBoundingBox_168_BoundingBox =_target->GetWorldBoundingBox ()))
 #else
 	*((Interop::BoundingBox  *) &(_target->GetWorldBoundingBox ()))
 #endif
@@ -28322,7 +28357,7 @@ Urho3D::NavigationMesh *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  NavigationMesh_GetNumTiles_168_IntVector2 ;
+static IntVector2  NavigationMesh_GetNumTiles_169_IntVector2 ;
 DllExport Interop::IntVector2  *
 NavigationMesh_GetNumTiles (
 #else
@@ -28333,7 +28368,7 @@ Urho3D::NavigationMesh *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(NavigationMesh_GetNumTiles_168_IntVector2 =_target->GetNumTiles ()))
+	((Interop::IntVector2  *) &(NavigationMesh_GetNumTiles_169_IntVector2 =_target->GetNumTiles ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetNumTiles ()))
 #endif
@@ -28595,7 +28630,7 @@ NavArea_SetAreaID (Urho3D::NavArea *_target, unsigned int newID)
 
 
 #ifdef __EMSCRIPTEN__
-static BoundingBox  NavArea_GetBoundingBox_169_BoundingBox ;
+static BoundingBox  NavArea_GetBoundingBox_170_BoundingBox ;
 DllExport Interop::BoundingBox  *
 NavArea_GetBoundingBox (
 #else
@@ -28606,7 +28641,7 @@ Urho3D::NavArea *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::BoundingBox  *) &(NavArea_GetBoundingBox_169_BoundingBox =_target->GetBoundingBox ()))
+	((Interop::BoundingBox  *) &(NavArea_GetBoundingBox_170_BoundingBox =_target->GetBoundingBox ()))
 #else
 	*((Interop::BoundingBox  *) &(_target->GetBoundingBox ()))
 #endif
@@ -28623,7 +28658,7 @@ NavArea_SetBoundingBox (Urho3D::NavArea *_target, const class Urho3D::BoundingBo
 
 
 #ifdef __EMSCRIPTEN__
-static BoundingBox  NavArea_GetWorldBoundingBox_170_BoundingBox ;
+static BoundingBox  NavArea_GetWorldBoundingBox_171_BoundingBox ;
 DllExport Interop::BoundingBox  *
 NavArea_GetWorldBoundingBox (
 #else
@@ -28634,7 +28669,7 @@ Urho3D::NavArea *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::BoundingBox  *) &(NavArea_GetWorldBoundingBox_170_BoundingBox =_target->GetWorldBoundingBox ()))
+	((Interop::BoundingBox  *) &(NavArea_GetWorldBoundingBox_171_BoundingBox =_target->GetWorldBoundingBox ()))
 #else
 	*((Interop::BoundingBox  *) &(_target->GetWorldBoundingBox ()))
 #endif
@@ -29078,7 +29113,7 @@ Connection_GetTimeStamp (Urho3D::Connection *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  Connection_GetPosition_171_Vector3 ;
+static Vector3  Connection_GetPosition_172_Vector3 ;
 DllExport Interop::Vector3  *
 Connection_GetPosition (
 #else
@@ -29089,7 +29124,7 @@ Urho3D::Connection *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(Connection_GetPosition_171_Vector3 =_target->GetPosition ()))
+	((Interop::Vector3  *) &(Connection_GetPosition_172_Vector3 =_target->GetPosition ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetPosition ()))
 #endif
@@ -29099,7 +29134,7 @@ Urho3D::Connection *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Quaternion  Connection_GetRotation_172_Quaternion ;
+static Quaternion  Connection_GetRotation_173_Quaternion ;
 DllExport Interop::Quaternion  *
 Connection_GetRotation (
 #else
@@ -29110,7 +29145,7 @@ Urho3D::Connection *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Quaternion  *) &(Connection_GetRotation_172_Quaternion =_target->GetRotation ()))
+	((Interop::Quaternion  *) &(Connection_GetRotation_173_Quaternion =_target->GetRotation ()))
 #else
 	*((Interop::Quaternion  *) &(_target->GetRotation ()))
 #endif
@@ -29932,7 +29967,7 @@ CollisionShape_GetShapeType (Urho3D::CollisionShape *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CollisionShape_GetSize_173_Vector3 ;
+static Vector3  CollisionShape_GetSize_174_Vector3 ;
 DllExport Interop::Vector3  *
 CollisionShape_GetSize (
 #else
@@ -29943,7 +29978,7 @@ Urho3D::CollisionShape *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CollisionShape_GetSize_173_Vector3 =_target->GetSize ()))
+	((Interop::Vector3  *) &(CollisionShape_GetSize_174_Vector3 =_target->GetSize ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetSize ()))
 #endif
@@ -29953,7 +29988,7 @@ Urho3D::CollisionShape *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CollisionShape_GetPosition_174_Vector3 ;
+static Vector3  CollisionShape_GetPosition_175_Vector3 ;
 DllExport Interop::Vector3  *
 CollisionShape_GetPosition (
 #else
@@ -29964,7 +29999,7 @@ Urho3D::CollisionShape *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CollisionShape_GetPosition_174_Vector3 =_target->GetPosition ()))
+	((Interop::Vector3  *) &(CollisionShape_GetPosition_175_Vector3 =_target->GetPosition ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetPosition ()))
 #endif
@@ -29974,7 +30009,7 @@ Urho3D::CollisionShape *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Quaternion  CollisionShape_GetRotation_175_Quaternion ;
+static Quaternion  CollisionShape_GetRotation_176_Quaternion ;
 DllExport Interop::Quaternion  *
 CollisionShape_GetRotation (
 #else
@@ -29985,7 +30020,7 @@ Urho3D::CollisionShape *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Quaternion  *) &(CollisionShape_GetRotation_175_Quaternion =_target->GetRotation ()))
+	((Interop::Quaternion  *) &(CollisionShape_GetRotation_176_Quaternion =_target->GetRotation ()))
 #else
 	*((Interop::Quaternion  *) &(_target->GetRotation ()))
 #endif
@@ -30016,7 +30051,7 @@ CollisionShape_GetLodLevel (Urho3D::CollisionShape *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static BoundingBox  CollisionShape_GetWorldBoundingBox_176_BoundingBox ;
+static BoundingBox  CollisionShape_GetWorldBoundingBox_177_BoundingBox ;
 DllExport Interop::BoundingBox  *
 CollisionShape_GetWorldBoundingBox (
 #else
@@ -30027,7 +30062,7 @@ Urho3D::CollisionShape *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::BoundingBox  *) &(CollisionShape_GetWorldBoundingBox_176_BoundingBox =_target->GetWorldBoundingBox ()))
+	((Interop::BoundingBox  *) &(CollisionShape_GetWorldBoundingBox_177_BoundingBox =_target->GetWorldBoundingBox ()))
 #else
 	*((Interop::BoundingBox  *) &(_target->GetWorldBoundingBox ()))
 #endif
@@ -30247,7 +30282,7 @@ Constraint_GetOtherBody (Urho3D::Constraint *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  Constraint_GetPosition_177_Vector3 ;
+static Vector3  Constraint_GetPosition_178_Vector3 ;
 DllExport Interop::Vector3  *
 Constraint_GetPosition (
 #else
@@ -30258,7 +30293,7 @@ Urho3D::Constraint *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(Constraint_GetPosition_177_Vector3 =_target->GetPosition ()))
+	((Interop::Vector3  *) &(Constraint_GetPosition_178_Vector3 =_target->GetPosition ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetPosition ()))
 #endif
@@ -30268,7 +30303,7 @@ Urho3D::Constraint *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Quaternion  Constraint_GetRotation_178_Quaternion ;
+static Quaternion  Constraint_GetRotation_179_Quaternion ;
 DllExport Interop::Quaternion  *
 Constraint_GetRotation (
 #else
@@ -30279,7 +30314,7 @@ Urho3D::Constraint *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Quaternion  *) &(Constraint_GetRotation_178_Quaternion =_target->GetRotation ()))
+	((Interop::Quaternion  *) &(Constraint_GetRotation_179_Quaternion =_target->GetRotation ()))
 #else
 	*((Interop::Quaternion  *) &(_target->GetRotation ()))
 #endif
@@ -30289,7 +30324,7 @@ Urho3D::Constraint *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  Constraint_GetOtherPosition_179_Vector3 ;
+static Vector3  Constraint_GetOtherPosition_180_Vector3 ;
 DllExport Interop::Vector3  *
 Constraint_GetOtherPosition (
 #else
@@ -30300,7 +30335,7 @@ Urho3D::Constraint *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(Constraint_GetOtherPosition_179_Vector3 =_target->GetOtherPosition ()))
+	((Interop::Vector3  *) &(Constraint_GetOtherPosition_180_Vector3 =_target->GetOtherPosition ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetOtherPosition ()))
 #endif
@@ -30310,7 +30345,7 @@ Urho3D::Constraint *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Quaternion  Constraint_GetOtherRotation_180_Quaternion ;
+static Quaternion  Constraint_GetOtherRotation_181_Quaternion ;
 DllExport Interop::Quaternion  *
 Constraint_GetOtherRotation (
 #else
@@ -30321,7 +30356,7 @@ Urho3D::Constraint *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Quaternion  *) &(Constraint_GetOtherRotation_180_Quaternion =_target->GetOtherRotation ()))
+	((Interop::Quaternion  *) &(Constraint_GetOtherRotation_181_Quaternion =_target->GetOtherRotation ()))
 #else
 	*((Interop::Quaternion  *) &(_target->GetOtherRotation ()))
 #endif
@@ -30331,7 +30366,7 @@ Urho3D::Constraint *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  Constraint_GetWorldPosition_181_Vector3 ;
+static Vector3  Constraint_GetWorldPosition_182_Vector3 ;
 DllExport Interop::Vector3  *
 Constraint_GetWorldPosition (
 #else
@@ -30342,7 +30377,7 @@ Urho3D::Constraint *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(Constraint_GetWorldPosition_181_Vector3 =_target->GetWorldPosition ()))
+	((Interop::Vector3  *) &(Constraint_GetWorldPosition_182_Vector3 =_target->GetWorldPosition ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetWorldPosition ()))
 #endif
@@ -30352,7 +30387,7 @@ Urho3D::Constraint *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  Constraint_GetHighLimit_182_Vector2 ;
+static Vector2  Constraint_GetHighLimit_183_Vector2 ;
 DllExport Interop::Vector2  *
 Constraint_GetHighLimit (
 #else
@@ -30363,7 +30398,7 @@ Urho3D::Constraint *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(Constraint_GetHighLimit_182_Vector2 =_target->GetHighLimit ()))
+	((Interop::Vector2  *) &(Constraint_GetHighLimit_183_Vector2 =_target->GetHighLimit ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetHighLimit ()))
 #endif
@@ -30373,7 +30408,7 @@ Urho3D::Constraint *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  Constraint_GetLowLimit_183_Vector2 ;
+static Vector2  Constraint_GetLowLimit_184_Vector2 ;
 DllExport Interop::Vector2  *
 Constraint_GetLowLimit (
 #else
@@ -30384,7 +30419,7 @@ Urho3D::Constraint *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(Constraint_GetLowLimit_183_Vector2 =_target->GetLowLimit ()))
+	((Interop::Vector2  *) &(Constraint_GetLowLimit_184_Vector2 =_target->GetLowLimit ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetLowLimit ()))
 #endif
@@ -30870,7 +30905,7 @@ RigidBody_GetMass (Urho3D::RigidBody *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  RigidBody_GetPosition_184_Vector3 ;
+static Vector3  RigidBody_GetPosition_185_Vector3 ;
 DllExport Interop::Vector3  *
 RigidBody_GetPosition (
 #else
@@ -30881,7 +30916,7 @@ Urho3D::RigidBody *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(RigidBody_GetPosition_184_Vector3 =_target->GetPosition ()))
+	((Interop::Vector3  *) &(RigidBody_GetPosition_185_Vector3 =_target->GetPosition ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetPosition ()))
 #endif
@@ -30891,7 +30926,7 @@ Urho3D::RigidBody *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Quaternion  RigidBody_GetRotation_185_Quaternion ;
+static Quaternion  RigidBody_GetRotation_186_Quaternion ;
 DllExport Interop::Quaternion  *
 RigidBody_GetRotation (
 #else
@@ -30902,7 +30937,7 @@ Urho3D::RigidBody *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Quaternion  *) &(RigidBody_GetRotation_185_Quaternion =_target->GetRotation ()))
+	((Interop::Quaternion  *) &(RigidBody_GetRotation_186_Quaternion =_target->GetRotation ()))
 #else
 	*((Interop::Quaternion  *) &(_target->GetRotation ()))
 #endif
@@ -30912,7 +30947,7 @@ Urho3D::RigidBody *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  RigidBody_GetLinearVelocity_186_Vector3 ;
+static Vector3  RigidBody_GetLinearVelocity_187_Vector3 ;
 DllExport Interop::Vector3  *
 RigidBody_GetLinearVelocity (
 #else
@@ -30923,7 +30958,7 @@ Urho3D::RigidBody *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(RigidBody_GetLinearVelocity_186_Vector3 =_target->GetLinearVelocity ()))
+	((Interop::Vector3  *) &(RigidBody_GetLinearVelocity_187_Vector3 =_target->GetLinearVelocity ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetLinearVelocity ()))
 #endif
@@ -30933,7 +30968,7 @@ Urho3D::RigidBody *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  RigidBody_GetLinearFactor_187_Vector3 ;
+static Vector3  RigidBody_GetLinearFactor_188_Vector3 ;
 DllExport Interop::Vector3  *
 RigidBody_GetLinearFactor (
 #else
@@ -30944,7 +30979,7 @@ Urho3D::RigidBody *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(RigidBody_GetLinearFactor_187_Vector3 =_target->GetLinearFactor ()))
+	((Interop::Vector3  *) &(RigidBody_GetLinearFactor_188_Vector3 =_target->GetLinearFactor ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetLinearFactor ()))
 #endif
@@ -30954,7 +30989,7 @@ Urho3D::RigidBody *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  RigidBody_GetVelocityAtPoint_188_Vector3 ;
+static Vector3  RigidBody_GetVelocityAtPoint_189_Vector3 ;
 DllExport Interop::Vector3  *
 RigidBody_GetVelocityAtPoint (
 #else
@@ -30965,7 +31000,7 @@ Urho3D::RigidBody *_target, const class Urho3D::Vector3 & position)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(RigidBody_GetVelocityAtPoint_188_Vector3 =_target->GetVelocityAtPoint (position)))
+	((Interop::Vector3  *) &(RigidBody_GetVelocityAtPoint_189_Vector3 =_target->GetVelocityAtPoint (position)))
 #else
 	*((Interop::Vector3  *) &(_target->GetVelocityAtPoint (position)))
 #endif
@@ -30989,7 +31024,7 @@ RigidBody_GetLinearDamping (Urho3D::RigidBody *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  RigidBody_GetAngularVelocity_189_Vector3 ;
+static Vector3  RigidBody_GetAngularVelocity_190_Vector3 ;
 DllExport Interop::Vector3  *
 RigidBody_GetAngularVelocity (
 #else
@@ -31000,7 +31035,7 @@ Urho3D::RigidBody *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(RigidBody_GetAngularVelocity_189_Vector3 =_target->GetAngularVelocity ()))
+	((Interop::Vector3  *) &(RigidBody_GetAngularVelocity_190_Vector3 =_target->GetAngularVelocity ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetAngularVelocity ()))
 #endif
@@ -31010,7 +31045,7 @@ Urho3D::RigidBody *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  RigidBody_GetAngularFactor_190_Vector3 ;
+static Vector3  RigidBody_GetAngularFactor_191_Vector3 ;
 DllExport Interop::Vector3  *
 RigidBody_GetAngularFactor (
 #else
@@ -31021,7 +31056,7 @@ Urho3D::RigidBody *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(RigidBody_GetAngularFactor_190_Vector3 =_target->GetAngularFactor ()))
+	((Interop::Vector3  *) &(RigidBody_GetAngularFactor_191_Vector3 =_target->GetAngularFactor ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetAngularFactor ()))
 #endif
@@ -31052,7 +31087,7 @@ RigidBody_GetFriction (Urho3D::RigidBody *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  RigidBody_GetAnisotropicFriction_191_Vector3 ;
+static Vector3  RigidBody_GetAnisotropicFriction_192_Vector3 ;
 DllExport Interop::Vector3  *
 RigidBody_GetAnisotropicFriction (
 #else
@@ -31063,7 +31098,7 @@ Urho3D::RigidBody *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(RigidBody_GetAnisotropicFriction_191_Vector3 =_target->GetAnisotropicFriction ()))
+	((Interop::Vector3  *) &(RigidBody_GetAnisotropicFriction_192_Vector3 =_target->GetAnisotropicFriction ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetAnisotropicFriction ()))
 #endif
@@ -31115,7 +31150,7 @@ RigidBody_GetUseGravity (Urho3D::RigidBody *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  RigidBody_GetGravityOverride_192_Vector3 ;
+static Vector3  RigidBody_GetGravityOverride_193_Vector3 ;
 DllExport Interop::Vector3  *
 RigidBody_GetGravityOverride (
 #else
@@ -31126,7 +31161,7 @@ Urho3D::RigidBody *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(RigidBody_GetGravityOverride_192_Vector3 =_target->GetGravityOverride ()))
+	((Interop::Vector3  *) &(RigidBody_GetGravityOverride_193_Vector3 =_target->GetGravityOverride ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetGravityOverride ()))
 #endif
@@ -31136,7 +31171,7 @@ Urho3D::RigidBody *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  RigidBody_GetCenterOfMass_193_Vector3 ;
+static Vector3  RigidBody_GetCenterOfMass_194_Vector3 ;
 DllExport Interop::Vector3  *
 RigidBody_GetCenterOfMass (
 #else
@@ -31147,7 +31182,7 @@ Urho3D::RigidBody *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(RigidBody_GetCenterOfMass_193_Vector3 =_target->GetCenterOfMass ()))
+	((Interop::Vector3  *) &(RigidBody_GetCenterOfMass_194_Vector3 =_target->GetCenterOfMass ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetCenterOfMass ()))
 #endif
@@ -31297,7 +31332,7 @@ CustomRaycastVehicle_SetVehicleCenterOfMass (Urho3D::CustomRaycastVehicle *_targ
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CustomRaycastVehicle_GetVehicleCenterOfMass_194_Vector3 ;
+static Vector3  CustomRaycastVehicle_GetVehicleCenterOfMass_195_Vector3 ;
 DllExport Interop::Vector3  *
 CustomRaycastVehicle_GetVehicleCenterOfMass (
 #else
@@ -31308,7 +31343,7 @@ Urho3D::CustomRaycastVehicle *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CustomRaycastVehicle_GetVehicleCenterOfMass_194_Vector3 =_target->GetVehicleCenterOfMass ()))
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetVehicleCenterOfMass_195_Vector3 =_target->GetVehicleCenterOfMass ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetVehicleCenterOfMass ()))
 #endif
@@ -31346,7 +31381,7 @@ CustomRaycastVehicle_SetBrake (Urho3D::CustomRaycastVehicle *_target, float brak
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CustomRaycastVehicle_GetWheelPositionWS_195_Vector3 ;
+static Vector3  CustomRaycastVehicle_GetWheelPositionWS_196_Vector3 ;
 DllExport Interop::Vector3  *
 CustomRaycastVehicle_GetWheelPositionWS (
 #else
@@ -31357,7 +31392,7 @@ Urho3D::CustomRaycastVehicle *_target, int wheel)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CustomRaycastVehicle_GetWheelPositionWS_195_Vector3 =_target->GetWheelPositionWS (wheel)))
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetWheelPositionWS_196_Vector3 =_target->GetWheelPositionWS (wheel)))
 #else
 	*((Interop::Vector3  *) &(_target->GetWheelPositionWS (wheel)))
 #endif
@@ -31367,7 +31402,7 @@ Urho3D::CustomRaycastVehicle *_target, int wheel)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CustomRaycastVehicle_GetWheelPositionLS_196_Vector3 ;
+static Vector3  CustomRaycastVehicle_GetWheelPositionLS_197_Vector3 ;
 DllExport Interop::Vector3  *
 CustomRaycastVehicle_GetWheelPositionLS (
 #else
@@ -31378,7 +31413,7 @@ Urho3D::CustomRaycastVehicle *_target, int wheel)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CustomRaycastVehicle_GetWheelPositionLS_196_Vector3 =_target->GetWheelPositionLS (wheel)))
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetWheelPositionLS_197_Vector3 =_target->GetWheelPositionLS (wheel)))
 #else
 	*((Interop::Vector3  *) &(_target->GetWheelPositionLS (wheel)))
 #endif
@@ -31388,7 +31423,7 @@ Urho3D::CustomRaycastVehicle *_target, int wheel)
 
 
 #ifdef __EMSCRIPTEN__
-static Quaternion  CustomRaycastVehicle_GetWheelRotation_197_Quaternion ;
+static Quaternion  CustomRaycastVehicle_GetWheelRotation_198_Quaternion ;
 DllExport Interop::Quaternion  *
 CustomRaycastVehicle_GetWheelRotation (
 #else
@@ -31399,7 +31434,7 @@ Urho3D::CustomRaycastVehicle *_target, int wheel)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Quaternion  *) &(CustomRaycastVehicle_GetWheelRotation_197_Quaternion =_target->GetWheelRotation (wheel)))
+	((Interop::Quaternion  *) &(CustomRaycastVehicle_GetWheelRotation_198_Quaternion =_target->GetWheelRotation (wheel)))
 #else
 	*((Interop::Quaternion  *) &(_target->GetWheelRotation (wheel)))
 #endif
@@ -31430,7 +31465,7 @@ CustomRaycastVehicle_GetNumWheels (Urho3D::CustomRaycastVehicle *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CustomRaycastVehicle_GetForwardVector_198_Vector3 ;
+static Vector3  CustomRaycastVehicle_GetForwardVector_199_Vector3 ;
 DllExport Interop::Vector3  *
 CustomRaycastVehicle_GetForwardVector (
 #else
@@ -31441,7 +31476,7 @@ Urho3D::CustomRaycastVehicle *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CustomRaycastVehicle_GetForwardVector_198_Vector3 =_target->GetForwardVector ()))
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetForwardVector_199_Vector3 =_target->GetForwardVector ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetForwardVector ()))
 #endif
@@ -31458,7 +31493,7 @@ CustomRaycastVehicle_GetCurrentSpeedKmHour (Urho3D::CustomRaycastVehicle *_targe
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CustomRaycastVehicle_GetCompoundLocalExtents_199_Vector3 ;
+static Vector3  CustomRaycastVehicle_GetCompoundLocalExtents_200_Vector3 ;
 DllExport Interop::Vector3  *
 CustomRaycastVehicle_GetCompoundLocalExtents (
 #else
@@ -31469,7 +31504,7 @@ Urho3D::CustomRaycastVehicle *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CustomRaycastVehicle_GetCompoundLocalExtents_199_Vector3 =_target->GetCompoundLocalExtents ()))
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetCompoundLocalExtents_200_Vector3 =_target->GetCompoundLocalExtents ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetCompoundLocalExtents ()))
 #endif
@@ -31479,7 +31514,7 @@ Urho3D::CustomRaycastVehicle *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CustomRaycastVehicle_GetCompooundLocalExtentsCenter_200_Vector3 ;
+static Vector3  CustomRaycastVehicle_GetCompooundLocalExtentsCenter_201_Vector3 ;
 DllExport Interop::Vector3  *
 CustomRaycastVehicle_GetCompooundLocalExtentsCenter (
 #else
@@ -31490,7 +31525,7 @@ Urho3D::CustomRaycastVehicle *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CustomRaycastVehicle_GetCompooundLocalExtentsCenter_200_Vector3 =_target->GetCompooundLocalExtentsCenter ()))
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetCompooundLocalExtentsCenter_201_Vector3 =_target->GetCompooundLocalExtentsCenter ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetCompooundLocalExtentsCenter ()))
 #endif
@@ -31500,7 +31535,7 @@ Urho3D::CustomRaycastVehicle *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CustomRaycastVehicle_GetCompoundLocalAabbMin_201_Vector3 ;
+static Vector3  CustomRaycastVehicle_GetCompoundLocalAabbMin_202_Vector3 ;
 DllExport Interop::Vector3  *
 CustomRaycastVehicle_GetCompoundLocalAabbMin (
 #else
@@ -31511,7 +31546,7 @@ Urho3D::CustomRaycastVehicle *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CustomRaycastVehicle_GetCompoundLocalAabbMin_201_Vector3 =_target->GetCompoundLocalAabbMin ()))
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetCompoundLocalAabbMin_202_Vector3 =_target->GetCompoundLocalAabbMin ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetCompoundLocalAabbMin ()))
 #endif
@@ -31521,7 +31556,7 @@ Urho3D::CustomRaycastVehicle *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CustomRaycastVehicle_GetCompoundLocalAabbMax_202_Vector3 ;
+static Vector3  CustomRaycastVehicle_GetCompoundLocalAabbMax_203_Vector3 ;
 DllExport Interop::Vector3  *
 CustomRaycastVehicle_GetCompoundLocalAabbMax (
 #else
@@ -31532,7 +31567,7 @@ Urho3D::CustomRaycastVehicle *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CustomRaycastVehicle_GetCompoundLocalAabbMax_202_Vector3 =_target->GetCompoundLocalAabbMax ()))
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetCompoundLocalAabbMax_203_Vector3 =_target->GetCompoundLocalAabbMax ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetCompoundLocalAabbMax ()))
 #endif
@@ -31640,7 +31675,7 @@ CustomRaycastVehicle_GetSideFrictionStiffness (Urho3D::CustomRaycastVehicle *_ta
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CustomRaycastVehicle_GetChassisConnectionPointCS_203_Vector3 ;
+static Vector3  CustomRaycastVehicle_GetChassisConnectionPointCS_204_Vector3 ;
 DllExport Interop::Vector3  *
 CustomRaycastVehicle_GetChassisConnectionPointCS (
 #else
@@ -31651,7 +31686,7 @@ Urho3D::CustomRaycastVehicle *_target, int wheel)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CustomRaycastVehicle_GetChassisConnectionPointCS_203_Vector3 =_target->GetChassisConnectionPointCS (wheel)))
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetChassisConnectionPointCS_204_Vector3 =_target->GetChassisConnectionPointCS (wheel)))
 #else
 	*((Interop::Vector3  *) &(_target->GetChassisConnectionPointCS (wheel)))
 #endif
@@ -31668,7 +31703,7 @@ CustomRaycastVehicle_IsWheelInContact (Urho3D::CustomRaycastVehicle *_target, in
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CustomRaycastVehicle_GetContactPointWS_204_Vector3 ;
+static Vector3  CustomRaycastVehicle_GetContactPointWS_205_Vector3 ;
 DllExport Interop::Vector3  *
 CustomRaycastVehicle_GetContactPointWS (
 #else
@@ -31679,7 +31714,7 @@ Urho3D::CustomRaycastVehicle *_target, int wheel)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CustomRaycastVehicle_GetContactPointWS_204_Vector3 =_target->GetContactPointWS (wheel)))
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetContactPointWS_205_Vector3 =_target->GetContactPointWS (wheel)))
 #else
 	*((Interop::Vector3  *) &(_target->GetContactPointWS (wheel)))
 #endif
@@ -31689,7 +31724,7 @@ Urho3D::CustomRaycastVehicle *_target, int wheel)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CustomRaycastVehicle_GetContactNormalWS_205_Vector3 ;
+static Vector3  CustomRaycastVehicle_GetContactNormalWS_206_Vector3 ;
 DllExport Interop::Vector3  *
 CustomRaycastVehicle_GetContactNormalWS (
 #else
@@ -31700,7 +31735,7 @@ Urho3D::CustomRaycastVehicle *_target, int wheel)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CustomRaycastVehicle_GetContactNormalWS_205_Vector3 =_target->GetContactNormalWS (wheel)))
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetContactNormalWS_206_Vector3 =_target->GetContactNormalWS (wheel)))
 #else
 	*((Interop::Vector3  *) &(_target->GetContactNormalWS (wheel)))
 #endif
@@ -31773,7 +31808,7 @@ CustomRaycastVehicle_GetRotation (Urho3D::CustomRaycastVehicle *_target, int whe
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  CustomRaycastVehicle_GetWheelAxleWS_206_Vector3 ;
+static Vector3  CustomRaycastVehicle_GetWheelAxleWS_207_Vector3 ;
 DllExport Interop::Vector3  *
 CustomRaycastVehicle_GetWheelAxleWS (
 #else
@@ -31784,7 +31819,7 @@ Urho3D::CustomRaycastVehicle *_target, int wheel)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(CustomRaycastVehicle_GetWheelAxleWS_206_Vector3 =_target->GetWheelAxleWS (wheel)))
+	((Interop::Vector3  *) &(CustomRaycastVehicle_GetWheelAxleWS_207_Vector3 =_target->GetWheelAxleWS (wheel)))
 #else
 	*((Interop::Vector3  *) &(_target->GetWheelAxleWS (wheel)))
 #endif
@@ -31857,7 +31892,7 @@ KinematicCharacterController_ApplyAttributes (Urho3D::KinematicCharacterControll
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  KinematicCharacterController_GetPosition_207_Vector3 ;
+static Vector3  KinematicCharacterController_GetPosition_208_Vector3 ;
 DllExport Interop::Vector3  *
 KinematicCharacterController_GetPosition (
 #else
@@ -31868,7 +31903,7 @@ Urho3D::KinematicCharacterController *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(KinematicCharacterController_GetPosition_207_Vector3 =_target->GetPosition ()))
+	((Interop::Vector3  *) &(KinematicCharacterController_GetPosition_208_Vector3 =_target->GetPosition ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetPosition ()))
 #endif
@@ -31878,7 +31913,7 @@ Urho3D::KinematicCharacterController *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Quaternion  KinematicCharacterController_GetRotation_208_Quaternion ;
+static Quaternion  KinematicCharacterController_GetRotation_209_Quaternion ;
 DllExport Interop::Quaternion  *
 KinematicCharacterController_GetRotation (
 #else
@@ -31889,7 +31924,7 @@ Urho3D::KinematicCharacterController *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Quaternion  *) &(KinematicCharacterController_GetRotation_208_Quaternion =_target->GetRotation ()))
+	((Interop::Quaternion  *) &(KinematicCharacterController_GetRotation_209_Quaternion =_target->GetRotation ()))
 #else
 	*((Interop::Quaternion  *) &(_target->GetRotation ()))
 #endif
@@ -31948,7 +31983,7 @@ KinematicCharacterController_SetGravity (Urho3D::KinematicCharacterController *_
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  KinematicCharacterController_GetGravity_209_Vector3 ;
+static Vector3  KinematicCharacterController_GetGravity_210_Vector3 ;
 DllExport Interop::Vector3  *
 KinematicCharacterController_GetGravity (
 #else
@@ -31959,7 +31994,7 @@ Urho3D::KinematicCharacterController *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(KinematicCharacterController_GetGravity_209_Vector3 =_target->GetGravity ()))
+	((Interop::Vector3  *) &(KinematicCharacterController_GetGravity_210_Vector3 =_target->GetGravity ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetGravity ()))
 #endif
@@ -32109,7 +32144,7 @@ KinematicCharacterController_SetAngularVelocity (Urho3D::KinematicCharacterContr
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  KinematicCharacterController_GetAngularVelocity_210_Vector3 ;
+static Vector3  KinematicCharacterController_GetAngularVelocity_211_Vector3 ;
 DllExport Interop::Vector3  *
 KinematicCharacterController_GetAngularVelocity (
 #else
@@ -32120,7 +32155,7 @@ Urho3D::KinematicCharacterController *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(KinematicCharacterController_GetAngularVelocity_210_Vector3 =_target->GetAngularVelocity ()))
+	((Interop::Vector3  *) &(KinematicCharacterController_GetAngularVelocity_211_Vector3 =_target->GetAngularVelocity ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetAngularVelocity ()))
 #endif
@@ -32137,7 +32172,7 @@ KinematicCharacterController_SetLinearVelocity (Urho3D::KinematicCharacterContro
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  KinematicCharacterController_GetLinearVelocity_211_Vector3 ;
+static Vector3  KinematicCharacterController_GetLinearVelocity_212_Vector3 ;
 DllExport Interop::Vector3  *
 KinematicCharacterController_GetLinearVelocity (
 #else
@@ -32148,7 +32183,7 @@ Urho3D::KinematicCharacterController *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(KinematicCharacterController_GetLinearVelocity_211_Vector3 =_target->GetLinearVelocity ()))
+	((Interop::Vector3  *) &(KinematicCharacterController_GetLinearVelocity_212_Vector3 =_target->GetLinearVelocity ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetLinearVelocity ()))
 #endif
@@ -32347,7 +32382,7 @@ PhysicsWorld_RemoveCachedGeometry (Urho3D::PhysicsWorld *_target, Urho3D::Model 
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  PhysicsWorld_GetGravity_212_Vector3 ;
+static Vector3  PhysicsWorld_GetGravity_213_Vector3 ;
 DllExport Interop::Vector3  *
 PhysicsWorld_GetGravity (
 #else
@@ -32358,7 +32393,7 @@ Urho3D::PhysicsWorld *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(PhysicsWorld_GetGravity_212_Vector3 =_target->GetGravity ()))
+	((Interop::Vector3  *) &(PhysicsWorld_GetGravity_213_Vector3 =_target->GetGravity ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetGravity ()))
 #endif
@@ -32746,7 +32781,7 @@ RaycastVehicle_PostUpdate (Urho3D::RaycastVehicle *_target, float timeStep)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  RaycastVehicle_GetWheelPosition_213_Vector3 ;
+static Vector3  RaycastVehicle_GetWheelPosition_214_Vector3 ;
 DllExport Interop::Vector3  *
 RaycastVehicle_GetWheelPosition (
 #else
@@ -32757,7 +32792,7 @@ Urho3D::RaycastVehicle *_target, int wheel)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(RaycastVehicle_GetWheelPosition_213_Vector3 =_target->GetWheelPosition (wheel)))
+	((Interop::Vector3  *) &(RaycastVehicle_GetWheelPosition_214_Vector3 =_target->GetWheelPosition (wheel)))
 #else
 	*((Interop::Vector3  *) &(_target->GetWheelPosition (wheel)))
 #endif
@@ -32767,7 +32802,7 @@ Urho3D::RaycastVehicle *_target, int wheel)
 
 
 #ifdef __EMSCRIPTEN__
-static Quaternion  RaycastVehicle_GetWheelRotation_214_Quaternion ;
+static Quaternion  RaycastVehicle_GetWheelRotation_215_Quaternion ;
 DllExport Interop::Quaternion  *
 RaycastVehicle_GetWheelRotation (
 #else
@@ -32778,7 +32813,7 @@ Urho3D::RaycastVehicle *_target, int wheel)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Quaternion  *) &(RaycastVehicle_GetWheelRotation_214_Quaternion =_target->GetWheelRotation (wheel)))
+	((Interop::Quaternion  *) &(RaycastVehicle_GetWheelRotation_215_Quaternion =_target->GetWheelRotation (wheel)))
 #else
 	*((Interop::Quaternion  *) &(_target->GetWheelRotation (wheel)))
 #endif
@@ -32788,7 +32823,7 @@ Urho3D::RaycastVehicle *_target, int wheel)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  RaycastVehicle_GetWheelConnectionPoint_215_Vector3 ;
+static Vector3  RaycastVehicle_GetWheelConnectionPoint_216_Vector3 ;
 DllExport Interop::Vector3  *
 RaycastVehicle_GetWheelConnectionPoint (
 #else
@@ -32799,7 +32834,7 @@ Urho3D::RaycastVehicle *_target, int wheel)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(RaycastVehicle_GetWheelConnectionPoint_215_Vector3 =_target->GetWheelConnectionPoint (wheel)))
+	((Interop::Vector3  *) &(RaycastVehicle_GetWheelConnectionPoint_216_Vector3 =_target->GetWheelConnectionPoint (wheel)))
 #else
 	*((Interop::Vector3  *) &(_target->GetWheelConnectionPoint (wheel)))
 #endif
@@ -32914,7 +32949,7 @@ RaycastVehicle_GetMaxSuspensionTravel (Urho3D::RaycastVehicle *_target, int whee
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  RaycastVehicle_GetWheelAxle_216_Vector3 ;
+static Vector3  RaycastVehicle_GetWheelAxle_217_Vector3 ;
 DllExport Interop::Vector3  *
 RaycastVehicle_GetWheelAxle (
 #else
@@ -32925,7 +32960,7 @@ Urho3D::RaycastVehicle *_target, int wheel)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(RaycastVehicle_GetWheelAxle_216_Vector3 =_target->GetWheelAxle (wheel)))
+	((Interop::Vector3  *) &(RaycastVehicle_GetWheelAxle_217_Vector3 =_target->GetWheelAxle (wheel)))
 #else
 	*((Interop::Vector3  *) &(_target->GetWheelAxle (wheel)))
 #endif
@@ -32956,7 +32991,7 @@ RaycastVehicle_GetWheelSkidInfo (Urho3D::RaycastVehicle *_target, int wheel)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  RaycastVehicle_GetWheelDirection_217_Vector3 ;
+static Vector3  RaycastVehicle_GetWheelDirection_218_Vector3 ;
 DllExport Interop::Vector3  *
 RaycastVehicle_GetWheelDirection (
 #else
@@ -32967,7 +33002,7 @@ Urho3D::RaycastVehicle *_target, int wheel)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(RaycastVehicle_GetWheelDirection_217_Vector3 =_target->GetWheelDirection (wheel)))
+	((Interop::Vector3  *) &(RaycastVehicle_GetWheelDirection_218_Vector3 =_target->GetWheelDirection (wheel)))
 #else
 	*((Interop::Vector3  *) &(_target->GetWheelDirection (wheel)))
 #endif
@@ -32991,7 +33026,7 @@ RaycastVehicle_IsFrontWheel (Urho3D::RaycastVehicle *_target, int wheel)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  RaycastVehicle_GetContactPosition_218_Vector3 ;
+static Vector3  RaycastVehicle_GetContactPosition_219_Vector3 ;
 DllExport Interop::Vector3  *
 RaycastVehicle_GetContactPosition (
 #else
@@ -33002,7 +33037,7 @@ Urho3D::RaycastVehicle *_target, int wheel)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(RaycastVehicle_GetContactPosition_218_Vector3 =_target->GetContactPosition (wheel)))
+	((Interop::Vector3  *) &(RaycastVehicle_GetContactPosition_219_Vector3 =_target->GetContactPosition (wheel)))
 #else
 	*((Interop::Vector3  *) &(_target->GetContactPosition (wheel)))
 #endif
@@ -33012,7 +33047,7 @@ Urho3D::RaycastVehicle *_target, int wheel)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  RaycastVehicle_GetContactNormal_219_Vector3 ;
+static Vector3  RaycastVehicle_GetContactNormal_220_Vector3 ;
 DllExport Interop::Vector3  *
 RaycastVehicle_GetContactNormal (
 #else
@@ -33023,7 +33058,7 @@ Urho3D::RaycastVehicle *_target, int wheel)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(RaycastVehicle_GetContactNormal_219_Vector3 =_target->GetContactNormal (wheel)))
+	((Interop::Vector3  *) &(RaycastVehicle_GetContactNormal_220_Vector3 =_target->GetContactNormal (wheel)))
 #else
 	*((Interop::Vector3  *) &(_target->GetContactNormal (wheel)))
 #endif
@@ -34336,7 +34371,7 @@ SmoothedTransform_SetTargetWorldRotation (Urho3D::SmoothedTransform *_target, co
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  SmoothedTransform_GetTargetPosition_220_Vector3 ;
+static Vector3  SmoothedTransform_GetTargetPosition_221_Vector3 ;
 DllExport Interop::Vector3  *
 SmoothedTransform_GetTargetPosition (
 #else
@@ -34347,7 +34382,7 @@ Urho3D::SmoothedTransform *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(SmoothedTransform_GetTargetPosition_220_Vector3 =_target->GetTargetPosition ()))
+	((Interop::Vector3  *) &(SmoothedTransform_GetTargetPosition_221_Vector3 =_target->GetTargetPosition ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetTargetPosition ()))
 #endif
@@ -34357,7 +34392,7 @@ Urho3D::SmoothedTransform *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Quaternion  SmoothedTransform_GetTargetRotation_221_Quaternion ;
+static Quaternion  SmoothedTransform_GetTargetRotation_222_Quaternion ;
 DllExport Interop::Quaternion  *
 SmoothedTransform_GetTargetRotation (
 #else
@@ -34368,7 +34403,7 @@ Urho3D::SmoothedTransform *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Quaternion  *) &(SmoothedTransform_GetTargetRotation_221_Quaternion =_target->GetTargetRotation ()))
+	((Interop::Quaternion  *) &(SmoothedTransform_GetTargetRotation_222_Quaternion =_target->GetTargetRotation ()))
 #else
 	*((Interop::Quaternion  *) &(_target->GetTargetRotation ()))
 #endif
@@ -34378,7 +34413,7 @@ Urho3D::SmoothedTransform *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  SmoothedTransform_GetTargetWorldPosition_222_Vector3 ;
+static Vector3  SmoothedTransform_GetTargetWorldPosition_223_Vector3 ;
 DllExport Interop::Vector3  *
 SmoothedTransform_GetTargetWorldPosition (
 #else
@@ -34389,7 +34424,7 @@ Urho3D::SmoothedTransform *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(SmoothedTransform_GetTargetWorldPosition_222_Vector3 =_target->GetTargetWorldPosition ()))
+	((Interop::Vector3  *) &(SmoothedTransform_GetTargetWorldPosition_223_Vector3 =_target->GetTargetWorldPosition ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetTargetWorldPosition ()))
 #endif
@@ -34399,7 +34434,7 @@ Urho3D::SmoothedTransform *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Quaternion  SmoothedTransform_GetTargetWorldRotation_223_Quaternion ;
+static Quaternion  SmoothedTransform_GetTargetWorldRotation_224_Quaternion ;
 DllExport Interop::Quaternion  *
 SmoothedTransform_GetTargetWorldRotation (
 #else
@@ -34410,7 +34445,7 @@ Urho3D::SmoothedTransform *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Quaternion  *) &(SmoothedTransform_GetTargetWorldRotation_223_Quaternion =_target->GetTargetWorldRotation ()))
+	((Interop::Quaternion  *) &(SmoothedTransform_GetTargetWorldRotation_224_Quaternion =_target->GetTargetWorldRotation ()))
 #else
 	*((Interop::Quaternion  *) &(_target->GetTargetWorldRotation ()))
 #endif
@@ -34553,7 +34588,7 @@ SplinePath_GetLength (Urho3D::SplinePath *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  SplinePath_GetPosition_224_Vector3 ;
+static Vector3  SplinePath_GetPosition_225_Vector3 ;
 DllExport Interop::Vector3  *
 SplinePath_GetPosition (
 #else
@@ -34564,7 +34599,7 @@ Urho3D::SplinePath *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(SplinePath_GetPosition_224_Vector3 =_target->GetPosition ()))
+	((Interop::Vector3  *) &(SplinePath_GetPosition_225_Vector3 =_target->GetPosition ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetPosition ()))
 #endif
@@ -34581,7 +34616,7 @@ SplinePath_GetControlledNode (Urho3D::SplinePath *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  SplinePath_GetPoint_225_Vector3 ;
+static Vector3  SplinePath_GetPoint_226_Vector3 ;
 DllExport Interop::Vector3  *
 SplinePath_GetPoint (
 #else
@@ -34592,7 +34627,7 @@ Urho3D::SplinePath *_target, float factor)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(SplinePath_GetPoint_225_Vector3 =_target->GetPoint (factor)))
+	((Interop::Vector3  *) &(SplinePath_GetPoint_226_Vector3 =_target->GetPoint (factor)))
 #else
 	*((Interop::Vector3  *) &(_target->GetPoint (factor)))
 #endif
@@ -35107,7 +35142,7 @@ Button_SetRepeatRate (Urho3D::Button *_target, float rate)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Button_GetPressedOffset_226_IntVector2 ;
+static IntVector2  Button_GetPressedOffset_227_IntVector2 ;
 DllExport Interop::IntVector2  *
 Button_GetPressedOffset (
 #else
@@ -35118,7 +35153,7 @@ Urho3D::Button *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Button_GetPressedOffset_226_IntVector2 =_target->GetPressedOffset ()))
+	((Interop::IntVector2  *) &(Button_GetPressedOffset_227_IntVector2 =_target->GetPressedOffset ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetPressedOffset ()))
 #endif
@@ -35128,7 +35163,7 @@ Urho3D::Button *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Button_GetPressedChildOffset_227_IntVector2 ;
+static IntVector2  Button_GetPressedChildOffset_228_IntVector2 ;
 DllExport Interop::IntVector2  *
 Button_GetPressedChildOffset (
 #else
@@ -35139,7 +35174,7 @@ Urho3D::Button *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Button_GetPressedChildOffset_227_IntVector2 =_target->GetPressedChildOffset ()))
+	((Interop::IntVector2  *) &(Button_GetPressedChildOffset_228_IntVector2 =_target->GetPressedChildOffset ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetPressedChildOffset ()))
 #endif
@@ -35240,7 +35275,7 @@ CheckBox_IsChecked (Urho3D::CheckBox *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  CheckBox_GetCheckedOffset_228_IntVector2 ;
+static IntVector2  CheckBox_GetCheckedOffset_229_IntVector2 ;
 DllExport Interop::IntVector2  *
 CheckBox_GetCheckedOffset (
 #else
@@ -35251,7 +35286,7 @@ Urho3D::CheckBox *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(CheckBox_GetCheckedOffset_228_IntVector2 =_target->GetCheckedOffset ()))
+	((Interop::IntVector2  *) &(CheckBox_GetCheckedOffset_229_IntVector2 =_target->GetCheckedOffset ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetCheckedOffset ()))
 #endif
@@ -35380,7 +35415,7 @@ Menu_GetPopup (Urho3D::Menu *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Menu_GetPopupOffset_229_IntVector2 ;
+static IntVector2  Menu_GetPopupOffset_230_IntVector2 ;
 DllExport Interop::IntVector2  *
 Menu_GetPopupOffset (
 #else
@@ -35391,7 +35426,7 @@ Urho3D::Menu *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Menu_GetPopupOffset_229_IntVector2 =_target->GetPopupOffset ()))
+	((Interop::IntVector2  *) &(Menu_GetPopupOffset_230_IntVector2 =_target->GetPopupOffset ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetPopupOffset ()))
 #endif
@@ -35919,7 +35954,7 @@ Font_IsSDFFont (Urho3D::Font *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Font_GetAbsoluteGlyphOffset_230_IntVector2 ;
+static IntVector2  Font_GetAbsoluteGlyphOffset_231_IntVector2 ;
 DllExport Interop::IntVector2  *
 Font_GetAbsoluteGlyphOffset (
 #else
@@ -35930,7 +35965,7 @@ Urho3D::Font *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Font_GetAbsoluteGlyphOffset_230_IntVector2 =_target->GetAbsoluteGlyphOffset ()))
+	((Interop::IntVector2  *) &(Font_GetAbsoluteGlyphOffset_231_IntVector2 =_target->GetAbsoluteGlyphOffset ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetAbsoluteGlyphOffset ()))
 #endif
@@ -35940,7 +35975,7 @@ Urho3D::Font *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  Font_GetScaledGlyphOffset_231_Vector2 ;
+static Vector2  Font_GetScaledGlyphOffset_232_Vector2 ;
 DllExport Interop::Vector2  *
 Font_GetScaledGlyphOffset (
 #else
@@ -35951,7 +35986,7 @@ Urho3D::Font *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(Font_GetScaledGlyphOffset_231_Vector2 =_target->GetScaledGlyphOffset ()))
+	((Interop::Vector2  *) &(Font_GetScaledGlyphOffset_232_Vector2 =_target->GetScaledGlyphOffset ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetScaledGlyphOffset ()))
 #endif
@@ -35961,7 +35996,7 @@ Urho3D::Font *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Font_GetTotalGlyphOffset_232_IntVector2 ;
+static IntVector2  Font_GetTotalGlyphOffset_233_IntVector2 ;
 DllExport Interop::IntVector2  *
 Font_GetTotalGlyphOffset (
 #else
@@ -35972,7 +36007,7 @@ Urho3D::Font *_target, float pointSize)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Font_GetTotalGlyphOffset_232_IntVector2 =_target->GetTotalGlyphOffset (pointSize)))
+	((Interop::IntVector2  *) &(Font_GetTotalGlyphOffset_233_IntVector2 =_target->GetTotalGlyphOffset (pointSize)))
 #else
 	*((Interop::IntVector2  *) &(_target->GetTotalGlyphOffset (pointSize)))
 #endif
@@ -36458,7 +36493,7 @@ ScrollView_SetAutoDisableThreshold (Urho3D::ScrollView *_target, float amount)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  ScrollView_GetViewPosition_233_IntVector2 ;
+static IntVector2  ScrollView_GetViewPosition_234_IntVector2 ;
 DllExport Interop::IntVector2  *
 ScrollView_GetViewPosition (
 #else
@@ -36469,7 +36504,7 @@ Urho3D::ScrollView *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(ScrollView_GetViewPosition_233_IntVector2 =_target->GetViewPosition ()))
+	((Interop::IntVector2  *) &(ScrollView_GetViewPosition_234_IntVector2 =_target->GetViewPosition ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetViewPosition ()))
 #endif
@@ -37368,7 +37403,7 @@ Sprite_IsWithinScissor (Urho3D::Sprite *_target, const class Urho3D::IntRect & c
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Sprite_GetScreenPosition_234_IntVector2 ;
+static IntVector2  Sprite_GetScreenPosition_235_IntVector2 ;
 DllExport Interop::IntVector2  *
 Sprite_GetScreenPosition (
 #else
@@ -37379,7 +37414,7 @@ Urho3D::Sprite *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Sprite_GetScreenPosition_234_IntVector2 =_target->GetScreenPosition ()))
+	((Interop::IntVector2  *) &(Sprite_GetScreenPosition_235_IntVector2 =_target->GetScreenPosition ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetScreenPosition ()))
 #endif
@@ -37396,7 +37431,7 @@ Sprite_OnPositionSet (Urho3D::Sprite *_target, const class Urho3D::IntVector2 & 
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Sprite_ScreenToElement_235_IntVector2 ;
+static IntVector2  Sprite_ScreenToElement_236_IntVector2 ;
 DllExport Interop::IntVector2  *
 Sprite_ScreenToElement (
 #else
@@ -37407,7 +37442,7 @@ Urho3D::Sprite *_target, const class Urho3D::IntVector2 & screenPosition)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Sprite_ScreenToElement_235_IntVector2 =_target->ScreenToElement (screenPosition)))
+	((Interop::IntVector2  *) &(Sprite_ScreenToElement_236_IntVector2 =_target->ScreenToElement (screenPosition)))
 #else
 	*((Interop::IntVector2  *) &(_target->ScreenToElement (screenPosition)))
 #endif
@@ -37417,7 +37452,7 @@ Urho3D::Sprite *_target, const class Urho3D::IntVector2 & screenPosition)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Sprite_ElementToScreen_236_IntVector2 ;
+static IntVector2  Sprite_ElementToScreen_237_IntVector2 ;
 DllExport Interop::IntVector2  *
 Sprite_ElementToScreen (
 #else
@@ -37428,7 +37463,7 @@ Urho3D::Sprite *_target, const class Urho3D::IntVector2 & position)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Sprite_ElementToScreen_236_IntVector2 =_target->ElementToScreen (position)))
+	((Interop::IntVector2  *) &(Sprite_ElementToScreen_237_IntVector2 =_target->ElementToScreen (position)))
 #else
 	*((Interop::IntVector2  *) &(_target->ElementToScreen (position)))
 #endif
@@ -37522,7 +37557,7 @@ Sprite_SetBlendMode (Urho3D::Sprite *_target, enum Urho3D::BlendMode mode)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  Sprite_GetPosition_237_Vector2 ;
+static Vector2  Sprite_GetPosition_238_Vector2 ;
 DllExport Interop::Vector2  *
 Sprite_GetPosition (
 #else
@@ -37533,7 +37568,7 @@ Urho3D::Sprite *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(Sprite_GetPosition_237_Vector2 =_target->GetPosition ()))
+	((Interop::Vector2  *) &(Sprite_GetPosition_238_Vector2 =_target->GetPosition ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetPosition ()))
 #endif
@@ -37543,7 +37578,7 @@ Urho3D::Sprite *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Sprite_GetHotSpot_238_IntVector2 ;
+static IntVector2  Sprite_GetHotSpot_239_IntVector2 ;
 DllExport Interop::IntVector2  *
 Sprite_GetHotSpot (
 #else
@@ -37554,7 +37589,7 @@ Urho3D::Sprite *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Sprite_GetHotSpot_238_IntVector2 =_target->GetHotSpot ()))
+	((Interop::IntVector2  *) &(Sprite_GetHotSpot_239_IntVector2 =_target->GetHotSpot ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetHotSpot ()))
 #endif
@@ -37564,7 +37599,7 @@ Urho3D::Sprite *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  Sprite_GetScale_239_Vector2 ;
+static Vector2  Sprite_GetScale_240_Vector2 ;
 DllExport Interop::Vector2  *
 Sprite_GetScale (
 #else
@@ -37575,7 +37610,7 @@ Urho3D::Sprite *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(Sprite_GetScale_239_Vector2 =_target->GetScale ()))
+	((Interop::Vector2  *) &(Sprite_GetScale_240_Vector2 =_target->GetScale ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetScale ()))
 #endif
@@ -37599,7 +37634,7 @@ Sprite_GetTexture (Urho3D::Sprite *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntRect  Sprite_GetImageRect_240_IntRect ;
+static IntRect  Sprite_GetImageRect_241_IntRect ;
 DllExport Interop::IntRect  *
 Sprite_GetImageRect (
 #else
@@ -37610,7 +37645,7 @@ Urho3D::Sprite *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntRect  *) &(Sprite_GetImageRect_240_IntRect =_target->GetImageRect ()))
+	((Interop::IntRect  *) &(Sprite_GetImageRect_241_IntRect =_target->GetImageRect ()))
 #else
 	*((Interop::IntRect  *) &(_target->GetImageRect ()))
 #endif
@@ -37634,7 +37669,7 @@ Sprite_GetTextureAttr (Urho3D::Sprite *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Matrix3x4  Sprite_GetTransform_241_Matrix3x4 ;
+static Matrix3x4  Sprite_GetTransform_242_Matrix3x4 ;
 DllExport Interop::Matrix3x4  *
 Sprite_GetTransform (
 #else
@@ -37645,7 +37680,7 @@ Urho3D::Sprite *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Matrix3x4  *) &(Sprite_GetTransform_241_Matrix3x4 =_target->GetTransform ()))
+	((Interop::Matrix3x4  *) &(Sprite_GetTransform_242_Matrix3x4 =_target->GetTransform ()))
 #else
 	*((Interop::Matrix3x4  *) &(_target->GetTransform ()))
 #endif
@@ -37704,7 +37739,7 @@ UISelectable_SetHoverColor (Urho3D::UISelectable *_target, const class Urho3D::C
 
 
 #ifdef __EMSCRIPTEN__
-static Color  UISelectable_GetSelectionColor_242_Color ;
+static Color  UISelectable_GetSelectionColor_243_Color ;
 DllExport Interop::Color  *
 UISelectable_GetSelectionColor (
 #else
@@ -37715,7 +37750,7 @@ Urho3D::UISelectable *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(UISelectable_GetSelectionColor_242_Color =_target->GetSelectionColor ()))
+	((Interop::Color  *) &(UISelectable_GetSelectionColor_243_Color =_target->GetSelectionColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetSelectionColor ()))
 #endif
@@ -37725,7 +37760,7 @@ Urho3D::UISelectable *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  UISelectable_GetHoverColor_243_Color ;
+static Color  UISelectable_GetHoverColor_244_Color ;
 DllExport Interop::Color  *
 UISelectable_GetHoverColor (
 #else
@@ -37736,7 +37771,7 @@ Urho3D::UISelectable *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(UISelectable_GetHoverColor_243_Color =_target->GetHoverColor ()))
+	((Interop::Color  *) &(UISelectable_GetHoverColor_244_Color =_target->GetHoverColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetHoverColor ()))
 #endif
@@ -37991,7 +38026,7 @@ Text_GetTextEffect (Urho3D::Text *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Text_GetEffectShadowOffset_244_IntVector2 ;
+static IntVector2  Text_GetEffectShadowOffset_245_IntVector2 ;
 DllExport Interop::IntVector2  *
 Text_GetEffectShadowOffset (
 #else
@@ -38002,7 +38037,7 @@ Urho3D::Text *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Text_GetEffectShadowOffset_244_IntVector2 =_target->GetEffectShadowOffset ()))
+	((Interop::IntVector2  *) &(Text_GetEffectShadowOffset_245_IntVector2 =_target->GetEffectShadowOffset ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetEffectShadowOffset ()))
 #endif
@@ -38026,7 +38061,7 @@ Text_GetEffectRoundStroke (Urho3D::Text *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Text_GetEffectColor_245_Color ;
+static Color  Text_GetEffectColor_246_Color ;
 DllExport Interop::Color  *
 Text_GetEffectColor (
 #else
@@ -38037,7 +38072,7 @@ Urho3D::Text *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Text_GetEffectColor_245_Color =_target->GetEffectColor ()))
+	((Interop::Color  *) &(Text_GetEffectColor_246_Color =_target->GetEffectColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetEffectColor ()))
 #endif
@@ -38075,7 +38110,7 @@ Text_GetRowWidth (Urho3D::Text *_target, unsigned int index)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  Text_GetCharPosition_246_Vector2 ;
+static Vector2  Text_GetCharPosition_247_Vector2 ;
 DllExport Interop::Vector2  *
 Text_GetCharPosition (
 #else
@@ -38086,7 +38121,7 @@ Urho3D::Text *_target, unsigned int index)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(Text_GetCharPosition_246_Vector2 =_target->GetCharPosition (index)))
+	((Interop::Vector2  *) &(Text_GetCharPosition_247_Vector2 =_target->GetCharPosition (index)))
 #else
 	*((Interop::Vector2  *) &(_target->GetCharPosition (index)))
 #endif
@@ -38096,7 +38131,7 @@ Urho3D::Text *_target, unsigned int index)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  Text_GetCharSize_247_Vector2 ;
+static Vector2  Text_GetCharSize_248_Vector2 ;
 DllExport Interop::Vector2  *
 Text_GetCharSize (
 #else
@@ -38107,7 +38142,7 @@ Urho3D::Text *_target, unsigned int index)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(Text_GetCharSize_247_Vector2 =_target->GetCharSize (index)))
+	((Interop::Vector2  *) &(Text_GetCharSize_248_Vector2 =_target->GetCharSize (index)))
 #else
 	*((Interop::Vector2  *) &(_target->GetCharSize (index)))
 #endif
@@ -38439,7 +38474,7 @@ Text3D_GetTextEffect (Urho3D::Text3D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Text3D_GetEffectShadowOffset_248_IntVector2 ;
+static IntVector2  Text3D_GetEffectShadowOffset_249_IntVector2 ;
 DllExport Interop::IntVector2  *
 Text3D_GetEffectShadowOffset (
 #else
@@ -38450,7 +38485,7 @@ Urho3D::Text3D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Text3D_GetEffectShadowOffset_248_IntVector2 =_target->GetEffectShadowOffset ()))
+	((Interop::IntVector2  *) &(Text3D_GetEffectShadowOffset_249_IntVector2 =_target->GetEffectShadowOffset ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetEffectShadowOffset ()))
 #endif
@@ -38474,7 +38509,7 @@ Text3D_GetEffectRoundStroke (Urho3D::Text3D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Text3D_GetEffectColor_249_Color ;
+static Color  Text3D_GetEffectColor_250_Color ;
 DllExport Interop::Color  *
 Text3D_GetEffectColor (
 #else
@@ -38485,7 +38520,7 @@ Urho3D::Text3D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Text3D_GetEffectColor_249_Color =_target->GetEffectColor ()))
+	((Interop::Color  *) &(Text3D_GetEffectColor_250_Color =_target->GetEffectColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetEffectColor ()))
 #endif
@@ -38544,7 +38579,7 @@ Text3D_GetRowWidth (Urho3D::Text3D *_target, unsigned int index)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  Text3D_GetCharPosition_250_Vector2 ;
+static Vector2  Text3D_GetCharPosition_251_Vector2 ;
 DllExport Interop::Vector2  *
 Text3D_GetCharPosition (
 #else
@@ -38555,7 +38590,7 @@ Urho3D::Text3D *_target, unsigned int index)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(Text3D_GetCharPosition_250_Vector2 =_target->GetCharPosition (index)))
+	((Interop::Vector2  *) &(Text3D_GetCharPosition_251_Vector2 =_target->GetCharPosition (index)))
 #else
 	*((Interop::Vector2  *) &(_target->GetCharPosition (index)))
 #endif
@@ -38565,7 +38600,7 @@ Urho3D::Text3D *_target, unsigned int index)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  Text3D_GetCharSize_251_Vector2 ;
+static Vector2  Text3D_GetCharSize_252_Vector2 ;
 DllExport Interop::Vector2  *
 Text3D_GetCharSize (
 #else
@@ -38576,7 +38611,7 @@ Urho3D::Text3D *_target, unsigned int index)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(Text3D_GetCharSize_251_Vector2 =_target->GetCharSize (index)))
+	((Interop::Vector2  *) &(Text3D_GetCharSize_252_Vector2 =_target->GetCharSize (index)))
 #else
 	*((Interop::Vector2  *) &(_target->GetCharSize (index)))
 #endif
@@ -38586,7 +38621,7 @@ Urho3D::Text3D *_target, unsigned int index)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Text3D_GetColor_252_Color ;
+static Color  Text3D_GetColor_253_Color ;
 DllExport Interop::Color  *
 Text3D_GetColor (
 #else
@@ -38597,7 +38632,7 @@ Urho3D::Text3D *_target, enum Urho3D::Corner corner)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Text3D_GetColor_252_Color =_target->GetColor (corner)))
+	((Interop::Color  *) &(Text3D_GetColor_253_Color =_target->GetColor (corner)))
 #else
 	*((Interop::Color  *) &(_target->GetColor (corner)))
 #endif
@@ -38656,7 +38691,7 @@ Text3D_GetTextAttr (Urho3D::Text3D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Text3D_GetColorAttr_253_Color ;
+static Color  Text3D_GetColorAttr_254_Color ;
 DllExport Interop::Color  *
 Text3D_GetColorAttr (
 #else
@@ -38667,7 +38702,7 @@ Urho3D::Text3D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Text3D_GetColorAttr_253_Color =_target->GetColorAttr ()))
+	((Interop::Color  *) &(Text3D_GetColorAttr_254_Color =_target->GetColorAttr ()))
 #else
 	*((Interop::Color  *) &(_target->GetColorAttr ()))
 #endif
@@ -39053,7 +39088,7 @@ UI_GetCursor (Urho3D::UI *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  UI_GetCursorPosition_254_IntVector2 ;
+static IntVector2  UI_GetCursorPosition_255_IntVector2 ;
 DllExport Interop::IntVector2  *
 UI_GetCursorPosition (
 #else
@@ -39064,7 +39099,7 @@ Urho3D::UI *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(UI_GetCursorPosition_254_IntVector2 =_target->GetCursorPosition ()))
+	((Interop::IntVector2  *) &(UI_GetCursorPosition_255_IntVector2 =_target->GetCursorPosition ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetCursorPosition ()))
 #endif
@@ -39095,7 +39130,7 @@ UI_GetElementAt3 (Urho3D::UI *_target, Urho3D::UIElement * root, const class Urh
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  UI_ConvertSystemToUI_255_IntVector2 ;
+static IntVector2  UI_ConvertSystemToUI_256_IntVector2 ;
 DllExport Interop::IntVector2  *
 UI_ConvertSystemToUI (
 #else
@@ -39106,7 +39141,7 @@ Urho3D::UI *_target, const class Urho3D::IntVector2 & systemPos)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(UI_ConvertSystemToUI_255_IntVector2 =_target->ConvertSystemToUI (systemPos)))
+	((Interop::IntVector2  *) &(UI_ConvertSystemToUI_256_IntVector2 =_target->ConvertSystemToUI (systemPos)))
 #else
 	*((Interop::IntVector2  *) &(_target->ConvertSystemToUI (systemPos)))
 #endif
@@ -39116,7 +39151,7 @@ Urho3D::UI *_target, const class Urho3D::IntVector2 & systemPos)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  UI_ConvertUIToSystem_256_IntVector2 ;
+static IntVector2  UI_ConvertUIToSystem_257_IntVector2 ;
 DllExport Interop::IntVector2  *
 UI_ConvertUIToSystem (
 #else
@@ -39127,7 +39162,7 @@ Urho3D::UI *_target, const class Urho3D::IntVector2 & uiPos)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(UI_ConvertUIToSystem_256_IntVector2 =_target->ConvertUIToSystem (uiPos)))
+	((Interop::IntVector2  *) &(UI_ConvertUIToSystem_257_IntVector2 =_target->ConvertUIToSystem (uiPos)))
 #else
 	*((Interop::IntVector2  *) &(_target->ConvertUIToSystem (uiPos)))
 #endif
@@ -39291,7 +39326,7 @@ UI_GetScale (Urho3D::UI *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  UI_GetCustomSize_257_IntVector2 ;
+static IntVector2  UI_GetCustomSize_258_IntVector2 ;
 DllExport Interop::IntVector2  *
 UI_GetCustomSize (
 #else
@@ -39302,7 +39337,7 @@ Urho3D::UI *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(UI_GetCustomSize_257_IntVector2 =_target->GetCustomSize ()))
+	((Interop::IntVector2  *) &(UI_GetCustomSize_258_IntVector2 =_target->GetCustomSize ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetCustomSize ()))
 #endif
@@ -39459,7 +39494,7 @@ Window_GetFixedHeightResizing (Urho3D::Window *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntRect  Window_GetResizeBorder_258_IntRect ;
+static IntRect  Window_GetResizeBorder_259_IntRect ;
 DllExport Interop::IntRect  *
 Window_GetResizeBorder (
 #else
@@ -39470,7 +39505,7 @@ Urho3D::Window *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntRect  *) &(Window_GetResizeBorder_258_IntRect =_target->GetResizeBorder ()))
+	((Interop::IntRect  *) &(Window_GetResizeBorder_259_IntRect =_target->GetResizeBorder ()))
 #else
 	*((Interop::IntRect  *) &(_target->GetResizeBorder ()))
 #endif
@@ -39487,7 +39522,7 @@ Window_IsModal (Urho3D::Window *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Window_GetModalShadeColor_259_Color ;
+static Color  Window_GetModalShadeColor_260_Color ;
 DllExport Interop::Color  *
 Window_GetModalShadeColor (
 #else
@@ -39498,7 +39533,7 @@ Urho3D::Window *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Window_GetModalShadeColor_259_Color =_target->GetModalShadeColor ()))
+	((Interop::Color  *) &(Window_GetModalShadeColor_260_Color =_target->GetModalShadeColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetModalShadeColor ()))
 #endif
@@ -39508,7 +39543,7 @@ Urho3D::Window *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Window_GetModalFrameColor_260_Color ;
+static Color  Window_GetModalFrameColor_261_Color ;
 DllExport Interop::Color  *
 Window_GetModalFrameColor (
 #else
@@ -39519,7 +39554,7 @@ Urho3D::Window *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Window_GetModalFrameColor_260_Color =_target->GetModalFrameColor ()))
+	((Interop::Color  *) &(Window_GetModalFrameColor_261_Color =_target->GetModalFrameColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetModalFrameColor ()))
 #endif
@@ -39529,7 +39564,7 @@ Urho3D::Window *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  Window_GetModalFrameSize_261_IntVector2 ;
+static IntVector2  Window_GetModalFrameSize_262_IntVector2 ;
 DllExport Interop::IntVector2  *
 Window_GetModalFrameSize (
 #else
@@ -39540,7 +39575,7 @@ Urho3D::Window *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(Window_GetModalFrameSize_261_IntVector2 =_target->GetModalFrameSize ()))
+	((Interop::IntVector2  *) &(Window_GetModalFrameSize_262_IntVector2 =_target->GetModalFrameSize ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetModalFrameSize ()))
 #endif
@@ -39921,7 +39956,7 @@ StaticSprite2D_GetSwapXY (Urho3D::StaticSprite2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  StaticSprite2D_GetColor_262_Color ;
+static Color  StaticSprite2D_GetColor_263_Color ;
 DllExport Interop::Color  *
 StaticSprite2D_GetColor (
 #else
@@ -39932,7 +39967,7 @@ Urho3D::StaticSprite2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(StaticSprite2D_GetColor_262_Color =_target->GetColor ()))
+	((Interop::Color  *) &(StaticSprite2D_GetColor_263_Color =_target->GetColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetColor ()))
 #endif
@@ -39970,7 +40005,7 @@ StaticSprite2D_GetUseTextureRect (Urho3D::StaticSprite2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  StaticSprite2D_GetHotSpot_263_Vector2 ;
+static Vector2  StaticSprite2D_GetHotSpot_264_Vector2 ;
 DllExport Interop::Vector2  *
 StaticSprite2D_GetHotSpot (
 #else
@@ -39981,7 +40016,7 @@ Urho3D::StaticSprite2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(StaticSprite2D_GetHotSpot_263_Vector2 =_target->GetHotSpot ()))
+	((Interop::Vector2  *) &(StaticSprite2D_GetHotSpot_264_Vector2 =_target->GetHotSpot ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetHotSpot ()))
 #endif
@@ -40411,7 +40446,7 @@ CollisionShape2D_GetInertia (Urho3D::CollisionShape2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  CollisionShape2D_GetMassCenter_264_Vector2 ;
+static Vector2  CollisionShape2D_GetMassCenter_265_Vector2 ;
 DllExport Interop::Vector2  *
 CollisionShape2D_GetMassCenter (
 #else
@@ -40422,7 +40457,7 @@ Urho3D::CollisionShape2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(CollisionShape2D_GetMassCenter_264_Vector2 =_target->GetMassCenter ()))
+	((Interop::Vector2  *) &(CollisionShape2D_GetMassCenter_265_Vector2 =_target->GetMassCenter ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetMassCenter ()))
 #endif
@@ -40509,7 +40544,7 @@ CollisionBox2D_SetAngle (Urho3D::CollisionBox2D *_target, float angle)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  CollisionBox2D_GetSize_265_Vector2 ;
+static Vector2  CollisionBox2D_GetSize_266_Vector2 ;
 DllExport Interop::Vector2  *
 CollisionBox2D_GetSize (
 #else
@@ -40520,7 +40555,7 @@ Urho3D::CollisionBox2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(CollisionBox2D_GetSize_265_Vector2 =_target->GetSize ()))
+	((Interop::Vector2  *) &(CollisionBox2D_GetSize_266_Vector2 =_target->GetSize ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetSize ()))
 #endif
@@ -40530,7 +40565,7 @@ Urho3D::CollisionBox2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  CollisionBox2D_GetCenter_266_Vector2 ;
+static Vector2  CollisionBox2D_GetCenter_267_Vector2 ;
 DllExport Interop::Vector2  *
 CollisionBox2D_GetCenter (
 #else
@@ -40541,7 +40576,7 @@ Urho3D::CollisionBox2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(CollisionBox2D_GetCenter_266_Vector2 =_target->GetCenter ()))
+	((Interop::Vector2  *) &(CollisionBox2D_GetCenter_267_Vector2 =_target->GetCenter ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetCenter ()))
 #endif
@@ -40635,7 +40670,7 @@ CollisionChain2D_GetVertexCount (Urho3D::CollisionChain2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  CollisionChain2D_GetVertex_267_Vector2 ;
+static Vector2  CollisionChain2D_GetVertex_268_Vector2 ;
 DllExport Interop::Vector2  *
 CollisionChain2D_GetVertex (
 #else
@@ -40646,7 +40681,7 @@ Urho3D::CollisionChain2D *_target, unsigned int index)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(CollisionChain2D_GetVertex_267_Vector2 =_target->GetVertex (index)))
+	((Interop::Vector2  *) &(CollisionChain2D_GetVertex_268_Vector2 =_target->GetVertex (index)))
 #else
 	*((Interop::Vector2  *) &(_target->GetVertex (index)))
 #endif
@@ -40726,7 +40761,7 @@ CollisionCircle2D_GetRadius (Urho3D::CollisionCircle2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  CollisionCircle2D_GetCenter_268_Vector2 ;
+static Vector2  CollisionCircle2D_GetCenter_269_Vector2 ;
 DllExport Interop::Vector2  *
 CollisionCircle2D_GetCenter (
 #else
@@ -40737,7 +40772,7 @@ Urho3D::CollisionCircle2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(CollisionCircle2D_GetCenter_268_Vector2 =_target->GetCenter ()))
+	((Interop::Vector2  *) &(CollisionCircle2D_GetCenter_269_Vector2 =_target->GetCenter ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetCenter ()))
 #endif
@@ -40810,7 +40845,7 @@ CollisionEdge2D_SetVertices (Urho3D::CollisionEdge2D *_target, const class Urho3
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  CollisionEdge2D_GetVertex1_269_Vector2 ;
+static Vector2  CollisionEdge2D_GetVertex1_270_Vector2 ;
 DllExport Interop::Vector2  *
 CollisionEdge2D_GetVertex1 (
 #else
@@ -40821,7 +40856,7 @@ Urho3D::CollisionEdge2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(CollisionEdge2D_GetVertex1_269_Vector2 =_target->GetVertex1 ()))
+	((Interop::Vector2  *) &(CollisionEdge2D_GetVertex1_270_Vector2 =_target->GetVertex1 ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetVertex1 ()))
 #endif
@@ -40831,7 +40866,7 @@ Urho3D::CollisionEdge2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  CollisionEdge2D_GetVertex2_270_Vector2 ;
+static Vector2  CollisionEdge2D_GetVertex2_271_Vector2 ;
 DllExport Interop::Vector2  *
 CollisionEdge2D_GetVertex2 (
 #else
@@ -40842,7 +40877,7 @@ Urho3D::CollisionEdge2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(CollisionEdge2D_GetVertex2_270_Vector2 =_target->GetVertex2 ()))
+	((Interop::Vector2  *) &(CollisionEdge2D_GetVertex2_271_Vector2 =_target->GetVertex2 ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetVertex2 ()))
 #endif
@@ -40915,7 +40950,7 @@ CollisionPolygon2D_GetVertexCount (Urho3D::CollisionPolygon2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  CollisionPolygon2D_GetVertex_271_Vector2 ;
+static Vector2  CollisionPolygon2D_GetVertex_272_Vector2 ;
 DllExport Interop::Vector2  *
 CollisionPolygon2D_GetVertex (
 #else
@@ -40926,7 +40961,7 @@ Urho3D::CollisionPolygon2D *_target, unsigned int index)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(CollisionPolygon2D_GetVertex_271_Vector2 =_target->GetVertex (index)))
+	((Interop::Vector2  *) &(CollisionPolygon2D_GetVertex_272_Vector2 =_target->GetVertex (index)))
 #else
 	*((Interop::Vector2  *) &(_target->GetVertex (index)))
 #endif
@@ -41132,7 +41167,7 @@ ConstraintDistance2D_SetLength (Urho3D::ConstraintDistance2D *_target, float len
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ConstraintDistance2D_GetOwnerBodyAnchor_272_Vector2 ;
+static Vector2  ConstraintDistance2D_GetOwnerBodyAnchor_273_Vector2 ;
 DllExport Interop::Vector2  *
 ConstraintDistance2D_GetOwnerBodyAnchor (
 #else
@@ -41143,7 +41178,7 @@ Urho3D::ConstraintDistance2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ConstraintDistance2D_GetOwnerBodyAnchor_272_Vector2 =_target->GetOwnerBodyAnchor ()))
+	((Interop::Vector2  *) &(ConstraintDistance2D_GetOwnerBodyAnchor_273_Vector2 =_target->GetOwnerBodyAnchor ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetOwnerBodyAnchor ()))
 #endif
@@ -41153,7 +41188,7 @@ Urho3D::ConstraintDistance2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ConstraintDistance2D_GetOtherBodyAnchor_273_Vector2 ;
+static Vector2  ConstraintDistance2D_GetOtherBodyAnchor_274_Vector2 ;
 DllExport Interop::Vector2  *
 ConstraintDistance2D_GetOtherBodyAnchor (
 #else
@@ -41164,7 +41199,7 @@ Urho3D::ConstraintDistance2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ConstraintDistance2D_GetOtherBodyAnchor_273_Vector2 =_target->GetOtherBodyAnchor ()))
+	((Interop::Vector2  *) &(ConstraintDistance2D_GetOtherBodyAnchor_274_Vector2 =_target->GetOtherBodyAnchor ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetOtherBodyAnchor ()))
 #endif
@@ -41258,7 +41293,7 @@ ConstraintFriction2D_SetMaxTorque (Urho3D::ConstraintFriction2D *_target, float 
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ConstraintFriction2D_GetAnchor_274_Vector2 ;
+static Vector2  ConstraintFriction2D_GetAnchor_275_Vector2 ;
 DllExport Interop::Vector2  *
 ConstraintFriction2D_GetAnchor (
 #else
@@ -41269,7 +41304,7 @@ Urho3D::ConstraintFriction2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ConstraintFriction2D_GetAnchor_274_Vector2 =_target->GetAnchor ()))
+	((Interop::Vector2  *) &(ConstraintFriction2D_GetAnchor_275_Vector2 =_target->GetAnchor ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetAnchor ()))
 #endif
@@ -41454,7 +41489,7 @@ ConstraintMotor2D_SetCorrectionFactor (Urho3D::ConstraintMotor2D *_target, float
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ConstraintMotor2D_GetLinearOffset_275_Vector2 ;
+static Vector2  ConstraintMotor2D_GetLinearOffset_276_Vector2 ;
 DllExport Interop::Vector2  *
 ConstraintMotor2D_GetLinearOffset (
 #else
@@ -41465,7 +41500,7 @@ Urho3D::ConstraintMotor2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ConstraintMotor2D_GetLinearOffset_275_Vector2 =_target->GetLinearOffset ()))
+	((Interop::Vector2  *) &(ConstraintMotor2D_GetLinearOffset_276_Vector2 =_target->GetLinearOffset ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetLinearOffset ()))
 #endif
@@ -41573,7 +41608,7 @@ ConstraintMouse2D_SetDampingRatio (Urho3D::ConstraintMouse2D *_target, float dam
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ConstraintMouse2D_GetTarget_276_Vector2 ;
+static Vector2  ConstraintMouse2D_GetTarget_277_Vector2 ;
 DllExport Interop::Vector2  *
 ConstraintMouse2D_GetTarget (
 #else
@@ -41584,7 +41619,7 @@ Urho3D::ConstraintMouse2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ConstraintMouse2D_GetTarget_276_Vector2 =_target->GetTarget ()))
+	((Interop::Vector2  *) &(ConstraintMouse2D_GetTarget_277_Vector2 =_target->GetTarget ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetTarget ()))
 #endif
@@ -41713,7 +41748,7 @@ ConstraintPrismatic2D_SetMotorSpeed (Urho3D::ConstraintPrismatic2D *_target, flo
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ConstraintPrismatic2D_GetAnchor_277_Vector2 ;
+static Vector2  ConstraintPrismatic2D_GetAnchor_278_Vector2 ;
 DllExport Interop::Vector2  *
 ConstraintPrismatic2D_GetAnchor (
 #else
@@ -41724,7 +41759,7 @@ Urho3D::ConstraintPrismatic2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ConstraintPrismatic2D_GetAnchor_277_Vector2 =_target->GetAnchor ()))
+	((Interop::Vector2  *) &(ConstraintPrismatic2D_GetAnchor_278_Vector2 =_target->GetAnchor ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetAnchor ()))
 #endif
@@ -41734,7 +41769,7 @@ Urho3D::ConstraintPrismatic2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ConstraintPrismatic2D_GetAxis_278_Vector2 ;
+static Vector2  ConstraintPrismatic2D_GetAxis_279_Vector2 ;
 DllExport Interop::Vector2  *
 ConstraintPrismatic2D_GetAxis (
 #else
@@ -41745,7 +41780,7 @@ Urho3D::ConstraintPrismatic2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ConstraintPrismatic2D_GetAxis_278_Vector2 =_target->GetAxis ()))
+	((Interop::Vector2  *) &(ConstraintPrismatic2D_GetAxis_279_Vector2 =_target->GetAxis ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetAxis ()))
 #endif
@@ -41874,7 +41909,7 @@ ConstraintPulley2D_SetRatio (Urho3D::ConstraintPulley2D *_target, float ratio)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ConstraintPulley2D_GetOwnerBodyGroundAnchor_279_Vector2 ;
+static Vector2  ConstraintPulley2D_GetOwnerBodyGroundAnchor_280_Vector2 ;
 DllExport Interop::Vector2  *
 ConstraintPulley2D_GetOwnerBodyGroundAnchor (
 #else
@@ -41885,7 +41920,7 @@ Urho3D::ConstraintPulley2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ConstraintPulley2D_GetOwnerBodyGroundAnchor_279_Vector2 =_target->GetOwnerBodyGroundAnchor ()))
+	((Interop::Vector2  *) &(ConstraintPulley2D_GetOwnerBodyGroundAnchor_280_Vector2 =_target->GetOwnerBodyGroundAnchor ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetOwnerBodyGroundAnchor ()))
 #endif
@@ -41895,7 +41930,7 @@ Urho3D::ConstraintPulley2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ConstraintPulley2D_GetOtherBodyGroundAnchor_280_Vector2 ;
+static Vector2  ConstraintPulley2D_GetOtherBodyGroundAnchor_281_Vector2 ;
 DllExport Interop::Vector2  *
 ConstraintPulley2D_GetOtherBodyGroundAnchor (
 #else
@@ -41906,7 +41941,7 @@ Urho3D::ConstraintPulley2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ConstraintPulley2D_GetOtherBodyGroundAnchor_280_Vector2 =_target->GetOtherBodyGroundAnchor ()))
+	((Interop::Vector2  *) &(ConstraintPulley2D_GetOtherBodyGroundAnchor_281_Vector2 =_target->GetOtherBodyGroundAnchor ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetOtherBodyGroundAnchor ()))
 #endif
@@ -41916,7 +41951,7 @@ Urho3D::ConstraintPulley2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ConstraintPulley2D_GetOwnerBodyAnchor_281_Vector2 ;
+static Vector2  ConstraintPulley2D_GetOwnerBodyAnchor_282_Vector2 ;
 DllExport Interop::Vector2  *
 ConstraintPulley2D_GetOwnerBodyAnchor (
 #else
@@ -41927,7 +41962,7 @@ Urho3D::ConstraintPulley2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ConstraintPulley2D_GetOwnerBodyAnchor_281_Vector2 =_target->GetOwnerBodyAnchor ()))
+	((Interop::Vector2  *) &(ConstraintPulley2D_GetOwnerBodyAnchor_282_Vector2 =_target->GetOwnerBodyAnchor ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetOwnerBodyAnchor ()))
 #endif
@@ -41937,7 +41972,7 @@ Urho3D::ConstraintPulley2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ConstraintPulley2D_GetOtherBodyAnchor_282_Vector2 ;
+static Vector2  ConstraintPulley2D_GetOtherBodyAnchor_283_Vector2 ;
 DllExport Interop::Vector2  *
 ConstraintPulley2D_GetOtherBodyAnchor (
 #else
@@ -41948,7 +41983,7 @@ Urho3D::ConstraintPulley2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ConstraintPulley2D_GetOtherBodyAnchor_282_Vector2 =_target->GetOtherBodyAnchor ()))
+	((Interop::Vector2  *) &(ConstraintPulley2D_GetOtherBodyAnchor_283_Vector2 =_target->GetOtherBodyAnchor ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetOtherBodyAnchor ()))
 #endif
@@ -42056,7 +42091,7 @@ ConstraintRevolute2D_SetMaxMotorTorque (Urho3D::ConstraintRevolute2D *_target, f
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ConstraintRevolute2D_GetAnchor_283_Vector2 ;
+static Vector2  ConstraintRevolute2D_GetAnchor_284_Vector2 ;
 DllExport Interop::Vector2  *
 ConstraintRevolute2D_GetAnchor (
 #else
@@ -42067,7 +42102,7 @@ Urho3D::ConstraintRevolute2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ConstraintRevolute2D_GetAnchor_283_Vector2 =_target->GetAnchor ()))
+	((Interop::Vector2  *) &(ConstraintRevolute2D_GetAnchor_284_Vector2 =_target->GetAnchor ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetAnchor ()))
 #endif
@@ -42182,7 +42217,7 @@ ConstraintRope2D_SetMaxLength (Urho3D::ConstraintRope2D *_target, float maxLengt
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ConstraintRope2D_GetOwnerBodyAnchor_284_Vector2 ;
+static Vector2  ConstraintRope2D_GetOwnerBodyAnchor_285_Vector2 ;
 DllExport Interop::Vector2  *
 ConstraintRope2D_GetOwnerBodyAnchor (
 #else
@@ -42193,7 +42228,7 @@ Urho3D::ConstraintRope2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ConstraintRope2D_GetOwnerBodyAnchor_284_Vector2 =_target->GetOwnerBodyAnchor ()))
+	((Interop::Vector2  *) &(ConstraintRope2D_GetOwnerBodyAnchor_285_Vector2 =_target->GetOwnerBodyAnchor ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetOwnerBodyAnchor ()))
 #endif
@@ -42203,7 +42238,7 @@ Urho3D::ConstraintRope2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ConstraintRope2D_GetOtherBodyAnchor_285_Vector2 ;
+static Vector2  ConstraintRope2D_GetOtherBodyAnchor_286_Vector2 ;
 DllExport Interop::Vector2  *
 ConstraintRope2D_GetOtherBodyAnchor (
 #else
@@ -42214,7 +42249,7 @@ Urho3D::ConstraintRope2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ConstraintRope2D_GetOtherBodyAnchor_285_Vector2 =_target->GetOtherBodyAnchor ()))
+	((Interop::Vector2  *) &(ConstraintRope2D_GetOtherBodyAnchor_286_Vector2 =_target->GetOtherBodyAnchor ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetOtherBodyAnchor ()))
 #endif
@@ -42294,7 +42329,7 @@ ConstraintWeld2D_SetDampingRatio (Urho3D::ConstraintWeld2D *_target, float dampi
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ConstraintWeld2D_GetAnchor_286_Vector2 ;
+static Vector2  ConstraintWeld2D_GetAnchor_287_Vector2 ;
 DllExport Interop::Vector2  *
 ConstraintWeld2D_GetAnchor (
 #else
@@ -42305,7 +42340,7 @@ Urho3D::ConstraintWeld2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ConstraintWeld2D_GetAnchor_286_Vector2 =_target->GetAnchor ()))
+	((Interop::Vector2  *) &(ConstraintWeld2D_GetAnchor_287_Vector2 =_target->GetAnchor ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetAnchor ()))
 #endif
@@ -42420,7 +42455,7 @@ ConstraintWheel2D_SetDampingRatio (Urho3D::ConstraintWheel2D *_target, float dam
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ConstraintWheel2D_GetAnchor_287_Vector2 ;
+static Vector2  ConstraintWheel2D_GetAnchor_288_Vector2 ;
 DllExport Interop::Vector2  *
 ConstraintWheel2D_GetAnchor (
 #else
@@ -42431,7 +42466,7 @@ Urho3D::ConstraintWheel2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ConstraintWheel2D_GetAnchor_287_Vector2 =_target->GetAnchor ()))
+	((Interop::Vector2  *) &(ConstraintWheel2D_GetAnchor_288_Vector2 =_target->GetAnchor ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetAnchor ()))
 #endif
@@ -42441,7 +42476,7 @@ Urho3D::ConstraintWheel2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ConstraintWheel2D_GetAxis_288_Vector2 ;
+static Vector2  ConstraintWheel2D_GetAxis_289_Vector2 ;
 DllExport Interop::Vector2  *
 ConstraintWheel2D_GetAxis (
 #else
@@ -42452,7 +42487,7 @@ Urho3D::ConstraintWheel2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ConstraintWheel2D_GetAxis_288_Vector2 =_target->GetAxis ()))
+	((Interop::Vector2  *) &(ConstraintWheel2D_GetAxis_289_Vector2 =_target->GetAxis ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetAxis ()))
 #endif
@@ -42837,7 +42872,7 @@ ParticleEffect2D_GetSprite (Urho3D::ParticleEffect2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ParticleEffect2D_GetSourcePositionVariance_289_Vector2 ;
+static Vector2  ParticleEffect2D_GetSourcePositionVariance_290_Vector2 ;
 DllExport Interop::Vector2  *
 ParticleEffect2D_GetSourcePositionVariance (
 #else
@@ -42848,7 +42883,7 @@ Urho3D::ParticleEffect2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ParticleEffect2D_GetSourcePositionVariance_289_Vector2 =_target->GetSourcePositionVariance ()))
+	((Interop::Vector2  *) &(ParticleEffect2D_GetSourcePositionVariance_290_Vector2 =_target->GetSourcePositionVariance ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetSourcePositionVariance ()))
 #endif
@@ -42900,7 +42935,7 @@ ParticleEffect2D_GetAngleVariance (Urho3D::ParticleEffect2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  ParticleEffect2D_GetGravity_290_Vector2 ;
+static Vector2  ParticleEffect2D_GetGravity_291_Vector2 ;
 DllExport Interop::Vector2  *
 ParticleEffect2D_GetGravity (
 #else
@@ -42911,7 +42946,7 @@ Urho3D::ParticleEffect2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(ParticleEffect2D_GetGravity_290_Vector2 =_target->GetGravity ()))
+	((Interop::Vector2  *) &(ParticleEffect2D_GetGravity_291_Vector2 =_target->GetGravity ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetGravity ()))
 #endif
@@ -42949,7 +42984,7 @@ ParticleEffect2D_GetTangentialAccelVariance (Urho3D::ParticleEffect2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  ParticleEffect2D_GetStartColor_291_Color ;
+static Color  ParticleEffect2D_GetStartColor_292_Color ;
 DllExport Interop::Color  *
 ParticleEffect2D_GetStartColor (
 #else
@@ -42960,7 +42995,7 @@ Urho3D::ParticleEffect2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(ParticleEffect2D_GetStartColor_291_Color =_target->GetStartColor ()))
+	((Interop::Color  *) &(ParticleEffect2D_GetStartColor_292_Color =_target->GetStartColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetStartColor ()))
 #endif
@@ -42970,7 +43005,7 @@ Urho3D::ParticleEffect2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  ParticleEffect2D_GetStartColorVariance_292_Color ;
+static Color  ParticleEffect2D_GetStartColorVariance_293_Color ;
 DllExport Interop::Color  *
 ParticleEffect2D_GetStartColorVariance (
 #else
@@ -42981,7 +43016,7 @@ Urho3D::ParticleEffect2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(ParticleEffect2D_GetStartColorVariance_292_Color =_target->GetStartColorVariance ()))
+	((Interop::Color  *) &(ParticleEffect2D_GetStartColorVariance_293_Color =_target->GetStartColorVariance ()))
 #else
 	*((Interop::Color  *) &(_target->GetStartColorVariance ()))
 #endif
@@ -42991,7 +43026,7 @@ Urho3D::ParticleEffect2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  ParticleEffect2D_GetFinishColor_293_Color ;
+static Color  ParticleEffect2D_GetFinishColor_294_Color ;
 DllExport Interop::Color  *
 ParticleEffect2D_GetFinishColor (
 #else
@@ -43002,7 +43037,7 @@ Urho3D::ParticleEffect2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(ParticleEffect2D_GetFinishColor_293_Color =_target->GetFinishColor ()))
+	((Interop::Color  *) &(ParticleEffect2D_GetFinishColor_294_Color =_target->GetFinishColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetFinishColor ()))
 #endif
@@ -43012,7 +43047,7 @@ Urho3D::ParticleEffect2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  ParticleEffect2D_GetFinishColorVariance_294_Color ;
+static Color  ParticleEffect2D_GetFinishColorVariance_295_Color ;
 DllExport Interop::Color  *
 ParticleEffect2D_GetFinishColorVariance (
 #else
@@ -43023,7 +43058,7 @@ Urho3D::ParticleEffect2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(ParticleEffect2D_GetFinishColorVariance_294_Color =_target->GetFinishColorVariance ()))
+	((Interop::Color  *) &(ParticleEffect2D_GetFinishColorVariance_295_Color =_target->GetFinishColorVariance ()))
 #else
 	*((Interop::Color  *) &(_target->GetFinishColorVariance ()))
 #endif
@@ -43558,7 +43593,7 @@ PhysicsWorld2D_GetAutoClearForces (Urho3D::PhysicsWorld2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  PhysicsWorld2D_GetGravity_295_Vector2 ;
+static Vector2  PhysicsWorld2D_GetGravity_296_Vector2 ;
 DllExport Interop::Vector2  *
 PhysicsWorld2D_GetGravity (
 #else
@@ -43569,7 +43604,7 @@ Urho3D::PhysicsWorld2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(PhysicsWorld2D_GetGravity_295_Vector2 =_target->GetGravity ()))
+	((Interop::Vector2  *) &(PhysicsWorld2D_GetGravity_296_Vector2 =_target->GetGravity ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetGravity ()))
 #endif
@@ -43950,7 +43985,7 @@ RigidBody2D_GetInertia (Urho3D::RigidBody2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  RigidBody2D_GetMassCenter_296_Vector2 ;
+static Vector2  RigidBody2D_GetMassCenter_297_Vector2 ;
 DllExport Interop::Vector2  *
 RigidBody2D_GetMassCenter (
 #else
@@ -43961,7 +43996,7 @@ Urho3D::RigidBody2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(RigidBody2D_GetMassCenter_296_Vector2 =_target->GetMassCenter ()))
+	((Interop::Vector2  *) &(RigidBody2D_GetMassCenter_297_Vector2 =_target->GetMassCenter ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetMassCenter ()))
 #endif
@@ -44027,7 +44062,7 @@ RigidBody2D_IsAwake (Urho3D::RigidBody2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  RigidBody2D_GetLinearVelocity_297_Vector2 ;
+static Vector2  RigidBody2D_GetLinearVelocity_298_Vector2 ;
 DllExport Interop::Vector2  *
 RigidBody2D_GetLinearVelocity (
 #else
@@ -44038,7 +44073,7 @@ Urho3D::RigidBody2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(RigidBody2D_GetLinearVelocity_297_Vector2 =_target->GetLinearVelocity ()))
+	((Interop::Vector2  *) &(RigidBody2D_GetLinearVelocity_298_Vector2 =_target->GetLinearVelocity ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetLinearVelocity ()))
 #endif
@@ -44216,7 +44251,7 @@ TileMap2D_GetTmxFile (Urho3D::TileMap2D *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static TileMapInfo2D TileMap2D_GetInfo_298_TileMapInfo2D;
+static TileMapInfo2D TileMap2D_GetInfo_299_TileMapInfo2D;
 DllExport Urho3D::TileMapInfo2D *
 TileMap2D_GetInfo (
 #else
@@ -44227,7 +44262,7 @@ Urho3D::TileMap2D *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Urho3D::TileMapInfo2D *) &(TileMap2D_GetInfo_298_TileMapInfo2D=_target->GetInfo ()))
+	((Urho3D::TileMapInfo2D *) &(TileMap2D_GetInfo_299_TileMapInfo2D=_target->GetInfo ()))
 #else
 	*((Urho3D::TileMapInfo2D *) &(_target->GetInfo ()))
 #endif
@@ -44251,7 +44286,7 @@ TileMap2D_GetLayer (Urho3D::TileMap2D *_target, unsigned int index)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  TileMap2D_TileIndexToPosition_299_Vector2 ;
+static Vector2  TileMap2D_TileIndexToPosition_300_Vector2 ;
 DllExport Interop::Vector2  *
 TileMap2D_TileIndexToPosition (
 #else
@@ -44262,7 +44297,7 @@ Urho3D::TileMap2D *_target, int x, int y)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(TileMap2D_TileIndexToPosition_299_Vector2 =_target->TileIndexToPosition (x, y)))
+	((Interop::Vector2  *) &(TileMap2D_TileIndexToPosition_300_Vector2 =_target->TileIndexToPosition (x, y)))
 #else
 	*((Interop::Vector2  *) &(_target->TileIndexToPosition (x, y)))
 #endif
@@ -44356,7 +44391,7 @@ IKConstraint_SetStretchiness (Urho3D::IKConstraint *_target, float stretchiness)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  IKConstraint_GetLengthConstraints_300_Vector2 ;
+static Vector2  IKConstraint_GetLengthConstraints_301_Vector2 ;
 DllExport Interop::Vector2  *
 IKConstraint_GetLengthConstraints (
 #else
@@ -44367,7 +44402,7 @@ Urho3D::IKConstraint *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(IKConstraint_GetLengthConstraints_300_Vector2 =_target->GetLengthConstraints ()))
+	((Interop::Vector2  *) &(IKConstraint_GetLengthConstraints_301_Vector2 =_target->GetLengthConstraints ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetLengthConstraints ()))
 #endif
@@ -44468,7 +44503,7 @@ IKEffector_SetTargetName (Urho3D::IKEffector *_target, const char * nodeName)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  IKEffector_GetTargetPosition_301_Vector3 ;
+static Vector3  IKEffector_GetTargetPosition_302_Vector3 ;
 DllExport Interop::Vector3  *
 IKEffector_GetTargetPosition (
 #else
@@ -44479,7 +44514,7 @@ Urho3D::IKEffector *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(IKEffector_GetTargetPosition_301_Vector3 =_target->GetTargetPosition ()))
+	((Interop::Vector3  *) &(IKEffector_GetTargetPosition_302_Vector3 =_target->GetTargetPosition ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetTargetPosition ()))
 #endif
@@ -44496,7 +44531,7 @@ IKEffector_SetTargetPosition (Urho3D::IKEffector *_target, const class Urho3D::V
 
 
 #ifdef __EMSCRIPTEN__
-static Quaternion  IKEffector_GetTargetRotation_302_Quaternion ;
+static Quaternion  IKEffector_GetTargetRotation_303_Quaternion ;
 DllExport Interop::Quaternion  *
 IKEffector_GetTargetRotation (
 #else
@@ -44507,7 +44542,7 @@ Urho3D::IKEffector *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Quaternion  *) &(IKEffector_GetTargetRotation_302_Quaternion =_target->GetTargetRotation ()))
+	((Interop::Quaternion  *) &(IKEffector_GetTargetRotation_303_Quaternion =_target->GetTargetRotation ()))
 #else
 	*((Interop::Quaternion  *) &(_target->GetTargetRotation ()))
 #endif
@@ -44524,7 +44559,7 @@ IKEffector_SetTargetRotation (Urho3D::IKEffector *_target, const class Urho3D::Q
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  IKEffector_GetTargetRotationEuler_303_Vector3 ;
+static Vector3  IKEffector_GetTargetRotationEuler_304_Vector3 ;
 DllExport Interop::Vector3  *
 IKEffector_GetTargetRotationEuler (
 #else
@@ -44535,7 +44570,7 @@ Urho3D::IKEffector *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(IKEffector_GetTargetRotationEuler_303_Vector3 =_target->GetTargetRotationEuler ()))
+	((Interop::Vector3  *) &(IKEffector_GetTargetRotationEuler_304_Vector3 =_target->GetTargetRotationEuler ()))
 #else
 	*((Interop::Vector3  *) &(_target->GetTargetRotationEuler ()))
 #endif
@@ -45196,7 +45231,7 @@ VGFrameBuffer_GetRenderTarget (Urho3D::VGFrameBuffer *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  VGFrameBuffer_GetSize_304_IntVector2 ;
+static IntVector2  VGFrameBuffer_GetSize_305_IntVector2 ;
 DllExport Interop::IntVector2  *
 VGFrameBuffer_GetSize (
 #else
@@ -45207,7 +45242,7 @@ Urho3D::VGFrameBuffer *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(VGFrameBuffer_GetSize_304_IntVector2 =_target->GetSize ()))
+	((Interop::IntVector2  *) &(VGFrameBuffer_GetSize_305_IntVector2 =_target->GetSize ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetSize ()))
 #endif
@@ -45224,7 +45259,7 @@ VGFrameBuffer_SetClearColor (Urho3D::VGFrameBuffer *_target, Urho3D::Color color
 
 
 #ifdef __EMSCRIPTEN__
-static Color  VGFrameBuffer_GetClearColor_305_Color ;
+static Color  VGFrameBuffer_GetClearColor_306_Color ;
 DllExport Interop::Color  *
 VGFrameBuffer_GetClearColor (
 #else
@@ -45235,7 +45270,7 @@ Urho3D::VGFrameBuffer *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(VGFrameBuffer_GetClearColor_305_Color =_target->GetClearColor ()))
+	((Interop::Color  *) &(VGFrameBuffer_GetClearColor_306_Color =_target->GetClearColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetClearColor ()))
 #endif
@@ -45301,7 +45336,7 @@ VGFrameBuffer_GlobalCompositeBlendFuncSeparate (Urho3D::VGFrameBuffer *_target, 
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGFrameBuffer_RGB_306_NVGcolor;
+static NVGcolor VGFrameBuffer_RGB_307_NVGcolor;
 DllExport NVGcolor *
 VGFrameBuffer_RGB (
 #else
@@ -45312,7 +45347,7 @@ Urho3D::VGFrameBuffer *_target, unsigned char r, unsigned char g, unsigned char 
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGFrameBuffer_RGB_306_NVGcolor=_target->RGB (r, g, b)))
+	((NVGcolor *) &(VGFrameBuffer_RGB_307_NVGcolor=_target->RGB (r, g, b)))
 #else
 	*((NVGcolor *) &(_target->RGB (r, g, b)))
 #endif
@@ -45322,7 +45357,7 @@ Urho3D::VGFrameBuffer *_target, unsigned char r, unsigned char g, unsigned char 
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGFrameBuffer_RGBf_307_NVGcolor;
+static NVGcolor VGFrameBuffer_RGBf_308_NVGcolor;
 DllExport NVGcolor *
 VGFrameBuffer_RGBf (
 #else
@@ -45333,7 +45368,7 @@ Urho3D::VGFrameBuffer *_target, float r, float g, float b)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGFrameBuffer_RGBf_307_NVGcolor=_target->RGBf (r, g, b)))
+	((NVGcolor *) &(VGFrameBuffer_RGBf_308_NVGcolor=_target->RGBf (r, g, b)))
 #else
 	*((NVGcolor *) &(_target->RGBf (r, g, b)))
 #endif
@@ -45343,7 +45378,7 @@ Urho3D::VGFrameBuffer *_target, float r, float g, float b)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGFrameBuffer_RGBA_308_NVGcolor;
+static NVGcolor VGFrameBuffer_RGBA_309_NVGcolor;
 DllExport NVGcolor *
 VGFrameBuffer_RGBA (
 #else
@@ -45354,7 +45389,7 @@ Urho3D::VGFrameBuffer *_target, unsigned char r, unsigned char g, unsigned char 
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGFrameBuffer_RGBA_308_NVGcolor=_target->RGBA (r, g, b, a)))
+	((NVGcolor *) &(VGFrameBuffer_RGBA_309_NVGcolor=_target->RGBA (r, g, b, a)))
 #else
 	*((NVGcolor *) &(_target->RGBA (r, g, b, a)))
 #endif
@@ -45364,7 +45399,7 @@ Urho3D::VGFrameBuffer *_target, unsigned char r, unsigned char g, unsigned char 
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGFrameBuffer_RGBAf_309_NVGcolor;
+static NVGcolor VGFrameBuffer_RGBAf_310_NVGcolor;
 DllExport NVGcolor *
 VGFrameBuffer_RGBAf (
 #else
@@ -45375,7 +45410,7 @@ Urho3D::VGFrameBuffer *_target, float r, float g, float b, float a)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGFrameBuffer_RGBAf_309_NVGcolor=_target->RGBAf (r, g, b, a)))
+	((NVGcolor *) &(VGFrameBuffer_RGBAf_310_NVGcolor=_target->RGBAf (r, g, b, a)))
 #else
 	*((NVGcolor *) &(_target->RGBAf (r, g, b, a)))
 #endif
@@ -45385,7 +45420,7 @@ Urho3D::VGFrameBuffer *_target, float r, float g, float b, float a)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGFrameBuffer_LerpRGBA_310_NVGcolor;
+static NVGcolor VGFrameBuffer_LerpRGBA_311_NVGcolor;
 DllExport NVGcolor *
 VGFrameBuffer_LerpRGBA (
 #else
@@ -45396,7 +45431,7 @@ Urho3D::VGFrameBuffer *_target, NVGcolor c0, NVGcolor c1, float u)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGFrameBuffer_LerpRGBA_310_NVGcolor=_target->LerpRGBA (c0, c1, u)))
+	((NVGcolor *) &(VGFrameBuffer_LerpRGBA_311_NVGcolor=_target->LerpRGBA (c0, c1, u)))
 #else
 	*((NVGcolor *) &(_target->LerpRGBA (c0, c1, u)))
 #endif
@@ -45406,7 +45441,7 @@ Urho3D::VGFrameBuffer *_target, NVGcolor c0, NVGcolor c1, float u)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGFrameBuffer_TransRGBA_311_NVGcolor;
+static NVGcolor VGFrameBuffer_TransRGBA_312_NVGcolor;
 DllExport NVGcolor *
 VGFrameBuffer_TransRGBA (
 #else
@@ -45417,7 +45452,7 @@ Urho3D::VGFrameBuffer *_target, NVGcolor c0, unsigned char a)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGFrameBuffer_TransRGBA_311_NVGcolor=_target->TransRGBA (c0, a)))
+	((NVGcolor *) &(VGFrameBuffer_TransRGBA_312_NVGcolor=_target->TransRGBA (c0, a)))
 #else
 	*((NVGcolor *) &(_target->TransRGBA (c0, a)))
 #endif
@@ -45427,7 +45462,7 @@ Urho3D::VGFrameBuffer *_target, NVGcolor c0, unsigned char a)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGFrameBuffer_TransRGBAf_312_NVGcolor;
+static NVGcolor VGFrameBuffer_TransRGBAf_313_NVGcolor;
 DllExport NVGcolor *
 VGFrameBuffer_TransRGBAf (
 #else
@@ -45438,7 +45473,7 @@ Urho3D::VGFrameBuffer *_target, NVGcolor c0, float a)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGFrameBuffer_TransRGBAf_312_NVGcolor=_target->TransRGBAf (c0, a)))
+	((NVGcolor *) &(VGFrameBuffer_TransRGBAf_313_NVGcolor=_target->TransRGBAf (c0, a)))
 #else
 	*((NVGcolor *) &(_target->TransRGBAf (c0, a)))
 #endif
@@ -45448,7 +45483,7 @@ Urho3D::VGFrameBuffer *_target, NVGcolor c0, float a)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGFrameBuffer_HSL_313_NVGcolor;
+static NVGcolor VGFrameBuffer_HSL_314_NVGcolor;
 DllExport NVGcolor *
 VGFrameBuffer_HSL (
 #else
@@ -45459,7 +45494,7 @@ Urho3D::VGFrameBuffer *_target, float h, float s, float l)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGFrameBuffer_HSL_313_NVGcolor=_target->HSL (h, s, l)))
+	((NVGcolor *) &(VGFrameBuffer_HSL_314_NVGcolor=_target->HSL (h, s, l)))
 #else
 	*((NVGcolor *) &(_target->HSL (h, s, l)))
 #endif
@@ -45469,7 +45504,7 @@ Urho3D::VGFrameBuffer *_target, float h, float s, float l)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGFrameBuffer_HSLA_314_NVGcolor;
+static NVGcolor VGFrameBuffer_HSLA_315_NVGcolor;
 DllExport NVGcolor *
 VGFrameBuffer_HSLA (
 #else
@@ -45480,7 +45515,7 @@ Urho3D::VGFrameBuffer *_target, float h, float s, float l, unsigned char a)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGFrameBuffer_HSLA_314_NVGcolor=_target->HSLA (h, s, l, a)))
+	((NVGcolor *) &(VGFrameBuffer_HSLA_315_NVGcolor=_target->HSLA (h, s, l, a)))
 #else
 	*((NVGcolor *) &(_target->HSLA (h, s, l, a)))
 #endif
@@ -45756,7 +45791,7 @@ VGFrameBuffer_DeleteImage (Urho3D::VGFrameBuffer *_target, int image)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGpaint VGFrameBuffer_LinearGradient_315_NVGpaint;
+static NVGpaint VGFrameBuffer_LinearGradient_316_NVGpaint;
 DllExport NVGpaint *
 VGFrameBuffer_LinearGradient (
 #else
@@ -45767,7 +45802,7 @@ Urho3D::VGFrameBuffer *_target, float sx, float sy, float ex, float ey, NVGcolor
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGpaint *) &(VGFrameBuffer_LinearGradient_315_NVGpaint=_target->LinearGradient (sx, sy, ex, ey, icol, ocol)))
+	((NVGpaint *) &(VGFrameBuffer_LinearGradient_316_NVGpaint=_target->LinearGradient (sx, sy, ex, ey, icol, ocol)))
 #else
 	*((NVGpaint *) &(_target->LinearGradient (sx, sy, ex, ey, icol, ocol)))
 #endif
@@ -45777,7 +45812,7 @@ Urho3D::VGFrameBuffer *_target, float sx, float sy, float ex, float ey, NVGcolor
 
 
 #ifdef __EMSCRIPTEN__
-static NVGpaint VGFrameBuffer_BoxGradient_316_NVGpaint;
+static NVGpaint VGFrameBuffer_BoxGradient_317_NVGpaint;
 DllExport NVGpaint *
 VGFrameBuffer_BoxGradient (
 #else
@@ -45788,7 +45823,7 @@ Urho3D::VGFrameBuffer *_target, float x, float y, float w, float h, float r, flo
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGpaint *) &(VGFrameBuffer_BoxGradient_316_NVGpaint=_target->BoxGradient (x, y, w, h, r, f, icol, ocol)))
+	((NVGpaint *) &(VGFrameBuffer_BoxGradient_317_NVGpaint=_target->BoxGradient (x, y, w, h, r, f, icol, ocol)))
 #else
 	*((NVGpaint *) &(_target->BoxGradient (x, y, w, h, r, f, icol, ocol)))
 #endif
@@ -45798,7 +45833,7 @@ Urho3D::VGFrameBuffer *_target, float x, float y, float w, float h, float r, flo
 
 
 #ifdef __EMSCRIPTEN__
-static NVGpaint VGFrameBuffer_RadialGradient_317_NVGpaint;
+static NVGpaint VGFrameBuffer_RadialGradient_318_NVGpaint;
 DllExport NVGpaint *
 VGFrameBuffer_RadialGradient (
 #else
@@ -45809,7 +45844,7 @@ Urho3D::VGFrameBuffer *_target, float cx, float cy, float inr, float outr, NVGco
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGpaint *) &(VGFrameBuffer_RadialGradient_317_NVGpaint=_target->RadialGradient (cx, cy, inr, outr, icol, ocol)))
+	((NVGpaint *) &(VGFrameBuffer_RadialGradient_318_NVGpaint=_target->RadialGradient (cx, cy, inr, outr, icol, ocol)))
 #else
 	*((NVGpaint *) &(_target->RadialGradient (cx, cy, inr, outr, icol, ocol)))
 #endif
@@ -45819,7 +45854,7 @@ Urho3D::VGFrameBuffer *_target, float cx, float cy, float inr, float outr, NVGco
 
 
 #ifdef __EMSCRIPTEN__
-static NVGpaint VGFrameBuffer_ImagePattern_318_NVGpaint;
+static NVGpaint VGFrameBuffer_ImagePattern_319_NVGpaint;
 DllExport NVGpaint *
 VGFrameBuffer_ImagePattern (
 #else
@@ -45830,7 +45865,7 @@ Urho3D::VGFrameBuffer *_target, float ox, float oy, float ex, float ey, float an
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGpaint *) &(VGFrameBuffer_ImagePattern_318_NVGpaint=_target->ImagePattern (ox, oy, ex, ey, angle, image, alpha)))
+	((NVGpaint *) &(VGFrameBuffer_ImagePattern_319_NVGpaint=_target->ImagePattern (ox, oy, ex, ey, angle, image, alpha)))
 #else
 	*((NVGpaint *) &(_target->ImagePattern (ox, oy, ex, ey, angle, image, alpha)))
 #endif
@@ -46155,7 +46190,7 @@ VGElement_EndRender (Urho3D::VGElement *_target)
 
 
 #ifdef __EMSCRIPTEN__
-static IntVector2  VGElement_GetSize_319_IntVector2 ;
+static IntVector2  VGElement_GetSize_320_IntVector2 ;
 DllExport Interop::IntVector2  *
 VGElement_GetSize (
 #else
@@ -46166,7 +46201,7 @@ Urho3D::VGElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::IntVector2  *) &(VGElement_GetSize_319_IntVector2 =_target->GetSize ()))
+	((Interop::IntVector2  *) &(VGElement_GetSize_320_IntVector2 =_target->GetSize ()))
 #else
 	*((Interop::IntVector2  *) &(_target->GetSize ()))
 #endif
@@ -46183,7 +46218,7 @@ VGElement_SetClearColor (Urho3D::VGElement *_target, Urho3D::Color color)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  VGElement_GetClearColor_320_Color ;
+static Color  VGElement_GetClearColor_321_Color ;
 DllExport Interop::Color  *
 VGElement_GetClearColor (
 #else
@@ -46194,7 +46229,7 @@ Urho3D::VGElement *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(VGElement_GetClearColor_320_Color =_target->GetClearColor ()))
+	((Interop::Color  *) &(VGElement_GetClearColor_321_Color =_target->GetClearColor ()))
 #else
 	*((Interop::Color  *) &(_target->GetClearColor ()))
 #endif
@@ -46246,7 +46281,7 @@ VGElement_GlobalCompositeBlendFuncSeparate (Urho3D::VGElement *_target, int srcR
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGElement_RGB_321_NVGcolor;
+static NVGcolor VGElement_RGB_322_NVGcolor;
 DllExport NVGcolor *
 VGElement_RGB (
 #else
@@ -46257,7 +46292,7 @@ Urho3D::VGElement *_target, unsigned char r, unsigned char g, unsigned char b)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGElement_RGB_321_NVGcolor=_target->RGB (r, g, b)))
+	((NVGcolor *) &(VGElement_RGB_322_NVGcolor=_target->RGB (r, g, b)))
 #else
 	*((NVGcolor *) &(_target->RGB (r, g, b)))
 #endif
@@ -46267,7 +46302,7 @@ Urho3D::VGElement *_target, unsigned char r, unsigned char g, unsigned char b)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGElement_RGBf_322_NVGcolor;
+static NVGcolor VGElement_RGBf_323_NVGcolor;
 DllExport NVGcolor *
 VGElement_RGBf (
 #else
@@ -46278,7 +46313,7 @@ Urho3D::VGElement *_target, float r, float g, float b)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGElement_RGBf_322_NVGcolor=_target->RGBf (r, g, b)))
+	((NVGcolor *) &(VGElement_RGBf_323_NVGcolor=_target->RGBf (r, g, b)))
 #else
 	*((NVGcolor *) &(_target->RGBf (r, g, b)))
 #endif
@@ -46288,7 +46323,7 @@ Urho3D::VGElement *_target, float r, float g, float b)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGElement_RGBA_323_NVGcolor;
+static NVGcolor VGElement_RGBA_324_NVGcolor;
 DllExport NVGcolor *
 VGElement_RGBA (
 #else
@@ -46299,7 +46334,7 @@ Urho3D::VGElement *_target, unsigned char r, unsigned char g, unsigned char b, u
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGElement_RGBA_323_NVGcolor=_target->RGBA (r, g, b, a)))
+	((NVGcolor *) &(VGElement_RGBA_324_NVGcolor=_target->RGBA (r, g, b, a)))
 #else
 	*((NVGcolor *) &(_target->RGBA (r, g, b, a)))
 #endif
@@ -46309,7 +46344,7 @@ Urho3D::VGElement *_target, unsigned char r, unsigned char g, unsigned char b, u
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGElement_RGBAf_324_NVGcolor;
+static NVGcolor VGElement_RGBAf_325_NVGcolor;
 DllExport NVGcolor *
 VGElement_RGBAf (
 #else
@@ -46320,7 +46355,7 @@ Urho3D::VGElement *_target, float r, float g, float b, float a)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGElement_RGBAf_324_NVGcolor=_target->RGBAf (r, g, b, a)))
+	((NVGcolor *) &(VGElement_RGBAf_325_NVGcolor=_target->RGBAf (r, g, b, a)))
 #else
 	*((NVGcolor *) &(_target->RGBAf (r, g, b, a)))
 #endif
@@ -46330,7 +46365,7 @@ Urho3D::VGElement *_target, float r, float g, float b, float a)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGElement_LerpRGBA_325_NVGcolor;
+static NVGcolor VGElement_LerpRGBA_326_NVGcolor;
 DllExport NVGcolor *
 VGElement_LerpRGBA (
 #else
@@ -46341,7 +46376,7 @@ Urho3D::VGElement *_target, NVGcolor c0, NVGcolor c1, float u)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGElement_LerpRGBA_325_NVGcolor=_target->LerpRGBA (c0, c1, u)))
+	((NVGcolor *) &(VGElement_LerpRGBA_326_NVGcolor=_target->LerpRGBA (c0, c1, u)))
 #else
 	*((NVGcolor *) &(_target->LerpRGBA (c0, c1, u)))
 #endif
@@ -46351,7 +46386,7 @@ Urho3D::VGElement *_target, NVGcolor c0, NVGcolor c1, float u)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGElement_TransRGBA_326_NVGcolor;
+static NVGcolor VGElement_TransRGBA_327_NVGcolor;
 DllExport NVGcolor *
 VGElement_TransRGBA (
 #else
@@ -46362,7 +46397,7 @@ Urho3D::VGElement *_target, NVGcolor c0, unsigned char a)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGElement_TransRGBA_326_NVGcolor=_target->TransRGBA (c0, a)))
+	((NVGcolor *) &(VGElement_TransRGBA_327_NVGcolor=_target->TransRGBA (c0, a)))
 #else
 	*((NVGcolor *) &(_target->TransRGBA (c0, a)))
 #endif
@@ -46372,7 +46407,7 @@ Urho3D::VGElement *_target, NVGcolor c0, unsigned char a)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGElement_TransRGBAf_327_NVGcolor;
+static NVGcolor VGElement_TransRGBAf_328_NVGcolor;
 DllExport NVGcolor *
 VGElement_TransRGBAf (
 #else
@@ -46383,7 +46418,7 @@ Urho3D::VGElement *_target, NVGcolor c0, float a)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGElement_TransRGBAf_327_NVGcolor=_target->TransRGBAf (c0, a)))
+	((NVGcolor *) &(VGElement_TransRGBAf_328_NVGcolor=_target->TransRGBAf (c0, a)))
 #else
 	*((NVGcolor *) &(_target->TransRGBAf (c0, a)))
 #endif
@@ -46393,7 +46428,7 @@ Urho3D::VGElement *_target, NVGcolor c0, float a)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGElement_HSL_328_NVGcolor;
+static NVGcolor VGElement_HSL_329_NVGcolor;
 DllExport NVGcolor *
 VGElement_HSL (
 #else
@@ -46404,7 +46439,7 @@ Urho3D::VGElement *_target, float h, float s, float l)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGElement_HSL_328_NVGcolor=_target->HSL (h, s, l)))
+	((NVGcolor *) &(VGElement_HSL_329_NVGcolor=_target->HSL (h, s, l)))
 #else
 	*((NVGcolor *) &(_target->HSL (h, s, l)))
 #endif
@@ -46414,7 +46449,7 @@ Urho3D::VGElement *_target, float h, float s, float l)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGElement_HSLA_329_NVGcolor;
+static NVGcolor VGElement_HSLA_330_NVGcolor;
 DllExport NVGcolor *
 VGElement_HSLA (
 #else
@@ -46425,7 +46460,7 @@ Urho3D::VGElement *_target, float h, float s, float l, unsigned char a)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGElement_HSLA_329_NVGcolor=_target->HSLA (h, s, l, a)))
+	((NVGcolor *) &(VGElement_HSLA_330_NVGcolor=_target->HSLA (h, s, l, a)))
 #else
 	*((NVGcolor *) &(_target->HSLA (h, s, l, a)))
 #endif
@@ -46701,7 +46736,7 @@ VGElement_DeleteImage (Urho3D::VGElement *_target, int image)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGpaint VGElement_LinearGradient_330_NVGpaint;
+static NVGpaint VGElement_LinearGradient_331_NVGpaint;
 DllExport NVGpaint *
 VGElement_LinearGradient (
 #else
@@ -46712,7 +46747,7 @@ Urho3D::VGElement *_target, float sx, float sy, float ex, float ey, NVGcolor ico
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGpaint *) &(VGElement_LinearGradient_330_NVGpaint=_target->LinearGradient (sx, sy, ex, ey, icol, ocol)))
+	((NVGpaint *) &(VGElement_LinearGradient_331_NVGpaint=_target->LinearGradient (sx, sy, ex, ey, icol, ocol)))
 #else
 	*((NVGpaint *) &(_target->LinearGradient (sx, sy, ex, ey, icol, ocol)))
 #endif
@@ -46722,7 +46757,7 @@ Urho3D::VGElement *_target, float sx, float sy, float ex, float ey, NVGcolor ico
 
 
 #ifdef __EMSCRIPTEN__
-static NVGpaint VGElement_BoxGradient_331_NVGpaint;
+static NVGpaint VGElement_BoxGradient_332_NVGpaint;
 DllExport NVGpaint *
 VGElement_BoxGradient (
 #else
@@ -46733,7 +46768,7 @@ Urho3D::VGElement *_target, float x, float y, float w, float h, float r, float f
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGpaint *) &(VGElement_BoxGradient_331_NVGpaint=_target->BoxGradient (x, y, w, h, r, f, icol, ocol)))
+	((NVGpaint *) &(VGElement_BoxGradient_332_NVGpaint=_target->BoxGradient (x, y, w, h, r, f, icol, ocol)))
 #else
 	*((NVGpaint *) &(_target->BoxGradient (x, y, w, h, r, f, icol, ocol)))
 #endif
@@ -46743,7 +46778,7 @@ Urho3D::VGElement *_target, float x, float y, float w, float h, float r, float f
 
 
 #ifdef __EMSCRIPTEN__
-static NVGpaint VGElement_RadialGradient_332_NVGpaint;
+static NVGpaint VGElement_RadialGradient_333_NVGpaint;
 DllExport NVGpaint *
 VGElement_RadialGradient (
 #else
@@ -46754,7 +46789,7 @@ Urho3D::VGElement *_target, float cx, float cy, float inr, float outr, NVGcolor 
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGpaint *) &(VGElement_RadialGradient_332_NVGpaint=_target->RadialGradient (cx, cy, inr, outr, icol, ocol)))
+	((NVGpaint *) &(VGElement_RadialGradient_333_NVGpaint=_target->RadialGradient (cx, cy, inr, outr, icol, ocol)))
 #else
 	*((NVGpaint *) &(_target->RadialGradient (cx, cy, inr, outr, icol, ocol)))
 #endif
@@ -46764,7 +46799,7 @@ Urho3D::VGElement *_target, float cx, float cy, float inr, float outr, NVGcolor 
 
 
 #ifdef __EMSCRIPTEN__
-static NVGpaint VGElement_ImagePattern_333_NVGpaint;
+static NVGpaint VGElement_ImagePattern_334_NVGpaint;
 DllExport NVGpaint *
 VGElement_ImagePattern (
 #else
@@ -46775,7 +46810,7 @@ Urho3D::VGElement *_target, float ox, float oy, float ex, float ey, float angle,
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGpaint *) &(VGElement_ImagePattern_333_NVGpaint=_target->ImagePattern (ox, oy, ex, ey, angle, image, alpha)))
+	((NVGpaint *) &(VGElement_ImagePattern_334_NVGpaint=_target->ImagePattern (ox, oy, ex, ey, angle, image, alpha)))
 #else
 	*((NVGpaint *) &(_target->ImagePattern (ox, oy, ex, ey, angle, image, alpha)))
 #endif
@@ -47220,7 +47255,7 @@ VGComponent_SetRotation (Urho3D::VGComponent *_target, float angle)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector2  VGComponent_GetHotSpot_334_Vector2 ;
+static Vector2  VGComponent_GetHotSpot_335_Vector2 ;
 DllExport Interop::Vector2  *
 VGComponent_GetHotSpot (
 #else
@@ -47231,7 +47266,7 @@ Urho3D::VGComponent *_target)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector2  *) &(VGComponent_GetHotSpot_334_Vector2 =_target->GetHotSpot ()))
+	((Interop::Vector2  *) &(VGComponent_GetHotSpot_335_Vector2 =_target->GetHotSpot ()))
 #else
 	*((Interop::Vector2  *) &(_target->GetHotSpot ()))
 #endif
@@ -47276,7 +47311,7 @@ VGComponent_GlobalCompositeBlendFuncSeparate (Urho3D::VGComponent *_target, int 
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGComponent_RGB_335_NVGcolor;
+static NVGcolor VGComponent_RGB_336_NVGcolor;
 DllExport NVGcolor *
 VGComponent_RGB (
 #else
@@ -47287,7 +47322,7 @@ Urho3D::VGComponent *_target, unsigned char r, unsigned char g, unsigned char b)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGComponent_RGB_335_NVGcolor=_target->RGB (r, g, b)))
+	((NVGcolor *) &(VGComponent_RGB_336_NVGcolor=_target->RGB (r, g, b)))
 #else
 	*((NVGcolor *) &(_target->RGB (r, g, b)))
 #endif
@@ -47297,7 +47332,7 @@ Urho3D::VGComponent *_target, unsigned char r, unsigned char g, unsigned char b)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGComponent_RGBf_336_NVGcolor;
+static NVGcolor VGComponent_RGBf_337_NVGcolor;
 DllExport NVGcolor *
 VGComponent_RGBf (
 #else
@@ -47308,7 +47343,7 @@ Urho3D::VGComponent *_target, float r, float g, float b)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGComponent_RGBf_336_NVGcolor=_target->RGBf (r, g, b)))
+	((NVGcolor *) &(VGComponent_RGBf_337_NVGcolor=_target->RGBf (r, g, b)))
 #else
 	*((NVGcolor *) &(_target->RGBf (r, g, b)))
 #endif
@@ -47318,7 +47353,7 @@ Urho3D::VGComponent *_target, float r, float g, float b)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGComponent_RGBA_337_NVGcolor;
+static NVGcolor VGComponent_RGBA_338_NVGcolor;
 DllExport NVGcolor *
 VGComponent_RGBA (
 #else
@@ -47329,7 +47364,7 @@ Urho3D::VGComponent *_target, unsigned char r, unsigned char g, unsigned char b,
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGComponent_RGBA_337_NVGcolor=_target->RGBA (r, g, b, a)))
+	((NVGcolor *) &(VGComponent_RGBA_338_NVGcolor=_target->RGBA (r, g, b, a)))
 #else
 	*((NVGcolor *) &(_target->RGBA (r, g, b, a)))
 #endif
@@ -47339,7 +47374,7 @@ Urho3D::VGComponent *_target, unsigned char r, unsigned char g, unsigned char b,
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGComponent_RGBAf_338_NVGcolor;
+static NVGcolor VGComponent_RGBAf_339_NVGcolor;
 DllExport NVGcolor *
 VGComponent_RGBAf (
 #else
@@ -47350,7 +47385,7 @@ Urho3D::VGComponent *_target, float r, float g, float b, float a)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGComponent_RGBAf_338_NVGcolor=_target->RGBAf (r, g, b, a)))
+	((NVGcolor *) &(VGComponent_RGBAf_339_NVGcolor=_target->RGBAf (r, g, b, a)))
 #else
 	*((NVGcolor *) &(_target->RGBAf (r, g, b, a)))
 #endif
@@ -47360,7 +47395,7 @@ Urho3D::VGComponent *_target, float r, float g, float b, float a)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGComponent_LerpRGBA_339_NVGcolor;
+static NVGcolor VGComponent_LerpRGBA_340_NVGcolor;
 DllExport NVGcolor *
 VGComponent_LerpRGBA (
 #else
@@ -47371,7 +47406,7 @@ Urho3D::VGComponent *_target, NVGcolor c0, NVGcolor c1, float u)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGComponent_LerpRGBA_339_NVGcolor=_target->LerpRGBA (c0, c1, u)))
+	((NVGcolor *) &(VGComponent_LerpRGBA_340_NVGcolor=_target->LerpRGBA (c0, c1, u)))
 #else
 	*((NVGcolor *) &(_target->LerpRGBA (c0, c1, u)))
 #endif
@@ -47381,7 +47416,7 @@ Urho3D::VGComponent *_target, NVGcolor c0, NVGcolor c1, float u)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGComponent_TransRGBA_340_NVGcolor;
+static NVGcolor VGComponent_TransRGBA_341_NVGcolor;
 DllExport NVGcolor *
 VGComponent_TransRGBA (
 #else
@@ -47392,7 +47427,7 @@ Urho3D::VGComponent *_target, NVGcolor c0, unsigned char a)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGComponent_TransRGBA_340_NVGcolor=_target->TransRGBA (c0, a)))
+	((NVGcolor *) &(VGComponent_TransRGBA_341_NVGcolor=_target->TransRGBA (c0, a)))
 #else
 	*((NVGcolor *) &(_target->TransRGBA (c0, a)))
 #endif
@@ -47402,7 +47437,7 @@ Urho3D::VGComponent *_target, NVGcolor c0, unsigned char a)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGComponent_TransRGBAf_341_NVGcolor;
+static NVGcolor VGComponent_TransRGBAf_342_NVGcolor;
 DllExport NVGcolor *
 VGComponent_TransRGBAf (
 #else
@@ -47413,7 +47448,7 @@ Urho3D::VGComponent *_target, NVGcolor c0, float a)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGComponent_TransRGBAf_341_NVGcolor=_target->TransRGBAf (c0, a)))
+	((NVGcolor *) &(VGComponent_TransRGBAf_342_NVGcolor=_target->TransRGBAf (c0, a)))
 #else
 	*((NVGcolor *) &(_target->TransRGBAf (c0, a)))
 #endif
@@ -47423,7 +47458,7 @@ Urho3D::VGComponent *_target, NVGcolor c0, float a)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGComponent_HSL_342_NVGcolor;
+static NVGcolor VGComponent_HSL_343_NVGcolor;
 DllExport NVGcolor *
 VGComponent_HSL (
 #else
@@ -47434,7 +47469,7 @@ Urho3D::VGComponent *_target, float h, float s, float l)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGComponent_HSL_342_NVGcolor=_target->HSL (h, s, l)))
+	((NVGcolor *) &(VGComponent_HSL_343_NVGcolor=_target->HSL (h, s, l)))
 #else
 	*((NVGcolor *) &(_target->HSL (h, s, l)))
 #endif
@@ -47444,7 +47479,7 @@ Urho3D::VGComponent *_target, float h, float s, float l)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGcolor VGComponent_HSLA_343_NVGcolor;
+static NVGcolor VGComponent_HSLA_344_NVGcolor;
 DllExport NVGcolor *
 VGComponent_HSLA (
 #else
@@ -47455,7 +47490,7 @@ Urho3D::VGComponent *_target, float h, float s, float l, unsigned char a)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGcolor *) &(VGComponent_HSLA_343_NVGcolor=_target->HSLA (h, s, l, a)))
+	((NVGcolor *) &(VGComponent_HSLA_344_NVGcolor=_target->HSLA (h, s, l, a)))
 #else
 	*((NVGcolor *) &(_target->HSLA (h, s, l, a)))
 #endif
@@ -47731,7 +47766,7 @@ VGComponent_DeleteImage (Urho3D::VGComponent *_target, int image)
 
 
 #ifdef __EMSCRIPTEN__
-static NVGpaint VGComponent_LinearGradient_344_NVGpaint;
+static NVGpaint VGComponent_LinearGradient_345_NVGpaint;
 DllExport NVGpaint *
 VGComponent_LinearGradient (
 #else
@@ -47742,7 +47777,7 @@ Urho3D::VGComponent *_target, float sx, float sy, float ex, float ey, NVGcolor i
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGpaint *) &(VGComponent_LinearGradient_344_NVGpaint=_target->LinearGradient (sx, sy, ex, ey, icol, ocol)))
+	((NVGpaint *) &(VGComponent_LinearGradient_345_NVGpaint=_target->LinearGradient (sx, sy, ex, ey, icol, ocol)))
 #else
 	*((NVGpaint *) &(_target->LinearGradient (sx, sy, ex, ey, icol, ocol)))
 #endif
@@ -47752,7 +47787,7 @@ Urho3D::VGComponent *_target, float sx, float sy, float ex, float ey, NVGcolor i
 
 
 #ifdef __EMSCRIPTEN__
-static NVGpaint VGComponent_BoxGradient_345_NVGpaint;
+static NVGpaint VGComponent_BoxGradient_346_NVGpaint;
 DllExport NVGpaint *
 VGComponent_BoxGradient (
 #else
@@ -47763,7 +47798,7 @@ Urho3D::VGComponent *_target, float x, float y, float w, float h, float r, float
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGpaint *) &(VGComponent_BoxGradient_345_NVGpaint=_target->BoxGradient (x, y, w, h, r, f, icol, ocol)))
+	((NVGpaint *) &(VGComponent_BoxGradient_346_NVGpaint=_target->BoxGradient (x, y, w, h, r, f, icol, ocol)))
 #else
 	*((NVGpaint *) &(_target->BoxGradient (x, y, w, h, r, f, icol, ocol)))
 #endif
@@ -47773,7 +47808,7 @@ Urho3D::VGComponent *_target, float x, float y, float w, float h, float r, float
 
 
 #ifdef __EMSCRIPTEN__
-static NVGpaint VGComponent_RadialGradient_346_NVGpaint;
+static NVGpaint VGComponent_RadialGradient_347_NVGpaint;
 DllExport NVGpaint *
 VGComponent_RadialGradient (
 #else
@@ -47784,7 +47819,7 @@ Urho3D::VGComponent *_target, float cx, float cy, float inr, float outr, NVGcolo
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGpaint *) &(VGComponent_RadialGradient_346_NVGpaint=_target->RadialGradient (cx, cy, inr, outr, icol, ocol)))
+	((NVGpaint *) &(VGComponent_RadialGradient_347_NVGpaint=_target->RadialGradient (cx, cy, inr, outr, icol, ocol)))
 #else
 	*((NVGpaint *) &(_target->RadialGradient (cx, cy, inr, outr, icol, ocol)))
 #endif
@@ -47794,7 +47829,7 @@ Urho3D::VGComponent *_target, float cx, float cy, float inr, float outr, NVGcolo
 
 
 #ifdef __EMSCRIPTEN__
-static NVGpaint VGComponent_ImagePattern_347_NVGpaint;
+static NVGpaint VGComponent_ImagePattern_348_NVGpaint;
 DllExport NVGpaint *
 VGComponent_ImagePattern (
 #else
@@ -47805,7 +47840,7 @@ Urho3D::VGComponent *_target, float ox, float oy, float ex, float ey, float angl
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((NVGpaint *) &(VGComponent_ImagePattern_347_NVGpaint=_target->ImagePattern (ox, oy, ex, ey, angle, image, alpha)))
+	((NVGpaint *) &(VGComponent_ImagePattern_348_NVGpaint=_target->ImagePattern (ox, oy, ex, ey, angle, image, alpha)))
 #else
 	*((NVGpaint *) &(_target->ImagePattern (ox, oy, ex, ey, angle, image, alpha)))
 #endif

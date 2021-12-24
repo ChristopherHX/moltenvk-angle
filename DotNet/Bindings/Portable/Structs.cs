@@ -109,6 +109,14 @@ namespace Urho
             Bottom = bottom;
         }
 
+        /// Return width.
+        public int Width { get { return Right - Left; } }
+
+        /// Return height.
+        public int Height { get { return Bottom - Top; } }
+
+        public IntVector2 Size  { get{return  new IntVector2(Width, Height);} }
+
         public static bool operator ==(IntRect left, IntRect right)
         {
             return left.Equals(right);

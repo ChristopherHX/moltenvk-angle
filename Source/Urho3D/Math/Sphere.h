@@ -198,6 +198,12 @@ public:
     Vector3 GetLocalPoint(float theta, float phi) const;
     /// Return point on the sphere.
     Vector3 GetPoint(float theta, float phi) const { return center_ + GetLocalPoint(theta, phi); }
+    /// Return center of the sphere.
+    Vector3 GetCenter(){return center_;}
+    /// Return radius of the sphere.
+    float GetRadius(){return radius_;}
+    /// Set radius of the sphere.
+    void SetRadius(float radius){ radius_ = radius;}
 
     /// Sphere center.
     Vector3 center_;

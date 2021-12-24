@@ -393,5 +393,76 @@ Sphere_GetPoint
 #endif
  (handle, theta, phi);
 		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern 
+#if __WEB__
+Vector3 *
+#else
+Vector3
+#endif
+ Sphere_GetCenter (IntPtr handle);
+
+		/// <summary>
+		/// Return center of the sphere.
+		/// </summary>
+		private Vector3 GetCenter ()
+		{
+			Runtime.ValidateObject (this);
+			return 
+#if __WEB__
+*Sphere_GetCenter
+#else
+Sphere_GetCenter
+#endif
+ (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern float Sphere_GetRadius (IntPtr handle);
+
+		/// <summary>
+		/// Return radius of the sphere.
+		/// </summary>
+		private float GetRadius ()
+		{
+			Runtime.ValidateObject (this);
+			return Sphere_GetRadius (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Sphere_SetRadius (IntPtr handle, float radius);
+
+		/// <summary>
+		/// Set radius of the sphere.
+		/// </summary>
+		private void SetRadius (float radius)
+		{
+			Runtime.ValidateObject (this);
+			Sphere_SetRadius (handle, radius);
+		}
+
+		/// <summary>
+		/// Return center of the sphere.
+		/// </summary>
+		public Vector3 Center {
+			get {
+				return GetCenter ();
+			}
+		}
+
+		/// <summary>
+		/// Return radius of the sphere.
+		/// Or
+		/// Set radius of the sphere.
+		/// </summary>
+		public float Radius {
+			get {
+				return GetRadius ();
+			}
+			set {
+				SetRadius (value);
+			}
+		}
 	}
 }
