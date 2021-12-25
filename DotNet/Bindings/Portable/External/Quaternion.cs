@@ -121,11 +121,43 @@ namespace Urho
 			if (matrix[1, 0] - matrix[0, 1] < 0) Z = -Z;
 		}
 
-		#endregion
 
-		#region Public Members
+		public  Quaternion (Vector3 start, Vector3 end)
+		{
+			Quaternion result = FromRotationTo( start,  end);
+			xyz = new Vector3 (result.X, result.Y, result.Z);
+			w = result.W;
+		}
 
-		public Matrix3 RotationMatrix() 
+
+        public Quaternion(Vector3 xAxis, Vector3 yAxis, Vector3 zAxis)
+        {
+            Matrix3 matrix = new Matrix3(
+                xAxis.X, yAxis.X, zAxis.X,
+                xAxis.Y, yAxis.Y, zAxis.Y,
+                xAxis.Z, yAxis.Z, zAxis.Z
+            );
+
+            double scale = System.Math.Pow(matrix.Determinant, 1.0d / 3.0d);
+            float x, y, z;
+
+            w = (float)(System.Math.Sqrt(System.Math.Max(0, scale + matrix[0, 0] + matrix[1, 1] + matrix[2, 2])) / 2);
+            x = (float)(System.Math.Sqrt(System.Math.Max(0, scale + matrix[0, 0] - matrix[1, 1] - matrix[2, 2])) / 2);
+            y = (float)(System.Math.Sqrt(System.Math.Max(0, scale - matrix[0, 0] + matrix[1, 1] - matrix[2, 2])) / 2);
+            z = (float)(System.Math.Sqrt(System.Math.Max(0, scale - matrix[0, 0] - matrix[1, 1] + matrix[2, 2])) / 2);
+
+            xyz = new Vector3(x, y, z);
+
+            if (matrix[2, 1] - matrix[1, 2] < 0) X = -X;
+            if (matrix[0, 2] - matrix[2, 0] < 0) Y = -Y;
+            if (matrix[1, 0] - matrix[0, 1] < 0) Z = -Z;
+        }
+
+        #endregion
+
+        #region Public Members
+
+        public Matrix3 RotationMatrix() 
 		{
 			return new  Matrix3(
 				1.0f - 2.0f * Y * Y - 2.0f * Z * Z,

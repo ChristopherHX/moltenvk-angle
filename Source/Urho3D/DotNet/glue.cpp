@@ -1492,4 +1492,9 @@ DllExport void StringVector_Delete(const Vector<String>* stringVector)
     delete stringVector;
 }
 
+ DllExport void FileSelector_SetFilters (FileSelector * fileSelector , const Vector<String>* filters , unsigned int  defaultIndex)
+ {
+     fileSelector->SetFilters(*filters, defaultIndex);
+ }
+
 }

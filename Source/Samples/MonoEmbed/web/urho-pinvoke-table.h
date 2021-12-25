@@ -321,6 +321,36 @@ int File_IsOpen (int);
 int File_GetHandle (int);
 int File_IsPackaged (int);
 int File_GetName (int);
+void FileSelector_SetFilters (int,int,int);
+int FileSelector_GetType (int);
+int FileSelector_GetTypeName (int);
+int FileSelector_GetTypeStatic ();
+int FileSelector_GetTypeNameStatic ();
+int FileSelector_FileSelector (int);
+void FileSelector_RegisterObject (int);
+void FileSelector_SetDefaultStyle (int,int);
+void FileSelector_SetTitle (int,int);
+void FileSelector_SetButtonTexts (int,int,int);
+void FileSelector_SetPath (int,int);
+void FileSelector_SetFileName (int,int);
+void FileSelector_SetDirectoryMode (int,int);
+void FileSelector_UpdateElements (int);
+int FileSelector_GetDefaultStyle (int);
+int FileSelector_GetWindow (int);
+int FileSelector_GetTitleText (int);
+int FileSelector_GetFileList (int);
+int FileSelector_GetPathEdit (int);
+int FileSelector_GetFileNameEdit (int);
+int FileSelector_GetFilterList (int);
+int FileSelector_GetOKButton (int);
+int FileSelector_GetCancelButton (int);
+int FileSelector_GetCloseButton (int);
+int FileSelector_GetTitle (int);
+int FileSelector_GetPath (int);
+int FileSelector_GetFileName (int);
+int FileSelector_GetFilter (int);
+int FileSelector_GetFilterIndex (int);
+int FileSelector_GetDirectoryMode (int);
 int Frustum_GetVertices (int,int);
 int Frustum_GetPlanes (int,int);
 int Frustum_Frustum ();
@@ -3719,35 +3749,6 @@ void EventReceiverGroup_BeginSendEvent (int);
 void EventReceiverGroup_EndSendEvent (int);
 void EventReceiverGroup_Add (int,int);
 void EventReceiverGroup_Remove (int,int);
-int FileSelector_GetType (int);
-int FileSelector_GetTypeName (int);
-int FileSelector_GetTypeStatic ();
-int FileSelector_GetTypeNameStatic ();
-int FileSelector_FileSelector (int);
-void FileSelector_RegisterObject (int);
-void FileSelector_SetDefaultStyle (int,int);
-void FileSelector_SetTitle (int,int);
-void FileSelector_SetButtonTexts (int,int,int);
-void FileSelector_SetPath (int,int);
-void FileSelector_SetFileName (int,int);
-void FileSelector_SetDirectoryMode (int,int);
-void FileSelector_UpdateElements (int);
-int FileSelector_GetDefaultStyle (int);
-int FileSelector_GetWindow (int);
-int FileSelector_GetTitleText (int);
-int FileSelector_GetFileList (int);
-int FileSelector_GetPathEdit (int);
-int FileSelector_GetFileNameEdit (int);
-int FileSelector_GetFilterList (int);
-int FileSelector_GetOKButton (int);
-int FileSelector_GetCancelButton (int);
-int FileSelector_GetCloseButton (int);
-int FileSelector_GetTitle (int);
-int FileSelector_GetPath (int);
-int FileSelector_GetFileName (int);
-int FileSelector_GetFilter (int);
-int FileSelector_GetFilterIndex (int);
-int FileSelector_GetDirectoryMode (int);
 int FileSystem_GetType (int);
 int FileSystem_GetTypeName (int);
 int FileSystem_GetTypeStatic ();
@@ -6588,6 +6589,36 @@ static PinvokeImport Urho3D_imports [] = {
 {"File_GetHandle", File_GetHandle},
 {"File_IsPackaged", File_IsPackaged},
 {"File_GetName", File_GetName},
+{"FileSelector_SetFilters", FileSelector_SetFilters},
+{"FileSelector_GetType", FileSelector_GetType},
+{"FileSelector_GetTypeName", FileSelector_GetTypeName},
+{"FileSelector_GetTypeStatic", FileSelector_GetTypeStatic},
+{"FileSelector_GetTypeNameStatic", FileSelector_GetTypeNameStatic},
+{"FileSelector_FileSelector", FileSelector_FileSelector},
+{"FileSelector_RegisterObject", FileSelector_RegisterObject},
+{"FileSelector_SetDefaultStyle", FileSelector_SetDefaultStyle},
+{"FileSelector_SetTitle", FileSelector_SetTitle},
+{"FileSelector_SetButtonTexts", FileSelector_SetButtonTexts},
+{"FileSelector_SetPath", FileSelector_SetPath},
+{"FileSelector_SetFileName", FileSelector_SetFileName},
+{"FileSelector_SetDirectoryMode", FileSelector_SetDirectoryMode},
+{"FileSelector_UpdateElements", FileSelector_UpdateElements},
+{"FileSelector_GetDefaultStyle", FileSelector_GetDefaultStyle},
+{"FileSelector_GetWindow", FileSelector_GetWindow},
+{"FileSelector_GetTitleText", FileSelector_GetTitleText},
+{"FileSelector_GetFileList", FileSelector_GetFileList},
+{"FileSelector_GetPathEdit", FileSelector_GetPathEdit},
+{"FileSelector_GetFileNameEdit", FileSelector_GetFileNameEdit},
+{"FileSelector_GetFilterList", FileSelector_GetFilterList},
+{"FileSelector_GetOKButton", FileSelector_GetOKButton},
+{"FileSelector_GetCancelButton", FileSelector_GetCancelButton},
+{"FileSelector_GetCloseButton", FileSelector_GetCloseButton},
+{"FileSelector_GetTitle", FileSelector_GetTitle},
+{"FileSelector_GetPath", FileSelector_GetPath},
+{"FileSelector_GetFileName", FileSelector_GetFileName},
+{"FileSelector_GetFilter", FileSelector_GetFilter},
+{"FileSelector_GetFilterIndex", FileSelector_GetFilterIndex},
+{"FileSelector_GetDirectoryMode", FileSelector_GetDirectoryMode},
 {"Frustum_GetVertices", Frustum_GetVertices},
 {"Frustum_GetPlanes", Frustum_GetPlanes},
 {"Frustum_Frustum", Frustum_Frustum},
@@ -9986,35 +10017,6 @@ static PinvokeImport Urho3D_imports [] = {
 {"EventReceiverGroup_EndSendEvent", EventReceiverGroup_EndSendEvent},
 {"EventReceiverGroup_Add", EventReceiverGroup_Add},
 {"EventReceiverGroup_Remove", EventReceiverGroup_Remove},
-{"FileSelector_GetType", FileSelector_GetType},
-{"FileSelector_GetTypeName", FileSelector_GetTypeName},
-{"FileSelector_GetTypeStatic", FileSelector_GetTypeStatic},
-{"FileSelector_GetTypeNameStatic", FileSelector_GetTypeNameStatic},
-{"FileSelector_FileSelector", FileSelector_FileSelector},
-{"FileSelector_RegisterObject", FileSelector_RegisterObject},
-{"FileSelector_SetDefaultStyle", FileSelector_SetDefaultStyle},
-{"FileSelector_SetTitle", FileSelector_SetTitle},
-{"FileSelector_SetButtonTexts", FileSelector_SetButtonTexts},
-{"FileSelector_SetPath", FileSelector_SetPath},
-{"FileSelector_SetFileName", FileSelector_SetFileName},
-{"FileSelector_SetDirectoryMode", FileSelector_SetDirectoryMode},
-{"FileSelector_UpdateElements", FileSelector_UpdateElements},
-{"FileSelector_GetDefaultStyle", FileSelector_GetDefaultStyle},
-{"FileSelector_GetWindow", FileSelector_GetWindow},
-{"FileSelector_GetTitleText", FileSelector_GetTitleText},
-{"FileSelector_GetFileList", FileSelector_GetFileList},
-{"FileSelector_GetPathEdit", FileSelector_GetPathEdit},
-{"FileSelector_GetFileNameEdit", FileSelector_GetFileNameEdit},
-{"FileSelector_GetFilterList", FileSelector_GetFilterList},
-{"FileSelector_GetOKButton", FileSelector_GetOKButton},
-{"FileSelector_GetCancelButton", FileSelector_GetCancelButton},
-{"FileSelector_GetCloseButton", FileSelector_GetCloseButton},
-{"FileSelector_GetTitle", FileSelector_GetTitle},
-{"FileSelector_GetPath", FileSelector_GetPath},
-{"FileSelector_GetFileName", FileSelector_GetFileName},
-{"FileSelector_GetFilter", FileSelector_GetFilter},
-{"FileSelector_GetFilterIndex", FileSelector_GetFilterIndex},
-{"FileSelector_GetDirectoryMode", FileSelector_GetDirectoryMode},
 {"FileSystem_GetType", FileSystem_GetType},
 {"FileSystem_GetTypeName", FileSystem_GetTypeName},
 {"FileSystem_GetTypeStatic", FileSystem_GetTypeStatic},
@@ -12551,22 +12553,22 @@ void wasm_native_to_interp_UrhoDotNet_100663340 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667054 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667145 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667055 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667146 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672631 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672724 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667054,wasm_native_to_interp_UrhoDotNet_100667055,wasm_native_to_interp_UrhoDotNet_100672631,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667145,wasm_native_to_interp_UrhoDotNet_100667146,wasm_native_to_interp_UrhoDotNet_100672724,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
-"UrhoDotNet_100667054",
-"UrhoDotNet_100667055",
-"UrhoDotNet_100672631",
+"UrhoDotNet_100667145",
+"UrhoDotNet_100667146",
+"UrhoDotNet_100672724",
 };

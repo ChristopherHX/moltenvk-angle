@@ -8,6 +8,7 @@ using Urho.Physics;
 using Urho.Gui;
 using Urho.Urho2D;
 using Urho.Resources;
+using Urho.IO;
 
 namespace Urho
 {
@@ -44,7 +45,7 @@ namespace Urho
     {
          public IntPtr Handle { get; private set; } = IntPtr.Zero;
 
-         private bool _disposedValue;
+         private bool _disposedValue = false;
 
         public StringVector()
         {
@@ -53,6 +54,7 @@ namespace Urho
         }
         public StringVector(string [] stringArray)
         {
+            Handle = StringVector_Create();
             if(Handle != IntPtr.Zero)
             {
                 foreach (string str in stringArray)

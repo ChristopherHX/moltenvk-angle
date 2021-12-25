@@ -718,6 +718,7 @@ namespace Urho
         {
             if (Handle != IntPtr.Zero  && Managed == false)
             {
+                // Log.Info("~Dynamic() :" + DynamicType.ToString());
                 Dynamic_Dispose(Handle);
                 Handle = IntPtr.Zero;
             }
