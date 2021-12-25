@@ -31,6 +31,7 @@ using Urho.Physics;
 using Urho.Gui;
 using Urho.Urho2D;
 using Urho.Resources;
+using Urho.IO;
 
 namespace Urho
 {
@@ -44,6 +45,7 @@ namespace Urho
         // public object ReferenceObject { get; private set; } = null;
         public VariantType DynamicType { get; private set; } = VariantType.None;
 
+        private bool Managed = false;
 
         public VariantType Type{
             get
@@ -58,6 +60,7 @@ namespace Urho
             if (Handle != IntPtr.Zero)
                 variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
             DynamicType = variant.Type;
+            Managed = true;
         }
 
         public Dynamic(VariantType type, string value)
@@ -354,6 +357,7 @@ namespace Urho
             DynamicType = VariantType.Variantmap;
             Handle =  dynamicMap.Handle;
             variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
+            Managed = true;
          }
 
         public static implicit operator Dynamic(DynamicMap dynamicMap)
@@ -712,13 +716,10 @@ namespace Urho
 
         ~Dynamic()
         {
-            if (Handle != IntPtr.Zero)
+            if (Handle != IntPtr.Zero  && Managed == false)
             {
-                // TBD ELI , not sure about this one , causing excpetion on Emscripten
-#if ! __WEB__
                 Dynamic_Dispose(Handle);
                 Handle = IntPtr.Zero;
-#endif
             }
         }
 
@@ -846,7 +847,7 @@ namespace Urho
 
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr Dynamic_Dispose(IntPtr handle);
+        static extern void Dynamic_Dispose(IntPtr handle);
 
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

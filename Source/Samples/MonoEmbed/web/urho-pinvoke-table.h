@@ -290,7 +290,7 @@ int Dynamic_CreateMatrix4 (int);
 int Dynamic_GetMatrix4 (int);
 int Dynamic_CreateMatrix3x4 (int);
 int Dynamic_GetMatrix3x4 (int);
-int Dynamic_Dispose (int);
+void Dynamic_Dispose (int);
 int Dynamic_GetBuffer (int,int);
 int Dynamic_CreateResourceRef (int,int);
 int Dynamic_GetResourceRef (int);
