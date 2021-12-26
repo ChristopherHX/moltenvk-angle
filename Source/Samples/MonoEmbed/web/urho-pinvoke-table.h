@@ -1697,6 +1697,13 @@ int AnimatedModel_GetModelAttr (int);
 void AnimatedModel_UpdateBoneBoundingBox (int);
 void String_FreeNativeString (int);
 int urho_stringhash_from_string (int);
+int StringVector_Create ();
+int StringVector_GetSize (int);
+int StringVector_GetString (int,int);
+void StringVector_AddString (int,int);
+int StringVector_SetString (int,int,int);
+void StringVector_Empty (int);
+void StringVector_Delete (int);
 int Matrix3x4_Create (int,int,int);
 int Matrix3x4_Multiply (int,int);
 int Matrix3x4_Translation (int);
@@ -2463,13 +2470,6 @@ int VGTextRowBuffer_GetRowText (int,int);
 float VGTextRowBuffer_GetRowMin (int,int);
 float VGTextRowBuffer_GetRowMax (int,int);
 float VGTextRowBuffer_GetRowWidth (int,int);
-int StringVector_Create ();
-int StringVector_GetSize (int);
-int StringVector_GetString (int,int);
-void StringVector_AddString (int,int);
-int StringVector_SetString (int,int,int);
-void StringVector_Empty (int);
-void StringVector_Delete (int);
 int Variant_GetTypeName (int);
 int Variant_GetVariantMap (int);
 int Variant_GetString (int);
@@ -7965,6 +7965,13 @@ static PinvokeImport Urho3D_imports [] = {
 {"AnimatedModel_UpdateBoneBoundingBox", AnimatedModel_UpdateBoneBoundingBox},
 {"String_FreeNativeString", String_FreeNativeString},
 {"urho_stringhash_from_string", urho_stringhash_from_string},
+{"StringVector_Create", StringVector_Create},
+{"StringVector_GetSize", StringVector_GetSize},
+{"StringVector_GetString", StringVector_GetString},
+{"StringVector_AddString", StringVector_AddString},
+{"StringVector_SetString", StringVector_SetString},
+{"StringVector_Empty", StringVector_Empty},
+{"StringVector_Delete", StringVector_Delete},
 {"Matrix3x4_Create", Matrix3x4_Create},
 {"Matrix3x4_Multiply", Matrix3x4_Multiply},
 {"Matrix3x4_Translation", Matrix3x4_Translation},
@@ -8731,13 +8738,6 @@ static PinvokeImport Urho3D_imports [] = {
 {"VGTextRowBuffer_GetRowMin", VGTextRowBuffer_GetRowMin},
 {"VGTextRowBuffer_GetRowMax", VGTextRowBuffer_GetRowMax},
 {"VGTextRowBuffer_GetRowWidth", VGTextRowBuffer_GetRowWidth},
-{"StringVector_Create", StringVector_Create},
-{"StringVector_GetSize", StringVector_GetSize},
-{"StringVector_GetString", StringVector_GetString},
-{"StringVector_AddString", StringVector_AddString},
-{"StringVector_SetString", StringVector_SetString},
-{"StringVector_Empty", StringVector_Empty},
-{"StringVector_Delete", StringVector_Delete},
 {"Variant_GetTypeName", Variant_GetTypeName},
 {"Variant_GetVariantMap", Variant_GetVariantMap},
 {"Variant_GetString", Variant_GetString},
@@ -12561,14 +12561,14 @@ void wasm_native_to_interp_UrhoDotNet_100667146 (int arg0,int arg1,int arg2) {
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672724 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672725 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667145,wasm_native_to_interp_UrhoDotNet_100667146,wasm_native_to_interp_UrhoDotNet_100672724,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667145,wasm_native_to_interp_UrhoDotNet_100667146,wasm_native_to_interp_UrhoDotNet_100672725,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
 "UrhoDotNet_100667145",
 "UrhoDotNet_100667146",
-"UrhoDotNet_100672724",
+"UrhoDotNet_100672725",
 };

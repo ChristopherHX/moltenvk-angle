@@ -293,12 +293,8 @@ namespace Urho
         {
             // ReferenceObject = resourceRefList;
             DynamicType = VariantType.Resourcereflist;
-            Handle = Dynamic_CreateResourceRefList(resourceRefList.Type.Code,resourceRefList.Names.Count);
+            Handle = Dynamic_CreateResourceRefList(resourceRefList.Type.Code,resourceRefList.Names.Handle);
             variant =  (Variant)Marshal.PtrToStructure(Handle,typeof(Variant));
-            for(int i =0 ; i < resourceRefList.Names.Count ; i++)
-            {
-                Dynamic_ResourceRefList_AddName(Handle,resourceRefList.Names[i]);
-            }
         }
 
         public static implicit operator Dynamic(ResourceRefList resourceRefList)
@@ -862,7 +858,7 @@ namespace Urho
         static extern IntPtr Dynamic_GetResourceRef(IntPtr v);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr Dynamic_CreateResourceRefList(int type,int count);
+        static extern IntPtr Dynamic_CreateResourceRefList(int type,IntPtr StringVectorHandle);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern void Dynamic_ResourceRefList_AddName(IntPtr handle,string name);

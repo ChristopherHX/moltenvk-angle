@@ -872,11 +872,11 @@ extern "C"
         return ((ResourceRef*)&(v->GetResourceRef()));
     }
 
-    DllExport Variant* Dynamic_CreateResourceRefList(int type, int count)
+    DllExport Variant* Dynamic_CreateResourceRefList(int type, const Vector<String>* stringVector)
     {
         ResourceRefList resourceRefList;
         resourceRefList.type_ = StringHash(type);
-        resourceRefList.names_.Resize(count);
+        resourceRefList.names_.Push(*stringVector);
         Variant* v = new Variant(resourceRefList);
         return v;
     }
@@ -1234,7 +1234,9 @@ DllExport bool
 Serializable_SetAttribute_Variant4 (Urho3D::Serializable *_target, unsigned index, Variant * v)
 {
     if(v != NULL)
+    {
 	    return _target->SetAttribute (index, *v);
+    }
     else
         return false;
 }
@@ -1473,28 +1475,22 @@ StringVector_SetString(Vector<String>* stringVector, int index,const char * str)
     return result;
 }
 
-
-DllExport void StringVector_AddString(Vector<String>* stringVector , const char *str)
+DllExport void StringVector_AddString(Vector<String>* stringVector, const char* str)
 {
-     if(stringVector != NULL)
-     {
-         stringVector->Push(str);
-     }
+    if (stringVector != NULL)
+    {
+        stringVector->Push(str);
+    }
 }
 
-DllExport void StringVector_Empty(const Vector<String>* stringVector)
-{
-    stringVector->Empty();
-}
+DllExport void StringVector_Empty(const Vector<String>* stringVector) { stringVector->Empty(); }
 
-DllExport void StringVector_Delete(const Vector<String>* stringVector)
-{
-    delete stringVector;
-}
+DllExport void StringVector_Delete(const Vector<String>* stringVector) { delete stringVector; }
 
- DllExport void FileSelector_SetFilters (FileSelector * fileSelector , const Vector<String>* filters , unsigned int  defaultIndex)
- {
-     fileSelector->SetFilters(*filters, defaultIndex);
- }
+DllExport void FileSelector_SetFilters(FileSelector* fileSelector, const Vector<String>* filters,
+                                       unsigned int defaultIndex)
+{
+    fileSelector->SetFilters(*filters, defaultIndex);
+}
 
 }
