@@ -86,6 +86,7 @@ namespace Urho
                     {
                         var xmlElement = new XmlElement(param1);
                         var name = xmlElement.GetAttribute(typeNameKey);
+                        bool deserializeComponentFields = true;
 
                         string fqn_name_in_game_assembly = "";
                         if (Application.Current != null)
@@ -100,7 +101,7 @@ namespace Urho
 
                         if (!string.IsNullOrEmpty(name))
                         {
-                            Component component;
+                            Component component = null;
                             try
                             {
                                 var typeObj = Type.GetType(name);
@@ -110,20 +111,33 @@ namespace Urho
                                     typeObj = Type.GetType(fqn_name_in_game_assembly);
                                     if (typeObj == null)
                                     {
-                                        Log.Write(LogLevel.Warning, $"{fqn_name_in_game_assembly} doesn't exist. Probably was removed by Linker. Add it to a some LinkerPleaseInclude.cs in case if you need it.");
-                                        return;
+                                        if (Application.HasCurrent)
+                                        {
+                                            component = Application.Current.CreateComponentInstance(name, target , ref deserializeComponentFields);
+                                        }
+
+                                        if (component == null)
+                                        {
+                                            Log.Write(LogLevel.Warning, $"{fqn_name_in_game_assembly} doesn't exist. Probably was removed by Linker. Add it to a some LinkerPleaseInclude.cs in case if you need it.");
+                                            return;
+                                        }
                                     }
                                 }
-                                component = (Component)Activator.CreateInstance(typeObj, target);
+                                
+                                if (component == null)
+                                    component = (Component)Activator.CreateInstance(typeObj, target);
                             }
                             catch (Exception exc)
                             {
                                 throw new InvalidOperationException($"{name} doesn't override constructor Component(IntPtr handle).", exc);
                             }
 
-                            XmlComponentSerializer xmlComponentSerializer = new XmlComponentSerializer(xmlElement);
-                            component.DeserializeFields(xmlComponentSerializer);
-                            component.OnDeserialize(xmlComponentSerializer);
+                            if (deserializeComponentFields == true)
+                            {
+                                XmlComponentSerializer xmlComponentSerializer = new XmlComponentSerializer(xmlElement);
+                                component.DeserializeFields(xmlComponentSerializer);
+                                component.OnDeserialize(xmlComponentSerializer);
+                            }
 
                             if (component.Node != null)
                             {
@@ -401,7 +415,8 @@ namespace Urho
             }
             Type result;
             if (!typesByNativeNames.TryGetValue(name, out result))
-                throw new Exception($"Type {name} not found.");
+                return typeof(UnknownComponent);
+               // throw new Exception($"Type {name} not found.");
 
             return result;
         }
