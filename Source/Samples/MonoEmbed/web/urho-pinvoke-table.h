@@ -12553,22 +12553,22 @@ void wasm_native_to_interp_UrhoDotNet_100663340 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667146 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667147 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667147 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667148 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672726 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672727 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667146,wasm_native_to_interp_UrhoDotNet_100667147,wasm_native_to_interp_UrhoDotNet_100672726,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667147,wasm_native_to_interp_UrhoDotNet_100667148,wasm_native_to_interp_UrhoDotNet_100672727,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
-"UrhoDotNet_100667146",
 "UrhoDotNet_100667147",
-"UrhoDotNet_100672726",
+"UrhoDotNet_100667148",
+"UrhoDotNet_100672727",
 };

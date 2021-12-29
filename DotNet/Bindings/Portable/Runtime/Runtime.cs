@@ -75,6 +75,7 @@ namespace Urho
                         if (component != null && component.TypeName != component.GetType().Name)
                         {
                             var xmlElement = new XmlElement(param1);
+                            xmlElement.SetString("type","Component");
                             xmlElement.SetString(typeNameKey, component.GetType().AssemblyQualifiedName);
                             XmlComponentSerializer xmlComponentSerializer = new XmlComponentSerializer(xmlElement);
                             component.SerializeFields(xmlComponentSerializer);
@@ -273,6 +274,14 @@ namespace Urho
             if (typeInfo.IsSubclassOf(typeof(Component)) || type == typeof(Component))
             {
                 //TODO: special case, handle managed subclasses
+            }
+
+            // For unknown components , give the application a chance to find it.
+            if (type == typeof(UnknownComponent))
+            {
+                bool deserializeComponentFields = true;
+                var urhoComponent = (T)Application.Current.CreateComponentInstance(type, ptr, ref deserializeComponentFields);
+                if (urhoComponent != null) return urhoComponent;
             }
 
             var urhoObject = (T)Activator.CreateInstance(type, ptr);

@@ -309,6 +309,7 @@ namespace Urho
         protected virtual void OnUpdate(float timeStep) { }
 
         public virtual Component  CreateComponentInstance(string name, IntPtr target, ref bool deserializeComponentFields){deserializeComponentFields = true; return null;}
+        public virtual object  CreateComponentInstance(System.Type type, IntPtr target, ref bool deserializeComponentFields){deserializeComponentFields = true; return null;}
 
         public event Action Paused;
         internal static void HandlePause()
