@@ -1425,7 +1425,7 @@ Node_GetVars(Node * target)
 
 DllExport bool File_WriteLine(File * file , const char * line)
 {
-    file->WriteLine(line);
+    return file->WriteLine(line);
 }
 
 DllExport const char *  File_ReadLine(File * file)
