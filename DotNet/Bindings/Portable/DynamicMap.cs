@@ -64,7 +64,8 @@ namespace Urho
                 }
                 else
                 {
-                    urho_map_set_value(Handle, hash ,ref value.variant);
+                    Variant v = value.variant;
+                    urho_map_set_value(Handle, hash ,ref v);
                 }
 
                 dynamicMap[hash] = value;
@@ -105,7 +106,8 @@ namespace Urho
 				    urho_map_set_value_ptr(Handle, hash ,value.Handle);
                 }
                 else{
-                    urho_map_set_value(Handle, hash ,ref value.variant);
+                    Variant v = value.variant;
+                    urho_map_set_value(Handle, hash ,ref v);
                 }
 
                 dynamicMap[hash] = value;

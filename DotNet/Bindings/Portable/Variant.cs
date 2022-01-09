@@ -19,7 +19,8 @@ namespace Urho
 
         public int Count
         {
-            get{
+            get
+            {
                 return variants.Count;
             }
         }
@@ -35,9 +36,9 @@ namespace Urho
             variants.Add(new Dynamic(variant));
         }
 
-        public Dynamic[] ToArray ()
+        public Dynamic[] ToArray()
         {
-            return variants.ToArray ();
+            return variants.ToArray();
         }
     }
 
@@ -98,7 +99,7 @@ namespace Urho
             EventDataContainer src = new EventDataContainer(nativeDynamicMap);
             List<StringHash> Keys = src.Keys;
             DynamicMap dst = new DynamicMap();
-            for(int i = 0 ; i < src.Count;i++)
+            for (int i = 0; i < src.Count; i++)
             {
                 dst[Keys[i]] = new Dynamic(src.get_Variant(Keys[i].Code));
             }
@@ -108,12 +109,12 @@ namespace Urho
 
         public static bool operator ==(Variant obj1, Variant obj2)
         {
-            return Variant_EqualityOperator(ref obj1 , ref obj2);
+            return Variant_EqualityOperator(ref obj1, ref obj2);
         }
 
         public static bool operator !=(Variant obj1, Variant obj2)
         {
-            return Variant_NonEqualityOperator(ref obj1 , ref obj2);
+            return Variant_NonEqualityOperator(ref obj1, ref obj2);
         }
         public DynamicMap GetVariantMap()
         {
@@ -240,10 +241,10 @@ namespace Urho
             if (v.Type == VariantType.Resourcereflist)
             {
                 resourceRefList.Type.Code = Variant_ResourceRefList_GetType(ref v);
-                int size =  Variant_ResourceRefList_Names_GetSize(ref v);
-                for(int i = 0 ; i < size ; i++)
+                int size = Variant_ResourceRefList_Names_GetSize(ref v);
+                for (int i = 0; i < size; i++)
                 {
-                    IntPtr nativeCString =  Variant_ResourceRefList_Names_GetNameAt(ref  v, i);
+                    IntPtr nativeCString = Variant_ResourceRefList_Names_GetNameAt(ref v, i);
                     string result = Marshal.PtrToStringAnsi(nativeCString);
                     resourceRefList.Names.Add(result);
                 }
@@ -262,11 +263,11 @@ namespace Urho
             VariantVector variantVector = new VariantVector();
             if (v.Type == VariantType.Variantvector)
             {
-                int size =  Variant_VariantVector_GetSize(ref v);
-                for(int i = 0 ; i < size;i++)
+                int size = Variant_VariantVector_GetSize(ref v);
+                for (int i = 0; i < size; i++)
                 {
                     IntPtr variantPtr = Variant_VariantVector_GetVariant(ref v, i);
-                    Variant variant =  (Variant)Marshal.PtrToStructure(variantPtr,typeof(Variant));
+                    Variant_GetRetVariant(variantPtr , out Variant variant);
                     variantVector.Add(variant);
                 }
             }
@@ -278,10 +279,10 @@ namespace Urho
             StringVector stringVector = new StringVector();
             if (v.Type == VariantType.Stringvector)
             {
-                int size =  Variant_StringVector_GetSize(ref v);
-                for(int i = 0 ; i < size;i++)
+                int size = Variant_StringVector_GetSize(ref v);
+                for (int i = 0; i < size; i++)
                 {
-                    IntPtr nativeCString =  Variant_StringVector_GetString(ref  v, i);
+                    IntPtr nativeCString = Variant_StringVector_GetString(ref v, i);
                     string result = Marshal.PtrToStringAnsi(nativeCString);
                     stringVector.Add(result);
                 }
@@ -290,8 +291,8 @@ namespace Urho
         }
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr Variant_GetTypeName (ref Variant v);
-        
+        static extern IntPtr Variant_GetTypeName(ref Variant v);
+
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Variant_GetVariantMap(ref Variant v);
 
@@ -306,23 +307,23 @@ namespace Urho
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Variant_GetResourceRefName(ref Variant v);
-    
+
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern uint Variant_GetResourceRefType(ref Variant v);
 
-        [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr Variant_VariantVector_GetVariant (ref Variant v, int index);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr Variant_VariantVector_GetVariant(ref Variant v, int index);
 
-        [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern  int Variant_VariantVector_GetSize(ref Variant v);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Variant_VariantVector_GetSize(ref Variant v);
 
-        [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr Variant_StringVector_GetString(ref Variant v, int index);
 
-        [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         internal static extern int Variant_StringVector_GetSize(ref Variant v);
 
-        [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         internal static extern int Variant_ResourceRefList_GetType(ref Variant v);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -332,11 +333,14 @@ namespace Urho
         internal static extern IntPtr Variant_ResourceRefList_Names_GetNameAt(ref Variant v, int index);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern bool Variant_EqualityOperator(ref Variant variant1 ,ref Variant variant2 );
+        internal static extern bool Variant_EqualityOperator(ref Variant variant1, ref Variant variant2);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-         internal static extern bool Variant_NonEqualityOperator(ref Variant variant1 ,ref Variant variant2 );
-         
+        internal static extern bool Variant_NonEqualityOperator(ref Variant variant1, ref Variant variant2);
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern void Variant_GetRetVariant(IntPtr handle, out Variant var);
+
     }
 
 }
