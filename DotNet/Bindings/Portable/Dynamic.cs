@@ -69,8 +69,6 @@ namespace Urho
         public Dynamic(IntPtr handle)
         {
             Handle = handle;
-            if (Handle != IntPtr.Zero)
-                
             DynamicType = variant.Type;
             Managed = true;
         }
@@ -78,16 +76,12 @@ namespace Urho
         public Dynamic(VariantType type, string value)
         {
             Handle = Dynamic_CreateFromType( type,  value);
-            if (Handle != IntPtr.Zero)
-                
             DynamicType = variant.Type;
         }
         
         public Dynamic(Variant v)
         {
-            Handle = Dynamic_CreateVariant(ref v);
-            if (Handle != IntPtr.Zero)
-                
+            Handle = Dynamic_CreateVariant(ref v);     
             DynamicType = variant.Type;
         }
 
