@@ -872,6 +872,11 @@ extern "C"
         return ((ResourceRef*)&(v->GetResourceRef()));
     }
 
+    DllExport void Dynamic_GetRetVariant(Variant* v , Variant* var)
+    {
+        *var = *v;
+    }
+
     DllExport Variant* Dynamic_CreateResourceRefList(int type, const Vector<String>* stringVector)
     {
         ResourceRefList resourceRefList;
@@ -1252,6 +1257,7 @@ DllExport unsigned int Variant_GetResourceRefType(Variant& variant)
     return variant.GetResourceRef().type_.Value();
 }
 
+DllExport void Variant_GetRetVariant(Variant* v, Variant* var) { *var = *v; }
 
 DllExport const Variant * Variant_VariantVector_GetVariant(Variant& variant, int index)
 {
@@ -1425,7 +1431,7 @@ Node_GetVars(Node * target)
 
 DllExport bool File_WriteLine(File * file , const char * line)
 {
-    file->WriteLine(line);
+    return file->WriteLine(line);
 }
 
 DllExport const char *  File_ReadLine(File * file)
