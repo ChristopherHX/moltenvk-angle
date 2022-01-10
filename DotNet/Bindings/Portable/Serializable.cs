@@ -106,70 +106,74 @@ namespace Urho
         }
 
 
-		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool Serializable_SetAttribute_Variant (IntPtr handle, string name, IntPtr variant);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern bool Serializable_SetAttribute_Variant(IntPtr handle, string name, IntPtr variant);
 
-        [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool Serializable_SetAttribute_Variant2 (IntPtr handle, string name, ref Variant variant);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern bool Serializable_SetAttribute_Variant2(IntPtr handle, string name, ref Variant variant);
 
-        [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool Serializable_SetAttribute_Variant3 (IntPtr handle, uint index, ref Variant variant);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern bool Serializable_SetAttribute_Variant3(IntPtr handle, uint index, ref Variant variant);
 
-        [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern bool Serializable_SetAttribute_Variant4 (IntPtr handle, uint index, IntPtr variant);
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern bool Serializable_SetAttribute_Variant4(IntPtr handle, uint index, IntPtr variant);
 
-        public bool SetAttribute (uint index, ref Variant value)
-		{
-			Runtime.ValidateRefCounted (this);
-			return Serializable_SetAttribute_Variant3 (handle, index, ref value);
-		}
-
-        public bool SetAttribute (int index, ref Variant value)
+        public bool SetAttribute(uint index, ref Variant value)
         {
-            Runtime.ValidateRefCounted (this);
-			return Serializable_SetAttribute_Variant3 (handle, (uint)index, ref value);
+            Runtime.ValidateRefCounted(this);
+            return Serializable_SetAttribute_Variant3(handle, index, ref value);
         }
 
-        public bool SetAttribute (uint index, Dynamic value)
-		{
-			Runtime.ValidateRefCounted (this);
-			return Serializable_SetAttribute_Variant4 (handle, index, value.Handle);
-		}
+        public bool SetAttribute(int index, ref Variant value)
+        {
+            Runtime.ValidateRefCounted(this);
+            return Serializable_SetAttribute_Variant3(handle, (uint)index, ref value);
+        }
 
-        public bool SetAttribute (int index, Dynamic value)
-		{
-			Runtime.ValidateRefCounted (this);
-			return Serializable_SetAttribute_Variant4 (handle, (uint)index, value.Handle);
-		}
-        
-        public bool SetAttribute (string name, Variant value)
-		{
-			Runtime.ValidateRefCounted (this);
-			return Serializable_SetAttribute_Variant2 (handle, name, ref value);
-		}
-        
-        public bool SetAttribute (string name, ref Variant value)
-		{
-			Runtime.ValidateRefCounted (this);
-			return Serializable_SetAttribute_Variant2 (handle, name, ref value);
-		}
+        public bool SetAttribute(uint index, Dynamic value)
+        {
+            Runtime.ValidateRefCounted(this);
+            return Serializable_SetAttribute_Variant4(handle, index, value.Handle);
+        }
 
-        public bool SetAttribute (string name, Dynamic value)
-		{
-			Runtime.ValidateRefCounted (this);
-			return Serializable_SetAttribute_Variant (handle, name, value.Handle);
-		}
+        public bool SetAttribute(int index, Dynamic value)
+        {
+            Runtime.ValidateRefCounted(this);
+            return Serializable_SetAttribute_Variant4(handle, (uint)index, value.Handle);
+        }
 
-      
+        public bool SetAttribute(string name, Variant value)
+        {
+            Runtime.ValidateRefCounted(this);
+            return Serializable_SetAttribute_Variant2(handle, name, ref value);
+        }
+
+        public bool SetAttribute(string name, ref Variant value)
+        {
+            Runtime.ValidateRefCounted(this);
+            return Serializable_SetAttribute_Variant2(handle, name, ref value);
+        }
+
+        public bool SetAttribute(string name, Dynamic value)
+        {
+            Runtime.ValidateRefCounted(this);
+            return Serializable_SetAttribute_Variant(handle, name, value.Handle);
+        }
+
+
+
+        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr Serializable_GetAttributes(IntPtr handle);
 
         public AttributesVector GetAttributes()
         {
-            return Application.Current.Context.GetAttributes(Type);
+            return new AttributesVector(Serializable_GetAttributes(Handle));
         }
 
         public AttributesVector Attributes
         {
-            get{
+            get
+            {
                 return Application.Current.Context.GetAttributes(Type);
             }
         }

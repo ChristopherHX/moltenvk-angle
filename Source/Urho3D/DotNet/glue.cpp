@@ -1246,6 +1246,12 @@ Serializable_SetAttribute_Variant4 (Urho3D::Serializable *_target, unsigned inde
         return false;
 }
 
+DllExport const Vector<AttributeInfo>* 
+Serializable_GetAttributes(Urho3D::Serializable* serializable)
+{
+    return serializable->GetAttributes();
+}
+
 
 DllExport const char* Variant_GetResourceRefName(Variant& variant)
 {
