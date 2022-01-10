@@ -30,7 +30,11 @@ option (URHO3D_DOTNET_LIB "build dotnet dynamic library" FALSE)
 
 # Limit the supported build configurations
 if(URHO3D_DOTNET_LIB)
-    set (URHO3D_BUILD_CONFIGURATIONS Release)
+    if (WIN32)
+        set (URHO3D_BUILD_CONFIGURATIONS Release RelWithDebInfo Debug)
+    else()
+        set (URHO3D_BUILD_CONFIGURATIONS Release)
+    endif()
 else()
     set (URHO3D_BUILD_CONFIGURATIONS Release RelWithDebInfo Debug)
 endif() 
