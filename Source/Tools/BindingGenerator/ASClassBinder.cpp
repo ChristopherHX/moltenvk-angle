@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2021 the Urho3D project.
+// Copyright (c) 2008-2022 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -35,17 +35,20 @@
 #include <unordered_map>
 #include <unordered_set>
 
+using namespace std;
+using namespace pugi;
+
 namespace ASBindingGenerator
 {
 
 static void RegisterObjectType(const ClassAnalyzer& classAnalyzer, ProcessedClass& inoutProcessedClass)
 {
     string className = classAnalyzer.GetClassName();
-    bool isFakeRef = classAnalyzer.IsFakeRef();
-    if (classAnalyzer.IsRefCounted() || isFakeRef)
+    bool isNoCount = classAnalyzer.IsNoCount();
+    if (classAnalyzer.IsRefCounted() || isNoCount)
     {
         inoutProcessedClass.objectTypeRegistration_ = "engine->RegisterObjectType(\"" + className + "\", 0, asOBJ_REF" +
-            (isFakeRef ? " | asOBJ_NOCOUNT" : "") + ");";
+            (isNoCount ? " | asOBJ_NOCOUNT" : "") + ");";
     }
     else // Value type
     {
@@ -70,7 +73,7 @@ static bool IsConstructorRequired(const ClassAnalyzer& classAnalyzer)
     if (classAnalyzer.IsRefCounted())
         return false;
 
-    if (classAnalyzer.IsFakeRef())
+    if (classAnalyzer.IsNoCount())
         return false;
 
     if (classAnalyzer.IsPod())
@@ -84,7 +87,7 @@ static bool IsDestructorRequired(const ClassAnalyzer& classAnalyzer)
     if (classAnalyzer.IsRefCounted())
         return false;
 
-    if (classAnalyzer.IsFakeRef())
+    if (classAnalyzer.IsNoCount())
         return false;
 
     if (classAnalyzer.IsPod())
@@ -144,6 +147,16 @@ static void RegisterConstructor(const MethodAnalyzer& methodAnalyzer, ProcessedC
         return;
     }
 
+    if (classAnalyzer.IsNoCount())
+    {
+        MemberRegistrationError regError;
+        regError.name_ = methodAnalyzer.GetName();
+        regError.comment_ = methodAnalyzer.GetLocation();
+        regError.message_ = "Factory not registered since the @nocount object created in a script through the factory will never be deleted";
+        processedClass.unregisteredSpecialMethods_.push_back(regError);
+        return;
+    }
+
     SpecialMethodRegistration result;
     //result.name_ = methodAnalyzer.GetName();
     result.comment_ = methodAnalyzer.GetDeclaration();
@@ -152,14 +165,11 @@ static void RegisterConstructor(const MethodAnalyzer& methodAnalyzer, ProcessedC
     string cppClassName = classAnalyzer.GetClassName();
     vector<ParamAnalyzer> params = methodAnalyzer.GetParams();
 
-    bool isFakeRef = classAnalyzer.IsFakeRef();
-
     if (params.empty()) // Default constructor
     {
-        if (classAnalyzer.IsRefCounted() || isFakeRef)
+        if (classAnalyzer.IsRefCounted())
             result.registration_ = "engine->RegisterObjectBehaviour(\"" + asClassName + "\", asBEHAVE_FACTORY, \"" +
-                                   asClassName + "@" + (isFakeRef ? "" : "+") +
-                                   " f()\", asFUNCTION(ASCompatibleFactory<" + cppClassName + ">), AS_CALL_CDECL);";
+                                   asClassName + "@+ f()\", asFUNCTION(ASCompatibleFactory<" + cppClassName + ">), AS_CALL_CDECL);";
         else
             result.registration_ = "engine->RegisterObjectBehaviour(\"" + asClassName + "\", asBEHAVE_CONSTRUCT, \"void f()\", asFUNCTION(ASCompatibleConstructor<" + cppClassName + ">), AS_CALL_CDECL_OBJFIRST);";
 
@@ -167,7 +177,6 @@ static void RegisterConstructor(const MethodAnalyzer& methodAnalyzer, ProcessedC
         processedClass.defaultConstructor_ = make_shared<SpecialMethodRegistration>(result);
         return;
     }
-
 
     vector<ConvertedVariable> convertedParams;
     for (const ParamAnalyzer& param : params)
@@ -198,9 +207,9 @@ static void RegisterConstructor(const MethodAnalyzer& methodAnalyzer, ProcessedC
             needWrapper = true;
     }
 
-    if (classAnalyzer.IsRefCounted() || classAnalyzer.IsFakeRef())
+    if (classAnalyzer.IsRefCounted())
     {
-        string asDeclaration = asClassName + "@" + (isFakeRef ? "" : "+") + " f(" + JoinASDeclarations(convertedParams) + ")";
+        string asDeclaration = asClassName + "@+ f(" + JoinASDeclarations(convertedParams) + ")";
         result.registration_ = result.registration_ =
             "engine->RegisterObjectBehaviour(\"" + asClassName + "\", asBEHAVE_FACTORY, \"" + asDeclaration + "\", AS_FUNCTION("
             + GenerateWrapperName(methodAnalyzer) + ") , AS_CALL_CDECL);";
@@ -224,7 +233,7 @@ static void RegisterDestructor(const ClassAnalyzer& classAnalyzer, ProcessedClas
     if (classAnalyzer.IsRefCounted())
         return;
 
-    if (classAnalyzer.IsFakeRef())
+    if (classAnalyzer.IsNoCount())
         return;
 
     string className = classAnalyzer.GetClassName();
@@ -1300,9 +1309,9 @@ static void ProcessClass(const ClassAnalyzer& classAnalyzer)
     processedClass.hiddenFields_ = classAnalyzer.GetHiddenFields();
     processedClass.hiddenStaticFields_ = classAnalyzer.GetHiddenStaticFields();*/
 
-    bool isFakeRef = classAnalyzer.IsFakeRef();
+    bool isNoCount = classAnalyzer.IsNoCount();
 
-    if (classAnalyzer.IsAbstract() && !(classAnalyzer.IsRefCounted() || isFakeRef))
+    if (classAnalyzer.IsAbstract() && !(classAnalyzer.IsRefCounted() || isNoCount))
     {
         processedClass.objectTypeRegistration_ = "// Not registered because value types can not be abstract";
         processedClass.noBind_ = true;
@@ -1330,12 +1339,12 @@ static void ProcessClass(const ClassAnalyzer& classAnalyzer)
 
     RegisterObjectType(classAnalyzer, processedClass);
 
-    if (classAnalyzer.IsRefCounted() || isFakeRef)
+    if (classAnalyzer.IsRefCounted() || isNoCount)
     {
         vector<ClassAnalyzer> baseClasses = classAnalyzer.GetAllBaseClasses();
         for (ClassAnalyzer baseClass : baseClasses)
         {
-            if (baseClass.IsRefCounted() || baseClass.IsFakeRef())
+            if (baseClass.IsRefCounted() || baseClass.IsNoCount())
             {
                 string cppBaseClassName = baseClass.GetClassName();
                 string asBaseClassName = cppBaseClassName;
@@ -1368,9 +1377,9 @@ static void ProcessClass(const ClassAnalyzer& classAnalyzer)
         string cppClassName = classAnalyzer.GetClassName();
         string asClassName = classAnalyzer.GetClassName();
 
-        if (classAnalyzer.IsRefCounted() || isFakeRef)
+        if (classAnalyzer.IsRefCounted() || isNoCount)
             result->registration_ = "engine->RegisterObjectBehaviour(\"" + asClassName + "\", asBEHAVE_FACTORY, \"" +
-                                    asClassName + "@" + (isFakeRef ? "" : "+") + " f()\", asFUNCTION(ASCompatibleFactory<" + cppClassName + ">), AS_CALL_CDECL);";
+                                    asClassName + "@" + (isNoCount ? "" : "+") + " f()\", asFUNCTION(ASCompatibleFactory<" + cppClassName + ">), AS_CALL_CDECL);";
         else
             result->registration_ = "engine->RegisterObjectBehaviour(\"" + asClassName + "\", asBEHAVE_CONSTRUCT, \"void f()\", asFUNCTION(ASCompatibleConstructor<" + cppClassName + ">), AS_CALL_CDECL_OBJFIRST);";
 

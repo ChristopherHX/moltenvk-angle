@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2021 the Urho3D project.
+// Copyright (c) 2008-2022 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -38,17 +38,6 @@ const unsigned String::NPOS;
 const unsigned String::MIN_CAPACITY;
 const unsigned HashBase::MIN_BUCKETS;
 const unsigned HashBase::MAX_LOAD_FACTOR;
-
-// ========================================================================================
-
-
-void FakeAddRef(void* ptr)
-{
-}
-
-void FakeReleaseRef(void* ptr)
-{
-}
 
 // ========================================================================================
 

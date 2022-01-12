@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2021 the Urho3D project.
+// Copyright (c) 2008-2022 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,5 @@
 
 #include <string>
 
-using namespace std;
-
-string InsideDefine(const string& headerFile);
-bool IsIgnoredHeader(const string& headerFile);
+std::string InsideDefine(const std::string& headerFile);
+bool IsIgnoredHeader(const std::string& headerFile);

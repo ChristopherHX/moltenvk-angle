@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2021 the Urho3D project.
+// Copyright (c) 2008-2022 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,9 @@
 #include <sys/stat.h>
 #endif
 
+using namespace std;
+using namespace pugi;
+
 static void LoadXml(const string& fullPath)
 {
     // All loaded XMLs. Not used directly, just prevents destruction
@@ -50,7 +53,7 @@ static void LoadXml(const string& fullPath)
 
     xml_node doxygenindex = xmlDocument->child("doxygenindex");
     
-    if (doxygenindex) // index.xml
+    if (doxygenindex) // Only index.xml has doxygenindex child
     {
         // Fill defines_
         for (xml_node compound : doxygenindex.children("compound"))
@@ -79,9 +82,8 @@ static void LoadXml(const string& fullPath)
 
     if (compounddef_kind == "struct" || compounddef_kind == "class")
     {
-        // Fill classes_
-        string id = compounddef.attribute("id").value();
-        assert(!id.empty());
+        // Fill classesByID_
+        string id = ExtractID(compounddef);
         SourceData::classesByID_.insert({ id, compounddef });
 
         // Fill classesByName_

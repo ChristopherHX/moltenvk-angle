@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2021 the Urho3D project.
+// Copyright (c) 2008-2022 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -43,7 +43,7 @@ class ResourceCache;
 class Serializer;
 
 /// %Bone in a skeleton.
-/// @fakeref
+/// @nocount
 struct Bone
 {
     /// Construct with defaults.
@@ -84,7 +84,7 @@ struct Bone
 };
 
 /// Hierarchical collection of bones.
-/// @fakeref
+/// @nocount
 class URHO3D_API Skeleton
 {
 public:

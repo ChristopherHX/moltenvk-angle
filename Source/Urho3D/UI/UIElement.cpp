@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2021 the Urho3D project.
+// Copyright (c) 2008-2022 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -1790,9 +1790,8 @@ void UIElement::SortChildren()
     if (sortChildren_ && sortOrderDirty_)
     {
         // Only sort when there is no layout
-        /// \todo Order is not stable when children have same priorities
         if (layoutMode_ == LM_FREE)
-            Sort(children_.Begin(), children_.End(), CompareUIElements);
+            std::stable_sort(children_.Begin().ptr_, children_.End().ptr_, CompareUIElements);
         sortOrderDirty_ = false;
     }
 }

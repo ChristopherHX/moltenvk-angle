@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2021 the Urho3D project.
+// Copyright (c) 2008-2022 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -54,7 +54,7 @@ class XMLFile;
 const IntVector2 MOUSE_POSITION_OFFSCREEN = IntVector2(M_MIN_INT, M_MIN_INT);
 
 /// %Input state for a finger touch.
-/// @fakeref
+/// @nocount
 struct TouchState
 {
     /// Return last touched UI element, used by scripting integration.
@@ -76,7 +76,7 @@ struct TouchState
 };
 
 /// %Input state for a joystick.
-/// @fakeref
+/// @nocount
 struct JoystickState
 {
     /// Initialize the number of buttons, axes and hats and set them to neutral state.

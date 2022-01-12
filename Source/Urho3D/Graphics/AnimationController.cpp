@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2021 the Urho3D project.
+// Copyright (c) 2008-2022 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -549,7 +549,7 @@ float AnimationController::GetFadeTime(const String& name) const
     unsigned index;
     AnimationState* state;
     FindAnimation(name, index, state);
-    return index != M_MAX_UNSIGNED ? animations_[index].targetWeight_ : 0.0f;
+    return index != M_MAX_UNSIGNED ? animations_[index].fadeTime_ : 0.0f;
 }
 
 float AnimationController::GetAutoFade(const String& name) const

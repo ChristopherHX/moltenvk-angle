@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008-2021 the Urho3D project.
+# Copyright (c) 2008-2022 the Urho3D project.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -43,7 +43,11 @@ if (ARM)
         # It is safe to add this assembler code in universal binary build because it has sufficient preprocessor define guards to exclude unsupported archs
         set (ASM_FILES source/as_callfunc_arm_xcode.S)
     else ()
-        set (ASM_FILES source/as_callfunc_arm_gcc.S)
+		if (URHO3D_64BIT)
+			set (ASM_FILES source/as_callfunc_arm64_gcc.S)
+		else ()
+			set (ASM_FILES source/as_callfunc_arm_gcc.S)
+		endif ()
         set (CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} ${ARM_CFLAGS}")
     endif ()
 elseif (MSVC AND URHO3D_64BIT)

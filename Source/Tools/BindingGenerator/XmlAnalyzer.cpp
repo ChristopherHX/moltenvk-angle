@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2021 the Urho3D project.
+// Copyright (c) 2008-2022 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +27,9 @@
 #include <cassert>
 #include <regex>
 
+using namespace std;
+using namespace pugi;
+
 extern string _sourceDir;
 
 string RemoveRefs(xml_node node)
@@ -53,6 +56,7 @@ TypeAnalyzer::TypeAnalyzer(xml_node type, const TemplateSpecialization& speciali
     fullType_ = RemoveRefs(type);
     fullType_ = RemoveFirst(fullType_, "URHO3D_API ");
     fullType_ = RemoveFirst(fullType_, " URHO3D_API");
+    fullType_ = CutStart(fullType_, "volatile ");
     fullType_ = CutStart(fullType_, "constexpr ");
     fullType_ = ReplaceAll(fullType_, " *", "*");
     fullType_ = ReplaceAll(fullType_, " &", "&");

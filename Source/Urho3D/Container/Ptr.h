@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2021 the Urho3D project.
+// Copyright (c) 2008-2022 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -568,7 +568,7 @@ template <class T> class UniquePtr
 {
 public:
     /// Construct empty.
-    UniquePtr() : ptr_(nullptr) { }
+    UniquePtr() { }
 
     /// Construct from pointer.
     explicit UniquePtr(T* ptr) : ptr_(ptr) { }
@@ -665,7 +665,7 @@ public:
     }
 
 private:
-    T* ptr_;
+    T* ptr_{};
 
 };
 

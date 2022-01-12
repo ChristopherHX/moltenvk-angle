@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2021 the Urho3D project.
+// Copyright (c) 2008-2022 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,12 +30,15 @@
 class asIScriptFunction;
 class asIScriptObject;
 class asIScriptContext;
+class asITypeInfo;
 
 namespace Urho3D
 {
 
 class Script;
 class ScriptFile;
+enum { eAttrMapUserIdx = 0x1df4};
+void CleanupTypeInfoScriptInstance(asITypeInfo *type);
 
 /// Inbuilt scripted component methods.
 enum ScriptInstanceMethod
@@ -190,6 +193,9 @@ private:
     void HandleScriptFileReload(StringHash eventType, VariantMap& eventData);
     /// Handle script file reload finished.
     void HandleScriptFileReloadFinished(StringHash eventType, VariantMap& eventData);
+
+    template<typename Op>
+    void executeScript(asIScriptFunction* method, Op func) const;
 
     /// Script file.
     WeakPtr<ScriptFile> scriptFile_;

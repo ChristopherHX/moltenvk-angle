@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2021 the Urho3D project.
+// Copyright (c) 2008-2022 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,8 @@
 #include <unordered_map>
 #include <memory>
 
+using namespace std;
+
 extern string _sourceDir;
 
 namespace ASBindingGenerator
@@ -57,9 +59,6 @@ void ASGeneratedFile_Members::Save()
         "\n"
         "namespace Urho3D\n"
         "{\n"
-        "\n"
-        "void FakeAddRef(void* ptr);\n"
-        "void FakeReleaseRef(void* ptr);\n"
         "\n"
         << glue_.str() <<
         "void " << functionName_ << "(asIScriptEngine* engine)\n"
@@ -95,9 +94,6 @@ void ASGeneratedFile_Templates::Save()
         "\n"
         "namespace Urho3D\n"
         "{\n"
-        "\n"
-        "void FakeAddRef(void* ptr);\n"
-        "void FakeReleaseRef(void* ptr);\n"
         "\n"
         << glue_.str()
         << reg_.str() <<
@@ -565,10 +561,7 @@ namespace Result
             "#include \"../AngelScript/Manual.h\"\n"
             "\n"
             "namespace Urho3D\n"
-            "{\n"
-            "\n"
-            "void FakeAddRef(void* ptr);\n"
-            "void FakeReleaseRef(void* ptr);\n";
+            "{\n";
 
         string openedDefine;
         

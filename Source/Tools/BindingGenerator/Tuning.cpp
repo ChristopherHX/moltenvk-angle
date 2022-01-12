@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2021 the Urho3D project.
+// Copyright (c) 2008-2022 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,8 @@
 #include "XmlSourceData.h"
 #include "Tuning.h"
 #include "Utils.h"
+
+using namespace std;
 
 // Some parts of the engine are compiled only if there are defines
 string InsideDefine(const string& headerFile)
