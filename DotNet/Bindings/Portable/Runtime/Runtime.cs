@@ -75,9 +75,10 @@ namespace Urho
                         if (component != null && component.TypeName != component.GetType().Name)
                         {
                             var xmlElement = new XmlElement(param1);
-                            xmlElement.SetString("type","Component");
+                            xmlElement.SetString("type", "Component");
                             xmlElement.SetString(typeNameKey, component.GetType().AssemblyQualifiedName);
                             XmlComponentSerializer xmlComponentSerializer = new XmlComponentSerializer(xmlElement);
+                            xmlComponentSerializer.Serialize("Enabled", component.Enabled);
                             component.SerializeFields(xmlComponentSerializer);
                             component.OnSerialize(xmlComponentSerializer);
                         }
@@ -114,7 +115,7 @@ namespace Urho
                                     {
                                         if (Application.HasCurrent)
                                         {
-                                            component = Application.Current.CreateComponentInstance(name, target , ref deserializeComponentFields);
+                                            component = Application.Current.CreateComponentInstance(name, target, ref deserializeComponentFields);
                                         }
 
                                         if (component == null)
@@ -124,7 +125,7 @@ namespace Urho
                                         }
                                     }
                                 }
-                                
+
                                 if (component == null)
                                     component = (Component)Activator.CreateInstance(typeObj, target);
                             }
@@ -135,6 +136,8 @@ namespace Urho
 
                             if (deserializeComponentFields == true)
                             {
+                                if (xmlElement.GetAttribute("Enabled") != string.Empty)
+                                    component.Enabled = xmlElement.GetBool("Enabled");
                                 XmlComponentSerializer xmlComponentSerializer = new XmlComponentSerializer(xmlElement);
                                 component.DeserializeFields(xmlComponentSerializer);
                                 component.OnDeserialize(xmlComponentSerializer);
@@ -199,16 +202,16 @@ namespace Urho
                     var xmlElement1 = new XmlElement(param1);
                     serializable?.OnDeserialize(xmlElement1);
                     break;
-                
+
                 case CallbackType.VGElement_Render:
-                {
-                    var vgElement = LookupObject<VGElement>(target, false);
-                    if(vgElement != null)
                     {
-                        VGRenderChilderen(vgElement);
+                        var vgElement = LookupObject<VGElement>(target, false);
+                        if (vgElement != null)
+                        {
+                            VGRenderChilderen(vgElement);
+                        }
                     }
-                }
-                break;
+                    break;
             }
         }
 
@@ -228,9 +231,9 @@ namespace Urho
 
                 float timeStep = (Application.Current != null) ? Application.Current.Time.TimeStep : 0.0f;
 
-                if (child.Visible == true )
+                if (child.Visible == true)
                 {
-                     child.OnVGRenderUpdate(timeStep);
+                    child.OnVGRenderUpdate(timeStep);
                 }
 
                 //recursive VG render
@@ -425,7 +428,7 @@ namespace Urho
             Type result;
             if (!typesByNativeNames.TryGetValue(name, out result))
                 return typeof(UnknownComponent);
-               // throw new Exception($"Type {name} not found.");
+            // throw new Exception($"Type {name} not found.");
 
             return result;
         }
