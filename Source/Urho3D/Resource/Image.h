@@ -104,6 +104,8 @@ public:
     bool SetSize(int width, int height, int depth, unsigned components);
     /// Set new image data.
     void SetData(const unsigned char* pixelData);
+    /// Set new image data , might be  png or jpeg.
+    void SetData(const unsigned char* pixelData,int dataSize);
     /// Set a 2D pixel.
     void SetPixel(int x, int y, const Color& color);
     /// Set a 3D pixel.
@@ -223,6 +225,8 @@ public:
     void GetLevels(PODVector<const Image*>& levels) const;
 
 private:
+    /// Decode an image using stb_image.
+    unsigned char* GetImageData(const unsigned char* pixelData,int dataSize, int& width, int& height, unsigned& components);
     /// Decode an image using stb_image.
     static unsigned char* GetImageData(Deserializer& source, int& width, int& height, unsigned& components);
     /// Free an image file's pixel data.

@@ -991,6 +991,30 @@ void Image::SetData(const unsigned char* pixelData)
     nextLevel_.Reset();
 }
 
+void Image::SetData(const unsigned char* pixelData,int dataSize)
+{
+    int width, height;
+    unsigned components;
+    unsigned char* pixelDataIn = GetImageData(pixelData,dataSize, width, height, components);
+    if (!pixelDataIn)
+    {
+        URHO3D_LOGERROR("Could not load image " + String(stbi_failure_reason()));
+        return ;
+    }
+    if (components != 3)
+    {
+        URHO3D_LOGERROR("Invalid image format, can not load image");
+        return ;
+    }
+
+    SetSize( width,  height,  components);
+    SetData(pixelDataIn);
+
+    FreeImageData(pixelDataIn);
+
+}
+
+
 bool Image::LoadColorLUT(Deserializer& source)
 {
     String fileID = source.ReadFileID();
@@ -2377,6 +2401,12 @@ unsigned char* Image::GetImageData(Deserializer& source, int& width, int& height
     source.Read(buffer.Get(), dataSize);
     return stbi_load_from_memory(buffer.Get(), dataSize, &width, &height, (int*)&components, 0);
 }
+
+unsigned char* Image::GetImageData(const unsigned char* pixelData,int dataSize, int& width, int& height, unsigned& components)
+{
+    return stbi_load_from_memory(pixelData, dataSize, &width, &height, (int*)&components, 0);
+}
+
 
 void Image::FreeImageData(unsigned char* pixelData)
 {

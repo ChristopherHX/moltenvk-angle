@@ -1505,4 +1505,11 @@ DllExport void FileSelector_SetFilters(FileSelector* fileSelector, const Vector<
     fileSelector->SetFilters(*filters, defaultIndex);
 }
 
+DllExport void
+Image_SetData2 (Urho3D::Image *_target, const unsigned char * pixelData, int dataSize)
+{
+	_target->SetData (pixelData,dataSize);
+}
+
+
 }
