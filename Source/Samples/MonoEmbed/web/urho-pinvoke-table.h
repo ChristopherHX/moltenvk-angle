@@ -593,10 +593,11 @@ int Image_SaveFile (int,int);
 int Image_SetSize (int,int,int,int);
 int Image_SetSize0 (int,int,int,int,int);
 void Image_SetData (int,int);
+void Image_SetData1 (int,int,int);
 void Image_SetPixel (int,int,int,int);
-void Image_SetPixel1 (int,int,int,int,int);
+void Image_SetPixel2 (int,int,int,int,int);
 void Image_SetPixelInt (int,int,int,int);
-void Image_SetPixelInt2 (int,int,int,int,int);
+void Image_SetPixelInt3 (int,int,int,int,int);
 int Image_LoadColorLUT_File (int,int);
 int Image_LoadColorLUT_MemoryBuffer (int,int);
 int Image_FlipHorizontal (int);
@@ -614,9 +615,9 @@ int Image_IsCubemap (int);
 int Image_IsArray (int);
 int Image_IsSRGB (int);
 int Image_GetPixel (int,int,int);
-int Image_GetPixel3 (int,int,int,int);
+int Image_GetPixel4 (int,int,int,int);
 int Image_GetPixelInt (int,int,int);
-int Image_GetPixelInt4 (int,int,int,int);
+int Image_GetPixelInt5 (int,int,int,int);
 int Image_GetPixelBilinear (int,float,float);
 int Image_GetPixelTrilinear (int,float,float,float);
 int Image_GetWidth (int);
@@ -6864,10 +6865,11 @@ static PinvokeImport Urho3D_imports [] = {
 {"Image_SetSize", Image_SetSize},
 {"Image_SetSize0", Image_SetSize0},
 {"Image_SetData", Image_SetData},
+{"Image_SetData1", Image_SetData1},
 {"Image_SetPixel", Image_SetPixel},
-{"Image_SetPixel1", Image_SetPixel1},
+{"Image_SetPixel2", Image_SetPixel2},
 {"Image_SetPixelInt", Image_SetPixelInt},
-{"Image_SetPixelInt2", Image_SetPixelInt2},
+{"Image_SetPixelInt3", Image_SetPixelInt3},
 {"Image_LoadColorLUT_File", Image_LoadColorLUT_File},
 {"Image_LoadColorLUT_MemoryBuffer", Image_LoadColorLUT_MemoryBuffer},
 {"Image_FlipHorizontal", Image_FlipHorizontal},
@@ -6885,9 +6887,9 @@ static PinvokeImport Urho3D_imports [] = {
 {"Image_IsArray", Image_IsArray},
 {"Image_IsSRGB", Image_IsSRGB},
 {"Image_GetPixel", Image_GetPixel},
-{"Image_GetPixel3", Image_GetPixel3},
+{"Image_GetPixel4", Image_GetPixel4},
 {"Image_GetPixelInt", Image_GetPixelInt},
-{"Image_GetPixelInt4", Image_GetPixelInt4},
+{"Image_GetPixelInt5", Image_GetPixelInt5},
 {"Image_GetPixelBilinear", Image_GetPixelBilinear},
 {"Image_GetPixelTrilinear", Image_GetPixelTrilinear},
 {"Image_GetWidth", Image_GetWidth},
@@ -12559,22 +12561,22 @@ void wasm_native_to_interp_UrhoDotNet_100663340 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667149 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667152 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667150 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667153 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672731 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672734 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667149,wasm_native_to_interp_UrhoDotNet_100667150,wasm_native_to_interp_UrhoDotNet_100672731,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667152,wasm_native_to_interp_UrhoDotNet_100667153,wasm_native_to_interp_UrhoDotNet_100672734,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
-"UrhoDotNet_100667149",
-"UrhoDotNet_100667150",
-"UrhoDotNet_100672731",
+"UrhoDotNet_100667152",
+"UrhoDotNet_100667153",
+"UrhoDotNet_100672734",
 };

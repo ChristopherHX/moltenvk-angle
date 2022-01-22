@@ -196,6 +196,18 @@ namespace Urho.Resources
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Image_SetData1 (IntPtr handle, byte* pixelData, int dataSize);
+
+		/// <summary>
+		/// Set new image data , might be  png or jpeg.
+		/// </summary>
+		public void SetData (byte* pixelData, int dataSize)
+		{
+			Runtime.ValidateRefCounted (this);
+			Image_SetData1 (handle, pixelData, dataSize);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void Image_SetPixel (IntPtr handle, int x, int y, ref Urho.Color color);
 
 		/// <summary>
@@ -208,7 +220,7 @@ namespace Urho.Resources
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Image_SetPixel1 (IntPtr handle, int x, int y, int z, ref Urho.Color color);
+		internal static extern void Image_SetPixel2 (IntPtr handle, int x, int y, int z, ref Urho.Color color);
 
 		/// <summary>
 		/// Set a 3D pixel.
@@ -216,7 +228,7 @@ namespace Urho.Resources
 		public void SetPixel (int x, int y, int z, Urho.Color color)
 		{
 			Runtime.ValidateRefCounted (this);
-			Image_SetPixel1 (handle, x, y, z, ref color);
+			Image_SetPixel2 (handle, x, y, z, ref color);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -232,7 +244,7 @@ namespace Urho.Resources
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Image_SetPixelInt2 (IntPtr handle, int x, int y, int z, uint uintColor);
+		internal static extern void Image_SetPixelInt3 (IntPtr handle, int x, int y, int z, uint uintColor);
 
 		/// <summary>
 		/// Set a 3D pixel with an integer color. R component is in the 8 lowest bits.
@@ -240,7 +252,7 @@ namespace Urho.Resources
 		public void SetPixelInt (int x, int y, int z, uint uintColor)
 		{
 			Runtime.ValidateRefCounted (this);
-			Image_SetPixelInt2 (handle, x, y, z, uintColor);
+			Image_SetPixelInt3 (handle, x, y, z, uintColor);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -469,7 +481,7 @@ Color *
 #else
 Color
 #endif
- Image_GetPixel3 (IntPtr handle, int x, int y, int z);
+ Image_GetPixel4 (IntPtr handle, int x, int y, int z);
 
 		/// <summary>
 		/// Return a 3D pixel color.
@@ -479,9 +491,9 @@ Color
 			Runtime.ValidateRefCounted (this);
 			return 
 #if __WEB__
-*Image_GetPixel3
+*Image_GetPixel4
 #else
-Image_GetPixel3
+Image_GetPixel4
 #endif
  (handle, x, y, z);
 		}
@@ -499,7 +511,7 @@ Image_GetPixel3
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern uint Image_GetPixelInt4 (IntPtr handle, int x, int y, int z);
+		internal static extern uint Image_GetPixelInt5 (IntPtr handle, int x, int y, int z);
 
 		/// <summary>
 		/// Return a 3D pixel integer color. R component is in the 8 lowest bits.
@@ -507,7 +519,7 @@ Image_GetPixel3
 		public uint GetPixelInt (int x, int y, int z)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Image_GetPixelInt4 (handle, x, y, z);
+			return Image_GetPixelInt5 (handle, x, y, z);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

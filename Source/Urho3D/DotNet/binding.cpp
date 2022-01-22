@@ -14582,6 +14582,13 @@ Image_SetData (Urho3D::Image *_target, const unsigned char * pixelData)
 
 
 DllExport void
+Image_SetData1 (Urho3D::Image *_target, const unsigned char * pixelData, int dataSize)
+{
+	_target->SetData (pixelData, dataSize);
+}
+
+
+DllExport void
 Image_SetPixel (Urho3D::Image *_target, int x, int y, const class Urho3D::Color & color)
 {
 	_target->SetPixel (x, y, color);
@@ -14589,7 +14596,7 @@ Image_SetPixel (Urho3D::Image *_target, int x, int y, const class Urho3D::Color 
 
 
 DllExport void
-Image_SetPixel1 (Urho3D::Image *_target, int x, int y, int z, const class Urho3D::Color & color)
+Image_SetPixel2 (Urho3D::Image *_target, int x, int y, int z, const class Urho3D::Color & color)
 {
 	_target->SetPixel (x, y, z, color);
 }
@@ -14603,7 +14610,7 @@ Image_SetPixelInt (Urho3D::Image *_target, int x, int y, unsigned int uintColor)
 
 
 DllExport void
-Image_SetPixelInt2 (Urho3D::Image *_target, int x, int y, int z, unsigned int uintColor)
+Image_SetPixelInt3 (Urho3D::Image *_target, int x, int y, int z, unsigned int uintColor)
 {
 	_target->SetPixelInt (x, y, z, uintColor);
 }
@@ -14744,18 +14751,18 @@ Urho3D::Image *_target, int x, int y)
 
 
 #ifdef __EMSCRIPTEN__
-static Color  Image_GetPixel3_63_Color ;
+static Color  Image_GetPixel4_63_Color ;
 DllExport Interop::Color  *
-Image_GetPixel3 (
+Image_GetPixel4 (
 #else
 DllExport Interop::Color 
-Image_GetPixel3 (
+Image_GetPixel4 (
 #endif
 Urho3D::Image *_target, int x, int y, int z)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Color  *) &(Image_GetPixel3_63_Color =_target->GetPixel (x, y, z)))
+	((Interop::Color  *) &(Image_GetPixel4_63_Color =_target->GetPixel (x, y, z)))
 #else
 	*((Interop::Color  *) &(_target->GetPixel (x, y, z)))
 #endif
@@ -14771,7 +14778,7 @@ Image_GetPixelInt (Urho3D::Image *_target, int x, int y)
 
 
 DllExport unsigned int
-Image_GetPixelInt4 (Urho3D::Image *_target, int x, int y, int z)
+Image_GetPixelInt5 (Urho3D::Image *_target, int x, int y, int z)
 {
 	return _target->GetPixelInt (x, y, z);
 }
