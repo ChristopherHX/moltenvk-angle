@@ -22929,6 +22929,13 @@ VertexBuffer_SetSize (Urho3D::VertexBuffer *_target, unsigned int vertexCount, u
 
 
 DllExport int
+VertexBuffer_SetSize0 (Urho3D::VertexBuffer *_target, unsigned int vertexCount, const struct Urho3D::VertexElement * elements, int size, bool dynamic)
+{
+	return _target->SetSize (vertexCount, elements, size, dynamic);
+}
+
+
+DllExport int
 VertexBuffer_SetData (Urho3D::VertexBuffer *_target, const void * data)
 {
 	return _target->SetData (data);
@@ -22999,7 +23006,7 @@ VertexBuffer_GetElement (Urho3D::VertexBuffer *_target, enum Urho3D::VertexEleme
 
 
 DllExport const struct Urho3D::VertexElement *
-VertexBuffer_GetElement0 (Urho3D::VertexBuffer *_target, enum Urho3D::VertexElementType type, enum Urho3D::VertexElementSemantic semantic, unsigned char index)
+VertexBuffer_GetElement1 (Urho3D::VertexBuffer *_target, enum Urho3D::VertexElementType type, enum Urho3D::VertexElementSemantic semantic, unsigned char index)
 {
 	return _target->GetElement (type, semantic, index);
 }
@@ -23013,7 +23020,7 @@ VertexBuffer_HasElement (Urho3D::VertexBuffer *_target, enum Urho3D::VertexEleme
 
 
 DllExport int
-VertexBuffer_HasElement1 (Urho3D::VertexBuffer *_target, enum Urho3D::VertexElementType type, enum Urho3D::VertexElementSemantic semantic, unsigned char index)
+VertexBuffer_HasElement2 (Urho3D::VertexBuffer *_target, enum Urho3D::VertexElementType type, enum Urho3D::VertexElementSemantic semantic, unsigned char index)
 {
 	return _target->HasElement (type, semantic, index);
 }
@@ -23027,7 +23034,7 @@ VertexBuffer_GetElementOffset (Urho3D::VertexBuffer *_target, enum Urho3D::Verte
 
 
 DllExport unsigned int
-VertexBuffer_GetElementOffset2 (Urho3D::VertexBuffer *_target, enum Urho3D::VertexElementType type, enum Urho3D::VertexElementSemantic semantic, unsigned char index)
+VertexBuffer_GetElementOffset3 (Urho3D::VertexBuffer *_target, enum Urho3D::VertexElementType type, enum Urho3D::VertexElementSemantic semantic, unsigned char index)
 {
 	return _target->GetElementOffset (type, semantic, index);
 }
@@ -23048,7 +23055,7 @@ VertexBuffer_GetBufferHash (Urho3D::VertexBuffer *_target, unsigned int streamIn
 
 
 DllExport unsigned int
-VertexBuffer_GetVertexSize3 (unsigned int elementMask)
+VertexBuffer_GetVertexSize4 (unsigned int elementMask)
 {
 	return VertexBuffer::GetVertexSize (elementMask);
 }

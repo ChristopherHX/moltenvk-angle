@@ -1508,7 +1508,7 @@ namespace Urho
         /// <summary>
         /// Semantic of element.
         /// </summary>
-        VertexElementSemantic Semantic;
+        public VertexElementSemantic Semantic;
         /// <summary>
         /// Semantic index of element, for example multi-texcoords.
         /// </summary>

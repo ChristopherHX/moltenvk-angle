@@ -2501,6 +2501,7 @@ void VertexBuffer_OnDeviceLost (int);
 void VertexBuffer_Release (int);
 void VertexBuffer_SetShadowed (int,int);
 int VertexBuffer_SetSize (int,int,int,int);
+int VertexBuffer_SetSize0 (int,int,int,int,int);
 int VertexBuffer_SetData (int,int);
 int VertexBuffer_SetDataRange (int,int,int,int,int);
 int VertexBuffer_Lock (int,int,int,int);
@@ -2511,14 +2512,14 @@ int VertexBuffer_IsLocked (int);
 int VertexBuffer_GetVertexCount (int);
 int VertexBuffer_GetVertexSize (int);
 int VertexBuffer_GetElement (int,int,int);
-int VertexBuffer_GetElement0 (int,int,int,int);
+int VertexBuffer_GetElement1 (int,int,int,int);
 int VertexBuffer_HasElement (int,int,int);
-int VertexBuffer_HasElement1 (int,int,int,int);
+int VertexBuffer_HasElement2 (int,int,int,int);
 int VertexBuffer_GetElementOffset (int,int,int);
-int VertexBuffer_GetElementOffset2 (int,int,int,int);
+int VertexBuffer_GetElementOffset3 (int,int,int,int);
 int VertexBuffer_GetShadowData (int);
 uint64_t VertexBuffer_GetBufferHash (int,int);
-int VertexBuffer_GetVertexSize3 (int);
+int VertexBuffer_GetVertexSize4 (int);
 int Viewport_GetType (int);
 int Viewport_GetTypeName (int);
 int Viewport_GetTypeStatic ();
@@ -8773,6 +8774,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"VertexBuffer_Release", VertexBuffer_Release},
 {"VertexBuffer_SetShadowed", VertexBuffer_SetShadowed},
 {"VertexBuffer_SetSize", VertexBuffer_SetSize},
+{"VertexBuffer_SetSize0", VertexBuffer_SetSize0},
 {"VertexBuffer_SetData", VertexBuffer_SetData},
 {"VertexBuffer_SetDataRange", VertexBuffer_SetDataRange},
 {"VertexBuffer_Lock", VertexBuffer_Lock},
@@ -8783,14 +8785,14 @@ static PinvokeImport Urho3D_imports [] = {
 {"VertexBuffer_GetVertexCount", VertexBuffer_GetVertexCount},
 {"VertexBuffer_GetVertexSize", VertexBuffer_GetVertexSize},
 {"VertexBuffer_GetElement", VertexBuffer_GetElement},
-{"VertexBuffer_GetElement0", VertexBuffer_GetElement0},
+{"VertexBuffer_GetElement1", VertexBuffer_GetElement1},
 {"VertexBuffer_HasElement", VertexBuffer_HasElement},
-{"VertexBuffer_HasElement1", VertexBuffer_HasElement1},
+{"VertexBuffer_HasElement2", VertexBuffer_HasElement2},
 {"VertexBuffer_GetElementOffset", VertexBuffer_GetElementOffset},
-{"VertexBuffer_GetElementOffset2", VertexBuffer_GetElementOffset2},
+{"VertexBuffer_GetElementOffset3", VertexBuffer_GetElementOffset3},
 {"VertexBuffer_GetShadowData", VertexBuffer_GetShadowData},
 {"VertexBuffer_GetBufferHash", VertexBuffer_GetBufferHash},
-{"VertexBuffer_GetVertexSize3", VertexBuffer_GetVertexSize3},
+{"VertexBuffer_GetVertexSize4", VertexBuffer_GetVertexSize4},
 {"Viewport_GetType", Viewport_GetType},
 {"Viewport_GetTypeName", Viewport_GetTypeName},
 {"Viewport_GetTypeStatic", Viewport_GetTypeStatic},
@@ -12569,14 +12571,14 @@ void wasm_native_to_interp_UrhoDotNet_100667153 (int arg0,int arg1,int arg2) {
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672734 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672737 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667152,wasm_native_to_interp_UrhoDotNet_100667153,wasm_native_to_interp_UrhoDotNet_100672734,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667152,wasm_native_to_interp_UrhoDotNet_100667153,wasm_native_to_interp_UrhoDotNet_100672737,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
 "UrhoDotNet_100667152",
 "UrhoDotNet_100667153",
-"UrhoDotNet_100672734",
+"UrhoDotNet_100672737",
 };

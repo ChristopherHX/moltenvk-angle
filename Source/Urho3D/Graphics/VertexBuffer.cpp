@@ -89,6 +89,17 @@ bool VertexBuffer::SetSize(unsigned vertexCount, const PODVector<VertexElement>&
     return Create();
 }
 
+bool VertexBuffer::SetSize(unsigned vertexCount, const VertexElement * elements , int size, bool dynamic)
+{
+    PODVector<VertexElement> podElements;
+    for(int i = 0 ; i< size ; i++)
+    {
+        podElements.Push(elements[i]);
+    }
+
+    return  SetSize(vertexCount, podElements, dynamic);
+}
+
 void VertexBuffer::UpdateOffsets()
 {
     unsigned elementOffset = 0;

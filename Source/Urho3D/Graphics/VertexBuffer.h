@@ -55,6 +55,8 @@ public:
     bool SetSize(unsigned vertexCount, const PODVector<VertexElement>& elements, bool dynamic = false);
     /// Set size and vertex elements and dynamic mode using legacy element bitmask. Previous data will be lost.
     bool SetSize(unsigned vertexCount, unsigned elementMask, bool dynamic = false);
+    /// Set size, vertex elements and dynamic mode. Previous data will be lost.
+    bool SetSize(unsigned vertexCount, const VertexElement * elements , int size, bool dynamic = false);
     /// Set all data in the buffer.
     bool SetData(const void* data);
     /// Set a data range in the buffer. Optionally discard data outside the range.

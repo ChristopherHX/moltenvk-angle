@@ -139,6 +139,18 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool VertexBuffer_SetSize0 (IntPtr handle, uint vertexCount, VertexElement* elements, int size, bool dynamic);
+
+		/// <summary>
+		/// Set size, vertex elements and dynamic mode. Previous data will be lost.
+		/// </summary>
+		public bool SetSize (uint vertexCount, VertexElement* elements, int size, bool dynamic = false)
+		{
+			Runtime.ValidateRefCounted (this);
+			return VertexBuffer_SetSize0 (handle, vertexCount, elements, size, dynamic);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern bool VertexBuffer_SetData (IntPtr handle, void* data);
 
 		/// <summary>
@@ -263,7 +275,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern VertexElement* VertexBuffer_GetElement0 (IntPtr handle, VertexElementType type, VertexElementSemantic semantic, byte index);
+		internal static extern VertexElement* VertexBuffer_GetElement1 (IntPtr handle, VertexElementType type, VertexElementSemantic semantic, byte index);
 
 		/// <summary>
 		/// Return vertex element with specific type, or null if does not exist.
@@ -271,7 +283,7 @@ namespace Urho
 		public VertexElement* GetElement (VertexElementType type, VertexElementSemantic semantic, byte index = 0)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VertexBuffer_GetElement0 (handle, type, semantic, index);
+			return VertexBuffer_GetElement1 (handle, type, semantic, index);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -287,7 +299,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool VertexBuffer_HasElement1 (IntPtr handle, VertexElementType type, VertexElementSemantic semantic, byte index);
+		internal static extern bool VertexBuffer_HasElement2 (IntPtr handle, VertexElementType type, VertexElementSemantic semantic, byte index);
 
 		/// <summary>
 		/// Return whether has an element semantic with specific type.
@@ -295,7 +307,7 @@ namespace Urho
 		public bool HasElement (VertexElementType type, VertexElementSemantic semantic, byte index = 0)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VertexBuffer_HasElement1 (handle, type, semantic, index);
+			return VertexBuffer_HasElement2 (handle, type, semantic, index);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -311,7 +323,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern uint VertexBuffer_GetElementOffset2 (IntPtr handle, VertexElementType type, VertexElementSemantic semantic, byte index);
+		internal static extern uint VertexBuffer_GetElementOffset3 (IntPtr handle, VertexElementType type, VertexElementSemantic semantic, byte index);
 
 		/// <summary>
 		/// Return offset of a element with specific type within vertex, or M_MAX_UNSIGNED if element does not exist.
@@ -319,7 +331,7 @@ namespace Urho
 		public uint GetElementOffset (VertexElementType type, VertexElementSemantic semantic, byte index = 0)
 		{
 			Runtime.ValidateRefCounted (this);
-			return VertexBuffer_GetElementOffset2 (handle, type, semantic, index);
+			return VertexBuffer_GetElementOffset3 (handle, type, semantic, index);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -347,7 +359,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern uint VertexBuffer_GetVertexSize3 (uint elementMask);
+		internal static extern uint VertexBuffer_GetVertexSize4 (uint elementMask);
 
 		/// <summary>
 		/// Return vertex size for a legacy vertex element bitmask.
@@ -355,7 +367,7 @@ namespace Urho
 		public static uint GetVertexSize (ElementMask elementMask)
 		{
 			Runtime.Validate (typeof(VertexBuffer));
-			return VertexBuffer_GetVertexSize3 ((uint)elementMask);
+			return VertexBuffer_GetVertexSize4 ((uint)elementMask);
 		}
 
 		public override StringHash Type {
