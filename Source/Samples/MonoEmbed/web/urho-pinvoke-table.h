@@ -956,6 +956,8 @@ int Model_GetMorph0 (int,int);
 int Model_GetMorph1 (int,int);
 int Model_GetMorphRangeStart (int,int);
 int Model_GetMorphRangeCount (int,int);
+int Model_AddVertexBuffer (int,int,int,int);
+int Model_AddIndexBuffer (int,int);
 int urho_navigationmesh_findpath (int,int,int,int);
 int NavigationMesh_GetType (int);
 int NavigationMesh_GetTypeName (int);
@@ -7229,6 +7231,8 @@ static PinvokeImport Urho3D_imports [] = {
 {"Model_GetMorph1", Model_GetMorph1},
 {"Model_GetMorphRangeStart", Model_GetMorphRangeStart},
 {"Model_GetMorphRangeCount", Model_GetMorphRangeCount},
+{"Model_AddVertexBuffer", Model_AddVertexBuffer},
+{"Model_AddIndexBuffer", Model_AddIndexBuffer},
 {"urho_navigationmesh_findpath", urho_navigationmesh_findpath},
 {"NavigationMesh_GetType", NavigationMesh_GetType},
 {"NavigationMesh_GetTypeName", NavigationMesh_GetTypeName},
@@ -12563,22 +12567,22 @@ void wasm_native_to_interp_UrhoDotNet_100663340 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667152 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667156 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667153 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667157 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672737 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672744 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667152,wasm_native_to_interp_UrhoDotNet_100667153,wasm_native_to_interp_UrhoDotNet_100672737,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667156,wasm_native_to_interp_UrhoDotNet_100667157,wasm_native_to_interp_UrhoDotNet_100672744,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
-"UrhoDotNet_100667152",
-"UrhoDotNet_100667153",
-"UrhoDotNet_100672737",
+"UrhoDotNet_100667156",
+"UrhoDotNet_100667157",
+"UrhoDotNet_100672744",
 };

@@ -424,6 +424,30 @@ Model_GetGeometryCenter
 			return Model_GetMorphRangeCount (handle, bufferIndex);
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Model_AddVertexBuffer (IntPtr handle, IntPtr buffer, uint morphRangeStarts, uint morphRangeCounts);
+
+		/// <summary>
+		/// Add vertex buffer and its morph ranges.
+		/// </summary>
+		public bool AddVertexBuffer (VertexBuffer buffer, uint morphRangeStarts, uint morphRangeCounts)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Model_AddVertexBuffer (handle, (object)buffer == null ? IntPtr.Zero : buffer.Handle, morphRangeStarts, morphRangeCounts);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Model_AddIndexBuffer (IntPtr handle, IntPtr buffer);
+
+		/// <summary>
+		/// Add index buffer .
+		/// </summary>
+		public bool AddIndexBuffer (IndexBuffer buffer)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Model_AddIndexBuffer (handle, (object)buffer == null ? IntPtr.Zero : buffer.Handle);
+		}
+
 		public override StringHash Type {
 			get {
 				return UrhoGetType ();

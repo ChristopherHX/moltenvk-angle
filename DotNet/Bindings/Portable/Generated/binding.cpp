@@ -8742,6 +8742,20 @@ Model_GetMorphRangeCount (Urho3D::Model *_target, unsigned int bufferIndex)
 
 
 DllExport int
+Model_AddVertexBuffer (Urho3D::Model *_target, Urho3D::VertexBuffer * buffer, unsigned int morphRangeStarts, unsigned int morphRangeCounts)
+{
+	return _target->AddVertexBuffer (buffer, morphRangeStarts, morphRangeCounts);
+}
+
+
+DllExport int
+Model_AddIndexBuffer (Urho3D::Model *_target, Urho3D::IndexBuffer * buffer)
+{
+	return _target->AddIndexBuffer (buffer);
+}
+
+
+DllExport int
 Drawable_GetType (Urho3D::Drawable *_target)
 {
 	return (_target->GetType ()).Value ();

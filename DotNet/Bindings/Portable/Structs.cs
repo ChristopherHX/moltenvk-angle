@@ -706,6 +706,24 @@ namespace Urho
             );
         }
 
+        public static Vector3 operator *(Matrix3x4 left, Vector3 rhs)
+        {
+            return new Vector3(
+                (left.m00 * rhs.X + left.m01 * rhs.Y + left.m02 * rhs.Z + left.m03),
+                (left.m10 * rhs.X + left.m11 * rhs.Y + left.m12 * rhs.Z + left.m13),
+                (left.m20 * rhs.X + left.m21 * rhs.Y + left.m22 * rhs.Z + left.m23)
+            );
+        }
+
+        public static Vector3 operator *(Matrix3x4 left, Vector4 rhs)
+        {
+            return new Vector3(
+                (left.m00 * rhs.X + left.m01 * rhs.Y + left.m02 * rhs.Z + left.m03 * rhs.W ),
+                (left.m10 * rhs.X + left.m11 * rhs.Y + left.m12 * rhs.Z + left.m13 *  rhs.W),
+                (left.m20 * rhs.X + left.m21 * rhs.Y + left.m22 * rhs.Z + left.m23 * rhs.W)
+            );
+        }
+
         public void SetTranslation(Vector3 translation)
         {
             m03 = translation.X;

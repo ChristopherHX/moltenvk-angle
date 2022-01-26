@@ -820,6 +820,15 @@ namespace Urho
 		return new Quaternion (ref this);
 		}
 
+		public static Vector3 operator *(Matrix3 left, Vector3 rhs)
+        {
+            return new Vector3(
+                (left.R0C0 * rhs.X + left.R0C1 * rhs.Y + left.R0C2 * rhs.Z),
+                (left.R1C0 * rhs.X + left.R1C1 * rhs.Y + left.R1C2 * rhs.Z),
+                (left.R2C0 * rhs.X + left.R2C1 * rhs.Y + left.R2C2 * rhs.Z)
+            );
+        }
+
 		#endregion
 
 		#region Constants

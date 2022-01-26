@@ -211,7 +211,11 @@ public:
     unsigned GetMorphRangeStart(unsigned bufferIndex) const;
     /// Return vertex buffer morph range vertex count.
     unsigned GetMorphRangeCount(unsigned bufferIndex) const;
-
+    /// Add vertex buffer and its morph ranges.
+    bool AddVertexBuffer(VertexBuffer * buffer , unsigned morphRangeStarts ,unsigned morphRangeCounts);
+    /// Add index buffer .
+    bool AddIndexBuffer(IndexBuffer * buffer);
+    
 private:
     /// Bounding box.
     BoundingBox boundingBox_;
