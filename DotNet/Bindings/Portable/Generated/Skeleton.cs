@@ -192,6 +192,18 @@ namespace Urho
 			Skeleton_ResetSilent (handle);
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern Bone* Skeleton_CreateBone (IntPtr handle);
+
+		/// <summary>
+		/// Create new bone and return it
+		/// </summary>
+		public Bone* CreateBone ()
+		{
+			Runtime.ValidateObject (this);
+			return Skeleton_CreateBone (handle);
+		}
+
 		/// <summary>
 		/// Return number of bones.
 		/// 

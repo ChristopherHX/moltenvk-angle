@@ -789,4 +789,25 @@ bool Model::AddIndexBuffer(IndexBuffer* buffer)
     return true;
 }
 
+void Model::ClearGeometryBoneMappings()
+{
+    geometryBoneMappings_.Clear();
+}
+
+void Model::AddGeometryBoneMapping(const unsigned* geometryBoneMapping, unsigned size)
+{
+    if (geometryBoneMapping != nullptr && size > 0)
+    {
+
+        PODVector<unsigned> boneMappings;
+        
+        for (int i = 0; i < size; i++)
+        {
+            boneMappings.Push(geometryBoneMapping[i]);
+        }
+
+        geometryBoneMappings_.Push(boneMappings);
+    }
+}
+
 } // namespace Urho3D

@@ -204,4 +204,12 @@ Bone* Skeleton::GetBone(const StringHash& boneNameHash)
     return index < bones_.Size() ? &bones_[index] : nullptr;
 }
 
+Bone* Skeleton::CreateBone()
+{
+     Bone newBone;
+     bones_.Push(newBone);
+     return &bones_.Back();
+     
+}
+
 }

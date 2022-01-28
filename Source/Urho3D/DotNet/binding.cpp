@@ -8499,6 +8499,13 @@ Skeleton_ResetSilent (Urho3D::Skeleton *_target)
 }
 
 
+DllExport Urho3D::Bone *
+Skeleton_CreateBone (Urho3D::Skeleton *_target)
+{
+	return _target->CreateBone ();
+}
+
+
 DllExport int
 Model_GetType (Urho3D::Model *_target)
 {
@@ -8752,6 +8759,20 @@ DllExport int
 Model_AddIndexBuffer (Urho3D::Model *_target, Urho3D::IndexBuffer * buffer)
 {
 	return _target->AddIndexBuffer (buffer);
+}
+
+
+DllExport void
+Model_ClearGeometryBoneMappings (Urho3D::Model *_target)
+{
+	_target->ClearGeometryBoneMappings ();
+}
+
+
+DllExport void
+Model_AddGeometryBoneMapping (Urho3D::Model *_target, const unsigned int * geometryBoneMapping, unsigned int size)
+{
+	_target->AddGeometryBoneMapping (geometryBoneMapping, size);
 }
 
 

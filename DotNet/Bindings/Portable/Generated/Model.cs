@@ -448,6 +448,30 @@ Model_GetGeometryCenter
 			return Model_AddIndexBuffer (handle, (object)buffer == null ? IntPtr.Zero : buffer.Handle);
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Model_ClearGeometryBoneMappings (IntPtr handle);
+
+		/// <summary>
+		/// clear all bone mappings
+		/// </summary>
+		public void ClearGeometryBoneMappings ()
+		{
+			Runtime.ValidateRefCounted (this);
+			Model_ClearGeometryBoneMappings (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Model_AddGeometryBoneMapping (IntPtr handle, uint* geometryBoneMapping, uint size);
+
+		/// <summary>
+		/// Add bone mapping.
+		/// </summary>
+		public void AddGeometryBoneMapping (uint* geometryBoneMapping, uint size)
+		{
+			Runtime.ValidateRefCounted (this);
+			Model_AddGeometryBoneMapping (handle, geometryBoneMapping, size);
+		}
+
 		public override StringHash Type {
 			get {
 				return UrhoGetType ();

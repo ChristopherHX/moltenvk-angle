@@ -74,7 +74,11 @@ struct Bone
     /// Animation enable flag.
     bool animated_;
     /// Supported collision types.
+    #if defined(URHO3D_DOTNET)
+    unsigned char collisionMask_ = BONECOLLISION_NONE;
+    #else
     BoneCollisionShapeFlags collisionMask_ = BONECOLLISION_NONE;
+    #endif
     /// Radius.
     float radius_;
     /// Local-space bounding box.
@@ -139,6 +143,9 @@ public:
 
     /// Reset all animating bones to initial positions without marking the nodes dirty. Requires the node dirtying to be performed later.
     void ResetSilent();
+
+    /// Create new bone and return it
+    Bone* CreateBone();
 
 private:
     /// Bones.

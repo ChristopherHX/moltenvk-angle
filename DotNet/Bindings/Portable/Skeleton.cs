@@ -42,6 +42,18 @@ namespace Urho {
 			}
 		}
 
+		public BoneWrapper CreateBoneSafe()
+		{
+			Runtime.ValidateObject(this);
+			unsafe
+			{
+				Bone* result = Skeleton_CreateBone(handle);
+				if (result == null)
+					return null;
+				return new BoneWrapper(this, result);
+			}
+		}
+
 		public BoneWrapper GetBoneSafe(string name) => GetBoneSafe(new StringHash(name));
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -59,6 +71,20 @@ namespace Urho {
 			{
 				Runtime.ValidateObject(this);
 				return new Skeleton (AnimatedModel_GetSkeleton (handle), this);
+			}
+		}
+	}
+
+	public partial class Model {
+		
+		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
+		extern static IntPtr Model_GetSkeleton (IntPtr handle);
+		
+		public Skeleton Skeleton {
+			get
+			{
+				Runtime.ValidateObject(this);
+				return new Skeleton (Model_GetSkeleton (handle), this);
 			}
 		}
 	}

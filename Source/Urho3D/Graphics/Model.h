@@ -216,6 +216,10 @@ public:
     /// Add index buffer .
     bool AddIndexBuffer(IndexBuffer * buffer);
     
+    /// clear all bone mappings
+    void ClearGeometryBoneMappings();
+    /// Add bone mapping.
+    void AddGeometryBoneMapping(const unsigned *  geometryBoneMapping , unsigned size);
 private:
     /// Bounding box.
     BoundingBox boundingBox_;

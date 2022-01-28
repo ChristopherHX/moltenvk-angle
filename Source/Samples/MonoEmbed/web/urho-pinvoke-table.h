@@ -926,6 +926,7 @@ int MemoryBuffer_GetSize (int);
 int MemoryBuffer_Dispose (int);
 int MemoryBuffer_GetString (int);
 int Model_Clone_EmptyName (int);
+int Model_GetSkeleton (int);
 int Model_GetType (int);
 int Model_GetTypeName (int);
 int Model_GetTypeStatic ();
@@ -958,6 +959,8 @@ int Model_GetMorphRangeStart (int,int);
 int Model_GetMorphRangeCount (int,int);
 int Model_AddVertexBuffer (int,int,int,int);
 int Model_AddIndexBuffer (int,int);
+void Model_ClearGeometryBoneMappings (int);
+void Model_AddGeometryBoneMapping (int,int,int);
 int urho_navigationmesh_findpath (int,int,int,int);
 int NavigationMesh_GetType (int);
 int NavigationMesh_GetTypeName (int);
@@ -1656,6 +1659,7 @@ int Skeleton_GetBoneIndex0 (int,int);
 int Skeleton_GetBoneParent (int,int);
 int Skeleton_GetBone (int,int);
 void Skeleton_ResetSilent (int);
+int Skeleton_CreateBone (int);
 int AnimatedModel_GetSkeleton (int);
 int AnimatedModel_GetType (int);
 int AnimatedModel_GetTypeName (int);
@@ -7201,6 +7205,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"MemoryBuffer_Dispose", MemoryBuffer_Dispose},
 {"MemoryBuffer_GetString", MemoryBuffer_GetString},
 {"Model_Clone_EmptyName", Model_Clone_EmptyName},
+{"Model_GetSkeleton", Model_GetSkeleton},
 {"Model_GetType", Model_GetType},
 {"Model_GetTypeName", Model_GetTypeName},
 {"Model_GetTypeStatic", Model_GetTypeStatic},
@@ -7233,6 +7238,8 @@ static PinvokeImport Urho3D_imports [] = {
 {"Model_GetMorphRangeCount", Model_GetMorphRangeCount},
 {"Model_AddVertexBuffer", Model_AddVertexBuffer},
 {"Model_AddIndexBuffer", Model_AddIndexBuffer},
+{"Model_ClearGeometryBoneMappings", Model_ClearGeometryBoneMappings},
+{"Model_AddGeometryBoneMapping", Model_AddGeometryBoneMapping},
 {"urho_navigationmesh_findpath", urho_navigationmesh_findpath},
 {"NavigationMesh_GetType", NavigationMesh_GetType},
 {"NavigationMesh_GetTypeName", NavigationMesh_GetTypeName},
@@ -7931,6 +7938,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Skeleton_GetBoneParent", Skeleton_GetBoneParent},
 {"Skeleton_GetBone", Skeleton_GetBone},
 {"Skeleton_ResetSilent", Skeleton_ResetSilent},
+{"Skeleton_CreateBone", Skeleton_CreateBone},
 {"AnimatedModel_GetSkeleton", AnimatedModel_GetSkeleton},
 {"AnimatedModel_GetType", AnimatedModel_GetType},
 {"AnimatedModel_GetTypeName", AnimatedModel_GetTypeName},
@@ -12567,22 +12575,22 @@ void wasm_native_to_interp_UrhoDotNet_100663340 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667156 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667163 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667157 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667164 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672744 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672754 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667156,wasm_native_to_interp_UrhoDotNet_100667157,wasm_native_to_interp_UrhoDotNet_100672744,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667163,wasm_native_to_interp_UrhoDotNet_100667164,wasm_native_to_interp_UrhoDotNet_100672754,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
-"UrhoDotNet_100667156",
-"UrhoDotNet_100667157",
-"UrhoDotNet_100672744",
+"UrhoDotNet_100667163",
+"UrhoDotNet_100667164",
+"UrhoDotNet_100672754",
 };
