@@ -1507,7 +1507,5 @@ DllExport void FileSelector_SetFilters(FileSelector* fileSelector, const Vector<
 
 DllExport Skeleton* Model_GetSkeleton(Model* model) { return &model->GetSkeleton(); }
 
-DllExport Urho3D::Bone* Skeleton_CreateBone0(Urho3D::Skeleton* _target) { return _target->CreateBone(); }
-
 
 }

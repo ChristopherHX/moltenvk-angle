@@ -47,7 +47,7 @@ namespace Urho {
 			Runtime.ValidateObject(this);
 			unsafe
 			{
-				Bone* result = Skeleton_CreateBone(handle);
+				Bone* result = CreateBone();
 				if (result == null)
 					return null;
 				return new BoneWrapper(this, result);

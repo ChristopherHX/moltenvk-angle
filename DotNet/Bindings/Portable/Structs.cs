@@ -1667,7 +1667,6 @@ namespace Urho
     }
 
     // DEBATABLE: maybe we should let the binder handle it?
-    /* TBD ELI 
 	[StructLayout (LayoutKind.Sequential)]
 	public struct UrhoString
 	{
@@ -1699,7 +1698,6 @@ namespace Urho
 			return new UrhoString(s);
 		}
 	}
-	*/
 
     [StructLayout(LayoutKind.Sequential)]
     public struct BiasParameters
