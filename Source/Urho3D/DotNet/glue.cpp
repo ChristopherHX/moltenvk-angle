@@ -1508,4 +1508,9 @@ DllExport void FileSelector_SetFilters(FileSelector* fileSelector, const Vector<
 DllExport Skeleton* Model_GetSkeleton(Model* model) { return &model->GetSkeleton(); }
 
 
+DllExport void AnimationTrack_PushAnimationKeyFrame(AnimationTrack* animationTrack ,const AnimationKeyFrame& animationKeyFrame )
+{
+    animationTrack->keyFrames_.Push(animationKeyFrame);
+}
+
 }

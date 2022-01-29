@@ -1289,10 +1289,21 @@ namespace Urho
         byte animated; //bool is not blittable.
         public bool Animated { get { return animated != 0; } set { animated = (byte)(value ? 1 : 0); } }
 
-        public byte CollisionMask;
+        private byte collisionMask_;
         public float Radius;
         public BoundingBox BoundingBox;
         WeakPtr Node;
+
+        public BoneCollisionShape CollisionMask
+        {
+            get{
+                return (BoneCollisionShape)collisionMask_;
+            }
+
+            set{
+                collisionMask_ = (byte)value;
+            }
+        }
     }
 
     public unsafe class BoneWrapper
@@ -1306,7 +1317,7 @@ namespace Urho
             this.b = bone;
         }
 
-        public UrhoString Name { get { return b->Name; } set { b->Name = value; } }
+        public string Name { get { return (string)b->Name; } set { b->Name = (UrhoString)value; } }
         public int NameHash { get { return b->NameHash; } set { b->NameHash = value; } }
         public StringHash NameStringHash { get { return new StringHash(b->NameHash); } set { b->NameHash = value.Code; } }
         public uint ParentIndex { get { return b->ParentIndex; } set { b->ParentIndex = value; } }
@@ -1315,7 +1326,7 @@ namespace Urho
         public Vector3 InitialScale { get { return b->InitialScale; } set { b->InitialScale = value; } }
         public Matrix3x4 OffsetMatrix { get { return b->OffsetMatrix; } set { b->OffsetMatrix = value; } }
         public bool Animated { get { return b->Animated; } set { b->Animated = value; } }
-        public byte CollisionMask { get { return b->CollisionMask; } set { b->CollisionMask = value; } }
+        public BoneCollisionShape CollisionMask { get { return b->CollisionMask; } set { b->CollisionMask = value; } }
         public float Radius { get { return b->Radius; } set { b->Radius = value; } }
         public BoundingBox BoundingBox { get { return b->BoundingBox; } set { b->BoundingBox = value; } }
     }
@@ -1631,10 +1642,85 @@ namespace Urho
         public float SortDistance { get { return bb->SortDistance; } set { bb->SortDistance = value; } }
     }
 
+    /// Skeletal animation keyframe.
+    [StructLayout(LayoutKind.Sequential)]
+    public struct AnimationKeyFrame
+    {
+
+        /// Keyframe time.
+        public float Time;
+        /// Bone position.
+        public Vector3 Position;
+        /// Bone rotation.
+        public Quaternion Rotation;
+        /// Bone scale.
+        public Vector3 Scale;
+    };
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct AnimationKeyFrameVector
+    {
+         uint size_;
+         uint capacity_;
+         IntPtr Buffer;
+
+
+        public uint Size {get{return size_;}}
+        public uint Capacity{get{return capacity_;}}
+
+    }
+
+
     // DEBATABLE: maybe we should let the binder handle it?
     [StructLayout(LayoutKind.Sequential)]
     public struct AnimationTrack
     {
+        /// AnimationTrack name.
+        public UrhoString Name;
+        /// Name hash.
+        public int NameHash;
+        /// Bitmask of included data (position, rotation, scale).
+        private byte channelMask_;
+        /// Keyframes.
+        private AnimationKeyFrameVector KeyFrames;
+
+        public AnimationChannel ChannelMask
+        {
+            get{
+                return (AnimationChannel)channelMask_;
+            }
+
+            set{
+                channelMask_ = (byte)value;
+            }
+        }
+    }
+
+    public unsafe class AnimationTrackWrapper
+    {
+        readonly object objHolder;
+        readonly AnimationTrack* b;
+
+        
+        [DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void  AnimationTrack_PushAnimationKeyFrame(AnimationTrack* animationTrack ,ref AnimationKeyFrame animationKeyFrame );
+
+        public void Push(AnimationKeyFrame animationKeyFrame)
+        {
+            AnimationTrack_PushAnimationKeyFrame(b ,ref  animationKeyFrame );
+        }
+
+        public AnimationTrackWrapper(object objHolder, AnimationTrack* animationTrack)
+        {
+            this.objHolder = objHolder;
+            this.b = animationTrack;
+        }
+
+        public string Name { get { return (string)b->Name; } set { b->Name = (UrhoString)value; } }
+        public int NameHash { get { return b->NameHash; } set { b->NameHash = value; } }
+        public StringHash NameStringHash { get { return new StringHash(b->NameHash); } set { b->NameHash = value.Code; } }
+        public AnimationChannel ChannelMask { get { return b->ChannelMask; } set { b->ChannelMask = value; } }
+
     }
 
     // DEBATABLE: maybe we should let the binder handle it?
