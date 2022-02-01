@@ -2158,7 +2158,7 @@ unsigned GetBoneIndex(OutModel& model, const String& boneName)
 {
     for (unsigned i = 0; i < model.bones_.Size(); ++i)
     {
-        if (boneName == model.bones_[i]->mName.data)
+        if (boneName == FromAIString(model.bones_[i]->mName))
             return i;
     }
     return M_MAX_UNSIGNED;
@@ -2172,7 +2172,7 @@ aiBone* GetMeshBone(OutModel& model, const String& boneName)
         for (unsigned j = 0; j < mesh->mNumBones; ++j)
         {
             aiBone* bone = mesh->mBones[j];
-            if (boneName == bone->mName.data)
+            if (boneName == FromAIString(bone->mName))
                 return bone;
         }
     }
@@ -2188,7 +2188,7 @@ Matrix3x4 GetOffsetMatrix(OutModel& model, const String& boneName)
         for (unsigned j = 0; j < mesh->mNumBones; ++j)
         {
             aiBone* bone = mesh->mBones[j];
-            if (boneName == bone->mName.data)
+            if (boneName == FromAIString(bone->mName))
             {
                 aiMatrix4x4 offset = bone->mOffsetMatrix;
                 aiMatrix4x4 nodeDerivedInverse = GetMeshBakingTransform(node, model.rootNode_);
@@ -2204,7 +2204,7 @@ Matrix3x4 GetOffsetMatrix(OutModel& model, const String& boneName)
     {
         aiMesh* mesh = model.meshes_[i];
         aiNode* node = model.meshNodes_[i];
-        if (!mesh->HasBones() && boneName == node->mName.data)
+        if (!mesh->HasBones() && boneName == FromAIString(node->mName))
         {
             aiMatrix4x4 nodeDerivedInverse = GetMeshBakingTransform(node, model.rootNode_);
             nodeDerivedInverse.Inverse();
@@ -2525,7 +2525,7 @@ aiNode* GetNode(const String& name, aiNode* rootNode, bool caseSensitive)
 {
     if (!rootNode)
         return nullptr;
-    if (!name.Compare(rootNode->mName.data, caseSensitive))
+    if (!name.Compare(FromAIString(rootNode->mName), caseSensitive))
         return rootNode;
     for (unsigned i = 0; i < rootNode->mNumChildren; ++i)
     {
@@ -2575,9 +2575,12 @@ void GetPosRotScale(const aiMatrix4x4& transform, Vector3& pos, Quaternion& rot,
 }
 
 
-String FromAIString(const aiString& str)
+String FromAIString(const aiString& str) 
 {
-    return String(str.data);
+    String urhoString = String(str.data); 
+    urhoString.Replace('[', '_'); 
+    urhoString.Replace(']', '_'); 
+    return urhoString;
 }
 
 Vector3 ToVector3(const aiVector3D& vec)
@@ -2629,7 +2632,7 @@ unsigned GetPivotlessBoneIndex(OutModel& model, const String& boneName)
 {
     for (unsigned i = 0; i < model.pivotlessBones_.Size(); ++i)
     {
-        if (boneName == model.pivotlessBones_[i]->mName.data)
+        if (boneName == FromAIString(model.pivotlessBones_[i]->mName))
             return i;
     }
     return M_MAX_UNSIGNED;
@@ -2643,7 +2646,7 @@ void FillChainTransforms(OutModel &model, aiMatrix4x4 *chain, const String& main
 
         for (unsigned k = 0; k < model.bones_.Size(); ++k)
         {
-            String boneName = String(model.bones_[k]->mName.data);
+            String boneName = FromAIString(model.bones_[k]->mName);
 
             if (boneName == transfBoneName)
             {
@@ -2758,7 +2761,7 @@ void CreatePivotlessFbxBoneStruct(OutModel &model)
 
     for (unsigned i = 0; i < model.bones_.Size(); ++i)
     {
-        String mainBoneName = String(model.bones_[i]->mName.data);
+        String mainBoneName = FromAIString(model.bones_[i]->mName);
 
         // Skip $fbx nodes
         if (mainBoneName.Find("$AssimpFbx$") != String::NPOS)
