@@ -2091,47 +2091,6 @@ void urho_map_set_value_ptr (int,int,int);
 int urho_map_get_keys_size (int);
 int urho_map_keys_get_key (int,int);
 void urho_map_keys_get_keys (int,int);
-int UrhoString_String ();
-int UrhoString_String0 (int);
-int UrhoString_String1 (int);
-int UrhoString_String2 (int);
-int UrhoString_String4 (int64_t);
-int UrhoString_String5 (int);
-int UrhoString_String6 (int);
-int UrhoString_String8 (uint64_t);
-int UrhoString_String9 (float);
-int UrhoString_String10 (double);
-int UrhoString_String11 (int);
-void UrhoString_Replace (int,int,int,int);
-void UrhoString_Replace12 (int,int,int,int);
-int UrhoString_Replaced (int,int,int,int);
-void UrhoString_Insert (int,int,int);
-void UrhoString_Erase (int,int,int);
-void UrhoString_Resize (int,int);
-void UrhoString_Reserve (int,int);
-void UrhoString_Compact (int);
-void UrhoString_Clear (int);
-int UrhoString_Substring (int,int);
-int UrhoString_Substring13 (int,int,int);
-int UrhoString_Trimmed (int);
-int UrhoString_ToUpper (int);
-int UrhoString_ToLower (int);
-int UrhoString_Find (int,int,int,int);
-int UrhoString_FindLast (int,int,int,int);
-int UrhoString_StartsWith (int,int,int);
-int UrhoString_EndsWith (int,int,int);
-int UrhoString_Length (int);
-int UrhoString_Capacity (int);
-int UrhoString_Empty (int);
-int UrhoString_Compare (int,int,int);
-int UrhoString_Contains (int,int,int);
-int UrhoString_LengthUTF8 (int);
-int UrhoString_ByteOffsetUTF8 (int,int);
-int UrhoString_AtUTF8 (int,int);
-void UrhoString_ReplaceUTF8 (int,int,int);
-int UrhoString_SubstringUTF8 (int,int);
-int UrhoString_SubstringUTF814 (int,int,int);
-int UrhoString_ToHash (int);
 void VoidPtr_Free (int);
 void delete_vector3_pointer (int);
 int VGComponent_GetType (int);
@@ -8370,47 +8329,6 @@ static PinvokeImport Urho3D_imports [] = {
 {"urho_map_get_keys_size", urho_map_get_keys_size},
 {"urho_map_keys_get_key", urho_map_keys_get_key},
 {"urho_map_keys_get_keys", urho_map_keys_get_keys},
-{"UrhoString_String", UrhoString_String},
-{"UrhoString_String0", UrhoString_String0},
-{"UrhoString_String1", UrhoString_String1},
-{"UrhoString_String2", UrhoString_String2},
-{"UrhoString_String4", UrhoString_String4},
-{"UrhoString_String5", UrhoString_String5},
-{"UrhoString_String6", UrhoString_String6},
-{"UrhoString_String8", UrhoString_String8},
-{"UrhoString_String9", UrhoString_String9},
-{"UrhoString_String10", UrhoString_String10},
-{"UrhoString_String11", UrhoString_String11},
-{"UrhoString_Replace", UrhoString_Replace},
-{"UrhoString_Replace12", UrhoString_Replace12},
-{"UrhoString_Replaced", UrhoString_Replaced},
-{"UrhoString_Insert", UrhoString_Insert},
-{"UrhoString_Erase", UrhoString_Erase},
-{"UrhoString_Resize", UrhoString_Resize},
-{"UrhoString_Reserve", UrhoString_Reserve},
-{"UrhoString_Compact", UrhoString_Compact},
-{"UrhoString_Clear", UrhoString_Clear},
-{"UrhoString_Substring", UrhoString_Substring},
-{"UrhoString_Substring13", UrhoString_Substring13},
-{"UrhoString_Trimmed", UrhoString_Trimmed},
-{"UrhoString_ToUpper", UrhoString_ToUpper},
-{"UrhoString_ToLower", UrhoString_ToLower},
-{"UrhoString_Find", UrhoString_Find},
-{"UrhoString_FindLast", UrhoString_FindLast},
-{"UrhoString_StartsWith", UrhoString_StartsWith},
-{"UrhoString_EndsWith", UrhoString_EndsWith},
-{"UrhoString_Length", UrhoString_Length},
-{"UrhoString_Capacity", UrhoString_Capacity},
-{"UrhoString_Empty", UrhoString_Empty},
-{"UrhoString_Compare", UrhoString_Compare},
-{"UrhoString_Contains", UrhoString_Contains},
-{"UrhoString_LengthUTF8", UrhoString_LengthUTF8},
-{"UrhoString_ByteOffsetUTF8", UrhoString_ByteOffsetUTF8},
-{"UrhoString_AtUTF8", UrhoString_AtUTF8},
-{"UrhoString_ReplaceUTF8", UrhoString_ReplaceUTF8},
-{"UrhoString_SubstringUTF8", UrhoString_SubstringUTF8},
-{"UrhoString_SubstringUTF814", UrhoString_SubstringUTF814},
-{"UrhoString_ToHash", UrhoString_ToHash},
 {"VoidPtr_Free", VoidPtr_Free},
 {"delete_vector3_pointer", delete_vector3_pointer},
 {"VGComponent_GetType", VGComponent_GetType},
@@ -12583,14 +12501,14 @@ void wasm_native_to_interp_UrhoDotNet_100667164 (int arg0,int arg1,int arg2) {
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672754 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672674 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667163,wasm_native_to_interp_UrhoDotNet_100667164,wasm_native_to_interp_UrhoDotNet_100672754,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667163,wasm_native_to_interp_UrhoDotNet_100667164,wasm_native_to_interp_UrhoDotNet_100672674,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
 "UrhoDotNet_100663337",
 "UrhoDotNet_100663340",
 "UrhoDotNet_100667163",
 "UrhoDotNet_100667164",
-"UrhoDotNet_100672754",
+"UrhoDotNet_100672674",
 };
