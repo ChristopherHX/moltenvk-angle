@@ -26,6 +26,10 @@ set (TARGET_NAME AssetImporter)
 # Define source files
 define_source_files ()
 
+if(WIN32)
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /FORCE:MULTIPLE") 
+endif(WIN32)
+
 # Define dependency libs
 add_subdirectory (../../ThirdParty/Assimp ../../ThirdParty/Assimp)
 link_directories(${Assimp_BINARY_DIR}/lib )

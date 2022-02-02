@@ -90,7 +90,7 @@ OPTION( ASSIMP_BUILD_ZLIB
 )
 OPTION( ASSIMP_BUILD_ASSIMP_TOOLS
   "If the supplementary tools for Assimp are built in addition to the library."
-  ON
+  OFF
 )
 OPTION ( ASSIMP_BUILD_SAMPLES
   "If the official samples are built as well (needs Glut)."
@@ -98,7 +98,7 @@ OPTION ( ASSIMP_BUILD_SAMPLES
 )
 OPTION ( ASSIMP_BUILD_TESTS
   "If the test suite for Assimp is built in addition to the library."
-  ON
+  OFF
 )
 OPTION ( ASSIMP_COVERALLS
   "Enable this to measure test coverage."
@@ -106,7 +106,7 @@ OPTION ( ASSIMP_COVERALLS
 )
 OPTION( ASSIMP_INSTALL
   "Disable this if you want to use assimp as a submodule."
-  ON
+  OFF
 )
 OPTION ( ASSIMP_ERROR_MAX
   "Enable all warnings."
@@ -137,7 +137,7 @@ OPTION ( ASSIMP_IGNORE_GIT_HASH
 IF ( WIN32 )
   # Use subset of Windows.h
   ADD_DEFINITIONS( -DWIN32_LEAN_AND_MEAN )
-
+  
   IF(MSVC)
     OPTION ( ASSIMP_BUILD_ASSIMP_VIEW
       "If the Assimp view tool is built. (requires DirectX)"
