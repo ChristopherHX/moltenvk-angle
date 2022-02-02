@@ -1289,7 +1289,7 @@ ASSIMP_API void aiQuaternionInterpolate(
 #       pragma warning(disable: 4505)
 #   endif
 
-#   define STB_IMAGE_IMPLEMENTATION
+//  Urho3D #   define STB_IMAGE_IMPLEMENTATION
 #   include "stb/stb_image.h"
 
 #   if _MSC_VER

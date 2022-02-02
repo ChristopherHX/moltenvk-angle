@@ -974,37 +974,6 @@ ELSE()
   SOURCE_GROUP(Contrib\\unzip FILES ${unzip_SRCS})
 ENDIF()
 
-# Urho3D: Always build zlib in-house
-SET( zlib_SRCS
-  ../contrib/zlib/adler32.c
-  ../contrib/zlib/compress.c
-  ../contrib/zlib/crc32.c
-  ../contrib/zlib/crc32.h
-  ../contrib/zlib/deflate.c
-  ../contrib/zlib/deflate.h
-  ../contrib/zlib/gzclose.c
-  ../contrib/zlib/gzguts.h
-  ../contrib/zlib/gzlib.c
-  ../contrib/zlib/gzread.c
-  ../contrib/zlib/gzwrite.c
-  ../contrib/zlib/infback.c
-  ../contrib/zlib/inffast.c
-  ../contrib/zlib/inffast.h
-  ../contrib/zlib/inffixed.h
-  ../contrib/zlib/inflate.c
-  ../contrib/zlib/inflate.h
-  ../contrib/zlib/inftrees.c
-  ../contrib/zlib/inftrees.h
-  ../contrib/zlib/trees.c
-  ../contrib/zlib/trees.h
-  ../contrib/zlib/uncompr.c
-  ${CMAKE_CURRENT_BINARY_DIR}/../contrib/zlib/zconf.h
-  ../contrib/zlib/zlib.h
-  ../contrib/zlib/zutil.c
-  ../contrib/zlib/zutil.h
-)
-SOURCE_GROUP( zlib FILES ${zlib_SRCS})
-INCLUDE_DIRECTORIES( ../contrib/zlib ${CMAKE_CURRENT_BINARY_DIR}/../contrib/zlib )
 
 # zip (https://github.com/kuba--/zip)
 separate_arguments(ASSIMP_EXPORTERS_LIST UNIX_COMMAND ${ASSIMP_EXPORTERS_ENABLED})
