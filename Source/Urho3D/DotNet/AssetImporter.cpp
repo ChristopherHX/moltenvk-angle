@@ -151,8 +151,9 @@ float defaultTicksPerSecond_ = 4800.0f;
 float importStartTime_ = 0.0f;
 float importEndTime_ = 0.0f;
 bool suppressFbxPivotNodes_ = true;
+float defaultScale_ = 1.0f;
 
-int main(int argc, char** argv);
+
 void Run(const Vector<String>& arguments);
 void DumpNodes(aiNode* rootNode, unsigned level);
 
@@ -243,6 +244,7 @@ extern "C"
         String InputFile;
         String OutputFile;
         AISceneFormat SceneFormat;
+        float Scale;
     };
 
     DllExport
@@ -336,6 +338,12 @@ extern "C"
             case AISceneFormat_Jason:
                 arguments.Push("-j");
             break;
+        }
+        
+        if(aiCommand.Scale != 0 && aiCommand.Scale != 1.0f)
+        {
+            arguments.Push("-sc");
+            arguments.Push(String(aiCommand.Scale));
         }
         
         Run(arguments);
@@ -523,6 +531,11 @@ void Run(const Vector<String>& arguments)
                 defaultTicksPerSecond_ = ToFloat(value);
                 ++i;
             }
+            else if (argument == "sc" && !value.Empty())
+            {
+                defaultScale_ = ToFloat(value);
+                ++i;
+            }
             else if (argument == "s")
             {
                 includeNonSkinningBones_ = true;
@@ -615,11 +628,24 @@ void Run(const Vector<String>& arguments)
             aiSetImportPropertyInteger(aiprops, AI_CONFIG_IMPORT_FBX_STRICT_MODE, 0);                    //default = false;
             aiSetImportPropertyInteger(aiprops, AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, 0);                //**false, default = true;
             aiSetImportPropertyInteger(aiprops, AI_CONFIG_IMPORT_FBX_OPTIMIZE_EMPTY_ANIMATION_CURVES, 1);//default = true;
-
+            
+            if(defaultScale_ != 1.0f)
+            {
+                aiSetImportPropertyFloat(aiprops, AI_CONFIG_GLOBAL_SCALE_FACTOR_KEY, defaultScale_);
+                flags |= aiProcess_GlobalScale;
+            }
+            
             scene_ = aiImportFileExWithProperties(GetNativePath(inFile).CString(), flags, nullptr, aiprops);
 
             // prevent processing animation suppression, both cannot work simultaneously
             suppressFbxPivotNodes_ = false;
+        }
+        else if(defaultScale_ != 1.0f)
+        {
+            aiPropertyStore *aiprops = aiCreatePropertyStore();
+            aiSetImportPropertyFloat(aiprops, AI_CONFIG_GLOBAL_SCALE_FACTOR_KEY, defaultScale_);
+            flags |= aiProcess_GlobalScale;
+            scene_ = aiImportFileExWithProperties(GetNativePath(inFile).CString(), flags, nullptr, aiprops);
         }
         else
             scene_ = aiImportFile(GetNativePath(inFile).CString(), flags);

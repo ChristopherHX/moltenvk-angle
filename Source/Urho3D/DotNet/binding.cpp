@@ -6540,7 +6540,35 @@ Node_Load_MemoryBuffer (Urho3D::Node *_target, MemoryBuffer * source)
 
 
 DllExport int
-Node_LoadXML (Urho3D::Node *_target, const class Urho3D::XMLElement & source)
+Node_LoadXML_File (Urho3D::Node *_target, File * source)
+{
+	return _target->LoadXML (*source);
+}
+
+
+DllExport int
+Node_LoadXML_MemoryBuffer (Urho3D::Node *_target, MemoryBuffer * source)
+{
+	return _target->LoadXML (*source);
+}
+
+
+DllExport int
+Node_LoadJSON_File (Urho3D::Node *_target, File * source)
+{
+	return _target->LoadJSON (*source);
+}
+
+
+DllExport int
+Node_LoadJSON_MemoryBuffer (Urho3D::Node *_target, MemoryBuffer * source)
+{
+	return _target->LoadJSON (*source);
+}
+
+
+DllExport int
+Node_LoadXML0 (Urho3D::Node *_target, const class Urho3D::XMLElement & source)
 {
 	return _target->LoadXML (source);
 }
@@ -6596,14 +6624,14 @@ Node_AddReplicationState (Urho3D::Node *_target, Urho3D::NodeReplicationState * 
 
 
 DllExport int
-Node_SaveXML0_File (Urho3D::Node *_target, File * dest, const char * indentation)
+Node_SaveXML1_File (Urho3D::Node *_target, File * dest, const char * indentation)
 {
 	return _target->SaveXML (*dest, Urho3D::String(indentation));
 }
 
 
 DllExport int
-Node_SaveXML0_MemoryBuffer (Urho3D::Node *_target, MemoryBuffer * dest, const char * indentation)
+Node_SaveXML1_MemoryBuffer (Urho3D::Node *_target, MemoryBuffer * dest, const char * indentation)
 {
 	return _target->SaveXML (*dest, Urho3D::String(indentation));
 }
@@ -6666,7 +6694,7 @@ Node_SetPosition2D (Urho3D::Node *_target, const class Urho3D::Vector2 & positio
 
 
 DllExport void
-Node_SetPosition2D1 (Urho3D::Node *_target, float x, float y)
+Node_SetPosition2D2 (Urho3D::Node *_target, float x, float y)
 {
 	_target->SetPosition2D (x, y);
 }
@@ -6701,7 +6729,7 @@ Node_SetScale (Urho3D::Node *_target, float scale)
 
 
 DllExport void
-Node_SetScale2 (Urho3D::Node *_target, const class Urho3D::Vector3 & scale)
+Node_SetScale3 (Urho3D::Node *_target, const class Urho3D::Vector3 & scale)
 {
 	_target->SetScale (scale);
 }
@@ -6715,7 +6743,7 @@ Node_SetScale2D (Urho3D::Node *_target, const class Urho3D::Vector2 & scale)
 
 
 DllExport void
-Node_SetScale2D3 (Urho3D::Node *_target, float x, float y)
+Node_SetScale2D4 (Urho3D::Node *_target, float x, float y)
 {
 	_target->SetScale2D (x, y);
 }
@@ -6729,21 +6757,21 @@ Node_SetTransform (Urho3D::Node *_target, const class Urho3D::Vector3 & position
 
 
 DllExport void
-Node_SetTransform4 (Urho3D::Node *_target, const class Urho3D::Vector3 & position, const class Urho3D::Quaternion & rotation, float scale)
+Node_SetTransform5 (Urho3D::Node *_target, const class Urho3D::Vector3 & position, const class Urho3D::Quaternion & rotation, float scale)
 {
 	_target->SetTransform (position, rotation, scale);
 }
 
 
 DllExport void
-Node_SetTransform5 (Urho3D::Node *_target, const class Urho3D::Vector3 & position, const class Urho3D::Quaternion & rotation, const class Urho3D::Vector3 & scale)
+Node_SetTransform6 (Urho3D::Node *_target, const class Urho3D::Vector3 & position, const class Urho3D::Quaternion & rotation, const class Urho3D::Vector3 & scale)
 {
 	_target->SetTransform (position, rotation, scale);
 }
 
 
 DllExport void
-Node_SetTransform6 (Urho3D::Node *_target, const class Urho3D::Matrix3x4 & matrix)
+Node_SetTransform7 (Urho3D::Node *_target, const class Urho3D::Matrix3x4 & matrix)
 {
 	_target->SetTransform (matrix);
 }
@@ -6757,14 +6785,14 @@ Node_SetTransform2D (Urho3D::Node *_target, const class Urho3D::Vector2 & positi
 
 
 DllExport void
-Node_SetTransform2D7 (Urho3D::Node *_target, const class Urho3D::Vector2 & position, float rotation, float scale)
+Node_SetTransform2D8 (Urho3D::Node *_target, const class Urho3D::Vector2 & position, float rotation, float scale)
 {
 	_target->SetTransform2D (position, rotation, scale);
 }
 
 
 DllExport void
-Node_SetTransform2D8 (Urho3D::Node *_target, const class Urho3D::Vector2 & position, float rotation, const class Urho3D::Vector2 & scale)
+Node_SetTransform2D9 (Urho3D::Node *_target, const class Urho3D::Vector2 & position, float rotation, const class Urho3D::Vector2 & scale)
 {
 	_target->SetTransform2D (position, rotation, scale);
 }
@@ -6785,7 +6813,7 @@ Node_SetWorldPosition2D (Urho3D::Node *_target, const class Urho3D::Vector2 & po
 
 
 DllExport void
-Node_SetWorldPosition2D9 (Urho3D::Node *_target, float x, float y)
+Node_SetWorldPosition2D10 (Urho3D::Node *_target, float x, float y)
 {
 	_target->SetWorldPosition2D (x, y);
 }
@@ -6820,7 +6848,7 @@ Node_SetWorldScale (Urho3D::Node *_target, float scale)
 
 
 DllExport void
-Node_SetWorldScale10 (Urho3D::Node *_target, const class Urho3D::Vector3 & scale)
+Node_SetWorldScale11 (Urho3D::Node *_target, const class Urho3D::Vector3 & scale)
 {
 	_target->SetWorldScale (scale);
 }
@@ -6834,7 +6862,7 @@ Node_SetWorldScale2D (Urho3D::Node *_target, const class Urho3D::Vector2 & scale
 
 
 DllExport void
-Node_SetWorldScale2D11 (Urho3D::Node *_target, float x, float y)
+Node_SetWorldScale2D12 (Urho3D::Node *_target, float x, float y)
 {
 	_target->SetWorldScale2D (x, y);
 }
@@ -6848,21 +6876,21 @@ Node_SetWorldTransform (Urho3D::Node *_target, const class Urho3D::Vector3 & pos
 
 
 DllExport void
-Node_SetWorldTransform12 (Urho3D::Node *_target, const class Urho3D::Vector3 & position, const class Urho3D::Quaternion & rotation, float scale)
+Node_SetWorldTransform13 (Urho3D::Node *_target, const class Urho3D::Vector3 & position, const class Urho3D::Quaternion & rotation, float scale)
 {
 	_target->SetWorldTransform (position, rotation, scale);
 }
 
 
 DllExport void
-Node_SetWorldTransform13 (Urho3D::Node *_target, const class Urho3D::Vector3 & position, const class Urho3D::Quaternion & rotation, const class Urho3D::Vector3 & scale)
+Node_SetWorldTransform14 (Urho3D::Node *_target, const class Urho3D::Vector3 & position, const class Urho3D::Quaternion & rotation, const class Urho3D::Vector3 & scale)
 {
 	_target->SetWorldTransform (position, rotation, scale);
 }
 
 
 DllExport void
-Node_SetWorldTransform14 (Urho3D::Node *_target, const class Urho3D::Matrix3x4 & worldTransform)
+Node_SetWorldTransform15 (Urho3D::Node *_target, const class Urho3D::Matrix3x4 & worldTransform)
 {
 	_target->SetWorldTransform (worldTransform);
 }
@@ -6876,14 +6904,14 @@ Node_SetWorldTransform2D (Urho3D::Node *_target, const class Urho3D::Vector2 & p
 
 
 DllExport void
-Node_SetWorldTransform2D15 (Urho3D::Node *_target, const class Urho3D::Vector2 & position, float rotation, float scale)
+Node_SetWorldTransform2D16 (Urho3D::Node *_target, const class Urho3D::Vector2 & position, float rotation, float scale)
 {
 	_target->SetWorldTransform2D (position, rotation, scale);
 }
 
 
 DllExport void
-Node_SetWorldTransform2D16 (Urho3D::Node *_target, const class Urho3D::Vector2 & position, float rotation, const class Urho3D::Vector2 & scale)
+Node_SetWorldTransform2D17 (Urho3D::Node *_target, const class Urho3D::Vector2 & position, float rotation, const class Urho3D::Vector2 & scale)
 {
 	_target->SetWorldTransform2D (position, rotation, scale);
 }
@@ -6967,7 +6995,7 @@ Node_Scale (Urho3D::Node *_target, float scale)
 
 
 DllExport void
-Node_Scale17 (Urho3D::Node *_target, const class Urho3D::Vector3 & scale)
+Node_Scale18 (Urho3D::Node *_target, const class Urho3D::Vector3 & scale)
 {
 	_target->Scale (scale);
 }
@@ -7086,7 +7114,7 @@ Node_CloneComponent (Urho3D::Node *_target, Urho3D::Component * component, unsig
 
 
 DllExport Urho3D::Component *
-Node_CloneComponent18 (Urho3D::Node *_target, Urho3D::Component * component, enum Urho3D::CreateMode mode, unsigned int id)
+Node_CloneComponent19 (Urho3D::Node *_target, Urho3D::Component * component, enum Urho3D::CreateMode mode, unsigned int id)
 {
 	return _target->CloneComponent (component, mode, id);
 }
@@ -7107,7 +7135,7 @@ Node_RemoveComponents (Urho3D::Node *_target, bool removeReplicated, bool remove
 
 
 DllExport void
-Node_RemoveComponents19 (Urho3D::Node *_target, int type)
+Node_RemoveComponents20 (Urho3D::Node *_target, int type)
 {
 	_target->RemoveComponents (Urho3D::StringHash(type));
 }
@@ -7242,91 +7270,91 @@ Node_SetVar_14 (Urho3D::Node *_target, int key, bool value)
 // Urho3D::Variant overloads end.
 // Urho3D::Variant overloads begin:
 DllExport void
-Node_SetVar20_0 (Urho3D::Node *_target, const char * key, const class Urho3D::Vector3 & value)
+Node_SetVar21_0 (Urho3D::Node *_target, const char * key, const class Urho3D::Vector3 & value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
 
 DllExport void
-Node_SetVar20_1 (Urho3D::Node *_target, const char * key, const class Urho3D::IntRect & value)
+Node_SetVar21_1 (Urho3D::Node *_target, const char * key, const class Urho3D::IntRect & value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
 
 DllExport void
-Node_SetVar20_2 (Urho3D::Node *_target, const char * key, const class Urho3D::Color & value)
+Node_SetVar21_2 (Urho3D::Node *_target, const char * key, const class Urho3D::Color & value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
 
 DllExport void
-Node_SetVar20_3 (Urho3D::Node *_target, const char * key, const class Urho3D::Vector2 & value)
+Node_SetVar21_3 (Urho3D::Node *_target, const char * key, const class Urho3D::Vector2 & value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
 
 DllExport void
-Node_SetVar20_4 (Urho3D::Node *_target, const char * key, const class Urho3D::Vector4 & value)
+Node_SetVar21_4 (Urho3D::Node *_target, const char * key, const class Urho3D::Vector4 & value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
 
 DllExport void
-Node_SetVar20_5 (Urho3D::Node *_target, const char * key, const class Urho3D::IntVector2 & value)
+Node_SetVar21_5 (Urho3D::Node *_target, const char * key, const class Urho3D::IntVector2 & value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
 
 DllExport void
-Node_SetVar20_6 (Urho3D::Node *_target, const char * key, const class Urho3D::Quaternion & value)
+Node_SetVar21_6 (Urho3D::Node *_target, const char * key, const class Urho3D::Quaternion & value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
 
 DllExport void
-Node_SetVar20_7 (Urho3D::Node *_target, const char * key, const class Urho3D::Matrix4 & value)
+Node_SetVar21_7 (Urho3D::Node *_target, const char * key, const class Urho3D::Matrix4 & value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
 
 DllExport void
-Node_SetVar20_8 (Urho3D::Node *_target, const char * key, const class Urho3D::Matrix3 & value)
+Node_SetVar21_8 (Urho3D::Node *_target, const char * key, const class Urho3D::Matrix3 & value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
 
 DllExport void
-Node_SetVar20_9 (Urho3D::Node *_target, const char * key, const class Urho3D::Matrix3x4 & value)
+Node_SetVar21_9 (Urho3D::Node *_target, const char * key, const class Urho3D::Matrix3x4 & value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
 
 DllExport void
-Node_SetVar20_10 (Urho3D::Node *_target, const char * key, int value)
+Node_SetVar21_10 (Urho3D::Node *_target, const char * key, int value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
 
 DllExport void
-Node_SetVar20_11 (Urho3D::Node *_target, const char * key, unsigned value)
+Node_SetVar21_11 (Urho3D::Node *_target, const char * key, unsigned value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
 
 DllExport void
-Node_SetVar20_12 (Urho3D::Node *_target, const char * key, float value)
+Node_SetVar21_12 (Urho3D::Node *_target, const char * key, float value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
 
 DllExport void
-Node_SetVar20_13 (Urho3D::Node *_target, const char * key, const char * value)
+Node_SetVar21_13 (Urho3D::Node *_target, const char * key, const char * value)
 {
 	_target->SetVar (Urho3D::String(key), Urho3D::String(value));
 }
 
 DllExport void
-Node_SetVar20_14 (Urho3D::Node *_target, const char * key, bool value)
+Node_SetVar21_14 (Urho3D::Node *_target, const char * key, bool value)
 {
 	_target->SetVar (Urho3D::String(key), (value));
 }
@@ -7859,18 +7887,18 @@ Urho3D::Node *_target, const class Urho3D::Vector3 & position)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  Node_LocalToWorld21_28_Vector3 ;
+static Vector3  Node_LocalToWorld22_28_Vector3 ;
 DllExport Interop::Vector3  *
-Node_LocalToWorld21 (
+Node_LocalToWorld22 (
 #else
 DllExport Interop::Vector3 
-Node_LocalToWorld21 (
+Node_LocalToWorld22 (
 #endif
 Urho3D::Node *_target, const class Urho3D::Vector4 & vector)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(Node_LocalToWorld21_28_Vector3 =_target->LocalToWorld (vector)))
+	((Interop::Vector3  *) &(Node_LocalToWorld22_28_Vector3 =_target->LocalToWorld (vector)))
 #else
 	*((Interop::Vector3  *) &(_target->LocalToWorld (vector)))
 #endif
@@ -7922,18 +7950,18 @@ Urho3D::Node *_target, const class Urho3D::Vector3 & position)
 
 
 #ifdef __EMSCRIPTEN__
-static Vector3  Node_WorldToLocal22_31_Vector3 ;
+static Vector3  Node_WorldToLocal23_31_Vector3 ;
 DllExport Interop::Vector3  *
-Node_WorldToLocal22 (
+Node_WorldToLocal23 (
 #else
 DllExport Interop::Vector3 
-Node_WorldToLocal22 (
+Node_WorldToLocal23 (
 #endif
 Urho3D::Node *_target, const class Urho3D::Vector4 & vector)
 {
 	return 
 #ifdef __EMSCRIPTEN__
-	((Interop::Vector3  *) &(Node_WorldToLocal22_31_Vector3 =_target->WorldToLocal (vector)))
+	((Interop::Vector3  *) &(Node_WorldToLocal23_31_Vector3 =_target->WorldToLocal (vector)))
 #else
 	*((Interop::Vector3  *) &(_target->WorldToLocal (vector)))
 #endif
@@ -7991,14 +8019,14 @@ Node_GetChild (Urho3D::Node *_target, unsigned int index)
 
 
 DllExport Urho3D::Node *
-Node_GetChild23 (Urho3D::Node *_target, const char * name, bool recursive)
+Node_GetChild24 (Urho3D::Node *_target, const char * name, bool recursive)
 {
 	return _target->GetChild (Urho3D::String(name), recursive);
 }
 
 
 DllExport Urho3D::Node *
-Node_GetChild24 (Urho3D::Node *_target, int nameHash, bool recursive)
+Node_GetChild25 (Urho3D::Node *_target, int nameHash, bool recursive)
 {
 	return _target->GetChild (Urho3D::StringHash(nameHash), recursive);
 }
@@ -8269,7 +8297,7 @@ Node_GetVar_14 (Urho3D::Node *_target, int key)
 
 // Urho3D::Variant overloads end.
 DllExport Urho3D::Variant
-Node_GetVar25 (Urho3D::Node *_target, const char * key)
+Node_GetVar26 (Urho3D::Node *_target, const char * key)
 {
 	return _target->GetVar (Urho3D::String(key));
 }
@@ -8346,7 +8374,7 @@ Node_MarkReplicationDirty (Urho3D::Node *_target)
 
 
 DllExport Urho3D::Node *
-Node_CreateChild26 (Urho3D::Node *_target, unsigned int id, enum Urho3D::CreateMode mode, bool temporary)
+Node_CreateChild27 (Urho3D::Node *_target, unsigned int id, enum Urho3D::CreateMode mode, bool temporary)
 {
 	return _target->CreateChild (id, mode, temporary);
 }

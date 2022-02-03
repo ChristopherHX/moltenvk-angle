@@ -189,7 +189,7 @@ namespace Urho
 		/// <summary>
 		/// Load from an XML file. Return true if successful.
 		/// </summary>
-		public bool LoadXml (File source)
+		public override bool LoadXml (File source)
 		{
 			Runtime.ValidateRefCounted (this);
 			return Scene_LoadXML0_File (handle, (object)source == null ? IntPtr.Zero : source.Handle);
@@ -201,7 +201,7 @@ namespace Urho
 		/// <summary>
 		/// Load from an XML file. Return true if successful.
 		/// </summary>
-		public bool LoadXml (MemoryBuffer source)
+		public override bool LoadXml (MemoryBuffer source)
 		{
 			Runtime.ValidateRefCounted (this);
 			return Scene_LoadXML0_MemoryBuffer (handle, (object)source == null ? IntPtr.Zero : source.Handle);
@@ -213,7 +213,7 @@ namespace Urho
 		/// <summary>
 		/// Load from a JSON file. Return true if successful.
 		/// </summary>
-		public bool LoadJson (File source)
+		public override bool LoadJson (File source)
 		{
 			Runtime.ValidateRefCounted (this);
 			return Scene_LoadJSON_File (handle, (object)source == null ? IntPtr.Zero : source.Handle);
@@ -225,7 +225,7 @@ namespace Urho
 		/// <summary>
 		/// Load from a JSON file. Return true if successful.
 		/// </summary>
-		public bool LoadJson (MemoryBuffer source)
+		public override bool LoadJson (MemoryBuffer source)
 		{
 			Runtime.ValidateRefCounted (this);
 			return Scene_LoadJSON_MemoryBuffer (handle, (object)source == null ? IntPtr.Zero : source.Handle);

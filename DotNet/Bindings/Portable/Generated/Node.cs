@@ -124,7 +124,55 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool Node_LoadXML (IntPtr handle, IntPtr source);
+		internal static extern bool Node_LoadXML_File (IntPtr handle, IntPtr source);
+
+		/// <summary>
+		/// Load from an XML file. Return true if successful.
+		/// </summary>
+		public virtual bool LoadXml (File source)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Node_LoadXML_File (handle, (object)source == null ? IntPtr.Zero : source.Handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Node_LoadXML_MemoryBuffer (IntPtr handle, IntPtr source);
+
+		/// <summary>
+		/// Load from an XML file. Return true if successful.
+		/// </summary>
+		public virtual bool LoadXml (MemoryBuffer source)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Node_LoadXML_MemoryBuffer (handle, (object)source == null ? IntPtr.Zero : source.Handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Node_LoadJSON_File (IntPtr handle, IntPtr source);
+
+		/// <summary>
+		/// Load from a JSON file. Return true if successful.
+		/// </summary>
+		public virtual bool LoadJson (File source)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Node_LoadJSON_File (handle, (object)source == null ? IntPtr.Zero : source.Handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Node_LoadJSON_MemoryBuffer (IntPtr handle, IntPtr source);
+
+		/// <summary>
+		/// Load from a JSON file. Return true if successful.
+		/// </summary>
+		public virtual bool LoadJson (MemoryBuffer source)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Node_LoadJSON_MemoryBuffer (handle, (object)source == null ? IntPtr.Zero : source.Handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Node_LoadXML0 (IntPtr handle, IntPtr source);
 
 		/// <summary>
 		/// Load from XML data. Return true if successful.
@@ -132,7 +180,7 @@ namespace Urho
 		public override bool LoadXml (XmlElement source)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_LoadXML (handle, (object)source == null ? IntPtr.Zero : source.Handle);
+			return Node_LoadXML0 (handle, (object)source == null ? IntPtr.Zero : source.Handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -220,7 +268,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool Node_SaveXML0_File (IntPtr handle, IntPtr dest, string indentation);
+		internal static extern bool Node_SaveXML1_File (IntPtr handle, IntPtr dest, string indentation);
 
 		/// <summary>
 		/// Save to an XML file. Return true if successful.
@@ -228,11 +276,11 @@ namespace Urho
 		public virtual bool SaveXml (File dest, string indentation = "\t")
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_SaveXML0_File (handle, (object)dest == null ? IntPtr.Zero : dest.Handle, indentation);
+			return Node_SaveXML1_File (handle, (object)dest == null ? IntPtr.Zero : dest.Handle, indentation);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern bool Node_SaveXML0_MemoryBuffer (IntPtr handle, IntPtr dest, string indentation);
+		internal static extern bool Node_SaveXML1_MemoryBuffer (IntPtr handle, IntPtr dest, string indentation);
 
 		/// <summary>
 		/// Save to an XML file. Return true if successful.
@@ -240,7 +288,7 @@ namespace Urho
 		public virtual bool SaveXml (MemoryBuffer dest, string indentation = "\t")
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_SaveXML0_MemoryBuffer (handle, (object)dest == null ? IntPtr.Zero : dest.Handle, indentation);
+			return Node_SaveXML1_MemoryBuffer (handle, (object)dest == null ? IntPtr.Zero : dest.Handle, indentation);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -343,7 +391,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetPosition2D1 (IntPtr handle, float x, float y);
+		internal static extern void Node_SetPosition2D2 (IntPtr handle, float x, float y);
 
 		/// <summary>
 		/// Set position in parent space (for Urho2D).
@@ -351,7 +399,7 @@ namespace Urho
 		public void SetPosition2D (float x, float y)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetPosition2D1 (handle, x, y);
+			Node_SetPosition2D2 (handle, x, y);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -406,7 +454,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetScale2 (IntPtr handle, ref Urho.Vector3 scale);
+		internal static extern void Node_SetScale3 (IntPtr handle, ref Urho.Vector3 scale);
 
 		/// <summary>
 		/// Set scale in parent space.
@@ -415,7 +463,7 @@ namespace Urho
 		private void SetScale (Urho.Vector3 scale)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetScale2 (handle, ref scale);
+			Node_SetScale3 (handle, ref scale);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -432,7 +480,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetScale2D3 (IntPtr handle, float x, float y);
+		internal static extern void Node_SetScale2D4 (IntPtr handle, float x, float y);
 
 		/// <summary>
 		/// Set scale in parent space (for Urho2D).
@@ -440,7 +488,7 @@ namespace Urho
 		public void SetScale2D (float x, float y)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetScale2D3 (handle, x, y);
+			Node_SetScale2D4 (handle, x, y);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -456,7 +504,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetTransform4 (IntPtr handle, ref Urho.Vector3 position, ref Urho.Quaternion rotation, float scale);
+		internal static extern void Node_SetTransform5 (IntPtr handle, ref Urho.Vector3 position, ref Urho.Quaternion rotation, float scale);
 
 		/// <summary>
 		/// Set position, rotation, and uniform scale in parent space as an atomic operation.
@@ -464,11 +512,11 @@ namespace Urho
 		public void SetTransform (Urho.Vector3 position, Urho.Quaternion rotation, float scale)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetTransform4 (handle, ref position, ref rotation, scale);
+			Node_SetTransform5 (handle, ref position, ref rotation, scale);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetTransform5 (IntPtr handle, ref Urho.Vector3 position, ref Urho.Quaternion rotation, ref Urho.Vector3 scale);
+		internal static extern void Node_SetTransform6 (IntPtr handle, ref Urho.Vector3 position, ref Urho.Quaternion rotation, ref Urho.Vector3 scale);
 
 		/// <summary>
 		/// Set position, rotation, and scale in parent space as an atomic operation.
@@ -476,11 +524,11 @@ namespace Urho
 		public void SetTransform (Urho.Vector3 position, Urho.Quaternion rotation, Urho.Vector3 scale)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetTransform5 (handle, ref position, ref rotation, ref scale);
+			Node_SetTransform6 (handle, ref position, ref rotation, ref scale);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetTransform6 (IntPtr handle, ref Urho.Matrix3x4 matrix);
+		internal static extern void Node_SetTransform7 (IntPtr handle, ref Urho.Matrix3x4 matrix);
 
 		/// <summary>
 		/// Set node transformation in parent space as an atomic operation.
@@ -488,7 +536,7 @@ namespace Urho
 		public void SetTransform (Urho.Matrix3x4 matrix)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetTransform6 (handle, ref matrix);
+			Node_SetTransform7 (handle, ref matrix);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -504,7 +552,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetTransform2D7 (IntPtr handle, ref Urho.Vector2 position, float rotation, float scale);
+		internal static extern void Node_SetTransform2D8 (IntPtr handle, ref Urho.Vector2 position, float rotation, float scale);
 
 		/// <summary>
 		/// Set position, rotation, and uniform scale in parent space as an atomic operation (for Urho2D).
@@ -512,11 +560,11 @@ namespace Urho
 		public void SetTransform2D (Urho.Vector2 position, float rotation, float scale)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetTransform2D7 (handle, ref position, rotation, scale);
+			Node_SetTransform2D8 (handle, ref position, rotation, scale);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetTransform2D8 (IntPtr handle, ref Urho.Vector2 position, float rotation, ref Urho.Vector2 scale);
+		internal static extern void Node_SetTransform2D9 (IntPtr handle, ref Urho.Vector2 position, float rotation, ref Urho.Vector2 scale);
 
 		/// <summary>
 		/// Set position, rotation, and scale in parent space as an atomic operation (for Urho2D).
@@ -524,7 +572,7 @@ namespace Urho
 		public void SetTransform2D (Urho.Vector2 position, float rotation, Urho.Vector2 scale)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetTransform2D8 (handle, ref position, rotation, ref scale);
+			Node_SetTransform2D9 (handle, ref position, rotation, ref scale);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -554,7 +602,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetWorldPosition2D9 (IntPtr handle, float x, float y);
+		internal static extern void Node_SetWorldPosition2D10 (IntPtr handle, float x, float y);
 
 		/// <summary>
 		/// Set position in world space (for Urho2D).
@@ -562,7 +610,7 @@ namespace Urho
 		public void SetWorldPosition2D (float x, float y)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetWorldPosition2D9 (handle, x, y);
+			Node_SetWorldPosition2D10 (handle, x, y);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -617,7 +665,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetWorldScale10 (IntPtr handle, ref Urho.Vector3 scale);
+		internal static extern void Node_SetWorldScale11 (IntPtr handle, ref Urho.Vector3 scale);
 
 		/// <summary>
 		/// Set scale in world space.
@@ -626,7 +674,7 @@ namespace Urho
 		public void SetWorldScale (Urho.Vector3 scale)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetWorldScale10 (handle, ref scale);
+			Node_SetWorldScale11 (handle, ref scale);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -643,7 +691,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetWorldScale2D11 (IntPtr handle, float x, float y);
+		internal static extern void Node_SetWorldScale2D12 (IntPtr handle, float x, float y);
 
 		/// <summary>
 		/// Set scale in world space (for Urho2D).
@@ -651,7 +699,7 @@ namespace Urho
 		public void SetWorldScale2D (float x, float y)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetWorldScale2D11 (handle, x, y);
+			Node_SetWorldScale2D12 (handle, x, y);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -667,7 +715,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetWorldTransform12 (IntPtr handle, ref Urho.Vector3 position, ref Urho.Quaternion rotation, float scale);
+		internal static extern void Node_SetWorldTransform13 (IntPtr handle, ref Urho.Vector3 position, ref Urho.Quaternion rotation, float scale);
 
 		/// <summary>
 		/// Set position, rotation, and uniform scale in world space as an atomic operation.
@@ -675,11 +723,11 @@ namespace Urho
 		public void SetWorldTransform (Urho.Vector3 position, Urho.Quaternion rotation, float scale)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetWorldTransform12 (handle, ref position, ref rotation, scale);
+			Node_SetWorldTransform13 (handle, ref position, ref rotation, scale);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetWorldTransform13 (IntPtr handle, ref Urho.Vector3 position, ref Urho.Quaternion rotation, ref Urho.Vector3 scale);
+		internal static extern void Node_SetWorldTransform14 (IntPtr handle, ref Urho.Vector3 position, ref Urho.Quaternion rotation, ref Urho.Vector3 scale);
 
 		/// <summary>
 		/// Set position, rotation, and scale in world space as an atomic opration.
@@ -687,11 +735,11 @@ namespace Urho
 		public void SetWorldTransform (Urho.Vector3 position, Urho.Quaternion rotation, Urho.Vector3 scale)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetWorldTransform13 (handle, ref position, ref rotation, ref scale);
+			Node_SetWorldTransform14 (handle, ref position, ref rotation, ref scale);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetWorldTransform14 (IntPtr handle, ref Urho.Matrix3x4 worldTransform);
+		internal static extern void Node_SetWorldTransform15 (IntPtr handle, ref Urho.Matrix3x4 worldTransform);
 
 		/// <summary>
 		/// Set position, rotation, and scale in world space as an atomic operation from a transformation matrix.
@@ -699,7 +747,7 @@ namespace Urho
 		private void SetWorldTransform (Urho.Matrix3x4 worldTransform)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetWorldTransform14 (handle, ref worldTransform);
+			Node_SetWorldTransform15 (handle, ref worldTransform);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -715,7 +763,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetWorldTransform2D15 (IntPtr handle, ref Urho.Vector2 position, float rotation, float scale);
+		internal static extern void Node_SetWorldTransform2D16 (IntPtr handle, ref Urho.Vector2 position, float rotation, float scale);
 
 		/// <summary>
 		/// Set position, rotation, and uniform scale in world space as an atomic operation (for Urho2D).
@@ -723,11 +771,11 @@ namespace Urho
 		public void SetWorldTransform2D (Urho.Vector2 position, float rotation, float scale)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetWorldTransform2D15 (handle, ref position, rotation, scale);
+			Node_SetWorldTransform2D16 (handle, ref position, rotation, scale);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetWorldTransform2D16 (IntPtr handle, ref Urho.Vector2 position, float rotation, ref Urho.Vector2 scale);
+		internal static extern void Node_SetWorldTransform2D17 (IntPtr handle, ref Urho.Vector2 position, float rotation, ref Urho.Vector2 scale);
 
 		/// <summary>
 		/// Set position, rotation, and scale in world space as an atomic opration (for Urho2D).
@@ -735,7 +783,7 @@ namespace Urho
 		public void SetWorldTransform2D (Urho.Vector2 position, float rotation, Urho.Vector2 scale)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetWorldTransform2D16 (handle, ref position, rotation, ref scale);
+			Node_SetWorldTransform2D17 (handle, ref position, rotation, ref scale);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -871,7 +919,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_Scale17 (IntPtr handle, ref Urho.Vector3 scale);
+		internal static extern void Node_Scale18 (IntPtr handle, ref Urho.Vector3 scale);
 
 		/// <summary>
 		/// Modify scale in parent space.
@@ -879,7 +927,7 @@ namespace Urho
 		public void ScaleNode (Urho.Vector3 scale)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_Scale17 (handle, ref scale);
+			Node_Scale18 (handle, ref scale);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1077,7 +1125,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr Node_CloneComponent18 (IntPtr handle, IntPtr component, CreateMode mode, uint id);
+		internal static extern IntPtr Node_CloneComponent19 (IntPtr handle, IntPtr component, CreateMode mode, uint id);
 
 		/// <summary>
 		/// Clone a component from another node and specify the create mode. Return the clone if successful or null on failure.
@@ -1085,7 +1133,7 @@ namespace Urho
 		public Component CloneComponent (Component component, CreateMode mode, uint id = 0)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Runtime.LookupObject<Component> (Node_CloneComponent18 (handle, (object)component == null ? IntPtr.Zero : component.Handle, mode, id));
+			return Runtime.LookupObject<Component> (Node_CloneComponent19 (handle, (object)component == null ? IntPtr.Zero : component.Handle, mode, id));
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1113,7 +1161,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_RemoveComponents19 (IntPtr handle, int type);
+		internal static extern void Node_RemoveComponents20 (IntPtr handle, int type);
 
 		/// <summary>
 		/// Remove all components of specific type.
@@ -1121,7 +1169,7 @@ namespace Urho
 		public void RemoveComponents (StringHash type)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_RemoveComponents19 (handle, type.Code);
+			Node_RemoveComponents20 (handle, type.Code);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1366,7 +1414,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetVar20_0 (IntPtr handle, string key, ref Vector3 value);
+		internal static extern void Node_SetVar21_0 (IntPtr handle, string key, ref Vector3 value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1374,11 +1422,11 @@ namespace Urho
 		public void SetVar (string key, Vector3 value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetVar20_0 (handle, key, ref value);
+			Node_SetVar21_0 (handle, key, ref value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetVar20_1 (IntPtr handle, string key, ref IntRect value);
+		internal static extern void Node_SetVar21_1 (IntPtr handle, string key, ref IntRect value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1386,11 +1434,11 @@ namespace Urho
 		public void SetVar (string key, IntRect value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetVar20_1 (handle, key, ref value);
+			Node_SetVar21_1 (handle, key, ref value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetVar20_2 (IntPtr handle, string key, ref Color value);
+		internal static extern void Node_SetVar21_2 (IntPtr handle, string key, ref Color value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1398,11 +1446,11 @@ namespace Urho
 		public void SetVar (string key, Color value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetVar20_2 (handle, key, ref value);
+			Node_SetVar21_2 (handle, key, ref value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetVar20_3 (IntPtr handle, string key, ref Vector2 value);
+		internal static extern void Node_SetVar21_3 (IntPtr handle, string key, ref Vector2 value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1410,11 +1458,11 @@ namespace Urho
 		public void SetVar (string key, Vector2 value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetVar20_3 (handle, key, ref value);
+			Node_SetVar21_3 (handle, key, ref value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetVar20_4 (IntPtr handle, string key, ref Vector4 value);
+		internal static extern void Node_SetVar21_4 (IntPtr handle, string key, ref Vector4 value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1422,11 +1470,11 @@ namespace Urho
 		public void SetVar (string key, Vector4 value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetVar20_4 (handle, key, ref value);
+			Node_SetVar21_4 (handle, key, ref value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetVar20_5 (IntPtr handle, string key, ref IntVector2 value);
+		internal static extern void Node_SetVar21_5 (IntPtr handle, string key, ref IntVector2 value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1434,11 +1482,11 @@ namespace Urho
 		public void SetVar (string key, IntVector2 value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetVar20_5 (handle, key, ref value);
+			Node_SetVar21_5 (handle, key, ref value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetVar20_6 (IntPtr handle, string key, ref Quaternion value);
+		internal static extern void Node_SetVar21_6 (IntPtr handle, string key, ref Quaternion value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1446,11 +1494,11 @@ namespace Urho
 		public void SetVar (string key, Quaternion value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetVar20_6 (handle, key, ref value);
+			Node_SetVar21_6 (handle, key, ref value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetVar20_7 (IntPtr handle, string key, ref Matrix4 value);
+		internal static extern void Node_SetVar21_7 (IntPtr handle, string key, ref Matrix4 value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1458,11 +1506,11 @@ namespace Urho
 		public void SetVar (string key, Matrix4 value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetVar20_7 (handle, key, ref value);
+			Node_SetVar21_7 (handle, key, ref value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetVar20_8 (IntPtr handle, string key, ref Matrix3 value);
+		internal static extern void Node_SetVar21_8 (IntPtr handle, string key, ref Matrix3 value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1470,11 +1518,11 @@ namespace Urho
 		public void SetVar (string key, Matrix3 value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetVar20_8 (handle, key, ref value);
+			Node_SetVar21_8 (handle, key, ref value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetVar20_9 (IntPtr handle, string key, ref Matrix3x4 value);
+		internal static extern void Node_SetVar21_9 (IntPtr handle, string key, ref Matrix3x4 value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1482,11 +1530,11 @@ namespace Urho
 		public void SetVar (string key, Matrix3x4 value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetVar20_9 (handle, key, ref value);
+			Node_SetVar21_9 (handle, key, ref value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetVar20_10 (IntPtr handle, string key, int value);
+		internal static extern void Node_SetVar21_10 (IntPtr handle, string key, int value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1494,11 +1542,11 @@ namespace Urho
 		public void SetVar (string key, int value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetVar20_10 (handle, key, value);
+			Node_SetVar21_10 (handle, key, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetVar20_11 (IntPtr handle, string key, uint value);
+		internal static extern void Node_SetVar21_11 (IntPtr handle, string key, uint value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1506,11 +1554,11 @@ namespace Urho
 		public void SetVar (string key, uint value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetVar20_11 (handle, key, value);
+			Node_SetVar21_11 (handle, key, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetVar20_12 (IntPtr handle, string key, float value);
+		internal static extern void Node_SetVar21_12 (IntPtr handle, string key, float value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1518,11 +1566,11 @@ namespace Urho
 		public void SetVar (string key, float value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetVar20_12 (handle, key, value);
+			Node_SetVar21_12 (handle, key, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetVar20_13 (IntPtr handle, string key, string value);
+		internal static extern void Node_SetVar21_13 (IntPtr handle, string key, string value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1530,11 +1578,11 @@ namespace Urho
 		public void SetVar (string key, string value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetVar20_13 (handle, key, value);
+			Node_SetVar21_13 (handle, key, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Node_SetVar20_14 (IntPtr handle, string key, bool value);
+		internal static extern void Node_SetVar21_14 (IntPtr handle, string key, bool value);
 
 		/// <summary>
 		/// Set a user variable.
@@ -1542,7 +1590,7 @@ namespace Urho
 		public void SetVar (string key, bool value)
 		{
 			Runtime.ValidateRefCounted (this);
-			Node_SetVar20_14 (handle, key, value);
+			Node_SetVar21_14 (handle, key, value);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -2241,7 +2289,7 @@ Vector3 *
 #else
 Vector3
 #endif
- Node_LocalToWorld21 (IntPtr handle, ref Urho.Vector4 vector);
+ Node_LocalToWorld22 (IntPtr handle, ref Urho.Vector4 vector);
 
 		/// <summary>
 		/// Convert a local space position or rotation to world space.
@@ -2251,9 +2299,9 @@ Vector3
 			Runtime.ValidateRefCounted (this);
 			return 
 #if __WEB__
-*Node_LocalToWorld21
+*Node_LocalToWorld22
 #else
-Node_LocalToWorld21
+Node_LocalToWorld22
 #endif
  (handle, ref vector);
 		}
@@ -2313,7 +2361,7 @@ Vector3 *
 #else
 Vector3
 #endif
- Node_WorldToLocal22 (IntPtr handle, ref Urho.Vector4 vector);
+ Node_WorldToLocal23 (IntPtr handle, ref Urho.Vector4 vector);
 
 		/// <summary>
 		/// Convert a world space position or rotation to local space.
@@ -2323,9 +2371,9 @@ Vector3
 			Runtime.ValidateRefCounted (this);
 			return 
 #if __WEB__
-*Node_WorldToLocal22
+*Node_WorldToLocal23
 #else
-Node_WorldToLocal22
+Node_WorldToLocal23
 #endif
  (handle, ref vector);
 		}
@@ -2405,7 +2453,7 @@ Node_WorldToLocal2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr Node_GetChild23 (IntPtr handle, string name, bool recursive);
+		internal static extern IntPtr Node_GetChild24 (IntPtr handle, string name, bool recursive);
 
 		/// <summary>
 		/// Return child scene node by name.
@@ -2413,11 +2461,11 @@ Node_WorldToLocal2D
 		public Node GetChild (string name, bool recursive = false)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Runtime.LookupObject<Node> (Node_GetChild23 (handle, name, recursive));
+			return Runtime.LookupObject<Node> (Node_GetChild24 (handle, name, recursive));
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr Node_GetChild24 (IntPtr handle, int nameHash, bool recursive);
+		internal static extern IntPtr Node_GetChild25 (IntPtr handle, int nameHash, bool recursive);
 
 		/// <summary>
 		/// Return child scene node by name hash.
@@ -2425,7 +2473,7 @@ Node_WorldToLocal2D
 		public Node GetChild (StringHash nameHash, bool recursive = false)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Runtime.LookupObject<Node> (Node_GetChild24 (handle, nameHash.Code, recursive));
+			return Runtime.LookupObject<Node> (Node_GetChild25 (handle, nameHash.Code, recursive));
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -2504,7 +2552,7 @@ Node_WorldToLocal2D
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern Variant Node_GetVar25 (IntPtr handle, string key);
+		internal static extern Variant Node_GetVar26 (IntPtr handle, string key);
 
 		/// <summary>
 		/// Return a user variable.
@@ -2512,7 +2560,7 @@ Node_WorldToLocal2D
 		public Variant GetVar (string key)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Node_GetVar25 (handle, key);
+			return Node_GetVar26 (handle, key);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -2626,7 +2674,7 @@ Node_GetNetPositionAttr
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr Node_CreateChild26 (IntPtr handle, uint id, CreateMode mode, bool temporary);
+		internal static extern IntPtr Node_CreateChild27 (IntPtr handle, uint id, CreateMode mode, bool temporary);
 
 		/// <summary>
 		/// Create a child node with specific ID.
@@ -2634,7 +2682,7 @@ Node_GetNetPositionAttr
 		public Node CreateChild (uint id, CreateMode mode, bool temporary = false)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Runtime.LookupObject<Node> (Node_CreateChild26 (handle, id, mode, temporary));
+			return Runtime.LookupObject<Node> (Node_CreateChild27 (handle, id, mode, temporary));
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

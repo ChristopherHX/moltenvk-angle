@@ -89,6 +89,10 @@ public:
 
     /// Load from binary data. Return true if successful.
     bool Load(Deserializer& source) override;
+    /// Load from an XML file. Return true if successful.
+    bool LoadXML(Deserializer& source);
+    /// Load from a JSON file. Return true if successful.
+    bool LoadJSON(Deserializer& source);
     /// Load from XML data. Return true if successful.
     bool LoadXML(const XMLElement& source) override;
     /// Load from JSON data. Return true if successful.

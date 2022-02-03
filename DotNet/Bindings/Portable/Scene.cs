@@ -17,48 +17,44 @@ namespace Urho
 		}
 
 		public bool LoadXml(string path)
-		{
-			Runtime.ValidateRefCounted(this);
-			using (var file = new File(Context, path, FileMode.Read))
-			{
-				bool result = false;
-				if(file.IsOpen())
-				{
-					result = LoadXml(file);
-					file.Close();
-				}
-				return result;
-			}
-		}
+        {
+            bool result = false;
+            var file = Application.Current.ResourceCache.GetFile(path, true);
+            if(file != null)
+            {
+                file.Seek(0);
+                result =  LoadXml(file);
+                file.Close();
+            }
+            return result;
+        }
 
         public bool Load(string path)
         {
             Runtime.ValidateRefCounted(this);
-            using (var file = new File(Context, path, FileMode.Read))
+            bool result = false;
+            var file = Application.Current.ResourceCache.GetFile(path, true);
+            if (file != null)
             {
-                bool result = false;
-                if (file.IsOpen())
-                {
-                    result = Load(file);
-                    file.Close();
-                }
-                return result;
+				file.Seek(0);
+                result = Load(file);
+                file.Close();
             }
+            return result;
         }
 
         public bool LoadJson(string path)
         {
             Runtime.ValidateRefCounted(this);
-            using (var file = new File(Context, path, FileMode.Read))
+            bool result = false;
+            var file = Application.Current.ResourceCache.GetFile(path, true);
+            if (file != null)
             {
-                bool result = false;
-                if (file.IsOpen())
-                {
-                    result = LoadJson(file);
-                    file.Close();
-                }
-                return result;
+				file.Seek(0);
+                result = LoadJson(file);
+                file.Close();
             }
+            return result;
         }
 
 		public bool SaveXml(string path, string indentation = "\t")

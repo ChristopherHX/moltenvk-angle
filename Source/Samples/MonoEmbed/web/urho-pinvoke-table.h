@@ -1,5 +1,48 @@
 // GENERATED FILE, DO NOT MODIFY
 
+int Animation_GetType (int);
+int Animation_GetTypeName (int);
+int Animation_GetTypeStatic ();
+int Animation_GetTypeNameStatic ();
+int Animation_Animation (int);
+void Animation_RegisterObject (int);
+int Animation_BeginLoad_File (int,int);
+int Animation_BeginLoad_MemoryBuffer (int,int);
+int Animation_Save_File (int,int);
+int Animation_Save_MemoryBuffer (int,int);
+void Animation_SetAnimationName (int,int);
+void Animation_SetLength (int,float);
+int Animation_CreateTrack (int,int);
+int Animation_RemoveTrack (int,int);
+void Animation_RemoveAllTracks (int);
+void Animation_AddTrigger_0 (int,float,int,int);
+void Animation_AddTrigger_1 (int,float,int,int);
+void Animation_AddTrigger_2 (int,float,int,int);
+void Animation_AddTrigger_3 (int,float,int,int);
+void Animation_AddTrigger_4 (int,float,int,int);
+void Animation_AddTrigger_5 (int,float,int,int);
+void Animation_AddTrigger_6 (int,float,int,int);
+void Animation_AddTrigger_7 (int,float,int,int);
+void Animation_AddTrigger_8 (int,float,int,int);
+void Animation_AddTrigger_9 (int,float,int,int);
+void Animation_AddTrigger_10 (int,float,int,int);
+void Animation_AddTrigger_11 (int,float,int,int);
+void Animation_AddTrigger_12 (int,float,int,float);
+void Animation_AddTrigger_13 (int,float,int,int);
+void Animation_AddTrigger_14 (int,float,int,int);
+void Animation_RemoveTrigger (int,int);
+void Animation_RemoveAllTriggers (int);
+void Animation_SetNumTriggers (int,int);
+int Animation_Clone (int,int);
+int Animation_GetAnimationName (int);
+int Animation_GetAnimationNameHash (int);
+float Animation_GetLength (int);
+int Animation_GetNumTracks (int);
+int Animation_GetTrack (int,int);
+int Animation_GetTrack0 (int,int);
+int Animation_GetTrack1 (int,int);
+int Animation_GetNumTriggers (int);
+int Animation_GetTrigger (int,int);
 int ApplicationProxy_ApplicationProxy (int,int,int,int,int,int);
 int Urho_GetPlatform ();
 int Application_GetEngine (int);
@@ -1075,7 +1118,11 @@ int Node_Node (int);
 void Node_RegisterObject (int);
 int Node_Load_File (int,int);
 int Node_Load_MemoryBuffer (int,int);
-int Node_LoadXML (int,int);
+int Node_LoadXML_File (int,int);
+int Node_LoadXML_MemoryBuffer (int,int);
+int Node_LoadJSON_File (int,int);
+int Node_LoadJSON_MemoryBuffer (int,int);
+int Node_LoadXML0 (int,int);
 int Node_Save_File (int,int);
 int Node_Save_MemoryBuffer (int,int);
 int Node_SaveXML (int,int);
@@ -1083,8 +1130,8 @@ void Node_ApplyAttributes (int);
 int Node_SaveDefaultAttributes (int);
 void Node_MarkNetworkUpdate (int);
 void Node_AddReplicationState (int,int);
-int Node_SaveXML0_File (int,int,int);
-int Node_SaveXML0_MemoryBuffer (int,int,int);
+int Node_SaveXML1_File (int,int,int);
+int Node_SaveXML1_MemoryBuffer (int,int,int);
 int Node_SaveJSON_File (int,int,int);
 int Node_SaveJSON_MemoryBuffer (int,int,int);
 void Node_SetName (int,int);
@@ -1093,38 +1140,38 @@ int Node_RemoveTag (int,int);
 void Node_RemoveAllTags (int);
 void Node_SetPosition (int,int);
 void Node_SetPosition2D (int,int);
-void Node_SetPosition2D1 (int,float,float);
+void Node_SetPosition2D2 (int,float,float);
 void Node_SetRotation (int,int);
 void Node_SetRotation2D (int,float);
 void Node_SetDirection (int,int);
 void Node_SetScale (int,float);
-void Node_SetScale2 (int,int);
+void Node_SetScale3 (int,int);
 void Node_SetScale2D (int,int);
-void Node_SetScale2D3 (int,float,float);
+void Node_SetScale2D4 (int,float,float);
 void Node_SetTransform (int,int,int);
-void Node_SetTransform4 (int,int,int,float);
-void Node_SetTransform5 (int,int,int,int);
-void Node_SetTransform6 (int,int);
+void Node_SetTransform5 (int,int,int,float);
+void Node_SetTransform6 (int,int,int,int);
+void Node_SetTransform7 (int,int);
 void Node_SetTransform2D (int,int,float);
-void Node_SetTransform2D7 (int,int,float,float);
-void Node_SetTransform2D8 (int,int,float,int);
+void Node_SetTransform2D8 (int,int,float,float);
+void Node_SetTransform2D9 (int,int,float,int);
 void Node_SetWorldPosition (int,int);
 void Node_SetWorldPosition2D (int,int);
-void Node_SetWorldPosition2D9 (int,float,float);
+void Node_SetWorldPosition2D10 (int,float,float);
 void Node_SetWorldRotation (int,int);
 void Node_SetWorldRotation2D (int,float);
 void Node_SetWorldDirection (int,int);
 void Node_SetWorldScale (int,float);
-void Node_SetWorldScale10 (int,int);
+void Node_SetWorldScale11 (int,int);
 void Node_SetWorldScale2D (int,int);
-void Node_SetWorldScale2D11 (int,float,float);
+void Node_SetWorldScale2D12 (int,float,float);
 void Node_SetWorldTransform (int,int,int);
-void Node_SetWorldTransform12 (int,int,int,float);
-void Node_SetWorldTransform13 (int,int,int,int);
-void Node_SetWorldTransform14 (int,int);
+void Node_SetWorldTransform13 (int,int,int,float);
+void Node_SetWorldTransform14 (int,int,int,int);
+void Node_SetWorldTransform15 (int,int);
 void Node_SetWorldTransform2D (int,int,float);
-void Node_SetWorldTransform2D15 (int,int,float,float);
-void Node_SetWorldTransform2D16 (int,int,float,int);
+void Node_SetWorldTransform2D16 (int,int,float,float);
+void Node_SetWorldTransform2D17 (int,int,float,int);
 void Node_Translate (int,int,int);
 void Node_Translate2D (int,int,int);
 void Node_Rotate (int,int,int);
@@ -1136,7 +1183,7 @@ void Node_Yaw (int,float,int);
 void Node_Roll (int,float,int);
 int Node_LookAt (int,int,int,int);
 void Node_Scale (int,float);
-void Node_Scale17 (int,int);
+void Node_Scale18 (int,int);
 void Node_Scale2D (int,int);
 void Node_SetEnabled (int,int);
 void Node_SetDeepEnabled (int,int);
@@ -1153,10 +1200,10 @@ void Node_RemoveChildren (int,int,int,int);
 int Node_CreateComponent (int,int,int,int);
 int Node_GetOrCreateComponent (int,int,int,int);
 int Node_CloneComponent (int,int,int);
-int Node_CloneComponent18 (int,int,int,int);
+int Node_CloneComponent19 (int,int,int,int);
 void Node_RemoveComponent (int,int);
 void Node_RemoveComponents (int,int,int);
-void Node_RemoveComponents19 (int,int);
+void Node_RemoveComponents20 (int,int);
 void Node_RemoveAllComponents (int);
 void Node_ReorderComponent (int,int,int);
 int Node_Clone (int,int);
@@ -1177,21 +1224,21 @@ void Node_SetVar_11 (int,int,int);
 void Node_SetVar_12 (int,int,float);
 void Node_SetVar_13 (int,int,int);
 void Node_SetVar_14 (int,int,int);
-void Node_SetVar20_0 (int,int,int);
-void Node_SetVar20_1 (int,int,int);
-void Node_SetVar20_2 (int,int,int);
-void Node_SetVar20_3 (int,int,int);
-void Node_SetVar20_4 (int,int,int);
-void Node_SetVar20_5 (int,int,int);
-void Node_SetVar20_6 (int,int,int);
-void Node_SetVar20_7 (int,int,int);
-void Node_SetVar20_8 (int,int,int);
-void Node_SetVar20_9 (int,int,int);
-void Node_SetVar20_10 (int,int,int);
-void Node_SetVar20_11 (int,int,int);
-void Node_SetVar20_12 (int,int,float);
-void Node_SetVar20_13 (int,int,int);
-void Node_SetVar20_14 (int,int,int);
+void Node_SetVar21_0 (int,int,int);
+void Node_SetVar21_1 (int,int,int);
+void Node_SetVar21_2 (int,int,int);
+void Node_SetVar21_3 (int,int,int);
+void Node_SetVar21_4 (int,int,int);
+void Node_SetVar21_5 (int,int,int);
+void Node_SetVar21_6 (int,int,int);
+void Node_SetVar21_7 (int,int,int);
+void Node_SetVar21_8 (int,int,int);
+void Node_SetVar21_9 (int,int,int);
+void Node_SetVar21_10 (int,int,int);
+void Node_SetVar21_11 (int,int,int);
+void Node_SetVar21_12 (int,int,float);
+void Node_SetVar21_13 (int,int,int);
+void Node_SetVar21_14 (int,int,int);
 void Node_AddListener (int,int);
 void Node_RemoveListener (int,int);
 int Node_GetID (int);
@@ -1227,24 +1274,24 @@ int Node_GetSignedWorldScale (int);
 int Node_GetWorldScale2D (int);
 int Node_GetWorldTransform (int);
 int Node_LocalToWorld (int,int);
-int Node_LocalToWorld21 (int,int);
+int Node_LocalToWorld22 (int,int);
 int Node_LocalToWorld2D (int,int);
 int Node_WorldToLocal (int,int);
-int Node_WorldToLocal22 (int,int);
+int Node_WorldToLocal23 (int,int);
 int Node_WorldToLocal2D (int,int);
 int Node_IsDirty (int);
 int Node_GetNumChildren (int,int);
 int Node_GetChildren (int);
 int Node_GetChild (int,int);
-int Node_GetChild23 (int,int,int);
 int Node_GetChild24 (int,int,int);
+int Node_GetChild25 (int,int,int);
 int Node_GetNumComponents (int);
 int Node_GetNumNetworkComponents (int);
 int Node_GetComponents (int);
 int Node_GetComponent (int,int,int);
 int Node_GetParentComponent (int,int,int);
 int Node_HasComponent (int,int);
-int Node_GetVar25 (int,int);
+int Node_GetVar26 (int,int);
 void Node_SetID (int,int);
 void Node_SetScene (int,int);
 void Node_ResetScene (int);
@@ -1253,7 +1300,7 @@ int Node_GetNetPositionAttr (int);
 void Node_PrepareNetworkUpdate (int);
 void Node_CleanupConnection (int,int);
 void Node_MarkReplicationDirty (int);
-int Node_CreateChild26 (int,int,int,int);
+int Node_CreateChild27 (int,int,int,int);
 void Node_AddComponent (int,int,int,int);
 int Node_GetNumPersistentChildren (int);
 int Node_GetNumPersistentComponents (int);
@@ -1726,6 +1773,7 @@ float JoystickState_GetAxisPosition (int,int);
 void RenderPathCommand_SetShaderParameter_float (int,int,float);
 void RenderPathCommand_SetShaderParameter_Matrix4 (int,int,int);
 void RenderPathCommand_SetOutput (int,int,int);
+void AnimationTrack_PushAnimationKeyFrame (int,int);
 int Texture2D_GetType (int);
 int Texture2D_GetTypeName (int);
 int Texture2D_GetTypeStatic ();
@@ -2685,49 +2733,6 @@ int AnimatedSprite2D_GetLoopMode (int);
 float AnimatedSprite2D_GetSpeed (int);
 int AnimatedSprite2D_GetAnimationSetAttr (int);
 void AnimatedSprite2D_SetAnimationAttr (int,int);
-int Animation_GetType (int);
-int Animation_GetTypeName (int);
-int Animation_GetTypeStatic ();
-int Animation_GetTypeNameStatic ();
-int Animation_Animation (int);
-void Animation_RegisterObject (int);
-int Animation_BeginLoad_File (int,int);
-int Animation_BeginLoad_MemoryBuffer (int,int);
-int Animation_Save_File (int,int);
-int Animation_Save_MemoryBuffer (int,int);
-void Animation_SetAnimationName (int,int);
-void Animation_SetLength (int,float);
-int Animation_CreateTrack (int,int);
-int Animation_RemoveTrack (int,int);
-void Animation_RemoveAllTracks (int);
-void Animation_AddTrigger_0 (int,float,int,int);
-void Animation_AddTrigger_1 (int,float,int,int);
-void Animation_AddTrigger_2 (int,float,int,int);
-void Animation_AddTrigger_3 (int,float,int,int);
-void Animation_AddTrigger_4 (int,float,int,int);
-void Animation_AddTrigger_5 (int,float,int,int);
-void Animation_AddTrigger_6 (int,float,int,int);
-void Animation_AddTrigger_7 (int,float,int,int);
-void Animation_AddTrigger_8 (int,float,int,int);
-void Animation_AddTrigger_9 (int,float,int,int);
-void Animation_AddTrigger_10 (int,float,int,int);
-void Animation_AddTrigger_11 (int,float,int,int);
-void Animation_AddTrigger_12 (int,float,int,float);
-void Animation_AddTrigger_13 (int,float,int,int);
-void Animation_AddTrigger_14 (int,float,int,int);
-void Animation_RemoveTrigger (int,int);
-void Animation_RemoveAllTriggers (int);
-void Animation_SetNumTriggers (int,int);
-int Animation_Clone (int,int);
-int Animation_GetAnimationName (int);
-int Animation_GetAnimationNameHash (int);
-float Animation_GetLength (int);
-int Animation_GetNumTracks (int);
-int Animation_GetTrack (int,int);
-int Animation_GetTrack0 (int,int);
-int Animation_GetTrack1 (int,int);
-int Animation_GetNumTriggers (int);
-int Animation_GetTrigger (int,int);
 int AnimationController_GetType (int);
 int AnimationController_GetTypeName (int);
 int AnimationController_GetTypeStatic ();
@@ -6238,6 +6243,49 @@ int Zone_GetZoneTexture (int);
 int Zone_IsInside (int,int);
 int Zone_GetZoneTextureAttr (int);
 static PinvokeImport Urho3D_imports [] = {
+{"Animation_GetType", Animation_GetType},
+{"Animation_GetTypeName", Animation_GetTypeName},
+{"Animation_GetTypeStatic", Animation_GetTypeStatic},
+{"Animation_GetTypeNameStatic", Animation_GetTypeNameStatic},
+{"Animation_Animation", Animation_Animation},
+{"Animation_RegisterObject", Animation_RegisterObject},
+{"Animation_BeginLoad_File", Animation_BeginLoad_File},
+{"Animation_BeginLoad_MemoryBuffer", Animation_BeginLoad_MemoryBuffer},
+{"Animation_Save_File", Animation_Save_File},
+{"Animation_Save_MemoryBuffer", Animation_Save_MemoryBuffer},
+{"Animation_SetAnimationName", Animation_SetAnimationName},
+{"Animation_SetLength", Animation_SetLength},
+{"Animation_CreateTrack", Animation_CreateTrack},
+{"Animation_RemoveTrack", Animation_RemoveTrack},
+{"Animation_RemoveAllTracks", Animation_RemoveAllTracks},
+{"Animation_AddTrigger_0", Animation_AddTrigger_0},
+{"Animation_AddTrigger_1", Animation_AddTrigger_1},
+{"Animation_AddTrigger_2", Animation_AddTrigger_2},
+{"Animation_AddTrigger_3", Animation_AddTrigger_3},
+{"Animation_AddTrigger_4", Animation_AddTrigger_4},
+{"Animation_AddTrigger_5", Animation_AddTrigger_5},
+{"Animation_AddTrigger_6", Animation_AddTrigger_6},
+{"Animation_AddTrigger_7", Animation_AddTrigger_7},
+{"Animation_AddTrigger_8", Animation_AddTrigger_8},
+{"Animation_AddTrigger_9", Animation_AddTrigger_9},
+{"Animation_AddTrigger_10", Animation_AddTrigger_10},
+{"Animation_AddTrigger_11", Animation_AddTrigger_11},
+{"Animation_AddTrigger_12", Animation_AddTrigger_12},
+{"Animation_AddTrigger_13", Animation_AddTrigger_13},
+{"Animation_AddTrigger_14", Animation_AddTrigger_14},
+{"Animation_RemoveTrigger", Animation_RemoveTrigger},
+{"Animation_RemoveAllTriggers", Animation_RemoveAllTriggers},
+{"Animation_SetNumTriggers", Animation_SetNumTriggers},
+{"Animation_Clone", Animation_Clone},
+{"Animation_GetAnimationName", Animation_GetAnimationName},
+{"Animation_GetAnimationNameHash", Animation_GetAnimationNameHash},
+{"Animation_GetLength", Animation_GetLength},
+{"Animation_GetNumTracks", Animation_GetNumTracks},
+{"Animation_GetTrack", Animation_GetTrack},
+{"Animation_GetTrack0", Animation_GetTrack0},
+{"Animation_GetTrack1", Animation_GetTrack1},
+{"Animation_GetNumTriggers", Animation_GetNumTriggers},
+{"Animation_GetTrigger", Animation_GetTrigger},
 {"ApplicationProxy_ApplicationProxy", ApplicationProxy_ApplicationProxy},
 {"Urho_GetPlatform", Urho_GetPlatform},
 {"Application_GetEngine", Application_GetEngine},
@@ -7313,7 +7361,11 @@ static PinvokeImport Urho3D_imports [] = {
 {"Node_RegisterObject", Node_RegisterObject},
 {"Node_Load_File", Node_Load_File},
 {"Node_Load_MemoryBuffer", Node_Load_MemoryBuffer},
-{"Node_LoadXML", Node_LoadXML},
+{"Node_LoadXML_File", Node_LoadXML_File},
+{"Node_LoadXML_MemoryBuffer", Node_LoadXML_MemoryBuffer},
+{"Node_LoadJSON_File", Node_LoadJSON_File},
+{"Node_LoadJSON_MemoryBuffer", Node_LoadJSON_MemoryBuffer},
+{"Node_LoadXML0", Node_LoadXML0},
 {"Node_Save_File", Node_Save_File},
 {"Node_Save_MemoryBuffer", Node_Save_MemoryBuffer},
 {"Node_SaveXML", Node_SaveXML},
@@ -7321,8 +7373,8 @@ static PinvokeImport Urho3D_imports [] = {
 {"Node_SaveDefaultAttributes", Node_SaveDefaultAttributes},
 {"Node_MarkNetworkUpdate", Node_MarkNetworkUpdate},
 {"Node_AddReplicationState", Node_AddReplicationState},
-{"Node_SaveXML0_File", Node_SaveXML0_File},
-{"Node_SaveXML0_MemoryBuffer", Node_SaveXML0_MemoryBuffer},
+{"Node_SaveXML1_File", Node_SaveXML1_File},
+{"Node_SaveXML1_MemoryBuffer", Node_SaveXML1_MemoryBuffer},
 {"Node_SaveJSON_File", Node_SaveJSON_File},
 {"Node_SaveJSON_MemoryBuffer", Node_SaveJSON_MemoryBuffer},
 {"Node_SetName", Node_SetName},
@@ -7331,38 +7383,38 @@ static PinvokeImport Urho3D_imports [] = {
 {"Node_RemoveAllTags", Node_RemoveAllTags},
 {"Node_SetPosition", Node_SetPosition},
 {"Node_SetPosition2D", Node_SetPosition2D},
-{"Node_SetPosition2D1", Node_SetPosition2D1},
+{"Node_SetPosition2D2", Node_SetPosition2D2},
 {"Node_SetRotation", Node_SetRotation},
 {"Node_SetRotation2D", Node_SetRotation2D},
 {"Node_SetDirection", Node_SetDirection},
 {"Node_SetScale", Node_SetScale},
-{"Node_SetScale2", Node_SetScale2},
+{"Node_SetScale3", Node_SetScale3},
 {"Node_SetScale2D", Node_SetScale2D},
-{"Node_SetScale2D3", Node_SetScale2D3},
+{"Node_SetScale2D4", Node_SetScale2D4},
 {"Node_SetTransform", Node_SetTransform},
-{"Node_SetTransform4", Node_SetTransform4},
 {"Node_SetTransform5", Node_SetTransform5},
 {"Node_SetTransform6", Node_SetTransform6},
+{"Node_SetTransform7", Node_SetTransform7},
 {"Node_SetTransform2D", Node_SetTransform2D},
-{"Node_SetTransform2D7", Node_SetTransform2D7},
 {"Node_SetTransform2D8", Node_SetTransform2D8},
+{"Node_SetTransform2D9", Node_SetTransform2D9},
 {"Node_SetWorldPosition", Node_SetWorldPosition},
 {"Node_SetWorldPosition2D", Node_SetWorldPosition2D},
-{"Node_SetWorldPosition2D9", Node_SetWorldPosition2D9},
+{"Node_SetWorldPosition2D10", Node_SetWorldPosition2D10},
 {"Node_SetWorldRotation", Node_SetWorldRotation},
 {"Node_SetWorldRotation2D", Node_SetWorldRotation2D},
 {"Node_SetWorldDirection", Node_SetWorldDirection},
 {"Node_SetWorldScale", Node_SetWorldScale},
-{"Node_SetWorldScale10", Node_SetWorldScale10},
+{"Node_SetWorldScale11", Node_SetWorldScale11},
 {"Node_SetWorldScale2D", Node_SetWorldScale2D},
-{"Node_SetWorldScale2D11", Node_SetWorldScale2D11},
+{"Node_SetWorldScale2D12", Node_SetWorldScale2D12},
 {"Node_SetWorldTransform", Node_SetWorldTransform},
-{"Node_SetWorldTransform12", Node_SetWorldTransform12},
 {"Node_SetWorldTransform13", Node_SetWorldTransform13},
 {"Node_SetWorldTransform14", Node_SetWorldTransform14},
+{"Node_SetWorldTransform15", Node_SetWorldTransform15},
 {"Node_SetWorldTransform2D", Node_SetWorldTransform2D},
-{"Node_SetWorldTransform2D15", Node_SetWorldTransform2D15},
 {"Node_SetWorldTransform2D16", Node_SetWorldTransform2D16},
+{"Node_SetWorldTransform2D17", Node_SetWorldTransform2D17},
 {"Node_Translate", Node_Translate},
 {"Node_Translate2D", Node_Translate2D},
 {"Node_Rotate", Node_Rotate},
@@ -7374,7 +7426,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Node_Roll", Node_Roll},
 {"Node_LookAt", Node_LookAt},
 {"Node_Scale", Node_Scale},
-{"Node_Scale17", Node_Scale17},
+{"Node_Scale18", Node_Scale18},
 {"Node_Scale2D", Node_Scale2D},
 {"Node_SetEnabled", Node_SetEnabled},
 {"Node_SetDeepEnabled", Node_SetDeepEnabled},
@@ -7391,10 +7443,10 @@ static PinvokeImport Urho3D_imports [] = {
 {"Node_CreateComponent", Node_CreateComponent},
 {"Node_GetOrCreateComponent", Node_GetOrCreateComponent},
 {"Node_CloneComponent", Node_CloneComponent},
-{"Node_CloneComponent18", Node_CloneComponent18},
+{"Node_CloneComponent19", Node_CloneComponent19},
 {"Node_RemoveComponent", Node_RemoveComponent},
 {"Node_RemoveComponents", Node_RemoveComponents},
-{"Node_RemoveComponents19", Node_RemoveComponents19},
+{"Node_RemoveComponents20", Node_RemoveComponents20},
 {"Node_RemoveAllComponents", Node_RemoveAllComponents},
 {"Node_ReorderComponent", Node_ReorderComponent},
 {"Node_Clone", Node_Clone},
@@ -7415,21 +7467,21 @@ static PinvokeImport Urho3D_imports [] = {
 {"Node_SetVar_12", Node_SetVar_12},
 {"Node_SetVar_13", Node_SetVar_13},
 {"Node_SetVar_14", Node_SetVar_14},
-{"Node_SetVar20_0", Node_SetVar20_0},
-{"Node_SetVar20_1", Node_SetVar20_1},
-{"Node_SetVar20_2", Node_SetVar20_2},
-{"Node_SetVar20_3", Node_SetVar20_3},
-{"Node_SetVar20_4", Node_SetVar20_4},
-{"Node_SetVar20_5", Node_SetVar20_5},
-{"Node_SetVar20_6", Node_SetVar20_6},
-{"Node_SetVar20_7", Node_SetVar20_7},
-{"Node_SetVar20_8", Node_SetVar20_8},
-{"Node_SetVar20_9", Node_SetVar20_9},
-{"Node_SetVar20_10", Node_SetVar20_10},
-{"Node_SetVar20_11", Node_SetVar20_11},
-{"Node_SetVar20_12", Node_SetVar20_12},
-{"Node_SetVar20_13", Node_SetVar20_13},
-{"Node_SetVar20_14", Node_SetVar20_14},
+{"Node_SetVar21_0", Node_SetVar21_0},
+{"Node_SetVar21_1", Node_SetVar21_1},
+{"Node_SetVar21_2", Node_SetVar21_2},
+{"Node_SetVar21_3", Node_SetVar21_3},
+{"Node_SetVar21_4", Node_SetVar21_4},
+{"Node_SetVar21_5", Node_SetVar21_5},
+{"Node_SetVar21_6", Node_SetVar21_6},
+{"Node_SetVar21_7", Node_SetVar21_7},
+{"Node_SetVar21_8", Node_SetVar21_8},
+{"Node_SetVar21_9", Node_SetVar21_9},
+{"Node_SetVar21_10", Node_SetVar21_10},
+{"Node_SetVar21_11", Node_SetVar21_11},
+{"Node_SetVar21_12", Node_SetVar21_12},
+{"Node_SetVar21_13", Node_SetVar21_13},
+{"Node_SetVar21_14", Node_SetVar21_14},
 {"Node_AddListener", Node_AddListener},
 {"Node_RemoveListener", Node_RemoveListener},
 {"Node_GetID", Node_GetID},
@@ -7465,24 +7517,24 @@ static PinvokeImport Urho3D_imports [] = {
 {"Node_GetWorldScale2D", Node_GetWorldScale2D},
 {"Node_GetWorldTransform", Node_GetWorldTransform},
 {"Node_LocalToWorld", Node_LocalToWorld},
-{"Node_LocalToWorld21", Node_LocalToWorld21},
+{"Node_LocalToWorld22", Node_LocalToWorld22},
 {"Node_LocalToWorld2D", Node_LocalToWorld2D},
 {"Node_WorldToLocal", Node_WorldToLocal},
-{"Node_WorldToLocal22", Node_WorldToLocal22},
+{"Node_WorldToLocal23", Node_WorldToLocal23},
 {"Node_WorldToLocal2D", Node_WorldToLocal2D},
 {"Node_IsDirty", Node_IsDirty},
 {"Node_GetNumChildren", Node_GetNumChildren},
 {"Node_GetChildren", Node_GetChildren},
 {"Node_GetChild", Node_GetChild},
-{"Node_GetChild23", Node_GetChild23},
 {"Node_GetChild24", Node_GetChild24},
+{"Node_GetChild25", Node_GetChild25},
 {"Node_GetNumComponents", Node_GetNumComponents},
 {"Node_GetNumNetworkComponents", Node_GetNumNetworkComponents},
 {"Node_GetComponents", Node_GetComponents},
 {"Node_GetComponent", Node_GetComponent},
 {"Node_GetParentComponent", Node_GetParentComponent},
 {"Node_HasComponent", Node_HasComponent},
-{"Node_GetVar25", Node_GetVar25},
+{"Node_GetVar26", Node_GetVar26},
 {"Node_SetID", Node_SetID},
 {"Node_SetScene", Node_SetScene},
 {"Node_ResetScene", Node_ResetScene},
@@ -7491,7 +7543,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Node_PrepareNetworkUpdate", Node_PrepareNetworkUpdate},
 {"Node_CleanupConnection", Node_CleanupConnection},
 {"Node_MarkReplicationDirty", Node_MarkReplicationDirty},
-{"Node_CreateChild26", Node_CreateChild26},
+{"Node_CreateChild27", Node_CreateChild27},
 {"Node_AddComponent", Node_AddComponent},
 {"Node_GetNumPersistentChildren", Node_GetNumPersistentChildren},
 {"Node_GetNumPersistentComponents", Node_GetNumPersistentComponents},
@@ -7964,6 +8016,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"RenderPathCommand_SetShaderParameter_float", RenderPathCommand_SetShaderParameter_float},
 {"RenderPathCommand_SetShaderParameter_Matrix4", RenderPathCommand_SetShaderParameter_Matrix4},
 {"RenderPathCommand_SetOutput", RenderPathCommand_SetOutput},
+{"AnimationTrack_PushAnimationKeyFrame", AnimationTrack_PushAnimationKeyFrame},
 {"Texture2D_GetType", Texture2D_GetType},
 {"Texture2D_GetTypeName", Texture2D_GetTypeName},
 {"Texture2D_GetTypeStatic", Texture2D_GetTypeStatic},
@@ -8923,49 +8976,6 @@ static PinvokeImport Urho3D_imports [] = {
 {"AnimatedSprite2D_GetSpeed", AnimatedSprite2D_GetSpeed},
 {"AnimatedSprite2D_GetAnimationSetAttr", AnimatedSprite2D_GetAnimationSetAttr},
 {"AnimatedSprite2D_SetAnimationAttr", AnimatedSprite2D_SetAnimationAttr},
-{"Animation_GetType", Animation_GetType},
-{"Animation_GetTypeName", Animation_GetTypeName},
-{"Animation_GetTypeStatic", Animation_GetTypeStatic},
-{"Animation_GetTypeNameStatic", Animation_GetTypeNameStatic},
-{"Animation_Animation", Animation_Animation},
-{"Animation_RegisterObject", Animation_RegisterObject},
-{"Animation_BeginLoad_File", Animation_BeginLoad_File},
-{"Animation_BeginLoad_MemoryBuffer", Animation_BeginLoad_MemoryBuffer},
-{"Animation_Save_File", Animation_Save_File},
-{"Animation_Save_MemoryBuffer", Animation_Save_MemoryBuffer},
-{"Animation_SetAnimationName", Animation_SetAnimationName},
-{"Animation_SetLength", Animation_SetLength},
-{"Animation_CreateTrack", Animation_CreateTrack},
-{"Animation_RemoveTrack", Animation_RemoveTrack},
-{"Animation_RemoveAllTracks", Animation_RemoveAllTracks},
-{"Animation_AddTrigger_0", Animation_AddTrigger_0},
-{"Animation_AddTrigger_1", Animation_AddTrigger_1},
-{"Animation_AddTrigger_2", Animation_AddTrigger_2},
-{"Animation_AddTrigger_3", Animation_AddTrigger_3},
-{"Animation_AddTrigger_4", Animation_AddTrigger_4},
-{"Animation_AddTrigger_5", Animation_AddTrigger_5},
-{"Animation_AddTrigger_6", Animation_AddTrigger_6},
-{"Animation_AddTrigger_7", Animation_AddTrigger_7},
-{"Animation_AddTrigger_8", Animation_AddTrigger_8},
-{"Animation_AddTrigger_9", Animation_AddTrigger_9},
-{"Animation_AddTrigger_10", Animation_AddTrigger_10},
-{"Animation_AddTrigger_11", Animation_AddTrigger_11},
-{"Animation_AddTrigger_12", Animation_AddTrigger_12},
-{"Animation_AddTrigger_13", Animation_AddTrigger_13},
-{"Animation_AddTrigger_14", Animation_AddTrigger_14},
-{"Animation_RemoveTrigger", Animation_RemoveTrigger},
-{"Animation_RemoveAllTriggers", Animation_RemoveAllTriggers},
-{"Animation_SetNumTriggers", Animation_SetNumTriggers},
-{"Animation_Clone", Animation_Clone},
-{"Animation_GetAnimationName", Animation_GetAnimationName},
-{"Animation_GetAnimationNameHash", Animation_GetAnimationNameHash},
-{"Animation_GetLength", Animation_GetLength},
-{"Animation_GetNumTracks", Animation_GetNumTracks},
-{"Animation_GetTrack", Animation_GetTrack},
-{"Animation_GetTrack0", Animation_GetTrack0},
-{"Animation_GetTrack1", Animation_GetTrack1},
-{"Animation_GetNumTriggers", Animation_GetNumTriggers},
-{"Animation_GetTrigger", Animation_GetTrigger},
 {"AnimationController_GetType", AnimationController_GetType},
 {"AnimationController_GetTypeName", AnimationController_GetTypeName},
 {"AnimationController_GetTypeStatic", AnimationController_GetTypeStatic},
@@ -12481,34 +12491,34 @@ static void *pinvoke_tables[] = { Urho3D_imports,};
 static char *pinvoke_names[] = { "Urho3D",};
 InterpFtnDesc wasm_native_to_interp_ftndescs[6];
 typedef void  (*WasmInterpEntrySig_0) (int,int);
-void wasm_native_to_interp_UrhoDotNet_100663336 (int arg0) { 
+void wasm_native_to_interp_UrhoDotNet_100663441 (int arg0) { 
 ((WasmInterpEntrySig_0)wasm_native_to_interp_ftndescs [0].func) (&arg0, wasm_native_to_interp_ftndescs [0].arg);
 }
 typedef void  (*WasmInterpEntrySig_1) (int,int);
-void wasm_native_to_interp_UrhoDotNet_100663337 (int arg0) { 
+void wasm_native_to_interp_UrhoDotNet_100663442 (int arg0) { 
 ((WasmInterpEntrySig_1)wasm_native_to_interp_ftndescs [1].func) (&arg0, wasm_native_to_interp_ftndescs [1].arg);
 }
 typedef void  (*WasmInterpEntrySig_2) (int,int);
-void wasm_native_to_interp_UrhoDotNet_100663340 (int arg0) { 
+void wasm_native_to_interp_UrhoDotNet_100663445 (int arg0) { 
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667163 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667278 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667164 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667279 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672674 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672810 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663336,wasm_native_to_interp_UrhoDotNet_100663337,wasm_native_to_interp_UrhoDotNet_100663340,wasm_native_to_interp_UrhoDotNet_100667163,wasm_native_to_interp_UrhoDotNet_100667164,wasm_native_to_interp_UrhoDotNet_100672674,};
-static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663336",
-"UrhoDotNet_100663337",
-"UrhoDotNet_100663340",
-"UrhoDotNet_100667163",
-"UrhoDotNet_100667164",
-"UrhoDotNet_100672674",
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663441,wasm_native_to_interp_UrhoDotNet_100663442,wasm_native_to_interp_UrhoDotNet_100663445,wasm_native_to_interp_UrhoDotNet_100667278,wasm_native_to_interp_UrhoDotNet_100667279,wasm_native_to_interp_UrhoDotNet_100672810,};
+static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663441",
+"UrhoDotNet_100663442",
+"UrhoDotNet_100663445",
+"UrhoDotNet_100667278",
+"UrhoDotNet_100667279",
+"UrhoDotNet_100672810",
 };

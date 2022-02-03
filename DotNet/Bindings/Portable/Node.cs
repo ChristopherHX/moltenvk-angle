@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Reflection;
+using Urho.IO;
 
 namespace Urho
 {
@@ -217,12 +218,46 @@ namespace Urho
 
         public bool LoadXml(string prefab)
         {
-            var file = Application.Current.ResourceCache.GetXmlFile(prefab, true);
-            var element = file.GetRoot("node");
-            if (element == null || element.Null)
-                throw new Exception("'node' root element was not found");
-            return LoadXml(element);
+            bool result = false;
+            var file = Application.Current.ResourceCache.GetFile(prefab, true);
+            if(file != null)
+            {
+                file.Seek(0);
+                result =  LoadXml(file);
+                file.Close();
+            }
+            return result;
         }
+
+
+        public bool Load(string prefab)
+        {
+            bool result = false;
+            var file = Application.Current.ResourceCache.GetFile(prefab, true);
+            if(file != null)
+            {
+                file.Seek(0);
+                result =  Load(file);
+                file.Close();
+            }
+            return result;
+        }
+
+
+        public bool LoadJson(string prefab)
+        {
+            bool result = false;
+            var file = Application.Current.ResourceCache.GetFile(prefab, true);
+            if(file != null)
+            {
+                file.Seek(0);
+                result =  LoadJson(file);
+                file.Close();
+            }
+            return result;
+        }
+
+   
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         internal static extern Variant * Node_GetTags(IntPtr handle);

@@ -116,6 +116,36 @@ bool Node::Load(Deserializer& source)
     return success;
 }
 
+/// Load from an XML file. Return true if successful.
+bool Node::LoadXML(Deserializer& source)
+{
+    SharedPtr<XMLFile> xml(new XMLFile(context_));
+    if (!xml->Load(source))
+        return false;
+    
+    if (Node::LoadXML(xml->GetRoot()))
+    {
+        return true;
+    }
+    else
+        return false;
+    
+}
+/// Load from a JSON file. Return true if successful.
+bool Node::LoadJSON(Deserializer& source)
+{
+    SharedPtr<JSONFile> json(new JSONFile(context_));
+    if (!json->Load(source))
+        return false;
+    
+    if (Node::LoadJSON(json->GetRoot()))
+    {
+        return true;
+    }
+    else
+        return false;
+}
+
 bool Node::Save(Serializer& dest) const
 {
     // Write node ID
