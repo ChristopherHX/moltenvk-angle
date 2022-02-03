@@ -175,6 +175,7 @@ option (URHO3D_WEBP "Enable WebP support" TRUE)
 option (URHO3D_ANGLE_METAL "Enable Angle Metal graphics backend" FALSE)
 option (URHO3D_CLING "Urho3D used with Cling" FALSE)
 option (URHO3D_DOTNET "Enable DotNet support" FALSE)
+option (URHO3D_DOTNET_ASSIMP "Enable Assimp support on Desktop if DotNet enabled" FALSE)
 
 
 if(URHO3D_DOTNET AND EMSCRIPTEN)
@@ -483,7 +484,8 @@ if (URHO3D_CLANG_TOOLS)
             URHO3D_URHO2D
             URHO3D_ANGLE_METAL
             URHO3D_CLING
-            URHO3D_DOTNET)
+            URHO3D_DOTNET
+            URHO3D_DOTNET_ASSIMP)
         set (${OPT} 1)
     endforeach ()
     foreach (OPT URHO3D_TESTING URHO3D_LUAJIT URHO3D_DATABASE_ODBC)
@@ -547,7 +549,8 @@ foreach (OPT
         URHO3D_WIN32_CONSOLE
         URHO3D_ANGLE_METAL
         URHO3D_CLING
-        URHO3D_DOTNET)
+        URHO3D_DOTNET
+        URHO3D_DOTNET_ASSIMP)
     if (${OPT})
         add_definitions (-D${OPT})
     endif ()
@@ -1011,6 +1014,9 @@ macro (define_dependency_libs TARGET)
             if (URHO3D_MINIDUMPS)
                 list (APPEND LIBS dbghelp)
             endif ()
+            if(URHO3D_DOTNET AND URHO3D_DOTNET_ASSIMP)
+                 list (APPEND LIBS assimp)
+            endif()
         elseif (APPLE)
             if (ARM)
                 list (APPEND LIBS "-framework AudioToolbox" "-framework AVFoundation" "-framework CoreAudio" "-framework CoreBluetooth" "-framework CoreGraphics" "-framework CoreMotion" "-framework Foundation" "-framework GameController" "-framework QuartzCore" "-framework UIKit")
@@ -1029,9 +1035,17 @@ macro (define_dependency_libs TARGET)
                 else()
                     list (APPEND LIBS "-framework OpenGL")
                 endif()
+                if(URHO3D_DOTNET AND URHO3D_DOTNET_ASSIMP)
+                    list (APPEND LIBS assimp)
+                endif()
             endif ()
         endif ()
 
+        if (CMAKE_SYSTEM_NAME STREQUAL Linux)
+            if(URHO3D_DOTNET AND URHO3D_DOTNET_ASSIMP)
+                list (APPEND LIBS assimp)
+            endif()
+        endif ()
         # Graphics
         if (URHO3D_OPENGL)
             if (NOT (ANDROID OR WEB OR IOS OR TVOS OR URHO3D_ANGLE_METAL))

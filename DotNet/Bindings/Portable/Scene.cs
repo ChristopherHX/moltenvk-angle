@@ -21,16 +21,88 @@ namespace Urho
 			Runtime.ValidateRefCounted(this);
 			using (var file = new File(Context, path, FileMode.Read))
 			{
-				return LoadXml(file);
+				bool result = false;
+				if(file.IsOpen())
+				{
+					result = LoadXml(file);
+					file.Close();
+				}
+				return result;
 			}
 		}
+
+        public bool Load(string path)
+        {
+            Runtime.ValidateRefCounted(this);
+            using (var file = new File(Context, path, FileMode.Read))
+            {
+                bool result = false;
+                if (file.IsOpen())
+                {
+                    result = Load(file);
+                    file.Close();
+                }
+                return result;
+            }
+        }
+
+        public bool LoadJson(string path)
+        {
+            Runtime.ValidateRefCounted(this);
+            using (var file = new File(Context, path, FileMode.Read))
+            {
+                bool result = false;
+                if (file.IsOpen())
+                {
+                    result = LoadJson(file);
+                    file.Close();
+                }
+                return result;
+            }
+        }
 
 		public bool SaveXml(string path, string indentation = "\t")
 		{
 			Runtime.ValidateRefCounted(this);
 			using (var file = new File(Context, path, FileMode.Write))
 			{
-				return SaveXml(file, indentation);
+				bool result = false;
+                if (file.IsOpen())
+                {
+                    result = SaveXml(file,indentation);
+                    file.Close();
+                }
+                return result;
+			}
+		}
+
+		public bool SaveJson(string path, string indentation = "\t")
+		{
+			Runtime.ValidateRefCounted(this);
+			using (var file = new File(Context, path, FileMode.Write))
+			{
+				bool result = false;
+                if (file.IsOpen())
+                {
+                    result = SaveJson(file,indentation);
+                    file.Close();
+                }
+                return result;
+			}
+		}
+
+		public bool Save(string path)
+		{
+			Runtime.ValidateRefCounted(this);
+			using (var file = new File(Context, path, FileMode.Write))
+			{
+				bool result = false;
+                if (file.IsOpen())
+                {
+                    result = Save(file);
+                    file.Close();
+                }
+                return result;
 			}
 		}
 
