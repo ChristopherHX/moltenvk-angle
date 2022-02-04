@@ -165,4 +165,12 @@ if (URHO3D_EXTRAS)
     add_subdirectory (Extras)
 endif ()
 
+if (URHO3D_DOTNET_ASSIMP)
+if(WIN32)
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /FORCE:MULTIPLE") 
+endif(WIN32)
 
+# Define dependency libs
+add_subdirectory (ThirdParty/Assimp ThirdParty/Assimp)
+link_directories(${Assimp_BINARY_DIR}/lib )
+endif()
