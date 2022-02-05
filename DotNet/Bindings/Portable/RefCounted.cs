@@ -50,7 +50,7 @@ namespace Urho {
 		/// </summary>
 		void DeleteNativeObject()
 		{
-			if (!IsDeleted && AllowNativeDelete)
+			if (!IsDeleted && AllowNativeDelete  && !Application.isExiting)
 			{
 				LogSharp.Trace($"{GetType().Name}: DeleteNativeObject");
 				TryDeleteRefCounted(handle);
