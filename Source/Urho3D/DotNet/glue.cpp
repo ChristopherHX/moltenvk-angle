@@ -618,11 +618,6 @@ extern "C"
         return variant1 == variant2;
     }
 
-    DllExport bool Variant_NonEqualityOperator(Variant& variant1 ,Variant& variant2 )
-    {
-        return variant1 != variant2;
-    }
-
     DllExport void urho_map_get_value(VariantMap& nativeInstance, int key, Variant& value)
     {
         value = nativeInstance[StringHash(key)];

@@ -114,7 +114,7 @@ namespace Urho
 
         public static bool operator !=(Variant obj1, Variant obj2)
         {
-            return Variant_NonEqualityOperator(ref obj1, ref obj2);
+            return Variant_EqualityOperator(ref obj1, ref obj2) == false;
         }
         public DynamicMap GetVariantMap()
         {
@@ -334,9 +334,6 @@ namespace Urho
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         internal static extern bool Variant_EqualityOperator(ref Variant variant1, ref Variant variant2);
-
-        [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern bool Variant_NonEqualityOperator(ref Variant variant1, ref Variant variant2);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern void Variant_GetRetVariant(IntPtr handle, out Variant var);
