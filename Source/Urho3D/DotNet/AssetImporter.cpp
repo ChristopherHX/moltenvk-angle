@@ -119,6 +119,7 @@ String inputName_;
 String resourcePath_;
 String outPath_;
 String outName_;
+String dirPrefix_;
 bool useSubdirs_ = true;
 bool localIDs_ = false;
 bool saveBinary_ = false;
@@ -245,6 +246,8 @@ extern "C"
         String OutputFile;
         AISceneFormat SceneFormat;
         float Scale;
+        String DirectoryPrefix;
+        String ResourcePath;
     };
 
     DllExport
@@ -292,6 +295,7 @@ extern "C"
         int result = 0;
         
         context_ = context;
+        dirPrefix_ = "";
         
         if(! context_->GetSubsystem<FileSystem>()->FileExists(aiCommand.InputFile))
         {
@@ -345,7 +349,19 @@ extern "C"
             arguments.Push("-sc");
             arguments.Push(String(aiCommand.Scale));
         }
-        
+
+        if(aiCommand.DirectoryPrefix != "")
+        {
+            arguments.Push("-pp");
+            arguments.Push(aiCommand.DirectoryPrefix);
+        }
+
+        if (aiCommand.ResourcePath != "")
+        {
+            arguments.Push("-p");
+            arguments.Push(aiCommand.ResourcePath);
+        }
+
         Run(arguments);
         
         
@@ -424,6 +440,7 @@ void Run(const Vector<String>& arguments)
 
     String command = arguments[0].ToLower();
     String rootNodeName;
+    dirPrefix_ = "";
 
     unsigned flags =
         aiProcess_ConvertToLeftHanded |
@@ -521,6 +538,11 @@ void Run(const Vector<String>& arguments)
                 resourcePath_ = AddTrailingSlash(value);
                 ++i;
             }
+            else if (argument == "pp" && !value.Empty())
+			{
+				dirPrefix_ = AddTrailingSlash(value);
+				++i;
+			}
             else if (argument == "r" && !value.Empty())
             {
                 rootNodeName = value;
@@ -1815,7 +1837,7 @@ void BuildAndSaveScene(OutScene& scene, bool asPrefab)
                 model.bones_.Empty() ? modelNode->CreateComponent<StaticModel>() : modelNode->CreateComponent<AnimatedModel>());
 
         // Create a dummy model so that the reference can be stored
-        String modelName = (useSubdirs_ ? "Models/" : "") + GetFileNameAndExtension(model.outName_);
+        String modelName = dirPrefix_ + (useSubdirs_ ? "Models/" : "") + GetFileNameAndExtension(model.outName_);
         if (!cache->Exists(modelName))
         {
             auto* dummyModel = new Model(context_);
@@ -2473,7 +2495,7 @@ String GetMeshMaterialName(aiMesh* mesh)
     if (matName.Trimmed().Empty())
         matName = GenerateMaterialName(material);
 
-    return (useSubdirs_ ? "Materials/" : "") + matName + ".xml";
+    return dirPrefix_ + (useSubdirs_ ? "Materials/" : "") + matName + ".xml";
 }
 
 String GenerateMaterialName(aiMaterial* material)
@@ -2494,7 +2516,7 @@ String GetMaterialTextureName(const String& nameIn)
     if (nameIn.Length() && nameIn[0] == '*')
         return GenerateTextureName(ToInt(nameIn.Substring(1)));
     else
-        return (useSubdirs_ ? "Textures/" : "") + nameIn;
+        return dirPrefix_ + (useSubdirs_ ? "Textures/" : "") + nameIn;
 }
 
 String GenerateTextureName(unsigned texIndex)
@@ -2504,9 +2526,9 @@ String GenerateTextureName(unsigned texIndex)
         // If embedded texture contains encoded data, use the format hint for file extension. Else save RGBA8 data as PNG
         aiTexture* tex = scene_->mTextures[texIndex];
         if (!tex->mHeight)
-            return (useSubdirs_ ? "Textures/" : "") + inputName_ + "_Texture" + String(texIndex) + "." + tex->achFormatHint;
+            return dirPrefix_ + (useSubdirs_ ? "Textures/" : "") + inputName_ + "_Texture" + String(texIndex) + "." + tex->achFormatHint;
         else
-            return (useSubdirs_ ? "Textures/" : "") + inputName_ + "_Texture" + String(texIndex) + ".png";
+            return dirPrefix_ + (useSubdirs_ ? "Textures/" : "") + inputName_ + "_Texture" + String(texIndex) + ".png";
     }
 
     // Should not go here
