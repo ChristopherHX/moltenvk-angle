@@ -225,10 +225,21 @@ namespace Urho
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public class ResourceRef
+    public struct  ResourceRef
     {
-        public StringHash Type;
+        public int type;
         public UrhoString Name;
+
+        public StringHash Type
+        {
+            get{
+                 return new StringHash(type);
+            }
+
+            set{
+                type = value.Code;
+            }
+        }
     }
 
     [StructLayout(LayoutKind.Sequential)]

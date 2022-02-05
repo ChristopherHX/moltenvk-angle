@@ -271,8 +271,7 @@ namespace Urho
         {
             // ReferenceObject = v;
             DynamicType = VariantType.Resourceref;
-            Handle = Dynamic_CreateResourceRef(v.Type.Code,(string)v.Name);
-            
+            Handle = Dynamic_CreateResourceRef(v.type,(string)v.Name);
         }
 
 
@@ -284,20 +283,25 @@ namespace Urho
         public static implicit operator ResourceRef(Dynamic v)
         {
             if (v.Handle != IntPtr.Zero && v.DynamicType == VariantType.Resourceref)
-                return v;
+            {
+                ResourceRef *resourceRef= Dynamic_GetResourceRef(v.Handle);
+                return *resourceRef;
+            }
             else return new ResourceRef();
         }
 
         public ResourceRef GetResourceRef()
         {
             if (Handle != IntPtr.Zero && DynamicType == VariantType.Resourceref)
-                return this;
+            {
+                ResourceRef *resourceRef= Dynamic_GetResourceRef(Handle);
+                return *resourceRef;
+            }
             else return new ResourceRef();
         }
 
         public Dynamic(ResourceRefList resourceRefList)
         {
-            // ReferenceObject = resourceRefList;
             DynamicType = VariantType.Resourcereflist;
             Handle = Dynamic_CreateResourceRefList(resourceRefList.Type.Code,resourceRefList.Names.Handle);
             
@@ -308,6 +312,7 @@ namespace Urho
             return new Dynamic(resourceRefList);
         }
 
+        // TBD elix22 , this is definitely wrong , needs to be fixed 
         public static implicit operator ResourceRefList(Dynamic v)
         {
             if (v.Handle != IntPtr.Zero && v.DynamicType == VariantType.Resourcereflist)
@@ -862,7 +867,7 @@ namespace Urho
          static extern IntPtr Dynamic_CreateResourceRef(int type ,string name);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr Dynamic_GetResourceRef(IntPtr v);
+        static extern ResourceRef * Dynamic_GetResourceRef(IntPtr v);
 
         [DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr Dynamic_CreateResourceRefList(int type,IntPtr StringVectorHandle);

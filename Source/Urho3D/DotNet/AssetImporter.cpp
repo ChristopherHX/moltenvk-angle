@@ -1949,7 +1949,7 @@ void BuildAndSaveMaterial(aiMaterial* material, HashSet<String>& usedTextures)
     String lightmapTexName;
     String emissiveTexName;
     Color diffuseColor = Color::WHITE;
-    Color specularColor;
+    Color specularColor = Color::BLACK;
     Color emissiveColor = Color::BLACK;
     bool hasAlpha = false;
     bool twoSided = false;
@@ -1980,7 +1980,9 @@ void BuildAndSaveMaterial(aiMaterial* material, HashSet<String>& usedTextures)
     if (!emissiveAO_)
     {
         if (material->Get(AI_MATKEY_COLOR_EMISSIVE, colorVal) == AI_SUCCESS)
-            emissiveColor = Color(colorVal.r, colorVal.g, colorVal.b);
+        {
+            emissiveColor = Color(colorVal.r/10, colorVal.g/10, colorVal.b/10);
+        }
     }
     if (material->Get(AI_MATKEY_OPACITY, floatVal) == AI_SUCCESS)
     {
@@ -2701,7 +2703,8 @@ String FromAIString(const aiString& str)
 {
     String urhoString = String(str.data); 
     urhoString.Replace('[', '_'); 
-    urhoString.Replace(']', '_'); 
+    urhoString.Replace(']', '_');
+    urhoString.Replace('-', '_');
     return urhoString;
 }
 

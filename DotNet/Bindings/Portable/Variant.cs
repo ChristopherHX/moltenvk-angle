@@ -225,7 +225,7 @@ namespace Urho
             if (v.Type == VariantType.Resourceref)
             {
                 resourceRef.Name = new UrhoString(Marshal.PtrToStringAnsi(Variant_GetResourceRefName(ref v)));
-                resourceRef.Type = new StringHash((int)Variant_GetResourceRefType(ref v));
+                resourceRef.type = (int)Variant_GetResourceRefType(ref v);
             }
             return resourceRef;
         }
