@@ -48409,9 +48409,9 @@ VectorGraphics_DeleteImage (Urho3D::VectorGraphics *_target, int image)
 
 
 DllExport Urho3D::Texture2D *
-VectorGraphics_LoadSVGIntoTexture (Urho3D::VectorGraphics *_target, Urho3D::String path)
+VectorGraphics_LoadSVGIntoTexture (Urho3D::VectorGraphics *_target, const char * path)
 {
-	auto copy = _target->LoadSVGIntoTexture (path);
+	auto copy = _target->LoadSVGIntoTexture (Urho3D::String(path));
 	auto plain = copy.Get();
 	copy.Detach();
 	delete copy;

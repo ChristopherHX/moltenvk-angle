@@ -613,7 +613,7 @@ void VectorGraphics::DeleteImage(int image)
     }
 }
 
-SharedPtr<Texture2D> VectorGraphics::LoadSVGIntoTexture(String path)
+SharedPtr<Texture2D> VectorGraphics::LoadSVGIntoTexture(const String& path)
 {
 
     auto* cache = GetSubsystem<ResourceCache>();

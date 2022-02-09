@@ -218,7 +218,7 @@ public:
     // Deletes created image.
     void DeleteImage(int image);
 
-    SharedPtr<Texture2D> LoadSVGIntoTexture(String path);
+    SharedPtr<Texture2D> LoadSVGIntoTexture(const String& path);
 
 protected:
 
