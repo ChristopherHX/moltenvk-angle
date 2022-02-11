@@ -235,6 +235,8 @@ public:
     void SetColorFrames(const Vector<ColorFrame>& colorFrames);
     /// Set color animation frame at index. If index is greater than number of color frames, new color frames are added.
     void SetColorFrame(unsigned index, const ColorFrame& colorFrame);
+    /// Set color animation frame at index. If index is greater than number of color frames, new color frames are added.
+    void SetColorFrame(unsigned index, const ColorFrame* colorFrame);
     /// Set number of color frames.
     /// @property
     void SetNumColorFrames(unsigned number);
@@ -251,6 +253,8 @@ public:
     void SetTextureFrames(const Vector<TextureFrame>& textureFrames);
     /// Set number of texture animation frames.
     void SetTextureFrame(unsigned index, const TextureFrame& textureFrame);
+        /// Set number of texture animation frames.
+    void SetTextureFrame(unsigned index, const TextureFrame* textureFrame);
     /// Set number of texture frames.
     /// @property
     void SetNumTextureFrames(unsigned number);

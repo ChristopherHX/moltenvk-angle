@@ -706,6 +706,42 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern IntPtr Material_GetTechniqueOriginal (IntPtr handle, uint index);
+
+		/// <summary>
+		/// Return technique by index.
+		/// </summary>
+		public Technique GetTechniqueOriginal (uint index)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Runtime.LookupObject<Technique> (Material_GetTechniqueOriginal (handle, index));
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern float Material_GetTechniqueLodDistance (IntPtr handle, uint index);
+
+		/// <summary>
+		/// Return technique lod distance.
+		/// </summary>
+		public float GetTechniqueLodDistance (uint index)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Material_GetTechniqueLodDistance (handle, index);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern MaterialQuality Material_GetTechniqueQualityLevel (IntPtr handle, uint index);
+
+		/// <summary>
+		/// Return technique lod Quality Level.
+		/// </summary>
+		public MaterialQuality GetTechniqueQualityLevel (uint index)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Material_GetTechniqueQualityLevel (handle, index);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern IntPtr Material_GetPass (IntPtr handle, uint index, string passName);
 
 		/// <summary>
@@ -754,6 +790,19 @@ namespace Urho
 		{
 			Runtime.ValidateRefCounted (this);
 			return Marshal.PtrToStringAnsi (Material_GetPixelShaderDefines (handle));
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern Variant* Material_GetShaderParameterPtr (IntPtr handle, string name);
+
+		/// <summary>
+		/// Return shader parameter.
+		/// 
+		/// </summary>
+		public Variant* GetShaderParameterPtr (string name)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Material_GetShaderParameterPtr (handle, name);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

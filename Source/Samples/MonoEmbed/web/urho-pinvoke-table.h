@@ -942,10 +942,14 @@ void Material_SortTechniques (int);
 void Material_MarkForAuxView (int,int);
 int Material_GetNumTechniques (int);
 int Material_GetTechnique (int,int);
+int Material_GetTechniqueOriginal (int,int);
+float Material_GetTechniqueLodDistance (int,int);
+int Material_GetTechniqueQualityLevel (int,int);
 int Material_GetPass (int,int,int);
 int Material_GetTexture (int,int);
 int Material_GetVertexShaderDefines (int);
 int Material_GetPixelShaderDefines (int);
+int Material_GetShaderParameterPtr (int,int);
 int Material_GetShaderParameterAnimation (int,int);
 int Material_GetShaderParameterAnimationWrapMode (int,int);
 float Material_GetShaderParameterAnimationSpeed (int,int);
@@ -4718,9 +4722,11 @@ void ParticleEffect_SetSizeMul (int,float);
 void ParticleEffect_SetFaceCameraMode (int,int);
 void ParticleEffect_AddColorTime (int,int,float);
 void ParticleEffect_RemoveColorFrame (int,int);
+void ParticleEffect_SetColorFrame (int,int,int);
 void ParticleEffect_SetNumColorFrames (int,int);
 void ParticleEffect_SortColorFrames (int);
 void ParticleEffect_RemoveTextureFrame (int,int);
+void ParticleEffect_SetTextureFrame (int,int,int);
 void ParticleEffect_SetNumTextureFrames (int,int);
 void ParticleEffect_SortTextureFrames (int);
 int ParticleEffect_Clone (int,int);
@@ -7184,10 +7190,14 @@ static PinvokeImport Urho3D_imports [] = {
 {"Material_MarkForAuxView", Material_MarkForAuxView},
 {"Material_GetNumTechniques", Material_GetNumTechniques},
 {"Material_GetTechnique", Material_GetTechnique},
+{"Material_GetTechniqueOriginal", Material_GetTechniqueOriginal},
+{"Material_GetTechniqueLodDistance", Material_GetTechniqueLodDistance},
+{"Material_GetTechniqueQualityLevel", Material_GetTechniqueQualityLevel},
 {"Material_GetPass", Material_GetPass},
 {"Material_GetTexture", Material_GetTexture},
 {"Material_GetVertexShaderDefines", Material_GetVertexShaderDefines},
 {"Material_GetPixelShaderDefines", Material_GetPixelShaderDefines},
+{"Material_GetShaderParameterPtr", Material_GetShaderParameterPtr},
 {"Material_GetShaderParameterAnimation", Material_GetShaderParameterAnimation},
 {"Material_GetShaderParameterAnimationWrapMode", Material_GetShaderParameterAnimationWrapMode},
 {"Material_GetShaderParameterAnimationSpeed", Material_GetShaderParameterAnimationSpeed},
@@ -10960,9 +10970,11 @@ static PinvokeImport Urho3D_imports [] = {
 {"ParticleEffect_SetFaceCameraMode", ParticleEffect_SetFaceCameraMode},
 {"ParticleEffect_AddColorTime", ParticleEffect_AddColorTime},
 {"ParticleEffect_RemoveColorFrame", ParticleEffect_RemoveColorFrame},
+{"ParticleEffect_SetColorFrame", ParticleEffect_SetColorFrame},
 {"ParticleEffect_SetNumColorFrames", ParticleEffect_SetNumColorFrames},
 {"ParticleEffect_SortColorFrames", ParticleEffect_SortColorFrames},
 {"ParticleEffect_RemoveTextureFrame", ParticleEffect_RemoveTextureFrame},
+{"ParticleEffect_SetTextureFrame", ParticleEffect_SetTextureFrame},
 {"ParticleEffect_SetNumTextureFrames", ParticleEffect_SetNumTextureFrames},
 {"ParticleEffect_SortTextureFrames", ParticleEffect_SortTextureFrames},
 {"ParticleEffect_Clone", ParticleEffect_Clone},
@@ -12501,22 +12513,22 @@ void wasm_native_to_interp_UrhoDotNet_100663445 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667278 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667286 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667279 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667287 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672810 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672820 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663441,wasm_native_to_interp_UrhoDotNet_100663442,wasm_native_to_interp_UrhoDotNet_100663445,wasm_native_to_interp_UrhoDotNet_100667278,wasm_native_to_interp_UrhoDotNet_100667279,wasm_native_to_interp_UrhoDotNet_100672810,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663441,wasm_native_to_interp_UrhoDotNet_100663442,wasm_native_to_interp_UrhoDotNet_100663445,wasm_native_to_interp_UrhoDotNet_100667286,wasm_native_to_interp_UrhoDotNet_100667287,wasm_native_to_interp_UrhoDotNet_100672820,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663441",
 "UrhoDotNet_100663442",
 "UrhoDotNet_100663445",
-"UrhoDotNet_100667278",
-"UrhoDotNet_100667279",
-"UrhoDotNet_100672810",
+"UrhoDotNet_100667286",
+"UrhoDotNet_100667287",
+"UrhoDotNet_100672820",
 };

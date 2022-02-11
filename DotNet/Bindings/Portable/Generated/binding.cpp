@@ -12319,6 +12319,27 @@ Material_GetTechnique (Urho3D::Material *_target, unsigned int index)
 }
 
 
+DllExport Urho3D::Technique *
+Material_GetTechniqueOriginal (Urho3D::Material *_target, unsigned int index)
+{
+	return _target->GetTechniqueOriginal (index);
+}
+
+
+DllExport float
+Material_GetTechniqueLodDistance (Urho3D::Material *_target, unsigned int index)
+{
+	return _target->GetTechniqueLodDistance (index);
+}
+
+
+DllExport enum Urho3D::MaterialQuality
+Material_GetTechniqueQualityLevel (Urho3D::Material *_target, unsigned int index)
+{
+	return _target->GetTechniqueQualityLevel (index);
+}
+
+
 DllExport Urho3D::Pass *
 Material_GetPass (Urho3D::Material *_target, unsigned int index, const char * passName)
 {
@@ -12569,6 +12590,13 @@ Material_GetShaderParameter_14 (Urho3D::Material *_target, const char * name)
 }
 
 // Urho3D::Variant overloads end.
+DllExport const class Urho3D::Variant *
+Material_GetShaderParameterPtr (Urho3D::Material *_target, const char * name)
+{
+	return _target->GetShaderParameterPtr (Urho3D::String(name));
+}
+
+
 DllExport Urho3D::ValueAnimation *
 Material_GetShaderParameterAnimation (Urho3D::Material *_target, const char * name)
 {
@@ -17834,6 +17862,13 @@ ParticleEffect_RemoveColorFrame (Urho3D::ParticleEffect *_target, unsigned int i
 
 
 DllExport void
+ParticleEffect_SetColorFrame (Urho3D::ParticleEffect *_target, unsigned int index, const struct Urho3D::ColorFrame * colorFrame)
+{
+	_target->SetColorFrame (index, colorFrame);
+}
+
+
+DllExport void
 ParticleEffect_SetNumColorFrames (Urho3D::ParticleEffect *_target, unsigned int number)
 {
 	_target->SetNumColorFrames (number);
@@ -17851,6 +17886,13 @@ DllExport void
 ParticleEffect_RemoveTextureFrame (Urho3D::ParticleEffect *_target, unsigned int index)
 {
 	_target->RemoveTextureFrame (index);
+}
+
+
+DllExport void
+ParticleEffect_SetTextureFrame (Urho3D::ParticleEffect *_target, unsigned int index, const struct Urho3D::TextureFrame * textureFrame)
+{
+	_target->SetTextureFrame (index, textureFrame);
 }
 
 

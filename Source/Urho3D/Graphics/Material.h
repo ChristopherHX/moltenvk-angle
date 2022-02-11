@@ -211,6 +211,12 @@ public:
     /// Return technique by index.
     /// @property{get_techniques}
     Technique* GetTechnique(unsigned index) const;
+    /// Return technique by index.
+    Technique* GetTechniqueOriginal(unsigned index) const;
+    /// Return technique lod distance.
+    float GetTechniqueLodDistance(unsigned index) const;
+    /// Return technique lod Quality Level.
+    MaterialQuality GetTechniqueQualityLevel(unsigned index) const;
     /// Return pass by technique index and pass name.
     Pass* GetPass(unsigned index, const String& passName) const;
     /// Return texture by unit.
@@ -230,6 +236,10 @@ public:
     /// Return shader parameter.
     /// @property{get_shaderParameters}
     const Variant& GetShaderParameter(const String& name) const;
+     /// Return shader parameter.
+    /// @property{get_shaderParameters}
+    const Variant* GetShaderParameterPtr(const String& name) const;
+
     /// Return shader parameter animation.
     ValueAnimation* GetShaderParameterAnimation(const String& name) const;
     /// Return shader parameter animation wrap mode.

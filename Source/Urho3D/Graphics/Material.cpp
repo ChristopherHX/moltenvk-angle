@@ -1188,6 +1188,21 @@ Technique* Material::GetTechnique(unsigned index) const
     return index < techniques_.Size() ? techniques_[index].technique_ : nullptr;
 }
 
+Technique* Material::GetTechniqueOriginal(unsigned index) const
+{
+    return index < techniques_.Size() ? techniques_[index].original_ : nullptr;
+}
+
+float Material::GetTechniqueLodDistance(unsigned index) const
+{
+    return index < techniques_.Size() ? techniques_[index].lodDistance_ : 0.0f;
+}
+
+MaterialQuality Material::GetTechniqueQualityLevel(unsigned index) const 
+{
+    return index < techniques_.Size() ? techniques_[index].qualityLevel_ : MaterialQuality::QUALITY_LOW;
+}
+
 Pass* Material::GetPass(unsigned index, const String& passName) const
 {
     Technique* tech = index < techniques_.Size() ? techniques_[index].technique_ : nullptr;
@@ -1198,6 +1213,12 @@ Texture* Material::GetTexture(TextureUnit unit) const
 {
     HashMap<TextureUnit, SharedPtr<Texture> >::ConstIterator i = textures_.Find(unit);
     return i != textures_.End() ? i->second_.Get() : nullptr;
+}
+
+const Variant* Material::GetShaderParameterPtr(const String& name) const
+{
+    HashMap<StringHash, MaterialShaderParameter>::ConstIterator i = shaderParameters_.Find(name);
+    return i != shaderParameters_.End() ? &i->second_.value_ : &Variant::EMPTY;
 }
 
 const Variant& Material::GetShaderParameter(const String& name) const

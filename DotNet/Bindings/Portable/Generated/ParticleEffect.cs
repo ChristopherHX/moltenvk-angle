@@ -611,6 +611,18 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void ParticleEffect_SetColorFrame (IntPtr handle, uint index, ColorFrame* colorFrame);
+
+		/// <summary>
+		/// Set color animation frame at index. If index is greater than number of color frames, new color frames are added.
+		/// </summary>
+		public void SetColorFrame (uint index, ColorFrame* colorFrame)
+		{
+			Runtime.ValidateRefCounted (this);
+			ParticleEffect_SetColorFrame (handle, index, colorFrame);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void ParticleEffect_SetNumColorFrames (IntPtr handle, uint number);
 
 		/// <summary>
@@ -645,6 +657,18 @@ namespace Urho
 		{
 			Runtime.ValidateRefCounted (this);
 			ParticleEffect_RemoveTextureFrame (handle, index);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void ParticleEffect_SetTextureFrame (IntPtr handle, uint index, TextureFrame* textureFrame);
+
+		/// <summary>
+		/// Set number of texture animation frames.
+		/// </summary>
+		public void SetTextureFrame (uint index, TextureFrame* textureFrame)
+		{
+			Runtime.ValidateRefCounted (this);
+			ParticleEffect_SetTextureFrame (handle, index, textureFrame);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]

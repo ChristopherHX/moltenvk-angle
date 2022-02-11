@@ -1279,6 +1279,8 @@ namespace Urho
     [StructLayout(LayoutKind.Sequential)]
     public struct TextureFrame
     {
+        public Rect UV;
+        public float Time;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -2096,5 +2098,27 @@ namespace Urho
 	public float X;			// The x-coordinate of the logical glyph position.
 	public float MinX, MaxX;	// The bounds of the glyph shape.
 }
+
+[StructLayout(LayoutKind.Sequential)]
+struct MaterialShaderParameter
+{
+    /// Name.
+    UrhoString name_;
+    /// Value.
+    Variant value_;
+
+    string Name{
+        get{
+            return (string)name_;
+        }
+    }
+
+    Variant Value 
+    {
+        get{
+            return value_;
+        }
+    }
+};
 
 }

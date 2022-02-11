@@ -643,6 +643,13 @@ void ParticleEffect::SetColorFrame(unsigned index, const ColorFrame& colorFrame)
     colorFrames_[index] = colorFrame;
 }
 
+void ParticleEffect::SetColorFrame(unsigned index, const ColorFrame* colorFrame)
+{
+    if (colorFrames_.Size() < index + 1)
+        colorFrames_.Resize(index + 1);
+    colorFrames_[index] = *colorFrame;
+}
+
 void ParticleEffect::SetNumColorFrames(unsigned number)
 {
     unsigned s = colorFrames_.Size();
@@ -716,6 +723,13 @@ void ParticleEffect::SetTextureFrame(unsigned index, const TextureFrame& texture
     if (textureFrames_.Size() < index + 1)
         textureFrames_.Resize(index + 1);
     textureFrames_[index] = textureFrame;
+}
+
+void ParticleEffect::SetTextureFrame(unsigned index, const TextureFrame* textureFrame)
+{
+    if (textureFrames_.Size() < index + 1)
+        textureFrames_.Resize(index + 1);
+    textureFrames_[index] = *textureFrame;
 }
 
 void ParticleEffect::SetNumTextureFrames(unsigned number)
