@@ -282,6 +282,9 @@ namespace Urho.IO
 			        System.Console.WriteLine(RedColorText + $"{timestamp} {level}: {message}");
                 break;
             }
+            
+            if (Application.HasCurrent)
+                Application.Current.OnLogSharpHook(level, message);
 #endif
 #endif
         }

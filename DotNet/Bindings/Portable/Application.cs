@@ -310,6 +310,7 @@ namespace Urho
 
         public virtual Component  CreateComponentInstance(string name, IntPtr target, ref bool deserializeComponentFields){deserializeComponentFields = true; return null;}
         public virtual object  CreateComponentInstance(System.Type type, IntPtr target, ref bool deserializeComponentFields){deserializeComponentFields = true; return null;}
+        public virtual void OnLogSharpHook(LogLevel level, string message){}
 
         public event Action Paused;
         internal static void HandlePause()
