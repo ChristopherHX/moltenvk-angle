@@ -33,8 +33,16 @@ namespace Urho
 		{
 			lock (knownObjects)
 			{
+				bool checkDuplicates = true;
+				if(Application.HasCurrent)
+				{
+					if(Application.Current.EditorMode == true)
+					{
+						checkDuplicates = false;
+					}
+				}
 				ReferenceHolder<RefCounted> knownObject;
-				if (knownObjects.TryGetValue(refCounted.Handle, out knownObject))
+				if (knownObjects.TryGetValue(refCounted.Handle, out knownObject) && checkDuplicates == true)
 				{
 					var existingObj = knownObject?.Reference;
 					if (existingObj != null && !IsInHierarchy(existingObj.GetType(), refCounted.GetType()))
