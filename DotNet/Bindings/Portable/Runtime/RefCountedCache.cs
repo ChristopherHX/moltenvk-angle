@@ -34,6 +34,7 @@ namespace Urho
 			lock (knownObjects)
 			{
 				bool checkDuplicates = true;
+#if __EDITOR__
 				if(Application.HasCurrent)
 				{
 					if(Application.Current.EditorMode == true)
@@ -41,6 +42,7 @@ namespace Urho
 						checkDuplicates = false;
 					}
 				}
+#endif
 				ReferenceHolder<RefCounted> knownObject;
 				if (knownObjects.TryGetValue(refCounted.Handle, out knownObject) && checkDuplicates == true)
 				{

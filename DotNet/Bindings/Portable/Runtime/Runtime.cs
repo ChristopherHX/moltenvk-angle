@@ -113,10 +113,12 @@ namespace Urho
                                     typeObj = Type.GetType(fqn_name_in_game_assembly);
                                     if (typeObj == null)
                                     {
+#if __EDITOR__
                                         if (Application.HasCurrent)
                                         {
                                             component = Application.Current.CreateComponentInstance(name, target, ref deserializeComponentFields);
                                         }
+#endif
 
                                         if (component == null)
                                         {
@@ -279,6 +281,7 @@ namespace Urho
                 //TODO: special case, handle managed subclasses
             }
 
+#if __EDITOR__
             // For unknown components , give the application a chance to find it.
             if (type == typeof(UnknownComponent))
             {
@@ -286,6 +289,7 @@ namespace Urho
                 var urhoComponent = (T)Application.Current.CreateComponentInstance(type, ptr, ref deserializeComponentFields);
                 if (urhoComponent != null) return urhoComponent;
             }
+#endif
 
             var urhoObject = (T)Activator.CreateInstance(type, ptr);
             return urhoObject;

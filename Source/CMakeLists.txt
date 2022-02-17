@@ -168,9 +168,10 @@ endif ()
 if (URHO3D_DOTNET_ASSIMP)
 if(WIN32)
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /FORCE:MULTIPLE") 
+  add_subdirectory (ThirdParty/Assimp ThirdParty/Assimp)
 endif(WIN32)
 
 # Define dependency libs
-add_subdirectory (ThirdParty/Assimp ThirdParty/Assimp)
+# TBD ELI behaves differently on OSX/Windows/Linux, add_subdirectory (ThirdParty/Assimp ThirdParty/Assimp)
 link_directories(${Assimp_BINARY_DIR}/lib )
 endif()

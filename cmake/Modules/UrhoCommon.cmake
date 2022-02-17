@@ -176,6 +176,7 @@ option (URHO3D_ANGLE_METAL "Enable Angle Metal graphics backend" FALSE)
 option (URHO3D_CLING "Urho3D used with Cling" FALSE)
 option (URHO3D_DOTNET "Enable DotNet support" FALSE)
 option (URHO3D_DOTNET_ASSIMP "Enable Assimp support on Desktop if DotNet enabled" FALSE)
+option (URHO3D_DOTNET_EDITOR "Enable Editor support on Desktop if DotNet enabled" FALSE)
 
 
 if(URHO3D_DOTNET AND EMSCRIPTEN)
@@ -194,6 +195,10 @@ if(URHO3D_DOTNET AND ANDROID)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-address-of-temporary -Wno-return-type-c-linkage")
 endif ()
 
+
+if(URHO3D_DOTNET AND URHO3D_DOTNET_EDITOR)
+set(URHO3D_DOTNET_ASSIMP TRUE)
+endif ()
 
 if(URHO3D_CLING)
     set (URHO3D_SSE FALSE)
@@ -485,7 +490,8 @@ if (URHO3D_CLANG_TOOLS)
             URHO3D_ANGLE_METAL
             URHO3D_CLING
             URHO3D_DOTNET
-            URHO3D_DOTNET_ASSIMP)
+            URHO3D_DOTNET_ASSIMP
+            URHO3D_DOTNET_EDITOR)
         set (${OPT} 1)
     endforeach ()
     foreach (OPT URHO3D_TESTING URHO3D_LUAJIT URHO3D_DATABASE_ODBC)
@@ -550,7 +556,8 @@ foreach (OPT
         URHO3D_ANGLE_METAL
         URHO3D_CLING
         URHO3D_DOTNET
-        URHO3D_DOTNET_ASSIMP)
+        URHO3D_DOTNET_ASSIMP
+        URHO3D_DOTNET_EDITOR)
     if (${OPT})
         add_definitions (-D${OPT})
     endif ()

@@ -283,8 +283,11 @@ namespace Urho.IO
                 break;
             }
             
+#if __EDITOR__
             if (Application.HasCurrent)
                 Application.Current.OnLogSharpHook(level, message);
+#endif
+
 #endif
 #endif
         }
