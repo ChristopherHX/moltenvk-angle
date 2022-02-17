@@ -314,6 +314,7 @@ namespace Urho
         public virtual void OnLogSharpHook(LogLevel level, string message){}
 
         public bool EditorMode = false;
+        public bool EditorUpdate = false;
 #endif
 
         public event Action Paused;

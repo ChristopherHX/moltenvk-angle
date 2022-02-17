@@ -180,7 +180,15 @@ namespace Urho
             if (isDisposed) return;
 
             if (Enabled == false) return;
-
+#if __EDITOR__
+            if (Application.HasCurrent)
+            {
+                if (Application.Current.EditorMode == true && Application.Current.EditorUpdate == false)
+                {
+                    return;
+                }
+            }
+#endif
             try
             {
                 OnUpdate(args.TimeStep);

@@ -225,6 +225,15 @@ namespace Urho
         /// </summary>
         protected override void OnUpdate(float timeStep)
         {
+#if __EDITOR__
+            if (Application.HasCurrent)
+            {
+                if (Application.Current.EditorMode == true && Application.Current.EditorUpdate == false)
+                {
+                    return;
+                }
+            }
+#endif
             base.OnUpdate(timeStep);
             if (delayedStartCalled_ == false)
             {
