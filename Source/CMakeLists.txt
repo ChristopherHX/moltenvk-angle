@@ -171,6 +171,10 @@ if(WIN32)
   add_subdirectory (ThirdParty/Assimp ThirdParty/Assimp)
 endif(WIN32)
 
+ if (CMAKE_SYSTEM_NAME STREQUAL Linux)
+    add_subdirectory (ThirdParty/Assimp ThirdParty/Assimp)
+endif()
+
 # Define dependency libs
 # TBD ELI behaves differently on OSX/Windows/Linux, add_subdirectory (ThirdParty/Assimp ThirdParty/Assimp)
 link_directories(${Assimp_BINARY_DIR}/lib )
