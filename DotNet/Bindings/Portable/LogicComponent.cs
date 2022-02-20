@@ -9,40 +9,71 @@ namespace Urho
     /// </summary>
     public partial class LogicComponent : Component
     {
+        private Node node_ = null;
         private Scene scene_ = null;
-      
 
-        public override void OnSceneSet(Scene scene)
+        private Scene scene
         {
-            scene_ = scene;
-            if (scene != null)
+            get
             {
+                if (scene_ == null && (node_ != null && node_.Scene != null)) scene_ = node_.Scene;
+                return scene_;
+            }
+
+            set
+            {
+                scene_ = value;
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (!Application.IsExiting)
+                DisableAllUpdates = true;
+
+            base.Dispose(disposing);
+        }
+
+        protected override void OnDeleted()
+        {
+            if (!Application.IsExiting)
+                DisableAllUpdates = true;
+
+            base.OnDeleted();
+        }
+
+        public override void OnAttachedToNode(Node node)
+        {
+            node_ = node;
+            if (node != null && node.Scene != null)
+            {
+                scene = node.Scene;
                 if (receiveFixedUpdates)
                 {
-                    var physicsWorld = scene.GetComponent<PhysicsWorld>();
-                    if (physicsWorld == null)
-                        throw new InvalidOperationException("Scene must have PhysicsWorld component in order to receive FixedUpdates");
-                    physicsWorld.PhysicsPreStep += OnFixedUpdate;
+                    var physicsWorld = node.Scene.GetComponent<PhysicsWorld>();
+                    if (physicsWorld != null)
+                        physicsWorld.PhysicsPreStep += OnFixedUpdate;
                 }
 
                 if (receiveFixedPostUpdates)
                 {
-                    var physicsWorld = scene.GetComponent<PhysicsWorld>();
-                    if (physicsWorld == null)
-                        throw new InvalidOperationException("Scene must have PhysicsWorld component in order to receive FixedUpdates");
-
-                    physicsWorld.PhysicsPostStep += OnFixedPostUpdate;
+                    var physicsWorld = node.Scene.GetComponent<PhysicsWorld>();
+                    if (physicsWorld != null)
+                        physicsWorld.PhysicsPostStep += OnFixedPostUpdate;
                 }
 
                 if (receivePostUpdates)
                 {
-                    scene.ScenePostUpdate += OnPostUpdate;
+                    node.Scene.ScenePostUpdate += OnPostUpdate;
                 }
             }
-
+            else if (node == null)
+            {
+                Remove();
+            }
         }
 
-        private bool receiveFixedUpdates = false;
+        private bool receiveFixedUpdates = true;
         protected bool ReceiveFixedUpdates
         {
             get
@@ -55,32 +86,29 @@ namespace Urho
                 if (receiveFixedUpdates == value) return;
 
                 receiveFixedUpdates = value;
+
                 if (receiveFixedUpdates == true)
                 {
-                    if (scene_ != null)
+                    if (scene != null)
                     {
-                        var physicsWorld = scene_.GetComponent<PhysicsWorld>();
-                        if (physicsWorld == null)
-                            throw new InvalidOperationException("Scene must have PhysicsWorld component in order to receive FixedUpdates");
-
-                        physicsWorld.PhysicsPreStep += OnFixedUpdate;
+                        var physicsWorld = scene.GetComponent<PhysicsWorld>();
+                        if (physicsWorld != null)
+                            physicsWorld.PhysicsPreStep += OnFixedUpdate;
                     }
                 }
                 else
                 {
-                    if (scene_ != null)
+                    if (scene != null)
                     {
-                        var physicsWorld = scene_.GetComponent<PhysicsWorld>();
-                        if (physicsWorld == null)
-                            throw new InvalidOperationException("Scene must have PhysicsWorld component in order to receive FixedUpdates");
-
-                        physicsWorld.PhysicsPreStep -= OnFixedUpdate;
+                        var physicsWorld = scene.GetComponent<PhysicsWorld>();
+                        if (physicsWorld != null)
+                            physicsWorld.PhysicsPreStep -= OnFixedUpdate;
                     }
                 }
             }
         }
 
-        private bool receiveFixedPostUpdates = false;
+        private bool receiveFixedPostUpdates = true;
         protected bool ReceiveFixedPostUpdates
         {
             get
@@ -93,32 +121,29 @@ namespace Urho
                 if (receiveFixedPostUpdates == value) return;
 
                 receiveFixedPostUpdates = value;
+
                 if (receiveFixedPostUpdates == true)
                 {
-                    if (scene_ != null)
+                    if (scene != null)
                     {
-                        var physicsWorld = scene_.GetComponent<PhysicsWorld>();
-                        if (physicsWorld == null)
-                            throw new InvalidOperationException("Scene must have PhysicsWorld component in order to receive FixedUpdates");
-
-                        physicsWorld.PhysicsPostStep += OnFixedPostUpdate;
+                        var physicsWorld = scene.GetComponent<PhysicsWorld>();
+                        if (physicsWorld != null)
+                            physicsWorld.PhysicsPostStep += OnFixedPostUpdate;
                     }
                 }
                 else
                 {
-                    if (scene_ != null)
+                    if (scene != null)
                     {
-                        var physicsWorld = scene_.GetComponent<PhysicsWorld>();
-                        if (physicsWorld == null)
-                            throw new InvalidOperationException("Scene must have PhysicsWorld component in order to receive FixedUpdates");
-
-                        physicsWorld.PhysicsPostStep -= OnFixedPostUpdate;
+                        var physicsWorld = scene.GetComponent<PhysicsWorld>();
+                        if (physicsWorld != null)
+                            physicsWorld.PhysicsPostStep -= OnFixedPostUpdate;
                     }
                 }
             }
         }
 
-        private bool receivePostUpdates = false;
+        private bool receivePostUpdates = true;
         protected bool ReceivePostUpdates
         {
             get
@@ -130,18 +155,20 @@ namespace Urho
             {
                 if (receivePostUpdates == value) return;
 
+                receivePostUpdates = value;
+
                 if (receivePostUpdates == true)
                 {
-                    if (scene_ != null)
+                    if (scene != null)
                     {
-                        scene_.ScenePostUpdate += OnPostUpdate;
+                        scene.ScenePostUpdate += OnPostUpdate;
                     }
                 }
                 else
                 {
-                    if (scene_ != null)
+                    if (scene != null)
                     {
-                        scene_.ScenePostUpdate -= OnPostUpdate;
+                        scene.ScenePostUpdate -= OnPostUpdate;
                     }
                 }
             }
@@ -156,7 +183,7 @@ namespace Urho
                     ReceiveSceneUpdates = true;
                     ReceiveFixedUpdates = true;
                     ReceiveFixedPostUpdates = true;
-                    receivePostUpdates = true;
+                    ReceivePostUpdates = true;
                 }
             }
         }
@@ -170,7 +197,7 @@ namespace Urho
                     ReceiveSceneUpdates = false;
                     ReceiveFixedUpdates = false;
                     ReceiveFixedPostUpdates = false;
-                    receivePostUpdates = false;
+                    ReceivePostUpdates = false;
                 }
             }
         }
@@ -180,7 +207,7 @@ namespace Urho
             ReceiveSceneUpdates = ((Convert.ToUInt32(UpdateEvent.Update) & mask) == Convert.ToUInt32(UpdateEvent.Update)) ? true : false;
             ReceiveFixedUpdates = ((Convert.ToUInt32(UpdateEvent.Fixedupdate) & mask) == Convert.ToUInt32(UpdateEvent.Fixedupdate)) ? true : false;
             ReceiveFixedPostUpdates = ((Convert.ToUInt32(UpdateEvent.Fixedpostupdate) & mask) == Convert.ToUInt32(UpdateEvent.Fixedpostupdate)) ? true : false;
-            receivePostUpdates = ((Convert.ToUInt32(UpdateEvent.Postupdate) & mask) == Convert.ToUInt32(UpdateEvent.Postupdate)) ? true : false;
+            ReceivePostUpdates = ((Convert.ToUInt32(UpdateEvent.Postupdate) & mask) == Convert.ToUInt32(UpdateEvent.Postupdate)) ? true : false;
         }
 
         public uint GetUpdateEventMask()
@@ -202,7 +229,7 @@ namespace Urho
                 result |= Convert.ToUInt32(UpdateEvent.Fixedpostupdate);
             }
 
-            if (receivePostUpdates == true)
+            if (ReceivePostUpdates == true)
             {
                 result |= Convert.ToUInt32(UpdateEvent.Postupdate);
             }
@@ -215,7 +242,7 @@ namespace Urho
             if (evt == UpdateEvent.Update) return ReceiveSceneUpdates;
             else if (evt == UpdateEvent.Fixedupdate) return ReceiveFixedUpdates;
             else if (evt == UpdateEvent.Fixedpostupdate) return ReceiveFixedPostUpdates;
-            else if (evt == UpdateEvent.Postupdate) return receivePostUpdates;
+            else if (evt == UpdateEvent.Postupdate) return ReceivePostUpdates;
 
             return false;
         }
@@ -252,13 +279,5 @@ namespace Urho
         /// </summary>
         protected virtual void OnPostUpdate(ScenePostUpdateEventArgs e) { }
 
-
-        /* TBD ELI , generated automatically
-                public override StringHash Type => new StringHash(LogicComponent_GetType(handle));
-                public override string TypeName => Marshal.PtrToStringAnsi(LogicComponent_GetTypeName(handle));
-                [Preserve]
-                public new static StringHash TypeStatic => new StringHash(LogicComponent_GetTypeStatic());
-                public new static string TypeNameStatic => Marshal.PtrToStringAnsi(LogicComponent_GetTypeNameStatic());
-        */
     }
 }
