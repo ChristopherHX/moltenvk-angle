@@ -10,7 +10,7 @@ namespace Urho
     public partial class LogicComponent : Component
     {
         private Scene scene_ = null;
-        private bool delayedStartCalled_ = false;
+      
 
         public override void OnSceneSet(Scene scene)
         {
@@ -235,17 +235,7 @@ namespace Urho
             }
 #endif
             base.OnUpdate(timeStep);
-            if (delayedStartCalled_ == false)
-            {
-                delayedStartCalled_ = true;
-                OnStart();
-            }
         }
-
-        /// <summary>
-        /// Called before the first update. At this point all other components of the node should exist.
-        /// </summary>
-        protected virtual void OnStart() { }
 
         /// <summary>
         /// Called on physics post-update

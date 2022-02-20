@@ -20,6 +20,7 @@ namespace Urho
         bool subscribedToSceneUpdate = false;
 
         bool isDisposed = false;
+        private bool IsDelayedStartCalled = false;
 
         public bool ReceiveSceneUpdates
         {
@@ -168,6 +169,13 @@ namespace Urho
             OnAttachedToNode(node);
         }
 
+
+        /// <summary>
+        /// Called before the first update. At this point all other components of the node should exist.
+        /// </summary>
+        protected virtual void OnStart() { }
+
+
         /// <summary>
         /// Make sure you set SubscribeToSceneUpdate property to true in order to receive Update events
         /// </summary>
@@ -191,6 +199,12 @@ namespace Urho
 #endif
             try
             {
+                if (IsDelayedStartCalled == false)
+                {
+                    IsDelayedStartCalled = true;
+                    OnStart();
+                }
+
                 OnUpdate(args.TimeStep);
             }
             catch (Exception ex)
