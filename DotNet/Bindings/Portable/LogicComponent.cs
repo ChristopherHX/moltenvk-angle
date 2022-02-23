@@ -253,9 +253,14 @@ namespace Urho
         protected override void OnUpdate(float timeStep)
         {
 #if __EDITOR__
-            if (Application.HasCurrent)
+            if (Application.HasCurrent && !Application.Current.IsExiting)
             {
                 if (Application.Current.EditorMode == true && Application.Current.EditorUpdate == false)
+                {
+                    return;
+                }
+
+                if(Node != null && Node.Scene != null && Node.Scene.UpdateEnabled == false )
                 {
                     return;
                 }
