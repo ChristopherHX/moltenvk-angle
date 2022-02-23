@@ -189,14 +189,9 @@ namespace Urho
 
             if (Enabled == false) return;
 #if __EDITOR__
-            if (Application.HasCurrent  && !Application.Current.IsExiting)
+            if (Application.HasCurrent)
             {
                 if (Application.Current.EditorMode == true && Application.Current.EditorUpdate == false)
-                {
-                    return;
-                }
-
-                if(Node != null && Node.Scene != null && Node.Scene.UpdateEnabled == false )
                 {
                     return;
                 }
