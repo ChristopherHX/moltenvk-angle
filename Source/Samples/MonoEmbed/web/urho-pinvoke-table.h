@@ -765,6 +765,8 @@ int Input_IsMouseLocked (int);
 int Input_GetMouseMode (int);
 int Input_HasFocus (int);
 int Input_IsMinimized (int);
+void Input_MapCtrlQualifierToCommandKey (int,int);
+int Input_IsMapCtrlQualifierToCommandKey (int);
 int Input_GetMouseButtonDown (int,int);
 int Input_GetMouseButtonPress (int,int);
 void KinematicCharacterController_GetTransform (int,int,int);
@@ -7013,6 +7015,8 @@ static PinvokeImport Urho3D_imports [] = {
 {"Input_GetMouseMode", Input_GetMouseMode},
 {"Input_HasFocus", Input_HasFocus},
 {"Input_IsMinimized", Input_IsMinimized},
+{"Input_MapCtrlQualifierToCommandKey", Input_MapCtrlQualifierToCommandKey},
+{"Input_IsMapCtrlQualifierToCommandKey", Input_IsMapCtrlQualifierToCommandKey},
 {"Input_GetMouseButtonDown", Input_GetMouseButtonDown},
 {"Input_GetMouseButtonPress", Input_GetMouseButtonPress},
 {"KinematicCharacterController_GetTransform", KinematicCharacterController_GetTransform},
@@ -12513,22 +12517,22 @@ void wasm_native_to_interp_UrhoDotNet_100663445 (int arg0) {
 ((WasmInterpEntrySig_2)wasm_native_to_interp_ftndescs [2].func) (&arg0, wasm_native_to_interp_ftndescs [2].arg);
 }
 typedef void  (*WasmInterpEntrySig_3) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667288 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667292 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_3)wasm_native_to_interp_ftndescs [3].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [3].arg);
 }
 typedef void  (*WasmInterpEntrySig_4) (int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100667289 (int arg0,int arg1,int arg2) { 
+void wasm_native_to_interp_UrhoDotNet_100667293 (int arg0,int arg1,int arg2) { 
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672822 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672826 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663441,wasm_native_to_interp_UrhoDotNet_100663442,wasm_native_to_interp_UrhoDotNet_100663445,wasm_native_to_interp_UrhoDotNet_100667288,wasm_native_to_interp_UrhoDotNet_100667289,wasm_native_to_interp_UrhoDotNet_100672822,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663441,wasm_native_to_interp_UrhoDotNet_100663442,wasm_native_to_interp_UrhoDotNet_100663445,wasm_native_to_interp_UrhoDotNet_100667292,wasm_native_to_interp_UrhoDotNet_100667293,wasm_native_to_interp_UrhoDotNet_100672826,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663441",
 "UrhoDotNet_100663442",
 "UrhoDotNet_100663445",
-"UrhoDotNet_100667288",
-"UrhoDotNet_100667289",
-"UrhoDotNet_100672822",
+"UrhoDotNet_100667292",
+"UrhoDotNet_100667293",
+"UrhoDotNet_100672826",
 };

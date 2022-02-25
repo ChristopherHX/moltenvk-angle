@@ -27172,6 +27172,20 @@ Input_OnUserAction (Urho3D::Input *_target)
 }
 
 
+DllExport void
+Input_MapCtrlQualifierToCommandKey (Urho3D::Input *_target, bool val)
+{
+	_target->MapCtrlQualifierToCommandKey (val);
+}
+
+
+DllExport int
+Input_IsMapCtrlQualifierToCommandKey (Urho3D::Input *_target)
+{
+	return _target->IsMapCtrlQualifierToCommandKey ();
+}
+
+
 DllExport void *
 AreaAllocator_AreaAllocator ()
 {

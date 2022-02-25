@@ -380,7 +380,8 @@ Input::Input(Context* context) :
     focusedThisFrame_(false),
     suppressNextMouseMove_(false),
     mouseMoveScaled_(false),
-    initialized_(false)
+    initialized_(false),
+    mapCtrlQualifierToCommandKey_(false)
 {
     context_->RequireSDL(SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER);
 
@@ -1396,7 +1397,16 @@ bool Input::GetQualifierDown(Qualifier qualifier) const
     if (qualifier == QUAL_SHIFT)
         return GetKeyDown(KEY_LSHIFT) || GetKeyDown(KEY_RSHIFT);
     if (qualifier == QUAL_CTRL)
+    {
+#ifdef __APPLE__
+        if(mapCtrlQualifierToCommandKey_ == true)
+            return GetKeyDown(KEY_LGUI) || GetKeyDown(KEY_RGUI);
+        else
+            return GetKeyDown(KEY_LCTRL) || GetKeyDown(KEY_RCTRL);
+#else
         return GetKeyDown(KEY_LCTRL) || GetKeyDown(KEY_RCTRL);
+#endif
+    }
     if (qualifier == QUAL_ALT)
         return GetKeyDown(KEY_LALT) || GetKeyDown(KEY_RALT);
 
@@ -1408,7 +1418,16 @@ bool Input::GetQualifierPress(Qualifier qualifier) const
     if (qualifier == QUAL_SHIFT)
         return GetKeyPress(KEY_LSHIFT) || GetKeyPress(KEY_RSHIFT);
     if (qualifier == QUAL_CTRL)
+    {
+#ifdef __APPLE__
+        if(mapCtrlQualifierToCommandKey_ == true)
+             return GetKeyPress(KEY_LGUI) || GetKeyPress(KEY_RGUI);
+        else
+             return GetKeyPress(KEY_LCTRL) || GetKeyPress(KEY_RCTRL);
+#else
         return GetKeyPress(KEY_LCTRL) || GetKeyPress(KEY_RCTRL);
+#endif
+    }
     if (qualifier == QUAL_ALT)
         return GetKeyPress(KEY_LALT) || GetKeyPress(KEY_RALT);
 

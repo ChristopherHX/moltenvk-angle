@@ -361,6 +361,9 @@ public:
 
      /// Called on user action (click or tap).
     void OnUserAction();
+    /// OSX only , maps Ctrl Qualifier to Command key (click or tap).
+    void MapCtrlQualifierToCommandKey(bool val){mapCtrlQualifierToCommandKey_ = val;}
+    bool IsMapCtrlQualifierToCommandKey(){ return mapCtrlQualifierToCommandKey_ == true;}
 private:
     /// Initialize when screen mode initially set.
     void Initialize();
@@ -504,6 +507,7 @@ private:
     /// Flag indicating current pointer-lock status.
     bool emscriptenPointerLock_;
 #endif
+    bool mapCtrlQualifierToCommandKey_;
 };
 
 }
