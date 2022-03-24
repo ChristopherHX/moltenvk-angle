@@ -16,8 +16,6 @@
 // 3. This notice may not be removed or altered from any source distribution.
 //
 
-// Modified by Lasse Oorni, Yao Wei Tjong, 1vanK and cosmy1 for Urho3D
-
 #define _USE_MATH_DEFINES
 #include <string.h>
 #include <float.h>
@@ -331,6 +329,8 @@ Notes:
 
 */
 
+// Modified by Lasse Oorni, Yao Wei Tjong, 1vanK and cosmy1 for Urho3D
+
 dtCrowd::dtCrowd() :
 	m_updateCallback(0), // Urho3D: Add update callback support
 	m_maxAgents(0),
@@ -345,7 +345,7 @@ dtCrowd::dtCrowd() :
 	m_velocitySampleCount(0),
 	m_navquery(0)
 {
-	// Urho3D: initialize all class members
+		// Urho3D: initialize all class members
 	memset(&m_agentPlacementHalfExtents, 0, sizeof(m_agentPlacementHalfExtents));
 	memset(&m_obstacleQueryParams, 0, sizeof(m_obstacleQueryParams));
 }
@@ -382,7 +382,6 @@ void dtCrowd::purge()
 	m_navquery = 0;
 }
 
-// Urho3D: Add update callback support
 /// @par
 ///
 /// May be called more than once to purge and re-initialize the crowd.
@@ -570,7 +569,7 @@ int dtCrowd::addAgent(const float* pos, const dtCrowdAgentParams* params)
 	ag->targetState = DT_CROWDAGENT_TARGET_NONE;
 	
 	ag->active = true;
-	
+
 	// Urho3D: added to fix illegal memory access when ncorners is queried before the agent has updated
 	ag->ncorners = 0;
 
@@ -1377,10 +1376,6 @@ void dtCrowd::update(const float dt, dtCrowdAgentDebugInfo* debug)
 					pen = (1.0f/dist) * (pen*0.5f) * COLLISION_RESOLVE_FACTOR;
 				}
 				
-				// Urho3D: Avoid tremble when another agent can not move away
-				if (ag->params.separationWeight < 0.0001f) 
-					continue;
-				
 				dtVmad(ag->disp, ag->disp, diff, pen);			
 				
 				w += 1.0f;
@@ -1420,19 +1415,21 @@ void dtCrowd::update(const float dt, dtCrowdAgentDebugInfo* debug)
 			ag->corridor.reset(ag->corridor.getFirstPoly(), ag->npos);
 			ag->partial = false;
 		}
-		
-		// Urho3D: Add update callback support
-		if (m_updateCallback)
-			(*m_updateCallback)(ag, dt);
-	}
+
+        // Urho3D: Add update callback support
+        if (m_updateCallback)
+            (*m_updateCallback)(ag, dt);
+    }
 	
 	// Update agents using off-mesh connection.
-	for (int i = 0; i < m_maxAgents; ++i)
+	for (int i = 0; i < nagents; ++i)
 	{
-		dtCrowdAgentAnimation* anim = &m_agentAnims[i];
+		dtCrowdAgent* ag = agents[i];
+		const int idx = (int)(ag - m_agents);
+		dtCrowdAgentAnimation* anim = &m_agentAnims[idx];
 		if (!anim->active)
 			continue;
-		dtCrowdAgent* ag = agents[i];
+		
 
 		anim->t += dt;
 		if (anim->t > anim->tmax)

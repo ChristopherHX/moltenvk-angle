@@ -16,8 +16,6 @@
 // 3. This notice may not be removed or altered from any source distribution.
 //
 
-// Modified by cosmy1 for Urho3D
-
 #include <float.h>
 #include <string.h>
 #include "DetourLocalBoundary.h"
@@ -25,13 +23,13 @@
 #include "DetourCommon.h"
 #include "DetourAssert.h"
 
+// Modified by cosmy1 for Urho3D
 
 dtLocalBoundary::dtLocalBoundary() :
 	m_nsegs(0),
 	m_npolys(0)
 {
 	dtVset(m_center, FLT_MAX,FLT_MAX,FLT_MAX);
-	
 	// Urho3D: initialize all class members
 	memset(&m_segs, 0, sizeof(m_segs));
 	memset(&m_polys, 0, sizeof(m_polys));

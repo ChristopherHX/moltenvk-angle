@@ -12525,14 +12525,14 @@ void wasm_native_to_interp_UrhoDotNet_100667293 (int arg0,int arg1,int arg2) {
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672826 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672827 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663441,wasm_native_to_interp_UrhoDotNet_100663442,wasm_native_to_interp_UrhoDotNet_100663445,wasm_native_to_interp_UrhoDotNet_100667292,wasm_native_to_interp_UrhoDotNet_100667293,wasm_native_to_interp_UrhoDotNet_100672826,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663441,wasm_native_to_interp_UrhoDotNet_100663442,wasm_native_to_interp_UrhoDotNet_100663445,wasm_native_to_interp_UrhoDotNet_100667292,wasm_native_to_interp_UrhoDotNet_100667293,wasm_native_to_interp_UrhoDotNet_100672827,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663441",
 "UrhoDotNet_100663442",
 "UrhoDotNet_100663445",
 "UrhoDotNet_100667292",
 "UrhoDotNet_100667293",
-"UrhoDotNet_100672826",
+"UrhoDotNet_100672827",
 };

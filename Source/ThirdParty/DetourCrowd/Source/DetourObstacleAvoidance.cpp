@@ -16,8 +16,6 @@
 // 3. This notice may not be removed or altered from any source distribution.
 //
 
-// Modified by cosmy1 for Urho3D
-
 #include "DetourObstacleAvoidance.h"
 #include "DetourCommon.h"
 #include "DetourMath.h"
@@ -26,6 +24,8 @@
 #include <string.h>
 #include <float.h>
 #include <new>
+
+// Modified by cosmy1 for Urho3D
 
 static const float DT_PI = 3.14159265f;
 
@@ -207,17 +207,16 @@ void dtFreeObstacleAvoidanceQuery(dtObstacleAvoidanceQuery* ptr)
 	dtFree(ptr);
 }
 
-
-dtObstacleAvoidanceQuery::dtObstacleAvoidanceQuery() :
-	m_invHorizTime(0),
-	m_vmax(0),
-	m_invVmax(0),
-	m_maxCircles(0),
-	m_circles(0),
-	m_ncircles(0),
-	m_maxSegments(0),
-	m_segments(0),
-	m_nsegments(0)
+dtObstacleAvoidanceQuery::dtObstacleAvoidanceQuery()
+    : m_invHorizTime(0)
+    , m_vmax(0)
+    , m_invVmax(0)
+    , m_maxCircles(0)
+    , m_circles(0)
+    , m_ncircles(0)
+    , m_maxSegments(0)
+    , m_segments(0)
+    , m_nsegments(0)
 {
     memset(&m_params, 0, sizeof(m_params)); // Urho3D
 }

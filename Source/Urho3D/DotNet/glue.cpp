@@ -1468,6 +1468,7 @@ StringVector_GetString(const Vector<String>* stringVector, int index)
     {
         return stringVector->At(index).CString();
     }
+    else return nullptr;
 }
 
 DllExport bool

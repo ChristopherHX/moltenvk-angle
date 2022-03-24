@@ -16,8 +16,6 @@
 // 3. This notice may not be removed or altered from any source distribution.
 //
 
-// Modified by cosmy1 for Urho3D
-
 #include <string.h>
 #include "DetourPathCorridor.h"
 #include "DetourNavMeshQuery.h"
@@ -25,6 +23,7 @@
 #include "DetourAssert.h"
 #include "DetourAlloc.h"
 
+// Modified by cosmy1 for Urho3D
 
 int dtMergeCorridorStartMoved(dtPolyRef* path, const int npath, const int maxPath,
 							  const dtPolyRef* visited, const int nvisited)
@@ -199,14 +198,14 @@ may be needed.  E.g. If you move the target, check #getLastPoly() to see if it i
 
 */
 
-dtPathCorridor::dtPathCorridor() :
-	m_path(0),
-	m_npath(0),
-	m_maxPath(0)
+dtPathCorridor::dtPathCorridor()
+    : m_path(0)
+    , m_npath(0)
+    , m_maxPath(0)
 {
-	// Urho3D: initialize all class members
-	memset(&m_pos, 0, sizeof(m_pos));
-	memset(&m_target, 0, sizeof(m_target));
+    // Urho3D: initialize all class members
+    memset(&m_pos, 0, sizeof(m_pos));
+    memset(&m_target, 0, sizeof(m_target));
 }
 
 dtPathCorridor::~dtPathCorridor()
