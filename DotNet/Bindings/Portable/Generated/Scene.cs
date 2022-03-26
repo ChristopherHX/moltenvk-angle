@@ -316,6 +316,80 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Scene_LoadAsyncNodeXML (IntPtr handle, string name, CreateMode createMode);
+
+		/// <summary>
+		/// Load a Node prefab from an XML file asynchronously into an exsiting scene. Return true if started successfully.
+		/// </summary>
+		public bool LoadAsyncNodeXml (string name, CreateMode createMode = CreateMode.Replicated)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Scene_LoadAsyncNodeXML (handle, name, createMode);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Scene_LoadAsyncNodeXML1 (IntPtr handle, IntPtr file, CreateMode createMode);
+
+		/// <summary>
+		/// Load a Node prefab from a XML file asynchronously into an exsiting scene. Return true if started successfully.
+		/// </summary>
+		public bool LoadAsyncNodeXml (File file, CreateMode createMode = CreateMode.Replicated)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Scene_LoadAsyncNodeXML1 (handle, (object)file == null ? IntPtr.Zero : file.Handle, createMode);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Scene_LoadAsyncNodeJSON (IntPtr handle, string name, CreateMode createMode);
+
+		/// <summary>
+		/// Load a Node prefab from a JSON file asynchronously into an exsiting scene. Return true if started successfully.
+		/// </summary>
+		public bool LoadAsyncNodeJson (string name, CreateMode createMode = CreateMode.Replicated)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Scene_LoadAsyncNodeJSON (handle, name, createMode);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Scene_LoadAsyncNodeJSON2 (IntPtr handle, IntPtr file, CreateMode createMode);
+
+		/// <summary>
+		/// Load a Node prefab from a JSON file asynchronously into an exsiting scene. Return true if started successfully.
+		/// </summary>
+		public bool LoadAsyncNodeJson (File file, CreateMode createMode = CreateMode.Replicated)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Scene_LoadAsyncNodeJSON2 (handle, (object)file == null ? IntPtr.Zero : file.Handle, createMode);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Scene_LoadAsyncNode (IntPtr handle, string name, CreateMode createMode);
+
+		/// <summary>
+		/// Load a Node prefab from a binary file asynchronously into an exsiting scene. Return true if started
+		/// successfully.
+		/// </summary>
+		public bool LoadAsyncNode (string name, CreateMode createMode = CreateMode.Replicated)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Scene_LoadAsyncNode (handle, name, createMode);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool Scene_LoadAsyncNode3 (IntPtr handle, IntPtr file, CreateMode createMode);
+
+		/// <summary>
+		/// Load a Node prefab from a binary file asynchronously into an exsiting scene. Return true if started
+		/// successfully.
+		/// </summary>
+		public bool LoadAsyncNode (File file, CreateMode createMode = CreateMode.Replicated)
+		{
+			Runtime.ValidateRefCounted (this);
+			return Scene_LoadAsyncNode3 (handle, (object)file == null ? IntPtr.Zero : file.Handle, createMode);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void Scene_StopAsyncLoading (IntPtr handle);
 
 		/// <summary>
@@ -364,7 +438,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr Scene_InstantiateXML1_File (IntPtr handle, IntPtr source, ref Urho.Vector3 position, ref Urho.Quaternion rotation, CreateMode mode);
+		internal static extern IntPtr Scene_InstantiateXML4_File (IntPtr handle, IntPtr source, ref Urho.Vector3 position, ref Urho.Quaternion rotation, CreateMode mode);
 
 		/// <summary>
 		/// Instantiate scene content from XML data. Return root node if successful.
@@ -372,11 +446,11 @@ namespace Urho
 		public Node InstantiateXml (File source, Urho.Vector3 position, Urho.Quaternion rotation, CreateMode mode = CreateMode.Replicated)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Runtime.LookupObject<Node> (Scene_InstantiateXML1_File (handle, (object)source == null ? IntPtr.Zero : source.Handle, ref position, ref rotation, mode));
+			return Runtime.LookupObject<Node> (Scene_InstantiateXML4_File (handle, (object)source == null ? IntPtr.Zero : source.Handle, ref position, ref rotation, mode));
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern IntPtr Scene_InstantiateXML1_MemoryBuffer (IntPtr handle, IntPtr source, ref Urho.Vector3 position, ref Urho.Quaternion rotation, CreateMode mode);
+		internal static extern IntPtr Scene_InstantiateXML4_MemoryBuffer (IntPtr handle, IntPtr source, ref Urho.Vector3 position, ref Urho.Quaternion rotation, CreateMode mode);
 
 		/// <summary>
 		/// Instantiate scene content from XML data. Return root node if successful.
@@ -384,7 +458,7 @@ namespace Urho
 		public Node InstantiateXml (MemoryBuffer source, Urho.Vector3 position, Urho.Quaternion rotation, CreateMode mode = CreateMode.Replicated)
 		{
 			Runtime.ValidateRefCounted (this);
-			return Runtime.LookupObject<Node> (Scene_InstantiateXML1_MemoryBuffer (handle, (object)source == null ? IntPtr.Zero : source.Handle, ref position, ref rotation, mode));
+			return Runtime.LookupObject<Node> (Scene_InstantiateXML4_MemoryBuffer (handle, (object)source == null ? IntPtr.Zero : source.Handle, ref position, ref rotation, mode));
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -499,6 +573,19 @@ namespace Urho
 		{
 			Runtime.ValidateRefCounted (this);
 			Scene_SetAsyncLoadingMs (handle, ms);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void Scene_SetAsyncIntervalMs (IntPtr handle, int ms);
+
+		/// <summary>
+		/// Set inerval milliseconds between consequtive loads.
+		/// 
+		/// </summary>
+		private void SetAsyncIntervalMs (int ms)
+		{
+			Runtime.ValidateRefCounted (this);
+			Scene_SetAsyncIntervalMs (handle, ms);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -728,6 +815,19 @@ namespace Urho
 			return Scene_GetAsyncLoadingMs (handle);
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern int Scene_GetAsyncIntervalMs (IntPtr handle);
+
+		/// <summary>
+		/// Return Maximum milliseconds interval between qonsequtive asynLoad calls.
+		/// 
+		/// </summary>
+		private int GetAsyncIntervalMs ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return Scene_GetAsyncIntervalMs (handle);
+		}
+
 		private IReadOnlyList<PackageFile> _GetRequiredPackageFiles_cache;
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -925,7 +1025,7 @@ namespace Urho
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Scene_MarkNetworkUpdate2 (IntPtr handle, IntPtr node);
+		internal static extern void Scene_MarkNetworkUpdate5 (IntPtr handle, IntPtr node);
 
 		/// <summary>
 		/// Mark a node for attribute check on the next network update.
@@ -933,11 +1033,11 @@ namespace Urho
 		public void MarkNetworkUpdate (Node node)
 		{
 			Runtime.ValidateRefCounted (this);
-			Scene_MarkNetworkUpdate2 (handle, (object)node == null ? IntPtr.Zero : node.Handle);
+			Scene_MarkNetworkUpdate5 (handle, (object)node == null ? IntPtr.Zero : node.Handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
-		internal static extern void Scene_MarkNetworkUpdate3 (IntPtr handle, IntPtr component);
+		internal static extern void Scene_MarkNetworkUpdate6 (IntPtr handle, IntPtr component);
 
 		/// <summary>
 		/// Mark a component for attribute check on the next network update.
@@ -945,7 +1045,7 @@ namespace Urho
 		public void MarkNetworkUpdate (Component component)
 		{
 			Runtime.ValidateRefCounted (this);
-			Scene_MarkNetworkUpdate3 (handle, (object)component == null ? IntPtr.Zero : component.Handle);
+			Scene_MarkNetworkUpdate6 (handle, (object)component == null ? IntPtr.Zero : component.Handle);
 		}
 
 		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
@@ -1078,6 +1178,22 @@ namespace Urho
 			}
 			set {
 				SetAsyncLoadingMs (value);
+			}
+		}
+
+		/// <summary>
+		/// Return Maximum milliseconds interval between qonsequtive asynLoad calls.
+		/// 
+		/// Or
+		/// Set inerval milliseconds between consequtive loads.
+		/// 
+		/// </summary>
+		public int AsyncIntervalMs {
+			get {
+				return GetAsyncIntervalMs ();
+			}
+			set {
+				SetAsyncIntervalMs (value);
 			}
 		}
 

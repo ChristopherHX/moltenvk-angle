@@ -34061,6 +34061,48 @@ Scene_LoadAsyncJSON (Urho3D::Scene *_target, Urho3D::File * file, enum Urho3D::L
 }
 
 
+DllExport int
+Scene_LoadAsyncNodeXML (Urho3D::Scene *_target, const char * name, enum Urho3D::CreateMode createMode)
+{
+	return _target->LoadAsyncNodeXML (Urho3D::String(name), createMode);
+}
+
+
+DllExport int
+Scene_LoadAsyncNodeXML1 (Urho3D::Scene *_target, Urho3D::File * file, enum Urho3D::CreateMode createMode)
+{
+	return _target->LoadAsyncNodeXML (file, createMode);
+}
+
+
+DllExport int
+Scene_LoadAsyncNodeJSON (Urho3D::Scene *_target, const char * name, enum Urho3D::CreateMode createMode)
+{
+	return _target->LoadAsyncNodeJSON (Urho3D::String(name), createMode);
+}
+
+
+DllExport int
+Scene_LoadAsyncNodeJSON2 (Urho3D::Scene *_target, Urho3D::File * file, enum Urho3D::CreateMode createMode)
+{
+	return _target->LoadAsyncNodeJSON (file, createMode);
+}
+
+
+DllExport int
+Scene_LoadAsyncNode (Urho3D::Scene *_target, const char * name, enum Urho3D::CreateMode createMode)
+{
+	return _target->LoadAsyncNode (Urho3D::String(name), createMode);
+}
+
+
+DllExport int
+Scene_LoadAsyncNode3 (Urho3D::Scene *_target, Urho3D::File * file, enum Urho3D::CreateMode createMode)
+{
+	return _target->LoadAsyncNode (file, createMode);
+}
+
+
 DllExport void
 Scene_StopAsyncLoading (Urho3D::Scene *_target)
 {
@@ -34090,14 +34132,14 @@ Scene_InstantiateXML (Urho3D::Scene *_target, const class Urho3D::XMLElement & s
 
 
 DllExport Urho3D::Node *
-Scene_InstantiateXML1_File (Urho3D::Scene *_target, File * source, const class Urho3D::Vector3 & position, const class Urho3D::Quaternion & rotation, enum Urho3D::CreateMode mode)
+Scene_InstantiateXML4_File (Urho3D::Scene *_target, File * source, const class Urho3D::Vector3 & position, const class Urho3D::Quaternion & rotation, enum Urho3D::CreateMode mode)
 {
 	return _target->InstantiateXML (*source, position, rotation, mode);
 }
 
 
 DllExport Urho3D::Node *
-Scene_InstantiateXML1_MemoryBuffer (Urho3D::Scene *_target, MemoryBuffer * source, const class Urho3D::Vector3 & position, const class Urho3D::Quaternion & rotation, enum Urho3D::CreateMode mode)
+Scene_InstantiateXML4_MemoryBuffer (Urho3D::Scene *_target, MemoryBuffer * source, const class Urho3D::Vector3 & position, const class Urho3D::Quaternion & rotation, enum Urho3D::CreateMode mode)
 {
 	return _target->InstantiateXML (*source, position, rotation, mode);
 }
@@ -34163,6 +34205,13 @@ DllExport void
 Scene_SetAsyncLoadingMs (Urho3D::Scene *_target, int ms)
 {
 	_target->SetAsyncLoadingMs (ms);
+}
+
+
+DllExport void
+Scene_SetAsyncIntervalMs (Urho3D::Scene *_target, int ms)
+{
+	_target->SetAsyncIntervalMs (ms);
 }
 
 
@@ -34292,6 +34341,13 @@ Scene_GetAsyncLoadingMs (Urho3D::Scene *_target)
 }
 
 
+DllExport int
+Scene_GetAsyncIntervalMs (Urho3D::Scene *_target)
+{
+	return _target->GetAsyncIntervalMs ();
+}
+
+
 DllExport const Vector<SharedPtr<class Urho3D::PackageFile> > &
 Scene_GetRequiredPackageFiles (Urho3D::Scene *_target)
 {
@@ -34405,14 +34461,14 @@ Scene_CleanupConnection (Urho3D::Scene *_target, Urho3D::Connection * connection
 
 
 DllExport void
-Scene_MarkNetworkUpdate2 (Urho3D::Scene *_target, Urho3D::Node * node)
+Scene_MarkNetworkUpdate5 (Urho3D::Scene *_target, Urho3D::Node * node)
 {
 	_target->MarkNetworkUpdate (node);
 }
 
 
 DllExport void
-Scene_MarkNetworkUpdate3 (Urho3D::Scene *_target, Urho3D::Component * component)
+Scene_MarkNetworkUpdate6 (Urho3D::Scene *_target, Urho3D::Component * component)
 {
 	_target->MarkNetworkUpdate (component);
 }

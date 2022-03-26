@@ -1573,12 +1573,18 @@ int Scene_SaveJSON_MemoryBuffer (int,int,int);
 int Scene_LoadAsync (int,int,int);
 int Scene_LoadAsyncXML (int,int,int);
 int Scene_LoadAsyncJSON (int,int,int);
+int Scene_LoadAsyncNodeXML (int,int,int);
+int Scene_LoadAsyncNodeXML1 (int,int,int);
+int Scene_LoadAsyncNodeJSON (int,int,int);
+int Scene_LoadAsyncNodeJSON2 (int,int,int);
+int Scene_LoadAsyncNode (int,int,int);
+int Scene_LoadAsyncNode3 (int,int,int);
 void Scene_StopAsyncLoading (int);
 int Scene_Instantiate_File (int,int,int,int,int);
 int Scene_Instantiate_MemoryBuffer (int,int,int,int,int);
 int Scene_InstantiateXML (int,int,int,int,int);
-int Scene_InstantiateXML1_File (int,int,int,int,int);
-int Scene_InstantiateXML1_MemoryBuffer (int,int,int,int,int);
+int Scene_InstantiateXML4_File (int,int,int,int,int);
+int Scene_InstantiateXML4_MemoryBuffer (int,int,int,int,int);
 int Scene_InstantiateJSON_File (int,int,int,int,int);
 int Scene_InstantiateJSON_MemoryBuffer (int,int,int,int,int);
 void Scene_Clear (int,int,int);
@@ -1588,6 +1594,7 @@ void Scene_SetElapsedTime (int,float);
 void Scene_SetSmoothingConstant (int,float);
 void Scene_SetSnapThreshold (int,float);
 void Scene_SetAsyncLoadingMs (int,int);
+void Scene_SetAsyncIntervalMs (int,int);
 void Scene_AddRequiredPackageFile (int,int);
 void Scene_ClearRequiredPackageFiles (int);
 void Scene_RegisterVar (int,int);
@@ -1606,6 +1613,7 @@ float Scene_GetElapsedTime (int);
 float Scene_GetSmoothingConstant (int);
 float Scene_GetSnapThreshold (int);
 int Scene_GetAsyncLoadingMs (int);
+int Scene_GetAsyncIntervalMs (int);
 int Scene_GetRequiredPackageFiles (int);
 int Scene_GetVarName (int,int);
 void Scene_Update (int,float);
@@ -1622,8 +1630,8 @@ void Scene_SetVarNamesAttr (int,int);
 int Scene_GetVarNamesAttr (int);
 void Scene_PrepareNetworkUpdate (int);
 void Scene_CleanupConnection (int,int);
-void Scene_MarkNetworkUpdate2 (int,int);
-void Scene_MarkNetworkUpdate3 (int,int);
+void Scene_MarkNetworkUpdate5 (int,int);
+void Scene_MarkNetworkUpdate6 (int,int);
 void Scene_MarkReplicationDirty (int,int);
 int Serializable_SetAttribute_Variant (int,int,int);
 int Serializable_SetAttribute_Variant2 (int,int,int);
@@ -7823,12 +7831,18 @@ static PinvokeImport Urho3D_imports [] = {
 {"Scene_LoadAsync", Scene_LoadAsync},
 {"Scene_LoadAsyncXML", Scene_LoadAsyncXML},
 {"Scene_LoadAsyncJSON", Scene_LoadAsyncJSON},
+{"Scene_LoadAsyncNodeXML", Scene_LoadAsyncNodeXML},
+{"Scene_LoadAsyncNodeXML1", Scene_LoadAsyncNodeXML1},
+{"Scene_LoadAsyncNodeJSON", Scene_LoadAsyncNodeJSON},
+{"Scene_LoadAsyncNodeJSON2", Scene_LoadAsyncNodeJSON2},
+{"Scene_LoadAsyncNode", Scene_LoadAsyncNode},
+{"Scene_LoadAsyncNode3", Scene_LoadAsyncNode3},
 {"Scene_StopAsyncLoading", Scene_StopAsyncLoading},
 {"Scene_Instantiate_File", Scene_Instantiate_File},
 {"Scene_Instantiate_MemoryBuffer", Scene_Instantiate_MemoryBuffer},
 {"Scene_InstantiateXML", Scene_InstantiateXML},
-{"Scene_InstantiateXML1_File", Scene_InstantiateXML1_File},
-{"Scene_InstantiateXML1_MemoryBuffer", Scene_InstantiateXML1_MemoryBuffer},
+{"Scene_InstantiateXML4_File", Scene_InstantiateXML4_File},
+{"Scene_InstantiateXML4_MemoryBuffer", Scene_InstantiateXML4_MemoryBuffer},
 {"Scene_InstantiateJSON_File", Scene_InstantiateJSON_File},
 {"Scene_InstantiateJSON_MemoryBuffer", Scene_InstantiateJSON_MemoryBuffer},
 {"Scene_Clear", Scene_Clear},
@@ -7838,6 +7852,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Scene_SetSmoothingConstant", Scene_SetSmoothingConstant},
 {"Scene_SetSnapThreshold", Scene_SetSnapThreshold},
 {"Scene_SetAsyncLoadingMs", Scene_SetAsyncLoadingMs},
+{"Scene_SetAsyncIntervalMs", Scene_SetAsyncIntervalMs},
 {"Scene_AddRequiredPackageFile", Scene_AddRequiredPackageFile},
 {"Scene_ClearRequiredPackageFiles", Scene_ClearRequiredPackageFiles},
 {"Scene_RegisterVar", Scene_RegisterVar},
@@ -7856,6 +7871,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"Scene_GetSmoothingConstant", Scene_GetSmoothingConstant},
 {"Scene_GetSnapThreshold", Scene_GetSnapThreshold},
 {"Scene_GetAsyncLoadingMs", Scene_GetAsyncLoadingMs},
+{"Scene_GetAsyncIntervalMs", Scene_GetAsyncIntervalMs},
 {"Scene_GetRequiredPackageFiles", Scene_GetRequiredPackageFiles},
 {"Scene_GetVarName", Scene_GetVarName},
 {"Scene_Update", Scene_Update},
@@ -7872,8 +7888,8 @@ static PinvokeImport Urho3D_imports [] = {
 {"Scene_GetVarNamesAttr", Scene_GetVarNamesAttr},
 {"Scene_PrepareNetworkUpdate", Scene_PrepareNetworkUpdate},
 {"Scene_CleanupConnection", Scene_CleanupConnection},
-{"Scene_MarkNetworkUpdate2", Scene_MarkNetworkUpdate2},
-{"Scene_MarkNetworkUpdate3", Scene_MarkNetworkUpdate3},
+{"Scene_MarkNetworkUpdate5", Scene_MarkNetworkUpdate5},
+{"Scene_MarkNetworkUpdate6", Scene_MarkNetworkUpdate6},
 {"Scene_MarkReplicationDirty", Scene_MarkReplicationDirty},
 {"Serializable_SetAttribute_Variant", Serializable_SetAttribute_Variant},
 {"Serializable_SetAttribute_Variant2", Serializable_SetAttribute_Variant2},
@@ -12525,14 +12541,14 @@ void wasm_native_to_interp_UrhoDotNet_100667293 (int arg0,int arg1,int arg2) {
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672827 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672845 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663441,wasm_native_to_interp_UrhoDotNet_100663442,wasm_native_to_interp_UrhoDotNet_100663445,wasm_native_to_interp_UrhoDotNet_100667292,wasm_native_to_interp_UrhoDotNet_100667293,wasm_native_to_interp_UrhoDotNet_100672827,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663441,wasm_native_to_interp_UrhoDotNet_100663442,wasm_native_to_interp_UrhoDotNet_100663445,wasm_native_to_interp_UrhoDotNet_100667292,wasm_native_to_interp_UrhoDotNet_100667293,wasm_native_to_interp_UrhoDotNet_100672845,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663441",
 "UrhoDotNet_100663442",
 "UrhoDotNet_100663445",
 "UrhoDotNet_100667292",
 "UrhoDotNet_100667293",
-"UrhoDotNet_100672827",
+"UrhoDotNet_100672845",
 };

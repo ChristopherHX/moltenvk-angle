@@ -3438,6 +3438,7 @@ namespace Urho {
         public partial struct AsyncLoadProgressEventArgs {
             public EventDataContainer EventData;
             public Scene Scene => EventData.get_Scene (unchecked((int)904904844) /* Scene (P_SCENE) */);
+            public Node Node => EventData.get_Node (unchecked((int)1679846434) /* Node (P_NODE) */);
             public float Progress => EventData.get_float (unchecked((int)808866957) /* Progress (P_PROGRESS) */);
             public int LoadedNodes => EventData.get_int (unchecked((int)1107843820) /* LoadedNodes (P_LOADEDNODES) */);
             public int TotalNodes => EventData.get_int (unchecked((int)767536109) /* TotalNodes (P_TOTALNODES) */);
@@ -3474,6 +3475,7 @@ namespace Urho {
         public partial struct AsyncLoadFinishedEventArgs {
             public EventDataContainer EventData;
             public Scene Scene => EventData.get_Scene (unchecked((int)904904844) /* Scene (P_SCENE) */);
+            public Node Node => EventData.get_Node (unchecked((int)1679846434) /* Node (P_NODE) */);
         } /* struct AsyncLoadFinishedEventArgs */
 
         public partial class Scene {

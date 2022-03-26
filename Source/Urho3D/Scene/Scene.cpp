@@ -73,7 +73,8 @@ Scene::Scene(Context* context) :
     snapThreshold_(DEFAULT_SNAP_THRESHOLD),
     updateEnabled_(true),
     asyncLoading_(false),
-    threadedUpdate_(false)
+    threadedUpdate_(false),
+    asyncIntervalMs_(16)
 {
     // Assign an ID to self so that nodes can refer to this node as a parent
     SetID(GetFreeNodeID(REPLICATED));
@@ -383,6 +384,202 @@ bool Scene::LoadAsync(File* file, LoadMode mode)
     return true;
 }
 
+bool Scene::LoadAsyncNodeXML(const String& name, CreateMode createMode)
+{
+     auto* cache = GetSubsystem<ResourceCache>();
+     SharedPtr<File> file = cache->GetFile(name);
+     if(file != nullptr)
+     {
+         return LoadAsyncNodeXML(file, createMode);
+     }
+     else{
+         return false;
+     }
+
+}
+
+bool Scene::LoadAsyncNodeXML(File* file, CreateMode createMode)
+{
+
+    if (!file)
+    {
+        URHO3D_LOGERROR("Null file for async loading");
+        return false;
+    }
+
+    StopAsyncLoading();
+
+    SharedPtr<XMLFile> xml(new XMLFile(context_));
+    if (!xml->Load(*file))
+        return false;
+
+    URHO3D_LOGINFO("Loading node from " + file->GetName());
+ 
+    asyncLoading_ = true;
+    asyncProgress_.xmlFile_ = xml;
+    asyncProgress_.file_ = file;
+    asyncProgress_.mode_ = LOAD_SCENE_AND_RESOURCES;
+    asyncProgress_.loadedNodes_ = asyncProgress_.totalNodes_ = asyncProgress_.loadedResources_ = asyncProgress_.totalResources_ = 0;
+    asyncProgress_.resources_.Clear();
+    asyncProgress_.isNodeLoading_ = true;
+    asyncProgress_.rootNode_ = CreateChild(0,createMode);
+
+    XMLElement rootElement = xml->GetRoot();
+
+    URHO3D_PROFILE(FindResourcesToPreload);
+
+    PreloadResourcesXML(rootElement);
+
+    // Store own old ID for resolving possible root node references
+    unsigned nodeID = rootElement.GetUInt("id");
+    asyncProgress_.resolver_.AddNode(nodeID, this);
+
+    // Load the root level components first
+    if (!asyncProgress_.rootNode_->LoadXML(rootElement, asyncProgress_.resolver_, false))
+    {
+        asyncProgress_.rootNode_->Remove();
+        StopAsyncLoading();
+        return false;
+    }
+
+    // Then prepare for loading all root level child nodes in the async update
+    XMLElement childNodeElement = rootElement.GetChild("node");
+    asyncProgress_.xmlElement_ = childNodeElement;
+
+    // Count the amount of child nodes
+    while (childNodeElement)
+    {
+        ++asyncProgress_.totalNodes_;
+        childNodeElement = childNodeElement.GetNext("node");
+    }
+
+    return true;
+
+}
+
+bool Scene::LoadAsyncNodeJSON(const String& name, CreateMode createMode)
+{
+     auto* cache = GetSubsystem<ResourceCache>();
+     SharedPtr<File> file = cache->GetFile(name);
+     if(file != nullptr)
+     {
+         return LoadAsyncNodeJSON(file, createMode);
+     }
+     else{
+         return false;
+     }
+}
+
+
+bool Scene::LoadAsyncNodeJSON(File* file, CreateMode createMode)
+{
+    if (!file)
+    {
+        URHO3D_LOGERROR("Null file for async loading");
+        return false;
+    }
+
+    StopAsyncLoading();
+
+    SharedPtr<JSONFile> json(new JSONFile(context_));
+    if (!json->Load(*file))
+        return false;
+
+    asyncLoading_ = true;
+    asyncProgress_.jsonFile_ = json;
+    asyncProgress_.file_ = file;
+    asyncProgress_.mode_ = LOAD_SCENE_AND_RESOURCES;
+    asyncProgress_.loadedNodes_ = asyncProgress_.totalNodes_ = asyncProgress_.loadedResources_ = asyncProgress_.totalResources_ = 0;
+    asyncProgress_.resources_.Clear();
+    asyncProgress_.isNodeLoading_ = true;
+    asyncProgress_.rootNode_ = CreateChild(0,createMode);
+
+    JSONValue rootVal = json->GetRoot();
+
+    URHO3D_PROFILE(FindResourcesToPreload);
+
+    PreloadResourcesJSON(rootVal);
+
+    // Store own old ID for resolving possible root node references
+    unsigned nodeID = rootVal.Get("id").GetUInt();
+    asyncProgress_.resolver_.AddNode(nodeID, this);
+
+    // Load the root level components first
+    if (!asyncProgress_.rootNode_->LoadJSON(rootVal, asyncProgress_.resolver_, false))
+    {
+        asyncProgress_.rootNode_->Remove();
+        StopAsyncLoading();
+        return false;
+    }
+
+    // Then prepare for loading all root level child nodes in the async update
+    JSONArray childrenArray = rootVal.Get("children").GetArray();
+    asyncProgress_.jsonIndex_ = 0;
+
+    // Count the amount of child nodes
+    asyncProgress_.totalNodes_ = childrenArray.Size();
+
+    return true;
+}
+
+bool Scene::LoadAsyncNode(const String& name, CreateMode createMode)
+{
+     auto* cache = GetSubsystem<ResourceCache>();
+     SharedPtr<File> file = cache->GetFile(name);
+     if(file != nullptr)
+     {
+         return LoadAsyncNode(file, createMode);
+     }
+     else{
+         return false;
+     }
+}
+
+bool Scene::LoadAsyncNode(File* file, CreateMode createMode)
+{
+    if (!file)
+    {
+        URHO3D_LOGERROR("Null file for async loading");
+        return false;
+    }
+
+    StopAsyncLoading();
+
+    file->Seek(0);
+    
+    asyncLoading_ = true;
+    asyncProgress_.file_ = file;
+    asyncProgress_.mode_ = LOAD_SCENE_AND_RESOURCES;
+    asyncProgress_.loadedNodes_ = asyncProgress_.totalNodes_ = asyncProgress_.loadedResources_ =
+        asyncProgress_.totalResources_ = 0;
+    asyncProgress_.resources_.Clear();
+    asyncProgress_.isNodeLoading_ = true;
+    asyncProgress_.rootNode_ = CreateChild(0, createMode);
+
+    URHO3D_PROFILE(FindResourcesToPreload);
+
+    unsigned currentPos = file->GetPosition();
+    PreloadResources(file, false);
+    file->Seek(currentPos);
+
+    // Store own old ID for resolving possible root node references
+    unsigned nodeID = file->ReadUInt();
+    asyncProgress_.resolver_.AddNode(nodeID, this);
+
+   // Load the root level components first
+    if (!asyncProgress_.rootNode_->Load(*file, asyncProgress_.resolver_, false))
+    {
+        asyncProgress_.rootNode_->Remove();
+        StopAsyncLoading();
+        return false;
+    }
+
+    // Then prepare to load child nodes in the async updates
+    asyncProgress_.totalNodes_ = file->ReadVLE();
+
+    return true;
+}
+
 bool Scene::LoadAsyncXML(File* file, LoadMode mode)
 {
     if (!file)
@@ -527,6 +724,12 @@ void Scene::StopAsyncLoading()
     asyncProgress_.jsonIndex_ = 0;
     asyncProgress_.resources_.Clear();
     resolver_.Reset();
+    asyncProgress_.isNodeLoading_ = false;
+    asyncProgress_.isFirstNodeLoad_ = true;
+    asyncProgress_.rootNode_ = nullptr;
+    asyncProgress_.resolver_.Reset();
+    asyncProgress_.asyncIntervalTimer_.Reset();
+    asyncProgress_.asyncIntervalTime_ = asyncIntervalMs_;
 }
 
 Node* Scene::Instantiate(Deserializer& source, const Vector3& position, const Quaternion& rotation, CreateMode mode)
@@ -673,6 +876,11 @@ void Scene::SetAsyncLoadingMs(int ms)
     asyncLoadingMs_ = Max(ms, 1);
 }
 
+void Scene::SetAsyncIntervalMs(int ms)
+{
+    asyncIntervalMs_ = Max(ms, 1);
+}
+
 void Scene::SetElapsedTime(float time)
 {
     elapsedTime_ = time;
@@ -765,9 +973,15 @@ void Scene::Update(float timeStep)
 {
     if (asyncLoading_)
     {
-        UpdateAsyncLoading();
+        if(asyncProgress_.isNodeLoading_ == false ||
+           ( asyncProgress_.isNodeLoading_ == true && asyncProgress_.asyncIntervalTimer_.GetUSec(false) > asyncProgress_.asyncIntervalTime_ * 1000LL) ||
+           (asyncProgress_.isNodeLoading_ == true && asyncProgress_.isFirstNodeLoad_ == true) )
+        {
+            asyncProgress_.isFirstNodeLoad_ == false;
+            UpdateAsyncLoading();
+        }
         // If only preloading resources, scene update can continue
-        if (asyncProgress_.mode_ > LOAD_RESOURCES_ONLY)
+        if (asyncProgress_.mode_ > LOAD_RESOURCES_ONLY && asyncProgress_.isNodeLoading_ == false)
             return;
     }
 
@@ -1209,6 +1423,7 @@ void Scene::UpdateAsyncLoading()
     {
         if (asyncProgress_.loadedNodes_ >= asyncProgress_.totalNodes_)
         {
+            SendUpdateAsyncLoading();
             FinishAsyncLoading();
             return;
         }
@@ -1219,27 +1434,87 @@ void Scene::UpdateAsyncLoading()
         if (asyncProgress_.xmlFile_)
         {
             unsigned nodeID = asyncProgress_.xmlElement_.GetUInt("id");
-            Node* newNode = CreateChild(nodeID, IsReplicatedID(nodeID) ? REPLICATED : LOCAL);
-            resolver_.AddNode(nodeID, newNode);
-            newNode->LoadXML(asyncProgress_.xmlElement_, resolver_);
-            asyncProgress_.xmlElement_ = asyncProgress_.xmlElement_.GetNext("node");
+
+            if (asyncProgress_.isNodeLoading_ == true)
+            {
+                if (asyncProgress_.rootNode_ != nullptr)
+                {
+                    Node* newNode =
+                        asyncProgress_.rootNode_->CreateChild(nodeID, IsReplicatedID(nodeID) ? REPLICATED : LOCAL);
+                    asyncProgress_.resolver_.AddNode(nodeID, newNode);
+                    newNode->LoadXML(asyncProgress_.xmlElement_, asyncProgress_.resolver_);
+                    asyncProgress_.xmlElement_ = asyncProgress_.xmlElement_.GetNext("node");
+                }
+                else
+                {
+                    StopAsyncLoading();
+                    return;
+                }
+            }
+            else
+            {
+                Node* newNode = CreateChild(nodeID, IsReplicatedID(nodeID) ? REPLICATED : LOCAL);
+                resolver_.AddNode(nodeID, newNode);
+                newNode->LoadXML(asyncProgress_.xmlElement_, resolver_);
+                asyncProgress_.xmlElement_ = asyncProgress_.xmlElement_.GetNext("node");
+            }
         }
         else if (asyncProgress_.jsonFile_) // Load from JSON
         {
-            const JSONValue& childValue = asyncProgress_.jsonFile_->GetRoot().Get("children").GetArray().At(asyncProgress_.jsonIndex_);
+            const JSONValue& childValue =
+                asyncProgress_.jsonFile_->GetRoot().Get("children").GetArray().At(asyncProgress_.jsonIndex_);
 
-            unsigned nodeID =childValue.Get("id").GetUInt();
-            Node* newNode = CreateChild(nodeID, IsReplicatedID(nodeID) ? REPLICATED : LOCAL);
-            resolver_.AddNode(nodeID, newNode);
-            newNode->LoadJSON(childValue, resolver_);
-            ++asyncProgress_.jsonIndex_;
+            unsigned nodeID = childValue.Get("id").GetUInt();
+
+            if (asyncProgress_.isNodeLoading_ == true)
+            {
+                if (asyncProgress_.rootNode_ != nullptr)
+                {
+                    Node* newNode =
+                        asyncProgress_.rootNode_->CreateChild(nodeID, IsReplicatedID(nodeID) ? REPLICATED : LOCAL);
+                    asyncProgress_.resolver_.AddNode(nodeID, newNode);
+                    newNode->LoadJSON(childValue, asyncProgress_.resolver_);
+                    ++asyncProgress_.jsonIndex_;
+                }
+                else
+                {
+                    StopAsyncLoading();
+                    return;
+                }
+            }
+            else
+            {
+                Node* newNode = CreateChild(nodeID, IsReplicatedID(nodeID) ? REPLICATED : LOCAL);
+                resolver_.AddNode(nodeID, newNode);
+                newNode->LoadJSON(childValue, resolver_);
+                ++asyncProgress_.jsonIndex_;
+            }
         }
         else // Load from binary
         {
             unsigned nodeID = asyncProgress_.file_->ReadUInt();
-            Node* newNode = CreateChild(nodeID, IsReplicatedID(nodeID) ? REPLICATED : LOCAL);
-            resolver_.AddNode(nodeID, newNode);
-            newNode->Load(*asyncProgress_.file_, resolver_);
+      
+            if (asyncProgress_.isNodeLoading_ == true)
+            {
+                if (asyncProgress_.rootNode_ != nullptr)
+                {
+                    Node* newNode =
+                        asyncProgress_.rootNode_->CreateChild(nodeID, IsReplicatedID(nodeID) ? REPLICATED : LOCAL);
+                    asyncProgress_.resolver_.AddNode(nodeID, newNode);
+                    newNode->Load(*asyncProgress_.file_, asyncProgress_.resolver_);
+                }
+                else
+                {
+                    StopAsyncLoading();
+                    return;
+                }
+            }
+            else
+            {
+                Node* newNode = CreateChild(nodeID, IsReplicatedID(nodeID) ? REPLICATED : LOCAL);
+                resolver_.AddNode(nodeID, newNode);
+                newNode->Load(*asyncProgress_.file_, resolver_);
+            }
         }
 
         ++asyncProgress_.loadedNodes_;
@@ -1249,10 +1524,22 @@ void Scene::UpdateAsyncLoading()
             break;
     }
 
+    SendUpdateAsyncLoading();
+
+    if (asyncProgress_.isNodeLoading_ == true)
+    {
+        asyncProgress_.asyncIntervalTimer_.Reset();
+    }
+}
+
+void Scene::SendUpdateAsyncLoading()
+{
     using namespace AsyncLoadProgress;
 
     VariantMap& eventData = GetEventDataMap();
     eventData[P_SCENE] = this;
+    if(asyncProgress_.isNodeLoading_ == true)
+        eventData[P_NODE] = asyncProgress_.rootNode_;
     eventData[P_PROGRESS] = GetAsyncProgress();
     eventData[P_LOADEDNODES] = asyncProgress_.loadedNodes_;
     eventData[P_TOTALNODES] = asyncProgress_.totalNodes_;
@@ -1263,20 +1550,34 @@ void Scene::UpdateAsyncLoading()
 
 void Scene::FinishAsyncLoading()
 {
-    if (asyncProgress_.mode_ > LOAD_RESOURCES_ONLY)
+    if (asyncProgress_.isNodeLoading_ == true)
+    {
+        asyncProgress_.resolver_.Resolve();
+        asyncProgress_.rootNode_->ApplyAttributes();
+
+        using namespace AsyncLoadFinished;
+
+        VariantMap& eventData = GetEventDataMap();
+        eventData[P_SCENE] = this;
+        eventData[P_NODE] = asyncProgress_.rootNode_;
+        SendEvent(E_ASYNCLOADFINISHED, eventData);
+
+        StopAsyncLoading();
+    }
+    else if (asyncProgress_.mode_ > LOAD_RESOURCES_ONLY)
     {
         resolver_.Resolve();
         ApplyAttributes();
         FinishLoading(asyncProgress_.file_);
+
+        StopAsyncLoading();
+
+        using namespace AsyncLoadFinished;
+
+        VariantMap& eventData = GetEventDataMap();
+        eventData[P_SCENE] = this;
+        SendEvent(E_ASYNCLOADFINISHED, eventData);
     }
-
-    StopAsyncLoading();
-
-    using namespace AsyncLoadFinished;
-
-    VariantMap& eventData = GetEventDataMap();
-    eventData[P_SCENE] = this;
-    SendEvent(E_ASYNCLOADFINISHED, eventData);
 }
 
 void Scene::FinishLoading(Deserializer* source)
