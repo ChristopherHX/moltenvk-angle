@@ -63,6 +63,7 @@ namespace Urho
         public AsyncLoader()
         {
             scene = new Scene();
+            scene.Temporary = true;
             scene.CreateComponent<Octree>();
             scene.CreateComponent<PhysicsWorld>();
             scene.CreateComponent<DebugRenderer>();
