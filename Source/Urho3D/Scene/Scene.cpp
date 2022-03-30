@@ -1421,13 +1421,21 @@ void Scene::UpdateAsyncLoading()
 
     for (;;)
     {
-        if (asyncProgress_.loadedNodes_ >= asyncProgress_.totalNodes_)
+        if (asyncProgress_.mode_ == LOAD_RESOURCES_ONLY)
+        {
+            if (asyncProgress_.loadedResources_ >= asyncProgress_.totalResources_)
+            {
+                SendUpdateAsyncLoading();
+                FinishAsyncLoading();
+                return;
+            }
+        }
+        else if (asyncProgress_.loadedNodes_ >= asyncProgress_.totalNodes_)
         {
             SendUpdateAsyncLoading();
             FinishAsyncLoading();
             return;
         }
-
 
         // Read one child node with its full sub-hierarchy either from binary, JSON, or XML
         /// \todo Works poorly in scenes where one root-level child node contains all content
@@ -1570,6 +1578,16 @@ void Scene::FinishAsyncLoading()
         ApplyAttributes();
         FinishLoading(asyncProgress_.file_);
 
+        StopAsyncLoading();
+
+        using namespace AsyncLoadFinished;
+
+        VariantMap& eventData = GetEventDataMap();
+        eventData[P_SCENE] = this;
+        SendEvent(E_ASYNCLOADFINISHED, eventData);
+    }
+    else if (asyncProgress_.mode_ == LOAD_RESOURCES_ONLY)
+    {
         StopAsyncLoading();
 
         using namespace AsyncLoadFinished;
