@@ -1509,4 +1509,14 @@ DllExport void AnimationTrack_PushAnimationKeyFrame(AnimationTrack* animationTra
     animationTrack->keyFrames_.Push(animationKeyFrame);
 }
 
+DllExport bool Quaternion_FromLookRotation(Vector3& direction,  Vector3& up, Interop::Quaternion* rotation_out)
+{
+    Quaternion rotation;
+    bool status = rotation.FromLookRotation(direction, up);
+    *rotation_out =  *((Interop::Quaternion*)&(rotation));
+    return status;
+}
+
+
+
 }

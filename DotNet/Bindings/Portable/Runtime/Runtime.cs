@@ -342,13 +342,23 @@ namespace Urho
             {
                 var errorText = $"{typeof(T).Name}.{name} (Handle={obj.Handle}) was invoked after Application.Stop";
                 LogSharp.Error(errorText);
+#if __EDITOR__
+                Urho.Application.ThrowUnhandledException(
+                     new Exception(errorText + " . You can omit this exception by subscribing to Urho.Application.UnhandledException event and set Handled property to True.\nApplicationOptions: " + Application.CurrentOptions));
+#else
                 throw new InvalidOperationException(errorText);
+#endif
             }
             if (obj.IsDeleted) //IsDeleted is set to True when we receive a native callback from RefCounted::~RefCounted
             {
                 var errorText = $"Underlying native object was deleted for Handle={obj.Handle}. {typeof(T).Name}.{name}";
                 LogSharp.Error(errorText);
+#if __EDITOR__
+                Urho.Application.ThrowUnhandledException(
+                     new Exception(errorText + " . You can omit this exception by subscribing to Urho.Application.UnhandledException event and set Handled property to True.\nApplicationOptions: " + Application.CurrentOptions));
+#else
                 throw new InvalidOperationException(errorText);
+#endif
             }
             //if (obj.Handle == IntPtr.Zero)
             //{

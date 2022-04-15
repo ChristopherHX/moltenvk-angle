@@ -880,5 +880,15 @@ namespace Urho
 		}
 
 		#endregion
+
+		[DllImport(Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern bool Quaternion_FromLookRotation(ref Vector3 direction, ref Vector3 up , out Quaternion quaternion);
+
+		public static bool FromLookRotation(Vector3 direction, Vector3 up , out Quaternion outQuat)
+		{
+			bool status =  Quaternion_FromLookRotation(ref direction, ref up,out Quaternion quaternion);
+			outQuat = quaternion;
+			return status;
+		}
 	}
 }

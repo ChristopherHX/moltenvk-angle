@@ -2698,6 +2698,7 @@ int XmlElement_GetXPathResultIndex (int);
 int XmlElement_NextResult (int);
 int float_convert_to_string (float);
 int double_convert_to_string (double);
+int Quaternion_FromLookRotation (int,int,int);
 void RegisterMonoNativeCallbacks (int);
 void urho_unsubscribe (int);
 int VectorSharedPtr_Count (int);
@@ -8956,6 +8957,7 @@ static PinvokeImport Urho3D_imports [] = {
 {"XmlElement_NextResult", XmlElement_NextResult},
 {"float_convert_to_string", float_convert_to_string},
 {"double_convert_to_string", double_convert_to_string},
+{"Quaternion_FromLookRotation", Quaternion_FromLookRotation},
 {"RegisterMonoNativeCallbacks", RegisterMonoNativeCallbacks},
 {"urho_unsubscribe", urho_unsubscribe},
 {"VectorSharedPtr_Count", VectorSharedPtr_Count},
@@ -12541,14 +12543,14 @@ void wasm_native_to_interp_UrhoDotNet_100667321 (int arg0,int arg1,int arg2) {
 ((WasmInterpEntrySig_4)wasm_native_to_interp_ftndescs [4].func) (&arg0, &arg1, &arg2, wasm_native_to_interp_ftndescs [4].arg);
 }
 typedef void  (*WasmInterpEntrySig_5) (int,int,int,int,int,int);
-void wasm_native_to_interp_UrhoDotNet_100672873 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
+void wasm_native_to_interp_UrhoDotNet_100672875 (int arg0,int arg1,int arg2,int arg3,int arg4) { 
 ((WasmInterpEntrySig_5)wasm_native_to_interp_ftndescs [5].func) (&arg0, &arg1, &arg2, &arg3, &arg4, wasm_native_to_interp_ftndescs [5].arg);
 }
-static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663441,wasm_native_to_interp_UrhoDotNet_100663442,wasm_native_to_interp_UrhoDotNet_100663445,wasm_native_to_interp_UrhoDotNet_100667320,wasm_native_to_interp_UrhoDotNet_100667321,wasm_native_to_interp_UrhoDotNet_100672873,};
+static void *wasm_native_to_interp_funcs[] = { wasm_native_to_interp_UrhoDotNet_100663441,wasm_native_to_interp_UrhoDotNet_100663442,wasm_native_to_interp_UrhoDotNet_100663445,wasm_native_to_interp_UrhoDotNet_100667320,wasm_native_to_interp_UrhoDotNet_100667321,wasm_native_to_interp_UrhoDotNet_100672875,};
 static const char *wasm_native_to_interp_map[] = { "UrhoDotNet_100663441",
 "UrhoDotNet_100663442",
 "UrhoDotNet_100663445",
 "UrhoDotNet_100667320",
 "UrhoDotNet_100667321",
-"UrhoDotNet_100672873",
+"UrhoDotNet_100672875",
 };

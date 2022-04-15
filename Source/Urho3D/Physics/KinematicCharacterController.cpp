@@ -61,6 +61,7 @@ const float MAX_SLOPE = 45.0f;
 const float DEFAULT_DAMPING = 0.2f;
 const Vector3 KINEMATIC_GRAVITY(0.0f, -14.0f, 0.0f);
 
+extern const char* PHYSICS_CATEGORY;
 //=============================================================================
 //=============================================================================
 KinematicCharacterController::KinematicCharacterController(Context* context)
@@ -86,7 +87,7 @@ KinematicCharacterController::~KinematicCharacterController() { ReleaseKinematic
 
 void KinematicCharacterController::RegisterObject(Context* context)
 {
-    context->RegisterFactory<KinematicCharacterController>();
+    context->RegisterFactory<KinematicCharacterController>(PHYSICS_CATEGORY);
 
     URHO3D_ATTRIBUTE("Gravity", Vector3, gravity_, KINEMATIC_GRAVITY, AM_DEFAULT);
     URHO3D_ATTRIBUTE("Collision Layer", int, colLayer_, 1, AM_DEFAULT);
