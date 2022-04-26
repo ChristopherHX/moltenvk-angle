@@ -37164,6 +37164,20 @@ ListView_EnsureItemVisibility1 (Urho3D::ListView *_target, Urho3D::UIElement * i
 
 
 DllExport int
+ListView_GetEnsureItemVisibilityOnFcousChanged (Urho3D::ListView *_target)
+{
+	return _target->GetEnsureItemVisibilityOnFcousChanged ();
+}
+
+
+DllExport void
+ListView_SetEnsureItemVisibilityOnFcousChanged (Urho3D::ListView *_target, bool enable)
+{
+	_target->SetEnsureItemVisibilityOnFcousChanged (enable);
+}
+
+
+DllExport int
 UIComponent_GetType (Urho3D::UIComponent *_target)
 {
 	return (_target->GetType ()).Value ();

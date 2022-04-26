@@ -141,6 +141,7 @@ ListView::ListView(Context* context)
     baseIndent_(0)
     , clearSelectionOnDefocus_(false)
     , selectOnClickEnd_(false)
+    , ensureItemVisibilityOnFocusChanged_(true)
 {
     resizeContentWidth_ = true;
 
@@ -172,6 +173,8 @@ void ListView::RegisterObject(Context* context)
     URHO3D_ACCESSOR_ATTRIBUTE("Clear Sel. On Defocus", GetClearSelectionOnDefocus, SetClearSelectionOnDefocus, bool,
                               false, AM_FILE);
     URHO3D_ACCESSOR_ATTRIBUTE("Select On Click End", GetSelectOnClickEnd, SetSelectOnClickEnd, bool, false, AM_FILE);
+    URHO3D_ACCESSOR_ATTRIBUTE("Ensure Item Visibility", GetEnsureItemVisibilityOnFcousChanged, SetEnsureItemVisibilityOnFcousChanged, bool, true, AM_FILE);
+    //
 }
 
 void ListView::OnKey(Key key, MouseButtonFlags buttons, QualifierFlags qualifiers)
@@ -1072,22 +1075,22 @@ void ListView::HandleUIMouseDoubleClick(StringHash eventType, VariantMap& eventD
 
 void ListView::HandleItemFocusChanged(StringHash eventType, VariantMap& eventData)
 {
-#if !defined(URHO3D_DOTNET)
     using namespace FocusChanged;
-
-    auto* element = static_cast<UIElement*>(eventData[P_ELEMENT].GetPtr());
-    while (element)
+    if (ensureItemVisibilityOnFocusChanged_ == true)
     {
-        // If the focused element or its parent is in the list, scroll the list to make the item visible
-        UIElement* parent = element->GetParent();
-        if (parent == contentElement_)
+        auto* element = static_cast<UIElement*>(eventData[P_ELEMENT].GetPtr());
+        while (element)
         {
-            EnsureItemVisibility(element);
-            return;
+            // If the focused element or its parent is in the list, scroll the list to make the item visible
+            UIElement* parent = element->GetParent();
+            if (parent == contentElement_)
+            {
+                EnsureItemVisibility(element);
+                return;
+            }
+            element = parent;
         }
-        element = parent;
     }
-#endif
 }
 
 void ListView::HandleFocusChanged(StringHash eventType, VariantMap& eventData)
@@ -1106,5 +1109,7 @@ void ListView::UpdateUIClickSubscription()
     SubscribeToEvent(selectOnClickEnd_ ? E_UIMOUSECLICKEND : E_UIMOUSECLICK,
                      URHO3D_HANDLER(ListView, HandleUIMouseClick));
 }
+
+void ListView::SetEnsureItemVisibilityOnFcousChanged(bool enable) { ensureItemVisibilityOnFocusChanged_ = enable; }
 
 } // namespace Urho3D

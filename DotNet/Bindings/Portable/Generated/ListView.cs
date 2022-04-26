@@ -590,6 +590,32 @@ namespace Urho.Gui
 			ListView_EnsureItemVisibility1 (handle, (object)item == null ? IntPtr.Zero : item.Handle);
 		}
 
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern bool ListView_GetEnsureItemVisibilityOnFcousChanged (IntPtr handle);
+
+		/// <summary>
+		/// Return whether Item visibility is ensured on focuse changed.
+		/// 
+		/// </summary>
+		private bool GetEnsureItemVisibilityOnFcousChanged ()
+		{
+			Runtime.ValidateRefCounted (this);
+			return ListView_GetEnsureItemVisibilityOnFcousChanged (handle);
+		}
+
+		[DllImport (Consts.NativeImport, CallingConvention = CallingConvention.Cdecl)]
+		internal static extern void ListView_SetEnsureItemVisibilityOnFcousChanged (IntPtr handle, bool enable);
+
+		/// <summary>
+		/// Set Item visibility is ensured on focuse changed.
+		/// 
+		/// </summary>
+		private void SetEnsureItemVisibilityOnFcousChanged (bool enable)
+		{
+			Runtime.ValidateRefCounted (this);
+			ListView_SetEnsureItemVisibilityOnFcousChanged (handle, enable);
+		}
+
 		public override StringHash Type {
 			get {
 				return UrhoGetType ();
@@ -746,6 +772,22 @@ namespace Urho.Gui
 		public UIElement SelectedItem {
 			get {
 				return GetSelectedItem ();
+			}
+		}
+
+		/// <summary>
+		/// Return whether Item visibility is ensured on focuse changed.
+		/// 
+		/// Or
+		/// Set Item visibility is ensured on focuse changed.
+		/// 
+		/// </summary>
+		public bool EnsureItemVisibilityOnFcousChanged {
+			get {
+				return GetEnsureItemVisibilityOnFcousChanged ();
+			}
+			set {
+				SetEnsureItemVisibilityOnFcousChanged (value);
 			}
 		}
 	}
