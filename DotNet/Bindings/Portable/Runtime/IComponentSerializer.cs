@@ -86,8 +86,21 @@ namespace Urho.Resources
 				return (T) (object) xmlElement.GetUInt(key);
 			else if (type == typeof (bool))
 				return (T) (object) xmlElement.GetBool(key);
-            else if (type.IsEnum) 
-                return (T) Enum.Parse(type,xmlElement.GetAttribute(key));
+            else if (type.IsEnum)
+            {
+                if (Enum.TryParse(type, xmlElement.GetAttribute(key), out object result))
+                {
+                    return (T)result;
+                }
+                else
+                {
+                    System.Array enumValues = type.GetEnumValues();
+                    if (enumValues.Length > 0)
+                        return (T)enumValues.GetValue(0);
+                    else
+                        return (T)(object)0;
+                }
+            }
 
 			else throw new NotSupportedException($"{type.Name} is not supported."); 
 		}
@@ -132,10 +145,21 @@ namespace Urho.Resources
                 return (object)xmlElement.GetMatrix4(key);
             else if (type == typeof(ulong))
                 return (object)xmlElement.GetUInt64(key);
-            else if (type.IsEnum) 
-                return (object)Enum.Parse(type,xmlElement.GetAttribute(key));
-            
-
+            else if (type.IsEnum)
+            {
+                if (Enum.TryParse(type, xmlElement.GetAttribute(key), out object result))
+                {
+                    return result;
+                }
+                else
+                {
+                    System.Array enumValues = type.GetEnumValues();
+                    if (enumValues.Length > 0)
+                        return enumValues.GetValue(0);
+                    else
+                        return (object)0;
+                }
+            }
             return null;
         }
 
