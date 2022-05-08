@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Erwin Coumans http://continuousphysics.com/Bullet/
+ * Copyright (c) 2005 Erwin Coumans https://bulletphysics.org
  *
  * Permission to use, copy, modify, distribute and sell this software
  * and its documentation for any purpose is hereby granted without fee,
@@ -8,6 +8,9 @@
  * of this software for any purpose.  
  * It is provided "as is" without express or implied warranty.
 */
+
+// Modified by Eli Aloni for Urho3D
+
 #ifndef BT_WHEEL_INFO_H
 #define BT_WHEEL_INFO_H
 
@@ -80,10 +83,10 @@ struct btWheelInfo
 
 	btWheelInfo() {}
 
-	// Lumak: added member vars
+	// Urho3D: added member vars
 	btScalar    m_sideFrictionStiffness;
 	btScalar    m_skidInfoCumulative;
-
+	
 	btWheelInfo(btWheelInfoConstructionInfo& ci)
 
 	{
@@ -107,16 +110,15 @@ struct btWheelInfo
 		m_bIsFrontWheel = ci.m_bIsFrontWheel;
 		m_maxSuspensionForce = ci.m_maxSuspensionForce;
 
-		// Lumak: initializers missed
-		m_clientInfo = NULL;
-		m_skidInfo = btScalar(1.0);
-		m_raycastInfo.m_isInContact = false;
-		m_raycastInfo.m_groundObject = NULL;
+        // Urho3D: initializers missed
+        m_clientInfo = NULL;
+        m_skidInfo = btScalar(1.0);
+        m_raycastInfo.m_isInContact = false;
+        m_raycastInfo.m_groundObject = NULL;
 
-		m_sideFrictionStiffness = btScalar(1.0);
-		m_skidInfoCumulative = btScalar(1.0);
-
-	}
+        m_sideFrictionStiffness = btScalar(1.0);
+        m_skidInfoCumulative = btScalar(1.0);
+    }
 
 	void updateWheel(const btRigidBody& chassis, RaycastInfo& raycastInfo);
 

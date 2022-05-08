@@ -1,6 +1,6 @@
 /*
 Bullet Continuous Collision Detection and Physics Library
-Copyright (c) 2003-2006 Erwin Coumans  http://continuousphysics.com/Bullet/
+Copyright (c) 2003-2006 Erwin Coumans  https://bulletphysics.org
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
@@ -672,13 +672,8 @@ void btSequentialImpulseConstraintSolver::setupTorsionalFrictionConstraint(btSol
 
 		//		btScalar positionalError = 0.f;
 
-		// Urho3D: commented out original
-		//btSimdScalar velocityError = desiredVelocity - rel_vel;
-		//btSimdScalar velocityImpulse = velocityError * btSimdScalar(solverConstraint.m_jacDiagABInv);
-
-		// Urho3D: possible friction fix from https://github.com/bulletphysics/bullet3/commit/907ac49892ede3f4a3295f7cbd96759107e5fc0e
-		btScalar velocityError =  desiredVelocity - rel_vel;
-		btScalar velocityImpulse = velocityError * btScalar(solverConstraint.m_jacDiagABInv);
+		btSimdScalar velocityError = desiredVelocity - rel_vel;
+	 	btSimdScalar velocityImpulse = velocityError * btSimdScalar(solverConstraint.m_jacDiagABInv);
 
 		solverConstraint.m_rhs = velocityImpulse;
 		solverConstraint.m_cfm = cfmSlip;
@@ -1806,7 +1801,6 @@ void btSequentialImpulseConstraintSolver::writeBackJoints(int iBegin, int iEnd, 
 		}
 
 		constr->internalSetAppliedImpulse(solverConstr.m_appliedImpulse);
-
 		// Urho3D: commented out original
 		//if (btFabs(solverConstr.m_appliedImpulse) >= constr->getBreakingImpulseThreshold())
 

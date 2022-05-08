@@ -111,11 +111,9 @@ void *gim_realloc(void *ptr, size_t oldsize, size_t newsize);
 void gim_free(void *ptr);
 
 // Urho3D: commented out original
-//#if defined(_WIN32) && !defined(__MINGW32__) && !defined(__CYGWIN__)
-
+// #if defined(_WIN32) && !defined(__MINGW32__) && !defined(__CYGWIN__)
 // Urho3D: allow to disable SIMD, allow MinGW to use SIMD
 #if defined(_WIN32) && (!defined(_M_IX86_FP) || _M_IX86_FP || defined(__SSE__)) && !defined(__CYGWIN__)
-
 #define GIM_SIMD_MEMORY 1
 #endif
 
