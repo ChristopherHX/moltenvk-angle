@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Erwin Coumans https://bulletphysics.org
+ * Copyright (c) 2005 Erwin Coumans http://continuousphysics.com/Bullet/
  *
  * Permission to use, copy, modify, distribute and sell this software
  * and its documentation for any purpose is hereby granted without fee,
@@ -8,8 +8,6 @@
  * of this software for any purpose.  
  * It is provided "as is" without express or implied warranty.
 */
-
-// Modified by Eli Aloni for Urho3D
 
 #include "LinearMath/btVector3.h"
 #include "btRaycastVehicle.h"
@@ -146,8 +144,8 @@ void btRaycastVehicle::resetSuspension()
 
 void btRaycastVehicle::updateWheelTransformsWS(btWheelInfo& wheel, bool interpolatedTransform)
 {
-	// Urho3D: bug
-	// wheel.m_raycastInfo.m_isInContact = false;
+	// Lumak: bug
+	//wheel.m_raycastInfo.m_isInContact = false;
 
 	btTransform chassisTrans = getChassisWorldTransform();
 	if (interpolatedTransform && (getRigidBody()->getMotionState()))
@@ -182,7 +180,7 @@ btScalar btRaycastVehicle::rayCast(btWheelInfo& wheel)
 	void* object = m_vehicleRaycaster->castRay(source, target, rayResults);
 
 	wheel.m_raycastInfo.m_groundObject = 0;
-	// Urho3D: init inContact
+	// Lumak: init inContact
 	wheel.m_raycastInfo.m_isInContact = false;
 
 	if (object)
@@ -536,6 +534,7 @@ void btRaycastVehicle::updateFriction(btScalar timeStep)
 				btScalar proj = m_axle[i].dot(surfNormalWS);
 				m_axle[i] -= surfNormalWS * proj;
 				m_axle[i] = m_axle[i].normalize();
+
 
 				m_forwardWS[i] = surfNormalWS.cross(m_axle[i]);
 				m_forwardWS[i].normalize();

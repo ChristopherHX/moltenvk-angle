@@ -1,6 +1,6 @@
 /*
 Bullet Continuous Collision Detection and Physics Library
-Copyright (c) 2003-2006 Erwin Coumans  https://bulletphysics.org
+Copyright (c) 2003-2006 Erwin Coumans  http://continuousphysics.com/Bullet/
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
@@ -240,7 +240,7 @@ void btCompoundCollisionAlgorithm::processCollision(const btCollisionObjectWrapp
 	// Urho3D: do not go further if compound does not have child shapes, to prevent assert
 	if (!compoundShape->getNumChildShapes())
 		return;
-		
+
 	///btCompoundShape might have changed:
 	////make sure the internal child collision algorithm caches are still valid
 	if (compoundShape->getUpdateRevision() != m_compoundShapeRevision)

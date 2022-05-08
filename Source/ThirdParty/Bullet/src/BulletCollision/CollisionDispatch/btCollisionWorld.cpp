@@ -1,6 +1,6 @@
 /*
 Bullet Continuous Collision Detection and Physics Library
-Copyright (c) 2003-2006 Erwin Coumans  https://bulletphysics.org
+Copyright (c) 2003-2006 Erwin Coumans  http://continuousphysics.com/Bullet/
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
@@ -200,6 +200,7 @@ void btCollisionWorld::updateAabbs()
 {
 	BT_PROFILE("updateAabbs");
 
+	btTransform predictedTrans;
 	for (int i = 0; i < m_collisionObjects.size(); i++)
 	{
 		btCollisionObject* colObj = m_collisionObjects[i];
@@ -1038,7 +1039,7 @@ struct btSingleSweepCallback : public btBroadphaseRayCallback
 		  m_castShape(castShape)
 	{
 		btVector3 unnormalizedRayDir = (m_convexToTrans.getOrigin() - m_convexFromTrans.getOrigin());
-		btVector3 rayDir = unnormalizedRayDir.fuzzyZero() ? btVector3(btScalar(0.0), btScalar(0.0), btScalar(0.0)) : unnormalizedRayDir.normalized();
+		btVector3 rayDir = unnormalizedRayDir.normalized();
 		///what about division by zero? --> just set rayDirection[i] to INF/BT_LARGE_FLOAT
 		m_rayDirectionInverse[0] = rayDir[0] == btScalar(0.0) ? btScalar(BT_LARGE_FLOAT) : btScalar(1.0) / rayDir[0];
 		m_rayDirectionInverse[1] = rayDir[1] == btScalar(0.0) ? btScalar(BT_LARGE_FLOAT) : btScalar(1.0) / rayDir[1];
@@ -1286,33 +1287,35 @@ public:
 		wv0 = m_worldTrans * triangle[0];
 		wv1 = m_worldTrans * triangle[1];
 		wv2 = m_worldTrans * triangle[2];
+
 		// Urho3D: commented out original
-		// btVector3 center = (wv0 + wv1 + wv2) * btScalar(1. / 3.);
+		//btVector3 center = (wv0 + wv1 + wv2) * btScalar(1. / 3.);
 
 		if (m_debugDrawer->getDebugMode() & btIDebugDraw::DBG_DrawNormals)
 		{
 			// Urho3D: calculate center only if needed
 			btVector3 center = (wv0 + wv1 + wv2) * btScalar(1. / 3.);
+
 			btVector3 normal = (wv1 - wv0).cross(wv2 - wv0);
 			normal.normalize();
 			btVector3 normalColor(1, 1, 0);
 			m_debugDrawer->drawLine(center, center + normal, normalColor);
 		}
-		m_debugDrawer->drawTriangle(wv0, wv1, wv2, m_color, 1.0);
+		m_debugDrawer->drawLine(wv0, wv1, m_color);
+		m_debugDrawer->drawLine(wv1, wv2, m_color);
+		m_debugDrawer->drawLine(wv2, wv0, m_color);
 	}
 };
 
-void btCollisionWorld::debugDrawObject(const btTransform& worldTransform, const btCollisionShape* shape,
-                                       const btVector3& color)
+void btCollisionWorld::debugDrawObject(const btTransform& worldTransform, const btCollisionShape* shape, const btVector3& color)
 {
+	// Urho3D: perform AABB visibility test first
+	btVector3 aabbMin, aabbMax;
+	shape->getAabb(worldTransform, aabbMin, aabbMax);
+	if (!getDebugDrawer()->isVisible(aabbMin, aabbMax))
+		return;
 
-    // Urho3D: perform AABB visibility test first
-    btVector3 aabbMin, aabbMax;
-    shape->getAabb(worldTransform, aabbMin, aabbMax);
-    if (!getDebugDrawer()->isVisible(aabbMin, aabbMax))
-        return;
-
-    // Draw a small simplex at the center of the object
+	// Draw a small simplex at the center of the object
 	if (getDebugDrawer() && getDebugDrawer()->getDebugMode() & btIDebugDraw::DBG_DrawFrames)
 	{
 		getDebugDrawer()->drawTransform(worldTransform, .1);

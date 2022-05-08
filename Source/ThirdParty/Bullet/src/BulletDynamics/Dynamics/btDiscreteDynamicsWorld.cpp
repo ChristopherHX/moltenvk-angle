@@ -13,6 +13,8 @@ subject to the following restrictions:
 3. This notice may not be removed or altered from any source distribution.
 */
 
+// Modified by Lasse Oorni for Urho3D
+
 #include "btDiscreteDynamicsWorld.h"
 
 //collision detection
@@ -426,8 +428,9 @@ int btDiscreteDynamicsWorld::stepSimulation(btScalar timeStep, int maxSubSteps, 
 		int clampedSimulationSteps = (numSimulationSubSteps > maxSubSteps) ? maxSubSteps : numSimulationSubSteps;
 
 		saveKinematicState(fixedTimeStep * clampedSimulationSteps);
+
 		// Urho3D: commented out original
-		// applyGravity();
+		//applyGravity();
 
 		for (int i = 0; i < clampedSimulationSteps; i++)
 		{
@@ -438,7 +441,7 @@ int btDiscreteDynamicsWorld::stepSimulation(btScalar timeStep, int maxSubSteps, 
 			synchronizeMotionStates();
 
 			// Urho3D: clear forces on each substep
-			clearForces();			
+			clearForces();
 		}
 	}
 	else
@@ -908,8 +911,8 @@ void btDiscreteDynamicsWorld::createPredictiveContactsInternal(btRigidBody** bod
 						btVector3 distVec = (predictedTrans.getOrigin() - body->getWorldTransform().getOrigin()) * sweepResults.m_closestHitFraction;
 						btScalar distance = distVec.dot(-sweepResults.m_hitNormalWorld);
 
-						btMutexLock(&m_predictiveManifoldsMutex);
 						btPersistentManifold* manifold = m_dispatcher1->getNewManifold(body, sweepResults.m_hitCollisionObject);
+						btMutexLock(&m_predictiveManifoldsMutex);
 						m_predictiveManifolds.push_back(manifold);
 						btMutexUnlock(&m_predictiveManifoldsMutex);
 
