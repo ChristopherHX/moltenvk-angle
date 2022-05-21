@@ -1,0 +1,44 @@
+Dotnet runtime build
+---------------------
+Git clone --recursive https://github.com/elix22/runtime
+git checkout v6.0.5
+
+IOS
+==============================================================================================
+----------------------------------------------------------------------------------------------
+https://github.com/elix22/runtime/blob/main/docs/workflow/testing/libraries/testing-apple.md
+----------------------------------------------------------------------------------------------
+./build.sh mono+libs  -os iOS -arch arm64  -c Release 
+==============================================================================================
+
+Android 
+==============================================================================================
+----------------------------------------------------------------------------------------------
+https://github.com/elix22/runtime/blob/main/docs/workflow/testing/libraries/testing-android.md
+----------------------------------------------------------------------------------------------
+./build.sh mono+libs -os Android -arch arm64 -c Release 
+./build.sh mono+libs -os Android -arch arm -c Release
+./build.sh mono+libs -os Android -arch x86 -c Release
+./build.sh mono+libs -os Android -arch x64 -c Release
+
+----------------------------------------------------------------------------------------------
+/Users/elialoni/Development/runtime/artifacts/bin/runtime   
+----------------------------------------------------------------------------------------------
+BCL
+libSystem.IO.Compression.Native.so			
+libSystem.Security.Cryptography.Native.Android.so
+libSystem.Native.so
+
+----------------------------------------------------------------------------------------------
+/Users/elialoni/Development/runtime/artifacts/bin/mono
+----------------------------------------------------------------------------------------------
+mono-aot-cross
+include/
+libmono-component-debugger.so			
+libmono-component-hot_reload.so
+libmono-component-diagnostics_tracing.so	
+libmonosgen-2.0.so
+==============================================================================================
+Web
+==============================================================================================
+./build.sh mono+libs -os Browser -c Release
