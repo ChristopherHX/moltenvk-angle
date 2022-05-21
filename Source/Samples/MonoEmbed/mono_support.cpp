@@ -399,6 +399,17 @@ String urho3d_get_dotnet_folder()
     String prefix = "";
 #if defined(__ANDROID__)
     prefix = "DotNet/android/";
+#ifdef __i386__
+    prefix += "x86/";
+#elif __x86_64__
+    prefix += "x86_64/";
+#elif __arm__
+ prefix += "armeabi-v7a/";
+#elif __aarch64__
+prefix += "arm64-v8a/";
+#else
+// unknown 
+#endif
 #elif defined(IOS)
     prefix = "DotNet/ios/";
 #elif defined(TVOS)

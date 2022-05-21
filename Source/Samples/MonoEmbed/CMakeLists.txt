@@ -34,14 +34,17 @@ set (LIBS
 endif()
 
 if(ANDROID)
-set (MONO_LIBPATH  ../../../DotNet/libs/android/release/lib/${ANDROID_ABI}) 
+set (INCLUDE_DIRS ${INCLUDE_DIRS} ../../../DotNet/libs/android/net6.0-Release/${ANDROID_ABI}/include/mono-2.0)
+set (MONO_LIBPATH  ../../../DotNet/libs/android/net6.0-Release/${ANDROID_ABI}) 
 set (LIBS 
-    libmonosgen-2.0.so
-    libmono-native.so
-    libMonoPosixHelper.so
-    libmono-btls-shared.so
+libSystem.IO.Compression.Native.so			
+libmono-component-debugger.so			
+libmonosgen-2.0.so
+libSystem.Native.so				
+libmono-component-diagnostics_tracing.so
+libSystem.Security.Cryptography.Native.Android.so	
+libmono-component-hot_reload.so
 )
-
 file (GLOB ANDROID_FILES android/*.*)
 endif()
 
@@ -107,7 +110,7 @@ endif()
 
 link_directories(. ${MONO_LIBPATH})
 
-set (INCLUDE_DIRS ${INCLUDE_DIRS} ../../../DotNet/include)
+# set (INCLUDE_DIRS ${INCLUDE_DIRS} ../../../DotNet/include)
 
 
 if(WIN32)
