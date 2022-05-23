@@ -1,0 +1,145 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0/",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {},
+    ".NETCoreApp,Version=v6.0/": {
+      "System.Private.CoreLib/6.0.5-dev": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.CSharp.CodeStyle": "3.10.0",
+          "Microsoft.CodeAnalysis.NetAnalyzers": "6.0.0-rtm.21514.4",
+          "Microsoft.DotNet.CodeAnalysis": "6.0.0-beta.22161.1",
+          "Microsoft.NET.ILLink.Analyzers": "6.0.100-1.21459.1",
+          "Microsoft.NET.ILLink.Tasks": "6.0.100-1.21459.1",
+          "Microsoft.Net.Compilers.Toolset": "4.0.0-4.21427.11",
+          "Microsoft.SourceLink.AzureRepos.Git": "1.1.0-beta-20206-02",
+          "Microsoft.SourceLink.GitHub": "1.1.0-beta-20206-02",
+          "StyleCop.Analyzers": "1.2.0-beta.304"
+        },
+        "runtime": {
+          "System.Private.CoreLib.dll": {}
+        }
+      },
+      "Microsoft.Build.Tasks.Git/1.1.0-beta-20206-02": {},
+      "Microsoft.CodeAnalysis.CSharp.CodeStyle/3.10.0": {},
+      "Microsoft.CodeAnalysis.NetAnalyzers/6.0.0-rtm.21514.4": {},
+      "Microsoft.DotNet.CodeAnalysis/6.0.0-beta.22161.1": {},
+      "Microsoft.Net.Compilers.Toolset/4.0.0-4.21427.11": {},
+      "Microsoft.NET.ILLink.Analyzers/6.0.100-1.21459.1": {},
+      "Microsoft.NET.ILLink.Tasks/6.0.100-1.21459.1": {},
+      "Microsoft.SourceLink.AzureRepos.Git/1.1.0-beta-20206-02": {
+        "dependencies": {
+          "Microsoft.Build.Tasks.Git": "1.1.0-beta-20206-02",
+          "Microsoft.SourceLink.Common": "1.1.0-beta-20206-02"
+        }
+      },
+      "Microsoft.SourceLink.Common/1.1.0-beta-20206-02": {},
+      "Microsoft.SourceLink.GitHub/1.1.0-beta-20206-02": {
+        "dependencies": {
+          "Microsoft.Build.Tasks.Git": "1.1.0-beta-20206-02",
+          "Microsoft.SourceLink.Common": "1.1.0-beta-20206-02"
+        }
+      },
+      "StyleCop.Analyzers/1.2.0-beta.304": {
+        "dependencies": {
+          "StyleCop.Analyzers.Unstable": "1.2.0.304"
+        }
+      },
+      "StyleCop.Analyzers.Unstable/1.2.0.304": {}
+    }
+  },
+  "libraries": {
+    "System.Private.CoreLib/6.0.5-dev": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Build.Tasks.Git/1.1.0-beta-20206-02": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hZ9leS9Yd9MHpqvviMftSJFDcLYu2h1DrapW1TDm1s1fgOy71c8HvArNMd3fseVkXmp3VTfGnkgcw0FR+TI6xw==",
+      "path": "microsoft.build.tasks.git/1.1.0-beta-20206-02",
+      "hashPath": "microsoft.build.tasks.git.1.1.0-beta-20206-02.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.CSharp.CodeStyle/3.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jnPs5tldUmQqKoWUCwdm0ZXhdgE5b5HHQF1Q1anHIdZqHLZ05mKRN7IgaMOiyo73OM+pHFPLJDudM5LXuu15TA==",
+      "path": "microsoft.codeanalysis.csharp.codestyle/3.10.0",
+      "hashPath": "microsoft.codeanalysis.csharp.codestyle.3.10.0.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.NetAnalyzers/6.0.0-rtm.21514.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dKV6TbMSDdeGsPUGm0aqiR2ij0vss1FZUrthSJmqr0fMvdRl51TIpXsHweMiiJZSQsa7cs6X/w4L0wIKDxBTfg==",
+      "path": "microsoft.codeanalysis.netanalyzers/6.0.0-rtm.21514.4",
+      "hashPath": "microsoft.codeanalysis.netanalyzers.6.0.0-rtm.21514.4.nupkg.sha512"
+    },
+    "Microsoft.DotNet.CodeAnalysis/6.0.0-beta.22161.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tJUzICaDUqvapi8quF/Wq7+i0rU8Ptqo/t+gYXVzATnDFMdo8hikxYopmz35U+WLz49iuSjv3wSYs0mKmivHww==",
+      "path": "microsoft.dotnet.codeanalysis/6.0.0-beta.22161.1",
+      "hashPath": "microsoft.dotnet.codeanalysis.6.0.0-beta.22161.1.nupkg.sha512"
+    },
+    "Microsoft.Net.Compilers.Toolset/4.0.0-4.21427.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vUWY3rHSA2ZmlklUxzfE0T7CH7d/Y1hzqdJoXVZghDRgprB0M3iF9WBm+Q/5g1YFqJVeYodsvNuR7L9QJsvQHQ==",
+      "path": "microsoft.net.compilers.toolset/4.0.0-4.21427.11",
+      "hashPath": "microsoft.net.compilers.toolset.4.0.0-4.21427.11.nupkg.sha512"
+    },
+    "Microsoft.NET.ILLink.Analyzers/6.0.100-1.21459.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LjPA0BUvsWp0DSj1EE3R6Ul3zInU7aA4foWrpB/YAEIsI7/mWsVLi8QVzJ7PWOux9MHY8LZqE9SJUpSxj/OMfw==",
+      "path": "microsoft.net.illink.analyzers/6.0.100-1.21459.1",
+      "hashPath": "microsoft.net.illink.analyzers.6.0.100-1.21459.1.nupkg.sha512"
+    },
+    "Microsoft.NET.ILLink.Tasks/6.0.100-1.21459.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EuV59B+iQJMx1kIYwhCoCgha7x+Kn0Xk4gUpYXB4vISbD10o7sD3cPLk1cNtpdAUOX8i7tWnVRWVO1PWfepDVA==",
+      "path": "microsoft.net.illink.tasks/6.0.100-1.21459.1",
+      "hashPath": "microsoft.net.illink.tasks.6.0.100-1.21459.1.nupkg.sha512"
+    },
+    "Microsoft.SourceLink.AzureRepos.Git/1.1.0-beta-20206-02": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vVYhSds9TfraTQkGHHMDMVWnr3kCkTZ7vmqUmrXQBDJFXiWTuMoP5RRa9s1M/KmgB4szi5TOb7sOaHWKDT9qDA==",
+      "path": "microsoft.sourcelink.azurerepos.git/1.1.0-beta-20206-02",
+      "hashPath": "microsoft.sourcelink.azurerepos.git.1.1.0-beta-20206-02.nupkg.sha512"
+    },
+    "Microsoft.SourceLink.Common/1.1.0-beta-20206-02": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aek0RTQ+4Bf11WvqaXajwYoaBWkX2edBjAr5XJOvhAsHX6/9vPOb7IpHAiE/NyCse7IcpGWslJZHNkv4UBEFqw==",
+      "path": "microsoft.sourcelink.common/1.1.0-beta-20206-02",
+      "hashPath": "microsoft.sourcelink.common.1.1.0-beta-20206-02.nupkg.sha512"
+    },
+    "Microsoft.SourceLink.GitHub/1.1.0-beta-20206-02": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7A7P0EwL+lypaI/CEvG4IcpAlQeAt04uPPw1SO6Q9Jwz2nE9309pQXJ4TfP/RLL8IOObACidN66+gVR+bJDZHw==",
+      "path": "microsoft.sourcelink.github/1.1.0-beta-20206-02",
+      "hashPath": "microsoft.sourcelink.github.1.1.0-beta-20206-02.nupkg.sha512"
+    },
+    "StyleCop.Analyzers/1.2.0-beta.304": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bCa4t2BtRP4aZy3xXG/u1FKq/2j7E8F3uRjDoHpzg2BLvxOsrESivKnKGTbJy7e+X/86KlHZdMY2ihoY17rCXA==",
+      "path": "stylecop.analyzers/1.2.0-beta.304",
+      "hashPath": "stylecop.analyzers.1.2.0-beta.304.nupkg.sha512"
+    },
+    "StyleCop.Analyzers.Unstable/1.2.0.304": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qMBIxXiDa7QyAbZf3VkAl/aeFt3sUJIIgAQ/H0b4dtHWeHQdEcVfmCEDFuwMs6YVpQAs1p0grKEAay9OkkIjqA==",
+      "path": "stylecop.analyzers.unstable/1.2.0.304",
+      "hashPath": "stylecop.analyzers.unstable.1.2.0.304.nupkg.sha512"
+    }
+  }
+}

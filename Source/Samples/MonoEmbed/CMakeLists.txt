@@ -89,18 +89,28 @@ set (LIBS  ${LIBS}  z ncurses)
 endif()
 
 if (EMSCRIPTEN)
-set (MONO_LIBPATH  ../../../DotNet/libs/wasm)  
+set (INCLUDE_DIRS ${INCLUDE_DIRS} ../../../DotNet/libs/wasm/net6.0-Release/include/mono-2.0)
+set (MONO_LIBPATH  ../../../DotNet/libs/wasm/net6.0-Release)  
 set (LIBS 
-    libmonosgen-2.0.a
-    libmono-native.a
-    libmono-icall-table.a
-    libmono-ee-interp.a
-    libmono-ilgen.a
+libSystem.IO.Compression.Native.a			
+libSystem.Native.a					
+libmono-component-hot_reload-stub-static.a
+libicui18n.a						
+libmono-ee-interp.a
+libicuuc.a						
+libmono-icall-table.a		
+libmono-ilgen.a
+libmono-component-debugger-stub-static.a		
+libmono-profiler-aot.a		
+libmonosgen-2.0.a
+libmono-component-diagnostics_tracing-stub-static.a
 )
 
 file (GLOB EMSCRIPTEN_FILES web/*.*)
 list (APPEND LINK_FLAGS "--js-library ${CMAKE_CURRENT_SOURCE_DIR}/web/dotnet_support.js")
 list (APPEND LINK_FLAGS "--js-library ${CMAKE_CURRENT_SOURCE_DIR}/web/library_mono.js")
+list (APPEND LINK_FLAGS "--js-library ${CMAKE_CURRENT_SOURCE_DIR}/web/pal_random.js")
+list (APPEND LINK_FLAGS "--js-library ${CMAKE_CURRENT_SOURCE_DIR}/web/binding_support.js")
 list (APPEND LINK_FLAGS "-s \"EXTRA_EXPORTED_RUNTIME_METHODS=['ccall', 'FS_createPath', 'FS_createDataFile', 'cwrap', 'setValue', 'getValue', 'UTF8ToString', 'addFunction', 'addOnPostRun']\"")
 list (APPEND LINK_FLAGS "--post-js ${CMAKE_CURRENT_SOURCE_DIR}/web/postfix.js")
 list (APPEND LINK_FLAGS "-s FORCE_FILESYSTEM=1")

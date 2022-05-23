@@ -45,4 +45,22 @@ Web
 
 ----------------------------------------------------------------------------------------------
 runtime/src/tasks/WasmAppBuilder/IcallTableGenerator.cs
+Needs fixing
+warning: undefined symbol: SystemNative_FStat2 (referenced by top-level compiled C/C++ code)
+warning: undefined symbol: SystemNative_LStat2 (referenced by top-level compiled C/C++ code)
+warning: undefined symbol: SystemNative_Stat2 (referenced by top-level compiled C/C++ code)
+warning: undefined symbol: SystemNative_Symlink (referenced by top-level compiled C/C++ code)
+warning: undefined symbol: SystemNative_UTime (referenced by top-level compiled C/C++ code)
+warning: undefined symbol: SystemNative_UTimes (referenced by top-level compiled C/C++ code)
 ----------------------------------------------------------------------------------------------
+
+
+Some docs
+----------------------------------------------------------------------------------------------
+runtime/docs/design/mono/components.md                   
+runtime/docs/design/mono/diagnostics-tracing.md          
+runtime/docs/design/mono/mobile-runtimeconfig-json.md    
+runtime/docs/design/mono/wasm-aot.md
+
+/runtime/src/mono/cmake/config.h.in/
+comment for debug purpose 'cmakedefine DISABLE_ASSERT_MESSAGES 1'

@@ -19,6 +19,8 @@
 
 #include "pinvoke.h"
 
+#define CORE_BINDINGS
+
 #ifdef CORE_BINDINGS
 void core_initialize_internals ();
 #endif
@@ -367,6 +369,7 @@ get_native_to_interp (MonoMethod *method, void *extra_arg)
 
 void mono_initialize_internals ()
 {
+
 	mono_add_internal_call ("WebAssembly.Runtime::InvokeJS", mono_wasm_invoke_js);
 	// TODO: what happens when two types in different assemblies have the same FQN?
 
@@ -386,11 +389,14 @@ mono_wasm_load_runtime (const char *managed_path, int enable_debugging)
 {
 	const char *interp_opts = "";
 
+
+
 	monoeg_g_setenv ("MONO_LOG_LEVEL", "debug", 1);
 	monoeg_g_setenv ("MONO_LOG_MASK", "gc", 0);
 #ifdef ENABLE_NETCORE
 	monoeg_g_setenv ("DOTNET_SYSTEM_GLOBALIZATION_INVARIANT", "1", 0);
 #endif
+
 
 	mini_parse_debug_option ("top-runtime-invoke-unhandled");
 
