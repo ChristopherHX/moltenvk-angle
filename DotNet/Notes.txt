@@ -38,6 +38,28 @@ libmono-component-debugger.so
 libmono-component-hot_reload.so
 libmono-component-diagnostics_tracing.so	
 libmonosgen-2.0.so
+
+----------------------------------------------------------------------------------------------
+AOT - examples
+----------------------------------------------------------------------------------------------
+export MONO_PATH=Android/app/src/main/assets/Data/Dotnet/android/arm64-v8a
+JNILIBS_PATH=Android/app/src/main/jniLibs/arm64-v8a
+for i in ${MONO_PATH}/*.dll 
+    do 
+        filename=$(basename -- ${i})
+        name=$(basename -- ${filename} .dll)
+        $URHONET_HOME_ROOT/tools/aotcompiler/android/macos/android-arm64/mono-aot-cross "--aot=mtriple=aarch64-linux-android,nimt-trampolines=2000,ntrampolines=10000,nrgctx-fetch-trampolines=256,ngsharedvt-trampolines=4400,nftnptr-arg-trampolines=4000,nrgctx-trampolines=21000,tool-prefix=${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android-,hybrid,outfile=${JNILIBS_PATH}/${filename}.so,data-outfile=${MONO_PATH}/${name}.aotdata" "${MONO_PATH}/${filename}"
+    done
+
+
+export MONO_PATH=Android/app/src/main/assets/Data/Dotnet/android/armeabi-v7a
+JNILIBS_PATH=Android/app/src/main/jniLibs/armeabi-v7a
+for i in ${MONO_PATH}/*.dll 
+    do 
+        filename=$(basename -- ${i})
+        name=$(basename -- ${filename} .dll)
+        $URHONET_HOME_ROOT/tools/aotcompiler/android/macos/android-arm/mono-aot-cross "--aot=mtriple=armv7-linux-gnueabi,nimt-trampolines=2000,ntrampolines=10000,nrgctx-fetch-trampolines=256,ngsharedvt-trampolines=4400,nftnptr-arg-trampolines=4000,nrgctx-trampolines=21000,tool-prefix=${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-,hybrid,outfile=${JNILIBS_PATH}/${filename}.so,data-outfile=${MONO_PATH}/${name}.aotdata" "${MONO_PATH}/${filename}"
+    done
 ==============================================================================================
 Web
 ==============================================================================================
@@ -64,3 +86,5 @@ runtime/docs/design/mono/wasm-aot.md
 
 /runtime/src/mono/cmake/config.h.in/
 comment for debug purpose 'cmakedefine DISABLE_ASSERT_MESSAGES 1'
+
+
