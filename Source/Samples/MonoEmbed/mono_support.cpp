@@ -29,6 +29,8 @@
 #include <mono/metadata/mono-debug.h>
 #include <mono/utils/mono-logger.h>
 #include <mono/utils/mono-publib.h>
+#include <mono/jit/mono-private-unstable.h>
+#include <mono/utils/mono-dl-fallback.h>
 #include <stdlib.h>
 
 #include "../Container/Str.h"
@@ -59,6 +61,52 @@ MonoAssembly* urho3d_mono_assembly_refonly_preload_hook(MonoAssemblyName* aname,
                                                         void* user_data);
 void urho3d_mono_assembly_load_hook(MonoAssembly* assembly, void* user_data);
 
+unsigned char *
+urho3d_load_aot_data (MonoAssembly *assembly, int size, void *user_data, void **out_handle)
+{
+    *out_handle = NULL;
+
+
+    MonoAssemblyName *assembly_name = mono_assembly_get_name (assembly);
+    const char *aname = mono_assembly_name_get_name (assembly_name);
+
+    Urho3D::Context* context = (Urho3D::Context*)user_data;
+    ResourceCache* cache = context->GetSubsystem<ResourceCache>();
+
+    String path = fixPathString(urho3d_get_dotnet_folder() + aname+".aotdata");
+
+    SharedPtr<File> assembly_file = cache->GetFile(path);
+    if (assembly_file && assembly_file->IsOpen())
+    {
+        // String name = String(mono_assembly_name_get_name(p_aname));
+
+        unsigned fileSize = assembly_file->GetSize();
+        unsigned char * buffer = new unsigned char[fileSize];
+
+        unsigned bytesRead = assembly_file->Read(buffer, fileSize);
+
+        if (bytesRead == fileSize)
+        {
+            *out_handle = buffer;
+            return buffer;
+        }
+
+    }
+
+    return NULL;
+}
+
+void
+urho3d_free_aot_data (MonoAssembly *assembly, int size, void *user_data, void *handle)
+{
+    unsigned char * buffer = (unsigned char * )handle;
+    if(buffer != NULL )
+    {
+        delete buffer;
+    }
+    
+}
+
 void urho3d_add_assembly(uint32_t p_domain_id, String name, MonoAssembly* p_assembly)
 {
     assemblies[p_domain_id][name] = p_assembly;
@@ -82,6 +130,8 @@ MonoAssembly* urho3d_mono_load_assembly(Urho3D::Context* context, const String& 
     if (assembly_file && assembly_file->IsOpen())
     {
 
+        String fileName = GetFileNameAndExtension(p_path);
+
         unsigned fileSize = assembly_file->GetSize();
         SharedArrayPtr<unsigned char> buffer(new unsigned char[fileSize]);
 
@@ -92,7 +142,7 @@ MonoAssembly* urho3d_mono_load_assembly(Urho3D::Context* context, const String& 
             unsigned char* data = buffer.Get();
 
             MonoImage* image =
-                mono_image_open_from_data_with_name((char*)data, bytesRead, true, &status, p_refonly, p_path.CString());
+                mono_image_open_from_data_with_name((char*)data, bytesRead, true, &status, p_refonly, fileName.CString());
 
             if (status == MONO_IMAGE_OK)
             {
@@ -130,7 +180,7 @@ MonoAssembly* urho3d_mono_load_assembly(Urho3D::Context* context, const String& 
 
                 status = MONO_IMAGE_OK;
 
-                MonoAssembly* assembly = mono_assembly_load_from_full(image, p_path.CString(), &status, p_refonly);
+                MonoAssembly* assembly = mono_assembly_load_from_full(image, fileName.CString(), &status, p_refonly);
 
                 assert(status == MONO_IMAGE_OK && assembly && "Failed to load assembly for image");
 
@@ -234,6 +284,7 @@ void urho3d_init_mono(Urho3D::Context* context)
     mono_install_assembly_search_hook(&urho3d_mono_assembly_search_hook, (void*)context);
     mono_install_assembly_refonly_search_hook(&urho3d_mono_assembly_search_hook, (void*)context);
     mono_install_assembly_load_hook(&urho3d_mono_assembly_load_hook, (void*)context);
+    mono_install_load_aot_data_hook (&urho3d_load_aot_data, &urho3d_free_aot_data, (void*)context);
 }
 
 static String make_text(const char* log_domain, const char* log_level, const char* message)
