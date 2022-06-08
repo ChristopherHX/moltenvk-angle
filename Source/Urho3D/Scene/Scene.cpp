@@ -977,7 +977,7 @@ void Scene::Update(float timeStep)
            ( asyncProgress_.isNodeLoading_ == true && asyncProgress_.asyncIntervalTimer_.GetUSec(false) > asyncProgress_.asyncIntervalTime_ * 1000LL) ||
            (asyncProgress_.isNodeLoading_ == true && asyncProgress_.isFirstNodeLoad_ == true) )
         {
-            asyncProgress_.isFirstNodeLoad_ == false;
+            asyncProgress_.isFirstNodeLoad_ = false;
             UpdateAsyncLoading();
         }
         // If only preloading resources, scene update can continue
