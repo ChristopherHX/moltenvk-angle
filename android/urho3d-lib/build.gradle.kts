@@ -45,6 +45,7 @@ android {
                 arguments.apply {
                     System.getenv("ANDROID_CCACHE")?.let { add("-DANDROID_CCACHE=$it") }
                     add("-DGRADLE_BUILD_DIR=$buildDir")
+                    add("-DANDROID_ARM_NEON=ON")
                     // Pass along matching Gradle properties as CMake build options
                     addAll(
                         listOf(
@@ -101,10 +102,10 @@ android {
     externalNativeBuild {
         cmake {
             setVersion(cmakeVersion)
-            setPath(project.file("../../CMakeLists.txt"))
+            path = file("../../CMakeLists.txt")
 
             // Make it explicit as one of the task needs to know the exact path and derived from it
-            setBuildStagingDirectory(".cxx")
+          //  setBuildStagingDirectory(".cxx")
         }
     }
     sourceSets {
