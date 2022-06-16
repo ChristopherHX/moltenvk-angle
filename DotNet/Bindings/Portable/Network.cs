@@ -13,6 +13,8 @@ namespace Urho.Network {
 		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
 		internal extern static IntPtr Network_GetClientConnections(IntPtr network, out int count);
 
+		[DllImport (Consts.NativeImport, CallingConvention=CallingConvention.Cdecl)]
+		internal extern static IntPtr Network_GetInterfaceBroadcastAddress(string  InterfaceName);
 
 		public Connection[] GetClientConnections () 
 		{
@@ -49,6 +51,13 @@ namespace Urho.Network {
 				 BroadcastMessage(msgID,reliable,inOrder,bptr,(uint)(data.Length),contentID);
 			}
 		}
+
+        public string GetBroadcastAddress(string interfaceName)
+        {
+            IntPtr nativeString = Network_GetInterfaceBroadcastAddress(interfaceName);
+            string result = Marshal.PtrToStringAnsi(nativeString);
+            return result;
+        }
 	}
 	
 }

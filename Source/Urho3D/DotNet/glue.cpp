@@ -8,6 +8,13 @@
 #include "interop.h"
 #include <stdlib.h>
 
+#ifndef _WINDOWS
+#include <sys/ioctl.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <net/if.h>
+#include <netdb.h>
+#endif
 
 using namespace Urho3D;
 
@@ -1517,6 +1524,31 @@ DllExport bool Quaternion_FromLookRotation(Vector3& direction,  Vector3& up, Int
     return status;
 }
 
+/* elix22 , for some reason couldn't find it in .NET  NetworkInterface*/
+DllExport const char* Network_GetInterfaceBroadcastAddress(const char* name)
+{
+    char host[128] = {0};
+// TBD elix22 for Windows
+#ifndef _WINDOWS
+    int sock;
+    struct ifreq ifreq;
+    sock = socket(AF_INET, SOCK_DGRAM, 0);
+    if (sock >= 0)
+    {
+        memset(&ifreq, 0, sizeof ifreq);
+        strncpy(ifreq.ifr_name, name, IFNAMSIZ);
+
+        if (ioctl(sock, SIOCGIFBRDADDR, &ifreq) == 0)
+        {
+            getnameinfo(&ifreq.ifr_broadaddr, sizeof(ifreq.ifr_broadaddr), host, sizeof(host), 0, 0, NI_NUMERICHOST);
+        }
+
+        close(sock);
+    }
+#endif
+
+    return stringdup(host);
+}
 
 
 }
