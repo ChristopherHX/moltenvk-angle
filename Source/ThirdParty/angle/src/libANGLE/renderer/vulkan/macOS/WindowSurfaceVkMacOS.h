@@ -11,6 +11,9 @@
 
 #ifndef LIBANGLE_RENDERER_VULKAN_MACOS_WINDOWSURFACEVKMACOS_H_
 #define LIBANGLE_RENDERER_VULKAN_MACOS_WINDOWSURFACEVKMACOS_H_
+#ifndef VK_USE_PLATFORM_MACOS_MVK
+#define VK_USE_PLATFORM_MACOS_MVK 1
+#endif
 
 #include "libANGLE/renderer/vulkan/SurfaceVk.h"
 #include "libANGLE/renderer/vulkan/RendererVk.h"
